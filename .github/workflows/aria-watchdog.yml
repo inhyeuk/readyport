@@ -1,0 +1,39 @@
+name: aria-watchdog
+
+# ARIA 단일 장애점 대책 (ARIA_OPS 12.7): 하루 한 번 ops/heartbeat 확인.
+# 3일 넘게 멈추면 Remote Config stale_banner 를 켜고(앱에 '정보 점검이 늦어지고 있어요') 이 작업을 실패로 끝낸다
+# → GitHub가 저장소 주인에게 실패 메일을 보낸다. 다시 살아나면 배너를 끈다.
+# 필요한 secret: FIREBASE_SERVICE_ACCOUNT (Firestore 읽기 + Remote Config)
+
+on:
+  schedule:
+    - cron: "17 0 * * *"   # 매일 09:17 KST
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      FIREBASE_PROJECT_ID: readyport-app
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - run: pip install google-auth requests
+      - name: Service account
+        env:
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+        run: |
+          umask 077
+          printf '%s' "$FIREBASE_SERVICE_ACCOUNT" > "$RUNNER_TEMP/sa.json"
+          echo "GOOGLE_APPLICATION_CREDENTIALS=$RUNNER_TEMP/sa.json" >> "$GITHUB_ENV"
+      - name: Check heartbeat
+        run: python tools/deploy/ci_deploy.py heartbeat-watch --days 3
+      - name: Clean up credentials
+        if: always()
+        run: rm -f "$RUNNER_TEMP/sa.json"

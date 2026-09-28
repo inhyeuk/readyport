@@ -44,6 +44,9 @@ $env:ANDROID_HOME='E:\_PROGRAM_Installed\Android_SDK'
 ## 국가 팩
 
 - 원본은 `packs/src/`, 스키마는 `packs/schema/`. 고친 뒤: `python tools/packs/build_packs.py --kid rp-2026-1 --key ~/.readyport/keys/pack_signing_rp-2026-1.pem` → 내장본(assets) 갱신 → `firebase deploy --only hosting` → Remote Config `pack_version_{CC}` 올리기.
+- **Remote Config 템플릿 전체 배포(`firebase deploy --only remoteconfig`)는 ARIA가 돌기 시작하면 쓰지 않는다** — ARIA가 켠 `kill_autofill_*`·`stale_banner`를 되돌린다. 버전 포인터는 `python tools/deploy/ci_deploy.py rc-versions`(버전 키만 바꿈)로. main 머지 후에는 `deploy-packs.yml`이 한다.
+- Firestore 규칙: `firebase/firestore.rules`, 테스트 `cd tools/firestore && npm test`(에뮬레이터). 배포 `firebase deploy --only firestore:rules`.
+- ARIA 모듈: `ops/aria/` (README 참고), 테스트 `python -m unittest discover -s ops/aria/tests -t .`
 - 팩 버전은 `yyyy.MM.dd-N`. 모든 정책·연락처 항목에 `source`·`last_verified`. 확인 안 된 값은 넣지 않는다(빌드가 `[확인 필요]`를 막는다).
 - Bash heredoc은 백슬래시를 한 겹 벗긴다. 이스케이프·윈도 경로가 든 편집은 Edit/Write 도구나 파일로 쓴 스크립트로 한다.
 - 설계 결정은 docs/ARCHITECTURE.md 끝 "구현 결정 기록".

@@ -100,6 +100,11 @@ dependencies {
     ksp(libs.androidx.hilt.compiler)
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.config)
+    implementation(libs.firebase.firestore)
+    implementation(libs.firebase.messaging)
+    // App Check: 출시 빌드는 Play Integrity, 디버그 빌드는 디버그 공급자 (src/release, src/debug)
+    releaseImplementation(libs.firebase.appcheck.playintegrity)
+    debugImplementation(libs.firebase.appcheck.debug)
 
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)

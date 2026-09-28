@@ -111,6 +111,10 @@ object TripNotifications {
         NotificationManagerCompat.from(context).notify(id, n)
     }
 
+    /** 찜한 나라의 입국 안내가 바뀌었다는 알림 (FCM 토픽). 문구는 앱에 있는 것만 쓴다 */
+    fun policyChanged(context: Context, countryKo: String) =
+        show(context, 4, context.getString(R.string.notif_policy_title, countryKo), context.getString(R.string.notif_policy_body))
+
     fun arrival(context: Context) =
         show(context, 2, context.getString(R.string.notif_arrival_title), context.getString(R.string.notif_arrival_body))
 

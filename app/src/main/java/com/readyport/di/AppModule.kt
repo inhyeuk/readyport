@@ -4,6 +4,7 @@ import android.content.Context
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.readyport.autofill.FieldReporter
 import com.readyport.autofill.QueuedFieldReporter
+import com.readyport.cloud.CloudSync
 import com.readyport.autofill.SafeClipboard
 import com.readyport.pack.AssetBundledPacks
 import com.readyport.pack.HttpPackRemote
@@ -47,8 +48,12 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun fieldReporter(@ApplicationContext context: Context): FieldReporter =
-        QueuedFieldReporter(File(context.noBackupFilesDir, "reports/field_reports.jsonl"))
+    fun queuedFieldReporter(@ApplicationContext context: Context): QueuedFieldReporter =
+        QueuedFieldReporter(File(context.noBackupFilesDir, "reports/field_reports.jsonl")) { CloudSync.request(context) }
+
+    @Provides
+    @Singleton
+    fun fieldReporter(queue: QueuedFieldReporter): FieldReporter = queue
 
     @Provides
     @Singleton

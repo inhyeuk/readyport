@@ -217,3 +217,16 @@
 - **저장**: '있어요'·장바구니는 DataStore(개인정보 아님, 서버로 보내지 않음). 다른 나라로 여행을 바꾸면 비운다.
 - **사실 확인 기록**: `docs/research/2026-09-29_M8_essentials_shopping.md`.
 
+## 구현 결정 기록 (M9, 2026-09-29)
+
+- **앱 → 서버는 세 가지뿐**(`cloud/CloudSync`): ① 익명 실패 리포트 → `field_reports`(생성만) ② 찜한 나라마다 기기당 한 번 `favorite_counts/{ISO2}` +1 ③ FCM 토픽 `country_{ISO2}` 구독(찜 + 여행 나라). 여행 날짜·여권·기기 식별자는 보내지 않는다. FCM 토큰도 서버에 저장하지 않는다. 인터넷이 될 때 WorkManager로 한 번에, 실패하면 지수 백오프(최대 5회).
+- **리포트 검사 이중화**: 앱(`CloudSyncPlan.toFirestore`)이 Firestore 규칙과 같은 검사를 하고, 맞지 않는 리포트는 보내지 않고 버린다. `ts`는 서버 시각(규칙이 `request.time`과 같은지 확인).
+- **Firestore 규칙**(`firebase/firestore.rules`): field_reports 생성만·필드 목록 고정·오류 코드 목록·id 형식, favorite_counts 생성은 1·수정은 +1만·삭제 불가·읽기 공개, 나머지 경로(ops/heartbeat 포함) 앱 접근 불가. 에뮬레이터 테스트 5개.
+- **Firestore 위치**: 규칙을 처음 배포할 때 CLI가 데이터베이스를 `nam5`(미국 멀티 리전)로 자동 생성했다. 익명 리포트·찜 수만 담아 지연은 문제없다. 서울(asia-northeast3)로 바꾸려면 비어 있을 때 운영자가 지우고 다시 만든다(되돌릴 수 없는 설정이라 Claude는 지우지 않음).
+- **App Check**: 출시 빌드 Play Integrity, 디버그 빌드 디버그 공급자(src/release·src/debug). **강제 모드는 아직 끔** — Play Console 앱 연결·디버그 토큰 등록 뒤 운영자가 콘솔에서 켠다.
+- **FCM 알림**: 메시지에는 나라 코드만(`data.country`). 보이는 문구는 앱에 들어 있는 것만 쓰고, 새 안내 내용은 서명된 팩으로만 받는다(원격 문구로 정책을 전하지 않음).
+- **배포 파이프라인**(`.github/workflows/deploy-packs.yml`): main의 `packs/src` 변경 → 검증 → 서명(secret 키) → 앱 내장 팩과 같은지 확인(Ed25519 서명은 결정적) → Hosting → Remote Config **버전 키만**(`tools/deploy/ci_deploy.py rc-versions`, 스위치 키는 건드리면 중단) → 바뀐 나라 토픽 알림.
+- **ARIA 감시**(`aria-watchdog.yml`): 매일 `ops/heartbeat` 확인, 3일 넘게 멈추면 `stale_banner` 켜고 실패(GitHub 메일), 살아나면 끔.
+- **ops/aria**: 12.5 모듈 전부. 감지는 LLM 없이, GET만, 봇 차단이면 우회하지 않고 `manual_check_needed`. 구조 해시는 레시피가 있는 양식만(Visit Japan Web은 로그인 필요·서버가 앱 화면에도 HTTP 404를 돌려줘 제외). 안전한 방향(자동 입력 끄기·배너 켜기)만 자동, 끄기/다시 켜기는 사람 승인.
+- **리허설(2026-09-29)**: 실제 공식 양식 4곳 구조 감지 dry-run → 기준 해시 저장 단계까지 정상(조회만). 폰에서 CloudSync 실행 → `favorite_counts/TH` 생성 확인, `field_reports` 공개 읽기 403 확인. PR 생성·Actions 배포는 GitHub 저장소·secrets가 생긴 뒤(사람 작업 C13·C20).
+

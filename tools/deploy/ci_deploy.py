@@ -1,0 +1,175 @@
+"""GitHub Actions 배포·감시 도우미 (ARIA_OPS 12.8).
+
+하위 명령
+  rc-versions      packs/src 의 버전으로 Remote Config '버전 포인터'만 바꾼다.
+                   kill_autofill_* · stale_banner · min_app_version 등 다른 키는 절대 건드리지 않는다
+                   (템플릿 전체 배포는 ARIA가 켠 스위치를 되돌리므로 CI에서 쓰지 않는다).
+  fcm-notify       바뀐 나라 팩의 토픽 country_{ISO2} 로 알림. 메시지에는 나라 코드만 담는다.
+  heartbeat-watch  ops/heartbeat 가 3일 넘게 멈추면 stale_banner 를 켜고 실패로 끝낸다(운영자에게 메일).
+                   다시 살아나면 stale_banner 를 끈다.
+
+환경 변수: FIREBASE_PROJECT_ID, GOOGLE_APPLICATION_CREDENTIALS(서비스 계정 JSON 경로)
+"""
+from __future__ import annotations
+
+import argparse
+import copy
+import json
+import pathlib
+import re
+import sys
+
+ROOT = pathlib.Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(ROOT))
+
+VERSION_KEY_RE = re.compile(r"^(index_version|pack_version_[A-Z]{2}|recipe_version_[A-Z]{2}_[A-Z0-9_]+)$")
+SCOPE_FCM = "https://www.googleapis.com/auth/firebase.messaging"
+
+
+# ---------------- 순수 함수 (테스트 대상) ----------------
+
+def pack_versions(src: pathlib.Path) -> dict[str, str]:
+    """packs/src 에서 {RC 키: 버전}."""
+    out = {"index_version": json.loads((src / "index.json").read_text(encoding="utf-8"))["version"]}
+    for p in sorted(src.glob("[A-Z][A-Z]/pack.json")):
+        d = json.loads(p.read_text(encoding="utf-8"))
+        out[f"pack_version_{d['country']}"] = d["version"]
+    for p in sorted((src / "recipes").glob("*.json")):
+        d = json.loads(p.read_text(encoding="utf-8"))
+        out[f"recipe_version_{p.stem}"] = d["version"]
+    return out
+
+
+def _without(template: dict, keys: set[str]) -> dict:
+    t = copy.deepcopy(template)
+    for k in keys:
+        (t.get("parameters") or {}).pop(k, None)
+        for g in (t.get("parameterGroups") or {}).values():
+            (g.get("parameters") or {}).pop(k, None)
+    t.pop("version", None)
+    return t
+
+
+def apply_versions(template: dict, versions: dict[str, str]) -> tuple[dict, list[str]]:
+    """버전 키만 바꾼 템플릿 사본과 바뀐 키 목록. 허용 밖 키가 바뀌면 예외."""
+    for k in versions:
+        if not VERSION_KEY_RE.match(k):
+            raise ValueError(f"버전 키가 아님: {k}")
+    t = copy.deepcopy(template)
+    changed = []
+    params = t.setdefault("parameters", {})
+    for k, v in versions.items():
+        p = params.get(k)
+        if p is None:
+            for g in (t.get("parameterGroups") or {}).values():
+                if k in (g.get("parameters") or {}):
+                    p = g["parameters"][k]
+        if p is None:
+            params[k] = {"defaultValue": {"value": v}, "valueType": "STRING", "description": "팩 버전 포인터 (CI)"}
+            changed.append(k)
+        elif (p.get("defaultValue") or {}).get("value") != v:
+            p["defaultValue"] = {"value": v}
+            changed.append(k)
+    if _without(t, set(versions)) != _without(template, set(versions)):
+        raise RuntimeError("버전 키 밖이 바뀌었다 — 중단")
+    return t, changed
+
+
+def changed_countries(changed_files: list[str]) -> list[str]:
+    """git diff 파일 목록에서 바뀐 나라 팩(ISO2)."""
+    out = set()
+    for f in changed_files:
+        m = re.match(r"^packs/src/([A-Z]{2})/pack\.json$", f.strip().replace("\\", "/"))
+        if m:
+            out.add(m.group(1))
+    return sorted(out)
+
+
+def fcm_message(country: str) -> dict:
+    """나라 코드만 담는다. 문구는 앱에 들어 있는 것을 쓴다(PolicyMessagingService)."""
+    if not re.match(r"^[A-Z]{2}$", country):
+        raise ValueError(country)
+    return {"message": {"topic": f"country_{country}", "data": {"country": country},
+                        "android": {"priority": "NORMAL"}}}
+
+
+# ---------------- 실행 ----------------
+
+def _clients():  # pragma: no cover - 실제 네트워크
+    import os
+
+    from ops.aria.actions.kill_switch import RemoteConfigClient
+    from ops.aria.gcp import SCOPE_DATASTORE, SCOPE_REMOTE_CONFIG, FirestoreRest, ServiceAccountTokenProvider
+    from ops.aria.net import urllib_fetch
+
+    project = os.environ["FIREBASE_PROJECT_ID"]
+    cred = os.environ["GOOGLE_APPLICATION_CREDENTIALS"]
+    rc = RemoteConfigClient(project, ServiceAccountTokenProvider(cred, [SCOPE_REMOTE_CONFIG]), urllib_fetch)
+    fs = FirestoreRest(project, ServiceAccountTokenProvider(cred, [SCOPE_DATASTORE]), urllib_fetch)
+    fcm_tokens = ServiceAccountTokenProvider(cred, [SCOPE_FCM])
+    return project, rc, fs, fcm_tokens, urllib_fetch
+
+
+def cmd_rc_versions(args) -> int:  # pragma: no cover
+    versions = pack_versions(ROOT / "packs/src")
+    _, rc, _, _, _ = _clients()
+    template, etag = rc.get()
+    new_t, changed = apply_versions(template, versions)
+    print("바뀔 키:", changed or "없음")
+    if changed and not args.dry_run:
+        rc.put(new_t, etag)
+        print("Remote Config 버전 갱신 완료")
+    return 0
+
+
+def cmd_fcm_notify(args) -> int:  # pragma: no cover
+    files = pathlib.Path(args.changed_files).read_text(encoding="utf-8").splitlines()
+    countries = changed_countries(files)
+    print("알릴 나라:", countries or "없음")
+    if not countries or args.dry_run:
+        return 0
+    project, _, _, tokens, fetch = _clients()
+    url = f"https://fcm.googleapis.com/v1/projects/{project}/messages:send"
+    for c in countries:
+        resp = fetch("POST", url, headers={"Authorization": f"Bearer {tokens.get_token()}",
+                                           "Content-Type": "application/json"},
+                     data=json.dumps(fcm_message(c)).encode("utf-8"), timeout=20)
+        print(c, resp.status)
+        if resp.status != 200:
+            return 1
+    return 0
+
+
+def cmd_heartbeat_watch(args) -> int:  # pragma: no cover
+    from ops.aria.actions.kill_switch import set_stale_banner
+    from ops.aria.heartbeat import HEARTBEAT_DOC, check_stale
+
+    _, rc, fs, _, _ = _clients()
+    doc = fs.get_document(HEARTBEAT_DOC) or {}
+    stale = check_stale(doc.get("last_check"), days=args.days)
+    print(f"last_check={doc.get('last_check')} stale={stale}")
+    if stale:
+        # 안전한 방향: 앱에 '정보 점검이 늦어지고 있어요' 배너
+        print(set_stale_banner(rc, True, dry_run=args.dry_run).to_dict())
+        return 2
+    print(set_stale_banner(rc, False, heartbeat_recovered=True, dry_run=args.dry_run).to_dict())
+    return 0
+
+
+def main(argv=None) -> int:
+    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    sub = ap.add_subparsers(dest="cmd", required=True)
+    a = sub.add_parser("rc-versions")
+    a.add_argument("--dry-run", action="store_true")
+    b = sub.add_parser("fcm-notify")
+    b.add_argument("--changed-files", required=True, help="git diff --name-only 결과 파일")
+    b.add_argument("--dry-run", action="store_true")
+    c = sub.add_parser("heartbeat-watch")
+    c.add_argument("--days", type=float, default=3)
+    c.add_argument("--dry-run", action="store_true")
+    args = ap.parse_args(argv)
+    return {"rc-versions": cmd_rc_versions, "fcm-notify": cmd_fcm_notify, "heartbeat-watch": cmd_heartbeat_watch}[args.cmd](args)
+
+
+if __name__ == "__main__":
+    sys.exit(main())

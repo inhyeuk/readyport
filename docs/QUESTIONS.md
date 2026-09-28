@@ -55,6 +55,11 @@
 | C17 | 쇼핑 리스트 현지어 이름(태국어·말레이어·인도네시아어·일본어) 원어민 검수 — Claude가 옮긴 이름이라 '직원에게 보여주기' 전에 확인 필요 | 출시 전 | ⏳ |
 | C18 | 제휴 프로그램 가입·약관 확인(앱 게재 허용, 표기 문구). 가입 전까지 '사러 가기' 링크 없음 | 제휴 시작 전 | ⏳ |
 | C19 | 축산물 성분 과자(카야 잼·솔티드 에그·일본 과자 상자) 반입 기준을 검역본부에 확인 — 지금은 '주의'로 표시 | 출시 전 | ⏳ |
+| C20 | 서비스 계정 만들기 + GitHub secrets 등록: `FIREBASE_SERVICE_ACCOUNT`(Hosting·Remote Config·FCM·Firestore 읽기), `PACK_SIGNING_KEY_PEM`. ARIA PC용은 Remote Config·Firestore만 있는 별도 계정(Hosting 권한 없음) | 저장소 생성 후 | ⏳ |
+| C21 | App Check: Play Console 앱 연결 → Play Integrity 등록, 디버그 토큰 등록(logcat 'DebugAppCheckProvider'), 확인 후 Firestore 강제 모드 켜기 | 출시 전 | ⏳ |
+| C22 | Firestore 위치가 nam5(미국)로 자동 생성됨. 서울로 바꾸려면 비어 있을 때 지우고 asia-northeast3로 다시 만들기(선택) | 선택 | ⏳ |
+| C23 | ARIA 설정: 공공데이터포털 외교부 입국허가요건 API 키·요청 주소 확인(`MOFA_API_URL` [재확인]), 감시할 공지 페이지 목록(`NOTICE_URLS`), 텔레그램 봇에 chat_id 허용 목록 연결, `CLAUDE_BIN`은 claude.exe | ARIA 연결 시 | ⏳ |
+| C24 | 개발 폰에서 확인하느라 `favorite_counts/TH`가 1로 만들어짐(2026-09-29). 출시 전 0부터 세려면 콘솔에서 지우기(선택) | 출시 전 | ⏳ |
 | C14 | ✅ TDAC 실기기 리허설 완료(2026-09-28): 폰 Chrome에서 사람 확인이 저절로 통과됨. DevTools로 화면 구조와 서버가 준 선택지 목록만 읽음. 입력·제출 없음. 여는 버튼('Arrival Card')만 눌렀음 | M4 | ✅ |
 | C13 | GitHub 계정 `inhyeuk` 확인(2026-09-28). https://github.com/new 에서 **빈 공개 저장소 `readyport`**(README·.gitignore 없이)를 만들어 주면 Claude가 원격 연결·푸시·main 브랜치 보호 설정. 이 PC엔 `gh`와 이 용도의 GitHub 인증이 없음 | M1 이후 아무 때나 | ⏳ |
 

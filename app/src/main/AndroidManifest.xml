@@ -111,6 +111,14 @@
                 <data android:mimeType="image/*" />
             </intent-filter>
         </activity>
+        <!-- 국가 토픽 알림 (FCM). 메시지의 나라 코드만 쓰고 문구는 앱에 있는 것만 보여 준다 -->
+        <service
+            android:name=".cloud.PolicyMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

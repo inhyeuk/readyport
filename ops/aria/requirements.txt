@@ -1,0 +1,4 @@
+# ops/aria 는 표준 라이브러리만으로 돈다(HTTP 는 urllib).
+# 아래는 Firestore·Remote Config 에 서비스 계정으로 접속할 때만 필요(선택).
+google-auth>=2.30
+requests>=2.32   # google-auth 의 토큰 갱신(transport.requests)에 필요

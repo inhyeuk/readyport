@@ -25,9 +25,18 @@ jobs:
         run: |
           pip install -r tools/packs/requirements.txt
           python tools/packs/build_packs.py --check
+      - name: ARIA ops modules and deploy helper tests (no network)
+        run: |
+          python -m unittest discover -s ops/aria/tests -t .
+          python -m unittest tools/deploy/test_ci_deploy.py
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
+      - name: Firestore rules tests (emulator)
+        working-directory: tools/firestore
+        run: |
+          npm ci || npm install
+          npx --yes firebase-tools@15 emulators:exec --project readyport-rules-test --only firestore --config ../../firebase.json "node --test rules.test.mjs"
       - name: Autofill engine tests (mock page only, never the real site)
         working-directory: tools/autofill
         run: |

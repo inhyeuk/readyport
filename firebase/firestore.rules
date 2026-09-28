@@ -1,0 +1,46 @@
+rules_version = '2';
+
+// 레디포트 Firestore 규칙 (ARCHITECTURE 9.4). 개인정보는 어떤 컬렉션에도 두지 않는다.
+// - field_reports: 앱이 익명 실패 리포트를 '생성'만 한다. 읽기·수정·삭제 불가 (ARIA는 Admin SDK로 읽음)
+// - favorite_counts: 찜 수 +1 만 허용. 읽기는 누구나(순위 계산용 공개 집계)
+// - ops/heartbeat: ARIA가 Admin SDK로만 기록. 앱은 접근하지 않는다
+// App Check 강제는 Firebase 콘솔에서 켠다 (사람 작업)
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isId(v, maxLen) {
+      return v is string && v.size() > 0 && v.size() <= maxLen && v.matches('^[A-Za-z0-9_.-]+$');
+    }
+
+    match /field_reports/{reportId} {
+      allow read, update, delete: if false;
+      allow create: if request.resource.data.keys().hasOnly(
+                         ['form_id', 'pack_version', 'step_id', 'error_code', 'app_version', 'ts', 'site_version'])
+                    && request.resource.data.keys().hasAll(
+                         ['form_id', 'pack_version', 'step_id', 'error_code', 'app_version', 'ts'])
+                    && isId(request.resource.data.form_id, 40)
+                    && isId(request.resource.data.pack_version, 40)
+                    && isId(request.resource.data.step_id, 60)
+                    && request.resource.data.error_code in
+                         ['selector_missing', 'site_version_changed', 'engine_error', 'manual_mode_chosen', 'kill_switch']
+                    && isId(request.resource.data.app_version, 30)
+                    && request.resource.data.ts == request.time
+                    && (!('site_version' in request.resource.data) || isId(request.resource.data.site_version, 60));
+    }
+
+    match /favorite_counts/{cityId} {
+      allow read: if true;
+      allow delete: if false;
+      allow create: if isId(cityId, 10)
+                    && request.resource.data.keys().hasOnly(['count'])
+                    && request.resource.data.count == 1;
+      allow update: if request.resource.data.keys().hasOnly(['count'])
+                    && request.resource.data.count == resource.data.count + 1;
+    }
+
+    // 그 밖의 모든 경로(ops/heartbeat 포함)는 앱에서 막는다
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

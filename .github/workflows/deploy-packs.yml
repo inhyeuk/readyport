@@ -1,0 +1,73 @@
+name: deploy-packs
+
+# main 에 팩 원본이 머지되면: 검증 → 서명 → Hosting 배포 → Remote Config 버전 포인터 → FCM 토픽 알림 (ARIA_OPS 12.8)
+# 필요한 secrets (사람이 등록):
+#   PACK_SIGNING_KEY_PEM       — Ed25519 서명 개인키(PEM). ~/.readyport/keys/pack_signing_rp-2026-1.pem 내용
+#   FIREBASE_SERVICE_ACCOUNT   — readyport-app 배포용 서비스 계정 JSON (Hosting 배포 + Remote Config + FCM 권한)
+# ARIA에는 이 권한을 주지 않는다 (12.6).
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "packs/src/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy-packs
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      FIREBASE_PROJECT_ID: readyport-app
+      PACK_KID: rp-2026-1
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Install tools
+        run: pip install -r tools/packs/requirements.txt google-auth requests
+      - name: Validate packs (schema, sources, no unsettled markers)
+        run: python tools/packs/build_packs.py --check
+      - name: Sign packs
+        env:
+          PACK_SIGNING_KEY_PEM: ${{ secrets.PACK_SIGNING_KEY_PEM }}
+        run: |
+          umask 077
+          key="$RUNNER_TEMP/pack_key.pem"
+          printf '%s\n' "$PACK_SIGNING_KEY_PEM" > "$key"
+          python tools/packs/build_packs.py --kid "$PACK_KID" --key "$key"
+          rm -f "$key"
+      - name: Bundled packs in the app must match what we deploy
+        # Ed25519 서명은 결정적이라 커밋된 앱 내장 팩과 똑같아야 한다 (다르면 앱 내장본을 다시 만들어 커밋해야 함)
+        run: git diff --exit-code -- app/src/main/assets/packs
+      - name: Service account
+        env:
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+        run: |
+          umask 077
+          printf '%s' "$FIREBASE_SERVICE_ACCOUNT" > "$RUNNER_TEMP/sa.json"
+          echo "GOOGLE_APPLICATION_CREDENTIALS=$RUNNER_TEMP/sa.json" >> "$GITHUB_ENV"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Deploy Hosting (packs only)
+        run: npx --yes firebase-tools@15 deploy --only hosting --project "$FIREBASE_PROJECT_ID" --non-interactive
+      - name: Remote Config version pointers (switch keys untouched)
+        run: python tools/deploy/ci_deploy.py rc-versions
+      - name: Notify country topics
+        run: |
+          git diff --name-only HEAD~1 HEAD > "$RUNNER_TEMP/changed.txt" || true
+          python tools/deploy/ci_deploy.py fcm-notify --changed-files "$RUNNER_TEMP/changed.txt"
+      - name: Clean up credentials
+        if: always()
+        run: rm -f "$RUNNER_TEMP/sa.json" "$RUNNER_TEMP/pack_key.pem"
