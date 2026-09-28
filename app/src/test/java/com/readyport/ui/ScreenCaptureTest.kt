@@ -23,6 +23,9 @@ import org.robolectric.RuntimeEnvironment
 import org.robolectric.annotation.Config
 import org.robolectric.annotation.GraphicsMode
 import java.io.File
+import androidx.compose.foundation.background
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 
 /**
  * 디자인 확인용 화면 캡처. 검증(assert)은 하지 않고 build/screenshots/에 PNG를 남긴다.
@@ -54,7 +57,7 @@ class ScreenCaptureTest {
     }
 
     private fun captureAll(prefix: String, settings: AppSettings) {
-        rule.setContent { ReadyPortRoot(settings = settings, onSetEasyMode = {}, onSpeak = {}) }
+        rule.setContent { ReadyPortRoot(settings = settings, onSetEasyMode = {}, onSpeak = {}, walletTab = FakeWalletTab) }
         capture("${prefix}_1_today")
         openTab(R.string.tab_prepare); capture("${prefix}_2_prepare")
         openTab(R.string.tab_explore); capture("${prefix}_3_explore")
@@ -72,7 +75,54 @@ class ScreenCaptureTest {
     }
 
     @Test fun firstRun() {
-        rule.setContent { ReadyPortRoot(settings = AppSettings(easyMode = null), onSetEasyMode = {}, onSpeak = {}) }
+        rule.setContent { ReadyPortRoot(settings = AppSettings(easyMode = null), onSetEasyMode = {}, onSpeak = {}, walletTab = FakeWalletTab) }
         capture("first_run")
+    }
+
+    @Test fun walletScreens() {
+        val passport = com.readyport.vault.PassportRecord(
+            surname = "ERIKSSON", givenNames = "ANNA MARIA", documentNumber = "L898902C3",
+            nationality = "UTO", issuingState = "UTO", birthDate = "1974-08-12", sex = "F",
+            expiryDate = "2027-01-10", source = "mrz", mrzVerified = true, savedAt = "2026-09-28T10:00",
+        )
+        val booking = com.readyport.vault.BookingRecord(
+            id = "1", kind = "lodging", title = "방콕 숙소", reference = "4417-2290-12",
+            checkIn = "2026-11-03", checkOut = "2026-11-07", savedAt = "2026-09-28T10:00",
+        )
+        var screen by androidx.compose.runtime.mutableStateOf(0)
+        rule.setContent {
+            com.readyport.ui.theme.ReadyPortTheme(easyMode = true) {
+                androidx.compose.foundation.layout.Box(
+                    androidx.compose.ui.Modifier.background(com.readyport.ui.theme.Tokens.Ground),
+                ) {
+                    when (screen) {
+                        0 -> com.readyport.ui.wallet.WalletContent(
+                            state = com.readyport.vault.WalletState.Unlocked(
+                                com.readyport.vault.VaultContents(passport = passport, bookings = listOf(booking)),
+                            ),
+                            deviceSecure = true, autoDestroy = true, today = java.time.LocalDate.of(2026, 9, 28),
+                            onUnlock = {}, onLock = {}, onReset = {}, onAddPassport = {}, onDeletePassport = {},
+                            onAddBooking = {}, onDeleteBooking = {}, onAutoDestroyChange = {},
+                        )
+                        1 -> com.readyport.ui.wallet.PassportConfirmContent(
+                            mrz = com.readyport.doc.mrz.MrzParser.parse(
+                                "P<UTOERIKSSON<<ANNA<MARIA<<<<<<<<<<<<<<<<<<<",
+                                "L898902C36UTO7408122F1204159ZE184226B<<<<<10",
+                            ),
+                            saveFailed = false, onSave = {}, onRescan = {}, onManual = {},
+                        )
+                        else -> com.readyport.ui.wallet.BookingImportContent(
+                            state = com.readyport.ui.wallet.ImportState.Review(
+                                com.readyport.doc.booking.BookingExtractor.extract("예약번호: ABC123\n편명 KE651 2026년 11월 3일"),
+                            ),
+                            saveFailed = false, onPickPhoto = {}, onPickPdf = {}, onText = {}, onSave = {}, onRestart = {}, onDone = {},
+                        )
+                    }
+                }
+            }
+        }
+        capture("m2_1_wallet")
+        screen = 1; capture("m2_2_passport_confirm")
+        screen = 2; capture("m2_3_booking_review")
     }
 }

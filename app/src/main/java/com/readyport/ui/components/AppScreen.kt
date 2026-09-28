@@ -134,10 +134,12 @@ fun PrimaryButton(
     text: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
+    enabled: Boolean = true,
     colors: androidx.compose.material3.ButtonColors = androidx.compose.material3.ButtonDefaults.buttonColors(),
 ) {
     androidx.compose.material3.Button(
         onClick = onClick,
+        enabled = enabled,
         colors = colors,
         modifier = modifier.fillMaxWidth().heightIn(min = LocalDimens.current.buttonHeight),
     ) {

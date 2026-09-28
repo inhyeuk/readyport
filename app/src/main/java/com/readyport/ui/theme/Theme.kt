@@ -44,6 +44,9 @@ private val ColorScheme = lightColorScheme(
     onPrimaryContainer = Tokens.Ink,
     secondary = Tokens.InkSecondary,
     onSecondary = Tokens.Surface,
+    // 선택 칩 등 (M3 기본값 보라색 대신 코발트 계열)
+    secondaryContainer = Tokens.AccentSoft,
+    onSecondaryContainer = Tokens.Ink,
     background = Tokens.Ground,
     onBackground = Tokens.Ink,
     surface = Tokens.Surface,

@@ -4,7 +4,7 @@
   ETA → 미리 받는 입국 허락 / 입국신고서 → 도착 전에 내는 입국 카드 / 세관 → 가방 속 물건을 확인하는 곳
   체크인 → 비행기 표 받고 짐 맡기기 / 승인 → "맞아요, 입력해 주세요"
 -->
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">레디포트</string>
 
     <!-- 하단 탭 -->
@@ -79,6 +79,102 @@
     <string name="wallet_companions_title">같이 가는 사람</string>
     <string name="wallet_documents_title">받은 서류 (QR·확인서)</string>
     <string name="wallet_speech">지갑. 모든 서류는 이 기기 안에만 암호화해서 저장해요. 여권, 내 여행 정보, 같이 가는 사람, 받은 서류를 모아 둬요.</string>
+    <string name="wallet_locked_title">지갑이 잠겨 있어요</string>
+    <string name="wallet_locked_body">지문·얼굴 또는 휴대폰 화면 잠금으로 열 수 있어요.</string>
+    <string name="wallet_unlock">지갑 열기</string>
+    <string name="wallet_lock">지갑 잠그기</string>
+    <string name="wallet_auth_title">레디포트 지갑 열기</string>
+    <string name="wallet_auth_subtitle">여권과 예약 서류를 보려면 본인 확인이 필요해요</string>
+    <string name="wallet_no_lock_title">휴대폰에 화면 잠금이 없어요</string>
+    <string name="wallet_no_lock_body">여권 정보는 암호화해서 저장하지만, 휴대폰 설정에서 화면 잠금(PIN·지문)을 켜 두면 더 안전해요.</string>
+    <string name="wallet_needs_auth">본인 확인 시간이 지났어요. 다시 열어 주세요.</string>
+    <string name="wallet_key_lost">휴대폰 잠금 설정이 바뀌어서 저장한 서류를 열 수 없어요. 여권을 다시 등록해 주세요.</string>
+    <string name="wallet_corrupted">저장한 서류를 읽지 못했어요. 다시 등록해 주세요.</string>
+    <string name="wallet_reset">지갑 비우고 다시 시작</string>
+    <string name="wallet_passport_add">여권 등록하기</string>
+    <string name="wallet_passport_card_label">여권</string>
+    <string name="wallet_passport_name">이름</string>
+    <string name="wallet_passport_number">여권 번호</string>
+    <string name="wallet_passport_expiry">만료일</string>
+    <string name="wallet_passport_verified">MRZ 확인 완료</string>
+    <string name="wallet_passport_manual">직접 입력함</string>
+    <string name="wallet_passport_show">자세히 보기</string>
+    <string name="wallet_passport_hide">가리기</string>
+    <string name="wallet_passport_delete">여권 정보 지우기</string>
+    <string name="wallet_passport_expiring">여권 만료가 6개월 안이에요. 나라마다 남은 기간 규칙이 달라서, 여행지 안내에서 꼭 확인해 주세요.</string>
+    <string name="wallet_passport_expired">여권이 만료됐어요. 새 여권을 만들어야 해요.</string>
+    <string name="wallet_bookings_title">예약 서류</string>
+    <string name="wallet_bookings_empty">항공권·숙소 예약 확인서를 모아 두면 입국 카드를 채울 때 써요.</string>
+    <string name="wallet_booking_add">예약 서류 추가</string>
+    <string name="wallet_booking_delete">지우기</string>
+    <string name="wallet_auto_destroy">여행이 끝나면 여권 정보 지우기</string>
+    <string name="wallet_auto_destroy_desc">지우기 전에 한 번 더 물어봐요. 사진·영수증은 남고 여권 정보만 지워요.</string>
+    <string name="booking_kind_flight">항공권</string>
+    <string name="booking_kind_lodging">숙소</string>
+    <string name="booking_kind_other">기타</string>
+
+    <!-- 여권 등록 -->
+    <string name="passport_title">여권 등록</string>
+    <string name="passport_step_scan">촬영</string>
+    <string name="passport_step_chip">칩 확인(선택)</string>
+    <string name="passport_step_confirm">값 확인</string>
+    <string name="passport_steps_desc">여권 등록 단계: %1$s (%3$d단계 중 %2$d단계)</string>
+    <string name="passport_intro_body">여권 사진이 있는 면의 맨 아래 두 줄(&lt;&lt;&lt; 표시가 있는 줄)을 읽어서 이름·여권 번호·생년월일·만료일을 채워요.</string>
+    <string name="passport_privacy_1">사진은 이 기기 안에서만 읽고, 값을 뽑은 뒤 바로 지워요. 저장하지 않아요.</string>
+    <string name="passport_privacy_2">여권 정보는 이 기기 안에만 암호화해서 저장해요. 레디포트 서버로 보내지 않아요.</string>
+    <string name="passport_privacy_3">글자 인식 도구(Google ML Kit)가 기기 종류·앱 버전·성능 정보를 Google에 보낼 수 있어요. 여권 사진과 내용은 보내지 않아요.</string>
+    <string name="passport_consent">위 내용을 읽었어요</string>
+    <string name="passport_use_camera">카메라로 찍기</string>
+    <string name="passport_use_photo">사진에서 고르기</string>
+    <string name="passport_use_manual">직접 입력하기</string>
+    <string name="passport_scan_hint">여권 맨 아래 두 줄(&lt;&lt;&lt;)이 네모 안에 들어오게 해 주세요</string>
+    <string name="passport_scan_reading">읽는 중이에요… 여권을 움직이지 말아 주세요</string>
+    <string name="passport_scan_camera_needed">여권을 찍으려면 카메라 권한이 필요해요. 사진은 저장하지 않아요.</string>
+    <string name="passport_scan_allow_camera">카메라 허용하기</string>
+    <string name="passport_scan_no_result">사진에서 여권 아래 두 줄을 찾지 못했어요. 밝은 곳에서 다시 찍거나 직접 입력해 주세요.</string>
+    <string name="passport_confirm_body">여권과 한 번만 비교해 주세요. 틀린 곳이 있으면 다시 찍거나 직접 입력해 주세요.</string>
+    <string name="passport_check_ok">확인 완료</string>
+    <string name="passport_check_fail">확인 안 됨</string>
+    <string name="passport_check_warning">일부 값이 여권 확인 숫자와 맞지 않아요. 다시 찍어 주세요.</string>
+    <string name="passport_field_surname">성 (영문)</string>
+    <string name="passport_field_given">이름 (영문)</string>
+    <string name="passport_field_number">여권 번호</string>
+    <string name="passport_field_nationality">국적 (영문 3글자)</string>
+    <string name="passport_field_birth">생년월일</string>
+    <string name="passport_field_sex">성별</string>
+    <string name="passport_field_expiry">만료일</string>
+    <string name="passport_date_hint" tools:ignore="TypographyDashes">예: 1974-08-12</string>
+    <string name="passport_sex_m">남</string>
+    <string name="passport_sex_f">여</string>
+    <string name="passport_sex_x">기타</string>
+    <string name="passport_save">확인하고 저장</string>
+    <string name="passport_rescan">다시 찍기</string>
+    <string name="passport_chip_soon">NFC 칩으로 한 번 더 확인 (준비 중)</string>
+    <string name="passport_manual_body">여권에 적힌 그대로 영문 대문자로 적어 주세요.</string>
+    <string name="passport_manual_invalid" tools:ignore="TypographyDashes">빈칸이나 날짜 모양(예: 1974-08-12)을 확인해 주세요.</string>
+    <string name="passport_speech">여권 등록. 여권 맨 아래 두 줄을 읽어서 값을 채워요. 사진은 저장하지 않아요.</string>
+
+    <!-- 예약 서류 가져오기 -->
+    <string name="booking_title">예약 서류 추가</string>
+    <string name="booking_tip">항공사·숙소 앱이나 메일에서 \'공유하기\' → \'레디포트\'를 고르면 가장 정확해요.</string>
+    <string name="booking_pick_photo">사진(캡처)에서 고르기</string>
+    <string name="booking_pick_pdf">PDF에서 고르기</string>
+    <string name="booking_paste_label">예약 안내 글 붙여넣기</string>
+    <string name="booking_read_text">이 글에서 찾기</string>
+    <string name="booking_reading">서류를 읽는 중이에요…</string>
+    <string name="booking_review_body">서류에서 찾은 값이에요. 맞는지 확인하고, 틀리면 고쳐 주세요.</string>
+    <string name="booking_nothing_found">찾은 값이 없어요. 직접 적어 주세요.</string>
+    <string name="booking_field_kind">종류</string>
+    <string name="booking_field_title">이름 (예: 방콕 숙소)</string>
+    <string name="booking_field_reference">예약 번호</string>
+    <string name="booking_field_flights">편명 (여러 개면 쉼표로)</string>
+    <string name="booking_field_checkin">숙소 들어가는 날 (체크인)</string>
+    <string name="booking_field_checkout">숙소 나오는 날 (체크아웃)</string>
+    <string name="booking_field_dates">찾은 날짜</string>
+    <string name="booking_save">맞아요, 저장해 주세요</string>
+    <string name="booking_saved">저장했어요</string>
+    <string name="booking_save_failed">저장하지 못했어요. 지갑을 다시 열어 주세요.</string>
+    <string name="booking_speech">예약 서류 추가. 항공권이나 숙소 예약 확인서를 공유하거나 사진, PDF에서 골라 주세요.</string>
 
     <!-- 도움 -->
     <string name="help_title">도움</string>

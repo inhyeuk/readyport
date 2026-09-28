@@ -57,31 +57,6 @@ fun ExploreScreen() {
 }
 
 @Composable
-fun WalletScreen() {
-    AppScreen(
-        title = stringResource(R.string.wallet_title),
-        subtitle = stringResource(R.string.wallet_subtitle),
-        speech = stringResource(R.string.wallet_speech),
-    ) {
-        item(key = "privacy") {
-            TopicCard(title = stringResource(R.string.wallet_privacy), body = null, tone = CardTone.Notice)
-        }
-        item(key = "passport") {
-            TopicCard(stringResource(R.string.wallet_passport_title), stringResource(R.string.wallet_passport_body), comingSoon = true)
-        }
-        item(key = "profile") {
-            TopicCard(stringResource(R.string.wallet_profile_title), null, comingSoon = true)
-        }
-        item(key = "companions") {
-            TopicCard(stringResource(R.string.wallet_companions_title), null, comingSoon = true)
-        }
-        item(key = "documents") {
-            TopicCard(stringResource(R.string.wallet_documents_title), null, comingSoon = true)
-        }
-    }
-}
-
-@Composable
 fun HelpScreen() {
     AppScreen(
         title = stringResource(R.string.help_title),

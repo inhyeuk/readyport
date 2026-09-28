@@ -33,7 +33,26 @@ import com.readyport.ui.settings.SettingsScreen
 import com.readyport.ui.tabs.ExploreScreen
 import com.readyport.ui.tabs.HelpScreen
 import com.readyport.ui.tabs.PrepareScreen
-import com.readyport.ui.tabs.WalletScreen
+import com.readyport.ui.wallet.BookingImportScreen
+import com.readyport.ui.wallet.PassportConfirmScreen
+import com.readyport.ui.wallet.PassportFlowViewModel
+import com.readyport.ui.wallet.PassportIntroScreen
+import com.readyport.ui.wallet.PassportManualScreen
+import com.readyport.ui.wallet.PassportScanScreen
+import com.readyport.ui.wallet.WalletScreen
+import com.readyport.ui.nav.BookingImportRoute
+import com.readyport.ui.nav.PassportConfirmRoute
+import com.readyport.ui.nav.PassportGraph
+import com.readyport.ui.nav.PassportIntroRoute
+import com.readyport.ui.nav.PassportManualRoute
+import com.readyport.ui.nav.PassportScanRoute
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.navigation.NavBackStackEntry
+import androidx.navigation.NavDestination.Companion.hierarchy
+import androidx.navigation.compose.navigation
 import com.readyport.ui.theme.ReadyPortTheme
 import com.readyport.ui.theme.Tokens
 import com.readyport.ui.today.TodayScreen
@@ -47,6 +66,8 @@ fun ReadyPortRoot(
     settings: AppSettings?,
     onSetEasyMode: (Boolean) -> Unit,
     onSpeak: (String) -> Unit,
+    hasPendingShare: Boolean = false,
+    walletTab: WalletTabSlot = DefaultWalletTab,
 ) {
     when {
         settings == null -> Box(Modifier.fillMaxSize().background(Tokens.Ground))
@@ -56,7 +77,7 @@ fun ReadyPortRoot(
             }
         }
         else -> ReadyPortTheme(easyMode = settings.easyMode) {
-            MainScaffold(easyMode = settings.easyMode, onSetEasyMode = onSetEasyMode, onSpeak = onSpeak)
+            MainScaffold(settings.easyMode, onSetEasyMode, onSpeak, hasPendingShare, walletTab)
         }
     }
 }
@@ -66,12 +87,26 @@ private fun MainScaffold(
     easyMode: Boolean,
     onSetEasyMode: (Boolean) -> Unit,
     onSpeak: (String) -> Unit,
+    hasPendingShare: Boolean,
+    walletTab: WalletTabSlot,
 ) {
     val navController = rememberNavController()
     val backStack by navController.currentBackStackEntryAsState()
     val destination = backStack?.destination
-    // 설정은 '오늘' 안에 있는 화면이므로 '오늘' 탭을 선택된 것으로 보여 준다
-    val selectedTab = Tab.entries.firstOrNull { tab -> destination?.hasRoute(tab.route::class) == true } ?: Tab.Today
+    // 탭이 아닌 화면(설정, 여권 등록 등)에서는 들어온 탭을 선택된 채로 둔다
+    var lastTab by remember { mutableStateOf(Tab.Today) }
+    val matched = Tab.entries.firstOrNull { tab -> destination?.hasRoute(tab.route::class) == true }
+    val selectedTab = when {
+        matched != null -> matched
+        destination?.hierarchy?.any { it.hasRoute(PassportGraph::class) || it.hasRoute(BookingImportRoute::class) } == true -> Tab.Wallet
+        else -> lastTab
+    }
+    LaunchedEffect(selectedTab) { lastTab = selectedTab }
+
+    // 다른 앱에서 '공유하기'로 예약 서류를 보내면 바로 가져오기 화면으로
+    LaunchedEffect(hasPendingShare) {
+        if (hasPendingShare) navController.navigate(BookingImportRoute) { launchSingleTop = true }
+    }
 
     val actions = remember(navController, onSpeak) {
         AppActions(
@@ -98,12 +133,69 @@ private fun MainScaffold(
                 }
                 composable<PrepareRoute> { PrepareScreen() }
                 composable<ExploreRoute> { ExploreScreen() }
-                composable<WalletRoute> { WalletScreen() }
+                composable<WalletRoute> {
+                    walletTab(
+                        { navController.navigate(PassportGraph) },
+                        { navController.navigate(BookingImportRoute) },
+                    )
+                }
+                navigation<PassportGraph>(startDestination = PassportIntroRoute) {
+                    composable<PassportIntroRoute> { entry ->
+                        val vm = navController.passportViewModel(entry)
+                        PassportIntroScreen(
+                            viewModel = vm,
+                            onCamera = { navController.navigate(PassportScanRoute) },
+                            onManual = { navController.navigate(PassportManualRoute) },
+                            onFound = { navController.navigate(PassportConfirmRoute) { launchSingleTop = true } },
+                        )
+                    }
+                    composable<PassportScanRoute> { entry ->
+                        val vm = navController.passportViewModel(entry)
+                        PassportScanScreen(vm, onFound = {
+                            navController.navigate(PassportConfirmRoute) {
+                                popUpTo(PassportScanRoute) { inclusive = true }
+                                launchSingleTop = true
+                            }
+                        })
+                    }
+                    composable<PassportConfirmRoute> { entry ->
+                        val vm = navController.passportViewModel(entry)
+                        PassportConfirmScreen(
+                            viewModel = vm,
+                            onRescan = { navController.navigate(PassportScanRoute) { popUpTo(PassportIntroRoute) } },
+                            onManual = { navController.navigate(PassportManualRoute) { popUpTo(PassportIntroRoute) } },
+                            onSaved = { navController.popBackStack(PassportGraph, inclusive = true) },
+                        )
+                    }
+                    composable<PassportManualRoute> { entry ->
+                        val vm = navController.passportViewModel(entry)
+                        PassportManualScreen(vm, onSaved = { navController.popBackStack(PassportGraph, inclusive = true) })
+                    }
+                }
+                composable<BookingImportRoute> {
+                    BookingImportScreen(onDone = {
+                        if (!navController.popBackStack()) navController.switchTab(Tab.Wallet)
+                    })
+                }
                 composable<HelpRoute> { HelpScreen() }
                 composable<SettingsRoute> { SettingsScreen(easyMode = easyMode, onEasyModeChange = onSetEasyMode) }
             }
         }
     }
+}
+
+/** 지갑 탭 자리. 테스트에서는 Hilt 없이 상태 없는 화면으로 바꿔 끼운다 */
+typealias WalletTabSlot = @Composable (onAddPassport: () -> Unit, onAddBooking: () -> Unit) -> Unit
+
+private val DefaultWalletTab: WalletTabSlot = { onAddPassport, onAddBooking ->
+    WalletScreen(onAddPassport = onAddPassport, onAddBooking = onAddBooking)
+}
+
+/** 여권 등록 흐름의 화면들이 같은 ViewModel(촬영 결과)을 나눠 쓴다. 흐름을 벗어나면 함께 사라진다 */
+@Composable
+private fun NavHostController.passportViewModel(entry: NavBackStackEntry): PassportFlowViewModel {
+    val parent = remember(entry) { getBackStackEntry(PassportGraph) }
+    return hiltViewModel(parent)
 }
 
 private fun NavHostController.switchTab(tab: Tab) {

@@ -30,7 +30,7 @@
 | B5 | 교통 앱 패키지명·공식 딥링크 규격(Grab·Bolt·GO·Uber 등), 동남아 Uber 여부 | 이동하기 | M7 |
 | B6 | ✅ 타깃 API: 2026-08-31부터 신규·업데이트 36 이상(연장 시 11-01), 확인 2026-09-28 developer.android.com/google/play/requirements/target-sdk. 접근성 API 정책은 M10에서 | 빌드 설정, 정책 | M1·M10 |
 | B7 | Firebase Spark 한도(Hosting·Firestore), Cloud Storage Blaze 전환 여부 | 아키텍처 | M3·M9 |
-| B8 | ML Kit 번들형 텍스트 인식의 메트릭 전송 범위 | 개인정보 안내 문구 | M2 |
+| B8 | ✅ ML Kit이 보내는 것: 기기 정보(제조사·모델·OS), 앱 패키지·버전, 성능 지표, 설치별 식별자, 이미지 형식·해상도 설정, 이벤트·오류 코드. SDK에서 끌 수 없음(확인 2026-09-28 developers.google.com/ml-kit/android-data-disclosure). 여권 등록 화면 고지 문구에 반영 | 개인정보 안내 문구 | M2 |
 | B9 | 관세청·검역본부 면세 한도·반입 금지 품목 공식 링크 | 쇼핑 리스트, 귀국 단계 | M8 |
 | B10 | 인천공항·한국공항공사 여객 통계 API 형식 | 인기 순위 | M8·M9 |
 
@@ -50,7 +50,7 @@
 | C10 | 현지어 문장·양식 라벨 원어민 검수(태국어·말레이어·인도네시아어·일본어), 긴급 연락처 검수 | M4~M7 | ⏳ |
 | C11 | 실기기 테스트 — 보유 S10 5G(Android 12)는 NFC·카메라 가능. **Android 13+ 테마 아이콘 확인용 기기 별도 필요** | M2·M6·M10 | ⏳ |
 | C12 | 사용자 테스트: 60대 무경험자 5명, 중학생 5명 | M10 | ⏳ |
-| C13 | GitHub 공개 저장소 생성 후 알려 주기(또는 `gh` 설치·로그인). 이 PC엔 `gh`가 없고 GitHub 로그인 정보도 없음. 받으면 Claude가 원격 연결·푸시·main 브랜치 보호 설정 | M1 이후 아무 때나 | ⏳ |
+| C13 | GitHub 계정 `inhyeuk` 확인(2026-09-28). https://github.com/new 에서 **빈 공개 저장소 `readyport`**(README·.gitignore 없이)를 만들어 주면 Claude가 원격 연결·푸시·main 브랜치 보호 설정. 이 PC엔 `gh`와 이 용도의 GitHub 인증이 없음 | M1 이후 아무 때나 | ⏳ |
 
 ## 답변 기록
 

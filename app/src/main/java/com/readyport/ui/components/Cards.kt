@@ -23,6 +23,7 @@ import com.readyport.ui.theme.Tokens
 enum class CardTone(val container: Color, val content: Color, val border: Color?) {
     Neutral(Tokens.Surface, Tokens.Ink, Tokens.LineSoft),
     Accent(Tokens.Accent, Tokens.Surface, null),
+    Navy(Tokens.Navy, Tokens.Surface, null),
     Caution(Tokens.CautionBg, Tokens.CautionText, Tokens.CautionBorder),
     Notice(Tokens.Ground, Tokens.InkSecondary, Tokens.Line),
 }

@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- 여권 촬영할 때만 요청한다. 사진 고르기는 Photo Picker라 저장소 권한이 필요 없다 (PRD 7.4) -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera" android:required="false" />
+
     <!-- 필요한 패키지만 선언한다. QUERY_ALL_PACKAGES 사용 금지 (PRD 7.4) -->
     <queries>
         <!-- 기기 내장 음성 안내(TextToSpeech) 엔진 찾기 -->
@@ -26,10 +30,20 @@
         <activity
             android:name=".MainActivity"
             android:exported="true"
+            android:launchMode="singleTop"
+            android:windowSoftInputMode="adjustResize"
             android:theme="@style/Theme.ReadyPort">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <!-- 항공사·숙소 앱이나 메일에서 '공유하기'로 예약 서류 받기 (PRD 7.2) -->
+            <intent-filter android:label="@string/booking_title">
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="text/plain" />
+                <data android:mimeType="application/pdf" />
+                <data android:mimeType="image/*" />
             </intent-filter>
         </activity>
     </application>
