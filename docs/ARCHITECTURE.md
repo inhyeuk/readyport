@@ -196,3 +196,11 @@
 - **엔진 `select`**: MDAC처럼 기본 `<select>`인 칸은 선택지 글자가 **정확히 하나** 같을 때만 고른다(클릭 없음, change 이벤트). 예: "KOR - REPUBLIC OF KOREA" (같은 목록에 북한 항목도 있어 부분 일치는 쓰지 않는다). 레시피 `site_map`(앱 값→사이트 글자)과 `options[].site`로 값을 만든다.
 - **값 변환**: `date_dmy`(dd/MM/yyyy), 항공사 코드·숫자 나누기(`trip.flight_prefix`/`trip.flight_digits`), 이름 순서(`passport.full_name_given_first` — SGAC는 'Given Name followed by Surname'). 순서를 확인 못 한 이름 칸(MDAC·All Indonesia)은 assist로 두고 "여권에 적힌 그대로"라고 안내한다.
 - **사실 확인 기록**: `docs/research/2026-09-28_M5_countries.md`. UNVERIFIED 값(MDAC 요금, 싱가포르 긴급여권 수수료 등)은 팩에 넣지 않았다.
+
+## 구현 결정 기록 (M7, 2026-09-28)
+
+- **교통 앱 3단계**(`transport/RideLinker`): ① 공식 문서가 있는 링크로 목적지까지(Google 지도 `maps/dir/?api=1&destination=&travelmode=transit`, Uber `uber://riderequest?...dropoff[...]` — 좌표가 있을 때만) ② 앱만 열고 현지어 주소를 클립보드에(60초 뒤 지움) ③ 설치 안 됨 → Play 스토어. 앞 단계가 실패하면 자동으로 다음 단계.
+- **나라별 앱**(국가 팩 `transport_apps`, 각 항목에 공식 출처): 태국·말레이시아 Grab·Bolt, 싱가포르·인도네시아 Grab·Gojek, 일본 GO·S.RIDE·Uber, 모든 나라 Google 지도. Grab·Bolt·GO·Gojek은 목적지를 채우는 공개 규격이 없어 ②부터(Grab의 grab://open은 파트너 API 문서에만 있어 쓰지 않음). 패키지명은 Google Play 페이지로 확인.
+- **설치 확인**: `QUERY_ALL_PACKAGES` 없이 매니페스트 `<queries>`에 위 패키지만 선언.
+- **가는 곳**: 이름·현지어 주소를 잠금 없는 기기 저장소(DataStore, 백업 제외)에 — 인터넷·지문 없이 '기사님께 보여주기'를 바로 열기 위해. 여권 같은 개인정보는 넣지 않는다.
+- **실기기 확인(2026-09-28)**: 미설치 Grab → Play 스토어 열림, 설치된 Google 지도 → 길찾기 화면으로 열림(지도 앱 첫 실행 약관 동의 화면은 사람이 할 일이라 누르지 않음). 연결 실패 → 앱 열고 주소 복사는 Robolectric 테스트로 확인.

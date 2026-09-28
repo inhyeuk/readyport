@@ -10,6 +10,19 @@
 
     <!-- 필요한 패키지만 선언한다. QUERY_ALL_PACKAGES 사용 금지 (PRD 7.4) -->
     <queries>
+        <!-- 이동하기: 국가 팩에 있는 교통·지도 앱만 (PRD 7.4, 9.7) -->
+        <package android:name="com.dena.automotive.taxibell" />
+        <package android:name="com.gojek.app" />
+        <package android:name="com.google.android.apps.maps" />
+        <package android:name="com.grabtaxi.passenger" />
+        <package android:name="com.ubercab" />
+        <package android:name="ee.mtakso.client" />
+        <package android:name="jp.sride.userapp" />
+        <!-- Play 스토어로 보내기 -->
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="market" />
+        </intent>
         <!-- 기기 내장 음성 안내(TextToSpeech) 엔진 찾기 -->
         <intent>
             <action android:name="android.intent.action.TTS_SERVICE" />

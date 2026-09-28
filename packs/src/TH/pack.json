@@ -1,16 +1,58 @@
 {
   "schema_version": 1,
   "country": "TH",
-  "version": "2026.09.28-1",
+  "version": "2026.09.28-2",
   "last_verified": "2026-09-28",
-  "names": { "ko": "태국", "en": "Thailand", "local": "ประเทศไทย" },
-  "local_language": { "name_ko": "태국어", "tts_lang": "th-TH" },
+  "names": {
+    "ko": "태국",
+    "en": "Thailand",
+    "local": "ประเทศไทย"
+  },
+  "local_language": {
+    "name_ko": "태국어",
+    "tts_lang": "th-TH"
+  },
   "sources": [
-    { "id": "mofa_th", "name": "외교부 해외안전여행 · 태국", "url": "https://0404.go.kr/ntnSafetyInfo/260/detail" },
-    { "id": "embassy_th", "name": "주태국 대한민국 대사관", "url": "https://overseas.mofa.go.kr/th-ko/index.do" },
-    { "id": "embassy_th_visa", "name": "주태국 대한민국 대사관 · 사증 안내", "url": "https://overseas.mofa.go.kr/th-ko/brd/m_22304/view.do?seq=728" },
-    { "id": "tdac", "name": "태국 이민국 TDAC", "url": "https://tdac.immigration.go.th/" },
-    { "id": "passport_kr", "name": "외교부 여권안내 · 여권 분실", "url": "https://www.passport.go.kr/home/kor/contents.do?menuPos=26" }
+    {
+      "id": "mofa_th",
+      "name": "외교부 해외안전여행 · 태국",
+      "url": "https://0404.go.kr/ntnSafetyInfo/260/detail"
+    },
+    {
+      "id": "embassy_th",
+      "name": "주태국 대한민국 대사관",
+      "url": "https://overseas.mofa.go.kr/th-ko/index.do"
+    },
+    {
+      "id": "embassy_th_visa",
+      "name": "주태국 대한민국 대사관 · 사증 안내",
+      "url": "https://overseas.mofa.go.kr/th-ko/brd/m_22304/view.do?seq=728"
+    },
+    {
+      "id": "tdac",
+      "name": "태국 이민국 TDAC",
+      "url": "https://tdac.immigration.go.th/"
+    },
+    {
+      "id": "passport_kr",
+      "name": "외교부 여권안내 · 여권 분실",
+      "url": "https://www.passport.go.kr/home/kor/contents.do?menuPos=26"
+    },
+    {
+      "id": "grab_locations",
+      "name": "Grab 서비스 국가",
+      "url": "https://www.grab.com/sg/locations/"
+    },
+    {
+      "id": "bolt_cities",
+      "name": "Bolt 서비스 도시",
+      "url": "https://bolt.eu/en/cities/"
+    },
+    {
+      "id": "gmaps_play",
+      "name": "Google Play · Google 지도",
+      "url": "https://play.google.com/store/apps/details?id=com.google.android.apps.maps"
+    }
   ],
   "requirements": [
     {
@@ -18,7 +60,9 @@
       "purpose": "tourism",
       "visa": "not_required",
       "stay_limit_days": 90,
-      "forms": ["TH_TDAC"],
+      "forms": [
+        "TH_TDAC"
+      ],
       "summary_ko": "대한민국 일반 여권은 관광 목적이면 비자 없이 90일까지 머물 수 있어요(두 나라 협정). 도착 전에 태국 입국 카드(TDAC)를 내야 해요.",
       "source": "mofa_th",
       "last_verified": "2026-09-28"
@@ -75,22 +119,120 @@
       "last_verified": "2026-09-28"
     }
   ],
-  "transport_apps": [],
+  "transport_apps": [
+    {
+      "name": "Grab",
+      "package": "com.grabtaxi.passenger",
+      "link_type": "open_and_copy",
+      "source": "grab_locations"
+    },
+    {
+      "name": "Bolt",
+      "package": "ee.mtakso.client",
+      "link_type": "open_and_copy",
+      "source": "bolt_cities"
+    },
+    {
+      "name": "Google 지도",
+      "package": "com.google.android.apps.maps",
+      "link_type": "maps_url",
+      "source": "gmaps_play"
+    }
+  ],
   "phrases": [
-    { "id": "restroom", "ko": "화장실이 어디예요?", "en": "Where is the restroom?", "local": "ห้องน้ำอยู่ที่ไหน", "romanized": "hong nam yu thi nai", "reviewed": false },
-    { "id": "lost", "ko": "길을 잃었어요", "en": "I'm lost.", "local": "ฉันหลงทาง", "romanized": "chan long thang", "reviewed": false },
-    { "id": "hospital", "ko": "병원에 가야 해요", "en": "I need to go to a hospital.", "local": "ฉันต้องไปโรงพยาบาล", "romanized": "chan tong pai rong phayaban", "reviewed": false },
-    { "id": "slowly", "ko": "천천히 말해 주세요", "en": "Please speak slowly.", "local": "กรุณาพูดช้าๆ", "romanized": "karuna phut cha cha", "reviewed": false },
-    { "id": "address", "ko": "이 주소로 가 주세요", "en": "Please take me to this address.", "local": "กรุณาพาไปที่อยู่นี้", "romanized": "karuna pha pai thi yu ni", "reviewed": false },
-    { "id": "police", "ko": "경찰을 불러 주세요", "en": "Please call the police.", "local": "กรุณาเรียกตำรวจ", "romanized": "karuna riak tamruat", "reviewed": false },
-    { "id": "help", "ko": "도와주세요", "en": "Help me, please.", "local": "ช่วยด้วย", "romanized": "chuai duai", "reviewed": false }
+    {
+      "id": "restroom",
+      "ko": "화장실이 어디예요?",
+      "en": "Where is the restroom?",
+      "local": "ห้องน้ำอยู่ที่ไหน",
+      "romanized": "hong nam yu thi nai",
+      "reviewed": false
+    },
+    {
+      "id": "lost",
+      "ko": "길을 잃었어요",
+      "en": "I'm lost.",
+      "local": "ฉันหลงทาง",
+      "romanized": "chan long thang",
+      "reviewed": false
+    },
+    {
+      "id": "hospital",
+      "ko": "병원에 가야 해요",
+      "en": "I need to go to a hospital.",
+      "local": "ฉันต้องไปโรงพยาบาล",
+      "romanized": "chan tong pai rong phayaban",
+      "reviewed": false
+    },
+    {
+      "id": "slowly",
+      "ko": "천천히 말해 주세요",
+      "en": "Please speak slowly.",
+      "local": "กรุณาพูดช้าๆ",
+      "romanized": "karuna phut cha cha",
+      "reviewed": false
+    },
+    {
+      "id": "address",
+      "ko": "이 주소로 가 주세요",
+      "en": "Please take me to this address.",
+      "local": "กรุณาพาไปที่อยู่นี้",
+      "romanized": "karuna pha pai thi yu ni",
+      "reviewed": false
+    },
+    {
+      "id": "police",
+      "ko": "경찰을 불러 주세요",
+      "en": "Please call the police.",
+      "local": "กรุณาเรียกตำรวจ",
+      "romanized": "karuna riak tamruat",
+      "reviewed": false
+    },
+    {
+      "id": "help",
+      "ko": "도와주세요",
+      "en": "Help me, please.",
+      "local": "ช่วยด้วย",
+      "romanized": "chuai duai",
+      "reviewed": false
+    }
   ],
   "emergency": [
-    { "id": "tourist_police", "label_ko": "관광경찰 (영어·한국어, 무료)", "number": "1155", "source": "mofa_th", "last_verified": "2026-09-28" },
-    { "id": "police", "label_ko": "경찰 (사건·사고 신고)", "number": "191", "source": "mofa_th", "last_verified": "2026-09-28" },
-    { "id": "medical", "label_ko": "응급 환자", "number": "1669", "source": "mofa_th", "last_verified": "2026-09-28" },
-    { "id": "ambulance", "label_ko": "구급차 (경찰병원)", "number": "1691", "source": "mofa_th", "last_verified": "2026-09-28" },
-    { "id": "fire", "label_ko": "불이 났을 때", "number": "199", "source": "mofa_th", "last_verified": "2026-09-28" }
+    {
+      "id": "tourist_police",
+      "label_ko": "관광경찰 (영어·한국어, 무료)",
+      "number": "1155",
+      "source": "mofa_th",
+      "last_verified": "2026-09-28"
+    },
+    {
+      "id": "police",
+      "label_ko": "경찰 (사건·사고 신고)",
+      "number": "191",
+      "source": "mofa_th",
+      "last_verified": "2026-09-28"
+    },
+    {
+      "id": "medical",
+      "label_ko": "응급 환자",
+      "number": "1669",
+      "source": "mofa_th",
+      "last_verified": "2026-09-28"
+    },
+    {
+      "id": "ambulance",
+      "label_ko": "구급차 (경찰병원)",
+      "number": "1691",
+      "source": "mofa_th",
+      "last_verified": "2026-09-28"
+    },
+    {
+      "id": "fire",
+      "label_ko": "불이 났을 때",
+      "number": "199",
+      "source": "mofa_th",
+      "last_verified": "2026-09-28"
+    }
   ],
   "embassy": {
     "name_ko": "주태국 대한민국 대사관 (방콕)",

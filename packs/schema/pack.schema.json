@@ -94,12 +94,13 @@
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["name", "package", "link_type"],
+        "required": ["name", "package", "link_type", "source"],
         "additionalProperties": false,
         "properties": {
           "name": { "type": "string" },
-          "package": { "type": "string" },
-          "link_type": { "enum": ["maps_url", "uber_url", "open_and_copy"] }
+          "package": { "type": "string", "pattern": "^[a-z][a-z0-9_]*(\\.[a-z0-9_]+)+$" },
+          "link_type": { "enum": ["maps_url", "uber_url", "open_and_copy"] },
+          "source": { "type": "string", "description": "이 나라에서 서비스한다는 공식 출처(sources[].id)" }
         }
       }
     },

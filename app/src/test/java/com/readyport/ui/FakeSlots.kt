@@ -89,7 +89,7 @@ val FakeSlots = ScreenSlots(
             onAutoDestroyChange = {},
         )
     },
-    explore = { onOpenGuide -> ExploreContent(TestPacks.exploreUi(), {}, onOpenGuide, {}) },
+    explore = { onOpenGuide, onMove -> ExploreContent(TestPacks.exploreUi(), {}, onOpenGuide, {}, onMove) },
     guide = { country -> GuideContent(runBlocking { TestPacks.repo.pack(country)!! }) },
     help = { HelpContent(TestPacks.helpUi(), {}, {}, {}) },
     prepare = { onOpenForm -> PrepareContent(TestPacks.formEntries(), onOpenForm) },

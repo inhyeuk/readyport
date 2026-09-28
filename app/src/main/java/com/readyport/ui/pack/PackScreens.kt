@@ -66,9 +66,9 @@ fun displayDate(iso: String) = iso.replace('-', '.')
 // ======================= 여행지 =======================
 
 @Composable
-fun ExploreScreen(onOpenGuide: (String) -> Unit, viewModel: ExploreViewModel = hiltViewModel()) {
+fun ExploreScreen(onOpenGuide: (String) -> Unit, onMove: () -> Unit = {}, viewModel: ExploreViewModel = hiltViewModel()) {
     val ui by viewModel.ui.collectAsStateWithLifecycle()
-    ExploreContent(ui, viewModel::toggleFavorite, onOpenGuide, viewModel::setWifiOnly)
+    ExploreContent(ui, viewModel::toggleFavorite, onOpenGuide, viewModel::setWifiOnly, onMove)
 }
 
 @Composable
@@ -77,12 +77,20 @@ fun ExploreContent(
     onToggleFavorite: (String) -> Unit,
     onOpenGuide: (String) -> Unit,
     onWifiOnlyChange: (Boolean) -> Unit,
+    onMove: () -> Unit = {},
 ) {
     AppScreen(
         title = stringResource(R.string.explore_title),
         subtitle = stringResource(R.string.explore_subtitle),
         speech = stringResource(R.string.explore_speech),
     ) {
+        item(key = "move") {
+            InfoCard {
+                Text(stringResource(R.string.move_title), style = MaterialTheme.typography.titleMedium)
+                Text(stringResource(R.string.move_speech), style = MaterialTheme.typography.bodyMedium)
+                PrimaryButton(stringResource(R.string.move_title), onClick = onMove)
+            }
+        }
         item(key = "countries-title") {
             Text(stringResource(R.string.explore_countries_title), style = MaterialTheme.typography.titleLarge)
         }

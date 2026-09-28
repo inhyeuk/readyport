@@ -50,7 +50,7 @@ def walk_strings(obj, path=""):
 
 def check_sources(doc, label, errors):
     ids = {s["id"] for s in doc.get("sources", [])}
-    for key in ("requirements", "forms", "sections", "emergency", "procedures", "common_emergency"):
+    for key in ("requirements", "forms", "sections", "emergency", "procedures", "common_emergency", "transport_apps"):
         for i, item in enumerate(doc.get(key, [])):
             if item.get("source") not in ids:
                 errors.append(f"{label}: {key}[{i}].source '{item.get('source')}' 가 sources 에 없음")

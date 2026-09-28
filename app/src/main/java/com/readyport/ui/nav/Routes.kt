@@ -42,3 +42,6 @@ import kotlinx.serialization.Serializable
 
 /** 지갑 › 같이 가는 사람 (가족 모드) */
 @Serializable data object CompanionsRoute
+
+/** 여행지 › 이동하기 (PRD 5.9) */
+@Serializable data object TransportRoute

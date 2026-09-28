@@ -1,86 +1,230 @@
 {
   "schema_version": 1,
   "country": "ID",
-  "version": "2026.09.28-1",
+  "version": "2026.09.28-2",
   "last_verified": "2026-09-28",
-  "names": { "ko": "인도네시아", "en": "Indonesia", "local": "Indonesia" },
-  "local_language": { "name_ko": "인도네시아어", "tts_lang": "id-ID" },
+  "names": {
+    "ko": "인도네시아",
+    "en": "Indonesia",
+    "local": "Indonesia"
+  },
+  "local_language": {
+    "name_ko": "인도네시아어",
+    "tts_lang": "id-ID"
+  },
   "sources": [
-    { "id": "mofa_id", "name": "외교부 해외안전여행 · 인도네시아", "url": "https://0404.go.kr/ntnSafetyInfo/181/detail" },
-    { "id": "imigrasi_voa", "name": "인도네시아 이민국 · 도착비자", "url": "https://www.imigrasi.go.id/berita/2024/04/19/jangan-salah-pilih-ini-beda-visa-kunjungan-wisata-dan-visa-on-arrival" },
-    { "id": "imigrasi_aid", "name": "인도네시아 이민국 · All Indonesia", "url": "https://www.imigrasi.go.id/siaran_pers/penumpang-yang-tiba-di-tiga-bandara-internasional-dan-pelabuhan-di-batam-wajib-deklarasi-kedatangan-melalui-aplikasi-all-indones" },
-    { "id": "beacukai", "name": "인도네시아 세관(Bea Cukai) 수카르노하타", "url": "https://soetta.beacukai.go.id/mandatory/barang-penumpang.html" },
-    { "id": "embassy_id_lost", "name": "주인도네시아 대한민국 대사관 · 여권 분실", "url": "https://overseas.mofa.go.kr/id-ko/brd/m_2853/view.do?seq=1346782" }
+    {
+      "id": "mofa_id",
+      "name": "외교부 해외안전여행 · 인도네시아",
+      "url": "https://0404.go.kr/ntnSafetyInfo/181/detail"
+    },
+    {
+      "id": "imigrasi_voa",
+      "name": "인도네시아 이민국 · 도착비자",
+      "url": "https://www.imigrasi.go.id/berita/2024/04/19/jangan-salah-pilih-ini-beda-visa-kunjungan-wisata-dan-visa-on-arrival"
+    },
+    {
+      "id": "imigrasi_aid",
+      "name": "인도네시아 이민국 · All Indonesia",
+      "url": "https://www.imigrasi.go.id/siaran_pers/penumpang-yang-tiba-di-tiga-bandara-internasional-dan-pelabuhan-di-batam-wajib-deklarasi-kedatangan-melalui-aplikasi-all-indones"
+    },
+    {
+      "id": "beacukai",
+      "name": "인도네시아 세관(Bea Cukai) 수카르노하타",
+      "url": "https://soetta.beacukai.go.id/mandatory/barang-penumpang.html"
+    },
+    {
+      "id": "embassy_id_lost",
+      "name": "주인도네시아 대한민국 대사관 · 여권 분실",
+      "url": "https://overseas.mofa.go.kr/id-ko/brd/m_2853/view.do?seq=1346782"
+    },
+    {
+      "id": "grab_locations",
+      "name": "Grab 서비스 국가",
+      "url": "https://www.grab.com/sg/locations/"
+    },
+    {
+      "id": "gojek_site",
+      "name": "Gojek",
+      "url": "https://www.gojek.com/en-id"
+    },
+    {
+      "id": "gmaps_play",
+      "name": "Google Play · Google 지도",
+      "url": "https://play.google.com/store/apps/details?id=com.google.android.apps.maps"
+    }
   ],
   "requirements": [
     {
-      "nationality": "KR", "purpose": "tourism", "visa": "on_arrival", "stay_limit_days": 30, "forms": ["ID_ALL_INDONESIA"],
+      "nationality": "KR",
+      "purpose": "tourism",
+      "visa": "on_arrival",
+      "stay_limit_days": 30,
+      "forms": [
+        "ID_ALL_INDONESIA"
+      ],
       "summary_ko": "대한민국 일반 여권은 비자 없이 들어갈 수 없어요. 도착비자(VOA, 30일, IDR 500,000)를 받아야 하고, 미리 온라인(e-VOA)으로도 신청할 수 있어요. 여권이 6개월 넘게 남아 있고 돌아가는 표가 있어야 해요. 도착 전에 All Indonesia도 내요.",
-      "source": "mofa_id", "last_verified": "2026-09-28"
+      "source": "mofa_id",
+      "last_verified": "2026-09-28"
     }
   ],
   "forms": [
     {
-      "id": "ID_ALL_INDONESIA", "name_ko": "인도네시아 입국 신고 (All Indonesia)", "name_en": "All Indonesia",
+      "id": "ID_ALL_INDONESIA",
+      "name_ko": "인도네시아 입국 신고 (All Indonesia)",
+      "name_en": "All Indonesia",
       "official_url": "https://allindonesia.imigrasi.go.id/",
       "fee_ko": "무료",
       "window_ko": "도착 3일 전부터 낼 수 있어요. 입국·세관·검역을 한 번에 신고해요.",
-      "source": "imigrasi_aid", "last_verified": "2026-09-28"
+      "source": "imigrasi_aid",
+      "last_verified": "2026-09-28"
     }
   ],
   "sections": [
     {
-      "id": "entry", "title_ko": "들어갈 때",
+      "id": "entry",
+      "title_ko": "들어갈 때",
       "body_ko": [
         "비자 없이 들어갈 수 없어요. 도착비자(VOA)는 30일이고 한 번 30일 늘릴 수 있어요. 요금은 IDR 500,000이에요.",
         "도착비자는 미리 공식 사이트(evisa.imigrasi.go.id)에서 온라인으로도 받을 수 있어요.",
         "도착 3일 전부터 All Indonesia에 입국·세관·건강 신고를 한 번에 무료로 내요. 이 공항들(수카르노하타·주안다·응우라라이·바탐)은 따로 전자세관신고(e-CD)를 안 해도 돼요.",
         "IDR 1억 루피아가 넘는 현금은 세관에 신고해야 해요."
       ],
-      "source": "imigrasi_aid", "last_verified": "2026-09-28"
+      "source": "imigrasi_aid",
+      "last_verified": "2026-09-28"
     },
     {
-      "id": "safety", "title_ko": "안전 (외교부 여행경보)",
+      "id": "safety",
+      "title_ko": "안전 (외교부 여행경보)",
       "body_ko": [
         "대부분 지역은 1단계(여행유의)예요.",
         "서파푸아·파푸아·말루쿠·아체는 2단계(여행자제)예요.",
         "여행경보는 자주 바뀌어요. 떠나기 전에 외교부 해외안전여행에서 다시 확인하세요."
       ],
-      "source": "mofa_id", "last_verified": "2026-09-28"
+      "source": "mofa_id",
+      "last_verified": "2026-09-28"
     }
   ],
-  "transport_apps": [],
+  "transport_apps": [
+    {
+      "name": "Grab",
+      "package": "com.grabtaxi.passenger",
+      "link_type": "open_and_copy",
+      "source": "grab_locations"
+    },
+    {
+      "name": "Gojek",
+      "package": "com.gojek.app",
+      "link_type": "open_and_copy",
+      "source": "gojek_site"
+    },
+    {
+      "name": "Google 지도",
+      "package": "com.google.android.apps.maps",
+      "link_type": "maps_url",
+      "source": "gmaps_play"
+    }
+  ],
   "phrases": [
-    { "id": "restroom", "ko": "화장실이 어디예요?", "en": "Where is the restroom?", "local": "Di mana toilet?", "reviewed": false },
-    { "id": "lost", "ko": "길을 잃었어요", "en": "I'm lost.", "local": "Saya tersesat.", "reviewed": false },
-    { "id": "hospital", "ko": "병원에 가야 해요", "en": "I need to go to a hospital.", "local": "Saya harus ke rumah sakit.", "reviewed": false },
-    { "id": "slowly", "ko": "천천히 말해 주세요", "en": "Please speak slowly.", "local": "Tolong bicara pelan-pelan.", "reviewed": false },
-    { "id": "address", "ko": "이 주소로 가 주세요", "en": "Please take me to this address.", "local": "Tolong antar saya ke alamat ini.", "reviewed": false },
-    { "id": "police", "ko": "경찰을 불러 주세요", "en": "Please call the police.", "local": "Tolong panggil polisi.", "reviewed": false },
-    { "id": "help", "ko": "도와주세요", "en": "Help me, please.", "local": "Tolong!", "reviewed": false }
+    {
+      "id": "restroom",
+      "ko": "화장실이 어디예요?",
+      "en": "Where is the restroom?",
+      "local": "Di mana toilet?",
+      "reviewed": false
+    },
+    {
+      "id": "lost",
+      "ko": "길을 잃었어요",
+      "en": "I'm lost.",
+      "local": "Saya tersesat.",
+      "reviewed": false
+    },
+    {
+      "id": "hospital",
+      "ko": "병원에 가야 해요",
+      "en": "I need to go to a hospital.",
+      "local": "Saya harus ke rumah sakit.",
+      "reviewed": false
+    },
+    {
+      "id": "slowly",
+      "ko": "천천히 말해 주세요",
+      "en": "Please speak slowly.",
+      "local": "Tolong bicara pelan-pelan.",
+      "reviewed": false
+    },
+    {
+      "id": "address",
+      "ko": "이 주소로 가 주세요",
+      "en": "Please take me to this address.",
+      "local": "Tolong antar saya ke alamat ini.",
+      "reviewed": false
+    },
+    {
+      "id": "police",
+      "ko": "경찰을 불러 주세요",
+      "en": "Please call the police.",
+      "local": "Tolong panggil polisi.",
+      "reviewed": false
+    },
+    {
+      "id": "help",
+      "ko": "도와주세요",
+      "en": "Help me, please.",
+      "local": "Tolong!",
+      "reviewed": false
+    }
   ],
   "emergency": [
-    { "id": "police", "label_ko": "경찰", "number": "110", "source": "mofa_id", "last_verified": "2026-09-28" },
-    { "id": "fire", "label_ko": "불이 났을 때", "number": "113", "source": "mofa_id", "last_verified": "2026-09-28" },
-    { "id": "ambulance", "label_ko": "구급차", "number": "118", "source": "mofa_id", "last_verified": "2026-09-28" },
-    { "id": "ambulance2", "label_ko": "구급차 (다른 번호)", "number": "119", "source": "mofa_id", "last_verified": "2026-09-28" }
+    {
+      "id": "police",
+      "label_ko": "경찰",
+      "number": "110",
+      "source": "mofa_id",
+      "last_verified": "2026-09-28"
+    },
+    {
+      "id": "fire",
+      "label_ko": "불이 났을 때",
+      "number": "113",
+      "source": "mofa_id",
+      "last_verified": "2026-09-28"
+    },
+    {
+      "id": "ambulance",
+      "label_ko": "구급차",
+      "number": "118",
+      "source": "mofa_id",
+      "last_verified": "2026-09-28"
+    },
+    {
+      "id": "ambulance2",
+      "label_ko": "구급차 (다른 번호)",
+      "number": "119",
+      "source": "mofa_id",
+      "last_verified": "2026-09-28"
+    }
   ],
   "embassy": {
     "name_ko": "주인도네시아 대한민국 대사관 (자카르타)",
     "address": "Jalan Jenderal Gatot Subroto Kav. 57 Jakarta 12950, Indonesia",
     "phone": "+62-21-2967-2555",
     "emergency_phone": "+62-811-852-446",
-    "source": "mofa_id", "last_verified": "2026-09-28"
+    "source": "mofa_id",
+    "last_verified": "2026-09-28"
   },
   "procedures": [
     {
-      "id": "passport_lost", "title_ko": "여권을 잃어버렸어요",
+      "id": "passport_lost",
+      "title_ko": "여권을 잃어버렸어요",
       "steps_ko": [
         "경찰서에서 분실 신고 접수증을 받아요.",
         "대한민국 대사관 영사과에서 분실 신고와 긴급여권(Rp 850,000) 또는 여행증명서(Rp 425,000)를 신청해요. 사진 2장을 챙겨요. 요금은 환율에 따라 바뀔 수 있어요.",
         "도착비자로 들어왔으면 새 여권과 대사관 공문을 가지고 이민국 창구에 가야 나갈 수 있어요."
       ],
-      "source": "embassy_id_lost", "last_verified": "2026-09-28"
+      "source": "embassy_id_lost",
+      "last_verified": "2026-09-28"
     }
   ],
   "essentials_rules": [],

@@ -77,6 +77,8 @@ import com.readyport.ui.trip.TripScreen
 import com.readyport.ui.present.PresentScreen
 import com.readyport.ui.present.CompanionsScreen
 import com.readyport.ui.nav.TripRoute
+import com.readyport.ui.nav.TransportRoute
+import com.readyport.ui.transport.TransportScreen
 import com.readyport.ui.nav.PresentRoute
 import com.readyport.ui.nav.CompanionsRoute
 
@@ -134,6 +136,7 @@ private fun MainScaffold(
         destination?.hierarchy?.any {
             it.hasRoute(PassportGraph::class) || it.hasRoute(BookingImportRoute::class) || it.hasRoute(CompanionsRoute::class)
         } == true -> Tab.Wallet
+        destination?.hierarchy?.any { it.hasRoute(TransportRoute::class) || it.hasRoute(GuideRoute::class) } == true -> Tab.Explore
         destination?.hierarchy?.any {
             it.hasRoute(FormConfirmRoute::class) || it.hasRoute(AutofillRoute::class) || it.hasRoute(FormManualRoute::class)
         } == true -> Tab.Prepare
@@ -180,12 +183,13 @@ private fun MainScaffold(
                             registerPassport = { navController.navigate(PassportGraph()) },
                             present = { navController.navigate(PresentRoute) },
                             help = { navController.switchTab(Tab.Help) },
-                            goStay = { navController.switchTab(Tab.Explore) },
+                            goStay = { navController.navigate(TransportRoute) },
                             expense = { navController.switchTab(Tab.Prepare) },
                         ),
                     )
                 }
                 composable<TripRoute> { TripScreen(onDone = { navController.popBackStack() }) }
+                composable<TransportRoute> { TransportScreen() }
                 composable<PresentRoute> { slots.present() }
                 composable<CompanionsRoute> {
                     CompanionsScreen(onRegisterPassport = { id -> navController.navigate(PassportGraph(traveler = id)) })
@@ -204,7 +208,12 @@ private fun MainScaffold(
                     AutofillScreen(onManual = { navController.navigate(FormManualRoute(formId)) })
                 }
                 composable<FormManualRoute> { ManualModeScreen() }
-                composable<ExploreRoute> { slots.explore { country -> navController.navigate(GuideRoute(country)) } }
+                composable<ExploreRoute> {
+                    slots.explore(
+                        { country -> navController.navigate(GuideRoute(country)) },
+                        { navController.navigate(TransportRoute) },
+                    )
+                }
                 composable<GuideRoute> { entry -> slots.guide(entry.toRoute<GuideRoute>().country) }
                 composable<WalletRoute> {
                     slots.wallet(
@@ -272,7 +281,7 @@ data class ScreenSlots(
         { onAddPassport, onAddBooking, onOpenCompanions ->
             WalletScreen(onAddPassport = onAddPassport, onAddBooking = onAddBooking, onOpenCompanions = onOpenCompanions)
         },
-    val explore: @Composable (onOpenGuide: (String) -> Unit) -> Unit = { ExploreScreen(onOpenGuide = it) },
+    val explore: @Composable (onOpenGuide: (String) -> Unit, onMove: () -> Unit) -> Unit = { g, m -> ExploreScreen(onOpenGuide = g, onMove = m) },
     val guide: @Composable (country: String) -> Unit = { GuideScreen() },
     val help: @Composable () -> Unit = { HelpScreen() },
     val prepare: @Composable (onOpenForm: (String) -> Unit) -> Unit = { PrepareScreen(onOpenForm = it) },

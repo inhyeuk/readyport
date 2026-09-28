@@ -366,6 +366,29 @@
     <string name="widget_label">레디포트 입국 QR</string>
     <string name="widget_open">입국 QR 열기</string>
 
+    <!-- 이동하기 (PRD 5.9) -->
+    <string name="move_title">이동하기</string>
+    <string name="move_speech">이동하기. 가는 곳을 고르고, 차를 부르거나 기사님께 주소를 보여 주세요.</string>
+    <string name="move_destination">가는 곳</string>
+    <string name="move_no_place">아직 가는 곳이 없어요. 숙소 이름과 현지어 주소를 적어 두면 인터넷 없이도 기사님께 보여 줄 수 있어요.</string>
+    <string name="move_place_name">이름 (예: 방콕 숙소)</string>
+    <string name="move_place_address">현지어 주소 (예약 확인서에서 복사해 붙여 넣기)</string>
+    <string name="move_place_add">가는 곳 저장</string>
+    <string name="move_place_change">바꾸기</string>
+    <string name="move_place_saved">현지어 주소 저장됨</string>
+    <string name="move_ride_title">차 부르기</string>
+    <string name="move_ride_open_with_dest">목적지 넣어서 열기</string>
+    <string name="move_ride_open_copy">앱 열기 (주소는 복사해 둘게요)</string>
+    <string name="move_ride_install">Play 스토어에서 받기</string>
+    <string name="move_ride_failed">앱을 열지 못했어요. 주소를 복사해 두었어요.</string>
+    <string name="move_ride_copied">주소를 복사했어요. 앱에서 목적지 칸에 붙여 넣으세요.</string>
+    <string name="move_fare_note">요금은 각 앱에서 확인하세요.</string>
+    <string name="move_transit_title">지하철·버스</string>
+    <string name="move_transit_button">Google 지도 길찾기</string>
+    <string name="move_show_driver">기사님께 보여주기</string>
+    <string name="move_full_screen">화면 가득 크게 보기</string>
+    <string name="move_no_apps">이 나라의 차 부르기 앱 안내는 준비 중이에요. Google 지도 길찾기를 쓰세요.</string>
+
     <!-- 설정 -->
     <string name="settings_title">설정</string>
     <string name="settings_easy_mode">쉬운 모드</string>
