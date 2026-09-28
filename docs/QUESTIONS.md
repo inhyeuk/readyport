@@ -61,7 +61,7 @@
 | C23 | ARIA 설정: 공공데이터포털 외교부 입국허가요건 API 키·요청 주소 확인(`MOFA_API_URL` [재확인]), 감시할 공지 페이지 목록(`NOTICE_URLS`), 텔레그램 봇에 chat_id 허용 목록 연결, `CLAUDE_BIN`은 claude.exe | ARIA 연결 시 | ⏳ |
 | C24 | 개발 폰에서 확인하느라 `favorite_counts/TH`가 1로 만들어짐(2026-09-29). 출시 전 0부터 세려면 콘솔에서 지우기(선택) | 출시 전 | ⏳ |
 | C14 | ✅ TDAC 실기기 리허설 완료(2026-09-28): 폰 Chrome에서 사람 확인이 저절로 통과됨. DevTools로 화면 구조와 서버가 준 선택지 목록만 읽음. 입력·제출 없음. 여는 버튼('Arrival Card')만 눌렀음 | M4 | ✅ |
-| C13 | GitHub 계정 `inhyeuk` 확인(2026-09-28). https://github.com/new 에서 **빈 공개 저장소 `readyport`**(README·.gitignore 없이)를 만들어 주면 Claude가 원격 연결·푸시·main 브랜치 보호 설정. 이 PC엔 `gh`와 이 용도의 GitHub 인증이 없음 | M1 이후 아무 때나 | ⏳ |
+| C13 | ✅ 2026-09-29 공개 저장소 https://github.com/inhyeuk/readyport 생성·푸시. main 보호: PR 필수, 관리자 포함 우회 금지, 강제 푸시·삭제 금지. 승인 수는 0(혼자 운영이라 자기 PR을 승인할 수 없음 — 사람 검토는 머지 버튼을 누르는 것으로) | M0 | ✅ |
 
 ## 답변 기록
 
