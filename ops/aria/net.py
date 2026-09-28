@@ -5,6 +5,7 @@ fetcher(method, url, headers=None, data=None, timeout=20.0) -> Response
 """
 from __future__ import annotations
 
+import gzip
 import re
 import urllib.error
 import urllib.request
@@ -48,20 +49,33 @@ class NetworkError(Exception):
     """연결 실패·시간 초과 같은 네트워크 오류 (다시 시도해도 되는 실패)."""
 
 
+def decode_body(body: bytes, headers: dict) -> bytes:
+    """Content-Encoding: gzip 이면 푼다 (urllib은 스스로 풀지 않는다)."""
+    enc = next((v for k, v in headers.items() if k.lower() == "content-encoding"), "")
+    if "gzip" in (enc or "").lower() and body:
+        try:
+            return gzip.decompress(body)
+        except OSError:
+            return body
+    return body
+
+
 def urllib_fetch(method: str, url: str, headers: Optional[dict] = None,
                  data: Optional[bytes] = None, timeout: float = 20.0) -> Response:
     """실제 네트워크 요청. HTTP 오류 코드도 Response 로 돌려준다(예외 아님)."""
     req = urllib.request.Request(url, data=data, method=method, headers=headers or {})
     try:
         with urllib.request.urlopen(req, timeout=timeout) as r:
-            return Response(r.status, r.read(), dict(r.headers.items()), r.geturl())
+            h = dict(r.headers.items())
+            return Response(r.status, decode_body(r.read(), h), h, r.geturl())
     except urllib.error.HTTPError as e:
         body = b""
         try:
             body = e.read()
         except Exception:  # noqa: BLE001 — 본문을 못 읽어도 상태 코드는 쓴다
             pass
-        return Response(e.code, body, dict(e.headers.items()) if e.headers else {}, url)
+        h = dict(e.headers.items()) if e.headers else {}
+        return Response(e.code, decode_body(body, h), h, url)
     except (urllib.error.URLError, TimeoutError, OSError) as e:
         raise NetworkError(f"{type(e).__name__}: {e}") from None
 
