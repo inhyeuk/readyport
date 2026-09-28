@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 창 배경 등 XML에서 필요한 최소 색만. 앱 디자인 토큰은 Compose 테마(M1)에서 관리한다. -->
+<resources>
+    <color name="ground">#FFF4F5F7</color>
+</resources>

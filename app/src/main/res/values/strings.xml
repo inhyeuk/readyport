@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- UI 문구는 쉬운 말 사전(PRD 3.4)을 따른다. 전문 용어는 괄호로만 병기한다. -->
+<resources>
+    <string name="app_name">레디포트</string>
+</resources>
