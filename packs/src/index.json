@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "version": "2026.09.28-1",
+  "countries": [
+    { "code": "TH", "name_ko": "태국", "name_en": "Thailand", "pack": true },
+    { "code": "JP", "name_ko": "일본", "name_en": "Japan", "pack": false },
+    { "code": "SG", "name_ko": "싱가포르", "name_en": "Singapore", "pack": false },
+    { "code": "MY", "name_ko": "말레이시아", "name_en": "Malaysia", "pack": false },
+    { "code": "ID", "name_ko": "인도네시아", "name_en": "Indonesia", "pack": false }
+  ],
+  "common_emergency": [
+    {
+      "id": "consular_call_center",
+      "label_ko": "영사콜센터 (서울, 24시간)",
+      "number": "+82-2-3210-0404",
+      "note_ko": "해외에서 걸 때 번호예요. 통화료가 들어요.",
+      "source": "mofa_0404",
+      "last_verified": "2026-09-28"
+    }
+  ],
+  "sources": [
+    { "id": "mofa_0404", "name": "외교부 해외안전여행", "url": "https://0404.go.kr" }
+  ]
+}

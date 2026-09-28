@@ -30,8 +30,18 @@ import com.readyport.ui.nav.TodayRoute
 import com.readyport.ui.nav.WalletRoute
 import com.readyport.ui.onboarding.FirstRunScreen
 import com.readyport.ui.settings.SettingsScreen
-import com.readyport.ui.tabs.ExploreScreen
-import com.readyport.ui.tabs.HelpScreen
+import com.readyport.R
+import com.readyport.ui.nav.GuideRoute
+import com.readyport.ui.pack.ExploreScreen
+import com.readyport.ui.pack.GuideScreen
+import com.readyport.ui.pack.HelpScreen
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
+import androidx.navigation.toRoute
 import com.readyport.ui.tabs.PrepareScreen
 import com.readyport.ui.wallet.BookingImportScreen
 import com.readyport.ui.wallet.PassportConfirmScreen
@@ -67,7 +77,8 @@ fun ReadyPortRoot(
     onSetEasyMode: (Boolean) -> Unit,
     onSpeak: (String) -> Unit,
     hasPendingShare: Boolean = false,
-    walletTab: WalletTabSlot = DefaultWalletTab,
+    online: Boolean = true,
+    slots: ScreenSlots = ScreenSlots(),
 ) {
     when {
         settings == null -> Box(Modifier.fillMaxSize().background(Tokens.Ground))
@@ -77,7 +88,7 @@ fun ReadyPortRoot(
             }
         }
         else -> ReadyPortTheme(easyMode = settings.easyMode) {
-            MainScaffold(settings.easyMode, onSetEasyMode, onSpeak, hasPendingShare, walletTab)
+            MainScaffold(settings.easyMode, onSetEasyMode, onSpeak, hasPendingShare, online, slots)
         }
     }
 }
@@ -88,7 +99,8 @@ private fun MainScaffold(
     onSetEasyMode: (Boolean) -> Unit,
     onSpeak: (String) -> Unit,
     hasPendingShare: Boolean,
-    walletTab: WalletTabSlot,
+    online: Boolean,
+    slots: ScreenSlots,
 ) {
     val navController = rememberNavController()
     val backStack by navController.currentBackStackEntryAsState()
@@ -118,6 +130,7 @@ private fun MainScaffold(
     CompositionLocalProvider(LocalAppActions provides actions) {
         Scaffold(
             containerColor = Tokens.Ground,
+            topBar = { if (!online) OfflineBanner() },
             bottomBar = { BottomTabs(selected = selectedTab, onSelect = { navController.switchTab(it) }) },
         ) { inner ->
             NavHost(
@@ -132,9 +145,10 @@ private fun MainScaffold(
                     )
                 }
                 composable<PrepareRoute> { PrepareScreen() }
-                composable<ExploreRoute> { ExploreScreen() }
+                composable<ExploreRoute> { slots.explore { country -> navController.navigate(GuideRoute(country)) } }
+                composable<GuideRoute> { entry -> slots.guide(entry.toRoute<GuideRoute>().country) }
                 composable<WalletRoute> {
-                    walletTab(
+                    slots.wallet(
                         { navController.navigate(PassportGraph) },
                         { navController.navigate(BookingImportRoute) },
                     )
@@ -177,18 +191,38 @@ private fun MainScaffold(
                         if (!navController.popBackStack()) navController.switchTab(Tab.Wallet)
                     })
                 }
-                composable<HelpRoute> { HelpScreen() }
+                composable<HelpRoute> { slots.help() }
                 composable<SettingsRoute> { SettingsScreen(easyMode = easyMode, onEasyModeChange = onSetEasyMode) }
             }
         }
     }
 }
 
-/** 지갑 탭 자리. 테스트에서는 Hilt 없이 상태 없는 화면으로 바꿔 끼운다 */
-typealias WalletTabSlot = @Composable (onAddPassport: () -> Unit, onAddBooking: () -> Unit) -> Unit
+/**
+ * Hilt ViewModel을 쓰는 화면 자리. 테스트에서는 상태 없는 Content 화면으로 바꿔 끼운다.
+ */
+data class ScreenSlots(
+    val wallet: @Composable (onAddPassport: () -> Unit, onAddBooking: () -> Unit) -> Unit = { onAddPassport, onAddBooking ->
+        WalletScreen(onAddPassport = onAddPassport, onAddBooking = onAddBooking)
+    },
+    val explore: @Composable (onOpenGuide: (String) -> Unit) -> Unit = { ExploreScreen(onOpenGuide = it) },
+    val guide: @Composable (country: String) -> Unit = { GuideScreen() },
+    val help: @Composable () -> Unit = { HelpScreen() },
+)
 
-private val DefaultWalletTab: WalletTabSlot = { onAddPassport, onAddBooking ->
-    WalletScreen(onAddPassport = onAddPassport, onAddBooking = onAddBooking)
+/** 오프라인 배너 (PRD 5.1): 남색, 화면 맨 위 */
+@Composable
+private fun OfflineBanner() {
+    Text(
+        text = stringResource(R.string.offline_banner),
+        color = Tokens.Surface,
+        style = MaterialTheme.typography.labelLarge,
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(Tokens.Navy)
+            .statusBarsPadding()
+            .padding(horizontal = 16.dp, vertical = 10.dp),
+    )
 }
 
 /** 여권 등록 흐름의 화면들이 같은 ViewModel(촬영 결과)을 나눠 쓴다. 흐름을 벗어나면 함께 사라진다 */

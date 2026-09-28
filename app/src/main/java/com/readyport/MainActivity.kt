@@ -8,7 +8,9 @@ import androidx.activity.viewModels
 import androidx.compose.runtime.getValue
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.readyport.net.onlineFlow
 import com.readyport.share.ShareInbox
+import androidx.compose.runtime.remember
 import com.readyport.ui.ReadyPortRoot
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -27,11 +29,13 @@ class MainActivity : FragmentActivity() {
         setContent {
             val settings by viewModel.settings.collectAsStateWithLifecycle()
             val pendingShare by shareInbox.pending.collectAsStateWithLifecycle()
+            val online by remember { applicationContext.onlineFlow() }.collectAsStateWithLifecycle(initialValue = true)
             ReadyPortRoot(
                 settings = settings,
                 onSetEasyMode = viewModel::setEasyMode,
                 onSpeak = viewModel::speak,
                 hasPendingShare = pendingShare != null,
+                online = online,
             )
         }
     }

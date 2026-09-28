@@ -20,3 +20,6 @@ import kotlinx.serialization.Serializable
 
 /** 지갑 › 예약 서류 추가. 다른 앱의 '공유하기'로도 들어온다 */
 @Serializable data object BookingImportRoute
+
+/** 여행지 › 국가 가이드. 인터넷 없이 저장해 둔 팩으로 보여 준다 */
+@Serializable data class GuideRoute(val country: String)

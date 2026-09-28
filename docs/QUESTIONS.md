@@ -25,8 +25,8 @@
 |---|---|---|---|
 | B1 | MVP 5개 양식 공식 도메인(TDAC·MDAC·SG Arrival Card·All Indonesia·Visit Japan Web)과 제출 가능 기한 | 레시피 `official_url_patterns`, `open_window` | M4·M5 |
 | B2 | 각 양식 필드 선택자(제출 없이 구조만 확인) | 레시피 | M4·M5 |
-| B3 | 외교부 입국허가요건 공공데이터 API 주소·형식 | 국가 팩 `sources`, ARIA 감지 | M3·M9 |
-| B4 | 국가별 긴급 전화번호, 주재 대한민국 대사관 연락처(외교부 기준) | 도움 탭 | M7 |
+| B3 | 외교부 입국허가요건 공공데이터 API 주소·형식 — M3 태국 팩은 외교부 해외안전여행(0404.go.kr) 페이지로 확인함. API는 ARIA 감지 구현(M9) 때 조사 | 국가 팩 `sources`, ARIA 감지 | M9 |
+| B4 | ✅ 태국: 긴급 전화 5종·대사관·여권 분실 순서·영사콜센터를 0404.go.kr·overseas.mofa.go.kr·passport.go.kr에서 확인(2026-09-28), 팩에 출처와 함께 반영. 나머지 MVP 4개국은 M5 | 도움 탭 | M3·M5 |
 | B5 | 교통 앱 패키지명·공식 딥링크 규격(Grab·Bolt·GO·Uber 등), 동남아 Uber 여부 | 이동하기 | M7 |
 | B6 | ✅ 타깃 API: 2026-08-31부터 신규·업데이트 36 이상(연장 시 11-01), 확인 2026-09-28 developer.android.com/google/play/requirements/target-sdk. 접근성 API 정책은 M10에서 | 빌드 설정, 정책 | M1·M10 |
 | B7 | Firebase Spark 한도(Hosting·Firestore), Cloud Storage Blaze 전환 여부 | 아키텍처 | M3·M9 |
@@ -38,8 +38,8 @@
 
 | # | 할 일 | 필요한 시점 | 상태 |
 |---|---|---|---|
-| C1 | Firebase 프로젝트 생성(Spark), `google-services.json` 전달, 서비스 계정(Remote Config 전용) 발급 | M3 | ✅ 2026-09-28 프로젝트 `readyport-app`(DoingWell과 같은 Google 계정, Spark), Android 앱 2개(`com.readyport`, `com.readyport.debug`) 등록, `app/google-services.json` 저장. 서비스 계정은 M9 |
-| C2 | 팩 서명용 Ed25519 키 생성 방식 결정 — Claude가 생성 스크립트를 만들고, **비밀키는 운영자가 직접 생성해 GitHub Actions secrets에만 등록**(저장소·ARIA에 두지 않음) | M3 | ⏳ |
+| C1 | Firebase 프로젝트 생성(Spark), `google-services.json` 전달, 서비스 계정(Remote Config 전용) 발급 | M3 | ✅ 2026-09-28 Hosting(`readyport-app.web.app/packs/`)·Remote Config 템플릿 배포까지 완료. 프로젝트 `readyport-app`(DoingWell과 같은 Google 계정, Spark), Android 앱 2개(`com.readyport`, `com.readyport.debug`) 등록, `app/google-services.json` 저장. 서비스 계정은 M9 |
+| C2 | ✅ 키 `rp-2026-1` 생성(2026-09-28, `tools/packs/keygen.py`). 비밀키는 이 PC `C:\Users\inhye\.readyport\keys\pack_signing_rp-2026-1.pem`에만 있음 → **운영자가 안전한 곳에 백업**하고, GitHub 저장소가 생기면 그 내용을 Actions secret `READYPORT_PACK_KEY`로 등록 | M3 | 백업 ⏳ |
 | C3 | 공공데이터포털(외교부·인천공항·한국공항공사) API 키 발급 | M3·M8 | ⏳ |
 | C4 | 네이버 데이터랩(API HUB 종량제) 키 발급·비용 확인 | M8 | ⏳ |
 | C5 | 제휴 프로그램 선택·가입, 앱 게재 허용과 표기 문구 약관 확인 | M8 | ⏳ |
@@ -47,7 +47,7 @@
 | C7 | GitHub fine-grained 토큰(이 저장소 전용), Actions secrets 등록 | M9 | ⏳ |
 | C8 | 법률 검토: 개인정보처리방침, 보험·금융 링크, 가족 모드 동의, 정부 서비스 관련 스토어 정책 | M10 | ⏳ |
 | C9 | 상표 검색(KIPRIS), Play 스토어 동일 이름 확인 | 출시 전 | ⏳ |
-| C10 | 현지어 문장·양식 라벨 원어민 검수(태국어·말레이어·인도네시아어·일본어), 긴급 연락처 검수 | M4~M7 | ⏳ |
+| C10 | 현지어 문장·양식 라벨 원어민 검수(태국어·말레이어·인도네시아어·일본어), 긴급 연락처 검수. 태국어 7문장이 `packs/src/TH/pack.json`에 `reviewed:false`로 들어가 있음 | 출시 전 | ⏳ |
 | C11 | 실기기 테스트 — 보유 S10 5G(Android 12)는 NFC·카메라 가능. **Android 13+ 테마 아이콘 확인용 기기 별도 필요** | M2·M6·M10 | ⏳ |
 | C12 | 사용자 테스트: 60대 무경험자 5명, 중학생 5명 | M10 | ⏳ |
 | C13 | GitHub 계정 `inhyeuk` 확인(2026-09-28). https://github.com/new 에서 **빈 공개 저장소 `readyport`**(README·.gitignore 없이)를 만들어 주면 Claude가 원격 연결·푸시·main 브랜치 보호 설정. 이 PC엔 `gh`와 이 용도의 GitHub 인증이 없음 | M1 이후 아무 때나 | ⏳ |

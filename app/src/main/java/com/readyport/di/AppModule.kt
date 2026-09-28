@@ -1,6 +1,14 @@
 package com.readyport.di
 
 import android.content.Context
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig
+import com.readyport.pack.AssetBundledPacks
+import com.readyport.pack.HttpPackRemote
+import com.readyport.pack.PackKeys
+import com.readyport.pack.PackRepository
+import com.readyport.pack.PackVerifier
+import com.readyport.pack.PackVersionSource
+import com.readyport.pack.RemoteConfigVersions
 import com.readyport.vault.AesGcmCipher
 import com.readyport.vault.KeystoreKeys
 import com.readyport.vault.WalletRepository
@@ -19,6 +27,20 @@ object AppModule {
 
     @Provides
     fun contentResolver(@ApplicationContext context: Context): android.content.ContentResolver = context.contentResolver
+
+    @Provides
+    @Singleton
+    fun packRepository(@ApplicationContext context: Context): PackRepository = PackRepository(
+        bundled = AssetBundledPacks(context.assets),
+        localDir = File(context.noBackupFilesDir, "packs"),
+        remote = HttpPackRemote(),
+        verifier = PackVerifier(PackKeys.TRUSTED),
+        io = Dispatchers.IO,
+    )
+
+    @Provides
+    @Singleton
+    fun packVersions(): PackVersionSource = RemoteConfigVersions(FirebaseRemoteConfig.getInstance())
 
     @Provides
     @Singleton

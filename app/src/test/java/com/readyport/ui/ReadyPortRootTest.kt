@@ -52,7 +52,7 @@ class ReadyPortRootTest {
                 settings = settings,
                 onSetEasyMode = { settings = AppSettings(easyMode = it) },
                 onSpeak = { spoken += it },
-                walletTab = FakeWalletTab,
+                slots = FakeSlots,
             )
         }
     }

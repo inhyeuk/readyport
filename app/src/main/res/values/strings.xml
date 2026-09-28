@@ -65,9 +65,35 @@
     <string name="explore_subtitle">가고 싶은 곳을 찾고 찜해요</string>
     <string name="explore_popular_title">요즘 인기 여행지</string>
     <string name="explore_popular_body">한국에서 출발하는 비행기 이용객과 검색 흐름으로 매주 순위를 바꿔요.</string>
-    <string name="explore_saved_title">찜한 여행지</string>
-    <string name="explore_saved_body">찜한 곳의 안내는 와이파이에서 미리 받아 두어서, 인터넷이 없어도 볼 수 있어요.</string>
     <string name="explore_speech">여행지. 요즘 인기 여행지와 찜한 여행지를 볼 수 있어요.</string>
+    <string name="explore_countries_title">여행지 고르기</string>
+    <string name="explore_favorite_add">%1$s 찜하기</string>
+    <string name="explore_favorite_remove">%1$s 찜 취소</string>
+    <string name="explore_status_saved">저장 완료 · 확인 %1$s</string>
+    <string name="explore_status_waiting">와이파이 되면 받을게요</string>
+    <string name="explore_status_downloading">받는 중</string>
+    <string name="explore_status_not_ready">안내 준비 중</string>
+    <string name="explore_open_guide">가이드 열기</string>
+    <string name="explore_saved_contents">입국 서류 안내 · 돈 · 안전 · 현지어 카드 · 긴급 연락처</string>
+    <string name="explore_wifi_only">와이파이에서만 받기</string>
+    <string name="explore_wifi_only_desc">휴대폰 데이터 요금이 나가지 않게, 찜한 곳의 안내를 와이파이에서만 받아요.</string>
+    <string name="explore_maps_title">지도도 저장해 두세요</string>
+    <string name="explore_maps_step1">1. Google 지도 앱에서 내 프로필 사진을 눌러요.</string>
+    <string name="explore_maps_step2">2. \'오프라인 지도\' → \'내 지도 선택\'을 눌러요.</string>
+    <string name="explore_maps_step3">3. 여행할 곳이 네모 안에 들어오게 맞추고 \'다운로드\'를 눌러요.</string>
+    <string name="explore_maps_note">나라에 따라 지도를 저장할 수 없는 곳도 있어요.</string>
+    <string name="explore_maps_source">Google 지도 고객센터</string>
+
+    <!-- 국가 가이드 -->
+    <string name="guide_last_verified">최종 확인 %1$s</string>
+    <string name="guide_requirements_title">들어갈 때 필요한 것</string>
+    <string name="guide_form_fee">비용: %1$s</string>
+    <string name="guide_form_window">내는 때: %1$s</string>
+    <string name="guide_form_official">공식 사이트: %1$s</string>
+    <string name="guide_not_affiliated">레디포트는 정부 기관과 제휴하지 않았어요.</string>
+    <string name="guide_origin_bundled">앱에 들어 있는 안내</string>
+    <string name="guide_origin_downloaded">받아 둔 안내</string>
+    <string name="guide_speech">%1$s 여행 가이드. 인터넷이 없어도 볼 수 있어요.</string>
 
     <!-- 지갑 -->
     <string name="wallet_title">지갑</string>
@@ -180,10 +206,23 @@
     <string name="help_title">도움</string>
     <string name="help_offline_badge">인터넷 없어도 돼요</string>
     <string name="help_phrases_title">자주 쓰는 말</string>
-    <string name="help_phrases_body">\"화장실이 어디예요?\" 같은 말을 현지어로 크게 보여 주고 소리로 들려 드려요.</string>
     <string name="help_emergency_title">급할 때 연락</string>
-    <string name="help_emergency_body">여행지를 고르면 그 나라 긴급 전화, 대한민국 대사관, 여권을 잃어버렸을 때 할 일을 순서대로 알려 드려요.</string>
     <string name="help_speech">도움. 인터넷이 없어도 돼요. 자주 쓰는 말과 급할 때 연락처를 볼 수 있어요.</string>
+    <string name="help_choose_country">어느 나라에 있나요?</string>
+    <string name="help_no_country">여행지 탭에서 나라를 찜하면 그 나라 문장과 연락처가 나와요.</string>
+    <string name="help_play_sound">소리로 들려주기</string>
+    <string name="help_full_screen">화면 크게</string>
+    <string name="help_close">닫기</string>
+    <string name="help_unreviewed">원어민 검수 전</string>
+    <string name="help_no_tts">이 휴대폰에는 %1$s 음성이 없어요. 화면을 보여 주세요.</string>
+    <string name="help_embassy">대한민국 대사관</string>
+    <string name="help_embassy_after_hours">근무시간 외 긴급</string>
+    <string name="help_call">%1$s 전화 걸기</string>
+    <string name="help_common_title">어느 나라에서나</string>
+    <string name="help_procedures_title">이럴 땐 이렇게</string>
+
+    <!-- 오프라인 -->
+    <string name="offline_banner">인터넷 없음 · 저장해 둔 정보로 보여 드려요</string>
 
     <!-- 설정 -->
     <string name="settings_title">설정</string>

@@ -1,16 +1,11 @@
 package com.readyport.ui.tabs
 
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import com.readyport.R
 import com.readyport.ui.components.AppScreen
 import com.readyport.ui.components.CardTone
-import com.readyport.ui.components.InfoCard
-import com.readyport.ui.components.StatusChip
 import com.readyport.ui.components.TopicCard
-import com.readyport.ui.theme.Tokens
 
 // M1: 탭별 정보 구조(PRD 4.1)만 잡는다. 각 기능은 ROADMAP 마일스톤에서 채운다.
 
@@ -36,43 +31,6 @@ fun PrepareScreen() {
         }
         item(key = "bookings") {
             TopicCard(stringResource(R.string.prepare_bookings_title), stringResource(R.string.prepare_bookings_body), comingSoon = true)
-        }
-    }
-}
-
-@Composable
-fun ExploreScreen() {
-    AppScreen(
-        title = stringResource(R.string.explore_title),
-        subtitle = stringResource(R.string.explore_subtitle),
-        speech = stringResource(R.string.explore_speech),
-    ) {
-        item(key = "popular") {
-            TopicCard(stringResource(R.string.explore_popular_title), stringResource(R.string.explore_popular_body), comingSoon = true)
-        }
-        item(key = "saved") {
-            TopicCard(stringResource(R.string.explore_saved_title), stringResource(R.string.explore_saved_body), comingSoon = true)
-        }
-    }
-}
-
-@Composable
-fun HelpScreen() {
-    AppScreen(
-        title = stringResource(R.string.help_title),
-        speech = stringResource(R.string.help_speech),
-        headerActions = {
-            StatusChip(stringResource(R.string.help_offline_badge), container = Tokens.SuccessBg, content = Tokens.SuccessText)
-        },
-    ) {
-        item(key = "phrases") {
-            TopicCard(stringResource(R.string.help_phrases_title), stringResource(R.string.help_phrases_body), comingSoon = true)
-        }
-        item(key = "emergency") {
-            InfoCard(tone = CardTone.Caution) {
-                Text(stringResource(R.string.help_emergency_title), style = MaterialTheme.typography.titleMedium)
-                Text(stringResource(R.string.help_emergency_body), style = MaterialTheme.typography.bodyMedium)
-            }
         }
     }
 }

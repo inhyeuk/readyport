@@ -18,6 +18,13 @@ jobs:
         with:
           distribution: temurin
           java-version: "21"
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Validate country packs (schema, sources, no unsettled markers)
+        run: |
+          pip install -r tools/packs/requirements.txt
+          python tools/packs/build_packs.py --check
       - uses: gradle/actions/setup-gradle@v4
       - name: Build, unit test, lint
         run: ./gradlew :app:assembleDebug :app:testDebugUnitTest :app:lintDebug --console=plain

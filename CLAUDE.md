@@ -41,6 +41,13 @@ $env:ANDROID_HOME='E:\_PROGRAM_Installed\Android_SDK'
 - `app/google-services.json`은 비밀이 아니라서 저장소에 둔다(보호는 Firestore 규칙·App Check로). 서비스 계정 키·서명 비밀키는 절대 저장소에 두지 않는다.
 - Analytics는 넣지 않는다(운영자 결정 2026-09-28).
 
+## 국가 팩
+
+- 원본은 `packs/src/`, 스키마는 `packs/schema/`. 고친 뒤: `python tools/packs/build_packs.py --kid rp-2026-1 --key ~/.readyport/keys/pack_signing_rp-2026-1.pem` → 내장본(assets) 갱신 → `firebase deploy --only hosting` → Remote Config `pack_version_{CC}` 올리기.
+- 팩 버전은 `yyyy.MM.dd-N`. 모든 정책·연락처 항목에 `source`·`last_verified`. 확인 안 된 값은 넣지 않는다(빌드가 `[확인 필요]`를 막는다).
+- Bash heredoc은 백슬래시를 한 겹 벗긴다. 이스케이프·윈도 경로가 든 편집은 Edit/Write 도구나 파일로 쓴 스크립트로 한다.
+- 설계 결정은 docs/ARCHITECTURE.md 끝 "구현 결정 기록".
+
 ---
 
 ## 작업 규칙 (지시서 15장 원문)

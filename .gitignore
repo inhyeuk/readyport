@@ -15,3 +15,6 @@ ops/aria/**/*.db
 ops/aria/**/*.sqlite
 ops/aria/evidence/
 __pycache__/
+
+# 서명된 팩 배포본은 tools/packs/build_packs.py 가 packs/src 에서 만든다
+hosting/public/packs/

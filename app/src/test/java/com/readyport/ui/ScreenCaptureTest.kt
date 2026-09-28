@@ -9,6 +9,7 @@ import androidx.compose.ui.test.captureToImage
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.v2.createComposeRule
 import androidx.compose.ui.test.onRoot
+import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.SemanticsProperties
@@ -57,7 +58,7 @@ class ScreenCaptureTest {
     }
 
     private fun captureAll(prefix: String, settings: AppSettings) {
-        rule.setContent { ReadyPortRoot(settings = settings, onSetEasyMode = {}, onSpeak = {}, walletTab = FakeWalletTab) }
+        rule.setContent { ReadyPortRoot(settings = settings, onSetEasyMode = {}, onSpeak = {}, slots = FakeSlots) }
         capture("${prefix}_1_today")
         openTab(R.string.tab_prepare); capture("${prefix}_2_prepare")
         openTab(R.string.tab_explore); capture("${prefix}_3_explore")
@@ -75,8 +76,21 @@ class ScreenCaptureTest {
     }
 
     @Test fun firstRun() {
-        rule.setContent { ReadyPortRoot(settings = AppSettings(easyMode = null), onSetEasyMode = {}, onSpeak = {}, walletTab = FakeWalletTab) }
+        rule.setContent { ReadyPortRoot(settings = AppSettings(easyMode = null), onSetEasyMode = {}, onSpeak = {}, slots = FakeSlots) }
         capture("first_run")
+    }
+
+    @Test fun guideAndOffline() {
+        rule.setContent {
+            ReadyPortRoot(
+                settings = AppSettings(easyMode = true), onSetEasyMode = {}, onSpeak = {},
+                online = false, slots = FakeSlots,
+            )
+        }
+        capture("m3_1_today_offline")
+        openTab(R.string.tab_explore); capture("m3_2_explore")
+        rule.onNodeWithText(context.getString(R.string.explore_open_guide)).performClick(); capture("m3_3_guide")
+        openTab(R.string.tab_help); capture("m3_4_help")
     }
 
     @Test fun walletScreens() {
