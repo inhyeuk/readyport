@@ -55,7 +55,7 @@
 | C17 | 쇼핑 리스트 현지어 이름(태국어·말레이어·인도네시아어·일본어) 원어민 검수 — Claude가 옮긴 이름이라 '직원에게 보여주기' 전에 확인 필요 | 출시 전 | ⏳ |
 | C18 | 제휴 프로그램 가입·약관 확인(앱 게재 허용, 표기 문구). 가입 전까지 '사러 가기' 링크 없음 | 제휴 시작 전 | ⏳ |
 | C19 | 축산물 성분 과자(카야 잼·솔티드 에그·일본 과자 상자) 반입 기준을 검역본부에 확인 — 지금은 '주의'로 표시 | 출시 전 | ⏳ |
-| C20 | 서비스 계정 만들기 + GitHub secrets 등록: `FIREBASE_SERVICE_ACCOUNT`(Hosting·Remote Config·FCM·Firestore 읽기), `PACK_SIGNING_KEY_PEM`. ARIA PC용은 Remote Config·Firestore만 있는 별도 계정(Hosting 권한 없음) | 저장소 생성 후 | ⏳ |
+| C20 | ✅ 2026-09-29 GitHub secrets `PACK_SIGNING_KEY_PEM`·`FIREBASE_SERVICE_ACCOUNT`(서비스 계정 github-deploy: Hosting·Remote Config·FCM 관리자, Datastore 뷰어, 서비스 사용량 소비자) 등록. deploy-packs 수동 실행 #2 전 단계 성공. ARIA PC용 별도 계정(Remote Config·Firestore만)은 ARIA 연결 때 | M9 | ✅ |
 | C21 | App Check: Play Console 앱 연결 → Play Integrity 등록, 디버그 토큰 등록(logcat 'DebugAppCheckProvider'), 확인 후 Firestore 강제 모드 켜기 | 출시 전 | ⏳ |
 | C22 | Firestore 위치가 nam5(미국)로 자동 생성됨. 서울로 바꾸려면 비어 있을 때 지우고 asia-northeast3로 다시 만들기(선택) | 선택 | ⏳ |
 | C23 | ARIA 설정: 공공데이터포털 외교부 입국허가요건 API 키·요청 주소 확인(`MOFA_API_URL` [재확인]), 감시할 공지 페이지 목록(`NOTICE_URLS`), 텔레그램 봇에 chat_id 허용 목록 연결, `CLAUDE_BIN`은 claude.exe | ARIA 연결 시 | ⏳ |

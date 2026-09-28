@@ -17,7 +17,7 @@
 
 ## 3. 계정·키·비밀값
 - **C6 Play Console**: 개발자 계정, 앱 만들기(`com.readyport`), Play App Signing, 내부 테스트 트랙에 `app-release.aab` 올리기
-- **C20 서비스 계정 + GitHub secrets**: `FIREBASE_SERVICE_ACCOUNT`(Hosting·Remote Config·FCM·Firestore 읽기), `PACK_SIGNING_KEY_PEM`. ARIA PC용은 별도 계정(Remote Config·Firestore만, Hosting 권한 없음)
+- ✅ C20 GitHub secrets 등록 완료(2026-09-29). ARIA PC용 서비스 계정(Remote Config·Firestore만)은 ARIA 연결 때
 - **C21 App Check**: Play Console 연결 → Play Integrity 등록, 디버그 토큰 등록(logcat `DebugAppCheckProvider`) → Firestore 강제 모드 켜기
 - C3·C4 공공데이터포털(외교부 입국허가요건·인천공항·한국공항공사), 네이버 데이터랩(비용 확인) 키 → 인기 순위·쇼핑 검색 추이가 켜진다
 - C23 ARIA 연결: `ops/aria/.env`(`.env.example` 참고), `MOFA_API_URL` 확인, `NOTICE_URLS`, 텔레그램 chat_id 허용 목록, `CLAUDE_BIN`=claude.exe
