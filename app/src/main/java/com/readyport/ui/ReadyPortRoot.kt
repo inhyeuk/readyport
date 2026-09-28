@@ -78,6 +78,12 @@ import com.readyport.ui.present.PresentScreen
 import com.readyport.ui.present.CompanionsScreen
 import com.readyport.ui.nav.TripRoute
 import com.readyport.ui.nav.TransportRoute
+import com.readyport.ui.nav.EssentialsRoute
+import com.readyport.ui.nav.ShoppingRoute
+import com.readyport.ui.nav.RankingsInfoRoute
+import com.readyport.ui.prep.EssentialsScreen
+import com.readyport.ui.pack.ShoppingScreen
+import com.readyport.ui.pack.RankingsInfoScreen
 import com.readyport.ui.transport.TransportScreen
 import com.readyport.ui.nav.PresentRoute
 import com.readyport.ui.nav.CompanionsRoute
@@ -136,9 +142,9 @@ private fun MainScaffold(
         destination?.hierarchy?.any {
             it.hasRoute(PassportGraph::class) || it.hasRoute(BookingImportRoute::class) || it.hasRoute(CompanionsRoute::class)
         } == true -> Tab.Wallet
-        destination?.hierarchy?.any { it.hasRoute(TransportRoute::class) || it.hasRoute(GuideRoute::class) } == true -> Tab.Explore
+        destination?.hierarchy?.any { it.hasRoute(TransportRoute::class) || it.hasRoute(GuideRoute::class) || it.hasRoute(ShoppingRoute::class) || it.hasRoute(RankingsInfoRoute::class) } == true -> Tab.Explore
         destination?.hierarchy?.any {
-            it.hasRoute(FormConfirmRoute::class) || it.hasRoute(AutofillRoute::class) || it.hasRoute(FormManualRoute::class)
+            it.hasRoute(FormConfirmRoute::class) || it.hasRoute(AutofillRoute::class) || it.hasRoute(FormManualRoute::class) || it.hasRoute(EssentialsRoute::class)
         } == true -> Tab.Prepare
         else -> lastTab
     }
@@ -194,7 +200,12 @@ private fun MainScaffold(
                 composable<CompanionsRoute> {
                     CompanionsScreen(onRegisterPassport = { id -> navController.navigate(PassportGraph(traveler = id)) })
                 }
-                composable<PrepareRoute> { slots.prepare { formId -> navController.navigate(FormConfirmRoute(formId)) } }
+                composable<PrepareRoute> {
+                    slots.prepare({ formId -> navController.navigate(FormConfirmRoute(formId)) }, { navController.navigate(EssentialsRoute) })
+                }
+                composable<EssentialsRoute> { EssentialsScreen() }
+                composable<ShoppingRoute> { ShoppingScreen() }
+                composable<RankingsInfoRoute> { RankingsInfoScreen() }
                 composable<FormConfirmRoute> { entry ->
                     val formId = entry.toRoute<FormConfirmRoute>().formId
                     FormConfirmScreen(
@@ -212,9 +223,12 @@ private fun MainScaffold(
                     slots.explore(
                         { country -> navController.navigate(GuideRoute(country)) },
                         { navController.navigate(TransportRoute) },
+                        { navController.navigate(RankingsInfoRoute) },
                     )
                 }
-                composable<GuideRoute> { entry -> slots.guide(entry.toRoute<GuideRoute>().country) }
+                composable<GuideRoute> { entry ->
+                    slots.guide(entry.toRoute<GuideRoute>().country) { country -> navController.navigate(ShoppingRoute(country)) }
+                }
                 composable<WalletRoute> {
                     slots.wallet(
                         { navController.navigate(PassportGraph()) },
@@ -281,10 +295,12 @@ data class ScreenSlots(
         { onAddPassport, onAddBooking, onOpenCompanions ->
             WalletScreen(onAddPassport = onAddPassport, onAddBooking = onAddBooking, onOpenCompanions = onOpenCompanions)
         },
-    val explore: @Composable (onOpenGuide: (String) -> Unit, onMove: () -> Unit) -> Unit = { g, m -> ExploreScreen(onOpenGuide = g, onMove = m) },
-    val guide: @Composable (country: String) -> Unit = { GuideScreen() },
+    val explore: @Composable (onOpenGuide: (String) -> Unit, onMove: () -> Unit, onRankingsInfo: () -> Unit) -> Unit =
+        { g, m, r -> ExploreScreen(onOpenGuide = g, onMove = m, onRankingsInfo = r) },
+    val guide: @Composable (country: String, onOpenShopping: (String) -> Unit) -> Unit = { _, s -> GuideScreen(onOpenShopping = s) },
     val help: @Composable () -> Unit = { HelpScreen() },
-    val prepare: @Composable (onOpenForm: (String) -> Unit) -> Unit = { PrepareScreen(onOpenForm = it) },
+    val prepare: @Composable (onOpenForm: (String) -> Unit, onOpenEssentials: () -> Unit) -> Unit =
+        { f, e -> PrepareScreen(onOpenForm = f, onOpenEssentials = e) },
     val today: @Composable (actions: TodayActions) -> Unit = { TodayScreen(actions = it) },
     val present: @Composable () -> Unit = { PresentScreen(defaultFormId = null) },
 )

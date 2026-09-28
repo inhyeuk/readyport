@@ -23,7 +23,10 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import com.readyport.prep.Essentials
+import com.readyport.trip.TripRepository
 import javax.inject.Inject
 
 /** 준비 탭에 보여 줄 입국 서류 하나 */
@@ -37,11 +40,22 @@ data class FormEntry(
     val lastVerified: String,
 )
 
+/** 준비 탭의 '꼭 챙길 물건' 요약: 전체 n개 중 m개 */
+data class EssentialsSummary(val total: Int = 0, val done: Int = 0)
+
 @HiltViewModel
 class PrepareViewModel @Inject constructor(
     packs: PackRepository,
     settings: SettingsRepository,
+    trips: TripRepository,
 ) : ViewModel() {
+    val essentials: StateFlow<EssentialsSummary> = combine(settings.settings, trips.trip, packs.revision) { s, trip, _ ->
+        val index = packs.index()?.value
+        val dest = trip?.let { packs.pack(it.country)?.value?.power }
+        val rules = Essentials.select(index?.essentials.orEmpty(), index?.homePower, dest)
+        EssentialsSummary(rules.size, rules.count { it.id in s.haveItems })
+    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), EssentialsSummary())
+
     /** 찜한 나라의 입국 서류. 찜이 없으면 받아 둔 모든 나라 (여행 만들기는 M6) */
     val forms: StateFlow<List<FormEntry>> = combine(settings.settings, packs.revision) { s, _ ->
         val countries = packs.index()?.value?.countries.orEmpty().filter { it.pack }
@@ -55,13 +69,19 @@ class PrepareViewModel @Inject constructor(
 }
 
 @Composable
-fun PrepareScreen(onOpenForm: (String) -> Unit, viewModel: PrepareViewModel = hiltViewModel()) {
+fun PrepareScreen(onOpenForm: (String) -> Unit, onOpenEssentials: () -> Unit = {}, viewModel: PrepareViewModel = hiltViewModel()) {
     val forms by viewModel.forms.collectAsStateWithLifecycle()
-    PrepareContent(forms, onOpenForm)
+    val essentials by viewModel.essentials.collectAsStateWithLifecycle()
+    PrepareContent(forms, onOpenForm, essentials, onOpenEssentials)
 }
 
 @Composable
-fun PrepareContent(forms: List<FormEntry>, onOpenForm: (String) -> Unit) {
+fun PrepareContent(
+    forms: List<FormEntry>,
+    onOpenForm: (String) -> Unit,
+    essentials: EssentialsSummary = EssentialsSummary(),
+    onOpenEssentials: () -> Unit = {},
+) {
     AppScreen(
         title = stringResource(R.string.prepare_title),
         subtitle = stringResource(R.string.prepare_subtitle),
@@ -89,7 +109,14 @@ fun PrepareContent(forms: List<FormEntry>, onOpenForm: (String) -> Unit) {
             }
         }
         item(key = "items") {
-            TopicCard(stringResource(R.string.prepare_items_title), stringResource(R.string.prepare_items_body), comingSoon = true)
+            InfoCard {
+                Text(stringResource(R.string.prepare_items_title), style = MaterialTheme.typography.titleMedium)
+                Text(stringResource(R.string.prepare_items_body), style = MaterialTheme.typography.bodyMedium)
+                if (essentials.total > 0) {
+                    Text(stringResource(R.string.essentials_progress, essentials.total, essentials.done), style = MaterialTheme.typography.bodyLarge)
+                }
+                PrimaryButton(stringResource(R.string.prepare_items_open), onClick = onOpenEssentials)
+            }
         }
         item(key = "apps") {
             TopicCard(stringResource(R.string.prepare_apps_title), stringResource(R.string.prepare_apps_body), comingSoon = true)

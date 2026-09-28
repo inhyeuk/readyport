@@ -57,6 +57,23 @@ def check_sources(doc, label, errors):
     emb = doc.get("embassy")
     if emb and emb.get("source") not in ids:
         errors.append(f"{label}: embassy.source 가 sources 에 없음")
+    for key in ("power", "home_power"):
+        if doc.get(key) and doc[key].get("source") not in ids:
+            errors.append(f"{label}: {key}.source 가 sources 에 없음")
+    for i, item in enumerate(doc.get("shopping", [])):
+        for k in ("source", "import_source"):
+            if item.get(k) not in ids:
+                errors.append(f"{label}: shopping[{i}].{k} '{item.get(k)}' 가 sources 에 없음")
+    for i, fact in enumerate(doc.get("return_facts", [])):
+        if fact.get("source") not in ids:
+            errors.append(f"{label}: return_facts[{i}].source 가 sources 에 없음")
+    for i, rule in enumerate(doc.get("essentials", [])):
+        if rule.get("source") and rule["source"] not in ids:
+            errors.append(f"{label}: essentials[{i}].source 가 sources 에 없음")
+        link = rule.get("link") or {}
+        # 보험·환전·카드 같은 금융 상품에는 제휴 링크를 넣지 않는다 (작업 규칙 11)
+        if link.get("type") == "affiliate" and any(w in rule.get("name_ko", "") for w in ("보험", "환전", "카드", "금융")):
+            errors.append(f"{label}: essentials[{i}] 금융 상품에 제휴 링크 금지")
 
 
 def validate_all():

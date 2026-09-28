@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "country": "ID",
-  "version": "2026.09.28-2",
+  "version": "2026.09.29-1",
   "last_verified": "2026-09-28",
   "names": {
     "ko": "인도네시아",
@@ -52,6 +52,31 @@
       "id": "gmaps_play",
       "name": "Google Play · Google 지도",
       "url": "https://play.google.com/store/apps/details?id=com.google.android.apps.maps"
+    },
+    {
+      "id": "wi_power",
+      "name": "인도네시아관광부 (전기)",
+      "url": "https://www.indonesia.travel/us/en/general-information/plugs-electricity"
+    },
+    {
+      "id": "wi_yogya",
+      "name": "인도네시아관광부 · 족자카르타 기념품",
+      "url": "https://www.indonesia.travel/sg/en/travel-ideas/culture/6-must-have-signature-souvenirs-from-yogyakarta"
+    },
+    {
+      "id": "wi_bali",
+      "name": "인도네시아관광부 · 발리 기념품",
+      "url": "https://www.indonesia.travel/ru/en/travel-ideas/culture/searching-for-bali-souvenirs-check-out-these-5-places"
+    },
+    {
+      "id": "customs_allowance",
+      "name": "관세청 여행자 휴대품 면세 범위",
+      "url": "https://customs.go.kr/kcs/cm/cntnts/cntntsView.do?mi=2837&cntntsId=829"
+    },
+    {
+      "id": "apqa_plant_exempt",
+      "name": "농림축산검역본부 검역 제외 식물",
+      "url": "https://www.apqa.go.kr/plant/imQua/plant_notest_ex.jsp"
     }
   ],
   "requirements": [
@@ -227,6 +252,74 @@
       "last_verified": "2026-09-28"
     }
   ],
-  "essentials_rules": [],
-  "shopping": []
+  "shopping": [
+    {
+      "id": "batik",
+      "category": "souvenir",
+      "names": {
+        "ko": "바틱",
+        "en": "Batik",
+        "local": "Batik"
+      },
+      "why_ko": "관광부가 족자카르타 대표 기념품으로 소개해요.",
+      "import_status": "allowed",
+      "import_note_ko": "면세 한도(미화 800달러) 안이면 세금 없이 가져올 수 있어요.",
+      "source": "wi_yogya",
+      "import_source": "customs_allowance",
+      "last_verified": "2026-09-29"
+    },
+    {
+      "id": "silver",
+      "category": "souvenir",
+      "names": {
+        "ko": "은 장신구",
+        "en": "Silver jewellery",
+        "local": "Perhiasan perak"
+      },
+      "why_ko": "귀걸이·목걸이·브로치 같은 은 공예품이에요. 관광부 안내에 나와요.",
+      "import_status": "allowed",
+      "import_note_ko": "면세 한도(미화 800달러) 안이면 세금 없이 가져올 수 있어요.",
+      "source": "wi_yogya",
+      "import_source": "customs_allowance",
+      "last_verified": "2026-09-29"
+    },
+    {
+      "id": "leather",
+      "category": "daily",
+      "names": {
+        "ko": "가죽 제품",
+        "en": "Leather goods",
+        "local": "Barang kulit"
+      },
+      "why_ko": "가방·신발·벨트 같은 가죽 제품이에요. 관광부 안내에 나와요.",
+      "import_status": "allowed",
+      "import_note_ko": "면세 한도(미화 800달러) 안이면 세금 없이 가져올 수 있어요.",
+      "source": "wi_yogya",
+      "import_source": "customs_allowance",
+      "last_verified": "2026-09-29"
+    },
+    {
+      "id": "coffee",
+      "category": "food",
+      "names": {
+        "ko": "원두 커피",
+        "en": "Roasted coffee",
+        "local": "Kopi"
+      },
+      "why_ko": "관광부가 발리 기념품으로 소개해요.",
+      "import_status": "allowed",
+      "import_note_ko": "볶아서 포장된 원두는 식물 검역 대상이 아니에요. 생두는 검역 신고가 필요해요.",
+      "source": "wi_bali",
+      "import_source": "apqa_plant_exempt",
+      "last_verified": "2026-09-29"
+    }
+  ],
+  "power": {
+    "plug_ko": "둥근 핀 2개(C·F형)",
+    "kr_plug_fits": true,
+    "voltage": "230 V",
+    "frequency": "50 Hz",
+    "source": "wi_power",
+    "last_verified": "2026-09-29"
+  }
 }

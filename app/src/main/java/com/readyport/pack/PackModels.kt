@@ -14,6 +14,99 @@ data class PackIndex(
     val countries: List<IndexCountry>,
     @SerialName("common_emergency") val commonEmergency: List<EmergencyContact> = emptyList(),
     val sources: List<PackSource> = emptyList(),
+    /** 한국 전원(어댑터가 필요한지 비교용) */
+    @SerialName("home_power") val homePower: PowerInfo? = null,
+    /** 모든 여행에 공통인 꼭 챙길 물건 규칙 (PRD 5.10) */
+    val essentials: List<EssentialRule> = emptyList(),
+    /** 귀국할 때 확인할 공식 안내(관세청·검역본부) */
+    @SerialName("return_links") val returnLinks: List<OfficialLink> = emptyList(),
+    /** 귀국 면세 한도 등 요약 (출처·확인일 포함) */
+    @SerialName("return_facts") val returnFacts: List<SourcedText> = emptyList(),
+)
+
+@Serializable
+data class SourcedText(@SerialName("text_ko") val textKo: String, val source: String, @SerialName("last_verified") val lastVerified: String)
+
+/**
+ * 전원 정보. 플러그 모양은 공식 출처의 설명을 그대로 옮긴다(형 문자는 출처가 밝힐 때만).
+ * kr_plug_fits: 한국 플러그(둥근 핀 2개)가 그대로 맞는지. 출처로 확인되지 않으면 null.
+ */
+@Serializable
+data class PowerInfo(
+    @SerialName("plug_ko") val plugKo: String,
+    @SerialName("kr_plug_fits") val krPlugFits: Boolean? = null,
+    val voltage: String,
+    val frequency: String,
+    val source: String,
+    @SerialName("last_verified") val lastVerified: String,
+)
+
+/**
+ * 꼭 챙길 물건 규칙. 추천 순서는 목록 순서 그대로 — 수수료 때문에 바꾸지 않는다 (PRD 11.2).
+ * condition: always / plug_differs(콘센트 모양이 다를 때) / voltage_differs(전압이 다를 때)
+ */
+@Serializable
+data class EssentialRule(
+    val id: String,
+    @SerialName("name_ko") val nameKo: String,
+    @SerialName("reason_ko") val reasonKo: String,
+    val condition: String = "always",
+    /** 규정 배지 (예: carry_on_only = 기내 반입만) */
+    @SerialName("rule_badge") val ruleBadge: String? = null,
+    val link: EssentialLink? = null,
+    val source: String? = null,
+    @SerialName("last_verified") val lastVerified: String? = null,
+)
+
+/**
+ * type: affiliate(물건·여행 서비스, '제휴' 표시) / official_info(보험·환전·카드 — 수수료 없음)
+ * 보험·금융 상품에는 affiliate를 쓰지 않는다 (작업 규칙 11)
+ */
+@Serializable
+data class EssentialLink(val type: String, val url: String, @SerialName("label_ko") val labelKo: String, val partner: String? = null)
+
+@Serializable
+data class OfficialLink(val id: String, @SerialName("label_ko") val labelKo: String, val url: String)
+
+/** 쇼핑 리스트 항목 (PRD 11.3). 브랜드명·상품 사진 없음 */
+@Serializable
+data class ShoppingItem(
+    val id: String,
+    /** food / daily / souvenir */
+    val category: String,
+    val names: Names,
+    @SerialName("where_ko") val whereKo: String? = null,
+    @SerialName("why_ko") val whyKo: String,
+    /** allowed / caution / prohibited — 관세청·검역본부 기준 */
+    @SerialName("import_status") val importStatus: String,
+    @SerialName("import_note_ko") val importNoteKo: String? = null,
+    val source: String,
+    @SerialName("import_source") val importSource: String,
+    @SerialName("last_verified") val lastVerified: String,
+)
+
+/** 인기 여행지 순위 (rankings/latest.json, ARCHITECTURE 10.3). 공공 통계를 받기 전에는 게시하지 않는다 */
+@Serializable
+data class Rankings(
+    val version: String,
+    val basis: RankingBasis,
+    val weights: Map<String, Double>,
+    val items: List<RankingItem>,
+)
+
+@Serializable
+data class RankingBasis(@SerialName("air_month") val airMonth: String, @SerialName("search_week") val searchWeek: String? = null)
+
+@Serializable
+data class RankingItem(
+    @SerialName("city_id") val cityId: String,
+    @SerialName("name_ko") val nameKo: String,
+    val country: String,
+    val rank: Int,
+    @SerialName("prev_rank") val prevRank: Int? = null,
+    val reasons: List<String> = emptyList(),
+    @SerialName("visa_free_kr") val visaFreeKr: Boolean? = null,
+    @SerialName("flight_hours") val flightHours: Double? = null,
 )
 
 @Serializable
@@ -42,6 +135,8 @@ data class CountryPack(
     val emergency: List<EmergencyContact> = emptyList(),
     val embassy: Embassy? = null,
     val procedures: List<Procedure> = emptyList(),
+    val power: PowerInfo? = null,
+    val shopping: List<ShoppingItem> = emptyList(),
 ) {
     fun source(id: String): PackSource? = sources.firstOrNull { it.id == id }
 }

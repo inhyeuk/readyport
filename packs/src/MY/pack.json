@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "country": "MY",
-  "version": "2026.09.28-2",
+  "version": "2026.09.29-1",
   "last_verified": "2026-09-28",
   "names": {
     "ko": "말레이시아",
@@ -42,6 +42,26 @@
       "id": "gmaps_play",
       "name": "Google Play · Google 지도",
       "url": "https://play.google.com/store/apps/details?id=com.google.android.apps.maps"
+    },
+    {
+      "id": "st_plug",
+      "name": "말레이시아 에너지위원회 (플러그)",
+      "url": "https://www.st.gov.my/what-types-plug-tops-are-permitted-use-malaysia"
+    },
+    {
+      "id": "tnb_system",
+      "name": "말레이시아 전력청 TNB (전압)",
+      "url": "https://www.mytnb.com.my/ms-MY/business/get-electricity/tnb-electricity-system"
+    },
+    {
+      "id": "mytourism_shopping",
+      "name": "말레이시아관광청 · 쿠알라룸푸르 쇼핑",
+      "url": "https://ebrochures.malaysia.travel/en/kuala-lumpur/38-44-sensational-shopping/"
+    },
+    {
+      "id": "customs_allowance",
+      "name": "관세청 여행자 휴대품 면세 범위",
+      "url": "https://customs.go.kr/kcs/cm/cntnts/cntntsView.do?mi=2837&cntntsId=829"
     }
   ],
   "requirements": [
@@ -212,6 +232,59 @@
       "last_verified": "2026-09-28"
     }
   ],
-  "essentials_rules": [],
-  "shopping": []
+  "shopping": [
+    {
+      "id": "batik",
+      "category": "souvenir",
+      "names": {
+        "ko": "바틱 천·옷",
+        "en": "Batik",
+        "local": "Batik"
+      },
+      "why_ko": "관광청이 사롱·셔츠·원피스 등 바틱 제품을 대표 쇼핑으로 소개해요.",
+      "import_status": "allowed",
+      "import_note_ko": "면세 한도(미화 800달러) 안이면 세금 없이 가져올 수 있어요.",
+      "source": "mytourism_shopping",
+      "import_source": "customs_allowance",
+      "last_verified": "2026-09-29"
+    },
+    {
+      "id": "songket",
+      "category": "souvenir",
+      "names": {
+        "ko": "송켓 직물",
+        "en": "Songket",
+        "local": "Songket"
+      },
+      "why_ko": "금실·은실로 짠 전통 직물이에요. 관광청 쇼핑 안내에 나와요.",
+      "import_status": "allowed",
+      "import_note_ko": "면세 한도(미화 800달러) 안이면 세금 없이 가져올 수 있어요.",
+      "source": "mytourism_shopping",
+      "import_source": "customs_allowance",
+      "last_verified": "2026-09-29"
+    },
+    {
+      "id": "pewter",
+      "category": "souvenir",
+      "names": {
+        "ko": "주석 공예품",
+        "en": "Pewterware",
+        "local": "Barangan piuter"
+      },
+      "why_ko": "찻잔 세트·액자·꽃병 같은 주석 제품이에요. 관광청 쇼핑 안내에 나와요.",
+      "import_status": "allowed",
+      "import_note_ko": "면세 한도(미화 800달러) 안이면 세금 없이 가져올 수 있어요.",
+      "source": "mytourism_shopping",
+      "import_source": "customs_allowance",
+      "last_verified": "2026-09-29"
+    }
+  ],
+  "power": {
+    "plug_ko": "납작한 핀 3개(13A, 영국식)",
+    "kr_plug_fits": false,
+    "voltage": "230 V",
+    "frequency": "50 Hz",
+    "source": "tnb_system",
+    "last_verified": "2026-09-29"
+  }
 }

@@ -29,6 +29,10 @@ data class AppSettings(
     val helpCountry: String? = null,
     /** 자녀 폰 모드: 입국 QR과 도움만 (PRD 3.3) */
     val childMode: Boolean = false,
+    /** 꼭 챙길 물건에서 '있어요'를 누른 항목 id (PRD 5.10) */
+    val haveItems: Set<String> = emptySet(),
+    /** 쇼핑 리스트에 담은 항목 "TH/item-id" (PRD 5.8). 귀국 때 반입 여부를 다시 보여 준다 */
+    val cart: Set<String> = emptySet(),
 )
 
 private val Context.settingsStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
@@ -43,6 +47,8 @@ class SettingsRepository @Inject constructor(
     private val wifiOnlyKey = booleanPreferencesKey("wifi_only")
     private val helpCountryKey = stringPreferencesKey("help_country")
     private val childModeKey = booleanPreferencesKey("child_mode")
+    private val haveItemsKey = stringSetPreferencesKey("have_items")
+    private val cartKey = stringSetPreferencesKey("shopping_cart")
 
     val settings: Flow<AppSettings> = context.settingsStore.data.map { prefs ->
         AppSettings(
@@ -52,6 +58,8 @@ class SettingsRepository @Inject constructor(
             wifiOnly = prefs[wifiOnlyKey] ?: true,
             helpCountry = prefs[helpCountryKey],
             childMode = prefs[childModeKey] ?: false,
+            haveItems = prefs[haveItemsKey].orEmpty(),
+            cart = prefs[cartKey].orEmpty(),
         )
     }
 
@@ -78,6 +86,28 @@ class SettingsRepository @Inject constructor(
 
     suspend fun setChildMode(enabled: Boolean) {
         context.settingsStore.edit { it[childModeKey] = enabled }
+    }
+
+    suspend fun setHave(itemId: String, have: Boolean) {
+        context.settingsStore.edit {
+            val now = it[haveItemsKey].orEmpty()
+            it[haveItemsKey] = if (have) now + itemId else now - itemId
+        }
+    }
+
+    suspend fun setInCart(key: String, inCart: Boolean) {
+        context.settingsStore.edit {
+            val now = it[cartKey].orEmpty()
+            it[cartKey] = if (inCart) now + key else now - key
+        }
+    }
+
+    /** 새 여행을 만들면 지난 여행의 준비물 체크·장바구니를 비운다 */
+    suspend fun clearTripLists() {
+        context.settingsStore.edit {
+            it.remove(haveItemsKey)
+            it.remove(cartKey)
+        }
     }
 
     suspend fun setHelpCountry(country: String) {

@@ -4,22 +4,48 @@
   "title": "ReadyPort pack index (schema_version 1)",
   "description": "지원 국가 목록과 모든 나라에 공통인 연락처(영사콜센터 등).",
   "type": "object",
-  "required": ["schema_version", "version", "countries", "common_emergency", "sources"],
+  "required": [
+    "schema_version",
+    "version",
+    "countries",
+    "common_emergency",
+    "sources"
+  ],
   "additionalProperties": false,
   "properties": {
-    "schema_version": { "const": 1 },
-    "version": { "type": "string", "pattern": "^\\d{4}\\.\\d{2}\\.\\d{2}-\\d+$" },
+    "schema_version": {
+      "const": 1
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d{4}\\.\\d{2}\\.\\d{2}-\\d+$"
+    },
     "countries": {
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["code", "name_ko", "name_en", "pack"],
+        "required": [
+          "code",
+          "name_ko",
+          "name_en",
+          "pack"
+        ],
         "additionalProperties": false,
         "properties": {
-          "code": { "type": "string", "pattern": "^[A-Z]{2}$" },
-          "name_ko": { "type": "string" },
-          "name_en": { "type": "string" },
-          "pack": { "type": "boolean", "description": "국가 팩이 있는지. false면 '안내 준비 중'" }
+          "code": {
+            "type": "string",
+            "pattern": "^[A-Z]{2}$"
+          },
+          "name_ko": {
+            "type": "string"
+          },
+          "name_en": {
+            "type": "string"
+          },
+          "pack": {
+            "type": "boolean",
+            "description": "국가 팩이 있는지. false면 '안내 준비 중'"
+          }
         }
       }
     },
@@ -27,15 +53,35 @@
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["id", "label_ko", "number", "source", "last_verified"],
+        "required": [
+          "id",
+          "label_ko",
+          "number",
+          "source",
+          "last_verified"
+        ],
         "additionalProperties": false,
         "properties": {
-          "id": { "type": "string" },
-          "label_ko": { "type": "string" },
-          "number": { "type": "string", "pattern": "^\\+?[0-9 ()-]+$" },
-          "note_ko": { "type": "string" },
-          "source": { "type": "string" },
-          "last_verified": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" }
+          "id": {
+            "type": "string"
+          },
+          "label_ko": {
+            "type": "string"
+          },
+          "number": {
+            "type": "string",
+            "pattern": "^\\+?[0-9 ()-]+$"
+          },
+          "note_ko": {
+            "type": "string"
+          },
+          "source": {
+            "type": "string"
+          },
+          "last_verified": {
+            "type": "string",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+          }
         }
       }
     },
@@ -43,12 +89,177 @@
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["id", "name", "url"],
+        "required": [
+          "id",
+          "name",
+          "url"
+        ],
         "additionalProperties": false,
         "properties": {
-          "id": { "type": "string" },
-          "name": { "type": "string" },
-          "url": { "type": "string", "pattern": "^https://" }
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string",
+            "pattern": "^https://"
+          }
+        }
+      }
+    },
+    "home_power": {
+      "type": "object",
+      "required": [
+        "plug_ko",
+        "voltage",
+        "frequency",
+        "source",
+        "last_verified"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "plug_ko": {
+          "type": "string"
+        },
+        "kr_plug_fits": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "voltage": {
+          "type": "string"
+        },
+        "frequency": {
+          "type": "string"
+        },
+        "source": {
+          "type": "string"
+        },
+        "last_verified": {
+          "type": "string",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+        }
+      }
+    },
+    "essentials": {
+      "description": "꼭 챙길 물건 규칙 (PRD 5.10·11.2). 목록 순서가 추천 순서 — 수수료로 바꾸지 않는다",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "name_ko",
+          "reason_ko",
+          "condition"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name_ko": {
+            "type": "string"
+          },
+          "reason_ko": {
+            "type": "string"
+          },
+          "condition": {
+            "enum": [
+              "always",
+              "plug_differs",
+              "voltage_differs"
+            ]
+          },
+          "rule_badge": {
+            "enum": [
+              "carry_on_only"
+            ]
+          },
+          "link": {
+            "type": "object",
+            "required": [
+              "type",
+              "url",
+              "label_ko"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "type": {
+                "enum": [
+                  "affiliate",
+                  "official_info"
+                ]
+              },
+              "url": {
+                "type": "string",
+                "pattern": "^https://"
+              },
+              "label_ko": {
+                "type": "string"
+              },
+              "partner": {
+                "type": "string"
+              }
+            }
+          },
+          "source": {
+            "type": "string"
+          },
+          "last_verified": {
+            "type": "string",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+          }
+        }
+      }
+    },
+    "return_links": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "label_ko",
+          "url"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "label_ko": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string",
+            "pattern": "^https://"
+          }
+        }
+      }
+    },
+    "return_facts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "text_ko",
+          "source",
+          "last_verified"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "text_ko": {
+            "type": "string"
+          },
+          "source": {
+            "type": "string"
+          },
+          "last_verified": {
+            "type": "string",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+          }
         }
       }
     }

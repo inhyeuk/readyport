@@ -66,9 +66,14 @@ fun displayDate(iso: String) = iso.replace('-', '.')
 // ======================= 여행지 =======================
 
 @Composable
-fun ExploreScreen(onOpenGuide: (String) -> Unit, onMove: () -> Unit = {}, viewModel: ExploreViewModel = hiltViewModel()) {
+fun ExploreScreen(
+    onOpenGuide: (String) -> Unit,
+    onMove: () -> Unit = {},
+    onRankingsInfo: () -> Unit = {},
+    viewModel: ExploreViewModel = hiltViewModel(),
+) {
     val ui by viewModel.ui.collectAsStateWithLifecycle()
-    ExploreContent(ui, viewModel::toggleFavorite, onOpenGuide, viewModel::setWifiOnly, onMove)
+    ExploreContent(ui, viewModel::toggleFavorite, onOpenGuide, viewModel::setWifiOnly, onMove, onRankingsInfo)
 }
 
 @Composable
@@ -78,6 +83,7 @@ fun ExploreContent(
     onOpenGuide: (String) -> Unit,
     onWifiOnlyChange: (Boolean) -> Unit,
     onMove: () -> Unit = {},
+    onRankingsInfo: () -> Unit = {},
 ) {
     AppScreen(
         title = stringResource(R.string.explore_title),
@@ -122,7 +128,14 @@ fun ExploreContent(
             }
         }
         item(key = "popular") {
-            TopicCard(stringResource(R.string.explore_popular_title), stringResource(R.string.explore_popular_body), comingSoon = true)
+            InfoCard {
+                Text(stringResource(R.string.explore_popular_title), style = MaterialTheme.typography.titleMedium)
+                Text(stringResource(R.string.explore_popular_body), style = MaterialTheme.typography.bodyMedium)
+                StatusChip(stringResource(R.string.coming_soon))
+                OutlinedButton(onClick = onRankingsInfo, modifier = Modifier.heightIn(min = 48.dp)) {
+                    Text(stringResource(R.string.rankings_info_title))
+                }
+            }
         }
     }
 }
@@ -166,13 +179,13 @@ private fun CountryCard(row: CountryRow, onToggleFavorite: (String) -> Unit, onO
 // ======================= 국가 가이드 =======================
 
 @Composable
-fun GuideScreen(viewModel: GuideViewModel = hiltViewModel()) {
+fun GuideScreen(onOpenShopping: (String) -> Unit = {}, viewModel: GuideViewModel = hiltViewModel()) {
     val pack by viewModel.pack.collectAsStateWithLifecycle()
-    pack?.let { GuideContent(it) }
+    pack?.let { GuideContent(it, onOpenShopping) }
 }
 
 @Composable
-fun GuideContent(loaded: Loaded<CountryPack>) {
+fun GuideContent(loaded: Loaded<CountryPack>, onOpenShopping: (String) -> Unit = {}) {
     val pack = loaded.value
     fun sourceName(id: String) = pack.source(id)?.name ?: id
     AppScreen(
@@ -202,6 +215,30 @@ fun GuideContent(loaded: Loaded<CountryPack>) {
                     Text(stringResource(R.string.guide_form_window, form.windowKo), style = MaterialTheme.typography.bodyMedium)
                     Text(stringResource(R.string.guide_form_official, form.officialUrl), style = MaterialTheme.typography.bodyMedium)
                     SourceFooter(sourceName(form.source), displayDate(form.lastVerified))
+                }
+            }
+        }
+        pack.power?.let { power ->
+            item(key = "power") {
+                InfoCard {
+                    Text(stringResource(R.string.guide_power_title), style = MaterialTheme.typography.titleMedium, modifier = Modifier.semantics { heading() })
+                    Text(stringResource(R.string.guide_power_body, power.plugKo, power.voltage, power.frequency), style = MaterialTheme.typography.bodyLarge)
+                    power.krPlugFits?.let { fits ->
+                        Text(
+                            stringResource(if (fits) R.string.guide_power_kr_fits else R.string.guide_power_kr_adapter),
+                            style = MaterialTheme.typography.bodyMedium,
+                        )
+                    }
+                    SourceFooter(sourceName(power.source), displayDate(power.lastVerified))
+                }
+            }
+        }
+        if (pack.shopping.isNotEmpty()) {
+            item(key = "shopping") {
+                InfoCard {
+                    Text(stringResource(R.string.shopping_title, pack.names.ko), style = MaterialTheme.typography.titleMedium)
+                    Text(stringResource(R.string.shopping_subtitle), style = MaterialTheme.typography.bodyMedium)
+                    PrimaryButton(stringResource(R.string.shopping_open), onClick = { onOpenShopping(pack.country) })
                 }
             }
         }

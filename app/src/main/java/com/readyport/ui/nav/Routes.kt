@@ -45,3 +45,12 @@ import kotlinx.serialization.Serializable
 
 /** 여행지 › 이동하기 (PRD 5.9) */
 @Serializable data object TransportRoute
+
+/** 준비 › 꼭 챙길 물건 (PRD 5.10) */
+@Serializable data object EssentialsRoute
+
+/** 여행지 › 국가 가이드 › 쇼핑 리스트 (PRD 5.8) */
+@Serializable data class ShoppingRoute(val country: String)
+
+/** 여행지 › '순위는 이렇게 정해요' (PRD 5.6) */
+@Serializable data object RankingsInfoRoute

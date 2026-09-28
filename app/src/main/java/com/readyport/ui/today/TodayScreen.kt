@@ -1,5 +1,6 @@
 package com.readyport.ui.today
 
+import android.content.Intent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -24,7 +25,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.core.net.toUri
+import com.readyport.prep.import
+import com.readyport.ui.pack.ImportTag
+import com.readyport.ui.pack.ReturnCheckCard
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.text.style.TextAlign
@@ -64,6 +70,8 @@ data class TodayActions(
     val help: () -> Unit = {},
     val goStay: () -> Unit = {},
     val expense: () -> Unit = {},
+    /** 공식 안내 링크(관세청·검역본부)를 브라우저로 연다 */
+    val openLink: (String) -> Unit = {},
 )
 
 @Composable
@@ -71,9 +79,10 @@ fun TodayScreen(actions: TodayActions, viewModel: TodayViewModel = hiltViewModel
     val ui by viewModel.ui.collectAsStateWithLifecycle()
     val scope = rememberCoroutineScope()
     val auth = rememberDeviceAuth()
+    val context = LocalContext.current
     TodayContent(
         ui = ui,
-        actions = actions,
+        actions = actions.copy(openLink = { url -> runCatching { context.startActivity(Intent(Intent.ACTION_VIEW, url.toUri())) } }),
         onArrived = viewModel::markArrived,
         onArrivalDone = viewModel::dismissArrival,
         onDestroy = {
@@ -236,6 +245,22 @@ fun TodayContent(
                 item(key = "return") {
                     TopicCard(stringResource(R.string.today_return_title), stringResource(R.string.today_return_customs))
                 }
+                // 담아 둔 쇼핑 목록의 반입 가능 여부를 다시 확인 (PRD 11.3)
+                if (ui.cart.isNotEmpty()) {
+                    item(key = "cart") {
+                        InfoCard {
+                            Text(stringResource(R.string.today_cart_title), style = MaterialTheme.typography.titleMedium)
+                            ui.cart.forEach { item ->
+                                Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                                    Text(item.names.ko, style = MaterialTheme.typography.bodyLarge)
+                                    ImportTag(item.import)
+                                    item.importNoteKo?.let { Text(it, style = MaterialTheme.typography.bodySmall) }
+                                }
+                            }
+                        }
+                    }
+                }
+                item(key = "return-links") { ReturnCheckCard(ui.returnLinks, ui.returnFacts, ui.indexSources, actions.openLink) }
                 if (stage.askDestroy) {
                     item(key = "destroy") {
                         InfoCard(tone = CardTone.Caution) {

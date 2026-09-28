@@ -81,6 +81,8 @@ class TripViewModel @Inject constructor(
                 arrivedAt = keep?.arrivedAt, arrivalDismissed = keep?.arrivalDismissed ?: false,
             ),
         )
+        // 다른 여행으로 바뀌면 지난 준비물 체크·장바구니를 비운다
+        if (old != null && keep == null && old.country != country) settings.clearTripLists()
         settings.setFavorite(country, true)
         PackSync.requestNow(context, settings.current().wifiOnly)
         val form = packs.pack(country)?.value?.forms?.firstOrNull()

@@ -2,14 +2,14 @@
   "parameters": {
     "index_version": {
       "defaultValue": {
-        "value": "2026.09.28-2"
+        "value": "2026.09.29-1"
       },
       "description": "packs/index.json 최신 버전. 이보다 새 것만 받는다",
       "valueType": "STRING"
     },
     "pack_version_TH": {
       "defaultValue": {
-        "value": "2026.09.28-2"
+        "value": "2026.09.29-1"
       },
       "description": "packs/TH/pack.json 최신 버전",
       "valueType": "STRING"
@@ -44,28 +44,28 @@
     },
     "pack_version_MY": {
       "defaultValue": {
-        "value": "2026.09.28-2"
+        "value": "2026.09.29-1"
       },
       "description": "packs/MY/pack.json 최신 버전",
       "valueType": "STRING"
     },
     "pack_version_SG": {
       "defaultValue": {
-        "value": "2026.09.28-2"
+        "value": "2026.09.29-1"
       },
       "description": "packs/SG/pack.json 최신 버전",
       "valueType": "STRING"
     },
     "pack_version_ID": {
       "defaultValue": {
-        "value": "2026.09.28-2"
+        "value": "2026.09.29-1"
       },
       "description": "packs/ID/pack.json 최신 버전",
       "valueType": "STRING"
     },
     "pack_version_JP": {
       "defaultValue": {
-        "value": "2026.09.28-2"
+        "value": "2026.09.29-1"
       },
       "description": "packs/JP/pack.json 최신 버전",
       "valueType": "STRING"

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "country": "JP",
-  "version": "2026.09.28-2",
+  "version": "2026.09.29-1",
   "last_verified": "2026-09-28",
   "names": {
     "ko": "일본",
@@ -62,6 +62,31 @@
       "id": "gmaps_play",
       "name": "Google Play · Google 지도",
       "url": "https://play.google.com/store/apps/details?id=com.google.android.apps.maps"
+    },
+    {
+      "id": "jnto_power",
+      "name": "일본정부관광국 (전기)",
+      "url": "https://www.japan.travel/en/plan/plug-and-electricity/"
+    },
+    {
+      "id": "jnto_souvenirs",
+      "name": "일본정부관광국 · 기념품",
+      "url": "https://www.japan.travel/en/guide/last-minute-souvenirs/"
+    },
+    {
+      "id": "customs_allowance",
+      "name": "관세청 여행자 휴대품 면세 범위",
+      "url": "https://customs.go.kr/kcs/cm/cntnts/cntntsView.do?mi=2837&cntntsId=829"
+    },
+    {
+      "id": "apqa_plant_exempt",
+      "name": "농림축산검역본부 검역 제외 식물",
+      "url": "https://www.apqa.go.kr/plant/imQua/plant_notest_ex.jsp"
+    },
+    {
+      "id": "apqa_livestock",
+      "name": "농림축산검역본부 휴대 축산물 검역",
+      "url": "https://www.apqa.go.kr/livestock/qua/livestock_imp_sum2.jsp?type=1"
     }
   ],
   "requirements": [
@@ -248,6 +273,89 @@
       "last_verified": "2026-09-28"
     }
   ],
-  "essentials_rules": [],
-  "shopping": []
+  "shopping": [
+    {
+      "id": "boxed_sweets",
+      "category": "food",
+      "names": {
+        "ko": "선물용 과자 상자",
+        "en": "Boxed sweets",
+        "local": "お菓子の詰め合わせ"
+      },
+      "why_ko": "과자·센베이·젤리를 담은 선물 상자예요. 관광국 기념품 안내에 나와요.",
+      "import_status": "caution",
+      "import_note_ko": "고기·달걀 같은 축산물이 들어간 제품은 검역 대상일 수 있어요. 성분을 보고 입국 때 신고하세요.",
+      "source": "jnto_souvenirs",
+      "import_source": "apqa_livestock",
+      "last_verified": "2026-09-29"
+    },
+    {
+      "id": "tea",
+      "category": "food",
+      "names": {
+        "ko": "차",
+        "en": "Tea",
+        "local": "お茶"
+      },
+      "why_ko": "관광국이 부담 없는 선물로 소개해요.",
+      "import_status": "allowed",
+      "import_note_ko": "소매용으로 밀봉된 차만 검역 대상이 아니에요.",
+      "source": "jnto_souvenirs",
+      "import_source": "apqa_plant_exempt",
+      "last_verified": "2026-09-29"
+    },
+    {
+      "id": "umeboshi",
+      "category": "food",
+      "names": {
+        "ko": "우메보시(매실 절임)",
+        "en": "Umeboshi",
+        "local": "梅干し"
+      },
+      "why_ko": "관광국 기념품 안내에 나와요.",
+      "import_status": "allowed",
+      "import_note_ko": "소금·설탕에 절여 포장된 식물 가공품은 식물 검역 대상이 아니에요.",
+      "source": "jnto_souvenirs",
+      "import_source": "apqa_plant_exempt",
+      "last_verified": "2026-09-29"
+    },
+    {
+      "id": "stationery",
+      "category": "daily",
+      "names": {
+        "ko": "문구·작은 피규어",
+        "en": "Stationery and small figurines",
+        "local": "文房具"
+      },
+      "why_ko": "관광국 기념품 안내에 나와요.",
+      "import_status": "allowed",
+      "import_note_ko": "면세 한도(미화 800달러) 안이면 세금 없이 가져올 수 있어요.",
+      "source": "jnto_souvenirs",
+      "import_source": "customs_allowance",
+      "last_verified": "2026-09-29"
+    },
+    {
+      "id": "lacquerware",
+      "category": "souvenir",
+      "names": {
+        "ko": "칠기",
+        "en": "Lacquerware",
+        "local": "漆器"
+      },
+      "why_ko": "관광국이 일본 전통 기념품으로 소개해요.",
+      "import_status": "allowed",
+      "import_note_ko": "면세 한도(미화 800달러) 안이면 세금 없이 가져올 수 있어요.",
+      "source": "jnto_souvenirs",
+      "import_source": "customs_allowance",
+      "last_verified": "2026-09-29"
+    }
+  ],
+  "power": {
+    "plug_ko": "출처에 플러그 모양 설명 없음",
+    "kr_plug_fits": null,
+    "voltage": "100 V",
+    "frequency": "50 Hz(동일본)·60 Hz(서일본)",
+    "source": "jnto_power",
+    "last_verified": "2026-09-29"
+  }
 }

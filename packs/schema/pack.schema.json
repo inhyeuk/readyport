@@ -4,36 +4,94 @@
   "title": "ReadyPort country pack (schema_version 1)",
   "description": "국가 팩. 정책·연락처 항목은 모두 source(sources[].id)와 last_verified를 가진다 (작업 규칙 6).",
   "type": "object",
-  "required": ["schema_version", "country", "version", "last_verified", "names", "sources", "requirements", "forms", "sections", "phrases", "emergency", "procedures"],
+  "required": [
+    "schema_version",
+    "country",
+    "version",
+    "last_verified",
+    "names",
+    "sources",
+    "requirements",
+    "forms",
+    "sections",
+    "phrases",
+    "emergency",
+    "procedures"
+  ],
   "additionalProperties": false,
   "properties": {
-    "schema_version": { "const": 1 },
-    "country": { "type": "string", "pattern": "^[A-Z]{2}$" },
-    "version": { "$ref": "#/$defs/version" },
-    "last_verified": { "$ref": "#/$defs/date" },
+    "schema_version": {
+      "const": 1
+    },
+    "country": {
+      "type": "string",
+      "pattern": "^[A-Z]{2}$"
+    },
+    "version": {
+      "$ref": "#/$defs/version"
+    },
+    "last_verified": {
+      "$ref": "#/$defs/date"
+    },
     "names": {
       "type": "object",
-      "required": ["ko", "en", "local"],
+      "required": [
+        "ko",
+        "en",
+        "local"
+      ],
       "additionalProperties": false,
-      "properties": { "ko": { "type": "string" }, "en": { "type": "string" }, "local": { "type": "string" } }
+      "properties": {
+        "ko": {
+          "type": "string"
+        },
+        "en": {
+          "type": "string"
+        },
+        "local": {
+          "type": "string"
+        }
+      }
     },
     "local_language": {
       "type": "object",
-      "required": ["name_ko", "tts_lang"],
+      "required": [
+        "name_ko",
+        "tts_lang"
+      ],
       "additionalProperties": false,
-      "properties": { "name_ko": { "type": "string" }, "tts_lang": { "type": "string" } }
+      "properties": {
+        "name_ko": {
+          "type": "string"
+        },
+        "tts_lang": {
+          "type": "string"
+        }
+      }
     },
     "sources": {
       "type": "array",
       "minItems": 1,
       "items": {
         "type": "object",
-        "required": ["id", "name", "url"],
+        "required": [
+          "id",
+          "name",
+          "url"
+        ],
         "additionalProperties": false,
         "properties": {
-          "id": { "type": "string", "pattern": "^[a-z0-9_]+$" },
-          "name": { "type": "string" },
-          "url": { "type": "string", "pattern": "^https://" }
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9_]+$"
+          },
+          "name": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string",
+            "pattern": "^https://"
+          }
         }
       }
     },
@@ -41,17 +99,57 @@
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["nationality", "purpose", "visa", "forms", "summary_ko", "source", "last_verified"],
+        "required": [
+          "nationality",
+          "purpose",
+          "visa",
+          "forms",
+          "summary_ko",
+          "source",
+          "last_verified"
+        ],
         "additionalProperties": false,
         "properties": {
-          "nationality": { "type": "string", "pattern": "^[A-Z]{2}$" },
-          "purpose": { "enum": ["tourism", "business", "transit"] },
-          "visa": { "enum": ["not_required", "required", "eta_required", "on_arrival"] },
-          "stay_limit_days": { "type": ["integer", "null"] },
-          "forms": { "type": "array", "items": { "type": "string" } },
-          "summary_ko": { "type": "string" },
-          "source": { "type": "string" },
-          "last_verified": { "$ref": "#/$defs/date" }
+          "nationality": {
+            "type": "string",
+            "pattern": "^[A-Z]{2}$"
+          },
+          "purpose": {
+            "enum": [
+              "tourism",
+              "business",
+              "transit"
+            ]
+          },
+          "visa": {
+            "enum": [
+              "not_required",
+              "required",
+              "eta_required",
+              "on_arrival"
+            ]
+          },
+          "stay_limit_days": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "forms": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "summary_ko": {
+            "type": "string"
+          },
+          "source": {
+            "type": "string"
+          },
+          "last_verified": {
+            "$ref": "#/$defs/date"
+          }
         }
       }
     },
@@ -59,18 +157,51 @@
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["id", "name_ko", "name_en", "official_url", "fee_ko", "window_ko", "source", "last_verified"],
+        "required": [
+          "id",
+          "name_ko",
+          "name_en",
+          "official_url",
+          "fee_ko",
+          "window_ko",
+          "source",
+          "last_verified"
+        ],
         "additionalProperties": false,
         "properties": {
-          "id": { "type": "string", "pattern": "^[A-Z]{2}_[A-Z0-9_]+$" },
-          "name_ko": { "type": "string" },
-          "name_en": { "type": "string" },
-          "official_url": { "type": "string", "pattern": "^https://" },
-          "fee_ko": { "type": "string" },
-          "window_ko": { "type": "string" },
-          "window_days_including_arrival": { "type": ["integer", "null"], "description": "도착일을 포함해 며칠 전부터 낼 수 있는지 (예: 3 = 도착 2일 전~도착일)" },
-          "source": { "type": "string" },
-          "last_verified": { "$ref": "#/$defs/date" }
+          "id": {
+            "type": "string",
+            "pattern": "^[A-Z]{2}_[A-Z0-9_]+$"
+          },
+          "name_ko": {
+            "type": "string"
+          },
+          "name_en": {
+            "type": "string"
+          },
+          "official_url": {
+            "type": "string",
+            "pattern": "^https://"
+          },
+          "fee_ko": {
+            "type": "string"
+          },
+          "window_ko": {
+            "type": "string"
+          },
+          "window_days_including_arrival": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "description": "도착일을 포함해 며칠 전부터 낼 수 있는지 (예: 3 = 도착 2일 전~도착일)"
+          },
+          "source": {
+            "type": "string"
+          },
+          "last_verified": {
+            "$ref": "#/$defs/date"
+          }
         }
       }
     },
@@ -79,14 +210,44 @@
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["id", "title_ko", "body_ko", "source", "last_verified"],
+        "required": [
+          "id",
+          "title_ko",
+          "body_ko",
+          "source",
+          "last_verified"
+        ],
         "additionalProperties": false,
         "properties": {
-          "id": { "enum": ["basic", "entry", "seasons", "transport", "payment", "food", "places", "safety", "shopping"] },
-          "title_ko": { "type": "string" },
-          "body_ko": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
-          "source": { "type": "string" },
-          "last_verified": { "$ref": "#/$defs/date" }
+          "id": {
+            "enum": [
+              "basic",
+              "entry",
+              "seasons",
+              "transport",
+              "payment",
+              "food",
+              "places",
+              "safety",
+              "shopping"
+            ]
+          },
+          "title_ko": {
+            "type": "string"
+          },
+          "body_ko": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "minItems": 1
+          },
+          "source": {
+            "type": "string"
+          },
+          "last_verified": {
+            "$ref": "#/$defs/date"
+          }
         }
       }
     },
@@ -94,13 +255,32 @@
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["name", "package", "link_type", "source"],
+        "required": [
+          "name",
+          "package",
+          "link_type",
+          "source"
+        ],
         "additionalProperties": false,
         "properties": {
-          "name": { "type": "string" },
-          "package": { "type": "string", "pattern": "^[a-z][a-z0-9_]*(\\.[a-z0-9_]+)+$" },
-          "link_type": { "enum": ["maps_url", "uber_url", "open_and_copy"] },
-          "source": { "type": "string", "description": "이 나라에서 서비스한다는 공식 출처(sources[].id)" }
+          "name": {
+            "type": "string"
+          },
+          "package": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_]*(\\.[a-z0-9_]+)+$"
+          },
+          "link_type": {
+            "enum": [
+              "maps_url",
+              "uber_url",
+              "open_and_copy"
+            ]
+          },
+          "source": {
+            "type": "string",
+            "description": "이 나라에서 서비스한다는 공식 출처(sources[].id)"
+          }
         }
       }
     },
@@ -109,15 +289,33 @@
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["id", "ko", "en", "local", "reviewed"],
+        "required": [
+          "id",
+          "ko",
+          "en",
+          "local",
+          "reviewed"
+        ],
         "additionalProperties": false,
         "properties": {
-          "id": { "type": "string" },
-          "ko": { "type": "string" },
-          "en": { "type": "string" },
-          "local": { "type": "string" },
-          "romanized": { "type": "string" },
-          "reviewed": { "type": "boolean" }
+          "id": {
+            "type": "string"
+          },
+          "ko": {
+            "type": "string"
+          },
+          "en": {
+            "type": "string"
+          },
+          "local": {
+            "type": "string"
+          },
+          "romanized": {
+            "type": "string"
+          },
+          "reviewed": {
+            "type": "boolean"
+          }
         }
       }
     },
@@ -125,29 +323,67 @@
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["id", "label_ko", "number", "source", "last_verified"],
+        "required": [
+          "id",
+          "label_ko",
+          "number",
+          "source",
+          "last_verified"
+        ],
         "additionalProperties": false,
         "properties": {
-          "id": { "type": "string" },
-          "label_ko": { "type": "string" },
-          "number": { "type": "string", "pattern": "^\\+?[0-9 ()-]+$" },
-          "note_ko": { "type": "string" },
-          "source": { "type": "string" },
-          "last_verified": { "$ref": "#/$defs/date" }
+          "id": {
+            "type": "string"
+          },
+          "label_ko": {
+            "type": "string"
+          },
+          "number": {
+            "type": "string",
+            "pattern": "^\\+?[0-9 ()-]+$"
+          },
+          "note_ko": {
+            "type": "string"
+          },
+          "source": {
+            "type": "string"
+          },
+          "last_verified": {
+            "$ref": "#/$defs/date"
+          }
         }
       }
     },
     "embassy": {
       "type": "object",
-      "required": ["name_ko", "address", "phone", "source", "last_verified"],
+      "required": [
+        "name_ko",
+        "address",
+        "phone",
+        "source",
+        "last_verified"
+      ],
       "additionalProperties": false,
       "properties": {
-        "name_ko": { "type": "string" },
-        "address": { "type": "string", "description": "공관이 공개한 표기 그대로(번역·음역하지 않는다)" },
-        "phone": { "type": "string" },
-        "emergency_phone": { "type": "string" },
-        "source": { "type": "string" },
-        "last_verified": { "$ref": "#/$defs/date" }
+        "name_ko": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string",
+          "description": "공관이 공개한 표기 그대로(번역·음역하지 않는다)"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "emergency_phone": {
+          "type": "string"
+        },
+        "source": {
+          "type": "string"
+        },
+        "last_verified": {
+          "$ref": "#/$defs/date"
+        }
       }
     },
     "procedures": {
@@ -155,22 +391,140 @@
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["id", "title_ko", "steps_ko", "source", "last_verified"],
+        "required": [
+          "id",
+          "title_ko",
+          "steps_ko",
+          "source",
+          "last_verified"
+        ],
         "additionalProperties": false,
         "properties": {
-          "id": { "type": "string" },
-          "title_ko": { "type": "string" },
-          "steps_ko": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
-          "source": { "type": "string" },
-          "last_verified": { "$ref": "#/$defs/date" }
+          "id": {
+            "type": "string"
+          },
+          "title_ko": {
+            "type": "string"
+          },
+          "steps_ko": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "minItems": 1
+          },
+          "source": {
+            "type": "string"
+          },
+          "last_verified": {
+            "$ref": "#/$defs/date"
+          }
         }
       }
     },
-    "essentials_rules": { "type": "array" },
-    "shopping": { "type": "array" }
+    "shopping": {
+      "description": "쇼핑 리스트 (PRD 11.3). 브랜드명 금지, 반입 가능 여부는 관세청·검역본부 출처(import_source)",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "category",
+          "names",
+          "why_ko",
+          "import_status",
+          "source",
+          "import_source",
+          "last_verified"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "category": {
+            "enum": [
+              "food",
+              "daily",
+              "souvenir"
+            ]
+          },
+          "names": {
+            "$ref": "#/properties/names"
+          },
+          "where_ko": {
+            "type": "string"
+          },
+          "why_ko": {
+            "type": "string"
+          },
+          "import_status": {
+            "enum": [
+              "allowed",
+              "caution",
+              "prohibited"
+            ]
+          },
+          "import_note_ko": {
+            "type": "string"
+          },
+          "source": {
+            "type": "string"
+          },
+          "import_source": {
+            "type": "string"
+          },
+          "last_verified": {
+            "type": "string",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+          }
+        }
+      }
+    },
+    "power": {
+      "type": "object",
+      "required": [
+        "plug_ko",
+        "voltage",
+        "frequency",
+        "source",
+        "last_verified"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "plug_ko": {
+          "type": "string"
+        },
+        "kr_plug_fits": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "voltage": {
+          "type": "string"
+        },
+        "frequency": {
+          "type": "string"
+        },
+        "source": {
+          "type": "string"
+        },
+        "last_verified": {
+          "type": "string",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+        }
+      }
+    }
   },
   "$defs": {
-    "date": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
-    "version": { "type": "string", "pattern": "^\\d{4}\\.\\d{2}\\.\\d{2}-\\d+$" }
+    "date": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d{4}\\.\\d{2}\\.\\d{2}-\\d+$"
+    }
   }
 }

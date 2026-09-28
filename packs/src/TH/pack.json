@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "country": "TH",
-  "version": "2026.09.28-2",
+  "version": "2026.09.29-1",
   "last_verified": "2026-09-28",
   "names": {
     "ko": "태국",
@@ -52,6 +52,41 @@
       "id": "gmaps_play",
       "name": "Google Play · Google 지도",
       "url": "https://play.google.com/store/apps/details?id=com.google.android.apps.maps"
+    },
+    {
+      "id": "tat_power",
+      "name": "태국관광청 (전기)",
+      "url": "https://www.tourismthailand.org/Articles/plan-your-trip-electricity"
+    },
+    {
+      "id": "tat_chumphon",
+      "name": "태국관광청 · 춤폰 쇼핑",
+      "url": "https://www.tourismthailand.org/Articles/ttps-www-tourismthailand-org-articles-shoppingatchumphon"
+    },
+    {
+      "id": "tat_nakhon",
+      "name": "태국관광청 · 나콘시탐마랏 기념품",
+      "url": "https://www.tourismthailand.org/Articles/https-www-tourismthailand-org-articles-2-souvenir-shops-you-should-visit-while-in-nakhon-si-thammarat"
+    },
+    {
+      "id": "tat_chanthaburi",
+      "name": "태국관광청 · 찬타부리 기념품",
+      "url": "https://www.tourismthailand.org/Articles/https-www-tourismthailand-org-articles-available-only-at-chanthaburi-local-souvenirs-favored-by-both-thai-and-foreign-visitors"
+    },
+    {
+      "id": "customs_allowance",
+      "name": "관세청 여행자 휴대품 면세 범위",
+      "url": "https://customs.go.kr/kcs/cm/cntnts/cntntsView.do?mi=2837&cntntsId=829"
+    },
+    {
+      "id": "apqa_plant",
+      "name": "농림축산검역본부 휴대 식물 검역",
+      "url": "https://www.apqa.go.kr/plant/imQua/plant_quar_wong_ex.jsp"
+    },
+    {
+      "id": "apqa_plant_exempt",
+      "name": "농림축산검역본부 검역 제외 식물",
+      "url": "https://www.apqa.go.kr/plant/imQua/plant_notest_ex.jsp"
     }
   ],
   "requirements": [
@@ -257,6 +292,74 @@
       "last_verified": "2026-09-28"
     }
   ],
-  "essentials_rules": [],
-  "shopping": []
+  "shopping": [
+    {
+      "id": "durian_chips",
+      "category": "food",
+      "names": {
+        "ko": "두리안 칩",
+        "en": "Durian chips",
+        "local": "ทุเรียนทอดกรอบ"
+      },
+      "why_ko": "관광청이 찬타부리 기념품으로 소개하는 과일 가공 과자예요.",
+      "import_status": "caution",
+      "import_note_ko": "밀봉 포장된 가공품만 사세요. 생과일은 들여올 수 없어요. 입국 때 검역 신고하세요.",
+      "source": "tat_chanthaburi",
+      "import_source": "apqa_plant_exempt",
+      "last_verified": "2026-09-29"
+    },
+    {
+      "id": "coffee_beans",
+      "category": "food",
+      "names": {
+        "ko": "원두 커피",
+        "en": "Roasted coffee beans",
+        "local": "เมล็ดกาแฟคั่ว"
+      },
+      "why_ko": "관광청이 남부 춤폰의 이름난 커피로 소개해요.",
+      "import_status": "allowed",
+      "import_note_ko": "볶아서 포장된 원두는 식물 검역 대상이 아니에요. 생두는 검역 신고가 필요해요.",
+      "source": "tat_chumphon",
+      "import_source": "apqa_plant_exempt",
+      "last_verified": "2026-09-29"
+    },
+    {
+      "id": "niello_silver",
+      "category": "souvenir",
+      "names": {
+        "ko": "은·니엘로 공예품",
+        "en": "Silver and niello ware",
+        "local": "เครื่องถมเงิน"
+      },
+      "why_ko": "관광청이 나콘시탐마랏 대표 기념품으로 소개해요.",
+      "import_status": "allowed",
+      "import_note_ko": "면세 한도(미화 800달러) 안이면 세금 없이 가져올 수 있어요.",
+      "source": "tat_nakhon",
+      "import_source": "customs_allowance",
+      "last_verified": "2026-09-29"
+    },
+    {
+      "id": "fresh_mango",
+      "category": "food",
+      "names": {
+        "ko": "생망고 등 생과일",
+        "en": "Fresh mango and other fresh fruit",
+        "local": "มะม่วงสด"
+      },
+      "why_ko": "시장에서 많이 보이지만 한국에 가져올 수 없어요. 현지에서 드세요.",
+      "import_status": "prohibited",
+      "import_note_ko": "망고는 검역본부가 밝힌 수입 금지 과일이에요. 걸리면 그 자리에서 폐기돼요.",
+      "source": "apqa_plant",
+      "import_source": "apqa_plant",
+      "last_verified": "2026-09-29"
+    }
+  ],
+  "power": {
+    "plug_ko": "납작한 핀 2개·둥근 핀 2개 모두 맞는 콘센트, 일부 3핀",
+    "kr_plug_fits": true,
+    "voltage": "220 V",
+    "frequency": "50 Hz",
+    "source": "tat_power",
+    "last_verified": "2026-09-29"
+  }
 }
