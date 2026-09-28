@@ -58,7 +58,7 @@
 | C20 | ✅ 2026-09-29 GitHub secrets `PACK_SIGNING_KEY_PEM`·`FIREBASE_SERVICE_ACCOUNT`(서비스 계정 github-deploy: Hosting·Remote Config·FCM 관리자, Datastore 뷰어, 서비스 사용량 소비자) 등록. deploy-packs 수동 실행 #2 전 단계 성공. ARIA PC용 별도 계정(Remote Config·Firestore만)은 ARIA 연결 때 | M9 | ✅ |
 | C21 | App Check: Play Console 앱 연결 → Play Integrity 등록, 디버그 토큰 등록(logcat 'DebugAppCheckProvider'), 확인 후 Firestore 강제 모드 켜기 | 출시 전 | ⏳ |
 | C22 | Firestore 위치가 nam5(미국)로 자동 생성됨. 서울로 바꾸려면 비어 있을 때 지우고 asia-northeast3로 다시 만들기(선택) | 선택 | ⏳ |
-| C23 | ARIA 설정: 공공데이터포털 외교부 입국허가요건 API 키·요청 주소 확인(`MOFA_API_URL` [재확인]), 감시할 공지 페이지 목록(`NOTICE_URLS`), 텔레그램 봇에 chat_id 허용 목록 연결, `CLAUDE_BIN`은 claude.exe | ARIA 연결 시 | ⏳ |
+| C23 | ARIA 설정: 공공데이터포털 외교부 입국허가요건 API 키·요청 주소 확인(`MOFA_API_URL` [재확인]), 감시할 공지 페이지 목록(`NOTICE_URLS`), 텔레그램 봇에 chat_id 허용 목록 연결, `CLAUDE_BIN`은 claude.exe. **ARIA가 하트비트를 남기기 시작하면 GitHub Actions의 `aria-watchdog`를 다시 켜기**(2026-09-29 꺼 둠 — 켜 두면 ARIA 없이 매일 실패 메일과 앱 '점검 지연' 배너가 뜸) | ARIA 연결 시 | ⏳ |
 | C24 | 개발 폰에서 확인하느라 `favorite_counts/TH`가 1로 만들어짐(2026-09-29). 출시 전 0부터 세려면 콘솔에서 지우기(선택) | 출시 전 | ⏳ |
 | C14 | ✅ TDAC 실기기 리허설 완료(2026-09-28): 폰 Chrome에서 사람 확인이 저절로 통과됨. DevTools로 화면 구조와 서버가 준 선택지 목록만 읽음. 입력·제출 없음. 여는 버튼('Arrival Card')만 눌렀음 | M4 | ✅ |
 | C13 | ✅ 2026-09-29 공개 저장소 https://github.com/inhyeuk/readyport 생성·푸시. main 보호: PR 필수, 관리자 포함 우회 금지, 강제 푸시·삭제 금지. 승인 수는 0(혼자 운영이라 자기 PR을 승인할 수 없음 — 사람 검토는 머지 버튼을 누르는 것으로) | M0 | ✅ |

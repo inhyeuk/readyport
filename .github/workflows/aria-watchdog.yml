@@ -4,6 +4,7 @@ name: aria-watchdog
 # 3일 넘게 멈추면 Remote Config stale_banner 를 켜고(앱에 '정보 점검이 늦어지고 있어요') 이 작업을 실패로 끝낸다
 # → GitHub가 저장소 주인에게 실패 메일을 보낸다. 다시 살아나면 배너를 끈다.
 # 필요한 secret: FIREBASE_SERVICE_ACCOUNT (Firestore 읽기 + Remote Config)
+# 2026-09-29: ARIA 연결 전이라 GitHub에서 '꺼 둠'(Disable workflow). ARIA 하트비트가 시작되면 다시 켠다.
 
 on:
   schedule:
