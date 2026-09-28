@@ -20,7 +20,7 @@
 - ✅ C20 GitHub secrets 등록 완료(2026-09-29). ARIA PC용 서비스 계정(Remote Config·Firestore만)은 ARIA 연결 때
 - **C21 App Check**: Play Console 연결 → Play Integrity 등록, 디버그 토큰 등록(logcat `DebugAppCheckProvider`) → Firestore 강제 모드 켜기
 - C3·C4 공공데이터포털(외교부 입국허가요건·인천공항·한국공항공사), 네이버 데이터랩(비용 확인) 키 → 인기 순위·쇼핑 검색 추이가 켜진다
-- C23 ARIA 연결: `ops/aria/.env`(`.env.example` 참고), `MOFA_API_URL` 확인, `NOTICE_URLS`, 텔레그램 chat_id 허용 목록, `CLAUDE_BIN`=claude.exe
+- C23 ARIA 연결: `ops/aria/.env`(`.env.example` 참고), `MOFA_API_URL` 확인, `NOTICE_URLS`, 텔레그램 chat_id 허용 목록, `CLAUDE_BIN`=claude.exe → 연결 후 https://github.com/inhyeuk/readyport/actions/workflows/aria-watchdog.yml 에서 **Enable workflow**
 - C7 이 저장소 전용 fine-grained 토큰(ARIA가 PR 만들 때)
 
 ## 4. 검토·법률
