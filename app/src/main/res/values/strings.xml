@@ -269,6 +269,103 @@
     <!-- 오프라인 -->
     <string name="offline_banner">인터넷 없음 · 저장해 둔 정보로 보여 드려요</string>
 
+    <!-- 여행 (M6) -->
+    <string name="trip_create_title">여행 만들기</string>
+    <string name="trip_edit_title">여행 고치기</string>
+    <string name="trip_country">어느 나라에 가세요?</string>
+    <string name="trip_start">떠나는 날</string>
+    <string name="trip_end">돌아오는 날</string>
+    <string name="trip_date_hint">예: 2026-11-03</string>
+    <string name="trip_save">여행 만들기</string>
+    <string name="trip_invalid">날짜를 확인해 주세요. 돌아오는 날은 떠나는 날과 같거나 뒤여야 해요.</string>
+    <string name="trip_delete">이 여행 지우기</string>
+    <string name="trip_create_body">나라와 날짜만 적으면, 필요한 서류와 할 일을 날짜에 맞춰 알려 드려요. 여행 일정은 이 휴대폰에만 저장해요.</string>
+    <string name="trip_no_country">여행지 탭에서 안내가 있는 나라를 먼저 골라 주세요.</string>
+
+    <!-- 오늘: 단계별 (PRD 4.2) -->
+    <string name="today_trip_title">%1$s 여행</string>
+    <string name="today_d_day">출발까지 %1$d일</string>
+    <string name="today_day_n">%1$s 여행 %2$d일째</string>
+    <string name="today_make_trip">여행 만들기</string>
+    <string name="today_task_form_title">%1$s를 낼 수 있어요</string>
+    <string name="today_task_form_body">도착 전에 내는 입국 카드예요. 앱이 채워 드리고, 마지막 제출만 직접 해요.</string>
+    <string name="today_task_passport_title">여권을 등록해 주세요</string>
+    <string name="today_task_passport_body">입국 카드를 채우려면 여권 정보가 필요해요. 사진은 저장하지 않아요.</string>
+    <string name="today_task_ready_title">지금은 급한 일이 없어요</string>
+    <string name="today_task_ready_body">준비 탭에서 챙길 것을 하나씩 확인해 보세요.</string>
+    <string name="today_open_prepare">준비 탭 열기</string>
+    <string name="today_departure_title">오늘 떠나요</string>
+    <string name="today_departure_steps_title">공항에서 이 순서대로</string>
+    <string name="today_departure_step1">1. 공항에 가요. 국제선은 넉넉히 일찍 가는 게 좋아요.</string>
+    <string name="today_departure_step2">2. 비행기 표 받고 짐 맡기기 (체크인)</string>
+    <string name="today_departure_step3">3. 보안 검색 — 가방 속 물건 검사</string>
+    <string name="today_departure_step4">4. 출국 심사 — 여권 보여 주기</string>
+    <string name="today_departure_step5">5. 타는 곳(게이트)을 찾아 기다려요</string>
+    <string name="today_arrived_button">도착했어요</string>
+    <string name="today_arrival_title">도착했어요! 이 순서대로 해요</string>
+    <string name="today_arrival_step1">1. 입국 심사 — 여권과 입국 QR 보여 주기</string>
+    <string name="today_arrival_step2">2. 짐 찾기</string>
+    <string name="today_arrival_step3">3. 유심·인터넷 준비</string>
+    <string name="today_arrival_step4">4. 필요하면 환전</string>
+    <string name="today_arrival_step5">5. 숙소로 가기</string>
+    <string name="today_arrival_done">다 했어요</string>
+    <string name="today_show_qr">입국 QR 보기</string>
+    <string name="today_go_stay">숙소로 돌아가기</string>
+    <string name="today_phrases">현지어 카드</string>
+    <string name="today_expense">오늘 쓴 돈 적기</string>
+    <string name="today_return_title">여행이 끝났어요</string>
+    <string name="today_return_customs">한국에 들어올 때 면세 한도와 들여올 수 없는 물건을 확인하세요.</string>
+    <string name="today_destroy_title">여권 정보를 지울까요?</string>
+    <string name="today_destroy_body">사진·영수증은 남고 여권 정보만 지워요. 다음 여행 때 다시 찍으면 돼요.</string>
+    <string name="today_destroy_now">지우기</string>
+    <string name="today_destroy_later">7일 미루기</string>
+    <string name="today_destroyed">여권 정보를 지웠어요.</string>
+    <string name="today_wrapup_title">정리 끝! 다음 여행도 함께해요</string>
+    <string name="today_new_trip">새 여행 만들기</string>
+    <string name="today_speech_trip">%1$s. 지금 단계는 %2$s이에요.</string>
+
+    <!-- 알림 -->
+    <string name="notif_channel_trip">여행 알림</string>
+    <string name="notif_form_title">%1$s를 낼 수 있어요</string>
+    <string name="notif_form_body">앱을 열어 확인하면 공식 사이트에 채워 드려요.</string>
+    <string name="notif_arrival_title">도착했어요</string>
+    <string name="notif_arrival_body">입국 심사 → 짐 찾기 → 숙소 가기 순서를 보여 드릴게요.</string>
+
+    <!-- 입국 시 보여 주기 (PRD 5.4) -->
+    <string name="present_title">입국 때 보여 주기</string>
+    <string name="present_submitted">제출 완료</string>
+    <string name="present_brightness">밝기 최대로</string>
+    <string name="present_offline">비행기 모드에서도 보여요</string>
+    <string name="present_none">아직 저장한 입국 서류가 없어요. 공식 사이트에서 제출한 뒤 확인 화면을 저장하거나, 확인 메일의 QR 사진을 추가해 주세요.</string>
+    <string name="present_add_photo">사진에서 추가하기</string>
+    <string name="present_self">나</string>
+    <string name="present_share">다른 폰으로 보내기</string>
+    <string name="present_delete">이 서류 지우기</string>
+    <string name="present_doc_image">%1$s 입국 서류 그림</string>
+    <string name="present_confirmation">확인 번호</string>
+    <string name="present_speech">입국 때 보여 주기. 입국 심사관에게 이 화면을 보여 주세요.</string>
+    <string name="autofill_save_capture">이 확인 화면 지갑에 저장</string>
+    <string name="autofill_saved_capture">지갑에 저장했어요. \'입국 때 보여 주기\'에서 볼 수 있어요.</string>
+
+    <!-- 가족 모드 (PRD 3.3) -->
+    <string name="companions_title">같이 가는 사람</string>
+    <string name="companions_body">보호자 폰 하나로 가족의 여권과 입국 서류를 함께 챙겨요. 모두 이 휴대폰에만 암호화해서 저장해요.</string>
+    <string name="companion_add">같이 가는 사람 추가</string>
+    <string name="companion_label">부르는 이름 (예: 첫째, 어머니)</string>
+    <string name="companion_consent">본인 또는 보호자가 동의했나요?</string>
+    <string name="companion_consent_yes">네, 동의했어요</string>
+    <string name="companion_passport_add">여권 등록</string>
+    <string name="companion_passport_done">여권 등록됨</string>
+    <string name="companion_delete">지우기</string>
+    <string name="settings_child_mode">자녀 폰 모드</string>
+    <string name="settings_child_mode_desc">이 폰에서는 입국 QR과 도움만 크게 보여요. 보호자 폰에서 보낸 QR을 \'입국 때 보여 주기\'에 추가하세요.</string>
+    <string name="settings_family_mode_desc">지갑의 \'같이 가는 사람\'에서 가족을 추가해요.</string>
+    <string name="tab_present">입국 QR</string>
+
+    <!-- 위젯 -->
+    <string name="widget_label">레디포트 입국 QR</string>
+    <string name="widget_open">입국 QR 열기</string>
+
     <!-- 설정 -->
     <string name="settings_title">설정</string>
     <string name="settings_easy_mode">쉬운 모드</string>

@@ -27,6 +27,8 @@ data class AppSettings(
     val wifiOnly: Boolean = true,
     /** 도움 탭에서 마지막으로 고른 나라 */
     val helpCountry: String? = null,
+    /** 자녀 폰 모드: 입국 QR과 도움만 (PRD 3.3) */
+    val childMode: Boolean = false,
 )
 
 private val Context.settingsStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
@@ -40,6 +42,7 @@ class SettingsRepository @Inject constructor(
     private val favoritesKey = stringSetPreferencesKey("favorite_countries")
     private val wifiOnlyKey = booleanPreferencesKey("wifi_only")
     private val helpCountryKey = stringPreferencesKey("help_country")
+    private val childModeKey = booleanPreferencesKey("child_mode")
 
     val settings: Flow<AppSettings> = context.settingsStore.data.map { prefs ->
         AppSettings(
@@ -48,6 +51,7 @@ class SettingsRepository @Inject constructor(
             favorites = prefs[favoritesKey].orEmpty(),
             wifiOnly = prefs[wifiOnlyKey] ?: true,
             helpCountry = prefs[helpCountryKey],
+            childMode = prefs[childModeKey] ?: false,
         )
     }
 
@@ -70,6 +74,10 @@ class SettingsRepository @Inject constructor(
 
     suspend fun setWifiOnly(enabled: Boolean) {
         context.settingsStore.edit { it[wifiOnlyKey] = enabled }
+    }
+
+    suspend fun setChildMode(enabled: Boolean) {
+        context.settingsStore.edit { it[childModeKey] = enabled }
     }
 
     suspend fun setHelpCountry(country: String) {

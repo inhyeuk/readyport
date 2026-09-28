@@ -26,6 +26,10 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch { settingsRepository.setEasyMode(enabled) }
     }
 
+    fun setChildMode(enabled: Boolean) {
+        viewModelScope.launch { settingsRepository.setChildMode(enabled) }
+    }
+
     fun speak(text: String) = speaker.speak(text)
 
     override fun onCleared() {

@@ -59,9 +59,13 @@ sealed interface ScanState {
 
 @HiltViewModel
 class PassportFlowViewModel @Inject constructor(
+    handle: androidx.lifecycle.SavedStateHandle,
     private val repo: WalletRepository,
     private val ocr: OcrEngine,
 ) : ViewModel() {
+    /** "self" 또는 동행자 id (PassportGraph 인자) */
+    private val traveler: String = handle["traveler"] ?: "self"
+
     private val _scan = MutableStateFlow<ScanState>(ScanState.Idle)
     val scan: StateFlow<ScanState> = _scan.asStateFlow()
 
@@ -86,7 +90,10 @@ class PassportFlowViewModel @Inject constructor(
 
     suspend fun save(record: PassportRecord): WalletRepository.SaveResult {
         if (repo.state.value !is WalletState.Unlocked) repo.unlock()
-        val result = repo.update { it.copy(passport = record) }
+        val result = repo.update { c ->
+            if (traveler == "self") c.copy(passport = record)
+            else c.copy(companions = c.companions.map { if (it.id == traveler) it.copy(passport = record) else it })
+        }
         if (result == WalletRepository.SaveResult.Saved) _scan.value = ScanState.Idle
         return result
     }

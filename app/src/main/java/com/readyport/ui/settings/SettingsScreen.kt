@@ -23,6 +23,9 @@ import com.readyport.ui.components.TopicCard
 fun SettingsScreen(
     easyMode: Boolean,
     onEasyModeChange: (Boolean) -> Unit,
+    childMode: Boolean = false,
+    onChildModeChange: (Boolean) -> Unit = {},
+    onOpenFamily: () -> Unit = {},
 ) {
     AppScreen(
         title = stringResource(R.string.settings_title),
@@ -47,7 +50,27 @@ fun SettingsScreen(
                 }
             }
         }
-        item(key = "family") { TopicCard(stringResource(R.string.settings_family_mode), null, comingSoon = true) }
+        item(key = "family") {
+            InfoCard {
+                Text(stringResource(R.string.settings_family_mode), style = MaterialTheme.typography.titleMedium)
+                Text(stringResource(R.string.settings_family_mode_desc), style = MaterialTheme.typography.bodyMedium)
+                com.readyport.ui.components.PrimaryButton(stringResource(R.string.companions_title), onClick = onOpenFamily)
+            }
+        }
+        item(key = "child") {
+            InfoCard {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.toggleable(value = childMode, role = Role.Switch, onValueChange = onChildModeChange),
+                ) {
+                    Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                        Text(stringResource(R.string.settings_child_mode), style = MaterialTheme.typography.titleMedium)
+                        Text(stringResource(R.string.settings_child_mode_desc), style = MaterialTheme.typography.bodyMedium)
+                    }
+                    Switch(checked = childMode, onCheckedChange = null)
+                }
+            }
+        }
         item(key = "packs") { TopicCard(stringResource(R.string.settings_offline_packs), null, comingSoon = true) }
         item(key = "notifications") { TopicCard(stringResource(R.string.settings_notifications), null, comingSoon = true) }
         item(key = "privacy") {

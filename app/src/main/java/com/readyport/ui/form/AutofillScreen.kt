@@ -46,6 +46,7 @@ import com.readyport.ui.components.StatusChip
 import com.readyport.ui.theme.LocalDimens
 import com.readyport.ui.theme.Tokens
 import com.readyport.ui.wallet.rememberDeviceAuth
+import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.boolean
@@ -95,6 +96,8 @@ fun AutofillScreen(onManual: () -> Unit, viewModel: AutofillViewModel = hiltView
     var report by remember { mutableStateOf<FillReport?>(null) }
     var compare by remember { mutableStateOf<Map<String, Boolean>>(emptyMap()) }
     var nothingVisible by remember { mutableStateOf(false) }
+    var captured by remember { mutableStateOf(false) }
+    val scope = androidx.compose.runtime.rememberCoroutineScope()
 
     if (recipe == null || engine == null) return
     if (ui.locked) {
@@ -194,7 +197,18 @@ fun AutofillScreen(onManual: () -> Unit, viewModel: AutofillViewModel = hiltView
             modifier = Modifier.fillMaxWidth().background(Tokens.Surface).padding(12.dp),
         ) {
             if (ui.submitted) {
-                InfoCard(tone = CardTone.Accent) { Text(stringResource(R.string.autofill_submitted), style = MaterialTheme.typography.bodyLarge) }
+                InfoCard(tone = CardTone.Accent) {
+                    Text(stringResource(R.string.autofill_submitted), style = MaterialTheme.typography.bodyLarge)
+                    if (captured) {
+                        Text(stringResource(R.string.autofill_saved_capture), style = MaterialTheme.typography.bodyMedium)
+                    } else {
+                        PrimaryButton(stringResource(R.string.autofill_save_capture), onClick = {
+                            val wv = webView ?: return@PrimaryButton
+                            val png = captureWebView(wv)
+                            scope.launch { captured = viewModel.saveCapture(png) }
+                        })
+                    }
+                }
             }
             if (nothingVisible) Text(stringResource(R.string.autofill_nothing_visible), style = MaterialTheme.typography.bodyMedium)
             report?.let { r ->
@@ -228,6 +242,17 @@ fun AutofillScreen(onManual: () -> Unit, viewModel: AutofillViewModel = hiltView
                 }
             }
         }
+    }
+}
+
+/** 지금 보이는 WebView 화면을 PNG로 (메모리에서만, 파일로 남기지 않음) */
+private fun captureWebView(wv: WebView): ByteArray {
+    val bmp = android.graphics.Bitmap.createBitmap(wv.width.coerceAtLeast(1), wv.height.coerceAtLeast(1), android.graphics.Bitmap.Config.ARGB_8888)
+    wv.draw(android.graphics.Canvas(bmp))
+    return java.io.ByteArrayOutputStream().use { out ->
+        bmp.compress(android.graphics.Bitmap.CompressFormat.PNG, 100, out)
+        bmp.recycle()
+        out.toByteArray()
     }
 }
 

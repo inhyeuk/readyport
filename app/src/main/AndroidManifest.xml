@@ -5,6 +5,8 @@
     <!-- 여권 촬영할 때만 요청한다. 사진 고르기는 Photo Picker라 저장소 권한이 필요 없다 (PRD 7.4) -->
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-feature android:name="android.hardware.camera" android:required="false" />
+    <!-- 입국 카드 제출 가능일·도착 알림 (Android 13+) -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <!-- 필요한 패키지만 선언한다. QUERY_ALL_PACKAGES 사용 금지 (PRD 7.4) -->
     <queries>
@@ -42,6 +44,39 @@
                 android:name="androidx.work.WorkManagerInitializer"
                 android:value="androidx.startup"
                 tools:node="remove" />
+        </provider>
+
+        <!-- 도착 감지: 위치 권한 없이 시간대 변경으로 (PRD 4.2) -->
+        <receiver
+            android:name=".trip.TimezoneReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
+            </intent-filter>
+        </receiver>
+
+        <!-- 홈 화면 '입국 QR 열기' 위젯 (PRD 5.4) -->
+        <receiver
+            android:name=".widget.EntryQrWidget"
+            android:exported="false"
+            android:label="@string/widget_label">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_entry_qr_info" />
+        </receiver>
+
+        <!-- 다른 폰으로 입국 QR 보내기(시스템 공유)용 -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.files"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
         </provider>
 
         <activity

@@ -71,7 +71,14 @@ import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.compose.navigation
 import com.readyport.ui.theme.ReadyPortTheme
 import com.readyport.ui.theme.Tokens
+import com.readyport.ui.today.TodayActions
 import com.readyport.ui.today.TodayScreen
+import com.readyport.ui.trip.TripScreen
+import com.readyport.ui.present.PresentScreen
+import com.readyport.ui.present.CompanionsScreen
+import com.readyport.ui.nav.TripRoute
+import com.readyport.ui.nav.PresentRoute
+import com.readyport.ui.nav.CompanionsRoute
 
 /**
  * 앱 최상위 화면. 상태를 직접 들고 있지 않아서 테스트에서 그대로 띄울 수 있다.
@@ -85,6 +92,9 @@ fun ReadyPortRoot(
     hasPendingShare: Boolean = false,
     online: Boolean = true,
     slots: ScreenSlots = ScreenSlots(),
+    onSetChildMode: (Boolean) -> Unit = {},
+    /** 위젯에서 열면 바로 '입국 때 보여 주기' */
+    openPresent: Boolean = false,
 ) {
     when {
         settings == null -> Box(Modifier.fillMaxSize().background(Tokens.Ground))
@@ -94,29 +104,36 @@ fun ReadyPortRoot(
             }
         }
         else -> ReadyPortTheme(easyMode = settings.easyMode) {
-            MainScaffold(settings.easyMode, onSetEasyMode, onSpeak, hasPendingShare, online, slots)
+            MainScaffold(settings, onSetEasyMode, onSetChildMode, onSpeak, hasPendingShare, online, slots, openPresent)
         }
     }
 }
 
 @Composable
 private fun MainScaffold(
-    easyMode: Boolean,
+    settings: AppSettings,
     onSetEasyMode: (Boolean) -> Unit,
+    onSetChildMode: (Boolean) -> Unit,
     onSpeak: (String) -> Unit,
     hasPendingShare: Boolean,
     online: Boolean,
     slots: ScreenSlots,
+    openPresent: Boolean,
 ) {
+    val easyMode = settings.easyMode == true
+    val tabs = if (settings.childMode) Tab.Child else Tab.Main
     val navController = rememberNavController()
     val backStack by navController.currentBackStackEntryAsState()
     val destination = backStack?.destination
     // 탭이 아닌 화면(설정, 여권 등록 등)에서는 들어온 탭을 선택된 채로 둔다
-    var lastTab by remember { mutableStateOf(Tab.Today) }
-    val matched = Tab.entries.firstOrNull { tab -> destination?.hasRoute(tab.route::class) == true }
+    var lastTab by remember(tabs) { mutableStateOf(tabs.first()) }
+    val matched = tabs.firstOrNull { tab -> destination?.hasRoute(tab.route::class) == true }
     val selectedTab = when {
         matched != null -> matched
-        destination?.hierarchy?.any { it.hasRoute(PassportGraph::class) || it.hasRoute(BookingImportRoute::class) } == true -> Tab.Wallet
+        settings.childMode -> lastTab
+        destination?.hierarchy?.any {
+            it.hasRoute(PassportGraph::class) || it.hasRoute(BookingImportRoute::class) || it.hasRoute(CompanionsRoute::class)
+        } == true -> Tab.Wallet
         destination?.hierarchy?.any {
             it.hasRoute(FormConfirmRoute::class) || it.hasRoute(AutofillRoute::class) || it.hasRoute(FormManualRoute::class)
         } == true -> Tab.Prepare
@@ -125,6 +142,10 @@ private fun MainScaffold(
     LaunchedEffect(selectedTab) { lastTab = selectedTab }
 
     // 다른 앱에서 '공유하기'로 예약 서류를 보내면 바로 가져오기 화면으로
+    LaunchedEffect(openPresent) {
+        if (openPresent) navController.navigate(PresentRoute) { launchSingleTop = true }
+    }
+
     LaunchedEffect(hasPendingShare) {
         if (hasPendingShare) navController.navigate(BookingImportRoute) { launchSingleTop = true }
     }
@@ -140,18 +161,34 @@ private fun MainScaffold(
         Scaffold(
             containerColor = Tokens.Ground,
             topBar = { if (!online) OfflineBanner() },
-            bottomBar = { BottomTabs(selected = selectedTab, onSelect = { navController.switchTab(it) }) },
+            bottomBar = { BottomTabs(selected = selectedTab, onSelect = { navController.switchTab(it) }, tabs = tabs) },
         ) { inner ->
             NavHost(
                 navController = navController,
-                startDestination = TodayRoute,
+                startDestination = if (settings.childMode) PresentRoute else TodayRoute,
                 modifier = Modifier.padding(inner),
             ) {
                 composable<TodayRoute> {
-                    TodayScreen(
-                        onOpenSettings = { navController.navigate(SettingsRoute) { launchSingleTop = true } },
-                        onPickDestination = { navController.switchTab(Tab.Explore) },
+                    slots.today(
+                        TodayActions(
+                            openSettings = { navController.navigate(SettingsRoute) { launchSingleTop = true } },
+                            makeTrip = { navController.navigate(TripRoute) },
+                            editTrip = { navController.navigate(TripRoute) },
+                            explore = { navController.switchTab(Tab.Explore) },
+                            prepare = { navController.switchTab(Tab.Prepare) },
+                            openForm = { formId -> navController.navigate(FormConfirmRoute(formId)) },
+                            registerPassport = { navController.navigate(PassportGraph()) },
+                            present = { navController.navigate(PresentRoute) },
+                            help = { navController.switchTab(Tab.Help) },
+                            goStay = { navController.switchTab(Tab.Explore) },
+                            expense = { navController.switchTab(Tab.Prepare) },
+                        ),
                     )
+                }
+                composable<TripRoute> { TripScreen(onDone = { navController.popBackStack() }) }
+                composable<PresentRoute> { slots.present() }
+                composable<CompanionsRoute> {
+                    CompanionsScreen(onRegisterPassport = { id -> navController.navigate(PassportGraph(traveler = id)) })
                 }
                 composable<PrepareRoute> { slots.prepare { formId -> navController.navigate(FormConfirmRoute(formId)) } }
                 composable<FormConfirmRoute> { entry ->
@@ -159,7 +196,7 @@ private fun MainScaffold(
                     FormConfirmScreen(
                         onAutofill = { navController.navigate(AutofillRoute(formId)) },
                         onManual = { navController.navigate(FormManualRoute(formId)) },
-                        onRegisterPassport = { navController.navigate(PassportGraph) },
+                        onRegisterPassport = { navController.navigate(PassportGraph()) },
                     )
                 }
                 composable<AutofillRoute> { entry ->
@@ -171,8 +208,9 @@ private fun MainScaffold(
                 composable<GuideRoute> { entry -> slots.guide(entry.toRoute<GuideRoute>().country) }
                 composable<WalletRoute> {
                     slots.wallet(
-                        { navController.navigate(PassportGraph) },
+                        { navController.navigate(PassportGraph()) },
                         { navController.navigate(BookingImportRoute) },
+                        { navController.navigate(CompanionsRoute) },
                     )
                 }
                 navigation<PassportGraph>(startDestination = PassportIntroRoute) {
@@ -200,12 +238,12 @@ private fun MainScaffold(
                             viewModel = vm,
                             onRescan = { navController.navigate(PassportScanRoute) { popUpTo(PassportIntroRoute) } },
                             onManual = { navController.navigate(PassportManualRoute) { popUpTo(PassportIntroRoute) } },
-                            onSaved = { navController.popBackStack(PassportGraph, inclusive = true) },
+                            onSaved = { navController.popBackStack<PassportGraph>(inclusive = true) },
                         )
                     }
                     composable<PassportManualRoute> { entry ->
                         val vm = navController.passportViewModel(entry)
-                        PassportManualScreen(vm, onSaved = { navController.popBackStack(PassportGraph, inclusive = true) })
+                        PassportManualScreen(vm, onSaved = { navController.popBackStack<PassportGraph>(inclusive = true) })
                     }
                 }
                 composable<BookingImportRoute> {
@@ -214,7 +252,13 @@ private fun MainScaffold(
                     })
                 }
                 composable<HelpRoute> { slots.help() }
-                composable<SettingsRoute> { SettingsScreen(easyMode = easyMode, onEasyModeChange = onSetEasyMode) }
+                composable<SettingsRoute> {
+                    SettingsScreen(
+                        easyMode = easyMode, onEasyModeChange = onSetEasyMode,
+                        childMode = settings.childMode, onChildModeChange = onSetChildMode,
+                        onOpenFamily = { navController.navigate(CompanionsRoute) },
+                    )
+                }
             }
         }
     }
@@ -224,13 +268,16 @@ private fun MainScaffold(
  * Hilt ViewModel을 쓰는 화면 자리. 테스트에서는 상태 없는 Content 화면으로 바꿔 끼운다.
  */
 data class ScreenSlots(
-    val wallet: @Composable (onAddPassport: () -> Unit, onAddBooking: () -> Unit) -> Unit = { onAddPassport, onAddBooking ->
-        WalletScreen(onAddPassport = onAddPassport, onAddBooking = onAddBooking)
-    },
+    val wallet: @Composable (onAddPassport: () -> Unit, onAddBooking: () -> Unit, onOpenCompanions: () -> Unit) -> Unit =
+        { onAddPassport, onAddBooking, onOpenCompanions ->
+            WalletScreen(onAddPassport = onAddPassport, onAddBooking = onAddBooking, onOpenCompanions = onOpenCompanions)
+        },
     val explore: @Composable (onOpenGuide: (String) -> Unit) -> Unit = { ExploreScreen(onOpenGuide = it) },
     val guide: @Composable (country: String) -> Unit = { GuideScreen() },
     val help: @Composable () -> Unit = { HelpScreen() },
     val prepare: @Composable (onOpenForm: (String) -> Unit) -> Unit = { PrepareScreen(onOpenForm = it) },
+    val today: @Composable (actions: TodayActions) -> Unit = { TodayScreen(actions = it) },
+    val present: @Composable () -> Unit = { PresentScreen(defaultFormId = null) },
 )
 
 /** 오프라인 배너 (PRD 5.1): 남색, 화면 맨 위 */
@@ -251,7 +298,7 @@ private fun OfflineBanner() {
 /** 여권 등록 흐름의 화면들이 같은 ViewModel(촬영 결과)을 나눠 쓴다. 흐름을 벗어나면 함께 사라진다 */
 @Composable
 private fun NavHostController.passportViewModel(entry: NavBackStackEntry): PassportFlowViewModel {
-    val parent = remember(entry) { getBackStackEntry(PassportGraph) }
+    val parent = remember(entry) { getBackStackEntry<PassportGraph>() }
     return hiltViewModel(parent)
 }
 

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 입국 QR 위젯: 글자와 아이콘만. QR·이름은 그리지 않는다 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widget_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/widget_background"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="12dp">
+
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:contentDescription="@null"
+        android:src="@mipmap/ic_launcher_round" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:text="@string/widget_open"
+        android:textColor="#FFFFFFFF"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+</LinearLayout>

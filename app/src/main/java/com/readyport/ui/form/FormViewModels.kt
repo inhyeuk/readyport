@@ -179,6 +179,12 @@ class AutofillViewModel @Inject constructor(
         return "window.__readyport ? window.__readyport.read(${kotlinx.serialization.json.JsonObject(map)}) : null"
     }
 
+    /** 제출 완료 화면 그림을 지갑에 암호화해 저장 (입국 때 보여 주기) */
+    suspend fun saveCapture(png: ByteArray): Boolean {
+        val v = _ui.value.values
+        return com.readyport.ui.present.saveCapture(wallet, png, formId, v["trip.arrival_date"]?.display, v["trip.flight_no"]?.value)
+    }
+
     fun onSubmittedPage() {
         if (_ui.value.submitted) return
         _ui.update { it.copy(submitted = true) }

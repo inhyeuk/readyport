@@ -12,7 +12,11 @@ import com.readyport.ui.pack.GuideContent
 import com.readyport.ui.pack.HelpContent
 import com.readyport.ui.pack.HelpUi
 import com.readyport.ui.pack.PackStatus
+import com.readyport.ui.present.PresentContent
+import com.readyport.ui.present.PresentUi
 import com.readyport.ui.tabs.FormEntry
+import com.readyport.ui.today.TodayContent
+import com.readyport.ui.today.TodayUi
 import com.readyport.ui.tabs.PrepareContent
 import com.readyport.ui.wallet.WalletContent
 import com.readyport.vault.WalletState
@@ -73,7 +77,7 @@ object TestPacks {
 
 /** Hilt 없이 루트를 띄우는 화면 대역 */
 val FakeSlots = ScreenSlots(
-    wallet = { onAddPassport, onAddBooking ->
+    wallet = { onAddPassport, onAddBooking, _ ->
         WalletContent(
             state = WalletState.Locked(hasData = false),
             deviceSecure = true,
@@ -89,4 +93,6 @@ val FakeSlots = ScreenSlots(
     guide = { country -> GuideContent(runBlocking { TestPacks.repo.pack(country)!! }) },
     help = { HelpContent(TestPacks.helpUi(), {}, {}, {}) },
     prepare = { onOpenForm -> PrepareContent(TestPacks.formEntries(), onOpenForm) },
+    today = { actions -> TodayContent(TodayUi(), actions, {}, {}, {}, {}, {}) },
+    present = { PresentContent(PresentUi(locked = true), {}, {}, {}, {}) },
 )

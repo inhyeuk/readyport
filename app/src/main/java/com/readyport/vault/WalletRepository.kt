@@ -88,11 +88,36 @@ class WalletRepository(
         result
     }
 
-    /** 보관함 전체 삭제 (설정의 '전체 삭제', 여행 종료 후 자동 파기). 복호화가 필요 없다 */
+    private val blobDir: File get() = File(file.parentFile, "blobs")
+
+    /** 그림 같은 큰 데이터를 따로 암호화해 저장하고 id를 돌려준다. 인증 시간이 지났으면 null */
+    suspend fun writeBlob(bytes: ByteArray): String? = withContext(io) {
+        try {
+            val id = java.util.UUID.randomUUID().toString()
+            blobDir.mkdirs()
+            File(blobDir, "$id.bin").writeBytes(cipher.encrypt(bytes))
+            id
+        } catch (e: Exception) {
+            null
+        }
+    }
+
+    suspend fun readBlob(id: String): ByteArray? = withContext(io) {
+        if (!id.matches(Regex("^[0-9a-f-]{36}$"))) return@withContext null
+        val f = File(blobDir, "$id.bin")
+        if (!f.isFile) null else runCatching { cipher.decrypt(f.readBytes()) }.getOrNull()
+    }
+
+    suspend fun deleteBlob(id: String) = withContext(io) {
+        if (id.matches(Regex("^[0-9a-f-]{36}$"))) File(blobDir, "$id.bin").delete()
+    }
+
+    /** 보관함 전체 삭제 (설정의 '전체 삭제'). 복호화가 필요 없다 */
     suspend fun wipe() = mutex.withLock {
         withContext(io) {
             file.delete()
             File(file.parentFile, file.name + ".tmp").delete()
+            blobDir.deleteRecursively()
         }
         _state.value = WalletState.Locked(hasData = false)
     }

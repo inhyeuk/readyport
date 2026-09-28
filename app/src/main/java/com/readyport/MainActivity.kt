@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.readyport.net.onlineFlow
@@ -26,6 +27,7 @@ class MainActivity : FragmentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         if (savedInstanceState == null) shareInbox.offer(intent)
+        openPresent = intent?.getBooleanExtra(EXTRA_OPEN_PRESENT, false) == true
         setContent {
             val settings by viewModel.settings.collectAsStateWithLifecycle()
             val pendingShare by shareInbox.pending.collectAsStateWithLifecycle()
@@ -36,6 +38,8 @@ class MainActivity : FragmentActivity() {
                 onSpeak = viewModel::speak,
                 hasPendingShare = pendingShare != null,
                 online = online,
+                onSetChildMode = viewModel::setChildMode,
+                openPresent = openPresent,
             )
         }
     }
@@ -43,5 +47,13 @@ class MainActivity : FragmentActivity() {
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
         shareInbox.offer(intent)
+        if (intent.getBooleanExtra(EXTRA_OPEN_PRESENT, false)) openPresent = true
+    }
+
+    private var openPresent by androidx.compose.runtime.mutableStateOf(false)
+
+    companion object {
+        /** 홈 화면 위젯에서 열 때 */
+        const val EXTRA_OPEN_PRESENT = "readyport.open_present"
     }
 }

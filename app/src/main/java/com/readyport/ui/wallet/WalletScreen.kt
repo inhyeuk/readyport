@@ -67,6 +67,7 @@ fun rememberDeviceAuth(): (onSuccess: () -> Unit) -> Unit {
 fun WalletScreen(
     onAddPassport: () -> Unit,
     onAddBooking: () -> Unit,
+    onOpenCompanions: () -> Unit = {},
     viewModel: WalletViewModel = hiltViewModel(),
 ) {
     SecureScreen()
@@ -88,6 +89,7 @@ fun WalletScreen(
         onAddBooking = onAddBooking,
         onDeleteBooking = viewModel::deleteBooking,
         onAutoDestroyChange = viewModel::setAutoDestroy,
+        onOpenCompanions = onOpenCompanions,
     )
 }
 
@@ -105,6 +107,7 @@ fun WalletContent(
     onAddBooking: () -> Unit,
     onDeleteBooking: (String) -> Unit,
     onAutoDestroyChange: (Boolean) -> Unit,
+    onOpenCompanions: () -> Unit = {},
 ) {
     AppScreen(
         title = stringResource(R.string.wallet_title),
@@ -219,7 +222,15 @@ fun WalletContent(
             }
         }
         item(key = "profile") { TopicCard(stringResource(R.string.wallet_profile_title), null, comingSoon = true) }
-        item(key = "companions") { TopicCard(stringResource(R.string.wallet_companions_title), null, comingSoon = true) }
+        item(key = "companions") {
+            InfoCard {
+                Text(stringResource(R.string.wallet_companions_title), style = MaterialTheme.typography.titleMedium)
+                Text(stringResource(R.string.companions_body), style = MaterialTheme.typography.bodyMedium)
+                OutlinedButton(onClick = onOpenCompanions, modifier = Modifier.fillMaxWidth().heightIn(min = LocalDimens.current.buttonHeight)) {
+                    Text(stringResource(R.string.companions_title), style = MaterialTheme.typography.labelLarge)
+                }
+            }
+        }
         item(key = "documents") { TopicCard(stringResource(R.string.wallet_documents_title), null, comingSoon = true) }
     }
 }

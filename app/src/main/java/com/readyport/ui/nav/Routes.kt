@@ -12,7 +12,8 @@ import kotlinx.serialization.Serializable
 @Serializable data object SettingsRoute
 
 // 지갑 › 여권 등록 흐름 (중첩 그래프: 흐름 안의 화면이 같은 ViewModel을 쓴다)
-@Serializable data object PassportGraph
+/** traveler = "self" 또는 동행자 id (가족 모드) */
+@Serializable data class PassportGraph(val traveler: String = "self")
 @Serializable data object PassportIntroRoute
 @Serializable data object PassportScanRoute
 @Serializable data object PassportConfirmRoute
@@ -32,3 +33,12 @@ import kotlinx.serialization.Serializable
 
 /** 준비 › 수동 모드: 값 복사 + 공식 사이트 */
 @Serializable data class FormManualRoute(val formId: String)
+
+/** 오늘 › 여행 만들기·고치기 */
+@Serializable data object TripRoute
+
+/** 입국 때 보여 주기 (PRD 5.4). 자녀 폰 모드의 첫 화면 */
+@Serializable data object PresentRoute
+
+/** 지갑 › 같이 가는 사람 (가족 모드) */
+@Serializable data object CompanionsRoute

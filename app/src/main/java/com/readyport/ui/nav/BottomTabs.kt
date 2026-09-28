@@ -15,6 +15,7 @@ import androidx.compose.foundation.text.TextAutoSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.AccountBalanceWallet
 import androidx.compose.material.icons.outlined.Checklist
+import androidx.compose.material.icons.outlined.QrCode2
 import androidx.compose.material.icons.outlined.SupportAgent
 import androidx.compose.material.icons.outlined.TravelExplore
 import androidx.compose.material.icons.outlined.WbSunny
@@ -43,6 +44,15 @@ enum class Tab(@StringRes val label: Int, val icon: ImageVector, val route: Any)
     Explore(R.string.tab_explore, Icons.Outlined.TravelExplore, ExploreRoute),
     Wallet(R.string.tab_wallet, Icons.Outlined.AccountBalanceWallet, WalletRoute),
     Help(R.string.tab_help, Icons.Outlined.SupportAgent, HelpRoute),
+
+    /** 자녀 폰 모드에서만 쓰는 탭 */
+    Present(R.string.tab_present, Icons.Outlined.QrCode2, PresentRoute);
+
+    companion object {
+        val Main = listOf(Today, Prepare, Explore, Wallet, Help)
+        /** 자녀 폰: 자기 QR과 도움만 (PRD 3.3) */
+        val Child = listOf(Present, Help)
+    }
 }
 
 /**
@@ -51,14 +61,14 @@ enum class Tab(@StringRes val label: Int, val icon: ImageVector, val route: Any)
  * 그래서 높이가 내용에 맞춰 늘어나고, 라벨이 칸보다 넓으면 글자를 줄여 맞추는 탭 막대를 직접 그린다.
  */
 @Composable
-fun BottomTabs(selected: Tab, onSelect: (Tab) -> Unit) {
+fun BottomTabs(selected: Tab, onSelect: (Tab) -> Unit, tabs: List<Tab> = Tab.Main) {
     val dimens = LocalDimens.current
     val labelStyle = MaterialTheme.typography.labelMedium
     Surface(color = Tokens.Surface) {
         Column(Modifier.navigationBarsPadding()) {
             HorizontalDivider(color = Tokens.LineSoft)
             Row(Modifier.fillMaxWidth().selectableGroup()) {
-                Tab.entries.forEach { tab ->
+                tabs.forEach { tab ->
                     val isSelected = tab == selected
                     // 도움 탭은 선택 여부와 상관없이 따뜻한 색으로 항상 구분한다
                     val color: Color = when {
