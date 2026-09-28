@@ -51,6 +51,10 @@ data class RecipeField(
     val required: Boolean = false,
     @SerialName("options_ref") val optionsRef: String? = null,
     @SerialName("hint_ko") val hintKo: String? = null,
+    /** 확인 화면에 미리 넣는 제안 값 (사람이 고칠 수 있음) */
+    @SerialName("default_value") val defaultValue: String? = null,
+    /** assist 칸: 사이트에서 골라야 할 선택지 글자 (실기기에서 확인한 것) */
+    @SerialName("site_value") val siteValue: String? = null,
 )
 
 @Serializable data class FieldLabels(val ko: String, val en: String, val local: String? = null)
@@ -58,7 +62,15 @@ data class RecipeField(
 @Serializable
 data class Checkpoint(val id: String, val kind: String, val selector: String? = null, val ko: String)
 
-@Serializable data class RecipeOption(val value: String, val ko: String, val en: String, val local: String? = null)
+@Serializable
+data class RecipeOption(
+    val value: String,
+    val ko: String,
+    val en: String,
+    val local: String? = null,
+    /** 공식 사이트 선택지 글자 그대로 */
+    val site: String? = null,
+)
 
 /** 레시피를 실행해도 되는 주소인지 (PRD 7.5: official_url_patterns 의 HTTPS 페이지에서만) */
 object UrlPolicy {

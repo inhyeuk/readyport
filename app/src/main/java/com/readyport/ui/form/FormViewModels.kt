@@ -85,14 +85,10 @@ class FormConfirmViewModel @Inject constructor(
         val contents = (state as? WalletState.Unlocked)?.contents
         val saved = contents?.forms?.get(formId)?.values.orEmpty()
         // 처음 열 때만 저장된 값·기본 제안으로 초안을 채운다
-        val draft = _ui.value.draft.ifEmpty { saved + defaults(saved) }
+        val draft = _ui.value.draft.ifEmpty { FormValues.defaults(ctx.recipe ?: return@ifEmpty saved) + saved }
         val values = if (contents != null && ctx.recipe != null) FormValues.build(ctx.recipe, contents, draft) else emptyMap()
         _ui.update { it.copy(wallet = state, draft = draft, values = values) }
     }
-
-    /** 제안 값. 사람이 확인·수정한다 (세관·건강·서약 질문에는 절대 쓰지 않는다) */
-    private fun defaults(saved: Map<String, String>): Map<String, String> =
-        if ("profile.country_res" in saved) emptyMap() else mapOf("profile.country_res" to "대한민국")
 
     fun unlock() = viewModelScope.launch { wallet.unlock() }
 

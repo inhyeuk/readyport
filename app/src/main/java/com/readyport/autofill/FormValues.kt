@@ -35,7 +35,9 @@ object FormValues {
         saved[f.key]?.takeIf { it.isNotBlank() }?.let { raw ->
             val opt = f.optionsRef?.let { ref -> recipe.options[ref]?.firstOrNull { it.value == raw } }
             return if (opt != null) {
-                FieldValue(f.key, "${opt.ko} (${opt.en})", listOfNotNull(opt.ko, opt.en, opt.local).joinToString(" · "), ValueOrigin.User)
+                // 사이트 말풍선에는 "관광 → HOLIDAY"처럼 골라야 할 사이트 글자를 함께
+                val forSite = opt.site?.let { "${opt.ko} → $it" } ?: "${opt.ko} (${opt.en})"
+                FieldValue(f.key, forSite, listOfNotNull(opt.ko, opt.en, opt.local).joinToString(" · "), ValueOrigin.User)
             } else {
                 val v = transform(f, raw)
                 FieldValue(f.key, v, v, ValueOrigin.User)
@@ -57,24 +59,39 @@ object FormValues {
             } ?: none()
             "passport.birth_date" -> p?.let { FieldValue(f.key, it.birthDate, it.birthDate, ValueOrigin.Passport) } ?: none()
             "passport.gender" -> p?.let {
-                val d = when (it.sex) { "M" -> "남 (Male)"; "F" -> "여 (Female)"; else -> "기타 (Other)" }
+                val d = when (it.sex) { "M" -> "남 → MALE"; "F" -> "여 → FEMALE"; else -> "기타 → UNDEFINED" }
                 FieldValue(f.key, d, d, ValueOrigin.Passport)
             } ?: none()
-            "trip.arrival_date" -> firstDate(flights.firstOrNull())?.let { FieldValue(f.key, it, it, ValueOrigin.Flight) }
-                ?: lodging.firstOrNull()?.checkIn?.let { FieldValue(f.key, it, it, ValueOrigin.Lodging) }
+            "trip.arrival_date" -> firstDate(flights.firstOrNull())?.let { FieldValue(f.key, transform(f, it), it, ValueOrigin.Flight) }
+                ?: lodging.firstOrNull()?.checkIn?.let { FieldValue(f.key, transform(f, it), it, ValueOrigin.Lodging) }
                 ?: none()
-            "trip.arrival_mode" -> if (flights.isNotEmpty()) FieldValue(f.key, "비행기 (Air)", "비행기 (Air)", ValueOrigin.Flight) else none()
+            "trip.arrival_mode" -> if (flights.isNotEmpty()) plane(f) else none()
+            "trip.departure_mode" -> if (departureFlight(flights) != null) plane(f) else none()
             "trip.flight_no" -> flights.firstOrNull()?.flightNumbers?.firstOrNull()
                 ?.let { FieldValue(f.key, transform(f, it), transform(f, it), ValueOrigin.Flight) } ?: none()
-            "trip.departure_date" -> lastFlightDate(flights)?.let { FieldValue(f.key, it, it, ValueOrigin.Flight) }
-                ?: lodging.lastOrNull()?.checkOut?.let { FieldValue(f.key, it, it, ValueOrigin.Lodging) }
+            "trip.departure_date" -> lastFlightDate(flights)?.let { FieldValue(f.key, transform(f, it), it, ValueOrigin.Flight) }
+                ?: lodging.lastOrNull()?.checkOut?.let { FieldValue(f.key, transform(f, it), it, ValueOrigin.Lodging) }
                 ?: none()
             "trip.departure_flight_no" -> departureFlight(flights)?.let { FieldValue(f.key, transform(f, it), transform(f, it), ValueOrigin.Flight) } ?: none()
             else -> none()
         }
     }
 
-    private fun transform(f: RecipeField, v: String) = if (f.transform == "upper") v.trim().uppercase() else v.trim()
+    private fun transform(f: RecipeField, v: String) = when (f.transform) {
+        "upper" -> v.trim().uppercase()
+        // 사이트 날짜 칸 형식 yyyy/mm/dd (실기기에서 확인)
+        "date_slash" -> v.trim().replace('-', '/')
+        else -> v.trim()
+    }
+
+    private fun plane(f: RecipeField): FieldValue {
+        val d = f.siteValue?.let { "비행기 → $it" } ?: "비행기"
+        return FieldValue(f.key, d, d, ValueOrigin.Flight)
+    }
+
+    /** 레시피의 제안 값 (확인 화면에 미리 넣어 두고 사람이 고친다) */
+    fun defaults(recipe: Recipe): Map<String, String> =
+        recipe.fields.mapNotNull { f -> f.defaultValue?.let { f.key to it } }.toMap()
 
     private fun firstDate(b: BookingRecord?) = b?.dates?.firstOrNull()
 
@@ -106,7 +123,8 @@ object FormValues {
                 put("key", f.key)
                 put("selector", f.selector?.let { JsonPrimitive(it) } ?: JsonNull)
                 put("widget", f.widget)
-                put("value", (if (f.widget == "text") v?.value else v?.display).orEmpty())
+                // text 칸은 넣을 값, assist 칸은 사이트에서 고를 글자가 담긴 값("관광 → HOLIDAY")
+                put("value", (v?.value ?: v?.display).orEmpty())
                 put("label", f.labels.ko)
                 put("hint", f.hintKo?.let { JsonPrimitive(it) } ?: JsonNull)
             }

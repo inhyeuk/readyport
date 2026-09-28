@@ -53,11 +53,16 @@ class AutofillLogicTest {
         assertEquals("ERIKSSON", v.getValue("passport.surname").value)
         assertEquals(ValueOrigin.Passport, v.getValue("passport.surname").origin)
         assertEquals("대한민국 (KOR)", v.getValue("passport.nationality").display)
-        assertEquals("여 (Female)", v.getValue("passport.gender").display)
+        assertEquals("여 → FEMALE", v.getValue("passport.gender").display)
         assertEquals("2026-11-03", v.getValue("trip.arrival_date").display)
+        // 사이트 날짜 칸은 yyyy/mm/dd (실기기에서 확인)
+        assertEquals("2026/11/03", v.getValue("trip.arrival_date").value)
+        assertEquals("비행기 → AIR", v.getValue("trip.arrival_mode").display)
+        assertEquals("비행기 → AIR", v.getValue("trip.departure_mode").display)
         assertEquals("KE651", v.getValue("trip.flight_no").value)
         assertEquals("KE652", v.getValue("trip.departure_flight_no").value) // 대문자로
         assertEquals("2026-11-07", v.getValue("trip.departure_date").display)
+        assertEquals("2026/11/07", v.getValue("trip.departure_date").value)
         assertEquals(ValueOrigin.Flight, v.getValue("trip.flight_no").origin)
     }
 
@@ -68,7 +73,9 @@ class AutofillLogicTest {
         assertTrue(missing.containsAll(listOf("trip.purpose", "profile.occupation", "stay.address", "stay.type")))
         assertFalse(missing.contains("passport.surname"))
 
-        val saved = mapOf(
+        assertEquals(mapOf("profile.country_res" to "대한민국", "profile.phone_code" to "82", "trip.country_board" to "대한민국"),
+            FormValues.defaults(recipe))
+        val saved = FormValues.defaults(recipe) + mapOf(
             "trip.purpose" to "tourism", "stay.type" to "hotel", "profile.occupation" to "office worker",
             "profile.country_res" to "대한민국", "profile.city_res" to "seoul", "profile.phone" to "1012345678",
             "stay.province" to "BANGKOK", "stay.address" to "1 sample road",
@@ -76,6 +83,8 @@ class AutofillLogicTest {
         val full = FormValues.build(recipe, vault, saved)
         assertEquals(emptyList<RecipeField>(), FormValues.missingRequired(recipe, full))
         assertEquals("관광 · Tourism · ท่องเที่ยว", full.getValue("trip.purpose").display)
+        // 사이트 말풍선에는 골라야 할 실제 선택지 글자
+        assertEquals("관광 → HOLIDAY", full.getValue("trip.purpose").value)
         assertEquals("OFFICE WORKER", full.getValue("profile.occupation").value) // transform upper
         // 사용자가 고친 값이 서류 값보다 먼저
         val fixed = FormValues.build(recipe, vault, saved + ("passport.given" to "anna"))
@@ -86,13 +95,14 @@ class AutofillLogicTest {
     @Test
     fun planUsesValueForTextAndDisplayForAssist() {
         val values = FormValues.build(recipe, vault, mapOf("trip.purpose" to "tourism", "stay.address" to "1 \"QUOTE\" RD </script>"))
-        val plan = FormValues.plan(recipe, values, setOf("personal", "stay", "trip"))
+        val plan = FormValues.plan(recipe, values, setOf("personal", "trip"))
         val fields = plan["fields"]!!.jsonArray.associateBy { it.jsonObject["key"]!!.jsonPrimitive.content }
         assertEquals("ERIKSSON", fields.getValue("passport.surname").jsonObject["value"]!!.jsonPrimitive.content)
-        assertEquals("관광 · Tourism · ท่องเที่ยว", fields.getValue("trip.purpose").jsonObject["value"]!!.jsonPrimitive.content)
+        assertEquals("관광 → HOLIDAY", fields.getValue("trip.purpose").jsonObject["value"]!!.jsonPrimitive.content)
+        assertEquals("2026/11/03", fields.getValue("trip.arrival_date").jsonObject["value"]!!.jsonPrimitive.content)
         assertEquals(JsonNull, fields.getValue("profile.country_res").jsonObject["selector"])
         // 따옴표·태그가 든 값도 JSON 문자열로 안전하게 들어간다
-        assertEquals("1 \"QUOTE\" RD </script>", fields.getValue("stay.address").jsonObject["value"]!!.jsonPrimitive.content)
+        assertEquals("1 \"QUOTE\" RD </SCRIPT>", fields.getValue("stay.address").jsonObject["value"]!!.jsonPrimitive.content)
         // 보이지 않는 단계의 칸은 넣지 않는다
         val onlyPersonal = FormValues.plan(recipe, values, setOf("personal"))["fields"]!!.jsonArray
         assertTrue(onlyPersonal.all { it.jsonObject["key"]!!.jsonPrimitive.content.startsWith("passport.") || it.jsonObject["key"]!!.jsonPrimitive.content.startsWith("profile.") })

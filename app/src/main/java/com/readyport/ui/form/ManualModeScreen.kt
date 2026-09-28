@@ -85,7 +85,7 @@ fun ManualModeContent(
                     step.noteKo?.let { Text(it, style = MaterialTheme.typography.bodyMedium) }
                     step.fields.forEach { f ->
                         val v: FieldValue? = ui.values[f.key]
-                        val text = (if (f.widget == "text") v?.value else v?.display).orEmpty()
+                        val text = (v?.value ?: v?.display).orEmpty()
                         Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth()) {
                             Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
                                 Text("${f.labels.ko} · ${f.labels.en}", style = MaterialTheme.typography.labelMedium)

@@ -61,7 +61,7 @@
         "type": "array",
         "items": {
           "type": "object", "required": ["value", "ko", "en"], "additionalProperties": false,
-          "properties": { "value": { "type": "string" }, "ko": { "type": "string" }, "en": { "type": "string" }, "local": { "type": "string" } }
+          "properties": { "value": { "type": "string" }, "ko": { "type": "string" }, "en": { "type": "string" }, "local": { "type": "string" }, "site": { "type": "string", "description": "공식 사이트 선택지 글자 그대로(확인한 것만)" } }
         }
       }
     }
@@ -78,7 +78,7 @@
           "enum": ["text", "assist"],
           "description": "text = 확인된 글자 입력칸이라 앱이 채움. assist = 선택 목록·달력 등 확인 전이라 값만 한글 말풍선으로 보여 주고 사람이 입력"
         },
-        "transform": { "enum": ["upper", "none"] },
+        "transform": { "enum": ["upper", "none", "date_slash"], "description": "date_slash = yyyy-MM-dd 를 yyyy/MM/dd 로" },
         "labels": {
           "type": "object", "required": ["ko", "en"], "additionalProperties": false,
           "properties": { "ko": { "type": "string" }, "en": { "type": "string" }, "local": { "type": "string" } }
@@ -87,7 +87,9 @@
         "confirm": { "enum": ["bulk", "individual"], "description": "bulk = 서류에서 온 값(묶어서 1번 확인), individual = 고르거나 적는 값" },
         "required": { "type": "boolean" },
         "options_ref": { "type": "string" },
-        "hint_ko": { "type": "string" }
+        "hint_ko": { "type": "string" },
+        "default_value": { "type": "string", "description": "확인 화면에 미리 넣어 두는 제안 값(사람이 고칠 수 있음). 세관·건강·서약에는 쓰지 않는다" },
+        "site_value": { "type": "string", "description": "assist 칸에서 사이트에서 골라야 할 선택지 글자(확인한 것만)" }
       }
     }
   }

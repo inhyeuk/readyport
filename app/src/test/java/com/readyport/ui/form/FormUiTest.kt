@@ -75,7 +75,7 @@ class FormUiTest {
         rule.onNodeWithText(s(R.string.form_confirm_title, form.nameKo)).assertIsDisplayed()
         shown(s(R.string.form_from_documents))
         shown("ERIKSSON")
-        shown("Family name · นามสกุล")
+        shown("Family Name · นามสกุล")
         shown(s(R.string.form_origin_passport))
         shown("KE651")
         shown(s(R.string.form_origin_flight))
@@ -98,6 +98,7 @@ class FormUiTest {
         state = ui(
             state.draft + mapOf(
                 "stay.type" to "hotel", "profile.occupation" to "OFFICE WORKER", "profile.country_res" to "대한민국",
+                "profile.phone_code" to "82", "trip.country_board" to "대한민국",
                 "profile.city_res" to "SEOUL", "profile.phone" to "1012345678", "stay.province" to "BANGKOK", "stay.address" to "1 SAMPLE RD",
             ),
         )
@@ -147,7 +148,7 @@ class FormUiTest {
         rule.setContent { ReadyPortTheme { ManualModeContent(autofillUi, {}, { l, t -> copies += l to t }, {}) } }
         shown("ERIKSSON")
         rule.onNodeWithText(s(R.string.manual_copy)).let { rule.onAllNodesWithText(s(R.string.manual_copy)).onFirst().performClick() }
-        assertEquals("Family name" to "ERIKSSON", copies.first())
+        assertEquals("Family Name" to "ERIKSSON", copies.first())
         shown(s(R.string.manual_copied))
         // 건강 질문 단계는 값 없이 안내만
         shown(recipe.value.steps.last().noteKo!!)

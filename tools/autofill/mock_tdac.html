@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- 가짜 TDAC 화면: 공개 앱 코드에서 확인한 formcontrolname 구조를 흉내 낸다. 실제 사이트에 연결하지 않는다. -->
+<!-- 가짜 TDAC 화면: 실기기 리허설(2026-09-28, 사이트 2026.09.00-0543)에서 읽은 구조를 흉내 낸다. 실제 사이트에 연결하지 않는다. -->
 <html><head><meta charset="utf-8"><title>mock</title></head>
 <body>
 <form id="form">
@@ -11,12 +11,15 @@
     <input formcontrolname="nationalityDesc" type="text" role="combobox" aria-autocomplete="list">
     <div formcontrolname="gender" class="mat-mdc-select" tabindex="0"></div>
     <input formcontrolname="occupation" type="text">
+    <input formcontrolname="phoneCode" type="text" maxlength="10">
     <input formcontrolname="phoneNo" type="text">
   </div>
   <div formgroupname="tripInfo">
-    <input formcontrolname="arrDate" type="text" readonly>
+    <input formcontrolname="arrDate" maxlength="10" placeholder="yyyy/mm/dd">
+    <div formcontrolname="traModeId" role="radiogroup"><input type="radio" name="m"></div>
     <div formcontrolname="traPurposeId" class="mat-mdc-select" tabindex="0"></div>
     <input formcontrolname="flightNo" type="text">
+    <div formcontrolname="accTypeId" class="mat-mdc-select" tabindex="0"></div>
     <textarea formcontrolname="accAddress"></textarea>
   </div>
   <input formcontrolname="sendTo" type="email">

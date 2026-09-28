@@ -188,3 +188,4 @@
 - **값의 출처**: 여권·예약 서류 값은 보관함 원본에서 매번 가져오고, 사용자가 고르거나 적은 값·고친 값만 `VaultContents.forms[FORM_ID].values`(암호화)에 둔다. 제출 완료 화면 주소(`submitted_url_contains`)를 보면 상태를 `submitted`로 바꾼다.
 - **클립보드**: 복사 후 60초 뒤 우리 값일 때만 지운다. Android 13+는 `EXTRA_IS_SENSITIVE`.
 - **테스트**: `tools/autofill`(node --test + jsdom)로 엔진을 가짜 화면(`mock_tdac.html`)에서 검사한다. 실제 정부 사이트에는 연결하지 않는다(작업 규칙 1).
+- **리허설로 바뀐 것(2026-09-28)**: 폰 Chrome(원격 디버깅, 포트 9333)으로 TDAC 입력 화면을 열어 구조를 읽었다. 날짜 칸이 `yyyy/mm/dd` 직접 입력이라 `transform: date_slash`로 채운다. 선택지(목적·숙소·성별·오는 방법)는 서버 응답 `gotoAdd`의 목록으로 확인해 레시피 `options[].site`·`site_value`에 적었다. 엔진은 여전히 목록·라디오를 누르지 않고, "관광 → HOLIDAY"처럼 고를 글자를 말풍선으로 보여 준다. 레시피 버전 2026.09.28-2.
