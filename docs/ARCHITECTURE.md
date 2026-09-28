@@ -177,3 +177,14 @@
 - **스키마 변경**: 10.1 대비 `embassy.address`(공관이 공개한 표기 그대로 — 한글 주소를 지어내지 않음), `forms[].window_days_including_arrival`(태국 TDAC는 공식 안내가 "도착일 포함 3일"이라 72시간 표기 대신), `phrases[].reviewed`, `sections[]`(콘텐츠를 id별 목록으로), `procedures[]`(위기 때 할 일 순서), 인덱스의 `common_emergency`(영사콜센터).
 - **배포 주소**: `https://readyport-app.web.app/packs/{index.json | CC/pack.json}` (+ `.sig`), `Cache-Control: max-age=300`. Remote Config 키 `index_version`, `pack_version_{CC}`와 같은 값일 때만 받는다(무료 전송 한도).
 - **동기화**: `PackSyncWorker`(WorkManager) — 찜을 바꾸면 즉시 1회, 그리고 하루 1회. 기본은 와이파이(UNMETERED)에서만. 서명·스키마가 틀린 팩은 버리고 재시도하지 않는다. 네트워크 오류만 재시도.
+
+## 구현 결정 기록 (M4, 2026-09-28)
+
+- **엔진은 앱 안에**: `app/src/main/assets/autofill/engine.js`. 레시피(`packs/src/recipes/<FORM_ID>.json`, 서명)는 선언형 데이터만 준다. 엔진은 어떤 요소도 `click()` 하지 않고, submit·button·checkbox·radio·file·password·hidden 입력과 목록형(combobox) 칸을 건드리지 않으며, 말풍선은 `textContent`로만 쓴다. WebView에 `addJavascriptInterface`를 두지 않는다(사이트 스크립트가 앱에 닿을 길이 없음).
+- **칸 종류 2가지**: `text`(앱이 채움)와 `assist`(값을 한글 말풍선으로 보여 주고 사람이 입력). 선택 목록·달력·자동 완성은 실제 선택지 글자와 날짜 형식을 확인하기 전까지 `assist`로 둔다 — 앱이 추측해서 고르지 않는다.
+- **TDAC 선택자 출처**: 사이트 첫 화면이 Cloudflare Turnstile(사람 확인)로 막혀 있어 입력 화면을 열지 않았다(우회 금지). 대신 공개된 앱 코드(`/arrival-card/chunk-*.js`, 사이트 버전 2026.09.00-0543)의 `formControlName` 값으로 선택자(`[formcontrolname="..."]`)를 확인했다. 선택지 글자·날짜 형식은 서버에서 받아 오므로 코드에 없다.
+- **사이트의 '다음'은 사람이 누른다**: 엔진은 지금 화면에 보이는 단계(`probe` 선택자)만 채운다. 사람 확인·건강 질문·서약 체크·이메일·최종 제출은 표시만 한다(`checkpoints`).
+- **실패 → 수동 모드**: 선택자를 못 찾으면(`missing`) 수동 모드(값 복사 + 공식 사이트)를 권하고 익명 리포트(양식·레시피 버전·단계·오류 코드·앱 버전·사이트 버전, 개인정보 없음)를 `noBackupFilesDir/reports/field_reports.jsonl`에 쌓는다. Firestore 전송은 M9. Remote Config `kill_autofill_{FORM_ID}`가 켜지면 처음부터 수동 모드.
+- **값의 출처**: 여권·예약 서류 값은 보관함 원본에서 매번 가져오고, 사용자가 고르거나 적은 값·고친 값만 `VaultContents.forms[FORM_ID].values`(암호화)에 둔다. 제출 완료 화면 주소(`submitted_url_contains`)를 보면 상태를 `submitted`로 바꾼다.
+- **클립보드**: 복사 후 60초 뒤 우리 값일 때만 지운다. Android 13+는 `EXTRA_IS_SENSITIVE`.
+- **테스트**: `tools/autofill`(node --test + jsdom)로 엔진을 가짜 화면(`mock_tdac.html`)에서 검사한다. 실제 정부 사이트에는 연결하지 않는다(작업 규칙 1).

@@ -1,0 +1,29 @@
+<!doctype html>
+<!-- 가짜 TDAC 화면: 공개 앱 코드에서 확인한 formcontrolname 구조를 흉내 낸다. 실제 사이트에 연결하지 않는다. -->
+<html><head><meta charset="utf-8"><title>mock</title></head>
+<body>
+<form id="form">
+  <div formgroupname="personalInfo">
+    <input formcontrolname="familyName" type="text">
+    <input formcontrolname="firstName" type="text">
+    <input formcontrolname="middleName" type="text">
+    <input formcontrolname="passportNo" type="text">
+    <input formcontrolname="nationalityDesc" type="text" role="combobox" aria-autocomplete="list">
+    <div formcontrolname="gender" class="mat-mdc-select" tabindex="0"></div>
+    <input formcontrolname="occupation" type="text">
+    <input formcontrolname="phoneNo" type="text">
+  </div>
+  <div formgroupname="tripInfo">
+    <input formcontrolname="arrDate" type="text" readonly>
+    <div formcontrolname="traPurposeId" class="mat-mdc-select" tabindex="0"></div>
+    <input formcontrolname="flightNo" type="text">
+    <textarea formcontrolname="accAddress"></textarea>
+  </div>
+  <input formcontrolname="sendTo" type="email">
+  <input formcontrolname="checkedDecalraion" type="checkbox">
+  <input id="secret" type="password">
+  <iframe src="https://challenges.cloudflare.com/cdn-cgi/challenge-platform/turnstile"></iframe>
+  <button type="submit">Submit</button>
+</form>
+<footer>Version 2026.09.00-0543</footer>
+</body></html>

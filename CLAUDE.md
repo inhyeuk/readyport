@@ -48,6 +48,12 @@ $env:ANDROID_HOME='E:\_PROGRAM_Installed\Android_SDK'
 - Bash heredoc은 백슬래시를 한 겹 벗긴다. 이스케이프·윈도 경로가 든 편집은 Edit/Write 도구나 파일로 쓴 스크립트로 한다.
 - 설계 결정은 docs/ARCHITECTURE.md 끝 "구현 결정 기록".
 
+## 자동 입력
+
+- 엔진 `app/src/main/assets/autofill/engine.js`(앱 내장), 레시피 `packs/src/recipes/`. 엔진 테스트: `cd tools/autofill && npm test` (가짜 화면만).
+- 확인 안 된 선택 목록·달력 칸은 `widget: "assist"`. 선택지 글자를 추측해서 넣지 않는다.
+- 사이트 사람 확인(Turnstile·캡차)은 절대 우회·대신 풀기 금지. 구조 확인이 필요하면 공개 코드 분석이나 운영자가 직접 통과한 화면에서 읽기만.
+
 ---
 
 ## 작업 규칙 (지시서 15장 원문)

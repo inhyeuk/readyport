@@ -10,6 +10,11 @@
       "description": "packs/TH/pack.json 최신 버전",
       "valueType": "STRING"
     },
+    "recipe_version_TH_TDAC": {
+      "defaultValue": { "value": "2026.09.28-1" },
+      "description": "packs/recipes/TH_TDAC.json 최신 버전",
+      "valueType": "STRING"
+    },
     "kill_autofill_TH_TDAC": {
       "defaultValue": { "value": "false" },
       "description": "true면 태국 TDAC 자동 입력을 끄고 수동 모드 (ARIA가 안전한 방향으로만 자동 변경)",

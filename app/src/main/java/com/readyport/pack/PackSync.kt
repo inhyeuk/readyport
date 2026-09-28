@@ -37,6 +37,11 @@ class PackSyncWorker @AssistedInject constructor(
             val v = versions.packVersion(country) ?: continue
             // 서명·스키마가 틀린 팩은 버리고 다음 주기를 기다린다(재시도해도 같다)
             if (packs.updatePack(country, v) == UpdateResult.NetworkError) networkError = true
+            // 그 나라 입국 서류의 자동 입력 레시피도 함께
+            for (form in packs.pack(country)?.value?.forms.orEmpty()) {
+                val rv = versions.recipeVersion(form.id) ?: continue
+                if (packs.updateRecipe(form.id, rv) == UpdateResult.NetworkError) networkError = true
+            }
         }
         return if (networkError) Result.retry() else Result.success()
     }

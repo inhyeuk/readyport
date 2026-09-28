@@ -1,6 +1,6 @@
 """국가 팩 검증 → 서명 → 배포 폴더로 복사.
 
-입력: packs/src/index.json, packs/src/<CC>/pack.json (사람이 읽는 원본, 서명 없음)
+입력: packs/src/index.json, packs/src/<CC>/pack.json, packs/src/recipes/<FORM_ID>.json (사람이 읽는 원본, 서명 없음)
 출력: 같은 구조로 두 곳에 쓴다
   - app/src/main/assets/packs/   : 설치 파일에 내장하는 기본 팩 (서버가 막혀도 앱이 동작, ARCHITECTURE 9.2)
   - hosting/public/packs/         : Firebase Hosting 배포본
@@ -92,6 +92,27 @@ def validate_all():
             for mark in UNSETTLED:
                 if mark in s:
                     errors.append(f"{name}{p}: 미확정 표시 '{mark}' — 확인 후 지우고 게시한다 (작업 규칙 6)")
+    recipe_schema = load(SCHEMA / "recipe.schema.json")
+    for path in sorted((SRC / "recipes").glob("*.json")):
+        recipe = load(path)
+        label = f"recipes/{path.name}"
+        for e in jsonschema.Draft202012Validator(recipe_schema).iter_errors(recipe):
+            errors.append(f"{label}: {'/'.join(map(str, e.path))}: {e.message}")
+        if recipe.get("form_id") != path.stem:
+            errors.append(f"{label}: form_id 가 파일 이름과 다름")
+        if recipe.get("source") not in {s["id"] for s in recipe.get("sources", [])}:
+            errors.append(f"{label}: source 가 sources 에 없음")
+        opts = recipe.get("options", {})
+        for step in recipe.get("steps", []):
+            for f in step.get("fields", []):
+                if f.get("widget") == "text" and not f.get("selector"):
+                    errors.append(f"{label}: {f['key']} text 칸인데 selector 없음")
+                if f.get("options_ref") and f["options_ref"] not in opts:
+                    errors.append(f"{label}: {f['key']} options_ref '{f['options_ref']}' 없음")
+        if not recipe.get("labels_reviewed"):
+            print(f"경고: {label} 현지어 라벨 원어민 검수 전")
+        docs[label] = recipe
+
     for name, doc in docs.items():
         unreviewed = [ph["id"] for ph in doc.get("phrases", []) if not ph.get("reviewed")]
         if unreviewed:

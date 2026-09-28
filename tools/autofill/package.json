@@ -1,0 +1,8 @@
+{
+  "name": "readyport-autofill-engine-test",
+  "private": true,
+  "description": "앱 내장 자동 입력 엔진(app/src/main/assets/autofill/engine.js)을 가짜 TDAC 화면에서 검사한다",
+  "type": "module",
+  "scripts": { "test": "node --test" },
+  "devDependencies": { "jsdom": "^26.0.0" }
+}

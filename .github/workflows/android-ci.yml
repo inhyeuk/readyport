@@ -25,6 +25,14 @@ jobs:
         run: |
           pip install -r tools/packs/requirements.txt
           python tools/packs/build_packs.py --check
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Autofill engine tests (mock page only, never the real site)
+        working-directory: tools/autofill
+        run: |
+          npm ci || npm install
+          npm test
       - uses: gradle/actions/setup-gradle@v4
       - name: Build, unit test, lint
         run: ./gradlew :app:assembleDebug :app:testDebugUnitTest :app:lintDebug --console=plain

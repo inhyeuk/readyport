@@ -58,6 +58,51 @@
     <string name="prepare_apps_body">차 부르기·길 찾기 앱은 한국에서 미리 설치하고 가입해 두면 편해요.</string>
     <string name="prepare_bookings_title">예약 서류</string>
     <string name="prepare_bookings_body">항공권과 숙소 예약 확인서를 모아 둬요.</string>
+    <string name="prepare_form_open">입국 카드 준비하기</string>
+    <string name="prepare_form_country">%1$s · %2$s</string>
+
+    <!-- 입국 카드 3개 국어 확인 (PRD 5.2) -->
+    <string name="form_confirm_title">%1$s 확인</string>
+    <string name="form_confirm_body">앱이 서류를 보고 채웠어요. 맞는지 한 번만 확인해 주세요.</string>
+    <string name="form_local_large">현지어 크게</string>
+    <string name="form_from_documents">서류에서 가져온 값</string>
+    <string name="form_choose_yourself">직접 골라 주세요</string>
+    <string name="form_origin_passport">여권에서</string>
+    <string name="form_origin_flight">항공권에서</string>
+    <string name="form_origin_lodging">예약 확인서에서</string>
+    <string name="form_origin_user">직접 입력</string>
+    <string name="form_empty_value">비어 있어요</string>
+    <string name="form_confirm_notice">확인하면 앱이 공식 사이트에 넣어 드려요. 보안 확인과 마지막 \'제출\'은 직접 눌러 주세요.</string>
+    <string name="form_confirm_yes">맞아요, 입력해 주세요</string>
+    <string name="form_confirm_fix">고칠 곳이 있어요</string>
+    <string name="form_fix_done">다 고쳤어요</string>
+    <string name="form_need_required">빈칸을 채워 주세요: %1$s</string>
+    <string name="form_need_passport">먼저 여권을 등록해 주세요</string>
+    <string name="form_labels_unreviewed">현지어 표기는 원어민 검수 전이에요</string>
+    <string name="form_killed">지금은 이 사이트 자동 입력을 쉬고 있어요. 값을 복사해서 직접 넣어 주세요.</string>
+    <string name="form_no_recipe">이 입국 카드는 아직 자동 입력을 준비하지 못했어요. 값을 복사해서 직접 넣어 주세요.</string>
+    <string name="form_manual_mode">수동 모드</string>
+    <string name="form_save_failed">저장하지 못했어요. 지갑을 다시 열어 주세요.</string>
+
+    <!-- 자동 입력 화면 (PRD 5.3) -->
+    <string name="autofill_connected">공식 사이트에 연결됨 · %1$s</string>
+    <string name="autofill_not_official">공식 사이트가 아니에요. 자동 입력을 멈췄어요.</string>
+    <string name="autofill_fill_now">지금 화면 채우기</string>
+    <string name="autofill_refill">이 단계 다시 채우기</string>
+    <string name="autofill_human_banner">직접 확인 필요 · 보안 확인, 건강 질문, 약속 체크, 마지막 \'제출\'은 직접 해 주세요</string>
+    <string name="autofill_result">앱이 채운 칸 %1$d개 · 직접 넣을 칸 %2$d개</string>
+    <string name="autofill_next_hint">사이트의 \'다음\'을 누른 뒤 \'지금 화면 채우기\'를 다시 눌러 주세요.</string>
+    <string name="autofill_nothing_visible">채울 칸이 보이지 않아요. 사이트에서 \'Arrival Card\'를 눌러 입력 화면을 열어 주세요.</string>
+    <string name="autofill_failed">사이트가 바뀌어서 일부 칸을 찾지 못했어요. 수동 모드로 바꿔 값을 복사해 넣어 주세요.</string>
+    <string name="autofill_compare_title">입력값 대조</string>
+    <string name="autofill_submitted">제출했어요. 사이트에 나온 확인 화면과 확인 메일을 잘 보관하세요.</string>
+
+    <!-- 수동 모드 -->
+    <string name="manual_title">값 복사해서 넣기</string>
+    <string name="manual_body">공식 사이트를 열고, 칸마다 값을 복사해서 붙여 넣으세요. 복사한 값은 1분 뒤 자동으로 지워져요.</string>
+    <string name="manual_copy">복사</string>
+    <string name="manual_copied">복사했어요</string>
+    <string name="manual_open_site">공식 사이트 열기</string>
     <string name="prepare_speech">여행 준비. 레디포트는 정부 기관과 제휴하지 않았어요. 입국 카드, 꼭 챙길 물건, 미리 설치할 앱, 예약 서류를 챙겨요.</string>
 
     <!-- 여행지 -->

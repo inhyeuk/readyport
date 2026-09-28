@@ -11,8 +11,26 @@ data class VaultContents(
     val version: Int = 1,
     val passport: PassportRecord? = null,
     val bookings: List<BookingRecord> = emptyList(),
+    /** 입국 서류별 확인한 값·상태. 키 = form_id (예: TH_TDAC) */
+    val forms: Map<String, FormRecord> = emptyMap(),
 ) {
-    override fun toString() = "VaultContents(passport=${passport != null}, bookings=${bookings.size})"
+    override fun toString() = "VaultContents(passport=${passport != null}, bookings=${bookings.size}, forms=${forms.keys})"
+}
+
+/**
+ * 입국 서류 하나의 값. [values]는 사용자가 고르거나 적은 값과, 서류 값을 고친 것(레시피 key → 값).
+ * 여권·예약 서류에서 오는 값은 여기에 복사하지 않고 매번 원본에서 가져온다.
+ */
+@Serializable
+data class FormRecord(
+    val formId: String,
+    val values: Map<String, String> = emptyMap(),
+    /** draft / confirmed / submitted */
+    val status: String = "draft",
+    val updatedAt: String,
+    val submittedAt: String? = null,
+) {
+    override fun toString() = "FormRecord(formId=$formId, status=$status, values=${values.size})"
 }
 
 @Serializable

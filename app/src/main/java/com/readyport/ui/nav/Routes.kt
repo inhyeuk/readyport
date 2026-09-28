@@ -23,3 +23,12 @@ import kotlinx.serialization.Serializable
 
 /** 여행지 › 국가 가이드. 인터넷 없이 저장해 둔 팩으로 보여 준다 */
 @Serializable data class GuideRoute(val country: String)
+
+/** 준비 › 입국 카드 3개 국어 확인 (PRD 5.2) */
+@Serializable data class FormConfirmRoute(val formId: String)
+
+/** 준비 › 공식 사이트 자동 입력 (PRD 5.3) */
+@Serializable data class AutofillRoute(val formId: String)
+
+/** 준비 › 수동 모드: 값 복사 + 공식 사이트 */
+@Serializable data class FormManualRoute(val formId: String)

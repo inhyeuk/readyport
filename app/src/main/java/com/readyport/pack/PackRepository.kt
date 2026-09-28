@@ -1,5 +1,6 @@
 package com.readyport.pack
 
+import com.readyport.autofill.Recipe
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -56,6 +57,12 @@ class PackRepository(
 
     suspend fun pack(country: String): Loaded<CountryPack>? =
         load(packPath(country), CountryPack.serializer())?.takeIf { it.value.country == country }
+
+    suspend fun recipe(formId: String): Loaded<Recipe>? =
+        load(recipePath(formId), Recipe.serializer())?.takeIf { it.value.formId == formId }
+
+    suspend fun updateRecipe(formId: String, remoteVersion: String): UpdateResult =
+        update(recipePath(formId), remoteVersion, Recipe.serializer()) { it.formId == formId }
 
     suspend fun updateIndex(remoteVersion: String): UpdateResult =
         update(INDEX, remoteVersion, PackIndex.serializer()) { true }
@@ -153,5 +160,6 @@ class PackRepository(
     companion object {
         const val INDEX = "index.json"
         fun packPath(country: String) = "$country/pack.json"
+        fun recipePath(formId: String) = "recipes/$formId.json"
     }
 }

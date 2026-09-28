@@ -11,6 +11,7 @@ import androidx.compose.ui.test.junit4.v2.createComposeRule
 import androidx.compose.ui.test.onRoot
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performScrollToNode
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.test.core.app.ApplicationProvider
@@ -91,6 +92,38 @@ class ScreenCaptureTest {
         openTab(R.string.tab_explore); capture("m3_2_explore")
         rule.onNodeWithText(context.getString(R.string.explore_open_guide)).performClick(); capture("m3_3_guide")
         openTab(R.string.tab_help); capture("m3_4_help")
+    }
+
+    @Test fun formConfirm() {
+        val recipe = TestPacks.tdacRecipe
+        val contents = com.readyport.vault.VaultContents(
+            passport = com.readyport.vault.PassportRecord(
+                surname = "ERIKSSON", givenNames = "ANNA MARIA", documentNumber = "L898902C3",
+                nationality = "KOR", issuingState = "KOR", birthDate = "1974-08-12", sex = "F",
+                expiryDate = "2036-04-15", source = "mrz", mrzVerified = true, savedAt = "x",
+            ),
+            bookings = listOf(
+                com.readyport.vault.BookingRecord(id = "1", kind = "flight", title = "t", flightNumbers = listOf("KE651", "KE652"),
+                    dates = listOf("2026-11-03", "2026-11-07"), savedAt = "x"),
+            ),
+        )
+        val draft = mapOf("trip.purpose" to "tourism", "profile.country_res" to "대한민국")
+        val ctx = com.readyport.ui.form.FormContext("TH_TDAC", TestPacks.thailand.value.forms.first(), recipe.value, recipe.version, false)
+        rule.setContent {
+            com.readyport.ui.theme.ReadyPortTheme(easyMode = false) {
+                androidx.compose.foundation.layout.Box(androidx.compose.ui.Modifier.background(com.readyport.ui.theme.Tokens.Ground)) {
+                    com.readyport.ui.form.FormConfirmContent(
+                        com.readyport.ui.form.ConfirmUi(ctx, com.readyport.vault.WalletState.Unlocked(contents),
+                            com.readyport.autofill.FormValues.build(recipe.value, contents, draft), draft),
+                        { _, _ -> }, {}, {}, {}, {},
+                    )
+                }
+            }
+        }
+        capture("m4_1_confirm_top")
+        rule.onNode(androidx.compose.ui.test.hasScrollAction())
+            .performScrollToNode(androidx.compose.ui.test.hasText(context.getString(R.string.form_choose_yourself)))
+        capture("m4_2_confirm_choose")
     }
 
     @Test fun walletScreens() {

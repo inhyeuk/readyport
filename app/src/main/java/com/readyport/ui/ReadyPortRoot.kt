@@ -31,6 +31,12 @@ import com.readyport.ui.nav.WalletRoute
 import com.readyport.ui.onboarding.FirstRunScreen
 import com.readyport.ui.settings.SettingsScreen
 import com.readyport.R
+import com.readyport.ui.form.AutofillScreen
+import com.readyport.ui.form.FormConfirmScreen
+import com.readyport.ui.form.ManualModeScreen
+import com.readyport.ui.nav.AutofillRoute
+import com.readyport.ui.nav.FormConfirmRoute
+import com.readyport.ui.nav.FormManualRoute
 import com.readyport.ui.nav.GuideRoute
 import com.readyport.ui.pack.ExploreScreen
 import com.readyport.ui.pack.GuideScreen
@@ -111,6 +117,9 @@ private fun MainScaffold(
     val selectedTab = when {
         matched != null -> matched
         destination?.hierarchy?.any { it.hasRoute(PassportGraph::class) || it.hasRoute(BookingImportRoute::class) } == true -> Tab.Wallet
+        destination?.hierarchy?.any {
+            it.hasRoute(FormConfirmRoute::class) || it.hasRoute(AutofillRoute::class) || it.hasRoute(FormManualRoute::class)
+        } == true -> Tab.Prepare
         else -> lastTab
     }
     LaunchedEffect(selectedTab) { lastTab = selectedTab }
@@ -144,7 +153,20 @@ private fun MainScaffold(
                         onPickDestination = { navController.switchTab(Tab.Explore) },
                     )
                 }
-                composable<PrepareRoute> { PrepareScreen() }
+                composable<PrepareRoute> { slots.prepare { formId -> navController.navigate(FormConfirmRoute(formId)) } }
+                composable<FormConfirmRoute> { entry ->
+                    val formId = entry.toRoute<FormConfirmRoute>().formId
+                    FormConfirmScreen(
+                        onAutofill = { navController.navigate(AutofillRoute(formId)) },
+                        onManual = { navController.navigate(FormManualRoute(formId)) },
+                        onRegisterPassport = { navController.navigate(PassportGraph) },
+                    )
+                }
+                composable<AutofillRoute> { entry ->
+                    val formId = entry.toRoute<AutofillRoute>().formId
+                    AutofillScreen(onManual = { navController.navigate(FormManualRoute(formId)) })
+                }
+                composable<FormManualRoute> { ManualModeScreen() }
                 composable<ExploreRoute> { slots.explore { country -> navController.navigate(GuideRoute(country)) } }
                 composable<GuideRoute> { entry -> slots.guide(entry.toRoute<GuideRoute>().country) }
                 composable<WalletRoute> {
@@ -208,6 +230,7 @@ data class ScreenSlots(
     val explore: @Composable (onOpenGuide: (String) -> Unit) -> Unit = { ExploreScreen(onOpenGuide = it) },
     val guide: @Composable (country: String) -> Unit = { GuideScreen() },
     val help: @Composable () -> Unit = { HelpScreen() },
+    val prepare: @Composable (onOpenForm: (String) -> Unit) -> Unit = { PrepareScreen(onOpenForm = it) },
 )
 
 /** 오프라인 배너 (PRD 5.1): 남색, 화면 맨 위 */

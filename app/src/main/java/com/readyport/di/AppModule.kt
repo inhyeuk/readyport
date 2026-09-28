@@ -2,6 +2,9 @@ package com.readyport.di
 
 import android.content.Context
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
+import com.readyport.autofill.FieldReporter
+import com.readyport.autofill.QueuedFieldReporter
+import com.readyport.autofill.SafeClipboard
 import com.readyport.pack.AssetBundledPacks
 import com.readyport.pack.HttpPackRemote
 import com.readyport.pack.PackKeys
@@ -41,6 +44,15 @@ object AppModule {
     @Provides
     @Singleton
     fun packVersions(): PackVersionSource = RemoteConfigVersions(FirebaseRemoteConfig.getInstance())
+
+    @Provides
+    @Singleton
+    fun fieldReporter(@ApplicationContext context: Context): FieldReporter =
+        QueuedFieldReporter(File(context.noBackupFilesDir, "reports/field_reports.jsonl"))
+
+    @Provides
+    @Singleton
+    fun safeClipboard(@ApplicationContext context: Context) = SafeClipboard(context)
 
     @Provides
     @Singleton

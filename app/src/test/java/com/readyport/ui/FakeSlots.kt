@@ -12,6 +12,8 @@ import com.readyport.ui.pack.GuideContent
 import com.readyport.ui.pack.HelpContent
 import com.readyport.ui.pack.HelpUi
 import com.readyport.ui.pack.PackStatus
+import com.readyport.ui.tabs.FormEntry
+import com.readyport.ui.tabs.PrepareContent
 import com.readyport.ui.wallet.WalletContent
 import com.readyport.vault.WalletState
 import kotlinx.coroutines.Dispatchers
@@ -54,6 +56,12 @@ object TestPacks {
         },
     )
 
+    val tdacRecipe get() = runBlocking { repo.recipe("TH_TDAC")!! }
+
+    fun formEntries() = thailand.value.forms.map { f ->
+        FormEntry(f.id, f.nameKo, thailand.value.names.ko, f.feeKo, f.windowKo, thailand.value.source(f.source)!!.name, f.lastVerified)
+    }
+
     fun helpUi() = HelpUi(
         countries = index.value.countries.filter { it.pack },
         selected = thailand,
@@ -80,4 +88,5 @@ val FakeSlots = ScreenSlots(
     explore = { onOpenGuide -> ExploreContent(TestPacks.exploreUi(), {}, onOpenGuide, {}) },
     guide = { country -> GuideContent(runBlocking { TestPacks.repo.pack(country)!! }) },
     help = { HelpContent(TestPacks.helpUi(), {}, {}, {}) },
+    prepare = { onOpenForm -> PrepareContent(TestPacks.formEntries(), onOpenForm) },
 )

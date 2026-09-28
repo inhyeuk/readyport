@@ -59,6 +59,9 @@ interface PackVersionSource {
     suspend fun refresh(): Boolean
     fun indexVersion(): String?
     fun packVersion(country: String): String?
+    fun recipeVersion(formId: String): String?
+    /** 안전 스위치: true면 이 양식은 자동 입력 없이 수동 모드로만 (ARCHITECTURE 9.5) */
+    fun autofillKilled(formId: String): Boolean
 }
 
 class RemoteConfigVersions(private val rc: FirebaseRemoteConfig) : PackVersionSource {
@@ -71,4 +74,8 @@ class RemoteConfigVersions(private val rc: FirebaseRemoteConfig) : PackVersionSo
     override fun indexVersion(): String? = rc.getString("index_version").ifBlank { null }
 
     override fun packVersion(country: String): String? = rc.getString("pack_version_$country").ifBlank { null }
+
+    override fun recipeVersion(formId: String): String? = rc.getString("recipe_version_$formId").ifBlank { null }
+
+    override fun autofillKilled(formId: String): Boolean = rc.getBoolean("kill_autofill_$formId")
 }
