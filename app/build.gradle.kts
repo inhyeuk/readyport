@@ -6,12 +6,12 @@ plugins {
 }
 
 android {
-    // [확인 필요] 패키지명은 Play 출시 후 바꿀 수 없다 — docs/QUESTIONS.md Q1
-    namespace = "com.readyport.app"
+    // 패키지명은 Play 출시 후 바꿀 수 없다 (2026-09-28 운영자 확정)
+    namespace = "com.readyport"
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.readyport.app"
+        applicationId = "com.readyport"
         minSdk = 26
         targetSdk = 36
         versionCode = 1

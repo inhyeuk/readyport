@@ -8,11 +8,11 @@
 
 | # | 질문 | 선택지 / 제안 | 막히는 단계 | 답변 |
 |---|---|---|---|---|
-| A1 | 패키지명(applicationId). Play 출시 후 바꿀 수 없음 | 제안 `com.readyport.app` (현재 임시 적용) | M1 | ⏳ |
-| A2 | 앱 글꼴 | ① 시스템 글꼴(용량 0, 기기 확대 설정과 잘 맞음) ② IBM Plex Sans KR 번들(OFL 표기, 약 +2~4MB) | M1 | ⏳ |
+| A1 | 패키지명(applicationId). Play 출시 후 바꿀 수 없음 | 제안 `com.readyport.app` (현재 임시 적용) | M1 | ✅ `com.readyport` |
+| A2 | 앱 글꼴 | ① 시스템 글꼴(용량 0, 기기 확대 설정과 잘 맞음) ② IBM Plex Sans KR 번들(OFL 표기, 약 +2~4MB) | M1 | ✅ ① 시스템 글꼴 |
 | A3 | minSdk | 제안 26 (Android 8.0, 적응형 아이콘 기준. 국내 점유율상 손실 거의 없음) | M1 | ⏳ |
-| A4 | 라이브러리 버전 | M0은 이 PC 캐시에서 검증된 조합(AGP 8.13.2, Kotlin 2.0.21, Compose BOM 2024.12.01)으로 빌드. M1에서 Hilt·Room·Navigation을 넣을 때 **최신 안정판으로 일괄 업그레이드**할지 | M1 | ⏳ |
-| A5 | 네트워크 SDK 승인(작업 규칙 9) | Firebase BoM 중 Remote Config·FCM·Crashlytics·App Check·Firestore는 명세상 필요. **Analytics는 개인정보 약속과 긴장 관계**라 빼거나(권장) 광고 ID·자동 화면 수집을 끈 채로 넣을지 | M3/M9 | ⏳ |
+| A4 | 라이브러리 버전 | M0은 이 PC 캐시에서 검증된 조합(AGP 8.13.2, Kotlin 2.0.21, Compose BOM 2024.12.01)으로 빌드. M1에서 Hilt·Room·Navigation을 넣을 때 **최신 안정판으로 일괄 업그레이드**할지 | M1 | ✅ 최신 안정판으로 업그레이드 |
+| A5 | 네트워크 SDK 승인(작업 규칙 9) | Firebase BoM 중 Remote Config·FCM·Crashlytics·App Check·Firestore는 명세상 필요. **Analytics는 개인정보 약속과 긴장 관계**라 빼거나(권장) 광고 ID·자동 화면 수집을 끈 채로 넣을지 | M3/M9 | ✅ Analytics 넣지 않음 |
 | A6 | GitHub 저장소 | 공개/비공개, 계정·저장소 이름. 명세는 공개 기본(브랜치 보호·신뢰 증명) | M0 푸시, M9 | ⏳ |
 | A7 | 기기 내 LLM(Gemini Nano, ML Kit GenAI) 보조 추출 | 1차에서 제외하고 규칙 기반 + 수동 확인만(권장) / 지원 기기에서 선택 사용 | M2 | ⏳ |
 | A8 | 클립보드 자동 지우기 기본값 | 제안: 켬, 60초 | M4 | ⏳ |
@@ -53,4 +53,4 @@
 
 ## 답변 기록
 
-(확정되면 날짜와 함께 여기에 적는다.)
+- 2026-09-28: A1 `com.readyport` · A2 시스템 글꼴 · A4 M1에서 최신 안정판으로 업그레이드 · A5 Firebase Analytics 제외(Crashlytics·익명 실패 리포트로 오류 파악)

@@ -1,4 +1,4 @@
-package com.readyport.app
+package com.readyport
 
 import android.app.Application
 

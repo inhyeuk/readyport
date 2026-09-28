@@ -1,4 +1,4 @@
-package com.readyport.app
+package com.readyport
 
 import org.junit.Assert.assertEquals
 import org.junit.Test
