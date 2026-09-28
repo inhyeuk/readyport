@@ -23,10 +23,10 @@
 
 | # | 항목 | 쓰이는 곳 | 마일스톤 |
 |---|---|---|---|
-| B1 | MVP 5개 양식 공식 도메인과 제출 가능 기한 — ✅ TDAC(tdac.immigration.go.th, 도착일 포함 3일). 나머지 4개는 M5 | 레시피 `official_url_patterns`, `open_window` | M4·M5 |
+| B1 | ✅ 5개 모두(2026-09-28): TDAC(도착일 포함 3일), MDAC(imigresen-online.imi.gov.my, 3일 전부터, **요금 공식 표기 없음**), SGAC(eservices.ica.gov.sg, 무료, 도착일 포함 3일), All Indonesia(allindonesia.imigrasi.go.id, 무료, 도착 3일 전부터), Visit Japan Web(vjw.digital.go.jp, 무료, 의무 아님, 계정 필요). 근거: docs/research/2026-09-28_M5_countries.md | 레시피·팩 | M4·M5 |
 | B2 | ✅ TDAC(2026-09-28 실기기 리허설, 제출 안 함): 입력 칸 종류 전부 확인. 날짜 칸은 yyyy/mm/dd 직접 입력, 전화 나라 번호는 글자 칸(+는 사이트 고정), 성별·오는 방법은 라디오, 목적·숙소 종류는 선택 목록(선택지 글자 확인: HOLIDAY/BUSINESS…, HOTEL/GUEST HOUSE…), 국적·생년월일·나라·주는 자동 완성. 앱은 글자 칸 13개를 채우고, 고르는 칸은 '관광 → HOLIDAY'처럼 고를 글자를 말풍선으로 보여 줌 | 레시피 | M4 |
 | B3 | 외교부 입국허가요건 공공데이터 API 주소·형식 — M3 태국 팩은 외교부 해외안전여행(0404.go.kr) 페이지로 확인함. API는 ARIA 감지 구현(M9) 때 조사 | 국가 팩 `sources`, ARIA 감지 | M9 |
-| B4 | ✅ 태국: 긴급 전화 5종·대사관·여권 분실 순서·영사콜센터를 0404.go.kr·overseas.mofa.go.kr·passport.go.kr에서 확인(2026-09-28), 팩에 출처와 함께 반영. 나머지 MVP 4개국은 M5 | 도움 탭 | M3·M5 |
+| B4 | ✅ 5개국 모두 긴급 전화·대사관·여권 분실 순서를 0404·각 대사관 누리집에서 확인해 팩에 반영(2026-09-28). 일본 대사관 대표번호는 0404와 대사관 누리집이 달라 대사관 누리집 값을 씀 | 도움 탭 | M3·M5 |
 | B5 | 교통 앱 패키지명·공식 딥링크 규격(Grab·Bolt·GO·Uber 등), 동남아 Uber 여부 | 이동하기 | M7 |
 | B6 | ✅ 타깃 API: 2026-08-31부터 신규·업데이트 36 이상(연장 시 11-01), 확인 2026-09-28 developer.android.com/google/play/requirements/target-sdk. 접근성 API 정책은 M10에서 | 빌드 설정, 정책 | M1·M10 |
 | B7 | Firebase Spark 한도(Hosting·Firestore), Cloud Storage Blaze 전환 여부 | 아키텍처 | M3·M9 |
@@ -50,6 +50,8 @@
 | C10 | 현지어 문장·양식 라벨 원어민 검수(태국어·말레이어·인도네시아어·일본어), 긴급 연락처 검수. 태국어 7문장이 `packs/src/TH/pack.json`에 `reviewed:false`로 들어가 있음 | 출시 전 | ⏳ |
 | C11 | 실기기 테스트 — 보유 S10 5G(Android 12)는 NFC·카메라 가능. **Android 13+ 테마 아이콘 확인용 기기 별도 필요** | M2·M6·M10 | ⏳ |
 | C12 | 사용자 테스트: 60대 무경험자 5명, 중학생 5명 | M10 | ⏳ |
+| C15 | **Visit Japan Web 자동 입력 리허설**: 계정 로그인이 필요해 Claude가 할 수 없음(계정 만들기·로그인 금지). 운영자가 폰에서 직접 로그인한 상태로 열어 주면 구조만 읽어 레시피를 만든다. 그 전까지 일본은 안내 + 수동 모드 | M5 이후 | ⏳ |
+| C16 | 말레이어·인도네시아어·일본어 문장 7개씩 원어민 검수 (`reviewed:false`) | 출시 전 | ⏳ |
 | C14 | ✅ TDAC 실기기 리허설 완료(2026-09-28): 폰 Chrome에서 사람 확인이 저절로 통과됨. DevTools로 화면 구조와 서버가 준 선택지 목록만 읽음. 입력·제출 없음. 여는 버튼('Arrival Card')만 눌렀음 | M4 | ✅ |
 | C13 | GitHub 계정 `inhyeuk` 확인(2026-09-28). https://github.com/new 에서 **빈 공개 저장소 `readyport`**(README·.gitignore 없이)를 만들어 주면 Claude가 원격 연결·푸시·main 브랜치 보호 설정. 이 PC엔 `gh`와 이 용도의 GitHub 인증이 없음 | M1 이후 아무 때나 | ⏳ |
 

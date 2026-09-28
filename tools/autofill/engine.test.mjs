@@ -100,6 +100,28 @@ test('다시 채우면 말풍선이 쌓이지 않는다', () => {
   assert.equal(doc.querySelectorAll('[data-readyport-bubble]').length, n);
 });
 
+test('기본 선택 목록은 글자가 정확히 하나 같을 때만 고른다', () => {
+  const dom = new JSDOM(`<form><select id="nat"><option>Please Choose</option>
+    <option value="PRK">PRK - DEMOCRATIC PEOPLE'S REPUBLIC OF KOREA</option>
+    <option value="KOR">KOR - REPUBLIC OF KOREA</option></select>
+    <select id="dup"><option>A</option><option>A</option></select>
+    <select id="sex" disabled><option>MALE</option><option>FEMALE</option></select></form>`, { runScripts: 'outside-only' });
+  const w = dom.window;
+  let changes = 0;
+  w.document.addEventListener('change', () => changes++, true);
+  w.eval(engine);
+  const report = JSON.parse(w.__readyport.fill({ fields: [
+    { key: 'a.nat', selector: '#nat', widget: 'select', value: 'KOR - REPUBLIC OF KOREA', label: '국적' },
+    { key: 'a.part', selector: '#nat', widget: 'select', value: 'KOREA', label: '부분 글자' },
+    { key: 'a.dup', selector: '#dup', widget: 'select', value: 'A', label: '중복' },
+    { key: 'a.sex', selector: '#sex', widget: 'select', value: 'FEMALE', label: '잠긴 칸' },
+  ] }));
+  assert.equal(w.document.querySelector('#nat').value, 'KOR');
+  assert.deepEqual(report.filled, ['a.nat']);
+  assert.deepEqual(report.assist.sort(), ['a.dup', 'a.part', 'a.sex']);
+  assert.equal(changes, 1);
+});
+
 test('입력값 대조·단계 확인·사이트 버전', () => {
   const { rp } = page();
   rp.fill(plan(['personal']));

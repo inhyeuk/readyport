@@ -75,10 +75,11 @@
         "key": { "type": "string", "pattern": "^[a-z]+\\.[a-z_]+$" },
         "selector": { "type": ["string", "null"] },
         "widget": {
-          "enum": ["text", "assist"],
-          "description": "text = 확인된 글자 입력칸이라 앱이 채움. assist = 선택 목록·달력 등 확인 전이라 값만 한글 말풍선으로 보여 주고 사람이 입력"
+          "enum": ["text", "select", "assist"],
+          "description": "text = 확인된 글자 입력칸이라 앱이 채움. select = 기본 <select>에서 글자가 정확히 하나 같은 선택지만 고름. assist = 값만 한글 말풍선으로 보여 주고 사람이 입력"
         },
-        "transform": { "enum": ["upper", "none", "date_slash"], "description": "date_slash = yyyy-MM-dd 를 yyyy/MM/dd 로" },
+        "transform": { "enum": ["upper", "none", "date_slash", "date_dmy"], "description": "date_slash = yyyy/MM/dd, date_dmy = dd/MM/yyyy" },
+        "site_map": { "type": "object", "additionalProperties": { "type": "string" }, "description": "앱 값 → 사이트 선택지 글자 (예: KOR → KOR - REPUBLIC OF KOREA). 확인한 것만" },
         "labels": {
           "type": "object", "required": ["ko", "en"], "additionalProperties": false,
           "properties": { "ko": { "type": "string" }, "en": { "type": "string" }, "local": { "type": "string" } }

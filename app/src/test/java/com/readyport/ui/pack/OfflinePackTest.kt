@@ -106,7 +106,7 @@ class OfflinePackTest {
     fun guideOpensOfflineWithSources() {
         launchOffline()
         tab(R.string.tab_explore).performClick()
-        rule.onNodeWithText(s(R.string.explore_open_guide)).performClick()
+        rule.onAllNodesWithText(s(R.string.explore_open_guide)).onFirst().performClick()
         rule.onNodeWithText("태국").assertIsDisplayed()
         shown("비자 없이 90일", substring = true)
         shown("태국 입국 카드 (TDAC)")
@@ -115,10 +115,10 @@ class OfflinePackTest {
     }
 
     @Test
-    fun countriesWithoutPackSayNotReady() {
+    fun allMvpCountriesAreSavedOffline() {
         launchOffline()
         tab(R.string.tab_explore).performClick()
-        shown("일본")
-        shown(s(R.string.explore_status_not_ready))
+        for (name in listOf("태국", "일본", "싱가포르", "말레이시아", "인도네시아")) shown(name)
+        shown(context.getString(R.string.explore_status_saved, "2026.09.28"))
     }
 }

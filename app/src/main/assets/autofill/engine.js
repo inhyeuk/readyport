@@ -44,6 +44,24 @@
     el.dispatchEvent(new Event('blur', { bubbles: true }));
   }
 
+  /**
+   * 기본 <select> 목록에서 글자가 '정확히 하나' 같은 선택지만 고른다 (클릭 없음).
+   * 비슷한 글자(예: 북한 KOREA)가 여럿이거나 없으면 고르지 않고 사람에게 맡긴다.
+   */
+  function selectExact(el, text) {
+    if (!el || el.tagName !== 'SELECT' || el.disabled) return false;
+    var want = String(text).trim();
+    var matches = [];
+    for (var i = 0; i < el.options.length; i++) {
+      if (el.options[i].text.trim() === want) matches.push(el.options[i]);
+    }
+    if (matches.length !== 1) return false;
+    el.value = matches[0].value;
+    el.dispatchEvent(new Event('input', { bubbles: true }));
+    el.dispatchEvent(new Event('change', { bubbles: true }));
+    return true;
+  }
+
   function clearBubbles() {
     var old = document.querySelectorAll('[' + BUBBLE_ATTR + ']');
     for (var i = 0; i < old.length; i++) old[i].parentNode.removeChild(old[i]);
@@ -91,6 +109,10 @@
       if (!el) { report.missing.push(f.key); return; }
       if (f.widget === 'text' && typeof f.value === 'string' && f.value.length > 0 && isWritableText(el)) {
         setValue(el, f.value);
+        mark(el, 'filled');
+        bubble(el, f.label, 'filled');
+        report.filled.push(f.key);
+      } else if (f.widget === 'select' && typeof f.value === 'string' && f.value.length > 0 && selectExact(el, f.value)) {
         mark(el, 'filled');
         bubble(el, f.label, 'filled');
         report.filled.push(f.key);

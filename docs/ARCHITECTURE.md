@@ -189,3 +189,10 @@
 - **클립보드**: 복사 후 60초 뒤 우리 값일 때만 지운다. Android 13+는 `EXTRA_IS_SENSITIVE`.
 - **테스트**: `tools/autofill`(node --test + jsdom)로 엔진을 가짜 화면(`mock_tdac.html`)에서 검사한다. 실제 정부 사이트에는 연결하지 않는다(작업 규칙 1).
 - **리허설로 바뀐 것(2026-09-28)**: 폰 Chrome(원격 디버깅, 포트 9333)으로 TDAC 입력 화면을 열어 구조를 읽었다. 날짜 칸이 `yyyy/mm/dd` 직접 입력이라 `transform: date_slash`로 채운다. 선택지(목적·숙소·성별·오는 방법)는 서버 응답 `gotoAdd`의 목록으로 확인해 레시피 `options[].site`·`site_value`에 적었다. 엔진은 여전히 목록·라디오를 누르지 않고, "관광 → HOLIDAY"처럼 고를 글자를 말풍선으로 보여 준다. 레시피 버전 2026.09.28-2.
+
+## 구현 결정 기록 (M5, 2026-09-28)
+
+- **양식 5개 현황**: TDAC·SGAC·All Indonesia·MDAC는 레시피가 있고, Visit Japan Web은 계정 로그인이 필요해 레시피 없이 안내·수동 모드. 구조 확인은 폰 Chrome에서 입력 화면을 열어 읽거나(입력·제출 없음) 공개 앱 코드의 입력 칸 이름·id로 했다. 입력값을 넣어야만 보이는 다음 단계는 공개 코드로만 확인했다(가짜 값으로 정부 양식을 진행하지 않음).
+- **엔진 `select`**: MDAC처럼 기본 `<select>`인 칸은 선택지 글자가 **정확히 하나** 같을 때만 고른다(클릭 없음, change 이벤트). 예: "KOR - REPUBLIC OF KOREA" (같은 목록에 북한 항목도 있어 부분 일치는 쓰지 않는다). 레시피 `site_map`(앱 값→사이트 글자)과 `options[].site`로 값을 만든다.
+- **값 변환**: `date_dmy`(dd/MM/yyyy), 항공사 코드·숫자 나누기(`trip.flight_prefix`/`trip.flight_digits`), 이름 순서(`passport.full_name_given_first` — SGAC는 'Given Name followed by Surname'). 순서를 확인 못 한 이름 칸(MDAC·All Indonesia)은 assist로 두고 "여권에 적힌 그대로"라고 안내한다.
+- **사실 확인 기록**: `docs/research/2026-09-28_M5_countries.md`. UNVERIFIED 값(MDAC 요금, 싱가포르 긴급여권 수수료 등)은 팩에 넣지 않았다.

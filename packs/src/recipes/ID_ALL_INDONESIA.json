@@ -1,0 +1,96 @@
+{
+  "schema_version": 1,
+  "form_id": "ID_ALL_INDONESIA",
+  "version": "2026.09.28-1",
+  "last_verified": "2026-09-28",
+  "site_version_seen": "index-D5TNio3l",
+  "sources": [
+    { "id": "aid_site", "name": "인도네시아 이민국 All Indonesia(실기기에서 1단계 화면, 나머지는 공개 앱 코드의 입력 칸 id 확인, 제출하지 않음)", "url": "https://allindonesia.imigrasi.go.id/" }
+  ],
+  "source": "aid_site",
+  "official_url_patterns": ["https://allindonesia.imigrasi.go.id/*"],
+  "start_url": "https://allindonesia.imigrasi.go.id/",
+  "labels_reviewed": false,
+  "steps": [
+    {
+      "id": "personal",
+      "title_ko": "개인 정보",
+      "probe": "[id^=\"spi_passport_no\"]",
+      "note_ko": "처음 화면에서 'Pengunjung Asing(외국인 방문자)'을 눌러 주세요.",
+      "fields": [
+        { "key": "passport.nationality", "selector": "[id^=\"spi_nationality\"]", "widget": "assist",
+          "labels": { "ko": "여권 발급 나라", "en": "Passport/Country/Region" }, "source": "passport", "confirm": "bulk", "required": true,
+          "hint_ko": "목록에서 대한민국을 골라 주세요" },
+        { "key": "passport.full_name_surname_first", "selector": "[id^=\"spi_full_name\"]", "widget": "assist", "transform": "upper",
+          "labels": { "ko": "이름 (여권에 적힌 그대로)", "en": "Full Name" }, "source": "passport", "confirm": "bulk", "required": true,
+          "hint_ko": "여권에 적힌 영문 이름을 그대로 적어 주세요" },
+        { "key": "passport.birth_date", "selector": "[id^=\"spi_dob\"]", "widget": "assist", "transform": "date_dmy",
+          "labels": { "ko": "생년월일", "en": "Date of Birth" }, "source": "passport", "confirm": "bulk", "required": true,
+          "hint_ko": "달력에서 골라 주세요" },
+        { "key": "passport.gender", "selector": "[id^=\"spi_gender\"]", "widget": "assist",
+          "labels": { "ko": "성별", "en": "Gender" }, "source": "passport", "confirm": "bulk", "required": true },
+        { "key": "passport.number", "selector": "[id^=\"spi_passport_no\"]", "widget": "text", "transform": "upper",
+          "labels": { "ko": "여권 번호", "en": "Passport No." }, "source": "passport", "confirm": "bulk", "required": true },
+        { "key": "passport.expiry_date", "selector": "[id^=\"spi_date_of_passport_expiry\"]", "widget": "assist", "transform": "date_dmy",
+          "labels": { "ko": "여권 만료일", "en": "Date of Passport Expiry" }, "source": "passport", "confirm": "bulk", "required": true,
+          "hint_ko": "달력에서 골라 주세요" },
+        { "key": "profile.phone", "selector": "[id^=\"spi_mobile_no\"]", "widget": "text",
+          "labels": { "ko": "휴대폰 번호", "en": "Mobile No." }, "source": "user_input", "confirm": "individual", "required": true },
+        { "key": "profile.email", "selector": "[id^=\"spi_email\"]", "widget": "text",
+          "labels": { "ko": "이메일", "en": "Email" }, "source": "user_input", "confirm": "individual", "required": true }
+      ]
+    },
+    {
+      "id": "travel",
+      "title_ko": "여행 정보",
+      "probe": "[id^=\"std_arrival_date_foreigner\"]",
+      "note_ko": "비자(도착비자) 질문은 직접 답해 주세요. 대한민국 일반 여권은 무비자 입국 대상이 아니에요.",
+      "fields": [
+        { "key": "trip.arrival_date", "selector": "[id^=\"std_arrival_date_foreigner\"]", "widget": "assist", "transform": "date_dmy",
+          "labels": { "ko": "도착 날짜", "en": "Arrival Date" }, "source": "booking", "confirm": "bulk", "required": true,
+          "hint_ko": "목록에서 골라 주세요" },
+        { "key": "trip.departure_date", "selector": "[id^=\"std_departure_date_foreigner\"]", "widget": "assist", "transform": "date_dmy",
+          "labels": { "ko": "떠나는 날짜", "en": "Departure Date" }, "source": "booking", "confirm": "bulk", "required": false,
+          "hint_ko": "달력에서 골라 주세요" }
+      ]
+    },
+    {
+      "id": "transport",
+      "title_ko": "교통·주소",
+      "probe": "[id^=\"smta_mode_transport_foreigner\"]",
+      "fields": [
+        { "key": "trip.arrival_mode", "selector": "[id^=\"smta_mode_transport_foreigner\"]", "widget": "assist",
+          "labels": { "ko": "오는 방법", "en": "Mode of Transport" }, "source": "booking", "confirm": "bulk", "required": true,
+          "hint_ko": "비행기를 골라 주세요" },
+        { "key": "trip.purpose", "selector": "[id^=\"smta_purpose_travel_foreigner\"]", "widget": "assist",
+          "labels": { "ko": "여행 목적", "en": "Purpose of Travel" }, "source": "user_choice", "confirm": "individual", "required": true,
+          "options_ref": "purpose", "hint_ko": "목록에서 골라 주세요" },
+        { "key": "trip.flight_prefix", "selector": "[id^=\"smta_flight_no_prefix_foreigner\"]", "widget": "text", "transform": "upper",
+          "labels": { "ko": "항공사 코드", "en": "Code" }, "source": "booking", "confirm": "bulk", "required": true },
+        { "key": "trip.flight_digits", "selector": "[id^=\"smta_flight_no_foreigner\"]", "widget": "text",
+          "labels": { "ko": "편명 숫자", "en": "Flight No." }, "source": "booking", "confirm": "bulk", "required": true },
+        { "key": "stay.hotel", "selector": "[id^=\"smta_hotel_name_foreigner\"]", "widget": "assist",
+          "labels": { "ko": "호텔 이름", "en": "Hotel Name" }, "source": "user_input", "confirm": "individual", "required": false,
+          "hint_ko": "목록에서 찾아 골라 주세요" },
+        { "key": "stay.address", "selector": "[id^=\"smta_residential_address_foreigner\"]", "widget": "text", "transform": "upper",
+          "labels": { "ko": "인도네시아 안 주소 (영문)", "en": "Address in Indonesia" }, "source": "user_input", "confirm": "individual", "required": true }
+      ]
+    },
+    {
+      "id": "declaration",
+      "title_ko": "신고",
+      "probe": null,
+      "note_ko": "세관·건강 신고는 앱이 대신 답하지 않아요. 사이트에서 직접 답해 주세요.",
+      "fields": []
+    }
+  ],
+  "checkpoints": [
+    { "id": "final_submit", "kind": "final_submit", "selector": "button[type=\"submit\"]", "ko": "마지막 제출은 직접 눌러 주세요" }
+  ],
+  "options": {
+    "purpose": [
+      { "value": "tourism", "ko": "관광", "en": "Tourism" },
+      { "value": "business", "ko": "출장", "en": "Business" }
+    ]
+  }
+}

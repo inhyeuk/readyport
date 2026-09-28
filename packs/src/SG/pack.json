@@ -1,0 +1,86 @@
+{
+  "schema_version": 1,
+  "country": "SG",
+  "version": "2026.09.28-1",
+  "last_verified": "2026-09-28",
+  "names": { "ko": "싱가포르", "en": "Singapore", "local": "Singapore" },
+  "local_language": { "name_ko": "영어", "tts_lang": "en-SG" },
+  "sources": [
+    { "id": "mofa_sg", "name": "외교부 해외안전여행 · 싱가포르", "url": "https://0404.go.kr/ntnSafetyInfo/134/detail" },
+    { "id": "ica_sgac", "name": "싱가포르 ICA · SG Arrival Card", "url": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore/sg-arrival-card" },
+    { "id": "embassy_sg_lost", "name": "주싱가포르 대한민국 대사관 · 여권 분실", "url": "https://overseas.mofa.go.kr/sg-ko/brd/m_2515/view.do?seq=1344607" }
+  ],
+  "requirements": [
+    {
+      "nationality": "KR", "purpose": "tourism", "visa": "not_required", "stay_limit_days": 90, "forms": ["SG_SGAC"],
+      "summary_ko": "대한민국 일반 여권은 비자 없이 90일까지 머물 수 있어요(두 나라 협정). 도착 전에 싱가포르 입국 카드(SGAC)를 내야 해요.",
+      "source": "mofa_sg", "last_verified": "2026-09-28"
+    }
+  ],
+  "forms": [
+    {
+      "id": "SG_SGAC", "name_ko": "싱가포르 입국 카드 (SGAC)", "name_en": "SG Arrival Card",
+      "official_url": "https://eservices.ica.gov.sg/sgarrivalcard/",
+      "fee_ko": "무료. 돈을 받는 대행 사이트는 ICA와 관계없어요.",
+      "window_ko": "도착하는 날을 포함해 3일 안에 내요.",
+      "window_days_including_arrival": 3,
+      "source": "ica_sgac", "last_verified": "2026-09-28"
+    }
+  ],
+  "sections": [
+    {
+      "id": "entry", "title_ko": "들어갈 때",
+      "body_ko": [
+        "비자 없이 90일까지 머물 수 있어요.",
+        "도착하는 날을 포함해 3일 안에 공식 사이트나 MyICA 앱으로 입국 카드(SGAC)를 무료로 내요.",
+        "싱가포르 달러 2만 달러 이상 현금은 들어올 때와 나갈 때 신고해야 해요.",
+        "담배는 가지고 들어갈 수 없고, 전자담배는 금지예요(벌금·추방)."
+      ],
+      "source": "mofa_sg", "last_verified": "2026-09-28"
+    },
+    {
+      "id": "payment", "title_ko": "돈",
+      "body_ko": ["돈 단위는 싱가포르 달러(SGD)예요."],
+      "source": "mofa_sg", "last_verified": "2026-09-28"
+    },
+    {
+      "id": "safety", "title_ko": "안전 (외교부 여행경보)",
+      "body_ko": ["지금 싱가포르에 내려진 여행경보는 없어요. 떠나기 전에 외교부 해외안전여행에서 다시 확인하세요."],
+      "source": "mofa_sg", "last_verified": "2026-09-28"
+    }
+  ],
+  "transport_apps": [],
+  "phrases": [
+    { "id": "restroom", "ko": "화장실이 어디예요?", "en": "Where is the restroom?", "local": "Where is the restroom?", "reviewed": true },
+    { "id": "lost", "ko": "길을 잃었어요", "en": "I'm lost.", "local": "I'm lost.", "reviewed": true },
+    { "id": "hospital", "ko": "병원에 가야 해요", "en": "I need to go to a hospital.", "local": "I need to go to a hospital.", "reviewed": true },
+    { "id": "slowly", "ko": "천천히 말해 주세요", "en": "Please speak slowly.", "local": "Please speak slowly.", "reviewed": true },
+    { "id": "address", "ko": "이 주소로 가 주세요", "en": "Please take me to this address.", "local": "Please take me to this address.", "reviewed": true },
+    { "id": "police", "ko": "경찰을 불러 주세요", "en": "Please call the police.", "local": "Please call the police.", "reviewed": true },
+    { "id": "help", "ko": "도와주세요", "en": "Help me, please.", "local": "Help me, please.", "reviewed": true }
+  ],
+  "emergency": [
+    { "id": "police", "label_ko": "경찰", "number": "999", "source": "mofa_sg", "last_verified": "2026-09-28" },
+    { "id": "ambulance_fire", "label_ko": "구급차·불", "number": "995", "source": "mofa_sg", "last_verified": "2026-09-28" }
+  ],
+  "embassy": {
+    "name_ko": "주싱가포르 대한민국 대사관 (영사과 16층)",
+    "address": "47 Scotts Road #08-00 Goldbell Towers Singapore 228233",
+    "phone": "+65-6256-1188",
+    "emergency_phone": "+65-9654-3528",
+    "source": "mofa_sg", "last_verified": "2026-09-28"
+  },
+  "procedures": [
+    {
+      "id": "passport_lost", "title_ko": "여권을 잃어버렸어요",
+      "steps_ko": [
+        "싱가포르 경찰에 분실 신고를 해요. 받은 분실 신고서는 나갈 때 출국 심사관에게 내요.",
+        "대한민국 대사관(평일 09:00–12:30, 14:00–17:00)에서 긴급여권을 신청해요. 보통 오전에 내면 오후에 받아요.",
+        "신청서, 분실 신고서, 분실 사유서, 사진 1장, 신분증, 돌아가는 전자 항공권을 챙겨요."
+      ],
+      "source": "embassy_sg_lost", "last_verified": "2026-09-28"
+    }
+  ],
+  "essentials_rules": [],
+  "shopping": []
+}

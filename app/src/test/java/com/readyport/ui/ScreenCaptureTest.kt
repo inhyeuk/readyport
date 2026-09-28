@@ -9,6 +9,7 @@ import androidx.compose.ui.test.captureToImage
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.v2.createComposeRule
 import androidx.compose.ui.test.onRoot
+import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollToNode
@@ -90,7 +91,7 @@ class ScreenCaptureTest {
         }
         capture("m3_1_today_offline")
         openTab(R.string.tab_explore); capture("m3_2_explore")
-        rule.onNodeWithText(context.getString(R.string.explore_open_guide)).performClick(); capture("m3_3_guide")
+        rule.onAllNodesWithText(context.getString(R.string.explore_open_guide))[0].performClick(); capture("m3_3_guide")
         openTab(R.string.tab_help); capture("m3_4_help")
     }
 

@@ -31,16 +31,26 @@ object FormValues {
         recipe.fields.associate { f -> f.key to valueFor(recipe, f, vault, saved) }
 
     private fun valueFor(recipe: Recipe, f: RecipeField, vault: VaultContents, saved: Map<String, String>): FieldValue {
+        // '한 번 더 적기' 칸(예: 이메일 확인)은 원래 칸 값을 그대로
+        if (f.key.endsWith("_confirm")) {
+            val base = saved[f.key.removeSuffix("_confirm")]?.trim().orEmpty()
+            return if (base.isEmpty()) FieldValue(f.key, null, null, ValueOrigin.None) else FieldValue(f.key, base, base, ValueOrigin.User)
+        }
         // 사용자가 고르거나 고친 값이 가장 먼저
         saved[f.key]?.takeIf { it.isNotBlank() }?.let { raw ->
             val opt = f.optionsRef?.let { ref -> recipe.options[ref]?.firstOrNull { it.value == raw } }
             return if (opt != null) {
                 // 사이트 말풍선에는 "관광 → HOLIDAY"처럼 골라야 할 사이트 글자를 함께
-                val forSite = opt.site?.let { "${opt.ko} → $it" } ?: "${opt.ko} (${opt.en})"
+                val forSite = when {
+                    // 기본 선택 목록은 사이트 글자 그대로여야 엔진이 고를 수 있다
+                    f.widget == "select" && opt.site != null -> opt.site
+                    opt.site != null -> "${opt.ko} → ${opt.site}"
+                    else -> "${opt.ko} (${opt.en})"
+                }
                 FieldValue(f.key, forSite, listOfNotNull(opt.ko, opt.en, opt.local).joinToString(" · "), ValueOrigin.User)
             } else {
-                val v = transform(f, raw)
-                FieldValue(f.key, v, v, ValueOrigin.User)
+                val v = f.siteMap[raw] ?: transform(f, raw)
+                FieldValue(f.key, v, raw.takeIf { f.siteMap.containsKey(raw) } ?: v, ValueOrigin.User)
             }
         }
         val p = vault.passport
@@ -55,20 +65,36 @@ object FormValues {
             "passport.number" -> passport(p?.documentNumber)
             "passport.nationality" -> p?.let {
                 val d = nationalityLabel(it.nationality)
-                FieldValue(f.key, d, d, ValueOrigin.Passport)
+                // select 칸은 사이트 선택지 글자, 말풍선은 한글
+                FieldValue(f.key, f.siteMap[it.nationality] ?: d, d, ValueOrigin.Passport)
             } ?: none()
-            "passport.birth_date" -> p?.let { FieldValue(f.key, it.birthDate, it.birthDate, ValueOrigin.Passport) } ?: none()
+            "passport.full_name_given_first" -> p?.let {
+                val v = transform(f, "${it.givenNames} ${it.surname}".trim())
+                FieldValue(f.key, v, v, ValueOrigin.Passport)
+            } ?: none()
+            "passport.full_name_surname_first" -> p?.let {
+                val v = transform(f, "${it.surname} ${it.givenNames}".trim())
+                FieldValue(f.key, v, v, ValueOrigin.Passport)
+            } ?: none()
+            "passport.expiry_date" -> p?.let { FieldValue(f.key, transform(f, it.expiryDate), it.expiryDate, ValueOrigin.Passport) } ?: none()
+            "passport.birth_date" -> p?.let { FieldValue(f.key, transform(f, it.birthDate), it.birthDate, ValueOrigin.Passport) } ?: none()
             "passport.gender" -> p?.let {
                 val d = when (it.sex) { "M" -> "남 → MALE"; "F" -> "여 → FEMALE"; else -> "기타 → UNDEFINED" }
-                FieldValue(f.key, d, d, ValueOrigin.Passport)
+                FieldValue(f.key, f.siteMap[it.sex] ?: d, d, ValueOrigin.Passport)
             } ?: none()
             "trip.arrival_date" -> firstDate(flights.firstOrNull())?.let { FieldValue(f.key, transform(f, it), it, ValueOrigin.Flight) }
                 ?: lodging.firstOrNull()?.checkIn?.let { FieldValue(f.key, transform(f, it), it, ValueOrigin.Lodging) }
                 ?: none()
-            "trip.arrival_mode" -> if (flights.isNotEmpty()) plane(f) else none()
+            "trip.arrival_mode" -> if (flights.isNotEmpty()) f.siteValue?.takeIf { f.widget == "select" }
+                ?.let { FieldValue(f.key, it, "비행기 → $it", ValueOrigin.Flight) } ?: plane(f) else none()
             "trip.departure_mode" -> if (departureFlight(flights) != null) plane(f) else none()
             "trip.flight_no" -> flights.firstOrNull()?.flightNumbers?.firstOrNull()
                 ?.let { FieldValue(f.key, transform(f, it), transform(f, it), ValueOrigin.Flight) } ?: none()
+            // 항공사 코드와 숫자를 따로 받는 사이트 (예: KE / 651)
+            "trip.flight_prefix" -> flights.firstOrNull()?.flightNumbers?.firstOrNull()?.let { splitFlight(it) }
+                ?.let { FieldValue(f.key, it.first, it.first, ValueOrigin.Flight) } ?: none()
+            "trip.flight_digits" -> flights.firstOrNull()?.flightNumbers?.firstOrNull()?.let { splitFlight(it) }
+                ?.let { FieldValue(f.key, it.second, it.second, ValueOrigin.Flight) } ?: none()
             "trip.departure_date" -> lastFlightDate(flights)?.let { FieldValue(f.key, transform(f, it), it, ValueOrigin.Flight) }
                 ?: lodging.lastOrNull()?.checkOut?.let { FieldValue(f.key, transform(f, it), it, ValueOrigin.Lodging) }
                 ?: none()
@@ -81,8 +107,14 @@ object FormValues {
         "upper" -> v.trim().uppercase()
         // 사이트 날짜 칸 형식 yyyy/mm/dd (실기기에서 확인)
         "date_slash" -> v.trim().replace('-', '/')
+        // dd/MM/yyyy (SGAC·MDAC·All Indonesia, 실기기 확인)
+        "date_dmy" -> v.trim().split('-').takeIf { it.size == 3 }?.let { (y, m, d) -> "$d/$m/$y" } ?: v.trim()
         else -> v.trim()
     }
+
+    /** "KE651" → ("KE", "651"), "7C2201" → ("7C", "2201") */
+    internal fun splitFlight(no: String): Pair<String, String>? =
+        Regex("^([A-Z0-9]{2})(\\d{1,4})$").matchEntire(no.trim().uppercase().replace(" ", ""))?.let { it.groupValues[1] to it.groupValues[2] }
 
     private fun plane(f: RecipeField): FieldValue {
         val d = f.siteValue?.let { "비행기 → $it" } ?: "비행기"

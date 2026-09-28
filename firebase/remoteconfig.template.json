@@ -2,7 +2,7 @@
   "parameters": {
     "index_version": {
       "defaultValue": {
-        "value": "2026.09.28-1"
+        "value": "2026.09.28-2"
       },
       "description": "packs/index.json 최신 버전. 이보다 새 것만 받는다",
       "valueType": "STRING"
@@ -40,6 +40,76 @@
         "value": "false"
       },
       "description": "ARIA 점검이 3일 이상 멈추면 true → '정보 점검이 늦어지고 있어요' 배너",
+      "valueType": "BOOLEAN"
+    },
+    "pack_version_MY": {
+      "defaultValue": {
+        "value": "2026.09.28-1"
+      },
+      "description": "packs/MY/pack.json 최신 버전",
+      "valueType": "STRING"
+    },
+    "pack_version_SG": {
+      "defaultValue": {
+        "value": "2026.09.28-1"
+      },
+      "description": "packs/SG/pack.json 최신 버전",
+      "valueType": "STRING"
+    },
+    "pack_version_ID": {
+      "defaultValue": {
+        "value": "2026.09.28-1"
+      },
+      "description": "packs/ID/pack.json 최신 버전",
+      "valueType": "STRING"
+    },
+    "pack_version_JP": {
+      "defaultValue": {
+        "value": "2026.09.28-1"
+      },
+      "description": "packs/JP/pack.json 최신 버전",
+      "valueType": "STRING"
+    },
+    "recipe_version_MY_MDAC": {
+      "defaultValue": {
+        "value": "2026.09.28-1"
+      },
+      "description": "packs/recipes/MY_MDAC.json 최신 버전",
+      "valueType": "STRING"
+    },
+    "kill_autofill_MY_MDAC": {
+      "defaultValue": {
+        "value": "false"
+      },
+      "description": "true면 자동 입력 끄고 수동 모드",
+      "valueType": "BOOLEAN"
+    },
+    "recipe_version_SG_SGAC": {
+      "defaultValue": {
+        "value": "2026.09.28-1"
+      },
+      "description": "packs/recipes/SG_SGAC.json 최신 버전",
+      "valueType": "STRING"
+    },
+    "kill_autofill_SG_SGAC": {
+      "defaultValue": {
+        "value": "false"
+      },
+      "description": "true면 자동 입력 끄고 수동 모드",
+      "valueType": "BOOLEAN"
+    },
+    "recipe_version_ID_ALL_INDONESIA": {
+      "defaultValue": {
+        "value": "2026.09.28-1"
+      },
+      "description": "packs/recipes/ID_ALL_INDONESIA.json 최신 버전",
+      "valueType": "STRING"
+    },
+    "kill_autofill_ID_ALL_INDONESIA": {
+      "defaultValue": {
+        "value": "false"
+      },
+      "description": "true면 자동 입력 끄고 수동 모드",
       "valueType": "BOOLEAN"
     }
   }

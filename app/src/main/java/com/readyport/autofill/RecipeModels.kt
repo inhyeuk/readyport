@@ -40,7 +40,7 @@ data class RecipeStep(
 data class RecipeField(
     val key: String,
     val selector: String? = null,
-    /** "text" = 앱이 채움, "assist" = 값만 보여 주고 사람이 입력 */
+    /** "text" = 앱이 채움, "select" = 기본 목록에서 정확히 같은 글자만 고름, "assist" = 값만 보여 주고 사람이 입력 */
     val widget: String,
     val transform: String? = null,
     val labels: FieldLabels,
@@ -55,6 +55,8 @@ data class RecipeField(
     @SerialName("default_value") val defaultValue: String? = null,
     /** assist 칸: 사이트에서 골라야 할 선택지 글자 (실기기에서 확인한 것) */
     @SerialName("site_value") val siteValue: String? = null,
+    /** 앱 값 → 사이트 선택지 글자 (예: KOR → "KOR - REPUBLIC OF KOREA", F → "FEMALE") */
+    @SerialName("site_map") val siteMap: Map<String, String> = emptyMap(),
 )
 
 @Serializable data class FieldLabels(val ko: String, val en: String, val local: String? = null)

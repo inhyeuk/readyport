@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "country": "JP",
+  "version": "2026.09.28-1",
+  "last_verified": "2026-09-28",
+  "names": { "ko": "일본", "en": "Japan", "local": "日本" },
+  "local_language": { "name_ko": "일본어", "tts_lang": "ja-JP" },
+  "sources": [
+    { "id": "mofa_jp", "name": "외교부 해외안전여행 · 일본", "url": "https://0404.go.kr/ntnSafetyInfo/183/detail" },
+    { "id": "vjw", "name": "일본 디지털청 · Visit Japan Web", "url": "https://services.digital.go.jp/en/visit-japan-web/" },
+    { "id": "customs_jp", "name": "일본 세관 · 휴대품 신고", "url": "https://www.customs.go.jp/english/passenger/declaration/declaration_app.html" },
+    { "id": "jnto", "name": "일본정부관광국(JNTO) · 긴급 상황", "url": "https://www.japan.travel/ko/plan/emergencies/" },
+    { "id": "embassy_jp", "name": "주일본 대한민국 대사관", "url": "https://overseas.mofa.go.kr/jp-ko/" },
+    { "id": "embassy_jp_lost", "name": "주일본 대한민국 대사관 · 여권 분실", "url": "https://overseas.mofa.go.kr/jp-ko/brd/m_1087/view.do?seq=1344011" }
+  ],
+  "requirements": [
+    {
+      "nationality": "KR", "purpose": "tourism", "visa": "not_required", "stay_limit_days": 90, "forms": ["JP_VJW"],
+      "summary_ko": "대한민국 일반 여권은 비자 없이 90일까지 머물 수 있어요. Visit Japan Web으로 입국·세관 신고를 미리 할 수 있어요(꼭 해야 하는 건 아니고, 종이 신고서도 돼요).",
+      "source": "mofa_jp", "last_verified": "2026-09-28"
+    }
+  ],
+  "forms": [
+    {
+      "id": "JP_VJW", "name_ko": "일본 입국·세관 신고 (Visit Japan Web)", "name_en": "Visit Japan Web",
+      "official_url": "https://www.vjw.digital.go.jp/",
+      "fee_ko": "무료. 돈을 받는 사이트와 'Visit Japan Web' 이름의 앱은 가짜예요(공식 앱 없음).",
+      "window_ko": "계정을 만들고 떠나기 전에 미리 적어 두면, 도착해서 휴대폰으로 QR을 보여 줘요.",
+      "source": "vjw", "last_verified": "2026-09-28"
+    }
+  ],
+  "sections": [
+    {
+      "id": "entry", "title_ko": "들어갈 때",
+      "body_ko": [
+        "비자 없이 90일까지 머물 수 있어요(돈을 버는 일은 안 돼요).",
+        "Visit Japan Web에 입국·세관 신고를 미리 하면 도착해서 QR을 보여 주면 돼요. 공식 앱은 없어요.",
+        "100만 엔 이상 현금은 들어올 때와 나갈 때 신고해야 해요."
+      ],
+      "source": "mofa_jp", "last_verified": "2026-09-28"
+    },
+    {
+      "id": "safety", "title_ko": "안전 (외교부 여행경보)",
+      "body_ko": [
+        "후쿠시마 원전 반경 30km 안과 정부 피난 지시 구역만 3단계(출국권고)예요.",
+        "도움이 필요하면 일본정부관광국 방문객 전화(050-3816-2787, 24시간, 한국어)도 있어요."
+      ],
+      "source": "mofa_jp", "last_verified": "2026-09-28"
+    }
+  ],
+  "transport_apps": [],
+  "phrases": [
+    { "id": "restroom", "ko": "화장실이 어디예요?", "en": "Where is the restroom?", "local": "トイレはどこですか？", "romanized": "toire wa doko desu ka", "reviewed": false },
+    { "id": "lost", "ko": "길을 잃었어요", "en": "I'm lost.", "local": "道に迷いました。", "romanized": "michi ni mayoimashita", "reviewed": false },
+    { "id": "hospital", "ko": "병원에 가야 해요", "en": "I need to go to a hospital.", "local": "病院に行かなければなりません。", "romanized": "byouin ni ikanakereba narimasen", "reviewed": false },
+    { "id": "slowly", "ko": "천천히 말해 주세요", "en": "Please speak slowly.", "local": "ゆっくり話してください。", "romanized": "yukkuri hanashite kudasai", "reviewed": false },
+    { "id": "address", "ko": "이 주소로 가 주세요", "en": "Please take me to this address.", "local": "この住所まで行ってください。", "romanized": "kono juusho made itte kudasai", "reviewed": false },
+    { "id": "police", "ko": "경찰을 불러 주세요", "en": "Please call the police.", "local": "警察を呼んでください。", "romanized": "keisatsu wo yonde kudasai", "reviewed": false },
+    { "id": "help", "ko": "도와주세요", "en": "Help me, please.", "local": "助けてください！", "romanized": "tasukete kudasai", "reviewed": false }
+  ],
+  "emergency": [
+    { "id": "police", "label_ko": "경찰", "number": "110", "source": "mofa_jp", "last_verified": "2026-09-28" },
+    { "id": "fire_ambulance", "label_ko": "불·구급차", "number": "119", "source": "jnto", "last_verified": "2026-09-28" },
+    { "id": "sea", "label_ko": "바다에서 사고", "number": "118", "source": "mofa_jp", "last_verified": "2026-09-28" },
+    { "id": "jnto_hotline", "label_ko": "일본정부관광국 방문객 전화 (24시간, 한국어)", "number": "050-3816-2787", "source": "jnto", "last_verified": "2026-09-28" }
+  ],
+  "embassy": {
+    "name_ko": "주일본 대한민국 대사관 (도쿄) — 영사부는 南麻布1-7-32로 따로 있어요",
+    "address": "106-0047 東京都港区南麻布1-2-5",
+    "phone": "+81-3-3452-7611",
+    "emergency_phone": "+81-70-2153-5454",
+    "source": "embassy_jp", "last_verified": "2026-09-28"
+  },
+  "procedures": [
+    {
+      "id": "passport_lost", "title_ko": "여권을 잃어버렸어요",
+      "steps_ko": [
+        "경찰서나 파출소(交番)에 신고하고 접수증을 받아요. 검문 때 보여 줘야 할 수 있어요.",
+        "대사관 영사부(평일 09:00–16:00)에서 긴급여권을 신청해요. 1–2일 걸리고 수수료는 6,500엔(엔화 현금)이에요.",
+        "신청서, 분실 신고서, 분실 사유서, 경찰 접수증, 신분증, 사진 1장을 챙겨요. 신고한 여권은 다시 찾아도 쓸 수 없어요."
+      ],
+      "source": "embassy_jp_lost", "last_verified": "2026-09-28"
+    }
+  ],
+  "essentials_rules": [],
+  "shopping": []
+}
