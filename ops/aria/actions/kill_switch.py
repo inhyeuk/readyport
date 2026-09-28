@@ -118,7 +118,9 @@ class RemoteConfigClient:
 
     def get(self) -> tuple[dict, str]:
         resp = self.fetch("GET", self.url, headers={"Authorization": f"Bearer {self.tokens.get_token()}",
-                                                    "Accept-Encoding": "identity"}, timeout=self.timeout)
+                                                    # 공식 문서: 압축 방식을 지정하지 않으면 ETag가 빠지는 알려진 문제가 있어
+                                                    # 모든 요청에 Accept-Encoding: gzip 이 필요하다 (net.urllib_fetch가 푼다)
+                                                    "Accept-Encoding": "gzip"}, timeout=self.timeout)
         if resp.status != 200:
             raise GcpApiError(resp.status, resp.text)
         etag = resp.header("etag")
@@ -133,6 +135,7 @@ class RemoteConfigClient:
             "Authorization": f"Bearer {self.tokens.get_token()}",
             "Content-Type": "application/json; UTF-8",
             "If-Match": etag,
+            "Accept-Encoding": "gzip",
         }, data=body, timeout=self.timeout)
         if resp.status != 200:
             raise GcpApiError(resp.status, resp.text)

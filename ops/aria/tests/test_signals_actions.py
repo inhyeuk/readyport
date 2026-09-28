@@ -210,3 +210,33 @@ class HeartbeatTest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class GzipBodyTest(unittest.TestCase):
+    """Remote Config는 gzip으로 요청해야 ETag를 준다 — 응답 본문은 우리가 푼다."""
+
+    def test_decode_gzip_body(self):
+        import gzip as _gz
+        from ops.aria.net import decode_body
+        raw = b'{"parameters": {}}'
+        self.assertEqual(decode_body(_gz.compress(raw), {"Content-Encoding": "gzip"}), raw)
+        self.assertEqual(decode_body(raw, {}), raw)
+        # 헤더만 gzip이고 본문이 아니면 그대로
+        self.assertEqual(decode_body(raw, {"content-encoding": "gzip"}), raw)
+
+    def test_rc_requests_ask_for_gzip(self):
+        from ops.aria.actions.kill_switch import RemoteConfigClient
+        from ops.aria.gcp import StaticTokenProvider
+        from ops.aria.net import Response
+        seen = []
+
+        def fetch(method, url, headers=None, data=None, timeout=20.0):
+            seen.append((method, headers))
+            return Response(200, b'{"parameters": {}}', {"ETag": "etag-1"}, url)
+
+        rc = RemoteConfigClient("p", StaticTokenProvider(), fetch)
+        _, etag = rc.get()
+        rc.put({"parameters": {}}, etag)
+        self.assertEqual(etag, "etag-1")
+        self.assertTrue(all(h.get("Accept-Encoding") == "gzip" for _, h in seen))
+
