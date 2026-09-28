@@ -2,6 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- 필요한 패키지만 선언한다. QUERY_ALL_PACKAGES 사용 금지 (PRD 7.4) -->
+    <queries>
+        <!-- 기기 내장 음성 안내(TextToSpeech) 엔진 찾기 -->
+        <intent>
+            <action android:name="android.intent.action.TTS_SERVICE" />
+        </intent>
+    </queries>
+
     <!-- 개인정보는 기기 밖으로 나가지 않는다: 클라우드 백업·기기 간 이전 모두 제외 (PRD 7.3) -->
     <application
         android:name=".ReadyPortApp"

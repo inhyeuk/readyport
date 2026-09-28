@@ -31,6 +31,15 @@ $env:ANDROID_HOME='E:\_PROGRAM_Installed\Android_SDK'
 ```
 
 - 라이브러리 버전은 `gradle/libs.versions.toml`에서만 관리한다.
+- AGP 9: Kotlin 내장이라 `org.jetbrains.kotlin.android` 플러그인을 쓰지 않는다. compileSdk 37(최신 AndroidX 요구), targetSdk 36.
+- 단위 테스트는 Robolectric(SDK 36)으로 Compose 화면까지 JVM에서 돈다. `ScreenCaptureTest`가 `app/build/screenshots/`에 화면 PNG를 남긴다(기기 없이 디자인 확인).
+- PowerShell `Get-Content`/`Set-Content`로 소스를 고치지 말 것 — UTF-8 한글이 깨진다. Edit/Write 도구를 쓴다.
+
+## Firebase
+
+- 프로젝트 `readyport-app` (Spark, 운영자 Google 계정 — DoingWell과 같은 계정이지만 별도 프로젝트). `firebase` CLI 로그인됨.
+- `app/google-services.json`은 비밀이 아니라서 저장소에 둔다(보호는 Firestore 규칙·App Check로). 서비스 계정 키·서명 비밀키는 절대 저장소에 두지 않는다.
+- Analytics는 넣지 않는다(운영자 결정 2026-09-28).
 
 ---
 

@@ -9,7 +9,6 @@ captures/
 .cxx/
 *.keystore
 *.jks
-google-services.json
 .env
 .env.*
 ops/aria/**/*.db

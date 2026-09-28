@@ -10,12 +10,12 @@
 |---|---|---|---|---|
 | A1 | 패키지명(applicationId). Play 출시 후 바꿀 수 없음 | 제안 `com.readyport.app` (현재 임시 적용) | M1 | ✅ `com.readyport` |
 | A2 | 앱 글꼴 | ① 시스템 글꼴(용량 0, 기기 확대 설정과 잘 맞음) ② IBM Plex Sans KR 번들(OFL 표기, 약 +2~4MB) | M1 | ✅ ① 시스템 글꼴 |
-| A3 | minSdk | 제안 26 (Android 8.0, 적응형 아이콘 기준. 국내 점유율상 손실 거의 없음) | M1 | ⏳ |
+| A3 | minSdk | 제안 26 (Android 8.0, 적응형 아이콘 기준. 국내 점유율상 손실 거의 없음) | M1 | ✅ 26 |
 | A4 | 라이브러리 버전 | M0은 이 PC 캐시에서 검증된 조합(AGP 8.13.2, Kotlin 2.0.21, Compose BOM 2024.12.01)으로 빌드. M1에서 Hilt·Room·Navigation을 넣을 때 **최신 안정판으로 일괄 업그레이드**할지 | M1 | ✅ 최신 안정판으로 업그레이드 |
 | A5 | 네트워크 SDK 승인(작업 규칙 9) | Firebase BoM 중 Remote Config·FCM·Crashlytics·App Check·Firestore는 명세상 필요. **Analytics는 개인정보 약속과 긴장 관계**라 빼거나(권장) 광고 ID·자동 화면 수집을 끈 채로 넣을지 | M3/M9 | ✅ Analytics 넣지 않음 |
-| A6 | GitHub 저장소 | 공개/비공개, 계정·저장소 이름. 명세는 공개 기본(브랜치 보호·신뢰 증명) | M0 푸시, M9 | ⏳ |
-| A7 | 기기 내 LLM(Gemini Nano, ML Kit GenAI) 보조 추출 | 1차에서 제외하고 규칙 기반 + 수동 확인만(권장) / 지원 기기에서 선택 사용 | M2 | ⏳ |
-| A8 | 클립보드 자동 지우기 기본값 | 제안: 켬, 60초 | M4 | ⏳ |
+| A6 | GitHub 저장소 | 공개/비공개, 계정·저장소 이름. 명세는 공개 기본(브랜치 보호·신뢰 증명) | M0 푸시, M9 | ✅ 공개 저장소. 생성·푸시는 C13(운영자 로그인 필요) |
+| A7 | 기기 내 LLM(Gemini Nano, ML Kit GenAI) 보조 추출 | 1차에서 제외하고 규칙 기반 + 수동 확인만(권장) / 지원 기기에서 선택 사용 | M2 | ✅ 1차 제외 |
+| A8 | 클립보드 자동 지우기 기본값 | 제안: 켬, 60초 | M4 | ✅ 켬, 60초 |
 
 ## B. 사실 확인 — Claude가 공식 출처로 조사해 확인 요청할 것 🔎
 
@@ -28,7 +28,7 @@
 | B3 | 외교부 입국허가요건 공공데이터 API 주소·형식 | 국가 팩 `sources`, ARIA 감지 | M3·M9 |
 | B4 | 국가별 긴급 전화번호, 주재 대한민국 대사관 연락처(외교부 기준) | 도움 탭 | M7 |
 | B5 | 교통 앱 패키지명·공식 딥링크 규격(Grab·Bolt·GO·Uber 등), 동남아 Uber 여부 | 이동하기 | M7 |
-| B6 | Google Play 최신 타깃 API 요구 수준, 접근성 API 정책 | 빌드 설정, 정책 | M1·M10 |
+| B6 | ✅ 타깃 API: 2026-08-31부터 신규·업데이트 36 이상(연장 시 11-01), 확인 2026-09-28 developer.android.com/google/play/requirements/target-sdk. 접근성 API 정책은 M10에서 | 빌드 설정, 정책 | M1·M10 |
 | B7 | Firebase Spark 한도(Hosting·Firestore), Cloud Storage Blaze 전환 여부 | 아키텍처 | M3·M9 |
 | B8 | ML Kit 번들형 텍스트 인식의 메트릭 전송 범위 | 개인정보 안내 문구 | M2 |
 | B9 | 관세청·검역본부 면세 한도·반입 금지 품목 공식 링크 | 쇼핑 리스트, 귀국 단계 | M8 |
@@ -38,7 +38,7 @@
 
 | # | 할 일 | 필요한 시점 | 상태 |
 |---|---|---|---|
-| C1 | Firebase 프로젝트 생성(Spark), `google-services.json` 전달, 서비스 계정(Remote Config 전용) 발급 | M3 | ⏳ |
+| C1 | Firebase 프로젝트 생성(Spark), `google-services.json` 전달, 서비스 계정(Remote Config 전용) 발급 | M3 | ✅ 2026-09-28 프로젝트 `readyport-app`(DoingWell과 같은 Google 계정, Spark), Android 앱 2개(`com.readyport`, `com.readyport.debug`) 등록, `app/google-services.json` 저장. 서비스 계정은 M9 |
 | C2 | 팩 서명용 Ed25519 키 생성 방식 결정 — Claude가 생성 스크립트를 만들고, **비밀키는 운영자가 직접 생성해 GitHub Actions secrets에만 등록**(저장소·ARIA에 두지 않음) | M3 | ⏳ |
 | C3 | 공공데이터포털(외교부·인천공항·한국공항공사) API 키 발급 | M3·M8 | ⏳ |
 | C4 | 네이버 데이터랩(API HUB 종량제) 키 발급·비용 확인 | M8 | ⏳ |
@@ -50,7 +50,9 @@
 | C10 | 현지어 문장·양식 라벨 원어민 검수(태국어·말레이어·인도네시아어·일본어), 긴급 연락처 검수 | M4~M7 | ⏳ |
 | C11 | 실기기 테스트 — 보유 S10 5G(Android 12)는 NFC·카메라 가능. **Android 13+ 테마 아이콘 확인용 기기 별도 필요** | M2·M6·M10 | ⏳ |
 | C12 | 사용자 테스트: 60대 무경험자 5명, 중학생 5명 | M10 | ⏳ |
+| C13 | GitHub 공개 저장소 생성 후 알려 주기(또는 `gh` 설치·로그인). 이 PC엔 `gh`가 없고 GitHub 로그인 정보도 없음. 받으면 Claude가 원격 연결·푸시·main 브랜치 보호 설정 | M1 이후 아무 때나 | ⏳ |
 
 ## 답변 기록
 
 - 2026-09-28: A1 `com.readyport` · A2 시스템 글꼴 · A4 M1에서 최신 안정판으로 업그레이드 · A5 Firebase Analytics 제외(Crashlytics·익명 실패 리포트로 오류 파악)
+- 2026-09-28: 운영자 "남은 것은 추천대로" → A3 minSdk 26 · A6 공개 저장소 · A7 기기 내 LLM 1차 제외 · A8 클립보드 켬/60초. Firebase는 DoingWell과 같은 계정에 **별도 프로젝트**로 생성(DoingWell 프로젝트는 Cloud Functions 사용으로 Blaze라, Spark 전용 원칙과 과금을 섞지 않기 위함)

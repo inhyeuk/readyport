@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "233871698105",
+    "project_id": "readyport-app",
+    "storage_bucket": "readyport-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:233871698105:android:d00c96c2f0e76bea1a9368",
+        "android_client_info": {
+          "package_name": "com.readyport"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAlsithaIhqhCiTr3younez2_abnKA0xBc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:233871698105:android:09bc9a69e3aa3c291a9368",
+        "android_client_info": {
+          "package_name": "com.readyport.debug"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAlsithaIhqhCiTr3younez2_abnKA0xBc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
