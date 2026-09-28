@@ -3,9 +3,9 @@
 > Claude는 계정 만들기·로그인·결제·약관 동의·비밀값 입력·정부 양식 제출을 하지 않는다. 아래는 운영자가 할 일이다.
 > 번호는 `docs/QUESTIONS.md`와 같다. **굵게** = 출시를 막는 일.
 
-## 1. 지금 바로 (10분 안팎)
-1. **C13 GitHub 저장소**: https://github.com/new → 빈 **공개** 저장소 `readyport`(README·.gitignore 없이). 만들면 Claude가 원격 연결·푸시하고 main 보호 규칙을 안내한다.
-2. **C2 서명 키 백업**: `C:\Users\inhye\.readyport\keys\pack_signing_rp-2026-1.pem`을 암호화한 USB·비밀번호 관리자 등 안전한 곳에 한 부 더. 잃으면 앱 업데이트 없이는 새 팩을 못 믿게 한다.
+## 1. 지금 바로
+- ✅ C13 GitHub 저장소: https://github.com/inhyeuk/readyport (2026-09-29, main 보호 적용)
+1. **C2 서명 키 백업**: `C:\Users\inhye\.readyport\keys\pack_signing_rp-2026-1.pem`을 암호화한 USB·비밀번호 관리자 등 안전한 곳에 한 부 더. 잃으면 앱 업데이트 없이는 새 팩을 못 믿게 한다.
 
 ## 2. 실기기 확인 (Claude가 대신 못 한 것)
 - 지갑 잠금 해제(PIN·지문) → 여권 촬영: 표본 사진 `/sdcard/Pictures/icao_specimen_mrz.jpg`(ICAO 표본, 실제 여권 금지) → 값 확인 → 저장 → '여행 종료 후 파기'
