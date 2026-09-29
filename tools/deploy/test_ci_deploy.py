@@ -50,5 +50,28 @@ class CiDeployTest(unittest.TestCase):
             cd.fcm_message("th/../x")
 
 
+class PurgeTest(unittest.TestCase):
+    def test_purge_deletes_only_what_query_returns(self):
+        class FakeFs:
+            def __init__(self):
+                self.docs = [{"_name": f"projects/p/databases/(default)/documents/field_reports/r{i}"} for i in range(3)]
+                self.deleted = []
+                self.queries = []
+
+            def run_query(self, q):
+                self.queries.append(q)
+                return [d for d in self.docs if d["_name"] not in self.deleted]
+
+            def delete_document(self, name):
+                self.deleted.append(name)
+
+        fs = FakeFs()
+        self.assertEqual(cd.purge_expired(fs, "2027-10-01T00:00:00Z"), 3)
+        q = fs.queries[0]
+        self.assertEqual(q["from"], [{"collectionId": "field_reports"}])
+        self.assertEqual(q["where"]["fieldFilter"]["field"]["fieldPath"], "expire_at")
+        self.assertEqual(q["where"]["fieldFilter"]["op"], "LESS_THAN")
+
+
 if __name__ == "__main__":
     unittest.main()

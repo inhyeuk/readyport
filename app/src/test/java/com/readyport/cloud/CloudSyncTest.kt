@@ -33,6 +33,12 @@ class CloudSyncTest {
         assertTrue(CloudSyncPlan.plan(setOf("../x"), null, emptySet(), emptySet()).subscribe.isEmpty())
     }
 
+    @Test fun reportsExpireAfterOneYear() {
+        // 규칙은 335~395일 사이만 받는다
+        val days = (CloudSyncPlan.expiryMillis(0) / 86_400_000L)
+        assertTrue(days in 336..394)
+    }
+
     @Test fun reportFieldsMatchRules() {
         val f = CloudSyncPlan.toFirestore(report())!!
         assertEquals(setOf("form_id", "pack_version", "step_id", "error_code", "app_version"), f.keys)

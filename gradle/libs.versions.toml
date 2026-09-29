@@ -16,7 +16,8 @@ serialization = "1.11.0"
 googleServices = "4.5.0"
 camerax = "1.6.2"
 biometric = "1.1.0"
-mlkitText = "16.0.1"
+mlkitTextGms = "19.0.1"
+mlkitTextKoreanGms = "16.0.1"
 tink = "1.23.0"
 work = "2.12.0"
 firebaseBom = "34.19.0"
@@ -51,8 +52,9 @@ androidx-camera-lifecycle = { module = "androidx.camera:camera-lifecycle", versi
 androidx-camera-view = { module = "androidx.camera:camera-view", version.ref = "camerax" }
 androidx-biometric = { module = "androidx.biometric:biometric", version.ref = "biometric" }
 # ML Kit 글자 인식 v2 '번들형'(모델을 앱에 포함). 이미지는 기기 안에서 처리, 성능 지표는 Google로 전송됨 (PRD 7.2)
-mlkit-text-recognition = { module = "com.google.mlkit:text-recognition", version.ref = "mlkitText" }
-mlkit-text-recognition-korean = { module = "com.google.mlkit:text-recognition-korean", version.ref = "mlkitText" }
+# ML Kit 글자 인식: Play 서비스 모델(앱에 모델을 싣지 않음 → 앱 크기 약 20MB 감소). 모델은 설치 때 받는다(매니페스트 DEPENDENCIES)
+mlkit-text-recognition = { module = "com.google.android.gms:play-services-mlkit-text-recognition", version.ref = "mlkitTextGms" }
+mlkit-text-recognition-korean = { module = "com.google.android.gms:play-services-mlkit-text-recognition-korean", version.ref = "mlkitTextKoreanGms" }
 # 팩 서명 검증(Ed25519). 네트워크를 쓰지 않는다
 tink-android = { module = "com.google.crypto.tink:tink-android", version.ref = "tink" }
 androidx-work-runtime-ktx = { module = "androidx.work:work-runtime-ktx", version.ref = "work" }

@@ -111,6 +111,11 @@
                 <data android:mimeType="image/*" />
             </intent-filter>
         </activity>
+        <!-- ML Kit 글자 인식 모델을 앱 설치 때 Play 서비스로 미리 받는다 → 첫 촬영도 인터넷 없이 된다 -->
+        <meta-data
+            android:name="com.google.mlkit.vision.DEPENDENCIES"
+            android:value="ocr,ocr_korean" />
+
         <!-- 국가 토픽 알림 (FCM). 메시지의 나라 코드만 쓰고 문구는 앱에 있는 것만 보여 준다 -->
         <service
             android:name=".cloud.PolicyMessagingService"

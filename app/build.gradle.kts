@@ -1,4 +1,6 @@
 // 앱 모듈 빌드 스크립트. 라이브러리 버전은 gradle/libs.versions.toml에서만 해석한다.
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
@@ -7,6 +9,13 @@ plugins {
     alias(libs.plugins.hilt)
     // Firebase 프로젝트 readyport-app (Spark)
     alias(libs.plugins.google.services)
+}
+
+// Play 업로드 키: 저장소 밖(~/.readyport/keys/readyport_upload.properties, 또는 환경변수 READYPORT_UPLOAD_PROPS)에만 둔다.
+// 파일이 없으면(CI 등) 출시 빌드는 서명 없이 만들어진다. 앱 서명 키는 Google이 관리(Play App Signing).
+val uploadProps = Properties().apply {
+    val f = file(System.getenv("READYPORT_UPLOAD_PROPS") ?: "${System.getProperty("user.home")}/.readyport/keys/readyport_upload.properties")
+    if (f.isFile) f.inputStream().use { load(it) }
 }
 
 android {
@@ -24,6 +33,17 @@ android {
         versionName = "0.1.0"
     }
 
+    signingConfigs {
+        if (uploadProps.getProperty("storeFile") != null) {
+            create("upload") {
+                storeFile = file(uploadProps.getProperty("storeFile"))
+                storePassword = uploadProps.getProperty("storePassword")
+                keyAlias = uploadProps.getProperty("keyAlias")
+                keyPassword = uploadProps.getProperty("keyPassword")
+            }
+        }
+    }
+
     buildTypes {
         debug {
             isMinifyEnabled = false
@@ -33,6 +53,7 @@ android {
             isMinifyEnabled = true
             isShrinkResources = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            signingConfigs.findByName("upload")?.let { signingConfig = it }
         }
     }
 
