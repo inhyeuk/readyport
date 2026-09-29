@@ -7,6 +7,8 @@ import android.graphics.pdf.PdfRenderer
 import android.net.Uri
 import android.os.Build
 import android.provider.MediaStore
+import com.google.android.gms.common.moduleinstall.ModuleInstall
+import com.google.android.gms.common.moduleinstall.ModuleInstallRequest
 import com.google.android.gms.tasks.Task
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.text.TextRecognition
@@ -24,7 +26,8 @@ import kotlin.coroutines.resumeWithException
 import androidx.core.graphics.createBitmap
 
 /**
- * 기기 안 글자 인식 (ML Kit Text Recognition v2 번들형, PRD 7.2).
+ * 기기 안 글자 인식 (ML Kit Text Recognition v2, PRD 7.2). 모델은 앱에 싣지 않고 Play 서비스가 받아 둔다
+ * (매니페스트 DEPENDENCIES로 설치 때, 그리고 [prefetch]로 앱 시작 때 한 번 더 요청). 인식은 기기 안에서만 한다.
  * 이미지는 메모리에서만 다루고 파일로 저장하지 않는다. 다 쓴 비트맵은 바로 recycle 한다.
  */
 @Singleton
@@ -36,6 +39,17 @@ class OcrEngine @Inject constructor(
 
     /** 예약 서류(한글+영문)용. 한국어 인식기는 라틴 문자도 읽는다 */
     private val korean: TextRecognizer by lazy { TextRecognition.getClient(KoreanTextRecognizerOptions.Builder().build()) }
+
+    /**
+     * 글자 인식 모델을 미리 받아 둔다 (이미 있으면 바로 끝남). 인터넷이 될 때 앱 시작에서 부른다 —
+     * 여행지에서 인터넷 없이 여권을 찍어도 되도록. 실패해도 조용히 넘어간다(다음 실행 때 다시 시도).
+     */
+    fun prefetch() {
+        runCatching {
+            val request = ModuleInstallRequest.newBuilder().addApi(latin).addApi(korean).build()
+            ModuleInstall.getClient(context).installModules(request)
+        }
+    }
 
     suspend fun recognize(bitmap: Bitmap, koreanText: Boolean): String {
         val recognizer = if (koreanText) korean else latin

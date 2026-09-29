@@ -28,6 +28,7 @@ class ReadyPortApp : Application(), Configuration.Provider {
     @Inject lateinit var settings: SettingsRepository
     @Inject lateinit var workerFactory: HiltWorkerFactory
     @Inject lateinit var trips: TripRepository
+    @Inject lateinit var ocr: com.readyport.doc.ocr.OcrEngine
 
     private val appScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
 
@@ -38,6 +39,8 @@ class ReadyPortApp : Application(), Configuration.Provider {
         super.onCreate()
         // Firestore·FCM 요청에 App Check 토큰을 붙인다 (강제 여부는 콘솔에서)
         AppCheckInstaller.install(this)
+        // 글자 인식 모델(Play 서비스) 미리 받기 — 없을 때만 내려받는다
+        appScope.launch { ocr.prefetch() }
         // 앱이 화면에서 사라지면 지갑을 잠가 복호화한 내용을 메모리에서 지운다 (PRD 7.3)
         ProcessLifecycleOwner.get().lifecycle.addObserver(object : DefaultLifecycleObserver {
             override fun onStop(owner: LifecycleOwner) = wallet.lock()

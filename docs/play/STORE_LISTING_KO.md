@@ -49,6 +49,6 @@
 ## 그래픽·스크린숏 (2026-09-29 생성)
 `docs/play/store/` — `StoreAssetsTest`(Robolectric)가 실제 앱 화면을 **가짜 값**(ICAO 표본 여권 ERIKSSON ANNA MARIA)으로 그린 것. 다시 만들기: `gradlew :app:testDebugUnitTest --tests "com.readyport.ui.Store*"` → `app/build/store/`.
 - `feature_graphic_1024x500.png` — 그래픽 이미지(필수). 비제휴 문구 포함, 정부 연상 요소 없음
-- `screenshot_01~06_*.png` — 휴대전화 스크린숏 1233×2460(Play 비율 2:1 이하): 오늘 · 입국 카드 3개 국어 확인 · 지갑(가려진 여권) · 도움 · 꼭 챙길 물건 · 이동하기
+- `screenshot_01~06_*.png` — 휴대전화 스크린숏 1215×2160(정확히 9:16 — Play 콘솔 요구): 오늘 · 입국 카드 3개 국어 확인 · 지갑(가려진 여권) · 도움 · 꼭 챙길 물건 · 이동하기
 - 앱 아이콘 512: `design/icons/play-store/readyport_play_512.png`
 - 태국어 문장이 들어 있어 원어민 검수(C10) 뒤 다시 만들 것

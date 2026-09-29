@@ -35,4 +35,4 @@
 - C15 Visit Japan Web: 운영자가 폰에서 로그인한 상태로 열어 주면 Claude가 구조만 읽어 레시피를 만든다
 - C22 Firestore 위치 nam5 → 서울로 옮기기(비어 있을 때)
 - C24 개발 폰이 만든 `favorite_counts/TH`(1) 지우기
-- 앱 크기: 출시 APK 47MB/AAB 28MB — 대부분 ML Kit 글자 인식 모델(라틴·한국어 번들). Play 서비스로 모델을 받는 방식으로 바꾸면 줄지만 첫 촬영 때 내려받기가 필요 → 결정 필요
+- ✅ 앱 크기(2026-09-29): ML Kit를 Play 서비스 모델로 바꿔 AAB 28→9MB. 모델은 설치 때(매니페스트 DEPENDENCIES)와 앱 시작 때(ModuleInstall) 받아 오프라인 촬영 유지. 실기기 한국어 OCR 확인

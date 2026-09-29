@@ -70,7 +70,7 @@ import java.time.LocalDate
 /**
  * Play 스토어 등록 이미지 (M10). **가짜 값만** 쓴다 — 여권은 ICAO 표본(ERIKSSON ANNA MARIA).
  * 결과: app/build/store/ (커밋은 docs/play/store/ 로 복사)
- * - 스크린숏: 1233×2460 (Play 규칙: 긴 변이 짧은 변의 2배 이하, 320~3840px)
+ * - 스크린숏: 1215×2160 = 정확히 9:16 (Play 콘솔 규칙: 16:9 또는 9:16, 320~3840px)
  */
 private fun Bitmap.saveTo(name: String): File {
     val dir = File("build/store").apply { mkdirs() }
@@ -79,7 +79,7 @@ private fun Bitmap.saveTo(name: String): File {
 
 @RunWith(AndroidJUnit4::class)
 @GraphicsMode(GraphicsMode.Mode.NATIVE)
-@Config(application = Application::class, sdk = [36], qualifiers = "w411dp-h820dp-xxhdpi")
+@Config(application = Application::class, sdk = [36], qualifiers = "w405dp-h720dp-xxhdpi")
 class StoreScreenshotsTest {
 
     @get:Rule
@@ -152,7 +152,7 @@ class StoreScreenshotsTest {
             val bmp = rule.onRoot().captureToImage().asAndroidBitmap()
             val long = maxOf(bmp.width, bmp.height).toDouble()
             val short = minOf(bmp.width, bmp.height).toDouble()
-            assertTrue("Play 비율 규칙(2:1 이하) 위반: ${bmp.width}x${bmp.height}", long / short <= 2.0 && short >= 320 && long <= 3840)
+            assertTrue("Play 비율 규칙(9:16) 위반: ${bmp.width}x${bmp.height}", bmp.width * 16 == bmp.height * 9 && short >= 320 && long <= 3840)
             bmp.saveTo("screenshot_$name.png")
         }
     }
