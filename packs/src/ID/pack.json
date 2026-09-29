@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "country": "ID",
-  "version": "2026.09.29-1",
-  "last_verified": "2026-09-28",
+  "version": "2026.09.30-1",
+  "last_verified": "2026-09-30",
   "names": {
     "ko": "인도네시아",
     "en": "Indonesia",
@@ -77,6 +77,21 @@
       "id": "apqa_plant_exempt",
       "name": "농림축산검역본부 검역 제외 식물",
       "url": "https://www.apqa.go.kr/plant/imQua/plant_notest_ex.jsp"
+    },
+    {
+      "id": "embassy_id_evoa",
+      "name": "주인도네시아 대한민국 대사관 · 입국 사전신고·전자비자 안내(2026-09-21)",
+      "url": "https://overseas.mofa.go.kr/id-bali-ko/brd/m_27049/down.do?brd_id=100931&seq=246&data_tp=A&file_seq=1"
+    },
+    {
+      "id": "imigrasi_evoa_list",
+      "name": "인도네시아 이민국 · e-VOA 대상국",
+      "url": "https://www.imigrasi.go.id/faq/visa/negara-mana-saja-yang-terdaftar-dalam-daftar-electronic-visa-on-arrival-e-voa"
+    },
+    {
+      "id": "evisa_faq",
+      "name": "인도네시아 이민국 e-Visa · 자주 묻는 질문",
+      "url": "https://evisa.imigrasi.go.id/front/faqs/university"
     }
   ],
   "requirements": [
@@ -90,7 +105,22 @@
       ],
       "summary_ko": "대한민국 일반 여권은 비자 없이 들어갈 수 없어요. 도착비자(VOA, 30일, IDR 500,000)를 받아야 하고, 미리 온라인(e-VOA)으로도 신청할 수 있어요. 여권이 6개월 넘게 남아 있고 돌아가는 표가 있어야 해요. 도착 전에 All Indonesia도 내요.",
       "source": "mofa_id",
-      "last_verified": "2026-09-28"
+      "last_verified": "2026-09-28",
+      "apply": {
+        "form": "ID_ALL_INDONESIA",
+        "name_ko": "인도네시아 전자 도착비자 (e-VOA)",
+        "official_url": "https://allindonesia.imigrasi.go.id/",
+        "fee_ko": "IDR 500,000 · 카드(Mastercard·Visa·JCB)로 직접 결제, 환불은 안 돼요",
+        "steps_ko": [
+          "앱이 All Indonesia 입국 신고 칸을 채워 드려요. 확인한 뒤 신고는 직접 제출하세요. 마지막에 그림 글자를 직접 입력해요.",
+          "제출 뒤 요약 화면에 'Apply for Visa On Arrival (VOA)' 버튼이 보이면 직접 누르세요.",
+          "이메일 주소를 확인하고, 결제 화면에서 카드로 직접 결제해요. 결제 화면은 휴대폰 브라우저로 열릴 수 있어요.",
+          "결제가 끝나면 'Download e-VOA'로 비자를 받아 두세요. 발급 뒤 90일 안에 들어가야 하고, 들어간 날부터 30일 머물 수 있어요."
+        ],
+        "warning_ko": "주소가 go.id로 끝나지 않는 비슷한 사이트는 대행사라 약 95달러 넘게 받아요. 레디포트는 공식 사이트(imigrasi.go.id)만 열어요.",
+        "source": "embassy_id_evoa",
+        "last_verified": "2026-09-30"
+      }
     }
   ],
   "forms": [

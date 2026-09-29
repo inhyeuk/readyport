@@ -230,3 +230,4 @@
 - **ops/aria**: 12.5 모듈 전부. 감지는 LLM 없이, GET만, 봇 차단이면 우회하지 않고 `manual_check_needed`. 구조 해시는 레시피가 있는 양식만(Visit Japan Web은 로그인 필요·서버가 앱 화면에도 HTTP 404를 돌려줘 제외). 안전한 방향(자동 입력 끄기·배너 켜기)만 자동, 끄기/다시 켜기는 사람 승인.
 - **리허설(2026-09-29)**: 실제 공식 양식 4곳 구조 감지 dry-run → 기준 해시 저장 단계까지 정상(조회만). 폰에서 CloudSync 실행 → `favorite_counts/TH` 생성 확인, `field_reports` 공개 읽기 403 확인. PR 생성·Actions 배포는 GitHub 저장소·secrets가 생긴 뒤(사람 작업 C13·C20).
 
+- **비자 온라인 신청 (2026-09-30)**: 5개 나라 중 한국 일반 여권으로 비자가 필요한 곳은 인도네시아뿐. e-VOA는 이제 All Indonesia 입국 신고를 낸 뒤 요약 화면의 'Apply for Visa On Arrival' 버튼 → 카드 결제로 신청한다(추가 입력 칸 없음, 근거 docs/research/2026-09-30_ID_evoa.md). 그래서 새 레시피 없이 팩 `requirements[].apply`(신청 순서·요금·가짜 사이트 경고·출처)로 안내하고, 입력은 기존 ID_ALL_INDONESIA 레시피가 돕는다. 신청 버튼·결제·캡차는 사람이 직접(엔진은 누르지 않음). 결제 화면이 다른 주소면 WebView 밖 브라우저로 열린다.

@@ -97,6 +97,19 @@ class ScreenCaptureTest {
         openTab(R.string.tab_help); capture("m3_4_help")
     }
 
+    @Test fun visaApply() {
+        rule.setContent {
+            com.readyport.ui.theme.ReadyPortTheme(easyMode = false) {
+                androidx.compose.foundation.layout.Box(androidx.compose.ui.Modifier.background(com.readyport.ui.theme.Tokens.Ground)) {
+                    com.readyport.ui.country.CountryContent(TestPacks.countryUi("ID"), com.readyport.ui.country.CountryActions())
+                }
+            }
+        }
+        rule.onNode(androidx.compose.ui.test.hasScrollAction())
+            .performScrollToNode(androidx.compose.ui.test.hasText("인도네시아 전자 도착비자 (e-VOA)"))
+        capture("v1_visa_apply")
+    }
+
     @Test fun formConfirm() {
         val recipe = TestPacks.tdacRecipe
         val contents = com.readyport.vault.VaultContents(
