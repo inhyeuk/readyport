@@ -87,6 +87,15 @@ abstract class A11yAuditBase {
         "country-travel" to { CountryContent(TestPacks.countryUi("TH", favorite = true), CountryActions(), CountrySection.Travel) },
         "country-shopping" to { CountryContent(TestPacks.countryUi("JP"), CountryActions(), CountrySection.Shopping) },
         "settings" to { SettingsScreen(easyMode = true, onEasyModeChange = {}) },
+        "videos" to {
+            androidx.compose.runtime.CompositionLocalProvider(com.readyport.ui.video.LocalThumbnailLoader provides { null }) {
+                com.readyport.ui.video.VideosContent("태국", com.readyport.ui.video.VideosState.Ready(listOf(
+            com.readyport.video.Video(id = "AAAAAAAAAA1", title = "방콕 3박 4일 여행 브이로그 | 왓아룬 야경", channelTitle = "여행채널", publishedAt = "2026-09-01T00:00:00Z", viewCount = 1234567, subscriberCount = 89000, durationSeconds = 754, thumbnail = "https://i.ytimg.com/vi/AAAAAAAAAA1/mqdefault.jpg"),
+            com.readyport.video.Video(id = "AAAAAAAAAA2", title = "태국 여행 준비물 총정리", channelTitle = "채널2", publishedAt = "2026-08-11T00:00:00Z", viewCount = 45210, subscriberCount = null, durationSeconds = 3725, thumbnail = "https://i.ytimg.com/vi/AAAAAAAAAA2/mqdefault.jpg")
+                )), {})
+            }
+        },
+        "videos-offline" to { com.readyport.ui.video.VideosContent("태국", com.readyport.ui.video.VideosState.Unavailable, {}) },
         "photo-credits" to { PhotoCreditsContent(listOf(PhotoCredit("th", "Wat Arun Sunset.jpg", "x", "CC BY 2.0", sourceUrl = "https://commons.wikimedia.org/")), {}) },
         "shopping" to { ShoppingContent(ShoppingUi("TH", "태국", th.value.shopping, returnLinks = index.returnLinks, returnFacts = index.returnFacts), { _, _ -> }, {}) },
         "help" to { HelpContent(TestPacks.helpUi(), {}, {}, {}) },

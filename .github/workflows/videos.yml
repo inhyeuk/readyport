@@ -1,0 +1,52 @@
+name: videos
+
+# 나라별 YouTube 여행 영상 목록(최대 50개)을 매일 새로 받아 서명 → Firestore videos/{나라}
+# YouTube 개발자 정책: 저장한 API 데이터는 30일 안에 새로 받는다 → 매일 실행 (앱은 30일 지난 목록을 버린다)
+# 필요한 secrets (사람이 등록):
+#   YOUTUBE_API_KEY            — YouTube Data API v3 키 (readyport-app 프로젝트, 이 API만 허용하도록 제한)
+#   PACK_SIGNING_KEY_PEM       — 팩과 같은 Ed25519 서명 개인키
+#   FIREBASE_SERVICE_ACCOUNT   — Firestore 쓰기 권한(Cloud Datastore 사용자)이 있는 서비스 계정
+# 키가 아직 없으면 경고만 남기고 성공으로 끝난다.
+
+on:
+  schedule:
+    - cron: "30 18 * * *"   # 매일 03:30 KST
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: videos
+  cancel-in-progress: false
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      FIREBASE_PROJECT_ID: readyport-app
+      PACK_KID: rp-2026-1
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Install tools
+        run: pip install -r tools/packs/requirements.txt google-auth requests
+      - name: Test
+        run: python -m unittest tools/videos/test_fetch_videos.py
+      - name: Fetch, sign, upload
+        env:
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+          PACK_SIGNING_KEY_PEM: ${{ secrets.PACK_SIGNING_KEY_PEM }}
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+        run: |
+          umask 077
+          printf '%s\n' "$PACK_SIGNING_KEY_PEM" > "$RUNNER_TEMP/pack_key.pem"
+          printf '%s' "$FIREBASE_SERVICE_ACCOUNT" > "$RUNNER_TEMP/sa.json"
+          export GOOGLE_APPLICATION_CREDENTIALS="$RUNNER_TEMP/sa.json"
+          python tools/videos/fetch_videos.py --kid "$PACK_KID" --key "$RUNNER_TEMP/pack_key.pem" --upload
+      - name: Clean up credentials
+        if: always()
+        run: rm -f "$RUNNER_TEMP/sa.json" "$RUNNER_TEMP/pack_key.pem"

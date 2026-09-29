@@ -55,3 +55,6 @@ import kotlinx.serialization.Serializable
 
 /** 나라 화면 › 쇼핑 리스트 (PRD 5.8) */
 @Serializable data class ShoppingRoute(val country: String)
+
+/** 나라 화면 › YouTube 여행 영상 (최대 50개) */
+@Serializable data class VideosRoute(val country: String)

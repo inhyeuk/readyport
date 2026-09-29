@@ -4,6 +4,7 @@ rules_version = '2';
 // - field_reports: 앱이 익명 실패 리포트를 '생성'만 한다. 읽기·수정·삭제 불가 (ARIA는 Admin SDK로 읽음)
 //   expire_at(약 1년 뒤)이 지나면 매월 purge-reports 작업(GitHub Actions)이 지운다 (개인정보처리방침 보관 기간)
 // - favorite_counts: 찜 수 +1 만 허용. 읽기는 누구나(순위 계산용 공개 집계)
+// - videos/{ISO2}: 나라별 YouTube 여행 영상 목록(서명된 공개 데이터). 앱은 읽기만, 쓰기는 GitHub Actions(서비스 계정)만
 // - ops/heartbeat: ARIA가 Admin SDK로만 기록. 앱은 접근하지 않는다
 // App Check 강제는 Firebase 콘솔에서 켠다 (사람 작업)
 service cloud.firestore {
@@ -41,6 +42,11 @@ service cloud.firestore {
                     && request.resource.data.count == 1;
       allow update: if request.resource.data.keys().hasOnly(['count'])
                     && request.resource.data.count == resource.data.count + 1;
+    }
+
+    match /videos/{country} {
+      allow get: if country.matches('^[A-Z]{2}$');
+      allow list, write: if false;
     }
 
     // 그 밖의 모든 경로(ops/heartbeat 포함)는 앱에서 막는다

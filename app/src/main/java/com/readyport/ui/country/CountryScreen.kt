@@ -9,10 +9,12 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.PlayCircle
 import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -101,6 +103,7 @@ data class CountryActions(
     val openHelp: (String) -> Unit = {},
     val openMove: () -> Unit = {},
     val openShopping: (String) -> Unit = {},
+    val openVideos: (String) -> Unit = {},
     val openLink: (String) -> Unit = {},
     val toggleFavorite: () -> Unit = {},
 )
@@ -270,6 +273,16 @@ fun CountryContent(ui: CountryUi, actions: CountryActions, initialSection: Count
                             onClick = { actions.openHelp(pack.country) },
                             colors = androidx.compose.material3.ButtonDefaults.buttonColors(containerColor = Tokens.Surface, contentColor = Tokens.Navy),
                         )
+                    }
+                }
+                item(key = "videos") {
+                    InfoCard {
+                        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                            Icon(Icons.Filled.PlayCircle, contentDescription = null, tint = Tokens.DangerText, modifier = Modifier.size(32.dp))
+                            Text(stringResource(R.string.country_videos_title), style = MaterialTheme.typography.titleMedium, modifier = Modifier.weight(1f))
+                        }
+                        Text(stringResource(R.string.country_videos_body, pack.names.ko), style = MaterialTheme.typography.bodyMedium)
+                        PrimaryButton(stringResource(R.string.country_videos_open), onClick = { actions.openVideos(pack.country) })
                     }
                 }
                 item(key = "move") {
