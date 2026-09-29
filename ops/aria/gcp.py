@@ -162,6 +162,16 @@ class FirestoreRest:
         resp = self.fetch("PATCH", url, headers=self._headers(), data=body, timeout=self.timeout)
         return _json_or_error(resp)
 
+    def delete_document(self, name_or_path: str) -> None:
+        """문서 삭제. runQuery 결과의 _name(전체 이름)이나 컬렉션/문서 경로를 받는다."""
+        if name_or_path.startswith("projects/"):
+            url = "https://firestore.googleapis.com/v1/" + name_or_path
+        else:
+            url = f"{self.base}/{name_or_path}"
+        resp = self.fetch("DELETE", url, headers=self._headers(), timeout=self.timeout)
+        if resp.status not in (200, 404):
+            _json_or_error(resp)
+
     def get_document(self, path: str) -> Optional[dict]:
         resp = self.fetch("GET", f"{self.base}/{path}", headers=self._headers(), timeout=self.timeout)
         if resp.status == 404:

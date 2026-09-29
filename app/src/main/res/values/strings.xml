@@ -454,4 +454,6 @@
     <string name="rankings_rule_no_ads">광고비나 제휴 수수료로 순위를 바꾸지 않아요</string>
     <string name="notif_policy_title">%1$s 입국 안내가 바뀌었어요</string>
     <string name="notif_policy_body">레디포트에서 새 안내를 확인하세요. 출발 전에 공식 사이트도 한 번 더 확인해 주세요.</string>
+    <string name="settings_privacy_open">개인정보 처리방침 보기</string>
+    <string name="settings_version">버전 %1$s</string>
 </resources>

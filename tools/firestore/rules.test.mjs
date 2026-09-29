@@ -6,7 +6,7 @@ import {
   initializeTestEnvironment, assertFails, assertSucceeds,
 } from '@firebase/rules-unit-testing';
 import {
-  doc, setDoc, getDoc, updateDoc, deleteDoc, addDoc, collection, serverTimestamp, increment,
+  doc, setDoc, getDoc, updateDoc, deleteDoc, addDoc, collection, serverTimestamp, increment, Timestamp,
 } from 'firebase/firestore';
 
 let env;
@@ -20,9 +20,10 @@ after(async () => { await env.cleanup(); });
 beforeEach(async () => { await env.clearFirestore(); });
 
 const app = () => env.unauthenticatedContext().firestore();
+const days = (n) => Timestamp.fromMillis(Date.now() + n * 86400000);
 const report = (extra = {}) => ({
   form_id: 'TH_TDAC', pack_version: '2026.09.28-2', step_id: 'personal',
-  error_code: 'selector_missing', app_version: '0.1.0', ts: serverTimestamp(), ...extra,
+  error_code: 'selector_missing', app_version: '0.1.0', ts: serverTimestamp(), expire_at: days(365), ...extra,
 });
 
 test('리포트 생성은 된다', async () => {
@@ -35,6 +36,11 @@ test('리포트에 다른 필드(개인정보 등)를 넣으면 거절', async (
   await assertFails(addDoc(collection(app(), 'field_reports'), report({ error_code: 'anything' })));
   await assertFails(addDoc(collection(app(), 'field_reports'), report({ ts: 1 })));
   await assertFails(addDoc(collection(app(), 'field_reports'), report({ step_id: 'has space' })));
+  // 보관 기간(자동 삭제일)이 없거나 너무 길면 거절
+  const noExpiry = report(); delete noExpiry.expire_at;
+  await assertFails(addDoc(collection(app(), 'field_reports'), noExpiry));
+  await assertFails(addDoc(collection(app(), 'field_reports'), report({ expire_at: days(3650) })));
+  await assertFails(addDoc(collection(app(), 'field_reports'), report({ expire_at: days(1) })));
 });
 
 test('리포트 읽기·수정·삭제 불가', async () => {

@@ -17,6 +17,7 @@ import androidx.work.WorkManager
 import androidx.work.WorkerParameters
 import com.google.android.gms.tasks.Task
 import com.google.android.gms.tasks.Tasks
+import com.google.firebase.Timestamp
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
@@ -61,6 +62,11 @@ object CloudSyncPlan {
         )
     }
 
+    /** 실패 리포트 보관 기간 — 지나면 매월 purge-reports 작업이 지운다 (개인정보처리방침) */
+    const val REPORT_RETENTION_DAYS = 365L
+
+    fun expiryMillis(nowMillis: Long) = nowMillis + REPORT_RETENTION_DAYS * 86_400_000L
+
     private val ID = Regex("^[A-Za-z0-9_.-]+$")
     private val CODES = setOf("selector_missing", "site_version_changed", "engine_error", "manual_mode_chosen", "kill_switch")
 
@@ -97,7 +103,9 @@ class FirebaseCloudBackend : CloudBackend {
     private fun <T> Task<T>.block(): T = Tasks.await(this, 30, TimeUnit.SECONDS)
 
     override fun addReport(fields: Map<String, Any>) {
-        FirebaseFirestore.getInstance().collection("field_reports").add(fields + ("ts" to FieldValue.serverTimestamp())).block()
+        val expire = Timestamp(java.util.Date(CloudSyncPlan.expiryMillis(System.currentTimeMillis())))
+        FirebaseFirestore.getInstance().collection("field_reports")
+            .add(fields + mapOf("ts" to FieldValue.serverTimestamp(), "expire_at" to expire)).block()
     }
 
     override fun incrementFavorite(country: String) {

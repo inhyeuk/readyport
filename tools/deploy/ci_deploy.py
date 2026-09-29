@@ -5,6 +5,7 @@
                    kill_autofill_* · stale_banner · min_app_version 등 다른 키는 절대 건드리지 않는다
                    (템플릿 전체 배포는 ARIA가 켠 스위치를 되돌리므로 CI에서 쓰지 않는다).
   fcm-notify       바뀐 나라 팩의 토픽 country_{ISO2} 로 알림. 메시지에는 나라 코드만 담는다.
+  purge-reports    보관 기간(expire_at)이 지난 익명 실패 리포트를 지운다 (개인정보처리방침: 1년 보관).
   heartbeat-watch  ops/heartbeat 가 3일 넘게 멈추면 stale_banner 를 켜고 실패로 끝낸다(운영자에게 메일).
                    다시 살아나면 stale_banner 를 끈다.
 
@@ -93,6 +94,29 @@ def fcm_message(country: str) -> dict:
                         "android": {"priority": "NORMAL"}}}
 
 
+def expired_reports_query(now_iso: str, limit: int = 500) -> dict:
+    """expire_at < now 인 field_reports."""
+    return {
+        "from": [{"collectionId": "field_reports"}],
+        "where": {"fieldFilter": {"field": {"fieldPath": "expire_at"}, "op": "LESS_THAN",
+                                  "value": {"timestampValue": now_iso}}},
+        "limit": limit,
+    }
+
+
+def purge_expired(firestore, now_iso: str, max_rounds: int = 20) -> int:
+    """지운 개수. 한 번에 500개씩, 남은 게 없을 때까지."""
+    total = 0
+    for _ in range(max_rounds):
+        docs = firestore.run_query(expired_reports_query(now_iso))
+        if not docs:
+            break
+        for d in docs:
+            firestore.delete_document(d["_name"])
+            total += 1
+    return total
+
+
 # ---------------- 실행 ----------------
 
 def _clients():  # pragma: no cover - 실제 네트워크
@@ -140,6 +164,17 @@ def cmd_fcm_notify(args) -> int:  # pragma: no cover
     return 0
 
 
+def cmd_purge_reports(args) -> int:  # pragma: no cover
+    import datetime as dt
+    _, _, fs, _, _ = _clients()
+    now_iso = dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    if args.dry_run:
+        print("지울 대상:", len(fs.run_query(expired_reports_query(now_iso))), "개 (시험 실행)")
+        return 0
+    print("지움:", purge_expired(fs, now_iso), "개")
+    return 0
+
+
 def cmd_heartbeat_watch(args) -> int:  # pragma: no cover
     from ops.aria.actions.kill_switch import set_stale_banner
     from ops.aria.heartbeat import HEARTBEAT_DOC, check_stale
@@ -164,11 +199,14 @@ def main(argv=None) -> int:
     b = sub.add_parser("fcm-notify")
     b.add_argument("--changed-files", required=True, help="git diff --name-only 결과 파일")
     b.add_argument("--dry-run", action="store_true")
+    d = sub.add_parser("purge-reports")
+    d.add_argument("--dry-run", action="store_true")
     c = sub.add_parser("heartbeat-watch")
     c.add_argument("--days", type=float, default=3)
     c.add_argument("--dry-run", action="store_true")
     args = ap.parse_args(argv)
-    return {"rc-versions": cmd_rc_versions, "fcm-notify": cmd_fcm_notify, "heartbeat-watch": cmd_heartbeat_watch}[args.cmd](args)
+    return {"rc-versions": cmd_rc_versions, "fcm-notify": cmd_fcm_notify, "heartbeat-watch": cmd_heartbeat_watch,
+            "purge-reports": cmd_purge_reports}[args.cmd](args)
 
 
 if __name__ == "__main__":

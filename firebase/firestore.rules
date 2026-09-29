@@ -2,6 +2,7 @@ rules_version = '2';
 
 // 레디포트 Firestore 규칙 (ARCHITECTURE 9.4). 개인정보는 어떤 컬렉션에도 두지 않는다.
 // - field_reports: 앱이 익명 실패 리포트를 '생성'만 한다. 읽기·수정·삭제 불가 (ARIA는 Admin SDK로 읽음)
+//   expire_at(약 1년 뒤)이 지나면 매월 purge-reports 작업(GitHub Actions)이 지운다 (개인정보처리방침 보관 기간)
 // - favorite_counts: 찜 수 +1 만 허용. 읽기는 누구나(순위 계산용 공개 집계)
 // - ops/heartbeat: ARIA가 Admin SDK로만 기록. 앱은 접근하지 않는다
 // App Check 강제는 Firebase 콘솔에서 켠다 (사람 작업)
@@ -15,9 +16,9 @@ service cloud.firestore {
     match /field_reports/{reportId} {
       allow read, update, delete: if false;
       allow create: if request.resource.data.keys().hasOnly(
-                         ['form_id', 'pack_version', 'step_id', 'error_code', 'app_version', 'ts', 'site_version'])
+                         ['form_id', 'pack_version', 'step_id', 'error_code', 'app_version', 'ts', 'expire_at', 'site_version'])
                     && request.resource.data.keys().hasAll(
-                         ['form_id', 'pack_version', 'step_id', 'error_code', 'app_version', 'ts'])
+                         ['form_id', 'pack_version', 'step_id', 'error_code', 'app_version', 'ts', 'expire_at'])
                     && isId(request.resource.data.form_id, 40)
                     && isId(request.resource.data.pack_version, 40)
                     && isId(request.resource.data.step_id, 60)
@@ -25,6 +26,10 @@ service cloud.firestore {
                          ['selector_missing', 'site_version_changed', 'engine_error', 'manual_mode_chosen', 'kill_switch']
                     && isId(request.resource.data.app_version, 30)
                     && request.resource.data.ts == request.time
+                    // 1년 뒤 삭제(purge-reports). 기기 시계 오차를 감안해 335~395일 사이만 받는다
+                    && request.resource.data.expire_at is timestamp
+                    && request.resource.data.expire_at > request.time + duration.value(335, 'd')
+                    && request.resource.data.expire_at < request.time + duration.value(395, 'd')
                     && (!('site_version' in request.resource.data) || isId(request.resource.data.site_version, 60));
     }
 
