@@ -1,1 +1,69 @@
-<!doctype html><meta charset="utf-8"><title>ReadyPort</title><p>ReadyPort data host.</p>
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>레디포트 - 입국 서류·여행 준비 도우미</title>
+<meta name="description" content="입국 카드를 한국어로 확인하고 공식 사이트 입력을 도와주는 안드로이드 앱. 여권 정보는 휴대폰 안에만 보관합니다.">
+<style>
+  :root { --bg:#F4F5F7; --card:#FFFFFF; --ink:#16213A; --sub:#4A5468; --line:#D9DDE4; --accent:#1F4FD1; --navy:#0B1A4D; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#0E1424; --card:#16203A; --ink:#EEF1F7; --sub:#B6BFD0; --line:#2A3656; --accent:#8FB0FF; --navy:#0B1A4D; } }
+  body { margin:0; background:var(--bg); color:var(--ink); font:17px/1.7 system-ui, -apple-system, "Noto Sans KR", sans-serif; }
+  header { background:var(--navy); color:#fff; padding:48px 16px 40px; }
+  .wrap { max-width:760px; margin:0 auto; padding:0 16px; }
+  header .wrap { display:flex; gap:20px; align-items:center; flex-wrap:wrap; }
+  header img { width:96px; height:96px; border-radius:22px; }
+  h1 { margin:0; font-size:2rem; }
+  header p { margin:6px 0 0; opacity:.9; }
+  main { padding:24px 0 56px; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:16px; padding:18px 20px; margin:16px 0; }
+  h2 { font-size:1.15rem; margin:0 0 8px; }
+  ul { margin:0; padding-left:1.2em; }
+  .btn { display:inline-block; background:var(--accent); color:#fff; text-decoration:none; padding:12px 18px; border-radius:12px; margin:6px 8px 0 0; font-weight:600; }
+  .note { color:var(--sub); font-size:.92rem; }
+  .shots { display:flex; gap:10px; overflow-x:auto; padding-bottom:6px; }
+  .shots img { height:360px; border-radius:14px; border:1px solid var(--line); }
+  a { color:var(--accent); }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <img src="/icon-512.png" alt="레디포트 아이콘">
+    <div>
+      <h1>레디포트</h1>
+      <p>입국 서류, 한국어로 확인하고 공식 사이트 입력은 쉽게</p>
+    </div>
+  </div>
+</header>
+<main class="wrap">
+  <div class="card">
+    <h2>이런 앱이에요</h2>
+    <ul>
+      <li>태국(TDAC)·싱가포르·말레이시아·인도네시아 입국 카드 항목을 한국어·영어·현지어로 나란히 보여 주고, 공식 사이트 입력을 도와드려요. 마지막 제출 버튼은 직접 누르세요.</li>
+      <li>여권 정보는 휴대폰 안에만 암호화해 보관해요. 서버로 보내지 않아요.</li>
+      <li>인터넷이 없어도 나라 안내, 현지어 문장 카드, 긴급 연락처, 입국 QR을 볼 수 있어요.</li>
+      <li>꼭 챙길 물건, 기념품 한국 반입 가능 여부(관세청·검역본부 기준), 기사님께 보여 줄 현지어 주소.</li>
+    </ul>
+  </div>
+  <div class="card">
+    <h2>비공개 테스트에 참여해 주세요 (안드로이드)</h2>
+    <p>정식 출시 전, 2주 동안 써 주실 분을 찾고 있어요.</p>
+    <a class="btn" href="https://groups.google.com/g/readyport-testers">1. 테스터 그룹 가입</a>
+    <a class="btn" href="https://play.google.com/apps/testing/com.readyport">2. 테스트 참여 · 설치</a>
+    <p class="note">의견: <a href="mailto:inhyeuk@gmail.com">inhyeuk@gmail.com</a></p>
+  </div>
+  <div class="card">
+    <h2>화면</h2>
+    <div class="shots">
+      <img src="/shots/01_today.png" alt="오늘 할 일 화면" loading="lazy">
+      <img src="/shots/02_form_confirm.png" alt="입국 카드 3개 국어 확인 화면" loading="lazy">
+      <img src="/shots/03_wallet.png" alt="지갑 화면(여권 가림)" loading="lazy">
+      <img src="/shots/06_transport.png" alt="이동하기 화면" loading="lazy">
+    </div>
+    <p class="note">화면의 여권 정보는 국제 표준 견본 값입니다.</p>
+  </div>
+  <p class="note">레디포트는 정부 기관과 제휴하지 않은 민간 앱입니다. 광고가 없고 무료입니다. · <a href="/privacy/">개인정보 처리방침</a></p>
+</main>
+</body>
+</html>
