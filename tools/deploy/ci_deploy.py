@@ -162,6 +162,8 @@ def cmd_fcm_notify(args) -> int:  # pragma: no cover
         if resp.status != 200:
             # 403이면 대개 서비스 계정에 'Firebase Cloud Messaging API 관리자' 역할이 없거나 API가 꺼져 있다
             print(resp.text[:600])
+            print(f"::warning title=FCM 알림 실패 ({c})::HTTP {resp.status}. 403이면 서비스 계정에 "
+                  "'Firebase Cloud Messaging API 관리자' 역할이 없거나 FCM API가 꺼져 있어요.")
             return 1
     return 0
 
