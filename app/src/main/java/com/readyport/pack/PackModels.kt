@@ -158,6 +158,24 @@ data class Requirement(
     @SerialName("summary_ko") val summaryKo: String,
     val source: String,
     @SerialName("last_verified") val lastVerified: String,
+    /** 비자를 온라인으로 신청하는 길 (있을 때만) */
+    val apply: VisaApply? = null,
+)
+
+/**
+ * 비자 온라인 신청. 앱은 [form] 양식의 입력만 돕고, 신청 버튼·결제는 사람이 직접 한다.
+ * 예: 인도네시아 e-VOA는 All Indonesia 입국 신고를 낸 뒤 요약 화면에서 신청한다.
+ */
+@Serializable
+data class VisaApply(
+    val form: String,
+    @SerialName("name_ko") val nameKo: String,
+    @SerialName("official_url") val officialUrl: String? = null,
+    @SerialName("fee_ko") val feeKo: String,
+    @SerialName("steps_ko") val stepsKo: List<String>,
+    @SerialName("warning_ko") val warningKo: String? = null,
+    val source: String,
+    @SerialName("last_verified") val lastVerified: String,
 )
 
 @Serializable

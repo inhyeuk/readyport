@@ -193,6 +193,25 @@ fun CountryContent(ui: CountryUi, actions: CountryActions, initialSection: Count
                             )
                         }
                     }
+                    req.apply?.let { apply ->
+                        item(key = "visa-apply-${req.purpose}") {
+                            InfoCard {
+                                StatusChip(stringResource(R.string.country_visa_apply_label), Tokens.SuccessBg, Tokens.SuccessText)
+                                Text(apply.nameKo, style = MaterialTheme.typography.titleLarge)
+                                Text(stringResource(R.string.guide_form_fee, apply.feeKo), style = MaterialTheme.typography.bodyMedium)
+                                Text(stringResource(R.string.country_visa_apply_steps), style = MaterialTheme.typography.titleMedium)
+                                apply.stepsKo.forEachIndexed { i, step ->
+                                    Text("${i + 1}. $step", style = MaterialTheme.typography.bodyLarge)
+                                }
+                                apply.warningKo?.let { w ->
+                                    InfoCard(tone = CardTone.Caution) { Text(w, style = MaterialTheme.typography.bodyMedium) }
+                                }
+                                Text(stringResource(R.string.country_visa_apply_note), style = MaterialTheme.typography.bodyMedium)
+                                PrimaryButton(stringResource(R.string.country_visa_apply_start), onClick = { actions.openForm(apply.form) })
+                                SourceFooter(sourceName(apply.source), displayDate(apply.lastVerified))
+                            }
+                        }
+                    }
                 }
                 pack.forms.forEach { form ->
                     val autofill = form.id in ui.autofillForms

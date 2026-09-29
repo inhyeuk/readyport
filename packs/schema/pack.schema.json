@@ -149,6 +149,51 @@
           },
           "last_verified": {
             "$ref": "#/$defs/date"
+          },
+          "apply": {
+            "description": "비자를 온라인으로 신청하는 길. 앱은 form 양식의 입력을 돕고, 신청 버튼·결제는 사람이 직접 한다",
+            "type": "object",
+            "required": [
+              "form",
+              "name_ko",
+              "fee_ko",
+              "steps_ko",
+              "source",
+              "last_verified"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "form": {
+                "type": "string",
+                "pattern": "^[A-Z]{2}_[A-Z0-9_]+$"
+              },
+              "name_ko": {
+                "type": "string"
+              },
+              "official_url": {
+                "type": "string",
+                "pattern": "^https://"
+              },
+              "fee_ko": {
+                "type": "string"
+              },
+              "steps_ko": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "string"
+                }
+              },
+              "warning_ko": {
+                "type": "string"
+              },
+              "source": {
+                "type": "string"
+              },
+              "last_verified": {
+                "$ref": "#/$defs/date"
+              }
+            }
           }
         }
       }

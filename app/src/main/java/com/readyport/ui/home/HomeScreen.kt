@@ -257,7 +257,8 @@ fun CountryPhotoCard(c: HomeCountry, onClick: () -> Unit, modifier: Modifier = M
                 },
             )
         }
-        if (c.hasForm) add(stringResource(R.string.home_chip_form))
+        if (c.visa?.apply != null) add(stringResource(R.string.home_chip_visa_apply))
+        else if (c.hasForm) add(stringResource(R.string.home_chip_form))
         if (!c.ready) add(stringResource(R.string.home_chip_not_ready))
     }
     PhotoBox(

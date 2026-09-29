@@ -468,6 +468,7 @@
     <string name="home_chip_visa_arrival">도착비자 %1$d일</string>
     <string name="home_chip_visa_check">비자 안내 보기</string>
     <string name="home_chip_form">입국 신고 도우미</string>
+    <string name="home_chip_visa_apply">비자 온라인 신청 도우미</string>
     <string name="home_chip_not_ready">안내 준비 중</string>
     <string name="home_basics_title">여행 준비 기본 정보</string>
     <string name="home_departure_title">출국하는 날, 이 순서대로</string>
@@ -495,6 +496,10 @@
     <string name="country_visa_title">비자</string>
     <string name="country_visa_link">비자 공식 안내 열기</string>
     <string name="country_form_label">온라인 입국 신고</string>
+    <string name="country_visa_apply_label">비자 온라인 신청</string>
+    <string name="country_visa_apply_steps">이렇게 신청해요</string>
+    <string name="country_visa_apply_start">비자 신청 도와받기</string>
+    <string name="country_visa_apply_note">앱은 입력 칸만 채워 드려요. 신청 버튼과 결제는 직접 하세요.</string>
     <string name="country_form_autofill_body">앱 안에서 공식 사이트를 열고 입력 칸을 대신 채워 드려요. 확인한 뒤 마지막 제출 버튼만 직접 누르세요.</string>
     <string name="country_form_manual_body">입력할 값을 한국어로 확인하고 하나씩 복사해 공식 사이트에 붙여 넣을 수 있어요.</string>
     <string name="country_form_start">입력 도와받기</string>
