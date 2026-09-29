@@ -65,6 +65,8 @@ jobs:
       - name: Remote Config version pointers (switch keys untouched)
         run: python tools/deploy/ci_deploy.py rc-versions
       - name: Notify country topics
+        # 알림은 부가 기능이다(앱은 매일 Remote Config로도 새 안내를 확인한다). 실패해도 배포는 성공으로 두고 경고만 남긴다
+        continue-on-error: true
         run: |
           git diff --name-only HEAD~1 HEAD > "$RUNNER_TEMP/changed.txt" || true
           python tools/deploy/ci_deploy.py fcm-notify --changed-files "$RUNNER_TEMP/changed.txt"
