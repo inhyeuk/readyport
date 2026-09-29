@@ -10,7 +10,9 @@ import androidx.compose.ui.test.hasScrollAction
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.v2.createComposeRule
 import androidx.compose.ui.test.onAllNodesWithText
+import androidx.compose.ui.test.hasContentDescription
 import androidx.compose.ui.test.onFirst
+import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollToNode
@@ -105,9 +107,8 @@ class OfflinePackTest {
     @Test
     fun guideOpensOfflineWithSources() {
         launchOffline()
-        tab(R.string.tab_explore).performClick()
-        rule.onAllNodesWithText(s(R.string.explore_open_guide)).onFirst().performClick()
-        rule.onNodeWithText("태국").assertIsDisplayed()
+        rule.onNodeWithContentDescription(context.getString(R.string.home_country_open, "태국")).performClick()
+        rule.onAllNodesWithText("태국").onFirst().assertIsDisplayed()
         shown("비자 없이 90일", substring = true)
         shown("태국 입국 카드 (TDAC)")
         // 정책 카드 아래 '출처 … · 최종 확인 …'
@@ -117,8 +118,11 @@ class OfflinePackTest {
     @Test
     fun allMvpCountriesAreSavedOffline() {
         launchOffline()
-        tab(R.string.tab_explore).performClick()
-        for (name in listOf("태국", "일본", "싱가포르", "말레이시아", "인도네시아")) shown(name)
-        shown(context.getString(R.string.explore_status_saved, "2026.09.28"))
+        for (name in listOf("태국", "일본", "싱가포르", "말레이시아", "인도네시아")) {
+            val card = hasContentDescription(context.getString(R.string.home_country_open, name))
+            rule.onNode(hasScrollAction()).performScrollToNode(card)
+            rule.onNode(card).assertIsDisplayed()
+        }
+        rule.onAllNodesWithText(context.getString(R.string.home_chip_visa_free, 90)).onFirst().assertExists()
     }
 }

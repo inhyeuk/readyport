@@ -39,6 +39,7 @@ class MainActivity : FragmentActivity() {
                 hasPendingShare = pendingShare != null,
                 online = online,
                 onSetChildMode = viewModel::setChildMode,
+                onSetWifiOnly = viewModel::setWifiOnly,
                 openPresent = openPresent,
             )
         }

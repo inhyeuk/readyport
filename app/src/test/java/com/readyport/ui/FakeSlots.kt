@@ -5,13 +5,13 @@ import com.readyport.pack.PackKeys
 import com.readyport.pack.PackRemote
 import com.readyport.pack.PackRepository
 import com.readyport.pack.PackVerifier
-import com.readyport.ui.pack.CountryRow
-import com.readyport.ui.pack.ExploreContent
-import com.readyport.ui.pack.ExploreUi
-import com.readyport.ui.pack.GuideContent
+import com.readyport.ui.country.CountryContent
+import com.readyport.ui.country.CountryUi
+import com.readyport.ui.home.HomeContent
+import com.readyport.ui.home.HomeCountry
+import com.readyport.ui.home.HomeUi
 import com.readyport.ui.pack.HelpContent
 import com.readyport.ui.pack.HelpUi
-import com.readyport.ui.pack.PackStatus
 import com.readyport.ui.present.PresentContent
 import com.readyport.ui.present.PresentUi
 import com.readyport.ui.tabs.FormEntry
@@ -46,19 +46,32 @@ object TestPacks {
     val index get() = runBlocking { repo.index()!! }
     val thailand get() = runBlocking { repo.pack("TH")!! }
 
-    fun exploreUi(favorites: Set<String> = emptySet()) = ExploreUi(
-        rows = index.value.countries.map { c ->
-            val loaded = if (c.pack) runBlocking { repo.pack(c.code) } else null
-            CountryRow(
-                c, c.code in favorites,
-                when {
-                    !c.pack -> PackStatus.NotReady
-                    loaded != null -> PackStatus.Saved(loaded.value.lastVerified)
-                    else -> null
-                },
+    fun homeUi() = HomeUi(
+        countries = index.value.countries.map { c ->
+            val pack = if (c.pack) runBlocking { repo.pack(c.code) }?.value else null
+            HomeCountry(
+                c.code, c.nameKo, c.nameEn,
+                visa = pack?.requirements?.firstOrNull { it.nationality == "KR" && it.purpose == "tourism" },
+                hasForm = pack?.forms?.isNotEmpty() == true,
+                ready = pack != null,
             )
         },
+        returnLinks = index.value.returnLinks,
+        returnFacts = index.value.returnFacts,
+        indexSources = index.value.sources.associate { it.id to it.name },
     )
+
+    fun countryUi(code: String = "TH", favorite: Boolean = false) = runBlocking {
+        val loaded = repo.pack(code)!!
+        CountryUi(
+            loaded = loaded,
+            favorite = favorite,
+            autofillForms = loaded.value.forms.filter { repo.recipe(it.id) != null }.map { it.id }.toSet(),
+            returnLinks = index.value.returnLinks,
+            returnFacts = index.value.returnFacts,
+            indexSources = index.value.sources.associate { it.id to it.name },
+        )
+    }
 
     val tdacRecipe get() = runBlocking { repo.recipe("TH_TDAC")!! }
 
@@ -89,8 +102,8 @@ val FakeSlots = ScreenSlots(
             onAutoDestroyChange = {},
         )
     },
-    explore = { onOpenGuide, onMove, onRankings -> ExploreContent(TestPacks.exploreUi(), {}, onOpenGuide, {}, onMove, onRankings) },
-    guide = { country, onShopping -> GuideContent(runBlocking { TestPacks.repo.pack(country)!! }, onShopping) },
+    home = { actions -> HomeContent(TestPacks.homeUi(), actions, today = LocalDate.of(2026, 9, 28)) },
+    country = { code, actions -> CountryContent(TestPacks.countryUi(code), actions) },
     help = { HelpContent(TestPacks.helpUi(), {}, {}, {}) },
     prepare = { onOpenForm, onEssentials -> PrepareContent(TestPacks.formEntries(), onOpenForm, onOpenEssentials = onEssentials) },
     today = { actions -> TodayContent(TodayUi(), actions, {}, {}, {}, {}, {}) },

@@ -114,9 +114,8 @@ fun WalletContent(
         subtitle = stringResource(R.string.wallet_subtitle),
         speech = stringResource(R.string.wallet_speech),
     ) {
-        item(key = "privacy") {
-            TopicCard(title = stringResource(R.string.wallet_privacy), body = null, tone = CardTone.Notice)
-        }
+        // 이 정보가 휴대폰 밖으로 나가지 않는다는 약속을 맨 위에 크게 보여 준다
+        item(key = "privacy") { com.readyport.ui.settings.LocalOnlyBanner() }
         if (!deviceSecure) {
             item(key = "no-lock") {
                 TopicCard(

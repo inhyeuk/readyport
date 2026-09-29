@@ -14,10 +14,15 @@ import com.readyport.trip.StageInfo
 import com.readyport.trip.Trip
 import com.readyport.trip.TripStage
 import com.readyport.ui.onboarding.FirstRunScreen
-import com.readyport.ui.pack.ExploreContent
-import com.readyport.ui.pack.GuideContent
+import com.readyport.ui.country.CountryActions
+import com.readyport.ui.country.CountryContent
+import com.readyport.ui.country.CountrySection
+import com.readyport.ui.home.HomeActions
+import com.readyport.ui.home.HomeContent
+import com.readyport.ui.settings.PhotoCreditsContent
+import com.readyport.ui.settings.SettingsScreen
+import com.readyport.ui.components.PhotoCredit
 import com.readyport.ui.pack.HelpContent
-import com.readyport.ui.pack.RankingsInfoScreen
 import com.readyport.ui.pack.ShoppingContent
 import com.readyport.ui.pack.ShoppingUi
 import com.readyport.ui.prep.EssentialRow
@@ -77,9 +82,12 @@ abstract class A11yAuditBase {
             val rules: List<EssentialRule> = Essentials.select(index.essentials, index.homePower, th.value.power)
             EssentialsContent(EssentialsUi("태국", 4, 11, rules.map { EssentialRow(it, false, "출처") }), { _, _ -> }, {})
         },
-        "explore" to { ExploreContent(TestPacks.exploreUi(setOf("TH")), {}, {}, {}) },
-        "rankings" to { RankingsInfoScreen() },
-        "guide" to { GuideContent(th) },
+        "home" to { HomeContent(TestPacks.homeUi(), HomeActions()) },
+        "country-entry" to { CountryContent(TestPacks.countryUi("ID"), CountryActions()) },
+        "country-travel" to { CountryContent(TestPacks.countryUi("TH", favorite = true), CountryActions(), CountrySection.Travel) },
+        "country-shopping" to { CountryContent(TestPacks.countryUi("JP"), CountryActions(), CountrySection.Shopping) },
+        "settings" to { SettingsScreen(easyMode = true, onEasyModeChange = {}) },
+        "photo-credits" to { PhotoCreditsContent(listOf(PhotoCredit("th", "Wat Arun Sunset.jpg", "x", "CC BY 2.0", sourceUrl = "https://commons.wikimedia.org/")), {}) },
         "shopping" to { ShoppingContent(ShoppingUi("TH", "태국", th.value.shopping, returnLinks = index.returnLinks, returnFacts = index.returnFacts), { _, _ -> }, {}) },
         "help" to { HelpContent(TestPacks.helpUi(), {}, {}, {}) },
         "wallet-locked" to {

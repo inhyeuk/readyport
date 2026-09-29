@@ -147,8 +147,8 @@ class TripUiTest {
         fun tab(label: String) = hasText(label) and SemanticsMatcher.expectValue(SemanticsProperties.Role, Role.Tab)
         rule.onNode(tab(s(R.string.tab_present))).assertIsDisplayed()
         rule.onNode(tab(s(R.string.tab_help))).assertIsDisplayed()
-        rule.onAllNodes(tab(s(R.string.tab_wallet))).assertCountEquals(0)
-        rule.onAllNodes(tab(s(R.string.tab_prepare))).assertCountEquals(0)
+        rule.onAllNodes(tab(s(R.string.tab_home))).assertCountEquals(0)
+        rule.onAllNodes(tab(s(R.string.tab_settings))).assertCountEquals(0)
         rule.onNodeWithText(s(R.string.present_title)).assertIsDisplayed()
     }
 }

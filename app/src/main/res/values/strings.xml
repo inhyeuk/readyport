@@ -8,10 +8,9 @@
     <string name="app_name">레디포트</string>
 
     <!-- 하단 탭 -->
-    <string name="tab_today">오늘</string>
-    <string name="tab_prepare">준비</string>
-    <string name="tab_explore">여행지</string>
-    <string name="tab_wallet">지갑</string>
+    <string name="tab_home">홈</string>
+    <string name="tab_trip">내 여행</string>
+    <string name="tab_settings">설정</string>
     <string name="tab_help">도움</string>
 
     <!-- 공통 -->
@@ -28,7 +27,7 @@
     <string name="first_run_no">아니요, 가 봤어요</string>
 
     <!-- 오늘 -->
-    <string name="today_title">오늘 할 일</string>
+    <string name="today_title">내 여행</string>
     <string name="today_no_trip">아직 만든 여행이 없어요</string>
     <string name="today_stage_desc">여행 단계: %1$s (%3$d단계 중 %2$d단계)</string>
     <string name="today_stage_now">지금: %1$s (%3$d단계 중 %2$d단계)</string>
@@ -40,8 +39,8 @@
     <string name="stage_wrapup">정리</string>
     <string name="today_next_label">지금 할 일</string>
     <string name="today_next_title">어디로 여행 가세요?</string>
-    <string name="today_next_body">가고 싶은 곳을 찜하면 필요한 서류와 준비물을 알려 드려요.</string>
-    <string name="today_next_button">여행지 고르기</string>
+    <string name="today_next_body">여행 날짜를 넣으면 날마다 할 일을 차례로 알려 드려요.</string>
+    <string name="today_next_button">나라 사진 보며 고르기</string>
     <string name="today_help_title">급할 때는 \'도움\'을 누르세요</string>
     <string name="today_help_body">현지어 문장 카드와 긴급 연락처는 인터넷이 없어도 볼 수 있어요.</string>
     <string name="today_speech">오늘 할 일. 아직 만든 여행이 없어요. 지금 할 일은 여행지 고르기예요.</string>
@@ -82,7 +81,7 @@
     <string name="form_killed">지금은 이 사이트 자동 입력을 쉬고 있어요. 값을 복사해서 직접 넣어 주세요.</string>
     <string name="form_no_recipe">이 입국 카드는 아직 자동 입력을 준비하지 못했어요. 값을 복사해서 직접 넣어 주세요.</string>
     <string name="form_manual_mode">수동 모드</string>
-    <string name="form_save_failed">저장하지 못했어요. 지갑을 다시 열어 주세요.</string>
+    <string name="form_save_failed">저장하지 못했어요. 내 정보를 다시 열어 주세요.</string>
 
     <!-- 자동 입력 화면 (PRD 5.3) -->
     <string name="autofill_connected">공식 사이트에 연결됨 · %1$s</string>
@@ -141,7 +140,7 @@
     <string name="guide_speech">%1$s 여행 가이드. 인터넷이 없어도 볼 수 있어요.</string>
 
     <!-- 지갑 -->
-    <string name="wallet_title">지갑</string>
+    <string name="wallet_title">내 정보</string>
     <string name="wallet_subtitle">내 서류를 안전하게 모아 둬요</string>
     <string name="wallet_privacy">모든 서류는 이 기기 안에만 암호화해서 저장해요. 레디포트 서버로 보내지 않아요.</string>
     <string name="wallet_passport_title">여권</string>
@@ -149,19 +148,19 @@
     <string name="wallet_profile_title">내 여행 정보</string>
     <string name="wallet_companions_title">같이 가는 사람</string>
     <string name="wallet_documents_title">받은 서류 (QR·확인서)</string>
-    <string name="wallet_speech">지갑. 모든 서류는 이 기기 안에만 암호화해서 저장해요. 여권, 내 여행 정보, 같이 가는 사람, 받은 서류를 모아 둬요.</string>
-    <string name="wallet_locked_title">지갑이 잠겨 있어요</string>
+    <string name="wallet_speech">내 정보. 모든 서류는 이 기기 안에만 암호화해서 저장해요. 여권, 내 여행 정보, 같이 가는 사람, 받은 서류를 모아 둬요.</string>
+    <string name="wallet_locked_title">내 정보가 잠겨 있어요</string>
     <string name="wallet_locked_body">지문·얼굴 또는 휴대폰 화면 잠금으로 열 수 있어요.</string>
-    <string name="wallet_unlock">지갑 열기</string>
-    <string name="wallet_lock">지갑 잠그기</string>
-    <string name="wallet_auth_title">레디포트 지갑 열기</string>
+    <string name="wallet_unlock">내 정보 열기</string>
+    <string name="wallet_lock">내 정보 잠그기</string>
+    <string name="wallet_auth_title">레디포트 내 정보 열기</string>
     <string name="wallet_auth_subtitle">여권과 예약 서류를 보려면 본인 확인이 필요해요</string>
     <string name="wallet_no_lock_title">휴대폰에 화면 잠금이 없어요</string>
     <string name="wallet_no_lock_body">여권 정보는 암호화해서 저장하지만, 휴대폰 설정에서 화면 잠금(PIN·지문)을 켜 두면 더 안전해요.</string>
     <string name="wallet_needs_auth">본인 확인 시간이 지났어요. 다시 열어 주세요.</string>
     <string name="wallet_key_lost">휴대폰 잠금 설정이 바뀌어서 저장한 서류를 열 수 없어요. 여권을 다시 등록해 주세요.</string>
     <string name="wallet_corrupted">저장한 서류를 읽지 못했어요. 다시 등록해 주세요.</string>
-    <string name="wallet_reset">지갑 비우고 다시 시작</string>
+    <string name="wallet_reset">내 정보 비우고 다시 시작</string>
     <string name="wallet_passport_add">여권 등록하기</string>
     <string name="wallet_passport_card_label">여권</string>
     <string name="wallet_passport_name">이름</string>
@@ -244,7 +243,7 @@
     <string name="booking_field_dates">찾은 날짜</string>
     <string name="booking_save">맞아요, 저장해 주세요</string>
     <string name="booking_saved">저장했어요</string>
-    <string name="booking_save_failed">저장하지 못했어요. 지갑을 다시 열어 주세요.</string>
+    <string name="booking_save_failed">저장하지 못했어요. 내 정보를 다시 열어 주세요.</string>
     <string name="booking_speech">예약 서류 추가. 항공권이나 숙소 예약 확인서를 공유하거나 사진, PDF에서 골라 주세요.</string>
 
     <!-- 도움 -->
@@ -344,8 +343,8 @@
     <string name="present_doc_image">%1$s 입국 서류 그림</string>
     <string name="present_confirmation">확인 번호</string>
     <string name="present_speech">입국 때 보여 주기. 입국 심사관에게 이 화면을 보여 주세요.</string>
-    <string name="autofill_save_capture">이 확인 화면 지갑에 저장</string>
-    <string name="autofill_saved_capture">지갑에 저장했어요. \'입국 때 보여 주기\'에서 볼 수 있어요.</string>
+    <string name="autofill_save_capture">이 확인 화면 내 정보에 저장</string>
+    <string name="autofill_saved_capture">내 정보에 저장했어요. \'입국 때 보여 주기\'에서 볼 수 있어요.</string>
 
     <!-- 가족 모드 (PRD 3.3) -->
     <string name="companions_title">같이 가는 사람</string>
@@ -359,7 +358,7 @@
     <string name="companion_delete">지우기</string>
     <string name="settings_child_mode">자녀 폰 모드</string>
     <string name="settings_child_mode_desc">이 폰에서는 입국 QR과 도움만 크게 보여요. 보호자 폰에서 보낸 QR을 \'입국 때 보여 주기\'에 추가하세요.</string>
-    <string name="settings_family_mode_desc">지갑의 \'같이 가는 사람\'에서 가족을 추가해요.</string>
+    <string name="settings_family_mode_desc">내 정보의 \'같이 가는 사람\'에서 가족을 추가해요.</string>
     <string name="tab_present">입국 QR</string>
 
     <!-- 위젯 -->
@@ -402,7 +401,7 @@
     <string name="settings_disclaimer_body">레디포트는 정부 기관과 제휴하지 않았어요. 모든 안내에 공식 출처와 최종 확인일을 붙여요. 입국 서류의 내용은 신청하는 본인이 책임져요.</string>
     <string name="settings_report">오류 알리기</string>
     <string name="settings_about">앱 정보</string>
-    <string name="settings_speech">설정. 쉬운 모드를 켜고 끌 수 있어요.</string>
+    <string name="settings_speech">설정. 내 여권과 예약 서류를 관리하고, 쉬운 모드를 켜고 끌 수 있어요. 내 정보는 이 휴대폰에만 저장돼요.</string>
 
     <!-- M8: 꼭 챙길 물건 · 쇼핑 리스트 · 순위 설명 -->
     <string name="prepare_items_open">챙길 물건 보기</string>
@@ -456,4 +455,71 @@
     <string name="notif_policy_body">레디포트에서 새 안내를 확인하세요. 출발 전에 공식 사이트도 한 번 더 확인해 주세요.</string>
     <string name="settings_privacy_open">개인정보 처리방침 보기</string>
     <string name="settings_version">버전 %1$s</string>
+
+    <!-- 홈 -->
+    <string name="home_brand">레디포트</string>
+    <string name="home_title">어디로 떠나세요?</string>
+    <string name="home_subtitle">나라를 고르면 입국 서류부터 여행·쇼핑 정보까지 한 번에 알려 드려요.</string>
+    <string name="home_speech">홈. 여행할 나라를 고르면 입국과 비자, 여행 정보, 쇼핑 안내를 볼 수 있어요. 아래에는 여행 준비 기본 정보가 있어요.</string>
+    <string name="home_countries_title">어느 나라로 가세요?</string>
+    <string name="home_countries_body">사진을 누르면 그 나라 안내가 열려요.</string>
+    <string name="home_country_open">%1$s 안내 열기</string>
+    <string name="home_chip_visa_free">비자 없이 %1$d일</string>
+    <string name="home_chip_visa_arrival">도착비자 %1$d일</string>
+    <string name="home_chip_visa_check">비자 안내 보기</string>
+    <string name="home_chip_form">입국 신고 도우미</string>
+    <string name="home_chip_not_ready">안내 준비 중</string>
+    <string name="home_basics_title">여행 준비 기본 정보</string>
+    <string name="home_departure_title">출국하는 날, 이 순서대로</string>
+    <string name="home_essentials_title">꼭 챙길 물건</string>
+    <string name="home_essentials_body">플러그와 전압, 보조배터리 규정처럼 나라마다 다른 준비물을 하나씩 확인해요.</string>
+    <string name="home_essentials_open">준비물 확인하기</string>
+    <string name="home_return_photo">쇼핑하기 전에 알아 두세요</string>
+    <string name="home_passport_title">여권 정보는 한 번만 등록하세요</string>
+    <string name="home_passport_body">입국 신고서를 쓸 때마다 다시 입력하지 않아도 돼요. 이 휴대폰에만 암호화해 저장하고, 밖으로 보내지 않아요.</string>
+    <string name="home_passport_open">내 정보 관리</string>
+    <string name="home_trip_label">내 여행 · %1$s</string>
+    <string name="home_trip_days">출발 %1$d일 전</string>
+    <string name="home_trip_today">오늘 출발해요</string>
+    <string name="home_trip_during">여행 중이에요</string>
+    <string name="home_trip_after">다녀온 여행이에요</string>
+    <string name="home_trip_open">내 여행 보기</string>
+
+    <!-- 나라 화면 -->
+    <string name="country_back">뒤로</string>
+    <string name="country_tab_entry">입국·비자</string>
+    <string name="country_tab_travel">여행 정보</string>
+    <string name="country_tab_shopping">쇼핑</string>
+    <string name="country_sections">%1$s 안내 종류</string>
+    <string name="country_speech">%1$s 안내. 입국과 비자, 여행 정보, 쇼핑을 차례로 볼 수 있어요. 인터넷이 없어도 열려요.</string>
+    <string name="country_visa_title">비자</string>
+    <string name="country_visa_link">비자 공식 안내 열기</string>
+    <string name="country_form_label">온라인 입국 신고</string>
+    <string name="country_form_autofill_body">앱 안에서 공식 사이트를 열고 입력 칸을 대신 채워 드려요. 확인한 뒤 마지막 제출 버튼만 직접 누르세요.</string>
+    <string name="country_form_manual_body">입력할 값을 한국어로 확인하고 하나씩 복사해 공식 사이트에 붙여 넣을 수 있어요.</string>
+    <string name="country_form_start">입력 도와받기</string>
+    <string name="country_form_manual_start">입력할 값 준비하기</string>
+    <string name="country_plan_trip">이 나라로 여행 계획 만들기</string>
+    <string name="country_help_title">현지에서 급할 때</string>
+    <string name="country_help_body">현지어 문장 카드와 긴급 연락처, 대사관 전화번호는 인터넷이 없어도 열려요.</string>
+    <string name="country_help_open">현지어·긴급 연락처 열기</string>
+    <string name="country_shopping_more">외 %1$d개 더 있어요</string>
+
+    <!-- 설정 › 내 정보 -->
+    <string name="settings_local_only_title">내 정보는 이 휴대폰에만 저장돼요</string>
+    <string name="settings_local_only_body">여권, 예약 서류, 같이 가는 사람 정보는 휴대폰 안에 암호화해 보관해요. 인터넷으로 보내지 않고, 레디포트 운영자도 볼 수 없어요.</string>
+    <string name="settings_myinfo_title">내 정보</string>
+    <string name="settings_myinfo_body">여권과 예약 서류를 한 번 등록해 두면 여러 나라 입국 신고서에 똑같이 써요.</string>
+    <string name="settings_myinfo_open">여권·예약 서류 관리</string>
+    <string name="settings_download_title">나라 안내 받기</string>
+    <string name="settings_photos">사진 출처</string>
+    <string name="settings_photos_body">앱 속 사진은 위키미디어 공용의 자유 라이선스 사진이에요.</string>
+    <string name="settings_photos_open">사진 출처 보기</string>
+    <string name="photo_credits_title">사진 출처</string>
+    <string name="photo_credits_speech">사진 출처. 앱에 쓴 사진의 찍은 사람과 라이선스를 보여 줘요.</string>
+    <string name="photo_credits_body">모든 사진은 위키미디어 공용에서 가져와 잘라내고 크기를 줄였어요.</string>
+    <string name="photo_credit_author">찍은 사람: %1$s</string>
+    <string name="photo_credit_license">라이선스: %1$s</string>
+    <string name="photo_credit_open">원본 보기</string>
+    <string name="wallet_local_only">이 화면의 정보는 휴대폰 밖으로 나가지 않아요</string>
 </resources>

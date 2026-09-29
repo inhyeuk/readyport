@@ -101,7 +101,7 @@ class TripViewModel @Inject constructor(
 }
 
 @Composable
-fun TripScreen(onDone: () -> Unit, viewModel: TripViewModel = hiltViewModel()) {
+fun TripScreen(onDone: () -> Unit, initialCountry: String? = null, viewModel: TripViewModel = hiltViewModel()) {
     val ui by viewModel.ui.collectAsStateWithLifecycle()
     // Android 13+ 알림 권한 (입국 카드 제출 가능일 알림)
     val notif = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { }
@@ -114,6 +114,7 @@ fun TripScreen(onDone: () -> Unit, viewModel: TripViewModel = hiltViewModel()) {
             onDone()
         },
         onDelete = { viewModel.delete(); onDone() },
+        initialCountry = initialCountry,
     )
 }
 
@@ -122,8 +123,12 @@ fun TripContent(
     ui: TripFormUi,
     onSave: (String, LocalDate, LocalDate) -> Unit,
     onDelete: () -> Unit,
+    /** 나라 화면의 '이 나라로 여행 계획 만들기'로 오면 그 나라를 미리 골라 둔다 */
+    initialCountry: String? = null,
 ) {
-    var country by remember(ui.existing) { mutableStateOf(ui.existing?.country ?: ui.countries.singleOrNull()?.code) }
+    var country by remember(ui.existing) {
+        mutableStateOf(initialCountry?.takeIf { c -> ui.countries.any { it.code == c } } ?: ui.existing?.country ?: ui.countries.singleOrNull()?.code)
+    }
     var start by remember(ui.existing) { mutableStateOf(ui.existing?.startDate.orEmpty()) }
     var end by remember(ui.existing) { mutableStateOf(ui.existing?.endDate.orEmpty()) }
     var invalid by remember { mutableStateOf(false) }

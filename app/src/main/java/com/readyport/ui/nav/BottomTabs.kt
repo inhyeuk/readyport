@@ -13,12 +13,11 @@ import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.foundation.text.TextAutoSize
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.AccountBalanceWallet
-import androidx.compose.material.icons.outlined.Checklist
+import androidx.compose.material.icons.outlined.Home
+import androidx.compose.material.icons.outlined.Luggage
 import androidx.compose.material.icons.outlined.QrCode2
+import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material.icons.outlined.SupportAgent
-import androidx.compose.material.icons.outlined.TravelExplore
-import androidx.compose.material.icons.outlined.WbSunny
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -39,24 +38,23 @@ import com.readyport.ui.theme.LocalDimens
 import com.readyport.ui.theme.Tokens
 
 enum class Tab(@StringRes val label: Int, val icon: ImageVector, val route: Any) {
-    Today(R.string.tab_today, Icons.Outlined.WbSunny, TodayRoute),
-    Prepare(R.string.tab_prepare, Icons.Outlined.Checklist, PrepareRoute),
-    Explore(R.string.tab_explore, Icons.Outlined.TravelExplore, ExploreRoute),
-    Wallet(R.string.tab_wallet, Icons.Outlined.AccountBalanceWallet, WalletRoute),
+    Home(R.string.tab_home, Icons.Outlined.Home, HomeRoute),
+    Trip(R.string.tab_trip, Icons.Outlined.Luggage, TodayRoute),
     Help(R.string.tab_help, Icons.Outlined.SupportAgent, HelpRoute),
+    Settings(R.string.tab_settings, Icons.Outlined.Settings, SettingsRoute),
 
     /** 자녀 폰 모드에서만 쓰는 탭 */
     Present(R.string.tab_present, Icons.Outlined.QrCode2, PresentRoute);
 
     companion object {
-        val Main = listOf(Today, Prepare, Explore, Wallet, Help)
+        val Main = listOf(Home, Trip, Help, Settings)
         /** 자녀 폰: 자기 QR과 도움만 (PRD 3.3) */
         val Child = listOf(Present, Help)
     }
 }
 
 /**
- * 하단 탭 5개 (PRD 4.1).
+ * 하단 탭 4개: 홈 · 내 여행 · 도움 · 설정.
  * Material NavigationBar는 높이가 고정이라 글자를 크게 키우면 라벨이 잘린다.
  * 그래서 높이가 내용에 맞춰 늘어나고, 라벨이 칸보다 넓으면 글자를 줄여 맞추는 탭 막대를 직접 그린다.
  */

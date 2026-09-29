@@ -1,5 +1,8 @@
 package com.readyport
 
+import android.content.Context
+import com.readyport.pack.PackSync
+import dagger.hilt.android.qualifiers.ApplicationContext
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.readyport.data.settings.AppSettings
@@ -14,6 +17,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
+    @ApplicationContext private val context: Context,
     private val settingsRepository: SettingsRepository,
     private val speaker: Speaker,
 ) : ViewModel() {
@@ -28,6 +32,15 @@ class MainViewModel @Inject constructor(
 
     fun setChildMode(enabled: Boolean) {
         viewModelScope.launch { settingsRepository.setChildMode(enabled) }
+    }
+
+    /** 나라 안내를 와이파이에서만 받기 (PRD 5.7) */
+    fun setWifiOnly(enabled: Boolean) {
+        viewModelScope.launch {
+            settingsRepository.setWifiOnly(enabled)
+            PackSync.scheduleDaily(context, enabled)
+            PackSync.requestNow(context, enabled)
+        }
     }
 
     fun speak(text: String) = speaker.speak(text)
