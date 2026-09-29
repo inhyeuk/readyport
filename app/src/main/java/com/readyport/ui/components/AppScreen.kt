@@ -55,6 +55,8 @@ fun AppScreen(
     modifier: Modifier = Modifier,
     subtitle: String? = null,
     headerActions: @Composable RowScope.() -> Unit = {},
+    /** 사진 머리글처럼 기본 제목 줄 대신 쓸 머리글. 제목(heading) 표시는 머리글이 맡는다 */
+    header: (@Composable () -> Unit)? = null,
     content: LazyListScope.() -> Unit,
 ) {
     val dimens = LocalDimens.current
@@ -64,7 +66,7 @@ fun AppScreen(
         contentPadding = PaddingValues(horizontal = dimens.screenPadding, vertical = dimens.gap),
         verticalArrangement = Arrangement.spacedBy(dimens.gap),
     ) {
-        item(key = "header") {
+        if (header != null) item(key = "header") { header() } else item(key = "header") {
             Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Text(

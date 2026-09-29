@@ -11,6 +11,7 @@ import androidx.compose.ui.test.junit4.v2.createComposeRule
 import androidx.compose.ui.test.onRoot
 import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onNodeWithText
+import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollToNode
 import androidx.compose.ui.semantics.Role
@@ -61,11 +62,12 @@ class ScreenCaptureTest {
 
     private fun captureAll(prefix: String, settings: AppSettings) {
         rule.setContent { ReadyPortRoot(settings = settings, onSetEasyMode = {}, onSpeak = {}, slots = FakeSlots) }
-        capture("${prefix}_1_today")
-        openTab(R.string.tab_prepare); capture("${prefix}_2_prepare")
-        openTab(R.string.tab_explore); capture("${prefix}_3_explore")
-        openTab(R.string.tab_wallet); capture("${prefix}_4_wallet")
-        openTab(R.string.tab_help); capture("${prefix}_5_help")
+        capture("${prefix}_1_home")
+        rule.onNodeWithContentDescription(context.getString(R.string.home_country_open, "태국")).performClick()
+        capture("${prefix}_2_country")
+        openTab(R.string.tab_trip); capture("${prefix}_3_trip")
+        openTab(R.string.tab_help); capture("${prefix}_4_help")
+        openTab(R.string.tab_settings); capture("${prefix}_5_settings")
     }
 
     @Test fun basicMode() = captureAll("basic", AppSettings(easyMode = false))
@@ -89,9 +91,9 @@ class ScreenCaptureTest {
                 online = false, slots = FakeSlots,
             )
         }
-        capture("m3_1_today_offline")
-        openTab(R.string.tab_explore); capture("m3_2_explore")
-        rule.onAllNodesWithText(context.getString(R.string.explore_open_guide))[0].performClick(); capture("m3_3_guide")
+        capture("m3_1_home_offline")
+        rule.onNodeWithContentDescription(context.getString(R.string.home_country_open, "일본")).performClick(); capture("m3_2_country")
+        rule.onNodeWithText(context.getString(R.string.country_tab_travel)).performClick(); capture("m3_3_country_travel")
         openTab(R.string.tab_help); capture("m3_4_help")
     }
 

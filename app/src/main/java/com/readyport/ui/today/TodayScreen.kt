@@ -9,15 +9,9 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.foundation.text.TextAutoSize
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
@@ -59,7 +53,6 @@ private val StageLabels = listOf(
 
 /** '오늘' 화면에서 다른 곳으로 가는 길 */
 data class TodayActions(
-    val openSettings: () -> Unit = {},
     val makeTrip: () -> Unit = {},
     val editTrip: () -> Unit = {},
     val explore: () -> Unit = {},
@@ -125,15 +118,6 @@ fun TodayContent(
         title = title,
         subtitle = subtitle,
         speech = stringResource(R.string.today_speech_trip, title, stageName),
-        headerActions = {
-            IconButton(onClick = actions.openSettings, modifier = Modifier.sizeIn(minWidth = 48.dp, minHeight = 48.dp)) {
-                Icon(
-                    Icons.Outlined.Settings,
-                    contentDescription = stringResource(R.string.action_settings),
-                    modifier = Modifier.size(if (LocalDimens.current.easyMode) 32.dp else 24.dp),
-                )
-            }
-        },
     ) {
         item(key = "stages") { StageBar(current = stage.stage.barIndex) }
 

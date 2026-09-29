@@ -13,7 +13,10 @@ import androidx.compose.ui.test.assert
 import androidx.compose.ui.test.assertCountEquals
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsSelected
+import androidx.compose.ui.test.hasContentDescription
+import androidx.compose.ui.test.hasScrollAction
 import androidx.compose.ui.test.hasText
+import androidx.compose.ui.test.performScrollToNode
 import androidx.compose.ui.test.isHeading
 import androidx.compose.ui.test.junit4.v2.createComposeRule
 import androidx.compose.ui.test.onAllNodesWithText
@@ -60,21 +63,25 @@ class ReadyPortRootTest {
     private fun heading(@StringRes title: Int) =
         rule.onNode(isHeading() and hasText(s(title)))
 
+    /** 목록 아래쪽 항목은 스크롤해야 그려진다 */
+    private fun scrollTo(matcher: SemanticsMatcher) {
+        rule.onNode(hasScrollAction()).performScrollToNode(matcher)
+    }
+
     private fun tab(@StringRes label: Int) =
         rule.onNode(hasText(s(label)) and SemanticsMatcher.expectValue(SemanticsProperties.Role, Role.Tab))
 
     @Test
     fun everyTabNavigates() {
         launch(AppSettings(easyMode = false))
-        heading(R.string.today_title).assertIsDisplayed()
-        tab(R.string.tab_today).assertIsSelected()
+        heading(R.string.home_title).assertIsDisplayed()
+        tab(R.string.tab_home).assertIsSelected()
 
         val tabs = listOf(
-            R.string.tab_prepare to R.string.prepare_title,
-            R.string.tab_explore to R.string.explore_title,
-            R.string.tab_wallet to R.string.wallet_title,
+            R.string.tab_trip to R.string.today_title,
             R.string.tab_help to R.string.help_title,
-            R.string.tab_today to R.string.today_title,
+            R.string.tab_settings to R.string.settings_title,
+            R.string.tab_home to R.string.home_title,
         )
         for ((label, title) in tabs) {
             tab(label).performClick()
@@ -84,18 +91,41 @@ class ReadyPortRootTest {
     }
 
     @Test
-    fun todayPrimaryActionOpensExplore() {
+    fun tripWithoutPlanGoesHomeToChooseCountry() {
         launch(AppSettings(easyMode = false))
+        tab(R.string.tab_trip).performClick()
         rule.onNodeWithText(s(R.string.today_next_button)).performClick()
-        heading(R.string.explore_title).assertIsDisplayed()
-        tab(R.string.tab_explore).assertIsSelected()
+        heading(R.string.home_title).assertIsDisplayed()
+        tab(R.string.tab_home).assertIsSelected()
     }
 
     @Test
-    fun prepareTabShowsGovernmentDisclaimerFirst() {
+    fun countryPhotoCardOpensCountryWithSections() {
         launch(AppSettings(easyMode = false))
-        tab(R.string.tab_prepare).performClick()
-        rule.onNodeWithText(s(R.string.prepare_disclaimer)).assertIsDisplayed()
+        rule.onNodeWithContentDescription(context.getString(R.string.home_country_open, "태국")).performClick()
+        rule.onNode(isHeading() and hasText("태국")).assertIsDisplayed()
+        tab(R.string.tab_home).assertIsSelected()
+        // 입국·비자: 정부 비제휴 고지가 맨 위, 입국 카드 입력 도우미
+        rule.onNodeWithText(s(R.string.guide_not_affiliated)).assertIsDisplayed()
+        scrollTo(hasText(s(R.string.country_form_start)))
+        rule.onNodeWithText(s(R.string.country_form_start)).assertIsDisplayed()
+        scrollTo(hasText(s(R.string.country_tab_shopping)))
+        rule.onNodeWithText(s(R.string.country_tab_shopping)).performClick()
+        scrollTo(hasText(s(R.string.shopping_open)))
+        scrollTo(hasContentDescription(s(R.string.country_back)))
+        rule.onNodeWithContentDescription(s(R.string.country_back)).performClick()
+        heading(R.string.home_title).assertIsDisplayed()
+    }
+
+    @Test
+    fun settingsShowsLocalOnlyPromiseAndMyInfo() {
+        launch(AppSettings(easyMode = false))
+        tab(R.string.tab_settings).performClick()
+        rule.onNodeWithText(s(R.string.settings_local_only_title)).assertIsDisplayed()
+        rule.onNodeWithText(s(R.string.settings_myinfo_open)).performClick()
+        heading(R.string.wallet_title).assertIsDisplayed()
+        rule.onNodeWithText(s(R.string.settings_local_only_title)).assertIsDisplayed()
+        tab(R.string.tab_settings).assertIsSelected()
     }
 
     @Test
@@ -104,7 +134,7 @@ class ReadyPortRootTest {
         heading(R.string.first_run_title).assertIsDisplayed()
         rule.onNodeWithText(s(R.string.first_run_yes)).performClick()
         assertEquals(true, settings?.easyMode)
-        heading(R.string.today_title).assertIsDisplayed()
+        heading(R.string.home_title).assertIsDisplayed()
         rule.onNodeWithText(s(R.string.action_home)).assertIsDisplayed()
     }
 
@@ -119,27 +149,30 @@ class ReadyPortRootTest {
     @Test
     fun easyModeToggleInSettings() {
         launch(AppSettings(easyMode = false))
-        rule.onNodeWithContentDescription(s(R.string.action_settings)).performClick()
+        tab(R.string.tab_settings).performClick()
         heading(R.string.settings_title).assertIsDisplayed()
         rule.onAllNodesWithText(s(R.string.action_home)).assertCountEquals(0)
 
+        scrollTo(hasText(s(R.string.settings_easy_mode)))
         rule.onNodeWithText(s(R.string.settings_easy_mode)).performClick()
         assertEquals(true, settings?.easyMode)
+        scrollTo(hasText(s(R.string.action_home)))
         rule.onNodeWithText(s(R.string.action_home)).assertIsDisplayed()
 
+        scrollTo(hasText(s(R.string.settings_easy_mode)))
         rule.onNodeWithText(s(R.string.settings_easy_mode)).performClick()
         assertEquals(false, settings?.easyMode)
         rule.onAllNodesWithText(s(R.string.action_home)).assertCountEquals(0)
     }
 
     @Test
-    fun easyModeHomeButtonReturnsToToday() {
+    fun easyModeHomeButtonReturnsHome() {
         launch(AppSettings(easyMode = true))
-        tab(R.string.tab_wallet).performClick()
-        heading(R.string.wallet_title).assertIsDisplayed()
+        tab(R.string.tab_help).performClick()
+        heading(R.string.help_title).assertIsDisplayed()
         rule.onNodeWithText(s(R.string.action_home)).performClick()
-        heading(R.string.today_title).assertIsDisplayed()
-        tab(R.string.tab_today).assertIsSelected()
+        heading(R.string.home_title).assertIsDisplayed()
+        tab(R.string.tab_home).assertIsSelected()
     }
 
     @Test
@@ -154,8 +187,8 @@ class ReadyPortRootTest {
     fun worksAtDoubleFontScale() {
         RuntimeEnvironment.setFontScale(2.0f)
         launch(AppSettings(easyMode = true))
-        heading(R.string.today_title).assertIsDisplayed()
-        for (label in listOf(R.string.tab_prepare, R.string.tab_explore, R.string.tab_wallet, R.string.tab_help)) {
+        heading(R.string.home_title).assertIsDisplayed()
+        for (label in listOf(R.string.tab_trip, R.string.tab_help, R.string.tab_settings, R.string.tab_home)) {
             tab(label).assertIsDisplayed().performClick()
             tab(label).assertIsSelected()
         }
@@ -164,13 +197,15 @@ class ReadyPortRootTest {
     @Test
     fun talkBackLabels() {
         launch(AppSettings(easyMode = false))
-        // 아이콘만 있는 설정 버튼에도 읽을 이름이 있다
-        rule.onNodeWithContentDescription(s(R.string.action_settings)).assertIsDisplayed()
+        // 사진 카드는 나라 이름으로 읽힌다
+        scrollTo(hasContentDescription(context.getString(R.string.home_country_open, "일본")))
+        rule.onNodeWithContentDescription(context.getString(R.string.home_country_open, "일본")).assertIsDisplayed()
         // 여행 단계 표시줄은 한 문장으로 읽힌다
+        tab(R.string.tab_trip).performClick()
         val stage = context.getString(R.string.today_stage_desc, s(R.string.stage_prepare), 1, 6)
         rule.onNodeWithContentDescription(stage).assertIsDisplayed()
-        // 탭 5개 모두 Tab 역할과 이름을 가진다
-        for (label in listOf(R.string.tab_today, R.string.tab_prepare, R.string.tab_explore, R.string.tab_wallet, R.string.tab_help)) {
+        // 탭 4개 모두 Tab 역할과 이름을 가진다
+        for (label in listOf(R.string.tab_home, R.string.tab_trip, R.string.tab_help, R.string.tab_settings)) {
             tab(label).assert(SemanticsMatcher.keyIsDefined(SemanticsProperties.Selected))
         }
     }

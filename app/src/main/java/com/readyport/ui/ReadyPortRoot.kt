@@ -21,7 +21,14 @@ import com.readyport.data.settings.AppSettings
 import com.readyport.ui.components.AppActions
 import com.readyport.ui.components.LocalAppActions
 import com.readyport.ui.nav.BottomTabs
-import com.readyport.ui.nav.ExploreRoute
+import com.readyport.ui.nav.HomeRoute
+import com.readyport.ui.nav.CountryRoute
+import com.readyport.ui.nav.PhotoCreditsRoute
+import com.readyport.ui.home.HomeActions
+import com.readyport.ui.home.HomeScreen
+import com.readyport.ui.country.CountryActions
+import com.readyport.ui.country.CountryScreen
+import com.readyport.ui.settings.PhotoCreditsScreen
 import com.readyport.ui.nav.HelpRoute
 import com.readyport.ui.nav.PrepareRoute
 import com.readyport.ui.nav.SettingsRoute
@@ -37,9 +44,6 @@ import com.readyport.ui.form.ManualModeScreen
 import com.readyport.ui.nav.AutofillRoute
 import com.readyport.ui.nav.FormConfirmRoute
 import com.readyport.ui.nav.FormManualRoute
-import com.readyport.ui.nav.GuideRoute
-import com.readyport.ui.pack.ExploreScreen
-import com.readyport.ui.pack.GuideScreen
 import com.readyport.ui.pack.HelpScreen
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.statusBarsPadding
@@ -80,10 +84,8 @@ import com.readyport.ui.nav.TripRoute
 import com.readyport.ui.nav.TransportRoute
 import com.readyport.ui.nav.EssentialsRoute
 import com.readyport.ui.nav.ShoppingRoute
-import com.readyport.ui.nav.RankingsInfoRoute
 import com.readyport.ui.prep.EssentialsScreen
 import com.readyport.ui.pack.ShoppingScreen
-import com.readyport.ui.pack.RankingsInfoScreen
 import com.readyport.ui.transport.TransportScreen
 import com.readyport.ui.nav.PresentRoute
 import com.readyport.ui.nav.CompanionsRoute
@@ -103,6 +105,7 @@ fun ReadyPortRoot(
     onSetChildMode: (Boolean) -> Unit = {},
     /** 위젯에서 열면 바로 '입국 때 보여 주기' */
     openPresent: Boolean = false,
+    onSetWifiOnly: (Boolean) -> Unit = {},
 ) {
     when {
         settings == null -> Box(Modifier.fillMaxSize().background(Tokens.Ground))
@@ -112,7 +115,7 @@ fun ReadyPortRoot(
             }
         }
         else -> ReadyPortTheme(easyMode = settings.easyMode) {
-            MainScaffold(settings, onSetEasyMode, onSetChildMode, onSpeak, hasPendingShare, online, slots, openPresent)
+            MainScaffold(settings, onSetEasyMode, onSetChildMode, onSetWifiOnly, onSpeak, hasPendingShare, online, slots, openPresent)
         }
     }
 }
@@ -122,6 +125,7 @@ private fun MainScaffold(
     settings: AppSettings,
     onSetEasyMode: (Boolean) -> Unit,
     onSetChildMode: (Boolean) -> Unit,
+    onSetWifiOnly: (Boolean) -> Unit,
     onSpeak: (String) -> Unit,
     hasPendingShare: Boolean,
     online: Boolean,
@@ -140,12 +144,17 @@ private fun MainScaffold(
         matched != null -> matched
         settings.childMode -> lastTab
         destination?.hierarchy?.any {
-            it.hasRoute(PassportGraph::class) || it.hasRoute(BookingImportRoute::class) || it.hasRoute(CompanionsRoute::class)
-        } == true -> Tab.Wallet
-        destination?.hierarchy?.any { it.hasRoute(TransportRoute::class) || it.hasRoute(GuideRoute::class) || it.hasRoute(ShoppingRoute::class) || it.hasRoute(RankingsInfoRoute::class) } == true -> Tab.Explore
+            it.hasRoute(PassportGraph::class) || it.hasRoute(BookingImportRoute::class) || it.hasRoute(CompanionsRoute::class) ||
+                it.hasRoute(WalletRoute::class) || it.hasRoute(PhotoCreditsRoute::class)
+        } == true -> Tab.Settings
         destination?.hierarchy?.any {
-            it.hasRoute(FormConfirmRoute::class) || it.hasRoute(AutofillRoute::class) || it.hasRoute(FormManualRoute::class) || it.hasRoute(EssentialsRoute::class)
-        } == true -> Tab.Prepare
+            it.hasRoute(TripRoute::class) || it.hasRoute(PresentRoute::class) || it.hasRoute(PrepareRoute::class)
+        } == true -> Tab.Trip
+        destination?.hierarchy?.any {
+            it.hasRoute(CountryRoute::class) || it.hasRoute(TransportRoute::class) || it.hasRoute(ShoppingRoute::class) ||
+                it.hasRoute(FormConfirmRoute::class) || it.hasRoute(AutofillRoute::class) || it.hasRoute(FormManualRoute::class) ||
+                it.hasRoute(EssentialsRoute::class)
+        } == true -> Tab.Home
         else -> lastTab
     }
     LaunchedEffect(selectedTab) { lastTab = selectedTab }
@@ -174,27 +183,51 @@ private fun MainScaffold(
         ) { inner ->
             NavHost(
                 navController = navController,
-                startDestination = if (settings.childMode) PresentRoute else TodayRoute,
+                startDestination = if (settings.childMode) PresentRoute else HomeRoute,
                 modifier = Modifier.padding(inner),
             ) {
+                composable<HomeRoute> {
+                    slots.home(
+                        HomeActions(
+                            openCountry = { code -> navController.navigate(CountryRoute(code)) },
+                            openTrip = { navController.switchTab(Tab.Trip) },
+                            openEssentials = { navController.navigate(EssentialsRoute) },
+                            openMyInfo = { navController.navigate(WalletRoute) },
+                        ),
+                    )
+                }
+                composable<CountryRoute> { entry ->
+                    slots.country(
+                        entry.toRoute<CountryRoute>().country,
+                        CountryActions(
+                            back = { navController.popBackStack() },
+                            openForm = { formId -> navController.navigate(FormConfirmRoute(formId)) },
+                            planTrip = { code -> navController.navigate(TripRoute(code)) },
+                            openHelp = { navController.switchTab(Tab.Help) },
+                            openMove = { navController.navigate(TransportRoute) },
+                            openShopping = { code -> navController.navigate(ShoppingRoute(code)) },
+                        ),
+                    )
+                }
                 composable<TodayRoute> {
                     slots.today(
                         TodayActions(
-                            openSettings = { navController.navigate(SettingsRoute) { launchSingleTop = true } },
-                            makeTrip = { navController.navigate(TripRoute) },
-                            editTrip = { navController.navigate(TripRoute) },
-                            explore = { navController.switchTab(Tab.Explore) },
-                            prepare = { navController.switchTab(Tab.Prepare) },
+                            makeTrip = { navController.navigate(TripRoute()) },
+                            editTrip = { navController.navigate(TripRoute()) },
+                            explore = { navController.switchTab(Tab.Home) },
+                            prepare = { navController.navigate(PrepareRoute) },
                             openForm = { formId -> navController.navigate(FormConfirmRoute(formId)) },
                             registerPassport = { navController.navigate(PassportGraph()) },
                             present = { navController.navigate(PresentRoute) },
                             help = { navController.switchTab(Tab.Help) },
                             goStay = { navController.navigate(TransportRoute) },
-                            expense = { navController.switchTab(Tab.Prepare) },
+                            expense = { navController.navigate(PrepareRoute) },
                         ),
                     )
                 }
-                composable<TripRoute> { TripScreen(onDone = { navController.popBackStack() }) }
+                composable<TripRoute> { entry ->
+                    TripScreen(onDone = { navController.popBackStack() }, initialCountry = entry.toRoute<TripRoute>().country)
+                }
                 composable<TransportRoute> { TransportScreen() }
                 composable<PresentRoute> { slots.present() }
                 composable<CompanionsRoute> {
@@ -205,7 +238,6 @@ private fun MainScaffold(
                 }
                 composable<EssentialsRoute> { EssentialsScreen() }
                 composable<ShoppingRoute> { ShoppingScreen() }
-                composable<RankingsInfoRoute> { RankingsInfoScreen() }
                 composable<FormConfirmRoute> { entry ->
                     val formId = entry.toRoute<FormConfirmRoute>().formId
                     FormConfirmScreen(
@@ -219,16 +251,6 @@ private fun MainScaffold(
                     AutofillScreen(onManual = { navController.navigate(FormManualRoute(formId)) })
                 }
                 composable<FormManualRoute> { ManualModeScreen() }
-                composable<ExploreRoute> {
-                    slots.explore(
-                        { country -> navController.navigate(GuideRoute(country)) },
-                        { navController.navigate(TransportRoute) },
-                        { navController.navigate(RankingsInfoRoute) },
-                    )
-                }
-                composable<GuideRoute> { entry ->
-                    slots.guide(entry.toRoute<GuideRoute>().country) { country -> navController.navigate(ShoppingRoute(country)) }
-                }
                 composable<WalletRoute> {
                     slots.wallet(
                         { navController.navigate(PassportGraph()) },
@@ -271,7 +293,7 @@ private fun MainScaffold(
                 }
                 composable<BookingImportRoute> {
                     BookingImportScreen(onDone = {
-                        if (!navController.popBackStack()) navController.switchTab(Tab.Wallet)
+                        if (!navController.popBackStack()) navController.navigate(WalletRoute)
                     })
                 }
                 composable<HelpRoute> { slots.help() }
@@ -279,9 +301,13 @@ private fun MainScaffold(
                     SettingsScreen(
                         easyMode = easyMode, onEasyModeChange = onSetEasyMode,
                         childMode = settings.childMode, onChildModeChange = onSetChildMode,
+                        wifiOnly = settings.wifiOnly, onWifiOnlyChange = onSetWifiOnly,
+                        onOpenMyInfo = { navController.navigate(WalletRoute) },
                         onOpenFamily = { navController.navigate(CompanionsRoute) },
+                        onOpenPhotos = { navController.navigate(PhotoCreditsRoute) },
                     )
                 }
+                composable<PhotoCreditsRoute> { PhotoCreditsScreen() }
             }
         }
     }
@@ -291,13 +317,12 @@ private fun MainScaffold(
  * Hilt ViewModel을 쓰는 화면 자리. 테스트에서는 상태 없는 Content 화면으로 바꿔 끼운다.
  */
 data class ScreenSlots(
+    val home: @Composable (actions: HomeActions) -> Unit = { HomeScreen(actions = it) },
+    val country: @Composable (country: String, actions: CountryActions) -> Unit = { _, a -> CountryScreen(actions = a) },
     val wallet: @Composable (onAddPassport: () -> Unit, onAddBooking: () -> Unit, onOpenCompanions: () -> Unit) -> Unit =
         { onAddPassport, onAddBooking, onOpenCompanions ->
             WalletScreen(onAddPassport = onAddPassport, onAddBooking = onAddBooking, onOpenCompanions = onOpenCompanions)
         },
-    val explore: @Composable (onOpenGuide: (String) -> Unit, onMove: () -> Unit, onRankingsInfo: () -> Unit) -> Unit =
-        { g, m, r -> ExploreScreen(onOpenGuide = g, onMove = m, onRankingsInfo = r) },
-    val guide: @Composable (country: String, onOpenShopping: (String) -> Unit) -> Unit = { _, s -> GuideScreen(onOpenShopping = s) },
     val help: @Composable () -> Unit = { HelpScreen() },
     val prepare: @Composable (onOpenForm: (String) -> Unit, onOpenEssentials: () -> Unit) -> Unit =
         { f, e -> PrepareScreen(onOpenForm = f, onOpenEssentials = e) },
@@ -335,9 +360,9 @@ private fun NavHostController.switchTab(tab: Tab) {
     }
 }
 
-/** '처음으로': 쌓인 화면을 모두 닫고 '오늘' 첫 화면으로 */
+/** '처음으로': 쌓인 화면을 모두 닫고 홈으로 */
 private fun NavHostController.goHome() {
-    navigate(TodayRoute) {
+    navigate(HomeRoute) {
         popUpTo(graph.id) { inclusive = true }
         launchSingleTop = true
     }

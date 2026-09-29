@@ -23,6 +23,16 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
+import com.readyport.ui.components.Photos
+import com.readyport.ui.country.CountryActions
+import com.readyport.ui.country.CountryContent
+import com.readyport.ui.country.CountrySection
+import com.readyport.ui.home.HomeActions
+import com.readyport.ui.home.HomeContent
+import com.readyport.ui.home.HomeTrip
+import com.readyport.ui.settings.SettingsScreen
 import androidx.compose.ui.graphics.asAndroidBitmap
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.test.captureToImage
@@ -104,37 +114,21 @@ class StoreScreenshotsTest {
     )
 
     private fun screens(): List<Pair<String, @Composable () -> Unit>> = listOf(
-        "01_today" to {
-            TodayContent(TodayUi(trip, StageInfo(TripStage.Preparing, daysLeft = 3, formWindowOpen = true), "태국", th.value.forms.first(), true),
-                TodayActions(), {}, {}, {}, {}, {})
+        "01_home" to {
+            HomeContent(TestPacks.homeUi().copy(trip = HomeTrip("태국", LocalDate.of(2026, 11, 3), LocalDate.of(2026, 11, 7))),
+                HomeActions(), today = LocalDate.of(2026, 10, 31))
         },
-        "02_form_confirm" to {
+        "02_country" to { CountryContent(TestPacks.countryUi("TH"), CountryActions()) },
+        "03_form_confirm" to {
             val recipe = TestPacks.tdacRecipe
             val draft = mapOf("trip.purpose" to "tourism", "profile.country_res" to "대한민국")
             val ctx = FormContext("TH_TDAC", th.value.forms.first(), recipe.value, recipe.version, false)
             FormConfirmContent(ConfirmUi(ctx, WalletState.Unlocked(contents), FormValues.build(recipe.value, contents, draft), draft),
                 { _, _ -> }, {}, {}, {}, {})
         },
-        "03_wallet" to {
-            WalletContent(
-                state = WalletState.Unlocked(contents), deviceSecure = true, autoDestroy = true, today = LocalDate.of(2026, 9, 29),
-                onUnlock = {}, onLock = {}, onReset = {}, onAddPassport = {}, onDeletePassport = {},
-                onAddBooking = {}, onDeleteBooking = {}, onAutoDestroyChange = {},
-            )
-        },
-        "04_help" to { HelpContent(TestPacks.helpUi(), {}, {}, {}) },
-        "05_essentials" to {
-            val rules = Essentials.select(index.essentials, index.homePower, th.value.power)
-            EssentialsContent(EssentialsUi("태국", 4, 11, rules.mapIndexed { i, r -> EssentialRow(r, i < 2, null) }), { _, _ -> }, {})
-        },
-        "06_transport" to {
-            val place = Place("p1", "방콕 숙소", "สุขุมวิท ซอย 11 กรุงเทพฯ")
-            TransportContent(
-                TransportUi(listOf(place), place, th.value.transportApps.map { RideAppRow(it, installed = true) }, true,
-                    th.value.phrases.firstOrNull { it.id == "address" }?.local),
-                null, { _, _ -> }, {}, {}, {},
-            )
-        },
+        "04_country_shopping" to { CountryContent(TestPacks.countryUi("JP"), CountryActions(), CountrySection.Shopping) },
+        "05_settings" to { SettingsScreen(easyMode = false, onEasyModeChange = {}) },
+        "06_help" to { HelpContent(TestPacks.helpUi(), {}, {}, {}) },
     )
 
     @Test fun phoneScreenshots() {
@@ -170,7 +164,8 @@ class StoreFeatureGraphicTest {
     @Test fun featureGraphic() {
         val icon = BitmapFactory.decodeFile(File("../design/icons/play-store/readyport_play_512.png").path)!!.asImageBitmap()
         rule.setContent {
-            Box(Modifier.fillMaxSize().background(Tokens.Navy).padding(horizontal = 72.dp), contentAlignment = Alignment.CenterStart) {
+            Image(painterResource(Photos.Home), contentDescription = null, contentScale = ContentScale.Crop, modifier = Modifier.fillMaxSize())
+            Box(Modifier.fillMaxSize().background(Tokens.Navy.copy(alpha = 0.72f)).padding(horizontal = 72.dp), contentAlignment = Alignment.CenterStart) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Image(icon, contentDescription = null, modifier = Modifier.size(200.dp).clip(RoundedCornerShape(44.dp)))
                     Spacer(Modifier.width(56.dp))
