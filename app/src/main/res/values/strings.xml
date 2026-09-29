@@ -527,4 +527,26 @@
     <string name="photo_credit_license">라이선스: %1$s</string>
     <string name="photo_credit_open">원본 보기</string>
     <string name="wallet_local_only">이 화면의 정보는 휴대폰 밖으로 나가지 않아요</string>
+
+    <!-- YouTube 여행 영상 -->
+    <string name="videos_title">%1$s 여행 영상</string>
+    <string name="videos_subtitle">YouTube 한국어 여행 영상 최대 50개</string>
+    <string name="videos_speech">%1$s 여행 영상. 사진을 누르면 YouTube에서 영상이 열려요.</string>
+    <string name="videos_notice">YouTube에 올라온 영상이에요. 레디포트가 만들거나 돈을 받고 고른 영상이 아니에요. 입국 규정은 영상 대신 공식 출처로 확인하세요.</string>
+    <string name="videos_loading">영상 목록을 불러오는 중이에요</string>
+    <string name="videos_unavailable_title">지금은 영상 목록을 볼 수 없어요</string>
+    <string name="videos_unavailable_body">인터넷에 연결되면 다시 열어 주세요. 영상 목록은 매일 새로 받아요.</string>
+    <string name="videos_sort_views">조회수순</string>
+    <string name="videos_sort_recent">최신순</string>
+    <string name="videos_sort_subscribers">구독자순</string>
+    <string name="videos_open">%1$s, YouTube에서 보기</string>
+    <string name="videos_subscribers">구독자 %1$s명</string>
+    <string name="videos_views">조회수 %1$s회</string>
+    <string name="videos_source_youtube">YouTube</string>
+    <string name="videos_terms">영상 목록은 YouTube API 서비스로 가져와요. 이 목록을 쓰면 YouTube 서비스 약관에 동의하는 것으로 봐요. 영상을 누르면 YouTube 앱이나 브라우저로 열려요.</string>
+    <string name="videos_youtube_terms">YouTube 서비스 약관</string>
+    <string name="videos_google_privacy">Google 개인정보처리방침</string>
+    <string name="country_videos_title">YouTube 여행 영상</string>
+    <string name="country_videos_body">%1$s 여행 영상을 조회수·최신·구독자 순으로 골라 보세요. 사진을 누르면 YouTube에서 열려요.</string>
+    <string name="country_videos_open">여행 영상 보기</string>
 </resources>

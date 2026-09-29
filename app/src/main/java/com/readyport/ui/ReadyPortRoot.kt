@@ -24,6 +24,8 @@ import com.readyport.ui.nav.BottomTabs
 import com.readyport.ui.nav.HomeRoute
 import com.readyport.ui.nav.CountryRoute
 import com.readyport.ui.nav.PhotoCreditsRoute
+import com.readyport.ui.nav.VideosRoute
+import com.readyport.ui.video.VideosScreen
 import com.readyport.ui.home.HomeActions
 import com.readyport.ui.home.HomeScreen
 import com.readyport.ui.country.CountryActions
@@ -152,6 +154,7 @@ private fun MainScaffold(
         } == true -> Tab.Trip
         destination?.hierarchy?.any {
             it.hasRoute(CountryRoute::class) || it.hasRoute(TransportRoute::class) || it.hasRoute(ShoppingRoute::class) ||
+                it.hasRoute(VideosRoute::class) ||
                 it.hasRoute(FormConfirmRoute::class) || it.hasRoute(AutofillRoute::class) || it.hasRoute(FormManualRoute::class) ||
                 it.hasRoute(EssentialsRoute::class)
         } == true -> Tab.Home
@@ -206,6 +209,7 @@ private fun MainScaffold(
                             openHelp = { navController.switchTab(Tab.Help) },
                             openMove = { navController.navigate(TransportRoute) },
                             openShopping = { code -> navController.navigate(ShoppingRoute(code)) },
+                            openVideos = { code -> navController.navigate(VideosRoute(code)) },
                         ),
                     )
                 }
@@ -238,6 +242,7 @@ private fun MainScaffold(
                 }
                 composable<EssentialsRoute> { EssentialsScreen() }
                 composable<ShoppingRoute> { ShoppingScreen() }
+                composable<VideosRoute> { VideosScreen() }
                 composable<FormConfirmRoute> { entry ->
                     val formId = entry.toRoute<FormConfirmRoute>().formId
                     FormConfirmScreen(

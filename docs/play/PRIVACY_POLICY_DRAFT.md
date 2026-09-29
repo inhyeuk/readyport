@@ -30,6 +30,7 @@
 ## 4. 앱에 들어 있는 외부 서비스
 - Google Firebase(Hosting·Remote Config·Cloud Firestore·Cloud Messaging·App Check·Installations): 안내 자료 배포, 알림, 남용 방지. 앱 버전·기기 종류·국가 코드·설치 ID 같은 기술 정보를 수집할 수 있습니다(Google 공개 문서).
 - Google ML Kit(글자 인식): 사진은 기기 안에서 처리합니다. 진단용 기기·성능 정보와 설치별 식별자를 Google에 보낼 수 있습니다(Google 공개 문서).
+- **YouTube API 서비스**(나라별 여행 영상 목록): 운영자 서버 작업이 YouTube Data API로 공개 영상의 제목·채널·조회수·구독자 수·게시일·썸네일 주소를 받아 저장하고 30일 안에 새로 받습니다. 이용자 정보는 YouTube에 보내지 않습니다. 영상 목록을 열면 썸네일을 YouTube 서버(i.ytimg.com)에서 바로 불러오므로 IP 주소 같은 기술 정보가 Google에 전달될 수 있습니다. 영상 목록을 쓰면 YouTube 서비스 약관(https://www.youtube.com/t/terms)에 동의하는 것으로 봅니다. Google 개인정보처리방침: https://policies.google.com/privacy
 - 광고·분석 SDK는 넣지 않았습니다.
 
 ## 5. 제3자 제공·국외 이전

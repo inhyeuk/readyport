@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import android.graphics.Bitmap
 import androidx.compose.ui.graphics.asAndroidBitmap
+import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.test.SemanticsMatcher
 import androidx.compose.ui.test.captureToImage
 import androidx.compose.ui.test.hasText
@@ -108,6 +109,23 @@ class ScreenCaptureTest {
         rule.onNode(androidx.compose.ui.test.hasScrollAction())
             .performScrollToNode(androidx.compose.ui.test.hasText("인도네시아 전자 도착비자 (e-VOA)"))
         capture("v1_visa_apply")
+    }
+
+    @Test fun videos() {
+        val thumb = android.graphics.BitmapFactory.decodeResource(context.resources, com.readyport.R.drawable.photo_th).asImageBitmap()
+        rule.setContent {
+            androidx.compose.runtime.CompositionLocalProvider(com.readyport.ui.video.LocalThumbnailLoader provides { thumb }) {
+                com.readyport.ui.theme.ReadyPortTheme(easyMode = false) {
+                    androidx.compose.foundation.layout.Box(androidx.compose.ui.Modifier.background(com.readyport.ui.theme.Tokens.Ground)) {
+                        com.readyport.ui.video.VideosContent("태국", com.readyport.ui.video.VideosState.Ready(listOf(
+            com.readyport.video.Video(id = "AAAAAAAAAA1", title = "방콕 3박 4일 여행 브이로그 | 왓아룬 야경", channelTitle = "여행채널", publishedAt = "2026-09-01T00:00:00Z", viewCount = 1234567, subscriberCount = 89000, durationSeconds = 754, thumbnail = "https://i.ytimg.com/vi/AAAAAAAAAA1/mqdefault.jpg"),
+            com.readyport.video.Video(id = "AAAAAAAAAA2", title = "태국 여행 준비물 총정리", channelTitle = "채널2", publishedAt = "2026-08-11T00:00:00Z", viewCount = 45210, subscriberCount = null, durationSeconds = 3725, thumbnail = "https://i.ytimg.com/vi/AAAAAAAAAA2/mqdefault.jpg")
+                        )), {})
+                    }
+                }
+            }
+        }
+        capture("v2_videos")
     }
 
     @Test fun formConfirm() {
