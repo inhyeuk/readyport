@@ -209,4 +209,16 @@ class ReadyPortRootTest {
             tab(label).assert(SemanticsMatcher.keyIsDefined(SemanticsProperties.Selected))
         }
     }
+
+    @Test
+    fun subScreensHaveBackButtonTabsDoNot() {
+        launch(AppSettings(easyMode = false))
+        rule.onAllNodes(hasContentDescription(s(R.string.action_back))).assertCountEquals(0)
+        tab(R.string.tab_settings).performClick()
+        rule.onAllNodes(hasContentDescription(s(R.string.action_back))).assertCountEquals(0)
+        rule.onNodeWithText(s(R.string.settings_myinfo_open)).performClick()
+        heading(R.string.wallet_title).assertIsDisplayed()
+        rule.onNodeWithContentDescription(s(R.string.action_back)).assertIsDisplayed().performClick()
+        heading(R.string.settings_title).assertIsDisplayed()
+    }
 }

@@ -16,6 +16,7 @@
     <!-- 공통 -->
     <string name="action_home">처음으로</string>
     <string name="action_listen">소리로 듣기</string>
+    <string name="action_back">이전 화면으로</string>
     <string name="action_settings">설정</string>
     <string name="coming_soon">준비 중이에요</string>
     <string name="source_footer">출처 %1$s · 최종 확인 %2$s</string>
@@ -533,6 +534,10 @@
     <string name="videos_subtitle">YouTube 한국어 여행 영상 최대 50개</string>
     <string name="videos_speech">%1$s 여행 영상. 사진을 누르면 YouTube에서 영상이 열려요.</string>
     <string name="videos_notice">YouTube에 올라온 영상이에요. 레디포트가 만들거나 돈을 받고 고른 영상이 아니에요. 입국 규정은 영상 대신 공식 출처로 확인하세요.</string>
+    <string name="videos_search_label">영상 검색 (제목·채널)</string>
+    <string name="videos_search_clear">검색어 지우기</string>
+    <string name="videos_count">영상 %1$d개</string>
+    <string name="videos_search_empty">“%1$s”에 맞는 영상이 없어요. 다른 말로 찾아보세요.</string>
     <string name="videos_loading">영상 목록을 불러오는 중이에요</string>
     <string name="videos_unavailable_title">지금은 영상 목록을 볼 수 없어요</string>
     <string name="videos_unavailable_body">인터넷에 연결되면 다시 열어 주세요. 영상 목록은 매일 새로 받아요.</string>

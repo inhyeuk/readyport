@@ -18,6 +18,16 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.PlayArrow
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.filled.Clear
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.text.input.ImeAction
+import com.readyport.ui.components.LocalAppActions
+import com.readyport.ui.components.LocalShowBack
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
@@ -152,6 +162,9 @@ fun VideosScreen(viewModel: VideosViewModel = hiltViewModel()) {
 @Composable
 fun VideosContent(countryKo: String, state: VideosState, onOpen: (String) -> Unit, initialSort: VideoSort = VideoSort.Views) {
     var sort by rememberSaveable { mutableStateOf(initialSort) }
+    var query by rememberSaveable { mutableStateOf("") }
+    val showBack = LocalShowBack.current
+    val goBack = LocalAppActions.current.goBack
     AppScreen(
         title = stringResource(R.string.videos_title, countryKo),
         subtitle = stringResource(R.string.videos_subtitle),
@@ -165,9 +178,31 @@ fun VideosContent(countryKo: String, state: VideosState, onOpen: (String) -> Uni
                 TopicCard(stringResource(R.string.videos_unavailable_title), stringResource(R.string.videos_unavailable_body), tone = CardTone.Caution)
             }
             is VideosState.Ready -> {
+                item(key = "search") { SearchField(query) { query = it } }
                 item(key = "sort") { SortPicker(sort) { sort = it } }
-                state.items.sortedBy(sort).forEach { v ->
+                val shown = state.items.matching(query).sortedBy(sort)
+                item(key = "count") {
+                    Text(
+                        stringResource(R.string.videos_count, shown.size),
+                        style = MaterialTheme.typography.labelLarge,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    )
+                }
+                if (shown.isEmpty()) {
+                    item(key = "no-match") {
+                        TopicCard(stringResource(R.string.videos_search_empty, query.trim()), null, tone = CardTone.Notice)
+                    }
+                }
+                shown.forEach { v ->
                     item(key = "v-${v.id}") { VideoCard(v, onOpen) }
+                }
+            }
+        }
+        // 목록이 길어서 맨 아래에도 이전 화면으로 가는 버튼을 둔다
+        if (showBack) {
+            item(key = "back") {
+                OutlinedButton(onClick = goBack, modifier = Modifier.fillMaxWidth().heightIn(min = LocalDimens.current.buttonHeight)) {
+                    Text(stringResource(R.string.action_back), style = MaterialTheme.typography.labelLarge)
                 }
             }
         }
@@ -185,6 +220,39 @@ fun VideosContent(countryKo: String, state: VideosState, onOpen: (String) -> Uni
             }
         }
     }
+}
+
+/** 제목·채널 이름에 검색어가 들어 있는 영상 (띄어쓰기·대소문자 무시) */
+fun List<Video>.matching(query: String): List<Video> {
+    val words = query.lowercase().split(' ').filter { it.isNotBlank() }
+    if (words.isEmpty()) return this
+    return filter { v ->
+        val text = (v.title + " " + v.channelTitle).lowercase()
+        val compact = text.replace(" ", "")
+        words.all { w -> w in text || w in compact }
+    }
+}
+
+@Composable
+private fun SearchField(query: String, onChange: (String) -> Unit) {
+    val focus = LocalFocusManager.current
+    OutlinedTextField(
+        value = query,
+        onValueChange = onChange,
+        label = { Text(stringResource(R.string.videos_search_label)) },
+        leadingIcon = { Icon(Icons.Filled.Search, contentDescription = null) },
+        trailingIcon = if (query.isEmpty()) null else {
+            {
+                IconButton(onClick = { onChange("") }) {
+                    Icon(Icons.Filled.Clear, contentDescription = stringResource(R.string.videos_search_clear))
+                }
+            }
+        },
+        singleLine = true,
+        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
+        keyboardActions = KeyboardActions(onSearch = { focus.clearFocus() }),
+        modifier = Modifier.fillMaxWidth(),
+    )
 }
 
 @Composable

@@ -11,13 +11,16 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material.icons.automirrored.outlined.VolumeUp
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
@@ -38,9 +41,14 @@ import com.readyport.ui.theme.LocalDimens
 data class AppActions(
     val goHome: () -> Unit = {},
     val speak: (String) -> Unit = {},
+    /** 이전 화면으로 (탭 첫 화면이 아닐 때만 제목 옆 뒤로 버튼이 보인다) */
+    val goBack: () -> Unit = {},
 )
 
 val LocalAppActions = staticCompositionLocalOf { AppActions() }
+
+/** 지금 화면이 탭 첫 화면이 아니라서 뒤로 버튼을 보여야 하는지 */
+val LocalShowBack = staticCompositionLocalOf { false }
 
 /**
  * 모든 탭 화면의 공통 틀.
@@ -69,6 +77,15 @@ fun AppScreen(
         if (header != null) item(key = "header") { header() } else item(key = "header") {
             Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
+                    if (LocalShowBack.current) {
+                        IconButton(onClick = actions.goBack, modifier = Modifier.sizeIn(minWidth = 48.dp, minHeight = 48.dp)) {
+                            Icon(
+                                Icons.AutoMirrored.Outlined.ArrowBack,
+                                contentDescription = stringResource(R.string.action_back),
+                                modifier = Modifier.size(if (dimens.easyMode) 32.dp else 24.dp),
+                            )
+                        }
+                    }
                     Text(
                         text = title,
                         style = MaterialTheme.typography.headlineMedium,
