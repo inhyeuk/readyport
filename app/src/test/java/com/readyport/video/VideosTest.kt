@@ -5,7 +5,10 @@ import android.content.Context
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.hasContentDescription
 import androidx.compose.ui.test.hasScrollAction
+import androidx.compose.ui.test.hasSetTextAction
 import androidx.compose.ui.test.hasText
+import androidx.compose.ui.test.performTextInput
+import androidx.compose.ui.test.performTextReplacement
 import androidx.compose.ui.test.junit4.v2.createComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
@@ -21,6 +24,7 @@ import com.readyport.ui.theme.ReadyPortTheme
 import com.readyport.ui.video.LocalThumbnailLoader
 import com.readyport.ui.video.VideosContent
 import com.readyport.ui.video.VideosState
+import com.readyport.ui.video.matching
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Rule
@@ -120,5 +124,34 @@ class VideosTest {
         rule.onNode(hasScrollAction()).performScrollToNode(hasText(terms))
         rule.onNodeWithText(terms).performClick()
         assertEquals("https://www.youtube.com/t/terms", opened.last())
+    }
+
+    @Test
+    fun searchMatchesTitleOrChannelIgnoringSpaces() {
+        val p = payload()
+        val items = parser.parse(p, sign(p), "TH", now)!!.items
+        assertEquals(listOf("AAAAAAAAAA3"), items.matching("aaaaaaaaaa3").map { it.id })
+        assertEquals(3, items.matching("태국여행").size)          // 띄어쓰기 없이 써도
+        assertEquals(listOf("AAAAAAAAAA1"), items.matching("채널AAAAAAAAAA1").map { it.id })
+        assertEquals(3, items.matching("  ").size)
+        assertEquals(0, items.matching("일본").size)
+    }
+
+    @Test
+    fun searchFieldFiltersTheList() {
+        val p = payload()
+        val items = parser.parse(p, sign(p), "TH", now)!!.items
+        rule.setContent {
+            CompositionLocalProvider(LocalThumbnailLoader provides { null }) {
+                ReadyPortTheme { VideosContent("태국", VideosState.Ready(items), onOpen = {}) }
+            }
+        }
+        rule.onNodeWithText(context.getString(R.string.videos_count, 3)).assertIsDisplayed()
+        rule.onNode(hasSetTextAction()).performTextInput("AAAAAAAAAA1")
+        rule.onNodeWithText(context.getString(R.string.videos_count, 1)).assertIsDisplayed()
+        rule.onNode(hasSetTextAction()).performTextReplacement("없는말")
+        rule.onNodeWithText(context.getString(R.string.videos_search_empty, "없는말")).assertIsDisplayed()
+        rule.onNodeWithContentDescription(context.getString(R.string.videos_search_clear)).performClick()
+        rule.onNodeWithText(context.getString(R.string.videos_count, 3)).assertIsDisplayed()
     }
 }

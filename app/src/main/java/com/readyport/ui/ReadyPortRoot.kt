@@ -20,6 +20,7 @@ import androidx.navigation.compose.rememberNavController
 import com.readyport.data.settings.AppSettings
 import com.readyport.ui.components.AppActions
 import com.readyport.ui.components.LocalAppActions
+import com.readyport.ui.components.LocalShowBack
 import com.readyport.ui.nav.BottomTabs
 import com.readyport.ui.nav.HomeRoute
 import com.readyport.ui.nav.CountryRoute
@@ -175,10 +176,12 @@ private fun MainScaffold(
         AppActions(
             goHome = { navController.goHome() },
             speak = onSpeak,
+            goBack = { navController.popBackStack() },
         )
     }
 
-    CompositionLocalProvider(LocalAppActions provides actions) {
+    // 탭 첫 화면이 아니면(쇼핑 리스트·영상·내 정보 등) 제목 옆에 뒤로 버튼
+    CompositionLocalProvider(LocalAppActions provides actions, LocalShowBack provides (matched == null && destination != null)) {
         Scaffold(
             containerColor = Tokens.Ground,
             topBar = { if (!online) OfflineBanner() },
