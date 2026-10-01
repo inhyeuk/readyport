@@ -438,7 +438,7 @@
     <string name="country_visa_apply_note">앱은 입력 칸만 채워 드려요. 신청 버튼과 결제는 직접 하세요.</string>
     <string name="country_form_autofill_body">앱 안에서 공식 사이트를 열고 입력 칸을 대신 채워 드려요. 확인한 뒤 마지막 제출 버튼만 직접 누르세요.</string>
     <string name="country_form_manual_body">입력할 값을 한국어로 확인하고 하나씩 복사해 공식 사이트에 붙여 넣을 수 있어요.</string>
-    <string name="country_plan_trip">이 나라로 여행 계획 만들기</string>
+    <!-- country_plan_trip: v3에서 길 안내 모자이크 큰 타일 nav_tile_plan_trip(내 여행에 넣기)으로 바뀌어 지웠다 -->
     <string name="country_shopping_more">외 %1$d개 더 있어요</string>
 
     <!-- 설정 › 내 정보 -->

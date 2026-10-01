@@ -14,9 +14,7 @@ import androidx.compose.foundation.selection.toggleable
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.OpenInNew
 import androidx.compose.material.icons.outlined.CheckCircle
-import androidx.compose.material.icons.outlined.ElectricBolt
 import androidx.compose.material.icons.outlined.Handshake
-import androidx.compose.material.icons.outlined.Outlet
 import androidx.compose.material.icons.outlined.Power
 import androidx.compose.material.icons.outlined.TaskAlt
 import androidx.compose.material3.Card
@@ -60,8 +58,8 @@ import com.readyport.ui.components.CardNewsCard
 import com.readyport.ui.components.ExpandableDetail
 import com.readyport.ui.components.IconBadge
 import com.readyport.ui.components.IconBullet
+import com.readyport.ui.components.PowerChips
 import com.readyport.ui.components.IconKeys
-import com.readyport.ui.components.InfoChip
 import com.readyport.ui.components.KoText
 import com.readyport.ui.components.NumberText
 import com.readyport.ui.components.NoticeBanner
@@ -253,33 +251,17 @@ private fun ProgressHero(ui: EssentialsUi) {
 
 /**
  * 여행지 전기 값 칩 카드 (재검토2 ①#15·②#9·③#10 — `플러그·전압`처럼 주제 이름만 보이던 칩에 **값**을 붙인다):
- * `220 V 전압`(팩 voltage 원문) + 한국 플러그 판정(`한국 플러그 그대로 써요` / `변환 어댑터 챙기세요` / 확인 안 된 나라는 `변환 어댑터 챙기면 안전해요` —
- * 목록에 어댑터를 넣는 [Essentials.plugDiffers]와 같은 판단). 누를 수 없는 InfoChip(채움·테두리 없음). 출처·확인 날짜는 카드 맨 아래.
- * 목록에 어댑터·전압 확인 물건이 왜 있거나 없는지가 이 두 값으로 읽힌다.
+ * 칩은 공용 [PowerChips] 한 벌(판정 → `220 V 전압`) — 홈 01·02·여행 준비 18과 같은 순서·색·말(v3에서 두 벌을 하나로).
+ * 누를 수 없는 InfoChip(채움·테두리 없음). 출처·확인 날짜는 카드 맨 아래.
+ * 목록에 어댑터·전압 확인 물건이 왜 있거나 없는지가 이 값들로 읽힌다.
  */
 @Composable
 private fun PowerValuesCard(countryKo: String?, power: PowerInfo, sourceName: String?) {
     val title = countryKo?.let { stringResource(R.string.essentials_power_title, it) } ?: stringResource(R.string.guide_power_title)
     val source = SourceRef(sourceName ?: stringResource(R.string.source_official_fallback), displayDate(power.lastVerified))
-    val fits = power.krPlugFits
     CardNewsCard(title = title, icon = Icons.Outlined.Power, sources = listOf(source)) {
         FlowRow(horizontalArrangement = Arrangement.spacedBy(16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
-            InfoChip(stringResource(R.string.essentials_power_voltage), Icons.Outlined.ElectricBolt, value = power.voltage, tone = BadgeTone.Accent)
-            if (fits == true) {
-                InfoChip(
-                    stringResource(R.string.essentials_power_kr_plug_fits),
-                    Icons.Outlined.Power,
-                    value = stringResource(R.string.essentials_power_kr_plug),
-                    tone = BadgeTone.Success,
-                )
-            } else {
-                InfoChip(
-                    stringResource(if (fits == false) R.string.essentials_power_adapter_needed else R.string.essentials_power_adapter_unknown),
-                    Icons.Outlined.Outlet,
-                    value = stringResource(R.string.essentials_power_adapter),
-                    tone = BadgeTone.Caution,
-                )
-            }
+            PowerChips(power)
         }
     }
 }

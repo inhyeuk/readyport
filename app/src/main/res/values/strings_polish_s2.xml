@@ -20,11 +20,7 @@
     <string name="power_tag_fits">한국 플러그 그대로</string>
     <string name="power_tag_adapter">변환 어댑터 필요</string>
 
-    <!-- 꼭 챙길 물건 정보 칩(값 + 말) — 여행 나라 팩 power, 기내 반입만 되는 물건(rule_badge) -->
-    <string name="items_chip_plug_value">한국 플러그</string>
-    <string name="items_chip_plug_fits">그대로 써요</string>
-    <string name="items_chip_adapter_value">변환 어댑터</string>
-    <string name="items_chip_adapter">챙기세요</string>
+    <!-- 꼭 챙길 물건 전기 칩: v3에서 꼭 챙길 물건 19와 같은 한 벌(essentials_power_*, 공용 PowerChips)로 합쳐 items_chip_* 네 개를 지웠다 -->
 
     <!-- 20 입국 카드 확인: 빈칸이 남은 동안 주 버튼 자리 (%1$d = 남은 빈칸 수) -->
     <string name="form_go_first_missing_count">첫 빈칸으로 가기 (%1$d개 남음)</string>

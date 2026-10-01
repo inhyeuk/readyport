@@ -69,8 +69,39 @@ fun essentialsSources(summary: EssentialsSummary): List<SourceRef> {
 }
 
 /**
+ * 여행지 전기 값 칩 **한 벌** (홈 01·02 · 여행 준비 18 · 꼭 챙길 물건 19 공통 — v3에서 두 벌을 하나로 합쳤다).
+ * 전에는 같은 사실을 화면마다 다른 순서·다른 색·다른 말(`변환 어댑터 챙기세요` vs `챙기면 안전해요`)로 보여 줬다.
+ * 이제 어디서나 **판정 먼저, 값 다음**이고 말은 더 정확한 쪽(확인 안 된 나라를 따로 밝히는 쪽)을 쓴다:
+ * - 팩 `kr_plug_fits = true`: `한국 플러그 그대로 써요`(Success — '그대로 써도 된다'는 가능 판정)
+ * - `false`: `변환 어댑터 챙기세요`(Caution) · 공식 확인이 없으면(null) `변환 어댑터 챙기면 안전해요`(Caution) —
+ *   목록에 어댑터를 넣는 [Essentials.plugDiffers]와 같은 판단. 앱이 '맞는다'고 지어내지 않는다.
+ * - 값 칩: `220 V 전압`(팩 voltage 원문)
+ * 누를 수 없는 [InfoChip](값 굵게 + 말)이라 부르는 쪽 FlowRow 안에 그대로 놓인다. 출처·확인 날짜는 부르는 쪽 카드가 보인다.
+ */
+@Composable
+fun PowerChips(power: PowerInfo) {
+    val fits = power.krPlugFits
+    if (fits == true) {
+        InfoChip(
+            stringResource(R.string.essentials_power_kr_plug_fits),
+            Icons.Outlined.Power,
+            value = stringResource(R.string.essentials_power_kr_plug),
+            tone = BadgeTone.Success,
+        )
+    } else {
+        InfoChip(
+            stringResource(if (fits == false) R.string.essentials_power_adapter_needed else R.string.essentials_power_adapter_unknown),
+            Icons.Outlined.Outlet,
+            value = stringResource(R.string.essentials_power_adapter),
+            tone = BadgeTone.Caution,
+        )
+    }
+    InfoChip(stringResource(R.string.essentials_power_voltage), Icons.Outlined.ElectricBolt, value = power.voltage, tone = BadgeTone.Accent)
+}
+
+/**
  * 꼭 챙길 물건 정보 칩 — **값이 있는 것만**(재검토2 ①#15·②#9·③#10): 주제 이름만 늘어놓던 `플러그 · 전압 · 보조배터리` 대신
- * 여행 나라 팩 전기(`한국 플러그 그대로 써요` 또는 `변환 어댑터 챙기세요`, `220 V 전압`) + 기내 반입만 되는 물건(`보조배터리 기내 반입만 가능`).
+ * 여행 나라 팩 전기([PowerChips] 공용 한 벌) + 기내 반입만 되는 물건(`보조배터리 기내 반입만 가능`).
  * 값이 하나도 없으면 칩 줄을 그리지 않는다. 누를 수 없는 InfoChip(값 굵게 + 말).
  */
 @Composable
@@ -78,15 +109,7 @@ fun EssentialsChips(summary: EssentialsSummary) {
     val power = summary.power
     if (power == null && summary.carryOnOnly.isEmpty()) return
     FlowRow(horizontalArrangement = Arrangement.spacedBy(16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
-        if (power != null) {
-            // 팩 kr_plug_fits가 true일 때만 '그대로' — 확인되지 않은 나라는 어댑터를 권한다(Essentials.plugDiffers와 같은 규칙)
-            if (power.krPlugFits == true) {
-                InfoChip(stringResource(R.string.items_chip_plug_fits), Icons.Outlined.Power, value = stringResource(R.string.items_chip_plug_value), tone = BadgeTone.Accent)
-            } else {
-                InfoChip(stringResource(R.string.items_chip_adapter), Icons.Outlined.Outlet, value = stringResource(R.string.items_chip_adapter_value), tone = BadgeTone.Accent)
-            }
-            InfoChip(stringResource(R.string.home_items_voltage), Icons.Outlined.ElectricBolt, value = power.voltage, tone = BadgeTone.Accent)
-        }
+        if (power != null) PowerChips(power)
         summary.carryOnOnly.forEach { r ->
             InfoChip(stringResource(R.string.essentials_badge_carry_on), IconKeys.essential(r.id), value = r.nameKo, tone = BadgeTone.Accent)
         }

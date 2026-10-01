@@ -81,6 +81,7 @@ import com.readyport.ui.components.BadgeTone
 import com.readyport.ui.components.ButtonStyles
 import com.readyport.ui.components.CardNewsCard
 import com.readyport.ui.components.ButtonPlacement
+import com.readyport.ui.components.formWindowKo
 import com.readyport.ui.components.formWindowRange
 import com.readyport.ui.components.DangerButton
 import com.readyport.ui.components.Fact
@@ -728,8 +729,9 @@ private fun tripDates(trip: Trip?): String? {
 }
 
 /**
- * 입국 카드를 내는 기간: 도착일(= 여행 출발일, TripStages·알림 예약과 같은 기준)을 포함해 [days]일 — `11월 1일 ~ 3일`.
+ * 입국 카드를 내는 기간: 도착일(= 여행 출발일, TripStages·알림 예약과 같은 기준)을 포함해 [days]일 — `11월 1일~3일`.
  * 값은 팩 window_days_including_arrival 그대로 쓰고 앱은 날짜만 센다(공용 [formWindowRange] — 나라 입국·여행 준비의 내 날짜와 같은 계산).
+ * 글자 모양도 공용 [formWindowKo] 하나뿐이다(v3 — 같은 기간이 화면마다 `11월 1일~3일`·`11월 1일 ~ 3일`로 달리 보이던 것을 통일).
  * 여행·값이 없으면 null.
  */
 @Composable
@@ -737,7 +739,7 @@ private fun formWindow(trip: Trip?, days: Int?): String? {
     val arrival = parseDate(trip?.startDate) ?: return null
     if (days == null || days < 1) return null
     val (from, to) = formWindowRange(arrival, days)
-    return dateRange(from, to)
+    return formWindowKo(from, to)
 }
 
 /** 날짜 범위 한 줄: 같은 달이면 `11월 1일 ~ 3일`, 달이 바뀌면 `10월 31일 ~ 11월 2일` */

@@ -84,12 +84,12 @@ class TripUiTest {
         // 준비 단계 부제 = 출발까지 + 여행 날짜 (다듬기 S3 — 날짜가 준비 단계에서만 빠져 있었다)
         rule.onNodeWithText(s(R.string.today_d_day_dates, s(R.string.today_d_day, 2), "11월 3일 ~ 7일")).assertIsDisplayed()
         shown(s(R.string.today_task_form_title, form.nameKo))
-        // 내는 기간을 내 날짜로(팩 window_days_including_arrival = 3, 도착 11월 3일 → 11월 1일 ~ 3일, 재검토2 ③#5)
+        // 내는 기간을 내 날짜로(팩 window_days_including_arrival = 3, 도착 11월 3일 → 11월 1일~3일, 재검토2 ③#5)
         assertEquals(3, form.windowDaysIncludingArrival)
         rule.onNode(hasText(s(R.string.today_form_window_label), substring = true) and hasText("11월", substring = true)).assertExists()
         val chip = rule.onNode(hasText(s(R.string.today_form_window_label), substring = true) and hasText("11월", substring = true))
             .fetchSemanticsNode().config[androidx.compose.ui.semantics.SemanticsProperties.Text].joinToString(" ") { it.text }
-        assertEquals("11월 1일 ~ 3일 " + s(R.string.today_form_window_label), chip.replace('\u00A0', ' '))
+        assertEquals("11월 1일~3일 " + s(R.string.today_form_window_label), chip.replace('\u00A0', ' '))
         rule.onNodeWithText(s(R.string.prepare_form_open)).performClick()
         assertEquals("TH_TDAC", opened)
     }

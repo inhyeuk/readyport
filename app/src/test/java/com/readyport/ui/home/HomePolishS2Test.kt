@@ -77,7 +77,7 @@ class HomePolishS2Test {
         assertEquals(5, summary.total)
         assertEquals(2, summary.done)
         rule.onNodeWithText(th.power!!.voltage).assertIsDisplayed()
-        rule.onNodeWithText(s(R.string.items_chip_plug_fits)).assertIsDisplayed()
+        rule.onNodeWithText(s(R.string.essentials_power_kr_plug_fits)).assertIsDisplayed()
         rule.onNodeWithText(s(R.string.essentials_badge_carry_on)).assertIsDisplayed()
         rule.onNodeWithText(s(R.string.essentials_progress_stat, 2, 5)).assertIsDisplayed()
         // 값 없는 주제 이름 칩(`플러그`·`보조배터리` 단독)은 없다
@@ -94,7 +94,7 @@ class HomePolishS2Test {
             ReadyPortTheme { HomeContent(TestPacks.homeUi().copy(essentials = essentialsSummary(index, null, got)), HomeActions(), today = LocalDate.of(2026, 9, 28)) }
         }
         rule.waitForIdle()
-        rule.onAllNodesWithText(s(R.string.items_chip_plug_fits)).assertCountEquals(0)
+        rule.onAllNodesWithText(s(R.string.essentials_power_kr_plug_fits)).assertCountEquals(0)
         rule.onAllNodesWithText(s(R.string.home_items_voltage)).assertCountEquals(0)
         rule.onNodeWithText(s(R.string.essentials_badge_carry_on)).assertIsDisplayed()
         rule.onNodeWithText(s(R.string.essentials_progress_stat, 2, 5)).assertIsDisplayed()

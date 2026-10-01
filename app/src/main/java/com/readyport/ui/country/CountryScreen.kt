@@ -56,7 +56,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
@@ -94,7 +93,6 @@ import com.readyport.ui.components.AssuranceCard
 import com.readyport.ui.components.BadgeTone
 import com.readyport.ui.components.BannerTone
 import com.readyport.ui.components.CardNewsCard
-import com.readyport.ui.components.ChoiceSegments
 import com.readyport.ui.components.DotBullet
 import com.readyport.ui.components.Fact
 import com.readyport.ui.components.FactGrid
@@ -103,8 +101,8 @@ import com.readyport.ui.components.IconBullet
 import com.readyport.ui.components.IconKeys
 import com.readyport.ui.components.ImportVerdictBadge
 import com.readyport.ui.components.InfoChip
-import com.readyport.ui.components.InfoTileGrid
 import com.readyport.ui.components.KoText
+import com.readyport.ui.components.NavMosaic
 import com.readyport.ui.components.LinkRow
 import com.readyport.ui.components.NewsStyle
 import com.readyport.ui.components.NoticeBanner
@@ -121,7 +119,7 @@ import com.readyport.ui.components.feeTone
 import com.readyport.ui.components.ReturnCheckCard
 import com.readyport.ui.components.ReturnCheckMode
 import com.readyport.ui.components.SecondaryButton
-import com.readyport.ui.components.SectionHeader
+import com.readyport.ui.components.SectionTabs
 import com.readyport.ui.components.SourceList
 import com.readyport.ui.components.SourceRef
 import com.readyport.ui.components.StatTile
@@ -141,7 +139,9 @@ import com.readyport.ui.components.rememberGridColumns
 import com.readyport.ui.components.rememberKeyIndex
 import com.readyport.ui.components.resolveSourceName
 import com.readyport.ui.components.scrollToKey
+import com.readyport.ui.components.fullBleed
 import com.readyport.ui.components.sectionGap
+import com.readyport.ui.components.tabBarSurface
 import com.readyport.ui.components.shortValue
 import com.readyport.ui.components.sourceRefs
 import com.readyport.ui.components.textIconSize
@@ -238,11 +238,14 @@ fun CountryScreen(actions: CountryActions, viewModel: CountryViewModel = hiltVie
     )
 }
 
-/** 나라 화면 안의 세 갈래. 스와이프 없이 버튼으로만 바꾼다 */
-enum class CountrySection(val label: Int) {
-    Entry(R.string.country_tab_entry),
-    Travel(R.string.country_tab_travel),
-    Shopping(R.string.country_tab_shopping),
+/**
+ * 나라 화면 안의 세 갈래. 스와이프 없이 탭 줄([SectionTabs])로만 바꾼다.
+ * [short]: 좁은 창·큰 글자에서 전체 라벨이 한 줄에 안 들어갈 때 보일 짧은 라벨(TalkBack 이름은 늘 [label]).
+ */
+enum class CountrySection(val label: Int, val short: Int) {
+    Entry(R.string.country_tab_entry, R.string.country_tab_entry_short),
+    Travel(R.string.country_tab_travel, R.string.country_tab_travel_short),
+    Shopping(R.string.country_tab_shopping, R.string.country_tab_shopping_short),
 }
 
 /** 섹션 칸 아이콘 (DESIGN_SPEC 6-03: 입국·비자 Approval · 여행 정보 Explore · 쇼핑 ShoppingBag) */
@@ -272,25 +275,11 @@ fun CountryContent(ui: CountryUi, actions: CountryActions, initialSection: Count
     val safety = remember(pack) { pack.sections.firstOrNull { it.id == "safety" } }
     val advisories = remember(safety) { safety?.bodyKo.orEmpty().filter { isHighAdvisory(it) } }
 
-    // 섹션 전환은 2열 폭일 때만 위에 고정한다 — 쉬운 모드·큰 글자에서는 세로 목록이라 고정하면 화면을 가린다 (6-03)
-    val single = rememberGridColumns() == 1
-    val sticky = !single
-    var stickyHeight by remember { mutableIntStateOf(0) }
+    val dimens = LocalDimens.current
     val listState = rememberLazyListState()
     val keys = rememberKeyIndex()
     val scope = rememberCoroutineScope()
     val sectionsLabel = stringResource(R.string.country_sections, pack.names.ko)
-    val picker: @Composable () -> Unit = {
-        ChoiceSegments(
-            options = CountrySection.entries,
-            selected = CountrySection.entries[section],
-            onSelect = { section = it.ordinal },
-            label = { stringResource(it.label) },
-            icon = { it.icon() },
-            modifier = Modifier.semantics { contentDescription = sectionsLabel },
-        )
-    }
-    val tileLabel: @Composable (Int) -> String = { id -> gridLabel(stringResource(id), single) }
 
     AppScreen(
         title = pack.names.ko,
@@ -299,19 +288,30 @@ fun CountryContent(ui: CountryUi, actions: CountryActions, initialSection: Count
         state = listState,
         keyIndex = keys,
     ) {
-        if (sticky) {
-            stickyHeader(key = "sections") {
-                // 바탕을 Ground로 칠해 아래 내용이 비쳐 보이지 않게
-                Box(
-                    Modifier
-                        .fillMaxWidth()
-                        .background(Tokens.Ground)
-                        .padding(vertical = 4.dp)
-                        .onSizeChanged { stickyHeight = it.height },
-                ) { picker() }
+        // 머리 묶음(히어로 + 탭 줄) 다음부터가 내용이다. 탭 줄은 **모든 모드에서** 위에 고정하고(쉬운 모드·큰 글자에서도 가로 한 줄),
+        // 흰 바탕을 화면 끝까지 깔고 아래 1dp 선·옅은 그림자를 둬서 아래로 지나가는 내용과 눈에 보이게 갈린다 (6-03 v3).
+        stickyHeader(key = "sections") {
+            Box(
+                Modifier
+                    .fillMaxWidth()
+                    .fullBleed(dimens.screenPadding)
+                    .tabBarSurface(dimens.gap),
+            ) {
+                SectionTabs(
+                    options = CountrySection.entries,
+                    selected = CountrySection.entries[section],
+                    onSelect = { picked ->
+                        section = picked.ordinal
+                        // 갈래를 바꾸면 그 갈래 내용의 처음부터 — 탭 줄이 맨 위에 서고 첫 카드가 바로 그 아래에 온다
+                        // (고정된 탭 줄이 내용을 가리지 않는다. 4.1 scrollToKey)
+                        scope.launch { listState.scrollToKey(keys, "sections") }
+                    },
+                    label = { stringResource(it.label) },
+                    shortLabel = { stringResource(it.short) },
+                    icon = { it.icon() },
+                    modifier = Modifier.semantics { contentDescription = sectionsLabel },
+                )
             }
-        } else {
-            item(key = "sections") { picker() }
         }
 
         when (CountrySection.entries[section]) {
@@ -358,11 +358,20 @@ fun CountryContent(ui: CountryUi, actions: CountryActions, initialSection: Count
                 pack.sections.filter { it.id == "entry" }.forEach { s ->
                     item(key = "section-${s.id}") { SectionCard(s, sourceOf, shownAbove = shownAbove) }
                 }
-                item(key = "plan") {
-                    SecondaryButton(
-                        stringResource(R.string.country_plan_trip),
-                        onClick = { actions.planTrip(pack.country) },
-                        icon = Icons.Outlined.EditCalendar,
+                // 다른 화면으로 가는 길은 내용 맨 끝 한 묶음으로 (읽는 카드 사이에 메뉴를 끼우지 않는다)
+                sectionGap("gap-entry-nav")
+                item(key = "nav") {
+                    NavMosaic(
+                        listOf(
+                            TileSpec(
+                                stringResource(R.string.nav_tile_plan_trip), Icons.Outlined.EditCalendar,
+                                onClick = { actions.planTrip(pack.country) },
+                            ),
+                            TileSpec(
+                                stringResource(R.string.tile_phrases_emergency), Icons.Outlined.Translate,
+                                onClick = { actions.openHelp(pack.country) }, tone = BadgeTone.Help,
+                            ),
+                        ),
                     )
                 }
             }
@@ -372,28 +381,6 @@ fun CountryContent(ui: CountryUi, actions: CountryActions, initialSection: Count
                 if (safety != null && advisories.isNotEmpty()) {
                     item(key = "advisory") { AdvisoryBanner(safety, advisories, sourceOf) }
                 }
-                item(key = "tools-title") {
-                    SectionHeader(stringResource(R.string.country_travel_tools_title), icon = Icons.Outlined.Explore)
-                }
-                item(key = "tools") {
-                    // 현지어·긴급, 이동, 영상, 지도를 한눈에 — 예전 '현지에서 급할 때'·영상·이동 카드를 타일로 흡수 (6-05)
-                    InfoTileGrid(
-                        listOf(
-                            TileSpec(
-                                tileLabel(R.string.tile_phrases_emergency), Icons.Outlined.Translate,
-                                onClick = { actions.openHelp(pack.country) }, tone = BadgeTone.Help,
-                            ),
-                            TileSpec(tileLabel(R.string.move_title), Icons.Outlined.LocalTaxi, onClick = actions.openMove, tone = BadgeTone.Violet),
-                            TileSpec(tileLabel(R.string.tile_videos), Icons.Outlined.SmartDisplay, onClick = { actions.openVideos(pack.country) }),
-                            TileSpec(
-                                tileLabel(R.string.tile_maps), Icons.Outlined.Map,
-                                onClick = { scope.launch { listState.scrollToKey(keys, "maps", if (sticky) stickyHeight else 0) } },
-                                tone = BadgeTone.Teal,
-                            ),
-                        ),
-                    )
-                }
-                sectionGap("gap-tools")
                 pack.power?.let { power -> item(key = "power") { PowerCard(power, sourceOf) } }
                 pack.sections.filter { it.id != "entry" }.forEach { s ->
                     // 위험 배너로 올린 문장은 안전 카드에서 되풀이하지 않는다(한 사실은 한 번). 남는 문장이 없으면 카드도 없다(출처는 배너 아래에)
@@ -403,15 +390,42 @@ fun CountryContent(ui: CountryUi, actions: CountryActions, initialSection: Count
                     }
                 }
                 item(key = "maps") { MapsCard() }
+                // 현지어·긴급 번호, 이동하기, 여행 영상 — 읽는 카드 가운데 섞여 있던 타일 넷을 내용 맨 끝 한 묶음으로 (v3).
+                // '오프라인 지도' 타일은 없앴다: 가리키던 지도 저장 카드가 이 묶음 바로 위 읽는 흐름에 있어 같은 화면 안을 되돌아가는 길이었다.
+                sectionGap("gap-travel-nav")
+                item(key = "nav") {
+                    NavMosaic(
+                        listOf(
+                            TileSpec(
+                                stringResource(R.string.tile_phrases_emergency), Icons.Outlined.Translate,
+                                onClick = { actions.openHelp(pack.country) }, tone = BadgeTone.Help,
+                            ),
+                            TileSpec(stringResource(R.string.move_title), Icons.Outlined.LocalTaxi, onClick = actions.openMove, tone = BadgeTone.Violet),
+                            TileSpec(stringResource(R.string.tile_videos), Icons.Outlined.SmartDisplay, onClick = { actions.openVideos(pack.country) }),
+                        ),
+                    )
+                }
             }
 
             CountrySection.Shopping -> {
                 if (pack.shopping.isNotEmpty()) {
-                    item(key = "shopping") { ShoppingCard(pack, sourceOf) { actions.openShopping(pack.country) } }
+                    item(key = "shopping") { ShoppingCard(pack, sourceOf) }
                 }
                 item(key = "return") {
                     // 나라 쇼핑은 한 줄 요약 + 펼치기 — 전체는 내 여행 귀국 단계에만 (운영자 결정 10)
                     ReturnCheckCard(ui.returnLinks, ui.returnFacts, ui.indexSources, actions.openLink, ReturnCheckMode.Summary)
+                }
+                // 쇼핑 리스트로 가는 길은 카드 안 주 버튼이 아니라 내용 맨 끝 묶음으로 (v3). 미리보기·반입 판정·출처는 카드에 그대로
+                sectionGap("gap-shopping-nav")
+                item(key = "nav") {
+                    NavMosaic(
+                        listOf(
+                            TileSpec(
+                                stringResource(R.string.shopping_open), Icons.Outlined.ShoppingBag,
+                                onClick = { actions.openShopping(pack.country) }, tone = BadgeTone.Help,
+                            ),
+                        ),
+                    )
                 }
             }
         }
@@ -923,9 +937,10 @@ private fun MapsCard() {
  * 쇼핑 미리보기 카드 (사진 없음 — 히어로가 이미 위에 있다). 품목 3개 = 분류 아이콘 + 이름 + 한국 반입 판정 배지.
  * 이유(why_ko)는 미리보기에 넣지 않는다(줄 수로 자르기 금지, 전체 글은 쇼핑 리스트에서).
  * 출처 = 품목 출처 + 반입 판정 출처 — 반입 판정이 출처 없이 보이지 않게.
+ * 쇼핑 리스트 화면으로 **가는 길**은 이 카드가 아니라 내용 맨 끝 길 안내 모자이크에 있다(v3 — 읽는 카드 안에 메뉴를 두지 않는다).
  */
 @Composable
-private fun ShoppingCard(pack: CountryPack, sourceOf: SourceOf, onOpen: () -> Unit) {
+private fun ShoppingCard(pack: CountryPack, sourceOf: SourceOf) {
     val shown = pack.shopping.take(3)
     CardNewsCard(
         title = stringResource(R.string.shopping_title, pack.names.ko),
@@ -941,8 +956,6 @@ private fun ShoppingCard(pack: CountryPack, sourceOf: SourceOf, onOpen: () -> Un
                 color = Tokens.InkSecondary,
             )
         }
-        // 버튼 앞에는 뜻 아이콘(쇼핑 리스트 = ShoppingBag) — 꺾쇠를 앞에 두지 않는다(재검토 R11)
-        PrimaryButton(stringResource(R.string.shopping_open), onClick = onOpen, icon = Icons.Outlined.ShoppingBag)
     }
 }
 

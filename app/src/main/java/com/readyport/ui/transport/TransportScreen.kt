@@ -385,7 +385,13 @@ private fun DriverCard(phrase: String?, phraseKo: String?, address: String, onFu
             }
             phrase?.let { Text(it, style = extras.localMedium, color = OnDark.content) }
             if (phrase != null && phraseKo != null) {
-                KoText(stringResource(R.string.move_driver_meaning, phraseKo), MaterialTheme.typography.bodyMedium, color = OnDark.secondary)
+                // 한 음절 낱말을 앞뒤 낱말에 붙인다(glueShort) — 200%에서 `이 주소로 가 / 주세요`처럼 말 가운데서 줄이 바뀌지 않게
+                KoText(
+                    stringResource(R.string.move_driver_meaning, phraseKo),
+                    MaterialTheme.typography.bodyMedium,
+                    color = OnDark.secondary,
+                    glueShort = true,
+                )
             }
             Text(address, style = localText(MaterialTheme.typography.titleLarge), color = OnDark.content)
             SecondaryButton(

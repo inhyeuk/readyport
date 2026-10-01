@@ -21,6 +21,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.Layout
+import androidx.compose.ui.layout.layout
 import androidx.compose.ui.layout.Measurable
 import androidx.compose.ui.layout.MeasureResult
 import androidx.compose.ui.layout.MeasureScope
@@ -347,6 +348,26 @@ fun LazyListScope.sectionGap(key: String) {
         val d = LocalDimens.current
         Spacer(Modifier.height(d.sectionGap - d.gap * 2))
     }
+}
+
+// ---------------- 화면 끝까지 넓히기 ----------------
+
+/**
+ * 목록 양옆 여백([AppScreen]의 contentPadding = screenPadding)을 벗어나 **화면 끝까지** 넓히는 항목 —
+ * 화면 틀(고정된 탭 줄)처럼 바탕이 가장자리에 닿아야 하는 한 항목에만 쓴다. 내용 카드에는 쓰지 않는다.
+ * 재는 폭을 좌우 [bleed]만큼 늘려 그리고, 자리는 원래 폭 그대로 차지한 뒤 왼쪽으로 [bleed]만큼 밀어 놓는다
+ * (IconBullet의 연한 바탕 내밀기와 같은 방법). RTL에서도 `placeRelative`가 방향을 맞춘다.
+ */
+fun Modifier.fullBleed(bleed: Dp): Modifier = layout { measurable, constraints ->
+    val extra = bleed.roundToPx() * 2
+    val wide = if (constraints.hasBoundedWidth) {
+        constraints.copy(minWidth = constraints.minWidth + extra, maxWidth = constraints.maxWidth + extra)
+    } else {
+        constraints
+    }
+    val placeable = measurable.measure(wide)
+    val width = if (constraints.hasBoundedWidth) placeable.width - extra else placeable.width
+    layout(width.coerceAtLeast(0), placeable.height) { placeable.placeRelative(-bleed.roundToPx(), 0) }
 }
 
 // ---------------- 최소 터치 크기 ----------------

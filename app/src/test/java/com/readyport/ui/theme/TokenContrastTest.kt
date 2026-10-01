@@ -69,6 +69,12 @@ class TokenContrastTest {
         "비활성 버튼 (ink-tertiary on surface-highest)" to (Tokens.InkTertiary to Tokens.SurfaceHighest),
         "ink on surface-highest" to (Tokens.Ink to Tokens.SurfaceHighest),
         "ink on help-soft" to (Tokens.Ink to Tokens.HelpSoft),
+        // 길 안내 모자이크 타일(연한 톤 채움 + Ink 라벨 · InkSecondary 보조 글·셰브론, v3 4.19)
+        "ink on violet-soft (길 안내 타일)" to (Tokens.Ink to Tokens.VioletSoft),
+        "ink on teal-soft (길 안내 타일)" to (Tokens.Ink to Tokens.TealSoft),
+        "ink-secondary on violet-soft" to (Tokens.InkSecondary to Tokens.VioletSoft),
+        "ink-secondary on teal-soft" to (Tokens.InkSecondary to Tokens.TealSoft),
+        "ink-secondary on accent-soft" to (Tokens.InkSecondary to Tokens.AccentSoft),
     )
 
     @Test

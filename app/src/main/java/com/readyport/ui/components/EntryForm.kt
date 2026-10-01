@@ -96,14 +96,23 @@ fun formWindowRange(arrival: LocalDate, days: Int): Pair<LocalDate, LocalDate> =
 fun personalWindowKo(windowKo: String, days: Int?, arrival: LocalDate?): String {
     if (days == null || days < 1 || arrival == null) return windowKo
     val (from, to) = formWindowRange(arrival, days)
-    val range = when {
-        from == to -> stringResource(R.string.date_month_day, to.monthValue, to.dayOfMonth)
-        from.monthValue == to.monthValue -> stringResource(R.string.date_range_same_month, from.monthValue, from.dayOfMonth, to.dayOfMonth)
-        else -> stringResource(R.string.date_range_two_months, from.monthValue, from.dayOfMonth, to.monthValue, to.dayOfMonth)
-    }
+    val range = formWindowKo(from, to)
     val mine = stringResource(R.string.form_window_mine, stringResource(R.string.date_month_day, arrival.monthValue, arrival.dayOfMonth), range)
     val rule = windowRuleOnly(windowKo)
     return if (rule.isEmpty()) mine else "$rule\n$mine"
+}
+
+/**
+ * 입국 카드를 **낼 수 있는 기간** 한 줄: 같은 달이면 `11월 1일~3일`, 달이 바뀌면 `10월 31일~11월 2일`, 하루면 `11월 3일`.
+ * 앱 전체에서 이 한 가지 모양만 쓴다(나라 입국 03·04 · 여행 준비 18 · 내 여행 10 할 일 칩) —
+ * 전에는 같은 기간이 화면에 따라 `11월 1일~3일`과 `11월 1일 ~ 3일` 두 모양으로 보였다(v3에서 좁은 쪽으로 통일).
+ * 여행 날짜 줄(`11월 3일 ~ 7일`, today_trip_dates)은 '여행 기간'이라는 다른 역할이라 그대로 둔다.
+ */
+@Composable
+fun formWindowKo(from: LocalDate, to: LocalDate): String = when {
+    from == to -> stringResource(R.string.date_month_day, to.monthValue, to.dayOfMonth)
+    from.monthValue == to.monthValue -> stringResource(R.string.date_range_same_month, from.monthValue, from.dayOfMonth, to.dayOfMonth)
+    else -> stringResource(R.string.date_range_two_months, from.monthValue, from.dayOfMonth, to.monthValue, to.dayOfMonth)
 }
 
 /** 비용 값의 색: 정확히 `무료`면 Success, 나머지 Accent */

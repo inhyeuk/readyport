@@ -17,6 +17,7 @@ import androidx.compose.material.icons.automirrored.outlined.ReceiptLong
 import androidx.compose.material.icons.outlined.AccountBalance
 import androidx.compose.material.icons.outlined.Approval
 import androidx.compose.material.icons.outlined.CalendarMonth
+import androidx.compose.material.icons.outlined.EditCalendar
 import androidx.compose.material.icons.outlined.EditNote
 import androidx.compose.material.icons.outlined.EventAvailable
 import androidx.compose.material.icons.outlined.EventBusy
@@ -29,6 +30,9 @@ import androidx.compose.material.icons.outlined.Hotel
 import androidx.compose.material.icons.outlined.ContactPage
 import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material.icons.outlined.Map
+import androidx.compose.material.icons.outlined.LocalTaxi
+import androidx.compose.material.icons.outlined.NewReleases
+import androidx.compose.material.icons.outlined.Groups
 import androidx.compose.material.icons.outlined.Nfc
 import androidx.compose.material.icons.outlined.OfflinePin
 import androidx.compose.material.icons.outlined.Policy
@@ -115,6 +119,7 @@ import com.readyport.ui.components.ListGroup
 import com.readyport.ui.components.ListRow
 import com.readyport.ui.components.LockedState
 import com.readyport.ui.components.NewsStyle
+import com.readyport.ui.components.NavMosaic
 import com.readyport.ui.components.NoticeBanner
 import com.readyport.ui.components.OfflineBanner
 import com.readyport.ui.components.PhotoBox
@@ -128,6 +133,7 @@ import com.readyport.ui.components.ReturnCheckCard
 import com.readyport.ui.components.RowTrailing
 import com.readyport.ui.components.SecondaryButton
 import com.readyport.ui.components.SectionHeader
+import com.readyport.ui.components.SectionTabs
 import com.readyport.ui.components.SecurityBanner
 import com.readyport.ui.components.SelectChip
 import com.readyport.ui.components.SelectTile
@@ -221,13 +227,28 @@ fun ComponentsPage(part: Int) {
                 action = { QuietButton(stringResource(R.string.action_more), onClick = {}, icon = Icons.AutoMirrored.Outlined.NavigateNext) },
             )
         }
+        // 아래 내용을 바꾸는 **탭 줄**(밑줄 표시) — 값을 고르는 세그먼트(Accent 채움)와 모양이 다르다 (v3)
+        item(key = "tabs") {
+            Box(Modifier.background(Tokens.Surface)) {
+                SectionTabs(
+                    options = listOf(0, 1, 2),
+                    selected = segment,
+                    onSelect = { segment = it },
+                    label = { stringResource(listOf(R.string.country_tab_entry, R.string.country_tab_travel, R.string.country_tab_shopping)[it]) },
+                    shortLabel = {
+                        stringResource(listOf(R.string.country_tab_entry_short, R.string.country_tab_travel_short, R.string.country_tab_shopping_short)[it])
+                    },
+                    icon = { listOf(Icons.Outlined.Approval, Icons.Outlined.Explore, Icons.Outlined.ShoppingBag)[it] },
+                )
+            }
+        }
         item(key = "segments") {
             ChoiceSegments(
                 options = listOf(0, 1, 2),
                 selected = segment,
                 onSelect = { segment = it },
-                label = { stringResource(listOf(R.string.country_tab_entry, R.string.country_tab_travel, R.string.country_tab_shopping)[it]) },
-                icon = { listOf(Icons.Outlined.Approval, Icons.Outlined.Explore, Icons.Outlined.ShoppingBag)[it] },
+                label = { stringResource(listOf(R.string.videos_sort_views, R.string.videos_sort_recent, R.string.videos_sort_subscribers)[it]) },
+                icon = { listOf(Icons.Outlined.Visibility, Icons.Outlined.NewReleases, Icons.Outlined.Groups)[it] },
             )
         }
         item(key = "chips") {
@@ -340,6 +361,17 @@ fun ComponentsPage(part: Int) {
                     TileSpec(stringResource(R.string.tile_phrases_emergency), Icons.Outlined.Translate, {}, tone = BadgeTone.Help),
                     TileSpec(stringResource(R.string.tile_videos), Icons.Outlined.SmartDisplay, {}),
                     TileSpec(stringResource(R.string.tile_maps), Icons.Outlined.Map, {}, tone = BadgeTone.Teal),
+                ),
+            )
+        }
+        // 길 안내 모자이크(v3): 연한 톤 채움 + 큰 타일 하나 + 2열 — 흰 읽는 카드와 색·크기로 갈린다
+        item(key = "nav-mosaic") {
+            NavMosaic(
+                listOf(
+                    TileSpec(stringResource(R.string.nav_tile_plan_trip), Icons.Outlined.EditCalendar, {}),
+                    TileSpec(stringResource(R.string.tile_phrases_emergency), Icons.Outlined.Translate, {}, tone = BadgeTone.Help),
+                    TileSpec(stringResource(R.string.tile_videos), Icons.Outlined.SmartDisplay, {}),
+                    TileSpec(stringResource(R.string.move_title), Icons.Outlined.LocalTaxi, {}, tone = BadgeTone.Violet),
                 ),
             )
         }

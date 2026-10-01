@@ -93,10 +93,10 @@ class CountryDesignTest {
         assertTrue("가지 마세요" in warning)
         rule.onNodeWithText(warning).assertIsDisplayed()
         assertEquals(1, rule.onAllNodesWithText(warning).fetchSemanticsNodes().size)
-        // 배너는 현지 도구 타일보다 위, 출처 줄이 바로 아래
+        // 배너는 여행 정보 첫 읽는 카드(전기)보다 위, 출처 줄이 바로 아래
         val banner = rule.onNodeWithText(warning).getBoundsInRoot()
-        val tools = rule.onNodeWithText(s(R.string.country_travel_tools_title)).getBoundsInRoot()
-        assertTrue("위험 배너가 맨 위가 아님", banner.bottom <= tools.top)
+        val firstCard = rule.onNodeWithText(s(R.string.guide_power_title)).getBoundsInRoot()
+        assertTrue("위험 배너가 맨 위가 아님", banner.bottom <= firstCard.top)
         rule.onAllNodesWithText(s(R.string.source_footer, th.source(safety.source)!!.name, displayDate(safety.lastVerified)))
             .onFirst().assertIsDisplayed()
         // 1·2단계 문장은 안전 카드에 그대로
@@ -185,18 +185,23 @@ class CountryDesignTest {
         assertTrue(rule.onAllNodesWithContentDescription(s(R.string.country_more_section, safety.titleKo)).fetchSemanticsNodes().isEmpty())
     }
 
+    /**
+     * 지도 저장 카드는 읽는 흐름에 그대로 있고(v3), 그 자리로 보내던 `오프라인 지도` 타일은 없앴다 —
+     * 길 안내 묶음이 지도 카드 **아래**로 내려와 같은 화면 안을 되돌아가는 길이 되었기 때문(NAV_V3_REPORT).
+     */
     @Test
-    fun mapsTileScrollsBelowTheStickySections() {
+    fun mapsCardStaysInTheReadingFlowWithoutATile() {
         rule.setContent { ReadyPortTheme { CountryContent(TestPacks.countryUi("TH"), CountryActions(), CountrySection.Travel) } }
-        rule.onNodeWithText(s(R.string.tile_maps)).performClick()
-        rule.waitForIdle()
+        assertTrue(rule.onAllNodesWithText(s(R.string.tile_maps)).fetchSemanticsNodes().isEmpty())
+        scrollTo(s(R.string.explore_maps_title))
         val title = rule.onNodeWithText(s(R.string.explore_maps_title))
         title.assertIsDisplayed()
-        // 고정된 섹션 전환 아래에 와야 한다(가려지지 않게)
+        // 고정된 탭 줄 아래에 와야 한다(가려지지 않게)
         val sections = rule.onNodeWithContentDescription(s(R.string.country_sections, "태국")).getBoundsInRoot()
-        assertTrue("지도 카드가 섹션 전환에 가려짐", title.getBoundsInRoot().top >= sections.bottom)
+        assertTrue("지도 카드가 탭 줄에 가려짐", title.getBoundsInRoot().top >= sections.bottom)
     }
 
+    /** 현지 도구 타일은 내용 맨 끝 길 안내 묶음에 모여 있다 (v3 — 읽는 카드 사이에 메뉴를 끼우지 않는다) */
     @Test
     fun travelToolTilesOpenTheirDestinations() {
         val opened = mutableListOf<String>()
@@ -206,7 +211,10 @@ class CountryDesignTest {
             openVideos = { opened += "videos:$it" },
         )
         rule.setContent { ReadyPortTheme { CountryContent(TestPacks.countryUi("TH"), actions, CountrySection.Travel) } }
-        rule.onNodeWithText(s(R.string.tile_phrases_emergency)).performClick()
+        // 폭 전체 큰 타일의 라벨은 한 줄로 편다(2열 칸 라벨의 줄바꿈은 그대로)
+        val phrases = s(R.string.tile_phrases_emergency).replace('\n', ' ')
+        scrollTo(s(R.string.tile_videos))
+        rule.onNodeWithText(phrases).performClick()
         rule.onNodeWithText(s(R.string.move_title)).performClick()
         rule.onNodeWithText(s(R.string.tile_videos)).performClick()
         assertTrue(opened.toString(), opened == listOf("help:TH", "move", "videos:TH"))

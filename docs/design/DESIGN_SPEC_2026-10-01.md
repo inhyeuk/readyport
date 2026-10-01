@@ -604,7 +604,8 @@ enum class StatusKind(val icon: ImageVector, val tone: BadgeTone) {
 - `ChoiceSegments`(`rememberGridColumns() == 2`일 때): 트랙 `SurfaceSunken` + **1dp `LineStrong` 테두리**(모서리 16, padding 4 — 폭 340dp 미만이면 padding 0) 안 칸들 `weight(1f)`, 부모 `selectableGroup()`. 선택 칸 = Accent 채움 + 흰 글자 + `Check` 16/20 아이콘, 비선택 = 투명 + Ink 글자 + 칸 아이콘(InkSecondary). **높이 `heightIn(min = buttonHeight)`**(최소값 — 2줄 라벨이 잘리지 않음), `selectable(role = Role.Tab)`. 폭 340dp 미만이면 칸 아이콘 없이 한 줄 글자만.
 - `ChoiceSegments`(`rememberGridColumns() == 1`, 즉 쉬운 모드·큰 글자): 세그먼트 대신 **폭 전체 세로 라디오 목록**(`selectable(role = Tab)` 행 = 아이콘 + 글자 + 선택 시 Check, 각 행 minTouch). 이 경우 sticky로 고정하지 않는다.
 - `SelectChip`: `FilterChip` + `FilterChipDefaults.filterChipColors(selectedContainerColor = Accent, selectedLabelColor = Surface, selectedLeadingIconColor = Surface, labelColor = Ink)`, 비선택 테두리 1dp `LineStrong`, 선택이면 leading `Check`, 아니면 `leadingIcon`/`avatar`(24dp 원형 나라 사진 썸네일). 모서리 12, `minTouch`. `singleChoice: Boolean = true` 인자 추가 — **FilterChip의 기본 role은 Checkbox라서, 한 개만 고르는 곳(나라 14·20, 정렬 07, 분류 18, 목적지 19)에서는 `Modifier.semantics { role = Role.RadioButton }`로 덮어쓰고 부모에 `selectableGroup()`**을 둔다. 켬·끔 토글(17 `form_local_large`)은 `singleChoice = false`(Checkbox 그대로).
-- 쓰는 곳: `ChoiceSegments` = 나라 섹션(03~06), 영상 정렬(07). `SelectChip` = 나라 칩(14·20), 쇼핑 분류(18), 이동 목적지(19), 현지어 크게(17, 토글). 예약 종류(26)는 `SelectTile`. 입국 카드의 여행 목적·숙소 종류는 `SelectChip` 대신 **폭 전체 라디오 행**(17 참고).
+- 쓰는 곳: `ChoiceSegments` = 영상 정렬(07)·예약 가져오기 등 **값을 고르는 곳**. 나라 섹션(03~06)은 v3에서 `SectionTabs`(밑줄 탭, 부록 E)로 옮겼다 —
+  아래 내용을 바꾸는 탭에 '고른 칩' 모양(Accent 채움)을 쓰지 않는다. `SelectChip` = 나라 칩(14·20), 쇼핑 분류(18), 이동 목적지(19), 현지어 크게(17, 토글). 예약 종류(26)는 `SelectTile`. 입국 카드의 여행 목적·숙소 종류는 `SelectChip` 대신 **폭 전체 라디오 행**(17 참고).
 
 ---
 
@@ -811,8 +812,9 @@ enum class StatusKind(val icon: ImageVector, val tone: BadgeTone) {
 
 ### 03 나라 · 입국·비자(태국) — `country/CountryScreen.kt`
 - 히어로 `CountryHero`: **minHeight 280 → 220dp**(320×470 예산, 6장 머리말), 이름 displayMedium(34.sp 하드코딩 제거), 메타 줄을 `PhotoChip` 2개로 분리(`CalendarMonth guide_last_verified`, `OfflinePin guide_origin_bundled/downloaded`) — 이름·칩은 `PhotoTextArea` 안. 뒤로·찜 버튼은 `minTouchSize()`(48/56, 쉬운 모드 56) + 지금의 검정 0.35 원형 바탕 유지(`country_back` 설명 유지), 찜 버튼 설명 `explore_favorite_add/remove`.
-- 섹션 전환: `ChoiceSegments`(Approval 입국·비자 / Explore 여행 정보 / ShoppingBag 쇼핑, 탭 전환이며 스와이프 아님). **`rememberGridColumns() == 2`일 때만 stickyHeader로 고정**하고 헤더 바탕은 `Ground`로 칠한다(내용이 비쳐 보이지 않게). 1열(쉬운 모드·큰 글자)이면 고정하지 않고 세로 라디오 목록(4.17절) — 쉬운 모드·200%에서 130dp 넘는 머리가 화면을 가리지 않게. 폭 340dp 미만이면 아이콘 없는 한 줄 세그먼트. 섹션 안 `scrollToKey`는 sticky 헤더 높이만큼 오프셋을 뺀다.
-- 입국 순서: ① `NoticeBanner(guide_not_affiliated, Policy, secondLine = country_submit_self, TouchApp)` ② 비자 `CardNewsCard(style = Accent, icon Approval, eyebrow country_visa_title)` 안 `FactGrid`: [EventAvailable `fact_days`(stayLimitDays) · `fact_label_visa_free`/`fact_label_visa_arrival`, source = req] [`feeIcon` `shortValue(form.feeKo)` · `fact_label_form_fee`, source = form.source]. **기간 타일(`windowDaysIncludingArrival`)은 이번 릴리스에서 그리지 않는다**(D11 — 태국 팩 불릿 `도착 3일 전부터 도착하는 날까지`와 모순, 팩 수정·lint 후 되살림). **`직접` 타일은 두지 않는다**(팩 사실이 아닌 앱 주장이고 ① 배너 둘째 줄과 겹침). 아래 `req.summaryKo`(bodyLarge, **굵게 하지 않음**), 카드 `sources` = req.source + 타일 출처 전부(`SourceList`, onColor — 태국은 모두 `mofa_th`라 한 줄 `출처 외교부 해외안전여행 · 태국 · 최종 확인 2026.09.28` 그대로). ③ 양식 `CardNewsCard(icon AssignmentInd, eyebrow country_form_label, title form.nameKo)` — 본문 한 줄, `guide_form_fee`·`guide_form_window`는 라벨-값 `IconBullet`(Payments/Schedule) 2줄(팩 값 그대로의 글 행), `PrimaryButton(country_form_start, icon EditNote)`, `SourceFooter`. ④ `들어갈 때` `CardNewsCard(icon FlightLand)` + `IconBullet` 목록(불릿 문장 그대로, 아이콘은 **Neutral `Check` 공통** — 문장 의미를 앱이 추측하지 않도록) + `SourceFooter`. ⑤ `SecondaryButton(country_plan_trip, icon EditCalendar)`.
+- 섹션 전환(**v3에서 바뀜 — 부록 E가 우선**): `SectionTabs`(밑줄 탭, 모든 모드에서 가로 한 줄·언제나 고정·화면 끝까지 흰 바탕). 아래는 v2 기록이다.
+- (v2) `ChoiceSegments`(Approval 입국·비자 / Explore 여행 정보 / ShoppingBag 쇼핑, 탭 전환이며 스와이프 아님). **`rememberGridColumns() == 2`일 때만 stickyHeader로 고정**하고 헤더 바탕은 `Ground`로 칠한다(내용이 비쳐 보이지 않게). 1열(쉬운 모드·큰 글자)이면 고정하지 않고 세로 라디오 목록(4.17절) — 쉬운 모드·200%에서 130dp 넘는 머리가 화면을 가리지 않게. 폭 340dp 미만이면 아이콘 없는 한 줄 세그먼트. 섹션 안 `scrollToKey`는 sticky 헤더 높이만큼 오프셋을 뺀다.
+- 입국 순서: ① `NoticeBanner(guide_not_affiliated, Policy, secondLine = country_submit_self, TouchApp)` ② 비자 `CardNewsCard(style = Accent, icon Approval, eyebrow country_visa_title)` 안 `FactGrid`: [EventAvailable `fact_days`(stayLimitDays) · `fact_label_visa_free`/`fact_label_visa_arrival`, source = req] [`feeIcon` `shortValue(form.feeKo)` · `fact_label_form_fee`, source = form.source]. **기간 타일(`windowDaysIncludingArrival`)은 이번 릴리스에서 그리지 않는다**(D11 — 태국 팩 불릿 `도착 3일 전부터 도착하는 날까지`와 모순, 팩 수정·lint 후 되살림). **`직접` 타일은 두지 않는다**(팩 사실이 아닌 앱 주장이고 ① 배너 둘째 줄과 겹침). 아래 `req.summaryKo`(bodyLarge, **굵게 하지 않음**), 카드 `sources` = req.source + 타일 출처 전부(`SourceList`, onColor — 태국은 모두 `mofa_th`라 한 줄 `출처 외교부 해외안전여행 · 태국 · 최종 확인 2026.09.28` 그대로). ③ 양식 `CardNewsCard(icon AssignmentInd, eyebrow country_form_label, title form.nameKo)` — 본문 한 줄, `guide_form_fee`·`guide_form_window`는 라벨-값 `IconBullet`(Payments/Schedule) 2줄(팩 값 그대로의 글 행), `PrimaryButton(country_form_start, icon EditNote)`, `SourceFooter`. ④ `들어갈 때` `CardNewsCard(icon FlightLand)` + `IconBullet` 목록(불릿 문장 그대로, 아이콘은 **Neutral `Check` 공통** — 문장 의미를 앱이 추측하지 않도록) + `SourceFooter`. ⑤ (v3) 맨 아래 `NavMosaic` — `내 여행에 넣기`(큰 타일) + `현지어와 긴급 번호`. v2의 `SecondaryButton(country_plan_trip)`을 대신한다(부록 E.4).
 - 주의: `window_days_including_arrival = 3`은 **"도착일 포함 3일"**이지 "3일 전부터"가 아니다(태국 예: 5월 4일 도착 → 5월 2~4일). 타일을 되살릴 때 라벨을 정확히 쓴다(`fact_label_window`).
 - 유지: `태국 입국 카드 (TDAC)`(form.nameKo 단독 Text), `비자 없이 90일`(summary 또는 타일에 substring), `source_footer`(`외교부 해외안전여행 · 태국`, `2026.09.28`) 단독 Text, `country_form_start`, `country_back`, `guide_not_affiliated`(320×470에서 약 390dp 위에서 시작).
 - 신규: `country_submit_self`(마지막 제출은 직접 눌러요), `fact_days`(%1$d일), `fact_label_visa_free`(비자 없이 머물러요), `fact_label_visa_arrival`(도착비자로 머물러요), `fact_label_form_fee`(입국 카드 비용), `fact_label_visa_fee`(비자 비용), `fact_label_window`(`도착일 포함\n내는 기간` — 타일 복원용, 이번 릴리스 미사용).
@@ -825,13 +827,14 @@ enum class StatusKind(val icon: ImageVector, val tone: BadgeTone) {
 - 신규: 없음(`step_self`는 쓰지 않으므로 만들지 않음).
 
 ### 05 나라 · 여행 정보 — 같은 파일
-- 순서: ① `SectionHeader(country_travel_tools_title, icon Explore)` + `InfoTileGrid` 2×2(Translate `tile_phrases_emergency` → openHelp, LocalTaxi(Violet) `move_title` → openMove, SmartDisplay `tile_videos` → openVideos, Map(Teal) `tile_maps` → 지도 카드로 `state.scrollToKey(keys, "maps")`(4.1절) — 라벨은 2열 한 줄 7자 규칙에 맞춘 짧은 키, 3.2절) ② 전기 `CardNewsCard(icon Power)`: 맨 위 결론 `NoticeBanner(Success, CheckCircle, guide_power_kr_fits)` 또는 `(Caution, Outlet, guide_power_kr_adapter)`(krPlugFits null이면 생략), `FactGrid`[Power plugKo(shortValue 안 되면 행) / ElectricBolt voltage / GraphicEq frequency], `SourceFooter` ③ 돈·안전 섹션 `CardNewsCard(icon = IconKeys.section(id))` + `IconBullet` 목록 + 출처(여행경보 단계 배지는 팩에 구조 필드가 없어 이번엔 하지 않음 — 부록 A) ④ 현지에서 급할 때 Navy 카드 → 타일로 흡수했으므로 **삭제**(타일 `country_help_open`) ⑤ YouTube·이동하기 카드 삭제(타일로) ⑥ 지도 저장 `CardNewsCard(icon Map, tone Teal)` + `StepList`(AccountCircle→OfflinePin→Download 없이 Neutral 번호만) + note + `SourceFooter`.
+- 순서(**v3에서 바뀜**): 타일 넷은 내용 **맨 끝** `NavMosaic`으로 내려갔고(`오프라인 지도` 타일은 삭제), 읽는 카드는 위험 배너 → 전기 → 돈·안전 → 지도 저장 차례다(부록 E.4). 아래 ①은 v2 기록이다.
+- (v2) ① `SectionHeader(country_travel_tools_title, icon Explore)` + `InfoTileGrid` 2×2(Translate `tile_phrases_emergency` → openHelp, LocalTaxi(Violet) `move_title` → openMove, SmartDisplay `tile_videos` → openVideos, Map(Teal) `tile_maps` → 지도 카드로 `state.scrollToKey(keys, "maps")`(4.1절) — 라벨은 2열 한 줄 7자 규칙에 맞춘 짧은 키, 3.2절) ② 전기 `CardNewsCard(icon Power)`: 맨 위 결론 `NoticeBanner(Success, CheckCircle, guide_power_kr_fits)` 또는 `(Caution, Outlet, guide_power_kr_adapter)`(krPlugFits null이면 생략), `FactGrid`[Power plugKo(shortValue 안 되면 행) / ElectricBolt voltage / GraphicEq frequency], `SourceFooter` ③ 돈·안전 섹션 `CardNewsCard(icon = IconKeys.section(id))` + `IconBullet` 목록 + 출처(여행경보 단계 배지는 팩에 구조 필드가 없어 이번엔 하지 않음 — 부록 A) ④ 현지에서 급할 때 Navy 카드 → 타일로 흡수했으므로 **삭제**(타일 `country_help_open`) ⑤ YouTube·이동하기 카드 삭제(타일로) ⑥ 지도 저장 `CardNewsCard(icon Map, tone Teal)` + `StepList`(AccountCircle→OfflinePin→Download 없이 Neutral 번호만) + note + `SourceFooter`.
 - 줄이는 글: `이동하기. 가는 곳을…` 중복 제거(`move_speech`를 본문에 쓰지 않음). 빨간 PlayCircle 제거.
 - 유지: `country_tab_travel`, `explore_maps_step1~3`(D17 접두 삭제). `country_help_open`·`country_videos_*`는 현재 테스트가 찾지 않는다. 타일에는 기존 긴 문구(13자) 대신 새 짧은 키를 쓰고, 옛 키는 2단계에서 사용처가 0이면 지운다. 지도 카드 제목은 `explore_maps_title` 그대로.
 - 신규: `country_travel_tools_title`(현지에서 쓰는 도구), `tile_phrases_emergency`(`현지어와\n긴급 번호`), `tile_videos`(여행 영상), `tile_maps`(오프라인 지도).
 
 ### 06 나라 · 쇼핑(일본) — 같은 파일
-- ① `CardNewsCard(icon ShoppingBag, tone Help, title shopping_title)` — **사진 없음**(히어로가 이미 위에 있음, 호이안 사진 제거). 부제 `shopping_subtitle_v2`(관광청 쇼핑 안내에서 골랐어요 — `준비 중` 문구 삭제). 품목 3개 = `ListRow`형 미리보기(IconBadge = 분류 아이콘, 제목 nameKo, `trailing = RowTrailing.Custom { ImportVerdictBadge }`) — **whyKo는 미리보기에 넣지 않는다**(줄 수로 자르기 금지, 원칙 6. 전체 글은 18에서). 품목 아래(카드 안) **`SourceList`(품목 출처 + 반입 판정 출처 `importSource`)** — 반입 판정이 출처 없이 보이지 않게. `PrimaryButton(shopping_open, icon AM.NavigateNext)`(`외 N개 더` 문구는 버튼 위 bodySmall). ② `ReturnCheckCard`(compact = false).
+- ① `CardNewsCard(icon ShoppingBag, tone Help, title shopping_title)` — **사진 없음**(히어로가 이미 위에 있음, 호이안 사진 제거). 부제 `shopping_subtitle_v2`(관광청 쇼핑 안내에서 골랐어요 — `준비 중` 문구 삭제). 품목 3개 = `ListRow`형 미리보기(IconBadge = 분류 아이콘, 제목 nameKo, `trailing = RowTrailing.Custom { ImportVerdictBadge }`) — **whyKo는 미리보기에 넣지 않는다**(줄 수로 자르기 금지, 원칙 6. 전체 글은 18에서). 품목 아래(카드 안) **`SourceList`(품목 출처 + 반입 판정 출처 `importSource`)** — 반입 판정이 출처 없이 보이지 않게. ~~`PrimaryButton(shopping_open)`~~ → v3: 쇼핑 리스트로 가는 길은 내용 맨 끝 `NavMosaic` 큰 타일(`외 N개 더` 문구는 카드 안 bodySmall 그대로, 부록 E.4). ② `ReturnCheckCard`(compact = false).
 - 유지: `shopping_open`, `country_tab_shopping`, `import_*`.
 - 신규: `shopping_subtitle_v2`. (`shopping_subtitle`은 18에서도 v2로 교체, 기존 키는 삭제하지 말고 미사용 처리 — lint unused는 허용 목록에)
 
@@ -1252,6 +1255,7 @@ enum class StatusKind(val icon: ImageVector, val tone: BadgeTone) {
 | 종류 | 부품 | 선택 | 비선택 |
 |---|---|---|---|
 | ① 칩·세그먼트·작은 타일 | `SelectChip`·`ChoiceSegments`·`SelectTile` | Accent 채움 + 흰 글자 + `Check` | 흰 바탕(세그먼트는 트랙) + 1dp LineStrong |
+| **탭(고르기 아님)** | `SectionTabs` | **Accent 밑줄 + Accent 굵은 글자**(채움 없음) | 흰 바탕 + InkSecondary 글자 — 부록 E.1 |
 | ② 큰 카드·폭 전체 행 | `SelectableCard` (14 여행 고치기 나라, 17 입국 카드 선택지, 20 자주 쓰는 말) | AccentSoft 바탕 + 2dp Accent 테두리 + 채운 `CheckCircle`(Accent) | 흰 바탕 + 1dp LineStrong + 빈 원(`RadioButtonUnchecked`, LineStrong) |
 
 - AccentSoft 채움은 **선택됨**에만 쓴다. 누르면 다음 화면으로 가는 추천 카드(`ChoiceCard(emphasized)`, 00 첫 실행)는 흰 바탕 + 2dp Accent 테두리.
@@ -1329,3 +1333,63 @@ enum class StatusKind(val icon: ImageVector, val tone: BadgeTone) {
 - WORD JOINER 누락 버그: 줄 끝 앞 글자를 보이지 않는 문자를 건너뛰고 판정.
 - 넘침 판정은 `TextLayoutResult.hasVisualOverflow`를 쓰지 않는다 — semantics가 돌려주는 결과는 단락 폭이 칸 최대 폭으로 다시 만들어져 짧은 글도 넘침으로 나온다. 줄마다 글자 폭(getLineRight − getLineLeft) > 칸 폭, 단락 높이 > 칸 높이, 줄 수 제한 초과를 잰다.
 - 감사로 찾아 고친 것: 글 끝 한 음절 낱말(`적을 칸`·`있는 주`·`가져온 값`)은 `koDisplay`가 앞 낱말에 붙인다(`glueLastShortWord`, 모든 API). 홈 히어로 제목·이동하기 `기사님께 보여주기` eyebrow·여권 카드 `PASSPORT · 여권` eyebrow는 KoText로(sdk 31에서 음절 줄바꿈).
+
+## 부록 E — 길잡이 v3 (2026-10-02, 메뉴와 내용 분리)
+
+운영자 지적: *"입국심사/여행정보/쇼핑을 클릭했을 때 하단이 바뀌는 구조인데, 이 3개의 메뉴와 하단의 내용이 잘 구분되지 않는다. 메뉴는 국가명 아래 가로로 두고, 하단의 내용에도 메뉴가 있어서 더 혼란스럽다. 하단 메뉴는 모자이크로."*
+진단은 세 가지였다 — ① 섹션 전환이 내용 카드와 같은 폭·같은 모서리라 카드 하나처럼 보였다 ② 2열 폭일 때만 고정돼 쉬운 모드·큰 글자에서는 세로 목록이 스크롤로 사라졌다 ③ **읽는 카드와 똑같은 흰 타일**로 된 길 안내가 읽는 내용 **가운데** 끼어 있었다.
+이 부록이 4.17·6-03·6-05·6-06·부록 C.2의 같은 항목보다 우선한다. 자세한 기록은 `NAV_V3_REPORT.md`.
+
+### E.1 탭(화면 틀) vs 고르기(조작) — 모양이 다르다
+
+| 종류 | 부품 | 선택 표시 | 뜻 |
+|---|---|---|---|
+| **탭** | `SectionTabs` (`Tabs.kt`) | **2~3dp Accent 밑줄 + Accent 굵은 글자** (채움 없음) | 누르면 **아래 내용(페이지)이 바뀐다** |
+| 고르기 ① | `SelectChip`·`ChoiceSegments`·`SelectTile` | Accent 채움 + 흰 글자 + `Check` | 값을 **고른다**(정렬·분류·나라·목적지) |
+| 고르기 ② | `SelectableCard` | AccentSoft 바탕 + 2dp Accent 테두리 + `CheckCircle` | 값을 **고른다**(큰 카드·폭 전체 행) |
+
+- 아래 내용을 바꾸는 탭에 '고른 칩' 모양(Accent 채움)을 쓰지 않는다 — 탭과 내용 속 선택지가 같은 모양이면 '지금 어느 갈래인지'가 읽히지 않는다.
+- `ChoiceSegments`는 **값을 고르는 곳**(영상 정렬 07, 예약 가져오기)에 그대로 둔다. 나라 섹션(03~06)만 `SectionTabs`로 바뀌었다.
+
+### E.2 `SectionTabs` (`Tabs.kt`)
+
+```kotlin
+@Composable fun <T> SectionTabs(options: List<T>, selected: T, onSelect: (T) -> Unit,
+    label: @Composable (T) -> String, modifier: Modifier = Modifier,
+    shortLabel: @Composable (T) -> String = label, icon: (T) -> ImageVector? = { null })
+fun Modifier.tabBarSurface(bleedTop: Dp): Modifier   // 흰 바탕 + 아래 1dp Line + 아래로 번지는 옅은 그림자
+fun Modifier.fullBleed(bleed: Dp): Modifier          // Layout.kt — 목록 양옆 여백을 벗어나 화면 끝까지
+```
+- **어떤 모드에서도 가로 한 줄**(쉬운 모드·글자 200%·360dp·기기 언어 영어). 세로 목록·가로 스크롤·스와이프 없음.
+- 좁아지면 라벨을 이 순서로 내린다(글자를 자르지 않는다): ① 아이콘 + 전체 라벨 ② 아이콘 빼고 전체 라벨 ③ **짧은 라벨**(`country_tab_*_short`: 입국 / 여행 / 쇼핑) ④ `FitText`로 줄여 한 줄(감사 최소 글자 — 쉬운 18sp·기본 13sp), 그래도 안 되면 띄어쓰기 자리에서만 두 줄. 폭은 **선택 칸(굵게)** 기준으로 모든 칸을 함께 재서 한 단계를 고른다.
+- 보이는 글자가 짧은 라벨로 바뀌어도 TalkBack·테스트가 읽는 의미 글자는 **전체 라벨**(`KoText(display = …)`).
+- a11y: 부모 `selectableGroup()` + 칸마다 `selectable(role = Role.Tab)`, 칸 높이 `heightIn(min = minTouch)`(줄 전체가 `IntrinsicSize.Min`이라 고유 높이에도 48/56dp가 들어가야 한다 — `minTouch()`는 고유 높이를 모른다).
+
+### E.3 나라 화면 머리 묶음 (6-03 갱신)
+
+- **히어로 + 탭 줄 = 머리 묶음**, 그 아래가 내용이다. 탭 줄은 `stickyHeader`로 **모든 모드에서** 고정한다(`rememberGridColumns() == 2` 조건 삭제).
+- 탭 줄은 `Modifier.fullBleed(screenPadding).tabBarSurface(gap)` — 흰 바탕이 **화면 끝까지**, 아래 1dp `Line`, 아래로 6dp 옅은 그림자(Ink 7%, 직접 그린다). 바탕은 목록 위쪽 여백(gap)까지 위로 칠해 내용이 탭 줄 위로 비치지 않게 한다.
+- 내용은 `Ground` 바탕과 평소 카드 여백 그대로. 히어로는 탭 줄 아래로 지나가고 탭 줄은 남는다.
+- 탭을 누르면 `listState.scrollToKey(keys, "sections")` — 고정된 탭 줄이 맨 위에 서고 그 갈래 첫 카드가 바로 아래에서 시작한다(갈래를 바꿨는데 지난 갈래의 스크롤 위치에 남지 않는다).
+
+### E.4 길 안내 모자이크 `NavMosaic` (`Tiles.kt`, 6-03·6-05·6-06 갱신)
+
+**규칙**: 카드가 방금 설명한 일을 **그 자리에서 하는 버튼은 카드 안에 남는다**(입국 카드 채우기 `EntryFormCard`, 비자 신청 `VisaApplyCard`) — 메뉴가 아니다.
+**다른 화면으로 가는 것만이 목적인 타일·버튼은 그 갈래 내용의 맨 끝 한 묶음으로 모은다.** 길 안내 타일을 읽는 카드 사이에 끼우지 않는다.
+
+```kotlin
+@Composable fun NavMosaic(tiles: List<TileSpec>, modifier: Modifier = Modifier,
+    title: String = stringResource(R.string.nav_more_here), icon: ImageVector? = Icons.Outlined.GridView,
+    columns: Int = rememberGridColumns())
+fun navTileColors(tone: BadgeTone): NavTileColors
+```
+- 머리 `SectionHeader(nav_more_here = 여기서 더 볼 수 있어요)` → **첫 타일은 크게**(폭 전체·큰 배지·titleLarge) → 나머지는 2열 그리드. 일부러 크기를 다르게 해서 같은 크기로 늘어선 읽는 카드와 혼동되지 않게 한다.
+- **길 안내 타일 = 연한 톤 채움**(`tone.container` — AccentSoft·HelpSoft·VioletSoft·TealSoft) + Ink 라벨. 읽는 카드는 흰 바탕이라 **색으로 갈린다**(이번 개편의 핵심). 배지는 흰 바탕으로 띄운다(타일 바탕과 같은 색이면 사라진다). 대비는 `TokenContrastTest`가 검사한다(Ink·InkSecondary on Violet/Teal/Accent/Help Soft).
+- 1열(쉬운 모드·큰 글자)에서는 폭 전체 가로 행으로 내려가지만 **머리 아래 한 묶음·연한 채움**은 그대로다(내용을 숨기지 않는다). 큰 글자 배치에서는 배지·셰브론을 윗줄로 올린다.
+- 갈래별 채택: **입국·비자** = `내 여행에 넣기`(큰) + `현지어와 긴급 번호` / **여행 정보** = `현지어와 긴급 번호`(큰) + `이동하기` + `여행 영상`(지도 저장 카드는 읽는 흐름에 그대로 두고 `오프라인 지도` 타일은 없앴다 — 묶음이 그 카드 아래라 같은 화면 안을 되돌아가는 길이 된다) / **쇼핑** = `쇼핑 리스트 보기`(큰) 한 장(미리보기·반입 판정 배지·귀국 전 확인 요약·출처는 카드에 그대로).
+
+### E.5 남은 두 벌 정리 (v3에서 하나로)
+
+- **전기 값 칩**: 홈 01·02·여행 준비 18(`items_chip_*`)과 꼭 챙길 물건 19(`essentials_power_*`)가 순서·색·확인 안 된 나라의 말이 서로 달랐다 → 공용 `PowerChips(power)`(`components/Essentials.kt`) 한 벌로. **판정 먼저, 값 다음**이고 말은 더 정확한 쪽(`변환 어댑터 챙기면 안전해요` — 공식 확인이 없는 나라를 따로 밝힌다)을 남겼다. 톤은 뜻대로 Success/Caution. `items_chip_*` 문구는 쓰지 않는다.
+- **입국 카드 내는 기간 표기**: `11월 1일~3일`(좁은 쪽) 하나로 — 공용 `formWindowKo(from, to)`(`EntryForm.kt`)를 나라 입국 03·04, 여행 준비 18, 내 여행 10 할 일 칩이 함께 쓴다. 여행 날짜 줄(`11월 3일 ~ 7일`, `today_trip_dates`)은 '여행 기간'이라는 다른 역할이라 그대로.
+- **이동하기(23) 한국어 뜻 줄**: `KoText(glueShort = true)` — 200%에서 `이 주소로 가 / 주세요`처럼 말 가운데서 끊기지 않게.

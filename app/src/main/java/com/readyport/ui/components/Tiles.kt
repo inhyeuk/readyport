@@ -21,6 +21,7 @@ import androidx.compose.material.icons.automirrored.outlined.NavigateNext
 import androidx.compose.material.icons.outlined.Call
 import androidx.compose.material.icons.outlined.Check
 import androidx.compose.material.icons.outlined.Fingerprint
+import androidx.compose.material.icons.outlined.GridView
 import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -156,6 +157,124 @@ fun InfoTileGrid(tiles: List<TileSpec>, modifier: Modifier = Modifier, columns: 
         IconTile(spec, cell, if (columns == 1) TileLayout.Horizontal else TileLayout.Vertical)
     }
 }
+
+// ======================= 길 안내 모자이크 (DESIGN_SPEC 4.19 — 메뉴와 내용 분리 v3) =======================
+// 규칙: **카드가 방금 설명한 일을 그 자리에서 하는 버튼은 카드 안에 남는다**(입국 카드 채우기·비자 신청).
+// **다른 화면으로 가는 것만이 목적인 타일·버튼은 그 갈래 내용의 맨 끝 [NavMosaic] 한 묶음으로 모은다.**
+// 길 안내 타일을 읽는 카드 사이에 끼워 넣지 않는다 — 흰 카드 사이의 흰 타일은 '읽을 카드'와 구분되지 않았다(운영자 지적 2026-10-02).
+
+/**
+ * 길 안내 타일 색: **연한 톤 채움**(tone.container) + Ink 글자. 읽는 카드는 흰 바탕이라 한눈에 갈린다.
+ * 배지는 흰 바탕으로 띄운다(배지 바탕이 타일 바탕과 같은 색이면 사라진다 — EmergencyCallTile과 같은 처리).
+ */
+@Immutable
+data class NavTileColors(
+    val container: Color,
+    val label: Color,
+    val supporting: Color,
+    val badge: BadgeTone,
+    val badgeContainer: Color,
+    val chevron: Color,
+)
+
+fun navTileColors(tone: BadgeTone): NavTileColors =
+    NavTileColors(tone.container, Tokens.Ink, Tokens.InkSecondary, tone, Tokens.Surface, Tokens.InkSecondary)
+
+/**
+ * 한 갈래(탭) 내용 맨 끝에 모아 두는 **길 안내 모자이크**: 머리([title], 기본 `여기서 더 볼 수 있어요`) +
+ * 첫 타일은 **크게**(폭 전체·큰 배지·큰 글자), 나머지는 그 아래 2열 그리드 — 일부러 크기를 다르게 해서
+ * 같은 크기로 늘어선 읽는 카드와 혼동되지 않게 한다.
+ * - 1열(쉬운 모드·큰 글자)에서는 폭 전체 가로 행으로 내려가지만 **머리 아래 한 묶음·연한 채움**은 그대로다(내용을 숨기지 않는다).
+ * - 2열 칸 라벨은 넘겨받은 줄바꿈(`현지어와\n긴급 번호`)을 그대로 쓰고, 폭 전체 타일에서는 한 줄로 편다.
+ * - 타일이 하나면 큰 타일 한 장이다(한 칸짜리 그리드를 만들지 않는다).
+ */
+@Composable
+fun NavMosaic(
+    tiles: List<TileSpec>,
+    modifier: Modifier = Modifier,
+    title: String = stringResource(R.string.nav_more_here),
+    icon: ImageVector? = Icons.Outlined.GridView,
+    columns: Int = rememberGridColumns(),
+) {
+    if (tiles.isEmpty()) return
+    val dimens = LocalDimens.current
+    Column(modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(dimens.gap)) {
+        SectionHeader(title, icon = icon)
+        NavTile(tiles.first(), large = true)
+        val rest = tiles.drop(1)
+        when {
+            rest.isEmpty() -> Unit
+            columns == 1 -> rest.forEach { NavTile(it, row = true) }
+            else -> TileGrid(rest, columns = columns) { spec, cell -> NavTile(spec, modifier = cell) }
+        }
+    }
+}
+
+/**
+ * 길 안내 타일 하나. [large](모자이크 첫 타일)·[row](1열)는 폭 전체 가로형(라벨 한 줄), 그 밖에는 2열 칸 세로형.
+ * 큰 글자 배치에서는 배지·셰브론을 윗줄로 올리고 글에 폭 전체를 준다(ChoiceCard·IconTile과 같은 처리).
+ * a11y: Role.Button, 이름 = 라벨(+보조 글).
+ */
+@Composable
+private fun NavTile(spec: TileSpec, modifier: Modifier = Modifier, large: Boolean = false, row: Boolean = false) {
+    val dimens = LocalDimens.current
+    val c = navTileColors(spec.tone)
+    val shape = MaterialTheme.shapes.medium
+    val wide = large || row
+    val stacked = isStackedLayout()
+    val labelStyle = if (large) MaterialTheme.typography.titleLarge else MaterialTheme.typography.titleMedium
+    val badge: @Composable () -> Unit = {
+        IconBadge(
+            spec.icon,
+            tone = c.badge,
+            size = if (large) dimens.iconBadge + NavLargeBadgeExtra else dimens.iconBadge,
+            containerColor = c.badgeContainer,
+        )
+    }
+    val chevron: @Composable () -> Unit = {
+        Icon(Icons.AutoMirrored.Outlined.NavigateNext, contentDescription = null, tint = c.chevron)
+    }
+    val texts: @Composable (Modifier) -> Unit = { m ->
+        Column(m, verticalArrangement = Arrangement.spacedBy(2.dp)) {
+            KoText(if (wide) spec.label.replace('\n', ' ') else spec.label, labelStyle, color = c.label, glueShort = true)
+            if (spec.supporting != null) KoText(spec.supporting, MaterialTheme.typography.bodyMedium, color = c.supporting)
+        }
+    }
+    Surface(
+        onClick = spec.onClick,
+        shape = shape,
+        color = c.container,
+        contentColor = c.label,
+        modifier = modifier
+            .fillMaxWidth()
+            .heightIn(min = if (row && !stacked) dimens.tileRowMinHeight else dimens.tileMinHeight)
+            .semantics { role = Role.Button },
+    ) {
+        if (wide && !stacked) {
+            Row(
+                Modifier.padding(horizontal = dimens.listRowPadding, vertical = dimens.listRowPaddingVertical),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(16.dp),
+            ) {
+                badge()
+                texts(Modifier.weight(1f))
+                chevron()
+            }
+        } else {
+            Column(Modifier.padding(dimens.cardPadding), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+                    badge()
+                    Spacer(Modifier.weight(1f))
+                    chevron()
+                }
+                texts(Modifier.fillMaxWidth())
+            }
+        }
+    }
+}
+
+/** 모자이크 큰 타일의 배지가 2열 칸 타일보다 커지는 만큼 */
+private val NavLargeBadgeExtra = 12.dp
 
 /**
  * 큰 선택 카드 (첫 실행 등). 카드 전체가 버튼, 이름 = title + body.
