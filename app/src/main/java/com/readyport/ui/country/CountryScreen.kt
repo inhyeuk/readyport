@@ -62,18 +62,21 @@ import com.readyport.pack.SourcedText
 import com.readyport.prep.import
 import com.readyport.ui.components.AppScreen
 import com.readyport.ui.components.CardTone
+import com.readyport.ui.components.ImportVerdictBadge
 import com.readyport.ui.components.InfoCard
 import com.readyport.ui.components.PhotoBox
+import com.readyport.ui.components.PhotoHeaderCard
+import com.readyport.ui.components.PhotoTextColumn
 import com.readyport.ui.components.Photos
 import com.readyport.ui.components.PrimaryButton
+import com.readyport.ui.components.ReturnCheckCard
 import com.readyport.ui.components.SourceFooter
 import com.readyport.ui.components.StatusChip
+import com.readyport.ui.components.Step
+import com.readyport.ui.components.StepList
 import com.readyport.ui.components.TopicCard
-import com.readyport.ui.home.PhotoTopCard
+import com.readyport.ui.components.displayDate
 import com.readyport.ui.nav.CountryRoute
-import com.readyport.ui.pack.ImportTag
-import com.readyport.ui.pack.ReturnCheckCard
-import com.readyport.ui.pack.displayDate
 import com.readyport.ui.theme.LocalDimens
 import com.readyport.ui.theme.Tokens
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -295,9 +298,10 @@ fun CountryContent(ui: CountryUi, actions: CountryActions, initialSection: Count
                 item(key = "maps") {
                     InfoCard {
                         Text(stringResource(R.string.explore_maps_title), style = MaterialTheme.typography.titleMedium)
-                        listOf(R.string.explore_maps_step1, R.string.explore_maps_step2, R.string.explore_maps_step3).forEach {
-                            Text(stringResource(it), style = MaterialTheme.typography.bodyMedium)
-                        }
+                        StepList(
+                            listOf(R.string.explore_maps_step1, R.string.explore_maps_step2, R.string.explore_maps_step3)
+                                .map { Step(stringResource(it)) },
+                        )
                         Text(stringResource(R.string.explore_maps_note), style = MaterialTheme.typography.bodySmall)
                         SourceFooter(stringResource(R.string.explore_maps_source), "2026.09.28")
                     }
@@ -307,13 +311,13 @@ fun CountryContent(ui: CountryUi, actions: CountryActions, initialSection: Count
             CountrySection.Shopping -> {
                 if (pack.shopping.isNotEmpty()) {
                     item(key = "shopping") {
-                        PhotoTopCard(Photos.Market, stringResource(R.string.shopping_title, pack.names.ko)) {
+                        PhotoHeaderCard(Photos.Market, stringResource(R.string.shopping_title, pack.names.ko), minHeight = 140.dp) {
                             Text(stringResource(R.string.shopping_subtitle), style = MaterialTheme.typography.bodyMedium)
                             pack.shopping.take(3).forEach { item ->
                                 Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
                                     Text(item.names.ko, style = MaterialTheme.typography.titleMedium)
                                     Text(item.whyKo, style = MaterialTheme.typography.bodyMedium)
-                                    ImportTag(item.import)
+                                    ImportVerdictBadge(item.import)
                                 }
                             }
                             if (pack.shopping.size > 3) {
@@ -335,7 +339,8 @@ private fun CountryHero(loaded: Loaded<CountryPack>, favorite: Boolean, actions:
     val pack = loaded.value
     PhotoBox(Photos.country(pack.country), minHeight = 0.dp) {
         // 버튼 줄과 나라 이름을 세로로 쌓는다 — 글자를 키워도 서로 겹치지 않는다
-        Column(Modifier.fillMaxWidth().heightIn(min = 280.dp), verticalArrangement = Arrangement.SpaceBetween) {
+        // 320×470 화면 예산(DESIGN_SPEC 6-03): 280 → 220dp — 정부 비제휴 고지가 스크롤 없이 보이게
+        Column(Modifier.fillMaxWidth().heightIn(min = 220.dp), verticalArrangement = Arrangement.SpaceBetween) {
             Row(Modifier.fillMaxWidth().padding(8.dp), horizontalArrangement = Arrangement.SpaceBetween) {
                 IconButton(
                     onClick = actions.back,
@@ -350,7 +355,7 @@ private fun CountryHero(loaded: Loaded<CountryPack>, favorite: Boolean, actions:
                     Icon(if (favorite) Icons.Filled.Favorite else Icons.Outlined.FavoriteBorder, contentDescription = null, tint = Color.White)
                 }
             }
-            Column(Modifier.padding(start = 20.dp, end = 20.dp, bottom = 20.dp, top = 12.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+            PhotoTextColumn {
                 Text(
                     pack.names.ko,
                     color = Color.White, fontSize = 34.sp, lineHeight = 42.sp, fontWeight = FontWeight.Bold,

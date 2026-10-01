@@ -61,7 +61,11 @@ import com.readyport.ui.theme.LocalDimens
 import com.readyport.ui.theme.Tokens
 
 /** 화면 표기: 2026-09-28 → 2026.09.28 (PRD 5장 공통) */
-fun displayDate(iso: String) = iso.replace('-', '.')
+@Deprecated(
+    "components.displayDate 사용 (DESIGN_SPEC 4.0 이동 규칙)",
+    ReplaceWith("displayDate(iso)", "com.readyport.ui.components.displayDate"),
+)
+fun displayDate(iso: String): String = com.readyport.ui.components.displayDate(iso)
 
 // ======================= 도움 =======================
 

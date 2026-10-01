@@ -14,10 +14,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowForward
+import androidx.compose.material.icons.outlined.HowToReg
+import androidx.compose.material.icons.outlined.LocalAirport
 import androidx.compose.material.icons.outlined.Lock
+import androidx.compose.material.icons.outlined.Luggage
+import androidx.compose.material.icons.outlined.MeetingRoom
+import androidx.compose.material.icons.outlined.Security
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -53,10 +56,14 @@ import com.readyport.ui.components.CardTone
 import com.readyport.ui.components.InfoCard
 import com.readyport.ui.components.PhotoBox
 import com.readyport.ui.components.PhotoChip
+import com.readyport.ui.components.PhotoHeaderCard
+import com.readyport.ui.components.PhotoTextArea
 import com.readyport.ui.components.Photos
 import com.readyport.ui.components.PrimaryButton
+import com.readyport.ui.components.ReturnCheckCard
+import com.readyport.ui.components.Step
+import com.readyport.ui.components.StepList
 import com.readyport.ui.components.TopicCard
-import com.readyport.ui.pack.ReturnCheckCard
 import com.readyport.ui.tabs.EssentialsSummary
 import com.readyport.ui.theme.LocalDimens
 import com.readyport.ui.theme.Tokens
@@ -78,10 +85,12 @@ data class HomeCountry(
     val visa: Requirement? = null,
     val hasForm: Boolean = false,
     val ready: Boolean = false,
+    /** [visa] 출처 이름 (나라 그리드 아래 SourceList용, DESIGN_SPEC 6-01). 못 찾으면 null */
+    val sourceName: String? = null,
 )
 
-/** 홈 위쪽 '내 여행' 요약 */
-data class HomeTrip(val countryKo: String, val startDate: LocalDate, val endDate: LocalDate)
+/** 홈 위쪽 '내 여행' 요약. [code]: 나라 코드(사진 썸네일용, DESIGN_SPEC 6-02) */
+data class HomeTrip(val countryKo: String, val startDate: LocalDate, val endDate: LocalDate, val code: String? = null)
 
 data class HomeUi(
     val countries: List<HomeCountry> = emptyList(),
@@ -110,16 +119,18 @@ class HomeViewModel @Inject constructor(
         val index = packs.index()?.value
         val countries = index?.countries.orEmpty().map { c ->
             val pack = if (c.pack) packs.pack(c.code)?.value else null
+            val visa = pack?.requirements?.firstOrNull { it.nationality == "KR" && it.purpose == "tourism" }
             HomeCountry(
                 code = c.code, nameKo = c.nameKo, nameEn = c.nameEn,
-                visa = pack?.requirements?.firstOrNull { it.nationality == "KR" && it.purpose == "tourism" },
+                visa = visa,
                 hasForm = pack?.forms?.isNotEmpty() == true,
                 ready = pack != null,
+                sourceName = visa?.let { pack.source(it.source)?.name },
             )
         }
         val tripPack = trip?.let { packs.pack(it.country)?.value }
         val homeTrip = trip?.let { t ->
-            runCatching { HomeTrip(tripPack?.names?.ko ?: t.country, LocalDate.parse(t.startDate), LocalDate.parse(t.endDate)) }.getOrNull()
+            runCatching { HomeTrip(tripPack?.names?.ko ?: t.country, LocalDate.parse(t.startDate), LocalDate.parse(t.endDate), t.country) }.getOrNull()
         }
         val rules = Essentials.select(index?.essentials.orEmpty(), index?.homePower, tripPack?.power)
         HomeUi(
@@ -145,7 +156,6 @@ fun HomeScreen(actions: HomeActions, viewModel: HomeViewModel = hiltViewModel())
 
 @Composable
 fun HomeContent(ui: HomeUi, actions: HomeActions, today: LocalDate = LocalDate.now()) {
-    val dimens = LocalDimens.current
     AppScreen(
         title = stringResource(R.string.home_title),
         speech = stringResource(R.string.home_speech),
@@ -162,15 +172,20 @@ fun HomeContent(ui: HomeUi, actions: HomeActions, today: LocalDate = LocalDate.n
 
         item(key = "basics-title") { SectionTitle(stringResource(R.string.home_basics_title), null) }
         item(key = "departure") {
-            PhotoTopCard(Photos.Airport, stringResource(R.string.home_departure_title)) {
-                listOf(
-                    R.string.today_departure_step1, R.string.today_departure_step2, R.string.today_departure_step3,
-                    R.string.today_departure_step4, R.string.today_departure_step5,
-                ).forEach { Text(stringResource(it), style = MaterialTheme.typography.bodyLarge) }
+            PhotoHeaderCard(Photos.Airport, stringResource(R.string.home_departure_title), minHeight = 140.dp) {
+                StepList(
+                    listOf(
+                        Step(stringResource(R.string.today_departure_step1), Icons.Outlined.LocalAirport, stringResource(R.string.today_departure_step1_detail)),
+                        Step(stringResource(R.string.today_departure_step2), Icons.Outlined.Luggage),
+                        Step(stringResource(R.string.today_departure_step3), Icons.Outlined.Security),
+                        Step(stringResource(R.string.today_departure_step4), Icons.Outlined.HowToReg),
+                        Step(stringResource(R.string.today_departure_step5), Icons.Outlined.MeetingRoom),
+                    ),
+                )
             }
         }
         item(key = "essentials") {
-            PhotoTopCard(Photos.Packing, stringResource(R.string.home_essentials_title)) {
+            PhotoHeaderCard(Photos.Packing, stringResource(R.string.home_essentials_title), minHeight = 140.dp) {
                 Text(stringResource(R.string.home_essentials_body), style = MaterialTheme.typography.bodyLarge)
                 if (ui.essentials.total > 0) {
                     Text(
@@ -185,12 +200,13 @@ fun HomeContent(ui: HomeUi, actions: HomeActions, today: LocalDate = LocalDate.n
         if (ui.returnFacts.isNotEmpty() || ui.returnLinks.isNotEmpty()) {
             item(key = "return-photo") {
                 PhotoBox(Photos.Market, minHeight = 150.dp) {
-                    Text(
-                        stringResource(R.string.home_return_photo),
-                        style = MaterialTheme.typography.titleLarge,
-                        color = Color.White,
-                        modifier = Modifier.align(Alignment.BottomStart).padding(dimens.cardPadding),
-                    )
+                    PhotoTextArea {
+                        Text(
+                            stringResource(R.string.home_return_photo),
+                            style = MaterialTheme.typography.titleLarge,
+                            color = Color.White,
+                        )
+                    }
                 }
             }
             item(key = "return") { ReturnCheckCard(ui.returnLinks, ui.returnFacts, ui.indexSources, actions.openLink) }
@@ -219,10 +235,7 @@ fun HomeContent(ui: HomeUi, actions: HomeActions, today: LocalDate = LocalDate.n
 @Composable
 private fun HomeHero() {
     PhotoBox(Photos.Home, minHeight = 250.dp) {
-        Column(
-            modifier = Modifier.align(Alignment.BottomStart).padding(20.dp),
-            verticalArrangement = Arrangement.spacedBy(6.dp),
-        ) {
+        PhotoTextArea {
             Text(stringResource(R.string.home_brand), style = MaterialTheme.typography.labelLarge, color = Color.White.copy(alpha = 0.92f))
             Text(
                 stringResource(R.string.home_title),
@@ -269,10 +282,7 @@ fun CountryPhotoCard(c: HomeCountry, onClick: () -> Unit, modifier: Modifier = M
             .clickable(enabled = c.ready, role = Role.Button, onClickLabel = label, onClick = onClick)
             .semantics(mergeDescendants = true) { contentDescription = label },
     ) {
-        Column(
-            modifier = Modifier.align(Alignment.BottomStart).fillMaxWidth().padding(18.dp),
-            verticalArrangement = Arrangement.spacedBy(6.dp),
-        ) {
+        PhotoTextArea {
             Row(verticalAlignment = Alignment.Bottom) {
                 Column(Modifier.weight(1f)) {
                     Text(c.nameKo, color = Color.White, fontSize = 30.sp, lineHeight = 36.sp, fontWeight = FontWeight.Bold)
@@ -289,30 +299,18 @@ fun CountryPhotoCard(c: HomeCountry, onClick: () -> Unit, modifier: Modifier = M
     }
 }
 
-/** 위에 사진, 아래에 설명이 있는 카드 */
+/** 위에 사진, 아래에 설명이 있는 카드 — components.PhotoHeaderCard로 옮겼다 */
+@Deprecated(
+    "components.PhotoHeaderCard 사용 (DESIGN_SPEC 4.0 이동 규칙)",
+    ReplaceWith("PhotoHeaderCard(photo, title, minHeight = 140.dp, content = content)", "com.readyport.ui.components.PhotoHeaderCard"),
+)
 @Composable
 fun PhotoTopCard(
     @DrawableRes photo: Int,
     title: String,
     content: @Composable androidx.compose.foundation.layout.ColumnScope.() -> Unit,
 ) {
-    val dimens = LocalDimens.current
-    Card(
-        modifier = Modifier.fillMaxWidth(),
-        shape = MaterialTheme.shapes.large,
-        colors = CardDefaults.cardColors(containerColor = Tokens.Surface, contentColor = Tokens.Ink),
-        border = androidx.compose.foundation.BorderStroke(1.dp, Tokens.LineSoft),
-    ) {
-        PhotoBox(photo, modifier = Modifier.fillMaxWidth(), shape = androidx.compose.foundation.shape.RoundedCornerShape(0.dp), minHeight = 140.dp) {
-            Text(
-                title,
-                style = MaterialTheme.typography.titleLarge,
-                color = Color.White,
-                modifier = Modifier.align(Alignment.BottomStart).padding(dimens.cardPadding).semantics { heading() },
-            )
-        }
-        Column(Modifier.padding(dimens.cardPadding), verticalArrangement = Arrangement.spacedBy(dimens.gap / 2), content = content)
-    }
+    PhotoHeaderCard(photo, title, minHeight = 140.dp, content = content)
 }
 
 @Composable

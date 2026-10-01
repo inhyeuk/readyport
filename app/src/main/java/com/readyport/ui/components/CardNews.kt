@@ -1,0 +1,496 @@
+package com.readyport.ui.components
+
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.selection.toggleable
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.ExpandLess
+import androidx.compose.material.icons.outlined.ExpandMore
+import androidx.compose.material.icons.outlined.MoneyOff
+import androidx.compose.material.icons.outlined.Payments
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Immutable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.layout.Layout
+import androidx.compose.ui.layout.layout
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.heading
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.stateDescription
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.Constraints
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
+import com.readyport.R
+import com.readyport.ui.theme.LocalDimens
+import com.readyport.ui.theme.LocalTypeExtras
+import com.readyport.ui.theme.Tokens
+
+// ======================= 카드뉴스 부품 (DESIGN_SPEC 4.3, 4.6~4.8) =======================
+
+/** 밝은 바탕 위에서 이 톤의 글자·아이콘 색 (Navy·OnDark 톤의 content는 흰색이라 밝은 바탕에는 쓰지 않는다) */
+val BadgeTone.onLight: Color
+    get() = when (this) {
+        BadgeTone.Navy -> Tokens.Navy
+        BadgeTone.OnDark -> Tokens.InkSecondary
+        else -> content
+    }
+
+/**
+ * 섹션 머리: 아이콘 배지 + 제목(heading). 위 여백 없음 — 섹션 간격은 sectionGap()이 맡는다.
+ * [action]은 옆에 두면 제목·부제가 더 꺾일 만큼 폭이 모자라면 제목 아래 줄로 내려간다(4.3 — 글자 크기와 무관하게 실제 폭 기준).
+ */
+@Composable
+fun SectionHeader(
+    title: String,
+    modifier: Modifier = Modifier,
+    icon: ImageVector? = null,
+    tone: BadgeTone = BadgeTone.Accent,
+    eyebrow: String? = null,
+    subtitle: String? = null,
+    action: (@Composable () -> Unit)? = null,
+) {
+    val texts: @Composable () -> Unit = {
+        Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
+            if (eyebrow != null) Text(eyebrow, style = MaterialTheme.typography.labelMedium, color = tone.onLight)
+            Text(title, style = MaterialTheme.typography.titleLarge, color = Tokens.Ink, modifier = Modifier.semantics { heading() })
+            if (subtitle != null) Text(subtitle, style = MaterialTheme.typography.bodyMedium, color = Tokens.InkSecondary)
+        }
+    }
+    Row(modifier.fillMaxWidth(), verticalAlignment = Alignment.Top, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+        if (icon != null) IconBadge(icon, tone = tone)
+        if (action != null) {
+            TrailingFlow(trailing = action, modifier = Modifier.weight(1f), belowGap = 4.dp, main = texts)
+        } else {
+            Box(Modifier.weight(1f)) { texts() }
+        }
+    }
+}
+
+/**
+ * 카드뉴스 카드 스타일.
+ * Surface: 흰 바탕 + 그림자 / SurfaceCaution: 흰 바탕 + 왼쪽 CautionBorder 막대(그림자 없음, 17 직접 입력)
+ * Accent·Navy: 채움(onDark 내용 세트만) / Caution·Danger: 연한 바탕 + 왼쪽 막대
+ */
+enum class NewsStyle { Surface, SurfaceCaution, Accent, Navy, Caution, Danger }
+
+/** CardNewsCard의 색 선택 (OnDarkPairsTest가 직접 호출해 허용 색인지 검사한다) */
+@Immutable
+data class NewsColors(
+    val container: Color,
+    val title: Color,
+    val body: Color,
+    val eyebrow: Color,
+    val badge: BadgeTone,
+    val bar: Color?,
+    val shadow: Boolean,
+    /** 출처 줄을 White85로 */
+    val onColor: Boolean,
+    /**
+     * 배지 바탕. 보통은 badge.container지만, 상태 카드(Caution·Danger)는 카드 바탕과 배지 바탕이 같은 색이라
+     * 배지가 사라지므로 흰 바탕(Surface)으로 띄운다.
+     */
+    val badgeContainer: Color = badge.container,
+)
+
+fun newsColors(style: NewsStyle, tone: BadgeTone = BadgeTone.Accent): NewsColors = when (style) {
+    NewsStyle.Surface -> NewsColors(Tokens.Surface, Tokens.Ink, Tokens.Ink, tone.onLight, tone, null, shadow = true, onColor = false)
+    NewsStyle.SurfaceCaution -> NewsColors(Tokens.Surface, Tokens.Ink, Tokens.Ink, tone.onLight, tone, Tokens.CautionBorder, shadow = false, onColor = false)
+    // eyebrow는 White85 — tone.content(Accent)를 쓰면 Accent 카드 위에서 1.0:1로 사라진다
+    NewsStyle.Accent -> NewsColors(Tokens.Accent, OnDark.content, OnDark.content, OnDark.eyebrow, BadgeTone.OnDark, null, shadow = false, onColor = true)
+    NewsStyle.Navy -> NewsColors(Tokens.Navy, OnDark.content, OnDark.content, OnDark.eyebrow, BadgeTone.OnDark, null, shadow = false, onColor = true)
+    NewsStyle.Caution -> NewsColors(
+        Tokens.CautionBg, Tokens.Ink, Tokens.Ink, Tokens.CautionText, BadgeTone.Caution, Tokens.CautionBorder,
+        shadow = false, onColor = false, badgeContainer = Tokens.Surface,
+    )
+    NewsStyle.Danger -> NewsColors(
+        Tokens.DangerBg, Tokens.Ink, Tokens.Ink, Tokens.DangerText, BadgeTone.Danger, Tokens.DangerText,
+        shadow = false, onColor = false, badgeContainer = Tokens.Surface,
+    )
+}
+
+/**
+ * 카드뉴스 카드: 머리(배지 + eyebrow + 제목) → body → content(FactGrid·StepList·IconBullet·버튼) → 출처(항상 맨 아래, 접힘 밖).
+ * Accent·Navy 스타일 안에는 DangerButton을 두지 않는다(D18) — 주 버튼은 colors = ButtonStyles.onDark(), 보조는 SecondaryButton(onDark = true).
+ */
+@Composable
+fun CardNewsCard(
+    title: String,
+    icon: ImageVector,
+    modifier: Modifier = Modifier,
+    eyebrow: String? = null,
+    body: String? = null,
+    tone: BadgeTone = BadgeTone.Accent,
+    style: NewsStyle = NewsStyle.Surface,
+    sources: List<SourceRef> = emptyList(),
+    trailing: (@Composable () -> Unit)? = null,
+    content: @Composable ColumnScope.() -> Unit = {},
+) {
+    val dimens = LocalDimens.current
+    val c = newsColors(style, tone)
+    val shape = MaterialTheme.shapes.large
+    Card(
+        modifier = modifier.fillMaxWidth().then(if (c.shadow) Modifier.cardShadow(shape) else Modifier),
+        shape = shape,
+        colors = CardDefaults.cardColors(containerColor = c.container, contentColor = c.body),
+        elevation = CardDefaults.cardElevation(0.dp),
+    ) {
+        Column(
+            Modifier
+                .fillMaxWidth()
+                .then(if (c.bar != null) Modifier.startBar(c.bar) else Modifier)
+                .padding(dimens.cardPadding),
+            verticalArrangement = Arrangement.spacedBy(dimens.inner),
+        ) {
+            val head: @Composable () -> Unit = {
+                Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                    if (eyebrow != null) Text(eyebrow, style = MaterialTheme.typography.labelMedium, color = c.eyebrow)
+                    Text(title, style = MaterialTheme.typography.titleLarge, color = c.title, modifier = Modifier.semantics { heading() })
+                }
+            }
+            Row(verticalAlignment = Alignment.Top, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                IconBadge(icon, tone = c.badge, containerColor = c.badgeContainer)
+                // trailing(예: StatusTag)이 제목을 쪼갤 만큼 폭이 모자라면 제목 아래 줄로 (4.7, 7장 7번)
+                if (trailing != null) {
+                    TrailingFlow(trailing = trailing, modifier = Modifier.weight(1f), main = head)
+                } else {
+                    Box(Modifier.weight(1f)) { head() }
+                }
+            }
+            if (body != null) Text(body, style = MaterialTheme.typography.bodyLarge, color = c.body)
+            content()
+            if (sources.isNotEmpty()) {
+                Box(Modifier.padding(top = 4.dp)) { SourceList(sources, onColor = c.onColor) }
+            }
+        }
+    }
+}
+
+// ---------------- 숫자 타일 ----------------
+
+/** 큰 값 하나. [source]: 이 값이 나온 출처(카드 SourceList에 모은다) */
+@Immutable
+data class Fact(
+    val icon: ImageVector,
+    val value: String,
+    val label: String,
+    val tone: BadgeTone = BadgeTone.Accent,
+    val source: SourceRef? = null,
+)
+
+/** 여러 Fact의 출처 (null 제외). 카드 sources에 req.source와 함께 넘기면 SourceList가 중복을 없앤다 */
+fun List<Fact>.sourceRefs(): List<SourceRef> = mapNotNull { it.source }
+
+/**
+ * 숫자 타일 (누를 수 없음 — 누르는 요약은 IconTile). 읽기: "90일 비자 없이 머물러요".
+ * 값이 8자를 넘으면 statSmall.
+ */
+@Composable
+fun StatTile(fact: Fact, modifier: Modifier = Modifier) {
+    val dimens = LocalDimens.current
+    val extras = LocalTypeExtras.current
+    Surface(
+        color = fact.tone.container,
+        shape = MaterialTheme.shapes.medium,
+        modifier = modifier
+            .fillMaxWidth()
+            .heightIn(min = dimens.tileMinHeight)
+            .semantics(mergeDescendants = true) {},
+    ) {
+        Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+            Icon(fact.icon, contentDescription = null, tint = fact.tone.onLight, modifier = Modifier.size(dimens.icon))
+            Text(fact.value, style = if (fact.value.length > 8) extras.statSmall else extras.stat, color = Tokens.Ink)
+            Text(fact.label, style = MaterialTheme.typography.bodyMedium, color = Tokens.InkSecondary)
+        }
+    }
+}
+
+/**
+ * 숫자 타일 그리드. **팩의 구조화 필드에서만** 값을 만든다(D11). 타일이 2개 미만이면 그리지 않는다 — 호출하는 쪽이 글로 보인다.
+ * 바로 아래(카드 안)에 출처를 꼭 둔다: 카드 sources = req.source + facts.sourceRefs().
+ */
+@Composable
+fun FactGrid(facts: List<Fact>, modifier: Modifier = Modifier, columns: Int = rememberGridColumns()) {
+    if (facts.size < 2) return
+    TileGrid(facts, modifier, columns) { fact, cell -> StatTile(fact, cell) }
+}
+
+/** 한 줄 사실 칩: 아이콘 16 + 값(굵게) + 라벨 (누를 수 없음) */
+@Composable
+fun FactChip(fact: Fact, modifier: Modifier = Modifier) {
+    Surface(
+        color = fact.tone.container,
+        shape = MaterialTheme.shapes.extraSmall,
+        modifier = modifier.semantics(mergeDescendants = true) {},
+    ) {
+        Row(
+            Modifier.padding(horizontal = 10.dp, vertical = 6.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(6.dp),
+        ) {
+            Icon(fact.icon, contentDescription = null, tint = fact.tone.onLight, modifier = Modifier.size(LocalDimens.current.iconSmall))
+            Text(fact.value, style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.Bold), color = Tokens.Ink)
+            if (fact.label.isNotEmpty()) {
+                Text(fact.label, style = MaterialTheme.typography.bodyMedium, color = Tokens.InkSecondary, modifier = Modifier.weight(1f, fill = false))
+            }
+        }
+    }
+}
+
+/**
+ * 팩 문장에서 타일에 넣을 짧은 값 (DESIGN_SPEC 4.6).
+ * 1) 12자 이하면 그대로 2) " · " 앞부분 또는 첫 문장(". " 앞) 중 먼저 끊기는 쪽이 14자 이하면 그 부분 3) 아니면 null(→ 글 행).
+ * ","에서는 절대 자르지 않는다 ("IDR 500,000 · …"가 "IDR 500"이 되면 정책 값 왜곡).
+ */
+fun shortValue(text: String): String? {
+    val t = text.trim()
+    if (t.isEmpty()) return null
+    if (t.length <= 12) return t
+    val cut = listOf(t.indexOf(" · "), t.indexOf(". ")).filter { it > 0 }.minOrNull() ?: return null
+    return t.substring(0, cut).trim().takeIf { it.isNotEmpty() && it.length <= 14 }
+}
+
+/** 비용 아이콘: 값이 정확히 "무료"일 때만 MoneyOff, 나머지는 Payments */
+fun feeIcon(value: String): ImageVector = if (value == "무료") Icons.Outlined.MoneyOff else Icons.Outlined.Payments
+
+// ---------------- 단계 목록 ----------------
+
+/** 단계 하나. 팩 단계 순서에 앱이 뜻(직접 해요 등)을 붙이지 않는다(D11) */
+@Immutable
+data class Step(val text: String, val icon: ImageVector? = null, val detail: String? = null)
+
+/**
+ * 글자를 품는 원(번호 원·이니셜 아바타). 고정 크기 원 대신 글자가 크기를 정한다 —
+ * [minSize]보다 크면 가로·세로 중 큰 값으로 정사각형을 맞춘다(200%에서도 숫자가 넘치거나 잘리지 않음).
+ */
+@Composable
+fun TextCircle(
+    text: String,
+    modifier: Modifier = Modifier,
+    minSize: Dp = LocalDimens.current.stepBadge,
+    container: Color = Tokens.Accent,
+    content: Color = Tokens.Surface,
+    style: TextStyle = MaterialTheme.typography.labelLarge,
+) {
+    Box(
+        modifier = modifier
+            .background(container, CircleShape)
+            .layout { measurable, constraints ->
+                val placeable = measurable.measure(constraints.copy(minWidth = 0, minHeight = 0))
+                val side = maxOf(placeable.width, placeable.height, minSize.roundToPx())
+                layout(side, side) { placeable.place((side - placeable.width) / 2, (side - placeable.height) / 2) }
+            }
+            .padding(horizontal = 4.dp),
+        contentAlignment = Alignment.Center,
+    ) {
+        Text(text, style = style, color = content, textAlign = TextAlign.Center)
+    }
+}
+
+/**
+ * 번호 원 + 세로 연결선 + 단계 글. 번호는 원 안에만(D17) — 문자열에 "N. "을 넣지 않는다.
+ * 행마다 mergeDescendants라 TalkBack은 "1 공항에 가요"처럼 한 번에 읽는다. 높이는 글에 맞춘다.
+ */
+@Composable
+fun StepList(steps: List<Step>, modifier: Modifier = Modifier, numbered: Boolean = true) {
+    val dimens = LocalDimens.current
+    val iconSize = if (dimens.easyMode) 24.dp else 20.dp
+    Column(modifier.fillMaxWidth()) {
+        steps.forEachIndexed { i, step ->
+            val last = i == steps.lastIndex
+            StepRow(
+                badge = {
+                    if (numbered) {
+                        TextCircle("${i + 1}")
+                    } else {
+                        Box(Modifier.padding(top = 8.dp).size(12.dp).background(Tokens.Accent, CircleShape))
+                    }
+                },
+                showLine = !last,
+                minBadge = dimens.stepBadge,
+                modifier = Modifier.semantics(mergeDescendants = true) {},
+            ) {
+                Column(
+                    Modifier.padding(top = 2.dp, bottom = if (last) 0.dp else dimens.gap),
+                    verticalArrangement = Arrangement.spacedBy(2.dp),
+                ) {
+                    Row(verticalAlignment = Alignment.Top, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                        if (step.icon != null) {
+                            Icon(step.icon, contentDescription = null, tint = Tokens.Accent, modifier = Modifier.padding(top = 2.dp).size(iconSize))
+                        }
+                        Text(step.text, style = MaterialTheme.typography.titleMedium, color = Tokens.Ink, modifier = Modifier.weight(1f))
+                    }
+                    if (step.detail != null) {
+                        Text(step.detail, style = MaterialTheme.typography.bodyMedium, color = Tokens.InkSecondary)
+                    }
+                }
+            }
+        }
+    }
+}
+
+/**
+ * 단계 한 줄: 왼쪽 배지(가운데 정렬, 최소 폭 [minBadge]) + 배지 아래에서 줄 끝까지 이어지는 2dp 세로선 + 오른쪽 글.
+ * 높이는 글이 정한다. (IntrinsicSize를 쓰면 weight가 걸린 글의 고유 높이가 지나치게 크게 계산돼 직접 잰다)
+ */
+@Composable
+private fun StepRow(
+    badge: @Composable () -> Unit,
+    showLine: Boolean,
+    minBadge: Dp,
+    modifier: Modifier = Modifier,
+    content: @Composable () -> Unit,
+) {
+    Layout(
+        contents = listOf(badge, { if (showLine) Box(Modifier.background(Tokens.Line)) }, content),
+        modifier = modifier.fillMaxWidth(),
+    ) { (badgeMeasurables, lineMeasurables, contentMeasurables), constraints ->
+        val gap = 12.dp.roundToPx()
+        val lineGap = 2.dp.roundToPx()
+        val badgePlaceable = badgeMeasurables.firstOrNull()?.measure(Constraints())
+        val badgeW = badgePlaceable?.width ?: 0
+        val badgeH = badgePlaceable?.height ?: 0
+        val leftW = maxOf(badgeW, minBadge.roundToPx())
+        val contentW = if (constraints.hasBoundedWidth) (constraints.maxWidth - leftW - gap).coerceAtLeast(0) else Constraints.Infinity
+        val contentPlaceable = contentMeasurables.firstOrNull()?.measure(Constraints(maxWidth = contentW))
+        val height = maxOf(badgeH, contentPlaceable?.height ?: 0)
+        val lineH = (height - badgeH - lineGap * 2).coerceAtLeast(0)
+        val linePlaceable = if (lineH > 0) lineMeasurables.firstOrNull()?.measure(Constraints.fixed(2.dp.roundToPx(), lineH)) else null
+        val width = if (constraints.hasBoundedWidth) constraints.maxWidth else leftW + gap + (contentPlaceable?.width ?: 0)
+        layout(width, height) {
+            badgePlaceable?.placeRelative((leftW - badgeW) / 2, 0)
+            linePlaceable?.placeRelative((leftW - linePlaceable.width) / 2, badgeH + lineGap)
+            contentPlaceable?.placeRelative(leftW + gap, 0)
+        }
+    }
+}
+
+/** 연한 바탕 행이 글자 줄을 밀지 않도록 바탕만 양옆으로 내미는 폭 */
+private val BulletBleed = 12.dp
+
+/**
+ * "• 문장"을 대체하는 아이콘 행. Caution·Danger 톤이면 행 바탕을 연하게 —
+ * 이때 바탕은 양옆으로 12dp 내밀어(카드 안쪽 여백 안) 아이콘·글자 위치가 다른 행과 같은 줄에 선다.
+ */
+@Composable
+fun IconBullet(text: String, icon: ImageVector, modifier: Modifier = Modifier, tone: BadgeTone = BadgeTone.Neutral) {
+    val dimens = LocalDimens.current
+    val tinted = tone == BadgeTone.Caution || tone == BadgeTone.Danger
+    Row(
+        modifier = modifier
+            .fillMaxWidth()
+            .then(
+                if (tinted) {
+                    Modifier
+                        .layout { measurable, constraints ->
+                            val bleed = BulletBleed.roundToPx()
+                            val wide = if (constraints.hasBoundedWidth) {
+                                constraints.copy(minWidth = constraints.minWidth + bleed * 2, maxWidth = constraints.maxWidth + bleed * 2)
+                            } else {
+                                constraints
+                            }
+                            val p = measurable.measure(wide)
+                            val w = if (constraints.hasBoundedWidth) p.width - bleed * 2 else p.width
+                            layout(w.coerceAtLeast(0), p.height) { p.placeRelative(-bleed, 0) }
+                        }
+                        .clip(MaterialTheme.shapes.small)
+                        .background(tone.container)
+                        .padding(horizontal = BulletBleed, vertical = 8.dp)
+                } else {
+                    Modifier
+                },
+            ),
+        verticalAlignment = Alignment.Top,
+    ) {
+        Icon(
+            icon,
+            contentDescription = null,
+            tint = tone.onLight,
+            modifier = Modifier.padding(top = 2.dp).size(if (dimens.easyMode) 24.dp else 20.dp),
+        )
+        Spacer(Modifier.width(12.dp))
+        Text(text, style = MaterialTheme.typography.bodyLarge, color = Tokens.Ink, modifier = Modifier.weight(1f))
+    }
+}
+
+/**
+ * 펼침 영역. 출처는 절대 이 안에 넣지 않는다. TalkBack: 버튼 + 상태(펼쳐짐/접힘).
+ * '소리로 듣기'는 접힘과 무관하게 전체 문장을 읽는다(speech 문자열은 그대로).
+ */
+@Composable
+fun ExpandableDetail(
+    label: String = stringResource(R.string.action_more),
+    content: @Composable ColumnScope.() -> Unit,
+) {
+    var open by rememberSaveable { mutableStateOf(false) }
+    ExpandableDetail(open = open, onOpenChange = { open = it }, label = label, content = content)
+}
+
+/**
+ * 펼침 상태를 밖에서 쥐는 판 (ReturnCheckCard compact가 펼치면 요약 줄을 숨기려고 쓴다).
+ * 펼치면 라벨이 `접기`(action_less)로 바뀐다.
+ */
+@Composable
+internal fun ExpandableDetail(
+    open: Boolean,
+    onOpenChange: (Boolean) -> Unit,
+    label: String,
+    content: @Composable ColumnScope.() -> Unit,
+) {
+    val dimens = LocalDimens.current
+    val state = stringResource(if (open) R.string.state_expanded else R.string.state_collapsed)
+    val shown = if (open) stringResource(R.string.action_less) else label
+    Column(Modifier.fillMaxWidth()) {
+        Row(
+            Modifier
+                .fillMaxWidth()
+                .minTouch()
+                .clip(MaterialTheme.shapes.small)
+                .toggleable(value = open, role = Role.Button, onValueChange = onOpenChange)
+                .semantics { stateDescription = state }
+                .padding(horizontal = 4.dp, vertical = 8.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+        ) {
+            Text(shown, style = MaterialTheme.typography.labelLarge, color = Tokens.Accent, modifier = Modifier.weight(1f))
+            Icon(
+                if (open) Icons.Outlined.ExpandLess else Icons.Outlined.ExpandMore,
+                contentDescription = null,
+                tint = Tokens.Accent,
+                modifier = Modifier.size(dimens.icon),
+            )
+        }
+        AnimatedVisibility(visible = open) {
+            Column(Modifier.padding(top = dimens.inner), verticalArrangement = Arrangement.spacedBy(dimens.inner), content = content)
+        }
+    }
+}

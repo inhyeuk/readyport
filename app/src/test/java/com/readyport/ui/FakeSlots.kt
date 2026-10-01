@@ -49,11 +49,13 @@ object TestPacks {
     fun homeUi() = HomeUi(
         countries = index.value.countries.map { c ->
             val pack = if (c.pack) runBlocking { repo.pack(c.code) }?.value else null
+            val visa = pack?.requirements?.firstOrNull { it.nationality == "KR" && it.purpose == "tourism" }
             HomeCountry(
                 c.code, c.nameKo, c.nameEn,
-                visa = pack?.requirements?.firstOrNull { it.nationality == "KR" && it.purpose == "tourism" },
+                visa = visa,
                 hasForm = pack?.forms?.isNotEmpty() == true,
                 ready = pack != null,
+                sourceName = visa?.let { pack.source(it.source)?.name },
             )
         },
         returnLinks = index.value.returnLinks,
@@ -83,8 +85,11 @@ object TestPacks {
         countries = index.value.countries.filter { it.pack },
         selected = thailand,
         common = index.value.commonEmergency,
-        commonSourceName = index.value.sources.firstOrNull()?.name,
+        // 공통 항목의 출처 ID를 이름으로 푼다(첫 출처 이름을 붙이면 다른 출처 이름이 붙을 수 있다 — DESIGN_SPEC 1.2 #1)
+        commonSourceName = index.value.commonEmergency.firstOrNull()?.source
+            ?.let { id -> index.value.sources.firstOrNull { it.id == id }?.name },
         ttsAvailable = false,
+        indexSources = index.value.sources.associate { it.id to it.name },
     )
 }
 

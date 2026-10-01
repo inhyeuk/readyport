@@ -28,6 +28,8 @@ data class HelpUi(
     val common: List<EmergencyContact> = emptyList(),
     val commonSourceName: String? = null,
     val ttsAvailable: Boolean = false,
+    /** index 출처 id → 이름 (어느 나라에서나 항목의 출처가 여러 개일 때 SourceList용, DESIGN_SPEC 4.5) */
+    val indexSources: Map<String, String> = emptyMap(),
 )
 
 @HiltViewModel
@@ -53,6 +55,7 @@ class HelpViewModel @Inject constructor(
             common = index?.commonEmergency.orEmpty(),
             commonSourceName = index?.sources?.firstOrNull()?.name,
             ttsAvailable = tts,
+            indexSources = index?.sources.orEmpty().associate { it.id to it.name },
         )
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), HelpUi())
 

@@ -21,6 +21,7 @@ import com.readyport.data.settings.AppSettings
 import com.readyport.ui.components.AppActions
 import com.readyport.ui.components.LocalAppActions
 import com.readyport.ui.components.LocalShowBack
+import com.readyport.ui.components.OfflineBanner
 import com.readyport.ui.nav.BottomTabs
 import com.readyport.ui.nav.HomeRoute
 import com.readyport.ui.nav.CountryRoute
@@ -40,7 +41,6 @@ import com.readyport.ui.nav.TodayRoute
 import com.readyport.ui.nav.WalletRoute
 import com.readyport.ui.onboarding.FirstRunScreen
 import com.readyport.ui.settings.SettingsScreen
-import com.readyport.R
 import com.readyport.ui.form.AutofillScreen
 import com.readyport.ui.form.FormConfirmScreen
 import com.readyport.ui.form.ManualModeScreen
@@ -48,12 +48,6 @@ import com.readyport.ui.nav.AutofillRoute
 import com.readyport.ui.nav.FormConfirmRoute
 import com.readyport.ui.nav.FormManualRoute
 import com.readyport.ui.pack.HelpScreen
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.statusBarsPadding
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import androidx.navigation.toRoute
 import com.readyport.ui.tabs.PrepareScreen
 import com.readyport.ui.wallet.BookingImportScreen
@@ -337,21 +331,6 @@ data class ScreenSlots(
     val today: @Composable (actions: TodayActions) -> Unit = { TodayScreen(actions = it) },
     val present: @Composable () -> Unit = { PresentScreen(defaultFormId = null) },
 )
-
-/** 오프라인 배너 (PRD 5.1): 남색, 화면 맨 위 */
-@Composable
-private fun OfflineBanner() {
-    Text(
-        text = stringResource(R.string.offline_banner),
-        color = Tokens.Surface,
-        style = MaterialTheme.typography.labelLarge,
-        modifier = Modifier
-            .fillMaxWidth()
-            .background(Tokens.Navy)
-            .statusBarsPadding()
-            .padding(horizontal = 16.dp, vertical = 10.dp),
-    )
-}
 
 /** 여권 등록 흐름의 화면들이 같은 ViewModel(촬영 결과)을 나눠 쓴다. 흐름을 벗어나면 함께 사라진다 */
 @Composable

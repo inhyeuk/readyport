@@ -115,7 +115,7 @@ class StoreScreenshotsTest {
 
     private fun screens(): List<Pair<String, @Composable () -> Unit>> = listOf(
         "01_home" to {
-            HomeContent(TestPacks.homeUi().copy(trip = HomeTrip("태국", LocalDate.of(2026, 11, 3), LocalDate.of(2026, 11, 7))),
+            HomeContent(TestPacks.homeUi().copy(trip = HomeTrip("태국", LocalDate.of(2026, 11, 3), LocalDate.of(2026, 11, 7), code = "TH")),
                 HomeActions(), today = LocalDate.of(2026, 10, 31))
         },
         "02_country" to { CountryContent(TestPacks.countryUi("TH"), CountryActions()) },

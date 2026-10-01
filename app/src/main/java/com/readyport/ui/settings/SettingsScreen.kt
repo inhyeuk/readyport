@@ -6,11 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.selection.toggleable
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Lock
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Switch
@@ -107,16 +103,11 @@ fun SettingsScreen(
     }
 }
 
-/** "내 정보는 이 휴대폰에만 저장돼요" — 설정과 내 정보 화면 맨 위 */
+/** "내 정보는 이 휴대폰에만 저장돼요" — 설정과 내 정보 화면 맨 위. components.SecurityBanner로 옮겼다 (DESIGN_SPEC 4.0) */
+@Deprecated("components.SecurityBanner 사용", ReplaceWith("SecurityBanner()", "com.readyport.ui.components.SecurityBanner"))
 @Composable
 fun LocalOnlyBanner() {
-    InfoCard(tone = CardTone.Navy) {
-        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-            Icon(Icons.Outlined.Lock, contentDescription = null, modifier = Modifier.size(32.dp))
-            Text(stringResource(R.string.settings_local_only_title), style = MaterialTheme.typography.titleLarge, modifier = Modifier.weight(1f))
-        }
-        Text(stringResource(R.string.settings_local_only_body), style = MaterialTheme.typography.bodyLarge)
-    }
+    com.readyport.ui.components.SecurityBanner()
 }
 
 @Composable

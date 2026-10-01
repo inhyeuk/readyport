@@ -106,12 +106,22 @@ fun PassportIntroScreen(
 ) {
     SecureScreen()
     val scan by viewModel.scan.collectAsStateWithLifecycle()
-    var agreed by remember { mutableStateOf(false) }
     val picker = rememberLauncherForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
         if (uri != null) viewModel.readPhoto(uri)
     }
     LaunchedEffect(scan) { if (scan is ScanState.Found) onFound() }
+    PassportIntroContent(
+        scan = scan,
+        onCamera = onCamera,
+        onPickPhoto = { picker.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)) },
+        onManual = onManual,
+    )
+}
 
+/** 여권 등록 소개 — 상태 없는 화면(갤러리·접근성 점검이 그대로 띄운다). 동작은 PassportIntroScreen과 같다 */
+@Composable
+fun PassportIntroContent(scan: ScanState, onCamera: () -> Unit, onPickPhoto: () -> Unit, onManual: () -> Unit) {
+    var agreed by remember { mutableStateOf(false) }
     AppScreen(
         title = stringResource(R.string.passport_title),
         speech = stringResource(R.string.passport_speech),
@@ -147,7 +157,7 @@ fun PassportIntroScreen(
             Column(verticalArrangement = Arrangement.spacedBy(LocalDimens.current.gap)) {
                 PrimaryButton(stringResource(R.string.passport_use_camera), onClick = onCamera, enabled = agreed)
                 OutlinedButton(
-                    onClick = { picker.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)) },
+                    onClick = onPickPhoto,
                     enabled = agreed,
                     modifier = Modifier.fillMaxWidth().heightIn(min = LocalDimens.current.buttonHeight),
                 ) { Text(stringResource(R.string.passport_use_photo), style = MaterialTheme.typography.labelLarge) }

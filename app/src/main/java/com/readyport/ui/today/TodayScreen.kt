@@ -11,6 +11,15 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.foundation.text.TextAutoSize
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.CurrencyExchange
+import androidx.compose.material.icons.outlined.Hotel
+import androidx.compose.material.icons.outlined.HowToReg
+import androidx.compose.material.icons.outlined.LocalAirport
+import androidx.compose.material.icons.outlined.Luggage
+import androidx.compose.material.icons.outlined.MeetingRoom
+import androidx.compose.material.icons.outlined.Security
+import androidx.compose.material.icons.outlined.SimCard
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
@@ -23,8 +32,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.core.net.toUri
 import com.readyport.prep.import
-import com.readyport.ui.pack.ImportTag
-import com.readyport.ui.pack.ReturnCheckCard
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.text.style.TextAlign
@@ -36,8 +43,12 @@ import com.readyport.R
 import com.readyport.trip.TripStage
 import com.readyport.ui.components.AppScreen
 import com.readyport.ui.components.CardTone
+import com.readyport.ui.components.ImportVerdictBadge
 import com.readyport.ui.components.InfoCard
 import com.readyport.ui.components.PrimaryButton
+import com.readyport.ui.components.ReturnCheckCard
+import com.readyport.ui.components.Step
+import com.readyport.ui.components.StepList
 import com.readyport.ui.components.TopicCard
 import com.readyport.ui.theme.LocalDimens
 import com.readyport.ui.theme.Tokens
@@ -180,9 +191,12 @@ fun TodayContent(
                     StepsCard(
                         stringResource(R.string.today_departure_steps_title),
                         listOf(
-                            R.string.today_departure_step1, R.string.today_departure_step2, R.string.today_departure_step3,
-                            R.string.today_departure_step4, R.string.today_departure_step5,
-                        ).map { stringResource(it) },
+                            Step(stringResource(R.string.today_departure_step1), Icons.Outlined.LocalAirport, stringResource(R.string.today_departure_step1_detail)),
+                            Step(stringResource(R.string.today_departure_step2), Icons.Outlined.Luggage),
+                            Step(stringResource(R.string.today_departure_step3), Icons.Outlined.Security),
+                            Step(stringResource(R.string.today_departure_step4), Icons.Outlined.HowToReg),
+                            Step(stringResource(R.string.today_departure_step5), Icons.Outlined.MeetingRoom),
+                        ),
                     )
                 }
                 item(key = "arrived") { PrimaryButton(stringResource(R.string.today_arrived_button), onClick = onArrived) }
@@ -201,9 +215,12 @@ fun TodayContent(
                     StepsCard(
                         stringResource(R.string.today_arrival_title),
                         listOf(
-                            R.string.today_arrival_step1, R.string.today_arrival_step2, R.string.today_arrival_step3,
-                            R.string.today_arrival_step4, R.string.today_arrival_step5,
-                        ).map { stringResource(it) },
+                            Step(stringResource(R.string.today_arrival_step1), Icons.Outlined.HowToReg),
+                            Step(stringResource(R.string.today_arrival_step2), Icons.Outlined.Luggage),
+                            Step(stringResource(R.string.today_arrival_step3), Icons.Outlined.SimCard),
+                            Step(stringResource(R.string.today_arrival_step4), Icons.Outlined.CurrencyExchange),
+                            Step(stringResource(R.string.today_arrival_step5), Icons.Outlined.Hotel),
+                        ),
                     )
                 }
                 item(key = "done") {
@@ -237,7 +254,7 @@ fun TodayContent(
                             ui.cart.forEach { item ->
                                 Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
                                     Text(item.names.ko, style = MaterialTheme.typography.bodyLarge)
-                                    ImportTag(item.import)
+                                    ImportVerdictBadge(item.import)
                                     item.importNoteKo?.let { Text(it, style = MaterialTheme.typography.bodySmall) }
                                 }
                             }
@@ -299,10 +316,10 @@ private fun NextCard(label: String, title: String, body: String?, button: String
 }
 
 @Composable
-private fun StepsCard(title: String, steps: List<String>) {
+private fun StepsCard(title: String, steps: List<Step>) {
     InfoCard {
         Text(title, style = MaterialTheme.typography.titleMedium)
-        steps.forEach { Text(it, style = MaterialTheme.typography.bodyLarge) }
+        StepList(steps)
     }
 }
 

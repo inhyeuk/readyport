@@ -3,6 +3,8 @@ package com.readyport.ui
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.res.stringResource
+import com.readyport.R
 import com.readyport.autofill.FormValues
 import com.readyport.doc.booking.BookingExtractor
 import com.readyport.doc.mrz.MrzParser
@@ -16,9 +18,11 @@ import com.readyport.ui.components.PhotoCredit
 import com.readyport.ui.country.CountryActions
 import com.readyport.ui.country.CountryContent
 import com.readyport.ui.country.CountrySection
+import com.readyport.ui.form.AutofillUi
 import com.readyport.ui.form.ConfirmUi
 import com.readyport.ui.form.FormConfirmContent
 import com.readyport.ui.form.FormContext
+import com.readyport.ui.form.ManualModeContent
 import com.readyport.ui.home.HomeActions
 import com.readyport.ui.home.HomeContent
 import com.readyport.ui.home.HomeTrip
@@ -30,8 +34,10 @@ import com.readyport.ui.prep.EssentialRow
 import com.readyport.ui.prep.EssentialsContent
 import com.readyport.ui.prep.EssentialsUi
 import com.readyport.ui.present.CompanionsContent
+import com.readyport.ui.present.DocView
 import com.readyport.ui.present.PresentContent
 import com.readyport.ui.present.PresentUi
+import com.readyport.ui.present.Traveler
 import com.readyport.ui.settings.PhotoCreditsContent
 import com.readyport.ui.settings.SettingsScreen
 import com.readyport.ui.tabs.PrepareContent
@@ -49,8 +55,11 @@ import com.readyport.ui.video.VideosState
 import com.readyport.ui.wallet.BookingImportContent
 import com.readyport.ui.wallet.ImportState
 import com.readyport.ui.wallet.PassportConfirmContent
+import com.readyport.ui.wallet.PassportIntroContent
+import com.readyport.ui.wallet.ScanState
 import com.readyport.ui.wallet.WalletContent
 import com.readyport.vault.BookingRecord
+import com.readyport.vault.EntryDoc
 import com.readyport.vault.PassportRecord
 import com.readyport.vault.VaultContents
 import com.readyport.vault.WalletState
@@ -67,6 +76,10 @@ object Gallery {
     private val index get() = TestPacks.index.value
     private val th get() = TestPacks.thailand
     private val trip = Trip("TH", "2026-11-03", "2026-11-07")
+
+    /** 출처 id → 이름 (운영 ViewModel과 같은 방식). 픽스처에서 내부 ID가 화면에 보이지 않게 한다 */
+    private val indexSources get() = index.sources.associate { it.id to it.name }
+    private val thSources get() = th.value.sources.associate { it.id to it.name }
 
     private val passport = PassportRecord(
         surname = "ERIKSSON", givenNames = "ANNA MARIA", documentNumber = "L898902C3",
@@ -95,7 +108,7 @@ object Gallery {
         "first-run" to { FirstRunScreen {} },
         "home" to { HomeContent(TestPacks.homeUi(), HomeActions(), today = LocalDate.of(2026, 9, 28)) },
         "home-with-trip" to {
-            HomeContent(TestPacks.homeUi().copy(trip = HomeTrip("태국", LocalDate.of(2026, 11, 3), LocalDate.of(2026, 11, 7))),
+            HomeContent(TestPacks.homeUi().copy(trip = HomeTrip("태국", LocalDate.of(2026, 11, 3), LocalDate.of(2026, 11, 7), code = "TH")),
                 HomeActions(), today = LocalDate.of(2026, 10, 31))
         },
         "country-entry-TH" to { CountryContent(TestPacks.countryUi("TH"), CountryActions()) },
@@ -113,6 +126,10 @@ object Gallery {
             TodayContent(TodayUi(trip, StageInfo(TripStage.Preparing, daysLeft = 3, formWindowOpen = true), "태국", th.value.forms.first(), true),
                 TodayActions(), {}, {}, {}, {}, {})
         },
+        "today-departure" to {
+            TodayContent(TodayUi(trip, StageInfo(TripStage.Departure, dayOfTrip = 1), "태국", th.value.forms.first(), true),
+                TodayActions(), {}, {}, {}, {}, {})
+        },
         "today-arrival" to {
             TodayContent(TodayUi(trip, StageInfo(TripStage.Arrival, dayOfTrip = 1), "태국", th.value.forms.first(), true),
                 TodayActions(), {}, {}, {}, {}, {})
@@ -124,15 +141,22 @@ object Gallery {
         "today-return" to {
             TodayContent(
                 TodayUi(trip, StageInfo(TripStage.Return, askDestroy = true), "태국", null, true,
-                    cart = th.value.shopping, returnLinks = index.returnLinks, returnFacts = index.returnFacts),
+                    cart = th.value.shopping, returnLinks = index.returnLinks, returnFacts = index.returnFacts,
+                    indexSources = indexSources, sourceNames = thSources),
                 TodayActions(), {}, {}, {}, {}, {},
             )
+        },
+        "today-wrapup" to {
+            TodayContent(TodayUi(trip, StageInfo(TripStage.WrapUp), "태국", null, true), TodayActions(), {}, {}, {}, {}, {})
         },
         "trip-edit" to { TripContent(TripFormUi(index.countries.filter { it.pack }, trip, loaded = true), { _, _, _ -> }, {}) },
         "prepare" to { PrepareContent(TestPacks.formEntries(), {}) },
         "essentials" to {
             val rules: List<EssentialRule> = Essentials.select(index.essentials, index.homePower, th.value.power)
-            EssentialsContent(EssentialsUi("태국", 4, 11, rules.mapIndexed { i, r -> EssentialRow(r, i < 2, "출처") }), { _, _ -> }, {})
+            EssentialsContent(
+                EssentialsUi("태국", 4, 11, rules.mapIndexed { i, r -> EssentialRow(r, i < 2, r.source?.let { indexSources[it] }) }),
+                { _, _ -> }, {},
+            )
         },
         "form-confirm" to {
             val recipe = TestPacks.tdacRecipe
@@ -141,7 +165,20 @@ object Gallery {
             FormConfirmContent(ConfirmUi(ctx, WalletState.Unlocked(contents), FormValues.build(recipe.value, contents, draft), draft),
                 { _, _ -> }, {}, {}, {}, {})
         },
-        "shopping" to { ShoppingContent(ShoppingUi("TH", "태국", th.value.shopping, returnLinks = index.returnLinks, returnFacts = index.returnFacts), { _, _ -> }, {}) },
+        "manual-mode" to {
+            val recipe = TestPacks.tdacRecipe
+            val ctx = FormContext("TH_TDAC", th.value.forms.first(), recipe.value, recipe.version, false)
+            ManualModeContent(AutofillUi(context = ctx, values = FormValues.build(recipe.value, contents, emptyMap())), {}, { _, _ -> }, {})
+        },
+        "shopping" to {
+            ShoppingContent(
+                ShoppingUi(
+                    "TH", "태국", th.value.shopping, sourceNames = thSources,
+                    returnLinks = index.returnLinks, returnFacts = index.returnFacts, indexSources = indexSources,
+                ),
+                { _, _ -> }, {},
+            )
+        },
         "transport" to {
             val place = Place("p1", "방콕 숙소", "สุขุมวิท ซอย 11 กรุงเทพฯ")
             TransportContent(
@@ -151,10 +188,32 @@ object Gallery {
         },
         "help" to { HelpContent(TestPacks.helpUi(), {}, {}, {}) },
         "present" to { PresentContent(PresentUi(locked = true), {}, {}, {}, {}) },
+        "present-unlocked" to {
+            val doc = EntryDoc(
+                id = "d1", formId = "TH_TDAC", travelerId = "self", blobId = "b1", confirmationNo = "TDAC-0000",
+                arrivalDate = "2026-11-03", flightNo = "KE651", source = "capture", savedAt = "2026-11-01T10:00",
+            )
+            PresentContent(
+                PresentUi(
+                    locked = false,
+                    travelers = listOf(Traveler("self", stringResource(R.string.present_self))),
+                    docs = listOf(DocView(doc, th.value.forms.first().nameKo, null, "E•••••• A•••", "L••••••C3")),
+                ),
+                {}, {}, {}, {},
+            )
+        },
         "settings" to { SettingsScreen(easyMode = false, onEasyModeChange = {}) },
         "wallet-locked" to {
             WalletContent(
                 state = WalletState.Locked(hasData = true), deviceSecure = true, autoDestroy = true, today = LocalDate.of(2026, 9, 29),
+                onUnlock = {}, onLock = {}, onReset = {}, onAddPassport = {}, onDeletePassport = {},
+                onAddBooking = {}, onDeleteBooking = {}, onAutoDestroyChange = {},
+            )
+        },
+        "wallet-key-lost" to {
+            WalletContent(
+                state = WalletState.Failed(WalletState.Failed.Reason.KeyLost), deviceSecure = true, autoDestroy = true,
+                today = LocalDate.of(2026, 9, 29),
                 onUnlock = {}, onLock = {}, onReset = {}, onAddPassport = {}, onDeletePassport = {},
                 onAddBooking = {}, onDeleteBooking = {}, onAutoDestroyChange = {},
             )
@@ -166,6 +225,7 @@ object Gallery {
                 onAddBooking = {}, onDeleteBooking = {}, onAutoDestroyChange = {},
             )
         },
+        "passport-intro" to { PassportIntroContent(ScanState.Idle, {}, {}, {}) },
         "passport-confirm" to {
             PassportConfirmContent(
                 mrz = MrzParser.parse("P<UTOERIKSSON<<ANNA<MARIA<<<<<<<<<<<<<<<<<<<", "L898902C36UTO7408122F1204159ZE184226B<<<<<10"),
@@ -182,5 +242,12 @@ object Gallery {
         "photo-credits" to {
             PhotoCreditsContent(listOf(PhotoCredit("th", "Wat Arun Sunset.jpg", "miketnorton", "CC BY 2.0", sourceUrl = "https://commons.wikimedia.org/")), {})
         },
+        // 0단계 공용 부품 전부 (DESIGN_SPEC 4장) — 접근성 점검·캡처가 새 부품까지 본다
+        "components-1" to { ComponentsPage(1) },
+        "components-2" to { ComponentsPage(2) },
+        "components-3" to { ComponentsPage(3) },
+        "components-4" to { ComponentsPage(4) },
+        // 흰 단색 사진 최악 경우: PhotoTextArea 스크림·PhotoChip·사진 위 버튼 (DESIGN_SPEC 3.7)
+        "photo-worst-white" to { PhotoWorstWhitePage() },
     )
 }

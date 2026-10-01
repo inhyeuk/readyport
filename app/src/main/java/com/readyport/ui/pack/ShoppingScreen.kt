@@ -47,12 +47,13 @@ import com.readyport.prep.CartKey
 import com.readyport.prep.ImportStatus
 import com.readyport.prep.import
 import com.readyport.ui.components.AppScreen
-import com.readyport.ui.components.CardTone
+import com.readyport.ui.components.ImportVerdictBadge
 import com.readyport.ui.components.InfoCard
 import com.readyport.ui.components.PrimaryButton
+import com.readyport.ui.components.ReturnCheckCard
 import com.readyport.ui.components.SourceFooter
-import com.readyport.ui.components.StatusChip
 import com.readyport.ui.components.TopicCard
+import com.readyport.ui.components.displayDate
 import com.readyport.ui.nav.ShoppingRoute
 import com.readyport.ui.theme.LocalDimens
 import com.readyport.ui.theme.Tokens
@@ -101,23 +102,20 @@ class ShoppingViewModel @Inject constructor(
     fun toggle(itemId: String, inCart: Boolean) = viewModelScope.launch { settings.setInCart(CartKey.of(country, itemId), inCart) }
 }
 
+// ---- 옛 위치 (DESIGN_SPEC 4.0 이동 규칙): components(Status.kt·ReturnCheck.kt)로 옮겼다.
+// 1단계 묶음은 이 위임 함수를 지우거나 시그니처를 바꾸지 않는다. 2단계에서 사용처가 0이면 지운다.
+
 /** 한국 반입 태그 색: 가능 초록 / 주의 주황 / 불가 빨강 (PRD 5.8) */
-fun importColors(status: ImportStatus): Pair<Color, Color> = when (status) {
-    ImportStatus.Allowed -> Tokens.SuccessBg to Tokens.SuccessText
-    ImportStatus.Caution -> Tokens.CautionBg to Tokens.CautionText
-    ImportStatus.Prohibited -> Tokens.DangerBg to Tokens.DangerText
-}
+@Deprecated("components.importColors 사용", ReplaceWith("importColors(status)", "com.readyport.ui.components.importColors"))
+fun importColors(status: ImportStatus): Pair<Color, Color> = com.readyport.ui.components.importColors(status)
 
-fun importLabel(status: ImportStatus) = when (status) {
-    ImportStatus.Allowed -> R.string.import_allowed
-    ImportStatus.Caution -> R.string.import_caution
-    ImportStatus.Prohibited -> R.string.import_prohibited
-}
+@Deprecated("components.importLabel 사용", ReplaceWith("importLabel(status)", "com.readyport.ui.components.importLabel"))
+fun importLabel(status: ImportStatus): Int = com.readyport.ui.components.importLabel(status)
 
+@Deprecated("components.ImportVerdictBadge 사용", ReplaceWith("ImportVerdictBadge(status)", "com.readyport.ui.components.ImportVerdictBadge"))
 @Composable
 fun ImportTag(status: ImportStatus) {
-    val (bg, fg) = importColors(status)
-    StatusChip(stringResource(importLabel(status)), bg, fg)
+    com.readyport.ui.components.ImportVerdictBadge(status)
 }
 
 @Composable
@@ -157,7 +155,7 @@ fun ShoppingContent(ui: ShoppingUi, onToggle: (String, Boolean) -> Unit, onOpenL
                 InfoCard {
                     Text(item.names.ko, style = MaterialTheme.typography.titleLarge)
                     Text(item.names.local, style = MaterialTheme.typography.bodyLarge, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                    ImportTag(item.import)
+                    ImportVerdictBadge(item.import)
                     item.importNoteKo?.let { Text(it, style = MaterialTheme.typography.bodySmall) }
                     item.whereKo?.let { Text(stringResource(R.string.shopping_where, it), style = MaterialTheme.typography.bodyMedium) }
                     Text(item.whyKo, style = MaterialTheme.typography.bodyMedium)
@@ -193,7 +191,11 @@ fun ShoppingContent(ui: ShoppingUi, onToggle: (String, Boolean) -> Unit, onOpenL
     }
 }
 
-/** '귀국 전 확인 — 면세 한도·반입 금지 품목(관세청·검역본부)' */
+/** '귀국 전 확인 — 면세 한도·반입 금지 품목(관세청·검역본부)' — components.ReturnCheckCard(v2)로 옮겼다 */
+@Deprecated(
+    "components.ReturnCheckCard 사용 (DESIGN_SPEC 4.0 이동 규칙)",
+    ReplaceWith("ReturnCheckCard(links, facts, sourceNames, onOpenLink)", "com.readyport.ui.components.ReturnCheckCard"),
+)
 @Composable
 fun ReturnCheckCard(
     links: List<OfficialLink>,
@@ -201,17 +203,5 @@ fun ReturnCheckCard(
     sourceNames: Map<String, String>,
     onOpenLink: (String) -> Unit,
 ) {
-    InfoCard(tone = CardTone.Caution) {
-        Text(stringResource(R.string.shopping_return_title), style = MaterialTheme.typography.titleMedium)
-        Text(stringResource(R.string.shopping_return_body), style = MaterialTheme.typography.bodyMedium)
-        facts.forEach { f ->
-            Text("• " + f.textKo, style = MaterialTheme.typography.bodyMedium)
-        }
-        facts.map { it.source to it.lastVerified }.distinct().forEach { (src, date) ->
-            SourceFooter(sourceNames[src] ?: src, displayDate(date))
-        }
-        links.forEach { link ->
-            OutlinedButton(onClick = { onOpenLink(link.url) }, modifier = Modifier.heightIn(min = 48.dp)) { Text(link.labelKo) }
-        }
-    }
+    com.readyport.ui.components.ReturnCheckCard(links, facts, sourceNames, onOpenLink)
 }

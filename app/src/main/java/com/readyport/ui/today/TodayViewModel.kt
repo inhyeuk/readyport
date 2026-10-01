@@ -40,6 +40,8 @@ data class TodayUi(
     val returnLinks: List<OfficialLink> = emptyList(),
     val returnFacts: List<SourcedText> = emptyList(),
     val indexSources: Map<String, String> = emptyMap(),
+    /** 여행 나라 팩 출처 id → 이름 (담아 둔 물건의 품목·반입 판정 출처, DESIGN_SPEC 6-13) */
+    val sourceNames: Map<String, String> = emptyMap(),
 )
 
 @HiltViewModel
@@ -68,6 +70,7 @@ class TodayViewModel @Inject constructor(
             returnLinks = packs.index()?.value?.returnLinks.orEmpty(),
             returnFacts = packs.index()?.value?.returnFacts.orEmpty(),
             indexSources = packs.index()?.value?.sources.orEmpty().associate { it.id to it.name },
+            sourceNames = pack?.sources.orEmpty().associate { it.id to it.name },
         )
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), TodayUi())
 

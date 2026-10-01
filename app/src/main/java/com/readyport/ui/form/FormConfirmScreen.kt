@@ -237,19 +237,29 @@ private fun ValueRow(f: RecipeField, v: FieldValue, localLarge: Boolean) {
     }
 }
 
+/**
+ * 직접 적는 칸 (DESIGN_SPEC 6-17): 이름은 입력칸 label(TalkBack 이름), 도움말·영어·현지어 라벨은 supportingText.
+ * 따로 그리던 FieldLabel은 이 칸에서 뺀다(같은 이름을 두 번 읽지 않게). '현지어 크게'를 켜면 supportingText가 커진다.
+ */
 @Composable
 private fun EditRow(f: RecipeField, localLarge: Boolean, value: String, onSetValue: (String, String) -> Unit) {
-    Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
-        FieldLabel(f, localLarge)
-        OutlinedTextField(
-            value = value,
-            onValueChange = { onSetValue(f.key, it) },
-            singleLine = true,
-            placeholder = f.hintKo?.let { { Text(it) } },
-            textStyle = MaterialTheme.typography.bodyLarge,
-            modifier = Modifier.fillMaxWidth(),
-        )
-    }
+    val support = listOfNotNull(f.hintKo, f.labels.en, f.labels.local).joinToString(" · ")
+    OutlinedTextField(
+        value = value,
+        onValueChange = { onSetValue(f.key, it) },
+        singleLine = true,
+        label = { Text(f.labels.ko) },
+        supportingText = support.takeIf { it.isNotEmpty() }?.let {
+            {
+                Text(
+                    it,
+                    style = if (localLarge) MaterialTheme.typography.headlineMedium else MaterialTheme.typography.bodySmall,
+                )
+            }
+        },
+        textStyle = MaterialTheme.typography.bodyLarge,
+        modifier = Modifier.fillMaxWidth(),
+    )
 }
 
 @Composable

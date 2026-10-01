@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  2026-10 디자인 개편(DESIGN_SPEC_2026-10-01 부록 B)의 새 문구를 한곳에 모은다.
+  0단계에서 한 번에 넣고 동결한다 — 1단계 묶음은 strings.xml·이 파일을 고치지 않는다.
+  테스트가 찾는 기존 문구는 strings.xml에 그대로 있다. 새 문구는 새 키로만 추가한다(디자인 원칙 8).
+-->
+<resources>
+    <!-- 공통 -->
+    <string name="source_official_fallback">공식 안내</string>
+    <string name="action_more">자세히 보기</string>
+    <string name="action_less">접기</string>
+    <string name="state_expanded">펼쳐짐</string>
+    <string name="state_collapsed">접힘</string>
+    <string name="action_cancel_keep">그만두기</string>
+    <string name="coming_soon_group">곧 추가돼요</string>
+
+    <!-- 00 첫 실행 · 01 홈 -->
+    <string name="trust_official">공식 출처만</string>
+    <string name="trust_local">폰에만 저장</string>
+    <string name="trust_offline">인터넷 없이도</string>
+    <string name="first_run_easy_preview">큰 글자·큰 버튼</string>
+    <string name="first_run_basic_preview">기본 화면</string>
+    <string name="home_trip_dates">%1$s ~ %2$s</string>
+    <string name="home_items_plug">플러그</string>
+    <string name="home_items_voltage">전압</string>
+    <string name="home_items_powerbank">보조배터리</string>
+    <string name="help_shortcut_title">급할 때는 도움</string>
+    <string name="return_topic_allowance">면세 한도</string>
+    <string name="return_topic_plant">과일·식물</string>
+    <string name="return_topic_livestock">고기·축산물</string>
+    <string name="return_check_more">면세 한도와 반입 금지 품목 보기</string>
+    <string name="today_departure_step1_detail">국제선은 넉넉히 일찍 가는 게 좋아요.</string>
+
+    <!-- 03~05 나라 -->
+    <string name="country_submit_self">마지막 제출은 직접 눌러요</string>
+    <string name="fact_days">%1$d일</string>
+    <!-- 2열 타일 라벨은 한 줄 7자 이내(DESIGN_SPEC 3.2) — 어절 경계에 줄바꿈(한 음절만 다음 줄로 넘어가던 '머물러 / 요' 방지) -->
+    <string name="fact_label_visa_free">비자 없이\n머물러요</string>
+    <string name="fact_label_visa_arrival">도착비자로\n머물러요</string>
+    <string name="fact_label_form_fee">입국 카드 비용</string>
+    <string name="fact_label_visa_fee">비자 비용</string>
+    <!-- 타일 복원 때 사용 (이번 릴리스 미사용, D11). 2열 라벨은 한 줄 7자 이내 -->
+    <string name="fact_label_window">도착일 포함\n내는 기간</string>
+    <string name="country_travel_tools_title">현지에서 쓰는 도구</string>
+    <string name="tile_phrases_emergency">현지어와\n긴급 번호</string>
+    <string name="tile_videos">여행 영상</string>
+    <string name="tile_maps">오프라인 지도</string>
+
+    <!-- 06·18 쇼핑 -->
+    <string name="shopping_subtitle_v2">관광청 쇼핑 안내에서 골랐어요</string>
+    <string name="shopping_add_cd">%1$s 담기</string>
+    <string name="shopping_show_staff_cd">%1$s 직원에게 보여주기</string>
+
+    <!-- 09~14 내 여행 -->
+    <string name="today_trip_dates">%1$s ~ %2$s</string>
+    <string name="today_arrival_qr_title">입국 심사 때 QR을 보여 주세요</string>
+    <string name="trip_save_edit">저장하기</string>
+    <string name="trip_nights">%1$d박 %2$d일</string>
+    <string name="trip_delete_confirm_title">이 여행을 지울까요?</string>
+    <string name="trip_delete_confirm_body">여행 날짜와 입국 카드 알림이 지워져요. 여권·예약 서류는 남아요.</string>
+
+    <!-- 15 준비 · 16 꼭 챙길 물건 -->
+    <string name="prepare_form_eyebrow">%1$s · 도착 전에 내요</string>
+    <string name="essentials_have_yes">챙겼어요</string>
+    <string name="essentials_have_no">아직이에요</string>
+    <!-- 인자 순서 (done, total) — 기존 essentials_progress(total, done)와 반대 -->
+    <string name="essentials_progress_stat">%1$d / %2$d</string>
+
+    <!-- 17 입국 카드 확인 -->
+    <string name="form_group_count">%1$d칸</string>
+    <string name="form_missing_count">빈칸 %1$d개 남았어요</string>
+    <string name="form_go_first_missing">첫 빈칸으로 가기</string>
+    <string name="form_field_required">꼭 채워요</string>
+    <string name="form_go_field_cd">%1$s 칸으로 가기</string>
+
+    <!-- 19 이동 · 20 도움 -->
+    <string name="transport_get_app">%1$s 받기</string>
+    <string name="help_more_numbers">다른 긴급 번호 보기</string>
+
+    <!-- 22 설정 -->
+    <string name="settings_group_myinfo">내 정보</string>
+    <string name="settings_group_display">화면·사용</string>
+    <string name="settings_group_data">데이터</string>
+    <string name="settings_group_about">안내·출처</string>
+    <!-- Pretendard 글꼴 채택(D1) 시 사진 출처 행 이름 -->
+    <string name="settings_credits">사진·글꼴 출처</string>
+
+    <!-- 21·23~27 지갑·보여 주기 (확인 대화상자에는 개인정보를 넣지 않는다) -->
+    <string name="wallet_passport_eyebrow">PASSPORT · 여권</string>
+    <string name="booking_delete_confirm_title">이 예약 서류를 지울까요?</string>
+    <string name="booking_delete_confirm_body">지운 서류는 되돌릴 수 없어요.</string>
+    <string name="present_delete_confirm_title">이 서류를 지울까요?</string>
+    <string name="present_delete_confirm_body">지우면 입국 때 이 서류를 보여 줄 수 없어요. 되돌릴 수 없어요.</string>
+    <string name="companion_delete_confirm_title">같이 가는 사람을 지울까요?</string>
+    <string name="companion_delete_confirm_body">이 사람의 입국 서류도 함께 지워져요. 되돌릴 수 없어요.</string>
+    <string name="wallet_reset_confirm_title">내 정보를 모두 비울까요?</string>
+    <string name="wallet_reset_confirm_body">여권, 예약 서류, 같이 가는 사람, 입국 서류가 이 휴대폰에서 모두 지워져요. 되돌릴 수 없어요.</string>
+    <string name="companion_empty_title">보호자 폰 하나로 가족 서류를 챙겨요</string>
+    <string name="companion_add_hint">이름을 적고 동의에 체크하면 추가할 수 있어요</string>
+
+    <!-- 28 사진 출처 (CC BY/BY-SA 변경 표시, DESIGN_SPEC 3.7 ⑦) -->
+    <string name="photo_credits_body_v2">모든 사진은 위키미디어 공용에서 가져와 잘라내고 크기를 줄이고, 글자가 잘 보이게 어둡게 덮었어요(일부는 둥글게 잘랐어요).</string>
+</resources>

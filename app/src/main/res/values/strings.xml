@@ -19,7 +19,7 @@
     <string name="action_back">이전 화면으로</string>
     <string name="action_settings">설정</string>
     <string name="coming_soon">준비 중이에요</string>
-    <string name="source_footer">출처 %1$s · 최종 확인 %2$s</string>
+    <string name="source_footer">출처 %1$s · 최\u2060종\u00A0확\u2060인\u00A0%2$s</string>
 
     <!-- 첫 실행 -->
     <string name="first_run_title">해외여행이 처음이세요?</string>
@@ -123,9 +123,9 @@
     <string name="explore_wifi_only">와이파이에서만 받기</string>
     <string name="explore_wifi_only_desc">휴대폰 데이터 요금이 나가지 않게, 찜한 곳의 안내를 와이파이에서만 받아요.</string>
     <string name="explore_maps_title">지도도 저장해 두세요</string>
-    <string name="explore_maps_step1">1. Google 지도 앱에서 내 프로필 사진을 눌러요.</string>
-    <string name="explore_maps_step2">2. \'오프라인 지도\' → \'내 지도 선택\'을 눌러요.</string>
-    <string name="explore_maps_step3">3. 여행할 곳이 네모 안에 들어오게 맞추고 \'다운로드\'를 눌러요.</string>
+    <string name="explore_maps_step1">Google 지도 앱에서 내 프로필 사진을 눌러요.</string>
+    <string name="explore_maps_step2">\'오프라인 지도\' → \'내 지도 선택\'을 눌러요.</string>
+    <string name="explore_maps_step3">여행할 곳이 네모 안에 들어오게 맞추고 \'다운로드\'를 눌러요.</string>
     <string name="explore_maps_note">나라에 따라 지도를 저장할 수 없는 곳도 있어요.</string>
     <string name="explore_maps_source">Google 지도 고객센터</string>
 
@@ -296,18 +296,18 @@
     <string name="today_open_prepare">준비 탭 열기</string>
     <string name="today_departure_title">오늘 떠나요</string>
     <string name="today_departure_steps_title">공항에서 이 순서대로</string>
-    <string name="today_departure_step1">1. 공항에 가요. 국제선은 넉넉히 일찍 가는 게 좋아요.</string>
-    <string name="today_departure_step2">2. 비행기 표 받고 짐 맡기기 (체크인)</string>
-    <string name="today_departure_step3">3. 보안 검색 — 가방 속 물건 검사</string>
-    <string name="today_departure_step4">4. 출국 심사 — 여권 보여 주기</string>
-    <string name="today_departure_step5">5. 타는 곳(게이트)을 찾아 기다려요</string>
+    <string name="today_departure_step1">공항에 가요</string>
+    <string name="today_departure_step2">비행기 표 받고 짐 맡기기 (체크인)</string>
+    <string name="today_departure_step3">보안 검색 — 가방 속 물건 검사</string>
+    <string name="today_departure_step4">출국 심사 — 여권 보여 주기</string>
+    <string name="today_departure_step5">타는 곳(게이트)을 찾아 기다려요</string>
     <string name="today_arrived_button">도착했어요</string>
     <string name="today_arrival_title">도착했어요! 이 순서대로 해요</string>
-    <string name="today_arrival_step1">1. 입국 심사 — 여권과 입국 QR 보여 주기</string>
-    <string name="today_arrival_step2">2. 짐 찾기</string>
-    <string name="today_arrival_step3">3. 유심·인터넷 준비</string>
-    <string name="today_arrival_step4">4. 필요하면 환전</string>
-    <string name="today_arrival_step5">5. 숙소로 가기</string>
+    <string name="today_arrival_step1">입국 심사 — 여권과 입국 QR 보여 주기</string>
+    <string name="today_arrival_step2">짐 찾기</string>
+    <string name="today_arrival_step3">유심·인터넷 준비</string>
+    <string name="today_arrival_step4">필요하면 환전</string>
+    <string name="today_arrival_step5">숙소로 가기</string>
     <string name="today_arrival_done">다 했어요</string>
     <string name="today_show_qr">입국 QR 보기</string>
     <string name="today_go_stay">숙소로 돌아가기</string>
