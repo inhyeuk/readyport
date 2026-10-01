@@ -2,6 +2,8 @@ package com.readyport.ui.nav
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.background
+import androidx.compose.foundation.indication
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -33,9 +35,12 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.ripple
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
@@ -79,6 +84,7 @@ private val BasicLabelMinSize = 10.sp
  * - 선택 탭: 아이콘 뒤 64×32dp 알약(AccentSoft, 도움 탭은 HelpSoft) + 채운 아이콘 + 굵은 라벨 — 색 말고도 모양·굵기로 구분
  * - 도움 탭은 선택 여부와 상관없이 따뜻한 색(Help)으로 항상 구분한다(PRD). 비선택이면 굵기만 Medium
  * - 라벨: 기본 모드는 칸보다 넓으면 10sp까지 줄여 한 줄, 쉬운 모드(18sp)는 줄이지 않고 2줄로 넘긴다(D19)
+ * - 눌림 물결(ripple)은 칸 전체 사각형이 아니라 알약 안에만 그린다 — 16dp·원형 모서리 체계와 맞게(칸 전체가 누르는 영역인 것은 그대로)
  */
 @Composable
 fun BottomTabs(selected: Tab, onSelect: (Tab) -> Unit, tabs: List<Tab> = Tab.Main) {
@@ -102,6 +108,7 @@ private fun RowScope.TabItem(tab: Tab, selected: Boolean, onClick: () -> Unit) {
         selected -> Tokens.Accent
         else -> Tokens.InkSecondary
     }
+    val interaction = remember { MutableInteractionSource() }
     val style = labelStyle.copy(
         color = color,
         textAlign = TextAlign.Center,
@@ -113,13 +120,15 @@ private fun RowScope.TabItem(tab: Tab, selected: Boolean, onClick: () -> Unit) {
         modifier = Modifier
             .weight(1f)
             .heightIn(min = dimens.buttonHeight + 8.dp)
-            .selectable(selected = selected, role = Role.Tab, onClick = onClick)
+            .selectable(selected = selected, interactionSource = interaction, indication = null, role = Role.Tab, onClick = onClick)
             // 위아래 4dp: 인디케이터(32dp)가 들어와도 막대 높이가 예전(아이콘 24 + 위아래 8)과 같다 — 다른 탭 첫 화면 예산 유지
             .padding(vertical = 4.dp, horizontal = 2.dp),
     ) {
         Box(
             modifier = Modifier
                 .size(IndicatorWidth, IndicatorHeight)
+                .clip(CircleShape)
+                .indication(interaction, ripple())
                 .background(
                     color = when {
                         !selected -> Color.Transparent
