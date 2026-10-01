@@ -415,14 +415,16 @@ private fun MetaItem(icon: ImageVector, text: String) {
 
 /**
  * YouTube API 약관 묶음: 설명문(videos_terms, 빼지 않음)을 먼저 보이고 그 아래 공식 링크 2개(LinkRow — 06 귀국 링크와 같은 모양).
- * 링크는 큰 글자에서도 폭을 다 쓰도록 설명문 글 줄이 아니라 정책 배지(카드 안쪽 16dp)와 같은 선에서 시작한다
- * (LinkRow 자체 안쪽 4dp + 바깥 12dp). 그래서 설명문과 링크 사이 구분선도 들여 쓰지 않는다.
+ * 안쪽 여백은 목록 행 토큰(listRowPadding — 다른 ListGroup 행·카드 내용과 같은 시작선, 재검토 R4).
+ * 링크는 큰 글자에서도 폭을 다 쓰도록 설명문 글 줄이 아니라 정책 배지와 같은 선에서 시작한다
+ * (LinkRow 자체 안쪽 4dp + 바깥 listRowPadding − 4dp). 그래서 설명문과 링크 사이 구분선도 들여 쓰지 않는다.
  */
 @Composable
 private fun TermsGroup(onOpen: (String) -> Unit) {
+    val dimens = LocalDimens.current
     ListGroup {
         Row(
-            Modifier.fillMaxWidth().padding(16.dp),
+            Modifier.fillMaxWidth().padding(horizontal = dimens.listRowPadding, vertical = dimens.listRowPaddingVertical),
             verticalAlignment = Alignment.Top,
             horizontalArrangement = Arrangement.spacedBy(16.dp),
         ) {
@@ -435,7 +437,7 @@ private fun TermsGroup(onOpen: (String) -> Unit) {
             )
         }
         ListDivider(indent = false)
-        Column(Modifier.padding(horizontal = 12.dp, vertical = 4.dp)) {
+        Column(Modifier.padding(horizontal = dimens.listRowPadding - 4.dp, vertical = 4.dp)) {
             LinkRow(stringResource(R.string.videos_youtube_terms), onClick = { onOpen(YOUTUBE_TERMS) })
             LinkRow(stringResource(R.string.videos_google_privacy), onClick = { onOpen(GOOGLE_PRIVACY) })
         }

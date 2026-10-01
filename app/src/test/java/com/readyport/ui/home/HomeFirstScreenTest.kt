@@ -62,6 +62,18 @@ abstract class HomeFirstScreenBase {
         val v = visibleDp(name, label)
         assertNotNull("$label: $name 타일이 첫 화면에 없음", v)
         assertTrue("$label: $name 타일이 첫 화면에 ${v}dp만 보임 (< $MIN_VISIBLE_DP)", v!! >= MIN_VISIBLE_DP)
+        assertValueLineOnFirstScreen(label)
+    }
+
+    /** 재검토 R13: 핵심 가치 한 줄(`입국 카드 칸은 앱이 채우고, 제출만 직접 눌러요`)이 어느 모드에서나 첫 화면(탭 막대 위)에 다 보인다 */
+    private fun assertValueLineOnFirstScreen(label: String) {
+        val node = rule.onAllNodes(hasText(context.getString(R.string.home_value_prop))).fetchSemanticsNodes().firstOrNull()
+        assertNotNull("$label: 가치 문장이 없음", node)
+        val d = rule.density.density
+        val bottom = node!!.boundsInRoot.bottom / d
+        val tabTop = homeTab().boundsInRoot.top / d
+        println("HOMEBUDGET $label: value bottom=$bottom tabTop=$tabTop")
+        assertTrue("$label: 가치 문장이 첫 화면 밖 ($bottom > $tabTop)", bottom <= tabTop)
     }
 
     companion object {

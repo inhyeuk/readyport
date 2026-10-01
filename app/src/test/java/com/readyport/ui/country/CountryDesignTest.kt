@@ -11,6 +11,7 @@ import androidx.compose.ui.test.junit4.v2.createComposeRule
 import androidx.compose.ui.test.onAllNodesWithContentDescription
 import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onNodeWithContentDescription
+import androidx.compose.ui.test.onFirst
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollToNode
@@ -23,6 +24,7 @@ import com.readyport.ui.components.displayDate
 import com.readyport.ui.components.sourceBlocks
 import com.readyport.ui.theme.ReadyPortTheme
 import kotlinx.coroutines.runBlocking
+import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
@@ -57,28 +59,49 @@ class CountryDesignTest {
     fun visaFactsShowEachValueWithItsOwnSource() {
         val id = pack("ID")
         rule.setContent { ReadyPortTheme { CountryContent(TestPacks.countryUi("ID"), CountryActions()) } }
-        // 숫자 타일: 머무는 날(요건) · 비자 비용(e-VOA 안내) · 입국 신고 비용(All Indonesia)
+        // 비자 카드 숫자 타일: 머무는 날(요건) · 비자 비용(e-VOA 안내). 입국 신고 비용(All Indonesia)은 그 양식 카드로 (재검토 R12)
         scrollTo(s(R.string.fact_days, 30))
         rule.onNodeWithText(s(R.string.fact_days, 30)).assertIsDisplayed()
         scrollTo("IDR 500,000")
         rule.onNodeWithText("IDR 500,000").assertIsDisplayed()
-        // 날짜가 같은 출처는 한 덩어리(기관마다 한 줄, 날짜는 끝에 한 번 — 재검토 R9), 날짜가 다른 e-VOA 출처는 다음 덩어리 —
-        // IDR 500,000이 외교부 정보처럼 보이지 않게
+        // 비자 카드: 요건 출처(외교부)와 비자 비용 출처(대사관 e-VOA 안내)는 날짜가 달라 따로 — IDR 500,000이 외교부 정보처럼 보이지 않게
         val req = id.requirements.single()
-        val form = id.forms.single { it.id in req.forms }
-        val sameDayBlock = sourceBlocks(
-            listOf(
-                SourceRef(id.source(req.source)!!.name, displayDate(req.lastVerified)),
-                SourceRef(id.source(form.source)!!.name, displayDate(form.lastVerified)),
-            ),
-        ).single()
-        val sameDay = s(R.string.source_footer, sameDayBlock.name, sameDayBlock.verified)
-        scrollTo(sameDay)
-        rule.onNodeWithText(sameDay).assertIsDisplayed()
+        val reqLine = s(R.string.source_footer, id.source(req.source)!!.name, displayDate(req.lastVerified))
+        scrollTo(reqLine)
+        rule.onNodeWithText(reqLine).assertIsDisplayed()
         val apply = req.apply!!
         val evoa = s(R.string.source_footer, id.source(apply.source)!!.name, displayDate(apply.lastVerified))
         scrollTo(evoa)
         assertTrue(rule.onAllNodesWithText(evoa).fetchSemanticsNodes().isNotEmpty())
+        // 입국 신고 카드: `무료 입국 신고 비용` 칩 + 그 양식 출처(이민국 · All Indonesia)
+        val form = id.forms.single { it.id in req.forms }
+        scrollTo(s(R.string.form_fee_chip_label))
+        rule.onNodeWithText(s(R.string.form_fee_chip_label)).assertIsDisplayed()
+        val formLine = s(R.string.source_footer, id.source(form.source)!!.name, displayDate(form.lastVerified))
+        scrollTo(formLine)
+        assertTrue(rule.onAllNodesWithText(formLine).fetchSemanticsNodes().isNotEmpty())
+    }
+
+    /** 재검토 R17: 여행경보 3단계(출국권고) 문장은 여행 정보 맨 위 위험 배너에 팩 원문 그대로 한 번만 — 안전 카드에서 되풀이하지 않는다 */
+    @Test
+    fun highTravelAdvisoryIsLiftedIntoTopDangerBanner() {
+        val th = pack("TH")
+        rule.setContent { ReadyPortTheme { CountryContent(TestPacks.countryUi("TH"), CountryActions(), CountrySection.Travel) } }
+        val safety = th.sections.single { it.id == "safety" }
+        val warning = safety.bodyKo.single { isHighAdvisory(it) }
+        assertTrue("가지 마세요" in warning)
+        rule.onNodeWithText(warning).assertIsDisplayed()
+        assertEquals(1, rule.onAllNodesWithText(warning).fetchSemanticsNodes().size)
+        // 배너는 현지 도구 타일보다 위, 출처 줄이 바로 아래
+        val banner = rule.onNodeWithText(warning).getBoundsInRoot()
+        val tools = rule.onNodeWithText(s(R.string.country_travel_tools_title)).getBoundsInRoot()
+        assertTrue("위험 배너가 맨 위가 아님", banner.bottom <= tools.top)
+        rule.onAllNodesWithText(s(R.string.source_footer, th.source(safety.source)!!.name, displayDate(safety.lastVerified)))
+            .onFirst().assertIsDisplayed()
+        // 1·2단계 문장은 안전 카드에 그대로
+        val rest = safety.bodyKo.filterNot { isHighAdvisory(it) }
+        scrollTo(rest.first())
+        rule.onNodeWithText(rest.first()).assertIsDisplayed()
     }
 
     @Test
@@ -178,5 +201,23 @@ class CountryDesignTest {
         rule.onNodeWithText(line).assertIsDisplayed()
         scrollTo(s(R.string.shopping_open))
         rule.onNodeWithText(s(R.string.shopping_open)).assertIsDisplayed()
+    }
+
+    /** 위험 배너로 올리는 문장 = 팩 안전 문장 중 3단계(출국권고) 이상을 말하는 것만 — 1·2단계·경보 없음 문장은 아니다 */
+    @Test
+    fun highAdvisoryPicksOnlyLevelThreeSentences() {
+        val lifted = listOf("TH", "JP", "SG", "MY", "ID").associateWith { code ->
+            pack(code).sections.single { it.id == "safety" }.bodyKo.count { isHighAdvisory(it) }
+        }
+        assertEquals(mapOf("TH" to 1, "JP" to 1, "SG" to 0, "MY" to 1, "ID" to 0), lifted)
+        assertTrue(!isHighAdvisory("대부분 지역은 1단계(여행유의)예요."))
+        assertTrue(!isHighAdvisory("서파푸아·파푸아·말루쿠·아체는 2단계(여행자제)예요."))
+    }
+
+    /** 내는 때 줄의 `N월 N일`은 줄 사이에서 갈라지지 않게 NBSP로 묶는다 — 다른 글자는 그대로 */
+    @Test
+    fun monthAndDayStayTogether() {
+        assertEquals("예: 5월 4일 도착이면 5월 2일~4일", glueMonthDay("예: 5월 4일 도착이면 5월 2일~4일"))
+        assertEquals("도착 3일 전부터 낼 수 있어요.", glueMonthDay("도착 3일 전부터 낼 수 있어요."))
     }
 }

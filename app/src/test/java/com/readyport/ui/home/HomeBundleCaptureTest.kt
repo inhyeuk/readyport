@@ -13,10 +13,14 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.asAndroidBitmap
+import androidx.compose.ui.semantics.SemanticsProperties
+import androidx.compose.ui.test.SemanticsMatcher
 import androidx.compose.ui.test.captureToImage
+import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.v2.createComposeRule
 import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onRoot
+import androidx.compose.ui.test.performClick
 import androidx.compose.ui.unit.dp
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -82,6 +86,16 @@ abstract class BundleACaptureBase {
             rule.runOnIdle { page = i }
             rule.mainClock.advanceTimeBy(2_000)
             rule.waitForIdle()
+            if (name == "home-essentials" && easy) {
+                // 쉬운 모드는 여행 준비 카드를 한 줄씩 접어 둔다(재검토 R13) — 꼭 챙길 물건 줄을 눌러 펼친 뒤 찍는다
+                val context = ApplicationProvider.getApplicationContext<android.content.Context>()
+                rule.onNode(
+                    hasText(context.getString(R.string.prepare_items_title)) and
+                        SemanticsMatcher.expectValue(SemanticsProperties.StateDescription, context.getString(R.string.state_collapsed)),
+                ).performClick()
+                rule.mainClock.advanceTimeBy(2_000)
+                rule.waitForIdle()
+            }
             val bmp = trimBottom(rule.onRoot().captureToImage().asAndroidBitmap())
             File(dir, "$name.png").outputStream().use { bmp.compress(Bitmap.CompressFormat.PNG, 100, it) }
             if (name == "home-essentials") {
