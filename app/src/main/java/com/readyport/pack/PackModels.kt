@@ -22,6 +22,27 @@ data class PackIndex(
     @SerialName("return_links") val returnLinks: List<OfficialLink> = emptyList(),
     /** 귀국 면세 한도 등 요약 (출처·확인일 포함) */
     @SerialName("return_facts") val returnFacts: List<SourcedText> = emptyList(),
+    /** 여행 체크리스트 틀 (모든 나라 공통 순서·문구, 2026-10-02). 나라 팩 사실로 만드는 항목은 [ChecklistTemplateItem.from]이 가리킨다 */
+    val checklist: List<ChecklistTemplateItem> = emptyList(),
+)
+
+/**
+ * 체크리스트 틀 한 줄 (index.json `checklist`). 정책 사실은 여기 적지 않는다 — 사실이 필요한 항목은 [from]으로 팩·색인 값을 가져오고,
+ * 그 값이 없는 나라에서는 항목을 만들지 않는다. [titleKo]·[bodyKo]는 사실이 아닌 '챙기기' 안내(숫자 없음).
+ * kind: generic(안내) / auto(앱이 확인) / pack(팩·색인 사실) / essential(꼭 챙길 물건 규칙 — [from] = essential:<id>)
+ */
+@Serializable
+data class ChecklistTemplateItem(
+    val id: String,
+    val phase: String,
+    val icon: String,
+    val kind: String,
+    @SerialName("title_ko") val titleKo: String? = null,
+    @SerialName("body_ko") val bodyKo: String? = null,
+    val from: String? = null,
+    val action: String? = null,
+    /** 조건: has_form(이 나라에 입국 카드가 있을 때만) */
+    @SerialName("when") val condition: String? = null,
 )
 
 @Serializable
@@ -59,7 +80,7 @@ data class EssentialRule(
 )
 
 /**
- * type: affiliate(물건·여행 서비스, '제휴' 표시) / official_info(보험·환전·카드 — 수수료 없음)
+ * type: affiliate(물건·여행 서비스, 앱에 '수수료 링크' 표시) / official_info(보험·환전·카드 — 수수료 없음)
  * 보험·금융 상품에는 affiliate를 쓰지 않는다 (작업 규칙 11)
  */
 @Serializable
@@ -137,9 +158,22 @@ data class CountryPack(
     val procedures: List<Procedure> = emptyList(),
     val power: PowerInfo? = null,
     val shopping: List<ShoppingItem> = emptyList(),
+    /** 이 나라만의 체크리스트 항목 — 문장은 [sections]의 같은 문장 그대로(출처·확인일도 그 섹션 것, 빌드가 검사) */
+    val checklist: List<CountryChecklistItem> = emptyList(),
 ) {
     fun source(id: String): PackSource? = sources.firstOrNull { it.id == id }
 }
+
+/** 나라 팩 체크리스트 항목. [textKo]는 [section] 섹션 body_ko의 한 문장과 글자까지 같아야 한다(build_packs.py) */
+@Serializable
+data class CountryChecklistItem(
+    val id: String,
+    val phase: String,
+    val icon: String,
+    @SerialName("title_ko") val titleKo: String,
+    val section: String,
+    @SerialName("text_ko") val textKo: String,
+)
 
 @Serializable data class Names(val ko: String, val en: String, val local: String)
 
@@ -160,6 +194,20 @@ data class Requirement(
     @SerialName("last_verified") val lastVerified: String,
     /** 비자를 온라인으로 신청하는 길 (있을 때만) */
     val apply: VisaApply? = null,
+    /** 여권 남은 기간 기준. 공식 안내가 밝히지 않으면 null — 앱은 기준을 지어내지 않는다 */
+    @SerialName("passport_validity") val passportValidity: PassportValidityRule? = null,
+)
+
+/**
+ * 여권이 얼마나 남아 있어야 하는지 (공식 출처 그대로).
+ * basis: arrival(입국일 기준) / departure(그 나라에서 나가는 날 기준) / stay_end(머무는 기간이 끝나는 날 기준)
+ */
+@Serializable
+data class PassportValidityRule(
+    val months: Int,
+    val basis: String,
+    val source: String,
+    @SerialName("last_verified") val lastVerified: String,
 )
 
 /**
@@ -211,7 +259,7 @@ data class Phrase(
     val en: String,
     val local: String,
     val romanized: String? = null,
-    /** 원어민 검수 여부. false면 화면에 '검수 전' 표시 */
+    /** 원어민 검수 여부 (팩 데이터 — 앱 화면에는 표시하지 않는다: 운영자 결정 2, 2026-10-01. 출시 전 원어민 검수 C10은 할 일로 남음) */
     val reviewed: Boolean = false,
 )
 

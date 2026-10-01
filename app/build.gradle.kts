@@ -29,8 +29,8 @@ android {
         minSdk = 26
         // Play 요구: 2026-08-31부터 신규·업데이트 API 36 이상 (developer.android.com 2026-09-28 확인)
         targetSdk = 36
-        versionCode = 5
-        versionName = "0.3.1"
+        versionCode = 6
+        versionName = "0.4.0"
     }
 
     signingConfigs {
@@ -80,6 +80,8 @@ android {
                 "--add-exports=java.base/jdk.internal.access=ALL-UNNAMED",
                 "--add-opens=java.base/java.io=ALL-UNNAMED",
             )
+            // 캡처(captureToImage)를 하드웨어 렌더러로 그려 Modifier.shadow 그림자가 보이게 한다 (DESIGN_SPEC 8장 0단계)
+            it.systemProperty("robolectric.pixelCopyRenderMode", "hardware")
         }
     }
 

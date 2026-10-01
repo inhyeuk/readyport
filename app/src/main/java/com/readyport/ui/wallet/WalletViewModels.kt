@@ -42,7 +42,11 @@ class WalletViewModel @Inject constructor(
 
     fun unlock() = viewModelScope.launch { repo.unlock() }
     fun lock() = repo.lock()
-    fun reset() = viewModelScope.launch { repo.wipe() }
+    /** 내 정보를 비운다(키 분실·손상). 다 비우면 [then] — 화면은 여권 등록으로 데려간다(재검토2 ②#4) */
+    fun reset(then: () -> Unit = {}) = viewModelScope.launch {
+        repo.wipe()
+        then()
+    }
     fun deletePassport() = viewModelScope.launch { repo.update { it.copy(passport = null) } }
     fun deleteBooking(id: String) = viewModelScope.launch { repo.update { c -> c.copy(bookings = c.bookings.filterNot { it.id == id }) } }
     fun setAutoDestroy(enabled: Boolean) = viewModelScope.launch { settings.setAutoDestroyPassport(enabled) }
@@ -190,7 +194,9 @@ private fun java.io.InputStream.readNBytesCompat(limit: Int): ByteArray {
     return out.toByteArray()
 }
 
-/** 확인 화면에서 사용자가 고친 값 */
+/**
+ * 확인 화면에서 사용자가 고친 값. 체크인·체크아웃은 날짜 칸 값(숫자 8자리, 화면에서만 `2026-11-03` 모양 — 재검토 R18 숫자 자판)
+ */
 data class BookingDraft(
     val kind: BookingKind,
     val title: String,
@@ -200,6 +206,10 @@ data class BookingDraft(
     val checkOut: String,
     val dates: List<LocalDate>,
 ) {
+    /** 날짜 칸이 비었거나 올바른 날짜인지 — 반쯤 적은 날짜를 저장하며 버리지 않게, 아니면 저장 버튼을 막는다 */
+    val datesValid: Boolean
+        get() = listOf(checkIn, checkOut).all { it.isEmpty() || parseDateDigits(it) != null }
+
     fun toRecord(now: LocalDateTime = LocalDateTime.now()) = BookingRecord(
         id = UUID.randomUUID().toString(),
         kind = when (kind) {
@@ -211,8 +221,8 @@ data class BookingDraft(
         reference = reference.trim().ifEmpty { null },
         flightNumbers = flights.split(',', ' ').map { it.trim().uppercase() }.filter { it.isNotEmpty() },
         dates = dates.map { it.toString() },
-        checkIn = checkIn.trim().ifEmpty { null },
-        checkOut = checkOut.trim().ifEmpty { null },
+        checkIn = parseDateDigits(checkIn)?.toString(),
+        checkOut = parseDateDigits(checkOut)?.toString(),
         savedAt = now.toString(),
     )
 
@@ -224,8 +234,8 @@ data class BookingDraft(
             title = defaultTitle,
             reference = fields.reference.orEmpty(),
             flights = fields.flightNumbers.joinToString(", "),
-            checkIn = fields.checkIn?.toString().orEmpty(),
-            checkOut = fields.checkOut?.toString().orEmpty(),
+            checkIn = digitsOf(fields.checkIn?.toString()),
+            checkOut = digitsOf(fields.checkOut?.toString()),
             dates = fields.dates,
         )
     }

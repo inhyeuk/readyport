@@ -17,9 +17,8 @@
     <string name="action_home">처음으로</string>
     <string name="action_listen">소리로 듣기</string>
     <string name="action_back">이전 화면으로</string>
-    <string name="action_settings">설정</string>
     <string name="coming_soon">준비 중이에요</string>
-    <string name="source_footer">출처 %1$s · 최종 확인 %2$s</string>
+    <string name="source_footer">출처 %1$s\u00A0· 최\u2060종\u00A0확\u2060인\u00A0%2$s</string>
 
     <!-- 첫 실행 -->
     <string name="first_run_title">해외여행이 처음이세요?</string>
@@ -42,9 +41,7 @@
     <string name="today_next_title">어디로 여행 가세요?</string>
     <string name="today_next_body">여행 날짜를 넣으면 날마다 할 일을 차례로 알려 드려요.</string>
     <string name="today_next_button">나라 사진 보며 고르기</string>
-    <string name="today_help_title">급할 때는 \'도움\'을 누르세요</string>
     <string name="today_help_body">현지어 문장 카드와 긴급 연락처는 인터넷이 없어도 볼 수 있어요.</string>
-    <string name="today_speech">오늘 할 일. 아직 만든 여행이 없어요. 지금 할 일은 여행지 고르기예요.</string>
 
     <!-- 준비 -->
     <string name="prepare_title">여행 준비</string>
@@ -54,12 +51,7 @@
     <string name="prepare_forms_body">여행을 만들면 어떤 서류가 필요한지 알려 드리고, 앱이 대신 채워 드려요.</string>
     <string name="prepare_items_title">꼭 챙길 물건</string>
     <string name="prepare_items_body">여행지와 계절에 맞춰 챙길 물건을 골라 드려요.</string>
-    <string name="prepare_apps_title">미리 설치할 앱</string>
-    <string name="prepare_apps_body">차 부르기·길 찾기 앱은 한국에서 미리 설치하고 가입해 두면 편해요.</string>
-    <string name="prepare_bookings_title">예약 서류</string>
-    <string name="prepare_bookings_body">항공권과 숙소 예약 확인서를 모아 둬요.</string>
     <string name="prepare_form_open">입국 카드 준비하기</string>
-    <string name="prepare_form_country">%1$s · %2$s</string>
 
     <!-- 입국 카드 3개 국어 확인 (PRD 5.2) -->
     <string name="form_confirm_title">%1$s 확인</string>
@@ -78,10 +70,8 @@
     <string name="form_fix_done">다 고쳤어요</string>
     <string name="form_need_required">빈칸을 채워 주세요: %1$s</string>
     <string name="form_need_passport">먼저 여권을 등록해 주세요</string>
-    <string name="form_labels_unreviewed">현지어 표기는 원어민 검수 전이에요</string>
     <string name="form_killed">지금은 이 사이트 자동 입력을 쉬고 있어요. 값을 복사해서 직접 넣어 주세요.</string>
     <string name="form_no_recipe">이 입국 카드는 아직 자동 입력을 준비하지 못했어요. 값을 복사해서 직접 넣어 주세요.</string>
-    <string name="form_manual_mode">수동 모드</string>
     <string name="form_save_failed">저장하지 못했어요. 내 정보를 다시 열어 주세요.</string>
 
     <!-- 자동 입력 화면 (PRD 5.3) -->
@@ -93,7 +83,6 @@
     <string name="autofill_result">앱이 채운 칸 %1$d개 · 직접 넣을 칸 %2$d개</string>
     <string name="autofill_next_hint">사이트의 \'다음\'을 누른 뒤 \'지금 화면 채우기\'를 다시 눌러 주세요.</string>
     <string name="autofill_nothing_visible">채울 칸이 보이지 않아요. 사이트에서 \'Arrival Card\'를 눌러 입력 화면을 열어 주세요.</string>
-    <string name="autofill_failed">사이트가 바뀌어서 일부 칸을 찾지 못했어요. 수동 모드로 바꿔 값을 복사해 넣어 주세요.</string>
     <string name="autofill_compare_title">입력값 대조</string>
     <string name="autofill_submitted">제출했어요. 사이트에 나온 확인 화면과 확인 메일을 잘 보관하세요.</string>
 
@@ -103,29 +92,17 @@
     <string name="manual_copy">복사</string>
     <string name="manual_copied">복사했어요</string>
     <string name="manual_open_site">공식 사이트 열기</string>
-    <string name="prepare_speech">여행 준비. 레디포트는 정부 기관과 제휴하지 않았어요. 입국 카드, 꼭 챙길 물건, 미리 설치할 앱, 예약 서류를 챙겨요.</string>
+    <string name="prepare_speech">여행 준비. 레디포트는 정부 기관과 제휴하지 않았어요. 입국 카드와 꼭 챙길 물건을 챙겨요.</string>
 
     <!-- 여행지 -->
-    <string name="explore_title">여행지</string>
-    <string name="explore_subtitle">가고 싶은 곳을 찾고 찜해요</string>
-    <string name="explore_popular_title">요즘 인기 여행지</string>
-    <string name="explore_popular_body">한국에서 출발하는 비행기 이용객과 검색 흐름으로 매주 순위를 바꿔요.</string>
-    <string name="explore_speech">여행지. 요즘 인기 여행지와 찜한 여행지를 볼 수 있어요.</string>
-    <string name="explore_countries_title">여행지 고르기</string>
     <string name="explore_favorite_add">%1$s 찜하기</string>
     <string name="explore_favorite_remove">%1$s 찜 취소</string>
-    <string name="explore_status_saved">저장 완료 · 확인 %1$s</string>
-    <string name="explore_status_waiting">와이파이 되면 받을게요</string>
-    <string name="explore_status_downloading">받는 중</string>
-    <string name="explore_status_not_ready">안내 준비 중</string>
-    <string name="explore_open_guide">가이드 열기</string>
-    <string name="explore_saved_contents">입국 서류 안내 · 돈 · 안전 · 현지어 카드 · 긴급 연락처</string>
     <string name="explore_wifi_only">와이파이에서만 받기</string>
     <string name="explore_wifi_only_desc">휴대폰 데이터 요금이 나가지 않게, 찜한 곳의 안내를 와이파이에서만 받아요.</string>
     <string name="explore_maps_title">지도도 저장해 두세요</string>
-    <string name="explore_maps_step1">1. Google 지도 앱에서 내 프로필 사진을 눌러요.</string>
-    <string name="explore_maps_step2">2. \'오프라인 지도\' → \'내 지도 선택\'을 눌러요.</string>
-    <string name="explore_maps_step3">3. 여행할 곳이 네모 안에 들어오게 맞추고 \'다운로드\'를 눌러요.</string>
+    <string name="explore_maps_step1">Google 지도 앱에서 내 프로필 사진을 눌러요.</string>
+    <string name="explore_maps_step2">\'오프라인 지도\' → \'내 지도 선택\'을 눌러요.</string>
+    <string name="explore_maps_step3">여행할 곳이 네모 안에 들어오게 맞추고 \'다운로드\'를 눌러요.</string>
     <string name="explore_maps_note">나라에 따라 지도를 저장할 수 없는 곳도 있어요.</string>
     <string name="explore_maps_source">Google 지도 고객센터</string>
 
@@ -134,16 +111,13 @@
     <string name="guide_requirements_title">들어갈 때 필요한 것</string>
     <string name="guide_form_fee">비용: %1$s</string>
     <string name="guide_form_window">내는 때: %1$s</string>
-    <string name="guide_form_official">공식 사이트: %1$s</string>
     <string name="guide_not_affiliated">레디포트는 정부 기관과 제휴하지 않았어요.</string>
     <string name="guide_origin_bundled">앱에 들어 있는 안내</string>
     <string name="guide_origin_downloaded">받아 둔 안내</string>
-    <string name="guide_speech">%1$s 여행 가이드. 인터넷이 없어도 볼 수 있어요.</string>
 
     <!-- 지갑 -->
     <string name="wallet_title">내 정보</string>
     <string name="wallet_subtitle">내 서류를 안전하게 모아 둬요</string>
-    <string name="wallet_privacy">모든 서류는 이 기기 안에만 암호화해서 저장해요. 레디포트 서버로 보내지 않아요.</string>
     <string name="wallet_passport_title">여권</string>
     <string name="wallet_passport_body">여권 사진을 찍으면 필요한 값만 읽고, 사진은 바로 지워요.</string>
     <string name="wallet_profile_title">내 여행 정보</string>
@@ -163,13 +137,10 @@
     <string name="wallet_corrupted">저장한 서류를 읽지 못했어요. 다시 등록해 주세요.</string>
     <string name="wallet_reset">내 정보 비우고 다시 시작</string>
     <string name="wallet_passport_add">여권 등록하기</string>
-    <string name="wallet_passport_card_label">여권</string>
     <string name="wallet_passport_name">이름</string>
     <string name="wallet_passport_number">여권 번호</string>
     <string name="wallet_passport_expiry">만료일</string>
-    <string name="wallet_passport_verified">MRZ 확인 완료</string>
     <string name="wallet_passport_manual">직접 입력함</string>
-    <string name="wallet_passport_show">자세히 보기</string>
     <string name="wallet_passport_hide">가리기</string>
     <string name="wallet_passport_delete">여권 정보 지우기</string>
     <string name="wallet_passport_expiring">여권 만료가 6개월 안이에요. 나라마다 남은 기간 규칙이 달라서, 여행지 안내에서 꼭 확인해 주세요.</string>
@@ -187,12 +158,9 @@
     <!-- 여권 등록 -->
     <string name="passport_title">여권 등록</string>
     <string name="passport_step_scan">촬영</string>
-    <string name="passport_step_chip">칩 확인(선택)</string>
     <string name="passport_step_confirm">값 확인</string>
     <string name="passport_steps_desc">여권 등록 단계: %1$s (%3$d단계 중 %2$d단계)</string>
     <string name="passport_intro_body">여권 사진이 있는 면의 맨 아래 두 줄(&lt;&lt;&lt; 표시가 있는 줄)을 읽어서 이름·여권 번호·생년월일·만료일을 채워요.</string>
-    <string name="passport_privacy_1">사진은 이 기기 안에서만 읽고, 값을 뽑은 뒤 바로 지워요. 저장하지 않아요.</string>
-    <string name="passport_privacy_2">여권 정보는 이 기기 안에만 암호화해서 저장해요. 레디포트 서버로 보내지 않아요.</string>
     <string name="passport_privacy_3">글자 인식 도구(Google ML Kit)가 기기 종류·앱 버전·성능 정보를 Google에 보낼 수 있어요. 여권 사진과 내용은 보내지 않아요.</string>
     <string name="passport_consent">위 내용을 읽었어요</string>
     <string name="passport_use_camera">카메라로 찍기</string>
@@ -210,7 +178,6 @@
     <string name="passport_field_surname">성 (영문)</string>
     <string name="passport_field_given">이름 (영문)</string>
     <string name="passport_field_number">여권 번호</string>
-    <string name="passport_field_nationality">국적 (영문 3글자)</string>
     <string name="passport_field_birth">생년월일</string>
     <string name="passport_field_sex">성별</string>
     <string name="passport_field_expiry">만료일</string>
@@ -220,7 +187,6 @@
     <string name="passport_sex_x">기타</string>
     <string name="passport_save">확인하고 저장</string>
     <string name="passport_rescan">다시 찍기</string>
-    <string name="passport_chip_soon">NFC 칩으로 한 번 더 확인 (준비 중)</string>
     <string name="passport_manual_body">여권에 적힌 그대로 영문 대문자로 적어 주세요.</string>
     <string name="passport_manual_invalid" tools:ignore="TypographyDashes">빈칸이나 날짜 모양(예: 1974-08-12)을 확인해 주세요.</string>
     <string name="passport_speech">여권 등록. 여권 맨 아래 두 줄을 읽어서 값을 채워요. 사진은 저장하지 않아요.</string>
@@ -230,17 +196,12 @@
     <string name="booking_tip">항공사·숙소 앱이나 메일에서 \'공유하기\' → \'레디포트\'를 고르면 가장 정확해요.</string>
     <string name="booking_pick_photo">사진(캡처)에서 고르기</string>
     <string name="booking_pick_pdf">PDF에서 고르기</string>
-    <string name="booking_paste_label">예약 안내 글 붙여넣기</string>
     <string name="booking_read_text">이 글에서 찾기</string>
     <string name="booking_reading">서류를 읽는 중이에요…</string>
     <string name="booking_review_body">서류에서 찾은 값이에요. 맞는지 확인하고, 틀리면 고쳐 주세요.</string>
     <string name="booking_nothing_found">찾은 값이 없어요. 직접 적어 주세요.</string>
     <string name="booking_field_kind">종류</string>
-    <string name="booking_field_title">이름 (예: 방콕 숙소)</string>
     <string name="booking_field_reference">예약 번호</string>
-    <string name="booking_field_flights">편명 (여러 개면 쉼표로)</string>
-    <string name="booking_field_checkin">숙소 들어가는 날 (체크인)</string>
-    <string name="booking_field_checkout">숙소 나오는 날 (체크아웃)</string>
     <string name="booking_field_dates">찾은 날짜</string>
     <string name="booking_save">맞아요, 저장해 주세요</string>
     <string name="booking_saved">저장했어요</string>
@@ -258,7 +219,6 @@
     <string name="help_play_sound">소리로 들려주기</string>
     <string name="help_full_screen">화면 크게</string>
     <string name="help_close">닫기</string>
-    <string name="help_unreviewed">원어민 검수 전</string>
     <string name="help_no_tts">이 휴대폰에는 %1$s 음성이 없어요. 화면을 보여 주세요.</string>
     <string name="help_embassy">대한민국 대사관</string>
     <string name="help_embassy_after_hours">근무시간 외 긴급</string>
@@ -294,33 +254,28 @@
     <string name="today_task_ready_title">지금은 급한 일이 없어요</string>
     <string name="today_task_ready_body">준비 탭에서 챙길 것을 하나씩 확인해 보세요.</string>
     <string name="today_open_prepare">준비 탭 열기</string>
-    <string name="today_departure_title">오늘 떠나요</string>
     <string name="today_departure_steps_title">공항에서 이 순서대로</string>
-    <string name="today_departure_step1">1. 공항에 가요. 국제선은 넉넉히 일찍 가는 게 좋아요.</string>
-    <string name="today_departure_step2">2. 비행기 표 받고 짐 맡기기 (체크인)</string>
-    <string name="today_departure_step3">3. 보안 검색 — 가방 속 물건 검사</string>
-    <string name="today_departure_step4">4. 출국 심사 — 여권 보여 주기</string>
-    <string name="today_departure_step5">5. 타는 곳(게이트)을 찾아 기다려요</string>
+    <string name="today_departure_step1">공항에 가요</string>
+    <string name="today_departure_step2">비행기 표 받고 짐 맡기기 (체크인)</string>
+    <string name="today_departure_step3">보안 검색 — 가방 속 물건 검사</string>
+    <string name="today_departure_step4">출국 심사 — 여권 보여 주기</string>
+    <string name="today_departure_step5">타는 곳(게이트)을 찾아 기다려요</string>
     <string name="today_arrived_button">도착했어요</string>
     <string name="today_arrival_title">도착했어요! 이 순서대로 해요</string>
-    <string name="today_arrival_step1">1. 입국 심사 — 여권과 입국 QR 보여 주기</string>
-    <string name="today_arrival_step2">2. 짐 찾기</string>
-    <string name="today_arrival_step3">3. 유심·인터넷 준비</string>
-    <string name="today_arrival_step4">4. 필요하면 환전</string>
-    <string name="today_arrival_step5">5. 숙소로 가기</string>
+    <string name="today_arrival_step1">입국 심사 — 여권과 입국 QR 보여 주기</string>
+    <string name="today_arrival_step2">짐 찾기</string>
+    <string name="today_arrival_step3">유심·인터넷 준비</string>
+    <string name="today_arrival_step4">필요하면 환전</string>
+    <string name="today_arrival_step5">숙소로 가기</string>
     <string name="today_arrival_done">다 했어요</string>
     <string name="today_show_qr">입국 QR 보기</string>
     <string name="today_go_stay">숙소로 돌아가기</string>
     <string name="today_phrases">현지어 카드</string>
     <string name="today_expense">오늘 쓴 돈 적기</string>
     <string name="today_return_title">여행이 끝났어요</string>
-    <string name="today_return_customs">한국에 들어올 때 면세 한도와 들여올 수 없는 물건을 확인하세요.</string>
     <string name="today_destroy_title">여권 정보를 지울까요?</string>
     <string name="today_destroy_body">사진·영수증은 남고 여권 정보만 지워요. 다음 여행 때 다시 찍으면 돼요.</string>
-    <string name="today_destroy_now">지우기</string>
     <string name="today_destroy_later">7일 미루기</string>
-    <string name="today_destroyed">여권 정보를 지웠어요.</string>
-    <string name="today_wrapup_title">정리 끝! 다음 여행도 함께해요</string>
     <string name="today_new_trip">새 여행 만들기</string>
     <string name="today_speech_trip">%1$s. 지금 단계는 %2$s이에요.</string>
 
@@ -336,10 +291,8 @@
     <string name="present_submitted">제출 완료</string>
     <string name="present_brightness">밝기 최대로</string>
     <string name="present_offline">비행기 모드에서도 보여요</string>
-    <string name="present_none">아직 저장한 입국 서류가 없어요. 공식 사이트에서 제출한 뒤 확인 화면을 저장하거나, 확인 메일의 QR 사진을 추가해 주세요.</string>
     <string name="present_add_photo">사진에서 추가하기</string>
     <string name="present_self">나</string>
-    <string name="present_share">다른 폰으로 보내기</string>
     <string name="present_delete">이 서류 지우기</string>
     <string name="present_doc_image">%1$s 입국 서류 그림</string>
     <string name="present_confirmation">확인 번호</string>
@@ -385,7 +338,7 @@
     <string name="move_fare_note">요금은 각 앱에서 확인하세요.</string>
     <string name="move_transit_title">지하철·버스</string>
     <string name="move_transit_button">Google 지도 길찾기</string>
-    <string name="move_show_driver">기사님께 보여주기</string>
+    <string name="move_show_driver">기사님께 보여 주기</string>
     <string name="move_full_screen">화면 가득 크게 보기</string>
     <string name="move_no_apps">이 나라의 차 부르기 앱 안내는 준비 중이에요. Google 지도 길찾기를 쓰세요.</string>
 
@@ -393,29 +346,19 @@
     <string name="settings_title">설정</string>
     <string name="settings_easy_mode">쉬운 모드</string>
     <string name="settings_easy_mode_desc">글자와 버튼을 크게, 한 화면에 할 일 하나씩</string>
-    <string name="settings_family_mode">가족 모드</string>
-    <string name="settings_offline_packs">저장한 여행 안내 관리</string>
-    <string name="settings_notifications">알림</string>
     <string name="settings_privacy">개인정보 안내</string>
-    <string name="settings_privacy_body">여권과 예약 서류는 이 기기 안에서만 읽고 저장해요. 공식 사이트에 입력하는 것도 내가 \'맞아요\'를 누를 때만 해요.</string>
     <string name="settings_disclaimer">출처와 알림</string>
     <string name="settings_disclaimer_body">레디포트는 정부 기관과 제휴하지 않았어요. 모든 안내에 공식 출처와 최종 확인일을 붙여요. 입국 서류의 내용은 신청하는 본인이 책임져요.</string>
-    <string name="settings_report">오류 알리기</string>
     <string name="settings_about">앱 정보</string>
     <string name="settings_speech">설정. 내 여권과 예약 서류를 관리하고, 쉬운 모드를 켜고 끌 수 있어요. 내 정보는 이 휴대폰에만 저장돼요.</string>
 
     <!-- M8: 꼭 챙길 물건 · 쇼핑 리스트 · 순위 설명 -->
-    <string name="prepare_items_open">챙길 물건 보기</string>
     <string name="essentials_for_trip">%1$s %2$d박 · %3$d월 여행에 맞춰 골랐어요</string>
     <string name="essentials_no_trip">모든 여행에 필요한 것만 보여 드려요. 여행을 만들면 나라에 맞춰 더 골라 드려요.</string>
     <string name="essentials_speech">꼭 챙길 물건입니다. 챙긴 물건은 있어요를 눌러 표시하세요.</string>
-    <string name="essentials_disclosure">‘제휴’ 표시가 있는 링크로 구매하면 레디포트가 수수료를 받을 수 있어요. 보험·금융 상품은 수수료 없이 안내만 해요.</string>
     <string name="essentials_progress">준비한 물건 %1$d개 중 %2$d개</string>
-    <string name="essentials_have">있어요</string>
     <string name="essentials_badge_carry_on">기내 반입만 가능</string>
-    <string name="essentials_affiliate_label">제휴</string>
     <string name="shopping_title">%1$s 쇼핑 리스트</string>
-    <string name="shopping_subtitle">관광청 쇼핑 안내에서 골랐어요 · 한국인 검색 순위는 준비 중</string>
     <string name="shopping_speech">쇼핑 리스트입니다. 한국에 가져올 수 있는지 색깔 표시로 확인하세요.</string>
     <string name="shopping_open">쇼핑 리스트 보기</string>
     <string name="shopping_cat_all">전체</string>
@@ -425,33 +368,31 @@
     <string name="shopping_empty">이 나라의 쇼핑 리스트는 준비 중이에요.</string>
     <string name="shopping_where">파는 곳: %1$s</string>
     <string name="shopping_add">담기</string>
-    <string name="shopping_in_cart">담았어요 ✓</string>
-    <string name="shopping_show_staff">직원에게 보여주기</string>
+    <string name="shopping_in_cart">담았어요</string>
+    <string name="shopping_show_staff">직원에게 보여 주기</string>
     <string name="shopping_return_title">귀국 전 확인</string>
-    <string name="shopping_return_body">면세 한도와 반입 금지 품목은 관세청·농림축산검역본부 공식 안내로 확인하세요. 규정은 바뀔 수 있어요.</string>
     <string name="import_allowed">한국 반입 가능</string>
     <string name="import_caution">반입 주의</string>
     <string name="import_prohibited">반입 불가</string>
     <string name="today_cart_title">담아 둔 물건 — 한국 반입 다시 확인</string>
     <string name="guide_power_title">전기·콘센트</string>
-    <string name="guide_power_body">%1$s · %2$s · %3$s</string>
     <string name="guide_power_kr_fits">한국 플러그(둥근 핀 2개)를 그대로 쓸 수 있어요.</string>
     <string name="guide_power_kr_adapter">한국 플러그가 맞지 않아요. 변환 어댑터를 챙기세요.</string>
-    <string name="rankings_info_title">순위는 이렇게 정해요</string>
-    <string name="rankings_info_speech">인기 여행지 순위를 정하는 방법입니다.</string>
-    <string name="rankings_not_yet">공공 여객 통계를 연결하는 중이라 아직 순위를 보여 드리지 않아요. 근거 없는 순위는 만들지 않아요.</string>
-    <string name="rankings_weights_title">무엇을 얼마나 반영하나요</string>
-    <string name="rankings_weight_air">한국 출발 여객 증감 50%</string>
-    <string name="rankings_weight_search">검색 추이 30%</string>
-    <string name="rankings_weight_fav">레디포트 찜 수 20% (익명 집계, 이용자가 늘기 전에는 낮게)</string>
-    <string name="rankings_sources_title">쓰는 자료</string>
-    <string name="rankings_source_icn">인천국제공항공사 노선별 운송 실적 (매월, 전월 기준)</string>
-    <string name="rankings_source_kac">한국공항공사 전국 공항 수송 실적 (지방 공항)</string>
-    <string name="rankings_source_datalab">네이버 데이터랩 검색어 트렌드 (검색 횟수가 아닌 상대 비율)</string>
-    <string name="rankings_rules_title">지키는 원칙</string>
-    <string name="rankings_rule_basis">기준 시점을 항상 함께 보여 드려요</string>
-    <string name="rankings_rule_offline">인터넷이 없으면 마지막으로 받은 순위를 보여 드려요</string>
-    <string name="rankings_rule_no_ads">광고비나 제휴 수수료로 순위를 바꾸지 않아요</string>
+    <string name="rankings_info_title" tools:ignore="UnusedResources">순위는 이렇게 정해요</string>
+    <string name="rankings_info_speech" tools:ignore="UnusedResources">인기 여행지 순위를 정하는 방법입니다.</string>
+    <string name="rankings_not_yet" tools:ignore="UnusedResources">공공 여객 통계를 연결하는 중이라 아직 순위를 보여 드리지 않아요. 근거 없는 순위는 만들지 않아요.</string>
+    <string name="rankings_weights_title" tools:ignore="UnusedResources">무엇을 얼마나 반영하나요</string>
+    <string name="rankings_weight_air" tools:ignore="UnusedResources">한국 출발 여객 증감 50%</string>
+    <string name="rankings_weight_search" tools:ignore="UnusedResources">검색 추이 30%</string>
+    <string name="rankings_weight_fav" tools:ignore="UnusedResources">레디포트 찜 수 20% (익명 집계, 이용자가 늘기 전에는 낮게)</string>
+    <string name="rankings_sources_title" tools:ignore="UnusedResources">쓰는 자료</string>
+    <string name="rankings_source_icn" tools:ignore="UnusedResources">인천국제공항공사 노선별 운송 실적 (매월, 전월 기준)</string>
+    <string name="rankings_source_kac" tools:ignore="UnusedResources">한국공항공사 전국 공항 수송 실적 (지방 공항)</string>
+    <string name="rankings_source_datalab" tools:ignore="UnusedResources">네이버 데이터랩 검색어 트렌드 (검색 횟수가 아닌 상대 비율)</string>
+    <string name="rankings_rules_title" tools:ignore="UnusedResources">지키는 원칙</string>
+    <string name="rankings_rule_basis" tools:ignore="UnusedResources">기준 시점을 항상 함께 보여 드려요</string>
+    <string name="rankings_rule_offline" tools:ignore="UnusedResources">인터넷이 없으면 마지막으로 받은 순위를 보여 드려요</string>
+    <string name="rankings_rule_no_ads" tools:ignore="UnusedResources">광고비나 수수료 링크로 순위를 바꾸지 않아요</string>
     <string name="notif_policy_title">%1$s 입국 안내가 바뀌었어요</string>
     <string name="notif_policy_body">레디포트에서 새 안내를 확인하세요. 출발 전에 공식 사이트도 한 번 더 확인해 주세요.</string>
     <string name="settings_privacy_open">개인정보 처리방침 보기</string>
@@ -468,17 +409,12 @@
     <string name="home_chip_visa_free">비자 없이 %1$d일</string>
     <string name="home_chip_visa_arrival">도착비자 %1$d일</string>
     <string name="home_chip_visa_check">비자 안내 보기</string>
-    <string name="home_chip_form">입국 신고 도우미</string>
-    <string name="home_chip_visa_apply">비자 온라인 신청 도우미</string>
     <string name="home_chip_not_ready">안내 준비 중</string>
     <string name="home_basics_title">여행 준비 기본 정보</string>
     <string name="home_departure_title">출국하는 날, 이 순서대로</string>
-    <string name="home_essentials_title">꼭 챙길 물건</string>
-    <string name="home_essentials_body">플러그와 전압, 보조배터리 규정처럼 나라마다 다른 준비물을 하나씩 확인해요.</string>
     <string name="home_essentials_open">준비물 확인하기</string>
-    <string name="home_return_photo">쇼핑하기 전에 알아 두세요</string>
     <string name="home_passport_title">여권 정보는 한 번만 등록하세요</string>
-    <string name="home_passport_body">입국 신고서를 쓸 때마다 다시 입력하지 않아도 돼요. 이 휴대폰에만 암호화해 저장하고, 밖으로 보내지 않아요.</string>
+    <string name="home_passport_body">입국 카드를 쓸 때마다 다시 입력하지 않아도 돼요. 이 휴대폰에만 암호화해 저장하고, 밖으로 보내지 않아요.</string>
     <string name="home_passport_open">내 정보 관리</string>
     <string name="home_trip_label">내 여행 · %1$s</string>
     <string name="home_trip_days">출발 %1$d일 전</string>
@@ -496,38 +432,22 @@
     <string name="country_speech">%1$s 안내. 입국과 비자, 여행 정보, 쇼핑을 차례로 볼 수 있어요. 인터넷이 없어도 열려요.</string>
     <string name="country_visa_title">비자</string>
     <string name="country_visa_link">비자 공식 안내 열기</string>
-    <string name="country_form_label">온라인 입국 신고</string>
     <string name="country_visa_apply_label">비자 온라인 신청</string>
     <string name="country_visa_apply_steps">이렇게 신청해요</string>
     <string name="country_visa_apply_start">비자 신청 도와받기</string>
     <string name="country_visa_apply_note">앱은 입력 칸만 채워 드려요. 신청 버튼과 결제는 직접 하세요.</string>
     <string name="country_form_autofill_body">앱 안에서 공식 사이트를 열고 입력 칸을 대신 채워 드려요. 확인한 뒤 마지막 제출 버튼만 직접 누르세요.</string>
     <string name="country_form_manual_body">입력할 값을 한국어로 확인하고 하나씩 복사해 공식 사이트에 붙여 넣을 수 있어요.</string>
-    <string name="country_form_start">입력 도와받기</string>
-    <string name="country_form_manual_start">입력할 값 준비하기</string>
-    <string name="country_plan_trip">이 나라로 여행 계획 만들기</string>
-    <string name="country_help_title">현지에서 급할 때</string>
-    <string name="country_help_body">현지어 문장 카드와 긴급 연락처, 대사관 전화번호는 인터넷이 없어도 열려요.</string>
-    <string name="country_help_open">현지어·긴급 연락처 열기</string>
+    <!-- country_plan_trip: v3에서 길 안내 모자이크 큰 타일 nav_tile_plan_trip(내 여행에 넣기)으로 바뀌어 지웠다 -->
     <string name="country_shopping_more">외 %1$d개 더 있어요</string>
 
     <!-- 설정 › 내 정보 -->
     <string name="settings_local_only_title">내 정보는 이 휴대폰에만 저장돼요</string>
     <string name="settings_local_only_body">여권, 예약 서류, 같이 가는 사람 정보는 휴대폰 안에 암호화해 보관해요. 인터넷으로 보내지 않고, 레디포트 운영자도 볼 수 없어요.</string>
-    <string name="settings_myinfo_title">내 정보</string>
-    <string name="settings_myinfo_body">여권과 예약 서류를 한 번 등록해 두면 여러 나라 입국 신고서에 똑같이 써요.</string>
+    <string name="settings_myinfo_body">여권과 예약 서류를 한 번 등록해 두면 여러 나라 입국 카드에 똑같이 써요.</string>
     <string name="settings_myinfo_open">여권·예약 서류 관리</string>
-    <string name="settings_download_title">나라 안내 받기</string>
-    <string name="settings_photos">사진 출처</string>
-    <string name="settings_photos_body">앱 속 사진은 위키미디어 공용의 자유 라이선스 사진이에요.</string>
-    <string name="settings_photos_open">사진 출처 보기</string>
-    <string name="photo_credits_title">사진 출처</string>
-    <string name="photo_credits_speech">사진 출처. 앱에 쓴 사진의 찍은 사람과 라이선스를 보여 줘요.</string>
-    <string name="photo_credits_body">모든 사진은 위키미디어 공용에서 가져와 잘라내고 크기를 줄였어요.</string>
     <string name="photo_credit_author">찍은 사람: %1$s</string>
-    <string name="photo_credit_license">라이선스: %1$s</string>
     <string name="photo_credit_open">원본 보기</string>
-    <string name="wallet_local_only">이 화면의 정보는 휴대폰 밖으로 나가지 않아요</string>
 
     <!-- YouTube 여행 영상 -->
     <string name="videos_title">%1$s 여행 영상</string>
@@ -551,7 +471,4 @@
     <string name="videos_terms">영상 목록은 YouTube API 서비스로 가져와요. 이 목록을 쓰면 YouTube 서비스 약관에 동의하는 것으로 봐요. 영상을 누르면 YouTube 앱이나 브라우저로 열려요.</string>
     <string name="videos_youtube_terms">YouTube 서비스 약관</string>
     <string name="videos_google_privacy">Google 개인정보처리방침</string>
-    <string name="country_videos_title">YouTube 여행 영상</string>
-    <string name="country_videos_body">%1$s 여행 영상을 조회수·최신·구독자 순으로 골라 보세요. 사진을 누르면 YouTube에서 열려요.</string>
-    <string name="country_videos_open">여행 영상 보기</string>
 </resources>

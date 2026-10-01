@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "country": "SG",
-  "version": "2026.09.29-1",
+  "version": "2026.10.02-1",
   "last_verified": "2026-09-28",
   "names": {
     "ko": "싱가포르",
@@ -72,6 +72,11 @@
       "id": "apqa_livestock",
       "name": "농림축산검역본부 휴대 축산물 검역",
       "url": "https://www.apqa.go.kr/livestock/qua/livestock_imp_sum2.jsp?type=1"
+    },
+    {
+      "id": "ica_entering",
+      "name": "싱가포르 이민국(ICA) · 싱가포르에 들어갈 때",
+      "url": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore"
     }
   ],
   "requirements": [
@@ -85,7 +90,13 @@
       ],
       "summary_ko": "대한민국 일반 여권은 비자 없이 90일까지 머물 수 있어요(두 나라 협정). 도착 전에 싱가포르 입국 카드(SGAC)를 내야 해요.",
       "source": "mofa_sg",
-      "last_verified": "2026-09-28"
+      "last_verified": "2026-09-28",
+      "passport_validity": {
+        "months": 6,
+        "basis": "arrival",
+        "source": "ica_entering",
+        "last_verified": "2026-10-02"
+      }
     }
   ],
   "forms": [
@@ -325,5 +336,23 @@
     "frequency": "50 Hz",
     "source": "sp_group",
     "last_verified": "2026-09-29"
-  }
+  },
+  "checklist": [
+    {
+      "id": "no_tobacco",
+      "phase": "week",
+      "icon": "rules",
+      "title_ko": "담배·전자담배는 두고 가기",
+      "section": "entry",
+      "text_ko": "담배는 가지고 들어갈 수 없고, 전자담배는 금지예요(벌금·추방)."
+    },
+    {
+      "id": "cash_declare",
+      "phase": "three_days",
+      "icon": "cash",
+      "title_ko": "현금 신고 기준 알아 두기",
+      "section": "entry",
+      "text_ko": "싱가포르 달러 2만 달러 이상 현금은 들어올 때와 나갈 때 신고해야 해요."
+    }
+  ]
 }

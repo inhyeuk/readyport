@@ -23,6 +23,7 @@ import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performScrollTo
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.readyport.R
@@ -90,6 +91,16 @@ class ReadyPortRootTest {
         }
     }
 
+    /** 홈 '급할 때는 도움' 카드 → 도움 탭 (HomeActions.openHelp 배선, DESIGN_SPEC 6-01 ⑩ — 2단계) */
+    @Test
+    fun homeHelpCardOpensHelpTab() {
+        launch(AppSettings(easyMode = false))
+        scrollTo(hasText(s(R.string.help_shortcut_title)))
+        rule.onNodeWithText(s(R.string.help_shortcut_title)).performClick()
+        heading(R.string.help_title).assertIsDisplayed()
+        tab(R.string.tab_help).assertIsSelected()
+    }
+
     @Test
     fun tripWithoutPlanGoesHomeToChooseCountry() {
         launch(AppSettings(easyMode = false))
@@ -107,8 +118,8 @@ class ReadyPortRootTest {
         tab(R.string.tab_home).assertIsSelected()
         // 입국·비자: 정부 비제휴 고지가 맨 위, 입국 카드 입력 도우미
         rule.onNodeWithText(s(R.string.guide_not_affiliated)).assertIsDisplayed()
-        scrollTo(hasText(s(R.string.country_form_start)))
-        rule.onNodeWithText(s(R.string.country_form_start)).assertIsDisplayed()
+        scrollTo(hasText(s(R.string.prepare_form_open)))
+        rule.onNodeWithText(s(R.string.prepare_form_open)).assertIsDisplayed()
         scrollTo(hasText(s(R.string.country_tab_shopping)))
         rule.onNodeWithText(s(R.string.country_tab_shopping)).performClick()
         scrollTo(hasText(s(R.string.shopping_open)))
@@ -135,13 +146,16 @@ class ReadyPortRootTest {
         rule.onNodeWithText(s(R.string.first_run_yes)).performClick()
         assertEquals(true, settings?.easyMode)
         heading(R.string.home_title).assertIsDisplayed()
-        rule.onNodeWithText(s(R.string.action_home)).assertIsDisplayed()
+        // 쉬운 모드 공통 줄: 홈 자신에서는 `처음으로` 없이 `소리로 듣기`만 (재검토2 ⑤#12 — 다른 화면에는 둘 다)
+        rule.onNodeWithText(s(R.string.action_listen)).assertIsDisplayed()
+        rule.onAllNodesWithText(s(R.string.action_home)).assertCountEquals(0)
     }
 
     @Test
     fun firstRunNoKeepsBasicMode() {
         launch(AppSettings(easyMode = null))
-        rule.onNodeWithText(s(R.string.first_run_no)).performClick()
+        // 첫 실행 화면은 세로 스크롤 — 작은 창(320×470)에서는 두 번째 카드까지 스크롤해서 누른다
+        rule.onNodeWithText(s(R.string.first_run_no)).performScrollTo().performClick()
         assertEquals(false, settings?.easyMode)
         rule.onAllNodesWithText(s(R.string.action_home)).assertCountEquals(0)
     }

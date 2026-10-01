@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "country": "ID",
-  "version": "2026.09.30-1",
+  "version": "2026.10.02-1",
   "last_verified": "2026-09-30",
   "names": {
     "ko": "인도네시아",
@@ -120,6 +120,12 @@
         "warning_ko": "주소가 go.id로 끝나지 않는 비슷한 사이트는 대행사라 약 95달러 넘게 받아요. 레디포트는 공식 사이트(imigrasi.go.id)만 열어요.",
         "source": "embassy_id_evoa",
         "last_verified": "2026-09-30"
+      },
+      "passport_validity": {
+        "months": 6,
+        "basis": "arrival",
+        "source": "mofa_id",
+        "last_verified": "2026-10-02"
       }
     }
   ],
@@ -351,5 +357,15 @@
     "frequency": "50 Hz",
     "source": "wi_power",
     "last_verified": "2026-09-29"
-  }
+  },
+  "checklist": [
+    {
+      "id": "cash_declare",
+      "phase": "three_days",
+      "icon": "cash",
+      "title_ko": "현금 신고 기준 알아 두기",
+      "section": "entry",
+      "text_ko": "IDR 1억 루피아가 넘는 현금은 세관에 신고해야 해요."
+    }
+  ]
 }

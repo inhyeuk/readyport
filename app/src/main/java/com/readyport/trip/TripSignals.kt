@@ -68,10 +68,11 @@ class TimezoneReceiver : BroadcastReceiver() {
  * 리시버와 테스트가 같은 함수를 쓴다.
  */
 suspend fun onZoneChanged(trips: TripRepository, zone: String, nowMillis: Long): Boolean {
-    val trip = trips.current() ?: return false
     val today = java.time.Instant.ofEpochMilli(nowMillis).atZone(ZoneId.of(zone)).toLocalDate()
+    // 여러 여행 중 그날 기준 '지금 여행'(여행 중 → 가장 가까운 다가오는 여행) — 출발 전날 밤 도착도 같은 여행으로 본다
+    val trip = TripSelection.active(trips.all(), today) ?: return false
     if (!TripStages.isArrival(trip, today, zone)) return false
-    trips.update { it.copy(arrivedAt = nowMillis, arrivalDismissed = false) }
+    trips.update(trip.id) { it.copy(arrivedAt = nowMillis, arrivalDismissed = false) }
     return true
 }
 

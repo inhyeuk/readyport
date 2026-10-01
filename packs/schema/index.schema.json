@@ -262,6 +262,111 @@
           }
         }
       }
+    },
+    "checklist": {
+      "description": "여행 체크리스트 틀(모든 나라 공통 순서·안내 문구). 정책 사실은 적지 않는다 — 사실이 필요한 항목은 from 으로 팩·색인 값을 가리키고, 값이 없는 나라에서는 앱이 항목을 만들지 않는다",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "phase",
+          "icon",
+          "kind"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9_.]+$"
+          },
+          "phase": {
+            "enum": [
+              "month",
+              "week",
+              "three_days",
+              "departure_day",
+              "arrival",
+              "during",
+              "before_return",
+              "back"
+            ]
+          },
+          "icon": {
+            "enum": [
+              "passport",
+              "visa",
+              "flight",
+              "insurance",
+              "advisory",
+              "wallet",
+              "data",
+              "card",
+              "medicine",
+              "battery",
+              "plug",
+              "voltage",
+              "offline",
+              "map",
+              "address",
+              "phone",
+              "form",
+              "phrases",
+              "airport",
+              "qr",
+              "emergency",
+              "safe",
+              "shopping",
+              "customs",
+              "cash",
+              "flight_return",
+              "delete",
+              "ticket",
+              "hotel",
+              "rules",
+              "family"
+            ]
+          },
+          "kind": {
+            "enum": [
+              "generic",
+              "auto",
+              "pack",
+              "essential"
+            ]
+          },
+          "title_ko": {
+            "type": "string"
+          },
+          "body_ko": {
+            "type": "string"
+          },
+          "from": {
+            "type": "string",
+            "pattern": "^(passport_validity|passport_saved|offline_pack|entry_form|passport_destroyed|visa|advisory|consular|emergency|return_facts|essential:[a-z0-9_]+)$"
+          },
+          "action": {
+            "enum": [
+              "open_passport",
+              "open_wallet",
+              "open_form",
+              "open_help",
+              "open_present",
+              "open_transport",
+              "open_shopping",
+              "open_essentials",
+              "open_return",
+              "destroy_passport",
+              "open_link"
+            ]
+          },
+          "when": {
+            "enum": [
+              "has_form"
+            ]
+          }
+        }
+      }
     }
   }
 }

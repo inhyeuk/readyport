@@ -1,20 +1,19 @@
 package com.readyport.ui.components
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.sizeIn
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
+import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material.icons.automirrored.outlined.VolumeUp
@@ -22,16 +21,13 @@ import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.heading
-import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import com.readyport.R
 import com.readyport.ui.theme.LocalDimens
@@ -52,9 +48,11 @@ val LocalShowBack = staticCompositionLocalOf { false }
 
 /**
  * 모든 탭 화면의 공통 틀.
- * - 제목은 TalkBack 제목(heading)으로 표시한다.
- * - 쉬운 모드에서는 '처음으로'와 '소리로 듣기' 버튼을 모든 화면에 둔다 (PRD 3.2).
+ * - 제목은 TalkBack 제목(heading)으로 표시한다. [icon]이 있으면 제목 앞에 아이콘 배지.
+ * - 쉬운 모드에서는 '처음으로'와 '소리로 듣기' 버튼을 모든 화면에 둔다 (PRD 3.2). 홈 자신은 '소리로 듣기'만([showHomeAction] = false).
  * - 스와이프 동작은 쓰지 않는다. 세로 스크롤만 있다.
+ * - [state]를 넘기면 화면이 스크롤 위치를 다룰 수 있고, [keyIndex]를 넘기면 AppScreen이 넣는 header·easy-actions와
+ *   화면이 넣는 모든 item의 key가 순서대로 기록된다 → `state.scrollToKey(keyIndex, "key")` (DESIGN_SPEC 4.1)
  */
 @Composable
 fun AppScreen(
@@ -65,103 +63,111 @@ fun AppScreen(
     headerActions: @Composable RowScope.() -> Unit = {},
     /** 사진 머리글처럼 기본 제목 줄 대신 쓸 머리글. 제목(heading) 표시는 머리글이 맡는다 */
     header: (@Composable () -> Unit)? = null,
+    icon: ImageVector? = null,
+    state: LazyListState = rememberLazyListState(),
+    keyIndex: KeyIndex? = null,
+    /** 쉬운 모드 `처음으로` 버튼을 둘지 — 홈 화면 자신은 처음 화면이라 false(눌러도 아무 일 없음, 재검토2 ⑤#12): `소리로 듣기`만 폭 전체 */
+    showHomeAction: Boolean = true,
+    /**
+     * 목록 **위에 겹쳐** 그리는 것(나라 화면의 접힌 고정 메뉴 줄, 부록 E.6). 목록 양옆 여백 밖이라 화면 끝까지 닿는다.
+     * 겹친 것이 내용을 가리지 않게 하는 것(스크롤 오프셋)은 부르는 쪽 책임이다.
+     */
+    overlay: (@Composable BoxScope.() -> Unit)? = null,
+    content: LazyListScope.() -> Unit,
+) {
+    if (overlay == null) {
+        AppList(title, speech, modifier, subtitle, headerActions, header, icon, state, keyIndex, showHomeAction, content)
+    } else {
+        Box(modifier.fillMaxSize()) {
+            AppList(title, speech, Modifier, subtitle, headerActions, header, icon, state, keyIndex, showHomeAction, content)
+            overlay()
+        }
+    }
+}
+
+@Composable
+private fun AppList(
+    title: String,
+    speech: String,
+    modifier: Modifier,
+    subtitle: String?,
+    headerActions: @Composable RowScope.() -> Unit,
+    header: (@Composable () -> Unit)?,
+    icon: ImageVector?,
+    state: LazyListState,
+    keyIndex: KeyIndex?,
+    showHomeAction: Boolean,
     content: LazyListScope.() -> Unit,
 ) {
     val dimens = LocalDimens.current
     val actions = LocalAppActions.current
     LazyColumn(
         modifier = modifier.fillMaxSize(),
+        state = state,
         contentPadding = PaddingValues(horizontal = dimens.screenPadding, vertical = dimens.gap),
         verticalArrangement = Arrangement.spacedBy(dimens.gap),
     ) {
-        if (header != null) item(key = "header") { header() } else item(key = "header") {
-            Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    if (LocalShowBack.current) {
-                        IconButton(onClick = actions.goBack, modifier = Modifier.sizeIn(minWidth = 48.dp, minHeight = 48.dp)) {
-                            Icon(
-                                Icons.AutoMirrored.Outlined.ArrowBack,
-                                contentDescription = stringResource(R.string.action_back),
-                                modifier = Modifier.size(if (dimens.easyMode) 32.dp else 24.dp),
-                            )
-                        }
-                    }
-                    Text(
-                        text = title,
-                        style = MaterialTheme.typography.headlineMedium,
-                        color = MaterialTheme.colorScheme.onBackground,
-                        modifier = Modifier.weight(1f).semantics { heading() },
-                    )
-                    headerActions()
-                }
-                if (subtitle != null) {
-                    Text(
-                        text = subtitle,
-                        style = MaterialTheme.typography.bodyLarge,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    )
-                }
+        val scope = keyIndex?.track(this) ?: this
+        if (header != null) {
+            scope.item(key = "header") { header() }
+        } else {
+            scope.item(key = "header") { TitleBlock(title, subtitle, icon, headerActions) }
+        }
+        if (dimens.easyMode && !showHomeAction) {
+            scope.item(key = "easy-actions") {
+                EasyActionButton(
+                    stringResource(R.string.action_listen),
+                    Icons.AutoMirrored.Outlined.VolumeUp,
+                    { actions.speak(speech) },
+                    Modifier.fillMaxWidth(),
+                )
+            }
+        } else if (dimens.easyMode) {
+            scope.item(key = "easy-actions") {
+                // 두 버튼이 같은 폭으로 내용선 끝까지 — 반 폭에 라벨이 한 줄로 안 들어가면 위아래로 쌓고 둘 다 폭 전체 (재검토2 ①#5)
+                EqualWidthPair(
+                    gap = dimens.gap,
+                    first = { m ->
+                        EasyActionButton(stringResource(R.string.action_home), Icons.Outlined.Home, actions.goHome, m)
+                    },
+                    second = { m ->
+                        EasyActionButton(stringResource(R.string.action_listen), Icons.AutoMirrored.Outlined.VolumeUp, { actions.speak(speech) }, m)
+                    },
+                )
             }
         }
-        if (dimens.easyMode) {
-            item(key = "easy-actions") {
-                // 글자를 키워 한 줄에 둘이 안 들어가면 버튼이 아래 줄로 내려간다(글자가 쪼개지지 않게)
-                FlowRow(
-                    horizontalArrangement = Arrangement.spacedBy(dimens.gap),
-                    verticalArrangement = Arrangement.spacedBy(dimens.gap / 2),
-                ) {
-                    EasyActionButton(
-                        text = stringResource(R.string.action_home),
-                        onClick = actions.goHome,
-                        icon = { Icon(Icons.Outlined.Home, contentDescription = null) },
-                    )
-                    EasyActionButton(
-                        text = stringResource(R.string.action_listen),
-                        onClick = { actions.speak(speech) },
-                        icon = { Icon(Icons.AutoMirrored.Outlined.VolumeUp, contentDescription = null) },
-                    )
-                }
-            }
-        }
-        content()
+        scope.content()
     }
 }
 
 @Composable
-private fun EasyActionButton(
-    text: String,
-    onClick: () -> Unit,
-    icon: @Composable () -> Unit,
-    modifier: Modifier = Modifier,
-) {
-    OutlinedButton(
-        onClick = onClick,
-        modifier = modifier.heightIn(min = LocalDimens.current.buttonHeight),
-        contentPadding = PaddingValues(horizontal = 12.dp, vertical = 8.dp),
-    ) {
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            Column(Modifier.size(24.dp)) { icon() }
-            Spacer(Modifier.width(8.dp))
-            Text(text, style = MaterialTheme.typography.labelLarge, softWrap = false)
+private fun TitleBlock(title: String, subtitle: String?, icon: ImageVector?, headerActions: @Composable RowScope.() -> Unit) {
+    val dimens = LocalDimens.current
+    val actions = LocalAppActions.current
+    Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            if (LocalShowBack.current) {
+                IconButton(onClick = actions.goBack, modifier = Modifier.minTouchSize()) {
+                    Icon(
+                        Icons.AutoMirrored.Outlined.ArrowBack,
+                        contentDescription = stringResource(R.string.action_back),
+                        modifier = Modifier.size(if (dimens.easyMode) 32.dp else 24.dp),
+                    )
+                }
+            }
+            if (icon != null) IconBadge(icon)
+            // 오른쪽 칩·버튼(headerActions)이 제목을 쪼갤 만큼 폭이 모자라면 제목 아래 줄로 (F 묶음 지적 — 제목이 한 글자씩 세로로 쪼개짐)
+            TrailingFlow(
+                trailing = { Row(verticalAlignment = Alignment.CenterVertically) { headerActions() } },
+                modifier = Modifier.weight(1f),
+                gap = 8.dp,
+                centerVertically = true,
+            ) {
+                KoText(title, MaterialTheme.typography.headlineMedium, color = MaterialTheme.colorScheme.onBackground, heading = true, glueShort = true)
+            }
         }
-    }
-}
-
-/** 화면 가득 너비의 주 버튼. 쉬운 모드에서는 높이 64dp (PRD 3.2: 56dp 이상). */
-@Composable
-fun PrimaryButton(
-    text: String,
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier,
-    enabled: Boolean = true,
-    colors: androidx.compose.material3.ButtonColors = androidx.compose.material3.ButtonDefaults.buttonColors(),
-) {
-    androidx.compose.material3.Button(
-        onClick = onClick,
-        enabled = enabled,
-        colors = colors,
-        modifier = modifier.fillMaxWidth().heightIn(min = LocalDimens.current.buttonHeight),
-    ) {
-        Text(text, style = MaterialTheme.typography.labelLarge)
+        if (subtitle != null) {
+            KoText(subtitle, MaterialTheme.typography.bodyLarge, color = MaterialTheme.colorScheme.onSurfaceVariant)
+        }
     }
 }

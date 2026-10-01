@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  재검토 수정 B — b2 묶음(내 여행 15·16, 여행 고치기 17, 여행 준비 18, 꼭 챙길 물건 19, 입국 카드 확인 20, 수동 모드 21, 자동 입력)의 새 문구.
+  R14·R15·R16·R18·R19 (docs/design/REREVIEW_SUMMARY.md). 테스트가 찾는 기존 문구는 바꾸지 않고 새 키로만 더한다(디자인 원칙 8).
+-->
+<resources>
+    <!-- 15 귀국: 사진 머리 카드 + 한 줄 + 지금 할 일 (R14) -->
+    <string name="today_return_photo_title">%1$s 여행이 끝났어요</string>
+    <string name="today_fact_nights">%1$d박 %2$d일 여행</string>
+    <string name="today_fact_cart">담아 둔 물건 %1$d개</string>
+    <string name="today_return_task_cart">공항 가기 전에 담아 둔 물건의 한국 반입을 다시 확인해요</string>
+    <string name="today_return_task_cart_button">담아 둔 물건 보기</string>
+    <string name="today_return_task_rules">한국에 들어올 때 면세 한도와 반입 금지 품목을 확인해요</string>
+    <string name="today_return_task_rules_button">귀국 전 확인 보기</string>
+    <!-- 여권 정보 지우기 제안: 버튼 이름에 무엇을 지우는지 (R18 TalkBack) -->
+    <string name="today_destroy_now_target">여권 정보 지우기</string>
+
+    <!-- 도착했어요를 잘못 눌렀을 때 되돌리기 (R18) -->
+    <string name="today_arrived_undo">도착 전이면 되돌리기</string>
+
+    <!-- 16 정리: 축하 사진 카드 (R14·R19) -->
+    <string name="today_wrapup_photo_title">%1$s 여행, 잘 다녀오셨어요</string>
+    <string name="today_wrapup_photo_title_plain">여행 잘 다녀오셨어요</string>
+    <string name="today_wrapup_fact_country">다녀온 나라</string>
+    <string name="today_wrapup_fact_cart">담아 온 물건</string>
+    <string name="today_wrapup_fact_cart_value">%1$d개</string>
+
+    <!-- 19 꼭 챙길 물건: 안 챙긴 물건 위, 챙긴 물건 아래 (R15) -->
+    <string name="essentials_done_title">챙긴 물건 %1$d개</string>
+    <string name="essentials_all_done">모두 챙겼어요. 떠나기 전에 한 번 더 살펴보세요.</string>
+    <!-- 자세히 보기에 무엇을 펼치는지 (R18 TalkBack) -->
+    <string name="essentials_more">%1$s 설명 더 보기</string>
+
+    <!-- 20 입국 카드 확인: 맨 위 요약 하나 (R16) -->
+    <string name="form_blank_summary_body">느낌표 표시가 있는 칸이 빈칸이에요. 다 채우면 입력을 시작할 수 있어요.</string>
+    <string name="form_blank_names">빈칸 %1$d곳 이름 보기</string>
+    <!-- 빈칸 표시 아이콘의 TalkBack 이름 -->
+    <string name="form_blank_cd">빈칸</string>
+    <!-- '목록에서 골라 주세요'처럼 공식 사이트 칸을 설명하는 도움말 앞에 붙인다 -->
+    <string name="form_hint_on_site">공식 사이트에서는 %1$s</string>
+    <!-- 출처별 묶음 접기: 무엇을 펼치는지 -->
+    <string name="form_group_more">%1$s 가져온 %2$d칸 펼쳐 보기</string>
+    <string name="form_group_more_user">직접 적은 %1$d칸 펼쳐 보기</string>
+    <string name="form_documents_check">값이 서류와 같은지 확인해 주세요. 펼치면 칸 이름이 3개 국어로 보여요.</string>
+    <string name="form_confirm_disabled_reason">빈칸을 다 채우면 누를 수 있어요.</string>
+
+    <!-- '수동 모드' 대신 쉬운 말 (R18) — 도착 화면 제목(manual_title)과 같은 말 -->
+    <string name="form_manual_open">값 복사해서 넣기</string>
+    <string name="autofill_failed_plain">사이트가 바뀌어서 일부 칸을 찾지 못했어요. 아래 \'값 복사해서 넣기\'로 값을 복사해 넣어 주세요.</string>
+</resources>

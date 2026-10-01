@@ -12,6 +12,8 @@ import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -19,16 +21,40 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.selection.toggleable
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.outlined.FactCheck
+import androidx.compose.material.icons.outlined.Badge
+import androidx.compose.material.icons.outlined.CalendarMonth
+import androidx.compose.material.icons.outlined.Check
+import androidx.compose.material.icons.outlined.DocumentScanner
+import androidx.compose.material.icons.outlined.EditNote
+import androidx.compose.material.icons.outlined.ErrorOutline
+import androidx.compose.material.icons.outlined.EventBusy
+import androidx.compose.material.icons.outlined.Info
+import androidx.compose.material.icons.outlined.Lock
+import androidx.compose.material.icons.outlined.NoPhotography
+import androidx.compose.material.icons.outlined.Person
+import androidx.compose.material.icons.outlined.PhotoCamera
+import androidx.compose.material.icons.outlined.PhotoLibrary
+import androidx.compose.material.icons.outlined.PrivacyTip
+import androidx.compose.material.icons.outlined.Public
+import androidx.compose.material.icons.outlined.ReportProblem
+import androidx.compose.material.icons.outlined.SearchOff
 import androidx.compose.material3.Checkbox
-import androidx.compose.material3.FilterChip
+import androidx.compose.material3.CheckboxDefaults
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -42,12 +68,30 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.geometry.CornerRadius
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.heading
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.OffsetMapping
+import androidx.compose.ui.text.input.TransformedText
+import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat
@@ -59,11 +103,25 @@ import com.readyport.doc.mrz.MrzCheck
 import com.readyport.doc.mrz.MrzData
 import com.readyport.security.SecureScreen
 import com.readyport.ui.components.AppScreen
-import com.readyport.ui.components.CardTone
+import com.readyport.ui.components.BadgeTone
+import com.readyport.ui.components.BannerTone
+import com.readyport.ui.components.CardNewsCard
+import com.readyport.ui.components.IconBullet
 import com.readyport.ui.components.InfoCard
+import com.readyport.ui.components.KeyValueRow
+import com.readyport.ui.components.KoText
+import com.readyport.ui.components.ListGroup
+import com.readyport.ui.components.NoticeBanner
 import com.readyport.ui.components.PrimaryButton
-import com.readyport.ui.components.StatusChip
-import com.readyport.ui.components.TopicCard
+import com.readyport.ui.components.QuietButton
+import com.readyport.ui.components.SecondaryButton
+import com.readyport.ui.components.SecurityBanner
+import com.readyport.ui.components.SelectChip
+import com.readyport.ui.components.StatusKind
+import com.readyport.ui.components.StatusTag
+import com.readyport.ui.components.minTouch
+import com.readyport.ui.components.keepWords
+import com.readyport.ui.components.minTouchSize
 import com.readyport.ui.theme.LocalDimens
 import com.readyport.ui.theme.Tokens
 import com.readyport.vault.PassportRecord
@@ -73,24 +131,148 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 import java.util.concurrent.Executors
 
-private val PassportSteps = listOf(R.string.passport_step_scan, R.string.passport_step_chip, R.string.passport_step_confirm)
+/**
+ * 지금 쓸 수 있는 단계만 그린다: 촬영 → 값 확인. 전자여권 칩 확인(NFC)은 아직 없어서 단계로 그리지 않는다 — 쓸 수 없는 단계를
+ * 약속하지 않는다(재검토 R18). '곧 추가돼요'는 내 정보 맨 아래 한 곳에 모은다(다듬기 S3 — 재검토2 ⑤#11, 값 확인 화면에서 뺐다).
+ */
+private val PassportSteps = listOf(R.string.passport_step_scan, R.string.passport_step_confirm)
+private val PassportStepIcons: List<ImageVector> = listOf(
+    Icons.Outlined.PhotoCamera,
+    Icons.AutoMirrored.Outlined.FactCheck,
+)
 
-/** 단계 표시: 촬영 → 칩 확인(선택) → 값 확인 (PRD 5.5) */
+/** 단계 번호 (0부터) */
+private const val StepScan = 0
+private const val StepConfirm = 1
+
+/**
+ * 단계 표시: 촬영 → 값 확인 (PRD 5.5, DESIGN_SPEC 6-25, 재검토 R18).
+ * 누를 수 없는 아이콘 스텝퍼 — 지난 단계 Accent 채움 + Check, 지금 Accent 채움 + 단계 아이콘, 다음 흰 원 + LineStrong 테두리.
+ * 아이콘 아래 단계 이름 글자를 그대로 두고(원칙 8), TalkBack은 `passport_steps_desc` 한 문장으로 읽는다.
+ */
 @Composable
 private fun PassportStepper(current: Int) {
+    val dimens = LocalDimens.current
     val labels = PassportSteps.map { stringResource(it) }
     val desc = stringResource(R.string.passport_steps_desc, labels[current], current + 1, labels.size)
-    FlowRow(
-        horizontalArrangement = Arrangement.spacedBy(8.dp),
-        verticalArrangement = Arrangement.spacedBy(8.dp),
-        modifier = Modifier.clearAndSetSemantics { contentDescription = desc },
-    ) {
+    val node = dimens.iconBadge
+    Row(Modifier.fillMaxWidth().clearAndSetSemantics { contentDescription = desc }) {
         labels.forEachIndexed { i, label ->
-            StatusChip(
-                "${i + 1}. $label",
-                container = if (i == current) Tokens.Accent else Tokens.AccentSoft,
-                content = if (i == current) Tokens.Surface else Tokens.Ink,
+            val done = i < current
+            val now = i == current
+            Column(
+                Modifier.weight(1f),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+            ) {
+                Box(Modifier.fillMaxWidth().height(node), contentAlignment = Alignment.Center) {
+                    // 노드 사이 2dp 연결선 (지나온 구간은 Accent)
+                    Row(Modifier.fillMaxWidth().height(2.dp)) {
+                        Box(
+                            Modifier.weight(1f).fillMaxHeight()
+                                .background(if (i == 0) Color.Transparent else if (i <= current) Tokens.Accent else Tokens.Line),
+                        )
+                        Box(
+                            Modifier.weight(1f).fillMaxHeight()
+                                .background(if (i == labels.lastIndex) Color.Transparent else if (i < current) Tokens.Accent else Tokens.Line),
+                        )
+                    }
+                    val filled = done || now
+                    Box(
+                        Modifier
+                            .size(node)
+                            .clip(CircleShape)
+                            .background(if (filled) Tokens.Accent else Tokens.Surface)
+                            .then(if (filled) Modifier else Modifier.border(1.dp, Tokens.LineStrong, CircleShape)),
+                        contentAlignment = Alignment.Center,
+                    ) {
+                        Icon(
+                            if (done) Icons.Outlined.Check else PassportStepIcons[i],
+                            contentDescription = null,
+                            tint = if (filled) Tokens.Surface else Tokens.InkTertiary,
+                            modifier = Modifier.size(dimens.icon),
+                        )
+                    }
+                }
+                // 단계 이름이 음절에서 꺾이지 않게 (API 33 미만 — 2단계 줄바꿈 보고)
+                KoText(
+                    label,
+                    MaterialTheme.typography.labelMedium.copy(fontWeight = if (now) FontWeight.Bold else FontWeight.SemiBold),
+                    Modifier.padding(horizontal = 4.dp),
+                    color = if (now) Tokens.Accent else Tokens.InkSecondary,
+                    textAlign = TextAlign.Center,
+                )
+            }
+        }
+    }
+}
+
+/**
+ * 여권 사진 면 그림: 사진 칸·글 줄과 맨 아래 두 줄(MRZ, `<<<`)을 Accent 테두리로 강조한다. 장식(글자 없음, TalkBack 숨김).
+ * 글자를 품지 않는 그림이라 높이를 dp로 정한다.
+ */
+@Composable
+private fun MrzIllustration(modifier: Modifier = Modifier) {
+    val height = if (LocalDimens.current.easyMode) 168.dp else 144.dp
+    Canvas(modifier.fillMaxWidth().height(height).clearAndSetSemantics {}) {
+        val u = 1.dp.toPx()
+        // 여권 면
+        val pageW = minOf(size.width, 300 * u)
+        val left = (size.width - pageW) / 2f
+        val top = 4 * u
+        val pageH = size.height - 8 * u
+        drawRoundRect(Tokens.SurfaceSunken, Offset(left, top), Size(pageW, pageH), CornerRadius(12 * u))
+        drawRoundRect(Tokens.Line, Offset(left, top), Size(pageW, pageH), CornerRadius(12 * u), style = Stroke(u))
+        // 사진 칸 + 사람 모양
+        val pad = 14 * u
+        val photoW = 52 * u
+        val photoH = 62 * u
+        drawRoundRect(Tokens.SurfaceHighest, Offset(left + pad, top + pad), Size(photoW, photoH), CornerRadius(6 * u))
+        val cx = left + pad + photoW / 2f
+        drawCircle(Tokens.LineStrong, radius = 10 * u, center = Offset(cx, top + pad + 22 * u))
+        drawRoundRect(
+            Tokens.LineStrong,
+            Offset(cx - 17 * u, top + pad + 37 * u),
+            Size(34 * u, 25 * u),
+            CornerRadius(14 * u, 14 * u),
+        )
+        // 글 줄
+        val textLeft = left + pad + photoW + 14 * u
+        val textMax = left + pageW - pad - textLeft
+        listOf(0.55f, 0.85f, 0.4f, 0.7f).forEachIndexed { i, f ->
+            drawRoundRect(
+                Tokens.Line,
+                Offset(textLeft, top + pad + 4 * u + i * 15 * u),
+                Size(textMax * f, 6 * u),
+                CornerRadius(3 * u),
             )
+        }
+        // MRZ 두 줄 강조
+        val zoneTop = top + pad + photoH + 8 * u
+        val zoneH = top + pageH - 8 * u - zoneTop
+        val zoneLeft = left + 8 * u
+        val zoneW = pageW - 16 * u
+        drawRoundRect(Tokens.AccentSoft, Offset(zoneLeft, zoneTop), Size(zoneW, zoneH), CornerRadius(8 * u))
+        drawRoundRect(Tokens.Accent, Offset(zoneLeft, zoneTop), Size(zoneW, zoneH), CornerRadius(8 * u), style = Stroke(2 * u))
+        val rows = listOf("P<KOR<HONG<<GILDONG<<<<<<<<<<<<", "M12345678<KOR8001019M3001012<<<<<")
+        val cell = 8 * u
+        rows.forEachIndexed { r, pattern ->
+            val y = zoneTop + zoneH * (if (r == 0) 0.32f else 0.70f)
+            val count = ((zoneW - 16 * u) / cell).toInt()
+            for (c in 0 until count) {
+                val x = zoneLeft + 8 * u + c * cell
+                val ch = pattern[c % pattern.length]
+                if (ch == '<') {
+                    val p = Path().apply {
+                        moveTo(x + cell * 0.7f, y - 3 * u)
+                        lineTo(x + cell * 0.25f, y)
+                        lineTo(x + cell * 0.7f, y + 3 * u)
+                    }
+                    drawPath(p, Tokens.Accent, style = Stroke(1.4f * u, cap = StrokeCap.Round))
+                } else {
+                    drawRoundRect(Tokens.InkSecondary, Offset(x + cell * 0.22f, y - 3.5f * u), Size(cell * 0.48f, 7 * u), CornerRadius(u))
+                }
+            }
         }
     }
 }
@@ -106,57 +288,117 @@ fun PassportIntroScreen(
 ) {
     SecureScreen()
     val scan by viewModel.scan.collectAsStateWithLifecycle()
-    var agreed by remember { mutableStateOf(false) }
     val picker = rememberLauncherForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
         if (uri != null) viewModel.readPhoto(uri)
     }
     LaunchedEffect(scan) { if (scan is ScanState.Found) onFound() }
+    PassportIntroContent(
+        scan = scan,
+        onCamera = onCamera,
+        onPickPhoto = { picker.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)) },
+        onManual = onManual,
+    )
+}
 
+/** 여권 등록 소개 — 상태 없는 화면(갤러리·접근성 점검이 그대로 띄운다). 동작은 PassportIntroScreen과 같다 */
+@Composable
+fun PassportIntroContent(scan: ScanState, onCamera: () -> Unit, onPickPhoto: () -> Unit, onManual: () -> Unit) {
+    var agreed by remember { mutableStateOf(false) }
     AppScreen(
         title = stringResource(R.string.passport_title),
         speech = stringResource(R.string.passport_speech),
     ) {
-        item(key = "steps") { PassportStepper(current = 0) }
-        item(key = "body") { Text(stringResource(R.string.passport_intro_body), style = MaterialTheme.typography.bodyLarge) }
+        item(key = "security") { SecurityBanner(compact = true) }
+        item(key = "steps") { PassportStepper(current = StepScan) }
+        item(key = "body") {
+            InfoCard {
+                MrzIllustration()
+                KoText(stringResource(R.string.passport_intro_body), style = MaterialTheme.typography.bodyLarge, color = Tokens.Ink)
+            }
+        }
         // 카메라·여권 처리에 대한 눈에 띄는 고지와 동의 (PRD 8.1 민감 정보)
         item(key = "privacy") {
-            InfoCard(tone = CardTone.Notice) {
-                listOf(R.string.passport_privacy_1, R.string.passport_privacy_2, R.string.passport_privacy_3).forEach {
-                    Text("• " + stringResource(it), style = MaterialTheme.typography.bodyMedium)
-                }
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier
-                        .heightIn(min = 48.dp)
-                        .toggleable(agreed, role = Role.Checkbox, onValueChange = { agreed = it }),
-                ) {
-                    Checkbox(checked = agreed, onCheckedChange = null)
-                    Text(stringResource(R.string.passport_consent), style = MaterialTheme.typography.labelLarge)
-                }
+            CardNewsCard(
+                title = stringResource(R.string.passport_privacy_title),
+                icon = Icons.Outlined.PrivacyTip,
+            ) {
+                // '기기' 대신 약속 문구와 같은 '휴대폰' (재검토 R18)
+                IconBullet(stringResource(R.string.passport_privacy_1_v2), Icons.Outlined.NoPhotography, tone = BadgeTone.Accent)
+                IconBullet(stringResource(R.string.passport_privacy_2_v2), Icons.Outlined.Lock, tone = BadgeTone.Accent)
+                IconBullet(stringResource(R.string.passport_privacy_3), Icons.Outlined.Info, tone = BadgeTone.Accent)
+                HorizontalDivider(Modifier.padding(vertical = 4.dp), thickness = 1.dp, color = Tokens.Line)
+                ConsentRow(
+                    text = stringResource(R.string.passport_consent),
+                    checked = agreed,
+                    onCheckedChange = { agreed = it },
+                )
             }
         }
         if (scan == ScanState.NotFound) {
             item(key = "not-found") {
-                TopicCard(stringResource(R.string.passport_scan_no_result), null, tone = CardTone.Caution)
+                NoticeBanner(stringResource(R.string.passport_scan_no_result), icon = Icons.Outlined.SearchOff, tone = BannerTone.Caution)
             }
         }
         if (scan == ScanState.Reading) {
-            item(key = "reading") { Text(stringResource(R.string.passport_scan_reading), style = MaterialTheme.typography.bodyLarge) }
+            item(key = "reading") { ReadingRow(stringResource(R.string.passport_scan_reading)) }
         }
         item(key = "actions") {
             Column(verticalArrangement = Arrangement.spacedBy(LocalDimens.current.gap)) {
-                PrimaryButton(stringResource(R.string.passport_use_camera), onClick = onCamera, enabled = agreed)
-                OutlinedButton(
-                    onClick = { picker.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)) },
+                PrimaryButton(
+                    stringResource(R.string.passport_use_camera),
+                    onClick = onCamera,
                     enabled = agreed,
-                    modifier = Modifier.fillMaxWidth().heightIn(min = LocalDimens.current.buttonHeight),
-                ) { Text(stringResource(R.string.passport_use_photo), style = MaterialTheme.typography.labelLarge) }
-                OutlinedButton(
-                    onClick = onManual,
-                    modifier = Modifier.fillMaxWidth().heightIn(min = LocalDimens.current.buttonHeight),
-                ) { Text(stringResource(R.string.passport_use_manual), style = MaterialTheme.typography.labelLarge) }
+                    icon = Icons.Outlined.PhotoCamera,
+                )
+                SecondaryButton(
+                    stringResource(R.string.passport_use_photo),
+                    onClick = onPickPhoto,
+                    icon = Icons.Outlined.PhotoLibrary,
+                    enabled = agreed,
+                )
+                // 두 버튼이 왜 회색인지 바로 아래에 알려 준다 (27 companion_add_hint와 같은 방식)
+                if (!agreed) DisabledReason(stringResource(R.string.passport_consent_hint))
+                QuietButton(stringResource(R.string.passport_use_manual), onClick = onManual, icon = Icons.Outlined.EditNote)
             }
         }
+    }
+}
+
+/** 동의 체크 줄: 줄 전체가 Checkbox 토글(초점 한 번), 체크하면 연한 Accent 바탕 */
+@Composable
+internal fun ConsentRow(text: String, checked: Boolean, onCheckedChange: (Boolean) -> Unit, modifier: Modifier = Modifier) {
+    val shape = MaterialTheme.shapes.small
+    Row(
+        modifier
+            .fillMaxWidth()
+            .minTouch()
+            .clip(shape)
+            .background(if (checked) Tokens.AccentSoft else Tokens.SurfaceSunken)
+            .toggleable(checked, role = Role.Checkbox, onValueChange = onCheckedChange)
+            .padding(horizontal = 8.dp, vertical = 4.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+    ) {
+        Checkbox(
+            checked = checked,
+            onCheckedChange = null,
+            colors = CheckboxDefaults.colors(checkedColor = Tokens.Accent, uncheckedColor = Tokens.LineStrong, checkmarkColor = Tokens.Surface),
+        )
+        // 동의 글은 라벨 — 어절 중간에서 꺾지 않는다(`읽었어/요` 방지), 읽는 글자는 원문
+        KoText(text, style = MaterialTheme.typography.labelLarge, color = Tokens.Ink, modifier = Modifier.weight(1f))
+    }
+}
+
+/** 읽는 중 표시 (진행 원 + 문장) */
+@Composable
+private fun ReadingRow(text: String) {
+    Row(
+        Modifier.fillMaxWidth().padding(vertical = 8.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(12.dp),
+    ) {
+        CircularProgressIndicator(color = Tokens.Accent, strokeWidth = 3.dp, modifier = Modifier.size(LocalDimens.current.icon))
+        KoText(text, style = MaterialTheme.typography.bodyLarge, color = Tokens.Ink, modifier = Modifier.weight(1f))
     }
 }
 
@@ -173,21 +415,43 @@ fun PassportScanScreen(viewModel: PassportFlowViewModel, onFound: () -> Unit) {
     val permission = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { granted = it }
     LaunchedEffect(scan) { if (scan is ScanState.Found) onFound() }
 
+    PassportScanContent(
+        granted = granted,
+        onAllowCamera = { permission.launch(Manifest.permission.CAMERA) },
+    ) { MrzCamera(viewModel) }
+}
+
+/**
+ * 여권 촬영 — 상태 없는 화면(갤러리·접근성 점검용). 권한이 없으면 카메라 권한 카드(제목 `카메라 권한` + 설명 + 허용 버튼 —
+ * 제목과 버튼이 같은 글이 되지 않게), 있으면 [content](카메라 미리보기) + 안내 한 줄.
+ */
+@Composable
+fun PassportScanContent(granted: Boolean, onAllowCamera: () -> Unit, content: @Composable () -> Unit) {
     AppScreen(
         title = stringResource(R.string.passport_title),
         speech = stringResource(R.string.passport_scan_hint),
     ) {
-        item(key = "steps") { PassportStepper(current = 0) }
+        item(key = "security") { SecurityBanner(compact = true) }
+        item(key = "steps") { PassportStepper(current = StepScan) }
         if (!granted) {
             item(key = "permission") {
-                InfoCard {
-                    Text(stringResource(R.string.passport_scan_camera_needed), style = MaterialTheme.typography.bodyLarge)
-                    PrimaryButton(stringResource(R.string.passport_scan_allow_camera), onClick = { permission.launch(Manifest.permission.CAMERA) })
+                CardNewsCard(
+                    title = stringResource(R.string.passport_scan_camera_title),
+                    icon = Icons.Outlined.PhotoCamera,
+                    body = stringResource(R.string.passport_scan_camera_needed),
+                ) {
+                    PrimaryButton(
+                        stringResource(R.string.passport_scan_allow_camera),
+                        onClick = onAllowCamera,
+                        icon = Icons.Outlined.PhotoCamera,
+                    )
                 }
             }
         } else {
-            item(key = "camera") { MrzCamera(viewModel) }
-            item(key = "hint") { Text(stringResource(R.string.passport_scan_hint), style = MaterialTheme.typography.bodyLarge) }
+            item(key = "camera") { content() }
+            item(key = "hint") {
+                IconBullet(stringResource(R.string.passport_scan_hint), Icons.Outlined.DocumentScanner, tone = BadgeTone.Accent)
+            }
         }
     }
 }
@@ -236,7 +500,7 @@ private fun MrzCamera(viewModel: PassportFlowViewModel) {
         Modifier
             .fillMaxWidth()
             .aspectRatio(3f / 4f)
-            .clip(MaterialTheme.shapes.large),
+            .clip(MaterialTheme.shapes.extraLarge),
     ) {
         AndroidView(factory = { previewView }, modifier = Modifier.fillMaxWidth().fillMaxHeight())
         // MRZ 안내 네모: 화면 아래쪽 여권 두 줄 자리
@@ -288,6 +552,10 @@ fun PassportConfirmScreen(
     )
 }
 
+/**
+ * 25 여권 값 확인. 경고는 목록 위, 값은 KeyValueRow + 확인 배지(정확히 칸마다 하나 — 다른 곳에 중복으로 그리지 않는다).
+ * 체크디지트가 하나라도 틀리면 저장 버튼을 아예 그리지 않는다.
+ */
 @Composable
 fun PassportConfirmContent(
     mrz: MrzData?,
@@ -299,71 +567,97 @@ fun PassportConfirmContent(
 ) {
     val ok = stringResource(R.string.passport_check_ok)
     val fail = stringResource(R.string.passport_check_fail)
+    val expired = mrz != null && mrz.expiryDate.isBefore(today)
     AppScreen(
         title = stringResource(R.string.passport_title),
         speech = stringResource(R.string.passport_confirm_body),
     ) {
-        item(key = "steps") { PassportStepper(current = 2) }
-        item(key = "body") { Text(stringResource(R.string.passport_confirm_body), style = MaterialTheme.typography.bodyLarge) }
+        item(key = "security") { SecurityBanner(compact = true) }
+        item(key = "steps") { PassportStepper(current = StepConfirm) }
+        item(key = "body") {
+            KoText(stringResource(R.string.passport_confirm_body), style = MaterialTheme.typography.bodyLarge, color = Tokens.Ink)
+        }
         if (mrz != null) {
-            item(key = "values") {
-                InfoCard {
-                    fun badge(check: MrzCheck?) = check?.let { if (mrz.checks[it] == true) ok else fail }
-                    ConfirmRow(stringResource(R.string.passport_field_surname), mrz.surname, null)
-                    ConfirmRow(stringResource(R.string.passport_field_given), mrz.givenNames, null)
-                    ConfirmRow(stringResource(R.string.passport_field_number), mrz.documentNumber, badge(MrzCheck.DocumentNumber))
-                    ConfirmRow(stringResource(R.string.passport_field_nationality), mrz.nationality, null)
-                    ConfirmRow(stringResource(R.string.passport_field_birth), mrz.birthDate.toString(), badge(MrzCheck.BirthDate))
-                    ConfirmRow(stringResource(R.string.passport_field_sex), sexLabel(mrz.sex), null)
-                    ConfirmRow(stringResource(R.string.passport_field_expiry), mrz.expiryDate.toString(), badge(MrzCheck.ExpiryDate))
+            if (!mrz.allChecksPass) {
+                item(key = "warning") {
+                    NoticeBanner(stringResource(R.string.passport_check_warning), icon = Icons.Outlined.ReportProblem, tone = BannerTone.Caution)
                 }
             }
-            if (!mrz.allChecksPass) {
-                item(key = "warning") { TopicCard(stringResource(R.string.passport_check_warning), null, tone = CardTone.Caution) }
+            if (expired) {
+                item(key = "expired") {
+                    NoticeBanner(stringResource(R.string.wallet_passport_expired), icon = Icons.Outlined.EventBusy, tone = BannerTone.Danger)
+                }
             }
-            if (mrz.expiryDate.isBefore(today)) {
-                item(key = "expired") { TopicCard(stringResource(R.string.wallet_passport_expired), null, tone = CardTone.Caution) }
-            }
-            item(key = "chip") {
-                OutlinedButton(onClick = {}, enabled = false, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) {
-                    Text(stringResource(R.string.passport_chip_soon))
+            item(key = "values") {
+                val rows = listOf(
+                    Triple(stringResource(R.string.passport_field_surname), mrz.surname, null),
+                    Triple(stringResource(R.string.passport_field_given), mrz.givenNames, null),
+                    Triple(stringResource(R.string.passport_field_number), mrz.documentNumber, MrzCheck.DocumentNumber),
+                    Triple(stringResource(R.string.passport_label_nationality), mrz.nationality, null),
+                    // 날짜는 `1974년 8월 12일`로 보인다(재검토2 ①#13 — 저장 값은 그대로 YYYY-MM-DD)
+                    Triple(stringResource(R.string.passport_field_birth), keepWords(koreanDate(mrz.birthDate, weekday = false)), MrzCheck.BirthDate),
+                    Triple(stringResource(R.string.passport_field_sex), sexLabel(mrz.sex), null),
+                    Triple(stringResource(R.string.passport_field_expiry), keepWords(koreanDate(mrz.expiryDate, weekday = false)), MrzCheck.ExpiryDate),
+                )
+                val expiredTag = stringResource(R.string.passport_expired_tag)
+                val readOk = stringResource(R.string.passport_expiry_read_ok)
+                ListGroup(stringResource(R.string.passport_values_title)) {
+                    rows.forEachIndexed { i, (label, value, check) ->
+                        val passed = check != null && mrz.checks[check] == true
+                        // 만료된 여권의 만료일 행: 위 Danger 배너와 같은 신호(빨강 `만료됨`). 확인 숫자가 맞았다는 사실은 작은 보조 글로 남긴다
+                        // (초록 `확인 완료`가 만료 경고와 반대로 읽히지 않게 — 재검토 32). 확인 숫자가 틀리면 날짜를 믿을 수 없어 `확인 안 됨` 그대로
+                        val expiredRow = expired && check == MrzCheck.ExpiryDate && passed
+                        KeyValueRow(
+                            label = label,
+                            value = value,
+                            badge = when {
+                                expiredRow -> {
+                                    { StatusTag(expiredTag, StatusKind.Prohibited, icon = Icons.Outlined.EventBusy) }
+                                }
+                                check != null -> {
+                                    { CheckTag(passed, ok, fail) }
+                                }
+                                else -> null
+                            },
+                            supporting = if (expiredRow) readOk else null,
+                            modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp),
+                        )
+                        // 아이콘 없는 키-값 행이라 글 시작(16dp)부터 긋는다 — 카드 끝까지 닿는 선은 목록을 무겁게 한다
+                        if (i != rows.lastIndex) HorizontalDivider(Modifier.padding(horizontal = 16.dp), thickness = 1.dp, color = Tokens.Line)
+                    }
                 }
             }
         }
         if (saveFailed) {
-            item(key = "save-failed") { TopicCard(stringResource(R.string.booking_save_failed), null, tone = CardTone.Caution) }
+            item(key = "save-failed") {
+                NoticeBanner(stringResource(R.string.booking_save_failed), icon = Icons.Outlined.ErrorOutline, tone = BannerTone.Caution)
+            }
         }
         item(key = "actions") {
             Column(verticalArrangement = Arrangement.spacedBy(LocalDimens.current.gap)) {
                 // 체크디지트가 하나라도 틀리면 저장하지 않는다 — OCR 오류가 입국 거부로 이어질 수 있다 (PRD 8.2)
-                if (mrz != null && mrz.allChecksPass) PrimaryButton(stringResource(R.string.passport_save), onClick = onSave)
-                OutlinedButton(onClick = onRescan, modifier = Modifier.fillMaxWidth().heightIn(min = LocalDimens.current.buttonHeight)) {
-                    Text(stringResource(R.string.passport_rescan), style = MaterialTheme.typography.labelLarge)
+                val canSave = mrz != null && mrz.allChecksPass
+                val save = stringResource(R.string.passport_save)
+                val rescan = stringResource(R.string.passport_rescan)
+                if (expired) {
+                    // 만료된 여권(예: 예전 여권을 잘못 찍음)이면 위 Danger 배너와 같은 방향으로 — 새 여권 다시 찍기가 주 동작, 저장은 보조
+                    PrimaryButton(rescan, onClick = onRescan, icon = Icons.Outlined.PhotoCamera)
+                    if (canSave) SecondaryButton(save, onClick = onSave, icon = Icons.Outlined.Check)
+                } else {
+                    if (canSave) PrimaryButton(save, onClick = onSave, icon = Icons.Outlined.Check)
+                    SecondaryButton(rescan, onClick = onRescan, icon = Icons.Outlined.PhotoCamera)
                 }
-                OutlinedButton(onClick = onManual, modifier = Modifier.fillMaxWidth().heightIn(min = LocalDimens.current.buttonHeight)) {
-                    Text(stringResource(R.string.passport_use_manual), style = MaterialTheme.typography.labelLarge)
-                }
+                QuietButton(stringResource(R.string.passport_use_manual), onClick = onManual, icon = Icons.Outlined.EditNote)
             }
         }
+        // 전자여권 칩 확인(NFC)은 2차 — 단계 표시에도, 이 화면에도 그리지 않는다. '곧 추가돼요'는 내 정보 맨 아래 한 곳(재검토2 ⑤#11)
     }
 }
 
+/** 체크디지트 확인 배지: 맞으면 Verified(확인 완료), 틀리면 Caution(확인 안 됨) — 색 + 아이콘 + 글자 */
 @Composable
-private fun ConfirmRow(label: String, value: String, badge: String?) {
-    Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth()) {
-        Column(Modifier.weight(1f)) {
-            Text(label, style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
-            Text(value, style = MaterialTheme.typography.titleMedium)
-        }
-        if (badge != null) {
-            val passed = badge == stringResource(R.string.passport_check_ok)
-            StatusChip(
-                badge,
-                container = if (passed) Tokens.SuccessBg else Tokens.DangerBg,
-                content = if (passed) Tokens.SuccessText else Tokens.DangerText,
-            )
-        }
-    }
+private fun CheckTag(passed: Boolean, ok: String, fail: String) {
+    StatusTag(if (passed) ok else fail, if (passed) StatusKind.Verified else StatusKind.Caution)
 }
 
 @Composable
@@ -382,6 +676,22 @@ fun PassportManualScreen(viewModel: PassportFlowViewModel, onSaved: () -> Unit) 
     SecureScreen()
     val scope = rememberCoroutineScope()
     val auth = rememberDeviceAuth()
+    PassportManualContent(onSave = { r ->
+        scope.launch {
+            when (viewModel.save(r)) {
+                WalletRepository.SaveResult.Saved -> onSaved()
+                else -> auth { scope.launch { if (viewModel.save(r) == WalletRepository.SaveResult.Saved) onSaved() } }
+            }
+        }
+    })
+}
+
+/**
+ * 여권 직접 입력 — 갤러리·접근성 점검이 그대로 띄우는 화면. 입력 값은 이 화면 안에만 둔다.
+ * 입력칸 라벨은 짧게(`국적`), 형식·예시는 칸 아래 supportingText로 늘 보이고, 긴 값은 칸 안에서 줄바꿈한다(잘리지 않게).
+ */
+@Composable
+fun PassportManualContent(onSave: (PassportRecord) -> Unit) {
     // 개인정보가 저장 상태(Bundle)로 새지 않도록 rememberSaveable을 쓰지 않는다
     var surname by remember { mutableStateOf("") }
     var given by remember { mutableStateOf("") }
@@ -394,8 +704,9 @@ fun PassportManualScreen(viewModel: PassportFlowViewModel, onSaved: () -> Unit) 
 
     fun record(): PassportRecord? {
         val upper = Regex("^[A-Z][A-Z ]*$")
-        val b = runCatching { LocalDate.parse(birth.trim()) }.getOrNull()
-        val e = runCatching { LocalDate.parse(expiry.trim()) }.getOrNull()
+        // 날짜 칸은 숫자 8자리만 받는다(하이픈은 화면에서만 앱이 넣는다)
+        val b = parseDateDigits(birth)
+        val e = parseDateDigits(expiry)
         val num = number.trim().uppercase()
         val nat = nationality.trim().uppercase()
         if (!upper.matches(surname.trim().uppercase()) || b == null || e == null ||
@@ -420,57 +731,136 @@ fun PassportManualScreen(viewModel: PassportFlowViewModel, onSaved: () -> Unit) 
         title = stringResource(R.string.passport_title),
         speech = stringResource(R.string.passport_manual_body),
     ) {
-        item(key = "body") { Text(stringResource(R.string.passport_manual_body), style = MaterialTheme.typography.bodyLarge) }
+        item(key = "security") { SecurityBanner(compact = true) }
+        item(key = "body") {
+            KoText(stringResource(R.string.passport_manual_body), style = MaterialTheme.typography.bodyLarge, color = Tokens.Ink)
+        }
         item(key = "form") {
-            Column(verticalArrangement = Arrangement.spacedBy(LocalDimens.current.gap)) {
-                ManualField(R.string.passport_field_surname, surname) { surname = it }
-                ManualField(R.string.passport_field_given, given) { given = it }
-                ManualField(R.string.passport_field_number, number) { number = it }
-                ManualField(R.string.passport_field_nationality, nationality) { nationality = it }
-                ManualField(R.string.passport_field_birth, birth, hint = R.string.passport_date_hint) { birth = it }
-                Text(stringResource(R.string.passport_field_sex), style = MaterialTheme.typography.labelLarge)
-                FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    listOf('M' to R.string.passport_sex_m, 'F' to R.string.passport_sex_f, 'X' to R.string.passport_sex_x).forEach { (value, label) ->
-                        FilterChip(
-                            selected = sex == value,
-                            onClick = { sex = value },
-                            label = { Text(stringResource(label), style = MaterialTheme.typography.labelLarge) },
-                            modifier = Modifier.heightIn(min = 48.dp),
-                        )
+            InfoCard {
+                Column(verticalArrangement = Arrangement.spacedBy(LocalDimens.current.gap)) {
+                    ManualField(R.string.passport_field_surname, surname, Icons.Outlined.Person) { surname = it }
+                    ManualField(R.string.passport_field_given, given, Icons.Outlined.Person) { given = it }
+                    ManualField(R.string.passport_field_number, number, Icons.Outlined.Badge) { number = it }
+                    ManualField(
+                        R.string.passport_label_nationality,
+                        nationality,
+                        Icons.Outlined.Public,
+                        hint = R.string.passport_hint_nationality,
+                    ) { nationality = it }
+                    ManualField(
+                        R.string.passport_field_birth,
+                        birth,
+                        Icons.Outlined.CalendarMonth,
+                        hint = R.string.passport_date_hint,
+                        date = true,
+                    ) { birth = it }
+                    Text(
+                        stringResource(R.string.passport_field_sex),
+                        style = MaterialTheme.typography.titleSmall,
+                        color = Tokens.InkSecondary,
+                        modifier = Modifier.semantics { heading() },
+                    )
+                    FlowRow(
+                        modifier = Modifier.selectableGroup(),
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                        verticalArrangement = Arrangement.spacedBy(8.dp),
+                    ) {
+                        listOf('M' to R.string.passport_sex_m, 'F' to R.string.passport_sex_f, 'X' to R.string.passport_sex_x).forEach { (value, label) ->
+                            // 한 글자 칩(남·여)도 가로까지 48/56dp (보이는 크기)
+                            SelectChip(
+                                selected = sex == value,
+                                onClick = { sex = value },
+                                label = stringResource(label),
+                                modifier = Modifier.minTouchSize(),
+                            )
+                        }
                     }
+                    ManualField(
+                        R.string.passport_field_expiry,
+                        expiry,
+                        Icons.Outlined.EventBusy,
+                        hint = R.string.passport_expiry_hint,
+                        date = true,
+                    ) { expiry = it }
                 }
-                ManualField(R.string.passport_field_expiry, expiry, hint = R.string.passport_date_hint) { expiry = it }
             }
         }
         if (invalid) {
-            item(key = "invalid") { TopicCard(stringResource(R.string.passport_manual_invalid), null, tone = CardTone.Caution) }
+            item(key = "invalid") {
+                NoticeBanner(stringResource(R.string.passport_manual_invalid), icon = Icons.Outlined.ErrorOutline, tone = BannerTone.Caution)
+            }
         }
         item(key = "save") {
-            PrimaryButton(stringResource(R.string.passport_save), onClick = {
+            PrimaryButton(stringResource(R.string.passport_save), icon = Icons.Outlined.Check, onClick = {
                 val r = record()
                 invalid = r == null
-                if (r != null) scope.launch {
-                    when (viewModel.save(r)) {
-                        WalletRepository.SaveResult.Saved -> onSaved()
-                        else -> auth { scope.launch { if (viewModel.save(r) == WalletRepository.SaveResult.Saved) onSaved() } }
-                    }
-                }
+                if (r != null) onSave(r)
             })
         }
     }
 }
 
+/**
+ * 직접 입력 칸: 짧은 라벨 + 앞 아이콘 + 형식·예시는 칸 아래 supportingText(늘 보임).
+ * 줄바꿈 입력은 받지 않지만 긴 값은 칸 안에서 여러 줄로 보여 준다(200%에서 값이 잘리지 않게).
+ * [date]: 숫자 자판 + 숫자 8자리만 받고, 화면에서는 `1974-08-12`처럼 하이픈을 앱이 넣어 보인다(재검토 R18 — 숫자·기호를 오가지 않게).
+ */
 @Composable
-private fun ManualField(label: Int, value: String, hint: Int? = null, onChange: (String) -> Unit) {
+private fun ManualField(label: Int, value: String, icon: ImageVector, hint: Int? = null, date: Boolean = false, onChange: (String) -> Unit) {
     OutlinedTextField(
         value = value,
-        onValueChange = onChange,
+        onValueChange = { onChange(if (date) dateDigits(it) else it.replace("\n", "")) },
         label = { Text(stringResource(label)) },
-        placeholder = hint?.let { { Text(stringResource(it)) } },
-        singleLine = true,
+        leadingIcon = { Icon(icon, contentDescription = null) },
+        supportingText = hint?.let { { Text(stringResource(it)) } },
+        singleLine = date,
         textStyle = MaterialTheme.typography.bodyLarge,
-        // 영문 대문자 입력, 자동 고침 끔
-        keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Characters, autoCorrectEnabled = false),
+        shape = MaterialTheme.shapes.small,
+        visualTransformation = if (date) DateDigitsTransformation else VisualTransformation.None,
+        // 영문 대문자 입력(날짜는 숫자 자판), 자동 고침 끔, 엔터는 다음 칸으로
+        keyboardOptions = KeyboardOptions(
+            capitalization = if (date) KeyboardCapitalization.None else KeyboardCapitalization.Characters,
+            autoCorrectEnabled = false,
+            keyboardType = if (date) KeyboardType.Number else KeyboardType.Text,
+            imeAction = ImeAction.Next,
+        ),
         modifier = Modifier.fillMaxWidth(),
     )
+}
+
+/** 날짜 칸에 받는 글자: 숫자만, 8자리까지 (붙여 넣은 `1974-08-12`도 숫자만 남긴다) */
+internal fun dateDigits(input: String): String = input.filter { it in '0'..'9' }.take(8)
+
+/** 숫자 8자리(`19740812`) → 날짜. 자리가 모자라거나 없는 날짜면 null */
+internal fun parseDateDigits(digits: String): LocalDate? {
+    if (digits.length != 8 || digits.any { it !in '0'..'9' }) return null
+    return runCatching { LocalDate.of(digits.take(4).toInt(), digits.substring(4, 6).toInt(), digits.substring(6).toInt()) }.getOrNull()
+}
+
+/** 날짜(`2026-11-03`) → 날짜 칸 값(`20261103`). 날짜 모양이 아니면 빈 값 */
+internal fun digitsOf(date: String?): String =
+    date?.trim()?.let { runCatching { LocalDate.parse(it) }.getOrNull() }?.toString()?.let(::dateDigits).orEmpty()
+
+/**
+ * 숫자만 저장한 날짜 칸을 `YYYY-MM-DD`로 보이게 한다 — 넷째·여섯째 숫자 뒤에 하이픈(그 뒤 숫자가 있을 때만).
+ * 커서 위치는 숫자 자리에 맞춰 옮긴다(하이픈 자리에서 지워도 숫자가 지워진다).
+ */
+internal object DateDigitsTransformation : VisualTransformation {
+    override fun filter(text: AnnotatedString): TransformedText {
+        val digits = text.text
+        val shown = buildString {
+            digits.forEachIndexed { i, c ->
+                if (i == 4 || i == 6) append('-')
+                append(c)
+            }
+        }
+        val mapping = object : OffsetMapping {
+            override fun originalToTransformed(offset: Int): Int =
+                offset + (if (offset > 4) 1 else 0) + (if (offset > 6) 1 else 0)
+
+            override fun transformedToOriginal(offset: Int): Int =
+                (offset - (if (offset >= 5) 1 else 0) - (if (offset >= 8) 1 else 0)).coerceIn(0, digits.length)
+        }
+        return TransformedText(AnnotatedString(shown), mapping)
+    }
 }

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  다듬기 D0(공용 부품)의 새 문구. docs/design/POLISH_D0_REPORT.md
+-->
+<resources>
+    <!-- 펼침·접기 줄(ExpandToggle): 펼친 뒤 '접기' 버튼의 TalkBack 이름에 무엇을 접는지 (재검토2 ②#2) -->
+    <string name="collapse_target_cd">%1$s 접기</string>
+    <string name="fold_target_visa">비자 설명</string>
+    <string name="fold_target_steps">단계 설명</string>
+    <string name="fold_target_return">면세 한도·반입 금지 문장</string>
+    <!-- %1$s = 품목·물건 이름 (보조배터리 설명) -->
+    <string name="fold_target_item">%1$s 설명</string>
+    <string name="fold_target_blank_names">빈칸 이름</string>
+    <!-- 입국 카드 확인의 출처별 값 묶음: %1$s = 가져온 곳(여권에서·항공권에서 — form_group_more와 같은 값) -->
+    <string name="fold_target_group">%1$s 가져온 칸</string>
+    <string name="fold_target_group_user">직접 적은 칸</string>
+    <!-- 빈칸 묶음 머리 요약 한 줄 (RequiredSummary — 칸마다 '꼭 채워요' 대신, 재검토2 ③#3). %1$d = 꼭 채울 칸 수, %2$d = 모든 칸 수 -->
+    <string name="required_summary">꼭 채울 칸 %1$d개 · 모두 %2$d칸</string>
+    <string name="required_summary_none">모두 %1$d칸</string>
+    <!-- 입국 카드 카드(EntryFormCard) eyebrow: 서류 이름은 앱 어디서나 '입국 카드' 하나 (재검토2 ②#5·④#1) -->
+    <string name="entry_form_label">온라인 입국 카드</string>
+</resources>

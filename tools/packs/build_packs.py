@@ -74,6 +74,45 @@ def check_sources(doc, label, errors):
         # 보험·환전·카드 같은 금융 상품에는 제휴 링크를 넣지 않는다 (작업 규칙 11)
         if link.get("type") == "affiliate" and any(w in rule.get("name_ko", "") for w in ("보험", "환전", "카드", "금융")):
             errors.append(f"{label}: essentials[{i}] 금융 상품에 제휴 링크 금지")
+    check_passport_validity(doc, label, ids, errors)
+    check_checklist(doc, label, errors)
+
+
+def check_passport_validity(doc, label, ids, errors):
+    """requirements[].passport_validity: 값이 있으면 출처가 sources 에 있어야 하고, 근거 없는 숫자를 막는다 (작업 규칙 6)."""
+    for i, req in enumerate(doc.get("requirements", [])):
+        pv = req.get("passport_validity")
+        if pv is None:
+            continue
+        if pv.get("source") not in ids:
+            errors.append(f"{label}: requirements[{i}].passport_validity.source '{pv.get('source')}' 가 sources 에 없음")
+        if pv.get("basis") not in ("arrival", "departure", "stay_end"):
+            errors.append(f"{label}: requirements[{i}].passport_validity.basis '{pv.get('basis')}' 는 arrival/departure/stay_end 중 하나")
+        months = pv.get("months")
+        if not isinstance(months, int) or isinstance(months, bool) or not 1 <= months <= 24:
+            errors.append(f"{label}: requirements[{i}].passport_validity.months 는 1~24 정수")
+
+
+def check_checklist(doc, label, errors):
+    """체크리스트: 나라 팩 항목 문장은 같은 팩 섹션 문장 그대로, 색인 틀의 essential:<id> 는 essentials 에 있어야 한다."""
+    sections = {s["id"]: s for s in doc.get("sections", [])}
+    seen = set()
+    for i, item in enumerate(doc.get("checklist", [])):
+        if item.get("id") in seen:
+            errors.append(f"{label}: checklist[{i}].id '{item.get('id')}' 가 겹침")
+        seen.add(item.get("id"))
+        if "section" in item:
+            sec = sections.get(item["section"])
+            if sec is None:
+                errors.append(f"{label}: checklist[{i}].section '{item['section']}' 가 sections 에 없음")
+            elif item.get("text_ko") not in sec.get("body_ko", []):
+                errors.append(f"{label}: checklist[{i}].text_ko 가 sections['{item['section']}'] 문장과 다름 — 팩 문장을 그대로 쓴다")
+        frm = item.get("from") or ""
+        if frm.startswith("essential:"):
+            if frm.split(":", 1)[1] not in {e["id"] for e in doc.get("essentials", [])}:
+                errors.append(f"{label}: checklist[{i}].from '{frm}' 가 essentials 에 없음")
+        if item.get("kind") in ("generic", "auto", "pack") and not item.get("title_ko") and "section" not in item:
+            errors.append(f"{label}: checklist[{i}] title_ko 없음")
 
 
 def validate_all():

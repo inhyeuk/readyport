@@ -5,11 +5,23 @@ import androidx.annotation.StringRes
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.SemanticsActions
+import androidx.compose.ui.semantics.SemanticsProperties
+import androidx.compose.ui.semantics.getOrNull
+import androidx.compose.ui.test.SemanticsMatcher
+import androidx.compose.ui.test.assert
 import androidx.compose.ui.test.assertCountEquals
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsEnabled
+import androidx.compose.ui.test.assertIsFocused
 import androidx.compose.ui.test.assertIsNotEnabled
+import androidx.compose.ui.test.assertIsNotSelected
+import androidx.compose.ui.test.assertIsSelected
+import androidx.compose.ui.test.getBoundsInRoot
+import androidx.compose.ui.test.hasContentDescription
 import androidx.compose.ui.test.hasScrollAction
+import androidx.compose.ui.test.hasSetTextAction
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.v2.createComposeRule
 import androidx.compose.ui.test.onAllNodesWithText
@@ -69,14 +81,32 @@ class FormUiTest {
         rule.onAllNodesWithText(text).onFirst().assertIsDisplayed()
     }
 
+    /** 출처별 묶음을 펼친다 (기본 접힘 — 재검토 R16) */
+    private fun openGroup(@StringRes origin: Int, count: Int) {
+        val label = s(R.string.form_group_more, s(origin), count)
+        rule.onNode(hasScrollAction()).performScrollToNode(hasText(label))
+        rule.onNodeWithText(label).performClick()
+        rule.waitForIdle()
+    }
+
+    private fun groupSize(origin: com.readyport.autofill.ValueOrigin): Int {
+        val values = ui().values
+        return recipe.value.fields.count { it.confirm == "bulk" && values[it.key]?.isEmpty == false && values.getValue(it.key).origin == origin }
+    }
+
     @Test
     fun showsBulkValuesWithThreeLanguageLabelsAndSources() {
         rule.setContent { ReadyPortTheme { FormConfirmContent(ui(), { _, _ -> }, {}, {}, {}, {}) } }
         rule.onNodeWithText(s(R.string.form_confirm_title, form.nameKo)).assertIsDisplayed()
         shown(s(R.string.form_from_documents))
+        shown(s(R.string.form_origin_passport))
+        // 접힌 동안에도 값은 한 줄로 보인다(훑어 확인) — 칸 이름 3개 국어는 펼치면
+        rule.onAllNodes(hasText("ERIKSSON", substring = true)).onFirst().assertExists()
+        rule.onAllNodesWithText("Family Name · นามสกุล").assertCountEquals(0)
+        openGroup(R.string.form_origin_passport, groupSize(com.readyport.autofill.ValueOrigin.Passport))
         shown("ERIKSSON")
         shown("Family Name · นามสกุล")
-        shown(s(R.string.form_origin_passport))
+        openGroup(R.string.form_origin_flight, groupSize(com.readyport.autofill.ValueOrigin.Flight))
         shown("KE651")
         shown(s(R.string.form_origin_flight))
     }
@@ -108,12 +138,66 @@ class FormUiTest {
     }
 
     @Test
+    fun missingBlanksAreListedAndTagJumpsToThatField() {
+        rule.setContent { ReadyPortTheme { FormConfirmContent(ui(), { _, _ -> }, {}, {}, {}, {}) } }
+        val missing = FormValues.missingRequired(recipe.value, ui().values)
+        val occupation = missing.first { it.key == "profile.occupation" }.labels.ko
+        // 빈칸 요약은 맨 위 한 곳 — '빈칸 N개 남았어요'가 화면에 한 번만 (재검토 R16: 같은 경고 세 겹 금지)
+        shown(s(R.string.form_missing_count, missing.size))
+        rule.onAllNodesWithText(s(R.string.form_missing_count, missing.size)).assertCountEquals(1)
+        // 칸마다 `꼭 채워요` 태그를 되풀이하지 않는다 — 빈 칸은 TalkBack 상태 `빈칸`(작은 느낌표)
+        rule.onAllNodesWithText("꼭 채워요").assertCountEquals(0)
+        val blankState = SemanticsMatcher.expectValue(SemanticsProperties.StateDescription, s(R.string.form_blank_cd))
+        val occupationField = hasSetTextAction() and hasText(occupation, substring = true)
+        rule.onNode(hasScrollAction()).performScrollToNode(occupationField)
+        rule.onNode(occupationField).assert(blankState)
+        // TalkBack은 기존 문장 그대로, 빈칸 개수가 바뀔 때만 다시 알린다
+        val sentence = s(R.string.form_need_required, missing.joinToString(", ") { it.labels.ko })
+        rule.onNode(hasScrollAction()).performScrollToNode(hasContentDescription(sentence))
+        rule.onNode(hasContentDescription(sentence)).assert(SemanticsMatcher.keyIsDefined(SemanticsProperties.LiveRegion))
+        rule.onNodeWithText(s(R.string.form_go_first_missing)).assertExists()
+        // 빈칸 이름은 요약 안 펼침에 — 펼치면 이름 줄을 누를 수 있고 'OO 칸으로 가기'로 읽힌다 → 누르면 그 칸으로 가서 초점
+        rule.onNodeWithText(s(R.string.form_blank_names, missing.size)).performClick()
+        val goLabel = s(R.string.form_go_field_cd, occupation)
+        val tag = SemanticsMatcher("onClick label = $goLabel") { it.config.getOrNull(SemanticsActions.OnClick)?.label == goLabel }
+        rule.onNode(hasScrollAction()).performScrollToNode(tag)
+        rule.onNode(tag).performClick()
+        rule.waitForIdle()
+        rule.onNode(hasSetTextAction() and hasText(occupation, substring = true)).assertIsDisplayed().assertIsFocused()
+    }
+
+    @Test
+    fun localLargeIsAToggleChip() {
+        rule.setContent { ReadyPortTheme { FormConfirmContent(ui(), { _, _ -> }, {}, {}, {}, {}) } }
+        val chip = rule.onNode(hasText(s(R.string.form_local_large)) and SemanticsMatcher.expectValue(SemanticsProperties.Role, Role.Checkbox))
+        chip.assertIsNotSelected().performClick()
+        chip.assertIsSelected()
+        // 정부 비제휴 고지가 첫 정보 항목, 보안 한 줄이 그 다음
+        val notice = rule.onNodeWithText(s(R.string.guide_not_affiliated)).getBoundsInRoot()
+        val security = rule.onNodeWithText(s(R.string.settings_local_only_title)).getBoundsInRoot()
+        assertTrue(notice.top < security.top)
+    }
+
+    @Test
     fun killSwitchOffersManualModeOnly() {
         rule.setContent {
             ReadyPortTheme { FormConfirmContent(ui().copy(context = ctx(killed = true)), { _, _ -> }, {}, {}, {}, {}) }
         }
         shown(s(R.string.form_killed))
         rule.onAllNodesWithText(s(R.string.form_confirm_yes)).assertCountEquals(0)
+        // '수동 모드' 대신 쉬운 말 (재검토 R18)
+        shown(s(R.string.form_manual_open))
+        rule.onAllNodesWithText("수동 모드", substring = true).assertCountEquals(0)
+    }
+
+    @Test
+    fun siteListHintsSayTheyAreAboutTheOfficialSite() {
+        rule.setContent { ReadyPortTheme { FormConfirmContent(ui(), { _, _ -> }, {}, {}, {}, {}) } }
+        // 앱 칸에는 목록이 없다 — '목록에서 골라 주세요' 도움말은 공식 사이트 설명이라고 밝힌다 (재검토 R16)
+        val field = recipe.value.fields.first { it.key == "profile.city_res" }
+        val hint = s(R.string.form_hint_on_site, field.hintKo!!)
+        rule.onNode(hasScrollAction()).performScrollToNode(hasText(hint, substring = true))
+        rule.onAllNodes(hasText(hint, substring = true)).onFirst().assertIsDisplayed()
     }
 
     @Test

@@ -194,6 +194,41 @@
                 "$ref": "#/$defs/date"
               }
             }
+          },
+          "passport_validity": {
+            "description": "여권이 얼마나 남아 있어야 하는지(공식 안내 그대로). 공식 안내가 밝히지 않으면 null — 앱은 '공식 안내에서 확인하세요'만 보인다",
+            "type": [
+              "object",
+              "null"
+            ],
+            "required": [
+              "months",
+              "basis",
+              "source",
+              "last_verified"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "months": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 24
+              },
+              "basis": {
+                "description": "arrival = 입국일 기준, departure = 그 나라에서 나가는 날 기준, stay_end = 머무는 기간이 끝나는 날 기준",
+                "enum": [
+                  "arrival",
+                  "departure",
+                  "stay_end"
+                ]
+              },
+              "source": {
+                "type": "string"
+              },
+              "last_verified": {
+                "$ref": "#/$defs/date"
+              }
+            }
           }
         }
       }
@@ -274,7 +309,8 @@
               "food",
               "places",
               "safety",
-              "shopping"
+              "shopping",
+              "rules"
             ]
           },
           "title_ko": {
@@ -558,6 +594,84 @@
         "last_verified": {
           "type": "string",
           "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+        }
+      }
+    },
+    "checklist": {
+      "description": "이 나라만의 여행 체크리스트 항목. text_ko는 같은 팩 sections[section].body_ko의 한 문장과 글자까지 같아야 한다(출처·확인일은 그 섹션 것 — build_packs.py가 검사)",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "phase",
+          "icon",
+          "title_ko",
+          "section",
+          "text_ko"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9_]+$"
+          },
+          "phase": {
+            "enum": [
+              "month",
+              "week",
+              "three_days",
+              "departure_day",
+              "arrival",
+              "during",
+              "before_return",
+              "back"
+            ]
+          },
+          "icon": {
+            "enum": [
+              "passport",
+              "visa",
+              "flight",
+              "insurance",
+              "advisory",
+              "wallet",
+              "data",
+              "card",
+              "medicine",
+              "battery",
+              "plug",
+              "voltage",
+              "offline",
+              "map",
+              "address",
+              "phone",
+              "form",
+              "phrases",
+              "airport",
+              "qr",
+              "emergency",
+              "safe",
+              "shopping",
+              "customs",
+              "cash",
+              "flight_return",
+              "delete",
+              "ticket",
+              "hotel",
+              "rules",
+              "family"
+            ]
+          },
+          "title_ko": {
+            "type": "string"
+          },
+          "section": {
+            "type": "string"
+          },
+          "text_ko": {
+            "type": "string"
+          }
         }
       }
     }

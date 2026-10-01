@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  디자인 개편 1단계 E 묶음(준비물·설정·입국 카드)의 새 문구 (DESIGN_SPEC_2026-10-01 6-16·17·22·28).
+  strings.xml·strings_design_v2.xml은 동결이라 E 묶음 화면이 새로 쓰는 문구만 여기에 둔다.
+  테스트가 찾는 기존 문구는 바꾸지 않는다(디자인 원칙 8).
+-->
+<resources>
+    <!-- 17 입국 카드 확인 -->
+    <string name="form_locked_body">지문이나 화면 잠금으로 내 정보를 열면 여권·항공권에서 값을 가져와요.</string>
+    <string name="form_need_passport_body">여권을 한 번 등록해 두면 이름·여권 번호·국적을 입국 카드에 채워 드려요.</string>
+    <string name="form_all_filled">빈칸을 다 채웠어요</string>
+
+    <!-- 자동 입력 · 수동 모드 -->
+    <string name="autofill_compare_same">%1$s · 같아요</string>
+    <string name="autofill_compare_diff">%1$s · 달라요</string>
+    <string name="manual_step_eyebrow">%1$d단계</string>
+    <string name="manual_fill_on_site">사이트에서 직접 적을 칸</string>
+    <!-- 22 설정 · 28 사진·글꼴 출처 -->
+    <string name="settings_credits_body">사진은 위키미디어 공용, 글꼴은 Pretendard예요. 모두 자유 라이선스예요.</string>
+    <string name="credits_speech">사진·글꼴 출처. 앱에 쓴 사진과 글꼴을 만든 사람과 라이선스를 보여 줘요.</string>
+    <string name="credits_photos_title">사진</string>
+    <string name="credits_fonts_title">글꼴</string>
+    <string name="credit_font_author">만든 사람: %1$s</string>
+    <string name="credit_font_note">배포 원본 그대로 앱에 넣었어요. 태국어처럼 이 글꼴에 없는 글자는 휴대폰 기본 글꼴로 보여요.</string>
+    <string name="credit_license_full">라이선스 전문 보기</string>
+    <string name="credit_license_open">라이선스 보기</string>
+    <string name="credit_license_missing">라이선스 파일을 읽지 못했어요.</string>
+</resources>

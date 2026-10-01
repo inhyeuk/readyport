@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "country": "TH",
-  "version": "2026.09.29-1",
+  "version": "2026.10.02-1",
   "last_verified": "2026-09-28",
   "names": {
     "ko": "태국",
@@ -100,7 +100,13 @@
       ],
       "summary_ko": "대한민국 일반 여권은 관광 목적이면 비자 없이 90일까지 머물 수 있어요(두 나라 협정). 도착 전에 태국 입국 카드(TDAC)를 내야 해요.",
       "source": "mofa_th",
-      "last_verified": "2026-09-28"
+      "last_verified": "2026-09-28",
+      "passport_validity": {
+        "months": 6,
+        "basis": "arrival",
+        "source": "mofa_th",
+        "last_verified": "2026-10-02"
+      }
     }
   ],
   "forms": [
@@ -122,12 +128,12 @@
       "title_ko": "들어갈 때",
       "body_ko": [
         "비자 없이 90일까지 머물 수 있어요(관광·친척 방문 등).",
-        "도착 3일 전부터 도착하는 날까지 태국 입국 카드(TDAC)를 공식 사이트에서 무료로 내요. 모든 외국인이 내야 해요.",
+        "태국에 도착하는 날을 포함해 3일 안에(예: 5월 4일 도착이면 5월 2일~4일) 태국 입국 카드(TDAC)를 공식 사이트에서 무료로 내요. 모든 외국인이 내야 해요.",
         "내고 나서 받은 확인 메일을 입국 심사 때 보여 주세요.",
         "비자 없이 나갔다 들어오기를 자주 되풀이하거나 여권이 훼손돼 있으면 입국이 거절될 수 있어요."
       ],
       "source": "mofa_th",
-      "last_verified": "2026-09-28"
+      "last_verified": "2026-10-01"
     },
     {
       "id": "payment",
@@ -361,5 +367,15 @@
     "frequency": "50 Hz",
     "source": "tat_power",
     "last_verified": "2026-09-29"
-  }
+  },
+  "checklist": [
+    {
+      "id": "cash_declare",
+      "phase": "three_days",
+      "icon": "cash",
+      "title_ko": "현금 신고 기준 알아 두기",
+      "section": "payment",
+      "text_ko": "미화 1만 5천 달러어치가 넘는 현금을 가지고 들어가면 세관(가방 속 물건을 확인하는 곳)에 신고해야 해요."
+    }
+  ]
 }

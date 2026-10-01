@@ -14,7 +14,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import java.util.Locale
@@ -28,6 +27,8 @@ data class HelpUi(
     val common: List<EmergencyContact> = emptyList(),
     val commonSourceName: String? = null,
     val ttsAvailable: Boolean = false,
+    /** index 출처 id → 이름 (어느 나라에서나 항목의 출처가 여러 개일 때 SourceList용, DESIGN_SPEC 4.5) */
+    val indexSources: Map<String, String> = emptyMap(),
 )
 
 @HiltViewModel
@@ -47,12 +48,15 @@ class HelpViewModel @Inject constructor(
         val selected = code?.let { packs.pack(it) }
         val tts = selected?.value?.localLanguage?.ttsLang
             ?.let { speaker.isAvailable(Locale.forLanguageTag(it)) } ?: false
+        val common = index?.commonEmergency.orEmpty()
+        val indexSources = index?.sources.orEmpty().associate { it.id to it.name }
         HelpUi(
             countries = available,
             selected = selected,
-            common = index?.commonEmergency.orEmpty(),
-            commonSourceName = index?.sources?.firstOrNull()?.name,
+            common = common,
+            commonSourceName = commonSourceName(common, indexSources),
             ttsAvailable = tts,
+            indexSources = indexSources,
         )
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), HelpUi())
 
@@ -63,3 +67,11 @@ class HelpViewModel @Inject constructor(
         speaker.speak(phrase.local, Locale.forLanguageTag(lang))
     }
 }
+
+/**
+ * '어느 나라에서나' 카드의 출처 이름: 첫 공통 항목의 **출처 ID**를 index 출처 목록에서 이름으로 푼다.
+ * (예전에는 index 출처 목록의 첫 이름을 그대로 붙여서, 항목과 다른 출처 이름이 보일 수 있었다 — DESIGN_SPEC 1.2 #1, 4.5)
+ * 이름을 못 찾으면 null — 화면이 `공식 안내`로 대신 보인다(내부 ID는 절대 보이지 않는다).
+ */
+internal fun commonSourceName(common: List<EmergencyContact>, indexSources: Map<String, String>): String? =
+    common.firstOrNull()?.source?.let { id -> indexSources[id]?.takeIf { it.isNotBlank() } }
