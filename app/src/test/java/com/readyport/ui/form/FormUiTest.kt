@@ -5,11 +5,23 @@ import androidx.annotation.StringRes
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.SemanticsActions
+import androidx.compose.ui.semantics.SemanticsProperties
+import androidx.compose.ui.semantics.getOrNull
+import androidx.compose.ui.test.SemanticsMatcher
+import androidx.compose.ui.test.assert
 import androidx.compose.ui.test.assertCountEquals
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsEnabled
+import androidx.compose.ui.test.assertIsFocused
 import androidx.compose.ui.test.assertIsNotEnabled
+import androidx.compose.ui.test.assertIsNotSelected
+import androidx.compose.ui.test.assertIsSelected
+import androidx.compose.ui.test.getBoundsInRoot
+import androidx.compose.ui.test.hasContentDescription
 import androidx.compose.ui.test.hasScrollAction
+import androidx.compose.ui.test.hasSetTextAction
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.v2.createComposeRule
 import androidx.compose.ui.test.onAllNodesWithText
@@ -105,6 +117,39 @@ class FormUiTest {
         rule.onNode(hasScrollAction()).performScrollToNode(hasText(s(R.string.form_confirm_yes)))
         rule.onNodeWithText(s(R.string.form_confirm_yes)).assertIsEnabled().performClick()
         assertTrue(confirmed)
+    }
+
+    @Test
+    fun missingBlanksAreListedAndTagJumpsToThatField() {
+        rule.setContent { ReadyPortTheme { FormConfirmContent(ui(), { _, _ -> }, {}, {}, {}, {}) } }
+        val missing = FormValues.missingRequired(recipe.value, ui().values)
+        val occupation = missing.first { it.key == "profile.occupation" }.labels.ko
+        // 직접 고를 칸 카드 머리의 '빈칸 N개 남았어요' (남은 빈칸 띠의 태그는 TalkBack 문장으로 바뀌어 글자 노드가 하나)
+        shown(s(R.string.form_missing_count, missing.size))
+        // 남은 빈칸 띠: TalkBack은 기존 문장 그대로, 빈칸 개수가 바뀔 때만 다시 알린다
+        val sentence = s(R.string.form_need_required, missing.joinToString(", ") { it.labels.ko })
+        rule.onNode(hasScrollAction()).performScrollToNode(hasContentDescription(sentence))
+        rule.onNode(hasContentDescription(sentence)).assert(SemanticsMatcher.keyIsDefined(SemanticsProperties.LiveRegion))
+        // 빈칸 이름 태그는 누를 수 있고 'OO 칸으로 가기'로 읽힌다 → 누르면 그 칸으로 가서 초점
+        val goLabel = s(R.string.form_go_field_cd, occupation)
+        val tag = SemanticsMatcher("onClick label = $goLabel") { it.config.getOrNull(SemanticsActions.OnClick)?.label == goLabel }
+        rule.onNode(hasScrollAction()).performScrollToNode(tag)
+        rule.onNodeWithText(s(R.string.form_go_first_missing)).assertExists()
+        rule.onNode(tag).performClick()
+        rule.waitForIdle()
+        rule.onNode(hasSetTextAction() and hasText(occupation, substring = true)).assertIsDisplayed().assertIsFocused()
+    }
+
+    @Test
+    fun localLargeIsAToggleChip() {
+        rule.setContent { ReadyPortTheme { FormConfirmContent(ui(), { _, _ -> }, {}, {}, {}, {}) } }
+        val chip = rule.onNode(hasText(s(R.string.form_local_large)) and SemanticsMatcher.expectValue(SemanticsProperties.Role, Role.Checkbox))
+        chip.assertIsNotSelected().performClick()
+        chip.assertIsSelected()
+        // 정부 비제휴 고지가 첫 정보 항목, 보안 한 줄이 그 다음
+        val notice = rule.onNodeWithText(s(R.string.guide_not_affiliated)).getBoundsInRoot()
+        val security = rule.onNodeWithText(s(R.string.settings_local_only_title)).getBoundsInRoot()
+        assertTrue(notice.top < security.top)
     }
 
     @Test

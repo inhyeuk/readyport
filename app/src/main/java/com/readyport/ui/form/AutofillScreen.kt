@@ -13,36 +13,61 @@ import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material.icons.automirrored.outlined.OpenInNew
+import androidx.compose.material.icons.outlined.CheckCircle
+import androidx.compose.material.icons.outlined.EditNote
+import androidx.compose.material.icons.outlined.GppMaybe
+import androidx.compose.material.icons.outlined.Info
+import androidx.compose.material.icons.outlined.Policy
+import androidx.compose.material.icons.outlined.ReportProblem
+import androidx.compose.material.icons.outlined.SaveAlt
+import androidx.compose.material.icons.outlined.TaskAlt
+import androidx.compose.material.icons.outlined.TouchApp
+import androidx.compose.material.icons.outlined.VerifiedUser
+import androidx.compose.material.icons.outlined.Visibility
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.net.toUri
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.readyport.R
+import com.readyport.autofill.RecipeStep
 import com.readyport.autofill.UrlPolicy
 import com.readyport.security.SecureScreen
-import com.readyport.ui.components.CardTone
-import com.readyport.ui.components.InfoCard
+import com.readyport.ui.components.BadgeTone
+import com.readyport.ui.components.BannerTone
+import com.readyport.ui.components.IconBullet
+import com.readyport.ui.components.LockedState
+import com.readyport.ui.components.NoticeBanner
 import com.readyport.ui.components.PrimaryButton
-import com.readyport.ui.components.StatusChip
+import com.readyport.ui.components.QuietButton
+import com.readyport.ui.components.SecondaryButton
+import com.readyport.ui.components.SecurityBanner
+import com.readyport.ui.components.StatusKind
+import com.readyport.ui.components.StatusTag
+import com.readyport.ui.components.TextCircle
+import com.readyport.ui.components.startBar
 import com.readyport.ui.theme.LocalDimens
 import com.readyport.ui.theme.Tokens
 import com.readyport.ui.wallet.rememberDeviceAuth
@@ -97,15 +122,25 @@ fun AutofillScreen(onManual: () -> Unit, viewModel: AutofillViewModel = hiltView
     var compare by remember { mutableStateOf<Map<String, Boolean>>(emptyMap()) }
     var nothingVisible by remember { mutableStateOf(false) }
     var captured by remember { mutableStateOf(false) }
-    val scope = androidx.compose.runtime.rememberCoroutineScope()
+    val scope = rememberCoroutineScope()
 
     if (recipe == null || engine == null) return
     if (ui.locked) {
-        Column(Modifier.fillMaxSize().padding(LocalDimens.current.screenPadding), verticalArrangement = Arrangement.Center) {
-            InfoCard {
-                Text(stringResource(R.string.wallet_locked_title), style = MaterialTheme.typography.titleMedium)
-                PrimaryButton(stringResource(R.string.wallet_unlock), onClick = { auth { viewModel.unlock() } })
-            }
+        Column(
+            Modifier
+                .fillMaxSize()
+                .background(Tokens.Ground)
+                .verticalScroll(rememberScrollState())
+                .padding(LocalDimens.current.screenPadding),
+            verticalArrangement = Arrangement.spacedBy(LocalDimens.current.gap),
+        ) {
+            TopNotices()
+            LockedState(
+                title = stringResource(R.string.wallet_locked_title),
+                body = stringResource(R.string.form_locked_body),
+                buttonLabel = stringResource(R.string.wallet_unlock),
+                onUnlock = { auth { viewModel.unlock() } },
+            )
         }
         return
     }
@@ -142,43 +177,29 @@ fun AutofillScreen(onManual: () -> Unit, viewModel: AutofillViewModel = hiltView
         }
     }
 
+    val onManualChosen = {
+        viewModel.report("-", "manual_mode_chosen")
+        onManual()
+    }
+    val labels = recipe.fields.associate { it.key to it.labels.ko }
+
     Column(Modifier.fillMaxSize().background(Tokens.Ground)) {
-        // 상단: 공식 사이트 표시 (PRD 5.3)
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-            modifier = Modifier.fillMaxWidth().background(if (official) Tokens.SuccessBg else Tokens.DangerBg).padding(12.dp),
+        // 위: 정부 비제휴(첫 항목) → 보안 한 줄 → 공식 사이트 연결 상태와 단계 (PRD 5.3, DESIGN_SPEC 6-17 공통)
+        Column(
+            Modifier.fillMaxWidth().padding(horizontal = 12.dp, vertical = 8.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
-            Icon(Icons.Filled.Lock, contentDescription = null, tint = if (official) Tokens.SuccessText else Tokens.DangerText, modifier = Modifier.size(20.dp))
-            Text(
-                if (official) stringResource(R.string.autofill_connected, currentUrl?.toUri()?.host.orEmpty())
-                else stringResource(R.string.autofill_not_official),
-                color = if (official) Tokens.SuccessText else Tokens.DangerText,
-                style = MaterialTheme.typography.labelLarge,
-                modifier = Modifier.weight(1f),
+            TopNotices()
+            SiteStatus(
+                official = official,
+                host = currentUrl?.toUri()?.host.orEmpty(),
+                steps = recipe.steps,
+                visibleSteps = visibleSteps,
+                onManual = onManualChosen,
             )
-            TextButton(onClick = { viewModel.report("-", "manual_mode_chosen"); onManual() }, modifier = Modifier.heightIn(min = 48.dp)) {
-                Text(stringResource(R.string.form_manual_mode))
-            }
         }
-        // 단계 표시
-        FlowRow(
-            horizontalArrangement = Arrangement.spacedBy(6.dp),
-            verticalArrangement = Arrangement.spacedBy(6.dp),
-            modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp),
-        ) {
-            recipe.steps.forEachIndexed { i, s ->
-                val on = visibleSteps.getOrNull(i) == true
-                StatusChip(s.titleKo, if (on) Tokens.Accent else Tokens.AccentSoft, if (on) Tokens.Surface else Tokens.Ink)
-            }
-        }
-        // 사람이 할 곳 안내 (주황 배너)
-        Text(
-            stringResource(R.string.autofill_human_banner),
-            color = Tokens.CautionText,
-            style = MaterialTheme.typography.bodyMedium,
-            modifier = Modifier.fillMaxWidth().background(Tokens.CautionBg).padding(horizontal = 12.dp, vertical = 8.dp),
-        )
+        // 사람이 할 곳 안내 (주의 띠) — 사이트 바로 위
+        HumanStrip()
         OfficialSiteWebView(
             startUrl = recipe.startUrl,
             patterns = recipe.officialUrlPatterns,
@@ -191,57 +212,144 @@ fun AutofillScreen(onManual: () -> Unit, viewModel: AutofillViewModel = hiltView
             },
             modifier = Modifier.weight(1f),
         )
-        // 하단: 결과·버튼
+        HorizontalDivider(thickness = 1.dp, color = Tokens.Line)
+        // 아래: 결과·버튼
         Column(
             verticalArrangement = Arrangement.spacedBy(8.dp),
             modifier = Modifier.fillMaxWidth().background(Tokens.Surface).padding(12.dp),
         ) {
             if (ui.submitted) {
-                InfoCard(tone = CardTone.Accent) {
-                    Text(stringResource(R.string.autofill_submitted), style = MaterialTheme.typography.bodyLarge)
-                    if (captured) {
-                        Text(stringResource(R.string.autofill_saved_capture), style = MaterialTheme.typography.bodyMedium)
-                    } else {
-                        PrimaryButton(stringResource(R.string.autofill_save_capture), onClick = {
+                NoticeBanner(stringResource(R.string.autofill_submitted), icon = Icons.Outlined.TaskAlt, tone = BannerTone.Success)
+                if (captured) {
+                    IconBullet(stringResource(R.string.autofill_saved_capture), Icons.Outlined.CheckCircle, tone = BadgeTone.Success)
+                } else {
+                    PrimaryButton(
+                        stringResource(R.string.autofill_save_capture),
+                        onClick = {
                             val wv = webView ?: return@PrimaryButton
                             val png = captureWebView(wv)
                             scope.launch { captured = viewModel.saveCapture(png) }
-                        })
-                    }
-                }
-            }
-            if (nothingVisible) Text(stringResource(R.string.autofill_nothing_visible), style = MaterialTheme.typography.bodyMedium)
-            report?.let { r ->
-                Text(stringResource(R.string.autofill_result, r.filled.size, r.assist.size), style = MaterialTheme.typography.titleMedium)
-                if (r.missing.isNotEmpty()) {
-                    Text(stringResource(R.string.autofill_failed), color = Tokens.DangerText, style = MaterialTheme.typography.bodyMedium)
-                } else {
-                    Text(stringResource(R.string.autofill_next_hint), style = MaterialTheme.typography.bodySmall)
-                }
-                if (compare.isNotEmpty()) {
-                    val labels = recipe.fields.associate { it.key to it.labels.ko }
-                    Text(
-                        stringResource(R.string.autofill_compare_title) + ": " + compare.entries.joinToString(" · ") { (k, ok) ->
-                            "${labels[k] ?: k} " + if (ok) "✓" else "✗"
                         },
-                        style = MaterialTheme.typography.bodySmall,
+                        icon = Icons.Outlined.SaveAlt,
                     )
                 }
             }
-            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                PrimaryButton(
-                    stringResource(if (report == null) R.string.autofill_fill_now else R.string.autofill_refill),
-                    onClick = ::fillNow,
-                    enabled = official,
+            if (nothingVisible) IconBullet(stringResource(R.string.autofill_nothing_visible), Icons.Outlined.Info)
+            report?.let { r ->
+                Text(stringResource(R.string.autofill_result, r.filled.size, r.assist.size), style = MaterialTheme.typography.titleMedium, color = Tokens.Ink)
+                if (r.missing.isNotEmpty()) {
+                    NoticeBanner(stringResource(R.string.autofill_failed), icon = Icons.Outlined.ReportProblem, tone = BannerTone.Danger)
+                } else {
+                    Text(stringResource(R.string.autofill_next_hint), style = MaterialTheme.typography.bodyMedium, color = Tokens.InkSecondary)
+                }
+                if (compare.isNotEmpty()) {
+                    // 입력값 대조 (PRD 5.3): 칸마다 같아요/달라요 — 색 + 아이콘 + 글자
+                    Text(stringResource(R.string.autofill_compare_title), style = MaterialTheme.typography.titleSmall, color = Tokens.InkSecondary)
+                    FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                        compare.forEach { (k, ok) ->
+                            val label = labels[k] ?: return@forEach
+                            StatusTag(
+                                stringResource(if (ok) R.string.autofill_compare_same else R.string.autofill_compare_diff, label),
+                                if (ok) StatusKind.Allowed else StatusKind.Caution,
+                            )
+                        }
+                    }
+                }
+            }
+            val fillLabel = stringResource(if (report == null) R.string.autofill_fill_now else R.string.autofill_refill)
+            if (ui.submitted) {
+                // 제출 뒤에는 확인 화면 저장이 주 버튼 (화면당 주 버튼 하나)
+                SecondaryButton(fillLabel, onClick = ::fillNow, icon = Icons.Outlined.EditNote, enabled = official)
+            } else {
+                PrimaryButton(fillLabel, onClick = ::fillNow, enabled = official, icon = Icons.Outlined.EditNote)
+            }
+            if (report?.missing?.isNotEmpty() == true) {
+                SecondaryButton(stringResource(R.string.form_manual_mode), onClick = onManual, icon = Icons.AutoMirrored.Outlined.OpenInNew)
+            }
+        }
+    }
+}
+
+/** 정부 비제휴(첫 항목) + 보안 한 줄 (입국 카드 화면 공통, DESIGN_SPEC 6장 머리말) */
+@Composable
+private fun TopNotices() {
+    NoticeBanner(stringResource(R.string.guide_not_affiliated), icon = Icons.Outlined.Policy)
+    SecurityBanner(compact = true)
+}
+
+/** 공식 사이트 연결 상태(초록 = 공식 / 빨강 = 아님, 색 + 아이콘 + 글자) + 수동 모드 + 사이트 단계 */
+@Composable
+private fun SiteStatus(official: Boolean, host: String, steps: List<RecipeStep>, visibleSteps: List<Boolean>, onManual: () -> Unit) {
+    val dimens = LocalDimens.current
+    val bg = if (official) Tokens.SuccessBg else Tokens.DangerBg
+    val fg = if (official) Tokens.SuccessText else Tokens.DangerText
+    Surface(color = bg, contentColor = fg, shape = MaterialTheme.shapes.small, modifier = Modifier.fillMaxWidth()) {
+        Column(
+            Modifier.fillMaxWidth().startBar(fg).padding(start = 16.dp, end = 4.dp, top = 4.dp, bottom = 10.dp),
+            verticalArrangement = Arrangement.spacedBy(4.dp),
+        ) {
+            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                Icon(
+                    if (official) Icons.Outlined.VerifiedUser else Icons.Outlined.GppMaybe,
+                    contentDescription = null,
+                    tint = fg,
+                    modifier = Modifier.size(dimens.icon),
+                )
+                Text(
+                    if (official) stringResource(R.string.autofill_connected, host) else stringResource(R.string.autofill_not_official),
+                    color = fg,
+                    style = MaterialTheme.typography.labelLarge,
                     modifier = Modifier.weight(1f),
                 )
-                if (report?.missing?.isNotEmpty() == true) {
-                    OutlinedButton(onClick = onManual, modifier = Modifier.heightIn(min = LocalDimens.current.buttonHeight)) {
-                        Text(stringResource(R.string.form_manual_mode))
+                QuietButton(stringResource(R.string.form_manual_mode), onClick = onManual)
+            }
+            // 단계 표시: 지금 사이트 화면에 보이는 단계는 채운 번호 원 + 눈 아이콘 + 굵은 글자
+            FlowRow(horizontalArrangement = Arrangement.spacedBy(12.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                steps.forEachIndexed { i, s ->
+                    val on = visibleSteps.getOrNull(i) == true
+                    Row(
+                        Modifier.semantics(mergeDescendants = true) {},
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(6.dp),
+                    ) {
+                        TextCircle(
+                            "${i + 1}",
+                            minSize = 24.dp,
+                            container = if (on) Tokens.Accent else Tokens.Surface,
+                            content = if (on) Tokens.Surface else Tokens.InkSecondary,
+                            style = MaterialTheme.typography.labelMedium,
+                        )
+                        Text(
+                            s.titleKo,
+                            style = MaterialTheme.typography.labelLarge.copy(fontWeight = if (on) FontWeight.Bold else FontWeight.Medium),
+                            color = Tokens.Ink,
+                        )
+                        if (on) Icon(Icons.Outlined.Visibility, contentDescription = null, tint = Tokens.Accent, modifier = Modifier.size(dimens.iconSmall))
                     }
                 }
             }
         }
+    }
+}
+
+/** 사람이 직접 할 곳 안내 — 사이트 바로 위의 얇은 주의 띠 (누를 수 없음) */
+@Composable
+private fun HumanStrip() {
+    Row(
+        Modifier
+            .fillMaxWidth()
+            .background(Tokens.CautionBg)
+            .padding(horizontal = 16.dp, vertical = 8.dp),
+        verticalAlignment = Alignment.Top,
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+    ) {
+        Icon(
+            Icons.Outlined.TouchApp,
+            contentDescription = null,
+            tint = Tokens.CautionText,
+            modifier = Modifier.padding(top = 1.dp).size(LocalDimens.current.iconSmall + 4.dp),
+        )
+        Text(stringResource(R.string.autofill_human_banner), color = Tokens.CautionText, style = MaterialTheme.typography.bodyMedium)
     }
 }
 
