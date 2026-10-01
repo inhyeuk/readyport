@@ -47,6 +47,14 @@ class M5RecipesTest {
         assertEquals(null, runBlocking { TestPacks.repo.recipe("JP_VJW") })
         // 중국 온라인 입국 카드는 여권 사진 올리기·서명이 있어 레시피 없이 수동 모드(값 복사해서 넣기)
         assertEquals(null, runBlocking { TestPacks.repo.recipe("CN_ARRIVAL") })
+        // 필리핀 eTravel도 이메일 계정·확인 코드 뒤에 칸이 있어 레시피 없이 값 복사(수동) 모드
+        val ph = runBlocking { TestPacks.repo.pack("PH") }!!.value
+        assertTrue(ph.emergency.isNotEmpty() && ph.embassy != null && ph.forms.single().id == "PH_ETRAVEL")
+        assertEquals(null, runBlocking { TestPacks.repo.recipe("PH_ETRAVEL") })
+        // 베트남은 입국 신고 양식이 없다(무비자 45일). 전자비자는 안내만 — 레시피 없음
+        val vn = runBlocking { TestPacks.repo.pack("VN") }!!.value
+        assertTrue(vn.emergency.isNotEmpty() && vn.embassy != null && vn.forms.isEmpty())
+        assertEquals(null, runBlocking { TestPacks.repo.recipe("VN_EVISA") })
     }
 
     @Test

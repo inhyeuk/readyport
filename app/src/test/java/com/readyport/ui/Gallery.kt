@@ -133,6 +133,11 @@ object Gallery {
         "country-entry-CN" to { CountryContent(TestPacks.countryUi("CN"), CountryActions()) },
         // 중국 여행 정보: 특별여행주의보(티베트·신장) 문장이 맨 위 위험 배너로 올라간다
         "country-travel-CN" to { CountryContent(TestPacks.countryUi("CN"), CountryActions(), CountrySection.Travel) },
+        // 필리핀: 무비자 30일 + eTravel(값 복사 모드). 여행 정보 맨 위 위험 배너(3·4단계 지역)는 country-travel-PH
+        "country-entry-PH" to { CountryContent(TestPacks.countryUi("PH"), CountryActions()) },
+        "country-travel-PH" to { CountryContent(TestPacks.countryUi("PH"), CountryActions(), CountrySection.Travel) },
+        // 베트남: 무비자 45일, 입국 카드 없음. 45일 넘게 머물 때만 전자비자 — 공식 사이트 열기(보조 버튼)
+        "country-entry-VN" to { CountryContent(TestPacks.countryUi("VN"), CountryActions()) },
         "country-travel" to { CountryContent(TestPacks.countryUi("TH", favorite = true), CountryActions(), CountrySection.Travel) },
         "country-shopping" to { CountryContent(TestPacks.countryUi("JP"), CountryActions(), CountrySection.Shopping) },
         "videos" to {

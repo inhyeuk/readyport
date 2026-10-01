@@ -22,7 +22,7 @@ object SourceTextCheck {
 class SourceNamesTest {
 
     private val index get() = TestPacks.index.value
-    private val codes = listOf("TH", "JP", "SG", "MY", "ID", "TW", "CN")
+    private val codes = listOf("TH", "JP", "SG", "MY", "ID", "TW", "CN", "PH", "VN")
 
     private fun CountryPack.policySourceIds(): List<Pair<String, String>> = buildList {
         requirements.forEach { r ->

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "version": "2026.10.02-1",
+  "version": "2026.10.02-2",
   "countries": [
     {
       "code": "TH",
@@ -42,6 +42,18 @@
       "code": "CN",
       "name_ko": "중국",
       "name_en": "China",
+      "pack": true
+    },
+    {
+      "code": "PH",
+      "name_ko": "필리핀",
+      "name_en": "Philippines",
+      "pack": true
+    },
+    {
+      "code": "VN",
+      "name_ko": "베트남",
+      "name_en": "Vietnam",
       "pack": true
     }
   ],

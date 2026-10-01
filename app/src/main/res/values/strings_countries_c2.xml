@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  나라 추가 c2(필리핀·베트남)의 새 문구. 다른 파일의 기존 문구·키는 그대로.
+-->
+<resources>
+    <!-- 04 비자 신청 카드 — 앱이 입력을 돕지 않는 신청(팩 apply.form이 이 팩의 양식이 아니고 레시피도 없음, 예: 베트남 전자비자).
+         버튼은 공식 사이트를 열 뿐이고, 안내 한 줄은 '앱은 입력 칸만 채워 드려요' 대신 이것 -->
+    <string name="country_visa_apply_open_site">공식 사이트에서 직접 신청하기</string>
+    <string name="country_visa_apply_note_site">레디포트는 이 신청을 대신 채우지 않아요. 공식 사이트에서 직접 적고 결제하세요.</string>
+</resources>
