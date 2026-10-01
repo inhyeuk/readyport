@@ -30,9 +30,12 @@ import com.readyport.ui.ReadyPortRoot
 import com.readyport.ui.TestPacks
 import com.readyport.ui.present.CompanionsContent
 import com.readyport.ui.theme.ReadyPortTheme
+import com.readyport.ui.trip.TripContent
+import com.readyport.ui.trip.TripFormUi
 import com.readyport.vault.VaultContents
 import com.readyport.vault.WalletState
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
@@ -119,6 +122,52 @@ class TripUiTest {
         assertTrue(postponed)
         rule.onNodeWithText(s(R.string.today_destroy_now)).performClick()
         assertTrue(destroyed)
+    }
+
+    @Test
+    fun returnListsProhibitedCartItemsFirstWithSources() {
+        val th = TestPacks.thailand.value
+        val index = TestPacks.index.value
+        rule.setContent {
+            ReadyPortTheme {
+                TodayContent(
+                    TodayUi(trip, StageInfo(TripStage.Return), "태국", null, true, cart = th.shopping.sortedBy { it.importStatus != "allowed" },
+                        returnLinks = index.returnLinks, returnFacts = index.returnFacts,
+                        indexSources = index.sources.associate { it.id to it.name }, sourceNames = th.sources.associate { it.id to it.name }),
+                    TodayActions(), {}, {}, {}, {}, {},
+                )
+            }
+        }
+        val names = th.shopping.sortedBy { it.importStatus != "prohibited" }.map { it.names.ko }
+        shown(names.first())
+        // 반입 불가 품목이 담아 둔 물건 중 맨 위
+        val tops = th.shopping.map { rule.onNodeWithText(it.names.ko).fetchSemanticsNode().boundsInRoot.top }
+        val prohibitedTop = rule.onNodeWithText(names.first()).fetchSemanticsNode().boundsInRoot.top
+        assertTrue(tops.all { it >= prohibitedTop })
+        // 품목 출처(관광청 안내)가 카드 맨 아래 출처 줄에 이름으로 보인다(내부 ID 아님)
+        val itemSource = th.sources.first { it.id == th.shopping.first().source }.name
+        rule.onAllNodes(hasText(itemSource, substring = true)).onFirst().assertExists()
+        rule.onAllNodes(hasText(th.shopping.first().source, substring = true)).assertCountEquals(0)
+    }
+
+    @Test
+    fun deletingTripAsksFirst() {
+        var deleted = false
+        rule.setContent {
+            ReadyPortTheme {
+                TripContent(TripFormUi(TestPacks.index.value.countries.filter { it.pack }, trip, loaded = true), { _, _, _ -> }, { deleted = true })
+            }
+        }
+        // 날짜가 올바르면 칸 아래에 요일까지 보인다 (D20)
+        shown(s(R.string.trip_date_preview, 11, 3, "화"))
+        shown(s(R.string.trip_delete))
+        rule.onNodeWithText(s(R.string.trip_delete)).performClick()
+        rule.onNodeWithText(s(R.string.trip_delete_confirm_title)).assertIsDisplayed()
+        rule.onNodeWithText(s(R.string.action_cancel_keep)).performClick()
+        assertFalse(deleted)
+        rule.onNodeWithText(s(R.string.trip_delete)).performClick()
+        rule.onNodeWithText(s(R.string.trip_delete_confirm)).performClick()
+        assertTrue(deleted)
     }
 
     @Test
