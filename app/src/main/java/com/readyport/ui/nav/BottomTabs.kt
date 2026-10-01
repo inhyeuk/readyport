@@ -1,18 +1,28 @@
 package com.readyport.ui.nav
 
 import androidx.annotation.StringRes
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.selectableGroup
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.foundation.text.TextAutoSize
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Luggage
+import androidx.compose.material.icons.filled.QrCode2
+import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.SupportAgent
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Luggage
 import androidx.compose.material.icons.outlined.QrCode2
@@ -22,6 +32,7 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -37,14 +48,15 @@ import com.readyport.R
 import com.readyport.ui.theme.LocalDimens
 import com.readyport.ui.theme.Tokens
 
-enum class Tab(@StringRes val label: Int, val icon: ImageVector, val route: Any) {
-    Home(R.string.tab_home, Icons.Outlined.Home, HomeRoute),
-    Trip(R.string.tab_trip, Icons.Outlined.Luggage, TodayRoute),
-    Help(R.string.tab_help, Icons.Outlined.SupportAgent, HelpRoute),
-    Settings(R.string.tab_settings, Icons.Outlined.Settings, SettingsRoute),
+/** [selectedIcon]: 선택된 탭에서만 쓰는 채운 아이콘 (Filled는 '켜짐·선택' 상태에만, D12) */
+enum class Tab(@StringRes val label: Int, val icon: ImageVector, val route: Any, val selectedIcon: ImageVector = icon) {
+    Home(R.string.tab_home, Icons.Outlined.Home, HomeRoute, Icons.Filled.Home),
+    Trip(R.string.tab_trip, Icons.Outlined.Luggage, TodayRoute, Icons.Filled.Luggage),
+    Help(R.string.tab_help, Icons.Outlined.SupportAgent, HelpRoute, Icons.Filled.SupportAgent),
+    Settings(R.string.tab_settings, Icons.Outlined.Settings, SettingsRoute, Icons.Filled.Settings),
 
     /** 자녀 폰 모드에서만 쓰는 탭 */
-    Present(R.string.tab_present, Icons.Outlined.QrCode2, PresentRoute);
+    Present(R.string.tab_present, Icons.Outlined.QrCode2, PresentRoute, Icons.Filled.QrCode2);
 
     companion object {
         val Main = listOf(Home, Trip, Help, Settings)
@@ -53,50 +65,87 @@ enum class Tab(@StringRes val label: Int, val icon: ImageVector, val route: Any)
     }
 }
 
+/** 선택 탭 아이콘 뒤 알약 인디케이터 크기 (DESIGN_SPEC 6장 공통 틀) — 글자가 아니라 아이콘만 품는다 */
+private val IndicatorWidth = 64.dp
+private val IndicatorHeight = 32.dp
+
+/** 기본 모드 탭 라벨 autoSize 하한 — 기존 예외(DESIGN_SPEC 7장 7번)는 기본 모드에서만. 쉬운 모드는 줄이지 않고 2줄 */
+private val BasicLabelMinSize = 10.sp
+
 /**
- * 하단 탭 4개: 홈 · 내 여행 · 도움 · 설정.
+ * 하단 탭 4개: 홈 · 내 여행 · 도움 · 설정 (DESIGN_SPEC 6장 공통 틀).
  * Material NavigationBar는 높이가 고정이라 글자를 크게 키우면 라벨이 잘린다.
- * 그래서 높이가 내용에 맞춰 늘어나고, 라벨이 칸보다 넓으면 글자를 줄여 맞추는 탭 막대를 직접 그린다.
+ * 그래서 높이가 내용에 맞춰 늘어나는 탭 막대를 직접 그린다.
+ * - 선택 탭: 아이콘 뒤 64×32dp 알약(AccentSoft, 도움 탭은 HelpSoft) + 채운 아이콘 + 굵은 라벨 — 색 말고도 모양·굵기로 구분
+ * - 도움 탭은 선택 여부와 상관없이 따뜻한 색(Help)으로 항상 구분한다(PRD). 비선택이면 굵기만 Medium
+ * - 라벨: 기본 모드는 칸보다 넓으면 10sp까지 줄여 한 줄, 쉬운 모드(18sp)는 줄이지 않고 2줄로 넘긴다(D19)
  */
 @Composable
 fun BottomTabs(selected: Tab, onSelect: (Tab) -> Unit, tabs: List<Tab> = Tab.Main) {
-    val dimens = LocalDimens.current
-    val labelStyle = MaterialTheme.typography.labelMedium
     Surface(color = Tokens.Surface) {
         Column(Modifier.navigationBarsPadding()) {
             HorizontalDivider(color = Tokens.LineSoft)
-            Row(Modifier.fillMaxWidth().selectableGroup()) {
-                tabs.forEach { tab ->
-                    val isSelected = tab == selected
-                    // 도움 탭은 선택 여부와 상관없이 따뜻한 색으로 항상 구분한다
-                    val color: Color = when {
-                        tab == Tab.Help -> Tokens.Help
-                        isSelected -> Tokens.Accent
-                        else -> Tokens.InkSecondary
-                    }
-                    Column(
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.spacedBy(2.dp),
-                        modifier = Modifier
-                            .weight(1f)
-                            .heightIn(min = dimens.buttonHeight + 8.dp)
-                            .selectable(selected = isSelected, role = Role.Tab, onClick = { onSelect(tab) })
-                            .padding(vertical = 8.dp, horizontal = 2.dp),
-                    ) {
-                        Icon(tab.icon, contentDescription = null, tint = color)
-                        BasicText(
-                            text = stringResource(tab.label),
-                            style = labelStyle.copy(
-                                color = color,
-                                textAlign = TextAlign.Center,
-                                fontWeight = if (isSelected || tab == Tab.Help) FontWeight.Bold else FontWeight.Medium,
-                            ),
-                            maxLines = 1,
-                            autoSize = TextAutoSize.StepBased(minFontSize = 10.sp, maxFontSize = labelStyle.fontSize),
-                        )
-                    }
-                }
+            Row(Modifier.fillMaxWidth().padding(horizontal = 4.dp).selectableGroup()) {
+                tabs.forEach { tab -> TabItem(tab, selected = tab == selected, onClick = { onSelect(tab) }) }
             }
+        }
+    }
+}
+
+@Composable
+private fun RowScope.TabItem(tab: Tab, selected: Boolean, onClick: () -> Unit) {
+    val dimens = LocalDimens.current
+    val labelStyle = MaterialTheme.typography.labelSmall
+    val help = tab == Tab.Help
+    val color: Color = when {
+        help -> Tokens.Help
+        selected -> Tokens.Accent
+        else -> Tokens.InkSecondary
+    }
+    val style = labelStyle.copy(
+        color = color,
+        textAlign = TextAlign.Center,
+        fontWeight = if (selected) FontWeight.Bold else FontWeight.Medium,
+    )
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(2.dp),
+        modifier = Modifier
+            .weight(1f)
+            .heightIn(min = dimens.buttonHeight + 8.dp)
+            .selectable(selected = selected, role = Role.Tab, onClick = onClick)
+            // 위아래 4dp: 인디케이터(32dp)가 들어와도 막대 높이가 예전(아이콘 24 + 위아래 8)과 같다 — 다른 탭 첫 화면 예산 유지
+            .padding(vertical = 4.dp, horizontal = 2.dp),
+    ) {
+        Box(
+            modifier = Modifier
+                .size(IndicatorWidth, IndicatorHeight)
+                .background(
+                    color = when {
+                        !selected -> Color.Transparent
+                        help -> Tokens.HelpSoft
+                        else -> Tokens.AccentSoft
+                    },
+                    shape = CircleShape,
+                ),
+            contentAlignment = Alignment.Center,
+        ) {
+            Icon(
+                if (selected) tab.selectedIcon else tab.icon,
+                contentDescription = null,
+                tint = color,
+                modifier = Modifier.size(dimens.icon),
+            )
+        }
+        if (dimens.easyMode) {
+            Text(stringResource(tab.label), style = style)
+        } else {
+            BasicText(
+                text = stringResource(tab.label),
+                style = style,
+                maxLines = 1,
+                autoSize = TextAutoSize.StepBased(minFontSize = BasicLabelMinSize, maxFontSize = labelStyle.fontSize),
+            )
         }
     }
 }
