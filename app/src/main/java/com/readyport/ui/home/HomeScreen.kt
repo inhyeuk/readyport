@@ -9,8 +9,8 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -19,8 +19,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.FactCheck
 import androidx.compose.material.icons.outlined.Approval
 import androidx.compose.material.icons.outlined.Badge
-import androidx.compose.material.icons.outlined.BatteryChargingFull
-import androidx.compose.material.icons.outlined.ElectricBolt
 import androidx.compose.material.icons.outlined.EventAvailable
 import androidx.compose.material.icons.outlined.ExpandLess
 import androidx.compose.material.icons.outlined.ExpandMore
@@ -33,13 +31,11 @@ import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material.icons.outlined.Luggage
 import androidx.compose.material.icons.outlined.MeetingRoom
 import androidx.compose.material.icons.outlined.OfflinePin
-import androidx.compose.material.icons.outlined.Power
 import androidx.compose.material.icons.outlined.Schedule
 import androidx.compose.material.icons.outlined.Security
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
-import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -50,7 +46,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -73,7 +68,6 @@ import com.readyport.pack.OfficialLink
 import com.readyport.pack.PackRepository
 import com.readyport.pack.Requirement
 import com.readyport.pack.SourcedText
-import com.readyport.prep.Essentials
 import com.readyport.trip.TripRepository
 import com.readyport.ui.components.AppScreen
 import com.readyport.ui.components.BadgeTitleLayout
@@ -108,7 +102,6 @@ import com.readyport.ui.components.Step
 import com.readyport.ui.components.StepList
 import com.readyport.ui.components.displayDate
 import com.readyport.ui.components.isStackedLayout
-import com.readyport.ui.components.keepWords
 import com.readyport.ui.components.minTouch
 import com.readyport.ui.components.noBreak
 import com.readyport.ui.components.rememberGridColumns
@@ -119,7 +112,11 @@ import com.readyport.ui.components.tileRows
 import com.readyport.ui.components.textIconSize
 import com.readyport.ui.onboarding.AppSymbol
 import com.readyport.ui.onboarding.ValuePropText
+import com.readyport.ui.tabs.EssentialsChips
+import com.readyport.ui.tabs.EssentialsProgress
 import com.readyport.ui.tabs.EssentialsSummary
+import com.readyport.ui.tabs.essentialsSources
+import com.readyport.ui.tabs.essentialsSummary
 import com.readyport.ui.theme.LocalDimens
 import com.readyport.ui.theme.LocalTypeExtras
 import com.readyport.ui.theme.Tokens
@@ -192,11 +189,11 @@ class HomeViewModel @Inject constructor(
         val homeTrip = trip?.let { t ->
             runCatching { HomeTrip(tripPack?.names?.ko ?: t.country, LocalDate.parse(t.startDate), LocalDate.parse(t.endDate), t.country) }.getOrNull()
         }
-        val rules = Essentials.select(index?.essentials.orEmpty(), index?.homePower, tripPack?.power)
         HomeUi(
             countries = countries,
             trip = homeTrip,
-            essentials = EssentialsSummary(rules.size, rules.count { it.id in s.haveItems }),
+            // 여행 준비(18)와 같은 계산 — 진행 n/5 + 값이 있는 정보 칩(여행 나라 전기 · 기내 반입만 되는 물건)과 그 출처
+            essentials = essentialsSummary(index, tripPack, s.haveItems),
             returnLinks = index?.returnLinks.orEmpty(),
             returnFacts = index?.returnFacts.orEmpty(),
             indexSources = index?.sources.orEmpty().associate { it.id to it.name },
@@ -260,7 +257,9 @@ fun HomeContent(ui: HomeUi, actions: HomeActions, today: LocalDate = LocalDate.n
     AppScreen(
         title = stringResource(R.string.home_title),
         speech = stringResource(R.string.home_speech),
-        header = { HomeHero(singleColumn = columns == 1) },
+        header = { HomeHero(singleColumn = columns == 1, hasTrip = ui.trip != null) },
+        // 홈 자신에서는 `처음으로`를 숨긴다(눌러도 아무 일 없음) — 쉬운 모드는 `소리로 듣기`만 폭 전체 (재검토2 ⑤#12)
+        showHomeAction = false,
     ) {
         ui.trip?.let { trip ->
             item(key = "trip") { TripCountdownCard(trip, today, actions.openTrip) }
@@ -368,7 +367,8 @@ private fun Foldable(
 
 /**
  * 접힌 카드 한 줄: 흰 그림자 카드 안 목록 행(ListRow와 같은 여백 토큰·배지·배치 — BadgeTitleLayout) + 끝에 펼침 표시(ExpandMore).
- * 줄 전체가 버튼이고 상태는 `접힘`. 큰 글자 배치에서는 배지·펼침 표시를 윗줄에, 제목·설명을 폭 전체로(숨기지 않음).
+ * 줄 전체가 버튼이고 상태는 `접힘`. 큰 글자 배치(Stacked)에서는 **네 줄 모두** 배지·펼침 표시를 윗줄에, 제목·설명을 폭 전체로 —
+ * 줄마다 '제목이 옆에 들어가는지'로 따로 정하면 한 목록 안에서 모양이 섞였다(재검토2 ②#10·④#6). 숨기는 글은 없다.
  * (ListRow의 끝 요소는 다음 화면 꺾쇠라 '펼침'과 뜻이 달라 같은 배치 부품으로 직접 짠다)
  */
 @Composable
@@ -377,6 +377,12 @@ private fun FoldRow(title: String, icon: ImageVector, tone: BadgeTone, body: Str
     val collapsed = stringResource(R.string.state_collapsed)
     val titleStyle = MaterialTheme.typography.titleMedium
     val iconSize = textIconSize(dimens.icon, titleStyle)
+    val stacked = isStackedLayout()
+    val chevron: @Composable () -> Unit = {
+        Icon(Icons.Outlined.ExpandMore, contentDescription = null, tint = Tokens.Accent, modifier = Modifier.size(iconSize))
+    }
+    val titleText: @Composable () -> Unit = { KoText(title, titleStyle, color = Tokens.Ink, glueShort = true) }
+    val bodyText: (@Composable () -> Unit)? = body?.let { b -> { KoText(b, MaterialTheme.typography.bodyMedium, color = Tokens.InkSecondary) } }
     ListGroup {
         Row(
             Modifier
@@ -385,19 +391,28 @@ private fun FoldRow(title: String, icon: ImageVector, tone: BadgeTone, body: Str
                 .clickable(role = Role.Button, onClick = onOpen)
                 .semantics { stateDescription = collapsed }
                 .padding(horizontal = dimens.listRowPadding, vertical = dimens.listRowPaddingVertical),
-            verticalAlignment = if (body != null) Alignment.Top else Alignment.CenterVertically,
+            verticalAlignment = if (body != null || stacked) Alignment.Top else Alignment.CenterVertically,
         ) {
-            BadgeTitleLayout(
-                title = { KoText(title, titleStyle, color = Tokens.Ink, glueShort = true) },
-                modifier = Modifier.weight(1f),
-                badge = { IconBadge(icon, tone = tone) },
-                trailing = {
-                    Icon(Icons.Outlined.ExpandMore, contentDescription = null, tint = Tokens.Accent, modifier = Modifier.size(iconSize))
-                },
-                below = body?.let { b -> { KoText(b, MaterialTheme.typography.bodyMedium, color = Tokens.InkSecondary) } },
-                stack = isStackedLayout(),
-                gap = 16.dp,
-            )
+            if (stacked) {
+                Column(Modifier.weight(1f)) {
+                    Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+                        IconBadge(icon, tone = tone)
+                        Spacer(Modifier.weight(1f))
+                        chevron()
+                    }
+                    Box(Modifier.padding(top = dimens.inner)) { titleText() }
+                    if (bodyText != null) Box(Modifier.padding(top = 2.dp)) { bodyText() }
+                }
+            } else {
+                BadgeTitleLayout(
+                    title = titleText,
+                    modifier = Modifier.weight(1f),
+                    badge = { IconBadge(icon, tone = tone) },
+                    trailing = chevron,
+                    below = bodyText,
+                    gap = 16.dp,
+                )
+            }
         }
     }
 }
@@ -439,16 +454,17 @@ private fun FoldBackRow(title: String, onFold: () -> Unit) {
  * 사진 위 글자·표시는 모두 스크림 글자 영역(PhotoTextArea) 안. 사진은 그릴 때만 밝기 보정(재검토 R19, 파일은 그대로).
  * - 신뢰 표시는 누를 수 없으므로 버튼처럼 보이는 상자 없이 아이콘 + 글자(InfoChip onDark)로 한 줄에 흐르게 둔다(재검토 R1).
  *   1열([singleColumn] — 쉬운 모드·큰 글자)이면 나라 목록 아래로 옮긴다 — 가치 문장이 들어오면서 첫 화면에서 나라 사진이 밀려나지 않게.
- * - 2열은 글 위로 사진(하늘)이 보이게 최소 높이 280dp, 1열은 160dp.
+ * - 2열은 글 위로 사진(하늘)이 보이게 최소 높이 280dp, 1열·여행이 있을 때는 160dp(내용 높이 — 출발까지 카드를 위로).
  */
 @Composable
-private fun HomeHero(singleColumn: Boolean) {
+private fun HomeHero(singleColumn: Boolean, hasTrip: Boolean) {
     val brandStyle = MaterialTheme.typography.labelLarge
     // 심볼 지름 = 앱 이름 한 줄 높이(최소 24dp) — 글자를 키워도 이름과 크기가 어울리고 줄 높이를 늘리지 않는다
     val symbolSize = maxOf(24.dp, with(LocalDensity.current) { brandStyle.lineHeight.toDp() })
     PhotoBox(
         Photos.Home,
-        minHeight = if (singleColumn) 160.dp else 280.dp,
+        // 여행이 있으면 사진 높이를 내용만큼으로 — 출발까지 카드가 첫 화면 위쪽에 오게 (재검토2 ⑤#13, 글은 그대로)
+        minHeight = if (singleColumn || hasTrip) 160.dp else 280.dp,
         shape = MaterialTheme.shapes.extraLarge,
     ) {
         PhotoTextArea {
@@ -561,58 +577,28 @@ private fun DepartureCard() {
 }
 
 /**
- * 꼭 챙길 물건: 짐 사진 머리 + 주제 3개(이름만 — 값 없음, 누를 수 없는 InfoChip — 재검토 R1) + 진행(있을 때) + 준비물 확인 버튼.
- * 진행 줄은 큰 숫자 `n / 5`와 설명을 글자 기준선에 맞춰 한 줄로, 큰 글자 배치에서는 큰 숫자를 설명 위로 쌓는다.
+ * 꼭 챙길 물건: 짐 사진 머리 + **값이 있는 정보 칩**(여행 나라 전기 `한국 플러그 그대로 써요`·`220 V 전압`, `보조배터리 기내 반입만 가능` —
+ * 값 없는 주제 이름만 늘어놓지 않는다, 재검토2 ①#15·②#9) + 진행 `n / 5`와 막대(여행 준비 18과 같은 부품, ③#10) + 준비물 확인 버튼 + 칩 값의 출처.
  * 아이콘은 '꼭 챙길 물건' 개념 하나(IconKeys.essentials — 홈·여행 준비·꼭 챙길 물건 화면 공통, 재검토 R11).
  * [primary] = false(여행이 있어 출발까지 카드의 `내 여행 보기`가 주 버튼)면 보조 버튼 — 화면의 채운 버튼은 하나(원칙 7, 재검토 R13).
  */
 @Composable
 private fun EssentialsCard(summary: EssentialsSummary, onOpen: () -> Unit, primary: Boolean) {
-    val dimens = LocalDimens.current
-    val large = isStackedLayout()
     PhotoHeaderCard(
         Photos.Packing,
         stringResource(R.string.prepare_items_title),
         icon = IconKeys.essentials,
     ) {
-        FlowRow(horizontalArrangement = Arrangement.spacedBy(16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
-            InfoChip(stringResource(R.string.home_items_plug), Icons.Outlined.Power, tone = BadgeTone.Accent)
-            InfoChip(stringResource(R.string.home_items_voltage), Icons.Outlined.ElectricBolt, tone = BadgeTone.Accent)
-            InfoChip(stringResource(R.string.home_items_powerbank), Icons.Outlined.BatteryChargingFull, tone = BadgeTone.Accent)
-        }
-        if (summary.total > 0) {
-            Column(Modifier.semantics(mergeDescendants = true) {}, verticalArrangement = Arrangement.spacedBy(dimens.inner)) {
-                val stat = stringResource(R.string.essentials_progress_stat, summary.done, summary.total)
-                val label = keepWords(stringResource(R.string.essentials_progress, summary.total, summary.done))
-                val statStyle = LocalTypeExtras.current.statSmall
-                val labelStyle = MaterialTheme.typography.bodyMedium
-                if (large) {
-                    Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
-                        Text(stat, style = statStyle, color = Tokens.Accent)
-                        Text(label, style = labelStyle, color = Tokens.InkSecondary)
-                    }
-                } else {
-                    Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                        Text(stat, style = statStyle, color = Tokens.Accent, modifier = Modifier.alignByBaseline())
-                        Text(label, style = labelStyle, color = Tokens.InkSecondary, modifier = Modifier.alignByBaseline().weight(1f))
-                    }
-                }
-                LinearProgressIndicator(
-                    progress = { summary.done.toFloat() / summary.total },
-                    modifier = Modifier.fillMaxWidth().height(8.dp),
-                    color = Tokens.Accent,
-                    trackColor = Tokens.SurfaceSunken,
-                    strokeCap = StrokeCap.Round,
-                    gapSize = 0.dp,
-                    drawStopIndicator = {},
-                )
-            }
-        }
+        EssentialsChips(summary)
+        EssentialsProgress(summary)
         if (primary) {
             PrimaryButton(stringResource(R.string.home_essentials_open), onClick = onOpen, icon = IconKeys.essentials)
         } else {
             SecondaryButton(stringResource(R.string.home_essentials_open), onClick = onOpen, icon = IconKeys.essentials)
         }
+        // 칩 값(팩 전기·기내 반입 기준)이 출처 없이 보이지 않게 — 카드 맨 아래(원칙 5)
+        val sources = essentialsSources(summary)
+        if (sources.isNotEmpty()) Box(Modifier.padding(top = 4.dp)) { SourceList(sources) }
     }
 }
 

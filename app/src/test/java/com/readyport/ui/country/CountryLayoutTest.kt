@@ -9,6 +9,7 @@ import androidx.compose.ui.test.getBoundsInRoot
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.v2.createComposeRule
 import androidx.compose.ui.test.onAllNodesWithText
+import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.unit.DpRect
 import androidx.test.core.app.ApplicationProvider
@@ -78,10 +79,13 @@ class CountryLayoutTest {
         rule.onAllNodesWithText("무료").fetchSemanticsNodes().forEach { n ->
             assertTrue("비자 카드 안에 `무료`", n.boundsInRoot.top / rule.density.density > formTitle.top)
         }
-        // 1단계(입국 신고)가 2단계(비자 신청)보다 위
-        val step1 = rule.onNodeWithText(s(R.string.country_step_eyebrow, 1, s(R.string.entry_form_label))).bounds().toRect()
-        val step2 = rule.onNodeWithText(s(R.string.country_step_eyebrow, 2, s(R.string.country_visa_apply_label))).bounds().toRect()
-        assertTrue("1단계(입국 신고)가 2단계(비자 신청)보다 위에 있어야 함", step1.bottom <= step2.top)
+        // ① 입국 카드가 ② 비자 신청보다 위 — 순서는 번호 원 머리(TalkBack `1단계 · …`, 재검토2 ③#9), 카드 eyebrow에는 `N단계` 글자 없음
+        val step1 = rule.onNodeWithContentDescription(s(R.string.country_step_eyebrow, 1, s(R.string.country_step_head_form))).bounds().toRect()
+        val step2 = rule.onNodeWithContentDescription(s(R.string.country_step_eyebrow, 2, s(R.string.country_step_head_visa))).bounds().toRect()
+        assertTrue("①(입국 카드)가 ②(비자 신청)보다 위에 있어야 함", step1.bottom <= step2.top)
+        assertTrue("순서 머리 ①이 입국 카드 제목 바로 위", step1.bottom <= formTitle.top)
+        assertTrue(rule.onAllNodesWithText(s(R.string.country_step_eyebrow, 1, s(R.string.entry_form_label))).fetchSemanticsNodes().isEmpty())
+        rule.onNodeWithText(s(R.string.entry_form_label)).assertExists()
     }
 
     @Test

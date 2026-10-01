@@ -146,7 +146,9 @@ class ReadyPortRootTest {
         rule.onNodeWithText(s(R.string.first_run_yes)).performClick()
         assertEquals(true, settings?.easyMode)
         heading(R.string.home_title).assertIsDisplayed()
-        rule.onNodeWithText(s(R.string.action_home)).assertIsDisplayed()
+        // 쉬운 모드 공통 줄: 홈 자신에서는 `처음으로` 없이 `소리로 듣기`만 (재검토2 ⑤#12 — 다른 화면에는 둘 다)
+        rule.onNodeWithText(s(R.string.action_listen)).assertIsDisplayed()
+        rule.onAllNodesWithText(s(R.string.action_home)).assertCountEquals(0)
     }
 
     @Test
