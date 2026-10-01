@@ -1,6 +1,8 @@
 package com.readyport.ui.components
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -66,6 +68,35 @@ fun AppScreen(
     keyIndex: KeyIndex? = null,
     /** 쉬운 모드 `처음으로` 버튼을 둘지 — 홈 화면 자신은 처음 화면이라 false(눌러도 아무 일 없음, 재검토2 ⑤#12): `소리로 듣기`만 폭 전체 */
     showHomeAction: Boolean = true,
+    /**
+     * 목록 **위에 겹쳐** 그리는 것(나라 화면의 접힌 고정 메뉴 줄, 부록 E.6). 목록 양옆 여백 밖이라 화면 끝까지 닿는다.
+     * 겹친 것이 내용을 가리지 않게 하는 것(스크롤 오프셋)은 부르는 쪽 책임이다.
+     */
+    overlay: (@Composable BoxScope.() -> Unit)? = null,
+    content: LazyListScope.() -> Unit,
+) {
+    if (overlay == null) {
+        AppList(title, speech, modifier, subtitle, headerActions, header, icon, state, keyIndex, showHomeAction, content)
+    } else {
+        Box(modifier.fillMaxSize()) {
+            AppList(title, speech, Modifier, subtitle, headerActions, header, icon, state, keyIndex, showHomeAction, content)
+            overlay()
+        }
+    }
+}
+
+@Composable
+private fun AppList(
+    title: String,
+    speech: String,
+    modifier: Modifier,
+    subtitle: String?,
+    headerActions: @Composable RowScope.() -> Unit,
+    header: (@Composable () -> Unit)?,
+    icon: ImageVector?,
+    state: LazyListState,
+    keyIndex: KeyIndex?,
+    showHomeAction: Boolean,
     content: LazyListScope.() -> Unit,
 ) {
     val dimens = LocalDimens.current

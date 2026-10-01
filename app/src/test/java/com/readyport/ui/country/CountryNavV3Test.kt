@@ -65,7 +65,10 @@ class CountryNavV3Test {
 
     @Test fun tabsStayOnOneHorizontalRowInEasyMode() = assertTabsOnOneRow(rule, context, easy = true)
 
-    /** 선택 칸 = 밑줄(바탕은 흰색) — 고른 칩(Accent 채움)과 다른 모양이어야 한다 */
+    /**
+     * 선택 칸 = 아래 Accent 막대(바탕은 흰색) — 고른 칩(Accent 채움)과 다른 모양이어야 한다.
+     * v4(그림 메뉴): 막대는 카드 아래 가운데 알약 모양(카드 아래 끝에서 6dp 위, 4dp 두께 → 가운데는 아래 끝에서 8dp).
+     */
     @Test
     fun selectedTabIsUnderlinedNotFilled() {
         show()
@@ -77,12 +80,12 @@ class CountryNavV3Test {
         val x = ((bounds.left.value + bounds.right.value) / 2 * d).toInt()
         // 글자 줄 위쪽 바탕: 흰색(채움 없음)
         assertColor(bmp, x, ((bounds.top.value + 3) * d).toInt(), Tokens.Surface, "선택 탭 바탕")
-        // 칸 맨 아래(1dp 경계선 위): Accent 밑줄
-        assertColor(bmp, x, ((bounds.bottom.value - 2) * d).toInt(), Tokens.Accent, "선택 탭 밑줄")
+        // 칸 아래 가운데: Accent 막대
+        assertColor(bmp, x, ((bounds.bottom.value - 8) * d).toInt(), Tokens.Accent, "선택 탭 밑줄")
         // 선택하지 않은 칸에는 밑줄이 없다
         val other = rule.onNodeWithText(s(R.string.country_tab_shopping)).getBoundsInRoot()
         val ox = ((other.left.value + other.right.value) / 2 * d).toInt()
-        assertColor(bmp, ox, ((other.bottom.value - 2) * d).toInt(), Tokens.Surface, "비선택 탭 밑줄 없음")
+        assertColor(bmp, ox, ((other.bottom.value - 8) * d).toInt(), Tokens.Surface, "비선택 탭 밑줄 없음")
     }
 
     /** 내용은 고정된 탭 줄 **아래로** 지나간다 — 스크롤해도 탭 줄이 보이고 읽는 카드가 그 위로 올라오지 않는다 */

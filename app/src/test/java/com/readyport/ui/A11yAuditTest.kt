@@ -159,7 +159,11 @@ abstract class A11yAuditBase {
             val cut = rule.onAllNodes(SemanticsMatcher.keyIsDefined(SemanticsProperties.VerticalScrollAxisRange))
                 .fetchSemanticsNodes()
                 .any { n -> n.config[SemanticsProperties.VerticalScrollAxisRange].let { it.maxValue() > it.value() + 0.5f } }
-            if (cut) problems += "$name: 화면이 감사 높이보다 길어 아래쪽을 점검하지 못함 — qualifiers 높이를 올리거나 화면을 나눌 것"
+            // 일부러 스크롤해 둔 화면(접힌 고정 줄 캡처 — 실기기 높이 창 안 목록)은 아래쪽이 남는 게 정상이다. 같은 내용은
+            // country-travel이 전체 길이로 점검하고, 여기서는 고정 줄의 터치·이름·글자 넘침만 본다
+            if (cut && name !in SCROLLED_ON_PURPOSE) {
+                problems += "$name: 화면이 감사 높이보다 길어 아래쪽을 점검하지 못함 — qualifiers 높이를 올리거나 화면을 나눌 것"
+            }
 
             val texts = rule.onAllNodes(anyNode, useUnmergedTree = true).fetchSemanticsNodes().flatMap { n ->
                 n.config.getOrNull(SemanticsProperties.Text)?.map { it.text }.orEmpty() +
@@ -177,6 +181,9 @@ abstract class A11yAuditBase {
         assertTrue((problems + breaks).joinToString("\n"), problems.isEmpty() && breaks.isEmpty())
     }
 }
+
+/** 일부러 스크롤해 둔 갤러리 화면(③ 높이 점검만 건너뛴다) */
+private val SCROLLED_ON_PURPOSE = setOf("country-compact-bar")
 
 private operator fun <T> androidx.compose.runtime.MutableState<T>.getValue(thisObj: Any?, p: kotlin.reflect.KProperty<*>) = value
 private operator fun <T> androidx.compose.runtime.MutableState<T>.setValue(thisObj: Any?, p: kotlin.reflect.KProperty<*>, v: T) { value = v }

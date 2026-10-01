@@ -1,11 +1,17 @@
 package com.readyport.ui
 
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import com.readyport.R
 import com.readyport.autofill.FormValues
 import com.readyport.doc.booking.BookingExtractor
@@ -16,6 +22,7 @@ import com.readyport.transport.Place
 import com.readyport.trip.StageInfo
 import com.readyport.trip.Trip
 import com.readyport.trip.TripStage
+import com.readyport.ui.components.essentialsSummary
 import com.readyport.ui.components.loadPhotoCredits
 import com.readyport.ui.country.CountryActions
 import com.readyport.ui.country.CountryContent
@@ -42,9 +49,8 @@ import com.readyport.ui.present.PresentUi
 import com.readyport.ui.present.Traveler
 import com.readyport.ui.settings.PhotoCreditsContent
 import com.readyport.ui.settings.SettingsScreen
-import com.readyport.ui.theme.LocalDimens
-import com.readyport.ui.components.essentialsSummary
 import com.readyport.ui.tabs.PrepareContent
+import com.readyport.ui.theme.LocalDimens
 import com.readyport.ui.today.TodayActions
 import com.readyport.ui.today.TodayContent
 import com.readyport.ui.today.TodayUi
@@ -292,5 +298,23 @@ object Gallery {
         "components-4" to { ComponentsPage(4) },
         // 흰 단색 사진 최악 경우: PhotoTextArea 스크림·PhotoChip·사진 위 버튼 (DESIGN_SPEC 3.7)
         "photo-worst-white" to { PhotoWorstWhitePage() },
+        // 길잡이 v4: 그림 메뉴가 위로 지나간 뒤의 **접힌 고정 줄**(썸네일 + 라벨 + 밑줄). 실기기 높이 창에서 내용 몇 칸 아래로 내려 둔 상태
+        // (다른 캡처는 아주 긴 칸에 한 번에 그려 스크롤이 없어서 고정 줄이 나타나지 않는다). 번호가 밀리지 않게 맨 끝에 둔다.
+        "country-compact-bar" to {
+            Box(Modifier.fillMaxWidth().height(COMPACT_CAPTURE_DP.dp)) {
+                CountryContent(
+                    TestPacks.countryUi("TH", favorite = true),
+                    CountryActions(),
+                    CountrySection.Travel,
+                    listState = rememberLazyListState(initialFirstVisibleItemIndex = COMPACT_CAPTURE_ITEM),
+                )
+            }
+        },
     )
+
+    /** 접힌 고정 줄 캡처 창 높이(dp) — 기본 갤러리 창(h700dp)과 같은 실기기 화면 높이 */
+    private const val COMPACT_CAPTURE_DP = 700
+
+    /** 접힌 고정 줄 캡처의 첫 항목(머리·그림 메뉴를 지나 여행 정보 내용 몇 칸 아래) */
+    private const val COMPACT_CAPTURE_ITEM = 3
 }

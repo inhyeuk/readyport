@@ -2,7 +2,14 @@ package com.readyport.ui.country
 
 import android.content.Context
 import android.content.Intent
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.scrollBy
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
@@ -13,6 +20,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
@@ -24,7 +32,6 @@ import androidx.compose.material.icons.outlined.EditCalendar
 import androidx.compose.material.icons.outlined.EditNote
 import androidx.compose.material.icons.outlined.ElectricBolt
 import androidx.compose.material.icons.outlined.EventAvailable
-import androidx.compose.material.icons.outlined.Explore
 import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material.icons.outlined.GppMaybe
 import androidx.compose.material.icons.outlined.GraphicEq
@@ -45,6 +52,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconToggleButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -52,13 +60,16 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.withFrameNanos
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
@@ -87,6 +98,7 @@ import com.readyport.pack.ShoppingItem
 import com.readyport.pack.SourcedText
 import com.readyport.pack.VisaApply
 import com.readyport.prep.import
+import com.readyport.trip.TripRepository
 import com.readyport.ui.components.AppScreen
 import com.readyport.ui.components.Assurance
 import com.readyport.ui.components.AssuranceCard
@@ -94,16 +106,20 @@ import com.readyport.ui.components.BadgeTone
 import com.readyport.ui.components.BannerTone
 import com.readyport.ui.components.CardNewsCard
 import com.readyport.ui.components.DotBullet
+import com.readyport.ui.components.EntryFormCard
+import com.readyport.ui.components.ExpandToggle
 import com.readyport.ui.components.Fact
 import com.readyport.ui.components.FactGrid
 import com.readyport.ui.components.IconBadge
 import com.readyport.ui.components.IconBullet
 import com.readyport.ui.components.IconKeys
+import com.readyport.ui.components.Illus
+import com.readyport.ui.components.IllusTones
 import com.readyport.ui.components.ImportVerdictBadge
 import com.readyport.ui.components.InfoChip
 import com.readyport.ui.components.KoText
-import com.readyport.ui.components.NavMosaic
 import com.readyport.ui.components.LinkRow
+import com.readyport.ui.components.NavMosaic
 import com.readyport.ui.components.NewsStyle
 import com.readyport.ui.components.NoticeBanner
 import com.readyport.ui.components.NumberText
@@ -112,13 +128,11 @@ import com.readyport.ui.components.PhotoBox
 import com.readyport.ui.components.PhotoTextColumn
 import com.readyport.ui.components.Photos
 import com.readyport.ui.components.PrimaryButton
-import com.readyport.ui.components.EntryFormCard
-import com.readyport.ui.components.ExpandToggle
-import com.readyport.ui.components.foldLiveRegion
-import com.readyport.ui.components.feeTone
 import com.readyport.ui.components.ReturnCheckCard
 import com.readyport.ui.components.ReturnCheckMode
 import com.readyport.ui.components.SecondaryButton
+import com.readyport.ui.components.SectionArt
+import com.readyport.ui.components.SectionCards
 import com.readyport.ui.components.SectionTabs
 import com.readyport.ui.components.SourceList
 import com.readyport.ui.components.SourceRef
@@ -126,38 +140,38 @@ import com.readyport.ui.components.StatTile
 import com.readyport.ui.components.StatusKind
 import com.readyport.ui.components.StatusTag
 import com.readyport.ui.components.Step
-import com.readyport.ui.components.StepList
 import com.readyport.ui.components.StepHead
-import com.readyport.ui.components.personalWindowKo
+import com.readyport.ui.components.StepList
 import com.readyport.ui.components.TileSpec
 import com.readyport.ui.components.displayDate
 import com.readyport.ui.components.feeIcon
+import com.readyport.ui.components.feeTone
+import com.readyport.ui.components.foldLiveRegion
 import com.readyport.ui.components.importLabel
+import com.readyport.ui.components.isNarrowWindow
 import com.readyport.ui.components.koDisplay
 import com.readyport.ui.components.minTouchSize
+import com.readyport.ui.components.personalWindowKo
 import com.readyport.ui.components.rememberGridColumns
 import com.readyport.ui.components.rememberKeyIndex
 import com.readyport.ui.components.resolveSourceName
-import com.readyport.ui.components.scrollToKey
-import com.readyport.ui.components.fullBleed
 import com.readyport.ui.components.sectionGap
-import com.readyport.ui.components.tabBarSurface
 import com.readyport.ui.components.shortValue
 import com.readyport.ui.components.sourceRefs
+import com.readyport.ui.components.tabBarSurface
 import com.readyport.ui.components.textIconSize
-import com.readyport.trip.TripRepository
 import com.readyport.ui.nav.CountryRoute
 import com.readyport.ui.theme.LocalDimens
 import com.readyport.ui.theme.Tokens
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
+import java.time.LocalDate
+import javax.inject.Inject
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import java.time.LocalDate
-import javax.inject.Inject
 
 data class CountryUi(
     val loaded: Loaded<CountryPack>? = null,
@@ -239,7 +253,7 @@ fun CountryScreen(actions: CountryActions, viewModel: CountryViewModel = hiltVie
 }
 
 /**
- * 나라 화면 안의 세 갈래. 스와이프 없이 탭 줄([SectionTabs])로만 바꾼다.
+ * 나라 화면 안의 세 갈래. 스와이프 없이 그림 메뉴([SectionCards]) 또는 접힌 고정 줄([SectionTabs])로만 바꾼다.
  * [short]: 좁은 창·큰 글자에서 전체 라벨이 한 줄에 안 들어갈 때 보일 짧은 라벨(TalkBack 이름은 늘 [label]).
  */
 enum class CountrySection(val label: Int, val short: Int) {
@@ -248,18 +262,35 @@ enum class CountrySection(val label: Int, val short: Int) {
     Shopping(R.string.country_tab_shopping, R.string.country_tab_shopping_short),
 }
 
-/** 섹션 칸 아이콘 (DESIGN_SPEC 6-03: 입국·비자 Approval · 여행 정보 Explore · 쇼핑 ShoppingBag) */
-private fun CountrySection.icon(): ImageVector = when (this) {
-    CountrySection.Entry -> Icons.Outlined.Approval
-    CountrySection.Travel -> Icons.Outlined.Explore
-    CountrySection.Shopping -> Icons.Outlined.ShoppingBag
+/**
+ * 갈래 그림 (부록 E.6): 입국·비자 = 여권과 입국 도장(파랑) · 여행 정보 = 접힌 지도와 핀(청록) · 쇼핑 = 쇼핑백과 꼬리표(따뜻한 주황).
+ * 색 계열은 나라마다 바꾸지 않는다 — 갈래 색이 아래 모자이크 타일 색과 같은 뜻을 지니고, 나라 색은 바로 위 히어로 사진이 맡는다.
+ */
+private fun CountrySection.art(): SectionArt = when (this) {
+    CountrySection.Entry -> SectionArt(Illus.Entry, IllusTones.Blue)
+    CountrySection.Travel -> SectionArt(Illus.Travel, IllusTones.Teal)
+    CountrySection.Shopping -> SectionArt(Illus.Shopping, IllusTones.Warm)
 }
+
+/** 접힌 고정 줄 높이를 아직 재지 못했을 때의 어림(최소 터치 높이 + 위아래 여유) */
+private val CompactBarGuessExtra = 8.dp
+
+/** 그림 메뉴 아래 덧붙이는 여백 (gap에 더해진다, 340dp 미만 창에서는 0) */
+private val SectionMenuBottom = 8.dp
+
+/** 접힌 고정 줄이 나타나고 사라지는 시간 */
+private const val COMPACT_BAR_MS = 180
 
 /** 출처 ID + 확인 날짜 → 화면에 보일 출처 한 줄 (이름을 못 찾으면 `공식 안내` — 내부 ID 금지) */
 private typealias SourceOf = (id: String, lastVerified: String) -> SourceRef
 
 @Composable
-fun CountryContent(ui: CountryUi, actions: CountryActions, initialSection: CountrySection = CountrySection.Entry) {
+fun CountryContent(
+    ui: CountryUi,
+    actions: CountryActions,
+    initialSection: CountrySection = CountrySection.Entry,
+    listState: LazyListState = rememberLazyListState(),
+) {
     val loaded = ui.loaded ?: return
     val pack = loaded.value
     var section by rememberSaveable(pack.country) { mutableIntStateOf(initialSection.ordinal) }
@@ -276,10 +307,50 @@ fun CountryContent(ui: CountryUi, actions: CountryActions, initialSection: Count
     val advisories = remember(safety) { safety?.bodyKo.orEmpty().filter { isHighAdvisory(it) } }
 
     val dimens = LocalDimens.current
-    val listState = rememberLazyListState()
+    val density = LocalDensity.current
+    // 340dp 미만 창(320×470 화면 예산): 그림 메뉴 아래 덧붙임 여백을 빼서 정부 비제휴 고지가 스크롤 없이 보이게
+    val narrow = isNarrowWindow()
     val keys = rememberKeyIndex()
     val scope = rememberCoroutineScope()
     val sectionsLabel = stringResource(R.string.country_sections, pack.names.ko)
+
+    // ---- 그림 메뉴(펼침) <-> 고정 줄(접힘) (부록 E.6) ----
+    // 그림 메뉴는 히어로 아래 보통 항목이다. 그것이 화면 위로 지나가 **고정 줄 아래로 완전히 숨으면** 고정 줄이 나타난다 -
+    // 둘이 동시에 보이지 않는다(가려진 그림 메뉴는 TalkBack에서도 빼서 같은 탭이 두 벌 읽히지 않게 한다).
+    var barPx by remember { mutableIntStateOf(0) }
+    var menuPx by remember { mutableIntStateOf(0) }
+    val barGuess = with(density) { (dimens.minTouch + CompactBarGuessExtra).roundToPx() }
+    val gapPx = with(density) { dimens.gap.roundToPx() }
+    fun barHeight() = if (barPx > 0) barPx else barGuess
+    val compact by remember(listState) {
+        derivedStateOf {
+            // 배치 정보를 **먼저** 읽는다 — 첫 계산 때는 key 기록이 아직 비어 있어도 스크롤마다 다시 계산되게
+            val info = listState.layoutInfo
+            val menu = keys.indexOf("sections") ?: return@derivedStateOf false
+            val item = info.visibleItemsInfo.firstOrNull { it.index == menu }
+            if (item == null) {
+                listState.firstVisibleItemIndex > menu
+            } else {
+                item.offset + item.size - info.viewportStartOffset <= barHeight()
+            }
+        }
+    }
+    val onSelect: (CountrySection) -> Unit = { picked ->
+        section = picked.ordinal
+        // 갈래를 바꾸면 그 갈래 내용의 처음부터: 그림 메뉴는 위로 지나가고 고정 줄이 맨 위에, 첫 카드가 바로 그 아래에 온다
+        // (고정 줄이 내용을 가리지 않는다 - 4.1 scrollToKey와 같은 약속)
+        scope.launch {
+            val menu = keys.indexOf("sections") ?: return@launch
+            listState.animateScrollToItem(menu, (menuPx - barHeight()).coerceAtLeast(0))
+            // 막 나타난 고정 줄의 실제 높이와 실제 배치로 한 번 더 맞춘다: 첫 카드 윗변 = 고정 줄 아래 + gap
+            withFrameNanos { }
+            withFrameNanos { }
+            val info = listState.layoutInfo
+            val first = info.visibleItemsInfo.firstOrNull { it.index == menu + 1 } ?: return@launch
+            val delta = first.offset - info.viewportStartOffset - (barHeight() + gapPx)
+            if (delta != 0) listState.scrollBy(delta.toFloat())
+        }
+    }
 
     AppScreen(
         title = pack.names.ko,
@@ -287,31 +358,57 @@ fun CountryContent(ui: CountryUi, actions: CountryActions, initialSection: Count
         header = { CountryHero(loaded, ui.favorite, actions) },
         state = listState,
         keyIndex = keys,
-    ) {
-        // 머리 묶음(히어로 + 탭 줄) 다음부터가 내용이다. 탭 줄은 **모든 모드에서** 위에 고정하고(쉬운 모드·큰 글자에서도 가로 한 줄),
-        // 흰 바탕을 화면 끝까지 깔고 아래 1dp 선·옅은 그림자를 둬서 아래로 지나가는 내용과 눈에 보이게 갈린다 (6-03 v3).
-        stickyHeader(key = "sections") {
-            Box(
-                Modifier
-                    .fillMaxWidth()
-                    .fullBleed(dimens.screenPadding)
-                    .tabBarSurface(dimens.gap),
+        overlay = {
+            // 접힌 고정 줄: 흰 바탕이 화면 끝까지, 아래 1dp 선과 옅은 그림자 - 내용이 그 아래로 지나간다 (6-03 v4)
+            AnimatedVisibility(
+                visible = compact,
+                enter = fadeIn(tween(COMPACT_BAR_MS)) + slideInVertically(tween(COMPACT_BAR_MS)) { -it / 2 },
+                exit = fadeOut(tween(COMPACT_BAR_MS)) + slideOutVertically(tween(COMPACT_BAR_MS)) { -it / 2 },
+                modifier = Modifier.align(Alignment.TopCenter).fillMaxWidth(),
             ) {
-                SectionTabs(
-                    options = CountrySection.entries,
-                    selected = CountrySection.entries[section],
-                    onSelect = { picked ->
-                        section = picked.ordinal
-                        // 갈래를 바꾸면 그 갈래 내용의 처음부터 — 탭 줄이 맨 위에 서고 첫 카드가 바로 그 아래에 온다
-                        // (고정된 탭 줄이 내용을 가리지 않는다. 4.1 scrollToKey)
-                        scope.launch { listState.scrollToKey(keys, "sections") }
-                    },
-                    label = { stringResource(it.label) },
-                    shortLabel = { stringResource(it.short) },
-                    icon = { it.icon() },
-                    modifier = Modifier.semantics { contentDescription = sectionsLabel },
-                )
+                Box(
+                    Modifier
+                        .fillMaxWidth()
+                        .onSizeChanged { barPx = it.height }
+                        .tabBarSurface(0.dp)
+                        // 사라지는 중에는 TalkBack에서 뺀다(다시 보이는 그림 메뉴와 두 벌이 되지 않게)
+                        .then(if (compact) Modifier else Modifier.clearAndSetSemantics { }),
+                ) {
+                    SectionTabs(
+                        options = CountrySection.entries,
+                        selected = CountrySection.entries[section],
+                        onSelect = onSelect,
+                        label = { stringResource(it.label) },
+                        shortLabel = { stringResource(it.short) },
+                        art = { it.art() },
+                        modifier = Modifier.semantics { contentDescription = sectionsLabel },
+                    )
+                }
             }
+        },
+    ) {
+        // 머리 묶음(히어로 + 그림 메뉴) 다음부터가 내용이다. 그림 메뉴는 보통 항목이라 함께 올라가고,
+        // 다 지나가면 위 overlay의 접힌 고정 줄이 이어받는다(모든 모드 - 쉬운 모드와 큰 글자에서도 같은 구조).
+        item(key = "sections") {
+            SectionCards(
+                options = CountrySection.entries,
+                selected = CountrySection.entries[section],
+                onSelect = onSelect,
+                label = { stringResource(it.label) },
+                shortLabel = { stringResource(it.short) },
+                art = { it.art() },
+                modifier = Modifier
+                    .onSizeChanged { menuPx = it.height }
+                    // 그림 메뉴와 첫 읽는 카드 사이를 카드 사이(gap)보다 넓게 — 메뉴와 내용이 한 덩어리로 붙어 보이지 않게
+                    .padding(bottom = if (narrow) 0.dp else SectionMenuBottom)
+                    .then(
+                        if (compact) {
+                            Modifier.clearAndSetSemantics { }
+                        } else {
+                            Modifier.semantics { contentDescription = sectionsLabel }
+                        },
+                    ),
+            )
         }
 
         when (CountrySection.entries[section]) {
@@ -365,11 +462,11 @@ fun CountryContent(ui: CountryUi, actions: CountryActions, initialSection: Count
                         listOf(
                             TileSpec(
                                 stringResource(R.string.nav_tile_plan_trip), Icons.Outlined.EditCalendar,
-                                onClick = { actions.planTrip(pack.country) },
+                                onClick = { actions.planTrip(pack.country) }, illustration = Illus.PlanTrip,
                             ),
                             TileSpec(
                                 stringResource(R.string.tile_phrases_emergency), Icons.Outlined.Translate,
-                                onClick = { actions.openHelp(pack.country) }, tone = BadgeTone.Help,
+                                onClick = { actions.openHelp(pack.country) }, tone = BadgeTone.Help, illustration = Illus.Phrases,
                             ),
                         ),
                     )
@@ -398,10 +495,16 @@ fun CountryContent(ui: CountryUi, actions: CountryActions, initialSection: Count
                         listOf(
                             TileSpec(
                                 stringResource(R.string.tile_phrases_emergency), Icons.Outlined.Translate,
-                                onClick = { actions.openHelp(pack.country) }, tone = BadgeTone.Help,
+                                onClick = { actions.openHelp(pack.country) }, tone = BadgeTone.Help, illustration = Illus.Phrases,
                             ),
-                            TileSpec(stringResource(R.string.move_title), Icons.Outlined.LocalTaxi, onClick = actions.openMove, tone = BadgeTone.Violet),
-                            TileSpec(stringResource(R.string.tile_videos), Icons.Outlined.SmartDisplay, onClick = { actions.openVideos(pack.country) }),
+                            TileSpec(
+                                stringResource(R.string.move_title), Icons.Outlined.LocalTaxi,
+                                onClick = actions.openMove, tone = BadgeTone.Violet, illustration = Illus.Move,
+                            ),
+                            TileSpec(
+                                stringResource(R.string.tile_videos), Icons.Outlined.SmartDisplay,
+                                onClick = { actions.openVideos(pack.country) }, illustration = Illus.Videos,
+                            ),
                         ),
                     )
                 }
@@ -422,7 +525,7 @@ fun CountryContent(ui: CountryUi, actions: CountryActions, initialSection: Count
                         listOf(
                             TileSpec(
                                 stringResource(R.string.shopping_open), Icons.Outlined.ShoppingBag,
-                                onClick = { actions.openShopping(pack.country) }, tone = BadgeTone.Help,
+                                onClick = { actions.openShopping(pack.country) }, tone = BadgeTone.Help, illustration = Illus.ShoppingList,
                             ),
                         ),
                     )

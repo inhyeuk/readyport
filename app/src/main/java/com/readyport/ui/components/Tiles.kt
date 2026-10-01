@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
@@ -68,6 +69,8 @@ data class TileSpec(
     val supporting: String? = null,
     val tone: BadgeTone = BadgeTone.Accent,
     val emphasized: Boolean = false,
+    /** 길 안내 모자이크([NavMosaic])에서 배지 대신 그릴 일러스트(꾸밈, Illustrations.kt). 다른 타일은 쓰지 않는다 */
+    val illustration: ImageVector? = null,
 )
 
 /** IconTile 색 선택 (OnDarkPairsTest가 검사). emphasized는 onDark 내용 세트만 — 셰브론 White80(InkTertiary on Navy 2.82 금지) */
@@ -223,13 +226,27 @@ private fun NavTile(spec: TileSpec, modifier: Modifier = Modifier, large: Boolea
     val wide = large || row
     val stacked = isStackedLayout()
     val labelStyle = if (large) MaterialTheme.typography.titleLarge else MaterialTheme.typography.titleMedium
+    val art = spec.illustration
     val badge: @Composable () -> Unit = {
-        IconBadge(
-            spec.icon,
-            tone = c.badge,
-            size = if (large) dimens.iconBadge + NavLargeBadgeExtra else dimens.iconBadge,
-            containerColor = c.badgeContainer,
-        )
+        if (art != null) {
+            // 그림 메뉴(위 SectionCards)와 같은 그림 언어: 흰색 → 갈래 색 그라데이션 패널 위 일러스트(꾸밈)
+            Box(
+                Modifier
+                    .size(if (large) NavLargeArt else NavSmallArt)
+                    .clip(MaterialTheme.shapes.medium)
+                    .background(illusPanelBrush(spec.tone.illusTone(), rich = false)),
+                contentAlignment = Alignment.Center,
+            ) {
+                IllusImage(art, Modifier.fillMaxSize(NAV_ART_FILL))
+            }
+        } else {
+            IconBadge(
+                spec.icon,
+                tone = c.badge,
+                size = if (large) dimens.iconBadge + NavLargeBadgeExtra else dimens.iconBadge,
+                containerColor = c.badgeContainer,
+            )
+        }
     }
     val chevron: @Composable () -> Unit = {
         Icon(Icons.AutoMirrored.Outlined.NavigateNext, contentDescription = null, tint = c.chevron)
@@ -275,6 +292,15 @@ private fun NavTile(spec: TileSpec, modifier: Modifier = Modifier, large: Boolea
 
 /** 모자이크 큰 타일의 배지가 2열 칸 타일보다 커지는 만큼 */
 private val NavLargeBadgeExtra = 12.dp
+
+/** 모자이크 큰 타일의 그림 패널 한 변 (그림 메뉴 카드 패널과 비슷한 크기 — 같은 그림 언어) */
+private val NavLargeArt = 76.dp
+
+/** 모자이크 작은 타일(2열 칸·1열 행)의 그림 패널 한 변 */
+private val NavSmallArt = 56.dp
+
+/** 패널 대비 그림 크기 */
+private const val NAV_ART_FILL = 0.9f
 
 /**
  * 큰 선택 카드 (첫 실행 등). 카드 전체가 버튼, 이름 = title + body.

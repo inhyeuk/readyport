@@ -85,6 +85,31 @@ object Tokens {
     /** 사진 전체에 까는 옅은 틴트 (DESIGN_SPEC 3.7 ①) */
     val PhotoTint = Color.Black.copy(alpha = 0.18f)
 
+    // ---------------- 그림 메뉴 일러스트 (DESIGN_SPEC 부록 E.6 — 길잡이 v4) ----------------
+    // 일러스트 전용 주색·중간색. 글자색으로 쓰지 않는다(그림 안 채움·선과 패널 그라데이션 끝에만).
+    // 진한 외곽선은 기존 토큰(AccentDeep·TealText·Help·VioletText), 옅은 바탕은 기존 *Soft 토큰을 그대로 쓴다.
+
+    /** 파랑 계열 중간색 (사증 면 글줄·패널 그라데이션 끝) */
+    val IllusBlueMid = Color(0xFFB4C7FA)
+
+    /** 청록 계열 주색 (지도 땅·물) */
+    val IllusTeal = Color(0xFF2FA79B)
+
+    /** 청록 계열 중간색 (지도 면) */
+    val IllusTealMid = Color(0xFFA8E2DA)
+
+    /** 따뜻한 계열 주색 (쇼핑백·핀·말풍선) */
+    val IllusWarm = Color(0xFFF2804F)
+
+    /** 따뜻한 계열 중간색 */
+    val IllusWarmMid = Color(0xFFF9C7AE)
+
+    /** 보라 계열 주색 (택시) */
+    val IllusViolet = Color(0xFF8B6DF3)
+
+    /** 보라 계열 중간색 */
+    val IllusVioletMid = Color(0xFFCFC3FD)
+
     // ---------------- 흰 정보 카드 그림자 (DESIGN_SPEC D2·3.5) ----------------
     // 스펙의 'Ink 8%/12%'는 화면에 보이는 진하기다. Android는 그림자 색 알파에 테마의 ambientShadowAlpha(0.039)·
     // spotShadowAlpha(0.19)를 한 번 더 곱하므로, 8%/12%를 그대로 넣으면 실제로는 0.3%/2.3%라 Ground 위에서 거의 안 보였다
