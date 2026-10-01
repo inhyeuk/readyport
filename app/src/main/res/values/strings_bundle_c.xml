@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 디자인 개편 1단계 C 묶음(내 여행·여행 고치기·여행 준비)이 새로 쓰는 문구. strings.xml·strings_design_v2.xml은 동결이라 여기에만 추가한다 -->
+<resources>
+    <!-- 날짜 표기: 11월 3일 ~ 7일 (today_trip_dates·home_trip_dates의 인자) -->
+    <string name="today_date_md">%1$d월 %2$d일</string>
+    <string name="today_date_d">%1$d일</string>
+    <!-- 날짜 칸 아래 확인 글: 11월 3일 (화) -->
+    <string name="trip_date_preview">%1$d월 %2$d일 (%3$s)</string>
+    <string name="trip_length_label">여행 기간</string>
+    <!-- 여행 요약 타일 라벨: 화요일에 떠나요 (%1$s = 요일 한 글자) -->
+    <string name="trip_start_weekday">%1$s요일에 떠나요</string>
+    <string name="trip_dates_title">언제 다녀오세요?</string>
+    <!-- trip_create_body를 두 문장으로 나눔: 앞 문장은 부제, 뒤 문장은 자물쇠 아이콘 행 -->
+    <string name="trip_create_lead">나라와 날짜만 적으면, 필요한 서류와 할 일을 날짜에 맞춰 알려 드려요.</string>
+    <string name="trip_local_only">여행 일정은 이 휴대폰에만 저장해요.</string>
+    <string name="trip_delete_confirm">지우기</string>
+</resources>
