@@ -128,6 +128,11 @@ object Gallery {
         // 내 여행(태국 11월 3일)이 있으면 입국 카드 '내는 때'가 일반 예시 대신 내 날짜
         "country-entry-TH" to { CountryContent(TestPacks.countryUi("TH").copy(tripArrival = trip.start), CountryActions()) },
         "country-entry-ID-visa" to { CountryContent(TestPacks.countryUi("ID"), CountryActions()) },
+        // 필리핀: 무비자 30일 + eTravel(값 복사 모드). 여행 정보 맨 위 위험 배너(3·4단계 지역)는 country-travel-PH
+        "country-entry-PH" to { CountryContent(TestPacks.countryUi("PH"), CountryActions()) },
+        "country-travel-PH" to { CountryContent(TestPacks.countryUi("PH"), CountryActions(), CountrySection.Travel) },
+        // 베트남: 무비자 45일, 입국 카드 없음. 45일 넘게 머물 때만 전자비자 — 공식 사이트 열기(보조 버튼)
+        "country-entry-VN" to { CountryContent(TestPacks.countryUi("VN"), CountryActions()) },
         "country-travel" to { CountryContent(TestPacks.countryUi("TH", favorite = true), CountryActions(), CountrySection.Travel) },
         "country-shopping" to { CountryContent(TestPacks.countryUi("JP"), CountryActions(), CountrySection.Shopping) },
         "videos" to {

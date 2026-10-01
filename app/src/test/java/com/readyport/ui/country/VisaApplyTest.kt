@@ -36,10 +36,20 @@ class VisaApplyTest {
 
     @Test
     fun onlyVisaCountriesHaveApplyAndItPointsAtARecipe() = runBlocking {
-        for (code in listOf("TH", "JP", "SG", "MY", "ID")) {
+        for (code in listOf("TH", "JP", "SG", "MY", "ID", "PH", "VN")) {
             val pack = TestPacks.repo.pack(code)!!.value
             val applies = pack.requirements.mapNotNull { it.apply }
-            if (code == "ID") {
+            if (code == "VN") {
+                // 베트남: 비자 없이 45일. 더 오래 머물 때만 전자비자 — 앱은 입력을 돕지 않고(레시피 없음) 공식 사이트만 연다
+                val req = pack.requirements.single()
+                assertEquals("not_required", req.visa)
+                assertEquals(45, req.stayLimitDays)
+                val apply = applies.single()
+                assertTrue(pack.forms.none { it.id == apply.form })
+                assertEquals(null, TestPacks.repo.recipe(apply.form))
+                assertNotNull(pack.source(apply.source))
+                assertEquals("https://evisa.gov.vn/", apply.officialUrl)
+            } else if (code == "ID") {
                 val apply = applies.single()
                 // 입력은 레시피가 있는 양식으로만 돕는다
                 assertTrue(pack.forms.any { it.id == apply.form })
@@ -65,6 +75,28 @@ class VisaApplyTest {
         rule.onNode(hasScrollAction()).performScrollToNode(hasText(start))
         rule.onNodeWithText(start).performClick()
         assertEquals(listOf("ID_ALL_INDONESIA"), opened)
+    }
+
+    @Test
+    fun vietnamEvisaIsOptionalAndOpensOfficialSite() {
+        val links = mutableListOf<String>()
+        val forms = mutableListOf<String>()
+        rule.setContent {
+            ReadyPortTheme {
+                CountryContent(TestPacks.countryUi("VN"), CountryActions(openForm = { forms += it }, openLink = { links += it }))
+            }
+        }
+        // 비자 카드에 전자비자 비용 타일을 올리지 않는다 — `45일 비자 없이` 옆에 `USD 25 비자 비용`이 붙지 않게
+        assertTrue(rule.onAllNodesWithText(context.getString(R.string.fact_label_visa_fee)).fetchSemanticsNodes().isEmpty())
+        // 입력 도우미 버튼·문구 대신 공식 사이트 열기
+        assertTrue(rule.onAllNodesWithText(context.getString(R.string.country_visa_apply_start)).fetchSemanticsNodes().isEmpty())
+        val open = context.getString(R.string.country_visa_apply_open_site)
+        rule.onNode(hasScrollAction()).performScrollToNode(hasText("베트남 전자비자 (45일 넘게 머물 때)"))
+        rule.onNode(hasScrollAction()).performScrollToNode(hasText(context.getString(R.string.country_visa_apply_note_site)))
+        rule.onNode(hasScrollAction()).performScrollToNode(hasText(open))
+        rule.onNodeWithText(open).performClick()
+        assertEquals(listOf("https://evisa.gov.vn/"), links)
+        assertTrue(forms.isEmpty())
     }
 
     @Test

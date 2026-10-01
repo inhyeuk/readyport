@@ -17,6 +17,7 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowBack
+import androidx.compose.material.icons.automirrored.outlined.OpenInNew
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.outlined.Approval
 import androidx.compose.material.icons.outlined.CalendarMonth
@@ -335,12 +336,23 @@ fun CountryContent(ui: CountryUi, actions: CountryActions, initialSection: Count
                     }
                 }
                 // ② 비자 온라인 신청 (그 양식이 이 팩에 없으면 순서 머리 없이 주 버튼)
+                // 앱이 입력을 돕지 않는 신청(apply.form이 이 팩 양식도 아니고 레시피도 없음 — 베트남 전자비자)은 공식 사이트를 여는 안내 카드.
+                // 비자 없이 들어가는 나라의 신청(오래 머물 때만)은 보조 버튼 — 짧은 여행에도 비자가 필요한 것처럼 읽히지 않게
                 krRequirements.forEach { req ->
                     req.apply?.let { apply ->
                         val staged = apply.form in applyForms
+                        val siteOnly = apply.form !in formIds && apply.form !in ui.autofillForms
+                        val officialUrl = apply.officialUrl
                         item(key = "visa-apply-${req.purpose}") {
                             val card: @Composable () -> Unit = {
-                                VisaApplyCard(apply, primary = !staged, sourceOf = sourceOf) { actions.openForm(apply.form) }
+                                VisaApplyCard(
+                                    apply,
+                                    primary = !staged && req.visa != "not_required",
+                                    siteOnly = siteOnly && officialUrl != null,
+                                    sourceOf = sourceOf,
+                                ) {
+                                    if (siteOnly && officialUrl != null) actions.openLink(officialUrl) else actions.openForm(apply.form)
+                                }
                             }
                             if (staged) StepGroup(2, stringResource(R.string.country_step_head_visa), card) else card()
                         }
@@ -651,7 +663,9 @@ private fun VisaCard(pack: CountryPack, req: Requirement, sourceOf: SourceOf, on
                 "on_arrival" -> add(Fact(Icons.Outlined.Approval, days, visaArrivalLabel, source = reqRef))
             }
         }
-        req.apply?.let { apply ->
+        // 비자 없이 들어가는 나라의 신청(베트남 45일 넘게 머물 때 전자비자)은 비용 타일로 올리지 않는다 — `45일 비자 없이` 옆
+        // `USD 25 비자 비용`이 붙으면 짧은 여행에도 비자 비용이 드는 것처럼 읽힌다. 비용은 아래 신청 카드에 그대로 있다
+        req.apply?.takeIf { req.visa != "not_required" }?.let { apply ->
             shortValue(apply.feeKo)?.let { v ->
                 add(Fact(feeIcon(v), v, visaFeeLabel, feeTone(v), sourceOf(apply.source, apply.lastVerified)))
             }
@@ -737,9 +751,11 @@ private fun splitFirstSentence(text: String): Step {
  * 고지라 접지 않는다. 배지·eyebrow는 Accent(초록은 '가능·완료' 뜻이라 2번째 순서가 끝난 것처럼 읽혔다, ③#9).
  * 순서 머리 ②가 위에 붙을 때는 이 신청이 지나가는 입국 카드가 ①로 위에 있다(팩 신청 단계 1번이 그 양식 제출) — 그 카드가 주 버튼이고
  * 이 카드 버튼은 보조([primary] = false, 원칙 7 화면당 주 버튼 하나).
+ * [siteOnly]: 앱이 입력을 돕지 않는 신청(베트남 전자비자 — 양식이 신고 안내 동의 창 뒤에 있고 사진 업로드·확인 글자가 있어 레시피 없음) —
+ * 버튼은 공식 사이트를 열고, 안내 한 줄은 '대신 채우지 않아요'.
  */
 @Composable
-private fun VisaApplyCard(apply: VisaApply, primary: Boolean, sourceOf: SourceOf, onStart: () -> Unit) {
+private fun VisaApplyCard(apply: VisaApply, primary: Boolean, siteOnly: Boolean, sourceOf: SourceOf, onStart: () -> Unit) {
     CardNewsCard(
         title = apply.nameKo,
         icon = Icons.Outlined.Approval,
@@ -760,12 +776,18 @@ private fun VisaApplyCard(apply: VisaApply, primary: Boolean, sourceOf: SourceOf
                 NumberText(warning, MaterialTheme.typography.bodyMedium, color = Tokens.InkSecondary, emphasisColor = Tokens.Ink)
             }
         }
-        IconBullet(stringResource(R.string.country_visa_apply_note), Icons.Outlined.TouchApp, tone = BadgeTone.Help)
-        val label = stringResource(R.string.country_visa_apply_start)
+        // 앱이 입력을 돕지 않는 신청([siteOnly])은 '입력 칸을 채워 드려요' 대신 '대신 채우지 않아요' + 공식 사이트 열기
+        IconBullet(
+            stringResource(if (siteOnly) R.string.country_visa_apply_note_site else R.string.country_visa_apply_note),
+            Icons.Outlined.TouchApp,
+            tone = BadgeTone.Help,
+        )
+        val label = stringResource(if (siteOnly) R.string.country_visa_apply_open_site else R.string.country_visa_apply_start)
+        val icon = if (siteOnly) Icons.AutoMirrored.Outlined.OpenInNew else Icons.Outlined.EditNote
         if (primary) {
-            PrimaryButton(label, onClick = onStart, icon = Icons.Outlined.EditNote)
+            PrimaryButton(label, onClick = onStart, icon = icon)
         } else {
-            SecondaryButton(label, onClick = onStart, icon = Icons.Outlined.EditNote)
+            SecondaryButton(label, onClick = onStart, icon = icon)
         }
     }
 }

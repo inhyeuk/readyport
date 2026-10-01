@@ -84,7 +84,7 @@ class HelpShoppingLogicTest {
         )
         assertEquals(Step("경찰서에 신고하고, 접수증을 받아요."), stepOf("경찰서에 신고하고, 접수증을 받아요."))
         // 모든 번들 팩의 절차 문장이 글자 하나 빠짐없이 보존된다
-        for (code in listOf("TH", "JP", "SG", "MY", "ID")) {
+        for (code in listOf("TH", "JP", "SG", "MY", "ID", "PH", "VN")) {
             val pack = runBlocking { TestPacks.repo.pack(code)!!.value }
             pack.procedures.flatMap { it.stepsKo }.forEach { s ->
                 val step = stepOf(s)
