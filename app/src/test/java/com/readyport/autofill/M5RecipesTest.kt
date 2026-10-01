@@ -37,14 +37,16 @@ class M5RecipesTest {
 
     @Test
     fun allFivePacksAndFourRecipesVerify() {
-        for (cc in listOf("TH", "MY", "SG", "ID", "JP")) {
+        for (cc in listOf("TH", "MY", "SG", "ID", "JP", "TW", "CN")) {
             val p = runBlocking { TestPacks.repo.pack(cc) }
             assertNotNull(cc, p)
             assertTrue(cc, p!!.value.emergency.isNotEmpty() && p.value.embassy != null && p.value.forms.isNotEmpty())
         }
-        listOf("TH_TDAC", "MY_MDAC", "SG_SGAC", "ID_ALL_INDONESIA").forEach { recipe(it) }
+        listOf("TH_TDAC", "MY_MDAC", "SG_SGAC", "ID_ALL_INDONESIA", "TW_TWAC").forEach { recipe(it) }
         // Visit Japan Web은 계정 로그인이 필요해 레시피 없이 수동 모드
         assertEquals(null, runBlocking { TestPacks.repo.recipe("JP_VJW") })
+        // 중국 온라인 입국 카드는 여권 사진 올리기·서명이 있어 레시피 없이 수동 모드(값 복사해서 넣기)
+        assertEquals(null, runBlocking { TestPacks.repo.recipe("CN_ARRIVAL") })
     }
 
     @Test
@@ -84,6 +86,31 @@ class M5RecipesTest {
         assertEquals("KE", v["trip.flight_prefix"])
         assertEquals("651", v["trip.flight_digits"])
         assertEquals("M12345678", v["passport.number"])
+    }
+
+    @Test
+    fun twacValuesUseExactSiteTexts() {
+        val r = recipe("TW_TWAC")
+        val v = planValues(
+            r,
+            mapOf("profile.occupation" to "employee", "trip.purpose" to "tourism", "profile.email" to "a@example.org"),
+            setOf("email", "traveler", "trip"),
+        )
+        assertEquals("ANNA MARIA ERIKSSON", v["passport.full_name_given_first"]) // 'Given Name followed by Surname'
+        assertEquals("M12345678", v["passport.number"])
+        assertEquals("15/04/2036", v["passport.expiry_date"])
+        assertEquals("03/11/2026", v["trip.arrival_date"])
+        // 기본 <select>는 사이트 선택지 글자 그대로여야 엔진이 고른다
+        assertEquals("職員/CLERK/EMPLOYEE/STAFF", v["profile.occupation"])
+        assertEquals("3.觀光 Sightseeing / Travel / Leisure", v["trip.purpose"])
+        // 무비자는 기본 제안값 — 버튼은 사람이 누른다(assist)
+        assertTrue(v["trip.visa_type"]!!.endsWith("Visa-Exempt(include TAC)"))
+        assertEquals("82", v["profile.phone_code"])
+        assertEquals("651", v["trip.flight_digits"])
+        assertEquals("KE", v["trip.flight_prefix"])
+        assertEquals("KE652", v["trip.departure_flight_no"])
+        // 사람이 직접 하는 곳(인증 코드·서약·제출)은 엔진이 채우지 않고 표시만
+        assertEquals(setOf("email", "declaration", "final_submit"), r.checkpoints.map { it.kind }.toSet())
     }
 
     @Test

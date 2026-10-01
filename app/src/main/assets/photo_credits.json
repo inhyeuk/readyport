@@ -54,6 +54,24 @@
     "changes": "잘라내고 크기를 줄이고, 글자가 잘 보이게 어둡게 덮었어요(일부는 둥글게 자름)"
   },
   {
+    "id": "tw",
+    "title": "Taipei Taiwan Taipei-101-Tower-01.jpg",
+    "author": "CEphoto, Uwe Aranas",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Taipei_Taiwan_Taipei-101-Tower-01.jpg",
+    "changes": "잘라내고 크기를 줄이고, 글자가 잘 보이게 어둡게 덮었어요(일부는 둥글게 자름)"
+  },
+  {
+    "id": "cn",
+    "title": "Badaling China Great-Wall-of-China-01.jpg",
+    "author": "CEphoto, Uwe Aranas",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Badaling_China_Great-Wall-of-China-01.jpg",
+    "changes": "잘라내고 크기를 줄이고, 파일을 작게 하려고 아주 살짝 흐리게 했어요. 글자가 잘 보이게 어둡게 덮었어요(일부는 둥글게 자름)"
+  },
+  {
     "id": "airport",
     "title": "Incheon International Airport Terminal 1 Departure.jpg",
     "author": "Arne Müseler",

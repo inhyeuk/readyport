@@ -16,7 +16,7 @@ class M8PacksTest {
 
     private val index = TestPacks.index.value
     private fun pack(c: String) = runBlocking { TestPacks.repo.pack(c)!!.value }
-    private val countries = listOf("TH", "MY", "SG", "ID", "JP")
+    private val countries = listOf("TH", "MY", "SG", "ID", "JP", "TW", "CN")
 
     @Test fun offlineEssentialsPerCountry() {
         val home = index.homePower
@@ -31,6 +31,11 @@ class M8PacksTest {
         assertTrue("voltage_check" in ids("JP"))
         assertTrue("plug_adapter" in ids("JP"))
         assertFalse("voltage_check" in ids("MY"))
+        // 대만: 110V·구멍 2개·3개 콘센트 → 전압 확인 + 어댑터. 중국: 220V, 둥근 핀도 맞는 콘센트가 많음(베이징시 안내)
+        assertTrue("voltage_check" in ids("TW"))
+        assertTrue("plug_adapter" in ids("TW"))
+        assertFalse("voltage_check" in ids("CN"))
+        assertFalse("plug_adapter" in ids("CN"))
         assertEquals(0, TestPacks.remoteCalls)
     }
 
