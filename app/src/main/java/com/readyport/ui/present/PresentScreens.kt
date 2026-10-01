@@ -17,16 +17,28 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.heightIn
-import androidx.compose.foundation.selection.toggleable
-import androidx.compose.material3.Checkbox
-import androidx.compose.material3.FilterChip
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.selection.selectableGroup
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.outlined.ArrowBack
+import androidx.compose.material.icons.automirrored.outlined.SendToMobile
+import androidx.compose.material.icons.outlined.AddPhotoAlternate
+import androidx.compose.material.icons.outlined.AirplanemodeActive
+import androidx.compose.material.icons.outlined.Badge
+import androidx.compose.material.icons.outlined.BrokenImage
+import androidx.compose.material.icons.outlined.FamilyRestroom
+import androidx.compose.material.icons.outlined.LightMode
+import androidx.compose.material.icons.outlined.Lock
+import androidx.compose.material.icons.outlined.Person
+import androidx.compose.material.icons.outlined.PersonAdd
+import androidx.compose.material.icons.outlined.QrCode2
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
@@ -35,11 +47,17 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.clearAndSetSemantics
+import androidx.compose.ui.semantics.heading
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.text
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.core.content.FileProvider
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
@@ -50,18 +68,46 @@ import com.readyport.R
 import com.readyport.pack.PackRepository
 import com.readyport.security.SecureScreen
 import com.readyport.ui.components.AppScreen
-import com.readyport.ui.components.CardTone
+import com.readyport.ui.components.BadgeTone
+import com.readyport.ui.components.CardNewsCard
+import com.readyport.ui.components.DangerButton
+import com.readyport.ui.components.DestructiveConfirm
+import com.readyport.ui.components.EmptyState
 import com.readyport.ui.components.InfoCard
+import com.readyport.ui.components.KeyValueRow
+import com.readyport.ui.components.ListGroup
+import com.readyport.ui.components.ListRow
+import com.readyport.ui.components.LocalAppActions
+import com.readyport.ui.components.LocalShowBack
+import com.readyport.ui.components.LockedState
+import com.readyport.ui.components.NewsStyle
+import com.readyport.ui.components.OnDark
 import com.readyport.ui.components.PrimaryButton
+import com.readyport.ui.components.RowTrailing
+import com.readyport.ui.components.SecondaryButton
+import com.readyport.ui.components.SecurityBanner
+import com.readyport.ui.components.SelectChip
 import com.readyport.ui.components.StatusChip
-import com.readyport.ui.components.TopicCard
+import com.readyport.ui.components.StatusKind
+import com.readyport.ui.components.StatusTag
+import com.readyport.ui.components.TextCircle
+import com.readyport.ui.components.TileGrid
+import com.readyport.ui.components.TrailingFlow
+import com.readyport.ui.components.minTouchSize
+import com.readyport.ui.components.rememberGridColumns
 import com.readyport.ui.theme.LocalDimens
+import com.readyport.ui.theme.LocalTypeExtras
 import com.readyport.ui.theme.Tokens
+import com.readyport.ui.wallet.ConsentRow
+import com.readyport.ui.wallet.DisabledReason
+import com.readyport.ui.wallet.KeepText
+import com.readyport.ui.wallet.SpokenAs
+import com.readyport.ui.wallet.keepWords
 import com.readyport.ui.wallet.maskName
 import com.readyport.ui.wallet.maskNumber
 import com.readyport.ui.wallet.rememberDeviceAuth
-import com.readyport.vault.TravelCompanion
 import com.readyport.vault.EntryDoc
+import com.readyport.vault.TravelCompanion
 import com.readyport.vault.WalletRepository
 import com.readyport.vault.WalletState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -71,7 +117,6 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.ByteArrayOutputStream
@@ -195,6 +240,10 @@ fun PresentScreen(defaultFormId: String?, viewModel: PresentViewModel = hiltView
     )
 }
 
+/**
+ * 21 입국 때 보여 주기 (DESIGN_SPEC 6-21). 제목 옆 `비행기 모드에서도 보여요`, 맨 위 compact SecurityBanner.
+ * 서류 한 장 = Navy '보여 주기' 카드(onDark 내용 세트만) + 카드 밖 오른쪽 지우기(DangerButton + 확인 대화상자 — D8·D18).
+ */
 @Composable
 fun PresentContent(
     ui: PresentUi,
@@ -205,79 +254,218 @@ fun PresentContent(
 ) {
     var traveler by remember { mutableStateOf("self") }
     var bright by remember { mutableStateOf(false) }
+    var pendingDelete by remember { mutableStateOf<EntryDoc?>(null) }
     MaxBrightness(bright)
+    val title = stringResource(R.string.present_title)
     AppScreen(
-        title = stringResource(R.string.present_title),
+        title = title,
         speech = stringResource(R.string.present_speech),
-        headerActions = { StatusChip(stringResource(R.string.present_offline), Tokens.SuccessBg, Tokens.SuccessText) },
+        header = { PresentHeader(title) },
     ) {
+        item(key = "security") { SecurityBanner(compact = true) }
         if (ui.locked) {
             item(key = "locked") {
-                InfoCard {
-                    Text(stringResource(R.string.wallet_locked_title), style = MaterialTheme.typography.titleMedium)
-                    PrimaryButton(stringResource(R.string.wallet_unlock), onClick = onUnlock)
-                }
+                LockedState(
+                    title = keepWords(stringResource(R.string.wallet_locked_title)),
+                    body = keepWords(stringResource(R.string.wallet_locked_body)),
+                    buttonLabel = keepWords(stringResource(R.string.wallet_unlock)),
+                    onUnlock = onUnlock,
+                    icon = Icons.Outlined.QrCode2,
+                    badgeIcon = Icons.Outlined.Lock,
+                )
             }
             return@AppScreen
         }
         if (ui.travelers.size > 1) {
             item(key = "travelers") {
-                FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                FlowRow(
+                    modifier = Modifier.selectableGroup(),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    verticalArrangement = Arrangement.spacedBy(8.dp),
+                ) {
                     ui.travelers.forEach { t ->
-                        FilterChip(
-                            selected = traveler == t.id,
-                            onClick = { traveler = t.id },
-                            label = { Text(t.label, style = MaterialTheme.typography.labelLarge) },
-                            modifier = Modifier.heightIn(min = 48.dp),
-                        )
+                        SelectChip(selected = traveler == t.id, onClick = { traveler = t.id }, label = t.label, leadingIcon = Icons.Outlined.Person)
                     }
                 }
             }
         }
+        // 켬·끔 상태가 있는 토글이라 버튼이 아니라 스위치 행 (6-21)
         item(key = "bright") {
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.toggleable(bright, role = Role.Switch, onValueChange = { bright = it }).heightIn(min = 48.dp),
-            ) {
-                Text(stringResource(R.string.present_brightness), style = MaterialTheme.typography.titleMedium, modifier = Modifier.weight(1f))
-                Switch(checked = bright, onCheckedChange = null)
+            ListGroup {
+                ListRow(
+                    title = keepWords(stringResource(R.string.present_brightness)),
+                    icon = Icons.Outlined.LightMode,
+                    trailing = RowTrailing.Switch(bright) { bright = it },
+                )
             }
         }
         val mine = ui.docs.filter { it.doc.travelerId == traveler }
         if (mine.isEmpty()) {
-            item(key = "none") { TopicCard(stringResource(R.string.present_none), null, tone = CardTone.Notice) }
-        }
-        mine.forEach { d ->
-            item(key = "doc-${d.doc.id}") {
-                InfoCard {
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        Text(d.formName, style = MaterialTheme.typography.titleLarge, modifier = Modifier.weight(1f))
-                        StatusChip(stringResource(R.string.present_submitted), Tokens.SuccessBg, Tokens.SuccessText)
-                    }
-                    d.image?.let {
-                        Image(
-                            bitmap = it,
-                            contentDescription = stringResource(R.string.present_doc_image, d.formName),
-                            contentScale = ContentScale.FillWidth,
-                            modifier = Modifier.fillMaxWidth().background(Tokens.Surface),
+            item(key = "none") {
+                EmptyState(
+                    icon = Icons.Outlined.QrCode2,
+                    title = keepWords(stringResource(R.string.present_empty_title)),
+                    body = keepWords(stringResource(R.string.present_empty_body)),
+                    tone = BadgeTone.Accent,
+                    action = {
+                        PrimaryButton(
+                            keepWords(stringResource(R.string.present_add_photo)),
+                            onClick = { onAddPhoto(traveler) },
+                            icon = Icons.Outlined.AddPhotoAlternate,
                         )
-                    }
-                    d.doc.confirmationNo?.let { Text("${stringResource(R.string.present_confirmation)}: $it", style = MaterialTheme.typography.titleMedium) }
-                    listOfNotNull(d.maskedName, d.doc.arrivalDate, d.doc.flightNo, d.maskedPassport).takeIf { it.isNotEmpty() }?.let {
-                        Text(it.joinToString(" · "), style = MaterialTheme.typography.bodyMedium)
-                    }
-                    FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                        TextButton(onClick = { onShare(d.doc) }, modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(R.string.present_share)) }
-                        TextButton(onClick = { onDelete(d.doc) }, modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(R.string.present_delete)) }
-                    }
+                    },
+                )
+            }
+        } else {
+            mine.forEach { d ->
+                item(key = "doc-${d.doc.id}") { DocCard(d, onShare = { onShare(d.doc) }, onDelete = { pendingDelete = d.doc }) }
+            }
+            item(key = "add") {
+                SecondaryButton(
+                    keepWords(stringResource(R.string.present_add_photo)),
+                    onClick = { onAddPhoto(traveler) },
+                    icon = Icons.Outlined.AddPhotoAlternate,
+                )
+            }
+        }
+    }
+    pendingDelete?.let { doc ->
+        DestructiveConfirm(
+            title = keepWords(stringResource(R.string.present_delete_confirm_title)),
+            body = keepWords(stringResource(R.string.present_delete_confirm_body)),
+            confirmLabel = keepWords(stringResource(R.string.present_delete)),
+            onConfirm = { pendingDelete = null; onDelete(doc) },
+            onDismiss = { pendingDelete = null },
+            secure = true,
+        )
+    }
+}
+
+/**
+ * 제목 + `비행기 모드에서도 보여요` 칩. 칩을 옆에 두면 제목이 더 꺾일 만큼 폭이 모자라면(큰 글자) 제목 아래 줄로 내린다 —
+ * 제목이 한 음절씩 세로로 쪼개지지 않게. 서브 화면이면 AppScreen 기본 제목 줄처럼 뒤로 버튼을 둔다.
+ */
+@Composable
+private fun PresentHeader(title: String) {
+    val dimens = LocalDimens.current
+    val actions = LocalAppActions.current
+    Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+        if (LocalShowBack.current) {
+            IconButton(onClick = actions.goBack, modifier = Modifier.minTouchSize()) {
+                Icon(
+                    Icons.AutoMirrored.Outlined.ArrowBack,
+                    contentDescription = stringResource(R.string.action_back),
+                    modifier = Modifier.size(if (dimens.easyMode) 32.dp else 24.dp),
+                )
+            }
+        }
+        TrailingFlow(
+            trailing = {
+                // 칩 글자도 어절 중간에서 꺾지 않는다(`보여/요` 방지) — 읽는 글자는 원문
+                val offline = stringResource(R.string.present_offline)
+                val shown = keepWords(offline)
+                SpokenAs(offline, shown) {
+                    StatusChip(shown, container = Tokens.SuccessBg, content = Tokens.SuccessText, icon = Icons.Outlined.AirplanemodeActive)
+                }
+            },
+            modifier = Modifier.weight(1f),
+            centerVertically = true,
+        ) {
+            KeepText(
+                title,
+                style = MaterialTheme.typography.headlineMedium,
+                color = Tokens.Ink,
+                modifier = Modifier.semantics { heading() },
+            )
+        }
+    }
+}
+
+/** 입국 서류 한 장: Navy 카드(QR 그림·확인 번호·가린 값·보내기) + 카드 밖 오른쪽 지우기 */
+@Composable
+private fun DocCard(d: DocView, onShare: () -> Unit, onDelete: () -> Unit) {
+    val dimens = LocalDimens.current
+    val facts = listOfNotNull(
+        d.maskedName?.let { stringResource(R.string.wallet_passport_name) to it },
+        d.maskedPassport?.let { stringResource(R.string.wallet_passport_number) to it },
+        d.doc.arrivalDate?.let { stringResource(R.string.present_field_arrival) to it },
+        d.doc.flightNo?.let { stringResource(R.string.wallet_booking_flights) to it },
+    )
+    Column(verticalArrangement = Arrangement.spacedBy(dimens.inner)) {
+        CardNewsCard(
+            title = keepWords(d.formName),
+            icon = Icons.Outlined.QrCode2,
+            style = NewsStyle.Navy,
+            trailing = {
+                val submitted = stringResource(R.string.present_submitted)
+                val shown = keepWords(submitted)
+                SpokenAs(submitted, shown) { StatusTag(shown, StatusKind.Verified) }
+            },
+        ) {
+            if (d.image != null) {
+                // 심사관이 찍는 QR·확인 화면: 카드 폭 전체 + 흰 8dp 여백(QR 조용한 영역)
+                Image(
+                    bitmap = d.image,
+                    contentDescription = stringResource(R.string.present_doc_image, d.formName),
+                    contentScale = ContentScale.FillWidth,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clip(MaterialTheme.shapes.medium)
+                        .background(Tokens.Surface)
+                        .padding(8.dp),
+                )
+            } else {
+                // 그림을 못 열었으면 QR이 있는 것처럼 보이지 않게 그렇다고 말하고 아래 값을 보여 주게 한다
+                ImageMissing()
+            }
+            d.doc.confirmationNo?.let { ConfirmationNumber(stringResource(R.string.present_confirmation), it) }
+            if (facts.isNotEmpty()) {
+                TileGrid(facts, columns = rememberGridColumns()) { (label, value), cell ->
+                    KeyValueRow(label = label, value = value, modifier = cell, onDark = true)
                 }
             }
+            SecondaryButton(
+                keepWords(stringResource(R.string.present_share)),
+                onClick = onShare,
+                icon = Icons.AutoMirrored.Outlined.SendToMobile,
+                onDark = true,
+            )
         }
-        item(key = "add") {
-            OutlinedButton(onClick = { onAddPhoto(traveler) }, modifier = Modifier.fillMaxWidth().heightIn(min = LocalDimens.current.buttonHeight)) {
-                Text(stringResource(R.string.present_add_photo), style = MaterialTheme.typography.labelLarge)
-            }
+        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
+            DangerButton(keepWords(stringResource(R.string.present_delete)), onClick = onDelete)
         }
+    }
+}
+
+/** 서류 그림을 열지 못했을 때 (Navy 카드 안 — onDark 색만): 깨진 그림 아이콘 + 안내 */
+@Composable
+private fun ImageMissing() {
+    Row(
+        Modifier.fillMaxWidth().semantics(mergeDescendants = true) {},
+        verticalAlignment = Alignment.Top,
+        horizontalArrangement = Arrangement.spacedBy(12.dp),
+    ) {
+        Icon(
+            Icons.Outlined.BrokenImage,
+            contentDescription = null,
+            tint = OnDark.secondary,
+            modifier = Modifier.size(LocalDimens.current.icon),
+        )
+        KeepText(
+            stringResource(R.string.present_image_missing),
+            style = MaterialTheme.typography.bodyMedium,
+            color = OnDark.secondary,
+            modifier = Modifier.weight(1f),
+        )
+    }
+}
+
+/** 확인 번호: 라벨(White80) + 큰 값(statSmall, Surface) — 심사관이 한눈에 읽게. 한 번에 읽는다 */
+@Composable
+private fun ConfirmationNumber(label: String, value: String) {
+    Column(Modifier.fillMaxWidth().semantics(mergeDescendants = true) {}, verticalArrangement = Arrangement.spacedBy(2.dp)) {
+        Text(label, style = MaterialTheme.typography.titleSmall, color = OnDark.secondary)
+        Text(value, style = LocalTypeExtras.current.statSmall, color = OnDark.content)
     }
 }
 
@@ -326,6 +514,10 @@ fun CompanionsScreen(onRegisterPassport: (String) -> Unit, viewModel: Companions
     CompanionsContent(state, { auth { viewModel.unlock() } }, viewModel::add, viewModel::delete, onRegisterPassport)
 }
 
+/**
+ * 27 같이 가는 사람 (DESIGN_SPEC 6-27). 맨 위 compact SecurityBanner. 사람마다 이니셜 아바타 + 이름 + 여권 등록(됨) + 지우기(확인 대화상자,
+ * 이름은 대화상자에 넣지 않는다). 추가 폼은 흰 카드 — 동의 체크 없이는 추가할 수 없다(PRD 3.3, 8.2).
+ */
 @Composable
 fun CompanionsContent(
     state: WalletState,
@@ -336,57 +528,146 @@ fun CompanionsContent(
 ) {
     var label by remember { mutableStateOf("") }
     var consent by remember { mutableStateOf(false) }
+    var pendingDelete by remember { mutableStateOf<String?>(null) }
+    val contents = (state as? WalletState.Unlocked)?.contents
+    val empty = contents != null && contents.companions.isEmpty()
     AppScreen(
         title = stringResource(R.string.companions_title),
-        subtitle = stringResource(R.string.companions_body),
+        // 비어 있으면 같은 문장을 빈 상태 안내로 보이므로 부제는 생략한다(같은 글 두 번 금지)
+        subtitle = if (empty) null else keepWords(stringResource(R.string.wallet_companions_body)),
         speech = stringResource(R.string.companions_body),
     ) {
-        val contents = (state as? WalletState.Unlocked)?.contents
+        item(key = "security") { SecurityBanner(compact = true) }
         if (contents == null) {
             item(key = "locked") {
-                InfoCard {
-                    Text(stringResource(R.string.wallet_locked_title), style = MaterialTheme.typography.titleMedium)
-                    PrimaryButton(stringResource(R.string.wallet_unlock), onClick = onUnlock)
-                }
+                LockedState(
+                    title = keepWords(stringResource(R.string.wallet_locked_title)),
+                    body = keepWords(stringResource(R.string.wallet_locked_body)),
+                    buttonLabel = keepWords(stringResource(R.string.wallet_unlock)),
+                    onUnlock = onUnlock,
+                    icon = Icons.Outlined.FamilyRestroom,
+                )
             }
             return@AppScreen
         }
+        if (empty) {
+            item(key = "empty") {
+                // 제목이 이미 '보호자 폰 하나로 가족 서류'를 말하므로 본문은 새 정보(사람마다 여권·서류)만
+                EmptyState(
+                    icon = Icons.Outlined.FamilyRestroom,
+                    title = keepWords(stringResource(R.string.companion_empty_title)),
+                    body = keepWords(stringResource(R.string.companion_empty_body)),
+                    tone = BadgeTone.Accent,
+                )
+            }
+        }
         contents.companions.forEach { c ->
             item(key = "c-${c.id}") {
-                InfoCard {
-                    Text(c.label, style = MaterialTheme.typography.titleLarge)
-                    if (c.passport != null) {
-                        StatusChip(stringResource(R.string.companion_passport_done), Tokens.SuccessBg, Tokens.SuccessText)
-                    } else {
-                        PrimaryButton(stringResource(R.string.companion_passport_add), onClick = { onRegisterPassport(c.id) })
-                    }
-                    TextButton(onClick = { onDelete(c.id) }, modifier = Modifier.heightIn(min = 48.dp)) { Text(stringResource(R.string.companion_delete)) }
-                }
+                CompanionCard(c, onRegisterPassport = { onRegisterPassport(c.id) }, onDelete = { pendingDelete = c.id })
             }
         }
         item(key = "add") {
-            InfoCard(tone = CardTone.Caution) {
-                Text(stringResource(R.string.companion_add), style = MaterialTheme.typography.titleMedium)
-                OutlinedTextField(
-                    value = label, onValueChange = { label = it },
-                    label = { Text(stringResource(R.string.companion_label)) },
-                    singleLine = true, modifier = Modifier.fillMaxWidth(),
+            val canAdd = consent && label.isNotBlank()
+            CardNewsCard(title = keepWords(stringResource(R.string.companion_add)), icon = Icons.Outlined.PersonAdd) {
+                CompanionNameField(label) { label = it }
+                KeepText(stringResource(R.string.companion_consent), style = MaterialTheme.typography.bodyLarge, color = Tokens.Ink)
+                ConsentRow(
+                    text = stringResource(R.string.companion_consent_yes),
+                    checked = consent,
+                    onCheckedChange = { consent = it },
                 )
-                Text(stringResource(R.string.companion_consent), style = MaterialTheme.typography.bodyLarge)
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier.heightIn(min = 48.dp).toggleable(consent, role = Role.Checkbox, onValueChange = { consent = it }),
-                ) {
-                    Checkbox(checked = consent, onCheckedChange = null)
-                    Text(stringResource(R.string.companion_consent_yes), style = MaterialTheme.typography.labelLarge)
-                }
                 // 동의 확인 없이는 추가할 수 없다 (PRD 3.3, 8.2)
-                PrimaryButton(stringResource(R.string.companion_add), enabled = consent && label.isNotBlank(), onClick = {
+                PrimaryButton(keepWords(stringResource(R.string.companion_add)), enabled = canAdd, icon = Icons.Outlined.PersonAdd, onClick = {
                     onAdd(label); label = ""; consent = false
                 })
+                if (!canAdd) DisabledReason(stringResource(R.string.companion_add_hint))
             }
         }
     }
+    pendingDelete?.let { id ->
+        DestructiveConfirm(
+            title = keepWords(stringResource(R.string.companion_delete_confirm_title)),
+            body = keepWords(stringResource(R.string.companion_delete_confirm_body)),
+            confirmLabel = keepWords(stringResource(R.string.companion_delete)),
+            onConfirm = { pendingDelete = null; onDelete(id) },
+            onDismiss = { pendingDelete = null },
+            secure = true,
+        )
+    }
+}
+
+/**
+ * 부르는 이름 칸 (6-27 `label = companion_label`): 테두리 홈에 들어가는 라벨은 짧게(`부르는 이름`) 그리고 예시는 칸 아래에 둔다 —
+ * 200%에서 긴 라벨이 두 줄로 꺾여 아이콘·테두리 위에 겹치지 않게. TalkBack·테스트가 읽는 칸 이름은 원문 `companion_label`
+ * 그대로이고(예시 포함), 칸 아래 예시는 같은 말을 두 번 읽지 않게 숨긴다.
+ */
+@Composable
+private fun CompanionNameField(value: String, onChange: (String) -> Unit) {
+    val name = stringResource(R.string.companion_label)
+    OutlinedTextField(
+        value = value,
+        onValueChange = { onChange(it.replace("\n", "")) },
+        label = {
+            Text(stringResource(R.string.companion_label_short), modifier = Modifier.semantics { text = AnnotatedString(name) })
+        },
+        leadingIcon = { Icon(Icons.Outlined.Person, contentDescription = null) },
+        supportingText = { Text(stringResource(R.string.companion_label_example), modifier = Modifier.clearAndSetSemantics {}) },
+        singleLine = false,
+        textStyle = MaterialTheme.typography.bodyLarge,
+        shape = MaterialTheme.shapes.small,
+        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
+        modifier = Modifier.fillMaxWidth(),
+    )
+}
+
+/** 같이 가는 사람 한 명: 이니셜 원(글자 크기에 맞춰 커짐, 장식) + 이름 + 여권 상태, 아래 줄 오른쪽에 여권 등록·지우기 */
+@Composable
+private fun CompanionCard(c: TravelCompanion, onRegisterPassport: () -> Unit, onDelete: () -> Unit) {
+    val dimens = LocalDimens.current
+    InfoCard {
+        Column(verticalArrangement = Arrangement.spacedBy(dimens.gap)) {
+            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(16.dp)) {
+                TextCircle(
+                    initialOf(c.label),
+                    modifier = Modifier.clearAndSetSemantics {},
+                    minSize = dimens.iconBadge,
+                    container = Tokens.AccentSoft,
+                    content = Tokens.Accent,
+                    style = MaterialTheme.typography.titleMedium,
+                )
+                Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                    KeepText(c.label, style = MaterialTheme.typography.titleLarge, color = Tokens.Ink)
+                    if (c.passport != null) {
+                        val done = stringResource(R.string.companion_passport_done)
+                        val shown = keepWords(done)
+                        SpokenAs(done, shown) { StatusTag(shown, StatusKind.Verified) }
+                    }
+                }
+            }
+            FlowRow(
+                Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.End),
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+            ) {
+                if (c.passport == null) {
+                    SecondaryButton(
+                        keepWords(stringResource(R.string.companion_passport_add)),
+                        onClick = onRegisterPassport,
+                        icon = Icons.Outlined.Badge,
+                        fillWidth = false,
+                    )
+                }
+                DangerButton(keepWords(stringResource(R.string.companion_delete)), onClick = onDelete)
+            }
+        }
+    }
+}
+
+/** 이름 첫 글자(이모지·한글 조합 문자도 한 글자로) */
+private fun initialOf(label: String): String {
+    val t = label.trim()
+    if (t.isEmpty()) return "?"
+    return String(Character.toChars(t.codePointAt(0)))
 }
 
 /** 제출 완료 화면을 그림으로 저장 (WebView 캡처 → 암호화) */

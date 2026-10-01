@@ -5,12 +5,31 @@ import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.heightIn
-import androidx.compose.material3.FilterChip
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.selection.selectableGroup
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.outlined.AirplaneTicket
+import androidx.compose.material.icons.automirrored.outlined.FactCheck
+import androidx.compose.material.icons.automirrored.outlined.ManageSearch
+import androidx.compose.material.icons.outlined.Add
+import androidx.compose.material.icons.outlined.Badge
+import androidx.compose.material.icons.outlined.CalendarMonth
+import androidx.compose.material.icons.outlined.Check
+import androidx.compose.material.icons.outlined.CheckCircle
+import androidx.compose.material.icons.outlined.ConfirmationNumber
+import androidx.compose.material.icons.outlined.Description
+import androidx.compose.material.icons.outlined.ErrorOutline
+import androidx.compose.material.icons.outlined.EventAvailable
+import androidx.compose.material.icons.outlined.Hotel
+import androidx.compose.material.icons.outlined.PictureAsPdf
+import androidx.compose.material.icons.outlined.Screenshot
+import androidx.compose.material.icons.outlined.SearchOff
+import androidx.compose.material.icons.outlined.Share
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -19,8 +38,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -29,11 +51,23 @@ import com.readyport.doc.booking.BookingFields
 import com.readyport.doc.booking.BookingKind
 import com.readyport.security.SecureScreen
 import com.readyport.ui.components.AppScreen
-import com.readyport.ui.components.CardTone
+import com.readyport.ui.components.BadgeTone
+import com.readyport.ui.components.BannerTone
+import com.readyport.ui.components.EmptyState
+import com.readyport.ui.components.IconBullet
+import com.readyport.ui.components.IconTile
 import com.readyport.ui.components.InfoCard
+import com.readyport.ui.components.NoticeBanner
 import com.readyport.ui.components.PrimaryButton
-import com.readyport.ui.components.TopicCard
+import com.readyport.ui.components.SecondaryButton
+import com.readyport.ui.components.SecurityBanner
+import com.readyport.ui.components.SelectTile
+import com.readyport.ui.components.TileGrid
+import com.readyport.ui.components.TileLayout
+import com.readyport.ui.components.TileSpec
+import com.readyport.ui.components.rememberGridColumns
 import com.readyport.ui.theme.LocalDimens
+import com.readyport.ui.theme.Tokens
 import com.readyport.vault.BookingRecord
 import com.readyport.vault.WalletRepository
 import kotlinx.coroutines.launch
@@ -78,6 +112,7 @@ fun BookingImportScreen(
     )
 }
 
+/** 26 예약 서류 추가 (DESIGN_SPEC 6-26). 맨 위 compact SecurityBanner — 고르기 → 읽는 중 → 검토 → 저장됨 */
 @Composable
 fun BookingImportContent(
     state: ImportState,
@@ -89,38 +124,54 @@ fun BookingImportContent(
     onRestart: () -> Unit,
     onDone: () -> Unit,
 ) {
-    val dimens = LocalDimens.current
     AppScreen(
         title = stringResource(R.string.booking_title),
         speech = stringResource(R.string.booking_speech),
     ) {
+        item(key = "security") { SecurityBanner(compact = true) }
         when (state) {
             ImportState.Choose -> {
-                item(key = "tip") { TopicCard(stringResource(R.string.booking_tip), null, tone = CardTone.Notice) }
+                item(key = "tip") { NoticeBanner(keepWords(stringResource(R.string.booking_tip)), icon = Icons.Outlined.Share) }
                 item(key = "pickers") {
-                    Column(verticalArrangement = Arrangement.spacedBy(dimens.gap)) {
-                        PrimaryButton(stringResource(R.string.booking_pick_photo), onClick = onPickPhoto)
-                        OutlinedButton(onClick = onPickPdf, modifier = Modifier.fillMaxWidth().heightIn(min = dimens.buttonHeight)) {
-                            Text(stringResource(R.string.booking_pick_pdf), style = MaterialTheme.typography.labelLarge)
-                        }
+                    Column(verticalArrangement = Arrangement.spacedBy(LocalDimens.current.gap)) {
+                        IconTile(
+                            TileSpec(keepWords(stringResource(R.string.booking_pick_photo)), Icons.Outlined.Screenshot, onPickPhoto),
+                            layout = TileLayout.Horizontal,
+                        )
+                        IconTile(
+                            TileSpec(keepWords(stringResource(R.string.booking_pick_pdf)), Icons.Outlined.PictureAsPdf, onPickPdf),
+                            layout = TileLayout.Horizontal,
+                        )
                     }
                 }
                 item(key = "paste") { PasteBox(onText) }
             }
             ImportState.Reading -> item(key = "reading") {
-                Text(stringResource(R.string.booking_reading), style = MaterialTheme.typography.bodyLarge)
+                Column(
+                    Modifier.fillMaxWidth().padding(vertical = 24.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.spacedBy(16.dp),
+                ) {
+                    CircularProgressIndicator(color = Tokens.Accent)
+                    KeepText(stringResource(R.string.booking_reading), style = MaterialTheme.typography.bodyLarge, color = Tokens.Ink)
+                }
             }
             is ImportState.Review -> item(key = "review") {
                 ReviewForm(state.fields, saveFailed, onSave)
             }
             ImportState.Saved -> item(key = "saved") {
-                InfoCard {
-                    Text(stringResource(R.string.booking_saved), style = MaterialTheme.typography.titleLarge)
-                    PrimaryButton(stringResource(R.string.wallet_title), onClick = onDone)
-                    OutlinedButton(onClick = onRestart, modifier = Modifier.fillMaxWidth().heightIn(min = dimens.buttonHeight)) {
-                        Text(stringResource(R.string.wallet_booking_add), style = MaterialTheme.typography.labelLarge)
-                    }
-                }
+                EmptyState(
+                    icon = Icons.Outlined.CheckCircle,
+                    title = keepWords(stringResource(R.string.booking_saved)),
+                    body = null,
+                    tone = BadgeTone.Success,
+                    action = {
+                        Column(verticalArrangement = Arrangement.spacedBy(LocalDimens.current.gap)) {
+                            PrimaryButton(keepWords(stringResource(R.string.wallet_title)), onClick = onDone, icon = Icons.Outlined.Badge)
+                            SecondaryButton(keepWords(stringResource(R.string.wallet_booking_add)), onClick = onRestart, icon = Icons.Outlined.Add)
+                        }
+                    },
+                )
             }
         }
     }
@@ -130,19 +181,25 @@ fun BookingImportContent(
 private fun PasteBox(onText: (String) -> Unit) {
     var text by remember { mutableStateOf("") }
     InfoCard {
-        OutlinedTextField(
-            value = text,
-            onValueChange = { text = it },
-            label = { Text(stringResource(R.string.booking_paste_label)) },
-            minLines = 3,
-            textStyle = MaterialTheme.typography.bodyLarge,
-            modifier = Modifier.fillMaxWidth(),
-        )
-        OutlinedButton(
-            onClick = { onText(text) },
-            enabled = text.isNotBlank(),
-            modifier = Modifier.fillMaxWidth().heightIn(min = LocalDimens.current.buttonHeight),
-        ) { Text(stringResource(R.string.booking_read_text), style = MaterialTheme.typography.labelLarge) }
+        Column(verticalArrangement = Arrangement.spacedBy(LocalDimens.current.gap)) {
+            OutlinedTextField(
+                value = text,
+                onValueChange = { text = it },
+                // 짧은 라벨(테두리 홈에 한 줄) + 무엇을 붙여넣는지는 칸 아래
+                label = { Text(stringResource(R.string.booking_paste_label_short)) },
+                supportingText = { Text(stringResource(R.string.booking_paste_hint)) },
+                minLines = 3,
+                textStyle = MaterialTheme.typography.bodyLarge,
+                shape = MaterialTheme.shapes.small,
+                modifier = Modifier.fillMaxWidth(),
+            )
+            SecondaryButton(
+                keepWords(stringResource(R.string.booking_read_text)),
+                onClick = { onText(text) },
+                icon = Icons.AutoMirrored.Outlined.ManageSearch,
+                enabled = text.isNotBlank(),
+            )
+        }
     }
 }
 
@@ -153,54 +210,94 @@ private fun ReviewForm(fields: BookingFields, saveFailed: Boolean, onSave: (Book
         BookingKind.Lodging to stringResource(R.string.booking_kind_lodging),
         BookingKind.Unknown to stringResource(R.string.booking_kind_other),
     )
+    val kindIcons = mapOf(
+        BookingKind.Flight to Icons.AutoMirrored.Outlined.AirplaneTicket,
+        BookingKind.Lodging to Icons.Outlined.Hotel,
+        BookingKind.Unknown to Icons.Outlined.Description,
+    )
     val defaultTitle = kindLabels.getValue(fields.kind) + (fields.dates.firstOrNull()?.let { " $it" } ?: "")
     var draft by remember(fields) { mutableStateOf(BookingDraft.from(fields, defaultTitle)) }
     val nothingFound = fields.reference == null && fields.flightNumbers.isEmpty() && fields.dates.isEmpty()
+    val dimens = LocalDimens.current
 
-    Column(verticalArrangement = Arrangement.spacedBy(LocalDimens.current.gap)) {
-        Text(
-            stringResource(if (nothingFound) R.string.booking_nothing_found else R.string.booking_review_body),
-            style = MaterialTheme.typography.bodyLarge,
-        )
-        Text(stringResource(R.string.booking_field_kind), style = MaterialTheme.typography.labelLarge)
-        FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            kindLabels.forEach { (kind, label) ->
-                FilterChip(
-                    selected = draft.kind == kind,
-                    onClick = { draft = draft.copy(kind = kind) },
-                    label = { Text(label, style = MaterialTheme.typography.labelLarge) },
-                    modifier = Modifier.heightIn(min = 48.dp),
-                )
-            }
+    Column(verticalArrangement = Arrangement.spacedBy(dimens.gap)) {
+        if (nothingFound) {
+            NoticeBanner(keepWords(stringResource(R.string.booking_nothing_found)), icon = Icons.Outlined.SearchOff, tone = BannerTone.Caution)
+        } else {
+            NoticeBanner(keepWords(stringResource(R.string.booking_review_body)), icon = Icons.AutoMirrored.Outlined.FactCheck)
         }
-        Field(R.string.booking_field_title, draft.title) { draft = draft.copy(title = it) }
-        Field(R.string.booking_field_reference, draft.reference) { draft = draft.copy(reference = it) }
-        if (draft.kind != BookingKind.Lodging) {
-            Field(R.string.booking_field_flights, draft.flights) { draft = draft.copy(flights = it) }
-        }
-        if (draft.kind == BookingKind.Lodging) {
-            Field(R.string.booking_field_checkin, draft.checkIn) { draft = draft.copy(checkIn = it) }
-            Field(R.string.booking_field_checkout, draft.checkOut) { draft = draft.copy(checkOut = it) }
-        }
-        if (draft.dates.isNotEmpty()) {
-            Text(
-                stringResource(R.string.booking_field_dates) + ": " + draft.dates.joinToString(" · "),
-                style = MaterialTheme.typography.bodyMedium,
+        // 종류: 세로 아이콘 + 라벨 타일 3칸 (큰 글자·쉬운 모드에서 칸이 좁아지면 1열 가로형)
+        KeepText(stringResource(R.string.booking_field_kind), style = MaterialTheme.typography.titleSmall, color = Tokens.InkSecondary)
+        TileGrid(
+            items = kindLabels.keys.toList(),
+            modifier = Modifier.selectableGroup(),
+            columns = if (rememberGridColumns() == 1) 1 else 3,
+        ) { kind, cell ->
+            SelectTile(
+                label = keepWords(kindLabels.getValue(kind)),
+                icon = kindIcons.getValue(kind),
+                selected = draft.kind == kind,
+                onClick = { draft = draft.copy(kind = kind) },
+                modifier = cell,
             )
         }
-        if (saveFailed) TopicCard(stringResource(R.string.booking_save_failed), null, tone = CardTone.Caution)
-        PrimaryButton(stringResource(R.string.booking_save), onClick = { onSave(draft) }, enabled = draft.title.isNotBlank())
+        // 입력칸 라벨은 짧게(테두리 홈에 한 줄로 들어가게), 예시·설명은 칸 아래. 값은 칸 안에서 줄바꿈해 끝까지 보인다
+        InfoCard {
+            Column(verticalArrangement = Arrangement.spacedBy(dimens.gap)) {
+                Field(R.string.booking_label_title, draft.title, Icons.Outlined.Description, hint = R.string.booking_hint_title) {
+                    draft = draft.copy(title = it)
+                }
+                Field(R.string.booking_field_reference, draft.reference, Icons.Outlined.ConfirmationNumber) { draft = draft.copy(reference = it) }
+                if (draft.kind != BookingKind.Lodging) {
+                    Field(R.string.wallet_booking_flights, draft.flights, Icons.AutoMirrored.Outlined.AirplaneTicket, hint = R.string.booking_hint_flights) {
+                        draft = draft.copy(flights = it)
+                    }
+                }
+                if (draft.kind == BookingKind.Lodging) {
+                    Field(R.string.booking_label_checkin, draft.checkIn, Icons.Outlined.CalendarMonth, hint = R.string.booking_hint_checkin) {
+                        draft = draft.copy(checkIn = it)
+                    }
+                    Field(R.string.booking_label_checkout, draft.checkOut, Icons.Outlined.CalendarMonth, hint = R.string.booking_hint_checkout) {
+                        draft = draft.copy(checkOut = it)
+                    }
+                }
+                if (draft.dates.isNotEmpty()) {
+                    IconBullet(
+                        keepWords(stringResource(R.string.booking_field_dates)) + ": " + draft.dates.joinToString(", "),
+                        Icons.Outlined.EventAvailable,
+                        tone = BadgeTone.Accent,
+                    )
+                }
+            }
+        }
+        if (saveFailed) {
+            NoticeBanner(keepWords(stringResource(R.string.booking_save_failed)), icon = Icons.Outlined.ErrorOutline, tone = BannerTone.Caution)
+        }
+        PrimaryButton(
+            keepWords(stringResource(R.string.booking_save)),
+            onClick = { onSave(draft) },
+            enabled = draft.title.isNotBlank(),
+            icon = Icons.Outlined.Check,
+        )
     }
 }
 
+/**
+ * 검토 입력칸: 짧은 라벨 + 앞 아이콘 + 예시·설명(supportingText, 늘 보임). 줄바꿈 입력은 받지 않지만
+ * 긴 값(예: `항공권 2026-11-03`)은 칸 안에서 여러 줄로 보여 준다 — 확인하라는 값이 잘리지 않게.
+ */
 @Composable
-private fun Field(label: Int, value: String, onChange: (String) -> Unit) {
+private fun Field(label: Int, value: String, icon: ImageVector, hint: Int? = null, onChange: (String) -> Unit) {
     OutlinedTextField(
         value = value,
-        onValueChange = onChange,
+        onValueChange = { onChange(it.replace("\n", "")) },
         label = { Text(stringResource(label)) },
-        singleLine = true,
+        leadingIcon = { Icon(icon, contentDescription = null) },
+        supportingText = hint?.let { { Text(stringResource(it)) } },
+        singleLine = false,
         textStyle = MaterialTheme.typography.bodyLarge,
+        shape = MaterialTheme.shapes.small,
+        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
         modifier = Modifier.fillMaxWidth(),
     )
 }
