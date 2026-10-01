@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "country": "TW",
-  "version": "2026.10.02-1",
+  "version": "2026.10.02-2",
   "last_verified": "2026-10-02",
   "names": {
     "ko": "대만",
@@ -67,6 +67,11 @@
       "id": "apqa_livestock",
       "name": "농림축산검역본부 휴대 축산물 검역",
       "url": "https://www.apqa.go.kr/livestock/qua/livestock_imp_sum2.jsp?type=1"
+    },
+    {
+      "id": "boca_visa_exempt",
+      "name": "대만 외교부 영사사무국(BOCA) · 무비자 입국 요건",
+      "url": "https://www.boca.gov.tw/cp-149-4486-7785a-2.html"
     }
   ],
   "requirements": [
@@ -80,7 +85,13 @@
       ],
       "summary_ko": "대한민국 일반 여권은 비자 없이 90일까지 머물 수 있어요(상호주의). 긴급여권이나 여행증명서로 들어가면 도착해서 도착비자(30일)를 따로 받아야 해요.",
       "source": "mofa_tw",
-      "last_verified": "2026-10-02"
+      "last_verified": "2026-10-02",
+      "passport_validity": {
+        "months": 6,
+        "basis": "arrival",
+        "source": "boca_visa_exempt",
+        "last_verified": "2026-10-02"
+      }
     }
   ],
   "forms": [
@@ -321,5 +332,23 @@
     "frequency": "60 Hz",
     "source": "tw_tourism_tips",
     "last_verified": "2026-10-02"
-  }
+  },
+  "checklist": [
+    {
+      "id": "medicine_rx",
+      "phase": "week",
+      "icon": "medicine",
+      "title_ko": "약 성분·처방전 확인하기",
+      "section": "basic",
+      "text_ko": "코데인처럼 대만이 관리하는 성분이 든 약(일부 진통제·기침약)은 영문 처방전이나 진단서가 있어야 가져갈 수 있어요."
+    },
+    {
+      "id": "cash_declare",
+      "phase": "three_days",
+      "icon": "cash",
+      "title_ko": "현금 신고 기준 알아 두기",
+      "section": "payment",
+      "text_ko": "10만 대만 달러(NTD 100,000) 이상 현금을 가지고 들어가면 세관(가방 속 물건을 확인하는 곳)에 신고해야 해요. 신고하지 않으면 넘는 돈을 빼앗겨요."
+    }
+  ]
 }

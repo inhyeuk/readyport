@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "version": "2026.10.02-2",
+  "version": "2026.10.02-3",
   "countries": [
     {
       "code": "TH",
@@ -102,6 +102,11 @@
       "id": "apqa_livestock",
       "name": "농림축산검역본부 휴대 축산물 검역",
       "url": "https://www.apqa.go.kr/livestock/qua/livestock_imp_sum2.jsp?type=1"
+    },
+    {
+      "id": "passport_reissue",
+      "name": "외교부 여권안내 · 여권 재발급",
+      "url": "https://www.passport.go.kr/home/kor/contents.do?menuPos=7"
     }
   ],
   "home_power": {
@@ -203,6 +208,244 @@
       "text_ko": "고기·햄·소시지·육포 같은 축산물은 가져오지 마세요. 신고하지 않고 걸리면 최고 1,000만 원 과태료예요.",
       "source": "apqa_livestock",
       "last_verified": "2026-09-29"
+    }
+  ],
+  "checklist": [
+    {
+      "id": "passport_validity",
+      "phase": "month",
+      "icon": "passport",
+      "kind": "auto",
+      "title_ko": "여권 남은 기간 확인하기",
+      "from": "passport_validity",
+      "action": "open_passport"
+    },
+    {
+      "id": "visa",
+      "phase": "month",
+      "icon": "visa",
+      "kind": "pack",
+      "title_ko": "비자·머무는 기간 확인하기",
+      "from": "visa"
+    },
+    {
+      "id": "booking",
+      "phase": "month",
+      "icon": "flight",
+      "kind": "generic",
+      "title_ko": "항공권·숙소 예약 다시 보기",
+      "body_ko": "예약한 영문 이름이 여권과 같은지, 날짜와 공항이 맞는지 한 번 더 확인하세요."
+    },
+    {
+      "id": "essential.travel_insurance",
+      "phase": "month",
+      "icon": "insurance",
+      "kind": "essential",
+      "from": "essential:travel_insurance"
+    },
+    {
+      "id": "advisory",
+      "phase": "month",
+      "icon": "advisory",
+      "kind": "pack",
+      "title_ko": "여행경보 다시 확인하기",
+      "body_ko": "여행경보는 자주 바뀌어요. 떠나기 전에 외교부 해외안전여행에서 가는 곳의 단계를 다시 보세요.",
+      "from": "advisory"
+    },
+    {
+      "id": "passport_saved",
+      "phase": "month",
+      "icon": "wallet",
+      "kind": "auto",
+      "title_ko": "여권 정보 앱에 넣어 두기",
+      "body_ko": "입국 카드 칸을 앱이 채울 때 써요. 이 휴대폰 안에만 암호화해서 둬요.",
+      "from": "passport_saved",
+      "action": "open_passport"
+    },
+    {
+      "id": "data",
+      "phase": "month",
+      "icon": "data",
+      "kind": "generic",
+      "title_ko": "데이터 준비하기(로밍·eSIM·유심)",
+      "body_ko": "현지에서 지도와 번역을 쓰려면 데이터가 필요해요. 통신사 로밍, eSIM, 현지 유심 가운데 하나를 골라 미리 준비하세요."
+    },
+    {
+      "id": "essential.payment",
+      "phase": "week",
+      "icon": "card",
+      "kind": "essential",
+      "title_ko": "해외 결제 카드·현금 두 가지 준비하기",
+      "from": "essential:payment"
+    },
+    {
+      "id": "essential.medicine",
+      "phase": "week",
+      "icon": "medicine",
+      "kind": "essential",
+      "from": "essential:medicine"
+    },
+    {
+      "id": "essential.power_bank",
+      "phase": "week",
+      "icon": "battery",
+      "kind": "essential",
+      "from": "essential:power_bank"
+    },
+    {
+      "id": "essential.plug_adapter",
+      "phase": "week",
+      "icon": "plug",
+      "kind": "essential",
+      "from": "essential:plug_adapter"
+    },
+    {
+      "id": "essential.voltage_check",
+      "phase": "week",
+      "icon": "voltage",
+      "kind": "essential",
+      "from": "essential:voltage_check"
+    },
+    {
+      "id": "offline_pack",
+      "phase": "week",
+      "icon": "offline",
+      "kind": "auto",
+      "title_ko": "인터넷 없이 볼 나라 안내 받아 두기",
+      "body_ko": "이 나라 안내가 휴대폰에 있으면 인터넷이 없어도 입국·도움 화면을 볼 수 있어요.",
+      "from": "offline_pack"
+    },
+    {
+      "id": "offline_map",
+      "phase": "week",
+      "icon": "map",
+      "kind": "generic",
+      "title_ko": "오프라인 지도 저장하기",
+      "body_ko": "지도 앱에서 머무는 동네를 미리 저장해 두면 데이터가 없어도 길을 찾을 수 있어요."
+    },
+    {
+      "id": "address_local",
+      "phase": "week",
+      "icon": "address",
+      "kind": "generic",
+      "title_ko": "숙소 주소를 현지어로 저장하기",
+      "body_ko": "택시 기사님께 보여 줄 수 있게 숙소 주소를 현지어 그대로 앱에 넣어 두세요.",
+      "action": "open_transport"
+    },
+    {
+      "id": "consular_call",
+      "phase": "week",
+      "icon": "phone",
+      "kind": "pack",
+      "title_ko": "영사콜센터 번호 저장하기",
+      "from": "consular",
+      "action": "open_help"
+    },
+    {
+      "id": "entry_form",
+      "phase": "three_days",
+      "icon": "form",
+      "kind": "auto",
+      "title_ko": "입국 카드 내기",
+      "from": "entry_form",
+      "action": "open_form"
+    },
+    {
+      "id": "phrases",
+      "phase": "three_days",
+      "icon": "phrases",
+      "kind": "generic",
+      "title_ko": "현지어 카드 미리 보기",
+      "body_ko": "화장실·병원·길을 잃었을 때 보여 줄 문장을 미리 한 번 봐 두세요.",
+      "action": "open_help"
+    },
+    {
+      "id": "essential.passport",
+      "phase": "departure_day",
+      "icon": "passport",
+      "kind": "essential",
+      "title_ko": "여권·입국 확인 화면 챙기기",
+      "body_ko": "여권은 몸에 지니고, 입국 카드 QR이나 확인 메일은 '입국 때 보여 주기'에서 바로 열 수 있게 해 두세요.",
+      "from": "essential:passport",
+      "action": "open_present"
+    },
+    {
+      "id": "airport_time",
+      "phase": "departure_day",
+      "icon": "airport",
+      "kind": "generic",
+      "title_ko": "공항에 넉넉히 일찍 가기",
+      "body_ko": "국제선은 짐 부치기와 보안 검색에 시간이 걸려요. 항공사가 안내한 시간보다 늦지 않게 가세요."
+    },
+    {
+      "id": "show_entry",
+      "phase": "arrival",
+      "icon": "qr",
+      "kind": "generic",
+      "title_ko": "입국 심사에서 확인 화면 보여 주기",
+      "body_ko": "입국 카드를 냈으면 받은 QR이나 확인 메일을 바로 꺼낼 수 있게 해 두세요.",
+      "action": "open_present",
+      "when": "has_form"
+    },
+    {
+      "id": "emergency_number",
+      "phase": "arrival",
+      "icon": "emergency",
+      "kind": "pack",
+      "title_ko": "현지 긴급 번호 알아 두기",
+      "from": "emergency",
+      "action": "open_help"
+    },
+    {
+      "id": "passport_keep",
+      "phase": "during",
+      "icon": "safe",
+      "kind": "generic",
+      "title_ko": "여권은 따로 안전하게 두기",
+      "body_ko": "여권을 잃어버리면 다시 받는 데 시간이 걸려요. 숙소 금고나 가방 깊은 곳에 두세요."
+    },
+    {
+      "id": "shopping_check",
+      "phase": "during",
+      "icon": "shopping",
+      "kind": "generic",
+      "title_ko": "산 물건 한국에 들여올 수 있는지 보기",
+      "body_ko": "쇼핑 리스트에 담아 두면 돌아올 때 반입 판정을 다시 보여 줘요.",
+      "action": "open_shopping"
+    },
+    {
+      "id": "return_rules",
+      "phase": "before_return",
+      "icon": "customs",
+      "kind": "pack",
+      "title_ko": "면세 한도·반입 금지 다시 보기",
+      "from": "return_facts"
+    },
+    {
+      "id": "leftover_cash",
+      "phase": "before_return",
+      "icon": "cash",
+      "kind": "generic",
+      "title_ko": "남은 현금 정리하기",
+      "body_ko": "남은 현지 돈을 공항 가기 전에 쓸지, 가지고 돌아올지 정해 두세요."
+    },
+    {
+      "id": "return_flight",
+      "phase": "before_return",
+      "icon": "flight_return",
+      "kind": "generic",
+      "title_ko": "돌아가는 비행기 시간 다시 보기",
+      "body_ko": "출발 시간과 공항·터미널을 한 번 더 확인하고, 공항까지 가는 시간을 넉넉히 잡으세요."
+    },
+    {
+      "id": "passport_destroy",
+      "phase": "back",
+      "icon": "delete",
+      "kind": "auto",
+      "title_ko": "여권 정보 지우기(고를 수 있어요)",
+      "body_ko": "다음 여행 전까지 쓸 일이 없으면 이 휴대폰에서 여권 정보만 지울 수 있어요. 받은 입국 서류 그림은 남아요.",
+      "from": "passport_destroyed",
+      "action": "destroy_passport"
     }
   ]
 }

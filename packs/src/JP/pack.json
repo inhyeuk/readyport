@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "country": "JP",
-  "version": "2026.09.29-1",
+  "version": "2026.10.02-1",
   "last_verified": "2026-09-28",
   "names": {
     "ko": "일본",
@@ -100,7 +100,8 @@
       ],
       "summary_ko": "대한민국 일반 여권은 비자 없이 90일까지 머물 수 있어요. Visit Japan Web으로 입국·세관 신고를 미리 할 수 있어요(꼭 해야 하는 건 아니고, 종이 신고서도 돼요).",
       "source": "mofa_jp",
-      "last_verified": "2026-09-28"
+      "last_verified": "2026-09-28",
+      "passport_validity": null
     }
   ],
   "forms": [
@@ -357,5 +358,15 @@
     "frequency": "50 Hz(동일본)·60 Hz(서일본)",
     "source": "jnto_power",
     "last_verified": "2026-09-29"
-  }
+  },
+  "checklist": [
+    {
+      "id": "cash_declare",
+      "phase": "three_days",
+      "icon": "cash",
+      "title_ko": "현금 신고 기준 알아 두기",
+      "section": "entry",
+      "text_ko": "100만 엔 이상 현금은 들어올 때와 나갈 때 신고해야 해요."
+    }
+  ]
 }

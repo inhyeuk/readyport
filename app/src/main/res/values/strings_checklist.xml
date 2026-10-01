@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 여러 여행 + 여행 체크리스트 + 여권 남은 기간 (2026-10-02). 새 문구는 이 파일에만. -->
+<resources>
+    <!-- 내 여행 목록 -->
+    <string name="trips_title">내 여행 목록</string>
+    <string name="trips_subtitle">여행마다 체크리스트가 따로 있어요</string>
+    <string name="trips_speech">내 여행 목록이에요. 여행을 누르면 그 여행의 체크리스트가 열려요.</string>
+    <string name="trips_group_ongoing">여행 중</string>
+    <string name="trips_group_upcoming">다가오는 여행</string>
+    <string name="trips_group_past">지난 여행 %1$d개</string>
+    <string name="trips_past_target">지난 여행</string>
+    <string name="trips_empty_title">아직 만든 여행이 없어요</string>
+    <string name="trips_empty_body">나라와 날짜를 넣으면 여권 기간부터 돌아와서 할 일까지 체크리스트를 만들어 드려요.</string>
+    <string name="trips_overlap_note">날짜가 겹치는 여행이 있어요. 맞게 넣었는지 한 번 확인해 보세요.</string>
+    <string name="trips_overlap_tag">날짜가 겹쳐요</string>
+    <string name="trips_row_progress">체크리스트 %1$d / %2$d</string>
+    <string name="trips_row_cd">%1$s 여행, %2$s, %3$s, 체크리스트 %4$d개 중 %5$d개 했어요</string>
+    <string name="trips_status_days">출발까지 %1$d일</string>
+    <string name="trips_status_today">오늘 출발</string>
+    <string name="trips_status_ongoing">여행 중</string>
+    <string name="trips_status_past">다녀왔어요</string>
+    <string name="trips_open_list">여행 목록 보기</string>
+    <string name="trips_local_only">여행과 체크한 것은 이 휴대폰에만 저장돼요.</string>
+
+    <!-- 여행 체크리스트 -->
+    <string name="ck_title">%1$s 여행 체크리스트</string>
+    <string name="ck_speech">%1$s 여행 체크리스트예요. 모두 %2$d개 중 %3$d개 했어요.</string>
+    <string name="ck_progress_sentence">모두 %1$d개 중 %2$d개 했어요</string>
+    <string name="ck_progress_title">%1$s · %2$s</string>
+    <string name="ck_phase_month">떠나기 한 달 전쯤</string>
+    <string name="ck_phase_week">일주일 전</string>
+    <string name="ck_phase_three_days">3일 전</string>
+    <string name="ck_phase_departure_day">출발하는 날</string>
+    <string name="ck_phase_arrival">도착하면</string>
+    <string name="ck_phase_during">여행 중</string>
+    <string name="ck_phase_before_return">돌아오기 전</string>
+    <string name="ck_phase_back">돌아와서</string>
+    <string name="ck_hint_month">출발 한 달 전쯤부터 · %1$s까지</string>
+    <string name="ck_hint_week">출발 7일 전부터 · %1$s까지</string>
+    <string name="ck_hint_three_days">출발 3일 전부터 · %1$s까지</string>
+    <string name="ck_hint_departure_day">%1$s</string>
+    <string name="ck_hint_arrival">도착한 뒤 · %1$s까지</string>
+    <string name="ck_hint_during">여행하는 동안 · %1$s까지</string>
+    <string name="ck_hint_before_return">돌아오기 하루 전부터 · %1$s까지</string>
+    <string name="ck_hint_back">%1$s 돌아온 뒤</string>
+    <string name="ck_phase_now">지금</string>
+    <string name="ck_phase_show">한 일 %1$d개 보기</string>
+    <string name="ck_phase_show_items">항목 %1$d개 보기</string>
+    <string name="ck_phase_target">%1$s 항목</string>
+    <string name="ck_phase_cd">%1$s, %2$d개 중 %3$d개 했어요</string>
+    <string name="ck_state_done">했어요</string>
+    <string name="ck_state_todo">아직이에요</string>
+    <string name="ck_auto_marker">앱이 확인했어요</string>
+    <string name="ck_auto_override">내가 바꿨어요</string>
+    <string name="ck_overdue">지금 해 두세요</string>
+    <string name="ck_urgent">오늘 꼭 내요</string>
+    <string name="ck_opens_on">%1$s부터 할 수 있어요</string>
+    <string name="ck_custom_kind">내 항목</string>
+    <string name="ck_saved_local">체크한 것은 이 휴대폰에만 저장돼요.</string>
+    <string name="ck_essentials_link">꼭 챙길 물건 자세히 보기</string>
+
+    <!-- 여권 남은 기간 -->
+    <string name="ck_pp_basis_arrival">입국일</string>
+    <string name="ck_pp_basis_departure">그 나라에서 나오는 날</string>
+    <string name="ck_pp_basis_stay_end">머무는 기간이 끝나는 날</string>
+    <string name="ck_pp_need">이 여행에는 여권이 %1$s 기준 %2$d개월 이상 남아 있어야 해요.</string>
+    <string name="ck_pp_ok">지금 여권은 괜찮아요.</string>
+    <string name="ck_pp_short">이 여행에는 여권 남은 기간이 %1$s 기준 %2$d개월 이상 필요해요. 지금 여권으로는 모자라요 — 여권 재발급을 먼저 알아보세요.</string>
+    <string name="ck_pp_short_trip">지금 여권은 이 여행이 끝나기 전에 기간이 끝나요. 여권 재발급을 먼저 알아보세요.</string>
+    <string name="ck_pp_unknown_rule">나라별 기준을 공식 안내에서 확인하세요.</string>
+    <string name="ck_pp_unknown_rule_ok">지금 여권은 여행 기간 동안은 유효해요. 나라별 기준을 공식 안내에서 확인하세요.</string>
+    <string name="ck_pp_no_passport">여권 정보가 아직 없어요. 넣어 두면 이 여행에 필요한 기간을 앱이 확인해요. 넣지 않아도 여권을 보고 직접 체크할 수 있어요.</string>
+    <string name="ck_pp_locked">내 정보를 한 번 열면 앱이 여권 기간을 확인해요.</string>
+    <string name="ck_pp_privacy">만료일은 저장하지 않고 괜찮은지 모자란지 결과만 이 휴대폰에 남겨요.</string>
+    <string name="ck_pp_open_wallet">내 정보 열기</string>
+    <string name="ck_pp_reissue">여권 재발급 안내 열기</string>
+    <string name="ck_official_open">외교부 해외안전여행 열기</string>
+
+    <!-- 항목별 -->
+    <string name="ck_visa_apply">%1$s 공식 사이트 열기</string>
+    <string name="ck_action_help">현지어와 긴급 번호 보기</string>
+    <string name="ck_action_present">입국 때 보여 주기 열기</string>
+    <string name="ck_action_transport">이동하기에서 주소 넣기</string>
+    <string name="ck_action_shopping">쇼핑 리스트 보기</string>
+    <string name="ck_return_more">면세 한도·반입 금지 문장 전체 보기</string>
+    <string name="ck_return_target">면세 한도·반입 금지 문장</string>
+    <string name="ck_destroy_none">지울 여권 정보가 없어요.</string>
+    <string name="ck_offline_value">안내 확인 %1$s</string>
+
+    <!-- 내 항목 -->
+    <string name="ck_custom_title">내가 넣은 항목</string>
+    <string name="ck_custom_empty">체크리스트에 없는 나만의 할 일을 넣어 보세요.</string>
+    <string name="ck_custom_label">챙길 것 더하기</string>
+    <string name="ck_custom_hint">예: 우산 챙기기</string>
+    <string name="ck_custom_add">더하기</string>
+    <string name="ck_custom_edit">고치기</string>
+    <string name="ck_custom_edit_target">%1$s 고치기</string>
+    <string name="ck_custom_save">저장하기</string>
+    <string name="ck_custom_delete_target">%1$s 지우기</string>
+    <string name="ck_delete_body">여행 날짜와 이 여행 체크리스트(내가 넣은 항목 포함)가 지워져요. 여권·예약 서류는 남아요.</string>
+
+    <!-- 오늘 화면 · 홈 -->
+    <string name="ck_now_title">지금 챙길 것</string>
+    <string name="ck_now_eyebrow">체크리스트 %1$d / %2$d</string>
+    <string name="ck_now_open">체크리스트 전체 보기</string>
+    <string name="ck_now_all_done">지금 챙길 것은 다 했어요.</string>
+    <string name="home_trips_all">여행 %1$d개 모두 보기</string>
+
+    <!-- 나라 화면 '내 여행에 넣기' -->
+    <string name="ck_plan_dialog_title">이 나라 여행이 이미 있어요</string>
+    <string name="ck_plan_dialog_body">%1$s 여행(%2$s)이 있어요. 새 여행으로 만들까요, 기존 여행을 열까요?</string>
+    <string name="ck_plan_new">새 여행으로 만들기</string>
+    <string name="ck_plan_open">기존 여행 열기</string>
+
+    <!-- 꼭 챙길 물건 화면 -->
+    <string name="ess_trip_synced">이 체크는 %1$s 여행 체크리스트와 함께 바뀌어요.</string>
+</resources>

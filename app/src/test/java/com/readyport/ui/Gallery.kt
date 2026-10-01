@@ -51,8 +51,21 @@ import com.readyport.ui.today.TodayUi
 import com.readyport.ui.transport.RideAppRow
 import com.readyport.ui.transport.TransportContent
 import com.readyport.ui.transport.TransportUi
+import com.readyport.ui.trip.ChecklistActions
+import com.readyport.ui.trip.ChecklistUi
+import com.readyport.ui.trip.TripChecklistContent
 import com.readyport.ui.trip.TripContent
 import com.readyport.ui.trip.TripFormUi
+import com.readyport.ui.trip.TripListContent
+import com.readyport.ui.trip.TripListUi
+import com.readyport.ui.trip.TripRow
+import com.readyport.trip.Checklist
+import com.readyport.trip.ChecklistPhase
+import com.readyport.trip.CustomItem
+import com.readyport.trip.PassportValidity
+import com.readyport.trip.TripChecks
+import com.readyport.trip.TripTiming
+import kotlinx.coroutines.runBlocking
 import com.readyport.ui.video.LocalThumbnailLoader
 import com.readyport.ui.video.VideosContent
 import com.readyport.ui.video.VideosState
@@ -80,6 +93,56 @@ object Gallery {
     private val index get() = TestPacks.index.value
     private val th get() = TestPacks.thailand
     private val trip = Trip("TH", "2026-11-03", "2026-11-07")
+
+    // ---------------- 여러 여행·체크리스트 (2026-10-02) ----------------
+    private fun packOf(cc: String) = runBlocking { TestPacks.repo.pack(cc)!!.value }
+    private fun checklist(t: Trip, today: LocalDate, checks: TripChecks, saved: Boolean? = true) =
+        Checklist.build(Checklist.Input(t, index, packOf(t.country), checks, saved, today))
+
+    /** 태국 11월 여행, 오늘 10월 30일(일주일 전 단계): 한 달 전 항목 하나 늦음, 입국 카드는 11월 1일부터, 여권 괜찮음 */
+    private val ckTh = Trip("TH", "2026-11-03", "2026-11-07", id = "g-th")
+    private val ckThToday = LocalDate.of(2026, 10, 30)
+    private val ckThChecks
+        get() = TripChecks(
+            marks = listOf("visa", "booking", "essential.travel_insurance", "data", "essential.payment", "essential.power_bank")
+                .associateWith { true },
+            custom = listOf(CustomItem("custom.g1", "우산 챙기기"), CustomItem("custom.g2", "아이 간식 챙기기")),
+            passport = PassportValidity.check(LocalDate.of(2031, 4, 15), ckTh, packOf("TH").requirements.first().passportValidity),
+        )
+    private val ckThData get() = checklist(ckTh, ckThToday, ckThChecks)
+
+    /** 중국 여행 출발 당일: 앞 단계는 감기약 성분 확인 하나만 남김(늦음), 입국 카드 안 냄(급함), 여권 기준은 공식 안내에 없음 */
+    private val ckCn = Trip("CN", "2026-10-30", "2026-11-03", id = "g-cn")
+    private val ckCnData: com.readyport.trip.ChecklistData
+        get() {
+            val today = ckCn.start
+            val first = checklist(ckCn, today, TripChecks())
+            val before = first.items.filter { it.phase!! < ChecklistPhase.DepartureDay && it.id != "country.medicine_cold" && it.id != "entry_form" }
+            return checklist(
+                ckCn, today,
+                TripChecks(
+                    marks = before.associate { it.id to true },
+                    passport = PassportValidity.check(LocalDate.of(2031, 4, 15), ckCn, null),
+                    custom = listOf(CustomItem("custom.c1", "보조배터리 용량 표시 확인")),
+                ),
+            )
+        }
+
+    private fun row(t: Trip, timing: TripTiming, name: String, today: LocalDate, checks: TripChecks = TripChecks(), overlaps: Boolean = false): TripRow {
+        val data = checklist(t, today, checks)
+        return TripRow(t, timing, name, data.done, data.total, overlaps)
+    }
+
+    private val tripRows: List<TripRow>
+        get() {
+            val today = LocalDate.of(2026, 10, 2)
+            return listOf(
+                row(ckTh, TripTiming.Upcoming, "태국", today, ckThChecks, overlaps = true),
+                row(Trip("JP", "2026-11-06", "2026-11-09", id = "g-jp"), TripTiming.Upcoming, "일본", today, overlaps = true),
+                row(Trip("TH", "2027-02-10", "2027-02-14", id = "g-th2"), TripTiming.Upcoming, "태국", today),
+                row(Trip("SG", "2026-08-10", "2026-08-13", wrappedUp = true, id = "g-sg"), TripTiming.Past, "싱가포르", today),
+            )
+        }
 
     /** 꼭 챙길 물건 중 챙긴 것(진행 2 / 5) */
     private val gotItems = setOf("passport", "medicine")
@@ -182,6 +245,29 @@ object Gallery {
             TodayContent(TodayUi(trip, StageInfo(TripStage.WrapUp), "태국", null, true), TodayActions(), {}, {}, {}, {}, {})
         },
         "trip-edit" to { TripContent(TripFormUi(index.countries.filter { it.pack }, trip, loaded = true), { _, _, _ -> }, {}) },
+        // 내 여행 목록: 다가오는 여행 셋(태국 둘 = 다른 여행·다른 체크리스트, 일본은 날짜 겹침) + 지난 여행(접힘)
+        "trips-list" to { TripListContent(TripListUi(loaded = true, rows = tripRows, today = LocalDate.of(2026, 10, 2)), {}, {}) },
+        "trips-empty" to { TripListContent(TripListUi(loaded = true), {}, {}) },
+        // 한 여행 체크리스트(태국, 일주일 전 단계) — 단계 카드·앱이 확인·늦음·기간 전 잠김·출처·내 항목
+        "trip-checklist" to {
+            TripChecklistContent(ChecklistUi(loaded = true, trip = ckTh, countryName = "태국", data = ckThData, today = ckThToday, overlaps = true), ChecklistActions())
+        },
+        // 중국 출발 당일 — 입국 카드 급함(빨강), 여권 기준 없음(공식 안내 링크), 지난 단계 접힘
+        "trip-checklist-cn" to {
+            TripChecklistContent(ChecklistUi(loaded = true, trip = ckCn, countryName = "중국", data = ckCnData, today = ckCn.start), ChecklistActions())
+        },
+        // 오늘 화면 '지금 챙길 것'(입국 카드·여권 할 일이 없을 때 지금 할 일 = 체크리스트)
+        "today-checklist" to {
+            val data = ckThData
+            TodayContent(
+                TodayUi(
+                    ckTh, StageInfo(TripStage.Preparing, daysLeft = 4), "태국", th.value.forms.first(), true,
+                    checklistNow = Checklist.nowItems(data, ckTh, ckThToday), checklistDone = data.done, checklistTotal = data.total,
+                    tripCount = 3, today = ckThToday,
+                ),
+                TodayActions(), {}, {}, {}, {}, {},
+            )
+        },
         "prepare" to {
             val days = th.value.forms.associate { it.id to it.windowDaysIncludingArrival }
             PrepareContent(
