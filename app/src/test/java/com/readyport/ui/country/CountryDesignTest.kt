@@ -4,9 +4,11 @@ import android.app.Application
 import android.content.Context
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.getBoundsInRoot
+import androidx.compose.ui.test.hasContentDescription
 import androidx.compose.ui.test.hasScrollAction
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.v2.createComposeRule
+import androidx.compose.ui.test.onAllNodesWithContentDescription
 import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
@@ -43,6 +45,12 @@ class CountryDesignTest {
         rule.onNode(hasScrollAction()).performScrollToNode(hasText(text))
     }
 
+    /** 펼침 줄: 보이는 글은 `자세히 보기`, TalkBack 이름은 무엇을 펼치는지 */
+    private fun openMore(name: String) {
+        rule.onNode(hasScrollAction()).performScrollToNode(hasContentDescription(name))
+        rule.onNodeWithContentDescription(name).assertIsDisplayed().performClick()
+    }
+
     @Test
     fun visaFactsShowEachValueWithItsOwnSource() {
         val id = pack("ID")
@@ -74,11 +82,45 @@ class CountryDesignTest {
         rule.setContent { ReadyPortTheme { CountryContent(TestPacks.countryUi("TH"), CountryActions()) } }
         rule.onNodeWithText(s(R.string.country_visa_headline_not_required)).assertIsDisplayed()
         val req = th.requirements.single()
+        // 원칙 6: 60자를 넘는 요약은 첫 문장만(비자 없이 90일 — OfflinePackTest가 찾는 말은 첫 문장에 있다), 펼치면 원문 전체
+        val first = req.summaryKo.substringBefore(". ") + "."
+        assertTrue(req.summaryKo.length > 60 && "비자 없이 90일" in first)
+        scrollTo(koreanPhraseWrap(first))
+        rule.onNodeWithText(koreanPhraseWrap(first)).assertIsDisplayed()
+        assertTrue(rule.onAllNodesWithText(req.summaryKo).fetchSemanticsNodes().isEmpty())
+        openMore(s(R.string.country_more_visa))
         scrollTo(req.summaryKo)
         rule.onNodeWithText(req.summaryKo).assertIsDisplayed()
         // 요건·입국 카드 비용 모두 외교부 출처 → 한 줄 그대로 (OfflinePackTest와 같은 글자)
         val line = s(R.string.source_footer, th.source(req.source)!!.name, displayDate(req.lastVerified))
         assertTrue(rule.onAllNodesWithText(line).fetchSemanticsNodes().isNotEmpty())
+    }
+
+    @Test
+    fun longEntrySentencesFoldButSafetyWarningsNever() {
+        val th = pack("TH")
+        rule.setContent { ReadyPortTheme { CountryContent(TestPacks.countryUi("TH"), CountryActions()) } }
+        val entry = th.sections.single { it.id == "entry" }
+        val long = entry.bodyKo.first { it.length > 60 && ". " in it }
+        val first = long.substringBefore(". ") + "."
+        scrollTo(koreanPhraseWrap(first))
+        rule.onNodeWithText(koreanPhraseWrap(first)).assertIsDisplayed()
+        assertTrue(rule.onAllNodesWithText(koreanPhraseWrap(long)).fetchSemanticsNodes().isEmpty())
+        openMore(s(R.string.country_more_section, entry.titleKo))
+        scrollTo(koreanPhraseWrap(long))
+        rule.onNodeWithText(koreanPhraseWrap(long)).assertIsDisplayed()
+    }
+
+    @Test
+    fun safetyWarningIsShownWhole() {
+        val th = pack("TH")
+        rule.setContent { ReadyPortTheme { CountryContent(TestPacks.countryUi("TH"), CountryActions(), CountrySection.Travel) } }
+        val safety = th.sections.single { it.id == "safety" }
+        // '… 3단계(출국권고)예요. 가지 마세요.' — 경고의 뒷문장이 접혀 숨으면 안 된다
+        val warning = safety.bodyKo.first { it.length > 60 && ". " in it }
+        scrollTo(koreanPhraseWrap(warning))
+        rule.onNodeWithText(koreanPhraseWrap(warning)).assertIsDisplayed()
+        assertTrue(rule.onAllNodesWithContentDescription(s(R.string.country_more_section, safety.titleKo)).fetchSemanticsNodes().isEmpty())
     }
 
     @Test

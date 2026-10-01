@@ -14,4 +14,13 @@
     <string name="power_label_plug">콘⁠센⁠트 모⁠양</string>
     <string name="power_label_voltage">전⁠압</string>
     <string name="power_label_frequency">주⁠파⁠수</string>
+
+    <!--
+      03·04·05 긴 팩 글 펼침 줄 (원칙 6: 60자를 넘으면 첫 문장만, 나머지는 펼쳐서). 펼치면 action_less(접기).
+      WORD JOINER 대신 화면이 koreanPhraseWrap()으로 같은 처리를 한다(API 33 미만에서만).
+    -->
+    <string name="country_more_visa">비자 설명 자세히 보기</string>
+    <string name="country_more_steps">단계 설명 자세히 보기</string>
+    <!-- %1$s = 팩 섹션 제목 (예: 들어갈 때) -->
+    <string name="country_more_section">%1$s 자세히 보기</string>
 </resources>
