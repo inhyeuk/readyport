@@ -1,6 +1,8 @@
 package com.readyport.ui.pack
 
 import android.content.Intent
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -10,55 +12,95 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.selection.toggleable
+import androidx.compose.foundation.selection.selectable
+import androidx.compose.foundation.selection.selectableGroup
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.outlined.FavoriteBorder
-import androidx.compose.material3.FilterChip
+import androidx.compose.material.icons.automirrored.outlined.VolumeUp
+import androidx.compose.material.icons.outlined.AccountBalance
+import androidx.compose.material.icons.outlined.ArrowDownward
+import androidx.compose.material.icons.outlined.CheckCircle
+import androidx.compose.material.icons.outlined.Close
+import androidx.compose.material.icons.outlined.Fullscreen
+import androidx.compose.material.icons.outlined.Info
+import androidx.compose.material.icons.outlined.OfflinePin
+import androidx.compose.material.icons.outlined.Place
+import androidx.compose.material.icons.outlined.ReportProblem
+import androidx.compose.material.icons.outlined.Sos
+import androidx.compose.material.icons.outlined.SupportAgent
+import androidx.compose.material.icons.outlined.TipsAndUpdates
+import androidx.compose.material.icons.outlined.Translate
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconToggleButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.Switch
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.LiveRegionMode
 import androidx.compose.ui.semantics.Role
-import androidx.compose.ui.semantics.contentDescription
-import androidx.compose.ui.semantics.heading
+import androidx.compose.ui.semantics.liveRegion
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import androidx.core.net.toUri
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.readyport.R
-import com.readyport.pack.CountryPack
 import com.readyport.pack.EmergencyContact
-import com.readyport.pack.Loaded
-import com.readyport.pack.PackOrigin
 import com.readyport.pack.Phrase
 import com.readyport.ui.components.AppScreen
-import com.readyport.ui.components.CardTone
-import com.readyport.ui.components.InfoCard
+import com.readyport.ui.components.BadgeTone
+import com.readyport.ui.components.CardNewsCard
+import com.readyport.ui.components.EmergencyCallTile
+import com.readyport.ui.components.EmptyState
+import com.readyport.ui.components.IconBadge
+import com.readyport.ui.components.IconBullet
+import com.readyport.ui.components.IconKeys
+import com.readyport.ui.components.OnDark
+import com.readyport.ui.components.Photos
 import com.readyport.ui.components.PrimaryButton
+import com.readyport.ui.components.QuietButton
+import com.readyport.ui.components.SecondaryButton
+import com.readyport.ui.components.SectionHeader
+import com.readyport.ui.components.SelectChip
 import com.readyport.ui.components.SourceFooter
+import com.readyport.ui.components.SourceList
+import com.readyport.ui.components.SourceRef
 import com.readyport.ui.components.StatusChip
-import com.readyport.ui.components.TopicCard
+import com.readyport.ui.components.StatusKind
+import com.readyport.ui.components.StatusTag
+import com.readyport.ui.components.Step
+import com.readyport.ui.components.StepList
+import com.readyport.ui.components.TileGrid
+import com.readyport.ui.components.cardShadow
+import com.readyport.ui.components.rememberGridColumns
+import com.readyport.ui.components.rememberKeyIndex
+import com.readyport.ui.components.rememberThumbnail
+import com.readyport.ui.components.resolveSourceName
+import com.readyport.ui.components.scrollToKey
+import com.readyport.ui.components.sectionGap
 import com.readyport.ui.theme.LocalDimens
+import com.readyport.ui.theme.LocalTypeExtras
 import com.readyport.ui.theme.Tokens
+import kotlinx.coroutines.launch
 
 /** 화면 표기: 2026-09-28 → 2026.09.28 (PRD 5장 공통) */
 @Deprecated(
@@ -67,7 +109,7 @@ import com.readyport.ui.theme.Tokens
 )
 fun displayDate(iso: String): String = com.readyport.ui.components.displayDate(iso)
 
-// ======================= 도움 =======================
+// ======================= 도움 (DESIGN_SPEC 6-20, D6) =======================
 
 @Composable
 fun HelpScreen(viewModel: HelpViewModel = hiltViewModel()) {
@@ -82,6 +124,41 @@ fun HelpScreen(viewModel: HelpViewModel = hiltViewModel()) {
     )
 }
 
+/** 2열 칸에 둘 수 있는 짧은 번호 (`1155`·`191`). 더 길면 폭 전체 (6-20 번호 길이 규칙) */
+private const val SHORT_NUMBER_MAX = 6
+
+/**
+ * 긴급 번호를 줄로 나눈다: 짧은 번호는 [columns]칸씩 한 줄, 긴 번호는 혼자 한 줄.
+ * 남은 짧은 번호 하나는 반쪽 칸 대신 폭 전체로 (빈 칸을 남기지 않는다).
+ */
+internal fun emergencyRows(contacts: List<EmergencyContact>, columns: Int): List<List<EmergencyContact>> {
+    val rows = mutableListOf<List<EmergencyContact>>()
+    val buffer = mutableListOf<EmergencyContact>()
+    fun flush() {
+        if (buffer.isNotEmpty()) rows += buffer.toList()
+        buffer.clear()
+    }
+    contacts.forEach { c ->
+        if (columns <= 1 || c.number.length > SHORT_NUMBER_MAX) {
+            flush()
+            rows += listOf(c)
+        } else {
+            buffer += c
+            if (buffer.size == columns) flush()
+        }
+    }
+    flush()
+    return rows
+}
+
+/** 팩 단계 문장 → 첫 문장(굵게) + 나머지(보조). 문장 경계(". ")가 없으면 전체를 한 줄로 — 값은 팩 원문 그대로 */
+internal fun stepOf(text: String): Step {
+    val cut = text.indexOf(". ")
+    if (cut <= 0) return Step(text)
+    val rest = text.substring(cut + 2).trim()
+    return if (rest.isEmpty()) Step(text) else Step(text.substring(0, cut + 1), detail = rest)
+}
+
 @Composable
 fun HelpContent(
     ui: HelpUi,
@@ -92,26 +169,54 @@ fun HelpContent(
     val pack = ui.selected?.value
     var selectedPhrase by remember(pack?.country) { mutableStateOf(pack?.phrases?.firstOrNull()) }
     var fullScreen by remember { mutableStateOf(false) }
-    fun sourceName(id: String) = pack?.source(id)?.name ?: id
+    val fallback = stringResource(R.string.source_official_fallback)
+    val packSources = remember(pack) { pack?.sources.orEmpty().associate { it.id to it.name } }
+    fun ref(id: String, verified: String) = SourceRef(resolveSourceName(id, packSources, fallback), com.readyport.ui.components.displayDate(verified))
+
+    val listState = rememberLazyListState()
+    val keyIndex = rememberKeyIndex()
+    val scope = rememberCoroutineScope()
+    val columns = rememberGridColumns()
+
+    val offlineBadge: @Composable () -> Unit = {
+        StatusChip(
+            stringResource(R.string.help_offline_badge),
+            container = Tokens.SuccessBg,
+            content = Tokens.SuccessText,
+            icon = Icons.Outlined.OfflinePin,
+        )
+    }
 
     AppScreen(
         title = stringResource(R.string.help_title),
         speech = stringResource(R.string.help_speech),
-        headerActions = {
-            StatusChip(stringResource(R.string.help_offline_badge), container = Tokens.SuccessBg, content = Tokens.SuccessText)
-        },
+        // 2열 폭이면 제목 옆, 쉬운 모드·큰 글자(1열)면 제목 아래 줄 — 옆에 두면 칩이 폭을 가져가 `도/움`처럼 제목이 쪼개진다
+        headerActions = { if (columns > 1) offlineBadge() },
+        state = listState,
+        keyIndex = keyIndex,
     ) {
+        if (columns == 1) {
+            item(key = "offline-badge") { offlineBadge() }
+        }
         if (ui.countries.size > 1) {
             item(key = "countries") {
-                Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
-                    Text(stringResource(R.string.help_choose_country), style = MaterialTheme.typography.labelLarge)
-                    FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                    Text(
+                        stringResource(R.string.help_choose_country),
+                        style = MaterialTheme.typography.titleSmall,
+                        color = Tokens.InkSecondary,
+                    )
+                    FlowRow(
+                        Modifier.selectableGroup(),
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                        verticalArrangement = Arrangement.spacedBy(8.dp),
+                    ) {
                         ui.countries.forEach { c ->
-                            FilterChip(
+                            SelectChip(
                                 selected = c.code == pack?.country,
                                 onClick = { onSelectCountry(c.code) },
-                                label = { Text(c.nameKo, style = MaterialTheme.typography.labelLarge) },
-                                modifier = Modifier.heightIn(min = 48.dp),
+                                label = c.nameKo,
+                                avatar = { CountryAvatar(c.code) },
                             )
                         }
                     }
@@ -119,8 +224,34 @@ fun HelpContent(
             }
         }
         if (pack == null) {
-            item(key = "no-country") { TopicCard(stringResource(R.string.help_no_country), null, tone = CardTone.Notice) }
+            item(key = "no-country") {
+                EmptyState(icon = Icons.Outlined.SupportAgent, title = stringResource(R.string.help_no_country), body = null)
+            }
         } else {
+            // ③ 대표 긴급 번호 (보통 관광경찰) — 급할 때 번호가 첫 화면에 보이게 (D6). 출처를 바로 아래에
+            pack.emergency.firstOrNull()?.let { top ->
+                item(key = "emergency-top") {
+                    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                        EmergencyCallTile(
+                            label = top.labelKo,
+                            number = top.number,
+                            icon = IconKeys.emergency(top.id),
+                            onCall = { onCall(top.number) },
+                            note = top.noteKo,
+                            large = true,
+                        )
+                        SourceFooter(ref(top.source, top.lastVerified))
+                        if (pack.emergency.size > 1) {
+                            QuietButton(
+                                stringResource(R.string.help_more_numbers),
+                                onClick = { scope.launch { listState.scrollToKey(keyIndex, "emergency") } },
+                                icon = Icons.Outlined.ArrowDownward,
+                            )
+                        }
+                    }
+                }
+            }
+            // ④ 고른 문장 큰 카드 (현지인에게 보여 주기)
             selectedPhrase?.let { phrase ->
                 item(key = "phrase-card") {
                     PhraseCard(
@@ -132,68 +263,123 @@ fun HelpContent(
                     )
                 }
             }
-            item(key = "phrases-title") {
-                Text(stringResource(R.string.help_phrases_title), style = MaterialTheme.typography.titleLarge)
-            }
-            // 자주 쓰는 문장 2열 버튼 (PRD 5.11). 스와이프 없이 버튼으로만
-            pack.phrases.chunked(2).forEachIndexed { i, pair ->
-                item(key = "phrases-$i") {
-                    Row(horizontalArrangement = Arrangement.spacedBy(LocalDimens.current.gap)) {
-                        pair.forEach { p ->
-                            OutlinedButton(
-                                onClick = { selectedPhrase = p },
-                                modifier = Modifier.weight(1f).heightIn(min = LocalDimens.current.buttonHeight),
-                            ) { Text(p.ko, style = MaterialTheme.typography.labelLarge, textAlign = TextAlign.Center) }
+            // ⑤ 자주 쓰는 말 — 팩 문구는 길이를 앱이 정할 수 없어 항상 1열 (D4)
+            if (pack.phrases.isNotEmpty()) {
+                sectionGap("gap-phrases")
+                item(key = "phrases-title") {
+                    SectionHeader(stringResource(R.string.help_phrases_title), icon = Icons.Outlined.Translate)
+                }
+                item(key = "phrases") {
+                    Column(Modifier.selectableGroup(), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                        pack.phrases.forEach { p ->
+                            PhraseTile(
+                                phrase = p,
+                                selected = p == selectedPhrase,
+                                onClick = {
+                                    selectedPhrase = p
+                                    scope.launch { listState.scrollToKey(keyIndex, "phrase-card") }
+                                },
+                            )
                         }
-                        if (pair.size == 1) Column(Modifier.weight(1f)) {}
                     }
                 }
             }
-            item(key = "emergency") {
-                InfoCard(tone = CardTone.Caution) {
-                    Text(stringResource(R.string.help_emergency_title), style = MaterialTheme.typography.titleMedium)
-                    pack.emergency.forEach { EmergencyRow(it, onCall) }
-                    pack.emergency.firstOrNull()?.let { SourceFooter(sourceName(it.source), displayDate(it.lastVerified)) }
+            // ⑥ 나머지 긴급 번호 (짧은 번호는 2열, 긴 번호는 폭 전체)
+            val rest = pack.emergency.drop(1)
+            if (rest.isNotEmpty()) {
+                sectionGap("gap-emergency")
+                item(key = "emergency") {
+                    SectionHeader(stringResource(R.string.help_emergency_title), icon = Icons.Outlined.Sos, tone = BadgeTone.Help)
+                }
+                emergencyRows(rest, columns).forEachIndexed { i, row ->
+                    item(key = "emergency-row-$i") {
+                        TileGrid(row, columns = row.size) { c, cell ->
+                            EmergencyCallTile(
+                                label = c.labelKo,
+                                number = c.number,
+                                icon = IconKeys.emergency(c.id),
+                                onCall = { onCall(c.number) },
+                                modifier = cell,
+                                note = c.noteKo,
+                            )
+                        }
+                    }
+                }
+                item(key = "emergency-source") {
+                    SourceList(rest.map { ref(it.source, it.lastVerified) }.distinct())
                 }
             }
+            // ⑦ 대사관
             pack.embassy?.let { emb ->
+                sectionGap("gap-embassy")
                 item(key = "embassy") {
-                    InfoCard {
-                        Text(stringResource(R.string.help_embassy), style = MaterialTheme.typography.titleMedium)
-                        Text(emb.nameKo, style = MaterialTheme.typography.bodyLarge)
-                        Text(emb.address, style = MaterialTheme.typography.bodyMedium)
-                        CallButton(emb.nameKo, emb.phone, onCall)
-                        emb.emergencyPhone?.let {
-                            Text(stringResource(R.string.help_embassy_after_hours), style = MaterialTheme.typography.labelMedium)
-                            CallButton(emb.nameKo + " " + stringResource(R.string.help_embassy_after_hours), it, onCall)
+                    CardNewsCard(
+                        title = stringResource(R.string.help_embassy),
+                        icon = Icons.Outlined.AccountBalance,
+                        sources = listOf(ref(emb.source, emb.lastVerified)),
+                    ) {
+                        IconBullet(emb.address, Icons.Outlined.Place)
+                        EmergencyCallTile(
+                            label = emb.nameKo,
+                            number = emb.phone,
+                            icon = Icons.Outlined.AccountBalance,
+                            onCall = { onCall(emb.phone) },
+                        )
+                        emb.emergencyPhone?.let { phone ->
+                            EmergencyCallTile(
+                                label = stringResource(R.string.help_embassy_after_hours),
+                                number = phone,
+                                icon = Icons.Outlined.Sos,
+                                onCall = { onCall(phone) },
+                            )
                         }
-                        SourceFooter(sourceName(emb.source), displayDate(emb.lastVerified))
                     }
                 }
             }
+            // ⑧ 이럴 땐 이렇게 (여권 분실 등)
             if (pack.procedures.isNotEmpty()) {
+                sectionGap("gap-procedures")
                 item(key = "procedures-title") {
-                    Text(stringResource(R.string.help_procedures_title), style = MaterialTheme.typography.titleLarge)
+                    SectionHeader(stringResource(R.string.help_procedures_title), icon = Icons.Outlined.TipsAndUpdates)
                 }
                 pack.procedures.forEach { proc ->
                     item(key = "proc-${proc.id}") {
-                        InfoCard {
-                            Text(proc.titleKo, style = MaterialTheme.typography.titleMedium, modifier = Modifier.semantics { heading() })
-                            proc.stepsKo.forEachIndexed { i, step ->
-                                Text("${i + 1}. $step", style = MaterialTheme.typography.bodyMedium)
-                            }
-                            SourceFooter(sourceName(proc.source), displayDate(proc.lastVerified))
+                        CardNewsCard(
+                            title = proc.titleKo,
+                            icon = Icons.Outlined.ReportProblem,
+                            tone = BadgeTone.Caution,
+                            sources = listOf(ref(proc.source, proc.lastVerified)),
+                        ) {
+                            StepList(proc.stepsKo.map(::stepOf))
                         }
                     }
                 }
             }
         }
+        // ⑨ 어느 나라에서나 (영사콜센터) — 출처는 항목의 출처 ID를 이름으로 푼 값 (commonSourceName 수정, 4.5)
         if (ui.common.isNotEmpty()) {
+            sectionGap("gap-common")
             item(key = "common") {
-                InfoCard {
-                    Text(stringResource(R.string.help_common_title), style = MaterialTheme.typography.titleMedium)
-                    ui.common.forEach { EmergencyRow(it, onCall) }
-                    ui.common.firstOrNull()?.let { SourceFooter(ui.commonSourceName ?: it.source, displayDate(it.lastVerified)) }
+                val refs = ui.common.mapIndexed { i, c ->
+                    val named = ui.indexSources[c.source]?.takeIf { it.isNotBlank() }
+                        ?: ui.commonSourceName.takeIf { i == 0 }
+                        ?: fallback
+                    SourceRef(named, com.readyport.ui.components.displayDate(c.lastVerified))
+                }.distinct()
+                CardNewsCard(
+                    title = stringResource(R.string.help_common_title),
+                    icon = Icons.Outlined.SupportAgent,
+                    sources = refs,
+                ) {
+                    ui.common.forEach { c ->
+                        EmergencyCallTile(
+                            label = c.labelKo,
+                            number = c.number,
+                            icon = IconKeys.emergency(c.id),
+                            onCall = { onCall(c.number) },
+                            note = c.noteKo,
+                        )
+                    }
                 }
             }
         }
@@ -204,7 +390,24 @@ fun HelpContent(
     }
 }
 
-/** 선택된 문장 큰 카드: 현지어 30sp + 한국어 + 영어 (PRD 5.11) */
+/** 나라 칩 앞 24dp 원형 사진 (장식) */
+@Composable
+private fun CountryAvatar(code: String) {
+    val thumb = rememberThumbnail(Photos.country(code), 24.dp)
+    if (thumb != null) {
+        Image(
+            thumb,
+            contentDescription = null,
+            contentScale = ContentScale.Crop,
+            modifier = Modifier.size(24.dp).clip(CircleShape).background(Tokens.SurfaceSunken),
+        )
+    }
+}
+
+/**
+ * 고른 문장 큰 카드 (Navy, onDark 내용 세트만 — D18): 언어 이름 → 현지어(localMedium, 행간 1.5배) → 로마자 →
+ * 한국어 → 영어 → 화면 크게·소리로 들려주기. 문장이 바뀌면 TalkBack이 알린다(liveRegion).
+ */
 @Composable
 private fun PhraseCard(
     phrase: Phrase,
@@ -213,31 +416,119 @@ private fun PhraseCard(
     onSpeak: () -> Unit,
     onFullScreen: () -> Unit,
 ) {
-    InfoCard(tone = CardTone.Navy) {
-        if (!phrase.reviewed) StatusChip(stringResource(R.string.help_unreviewed), Tokens.CautionBg, Tokens.CautionText)
-        Text(phrase.local, fontSize = 30.sp, lineHeight = 40.sp, style = MaterialTheme.typography.headlineLarge)
-        phrase.romanized?.let { Text(it, style = MaterialTheme.typography.bodyMedium) }
-        Text(phrase.ko, style = MaterialTheme.typography.titleMedium)
-        Text(phrase.en, style = MaterialTheme.typography.bodyMedium)
-        FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            if (ttsAvailable) {
-                OutlinedButton(onClick = onSpeak, modifier = Modifier.heightIn(min = 48.dp)) {
-                    Text(stringResource(R.string.help_play_sound), color = Tokens.Surface, style = MaterialTheme.typography.labelLarge)
+    val dimens = LocalDimens.current
+    val extras = LocalTypeExtras.current
+    val shape = MaterialTheme.shapes.large
+    Card(
+        shape = shape,
+        colors = CardDefaults.cardColors(containerColor = Tokens.Navy, contentColor = OnDark.content),
+        elevation = CardDefaults.cardElevation(0.dp),
+        modifier = Modifier.fillMaxWidth().semantics { liveRegion = LiveRegionMode.Polite },
+    ) {
+        Column(Modifier.padding(dimens.cardPadding), verticalArrangement = Arrangement.spacedBy(dimens.inner)) {
+            FlowRow(
+                horizontalArrangement = Arrangement.spacedBy(12.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+                itemVerticalAlignment = Alignment.CenterVertically,
+            ) {
+                Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    IconBadge(Icons.Outlined.Translate, tone = BadgeTone.OnDark, size = dimens.iconBadgeSmall)
+                    if (languageName.isNotEmpty()) {
+                        Text(languageName, style = MaterialTheme.typography.labelMedium, color = OnDark.eyebrow)
+                    }
+                }
+                if (!phrase.reviewed) StatusTag(stringResource(R.string.help_unreviewed), StatusKind.Caution)
+            }
+            Text(phrase.local, style = extras.localMedium, color = OnDark.content)
+            phrase.romanized?.let { Text(it, style = MaterialTheme.typography.bodyMedium, color = OnDark.secondary) }
+            Column(Modifier.padding(top = 4.dp), verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                Text(phrase.ko, style = MaterialTheme.typography.titleMedium, color = OnDark.content)
+                Text(phrase.en, style = MaterialTheme.typography.bodyMedium, color = OnDark.secondary)
+            }
+            FlowRow(
+                Modifier.padding(top = 4.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+            ) {
+                SecondaryButton(
+                    stringResource(R.string.help_full_screen),
+                    onClick = onFullScreen,
+                    icon = Icons.Outlined.Fullscreen,
+                    fillWidth = false,
+                    onDark = true,
+                )
+                if (ttsAvailable) {
+                    SecondaryButton(
+                        stringResource(R.string.help_play_sound),
+                        onClick = onSpeak,
+                        icon = Icons.AutoMirrored.Outlined.VolumeUp,
+                        fillWidth = false,
+                        onDark = true,
+                    )
                 }
             }
-            OutlinedButton(onClick = onFullScreen, modifier = Modifier.heightIn(min = 48.dp)) {
-                Text(stringResource(R.string.help_full_screen), color = Tokens.Surface, style = MaterialTheme.typography.labelLarge)
+            if (!ttsAvailable && languageName.isNotEmpty()) {
+                Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                    Icon(
+                        Icons.Outlined.Info,
+                        contentDescription = null,
+                        tint = OnDark.secondary,
+                        modifier = Modifier.padding(top = 1.dp).size(dimens.iconSmall),
+                    )
+                    Text(stringResource(R.string.help_no_tts, languageName), style = MaterialTheme.typography.bodySmall, color = OnDark.secondary)
+                }
             }
-        }
-        if (!ttsAvailable && languageName.isNotEmpty()) {
-            Text(stringResource(R.string.help_no_tts, languageName), style = MaterialTheme.typography.bodySmall)
         }
     }
 }
 
-/** 기사님·직원에게 보여 주는 전체 화면 */
+/**
+ * 자주 쓰는 말 한 줄 (항상 1열). 고르면 AccentSoft + 2dp Accent 테두리 + CheckCircle.
+ * 한 개만 고르는 선택이라 Role.RadioButton (부모 selectableGroup). 글자는 한국어 문장 하나뿐(테스트가 단독 Text로 찾는다).
+ */
+@Composable
+private fun PhraseTile(phrase: Phrase, selected: Boolean, onClick: () -> Unit) {
+    val dimens = LocalDimens.current
+    val shape = MaterialTheme.shapes.medium
+    Surface(
+        color = if (selected) Tokens.AccentSoft else Tokens.Surface,
+        contentColor = Tokens.Ink,
+        shape = shape,
+        border = if (selected) BorderStroke(2.dp, Tokens.Accent) else null,
+        modifier = Modifier
+            .fillMaxWidth()
+            .then(if (selected) Modifier else Modifier.cardShadow(shape))
+            .heightIn(min = dimens.tileRowMinHeight)
+            .selectable(selected = selected, role = Role.RadioButton, onClick = onClick),
+    ) {
+        Row(
+            Modifier.padding(horizontal = 16.dp, vertical = 12.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(16.dp),
+        ) {
+            IconBadge(
+                IconKeys.phrase(phrase.id) ?: Icons.Outlined.Translate,
+                size = dimens.iconBadgeSmall,
+                // 고른 타일은 바탕이 AccentSoft라 배지를 흰 바탕으로 띄운다
+                containerColor = if (selected) Tokens.Surface else BadgeTone.Accent.container,
+            )
+            Text(
+                phrase.ko,
+                style = MaterialTheme.typography.labelLarge,
+                color = Tokens.Ink,
+                modifier = Modifier.weight(1f),
+            )
+            if (selected) {
+                Icon(Icons.Outlined.CheckCircle, contentDescription = null, tint = Tokens.Accent, modifier = Modifier.size(dimens.icon))
+            }
+        }
+    }
+}
+
+/** 현지인에게 보여 주는 전체 화면: 현지어 localLarge(행간 1.5배) + 영어·한국어 */
 @Composable
 private fun PhraseFullScreen(phrase: Phrase, onClose: () -> Unit) {
+    val extras = LocalTypeExtras.current
     Dialog(onDismissRequest = onClose, properties = DialogProperties(usePlatformDefaultWidth = false)) {
         Column(
             modifier = Modifier
@@ -248,28 +539,10 @@ private fun PhraseFullScreen(phrase: Phrase, onClose: () -> Unit) {
             verticalArrangement = Arrangement.spacedBy(24.dp, Alignment.CenterVertically),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            Text(phrase.local, fontSize = 56.sp, lineHeight = 72.sp, textAlign = TextAlign.Center, color = Tokens.Ink)
+            Text(phrase.local, style = extras.localLarge, textAlign = TextAlign.Center, color = Tokens.Ink)
             Text(phrase.en, style = MaterialTheme.typography.headlineMedium, textAlign = TextAlign.Center, color = Tokens.InkSecondary)
-            Text(phrase.ko, style = MaterialTheme.typography.titleMedium, textAlign = TextAlign.Center, color = Tokens.InkSecondary)
-            PrimaryButton(stringResource(R.string.help_close), onClick = onClose)
+            Text(phrase.ko, style = MaterialTheme.typography.titleLarge, textAlign = TextAlign.Center, color = Tokens.InkSecondary)
+            PrimaryButton(stringResource(R.string.help_close), onClick = onClose, icon = Icons.Outlined.Close)
         }
     }
-}
-
-@Composable
-private fun EmergencyRow(contact: EmergencyContact, onCall: (String) -> Unit) {
-    Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(2.dp)) {
-        Text(contact.labelKo, style = MaterialTheme.typography.bodyLarge)
-        contact.noteKo?.let { Text(it, style = MaterialTheme.typography.bodySmall) }
-        CallButton(contact.labelKo, contact.number, onCall)
-    }
-}
-
-@Composable
-private fun CallButton(label: String, number: String, onCall: (String) -> Unit) {
-    val description = stringResource(R.string.help_call, label)
-    OutlinedButton(
-        onClick = { onCall(number) },
-        modifier = Modifier.heightIn(min = 48.dp).semantics { contentDescription = "$description $number" },
-    ) { Text(number, style = MaterialTheme.typography.titleMedium) }
 }

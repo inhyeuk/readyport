@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 디자인 개편 1단계 D 묶음(도움·쇼핑·이동)이 새로 쓰는 문구. 다른 묶음과 겹치지 않게 이 파일에만 둔다 -->
+<resources>
+    <!-- 18 쇼핑: 담은 품목의 버튼을 누르면 빼는 동작 (TalkBack 동작 이름, 보이는 글자는 shopping_in_cart 그대로) -->
+    <string name="shopping_remove_cd">%1$s 빼기</string>
+</resources>
