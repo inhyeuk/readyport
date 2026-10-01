@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -24,9 +25,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.BiasAlignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.TransformOrigin
 import androidx.compose.ui.graphics.asAndroidBitmap
 import androidx.compose.ui.graphics.asImageBitmap
@@ -34,9 +37,11 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.layout
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.test.captureToImage
+import androidx.compose.ui.test.hasScrollAction
 import androidx.compose.ui.test.junit4.v2.createComposeRule
 import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onRoot
+import androidx.compose.ui.test.performScrollToKey
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.dp
@@ -50,8 +55,8 @@ import com.readyport.trip.StageInfo
 import com.readyport.trip.Trip
 import com.readyport.trip.TripStage
 import com.readyport.ui.components.KoText
-import com.readyport.ui.components.keepWords
 import com.readyport.ui.components.Photos
+import com.readyport.ui.components.keepWords
 import com.readyport.ui.country.CountryActions
 import com.readyport.ui.country.CountryContent
 import com.readyport.ui.form.ConfirmUi
@@ -73,6 +78,7 @@ import com.readyport.vault.BookingRecord
 import com.readyport.vault.PassportRecord
 import com.readyport.vault.VaultContents
 import com.readyport.vault.WalletState
+import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Rule
@@ -85,11 +91,14 @@ import java.time.LocalDate
 import kotlin.math.roundToInt
 
 /**
- * Play 스토어 등록 이미지 (M10, 재검토 R20). 결과: app/build/store/ (커밋은 docs/play/store/ 로 **같은 이름** 복사)
+ * Play 스토어 등록 이미지 (M10, 재검토 R20, 운영자 결정 '+' — 나라 섞기·1번 캡션). 결과: app/build/store/ (커밋은 docs/play/store/ 로 **같은 이름** 복사)
  * - 스크린숏: 1215×2160 = 정확히 9:16 (Play 콘솔 규칙: 16:9 또는 9:16, 320~3840px)
- * - 순서(브랜드 검토 추천): 홈 → 입국 카드 확인(TDAC) → 나라 입국·비자(태국) → 출국 날 할 일 → 도움 → 내 정보(여권, 가림)
- *   → 이동하기(기사님께 보여 주기) → 쉬운 모드 여행 중. 영상 화면(YouTube 썸네일)은 쓰지 않는다.
- * - 각 장 = 위쪽 띠의 앱 밖 캡션(한 줄 + `정부 기관과 제휴하지 않은 앱이에요`) + 아래 실제 화면 첫 부분(축소).
+ * - 순서: 홈 → 입국 카드 확인(태국 TDAC) → 나라 입국·비자(**인도네시아** — 30일·IDR 500,000 타일, 1단계·2단계) → 출국 날 할 일(태국)
+ *   → 도움(**일본**) → 내 정보(여권, 가림) → 이동하기(**말레이시아** 기사님 카드) → 쉬운 모드 여행 중(**싱가포르**).
+ *   한 나라(태국)가 8장 중 7장이던 것을 다섯 나라로 나눴다(재검토2 ⑤#1). 일본은 자동 입력이 없어 02에 쓰지 않는다.
+ *   영상 화면(YouTube 썸네일)은 쓰지 않는다.
+ * - 각 장 = 위쪽 띠의 앱 밖 캡션(두 줄 + `정부 기관과 제휴하지 않은 앱이에요`) + 아래 실제 화면(축소).
+ * - 정책 문장·번호·현지어 문장은 모두 저장소의 서명된 실제 팩 값 — 스크린숏용으로 지어낸 문장이 없다.
  */
 private fun Bitmap.saveTo(name: String): File {
     val dir = File("build/store").apply { mkdirs() }
@@ -141,12 +150,24 @@ internal object StoreFixture {
         "stay.address" to "SAMPLE HOTEL, SUKHUMVIT SOI 11",
     )
 
-    /** 가는 곳: 지역 이름만 있는 견본 주소(실제 숙소 주소가 아님) */
-    val place = Place("p1", "방콕 숙소", "สุขุมวิท ซอย 11 กรุงเทพฯ")
+    /** 가는 곳(말레이시아 — 07): 거리·도시 이름만 있는 견본 주소(실제 숙소 주소가 아님) */
+    val placeMy = Place("p1", "쿠알라룸푸르 숙소", "Jalan Bukit Bintang, Kuala Lumpur")
+
+    /** 쉬운 모드 여행 중(싱가포르 — 08): 같은 날짜의 견본 여행 */
+    val tripSg = Trip("SG", "2026-11-03", "2026-11-07")
 }
 
-/** 스크린숏 한 장: 파일 이름, 캡션(줄은 뜻 단위로 직접 나눈다), 쉬운 모드인지, 화면 */
-private class StoreShot(val name: String, val caption: String, val easy: Boolean = false, val content: @Composable () -> Unit)
+/**
+ * 스크린숏 한 장: 파일 이름, 캡션(줄은 뜻 단위로 직접 나눈다), 쉬운 모드인지, 화면.
+ * [scrollKey]: 찍기 전에 화면 목록을 그 항목까지 내린다(맨 위가 아닌 장면을 보여 줄 때 — 화면 자체는 그대로).
+ */
+private class StoreShot(
+    val name: String,
+    val caption: String,
+    val easy: Boolean = false,
+    val scrollKey: String? = null,
+    val content: @Composable () -> Unit,
+)
 
 /** 모든 장 아래 줄 (스토어 등록 정보·그래픽 이미지와 같은 뜻의 비제휴 문구) */
 private const val NOT_AFFILIATED = "정부 기관과 제휴하지 않은 앱이에요"
@@ -163,10 +184,11 @@ class StoreScreenshotsTest {
     val rule = createComposeRule()
 
     private val th get() = TestPacks.thailand
+    private fun pack(code: String) = runBlocking { TestPacks.repo.pack(code)!! }
 
     private fun shots(): List<StoreShot> = listOf(
-        // 히어로 가치 문장(`입국 카드 칸은 앱이 채우고, 제출만 직접 눌러요`)을 캡션에서 되풀이하지 않는다 — 캡션은 홈이 하는 일
-        StoreShot("01_home", "나라만 고르면\n입국 준비가 한곳에") {
+        // 1번 캡션 = 앱의 차별점 그대로(운영자 결정 '+') — 스토어 사용자는 화면 안 글보다 캡션을 읽는다
+        StoreShot("01_home", "칸은 앱이 채워요\n제출만 직접") {
             HomeContent(TestPacks.homeUi(), HomeActions(), today = StoreFixture.today)
         },
         StoreShot("02_form_confirm", "입국 카드에 들어갈 값을\n한국어로 미리 확인해요") {
@@ -178,8 +200,10 @@ class StoreScreenshotsTest {
                 { _, _ -> }, {}, {}, {}, {},
             )
         },
+        // 인도네시아: 발리 사원 히어로(나라 이름·최종 확인 날짜) → 입국·비자 → 도착비자 30일·비용 IDR 500,000 타일이 캡션의 '비자·비용'을
+        // 그대로 보여 준다(재검토2 ①#11·⑤#7 — 태국 화면에는 비용 타일이 없었다). 1단계·2단계 서류 카드는 그 아래에 이어진다
         StoreShot("03_country_entry", "비자·비용은 한눈에,\n공식 출처와 확인 날짜까지") {
-            CountryContent(TestPacks.countryUi("TH"), CountryActions())
+            CountryContent(TestPacks.countryUi("ID"), CountryActions())
         },
         StoreShot("04_departure", "출발부터 귀국까지,\n오늘 할 일만 차례로") {
             TodayContent(
@@ -190,8 +214,10 @@ class StoreScreenshotsTest {
                 TodayActions(), {}, {}, {}, {}, {},
             )
         },
-        StoreShot("05_help", "인터넷 없이도\n긴급 번호와 현지어 문장") {
-            HelpContent(TestPacks.helpUi(), {}, {}, {})
+        // 일본(한국인 출국 1위): 도움 탭의 긴급 번호 묶음(맨 위 `긴급 번호 바로 보기`로 가는 곳) — 110·119·118, 한국어 24시간 전화, 대사관.
+        // 현지어 문장을 크게 보여 주는 장면은 07 기사님 카드가 맡는다
+        StoreShot("05_help", "인터넷 없이도\n긴급 번호와 대사관 연락처", scrollKey = "emergency") {
+            HelpContent(TestPacks.helpUi().copy(selected = pack("JP")), {}, {}, {})
         },
         StoreShot("06_my_info", "여권 정보는 암호화해서\n이 휴대폰 안에만") {
             WalletContent(
@@ -200,24 +226,30 @@ class StoreScreenshotsTest {
                 onAddBooking = {}, onDeleteBooking = {}, onAutoDestroyChange = {},
             )
         },
+        // 말레이시아: 말레이어 부탁 문장 + 한국어 뜻 + 견본 주소, 차 부르기(Grab·Bolt)
         StoreShot("07_transport", "기사님께는 현지어 주소를\n크게 보여 주세요") {
-            val place = StoreFixture.place
+            val place = StoreFixture.placeMy
+            val my = pack("MY").value
+            val phrase = my.phrases.firstOrNull { it.id == "address" }
             TransportContent(
                 TransportUi(
                     places = listOf(place),
                     selected = place,
                     // 운영 화면과 같이 지도 앱은 차 부르기 목록에서 뺀다(TransportViewModel)
-                    apps = th.value.transportApps.filter { it.linkType != "maps_url" }.map { RideAppRow(it, installed = true) },
+                    apps = my.transportApps.filter { it.linkType != "maps_url" }.map { RideAppRow(it, installed = true) },
                     mapsInstalled = true,
-                    // 부탁 문장도 팩의 실제 문장(`이 주소로 가 주세요`)
-                    driverPhrase = th.value.phrases.firstOrNull { it.id == "address" }?.local,
+                    // 부탁 문장도 팩의 실제 문장(`이 주소로 가 주세요`)과 그 한국어
+                    driverPhrase = phrase?.local,
+                    driverPhraseKo = phrase?.ko,
                 ),
                 null, { _, _ -> }, {}, {}, {},
             )
         },
-        StoreShot("08_easy_traveling", "글자와 버튼을 크게,\n쉬운 모드", easy = true) {
+        // 싱가포르 여행 중, 쉬운 모드. 캡션은 기능 이름 대신 누구를 위한 것인지(재검토2 ⑤#12)
+        StoreShot("08_easy_traveling", "해외여행이 처음이라면\n글자와 버튼을 크게", easy = true) {
+            val sg = pack("SG").value
             TodayContent(
-                TodayUi(StoreFixture.trip, StageInfo(TripStage.Traveling, dayOfTrip = 2), "태국", th.value.forms.first(), hasPassport = true),
+                TodayUi(StoreFixture.tripSg, StageInfo(TripStage.Traveling, dayOfTrip = 2), sg.names.ko, sg.forms.first(), hasPassport = true),
                 TodayActions(), {}, {}, {}, {}, {},
             )
         },
@@ -237,6 +269,11 @@ class StoreScreenshotsTest {
             rule.runOnIdle { current = i }
             rule.mainClock.advanceTimeBy(2_000)
             rule.waitForIdle()
+            shot.scrollKey?.let { key ->
+                rule.onNode(hasScrollAction()).performScrollToKey(key)
+                rule.mainClock.advanceTimeBy(2_000)
+                rule.waitForIdle()
+            }
             forbidden.forEach { bad ->
                 assertEquals("${shot.name}: $bad", 0, rule.onAllNodesWithText(bad, substring = true).fetchSemanticsNodes().size)
             }
@@ -314,7 +351,21 @@ private fun ScaledPhone(modifier: Modifier, content: @Composable () -> Unit) {
     ) { content() }
 }
 
-/** 그래픽 이미지 1024×500 (Play 필수). 정부 연상 요소 없음, 비제휴 문구 포함 */
+/** 그래픽 이미지 문구 — 앱 히어로의 가치 문장과 같은 말, 해요체 (재검토2 ①#11·③#6·⑤#4) */
+internal object FeatureGraphicText {
+    const val VALUE = "입국 카드 칸은 앱이 채우고,\n제출만 직접 눌러요"
+    const val PROMISE = "여권 정보는 이 휴대폰에만 · 인터넷 없이도 열려요"
+    const val NOT_AFFILIATED = "정부 기관과 제휴하지 않은 앱이에요"
+}
+
+/** 그래픽 이미지 오른쪽 나라 사진 줄 (앱에 든 사진 — 출처는 앱 설정 › 사진·글꼴 출처, photo_credits.json) */
+private val FeatureCountries = listOf("TH" to "태국", "JP" to "일본", "SG" to "싱가포르", "MY" to "말레이시아", "ID" to "인도네시아")
+
+/**
+ * 그래픽 이미지 1024×500 (Play 필수). 정부 연상 요소 없음, 비제휴 문구 포함.
+ * 왼쪽 = 아이콘·이름 + 앱 히어로와 같은 가치 문장(해요체) + 약속 한 줄 + 비제휴 한 줄(20px 이상 — 폰 폭으로 줄여도 읽히게),
+ * 오른쪽 = 다섯 나라 사진 타일(3 + 2, 이름은 사진 아래 스크림 위 흰 글자) — 빈 하늘이던 오른쪽 3분의 1을 채운다(재검토2 ⑤#4).
+ */
 @RunWith(AndroidJUnit4::class)
 @GraphicsMode(GraphicsMode.Mode.NATIVE)
 @Config(application = Application::class, sdk = [36], qualifiers = "w1024dp-h500dp-mdpi")
@@ -326,23 +377,70 @@ class StoreFeatureGraphicTest {
     @Test fun featureGraphic() {
         val icon = BitmapFactory.decodeFile(File("../design/icons/play-store/readyport_play_512.png").path)!!.asImageBitmap()
         rule.setContent {
-            Image(painterResource(Photos.Home), contentDescription = null, contentScale = ContentScale.Crop, modifier = Modifier.fillMaxSize())
-            Box(Modifier.fillMaxSize().background(Tokens.Navy.copy(alpha = 0.72f)).padding(horizontal = 72.dp), contentAlignment = Alignment.CenterStart) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Image(icon, contentDescription = null, modifier = Modifier.size(200.dp).clip(RoundedCornerShape(44.dp)))
-                    Spacer(Modifier.width(56.dp))
-                    Column(verticalArrangement = Arrangement.spacedBy(14.dp)) {
-                        Text("레디포트", color = Tokens.Surface, fontSize = 64.sp, fontWeight = FontWeight.Bold)
-                        Text("입국 서류, 한국어로 확인하고\n공식 사이트 입력은 쉽게", color = Tokens.Surface, fontSize = 32.sp, lineHeight = 42.sp)
-                        Text("여권 정보는 내 폰 안에만 · 인터넷 없이도 열려요", color = Tokens.AccentSoft, fontSize = 20.sp)
-                        Text("정부 기관과 제휴하지 않은 민간 앱입니다", color = Tokens.AccentSoft, fontSize = 16.sp)
+            Row(
+                Modifier
+                    .fillMaxSize()
+                    .background(Brush.linearGradient(listOf(Tokens.Navy, Tokens.AccentDeep)))
+                    .padding(start = 60.dp, end = 52.dp, top = 44.dp, bottom = 44.dp),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(14.dp)) {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Image(icon, contentDescription = null, modifier = Modifier.size(72.dp).clip(RoundedCornerShape(16.dp)))
+                        Spacer(Modifier.width(18.dp))
+                        Text("레디포트", color = Tokens.Surface, fontSize = 40.sp, fontWeight = FontWeight.Bold)
                     }
+                    Spacer(Modifier.height(4.dp))
+                    Text(FeatureGraphicText.VALUE, color = Tokens.Surface, fontSize = 36.sp, lineHeight = 48.sp, fontWeight = FontWeight.Bold)
+                    Spacer(Modifier.height(2.dp))
+                    Text(FeatureGraphicText.PROMISE, color = Tokens.Surface, fontSize = 21.sp)
+                    Text(FeatureGraphicText.NOT_AFFILIATED, color = Tokens.White85, fontSize = 21.sp)
                 }
+                Spacer(Modifier.width(36.dp))
+                CountryPhotoStrip()
             }
         }
+        rule.mainClock.advanceTimeBy(2_000)
         rule.waitForIdle()
         val bmp = rule.onRoot().captureToImage().asAndroidBitmap()
         assertTrue("${bmp.width}x${bmp.height}", bmp.width == 1024 && bmp.height == 500)
         bmp.saveTo("feature_graphic_1024x500.png")
+    }
+}
+
+/** 나라 사진 타일 다섯 장: 윗줄 셋, 아랫줄 둘(가운데). 타일마다 아래쪽 어둡게 덮고 나라 이름 흰 글자 */
+@Composable
+private fun CountryPhotoStrip() {
+    val tile = 112.dp
+    val gap = 12.dp
+    Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(gap)) {
+        listOf(FeatureCountries.take(3), FeatureCountries.drop(3)).forEach { row ->
+            Row(horizontalArrangement = Arrangement.spacedBy(gap)) {
+                row.forEach { (code, name) ->
+                    Box(Modifier.width(tile).height(tile * 1.45f).clip(RoundedCornerShape(18.dp)).background(Tokens.Navy)) {
+                        Image(
+                            painterResource(Photos.country(code)!!),
+                            contentDescription = null,
+                            contentScale = ContentScale.Crop,
+                            // 태국 사진은 사원(왼쪽 아래)이 타일 안에 들어오게 — 나머지는 가운데
+                            alignment = if (code == "TH") BiasAlignment(-1f, 0.4f) else Alignment.Center,
+                            modifier = Modifier.fillMaxSize(),
+                        )
+                        Box(
+                            Modifier
+                                .fillMaxSize()
+                                .background(Brush.verticalGradient(0.45f to Color.Transparent, 1f to Tokens.Navy.copy(alpha = 0.88f))),
+                        )
+                        Text(
+                            name,
+                            color = Tokens.Surface,
+                            fontSize = 17.sp,
+                            fontWeight = FontWeight.Bold,
+                            modifier = Modifier.align(Alignment.BottomStart).padding(start = 12.dp, bottom = 10.dp),
+                        )
+                    }
+                }
+            }
+        }
     }
 }

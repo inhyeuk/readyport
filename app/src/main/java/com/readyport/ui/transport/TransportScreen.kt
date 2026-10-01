@@ -103,6 +103,8 @@ data class TransportUi(
     val mapsInstalled: Boolean = false,
     /** 현지어 "이 주소로 가 주세요" (국가 팩 phrases id=address) */
     val driverPhrase: String? = null,
+    /** 그 문장의 한국어 (같은 팩 문장의 ko) — 기사님 카드에서 무슨 뜻인지 작게 보인다 */
+    val driverPhraseKo: String? = null,
 )
 
 @HiltViewModel
@@ -126,6 +128,7 @@ class TransportViewModel @Inject constructor(
                 .map { RideAppRow(it, RideLinker.isInstalled(context, it.`package`)) },
             mapsInstalled = RideLinker.isInstalled(context, MAPS_PKG),
             driverPhrase = pack?.phrases?.firstOrNull { it.id == "address" }?.local,
+            driverPhraseKo = pack?.phrases?.firstOrNull { it.id == "address" }?.ko,
         )
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), TransportUi())
 
@@ -275,8 +278,8 @@ fun TransportContent(
         }
         if (dest == null) return@AppScreen
 
-        // ② 기사님께 보여주기 (Navy, 인터넷 없이) — onDark 내용 세트만 (D18)
-        item(key = "driver") { DriverCard(ui.driverPhrase, dest.addressLocal, onFullScreen = { fullScreen = true }) }
+        // ② 기사님께 보여 주기 (Navy, 인터넷 없이) — onDark 내용 세트만 (D18)
+        item(key = "driver") { DriverCard(ui.driverPhrase, ui.driverPhraseKo, dest.addressLocal, onFullScreen = { fullScreen = true }) }
 
         // ③ 차 부르기: 앱마다 한 줄, 행 본문 = 지금 상태(설치 안 됨 / 목적지 넣어 열기 / 열고 주소 복사)
         sectionGap("gap-ride")
@@ -361,9 +364,12 @@ fun TransportContent(
     }
 }
 
-/** 기사님께 보여주기 카드: Hail + eyebrow(White85) → 현지어 문장(localMedium) → 주소 → 화면 가득 (투명 + 흰 테두리 버튼) */
+/**
+ * 기사님께 보여 주기 카드: Hail + eyebrow(White85) → 현지어 문장(localMedium) → 그 문장의 한국어 뜻(작게, White80) → 주소 →
+ * 화면 가득 (투명 + 흰 테두리 버튼). 뜻 줄은 사용자가 무엇을 보여 주는지 알게 — 팩 문장의 ko 그대로(지어내지 않음), 없으면 줄이 없다.
+ */
 @Composable
-private fun DriverCard(phrase: String?, address: String, onFullScreen: () -> Unit) {
+private fun DriverCard(phrase: String?, phraseKo: String?, address: String, onFullScreen: () -> Unit) {
     val dimens = LocalDimens.current
     val extras = LocalTypeExtras.current
     Card(
@@ -378,6 +384,9 @@ private fun DriverCard(phrase: String?, address: String, onFullScreen: () -> Uni
                 KoText(stringResource(R.string.move_show_driver), MaterialTheme.typography.labelMedium, Modifier.weight(1f, fill = false), color = OnDark.eyebrow)
             }
             phrase?.let { Text(it, style = extras.localMedium, color = OnDark.content) }
+            if (phrase != null && phraseKo != null) {
+                KoText(stringResource(R.string.move_driver_meaning, phraseKo), MaterialTheme.typography.bodyMedium, color = OnDark.secondary)
+            }
             Text(address, style = localText(MaterialTheme.typography.titleLarge), color = OnDark.content)
             SecondaryButton(
                 stringResource(R.string.move_full_screen),

@@ -340,7 +340,7 @@
     <string name="move_fare_note">요금은 각 앱에서 확인하세요.</string>
     <string name="move_transit_title">지하철·버스</string>
     <string name="move_transit_button">Google 지도 길찾기</string>
-    <string name="move_show_driver">기사님께 보여주기</string>
+    <string name="move_show_driver">기사님께 보여 주기</string>
     <string name="move_full_screen">화면 가득 크게 보기</string>
     <string name="move_no_apps">이 나라의 차 부르기 앱 안내는 준비 중이에요. Google 지도 길찾기를 쓰세요.</string>
 
@@ -373,7 +373,7 @@
     <string name="shopping_where">파는 곳: %1$s</string>
     <string name="shopping_add">담기</string>
     <string name="shopping_in_cart">담았어요</string>
-    <string name="shopping_show_staff">직원에게 보여주기</string>
+    <string name="shopping_show_staff">직원에게 보여 주기</string>
     <string name="shopping_return_title">귀국 전 확인</string>
     <string name="import_allowed">한국 반입 가능</string>
     <string name="import_caution">반입 주의</string>
@@ -451,7 +451,6 @@
     <string name="settings_myinfo_body">여권과 예약 서류를 한 번 등록해 두면 여러 나라 입국 카드에 똑같이 써요.</string>
     <string name="settings_myinfo_open">여권·예약 서류 관리</string>
     <string name="photo_credit_author">찍은 사람: %1$s</string>
-    <string name="photo_credit_license">라이선스: %1$s</string>
     <string name="photo_credit_open">원본 보기</string>
 
     <!-- YouTube 여행 영상 -->

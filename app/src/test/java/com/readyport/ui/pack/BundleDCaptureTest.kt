@@ -75,11 +75,14 @@ abstract class BundleDCaptureBase {
 
     private fun place(id: String, name: String, address: String = longAddress) = Place(id, name, address)
 
+    /** 기사님 카드 부탁 문장 = 팩의 실제 문장(`이 주소로 가 주세요`)과 그 한국어 — 검토에서 본 문장이 출시 문장과 같게 (재검토2 ⑤#3) */
+    private val driver get() = th.phrases.first { it.id == "address" }
+
     /** 화면 높이 그대로 찍는 전체 화면들 */
     protected fun fullScreens(): List<Pair<String, @Composable () -> Unit>> = listOf(
         "staff-full" to { ShowStaffBody(th.shopping.first { it.id == "niello_silver" }, onClose = {}) },
         "phrase-full" to { PhraseFullScreenBody(th.phrases.first { it.id == "address" }, onClose = {}) },
-        "driver-full" to { DriverFullScreenBody("กรุณาพาไปที่อยู่นี้", longAddress, onClose = {}) },
+        "driver-full" to { DriverFullScreenBody(driver.local, longAddress, onClose = {}) },
     )
 
     /** 아래 빈 배경을 잘라 찍는 긴 상태들 */
@@ -101,7 +104,8 @@ abstract class BundleDCaptureBase {
             TransportContent(
                 TransportUi(
                     places, places[1],
-                    th.transportApps.map { RideAppRow(it, installed = true) }, mapsInstalled = true, driverPhrase = "กรุณาพาไปที่นี่",
+                    th.transportApps.map { RideAppRow(it, installed = true) }, mapsInstalled = true,
+                    driverPhrase = driver.local, driverPhraseKo = driver.ko,
                 ),
                 R.string.move_ride_copied, { _, _ -> }, {}, {}, {},
             )
@@ -109,7 +113,7 @@ abstract class BundleDCaptureBase {
         "transport-failed" to {
             val p = place("p1", "방콕 숙소")
             TransportContent(
-                TransportUi(listOf(p), p, th.transportApps.mapIndexed { i, a -> RideAppRow(a, installed = i == 0) }, false, "กรุณาพาไปที่นี่"),
+                TransportUi(listOf(p), p, th.transportApps.mapIndexed { i, a -> RideAppRow(a, installed = i == 0) }, false, driver.local, driver.ko),
                 R.string.move_ride_failed, { _, _ -> }, {}, {}, {},
             )
         },

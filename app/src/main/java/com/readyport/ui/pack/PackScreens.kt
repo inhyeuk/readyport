@@ -8,14 +8,16 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.VolumeUp
+import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.outlined.AccountBalance
 import androidx.compose.material.icons.outlined.ArrowDownward
 import androidx.compose.material.icons.outlined.Fullscreen
@@ -45,6 +47,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.LiveRegionMode
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.liveRegion
 import androidx.compose.ui.semantics.semantics
@@ -68,17 +71,14 @@ import com.readyport.ui.components.IconBadge
 import com.readyport.ui.components.IconBullet
 import com.readyport.ui.components.IconKeys
 import com.readyport.ui.components.KoText
+import com.readyport.ui.components.ListDivider
+import com.readyport.ui.components.ListGroup
 import com.readyport.ui.components.OnDark
 import com.readyport.ui.components.Photos
-import com.readyport.ui.components.QuietButton
 import com.readyport.ui.components.SecondaryButton
 import com.readyport.ui.components.SectionHeader
 import com.readyport.ui.components.SelectChip
-import com.readyport.ui.components.SelectableCard
-import com.readyport.ui.components.isStackedLayout
-import com.readyport.ui.components.selectionBadgeContainer
 import com.readyport.ui.components.ShowLocalBody
-import com.readyport.ui.components.SourceFooter
 import com.readyport.ui.components.SourceList
 import com.readyport.ui.components.SourceRef
 import com.readyport.ui.components.StatusChip
@@ -86,6 +86,7 @@ import com.readyport.ui.components.Step
 import com.readyport.ui.components.StepList
 import com.readyport.ui.components.TileGrid
 import com.readyport.ui.components.displayDate
+import com.readyport.ui.components.isStackedLayout
 import com.readyport.ui.components.rememberGridColumns
 import com.readyport.ui.components.rememberKeyIndex
 import com.readyport.ui.components.rememberPhotoLift
@@ -93,13 +94,16 @@ import com.readyport.ui.components.rememberThumbnail
 import com.readyport.ui.components.resolveSourceName
 import com.readyport.ui.components.scrollToKey
 import com.readyport.ui.components.sectionGap
+import com.readyport.ui.components.selectionBadgeContainer
 import com.readyport.ui.components.textIconSize
 import com.readyport.ui.theme.LocalDimens
 import com.readyport.ui.theme.LocalTypeExtras
 import com.readyport.ui.theme.Tokens
 import kotlinx.coroutines.launch
 
-// ======================= 도움 (DESIGN_SPEC 6-20, D6) =======================
+// ======================= 도움 (DESIGN_SPEC 6-20, 운영자 결정 5) =======================
+// 순서: 나라 칩 → 고른 문장 카드 → 자주 쓰는 말 → 긴급 번호(대표 + 전체) → 대사관 → 이럴 땐 이렇게 → 어느 나라에서나.
+// 긴급 번호는 맨 위 `긴급 번호 바로 보기` 줄로 한 번에 내려간다.
 
 @Composable
 fun HelpScreen(viewModel: HelpViewModel = hiltViewModel()) {
@@ -190,6 +194,18 @@ fun HelpContent(
         if (columns == 1) {
             item(key = "offline-badge") { offlineBadge() }
         }
+        // 긴급 번호로 가는 줄 — 순서는 문장 카드가 먼저(운영자 결정 5)지만, 급한 사람이 번호를 찾아 내려가지 않게 맨 위에 한 줄.
+        // 긴급(주황) 톤 보조 버튼: 누르면 아래 '급할 때 연락' 묶음으로 내려간다(전화를 걸지 않는다 — 거는 것은 번호 타일)
+        if (pack != null && pack.emergency.isNotEmpty()) {
+            item(key = "emergency-jump") {
+                SecondaryButton(
+                    stringResource(R.string.help_jump_emergency),
+                    onClick = { scope.launch { listState.scrollToKey(keyIndex, "emergency") } },
+                    icon = Icons.Outlined.ArrowDownward,
+                    tone = BadgeTone.Help,
+                )
+            }
+        }
         if (ui.countries.size > 1) {
             item(key = "countries") {
                 Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -220,32 +236,7 @@ fun HelpContent(
                 EmptyState(icon = Icons.Outlined.SupportAgent, title = stringResource(R.string.help_no_country), body = null)
             }
         } else {
-            // ③ 대표 긴급 번호 (보통 관광경찰) — 급할 때 번호가 첫 화면에 보이게 (D6). 출처를 바로 아래에
-            pack.emergency.firstOrNull()?.let { top ->
-                item(key = "emergency-top") {
-                    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                        EmergencyCallTile(
-                            label = top.labelKo,
-                            number = top.number,
-                            icon = IconKeys.emergency(top.id),
-                            onCall = { onCall(top.number) },
-                            note = top.noteKo,
-                            large = true,
-                        )
-                        SourceFooter(ref(top.source, top.lastVerified))
-                        if (pack.emergency.size > 1) {
-                            QuietButton(
-                                stringResource(R.string.help_more_numbers),
-                                onClick = { scope.launch { listState.scrollToKey(keyIndex, "emergency") } },
-                                icon = Icons.Outlined.ArrowDownward,
-                                // 글자 버튼 안쪽 여백(12dp)만큼 당겨 화살표가 타일·출처 줄과 같은 왼쪽 선에 서게
-                                modifier = Modifier.offset(x = -TextButtonInset),
-                            )
-                        }
-                    }
-                }
-            }
-            // ④ 고른 문장 큰 카드 (현지인에게 보여 주기)
+            // ② 고른 문장 큰 카드 (현지인에게 보여 주기) — 나라 칩 바로 아래 (운영자 결정 5: PRD 5.11 원래 순서)
             selectedPhrase?.let { phrase ->
                 item(key = "phrase-card") {
                     PhraseCard(
@@ -257,16 +248,18 @@ fun HelpContent(
                     )
                 }
             }
-            // ⑤ 자주 쓰는 말 — 팩 문구는 길이를 앱이 정할 수 없어 항상 1열 (D4)
+            // ③ 자주 쓰는 말 — 팩 문구는 길이를 앱이 정할 수 없어 항상 1열 (D4).
+            // 한 장의 흰 목록 안 구분선 행: 고른 행만 AccentSoft + 체크 — 카드 일곱 장이 테두리째 쌓여 설문지처럼 보이지 않게 (재검토2 ①#8)
             if (pack.phrases.isNotEmpty()) {
                 sectionGap("gap-phrases")
                 item(key = "phrases-title") {
                     SectionHeader(stringResource(R.string.help_phrases_title), icon = Icons.Outlined.Translate)
                 }
                 item(key = "phrases") {
-                    Column(Modifier.selectableGroup(), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                        pack.phrases.forEach { p ->
-                            PhraseTile(
+                    ListGroup(modifier = Modifier.selectableGroup()) {
+                        pack.phrases.forEachIndexed { i, p ->
+                            if (i > 0) ListDivider()
+                            PhraseRow(
                                 phrase = p,
                                 selected = p == selectedPhrase,
                                 onClick = {
@@ -278,12 +271,22 @@ fun HelpContent(
                     }
                 }
             }
-            // ⑥ 나머지 긴급 번호 (짧은 번호는 2열, 긴 번호는 폭 전체)
-            val rest = pack.emergency.drop(1)
-            if (rest.isNotEmpty()) {
+            // ④ 긴급 번호: 대표 번호(보통 관광경찰)는 큰 주황 타일, 나머지는 짧은 번호 2열·긴 번호 폭 전체, 출처는 묶음 끝에 한 번
+            pack.emergency.firstOrNull()?.let { top ->
+                val rest = pack.emergency.drop(1)
                 sectionGap("gap-emergency")
                 item(key = "emergency") {
                     SectionHeader(stringResource(R.string.help_emergency_title), icon = Icons.Outlined.Sos, tone = BadgeTone.Help)
+                }
+                item(key = "emergency-top") {
+                    EmergencyCallTile(
+                        label = top.labelKo,
+                        number = top.number,
+                        icon = IconKeys.emergency(top.id),
+                        onCall = { onCall(top.number) },
+                        note = top.noteKo,
+                        large = true,
+                    )
                 }
                 emergencyRows(rest, columns).forEachIndexed { i, row ->
                     item(key = "emergency-row-$i") {
@@ -300,10 +303,10 @@ fun HelpContent(
                     }
                 }
                 item(key = "emergency-source") {
-                    SourceList(rest.map { ref(it.source, it.lastVerified) }.distinct())
+                    SourceList(pack.emergency.map { ref(it.source, it.lastVerified) }.distinct())
                 }
             }
-            // ⑦ 대사관
+            // ⑤ 대사관
             pack.embassy?.let { emb ->
                 sectionGap("gap-embassy")
                 val embassySources = listOf(ref(emb.source, emb.lastVerified))
@@ -343,7 +346,7 @@ fun HelpContent(
                     }
                 }
             }
-            // ⑧ 이럴 땐 이렇게 (여권 분실 등)
+            // ⑥ 이럴 땐 이렇게 (여권 분실 등)
             if (pack.procedures.isNotEmpty()) {
                 sectionGap("gap-procedures")
                 item(key = "procedures-title") {
@@ -364,7 +367,7 @@ fun HelpContent(
                 }
             }
         }
-        // ⑨ 어느 나라에서나 (영사콜센터) — 출처는 항목의 출처 ID를 이름으로 푼 값 (commonSourceName 수정, 4.5)
+        // ⑦ 어느 나라에서나 (영사콜센터) — 출처는 항목의 출처 ID를 이름으로 푼 값 (commonSourceName 수정, 4.5)
         if (ui.common.isNotEmpty()) {
             sectionGap("gap-common")
             item(key = "common") {
@@ -407,9 +410,6 @@ fun HelpContent(
         selectedPhrase?.let { phrase -> PhraseFullScreen(phrase, onClose = { fullScreen = false }) }
     }
 }
-
-/** TextButton(QuietButton)의 가로 안쪽 여백 — 글자 버튼을 다른 요소와 같은 왼쪽 선에 맞출 때 당기는 만큼 */
-internal val TextButtonInset = 12.dp
 
 /** 나라 칩 앞 24dp 원형 사진 (장식) */
 @Composable
@@ -504,33 +504,46 @@ private fun PhraseCard(
 }
 
 /**
- * 자주 쓰는 말 한 줄 (항상 1열) = 공용 SelectableCard(재검토 R2 규칙 ② — 선택 AccentSoft + 2dp Accent + CheckCircle,
- * 비선택 흰 바탕 + 1dp LineStrong + 빈 원). 한 개만 고르는 선택이라 Role.RadioButton (부모 selectableGroup).
- * 글자는 한국어 문장 하나뿐(테스트가 단독 Text로 찾는다).
+ * 자주 쓰는 말 한 줄 (항상 1열) — 한 장의 흰 목록(ListGroup) 안 구분선 행 (재검토2 ①#8 '라디오 카드 벽'):
+ * 배지 + 한국어 문장 + (고른 행만) 체크. 고른 행 = AccentSoft 바탕 + 채운 CheckCircle(Accent) — 'AccentSoft 채움은 선택됨에만'(D.1).
+ * 고르지 않은 행에는 빈 원을 그리지 않는다(일곱 줄 설문지처럼 보이지 않게). 행 여백·높이·구분선 들여쓰기는 ListRow와 같은 토큰.
+ * 한 개만 고르는 선택이라 Role.RadioButton (부모 selectableGroup). 글자는 한국어 문장 하나뿐(테스트가 단독 Text로 찾는다).
  */
 @Composable
-private fun PhraseTile(phrase: Phrase, selected: Boolean, onClick: () -> Unit) {
+private fun PhraseRow(phrase: Phrase, selected: Boolean, onClick: () -> Unit) {
     val dimens = LocalDimens.current
-    SelectableCard(
-        selected = selected,
-        onClick = onClick,
-        minHeight = dimens.tileRowMinHeight,
-        leading = {
-            IconBadge(
-                IconKeys.phrase(phrase.id) ?: Icons.Outlined.Translate,
-                size = dimens.iconBadgeSmall,
-                // 고른 카드는 바탕이 AccentSoft라 배지를 흰 바탕으로 띄운다
-                containerColor = selectionBadgeContainer(selected),
-            )
-        },
+    val style = MaterialTheme.typography.titleMedium
+    Row(
+        Modifier
+            .fillMaxWidth()
+            .heightIn(min = dimens.listRowMinHeight)
+            .background(if (selected) Tokens.AccentSoft else Tokens.Surface)
+            .selectable(selected = selected, role = Role.RadioButton, onClick = onClick)
+            .padding(horizontal = dimens.listRowPadding, vertical = dimens.inner),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(16.dp),
     ) {
+        IconBadge(
+            IconKeys.phrase(phrase.id) ?: Icons.Outlined.Translate,
+            // 고른 행은 바탕이 AccentSoft라 배지를 흰 바탕으로 띄운다
+            containerColor = selectionBadgeContainer(selected),
+        )
         KoText(
             phrase.ko,
-            style = MaterialTheme.typography.labelLarge,
+            style = style,
+            modifier = Modifier.weight(1f),
             color = Tokens.Ink,
             // 짧은 문장 라벨: 한 음절 낱말(`가 주세요`의 `가`)이 줄 끝에 홀로 남지 않게
             glueShort = true,
         )
+        if (selected) {
+            Icon(
+                Icons.Filled.CheckCircle,
+                contentDescription = null,
+                tint = Tokens.Accent,
+                modifier = Modifier.size(textIconSize(dimens.icon, style)),
+            )
+        }
     }
 }
 

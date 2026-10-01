@@ -44,7 +44,7 @@
     <!-- 06·18 쇼핑 -->
     <string name="shopping_subtitle_v2">관광청 쇼핑 안내에서 골랐어요</string>
     <string name="shopping_add_cd">%1$s 담기</string>
-    <string name="shopping_show_staff_cd">%1$s 직원에게 보여주기</string>
+    <string name="shopping_show_staff_cd">%1$s 직원에게 보여 주기</string>
 
     <!-- 09~14 내 여행 -->
     <string name="today_trip_dates">%1$s ~ %2$s</string>
@@ -69,7 +69,6 @@
 
     <!-- 19 이동 · 20 도움 -->
     <string name="transport_get_app">%1$s 받기</string>
-    <string name="help_more_numbers">다른 긴급 번호 보기</string>
 
     <!-- 22 설정 -->
     <string name="settings_group_myinfo">내 정보</string>
