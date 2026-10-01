@@ -55,7 +55,7 @@ import com.readyport.ui.components.LockedState
 import com.readyport.ui.components.PrimaryButton
 import com.readyport.ui.components.SecondaryButton
 import com.readyport.ui.components.minTouch
-import com.readyport.ui.country.StepHead
+import com.readyport.ui.components.StepHead
 import com.readyport.ui.theme.LocalDimens
 import com.readyport.ui.theme.Tokens
 import com.readyport.ui.wallet.rememberDeviceAuth

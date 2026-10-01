@@ -59,7 +59,7 @@ data class EssentialRule(
 )
 
 /**
- * type: affiliate(물건·여행 서비스, '제휴' 표시) / official_info(보험·환전·카드 — 수수료 없음)
+ * type: affiliate(물건·여행 서비스, 앱에 '수수료 링크' 표시) / official_info(보험·환전·카드 — 수수료 없음)
  * 보험·금융 상품에는 affiliate를 쓰지 않는다 (작업 규칙 11)
  */
 @Serializable

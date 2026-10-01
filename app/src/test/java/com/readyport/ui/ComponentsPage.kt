@@ -26,7 +26,7 @@ import androidx.compose.material.icons.outlined.Fullscreen
 import androidx.compose.material.icons.outlined.GppMaybe
 import androidx.compose.material.icons.outlined.Handshake
 import androidx.compose.material.icons.outlined.Hotel
-import androidx.compose.material.icons.outlined.InstallMobile
+import androidx.compose.material.icons.outlined.ContactPage
 import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material.icons.outlined.Map
 import androidx.compose.material.icons.outlined.Nfc
@@ -70,6 +70,12 @@ import com.readyport.ui.components.ImportVerdictNote
 import com.readyport.ui.components.RequiredMark
 import com.readyport.ui.components.RequiredSummary
 import com.readyport.ui.components.EntryFormCard
+import com.readyport.ui.components.EssentialsChips
+import com.readyport.ui.components.EssentialsProgress
+import com.readyport.ui.components.StepHead
+import com.readyport.ui.components.essentialsSources
+import com.readyport.ui.components.essentialsSummary
+import com.readyport.ui.components.personalWindowKo
 import com.readyport.ui.components.AssuranceCard
 import com.readyport.ui.components.ReturnCheckMode
 import com.readyport.ui.components.ButtonPlacement
@@ -144,7 +150,9 @@ import com.readyport.ui.components.rememberKeyIndex
 import com.readyport.ui.components.sectionGap
 import com.readyport.ui.components.shortValue
 import com.readyport.ui.components.sourceRefs
+import com.readyport.ui.theme.LocalDimens
 import com.readyport.ui.theme.Tokens
+import java.time.LocalDate
 
 /**
  * 0단계 공용 부품 전부를 네 화면에 나눠 (Gallery `components-1~4` — sdk 31·200% 쉬운 모드에서도 한 장이 캡처·감사 높이 안에 들어가게.
@@ -199,7 +207,7 @@ fun ComponentsPage(part: Int) {
         item(key = "assurance") { AssuranceCard() }
         item(key = "notice-tones") {
             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                NoticeBanner(stringResource(R.string.essentials_disclosure), icon = Icons.Outlined.Handshake, title = stringResource(R.string.essentials_affiliate_label))
+                NoticeBanner(stringResource(R.string.essentials_fee_disclosure), icon = Icons.Outlined.Handshake, title = stringResource(R.string.essentials_fee_link_label))
                 NoticeBanner(stringResource(R.string.guide_power_kr_adapter), tone = BannerTone.Caution)
                 NoticeBanner(stringResource(R.string.wallet_passport_expired), icon = Icons.Outlined.EventBusy, tone = BannerTone.Danger)
                 NoticeBanner(stringResource(R.string.guide_power_kr_fits), tone = BannerTone.Success)
@@ -227,6 +235,31 @@ fun ComponentsPage(part: Int) {
                 SelectChip(chip == "TH", { chip = "TH" }, "태국", avatar = { CountryAvatar("TH") })
                 SelectChip(chip == "JP", { chip = "JP" }, "일본", avatar = { CountryAvatar("JP") })
                 SelectChip(toggle, { toggle = !toggle }, stringResource(R.string.form_local_large), leadingIcon = Icons.Outlined.Translate, singleChoice = false)
+            }
+        }
+        sectionGap("gap-s")
+        // 다듬기 S에서 공용으로 옮긴 부품: 순서 머리(04·21) + 내 여행 날짜로 '내는 때'(03·18 — 출발일 = 도착일 가정, `도착하면`)
+        item(key = "step-head") {
+            Column(verticalArrangement = Arrangement.spacedBy(LocalDimens.current.inner)) {
+                StepHead(1, stringResource(R.string.country_step_head_form))
+                EntryFormCard(
+                    name = form.nameKo, feeKo = form.feeKo,
+                    windowKo = personalWindowKo(form.windowKo, form.windowDaysIncludingArrival, LocalDate.of(2026, 11, 3)),
+                    source = formRef, eyebrow = stringResource(R.string.entry_form_label), onStart = {},
+                )
+                StepHead(2, stringResource(R.string.country_step_head_visa))
+            }
+        }
+        sectionGap("gap-s2")
+        // 꼭 챙길 물건 요약(홈 01·02 · 여행 준비 18): 값이 있는 정보 칩 + `n / 5` 진행 줄 + 칩 값 출처 — 팩 값 그대로
+        item(key = "essentials-summary") {
+            val summary = essentialsSummary(index, th, setOf("passport", "medicine"))
+            CardNewsCard(
+                title = stringResource(R.string.prepare_items_title), icon = IconKeys.essentials,
+                sources = essentialsSources(summary),
+            ) {
+                EssentialsChips(summary)
+                EssentialsProgress(summary)
             }
         }
         }
@@ -444,7 +477,7 @@ fun ComponentsPage(part: Int) {
                     SecondaryButton(stringResource(R.string.companion_add), onClick = {}, fillWidth = false)
                 })
                 LockedState(stringResource(R.string.wallet_locked_title), stringResource(R.string.wallet_locked_body), stringResource(R.string.wallet_unlock), {}, icon = Icons.Outlined.QrCode2, badgeIcon = Icons.Outlined.Lock)
-                ComingSoonGroup(listOf(Icons.Outlined.InstallMobile to stringResource(R.string.prepare_apps_title), Icons.Outlined.Nfc to stringResource(R.string.passport_chip_soon_v2)))
+                ComingSoonGroup(listOf(Icons.Outlined.ContactPage to stringResource(R.string.wallet_profile_title), Icons.Outlined.Nfc to stringResource(R.string.passport_chip_soon_v2)))
             }
         }
         item(key = "buttons") {

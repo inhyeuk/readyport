@@ -358,6 +358,8 @@ fun firstLineIconOffset(style: TextStyle, iconSize: Dp): Dp {
  * [badge] [title] [trailing] 한 줄 + 그 아래 [below].
  * - [stack](큰 글자)이면 제목이 그 사이 한 줄에 다 들어가지 않을 때 배지·끝 요소만 윗줄에 두고 제목을 아래 줄 **폭 전체**로 내린다 —
  *   좁은 칸에서 제목이 음절 단위로 쪼개지지 않게. [below]도 폭 전체(배지 아래까지).
+ * - [stack]이고 [forceStack]이면 제목이 옆에 들어가도 **언제나** 위처럼 쌓는다 — 목록 행([ListRow]·꼭 챙길 물건 체크 카드)은
+ *   한 묶음 안에서 행마다 모양이 섞이지 않게 [isStackedListRow]로 정한다(재검토2 ④#6).
  * - 아니면 목록 행처럼 배지 옆에 제목, [below]는 제목 자리에서 시작해 **끝 요소 아래까지** 넓힌다(오른쪽 끝이 들쭉날쭉하지 않게).
  * 설명이 없는 한 줄 행은 세로 가운데, 설명이 있으면 위 맞춤 (4.2).
  */
@@ -370,6 +372,7 @@ fun BadgeTitleLayout(
     below: (@Composable () -> Unit)? = null,
     stack: Boolean = false,
     gap: Dp = 16.dp,
+    forceStack: Boolean = false,
 ) {
     Layout(
         contents = listOf<@Composable () -> Unit>(badge ?: {}, title, trailing ?: {}, below ?: {}),
@@ -384,7 +387,7 @@ fun BadgeTitleLayout(
         val tw = t?.let { it.width + g } ?: 0
         val besideW = (w - bw - tw).coerceAtLeast(0)
         val titleM = titleMs.first()
-        val stacked = stack && (b != null || t != null) && titleM.maxIntrinsicWidth(Constraints.Infinity) > besideW
+        val stacked = stack && (b != null || t != null) && (forceStack || titleM.maxIntrinsicWidth(Constraints.Infinity) > besideW)
         val small = 2.dp.roundToPx()
         if (stacked) {
             val topH = maxOf(b?.height ?: 0, t?.height ?: 0)

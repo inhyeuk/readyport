@@ -64,8 +64,9 @@ sealed interface RowTrailing {
  * 안쪽 여백은 토큰 listRowPadding(가로 20/24 = cardPadding)·listRowPaddingVertical(16) — ListGroup 행의 배지가
  * 다른 카드 내용과 같은 시작선에 선다(재검토 R4).
  * Switch 행은 줄 전체 toggleable(Role.Switch), onClick 행은 clickable(Role.Button).
- * 설명은 제목 시작선에서 끝 요소 아래까지 넓힌다. 큰 글자 배치(LayoutClass.Stacked)에서 제목이 배지와 끝 요소 사이 한 줄에
- * 다 들어가지 않으면 배지·끝 요소만 윗줄에 두고 제목·설명은 폭 전체로 내린다 — 설명을 숨기지 않는다([BadgeTitleLayout]).
+ * 설명은 제목 시작선에서 끝 요소 아래까지 넓힌다. 큰 글자 배치(LayoutClass.Stacked)에서 배지가 있는 행은 **제목 길이와 관계없이**
+ * 배지·끝 요소만 윗줄에 두고 제목·설명은 폭 전체로 내린다([isStackedListRow] — 한 묶음 안 행마다 모양이 섞이지 않게, 재검토2 ④#6).
+ * 배지가 없는 행은 제목이 한 줄에 다 들어가지 않을 때만. 설명을 숨기지 않는다([BadgeTitleLayout]).
  * [extra]: 설명 아래 덧붙이는 장식(예: 쉬운 모드 `가 → 가` 미리보기 — 부르는 쪽이 clearAndSetSemantics로 숨긴다).
  */
 @Composable
@@ -111,7 +112,20 @@ fun ListRow(
         verticalAlignment = if (below != null) Alignment.Top else Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(16.dp),
     ) {
-        if (trailing is RowTrailing.Custom) {
+        // 큰 글자 배치에서 배지가 있는 행은 묶음 안 모든 행이 같은 모양(배지·끝 요소 윗줄, 글 폭 전체 — 재검토2 ④#6)
+        val wholeStack = isStackedListRow(hasBadge = icon != null)
+        if (trailing is RowTrailing.Custom && wholeStack) {
+            BadgeTitleLayout(
+                title = { KoText(title, MaterialTheme.typography.titleMedium, color = Tokens.Ink, glueShort = true) },
+                modifier = Modifier.weight(1f),
+                badge = icon?.let { { IconBadge(it, tone = tone) } },
+                trailing = trailing.content,
+                below = below,
+                stack = true,
+                gap = 16.dp,
+                forceStack = true,
+            )
+        } else if (trailing is RowTrailing.Custom) {
             if (icon != null) IconBadge(icon, tone = tone)
             // 배지·칩(ImportVerdictBadge 등)이 제목을 쪼갤 만큼 폭이 모자라면 글 아래 줄로 (4.10, 7장 7번)
             TrailingFlow(
@@ -152,6 +166,7 @@ fun ListRow(
                 below = below,
                 stack = isStackedLayout(),
                 gap = 16.dp,
+                forceStack = wholeStack,
             )
         }
     }
@@ -235,7 +250,8 @@ enum class ValueStyle {
  *
  * 슬롯
  * - [leading]: 앞 아이콘 배지(작은 Neutral 배지 — 예약 서류 사실 행).
- * - [trailing]: 끝 요소(복사 버튼 등). 옆에 두면 라벨·값이 더 꺾일 만큼 폭이 모자라면 값 아래 줄로 내려간다(글자 크기와 무관, 실제 폭 기준).
+ * - [trailing]: 끝 요소(복사 버튼 등). 옆에 두면 라벨·값이 더 꺾일 만큼 폭이 모자라면 값 아래 줄로 내려간다(실제 폭 기준).
+ *   큰 글자 배치(Stacked)에서는 행마다 따지지 않고 언제나 값 아래 줄(한 목록 안 같은 모양 — 재검토2 ④#6).
  *   누를 수 있는 끝 요소는 자기 이름을 가진다(이 행에 합쳐 읽히지 않음).
  * - [badge]: 라벨 옆 작은 상태 태그(폭이 모자라면 라벨 아래 줄).
  * - [subLabel]: 영어·현지어 칸 이름. [subLabelInline]이면 라벨 옆에 나란히(들어가지 않으면 다음 줄), [subLabelStyle]로 크게(`현지어 크게`).
@@ -309,8 +325,15 @@ fun KeyValueRow(
     ) {
         if (leading != null) IconBadge(leading, tone = BadgeTone.Neutral, size = dimens.iconBadgeSmall)
         Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
-            // 끝 요소를 옆에 둘지는 라벨·값만 보고 정한다 — 긴 도움말 때문에 버튼이 행마다 들쭉날쭉 내려가지 않게
-            if (trailing != null) {
+            // 끝 요소를 옆에 둘지는 라벨·값만 보고 정한다 — 긴 도움말 때문에 버튼이 행마다 들쭉날쭉 내려가지 않게.
+            // 큰 글자 배치(Stacked)에서는 모든 행의 끝 요소(복사 버튼)를 값 아래 줄에 — 라벨 길이에 따라 한 카드 안에서
+            // 옆·아래가 갈리지 않게(재검토2 ④#6, 21 `국적 Nationality/Citizenship`만 아래로 내려가던 문제)
+            if (trailing != null && isStackedLayout()) {
+                Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                    texts()
+                    trailing()
+                }
+            } else if (trailing != null) {
                 TrailingFlow(trailing = trailing, gap = 8.dp, belowGap = 4.dp, centerVertically = true, main = texts)
             } else {
                 texts()

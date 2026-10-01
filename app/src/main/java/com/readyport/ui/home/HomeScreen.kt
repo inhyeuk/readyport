@@ -102,6 +102,7 @@ import com.readyport.ui.components.Step
 import com.readyport.ui.components.StepList
 import com.readyport.ui.components.displayDate
 import com.readyport.ui.components.isStackedLayout
+import com.readyport.ui.components.isStackedListRow
 import com.readyport.ui.components.minTouch
 import com.readyport.ui.components.noBreak
 import com.readyport.ui.components.rememberGridColumns
@@ -112,11 +113,11 @@ import com.readyport.ui.components.tileRows
 import com.readyport.ui.components.textIconSize
 import com.readyport.ui.onboarding.AppSymbol
 import com.readyport.ui.onboarding.ValuePropText
-import com.readyport.ui.tabs.EssentialsChips
-import com.readyport.ui.tabs.EssentialsProgress
-import com.readyport.ui.tabs.EssentialsSummary
-import com.readyport.ui.tabs.essentialsSources
-import com.readyport.ui.tabs.essentialsSummary
+import com.readyport.ui.components.EssentialsChips
+import com.readyport.ui.components.EssentialsProgress
+import com.readyport.ui.components.EssentialsSummary
+import com.readyport.ui.components.essentialsSources
+import com.readyport.ui.components.essentialsSummary
 import com.readyport.ui.theme.LocalDimens
 import com.readyport.ui.theme.LocalTypeExtras
 import com.readyport.ui.theme.Tokens
@@ -377,7 +378,7 @@ private fun FoldRow(title: String, icon: ImageVector, tone: BadgeTone, body: Str
     val collapsed = stringResource(R.string.state_collapsed)
     val titleStyle = MaterialTheme.typography.titleMedium
     val iconSize = textIconSize(dimens.icon, titleStyle)
-    val stacked = isStackedLayout()
+    val stacked = isStackedListRow()
     val chevron: @Composable () -> Unit = {
         Icon(Icons.Outlined.ExpandMore, contentDescription = null, tint = Tokens.Accent, modifier = Modifier.size(iconSize))
     }

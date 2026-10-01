@@ -60,7 +60,6 @@ import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
@@ -130,7 +129,8 @@ import com.readyport.ui.components.StatusKind
 import com.readyport.ui.components.StatusTag
 import com.readyport.ui.components.Step
 import com.readyport.ui.components.StepList
-import com.readyport.ui.components.TextCircle
+import com.readyport.ui.components.StepHead
+import com.readyport.ui.components.personalWindowKo
 import com.readyport.ui.components.TileSpec
 import com.readyport.ui.components.displayDate
 import com.readyport.ui.components.feeIcon
@@ -457,33 +457,9 @@ private fun MoreToggle(open: Boolean, onOpenChange: (Boolean) -> Unit, label: St
     )
 }
 
-// ======================= 순서 머리 (04 · 21) =======================
+// ======================= 순서 머리 (04) =======================
 
-/**
- * 순서 머리 한 줄: StepList와 같은 번호 원(TextCircle — 글자 따라 커짐) + 짧은 글(titleMedium). 카드 바로 위에 붙여
- * `1단계 · …` 글자 eyebrow 대신 순서를 보인다(재검토2 ③#3·③#9 — 2단계의 Success 색도 Accent 하나로).
- * 공용 카드(EntryFormCard·CardNewsCard)에 배지 자리가 없어 카드 밖 머리로 둔다(04 나라 입국·21 값 복사해서 넣기 공통).
- * TalkBack: 한 덩어리 제목 `1단계 · {글}`.
- */
-@Composable
-internal fun StepHead(number: Int, text: String, modifier: Modifier = Modifier) {
-    val a11y = stringResource(R.string.country_step_eyebrow, number, text)
-    Row(
-        modifier
-            .fillMaxWidth()
-            .clearAndSetSemantics {
-                contentDescription = a11y
-                heading()
-            },
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(LocalDimens.current.gap),
-    ) {
-        TextCircle("$number")
-        KoText(text, MaterialTheme.typography.titleMedium, Modifier.weight(1f), color = Tokens.Ink, glueShort = true)
-    }
-}
-
-/** 순서 머리 + 그 카드 한 묶음(위 카드와는 목록 간격 + inner, 머리와 카드 사이는 inner) — 한 lazy item 안이라 둘이 떨어지지 않는다 */
+/** 순서 머리(공용 [StepHead]) + 그 카드 한 묶음(위 카드와는 목록 간격 + inner, 머리와 카드 사이는 inner) — 한 lazy item 안이라 둘이 떨어지지 않는다 */
 @Composable
 private fun StepGroup(number: Int, head: String, card: @Composable () -> Unit) {
     val dimens = LocalDimens.current
@@ -493,41 +469,7 @@ private fun StepGroup(number: Int, head: String, card: @Composable () -> Unit) {
     }
 }
 
-// ======================= 내 여행 날짜로 '내는 때' (03·18) =======================
-
-/** 팩 '내는 때' 문장에서 일반 예시(`예: 5월 4일 도착이면 …` 문장, `(예: …)` 괄호)를 뺀 규칙 문장. 예시가 없으면 그대로 */
-internal fun windowRuleOnly(windowKo: String): String {
-    val t = windowKo.trim().replace(ExampleParen, "")
-    return t.split(SentenceBreak).filterNot { ExampleLead.containsMatchIn(it) }.joinToString(" ").trim()
-}
-
-private val ExampleParen = Regex("""\s*\(\s*예\s*:[^)]*\)""")
-private val ExampleLead = Regex("""^\s*예\s*:""")
-private val SentenceBreak = Regex("""(?<=\.)\s+""")
-
-/** 도착일 [arrival]을 포함해 [days]일 동안 낼 수 있는 기간 (첫날, 도착일) — 오늘 단계(TripStages)·알림과 같은 계산 */
-internal fun formWindowRange(arrival: LocalDate, days: Int): Pair<LocalDate, LocalDate> =
-    arrival.minusDays((days - 1).coerceAtLeast(0).toLong()) to arrival
-
-/**
- * 입국 카드 '내는 때' 글: 내 여행([arrival])과 팩 기간 일수([days])가 있으면 일반 예시 대신 내 날짜 —
- * `태국에 도착하는 날을 포함해 3일 안에 내요.⏎내 여행: 11월 3일에 도착하면 11월 1일~3일`. 날짜는 앱이 계산하고(값을 지어내지 않음 — 팩 일수 + 내 출발일),
- * 출발일에 도착한다고 보므로 '도착하면'으로 조건을 밝힌다. 둘 중 하나라도 없으면 팩 문장 그대로.
- */
-@Composable
-internal fun personalWindowKo(windowKo: String, days: Int?, arrival: LocalDate?): String {
-    if (days == null || days < 1 || arrival == null) return windowKo
-    val (from, to) = formWindowRange(arrival, days)
-    val range = when {
-        from == to -> stringResource(R.string.date_month_day, to.monthValue, to.dayOfMonth)
-        from.monthValue == to.monthValue -> stringResource(R.string.date_range_same_month, from.monthValue, from.dayOfMonth, to.dayOfMonth)
-        else -> stringResource(R.string.date_range_two_months, from.monthValue, from.dayOfMonth, to.monthValue, to.dayOfMonth)
-    }
-    val mine = stringResource(R.string.form_window_mine, stringResource(R.string.date_month_day, arrival.monthValue, arrival.dayOfMonth), range)
-    val rule = windowRuleOnly(windowKo)
-    // 내 날짜는 제 줄에 — 규칙 문장 끝에 이어 붙으면 날짜가 문장 속에 묻힌다
-    return if (rule.isEmpty()) mine else "$rule\n$mine"
-}
+// 내 여행 날짜로 '내는 때'(03·18 공통)는 공용 personalWindowKo(components/EntryForm.kt)
 
 // ======================= 같은 말 되풀이 접기 (03 들어갈 때) =======================
 

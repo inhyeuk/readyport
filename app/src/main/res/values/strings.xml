@@ -51,8 +51,6 @@
     <string name="prepare_forms_body">여행을 만들면 어떤 서류가 필요한지 알려 드리고, 앱이 대신 채워 드려요.</string>
     <string name="prepare_items_title">꼭 챙길 물건</string>
     <string name="prepare_items_body">여행지와 계절에 맞춰 챙길 물건을 골라 드려요.</string>
-    <string name="prepare_apps_title">미리 설치할 앱</string>
-    <string name="prepare_bookings_title">예약 서류</string>
     <string name="prepare_form_open">입국 카드 준비하기</string>
 
     <!-- 입국 카드 3개 국어 확인 (PRD 5.2) -->
@@ -94,7 +92,7 @@
     <string name="manual_copy">복사</string>
     <string name="manual_copied">복사했어요</string>
     <string name="manual_open_site">공식 사이트 열기</string>
-    <string name="prepare_speech">여행 준비. 레디포트는 정부 기관과 제휴하지 않았어요. 입국 카드, 꼭 챙길 물건, 미리 설치할 앱, 예약 서류를 챙겨요.</string>
+    <string name="prepare_speech">여행 준비. 레디포트는 정부 기관과 제휴하지 않았어요. 입국 카드와 꼭 챙길 물건을 챙겨요.</string>
 
     <!-- 여행지 -->
     <string name="explore_favorite_add">%1$s 찜하기</string>
@@ -358,10 +356,8 @@
     <string name="essentials_for_trip">%1$s %2$d박 · %3$d월 여행에 맞춰 골랐어요</string>
     <string name="essentials_no_trip">모든 여행에 필요한 것만 보여 드려요. 여행을 만들면 나라에 맞춰 더 골라 드려요.</string>
     <string name="essentials_speech">꼭 챙길 물건입니다. 챙긴 물건은 있어요를 눌러 표시하세요.</string>
-    <string name="essentials_disclosure">‘제휴’ 표시가 있는 링크로 구매하면 레디포트가 수수료를 받을 수 있어요. 보험·금융 상품은 수수료 없이 안내만 해요.</string>
     <string name="essentials_progress">준비한 물건 %1$d개 중 %2$d개</string>
     <string name="essentials_badge_carry_on">기내 반입만 가능</string>
-    <string name="essentials_affiliate_label">제휴</string>
     <string name="shopping_title">%1$s 쇼핑 리스트</string>
     <string name="shopping_speech">쇼핑 리스트입니다. 한국에 가져올 수 있는지 색깔 표시로 확인하세요.</string>
     <string name="shopping_open">쇼핑 리스트 보기</string>
@@ -396,7 +392,7 @@
     <string name="rankings_rules_title" tools:ignore="UnusedResources">지키는 원칙</string>
     <string name="rankings_rule_basis" tools:ignore="UnusedResources">기준 시점을 항상 함께 보여 드려요</string>
     <string name="rankings_rule_offline" tools:ignore="UnusedResources">인터넷이 없으면 마지막으로 받은 순위를 보여 드려요</string>
-    <string name="rankings_rule_no_ads" tools:ignore="UnusedResources">광고비나 제휴 수수료로 순위를 바꾸지 않아요</string>
+    <string name="rankings_rule_no_ads" tools:ignore="UnusedResources">광고비나 수수료 링크로 순위를 바꾸지 않아요</string>
     <string name="notif_policy_title">%1$s 입국 안내가 바뀌었어요</string>
     <string name="notif_policy_body">레디포트에서 새 안내를 확인하세요. 출발 전에 공식 사이트도 한 번 더 확인해 주세요.</string>
     <string name="settings_privacy_open">개인정보 처리방침 보기</string>

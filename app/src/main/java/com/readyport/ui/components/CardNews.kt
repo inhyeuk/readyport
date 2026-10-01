@@ -508,6 +508,32 @@ internal fun isSentenceStep(text: String): Boolean {
 }
 
 /**
+ * 순서 머리 한 줄 (다듬기 S — 04 나라 입국의 입국 카드→비자 순서, 21 값 복사해서 넣기의 사이트 단계):
+ * [StepList]와 같은 번호 원([TextCircle] — 글자 따라 커짐) + 짧은 글(titleMedium Ink). 카드 바로 위에 붙여
+ * `1단계 · …` 글자 eyebrow 대신 순서를 보인다(재검토2 ③#3·③#9 — 2단계도 Success가 아니라 Accent 하나).
+ * 공용 카드(EntryFormCard·CardNewsCard·InfoCard)에 배지 자리가 없어 카드 밖 머리로 둔다.
+ * 글 끝 한 음절 낱말은 앞 낱말에 붙인다(glueShort — 큰 글자에서 `내/요` 같은 홀로 남은 음절 방지).
+ * TalkBack: 한 덩어리 제목 `1단계 · {글}`(country_step_eyebrow).
+ */
+@Composable
+fun StepHead(number: Int, text: String, modifier: Modifier = Modifier) {
+    val a11y = stringResource(R.string.country_step_eyebrow, number, text)
+    Row(
+        modifier
+            .fillMaxWidth()
+            .clearAndSetSemantics {
+                contentDescription = a11y
+                heading()
+            },
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(LocalDimens.current.gap),
+    ) {
+        TextCircle("$number")
+        KoText(text, MaterialTheme.typography.titleMedium, Modifier.weight(1f), color = Tokens.Ink, glueShort = true)
+    }
+}
+
+/**
  * 단계 한 줄: 왼쪽 배지(가운데 정렬, 최소 폭 [minBadge]) + 배지 아래에서 줄 끝까지 이어지는 2dp 세로선 + 오른쪽 글.
  * 높이는 글이 정한다. (IntrinsicSize를 쓰면 weight가 걸린 글의 고유 높이가 지나치게 크게 계산돼 직접 잰다)
  */

@@ -39,7 +39,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.annotation.Config
 
-/** M8: 꼭 챙길 물건(제휴 고지·표시 규칙), 쇼핑 리스트(반입 태그) */
+/** M8: 꼭 챙길 물건(수수료 고지·표시 규칙), 쇼핑 리스트(반입 태그) */
 @RunWith(AndroidJUnit4::class)
 @Config(application = android.app.Application::class, sdk = [36], qualifiers = "w393dp-h851dp")
 class M8UiTest {
@@ -81,7 +81,7 @@ class M8UiTest {
     }
 
     @Test fun selectKeepsPackOrder() {
-        // 추천 순서는 팩에 적힌 순서 그대로 — 제휴 링크가 있어도 앞으로 가지 않는다 (PRD 11.2)
+        // 추천 순서는 팩에 적힌 순서 그대로 — 수수료 링크가 있어도 앞으로 가지 않는다 (PRD 11.2)
         assertEquals(listOf("passport", "adapter", "voltage", "insurance", "powerbank"), Essentials.select(rules, kr, jp).map { it.id })
         assertEquals(listOf("passport", "insurance", "powerbank"), Essentials.select(rules, kr, th).map { it.id })
         assertEquals(listOf("passport", "adapter", "insurance", "powerbank"), Essentials.select(rules, kr, sg).map { it.id })
@@ -112,7 +112,7 @@ class M8UiTest {
 
     @Test fun affiliateLabelOnlyOnAffiliateLinks() {
         essentials()
-        // 제휴 링크 1개(어댑터)에만 '수수료 링크' 라벨. 보험(official_info)에는 없다
+        // 수수료 링크 1개(어댑터)에만 '수수료 링크' 라벨. 보험(official_info)에는 없다
         rule.onAllNodesWithText(s(R.string.essentials_fee_link_label)).assertCountEquals(1)
         rule.onNodeWithText("공식 비교 사이트 열기").assertExists()
         // '제휴'라는 낱말은 이 화면에 없다 — 입국 화면의 '정부 기관과 제휴하지 않았어요'와 겹치지 않게(재검토2 ⑤#9)

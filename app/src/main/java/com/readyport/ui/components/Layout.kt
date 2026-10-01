@@ -122,6 +122,16 @@ fun rememberLayoutClass(): LayoutClass = rememberLayoutInfo().layoutClass
 @Composable
 fun isStackedLayout(): Boolean = rememberLayoutInfo().stacked
 
+/**
+ * 목록 행(배지 + 제목 + 끝 요소 — 설정·스위치 행 [ListRow], 꼭 챙길 물건 체크 카드, 홈 접힌 줄)을 **통째로** 쌓을지 (재검토2 ④#6).
+ * 큰 글자 배치(Stacked)에서 배지가 있는 행은 제목 길이와 관계없이 **모두** 배지·끝 요소(스위치·꺾쇠·체크 상자)를 윗줄에,
+ * 제목·설명을 아래 폭 전체로 둔다 — 행마다 '제목이 옆에 들어가는지'로 정하면 한 묶음 안에서 `여권·예약 서류 관리`는 쌓이고
+ * 바로 다음 `같이 가는 사람`은 옆에 서서 시작선이 들쭉날쭉했다. 배지가 없는 행은 제목이 옆에 안 들어갈 때만 쌓는다(BadgeTitleLayout).
+ * 내용은 숨기지 않고 배치만 바뀐다.
+ */
+@Composable
+fun isStackedListRow(hasBadge: Boolean = true): Boolean = hasBadge && isStackedLayout()
+
 /** 340dp 미만 창 */
 @Composable
 fun isNarrowWindow(): Boolean = rememberLayoutInfo().narrow

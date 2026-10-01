@@ -17,7 +17,7 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.readyport.R
 import com.readyport.ui.TestPacks
-import com.readyport.ui.tabs.EssentialsSummary
+import com.readyport.ui.components.EssentialsSummary
 import com.readyport.ui.theme.ReadyPortTheme
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue

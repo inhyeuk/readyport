@@ -16,7 +16,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.readyport.R
 import com.readyport.ui.TestPacks
 import com.readyport.ui.tabs.PrepareContent
-import com.readyport.ui.tabs.essentialsSummary
+import com.readyport.ui.components.essentialsSummary
 import com.readyport.ui.theme.ReadyPortTheme
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
@@ -83,7 +83,7 @@ class HomePolishS2Test {
         // 값 없는 주제 이름 칩(`플러그`·`보조배터리` 단독)은 없다
         rule.onAllNodesWithText(s(R.string.home_items_plug)).assertCountEquals(0)
         // 칩 값의 출처(태국관광청 전기)가 카드 안에
-        val powerSource = th.source(th.power!!.source)!!.name
+        val powerSource = th.source(th.power.source)!!.name
         assertTrue(rule.onAllNodes(hasText(powerSource, substring = true)).fetchSemanticsNodes().isNotEmpty())
     }
 
@@ -109,5 +109,8 @@ class HomePolishS2Test {
         rule.onNodeWithText(s(R.string.essentials_progress_stat, 2, 5)).assertIsDisplayed()
         rule.onNodeWithText(th.power!!.voltage).assertIsDisplayed()
         rule.onNodeWithText(s(R.string.home_essentials_open)).assertIsDisplayed()
+        // '곧 추가돼요'는 내 정보 맨 아래 한 곳뿐(다듬기 S 통합 — 재검토2 ⑤#11): 여행 준비에는 없다. 예약 서류는 이미 있는 기능
+        rule.onAllNodesWithText(s(R.string.coming_soon_group)).assertCountEquals(0)
+        rule.onAllNodesWithText(s(R.string.coming_soon)).assertCountEquals(0)
     }
 }

@@ -8,7 +8,7 @@ import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.EventAvailable
-import androidx.compose.material.icons.outlined.InstallMobile
+import androidx.compose.material.icons.outlined.ContactPage
 import androidx.compose.material.icons.outlined.Nfc
 import androidx.compose.material3.Text
 import androidx.compose.runtime.getValue
@@ -117,7 +117,7 @@ class ComponentsBehaviorTest {
         val soon = context.getString(R.string.passport_chip_soon_v2)
         rule.setContent {
             ReadyPortTheme {
-                ComingSoonGroup(listOf(Icons.Outlined.Nfc to soon, Icons.Outlined.InstallMobile to context.getString(R.string.prepare_apps_title)))
+                ComingSoonGroup(listOf(Icons.Outlined.Nfc to soon, Icons.Outlined.ContactPage to context.getString(R.string.wallet_profile_title)))
             }
         }
         rule.onNodeWithText(soon).assertIsNotEnabled()

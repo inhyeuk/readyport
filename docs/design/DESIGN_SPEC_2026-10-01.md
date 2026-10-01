@@ -381,7 +381,7 @@ enum class BannerTone(val bg: Color, val bar: Color, val icon: Color, val text: 
 - `Surface(tone.bg, shapes.small)` + 왼쪽 4dp 막대(`Modifier.height(IntrinsicSize.Min)` + `drawBehind`) + `Row { Icon(24/28) ; Column { title?(titleSmall) ; text(bodyMedium SemiBold) ; secondLine?(Row { secondIcon 20 ; bodyMedium }) } }`, padding 16.
 - **누를 수 없다**(clickable 없음, 알약 모양 아님, 테두리 없음). 글자 수 제한 없음, 높이 자동. 누를 수 있는 tonal 버튼과 헷갈리지 않게 Notice 톤은 흰 바탕 + 왼쪽 막대만 쓴다(D21). 폭이 340dp 미만이면 `title`을 생략할 수 있다(07 화면 예산).
 - 쓰는 곳: 정부 비제휴(`guide_not_affiliated`, icon `Policy`, 둘째 줄 `제출은 직접` + `TouchApp`) — 입국 화면(03·04·15·17)의 **첫 정보 항목**. 제휴 고지(16, `Handshake`), YouTube 고지(07), 대행 사이트 경고(04, `Danger`, `GppMaybe`), 만료 여권(25, `Danger`, `EventBusy`), 오프라인 배너 스타일(`CloudOff`).
-- 기존 문자열을 그대로 넘기므로 `onNodeWithText(guide_not_affiliated)`, `essentials_disclosure` 위치 테스트 유지.
+- 기존 문자열을 그대로 넘기므로 `onNodeWithText(guide_not_affiliated)`, `essentials_fee_disclosure`(다듬기 S3 — 예전 `essentials_disclosure`) 위치 테스트 유지.
 
 ### 4.5 SourceRef / SourceFooter v2 / SourceList / LinkRow
 
@@ -864,18 +864,18 @@ enum class StatusKind(val icon: ImageVector, val tone: BadgeTone) {
 - 신규: `trip_save_edit`, `trip_nights`(%1$d박 %2$d일), `trip_delete_confirm_title`(이 여행을 지울까요?), `trip_delete_confirm_body`(**확정**: 여행 날짜와 입국 카드 알림이 지워져요. 여권·예약 서류는 남아요. — 실제 동작 `TripViewModel.delete()` = `trips.clear()` + `TripNotifications.cancelFormWindow()`, 지갑·장바구니는 그대로).
 
 ### 15 여행 준비 — `tabs/TabScreens.kt`
-- ① `NoticeBanner(prepare_disclaimer, Policy)`(문구 유지, 제출은 직접 포함) ② 양식 카드 = `CardNewsCard(icon AssignmentInd, eyebrow prepare_forms_title(나라 이름 포함 새 eyebrow `prepare_form_eyebrow`: %1$s · 도착 전에 내요), title form.nameKo)` — `태국 · 태국 입국 카드` 중복 제거, `FactChip` 1개(비용 `shortValue`, `feeIcon`) + 기간은 03처럼 `IconBullet(Schedule, guide_form_window)` 글 행(기간 칩·타일은 D11에 따라 이번 릴리스에서 만들지 않음), `PrimaryButton(prepare_form_open, icon EditNote)`, `SourceFooter`(form.source) ③ `IconTile`(Horizontal, Checklist, `prepare_items_title`, supporting `prepare_items_body`) ④ `ComingSoonGroup`(InstallMobile `prepare_apps_title`, Description `prepare_bookings_title`).
+- ① `NoticeBanner(prepare_disclaimer, Policy)`(문구 유지, 제출은 직접 포함) ② 양식 카드 = `CardNewsCard(icon AssignmentInd, eyebrow prepare_forms_title(나라 이름 포함 새 eyebrow `prepare_form_eyebrow`: %1$s · 도착 전에 내요), title form.nameKo)` — `태국 · 태국 입국 카드` 중복 제거, `FactChip` 1개(비용 `shortValue`, `feeIcon`) + 기간은 03처럼 `IconBullet(Schedule, guide_form_window)` 글 행(기간 칩·타일은 D11에 따라 이번 릴리스에서 만들지 않음), `PrimaryButton(prepare_form_open, icon EditNote)`, `SourceFooter`(form.source) ③ `IconTile`(Horizontal, Checklist, `prepare_items_title`, supporting `prepare_items_body`) ④ ~~`ComingSoonGroup`(InstallMobile `prepare_apps_title`, Description `prepare_bookings_title`)~~ — 다듬기 S 통합에서 뺌(예약 서류는 내 정보에 이미 있고, 앱 받기는 이동하기가 맡는다. 재검토2 ⑤#11 — `곧 추가돼요`는 내 정보 맨 아래 한 곳).
 - (선택, 8장 3단계 배선) `예약 서류`를 지갑의 예약 추가로 연결할 수 있으면 `ComingSoonGroup`에서 빼고 `IconTile`로.
 - 유지: `prepare_form_open`, `guide_not_affiliated` 계열 문구.
 - 신규: `prepare_form_eyebrow`, `coming_soon_group`.
 
 ### 16 꼭 챙길 물건 — `prep/EssentialsScreen.kt`
-- ① `NoticeBanner(essentials_disclosure, Handshake)` — **목록보다 위 유지**(`disclosureIsAtTopAboveItems`) ② 진행 카드: stat `2 / 5`(`essentials_progress_stat`) + `LinearProgressIndicator`(8dp, 둥근 끝, `drawStopIndicator = {}`로 점 제거) + `essentials_progress` 문장(유지) ③ 항목 `CheckRowCard`(아래).
+- ① `NoticeBanner(essentials_fee_disclosure, Handshake)` — **목록보다 위 유지**(`disclosureIsAtTopAboveItems`) ② 진행 카드: stat `2 / 5`(`essentials_progress_stat`) + `LinearProgressIndicator`(8dp, 둥근 끝, `drawStopIndicator = {}`로 점 제거) + `essentials_progress` 문장(유지) ③ 항목 `CheckRowCard`(아래).
 - `CheckRowCard(row, onHave, onOpenLink)`: 머리 `Row(toggleable(role = Checkbox))` = `IconBadge(IconKeys.essential(id))` + `Column { nameKo(titleLarge) ; 상태 줄 }` + 오른쪽 `Checkbox(onCheckedChange = null)`(**Checkbox로 결정**: 의미가 '챙겼는지'). 상태 줄: 체크면 `CheckCircle` + `essentials_have_yes`(SuccessText), **아직이면 아이콘 없이 `essentials_have_no` 글자만**(InkSecondary — `RadioButtonUnchecked` 아이콘과 Checkbox가 서로 다른 두 컨트롤처럼 보이지 않게).
   - 카드 모양: 아직 = 흰 정보 카드(그림자, 3.5절). **체크됨 = 상태 카드 규칙**(그림자 없음 + `SuccessBg` 바탕 + 왼쪽 4dp `SuccessText` 막대), 바탕 전환은 `animateColorAsState`. 두 규칙을 섞지 않는다.
-  - 그 아래 규정 `StatusTag`(carry_on_only → Caution, `essentials_badge_carry_on`), `reasonKo`(bodyMedium — 60자 넘으면 첫 문장 + `ExpandableDetail`, 원칙 6), 링크 = `SecondaryButton(link.labelKo, icon OpenInNew, fillWidth = false)` + 제휴면 `StatusChip(essentials_affiliate_label)`, `SourceFooter`(이름 없으면 fallback).
+  - 그 아래 규정 `StatusTag`(carry_on_only → Caution, `essentials_badge_carry_on`), `reasonKo`(bodyMedium — 60자 넘으면 첫 문장 + `ExpandableDetail`, 원칙 6), 링크 = `SecondaryButton(link.labelKo, icon OpenInNew, fillWidth = false)` + 수수료 링크(affiliate)면 `StatusChip(essentials_fee_link_label)` — '제휴' 낱말 대신 '수수료 링크'(재검토2 ⑤#9), `SourceFooter`(이름 없으면 fallback).
 - TalkBack: 토글 줄 semantics = **이름(nameKo) + `stateDescription`(`essentials_have_yes`/`essentials_have_no`)** + role Checkbox. 기존 `essentials_have`(있어요)는 쓰지 않고 2단계에서 사용처가 0이면 지운다(테스트가 찾지 않음).
-- 유지: `essentials_disclosure`, `essentials_progress`, `essentials_for_trip`, `essentials_badge_carry_on`, `essentials_affiliate_label`(**정확히 1개**), `여권`(nameKo 단독 Text — 다른 곳에 `여권` 단독 Text를 만들지 말 것), 링크 라벨(`공식 비교 사이트 열기`).
+- 유지: `essentials_fee_disclosure`, `essentials_progress`, `essentials_for_trip`, `essentials_badge_carry_on`, `essentials_fee_link_label`(**정확히 1개** — 다듬기 S3가 `essentials_disclosure`·`essentials_affiliate_label`을 바꿈), `여권`(nameKo 단독 Text — 다른 곳에 `여권` 단독 Text를 만들지 말 것), 링크 라벨(`공식 비교 사이트 열기`).
 - 신규: `essentials_have_yes`(챙겼어요), `essentials_have_no`(아직이에요), `essentials_progress_stat`(%1$d / %2$d).
 
 ### 17 입국 카드 확인 — `form/FormConfirmScreen.kt`

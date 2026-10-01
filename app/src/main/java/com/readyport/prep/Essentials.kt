@@ -6,7 +6,7 @@ import com.readyport.pack.ShoppingItem
 
 /**
  * 꼭 챙길 물건 고르기 (PRD 5.10·11.2). 순수 함수.
- * 순서는 팩에 적힌 추천 순서 그대로 — 제휴 여부로 바꾸지 않는다.
+ * 순서는 팩에 적힌 추천 순서 그대로 — 수수료 링크 여부로 바꾸지 않는다.
  */
 object Essentials {
 
@@ -44,7 +44,7 @@ object Essentials {
         }
     }
 
-    /** 제휴 링크인지. '제휴' 라벨은 이 경우에만 붙인다 */
+    /** 수수료 링크(affiliate)인지. '수수료 링크' 라벨은 이 경우에만 붙인다 */
     fun isAffiliate(rule: EssentialRule) = rule.link?.type == "affiliate"
 }
 

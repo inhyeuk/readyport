@@ -15,6 +15,8 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.readyport.R
 import com.readyport.ui.TestPacks
 import com.readyport.ui.components.displayDate
+import com.readyport.ui.components.formWindowRange
+import com.readyport.ui.components.windowRuleOnly
 import com.readyport.ui.tabs.PrepareContent
 import com.readyport.ui.theme.ReadyPortTheme
 import kotlinx.coroutines.runBlocking

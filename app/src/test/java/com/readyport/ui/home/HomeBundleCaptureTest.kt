@@ -27,7 +27,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.readyport.R
 import com.readyport.ui.nav.BottomTabs
 import com.readyport.ui.nav.Tab
-import com.readyport.ui.tabs.EssentialsSummary
+import com.readyport.ui.components.EssentialsSummary
 import com.readyport.ui.theme.ReadyPortTheme
 import com.readyport.ui.theme.Tokens
 import org.junit.Assert.assertTrue

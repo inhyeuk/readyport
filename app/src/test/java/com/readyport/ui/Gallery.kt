@@ -2,7 +2,9 @@ package com.readyport.ui
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import com.readyport.R
 import com.readyport.autofill.FormValues
@@ -14,7 +16,7 @@ import com.readyport.transport.Place
 import com.readyport.trip.StageInfo
 import com.readyport.trip.Trip
 import com.readyport.trip.TripStage
-import com.readyport.ui.components.PhotoCredit
+import com.readyport.ui.components.loadPhotoCredits
 import com.readyport.ui.country.CountryActions
 import com.readyport.ui.country.CountryContent
 import com.readyport.ui.country.CountrySection
@@ -40,7 +42,8 @@ import com.readyport.ui.present.PresentUi
 import com.readyport.ui.present.Traveler
 import com.readyport.ui.settings.PhotoCreditsContent
 import com.readyport.ui.settings.SettingsScreen
-import com.readyport.ui.tabs.essentialsSummary
+import com.readyport.ui.theme.LocalDimens
+import com.readyport.ui.components.essentialsSummary
 import com.readyport.ui.tabs.PrepareContent
 import com.readyport.ui.today.TodayActions
 import com.readyport.ui.today.TodayContent
@@ -176,10 +179,15 @@ object Gallery {
                 essentialsSummary(index, th.value, gotItems),
             )
         },
+        // 여행지 전기 값 칩 카드(220 V·한국 플러그)까지 — 운영 EssentialsViewModel과 같은 팩 값(power·출처 이름)
         "essentials" to {
-            val rules: List<EssentialRule> = Essentials.select(index.essentials, index.homePower, th.value.power)
+            val power = th.value.power
+            val rules: List<EssentialRule> = Essentials.select(index.essentials, index.homePower, power)
             EssentialsContent(
-                EssentialsUi("태국", 4, 11, rules.mapIndexed { i, r -> EssentialRow(r, i < 2, r.source?.let { indexSources[it] }) }),
+                EssentialsUi(
+                    "태국", 4, 11, rules.mapIndexed { i, r -> EssentialRow(r, i < 2, r.source?.let { indexSources[it] }) },
+                    power = power, powerSource = power?.let { thSources[it.source] },
+                ),
                 { _, _ -> }, {},
             )
         },
@@ -204,10 +212,16 @@ object Gallery {
                 { _, _ -> }, {},
             )
         },
+        // 기사님 카드 문장 = 팩 phrases(id=address)의 현지어 + 한국어 뜻, 차량 앱 = 팩 transport_apps(지도 링크 제외) — 운영 TransportViewModel과 같은 값
         "transport" to {
             val place = Place("p1", "방콕 숙소", "สุขุมวิท ซอย 11 กรุงเทพฯ")
+            val phrase = th.value.phrases.first { it.id == "address" }
             TransportContent(
-                TransportUi(listOf(place), place, th.value.transportApps.map { RideAppRow(it, installed = false) }, false, "กรุณาพาไปที่นี่"),
+                TransportUi(
+                    listOf(place), place,
+                    th.value.transportApps.filter { it.linkType != "maps_url" }.map { RideAppRow(it, installed = false) }, false,
+                    driverPhrase = phrase.local, driverPhraseKo = phrase.ko,
+                ),
                 null, { _, _ -> }, {}, {}, {},
             )
         },
@@ -227,7 +241,8 @@ object Gallery {
                 {}, {}, {}, {},
             )
         },
-        "settings" to { SettingsScreen(easyMode = false, onEasyModeChange = {}) },
+        // 쉬운 모드 캡처(easy/)에서는 쉬운 모드 스위치가 켜진 모습 — 테마의 쉬운 모드 값을 그대로 넘긴다
+        "settings" to { SettingsScreen(easyMode = LocalDimens.current.easyMode, onEasyModeChange = {}) },
         "wallet-locked" to {
             WalletContent(
                 state = WalletState.Locked(hasData = true), deviceSecure = true, autoDestroy = true, today = LocalDate.of(2026, 9, 29),
@@ -264,8 +279,11 @@ object Gallery {
             )
         },
         "companions" to { CompanionsContent(WalletState.Unlocked(contents), {}, {}, {}, {}) },
+        // 번들 사진 전부 — 운영 PhotoCreditsScreen과 같은 출처(assets/photo_credits.json)
         "photo-credits" to {
-            PhotoCreditsContent(listOf(PhotoCredit("th", "Wat Arun Sunset.jpg", "miketnorton", "CC BY 2.0", sourceUrl = "https://commons.wikimedia.org/")), {})
+            val context = LocalContext.current
+            val credits = remember { loadPhotoCredits(context) }
+            PhotoCreditsContent(credits, {})
         },
         // 0단계 공용 부품 전부 (DESIGN_SPEC 4장) — 접근성 점검·캡처가 새 부품까지 본다
         "components-1" to { ComponentsPage(1) },

@@ -78,6 +78,7 @@ import com.readyport.ui.components.StatusTag
 import com.readyport.ui.components.cardShadow
 import com.readyport.ui.components.displayDate
 import com.readyport.ui.components.isStackedLayout
+import com.readyport.ui.components.isStackedListRow
 import com.readyport.ui.components.minTouch
 import com.readyport.ui.components.rememberGridColumns
 import com.readyport.ui.components.sectionGap
@@ -289,7 +290,7 @@ private fun PowerValuesCard(countryKo: String?, power: PowerInfo, sourceName: St
  * - 아직: 흰 정보 카드(그림자) + Accent 배지 + 이름 Ink — 화면의 주인공.
  * - 챙김: 그림자 없는 흰 카드(낮게) + 회색 배지 + 이름 InkSecondary + 체크 아이콘·`챙겼어요`(앱이 확인한 상태라 체크) — 초록 채움 없음.
  * 상태 글자는 언제나 이름 **아래 줄**(이름 길이에 따라 옆·아래를 오가지 않게).
- * 큰 글자(Stacked)에서 이름이 배지와 체크 상자 사이 한 줄에 안 들어가면 배지·체크 상자를 윗줄에 두고 이름에 폭 전체를 준다.
+ * 큰 글자(Stacked)에서는 이름 길이와 관계없이 모든 카드가 배지·체크 상자를 윗줄에 두고 이름에 폭 전체를 준다(isStackedListRow — 재검토2 ④#6).
  */
 @Composable
 private fun CheckRowCard(row: EssentialRow, onHave: (String, Boolean) -> Unit, onOpenLink: (String) -> Unit, modifier: Modifier = Modifier) {
@@ -336,6 +337,8 @@ private fun CheckRowCard(row: EssentialRow, onHave: (String, Boolean) -> Unit, o
                 },
                 stack = large,
                 gap = 12.dp,
+                // 큰 글자: 물건 카드 모두 배지·체크 상자 윗줄 + 이름 폭 전체(이름 길이로 카드마다 모양이 갈리지 않게 — 재검토2 ④#6)
+                forceStack = isStackedListRow(),
                 title = { NameAndState(r.nameKo, row.have, state) },
             )
             if (r.ruleBadge == "carry_on_only") {
