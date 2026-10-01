@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  디자인 개편 1단계 묶음 A(홈·첫인상)가 새로 쓰는 문구. strings.xml·strings_design_v2.xml은 동결이라 여기에 둔다.
+-->
+<resources>
+    <!-- 00 첫 실행: '처음이에요' 카드의 글자 크기 미리보기(작은 글자 → 큰 글자). TalkBack에는 숨긴다 -->
+    <string name="first_run_preview_glyph" translatable="false">가</string>
+    <!-- 02 홈(여행 있음): 여행 날짜 한 줄(home_trip_dates의 각 날짜) — java.time 패턴, 예: 11월 3일 (화) -->
+    <string name="home_trip_date_format" translatable="false">M월 d일 (E)</string>
+</resources>

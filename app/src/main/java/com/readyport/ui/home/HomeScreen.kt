@@ -1,43 +1,74 @@
 package com.readyport.ui.home
 
 import android.content.Intent
+import android.os.Build
 import androidx.annotation.DrawableRes
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.ArrowForward
+import androidx.compose.material.icons.automirrored.outlined.FactCheck
+import androidx.compose.material.icons.automirrored.outlined.NavigateNext
+import androidx.compose.material.icons.outlined.Approval
+import androidx.compose.material.icons.outlined.Backpack
+import androidx.compose.material.icons.outlined.Badge
+import androidx.compose.material.icons.outlined.BatteryChargingFull
+import androidx.compose.material.icons.outlined.Checklist
+import androidx.compose.material.icons.outlined.EditNote
+import androidx.compose.material.icons.outlined.ElectricBolt
+import androidx.compose.material.icons.outlined.EventAvailable
+import androidx.compose.material.icons.outlined.FlightTakeoff
 import androidx.compose.material.icons.outlined.HowToReg
 import androidx.compose.material.icons.outlined.LocalAirport
 import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material.icons.outlined.Luggage
 import androidx.compose.material.icons.outlined.MeetingRoom
+import androidx.compose.material.icons.outlined.OfflinePin
+import androidx.compose.material.icons.outlined.Power
+import androidx.compose.material.icons.outlined.Schedule
 import androidx.compose.material.icons.outlined.Security
-import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material.icons.outlined.Sos
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
-import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.heading
+import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.rememberTextMeasurer
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.core.net.toUri
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.ViewModel
@@ -52,8 +83,16 @@ import com.readyport.pack.SourcedText
 import com.readyport.prep.Essentials
 import com.readyport.trip.TripRepository
 import com.readyport.ui.components.AppScreen
-import com.readyport.ui.components.CardTone
-import com.readyport.ui.components.InfoCard
+import com.readyport.ui.components.BadgeTone
+import com.readyport.ui.components.ButtonStyles
+import com.readyport.ui.components.CardNewsCard
+import com.readyport.ui.components.ChipSpec
+import com.readyport.ui.components.CountryPhotoTile
+import com.readyport.ui.components.Fact
+import com.readyport.ui.components.FactChip
+import com.readyport.ui.components.IconBadge
+import com.readyport.ui.components.NewsStyle
+import com.readyport.ui.components.OnDark
 import com.readyport.ui.components.PhotoBox
 import com.readyport.ui.components.PhotoChip
 import com.readyport.ui.components.PhotoHeaderCard
@@ -61,11 +100,21 @@ import com.readyport.ui.components.PhotoTextArea
 import com.readyport.ui.components.Photos
 import com.readyport.ui.components.PrimaryButton
 import com.readyport.ui.components.ReturnCheckCard
+import com.readyport.ui.components.SectionHeader
+import com.readyport.ui.components.SourceList
+import com.readyport.ui.components.SourceRef
 import com.readyport.ui.components.Step
 import com.readyport.ui.components.StepList
-import com.readyport.ui.components.TopicCard
+import com.readyport.ui.components.cardShadow
+import com.readyport.ui.components.displayDate
+import com.readyport.ui.components.rememberGridColumns
+import com.readyport.ui.components.rememberThumbnail
+import com.readyport.ui.components.sectionGap
+import com.readyport.ui.components.tileRows
+import com.readyport.ui.onboarding.AppSymbol
 import com.readyport.ui.tabs.EssentialsSummary
 import com.readyport.ui.theme.LocalDimens
+import com.readyport.ui.theme.LocalTypeExtras
 import com.readyport.ui.theme.Tokens
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
@@ -73,7 +122,9 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
+import java.util.Locale
 import javax.inject.Inject
 
 /** 홈의 나라 사진 카드 하나 */
@@ -107,6 +158,8 @@ data class HomeActions(
     val openEssentials: () -> Unit = {},
     val openMyInfo: () -> Unit = {},
     val openLink: (String) -> Unit = {},
+    /** '급할 때는 도움' 줄 → 도움 탭 (DESIGN_SPEC 6-01 ⑩, ReadyPortRoot 배선은 2단계) */
+    val openHelp: () -> Unit = {},
 )
 
 @HiltViewModel
@@ -154,148 +207,313 @@ fun HomeScreen(actions: HomeActions, viewModel: HomeViewModel = hiltViewModel())
     )
 }
 
+/**
+ * 홈 (DESIGN_SPEC 6-01·6-02): 사진 히어로(신뢰 칩 3개) → (여행 있으면) 출발까지 카드 → 나라 사진 타일(큰 1장 + 2열) + 출처
+ * → 여행 준비 기본 정보(출국 순서 · 꼭 챙길 물건 · 귀국 전 확인 요약) → 여권 등록 → 급할 때는 도움.
+ * 신뢰 칩은 어느 모드에서나 히어로 안(처음 5초 안에 보이게, 1.1 ⑤). 1열(쉬운 모드·큰 글자)에서는 히어로 소개 문장 대신
+ * 신뢰 칩을 둔다 — 히어로가 길어져 첫 화면에서 나라 사진이 밀려나지 않게(6장 첫 화면 예산, HomeFirstScreenTest).
+ * 글자가 크면(fontScale ≥ [LARGE_TEXT_SCALE]) 장식 아이콘(사진 머리 제목 앞·출국 단계 앞)을 빼서 글 칸을 넓힌다.
+ */
 @Composable
 fun HomeContent(ui: HomeUi, actions: HomeActions, today: LocalDate = LocalDate.now()) {
+    val columns = rememberGridColumns()
+    val fallback = stringResource(R.string.source_official_fallback)
+    // 여행 중인 나라(없으면 첫 나라)를 크게, 나머지는 2열(쉬운 모드·큰 글자는 모두 1열 큰 타일)
+    val featured = ui.countries.firstOrNull { it.code == ui.trip?.code } ?: ui.countries.firstOrNull()
+    val others = ui.countries.filter { it.code != featured?.code }
+    // 칩에 쓴 입국 조건(정책 값)의 출처 — 칩이 출처 없이 보이지 않게 그리드 바로 아래에 (원칙 5).
+    // 나라 이름이 `태/국`, `말레이시/아`처럼 꺾이지 않게 이름 안에서는 어절 단위로만 줄을 바꾼다(API 33 미만)
+    val countrySources = compactSourceRefs(
+        ui.countries.mapNotNull { c ->
+            c.visa?.let { v -> SourceRef(c.sourceName?.takeIf { it.isNotBlank() } ?: fallback, displayDate(v.lastVerified)) }
+        },
+    ).map { it.copy(name = keepWords(it.name)) }
     AppScreen(
         title = stringResource(R.string.home_title),
         speech = stringResource(R.string.home_speech),
-        header = { HomeHero() },
+        header = { HomeHero(singleColumn = columns == 1) },
     ) {
-        ui.trip?.let { trip -> item(key = "trip") { TripSummaryCard(trip, today, actions.openTrip) } }
-
+        ui.trip?.let { trip ->
+            item(key = "trip") { TripCountdownCard(trip, today, actions.openTrip) }
+            sectionGap("countries-gap")
+        }
         item(key = "countries-title") {
-            SectionTitle(stringResource(R.string.home_countries_title), stringResource(R.string.home_countries_body))
+            SectionHeader(
+                title = keepWords(stringResource(R.string.home_countries_title)),
+                subtitle = keepWords(stringResource(R.string.home_countries_body)),
+            )
         }
-        ui.countries.forEach { c ->
-            item(key = "country-${c.code}") { CountryPhotoCard(c, onClick = { actions.openCountry(c.code) }) }
+        featured?.let { c ->
+            item(key = "country-${c.code}") { HomeCountryTile(c, large = true, onOpen = actions.openCountry, detailChips = true) }
+        }
+        if (columns == 1) {
+            others.forEach { c -> item(key = "country-${c.code}") { HomeCountryTile(c, large = true, onOpen = actions.openCountry) } }
+        } else {
+            tileRows("countries", others, columns) { c, cell -> HomeCountryTile(c, large = false, onOpen = actions.openCountry, modifier = cell) }
+        }
+        if (countrySources.isNotEmpty()) {
+            item(key = "countries-sources") { Box(Modifier.padding(horizontal = 4.dp)) { SourceList(countrySources) } }
         }
 
-        item(key = "basics-title") { SectionTitle(stringResource(R.string.home_basics_title), null) }
-        item(key = "departure") {
-            PhotoHeaderCard(Photos.Airport, stringResource(R.string.home_departure_title), minHeight = 140.dp) {
-                StepList(
-                    listOf(
-                        Step(stringResource(R.string.today_departure_step1), Icons.Outlined.LocalAirport, stringResource(R.string.today_departure_step1_detail)),
-                        Step(stringResource(R.string.today_departure_step2), Icons.Outlined.Luggage),
-                        Step(stringResource(R.string.today_departure_step3), Icons.Outlined.Security),
-                        Step(stringResource(R.string.today_departure_step4), Icons.Outlined.HowToReg),
-                        Step(stringResource(R.string.today_departure_step5), Icons.Outlined.MeetingRoom),
-                    ),
-                )
-            }
-        }
-        item(key = "essentials") {
-            PhotoHeaderCard(Photos.Packing, stringResource(R.string.home_essentials_title), minHeight = 140.dp) {
-                Text(stringResource(R.string.home_essentials_body), style = MaterialTheme.typography.bodyLarge)
-                if (ui.essentials.total > 0) {
-                    Text(
-                        stringResource(R.string.essentials_progress, ui.essentials.total, ui.essentials.done),
-                        style = MaterialTheme.typography.titleMedium,
-                        color = Tokens.Accent,
-                    )
-                }
-                PrimaryButton(stringResource(R.string.home_essentials_open), onClick = actions.openEssentials)
-            }
-        }
+        sectionGap("basics-gap")
+        item(key = "basics-title") { SectionHeader(keepWords(stringResource(R.string.home_basics_title))) }
+        item(key = "departure") { DepartureCard() }
+        item(key = "essentials") { EssentialsCard(ui.essentials, actions.openEssentials) }
         if (ui.returnFacts.isNotEmpty() || ui.returnLinks.isNotEmpty()) {
-            item(key = "return-photo") {
-                PhotoBox(Photos.Market, minHeight = 150.dp) {
-                    PhotoTextArea {
-                        Text(
-                            stringResource(R.string.home_return_photo),
-                            style = MaterialTheme.typography.titleLarge,
-                            color = Color.White,
-                        )
-                    }
-                }
+            item(key = "return") {
+                ReturnCheckCard(ui.returnLinks, ui.returnFacts, ui.indexSources, actions.openLink, compact = true)
             }
-            item(key = "return") { ReturnCheckCard(ui.returnLinks, ui.returnFacts, ui.indexSources, actions.openLink) }
         }
         item(key = "passport") {
-            InfoCard(tone = CardTone.Navy) {
-                Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                    Icon(Icons.Outlined.Lock, contentDescription = null, modifier = Modifier.size(28.dp))
-                    Text(stringResource(R.string.home_passport_title), style = MaterialTheme.typography.titleMedium, modifier = Modifier.weight(1f))
-                }
-                Text(stringResource(R.string.home_passport_body), style = MaterialTheme.typography.bodyLarge)
+            CardNewsCard(
+                title = keepWords(stringResource(R.string.home_passport_title)),
+                icon = Icons.Outlined.Lock,
+                body = keepWords(stringResource(R.string.home_passport_body)),
+                style = NewsStyle.Navy,
+            ) {
                 PrimaryButton(
                     stringResource(R.string.home_passport_open),
                     onClick = actions.openMyInfo,
-                    colors = ButtonDefaults.buttonColors(containerColor = Tokens.Surface, contentColor = Tokens.Navy),
+                    icon = Icons.Outlined.Badge,
+                    colors = ButtonStyles.onDark(),
                 )
             }
         }
-        item(key = "help") {
-            TopicCard(stringResource(R.string.today_help_title), stringResource(R.string.today_help_body))
-        }
+        item(key = "help") { HelpShortcut(actions.openHelp) }
     }
 }
 
-/** 맨 위 사진 머리글: 앱 이름 + "어디로 떠나세요?" */
+/**
+ * 맨 위 사진 머리글: 앱 심볼·이름 + "어디로 떠나세요?"(heading) + 한 줄 소개(2열만) + 신뢰 칩 3개
+ * (공식 출처만 · 폰에만 저장 · 인터넷 없이도 — 처음 5초 안에 보이게, DESIGN_SPEC 1.1 ⑤).
+ * 사진 위 글자·칩은 모두 스크림 글자 영역(PhotoTextArea) 안.
+ * - 2열: 글 영역이 길어 최소 높이를 280dp로 잡아 글 위로 사진(하늘)이 보이게 한다(스펙 200dp — BUNDLE_A_NOTES ③).
+ * - 1열(쉬운 모드·큰 글자): 소개 문장을 빼고 칩만 둔다. 최소 높이 160dp(6-00의 200% 히어로와 같은 값).
+ */
 @Composable
-private fun HomeHero() {
-    PhotoBox(Photos.Home, minHeight = 250.dp) {
+private fun HomeHero(singleColumn: Boolean) {
+    val brandStyle = MaterialTheme.typography.labelLarge
+    // 심볼 지름 = 앱 이름 한 줄 높이(최소 24dp) — 글자를 키워도 이름과 크기가 어울리고 줄 높이를 늘리지 않는다
+    val symbolSize = maxOf(24.dp, with(LocalDensity.current) { brandStyle.lineHeight.toDp() })
+    PhotoBox(Photos.Home, minHeight = if (singleColumn) 160.dp else 280.dp, shape = MaterialTheme.shapes.extraLarge) {
         PhotoTextArea {
-            Text(stringResource(R.string.home_brand), style = MaterialTheme.typography.labelLarge, color = Color.White.copy(alpha = 0.92f))
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                AppSymbol(size = symbolSize)
+                Text(
+                    stringResource(R.string.home_brand),
+                    style = brandStyle,
+                    color = OnDark.content,
+                    modifier = Modifier.padding(start = 8.dp),
+                )
+            }
             Text(
                 stringResource(R.string.home_title),
-                color = Color.White,
-                fontSize = 30.sp, lineHeight = 38.sp, fontWeight = FontWeight.Bold,
+                style = MaterialTheme.typography.displaySmall,
+                color = OnDark.content,
                 modifier = Modifier.semantics { heading() },
             )
-            Text(stringResource(R.string.home_subtitle), style = MaterialTheme.typography.bodyLarge, color = Color.White)
+            if (!singleColumn) {
+                Text(keepWords(stringResource(R.string.home_subtitle)), style = MaterialTheme.typography.bodyLarge, color = OnDark.content)
+            }
+            TrustStrip(Modifier.padding(top = 6.dp))
         }
     }
 }
 
+/** 신뢰 칩 줄의 배치: 같은 폭 3칸(한 줄 글자 / 어절마다 한 줄) 또는 칸에 안 들어가면 PhotoChip 흐름 */
+private enum class TrustFit { OneLine, WordPerLine, Chips }
+
+private val TrustGap = 8.dp
+private val TrustCellPadding = 4.dp
+
+/**
+ * 신뢰 칩 3개 (흰 92% 사진 칩 바탕 + Ink, 누를 수 없음). 칩 3개가 2+1로 접혀 균형이 깨지지 않게
+ * **같은 폭 3칸(아이콘 위 글자)** 으로 둔다. 칸 폭은 실제 글자 폭으로 고른다(글자 크기·화면 폭과 무관):
+ * 세 라벨이 칸에 한 줄로 들어가면 한 줄, 아니면 세 라벨 모두 어절마다 줄을 바꿔 높이를 맞추고,
+ * 어절 하나도 칸에 안 들어가면(200% 등) PhotoChip을 흐름으로 놓아 한 줄에 하나씩 쌓는다.
+ */
 @Composable
-private fun SectionTitle(title: String, body: String?) {
-    Column(Modifier.padding(top = 8.dp), verticalArrangement = Arrangement.spacedBy(2.dp)) {
-        Text(title, style = MaterialTheme.typography.titleLarge, modifier = Modifier.semantics { heading() })
-        if (body != null) Text(body, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
+private fun TrustStrip(modifier: Modifier = Modifier) {
+    val items = listOf(
+        Icons.AutoMirrored.Outlined.FactCheck to stringResource(R.string.trust_official),
+        Icons.Outlined.Lock to stringResource(R.string.trust_local),
+        Icons.Outlined.OfflinePin to stringResource(R.string.trust_offline),
+    )
+    val style = MaterialTheme.typography.labelMedium
+    val measurer = rememberTextMeasurer()
+    val density = LocalDensity.current
+    BoxWithConstraints(modifier.fillMaxWidth()) {
+        val cellPx = with(density) { ((maxWidth - TrustGap * 2) / 3 - TrustCellPadding * 2).roundToPx() }
+        val labels = items.map { it.second }
+        val fit = remember(cellPx, labels, style, measurer) {
+            fun fits(s: String) = measurer.measure(s, style, softWrap = false, maxLines = 1).size.width <= cellPx
+            when {
+                labels.all(::fits) -> TrustFit.OneLine
+                labels.all { label -> label.split(' ').all(::fits) } -> TrustFit.WordPerLine
+                else -> TrustFit.Chips
+            }
+        }
+        if (fit == TrustFit.Chips) {
+            FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                items.forEach { (icon, text) -> PhotoChip(keepWords(text), icon) }
+            }
+        } else {
+            Row(Modifier.fillMaxWidth().height(IntrinsicSize.Min), horizontalArrangement = Arrangement.spacedBy(TrustGap)) {
+                items.forEach { (icon, text) ->
+                    TrustCell(
+                        icon = icon,
+                        text = if (fit == TrustFit.WordPerLine) text.replace(' ', '\n') else text,
+                        modifier = Modifier.weight(1f).fillMaxHeight(),
+                    )
+                }
+            }
+        }
     }
 }
 
-/** 나라 사진 카드: 대표 경치 + 나라 이름 + 입국 요약. 카드 전체가 하나의 버튼 */
+/** 신뢰 칩 한 칸: 사진 칩 바탕(흰 92%) 위 아이콘(20/24dp) + 라벨(labelMedium, 가운데). TalkBack은 라벨 한 번 */
 @Composable
-fun CountryPhotoCard(c: HomeCountry, onClick: () -> Unit, modifier: Modifier = Modifier) {
-    val label = stringResource(R.string.home_country_open, c.nameKo)
+private fun TrustCell(icon: ImageVector, text: String, modifier: Modifier = Modifier) {
+    val dimens = LocalDimens.current
+    Surface(color = Tokens.PhotoChipBg, contentColor = Tokens.Ink, shape = MaterialTheme.shapes.small, modifier = modifier) {
+        Column(
+            Modifier
+                .fillMaxSize()
+                .padding(horizontal = TrustCellPadding, vertical = 8.dp)
+                .semantics(mergeDescendants = true) {},
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(4.dp, Alignment.CenterVertically),
+        ) {
+            Icon(icon, contentDescription = null, modifier = Modifier.size(dimens.iconSmall + 4.dp))
+            Text(text, style = MaterialTheme.typography.labelMedium, textAlign = TextAlign.Center)
+        }
+    }
+}
+
+/**
+ * 나라 사진 타일. [large]면 1열 큰 타일, 아니면 2열 칸. 칩은 차이 정보(입국 조건) 1개 —
+ * [detailChips](맨 위 1장)일 때만 입력 도우미 칩을 더한다(같은 칩이 타일마다 반복되지 않게, 6-01).
+ * TalkBack 이름은 `home_country_open`, 칩은 stateDescription(CountryPhotoTile, D16).
+ */
+@Composable
+private fun HomeCountryTile(
+    c: HomeCountry,
+    large: Boolean,
+    onOpen: (String) -> Unit,
+    modifier: Modifier = Modifier,
+    detailChips: Boolean = false,
+) {
     val chips = buildList {
         c.visa?.let { v ->
             add(
                 when {
-                    v.visa == "not_required" && v.stayLimitDays != null -> stringResource(R.string.home_chip_visa_free, v.stayLimitDays)
-                    v.visa == "on_arrival" && v.stayLimitDays != null -> stringResource(R.string.home_chip_visa_arrival, v.stayLimitDays)
-                    else -> stringResource(R.string.home_chip_visa_check)
+                    v.visa == "not_required" && v.stayLimitDays != null ->
+                        ChipSpec(Icons.Outlined.EventAvailable, stringResource(R.string.home_chip_visa_free, v.stayLimitDays))
+                    v.visa == "on_arrival" && v.stayLimitDays != null ->
+                        ChipSpec(Icons.Outlined.Approval, stringResource(R.string.home_chip_visa_arrival, v.stayLimitDays))
+                    else -> ChipSpec(Icons.Outlined.Approval, stringResource(R.string.home_chip_visa_check))
                 },
             )
         }
-        if (c.visa?.apply != null) add(stringResource(R.string.home_chip_visa_apply))
-        else if (c.hasForm) add(stringResource(R.string.home_chip_form))
-        if (!c.ready) add(stringResource(R.string.home_chip_not_ready))
+        if (detailChips) {
+            if (c.visa?.apply != null) add(ChipSpec(Icons.Outlined.EditNote, stringResource(R.string.home_chip_visa_apply)))
+            else if (c.hasForm) add(ChipSpec(Icons.Outlined.EditNote, stringResource(R.string.home_chip_form)))
+        }
+        if (!c.ready) add(ChipSpec(Icons.Outlined.Schedule, stringResource(R.string.home_chip_not_ready)))
     }
-    PhotoBox(
-        Photos.country(c.code),
-        minHeight = if (LocalDimens.current.easyMode) 220.dp else 200.dp,
-        modifier = modifier
-            .fillMaxWidth()
-            .clickable(enabled = c.ready, role = Role.Button, onClickLabel = label, onClick = onClick)
-            .semantics(mergeDescendants = true) { contentDescription = label },
+    CountryPhotoTile(
+        nameKo = c.nameKo,
+        nameEn = c.nameEn,
+        photo = Photos.country(c.code),
+        chips = chips,
+        onClick = { onOpen(c.code) },
+        openLabel = stringResource(R.string.home_country_open, c.nameKo),
+        modifier = modifier,
+        large = large,
+        enabled = c.ready,
+    )
+}
+
+/** 글자가 크면(1열 200% 등) 장식 아이콘을 빼고 큰 숫자를 글 위로 쌓는 기준 — TripCountdownCard와 같은 값 */
+private const val LARGE_TEXT_SCALE = 1.3f
+
+/**
+ * 출국하는 날 순서: 공항 사진 머리 + 번호 단계 5개(1단계는 제목 + 보조문).
+ * 글자가 크면 제목 앞 아이콘과 단계 아이콘을 뺀다 — 번호 원만으로 충분하고, 아이콘 열이 글 폭을 줄여
+ * `(체/크인)`처럼 어절 중간에서 꺾이던 문제를 없앤다.
+ */
+@Composable
+private fun DepartureCard() {
+    val large = LocalDensity.current.fontScale >= LARGE_TEXT_SCALE
+    fun icon(icon: ImageVector): ImageVector? = icon.takeUnless { large }
+    PhotoHeaderCard(
+        Photos.Airport,
+        keepWords(stringResource(R.string.home_departure_title)),
+        icon = icon(Icons.Outlined.FlightTakeoff),
     ) {
-        PhotoTextArea {
-            Row(verticalAlignment = Alignment.Bottom) {
-                Column(Modifier.weight(1f)) {
-                    Text(c.nameKo, color = Color.White, fontSize = 30.sp, lineHeight = 36.sp, fontWeight = FontWeight.Bold)
-                    Text(c.nameEn, style = MaterialTheme.typography.bodyLarge, color = Color.White.copy(alpha = 0.9f))
+        StepList(
+            listOf(
+                Step(
+                    keepWords(stringResource(R.string.today_departure_step1)),
+                    icon(Icons.Outlined.LocalAirport),
+                    keepWords(stringResource(R.string.today_departure_step1_detail)),
+                ),
+                Step(keepWords(stringResource(R.string.today_departure_step2)), icon(Icons.Outlined.Luggage)),
+                Step(keepWords(stringResource(R.string.today_departure_step3)), icon(Icons.Outlined.Security)),
+                Step(keepWords(stringResource(R.string.today_departure_step4)), icon(Icons.Outlined.HowToReg)),
+                Step(keepWords(stringResource(R.string.today_departure_step5)), icon(Icons.Outlined.MeetingRoom)),
+            ),
+        )
+    }
+}
+
+/**
+ * 꼭 챙길 물건: 짐 사진 머리 + 주제 칩 3개(이름만 — 값 없음) + 진행(있을 때) + 준비물 확인 버튼.
+ * 진행 줄은 큰 숫자 `n / 5`와 설명을 글자 기준선에 맞춰 한 줄로, 글자가 크면 큰 숫자를 설명 위로 쌓는다.
+ */
+@Composable
+private fun EssentialsCard(summary: EssentialsSummary, onOpen: () -> Unit) {
+    val dimens = LocalDimens.current
+    val large = LocalDensity.current.fontScale >= LARGE_TEXT_SCALE
+    PhotoHeaderCard(
+        Photos.Packing,
+        keepWords(stringResource(R.string.prepare_items_title)),
+        icon = if (large) null else Icons.Outlined.Backpack,
+    ) {
+        FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            FactChip(Fact(Icons.Outlined.Power, stringResource(R.string.home_items_plug), ""))
+            FactChip(Fact(Icons.Outlined.ElectricBolt, stringResource(R.string.home_items_voltage), ""))
+            FactChip(Fact(Icons.Outlined.BatteryChargingFull, stringResource(R.string.home_items_powerbank), ""))
+        }
+        if (summary.total > 0) {
+            Column(Modifier.semantics(mergeDescendants = true) {}, verticalArrangement = Arrangement.spacedBy(dimens.inner)) {
+                val stat = stringResource(R.string.essentials_progress_stat, summary.done, summary.total)
+                val label = keepWords(stringResource(R.string.essentials_progress, summary.total, summary.done))
+                val statStyle = LocalTypeExtras.current.statSmall
+                val labelStyle = MaterialTheme.typography.bodyMedium
+                if (large) {
+                    Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                        Text(stat, style = statStyle, color = Tokens.Accent)
+                        Text(label, style = labelStyle, color = Tokens.InkSecondary)
+                    }
+                } else {
+                    Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                        Text(stat, style = statStyle, color = Tokens.Accent, modifier = Modifier.alignByBaseline())
+                        Text(label, style = labelStyle, color = Tokens.InkSecondary, modifier = Modifier.alignByBaseline().weight(1f))
+                    }
                 }
-                if (c.ready) Icon(Icons.AutoMirrored.Outlined.ArrowForward, contentDescription = null, tint = Color.White)
-            }
-            if (chips.isNotEmpty()) {
-                FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
-                    chips.forEach { PhotoChip(it) }
-                }
+                LinearProgressIndicator(
+                    progress = { summary.done.toFloat() / summary.total },
+                    modifier = Modifier.fillMaxWidth().height(8.dp),
+                    color = Tokens.Accent,
+                    trackColor = Tokens.SurfaceSunken,
+                    strokeCap = StrokeCap.Round,
+                    gapSize = 0.dp,
+                    drawStopIndicator = {},
+                )
             }
         }
+        PrimaryButton(stringResource(R.string.home_essentials_open), onClick = onOpen, icon = Icons.Outlined.Checklist)
     }
 }
 
@@ -313,8 +531,16 @@ fun PhotoTopCard(
     PhotoHeaderCard(photo, title, minHeight = 140.dp, content = content)
 }
 
+/**
+ * 02 내 여행 요약 (DESIGN_SPEC 6-02): Accent 채움 카드 — 나라 사진 원형 썸네일(장식) + eyebrow `내 여행 · 태국`(White85)
+ * + 출발까지 큰 숫자(stat) + 날짜 한 줄 + 흰 주 버튼. 어두운 채움 위라 onDark 내용 세트만 쓴다(D18).
+ * 글자를 크게 키우면 썸네일을 글 위로 올려 큰 숫자가 좁은 칸에서 쪼개지지 않게 한다.
+ */
 @Composable
-private fun TripSummaryCard(trip: HomeTrip, today: LocalDate, onOpen: () -> Unit) {
+private fun TripCountdownCard(trip: HomeTrip, today: LocalDate, onOpen: () -> Unit) {
+    val dimens = LocalDimens.current
+    val extras = LocalTypeExtras.current
+    val fontScale = LocalDensity.current.fontScale
     val days = ChronoUnit.DAYS.between(today, trip.startDate).toInt()
     val status = when {
         days > 0 -> stringResource(R.string.home_trip_days, days)
@@ -322,14 +548,177 @@ private fun TripSummaryCard(trip: HomeTrip, today: LocalDate, onOpen: () -> Unit
         !today.isAfter(trip.endDate) -> stringResource(R.string.home_trip_during)
         else -> stringResource(R.string.home_trip_after)
     }
-    InfoCard(tone = CardTone.Accent) {
-        Text(stringResource(R.string.home_trip_label, trip.countryKo), style = MaterialTheme.typography.labelLarge)
-        Text(status, style = MaterialTheme.typography.headlineMedium)
-        Spacer(Modifier.height(2.dp))
-        PrimaryButton(
-            stringResource(R.string.home_trip_open),
-            onClick = onOpen,
-            colors = ButtonDefaults.buttonColors(containerColor = Tokens.Surface, contentColor = Tokens.Accent),
+    val format = DateTimeFormatter.ofPattern(stringResource(R.string.home_trip_date_format), Locale.KOREAN)
+    val dates = stringResource(R.string.home_trip_dates, unbreakable(trip.startDate.format(format)), unbreakable(trip.endDate.format(format)))
+    val head: @Composable () -> Unit = {
+        Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
+            Text(stringResource(R.string.home_trip_label, trip.countryKo), style = MaterialTheme.typography.labelMedium, color = OnDark.eyebrow)
+            Text(
+                status,
+                style = if (fontScale >= 1.5f) extras.statSmall else extras.stat,
+                color = OnDark.content,
+                modifier = Modifier.semantics { heading() },
+            )
+        }
+    }
+    Card(
+        shape = MaterialTheme.shapes.large,
+        colors = CardDefaults.cardColors(containerColor = Tokens.Accent, contentColor = OnDark.content),
+        elevation = CardDefaults.cardElevation(0.dp),
+        modifier = Modifier.fillMaxWidth(),
+    ) {
+        Column(Modifier.padding(dimens.cardPadding), verticalArrangement = Arrangement.spacedBy(dimens.inner + 4.dp)) {
+            if (fontScale >= LARGE_TEXT_SCALE) {
+                TripThumbnail(trip.code)
+                head()
+            } else {
+                Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(16.dp)) {
+                    TripThumbnail(trip.code)
+                    Box(Modifier.weight(1f)) { head() }
+                }
+            }
+            Row(verticalAlignment = Alignment.Top, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                Icon(
+                    Icons.Outlined.FlightTakeoff,
+                    contentDescription = null,
+                    tint = OnDark.content,
+                    modifier = Modifier.padding(top = 1.dp).size(dimens.iconSmall + 4.dp),
+                )
+                Text(dates, style = MaterialTheme.typography.titleSmall, color = OnDark.content, modifier = Modifier.weight(1f))
+            }
+            PrimaryButton(
+                stringResource(R.string.home_trip_open),
+                onClick = onOpen,
+                // 앞에 붙는 아이콘이라 '>'(NavigateNext)보다 내 여행 탭과 같은 짐가방이 자연스럽다 (BUNDLE_A_NOTES ②)
+                icon = Icons.Outlined.Luggage,
+                colors = ButtonStyles.onDark(content = Tokens.Accent),
+            )
+        }
+    }
+}
+
+/**
+ * '급할 때는 도움' 바로가기 (6-01 ⑩): 누를 수 있는 흰 카드 — 그림자 + 오른쪽 셰브론 단서(3.5).
+ * 안쪽 여백은 위 카드들과 같은 cardPadding(20/24)이라 SOS 배지가 카드 내용 시작선에 맞는다.
+ * 스펙의 OfflinePin 칩(`help_offline_badge`)은 바로 위 설명(`인터넷이 없어도 볼 수 있어요`)과 같은 말이라 뺐다(BUNDLE_A_NOTES ④).
+ * 글자가 크면 배지를 제목 위 줄로 올리고 셰브론은 그 줄 끝에 둔다 — 글 칸이 카드 폭 전체를 쓴다.
+ * 카드 전체가 하나의 버튼이고 이름은 제목 + 설명이다.
+ */
+@Composable
+private fun HelpShortcut(onClick: () -> Unit) {
+    val dimens = LocalDimens.current
+    val shape = MaterialTheme.shapes.large
+    val stacked = LocalDensity.current.fontScale >= LARGE_TEXT_SCALE
+    Card(
+        onClick = onClick,
+        shape = shape,
+        colors = CardDefaults.cardColors(containerColor = Tokens.Surface, contentColor = Tokens.Ink),
+        elevation = CardDefaults.cardElevation(0.dp),
+        modifier = Modifier
+            .fillMaxWidth()
+            .cardShadow(shape)
+            .semantics { role = Role.Button },
+    ) {
+        val texts: @Composable (Modifier) -> Unit = { m ->
+            Column(m, verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                Text(keepWords(stringResource(R.string.help_shortcut_title)), style = MaterialTheme.typography.titleMedium, color = Tokens.Ink)
+                Text(keepWords(stringResource(R.string.today_help_body)), style = MaterialTheme.typography.bodyMedium, color = Tokens.InkSecondary)
+            }
+        }
+        val chevron: @Composable (Modifier) -> Unit = { m ->
+            Icon(Icons.AutoMirrored.Outlined.NavigateNext, contentDescription = null, tint = Tokens.InkTertiary, modifier = m)
+        }
+        if (stacked) {
+            Column(
+                Modifier.heightIn(min = dimens.listRowMinHeight).padding(dimens.cardPadding),
+                verticalArrangement = Arrangement.spacedBy(dimens.inner),
+            ) {
+                Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+                    IconBadge(Icons.Outlined.Sos, tone = BadgeTone.Help)
+                    Spacer(Modifier.weight(1f))
+                    chevron(Modifier)
+                }
+                texts(Modifier)
+            }
+        } else {
+            Row(
+                Modifier.heightIn(min = dimens.listRowMinHeight).padding(dimens.cardPadding),
+                verticalAlignment = Alignment.Top,
+                horizontalArrangement = Arrangement.spacedBy(16.dp),
+            ) {
+                IconBadge(Icons.Outlined.Sos, tone = BadgeTone.Help)
+                texts(Modifier.weight(1f))
+                chevron(Modifier.align(Alignment.CenterVertically))
+            }
+        }
+    }
+}
+
+/**
+ * 같은 날짜에 확인한 출처 이름이 앞부분(마지막 ` · ` 앞)까지 같으면 앞부분을 한 번만 쓴다:
+ * `외교부 해외안전여행 · 태국`, `외교부 해외안전여행 · 일본` → `외교부 해외안전여행 · 태국, 일본`.
+ * 이름을 바꾸거나 지어내지 않고 겹치는 앞부분만 줄인다. 앞부분이 다르거나 하나뿐이면 그대로 둔다(SourceList가 묶음).
+ * 스펙 4.5(전체 이름을 `, `로 잇기)와 다르다 — 운영자 확인 항목(BUNDLE_A_NOTES ①).
+ */
+internal fun compactSourceRefs(refs: List<SourceRef>): List<SourceRef> =
+    refs.groupBy { it.verified }.flatMap { (date, group) ->
+        val names = group.map { it.name }.distinct()
+        val heads = names.map { it.substringBeforeLast(SOURCE_PART, missingDelimiterValue = "") }
+        val head = heads.first()
+        if (names.size >= 2 && head.isNotEmpty() && heads.all { it == head }) {
+            listOf(SourceRef(head + SOURCE_PART + names.joinToString(", ") { it.substringAfterLast(SOURCE_PART) }, date))
+        } else {
+            group.distinct()
+        }
+    }
+
+private const val SOURCE_PART = " · "
+
+/**
+ * 날짜 한 덩어리(`11월 3일 (화)`)가 줄 끝에서 `11 / 월`처럼 쪼개지지 않게 공백은 NBSP, 글자 사이에는 WORD JOINER(U+2060)를 넣는다.
+ * 줄은 `~` 앞뒤 공백에서만 바뀐다(API 33 미만은 한국어가 음절 사이 어디서나 끊길 수 있다, DESIGN_SPEC 3.2).
+ */
+internal fun unbreakable(text: String): String = text.replace(' ', '\u00A0').toList().joinToString("\u2060")
+
+/**
+ * 어절(띄어쓰기로 나눈 덩어리) 안에서는 줄이 바뀌지 않게 이웃한 글자 사이에 WORD JOINER(U+2060)를 넣는다.
+ * API 33 미만(테스트 폰 S10, Android 12)은 `LineBreak`(WordBreak.Phrase)가 듣지 않아 한국어가 음절 사이 어디서나 끊긴다
+ * (`처음이에/요`, `순/서대로` — DESIGN_SPEC 3.2). 줄은 띄어쓰기에서만 바뀌고, 한 어절이 한 줄보다 길면 플랫폼이 그 어절 안에서 끊는다(잘림 없음).
+ * API 33 이상은 테마의 어절 단위 줄바꿈이 맡으므로 글자를 그대로 돌려준다 — 테스트가 찾는 문자열·TalkBack 글자도 그대로.
+ */
+internal fun keepWords(text: String, sdk: Int = Build.VERSION.SDK_INT): String {
+    if (sdk >= Build.VERSION_CODES.TIRAMISU) return text
+    val out = StringBuilder(text.length * 2)
+    var prev = -1
+    var i = 0
+    while (i < text.length) {
+        val cp = text.codePointAt(i)
+        if (prev >= 0 && !Character.isWhitespace(prev) && !Character.isWhitespace(cp)) out.append(WORD_JOINER)
+        out.appendCodePoint(cp)
+        prev = cp
+        i += Character.charCount(cp)
+    }
+    return out.toString()
+}
+
+private const val WORD_JOINER = '\u2060'
+
+/** 여행 나라 사진 원형 썸네일(장식, 축소 디코딩). 사진이 없으면 비행기 아이콘 배지 */
+@Composable
+private fun TripThumbnail(code: String?) {
+    val size = if (LocalDimens.current.easyMode) 64.dp else 56.dp
+    val thumb = rememberThumbnail(code?.let { Photos.country(it) }, size)
+    if (thumb != null) {
+        Image(
+            bitmap = thumb,
+            contentDescription = null,
+            contentScale = ContentScale.Crop,
+            modifier = Modifier
+                .size(size)
+                .clip(CircleShape)
+                .border(2.dp, OnDark.content, CircleShape),
         )
+    } else {
+        IconBadge(Icons.Outlined.FlightTakeoff, tone = BadgeTone.OnDark, size = size, shape = CircleShape)
     }
 }
