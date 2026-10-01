@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  디자인 개편 1단계 F 묶음(지갑·여권·보여 주기)이 새로 쓰는 문구.
+  strings.xml·strings_design_v2.xml은 동결이라 새 키만 여기에 둔다(디자인 원칙 8 — 기존 문구·키는 그대로).
+-->
+<resources>
+    <!-- 21 입국 때 보여 주기 -->
+    <string name="present_empty_title">아직 저장한 입국 서류가 없어요</string>
+    <string name="present_empty_body">공식 사이트에서 제출한 뒤 확인 화면을 저장하거나, 확인 메일의 QR 사진을 추가해 주세요.</string>
+    <string name="present_field_arrival">도착일</string>
+
+    <!-- 23·24 내 정보 -->
+    <string name="wallet_failed_title">내 정보를 다시 등록해야 해요</string>
+    <string name="wallet_booking_flights">편명</string>
+    <string name="wallet_booking_dates">날짜</string>
+
+    <!-- 25 여권 등록 -->
+    <string name="passport_privacy_title">여권 정보는 이렇게 다뤄요</string>
+    <string name="passport_values_title">여권에서 읽은 값</string>
+</resources>
