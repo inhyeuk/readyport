@@ -48,6 +48,7 @@
 - `field_reports/{autoId}`: `form_id`, `pack_version`, `step_id`, `error_code`, `app_version`, `ts`. 생성만 허용, 필드 검증 규칙.
 - `favorite_counts/{city_id}`: `count`(increment만 허용).
 - `ops/heartbeat`: ARIA가 Admin SDK로만 기록(`last_check`, `jobs`).
+- `videos/{ISO2}`: 나라별 YouTube 영상 목록(서명 포함). GitHub Actions(`videos.yml`)만 쓰고, 앱은 문서 하나 읽기(get)만(0.3.0 — 아래 기록).
 - App Check 적용.
 
 ### 9.5 Remote Config 키
@@ -172,7 +173,7 @@
 
 - **서명 방식**: 10.1 초안의 `"signature"` 필드 대신 **분리 서명 파일** `<파일>.sig` = `{"kid","alg":"Ed25519","sig"}`. 서명 대상은 게시되는 JSON 바이트 전체(공백 없는 UTF-8)라서 JSON 정규화 문제가 없다. 키 교체는 `kid`로 한다(앱 `PackKeys.TRUSTED`에 새 키 추가 → 전체 재서명 → 옛 키 제거).
 - **키**: `rp-2026-1`. 비밀키는 운영자 PC `~/.readyport/keys/`에만 있다(`tools/packs/keygen.py`). GitHub Actions에는 secret `READYPORT_PACK_KEY`(PEM 내용)와 `READYPORT_PACK_KID`로 등록한다. ARIA에는 주지 않는다(12.6).
-- **원본과 배포본**: 사람이 고치는 원본은 `packs/src/`(서명 없음). `tools/packs/build_packs.py`가 스키마(`packs/schema/`)·출처 연결·미확정 표시(`[확인 필요]`,`[재확인]`)를 검사한 뒤 서명해 `app/src/main/assets/packs/`(내장 기본 팩, 커밋함)와 `hosting/public/packs/`(배포본, 커밋 안 함)에 쓴다. 원어민 검수 전 문장(`reviewed:false`)은 경고만 하고, 앱에 '원어민 검수 전'으로 표시한다.
+- **원본과 배포본**: 사람이 고치는 원본은 `packs/src/`(서명 없음). `tools/packs/build_packs.py`가 스키마(`packs/schema/`)·출처 연결·미확정 표시(`[확인 필요]`,`[재확인]`)를 검사한 뒤 서명해 `app/src/main/assets/packs/`(내장 기본 팩, 커밋함)와 `hosting/public/packs/`(배포본, 커밋 안 함)에 쓴다. 원어민 검수 전 문장(`reviewed:false`)은 경고만 한다. (2026-10-01 운영자 결정 2번으로 화면 배지는 뺐다. `reviewed` 필드·빌드 경고와 출시 전 원어민 검수(QUESTIONS C10·C16·C17)는 그대로 — 아래 디자인 개편 기록)
 - **저장**: 받은 팩은 Room 대신 `noBackupFilesDir/packs/` 파일로 둔다. 읽을 때마다 서명을 다시 검증하고(기기 안 변조 대비), 내장본과 받은 본 중 서명이 맞고 스키마를 아는 가장 새 버전을 쓴다. Room은 체크리스트·쇼핑 목록 상태(M8)에서 쓴다.
 - **스키마 변경**: 10.1 대비 `embassy.address`(공관이 공개한 표기 그대로 — 한글 주소를 지어내지 않음), `forms[].window_days_including_arrival`(태국 TDAC는 공식 안내가 "도착일 포함 3일"이라 72시간 표기 대신), `phrases[].reviewed`, `sections[]`(콘텐츠를 id별 목록으로), `procedures[]`(위기 때 할 일 순서), 인덱스의 `common_emergency`(영사콜센터).
 - **배포 주소**: `https://readyport-app.web.app/packs/{index.json | CC/pack.json}` (+ `.sig`), `Cache-Control: max-age=300`. Remote Config 키 `index_version`, `pack_version_{CC}`와 같은 값일 때만 받는다(무료 전송 한도).
@@ -231,3 +232,68 @@
 - **리허설(2026-09-29)**: 실제 공식 양식 4곳 구조 감지 dry-run → 기준 해시 저장 단계까지 정상(조회만). 폰에서 CloudSync 실행 → `favorite_counts/TH` 생성 확인, `field_reports` 공개 읽기 403 확인. PR 생성·Actions 배포는 GitHub 저장소·secrets가 생긴 뒤(사람 작업 C13·C20).
 
 - **비자 온라인 신청 (2026-09-30)**: 5개 나라 중 한국 일반 여권으로 비자가 필요한 곳은 인도네시아뿐. e-VOA는 이제 All Indonesia 입국 신고를 낸 뒤 요약 화면의 'Apply for Visa On Arrival' 버튼 → 카드 결제로 신청한다(추가 입력 칸 없음, 근거 docs/research/2026-09-30_ID_evoa.md). 그래서 새 레시피 없이 팩 `requirements[].apply`(신청 순서·요금·가짜 사이트 경고·출처)로 안내하고, 입력은 기존 ID_ALL_INDONESIA 레시피가 돕는다. 신청 버튼·결제·캡차는 사람이 직접(엔진은 누르지 않음). 결제 화면이 다른 주소면 WebView 밖 브라우저로 열린다.
+
+## 구현 결정 기록 (앱 구조·영상, 0.2.0~0.3.1, 2026-09-29~10-01)
+
+- **하단 탭 4개**(0.2.0, 운영자 요청 2026-09-29): 홈·내 여행·도움·설정. 예전 준비·여행지·지갑 탭을 정리했다 — 나라 고르기는 홈의 사진 카드, 나라별 입국·여행·쇼핑은 나라 화면(`CountryRoute`, 전환 버튼 3개·스와이프 없음), 지갑은 설정 › 내 정보(`WalletRoute`). 자녀 폰 모드는 `입국 QR · 도움` 두 탭. 화면 목록은 PRD 4.1·5장.
+- **사진**: 위키미디어 공용 자유 라이선스(CC0·CC BY·CC BY-SA) 사진을 앱에 넣는다(WebP 1080px). Firebase로 보내지 않는다(9.3 텍스트 중심 원칙 그대로). 출처·변경 표시는 `assets/photo_credits.json` → 설정 › 사진·글꼴 출처. 디자인 개편에서 장소와 맞지 않는 `photo_market`(베트남 호이안)을 지워 지금 8장.
+- **YouTube 여행 영상**(0.3.0): YouTube Data API v3만 쓴다(긁어 오기 금지). `.github/workflows/videos.yml`이 매일 03:30 KST `tools/videos/fetch_videos.py`로 나라별 `"{나라} 여행"` 한국어 영상을 모은다(안전 검색 엄격, 아동용·쇼츠·방송·나라 이름 없는 제목 제외, 최대 50개) → 팩 키로 Ed25519 서명 → Firestore `videos/{ISO2}`(규칙: get만, 목록·쓰기 불가). 앱은 서명 확인, 30일 지난 목록 거부(API 정책), id·썸네일 주소(`i.ytimg.com`만) 검사, 썸네일은 메모리에서만. 정렬은 API 값 그대로(조회수·최신·구독자 — 새 점수 없음). secret `YOUTUBE_API_KEY`가 없으면 경고만. 근거 `docs/research/2026-09-30_youtube_videos.md`.
+- **뒤로 버튼·영상 검색**(0.3.1): 탭 첫 화면이 아니면 `AppScreen` 제목 왼쪽에 '이전 화면으로'. 영상은 제목·채널 검색(띄어쓰기·대소문자 무시).
+
+## 구현 결정 기록 (디자인 개편, 2026-10-01)
+
+브랜치 `claude/design-refresh`. 스펙 `docs/design/DESIGN_SPEC_2026-10-01.md`(v2.1), 과정 기록 `docs/design/STAGE0_REPORT.md`·`STAGE1_BUNDLE_RESULTS.md`·`STAGE2_REPORT.md`·`FIX_A_REPORT.md`·`FIX_C_REPORT.md`, 재검토 `REREVIEW_SUMMARY.md`. 전문가 5인 평균(visual·clarity·accessibility·consistency·delight) 5.7·5.9·6.8·5.5·4.0 → 최종 8.0·7.7·8.2·7.6·7.1(목표 7.5·delight 7.0 달성). 팩 스키마·서명·ARIA 설정은 바꾸지 않았다.
+
+### 설계 결정 D1~D21 (스펙 1.3절)
+- **D1 글꼴**: Pretendard Std 1.3.9(SIL OFL 1.1) 번들 — **운영자 승인 2026-10-01**. 공식 배포본 정적 OTF 4굵기를 고치지 않고 넣어 이름(Reserved Font Name)을 그대로 쓴다(약 1.2MB). 라이선스 `app/src/main/assets/licenses/pretendard_std_OFL.txt`, 설정 › 사진·글꼴 출처에서 전문 보기. 현지어 글자는 시스템 글꼴. (QUESTIONS A2 변경)
+- **D2 카드 경계**: 흰 정보 카드 = 그림자 2dp + (운영자 결정 6번) 아주 옅은 1dp `LineSoft` 테두리. 그림자 진하기는 화면에 보이는 Ink 8%/12% — Android가 그림자 색 알파에 테마 알파(0.039/0.19)를 한 번 더 곱해서, 그 값으로 나눠 넣는다(`Tokens.ShadowAmbient/Spot`). 상태 카드 = 연한 바탕 + 왼쪽 4dp 막대, 사진 카드 = 없음, 조작 요소 경계 = `LineStrong`.
+- **D3 모서리**: 8 태그 · 12 입력칸·배지·썸네일 · 16 버튼·타일 · 20 카드 · 28 히어로·대화상자. 알약은 칩·인디케이터만. PRD 5장 문구를 바꿈(운영자 결정 4번).
+- **D4 1열 전환**: 쉬운 모드는 항상 1열, 기본 모드는 2열 한 칸 폭 ÷ 글자 배율이 150dp 미만이면 1열. 판정은 `ui/components/Layout.kt` 한 곳(`layoutInfoOf`, 수정 A R5). 큰 글자 배치(배지·끝 요소를 윗줄로)는 (창 폭 − 40) ÷ 글자 배율 < 272 — 393dp 창은 130%, 360dp 창은 약 118%부터. 큰 글자에서 글을 지우지 않고 배치만 바꾼다.
+- **D5 홈 압축**: 출국 순서·귀국 전 확인은 홈에 두되 짧게(번호 단계, 접힌 요약).
+- **D6 도움 순서**: 스펙은 대표 긴급 번호를 문장 카드 위에 두었으나, **운영자 결정 5번으로 PRD 5.11 원래 순서(문장 카드 먼저)**.
+- **D7 선택 표시**: 칩·세그먼트·작은 타일 = Accent 채움 + 흰 글자 + 체크. 큰 카드·폭 전체 행 = AccentSoft + 2dp Accent + 채운 체크 원(`SelectableCard`, 수정 A R2). AccentSoft 채움은 '선택됨'에만.
+- **D8 지우기 확인**: 여권·예약 서류·여행·내 정보 비우기·보여 주기 서류·같이 가는 사람 삭제는 확인 대화상자(보안 화면은 `secure`). 귀국 단계 '여권 정보를 지울까요?' 카드는 그 자체가 확인이라 대화상자 없음.
+- **D9 입국 카드 확인**: 빈칸이 있으면 주 버튼 비활성 + '빈칸 N개 남았어요' + '첫 빈칸으로 가기'.
+- **D10 도착 단계**: 체크 저장 없이 번호 단계 + '다 했어요'. 체크 저장은 후속 과제.
+- **D11 팩 스키마 그대로**: 아이콘은 앱 `IconKeys.kt`가 기존 ID로 고른다. 숫자 타일은 이미 구조화된 필드(`stay_limit_days`, 짧은 `fee_ko`, `power.*`, 전화번호)에서만 — 800달러 같은 정책 값은 앱에 적지 않는다. 입국 카드 제출 기간 타일은 그리지 않는다: 태국 팩 문장 모순은 외교부 0404 원문(2026-10-01 확인)으로 팩 불릿을 고쳐 해소(TH 2026.10.01-1, 커밋 8bfed6d, 배포는 main 머지 때). 타일은 팩 lint(스펙 부록 A) 뒤 되살린다.
+- **D12 아이콘**: `Icons.Outlined.*`(방향 있는 것은 AutoMirrored). Filled는 켜짐·선택 상태만.
+- **D13** 도움 탭 아이콘 SupportAgent 유지(Sos는 긴급 번호에만). **D14** 귀국 단계 아이콘 Cottage.
+- **D15 준비 중 기능**: 화면 맨 아래 '곧 추가돼요' 한 줄 묶음, 항목은 누를 수 없음(TalkBack '사용 안 함').
+- **D16 나라 카드 TalkBack**: 이름은 '○○ 안내 열기' 그대로, 칩 정보는 stateDescription.
+- **D17 번호 문자열**: `N. ` 접두를 문자열에서 지우고 번호 원(StepList)으로 그린다.
+- **D18 어두운 바탕 위 색**: Accent·Navy·AccentDeep·BrandBlue·사진 위에는 흰색·흰 85/80%·Gold(Navy·AccentDeep 위만)만. 금지 쌍은 `OnDarkPairsTest`가 막는다.
+- **D19 쉬운 모드 28sp 초과**: 현지인에게 보여 주는 글자·히어로 이름·큰 숫자(displayLarge 56 · displayMedium 36 · displaySmall 32 · stat 34 · localLarge 56 · localMedium 32)는 예외 — **운영자 승인 2026-10-01, PRD 3.2**. 쉬운 모드 하단 탭은 최소 18sp, 모자라면 2줄.
+- **D20 여행 날짜**: 글자 입력(YYYY-MM-DD) 유지 + 달력 아이콘·요일 안내. M3 DatePicker는 달 목록이 가로 스와이프라 쓰지 않는다.
+- **D21 누를 수 있는지 구분**: 누를 수 있는 보조(tonal) 버튼은 항상 1dp 테두리, 누를 수 없는 폭 전체 띠에는 AccentSoft 채움 금지(`NoticeBanner` = 흰 바탕 + 4dp 막대). 누를 수 없는 칩은 채움·테두리 없는 `InfoChip`(수정 A R1).
+
+### 구현하며 정한 것
+- **공용 부품**(`app/src/main/java/com/readyport/ui/components/`): CardNewsCard·StatTile/FactGrid·IconTile·ListRow/ListGroup·KeyValueRow·SelectChip/SelectableCard·NoticeBanner/SecurityBanner·SourceFooter/SourceList·ReturnCheckCard·EmergencyCallTile·FitText 등. 화면에만 있던 임시 부품은 0개(수정 C). 출처 줄은 ID를 받지 않고 이름을 못 찾으면 '공식 안내', 기관별로 묶고 날짜는 같으면 한 번, `최종 확인`과 날짜는 한 줄(NBSP·WORD JOINER).
+- **한국어 줄바꿈**: 글자 스타일 언어를 ko-KR로 고정(기기 언어가 영어여도 어절 단위). API 33 미만은 단순 줄바꿈 + `KoText`(보이는 글자만 낱말 묶기, TalkBack·테스트는 원문).
+- **사진**: 백그라운드 디코드 + 앱 전체 캐시(`PhotoCache`). 평균 밝기가 낮은 사진만 그릴 때 밝힌다(파일은 그대로, 크레딧에 변경 표시 — 운영자 결정 11번). 글자는 사진 위 스크림 영역 안에만(흰 글자 대비 5.74:1 이상).
+- **검사**: `TokenContrastTest`(반투명 색은 합성 후 계산), `OnDarkPairsTest`, `SourceNamesTest`, A11yAudit(기본·쉬운·200%, API 36·31 — 쉬운 모드 누르는 요소 56dp, 화면 잘림·한 음절 줄 실패), 갤러리 41화면 캡처. 수정 C 기준 단위 테스트 317개 실패 0, lint 오류 0(경고 11 = 기준선).
+- 다크 모드는 넣지 않는다(`forceDarkAllowed=false`). 새 네트워크 라이브러리 없음.
+
+### 운영자 결정 (2026-10-01, 원문 `docs/design/OWNER_DECISIONS.md` '운영자 결정 기록')
+
+| # | 항목 | 결정 |
+|---|---|---|
+| 1 | Play 업로드 | 보류 — 더 다듬은 뒤 다시 확인 |
+| 2 | '원어민 검수 전' 배지 | 화면에서 제거. 원어민 검수(PRD 5.2 '번역은 원어민 검수 후 반영', QUESTIONS C10·C16·C17)는 출시 전 할 일로 남김 |
+| 3 | 쉬운 모드 28sp 초과(D19) | 예외 승인 → PRD 3.2 |
+| 4 | 모서리 체계(D3) | 새 체계 유지 → PRD 5장 |
+| 5 | 도움 탭 순서(D6) | 문장 카드 먼저: 나라 칩 → 선택 문장 카드 → 문장 타일 → 긴급 번호 → 대사관 → 이럴 땐 이렇게 → 어느 나라에서나 |
+| 6 | 흰 카드 경계(D2) | 아주 옅은 1dp `LineSoft` 테두리 추가(그림자와 함께) |
+| 7 | 큰 글자 배치로 바뀌는 시점 | 지금 그대로(창 폭 기준) |
+| 8 | 쉬운 모드 홈 길이 | 지금 그대로(쉬운 모드에서만 여행 준비 카드 접음) |
+| 9 | 1열 홈 신뢰 표시 위치 | 지금 그대로(나라 사진 목록 아래) |
+| 10 | 귀국 전 확인 카드 | 전체 문장은 내 여행 '귀국' 단계에만. 홈·나라 쇼핑·쇼핑 리스트는 한 줄 요약 + 펼치기 |
+| 11 | 어두운 사진 밝기 보정 | 지금 그대로 |
+| 12 | 쉬운 말 문구(`값 복사해서 넣기`·`가족 폰으로 보내기`·`여권 아래 두 줄 확인 완료` 등) | 지금 그대로 |
+| 13 | 쇼핑 '담았어요 ✓' | '담았어요'로(✓ 제거, 테스트 수정) |
+| 14 | 여행 요약 타일 | 지운 채로 |
+| 15 | 화면별 작은 기본값 14개 | 일괄 승인(인도네시아 1단계 입국 신고 → 2단계 비자 신청, 가는 곳 카드에는 현지어 주소 빼고 기사님 카드에만, IconTile 셰브론 오른쪽 위 등) |
+| 16 | 인기 순위 문구 15개(`rankings_*`) | 보존 |
+| 17 | 스펙·PRD 문서 갱신 | 이번 다듬기에서 함께(이 기록·PRD 3.2·5장·5.11·8.4·QUESTIONS) |
+| + | Play 스크린숏 | 나라를 섞고 1번 캡션을 '칸은 앱이 채워요 / 제출만 직접'으로 |
+
+- 결정이 아닌 남은 확인: 실기기(S10 5G)·에뮬레이터에서 글자 200%, 쉬운 모드, TalkBack 한 바퀴, 여러 줄 태국어 전체 화면, 대표 긴급 번호 주황 타일, 사진 디코드 직후 한 프레임.
