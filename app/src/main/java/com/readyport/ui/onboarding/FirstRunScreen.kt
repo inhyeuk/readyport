@@ -41,6 +41,7 @@ import com.readyport.ui.components.ChoiceCard
 import com.readyport.ui.components.KoText
 import com.readyport.ui.components.OnDark
 import com.readyport.ui.components.PhotoBox
+import com.readyport.ui.components.isStackedLayout
 import com.readyport.ui.components.PhotoTextArea
 import com.readyport.ui.components.Photos
 import com.readyport.ui.theme.LocalDimens
@@ -50,13 +51,13 @@ import com.readyport.ui.theme.Tokens
  * 첫 실행 질문 (PRD 3.2, DESIGN_SPEC 6-00). '네'면 쉬운 모드를 켠다. 누가 쓸지 모르므로 앱은 이 화면을 쉬운 모드 테마로 그린다.
  * 순서: 사진 히어로(앱 심볼 + 앱 이름 + 질문 — 모두 스크림 글자 영역 안) → 설명 → 큰 선택 카드 2장.
  * 선택 카드는 카드 전체가 버튼이고 이름은 제목(`first_run_yes`/`first_run_no`) + 한 줄 설명이다.
- * 글자가 크면(150% 이상) 히어로 질문을 headlineMedium으로 한 단계 낮춘다. 선택 카드는 공용 ChoiceCard가 큰 글자에서 배지를
+ * 큰 글자 배치(LayoutClass.Stacked — Layout.kt 한 곳의 판정)에서는 히어로 질문을 headlineMedium으로 한 단계 낮춘다. 선택 카드는 공용 ChoiceCard가 큰 글자에서 배지를
  * 제목 위 줄로 올려 제목이 카드 폭 전체를 쓰게 한다(`처음이에/요` 방지). 글은 어절 단위로만 줄을 바꾼다(KoText).
  */
 @Composable
 fun FirstRunScreen(onAnswer: (firstTimeAbroad: Boolean) -> Unit) {
     val dimens = LocalDimens.current
-    val fontScale = LocalDensity.current.fontScale
+    val stacked = isStackedLayout()
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -65,7 +66,7 @@ fun FirstRunScreen(onAnswer: (firstTimeAbroad: Boolean) -> Unit) {
             .padding(dimens.screenPadding),
         verticalArrangement = Arrangement.spacedBy(dimens.gap),
     ) {
-        PhotoBox(Photos.Home, minHeight = heroMinHeight(), shape = MaterialTheme.shapes.extraLarge) {
+        PhotoBox(Photos.Home, minHeight = heroMinHeight(stacked), shape = MaterialTheme.shapes.extraLarge) {
             PhotoTextArea {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     AppSymbol(size = if (dimens.easyMode) 48.dp else 40.dp)
@@ -78,7 +79,7 @@ fun FirstRunScreen(onAnswer: (firstTimeAbroad: Boolean) -> Unit) {
                 }
                 KoText(
                     text = stringResource(R.string.first_run_title),
-                    style = if (fontScale >= HERO_SMALLER_SCALE) MaterialTheme.typography.headlineMedium else MaterialTheme.typography.displaySmall,
+                    style = if (stacked) MaterialTheme.typography.headlineMedium else MaterialTheme.typography.displaySmall,
                     color = OnDark.content,
                     modifier = Modifier.padding(top = 4.dp).semantics { heading() },
                 )
@@ -109,19 +110,16 @@ fun FirstRunScreen(onAnswer: (firstTimeAbroad: Boolean) -> Unit) {
     }
 }
 
-/** 히어로 질문을 한 단계 낮추는 글자 배율 (200%, DESIGN_SPEC 6-00) */
-private const val HERO_SMALLER_SCALE = 1.5f
-
 /**
- * 히어로 최소 높이: 기본 220dp, 글자 200%면 160dp(6-00). 창이 아주 낮으면(640dp 미만) 140dp로 줄여
+ * 히어로 최소 높이: 기본 220dp, 큰 글자 배치면 160dp(6-00). 창이 아주 낮으면(640dp 미만) 140dp로 줄여
  * 두 선택 카드가 스크롤 없이 첫 화면에 들어오게 한다. 글자가 많아지면 사진 칸은 내용에 맞춰 커진다.
  */
 @Composable
-private fun heroMinHeight(): Dp {
+private fun heroMinHeight(stacked: Boolean): Dp {
     val density = LocalDensity.current
     val windowHeightDp = LocalWindowInfo.current.containerSize.height / density.density
     return when {
-        density.fontScale >= HERO_SMALLER_SCALE -> 160.dp
+        stacked -> 160.dp
         windowHeightDp > 0f && windowHeightDp < 640f -> 140.dp
         else -> 220.dp
     }

@@ -12,13 +12,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.asAndroidBitmap
 import androidx.compose.ui.semantics.SemanticsActions
-import androidx.compose.ui.semantics.SemanticsNode
-import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.semantics.getOrNull
-import androidx.compose.ui.test.SemanticsMatcher
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.captureToImage
-import androidx.compose.ui.test.hasTestTag
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.v2.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
@@ -30,8 +26,6 @@ import com.readyport.R
 import com.readyport.prep.CartKey
 import com.readyport.transport.Place
 import com.readyport.ui.TestPacks
-import com.readyport.ui.components.PHONE_GROUP_TAG
-import com.readyport.ui.components.phoneGroups
 import com.readyport.ui.theme.ReadyPortTheme
 import com.readyport.ui.theme.Tokens
 import com.readyport.ui.transport.DriverFullScreenBody
@@ -50,7 +44,7 @@ import java.io.File
  * D 묶음(18 쇼핑·19 이동·20 도움) 보강 캡처와 검사 — 공용 갤러리(Gallery.kt)에 없는 상태를 여기서 찍는다 (DESIGN_SPEC 3.2·8장).
  * - 전체 화면(직원에게 보여주기·기사님께 보여주기·문장 크게): 여러 줄 태국어 localLarge(200%면 약 112sp)가 잘리지 않고 닫기가 보이는지
  * - 담은 품목, 설치된 앱 행(목적지 넣어 열기 / 열고 주소 복사), 여러 장소 선택, 가는 곳 입력 카드, 차 부르기 결과 안내
- * - 200%에서 긴급 전화번호가 한 줄이거나 '-' 뒤에서만 줄을 바꾸는지(숫자 사이에서 끊기지 않는지)
+ * - 200%에서 긴급 전화번호가 한 줄인지(재검토 R6 — 칸 폭에 맞춰 글자 크기를 줄이고 긴 번호 타일은 폭 전체)
  * 캡처는 build/gallery/bundle_d/{basic|easy|sdk31_basic|sdk31_easy}/ 에 남는다.
  */
 abstract class BundleDCaptureBase {
@@ -150,47 +144,35 @@ abstract class BundleDCaptureBase {
 
     protected fun captureStates(easy: Boolean) = capture(states(), easy, trim = true)
 
-    // ---------------- 전화번호 줄바꿈 ----------------
-
-    private fun lineCount(n: SemanticsNode): Int? {
-        val results = mutableListOf<TextLayoutResult>()
-        n.config.getOrNull(SemanticsActions.GetTextLayoutResult)?.action?.invoke(results)
-        return results.firstOrNull()?.lineCount
-    }
+    // ---------------- 전화번호 한 줄 ----------------
 
     /**
-     * 도움 화면의 모든 전화번호: 한 Text로 한 줄이거나, '-' 뒤에서 나눈 묶음(PHONE_GROUP_TAG)들이 모두 한 줄 높이.
-     * 묶음을 이어 붙이면 번호 그대로이고, 의미 글자는 번호 전체 한 노드다.
+     * 도움 화면의 모든 전화번호는 **한 줄**(재검토 R6): 공용 PhoneNumberText(FitText)가 실제 칸 폭을 재서 한 줄에 들어가는 가장 큰 크기로 그리고,
+     * 큰 글자 배치에서는 긴 번호(대사관·영사콜센터) 타일이 카드 밖 폭 전체로 나온다. 의미 글자는 번호 전체 한 노드다.
+     * 크기는 그 모드의 최소(쉬운 모드 18sp, 기본 13sp) 이상이어야 한다.
      */
-    protected fun phoneNumbersNeverBreakInsideDigits(easy: Boolean) {
+    protected fun phoneNumbersRenderOnOneLine(easy: Boolean) {
         val ui = TestPacks.helpUi()
         rule.setContent { ReadyPortTheme(easyMode = easy) { HelpContent(ui, {}, {}, {}) } }
         rule.waitForIdle()
         val pack = th
         val numbers = (pack.emergency.map { it.number } + listOfNotNull(pack.embassy?.phone, pack.embassy?.emergencyPhone) + ui.common.map { it.number }).distinct()
-        var grouped = 0
+        val minSp = if (easy) 18f else 13f
         numbers.forEach { number ->
             val nodes = rule.onAllNodes(hasText(number), useUnmergedTree = true).fetchSemanticsNodes()
             assertTrue("번호가 의미 글자로 없음: $number", nodes.isNotEmpty())
             nodes.forEach { n ->
-                val lines = lineCount(n)
-                if (lines != null) {
-                    assertTrue("$number 가 ${lines}줄로 꺾임(숫자 사이에서 끊김)", lines == 1)
-                } else {
-                    val groups = n.children.filter { SemanticsMatcher.expectValue(SemanticsProperties.TestTag, PHONE_GROUP_TAG).matches(it) }
-                    assertTrue("$number: 한 줄도 묶음도 아님", groups.size >= 2)
-                    assertTrue("$number: 묶음을 이으면 번호가 아님", phoneGroups(number).size == groups.size)
-                    val heights = groups.map { it.boundsInRoot.height }
-                    assertTrue("$number: 묶음 안에서 줄이 꺾임 $heights", heights.max() <= heights.min() * 1.2f)
-                    grouped++
-                }
+                val results = mutableListOf<TextLayoutResult>()
+                n.config.getOrNull(SemanticsActions.GetTextLayoutResult)?.action?.invoke(results)
+                val layout = results.firstOrNull()
+                assertTrue("$number: 글자 배치를 알 수 없음", layout != null)
+                assertTrue("$number 가 ${layout!!.lineCount}줄로 꺾임", layout.lineCount == 1)
+                assertTrue("$number: 한 줄이 칸보다 넓음(잘림)", !layout.hasVisualOverflow && layout.size.width <= n.boundsInRoot.width + 1f)
+                val sp = layout.layoutInput.style.fontSize.value
+                assertTrue("$number: 글자 ${sp}sp < 최소 ${minSp}sp", sp >= minSp)
+                println("PHONE easy=$easy $number ${sp}sp")
             }
         }
-        println("PHONE easy=$easy numbers=${numbers.size} grouped=$grouped")
-        // 묶음 노드는 번호 노드 밖에서 보이지 않는다
-        val strayGroups = rule.onAllNodes(hasTestTag(PHONE_GROUP_TAG), useUnmergedTree = true).fetchSemanticsNodes()
-            .count { it.parent?.config?.getOrNull(SemanticsProperties.Text) == null }
-        assertTrue("번호 노드 밖의 묶음: $strayGroups", strayGroups == 0)
     }
 }
 
@@ -237,7 +219,7 @@ class BundleDStateCaptureSdk31Test : BundleDCaptureBase() {
 
     @Test fun easy() = captureStates(easy = true)
 
-    @Test fun phoneNumbersBasic() = phoneNumbersNeverBreakInsideDigits(easy = false)
+    @Test fun phoneNumbersBasic() = phoneNumbersRenderOnOneLine(easy = false)
 
-    @Test fun phoneNumbersEasy() = phoneNumbersNeverBreakInsideDigits(easy = true)
+    @Test fun phoneNumbersEasy() = phoneNumbersRenderOnOneLine(easy = true)
 }

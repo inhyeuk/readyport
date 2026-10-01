@@ -50,9 +50,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.semantics.text
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.FragmentActivity
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
@@ -67,9 +64,10 @@ import com.readyport.ui.components.CardNewsCard
 import com.readyport.ui.components.ComingSoonGroup
 import com.readyport.ui.components.DangerButton
 import com.readyport.ui.components.DestructiveConfirm
-import com.readyport.ui.components.IconBadge
 import com.readyport.ui.components.IconKeys
+import com.readyport.ui.components.KeyValueRow
 import com.readyport.ui.components.KoText
+import com.readyport.ui.components.ValueStyle
 import com.readyport.ui.components.ListDivider
 import com.readyport.ui.components.ListGroup
 import com.readyport.ui.components.ListRow
@@ -395,13 +393,17 @@ private fun PassportCard(passport: PassportRecord, today: LocalDate) {
             PassportField(
                 stringResource(R.string.wallet_passport_name),
                 if (revealed) "${passport.surname} ${passport.givenNames}" else maskName(passport.surname, passport.givenNames),
+                masked = !revealed,
             )
             val pairs = listOf(
-                stringResource(R.string.wallet_passport_number) to
+                Triple(
+                    stringResource(R.string.wallet_passport_number),
                     if (revealed) passport.documentNumber else maskNumber(passport.documentNumber),
-                stringResource(R.string.wallet_passport_expiry) to passport.expiryDate,
+                    !revealed,
+                ),
+                Triple(stringResource(R.string.wallet_passport_expiry), passport.expiryDate, false),
             )
-            TileGrid(pairs, columns = rememberGridColumns()) { (label, value), cell -> PassportField(label, value, cell) }
+            TileGrid(pairs, columns = rememberGridColumns()) { (label, value, masked), cell -> PassportField(label, value, cell, masked) }
             val expiry = runCatching { LocalDate.parse(passport.expiryDate) }.getOrNull()
             if (expiry != null && expiry.isBefore(today.plusMonths(6))) {
                 val expired = expiry.isBefore(today)
@@ -421,18 +423,13 @@ private fun PassportCard(passport: PassportRecord, today: LocalDate) {
     }
 }
 
-/** 여권 카드 안 라벨(White80 bodySmall) + 값(Surface titleLarge, tnum). 라벨과 값을 한 번에 읽는다 */
+/**
+ * 여권 카드 안 라벨(White80) + 값(Surface titleLarge, tnum) = 공용 KeyValueRow(onDark, 재검토 R3). 라벨과 값을 한 번에 읽는다.
+ * [masked]: 가린 값 — TalkBack은 점 대신 `가려 둔 값`으로 읽는다.
+ */
 @Composable
-private fun PassportField(label: String, value: String, modifier: Modifier = Modifier) {
-    val colors = passportCardColors()
-    Column(modifier.fillMaxWidth().semantics(mergeDescendants = true) {}, verticalArrangement = Arrangement.spacedBy(2.dp)) {
-        Text(label, style = MaterialTheme.typography.bodySmall, color = colors.label)
-        Text(
-            value,
-            style = MaterialTheme.typography.titleLarge.copy(fontFeatureSettings = "tnum"),
-            color = colors.value,
-        )
-    }
+private fun PassportField(label: String, value: String, modifier: Modifier = Modifier, masked: Boolean = false) {
+    KeyValueRow(label = label, value = value, modifier = modifier, onDark = true, valueStyle = ValueStyle.Large, masked = masked, verticalPadding = 0.dp)
 }
 
 /**
@@ -486,25 +483,10 @@ private fun bookingDates(booking: BookingRecord): List<Triple<ImageVector, Int, 
     return listOf(out) + middle + Triple(Icons.Outlined.FlightLand, R.string.wallet_booking_date_back, dates.last())
 }
 
-/** 사실 한 줄: 작은 배지 + 라벨(titleSmall) + 값(굵게, tnum). 라벨과 값을 한 번에 읽는다 */
+/** 사실 한 줄: 작은 배지 + 라벨 + 값(굵게, tnum) = 공용 KeyValueRow(leading, 재검토 R3). 라벨과 값을 한 번에 읽는다 */
 @Composable
 private fun BookingFact(icon: ImageVector, label: String, value: String) {
-    val dimens = LocalDimens.current
-    Row(
-        Modifier.fillMaxWidth().semantics(mergeDescendants = true) {},
-        verticalAlignment = Alignment.Top,
-        horizontalArrangement = Arrangement.spacedBy(12.dp),
-    ) {
-        IconBadge(icon, tone = BadgeTone.Neutral, size = dimens.iconBadgeSmall)
-        Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
-            Text(label, style = MaterialTheme.typography.titleSmall, color = Tokens.InkSecondary)
-            Text(
-                value,
-                style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold, fontFeatureSettings = "tnum"),
-                color = Tokens.Ink,
-            )
-        }
-    }
+    KeyValueRow(label = label, value = value, leading = icon, verticalPadding = 0.dp)
 }
 
 internal fun maskName(surname: String, given: String): String {

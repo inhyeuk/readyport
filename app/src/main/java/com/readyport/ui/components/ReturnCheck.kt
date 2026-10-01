@@ -62,10 +62,11 @@ fun ReturnCheckCard(
             // 주제 요약 줄은 접혀 있을 때만 (4.15) — 펼치면 같은 주제의 문장이 아래에 다 보인다
             if (topics.isNotEmpty()) {
                 AnimatedVisibility(visible = !open) {
-                    FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                    // 주제 이름만(값 없음) — 누를 수 없는 정보 칩(채움 없음, 재검토 R1)
+                    FlowRow(horizontalArrangement = Arrangement.spacedBy(16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
                         topics.forEach { (source, label) ->
                             val (icon, tone) = IconKeys.returnFact(source)
-                            FactChip(Fact(icon = icon, value = stringResource(label), label = "", tone = tone))
+                            InfoChip(stringResource(label), icon, tone = tone)
                         }
                     }
                 }

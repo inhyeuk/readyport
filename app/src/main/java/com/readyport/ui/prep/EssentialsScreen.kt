@@ -15,7 +15,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.OpenInNew
 import androidx.compose.material.icons.outlined.CheckCircle
 import androidx.compose.material.icons.outlined.Handshake
-import androidx.compose.material.icons.outlined.Luggage
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Checkbox
@@ -68,7 +67,7 @@ import com.readyport.ui.components.StatusKind
 import com.readyport.ui.components.StatusTag
 import com.readyport.ui.components.cardShadow
 import com.readyport.ui.components.displayDate
-import com.readyport.ui.components.largeFont
+import com.readyport.ui.components.isStackedLayout
 import com.readyport.ui.components.minTouch
 import com.readyport.ui.components.rememberGridColumns
 import com.readyport.ui.components.startBar
@@ -177,7 +176,8 @@ private fun ProgressHero(ui: EssentialsUi) {
         // 사진 위 글자·막대는 모두 스크림 영역 안 (3.7 ③)
         PhotoTextArea {
             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                Icon(Icons.Outlined.Luggage, contentDescription = null, tint = OnDark.content, modifier = Modifier.size(dimens.icon))
+                // '꼭 챙길 물건' 개념 아이콘은 하나(홈·여행 준비와 같은 Checklist, 재검토 R11)
+                Icon(IconKeys.essentials, contentDescription = null, tint = OnDark.content, modifier = Modifier.size(dimens.icon))
                 // 큰 숫자는 보는 사람용 — TalkBack은 문장(준비한 물건 5개 중 2개)을 읽는다
                 Text(
                     stringResource(R.string.essentials_progress_stat, done, total),
@@ -213,7 +213,7 @@ private fun ProgressHero(ui: EssentialsUi) {
 private fun CheckRowCard(row: EssentialRow, onHave: (String, Boolean) -> Unit, onOpenLink: (String) -> Unit) {
     val r = row.rule
     val dimens = LocalDimens.current
-    val large = largeFont()
+    val large = isStackedLayout()
     val shape = MaterialTheme.shapes.large
     val container by animateColorAsState(if (row.have) Tokens.SuccessBg else Tokens.Surface, label = "essentialCard")
     val state = stringResource(if (row.have) R.string.essentials_have_yes else R.string.essentials_have_no)

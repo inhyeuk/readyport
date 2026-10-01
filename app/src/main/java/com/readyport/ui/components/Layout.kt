@@ -12,8 +12,11 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyItemScope
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.Immutable
+import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.Modifier
@@ -35,25 +38,121 @@ import com.readyport.ui.theme.LocalDimens
 
 // ======================= 레이아웃 도우미 (DESIGN_SPEC 4.1) =======================
 
-/** 2열 한 칸이 이 폭(dp ÷ fontScale)보다 좁으면 1열로 (D4) */
+// ---------------- 반응형 판정: 앱 전체에서 이 한 곳만 (재검토 R5) ----------------
+// 화면·부품은 글자 배율(fontScale) 숫자를 직접 보지 않는다. 아래 LayoutInfo(창 폭 ÷ 실측 글자 배율로 한 번 계산)만 읽는다.
+// 큰 글자·쉬운 모드에서도 내용은 숨기지 않는다 — 배치만 바꾼다(배지·끝 요소를 윗줄로, 2열 → 1열, 아이콘을 글 첫 줄 안으로).
+
+/** 2열 한 칸이 이 폭(dp ÷ 글자 배율)보다 좁으면 1열로 (D4) */
 private const val MIN_COLUMN_DP = 150f
 
 /**
- * 타일 그리드 열 수 (D4). 한 곳에서만 계산한다.
- * - 쉬운 모드 → 항상 1열
- * - 기본 모드 → 2열 한 칸 폭 `(창 폭 − 2×screenPadding − gap) / 2`를 fontScale로 나눈 값이 150 미만이면 1열
- *   (393dp 폭이면 fontScale 약 1.14 이상, 360dp 폭이면 약 1.03 이상, 340dp 미만이면 항상 1열)
+ * 화면 안쪽 폭(창 폭 − 양옆 screenPadding)을 글자 배율로 나눈 값이 이보다 작으면 [LayoutClass.Stacked].
+ * 393dp 창에서 기본 모드 글자 130%(예전 largeFont 기준)와 같은 값이다 — 360dp 창이면 약 118%, 412dp면 약 137%부터.
+ */
+private const val STACK_TEXT_WIDTH_DP = 272f
+
+/** 창 폭을 아직 모를 때 쓰는 기준 폭(dp) */
+private const val REFERENCE_WIDTH_DP = 393f
+
+/** 340dp 미만의 좁은 창 (320×470 화면 예산, DESIGN_SPEC 6장 머리말) */
+internal const val NARROW_WINDOW_DP = 340f
+
+/** 화면 배치 단계 (R5) */
+enum class LayoutClass {
+    /** 2열 그리드. 배지·끝 요소는 제목 옆 */
+    Roomy,
+
+    /** 1열(쉬운 모드·조금 큰 글자·좁은 창). 배지·끝 요소는 아직 제목 옆 */
+    Compact,
+
+    /** 큰 글자: 배지·끝 요소·썸네일을 윗줄로 올리고 글에 폭 전체를 준다 (예전 largeFont()/hugeFont() 자리) */
+    Stacked,
+}
+
+/**
+ * 반응형 판정 결과 하나. [ReadyPortTheme]이 [ProvideLayoutInfo]로 한 번 계산해 내려 준다.
+ * @property widthDp 창 폭(dp, 모르면 0)
+ * @property textScale 실측 글자 배율 = 본문(bodyLarge)의 실제 크기(dp) ÷ 그 sp 값 — 시스템 글자 크기 설정의 실제 배율(API 34+ 비선형 확대 포함).
+ *   쉬운 모드의 큰 글자(20sp)는 배율이 아니라 모드 값이라 넣지 않는다(쉬운 모드는 이미 1열이고, 100%에서 배지를 윗줄로 올리지 않는다)
+ * @property columns 타일 그리드 열 수(1/2)
+ */
+@Immutable
+data class LayoutInfo(val widthDp: Float, val textScale: Float, val columns: Int, val layoutClass: LayoutClass) {
+    /** 큰 글자 배치(배지·끝 요소 윗줄) */
+    val stacked: Boolean get() = layoutClass == LayoutClass.Stacked
+
+    /** 340dp 미만 창(320×470 화면 예산) */
+    val narrow: Boolean get() = widthDp > 0f && widthDp < NARROW_WINDOW_DP
+}
+
+/**
+ * 순수 계산(단위 테스트용). 열 수: 쉬운 모드는 항상 1열, 기본 모드는 2열 한 칸 폭 `(창 폭 − 2×screenPadding − gap) / 2`를
+ * 글자 배율로 나눈 값이 150 미만이면 1열(393dp 창이면 약 114%부터, 360dp면 약 103%부터, 340dp 미만이면 늘 1열).
+ * Stacked: `(창 폭 − 2×screenPadding) ÷ 글자 배율 < 272`. 그 밖에 1열이면 Compact, 2열이면 Roomy.
+ */
+fun layoutInfoOf(widthDp: Float, textScale: Float, easyMode: Boolean, screenPaddingDp: Float = 20f, gapDp: Float = 12f): LayoutInfo {
+    val scale = textScale.coerceAtLeast(0.5f)
+    val columns = when {
+        easyMode || widthDp <= 0f -> 1
+        (widthDp - 2 * screenPaddingDp - gapDp) / 2f / scale < MIN_COLUMN_DP -> 1
+        else -> 2
+    }
+    val width = if (widthDp > 0f) widthDp else REFERENCE_WIDTH_DP
+    val textWidth = (width - 2 * screenPaddingDp) / scale
+    val cls = when {
+        textWidth < STACK_TEXT_WIDTH_DP -> LayoutClass.Stacked
+        columns == 1 -> LayoutClass.Compact
+        else -> LayoutClass.Roomy
+    }
+    return LayoutInfo(widthDp, scale, columns, cls)
+}
+
+/** 테마가 내려 주는 판정 (밖이면 null → 그 자리에서 계산) */
+val LocalLayoutInfo = compositionLocalOf<LayoutInfo?> { null }
+
+/** 지금 화면의 반응형 판정. 화면·부품은 이것만 읽는다 */
+@Composable
+fun rememberLayoutInfo(): LayoutInfo = LocalLayoutInfo.current ?: computeLayoutInfo()
+
+/** 지금 화면의 배치 단계 */
+@Composable
+fun rememberLayoutClass(): LayoutClass = rememberLayoutInfo().layoutClass
+
+/** 큰 글자 배치인지 ([LayoutClass.Stacked]) */
+@Composable
+fun isStackedLayout(): Boolean = rememberLayoutInfo().stacked
+
+/** 340dp 미만 창 */
+@Composable
+fun isNarrowWindow(): Boolean = rememberLayoutInfo().narrow
+
+/** [content] 아래에 지금 창·글자 크기의 판정을 내려 준다 (ReadyPortTheme 안에서 한 번) */
+@Composable
+fun ProvideLayoutInfo(content: @Composable () -> Unit) {
+    CompositionLocalProvider(LocalLayoutInfo provides computeLayoutInfo(), content = content)
+}
+
+@Composable
+private fun computeLayoutInfo(): LayoutInfo {
+    val dimens = LocalDimens.current
+    val density = LocalDensity.current
+    val body = MaterialTheme.typography.bodyLarge.fontSize
+    val widthDp = windowWidthDp()
+    // textIconSize와 같은 방법: sp를 실제 dp로 바꿔 잰 배율(API 34+ 비선형 확대 포함)
+    val textScale = if (body.isSp && body.value > 0f) with(density) { body.toDp().value } / body.value else density.fontScale
+    return remember(widthDp, textScale, dimens.easyMode, dimens.screenPadding, dimens.gap) {
+        layoutInfoOf(widthDp, textScale, dimens.easyMode, dimens.screenPadding.value, dimens.gap.value)
+    }
+}
+
+/**
+ * 타일 그리드 열 수 (D4) — [LayoutInfo.columns]. [preferred]가 1이면 1, 2열이 들어가는 폭이면 [preferred].
  * 창 폭은 LocalWindowInfo로 읽는다(LocalConfiguration.screenWidthDp는 lint ConfigurationScreenWidthHeight 경고).
- * 창 폭을 아직 모르면(0) 안전하게 1열.
  */
 @Composable
 fun rememberGridColumns(preferred: Int = 2): Int {
-    val dimens = LocalDimens.current
-    if (dimens.easyMode || preferred <= 1) return 1
-    val widthDp = windowWidthDp()
-    if (widthDp <= 0f) return 1
-    val colDp = (widthDp - 2 * dimens.screenPadding.value - dimens.gap.value) / 2f
-    return if (colDp / LocalDensity.current.fontScale < MIN_COLUMN_DP) 1 else preferred
+    if (preferred <= 1) return 1
+    return if (rememberLayoutInfo().columns == 1) 1 else preferred
 }
 
 /** 창 폭(dp). 아직 모르면 0 */
@@ -62,9 +161,6 @@ internal fun windowWidthDp(): Float {
     val widthPx = LocalWindowInfo.current.containerSize.width
     return if (widthPx <= 0) 0f else widthPx / LocalDensity.current.density
 }
-
-/** 340dp 미만의 좁은 창 (320×470 화면 예산, DESIGN_SPEC 6장 머리말) */
-internal const val NARROW_WINDOW_DP = 340f
 
 /**
  * 그리드 칸 안의 부품에게 알려 주는 그 그리드의 열 수 (그리드 밖이면 null).

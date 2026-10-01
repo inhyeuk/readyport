@@ -4,6 +4,17 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.AirplaneTicket
 import androidx.compose.material.icons.automirrored.outlined.FactCheck
 import androidx.compose.material.icons.outlined.AccountBalance
+import androidx.compose.material.icons.outlined.AccountBalanceWallet
+import androidx.compose.material.icons.outlined.BreakfastDining
+import androidx.compose.material.icons.outlined.CalendarMonth
+import androidx.compose.material.icons.outlined.Checkroom
+import androidx.compose.material.icons.outlined.Cookie
+import androidx.compose.material.icons.outlined.Diamond
+import androidx.compose.material.icons.outlined.Draw
+import androidx.compose.material.icons.outlined.EmojiFoodBeverage
+import androidx.compose.material.icons.outlined.KebabDining
+import androidx.compose.material.icons.outlined.LocalCafe
+import androidx.compose.material.icons.outlined.RiceBowl
 import androidx.compose.material.icons.outlined.Apps
 import androidx.compose.material.icons.outlined.Backpack
 import androidx.compose.material.icons.outlined.Badge
@@ -117,6 +128,37 @@ object IconKeys {
         "payment" -> Icons.Outlined.CreditCard
         "medicine" -> Icons.Outlined.Medication
         else -> Icons.Outlined.Checklist
+    }
+
+    /** 꼭 챙길 물건(준비물) — 홈·여행 준비·꼭 챙길 물건 화면이 모두 이 하나(재검토 R11: 같은 개념 한 아이콘) */
+    val essentials: ImageVector get() = Icons.Outlined.Checklist
+
+    /** 영상 정렬 '최신순' — 날짜(CalendarMonth). NewReleases(톱니 안 느낌표)는 경고 배지처럼 읽혀 쓰지 않는다(재검토 R11) */
+    val sortRecent: ImageVector get() = Icons.Outlined.CalendarMonth
+
+    /**
+     * 쇼핑 품목 아이콘 (재검토 R11): 품목 id의 낱말(`_`로 나눔)로 세분한다 — 팩 스키마는 바꾸지 않는다(D11).
+     * 커피 LocalCafe · 차 EmojiFoodBeverage · 과자·칩 Cookie · 생과일 Eco(과일·식물 검역과 같은 그림) · 절임 RiceBowl · 잼 BreakfastDining ·
+     * 육포 KebabDining · 장신구·은 Diamond · 직물 Checkroom · 가죽 AccountBalanceWallet · 문구 Draw. 모르면 분류 아이콘([shoppingCategory]).
+     * 배지 톤은 모든 화면에서 Neutral(반입 판정 색은 ImportVerdictBadge만 맡는다).
+     */
+    fun item(id: String, category: String?): ImageVector {
+        val words = id.lowercase().split('_')
+        fun has(vararg w: String) = words.any { it in w }
+        return when {
+            has("coffee") -> Icons.Outlined.LocalCafe
+            has("tea") -> Icons.Outlined.EmojiFoodBeverage
+            has("sweets", "snack", "chips", "cookie", "cookies", "biscuit") -> Icons.Outlined.Cookie
+            has("mango", "fruit", "durian") && !has("chips") -> Icons.Outlined.Eco
+            has("umeboshi", "pickle", "pickled") -> Icons.Outlined.RiceBowl
+            has("kaya", "jam") -> Icons.Outlined.BreakfastDining
+            has("bakkwa", "jerky") -> Icons.Outlined.KebabDining
+            has("silver", "accessories", "jewelry", "jewellery") -> Icons.Outlined.Diamond
+            has("batik", "songket", "textile", "cloth") -> Icons.Outlined.Checkroom
+            has("leather") -> Icons.Outlined.AccountBalanceWallet
+            has("stationery") -> Icons.Outlined.Draw
+            else -> shoppingCategory(category)
+        }
     }
 
     /** 쇼핑 분류 category (5.5). null = 전체 */

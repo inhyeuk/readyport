@@ -241,7 +241,8 @@ private fun ShopItemCard(
     ) {
         Column(Modifier.padding(dimens.cardPadding), verticalArrangement = Arrangement.spacedBy(dimens.inner)) {
             Row(verticalAlignment = Alignment.Top, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                IconBadge(IconKeys.shoppingCategory(item.category), tone = BadgeTone.Help)
+                // 품목 아이콘은 품목마다(재검토 R11), 배지 톤은 모든 화면에서 Neutral — 판정 색은 ImportVerdictPanel만 맡는다
+                IconBadge(IconKeys.item(item.id, item.category), tone = BadgeTone.Neutral)
                 Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
                     KoText(
                         item.names.ko,

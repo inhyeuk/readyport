@@ -1,7 +1,6 @@
 package com.readyport.ui.pack
 
 import android.content.Intent
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -14,14 +13,12 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.VolumeUp
 import androidx.compose.material.icons.outlined.AccountBalance
 import androidx.compose.material.icons.outlined.ArrowDownward
-import androidx.compose.material.icons.outlined.CheckCircle
 import androidx.compose.material.icons.outlined.Fullscreen
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.OfflinePin
@@ -51,7 +48,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.LiveRegionMode
-import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.liveRegion
 import androidx.compose.ui.semantics.semantics
@@ -81,6 +77,9 @@ import com.readyport.ui.components.QuietButton
 import com.readyport.ui.components.SecondaryButton
 import com.readyport.ui.components.SectionHeader
 import com.readyport.ui.components.SelectChip
+import com.readyport.ui.components.SelectableCard
+import com.readyport.ui.components.isStackedLayout
+import com.readyport.ui.components.selectionBadgeContainer
 import com.readyport.ui.components.ShowLocalBody
 import com.readyport.ui.components.SourceFooter
 import com.readyport.ui.components.SourceList
@@ -91,7 +90,6 @@ import com.readyport.ui.components.StatusTag
 import com.readyport.ui.components.Step
 import com.readyport.ui.components.StepList
 import com.readyport.ui.components.TileGrid
-import com.readyport.ui.components.cardShadow
 import com.readyport.ui.components.displayDate
 import com.readyport.ui.components.rememberGridColumns
 import com.readyport.ui.components.rememberKeyIndex
@@ -173,6 +171,8 @@ fun HelpContent(
     val keyIndex = rememberKeyIndex()
     val scope = rememberCoroutineScope()
     val columns = rememberGridColumns()
+    // 큰 글자 배치: 긴 번호(대사관·영사콜센터) 타일을 카드 안 좁은 칸 대신 카드 밖 폭 전체로 꺼낸다 — 번호가 한 줄에 들어가게 (재검토 R6)
+    val stacked = isStackedLayout()
 
     val offlineBadge: @Composable () -> Unit = {
         StatusChip(
@@ -310,26 +310,39 @@ fun HelpContent(
             // ⑦ 대사관
             pack.embassy?.let { emb ->
                 sectionGap("gap-embassy")
+                val embassySources = listOf(ref(emb.source, emb.lastVerified))
+                val embassyTiles: @Composable () -> Unit = {
+                    EmergencyCallTile(
+                        label = emb.nameKo,
+                        number = emb.phone,
+                        icon = Icons.Outlined.AccountBalance,
+                        onCall = { onCall(emb.phone) },
+                    )
+                    emb.emergencyPhone?.let { phone ->
+                        EmergencyCallTile(
+                            label = stringResource(R.string.help_embassy_after_hours),
+                            number = phone,
+                            icon = Icons.Outlined.Sos,
+                            onCall = { onCall(phone) },
+                        )
+                    }
+                }
                 item(key = "embassy") {
                     CardNewsCard(
                         title = stringResource(R.string.help_embassy),
                         icon = Icons.Outlined.AccountBalance,
-                        sources = listOf(ref(emb.source, emb.lastVerified)),
+                        sources = if (stacked) emptyList() else embassySources,
                     ) {
                         IconBullet(emb.address, Icons.Outlined.Place)
-                        EmergencyCallTile(
-                            label = emb.nameKo,
-                            number = emb.phone,
-                            icon = Icons.Outlined.AccountBalance,
-                            onCall = { onCall(emb.phone) },
-                        )
-                        emb.emergencyPhone?.let { phone ->
-                            EmergencyCallTile(
-                                label = stringResource(R.string.help_embassy_after_hours),
-                                number = phone,
-                                icon = Icons.Outlined.Sos,
-                                onCall = { onCall(phone) },
-                            )
+                        if (!stacked) embassyTiles()
+                    }
+                }
+                if (stacked) {
+                    // 카드 밖 폭 전체 타일 + 그 아래 출처 (출처는 늘 번호 바로 아래에 보인다)
+                    item(key = "embassy-tiles") {
+                        Column(verticalArrangement = Arrangement.spacedBy(LocalDimens.current.gap)) {
+                            embassyTiles()
+                            SourceList(embassySources)
                         }
                     }
                 }
@@ -364,11 +377,7 @@ fun HelpContent(
                         ?: fallback
                     SourceRef(named, displayDate(c.lastVerified))
                 }.distinct()
-                CardNewsCard(
-                    title = stringResource(R.string.help_common_title),
-                    icon = Icons.Outlined.SupportAgent,
-                    sources = refs,
-                ) {
+                val commonTiles: @Composable () -> Unit = {
                     ui.common.forEach { c ->
                         EmergencyCallTile(
                             label = c.labelKo,
@@ -378,6 +387,20 @@ fun HelpContent(
                             note = c.noteKo,
                         )
                     }
+                }
+                if (stacked) {
+                    // 큰 글자: 머리 카드 → 카드 밖 폭 전체 타일 → 출처 (대사관과 같은 배치, 재검토 R6)
+                    Column(verticalArrangement = Arrangement.spacedBy(LocalDimens.current.gap)) {
+                        CardNewsCard(title = stringResource(R.string.help_common_title), icon = Icons.Outlined.SupportAgent)
+                        commonTiles()
+                        SourceList(refs)
+                    }
+                } else {
+                    CardNewsCard(
+                        title = stringResource(R.string.help_common_title),
+                        icon = Icons.Outlined.SupportAgent,
+                        sources = refs,
+                    ) { commonTiles() }
                 }
             }
         }
@@ -484,49 +507,33 @@ private fun PhraseCard(
 }
 
 /**
- * 자주 쓰는 말 한 줄 (항상 1열). 고르면 AccentSoft + 2dp Accent 테두리 + CheckCircle.
- * 한 개만 고르는 선택이라 Role.RadioButton (부모 selectableGroup). 글자는 한국어 문장 하나뿐(테스트가 단독 Text로 찾는다).
- * 눌림 물결은 타일 모양(16dp)으로 자른다 — selectable 앞에 clip.
+ * 자주 쓰는 말 한 줄 (항상 1열) = 공용 SelectableCard(재검토 R2 규칙 ② — 선택 AccentSoft + 2dp Accent + CheckCircle,
+ * 비선택 흰 바탕 + 1dp LineStrong + 빈 원). 한 개만 고르는 선택이라 Role.RadioButton (부모 selectableGroup).
+ * 글자는 한국어 문장 하나뿐(테스트가 단독 Text로 찾는다).
  */
 @Composable
 private fun PhraseTile(phrase: Phrase, selected: Boolean, onClick: () -> Unit) {
     val dimens = LocalDimens.current
-    val shape = MaterialTheme.shapes.medium
-    Surface(
-        color = if (selected) Tokens.AccentSoft else Tokens.Surface,
-        contentColor = Tokens.Ink,
-        shape = shape,
-        border = if (selected) BorderStroke(2.dp, Tokens.Accent) else null,
-        modifier = Modifier
-            .fillMaxWidth()
-            .then(if (selected) Modifier else Modifier.cardShadow(shape))
-            .heightIn(min = dimens.tileRowMinHeight)
-            .clip(shape)
-            .selectable(selected = selected, role = Role.RadioButton, onClick = onClick),
-    ) {
-        Row(
-            Modifier.padding(horizontal = 16.dp, vertical = 12.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(16.dp),
-        ) {
+    SelectableCard(
+        selected = selected,
+        onClick = onClick,
+        minHeight = dimens.tileRowMinHeight,
+        leading = {
             IconBadge(
                 IconKeys.phrase(phrase.id) ?: Icons.Outlined.Translate,
                 size = dimens.iconBadgeSmall,
-                // 고른 타일은 바탕이 AccentSoft라 배지를 흰 바탕으로 띄운다
-                containerColor = if (selected) Tokens.Surface else BadgeTone.Accent.container,
+                // 고른 카드는 바탕이 AccentSoft라 배지를 흰 바탕으로 띄운다
+                containerColor = selectionBadgeContainer(selected),
             )
-            KoText(
-                phrase.ko,
-                style = MaterialTheme.typography.labelLarge,
-                color = Tokens.Ink,
-                modifier = Modifier.weight(1f),
-                // 짧은 문장 라벨: 한 음절 낱말(`가 주세요`의 `가`)이 줄 끝에 홀로 남지 않게
-                glueShort = true,
-            )
-            if (selected) {
-                Icon(Icons.Outlined.CheckCircle, contentDescription = null, tint = Tokens.Accent, modifier = Modifier.size(dimens.icon))
-            }
-        }
+        },
+    ) {
+        KoText(
+            phrase.ko,
+            style = MaterialTheme.typography.labelLarge,
+            color = Tokens.Ink,
+            // 짧은 문장 라벨: 한 음절 낱말(`가 주세요`의 `가`)이 줄 끝에 홀로 남지 않게
+            glueShort = true,
+        )
     }
 }
 

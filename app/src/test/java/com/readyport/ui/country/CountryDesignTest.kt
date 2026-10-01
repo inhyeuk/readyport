@@ -18,7 +18,9 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.readyport.R
 import com.readyport.ui.TestPacks
+import com.readyport.ui.components.SourceRef
 import com.readyport.ui.components.displayDate
+import com.readyport.ui.components.sourceBlocks
 import com.readyport.ui.theme.ReadyPortTheme
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertTrue
@@ -60,14 +62,17 @@ class CountryDesignTest {
         rule.onNodeWithText(s(R.string.fact_days, 30)).assertIsDisplayed()
         scrollTo("IDR 500,000")
         rule.onNodeWithText("IDR 500,000").assertIsDisplayed()
-        // 날짜가 같은 출처는 한 줄, 날짜가 다른 e-VOA 출처는 다음 줄 — IDR 500,000이 외교부 정보처럼 보이지 않게
+        // 날짜가 같은 출처는 한 덩어리(기관마다 한 줄, 날짜는 끝에 한 번 — 재검토 R9), 날짜가 다른 e-VOA 출처는 다음 덩어리 —
+        // IDR 500,000이 외교부 정보처럼 보이지 않게
         val req = id.requirements.single()
         val form = id.forms.single { it.id in req.forms }
-        val sameDay = s(
-            R.string.source_footer,
-            id.source(req.source)!!.name + ", " + id.source(form.source)!!.name,
-            displayDate(req.lastVerified),
-        )
+        val sameDayBlock = sourceBlocks(
+            listOf(
+                SourceRef(id.source(req.source)!!.name, displayDate(req.lastVerified)),
+                SourceRef(id.source(form.source)!!.name, displayDate(form.lastVerified)),
+            ),
+        ).single()
+        val sameDay = s(R.string.source_footer, sameDayBlock.name, sameDayBlock.verified)
         scrollTo(sameDay)
         rule.onNodeWithText(sameDay).assertIsDisplayed()
         val apply = req.apply!!
@@ -162,7 +167,13 @@ class CountryDesignTest {
         val shown = jp.shopping.take(3)
         val names = shown.flatMap { listOf(it.source, it.importSource) }.map { jp.source(it)!!.name }.distinct()
         assertTrue(names.contains(jp.source(first.importSource)!!.name))
-        val line = s(R.string.source_footer, names.joinToString(", "), displayDate(shown.first().lastVerified))
+        // 같은 날짜 → 기관별 한 줄씩 한 덩어리, 날짜는 끝에 한 번 (재검토 R9). 이름은 하나도 빠지지 않는다
+        val block = sourceBlocks(names.map { SourceRef(it, displayDate(shown.first().lastVerified)) }).single()
+        names.forEach { n ->
+            val detail = if (" · " in n) n.substringAfter(" · ") else n.substringAfter(' ')
+            assertTrue("출처 이름이 빠짐: $n", detail in block.name)
+        }
+        val line = s(R.string.source_footer, block.name, block.verified)
         scrollTo(line)
         rule.onNodeWithText(line).assertIsDisplayed()
         scrollTo(s(R.string.shopping_open))

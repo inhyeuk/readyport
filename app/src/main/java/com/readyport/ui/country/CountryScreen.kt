@@ -18,13 +18,11 @@ import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowBack
-import androidx.compose.material.icons.automirrored.outlined.NavigateNext
 import androidx.compose.material.icons.automirrored.outlined.OpenInNew
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.outlined.Approval
 import androidx.compose.material.icons.outlined.AssignmentInd
 import androidx.compose.material.icons.outlined.CalendarMonth
-import androidx.compose.material.icons.outlined.Check
 import androidx.compose.material.icons.outlined.CheckCircle
 import androidx.compose.material.icons.outlined.EditCalendar
 import androidx.compose.material.icons.outlined.EditNote
@@ -44,7 +42,6 @@ import androidx.compose.material.icons.outlined.Outlet
 import androidx.compose.material.icons.outlined.Payments
 import androidx.compose.material.icons.outlined.Policy
 import androidx.compose.material.icons.outlined.Power
-import androidx.compose.material.icons.outlined.Remove
 import androidx.compose.material.icons.outlined.Schedule
 import androidx.compose.material.icons.outlined.ShoppingBag
 import androidx.compose.material.icons.outlined.SmartDisplay
@@ -106,6 +103,7 @@ import com.readyport.ui.components.BadgeTone
 import com.readyport.ui.components.BannerTone
 import com.readyport.ui.components.CardNewsCard
 import com.readyport.ui.components.ChoiceSegments
+import com.readyport.ui.components.DotBullet
 import com.readyport.ui.components.Fact
 import com.readyport.ui.components.FactGrid
 import com.readyport.ui.components.IconBadge
@@ -710,8 +708,8 @@ private fun FormCard(form: FormInfo, autofill: Boolean, primary: Boolean, source
 
 /**
  * 팩 섹션 카드(들어갈 때·돈·안전): 아이콘 머리 + 문장 행 + 출처.
- * 문장 앞 아이콘은 문장 뜻을 앱이 추측해 고르지 않는다(D11): 들어갈 때는 스펙대로 Neutral Check(6-03 ④),
- * 돈·안전은 뜻 없는 줄표(Remove) — `3단계(출국권고)예요. 가지 마세요` 옆에 '좋음'으로 읽히는 체크를 두지 않는다.
+ * 문장 앞 기호는 문장 뜻을 앱이 추측해 고르지 않는다(D11): 모든 섹션이 뜻 없는 점 하나(DotBullet, 재검토 R8) —
+ * `…입국이 거절될 수 있어요`·`3단계(출국권고)예요. 가지 마세요` 옆에 '좋음'으로 읽히는 체크나 대시를 두지 않는다.
  * 60자를 넘는 문장은 첫 문장만 보이고 `… 자세히 보기`로 펼친다(원칙 6). 안전(여행경보)은 경고 뒷부분이 숨으면 안 되므로 접지 않는다.
  */
 @Composable
@@ -719,7 +717,6 @@ private fun SectionCard(s: Section, sourceOf: SourceOf) {
     val safety = s.id == "safety"
     val split = s.bodyKo.map { if (safety) it.trim() to null else foldSplit(it) }
     var open by rememberSaveable(s.id, s.bodyKo) { mutableStateOf(false) }
-    val bullet = if (s.id == "entry") Icons.Outlined.Check else Icons.Outlined.Remove
     CardNewsCard(
         title = s.titleKo,
         icon = IconKeys.section(s.id),
@@ -729,7 +726,7 @@ private fun SectionCard(s: Section, sourceOf: SourceOf) {
         Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
             s.bodyKo.zip(split).forEach { (full, parts) ->
                 val (first, rest) = parts
-                IconBullet(if (open || rest == null) full.trim() else first, bullet)
+                DotBullet(if (open || rest == null) full.trim() else first)
             }
         }
         if (split.any { it.second != null }) {
@@ -804,7 +801,6 @@ private fun ShoppingCard(pack: CountryPack, sourceOf: SourceOf, onOpen: () -> Un
     CardNewsCard(
         title = stringResource(R.string.shopping_title, pack.names.ko),
         icon = Icons.Outlined.ShoppingBag,
-        tone = BadgeTone.Help,
         sources = shown.flatMap { listOf(sourceOf(it.source, it.lastVerified), sourceOf(it.importSource, it.lastVerified)) },
     ) {
         KoText(stringResource(R.string.shopping_subtitle_v2), style = MaterialTheme.typography.bodyMedium, color = Tokens.InkSecondary)
@@ -816,7 +812,8 @@ private fun ShoppingCard(pack: CountryPack, sourceOf: SourceOf, onOpen: () -> Un
                 color = Tokens.InkSecondary,
             )
         }
-        PrimaryButton(stringResource(R.string.shopping_open), onClick = onOpen, icon = Icons.AutoMirrored.Outlined.NavigateNext)
+        // 버튼 앞에는 뜻 아이콘(쇼핑 리스트 = ShoppingBag) — 꺾쇠를 앞에 두지 않는다(재검토 R11)
+        PrimaryButton(stringResource(R.string.shopping_open), onClick = onOpen, icon = Icons.Outlined.ShoppingBag)
     }
 }
 
@@ -875,7 +872,7 @@ private fun PreviewRows(items: List<ShoppingItem>, beside: Boolean) {
                 verticalAlignment = if (beside) Alignment.CenterVertically else Alignment.Top,
                 horizontalArrangement = Arrangement.spacedBy(PreviewGap),
             ) {
-                IconBadge(IconKeys.shoppingCategory(item.category), tone = BadgeTone.Neutral)
+                IconBadge(IconKeys.item(item.id, item.category), tone = BadgeTone.Neutral)
                 if (beside) {
                     PreviewName(item, Modifier.weight(1f))
                     ImportVerdictBadge(item.import)

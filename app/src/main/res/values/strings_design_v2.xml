@@ -99,4 +99,8 @@
 
     <!-- 28 사진 출처 (CC BY/BY-SA 변경 표시, DESIGN_SPEC 3.7 ⑦) -->
     <string name="photo_credits_body_v2">모든 사진은 위키미디어 공용에서 가져와 잘라내고 크기를 줄이고, 글자가 잘 보이게 어둡게 덮었어요(일부는 둥글게 잘랐어요).</string>
+
+    <!-- 재검토 수정 A (2026-10-01): 공용 부품 -->
+    <!-- KeyValueRow(masked): 가린 값(`L••••••C3`)을 TalkBack이 점 대신 읽는 말 -->
+    <string name="kv_masked_cd">가려 둔 값</string>
 </resources>

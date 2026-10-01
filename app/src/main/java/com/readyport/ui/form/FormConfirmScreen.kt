@@ -8,16 +8,17 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.shape.ZeroCornerSize
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.ArrowDownward
 import androidx.compose.material.icons.automirrored.outlined.NavigateNext
 import androidx.compose.material.icons.automirrored.outlined.OpenInNew
 import androidx.compose.material.icons.outlined.Badge
@@ -39,8 +40,6 @@ import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
-import androidx.compose.material3.RadioButton
-import androidx.compose.material3.RadioButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -93,6 +92,8 @@ import com.readyport.ui.components.ExpandableDetail
 import com.readyport.ui.components.IconBadge
 import com.readyport.ui.components.IconKeys
 import com.readyport.ui.components.KeyValueRow
+import com.readyport.ui.components.SelectableCard
+import com.readyport.ui.components.selectionIconTint
 import com.readyport.ui.components.KoText
 import com.readyport.ui.components.KoreanBreak
 import com.readyport.ui.components.LockedState
@@ -108,7 +109,7 @@ import com.readyport.ui.components.StatusTag
 import com.readyport.ui.components.cardShadow
 import com.readyport.ui.components.keepWords
 import com.readyport.ui.components.koDisplay
-import com.readyport.ui.components.largeFont
+import com.readyport.ui.components.isStackedLayout
 import com.readyport.ui.components.minTouch
 import com.readyport.ui.components.rememberGridColumns
 import com.readyport.ui.components.rememberKeyIndex
@@ -478,27 +479,16 @@ private fun CountPill(text: String, modifier: Modifier = Modifier) {
 /** 영어·현지어 칸 이름 ("Family Name · นามสกุล") */
 private fun RecipeField.otherLabels(): String? = listOfNotNull(labels.en, labels.local).joinToString(" · ").takeIf { it.isNotEmpty() }
 
-/** 라벨-값 한 덩어리. '현지어 크게'를 켜면 영어·현지어 칸 이름을 크게 (기존 기능 유지) */
+/** 라벨-값 한 덩어리 = 공용 KeyValueRow(재검토 R3). '현지어 크게'를 켜면 영어·현지어 칸 이름을 크게(subLabelStyle — 기존 기능 유지) */
 @Composable
 private fun ValueRow(f: RecipeField, v: FieldValue, localLarge: Boolean) {
     val value = v.display ?: stringResource(R.string.form_empty_value)
-    if (!localLarge) {
-        KeyValueRow(label = f.labels.ko, value = value, subLabel = f.otherLabels())
-    } else {
-        // KeyValueRow와 같은 구조(한 번에 읽힘)에 보조 라벨만 크게
-        Column(
-            Modifier.fillMaxWidth().semantics(mergeDescendants = true) {}.padding(vertical = 8.dp),
-            verticalArrangement = Arrangement.spacedBy(2.dp),
-        ) {
-            Text(f.labels.ko, style = MaterialTheme.typography.titleSmall, color = Tokens.InkSecondary)
-            f.otherLabels()?.let { Text(it, style = MaterialTheme.typography.headlineMedium, color = Tokens.Ink) }
-            Text(
-                value,
-                style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold, fontFeatureSettings = "tnum"),
-                color = Tokens.Ink,
-            )
-        }
-    }
+    KeyValueRow(
+        label = f.labels.ko,
+        value = value,
+        subLabel = f.otherLabels(),
+        subLabelStyle = if (localLarge) MaterialTheme.typography.headlineMedium else null,
+    )
 }
 
 // ---------------- ⑤ 직접 고를 칸: 이어진 한 장의 카드 ----------------
@@ -559,7 +549,7 @@ private fun IndividualHead(missingCount: Int, attempted: Boolean) {
                 }
             }
         },
-        stack = largeFont(),
+        stack = isStackedLayout(),
         gap = 12.dp,
         title = {
             KoText(
@@ -674,7 +664,10 @@ private fun FieldTextField(
     )
 }
 
-/** 고르는 칸(여행 목적·숙소 종류): 폭 전체 라디오 행. 그룹은 selectableGroup, 행은 Role.RadioButton, RadioButton 콜백은 null */
+/**
+ * 고르는 칸(여행 목적·숙소 종류): 폭 전체 선택 행 = 공용 SelectableCard(재검토 R2 규칙 ② — 선택 AccentSoft + 2dp Accent + CheckCircle,
+ * 비선택 흰 바탕 + 1dp LineStrong + 빈 원). 그룹은 selectableGroup, 행은 Role.RadioButton.
+ */
 @Composable
 private fun ChoiceField(
     f: RecipeField,
@@ -707,30 +700,19 @@ private fun ChoiceField(
         Column(Modifier.fillMaxWidth().selectableGroup(), verticalArrangement = Arrangement.spacedBy(8.dp)) {
             options.forEachIndexed { i, o ->
                 val sel = selected == o.value
-                val shape = MaterialTheme.shapes.small
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .minTouch()
-                        .then(if (i == 0) Modifier.focusRequester(focusRequester) else Modifier)
-                        .clip(shape)
-                        .background(if (sel) Tokens.AccentSoft else Tokens.Surface)
-                        .border(if (sel) 2.dp else 1.dp, if (sel) Tokens.Accent else Tokens.LineStrong, shape)
-                        .selectable(selected = sel, role = Role.RadioButton, onClick = { onSelect(o.value) })
-                        .padding(start = 12.dp, end = 4.dp, top = 4.dp, bottom = 4.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(12.dp),
+                // 매핑 없는 값은 아이콘 없음 (옆 선택 표시와 원이 둘로 보이지 않게, 5.7)
+                val optionIcon = IconKeys.option(o.value)
+                SelectableCard(
+                    selected = sel,
+                    onClick = { onSelect(o.value) },
+                    modifier = if (i == 0) Modifier.focusRequester(focusRequester) else Modifier,
+                    leading = optionIcon?.let { icon ->
+                        { Icon(icon, contentDescription = null, tint = selectionIconTint(sel), modifier = Modifier.size(dimens.icon)) }
+                    },
+                    shape = MaterialTheme.shapes.small,
+                    contentPadding = PaddingValues(horizontal = 12.dp, vertical = 8.dp),
                 ) {
-                    // 매핑 없는 값은 아이콘 없음 (옆 RadioButton과 원이 둘로 보이지 않게, 5.7)
-                    IconKeys.option(o.value)?.let {
-                        Icon(it, contentDescription = null, tint = if (sel) Tokens.Accent else Tokens.InkSecondary, modifier = Modifier.size(dimens.icon))
-                    }
-                    OptionText(o, localLarge, localOwnLine, Modifier.weight(1f))
-                    RadioButton(
-                        selected = sel,
-                        onClick = null,
-                        colors = RadioButtonDefaults.colors(selectedColor = Tokens.Accent, unselectedColor = Tokens.LineStrong),
-                    )
+                    OptionText(o, localLarge, localOwnLine)
                 }
             }
         }
@@ -820,10 +802,11 @@ private fun MissingPanel(missing: List<RecipeField>, sentence: String, attempted
             }
         }
         val goFirst = stringResource(R.string.form_go_first_missing)
+        // 이 화면 안 아래로 이동 = ArrowDownward (버튼 앞 꺾쇠 금지, 재검토 R11 — 도움 화면 `다른 긴급 번호 보기`와 같은 아이콘)
         SecondaryButton(
             goFirst,
             onClick = { onGo(missing.first().key) },
-            icon = Icons.AutoMirrored.Outlined.NavigateNext,
+            icon = Icons.Outlined.ArrowDownward,
         )
     }
 }

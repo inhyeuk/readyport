@@ -55,7 +55,7 @@ enum class BadgeTone(val container: Color, val content: Color) {
 }
 
 /**
- * 어두운 채움(Accent·Navy·AccentDeep·BrandBlue·사진 스크림) 위 글자·아이콘·테두리에 쓸 수 있는 색 (D18, onDark 내용 세트).
+ * 어두운 채움(Accent·Navy·AccentDeep·BrandBlue·Help·사진 스크림) 위 글자·아이콘·테두리에 쓸 수 있는 색 (D18, onDark 내용 세트).
  * 이 밖의 색(Help·DangerText·InkTertiary·InkSecondary·Accent, BrandBlue 위 Gold)은 OnDarkPairsTest가 막는다.
  */
 object OnDark {
@@ -77,6 +77,8 @@ object OnDark {
         Tokens.Navy -> setOf(Tokens.Surface, Tokens.White80, Tokens.White85, Tokens.Gold)
         Tokens.AccentDeep -> setOf(Tokens.Surface, Tokens.White80, Tokens.White85, Tokens.Gold)
         Tokens.BrandBlue -> setOf(Tokens.Surface)
+        // 대표 긴급 번호 타일(Help 채움, 재검토 R7): Surface 6.03, White85 4.81 (White80은 4.45라 금지)
+        Tokens.Help -> setOf(Tokens.Surface, Tokens.White85)
         else -> emptySet()
     }
 }

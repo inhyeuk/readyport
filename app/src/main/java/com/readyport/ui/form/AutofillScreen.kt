@@ -83,7 +83,7 @@ import com.readyport.ui.components.TextCircle
 import com.readyport.ui.components.TrailingFlow
 import com.readyport.ui.components.breakAfterDots
 import com.readyport.ui.components.keepWords
-import com.readyport.ui.components.largeFont
+import com.readyport.ui.components.isStackedLayout
 import com.readyport.ui.components.startBar
 import com.readyport.ui.components.textIconSize
 import com.readyport.ui.theme.LocalDimens
@@ -282,7 +282,7 @@ internal fun AutofillContent(
     val started = fill.report != null || ui.submitted
     val guideFraction = when {
         started -> GUIDE_MAX_FRACTION_AFTER
-        largeFont() -> GUIDE_MAX_FRACTION_LARGE
+        isStackedLayout() -> GUIDE_MAX_FRACTION_LARGE
         else -> GUIDE_MAX_FRACTION
     }
     BoxWithConstraints(modifier.fillMaxSize().background(Tokens.Ground)) {
@@ -339,7 +339,7 @@ private fun FadingScrollColumn(fade: Color, modifier: Modifier = Modifier, conte
  */
 @Composable
 private fun TopNotices() {
-    if (largeFont()) {
+    if (isStackedLayout()) {
         NoticeBanner(
             stringResource(R.string.guide_not_affiliated),
             icon = Icons.Outlined.Policy,

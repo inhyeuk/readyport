@@ -1218,3 +1218,75 @@ enum class StatusKind(val icon: ImageVector, val tone: BadgeTone) {
 - **1-10 JP·SG 기대값**: 비평 1은 `null`, 비평 2는 `무료`였다. 첫 문장 규칙이 원문 그대로의 정확한 값을 주므로 비평 2를 따랐다.
 - **1-15 / 2-22 날짜**: 비평 1이 제시한 '텍스트 입력 유지'를 택했다. 그래서 비평 2의 Input 모드·UTC 변환 지시는 대상이 없어졌다.
 - **1-22 보안 배너**: 요구한 25·26·27 외에 `SecureScreen()`을 부르는 21·17·Autofill·ManualMode까지 넓혔다. 입국 카드 화면에서는 원칙 5(비제휴 고지가 첫 항목)와 부딪치지 않게 순서를 정했다.
+
+---
+
+## 부록 C — 재검토 반영(A) (2026-10-01, 공용 부품·일관성)
+
+개편 후 전문가 5인 재검토(`REREVIEW_SUMMARY.md`)의 A 묶음 R1~R11을 공용 부품에 반영한 기록이다. 자세한 내용·옮긴 호출 위치는 `FIX_A_REPORT.md`. 이 부록의 규칙이 4장·5장의 같은 항목보다 우선한다.
+
+### C.1 부품 카탈로그 갱신 (4장 보충)
+
+| 부품 (파일) | 바뀐 점 |
+|---|---|
+| `InfoChip(text, icon, modifier, value?, tone, onDark)` (CardNews.kt, 신규) | **누를 수 없는 정보 칩** = 아이콘 + 글자만, 채움·테두리 없음. 홈 신뢰 표시(사진 위 `onDark`), 꼭 챙길 물건 주제, 귀국 전 확인 주제. `FactChip`도 이 모양(값 굵게 + 라벨)으로 바뀌었다. 누를 수 있는 칩(`SelectChip`)·tonal 버튼(채움 + 1dp 테두리)과 한눈에 구분된다 (R1) |
+| `SelectableCard(selected, onClick, modifier, role, leading, vertical, selectionMark, minHeight, shape, contentPadding, content)` · `SelectionMark` · `selectionIconTint` · `selectionBadgeContainer` (Controls.kt, 신규) | 큰 카드·폭 전체 행의 단일 선택 하나 (R2, 아래 C.2 규칙) |
+| `ChoiceCard(emphasized = true)` | 추천 카드 = **흰 바탕 + 2dp Accent 테두리 + 그림자 + Accent 셰브론**. AccentSoft 채움은 '선택됨'에만 쓰므로 추천이 이미 골라진 것처럼 보이지 않게 했다 (R2) |
+| `KeyValueRow(label, value, …, leading, trailing, subLabelInline, subLabelStyle, valueStyle, masked, supporting, verticalPadding)` (Lists.kt) | 앞 아이콘 배지·끝 요소(복사 버튼 — 폭이 모자라면 값 아래 줄)·라벨 옆 영어 이름·현지어 크게·값 크기(`ValueStyle.Default/Large/Stat`)·가린 값(TalkBack은 `kv_masked_cd` `가려 둔 값`)·도움말 슬롯. 20·21·26·30·32의 라벨-값 행 5벌을 흡수 (R3) |
+| `ListRow(…, extra)` · `ListDivider(indent = !isStackedLayout())` · 토큰 `listRowPadding`(20/24 = cardPadding)·`listRowPaddingVertical`(16) | 목록 행·가로형 IconTile의 안쪽 여백을 카드 내용 시작선에 맞춘다. 설정 행(`SettingRow`)도 ListRow로 (R4) |
+| `HelpShortcutRow(onClick, modifier)` (Lists.kt, 신규) | `급할 때는 도움` 줄 하나(흰 그림자 카드 안 ListRow — SOS 배지(Help) + 제목 + 설명 + 셰브론). 홈·내 여행이 함께 쓴다. 큰 글자에서도 설명을 숨기지 않는다 (R4·R5) |
+| `LayoutClass{Roomy, Compact, Stacked}` · `LayoutInfo` · `layoutInfoOf()` · `LocalLayoutInfo` · `ProvideLayoutInfo` · `rememberLayoutInfo()` · `rememberLayoutClass()` · `isStackedLayout()` · `isNarrowWindow()` (Layout.kt) | **반응형 판정을 한 곳에서** (R5, C.3) |
+| `LeadIconText(text, icon, style, color, iconTint)` (KoreanText.kt, 신규) | 아이콘을 글 첫 줄 맨 앞에 글자처럼 넣는다 — 큰 글자 배치에서 아이콘을 빼지 않고 자리만 옮길 때(StepList 단계 아이콘) |
+| `FitText(text, styles, color, modifier, breakChars)` (FitText.kt, 신규) · `PhoneNumberText(number, color, …)` · `phoneNumberStyles()` (Tiles.kt) | 실제 칸 폭을 TextMeasurer로 재서 **한 줄에 들어가는 가장 큰 크기**로 그린다(SubcomposeLayout 없이 — TileGrid의 IntrinsicSize.Min 안에서도 동작). 전화번호 크기 단계: stat → statSmall → titleLarge → titleMedium → bodyLarge → bodySmall(쉬운 모드 18sp가 최소). 그래도 넘치는 아주 좁은 창에서만 `-` 뒤에서 줄을 바꾼다. 의미 글자는 번호 원문 한 노드 (R6) |
+| `EmergencyCallTile(large = true)` · `emergencyColors()` | 대표 긴급 번호도 **Help 채움**(Surface 6.03·White85 4.81, onDark 세트에 Help 바탕 추가). 긴급 = 주황 하나 (R7) |
+| `DotBullet(text, modifier)` (CardNews.kt, 신규) | 팩 문장 목록의 뜻 없는 6dp 점(InkTertiary, 첫 줄 가운데) (R8) |
+| `sourceLines()`(기관별 묶기) · `sourceBlocks()`(같은 날짜 한 덩어리) · `SourceList` · `SourceFooter` · `source_footer`(`확인`↔날짜 NBSP) | 출처 묶기·날짜 줄바꿈 (R9, C.5) |
+| `rememberPhoto(res, targetWidthPx, square)` · `PhotoCache` · `PhotoBox(widthFraction)` · `rememberThumbnail` (Photos.kt) | 그릴 폭에 맞춘 inSampleSize + 백그라운드(IO) 디코드 + 앱 전체 LruCache(최대 24MB 또는 힙 1/8). 디코드 전에는 Navy 바탕(배치는 사진이 아니라 내용이 정하므로 흔들리지 않음). 2열 타일은 창 폭의 0.5로 잰다 (R10) |
+| 버튼 라벨(`PrimaryButton`·`SecondaryButton`·`DangerButton`·`QuietButton`) | 꺾쇠·화살표(`NavigateNext`·`ArrowForward`·`ChevronRight`)는 라벨 **뒤**에 그린다. 버튼 앞에는 뜻 아이콘만 (R11) |
+| `IconKeys.item(id, category)` · `IconKeys.essentials` · `IconKeys.sortRecent` | 품목 아이콘 세분, 같은 개념 한 아이콘 (R11, C.6) |
+
+지운 것: `largeFont()`·`hugeFont()`·`LARGE_FONT_SCALE`·`HUGE_FONT_SCALE`(KoreanText.kt), `choiceCardStacked()`, `PHONE_GROUP_TAG`·FlowRow 묶음식 `PhoneNumberText`, 홈 전용 `HelpShortcut`·`TrustCell`·`compactSourceRefs`, 내 여행 전용 `isNarrowWindow`·`STACK_SOURCES_OVER`, 지갑·보여 주기·입국 카드·수동 모드의 지역 라벨-값 행(`PassportField`·`BookingFact`·`ConfirmationNumber`의 몸통, `ValueRow`의 큰 글자 분기, `CopyRow`의 `roomy` 분기), 화면별 선택 모양(나라 라디오 카드·문장 타일·입국 카드 라디오 행 — 모두 `SelectableCard`).
+
+### C.2 선택 표시 규칙 (R2 — D7 보충)
+
+| 종류 | 부품 | 선택 | 비선택 |
+|---|---|---|---|
+| ① 칩·세그먼트·작은 타일 | `SelectChip`·`ChoiceSegments`·`SelectTile` | Accent 채움 + 흰 글자 + `Check` | 흰 바탕(세그먼트는 트랙) + 1dp LineStrong |
+| ② 큰 카드·폭 전체 행 | `SelectableCard` (14 여행 고치기 나라, 17 입국 카드 선택지, 20 자주 쓰는 말) | AccentSoft 바탕 + 2dp Accent 테두리 + 채운 `CheckCircle`(Accent) | 흰 바탕 + 1dp LineStrong + 빈 원(`RadioButtonUnchecked`, LineStrong) |
+
+- AccentSoft 채움은 **선택됨**에만 쓴다. 누르면 다음 화면으로 가는 추천 카드(`ChoiceCard(emphasized)`, 00 첫 실행)는 흰 바탕 + 2dp Accent 테두리.
+- 한 개만 고르는 곳은 `Role.RadioButton` + 부모 `selectableGroup()`. 선택 카드 안 배지 바탕은 `selectionBadgeContainer()`(선택이면 흰 바탕).
+
+### C.3 반응형 판정 (R5 — 4.1 보충)
+
+- `ReadyPortTheme`이 `ProvideLayoutInfo`로 한 번 계산해 내려 준다. 화면·부품은 `rememberLayoutInfo()`(또는 `isStackedLayout()`·`rememberGridColumns()`·`isNarrowWindow()`)만 읽고 **글자 배율 숫자(fontScale)를 직접 보지 않는다**(코드 전체에서 리터럴 0건).
+- 글자 배율 = 본문(bodyLarge)의 실제 크기(dp) ÷ 그 sp 값 — 시스템 글자 크기 설정의 실제 배율(API 34+ 비선형 확대 포함, textIconSize와 같은 방법). 쉬운 모드의 큰 글자는 배율이 아니라 모드 값이라 넣지 않는다(쉬운 모드는 이미 1열이고, 100%에서 배지를 윗줄로 올리지 않는다).
+- 열 수: 쉬운 모드 1열, 기본 모드는 `(창 폭 − 40 − 12) / 2 ÷ 글자 배율 < 150`이면 1열(D4 그대로).
+- `Stacked`: `(창 폭 − 40) ÷ 글자 배율 < 272` — 393dp 창에서 기본 모드 130%(예전 largeFont 기준), 360dp 창이면 약 118%, 412dp면 약 137%. 그 밖에 1열이면 `Compact`, 2열이면 `Roomy`. 예전 `hugeFont()`(150%) 자리(설정 사진 출처 썸네일 위로, 첫 실행 히어로 글자 한 단계 낮춤)도 `Stacked`로 합쳤다.
+- **내용은 숨기지 않고 배치만 바꾼다**: 홈 히어로 소개 문장은 2열에서 히어로 안, 1열에서 나라 목록 바로 아래 안내 줄로 옮겨 늘 보이고(첫 화면 예산 유지), `급할 때는 도움` 설명은 큰 글자에서도 남고(배지·셰브론 윗줄), StepList 단계 아이콘은 큰 글자에서 글 첫 줄 안으로 옮긴다(`LeadIconText`).
+
+### C.4 긴급 번호 (R6·R7 — 6-20 보충)
+
+- 번호는 칸 폭에 맞춰 한 줄(`PhoneNumberText` = `FitText`). 테스트 `BundleDStateCaptureSdk31Test.phoneNumbers*`가 sdk 31·200% 기본·쉬운 모드에서 모든 번호의 `lineCount == 1`, 잘림 없음, 최소 크기(쉬운 18sp·기본 13sp)를 단언한다.
+- 큰 글자 배치(`Stacked`)에서 도움 화면의 대사관·영사콜센터 타일은 카드 안 좁은 칸 대신 **카드 밖 폭 전체**로 놓고, 출처는 그 타일 바로 아래에 둔다.
+- 대표 번호 타일 = Help 채움(onDark 세트). Navy는 보안·현지인에게 보여 주기·오프라인에만.
+
+### C.5 출처 줄 (R9 — 4.5 보충)
+
+- `sourceLines`: **기관별로 한 줄**. 기관 = 이름의 ` · ` 앞부분, ` · `가 없는 이름은 그 이름 전체가 다른 출처의 기관이면 그 기관, 아니면 첫 낱말이 다른 이름과 같을 때만 첫 낱말(`농림축산검역본부 휴대 식물 검역, 검역 제외 식물`). 세부는 `, `로, 같은 이름은 한 번, 이름은 하나도 빠뜨리지 않는다. 기관 안에서 날짜가 다르면 날짜별로 나눈다.
+- `sourceBlocks`/`SourceList`: 같은 날짜의 기관 줄은 한 덩어리 — `출처 기관1 …⏎기관2 …⏎기관3 … · 최종 확인 2026.09.29`(형식은 `source_footer` 그대로, 날짜는 끝에 한 번). 출처가 하나면 예전과 같은 한 줄.
+- `source_footer` = `출처 %1$s\u00A0· 최\u2060종\u00A0확\u2060인\u00A0%2$s`: `최종 확인 {날짜}`가 한 덩어리라 **날짜만 다음 줄로 넘어가 홀로 남지 않는다**. 덩어리가 한 줄보다 긴 좁은 줄(쉬운 모드 200%)에서만 `SourceFooter`가 그 자리를 보통 띄어쓰기로 풀어 날짜를 통째로 다음 줄에 둔다(날짜 안에서는 절대 끊기지 않음). 테스트: `SharedComponentsFixATest.verifiedLabelAndDateStayTogether`, 기존 `sourceFooterDateNeverSplits`.
+
+### C.6 아이콘 맵 갱신 (5장 보충)
+
+| 개념 | 아이콘 | 바뀐 점 |
+|---|---|---|
+| 꼭 챙길 물건(홈 사진 머리·준비물 확인 버튼·여행 준비 타일·꼭 챙길 물건 화면 머리) | `Outlined.Checklist` (`IconKeys.essentials`) | 홈 Backpack·꼭 챙길 물건 Luggage를 하나로. Backpack은 여행 단계 '준비', Luggage는 내 여행 탭·짐 단계에만 |
+| 영상 정렬 '최신순' | `Outlined.CalendarMonth` (`IconKeys.sortRecent`) | NewReleases(톱니 안 느낌표)는 경고 배지처럼 읽혀 뺐다 |
+| 쇼핑 품목 (`IconKeys.item`) | 커피 `LocalCafe` · 차 `EmojiFoodBeverage` · 과자·칩 `Cookie` · 생과일 `Eco`(과일·식물 검역과 같은 그림) · 절임 `RiceBowl` · 잼 `BreakfastDining` · 육포 `KebabDining` · 장신구·은 `Diamond` · 직물 `Checkroom` · 가죽 `AccountBalanceWallet` · 문구 `Draw` · 그 밖은 분류 아이콘 | 먹거리가 모두 포크·나이프이던 것을 품목 id 낱말로 세분(팩 스키마 변경 없음). 품목 배지 톤은 모든 화면 **Neutral**(06·13·18 같은 모양 — 판정 색은 `ImportVerdictBadge`만) |
+| 쇼핑 카드·담아 둔 물건 카드 머리 | `Outlined.ShoppingBag`, 톤 **Accent** | Help(주황)는 긴급·도움에만 남긴다 |
+| 쇼핑 리스트 보기 버튼 | `Outlined.ShoppingBag` | 버튼 앞 꺾쇠 대신 뜻 아이콘 |
+| 첫 빈칸으로 가기(이 화면 아래로 이동) | `Outlined.ArrowDownward` | 도움 화면 `다른 긴급 번호 보기`와 같은 개념·같은 아이콘 |
+| 다음 화면으로(여행 만들기·여권 등록 등) | `AM.Outlined.NavigateNext` | 버튼에서는 라벨 **뒤**에만(부품이 강제) |
+| 팩 문장 불릿(들어갈 때·돈·안전) | 6dp 점(`DotBullet`) | Check·Remove(대시) 대신. ✓는 앱이 확인한 상태(챙겼어요·확인 완료)에만, 금지·경고 문장 앞에는 금지 |
+| 신뢰 표시(공식 출처만·폰에만 저장·인터넷 없이도) | `AM.Outlined.FactCheck`·`Outlined.Lock`·`Outlined.OfflinePin` (`InfoChip`, 상자 없음) | 흰 92% 상자 타일 대신 |

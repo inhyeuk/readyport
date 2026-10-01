@@ -53,6 +53,7 @@ import com.readyport.ui.components.AppScreen
 import com.readyport.ui.components.BannerTone
 import com.readyport.ui.components.CardNewsCard
 import com.readyport.ui.components.IconBullet
+import com.readyport.ui.components.KeyValueRow
 import com.readyport.ui.components.KoText
 import com.readyport.ui.components.LockedState
 import com.readyport.ui.components.NoticeBanner
@@ -61,7 +62,6 @@ import com.readyport.ui.components.SecondaryButton
 import com.readyport.ui.components.SecurityBanner
 import com.readyport.ui.components.StatusKind
 import com.readyport.ui.components.StatusTag
-import com.readyport.ui.components.largeFont
 import com.readyport.ui.components.minTouch
 import com.readyport.ui.theme.LocalDimens
 import com.readyport.ui.theme.Tokens
@@ -99,8 +99,6 @@ fun ManualModeContent(
 ) {
     val recipe = ui.context?.recipe
     var copied by remember { mutableStateOf<String?>(null) }
-    // 보통 글자 크기면 복사 버튼을 값 옆에, 글자를 크게 키웠으면 값 아래 줄에 (버튼이 값 글자를 음절 단위로 쪼개지 않게)
-    val roomy = !largeFont()
     val openLabel = stringResource(R.string.manual_open_site)
     AppScreen(
         title = stringResource(R.string.manual_title),
@@ -135,7 +133,7 @@ fun ManualModeContent(
         val steps = recipe?.steps.orEmpty()
         steps.forEachIndexed { i, step ->
             item(key = "step-${step.id}") {
-                StepCard(i, step, ui.values, copied, roomy) { f, text ->
+                StepCard(i, step, ui.values, copied) { f, text ->
                     onCopy(f.labels.en, text)
                     copied = f.key
                 }
@@ -168,7 +166,6 @@ private fun StepCard(
     step: RecipeStep,
     values: Map<String, FieldValue>,
     copied: String?,
-    roomy: Boolean,
     onCopy: (RecipeField, String) -> Unit,
 ) {
     fun textOf(f: RecipeField): String = values[f.key].let { v -> (v?.value ?: v?.display).orEmpty() }
@@ -181,7 +178,7 @@ private fun StepCard(
         step.noteKo?.let { IconBullet(it, Icons.Outlined.Info) }
         filled.forEachIndexed { j, f ->
             if (j > 0 || step.noteKo != null) HorizontalDivider(thickness = 1.dp, color = Tokens.LineSoft)
-            CopyRow(f, textOf(f), copied == f.key, roomy) { onCopy(f, it) }
+            CopyRow(f, textOf(f), copied == f.key) { onCopy(f, it) }
         }
         if (empty.isNotEmpty()) {
             if (filled.isNotEmpty() || step.noteKo != null) HorizontalDivider(thickness = 1.dp, color = Tokens.LineSoft)
@@ -203,32 +200,21 @@ private fun FieldNames(f: RecipeField, required: Boolean = false) {
     }
 }
 
-/** 칸 이름(한국어·영어) + 값 + 복사. TalkBack: `성 (영문) 복사` */
+/**
+ * 칸 이름(한국어·영어 나란히) + 값 + 도움말 + 복사 = 공용 KeyValueRow(재검토 R3). 복사 버튼은 옆에 두면 값·이름이 더 꺾일 만큼
+ * 폭이 모자라면(큰 글자) 값 아래 줄로 — 부품이 실제 폭으로 정한다. TalkBack: 행은 `칸 이름 · 값`, 버튼은 `성 (영문) 복사`.
+ */
 @Composable
-private fun CopyRow(f: RecipeField, text: String, copied: Boolean, roomy: Boolean, onCopy: (String) -> Unit) {
-    val texts: @Composable () -> Unit = {
-        Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
-            FieldNames(f)
-            Text(
-                text,
-                style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold, fontFeatureSettings = "tnum"),
-                color = Tokens.Ink,
-            )
-            f.hintKo?.let { KoText(it, MaterialTheme.typography.bodySmall, color = Tokens.InkSecondary) }
-        }
-    }
-    val button: @Composable () -> Unit = { CopyButton(f.labels.ko, copied) { onCopy(text) } }
-    if (roomy) {
-        Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            Box(Modifier.weight(1f)) { texts() }
-            button()
-        }
-    } else {
-        Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(4.dp)) {
-            texts()
-            button()
-        }
-    }
+private fun CopyRow(f: RecipeField, text: String, copied: Boolean, onCopy: (String) -> Unit) {
+    KeyValueRow(
+        label = f.labels.ko,
+        value = text,
+        subLabel = f.labels.en,
+        subLabelInline = true,
+        supporting = f.hintKo,
+        verticalPadding = 0.dp,
+        trailing = { CopyButton(f.labels.ko, copied) { onCopy(text) } },
+    )
 }
 
 /**

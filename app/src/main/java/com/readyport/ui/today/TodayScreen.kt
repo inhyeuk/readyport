@@ -30,7 +30,6 @@ import androidx.compose.material.icons.outlined.Schedule
 import androidx.compose.material.icons.outlined.Security
 import androidx.compose.material.icons.outlined.ShoppingBag
 import androidx.compose.material.icons.outlined.SimCard
-import androidx.compose.material.icons.outlined.Sos
 import androidx.compose.material.icons.outlined.TaskAlt
 import androidx.compose.material.icons.outlined.Translate
 import androidx.compose.material.icons.outlined.TravelExplore
@@ -44,7 +43,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.platform.LocalWindowInfo
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
@@ -62,15 +60,15 @@ import com.readyport.ui.components.BadgeTone
 import com.readyport.ui.components.ButtonStyles
 import com.readyport.ui.components.CardNewsCard
 import com.readyport.ui.components.DangerButton
+import com.readyport.ui.components.HelpShortcutRow
 import com.readyport.ui.components.IconBadge
+import com.readyport.ui.components.isNarrowWindow
 import com.readyport.ui.components.IconKeys
 import com.readyport.ui.components.ImportVerdictBadge
 import com.readyport.ui.components.InfoTileGrid
 import com.readyport.ui.components.JourneyStepper
 import com.readyport.ui.components.KoText
 import com.readyport.ui.components.KoreanBreak
-import com.readyport.ui.components.ListGroup
-import com.readyport.ui.components.ListRow
 import com.readyport.ui.components.NewsStyle
 import com.readyport.ui.components.PhotoHeaderCard
 import com.readyport.ui.components.Photos
@@ -172,8 +170,6 @@ fun TodayContent(
     val stageName = labels[now]
     val stageDescription = stringResource(R.string.today_stage_desc, stageName, now + 1, labels.size)
     val nextLabel = stringResource(R.string.today_next_label)
-    // 글자 180% 이상: 도움 행의 설명은 배지·셰브론 사이 좁은 칸에서 5~6줄 글 벽이 되므로 제목(행 이름)만 둔다
-    val largeText = LocalDensity.current.fontScale >= 1.8f
 
     AppScreen(
         title = title,
@@ -362,18 +358,8 @@ fun TodayContent(
             }
         }
 
-        // 급할 때는 도움 — "누르세요"라고 쓰고 누를 수 없던 카드를 행 전체가 눌리는 줄로 (6-09~13 공통)
-        item(key = "help") {
-            ListGroup {
-                ListRow(
-                    title = stringResource(R.string.help_shortcut_title),
-                    icon = Icons.Outlined.Sos,
-                    tone = BadgeTone.Help,
-                    body = if (largeText) null else stringResource(R.string.today_help_body),
-                    onClick = actions.help,
-                )
-            }
-        }
+        // 급할 때는 도움 — 홈과 같은 공용 줄(재검토 R4). 큰 글자에서도 설명을 숨기지 않고 배지·셰브론을 윗줄로 올린다(R5)
+        item(key = "help") { HelpShortcutRow(actions.help) }
         if (stage.stage != TripStage.NoTrip && stage.stage != TripStage.WrapUp) {
             item(key = "edit") {
                 Box(Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
@@ -431,13 +417,6 @@ private fun NextCard(
 /** 단계 한 줄 (글자는 keepWords) */
 private fun step(text: String, icon: ImageVector, detail: String? = null) = Step(text, icon, detail?.let(::keepWords))
 
-/** 320×470 화면 예산을 지켜야 하는 좁은 창 (폭 340dp 미만, DESIGN_SPEC 6장 머리말) */
-@Composable
-private fun isNarrowWindow(): Boolean {
-    val width = LocalWindowInfo.current.containerSize.width / LocalDensity.current.density
-    return width > 0f && width < 340f
-}
-
 /** 반입 판정 순서: 불가 → 주의 → 가능 (6-13) */
 private fun importOrder(status: ImportStatus): Int = when (status) {
     ImportStatus.Prohibited -> 0
@@ -445,14 +424,11 @@ private fun importOrder(status: ImportStatus): Int = when (status) {
     ImportStatus.Allowed -> 2
 }
 
-/** 출처 이름이 이보다 많으면 한 줄에 하나씩 쌓는다 (`, `로 이으면 다섯 이름이 한 문단이 된다) */
-private const val STACK_SOURCES_OVER = 3
-
 /**
  * 담아 둔 물건 카드 (6-13): 행마다 분류 아이콘 + 이름 + 반입 판정 배지 + 판정 설명.
  * 카드 맨 아래 출처 = 반입 판정 출처(importSource) 먼저, 그다음 품목 출처 — 판정과 설명이 출처 없이 보이지 않게.
- * 같은 날짜의 이름이 4개 이상이면 `출처 이름1⏎이름2⏎… · 최종 확인 날짜`로 한 줄에 하나씩(형식은 source_footer 그대로).
- * 출처 이름을 못 찾으면 `공식 안내`(내부 ID를 보이지 않는다).
+ * 공용 SourceList가 기관별로 한 줄씩 묶고 날짜가 같으면 끝에 한 번만 쓴다(재검토 R9). 이름은 하나도 빠뜨리지 않는다.
+ * 출처 이름을 못 찾으면 `공식 안내`(내부 ID를 보이지 않는다). 품목 배지는 모든 화면에서 Neutral + 품목 아이콘(R11).
  */
 @Composable
 private fun CartCard(ui: TodayUi) {
@@ -460,16 +436,10 @@ private fun CartCard(ui: TodayUi) {
     val names = ui.indexSources + ui.sourceNames
     val items = ui.cart.sortedBy { importOrder(it.import) }
     val ordered = items.map { it.importSource to it.lastVerified } + items.map { it.source to it.lastVerified }
-    val refs = ordered
-        .groupBy({ (_, date) -> displayDate(date) }, { (id, _) -> resolveSourceName(id, names, fallback) })
-        .map { (date, group) ->
-            val distinct = group.distinct()
-            SourceRef(distinct.joinToString(if (distinct.size > STACK_SOURCES_OVER) "\n" else ", "), date)
-        }
+    val refs = ordered.map { (id, date) -> SourceRef(resolveSourceName(id, names, fallback), displayDate(date)) }
     CardNewsCard(
         title = stringResource(R.string.today_cart_title),
         icon = Icons.Outlined.ShoppingBag,
-        tone = BadgeTone.Help,
         sources = refs,
     ) {
         items.forEachIndexed { i, item ->
@@ -490,7 +460,7 @@ private fun CartRow(item: ShoppingItem) {
         verticalAlignment = Alignment.Top,
         horizontalArrangement = Arrangement.spacedBy(12.dp),
     ) {
-        IconBadge(IconKeys.shoppingCategory(item.category), tone = BadgeTone.Neutral, size = dimens.iconBadgeSmall)
+        IconBadge(IconKeys.item(item.id, item.category), tone = BadgeTone.Neutral, size = dimens.iconBadgeSmall)
         Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(6.dp)) {
             KoText(item.names.ko, style = MaterialTheme.typography.titleMedium, color = Tokens.Ink)
             ImportVerdictBadge(item.import)

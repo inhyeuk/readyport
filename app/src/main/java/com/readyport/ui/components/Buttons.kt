@@ -12,6 +12,9 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.outlined.ArrowForward
+import androidx.compose.material.icons.automirrored.outlined.NavigateNext
+import androidx.compose.material.icons.outlined.ChevronRight
 import androidx.compose.material.icons.outlined.DeleteOutline
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
@@ -43,15 +46,37 @@ import com.readyport.ui.theme.Tokens
 
 private val ButtonPadding = PaddingValues(horizontal = 20.dp, vertical = 10.dp)
 
-/** 버튼 라벨: 아이콘(24/28, 글자 크기를 따라 커짐 — 3.6) + 간격 8 + 어절 단위로 줄을 바꾸는 라벨(의미 글자는 원문) */
+/**
+ * '다음으로·넘어가기' 방향 아이콘(꺾쇠·화살표). 버튼 **앞**에 두지 않는다(재검토 R11) — 넘기면 라벨 **뒤**에 그린다.
+ * 버튼 앞에는 뜻 아이콘(ShoppingBag·EditCalendar·ArrowDownward 등)을 쓴다.
+ */
+private val TrailingOnlyIcons = setOf(
+    Icons.AutoMirrored.Outlined.NavigateNext,
+    Icons.AutoMirrored.Outlined.ArrowForward,
+    Icons.Outlined.ChevronRight,
+)
+
+/** 이 아이콘을 버튼 라벨 뒤에 그리는지 (꺾쇠·화살표) */
+internal fun isTrailingOnlyIcon(icon: ImageVector?): Boolean = icon != null && icon in TrailingOnlyIcons
+
+/**
+ * 버튼 라벨: 아이콘(24/28, 글자 크기를 따라 커짐 — 3.6) + 간격 8 + 어절 단위로 줄을 바꾸는 라벨(의미 글자는 원문).
+ * 꺾쇠·화살표 아이콘은 라벨 뒤에 둔다([TrailingOnlyIcons]).
+ */
 @Composable
 private fun RowScope.ButtonLabel(text: String, icon: ImageVector?) {
     val style = MaterialTheme.typography.labelLarge
-    if (icon != null) {
-        Icon(icon, contentDescription = null, modifier = Modifier.size(textIconSize(LocalDimens.current.icon, style)))
+    val size = textIconSize(LocalDimens.current.icon, style)
+    val trailing = isTrailingOnlyIcon(icon)
+    if (icon != null && !trailing) {
+        Icon(icon, contentDescription = null, modifier = Modifier.size(size))
         Spacer(Modifier.width(8.dp))
     }
     KoText(text, style, textAlign = TextAlign.Center)
+    if (icon != null && trailing) {
+        Spacer(Modifier.width(4.dp))
+        Icon(icon, contentDescription = null, modifier = Modifier.size(size))
+    }
 }
 
 /**

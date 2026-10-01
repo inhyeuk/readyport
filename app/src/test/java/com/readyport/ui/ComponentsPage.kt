@@ -74,6 +74,15 @@ import com.readyport.ui.components.CountryPhotoTile
 import com.readyport.ui.components.DangerButton
 import com.readyport.ui.components.DestructiveConfirm
 import com.readyport.ui.components.EmergencyCallTile
+import com.readyport.ui.components.DotBullet
+import com.readyport.ui.components.HelpShortcutRow
+import com.readyport.ui.components.InfoChip
+import com.readyport.ui.components.SelectableCard
+import androidx.compose.material.icons.outlined.ArrowDownward
+import androidx.compose.material.icons.outlined.ConfirmationNumber
+import androidx.compose.material.icons.outlined.ContentCopy
+import androidx.compose.material.icons.outlined.ElectricBolt
+import androidx.compose.material.icons.outlined.Power
 import com.readyport.ui.components.EmptyState
 import com.readyport.ui.components.ExpandableDetail
 import com.readyport.ui.components.Fact
@@ -247,6 +256,8 @@ fun ComponentsPage(part: Int) {
                 IconBullet(stringResource(R.string.guide_power_kr_adapter), Icons.Outlined.Lock)
                 IconBullet(stringResource(R.string.wallet_passport_expiring), Icons.Outlined.EventBusy, tone = BadgeTone.Caution)
                 IconBullet(stringResource(R.string.wallet_passport_expired), Icons.Outlined.EventBusy, tone = BadgeTone.Danger)
+                // 팩 문장 불릿(재검토 R8): 뜻 없는 점 하나 — 금지 문장에도 체크·대시를 두지 않는다
+                th.sections.first { it.id == "entry" }.bodyKo.take(2).forEach { DotBullet(it) }
                 ExpandableDetail { Text(stringResource(R.string.settings_local_only_body), style = MaterialTheme.typography.bodyMedium) }
             }
         }
@@ -259,7 +270,16 @@ fun ComponentsPage(part: Int) {
             CardNewsCard(
                 title = stringResource(R.string.form_choose_yourself), icon = Icons.Outlined.EditNote, style = NewsStyle.SurfaceCaution,
                 trailing = { StatusTag(stringResource(R.string.form_missing_count, 2), StatusKind.Required) },
-            ) { KeyValueRow("Family Name", "ERIKSSON", subLabel = "Family Name · นามสกุล", badge = { StatusTag(stringResource(R.string.passport_check_ok), StatusKind.Verified) }) }
+            ) {
+                KeyValueRow("Family Name", "ERIKSSON", subLabel = "Family Name · นามสกุล", badge = { StatusTag(stringResource(R.string.passport_check_ok), StatusKind.Verified) })
+                // 재검토 R3 슬롯: 앞 아이콘 · 이름 나란히 + 끝 버튼 · 가린 값
+                KeyValueRow(stringResource(R.string.booking_field_reference), "ABC123", leading = Icons.Outlined.ConfirmationNumber)
+                KeyValueRow(
+                    "성", "ERIKSSON", subLabel = "Family Name", subLabelInline = true, supporting = stringResource(R.string.form_empty_value),
+                    trailing = { QuietButton(stringResource(R.string.manual_copy), onClick = {}, icon = Icons.Outlined.ContentCopy) },
+                )
+                KeyValueRow(stringResource(R.string.wallet_passport_number), "L••••••C3", masked = true)
+            }
         }
         item(key = "danger-style") {
             CardNewsCard(title = stringResource(R.string.today_destroy_title), icon = Icons.Outlined.Lock, style = NewsStyle.Danger, body = stringResource(R.string.today_destroy_body)) {
@@ -290,6 +310,16 @@ fun ComponentsPage(part: Int) {
                 columns = if (rememberGridColumns() == 1) 1 else 3,
             ) { (k, label), cell ->
                 SelectTile(label, IconKeys.bookingKind(k), kind == k, { kind = k }, cell)
+            }
+        }
+        item(key = "selectable") {
+            // 큰 선택 카드(재검토 R2 규칙 ②): 선택 AccentSoft + 2dp Accent + CheckCircle / 비선택 흰 바탕 + 1dp LineStrong + 빈 원
+            Column(Modifier.selectableGroup(), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                listOf("TH" to th.names.ko, "JP" to "일본").forEach { (code, name) ->
+                    SelectableCard(selected = chip == code, onClick = { chip = code }, leading = { CountryAvatar(code) }) {
+                        Text(name, style = MaterialTheme.typography.titleMedium)
+                    }
+                }
             }
         }
         item(key = "choice") {
@@ -363,6 +393,15 @@ fun ComponentsPage(part: Int) {
                 JourneyStepper(0, stringResource(R.string.today_stage_desc, stringResource(R.string.stage_prepare), 1, 6), preview = true)
             }
         }
+        item(key = "info-chips") {
+            // 누를 수 없는 정보 칩(재검토 R1): 채움·테두리 없는 아이콘 + 글자
+            FlowRow(horizontalArrangement = Arrangement.spacedBy(16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                InfoChip(stringResource(R.string.home_items_plug), Icons.Outlined.Power, tone = BadgeTone.Accent)
+                InfoChip(stringResource(R.string.home_items_voltage), Icons.Outlined.ElectricBolt, tone = BadgeTone.Accent)
+                FactChip(Fact(feeIcon(fee), fee, stringResource(R.string.fact_label_form_fee), BadgeTone.Success))
+            }
+        }
+        item(key = "help-row") { HelpShortcutRow(onClick = {}) }
         item(key = "return-compact") { ReturnCheckCard(index.returnLinks, index.returnFacts, indexSources, {}, compact = true) }
         item(key = "return-full") { ReturnCheckCard(index.returnLinks, index.returnFacts, emptyMap(), {}) }
         item(key = "states") {
@@ -378,7 +417,9 @@ fun ComponentsPage(part: Int) {
             Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
                 PrimaryButton(stringResource(R.string.form_confirm_yes), onClick = {}, icon = Icons.Outlined.EditNote)
                 PrimaryButton(stringResource(R.string.form_confirm_yes), onClick = {}, enabled = false)
-                SecondaryButton(stringResource(R.string.form_go_first_missing), onClick = {}, icon = Icons.AutoMirrored.Outlined.NavigateNext)
+                SecondaryButton(stringResource(R.string.form_go_first_missing), onClick = {}, icon = Icons.Outlined.ArrowDownward)
+                // 꺾쇠는 라벨 뒤에만(재검토 R11)
+                SecondaryButton(stringResource(R.string.today_make_trip), onClick = {}, icon = Icons.AutoMirrored.Outlined.NavigateNext)
                 SecondaryButton(stringResource(R.string.wallet_passport_show), onClick = {}, icon = Icons.Outlined.Visibility, enabled = false)
                 SecondaryButton(stringResource(R.string.wallet_lock), onClick = {}, icon = Icons.Outlined.Lock, tone = BadgeTone.Neutral)
                 FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -424,11 +465,12 @@ fun PhotoWorstWhitePage() {
                 PhotoTextArea {
                     Text(stringResource(R.string.home_brand), style = MaterialTheme.typography.labelLarge, color = Color.White)
                     Text(stringResource(R.string.home_title), style = MaterialTheme.typography.displaySmall, color = Color.White)
-                    FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
-                        PhotoChip(stringResource(R.string.trust_official), IconKeys.source)
-                        PhotoChip(stringResource(R.string.trust_local), Icons.Outlined.Lock)
-                        PhotoChip(stringResource(R.string.trust_offline), Icons.Outlined.OfflinePin)
+                    FlowRow(horizontalArrangement = Arrangement.spacedBy(16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                        InfoChip(stringResource(R.string.trust_official), IconKeys.source, onDark = true)
+                        InfoChip(stringResource(R.string.trust_local), Icons.Outlined.Lock, onDark = true)
+                        InfoChip(stringResource(R.string.trust_offline), Icons.Outlined.OfflinePin, onDark = true)
                     }
+                    PhotoChip(stringResource(R.string.guide_origin_bundled), Icons.Outlined.OfflinePin)
                 }
             }
         }

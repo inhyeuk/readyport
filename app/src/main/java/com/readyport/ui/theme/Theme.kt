@@ -19,6 +19,7 @@ import androidx.compose.ui.text.PlatformTextStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import com.readyport.R
+import com.readyport.ui.components.ProvideLayoutInfo
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.style.LineBreak
@@ -63,19 +64,26 @@ data class ReadyPortDimens(
     val listRowMinHeight: Dp = 64.dp,
     /** StepList 번호 원·이니셜 아바타의 최소 지름 (글자가 크면 함께 커진다) */
     val stepBadge: Dp = 28.dp,
+    /**
+     * 목록 행(ListRow)·가로형 타일의 가로 안쪽 여백 = 카드 안쪽 여백(cardPadding)과 같은 값(20/24, 재검토 R4).
+     * 그래서 ListGroup 행의 배지와 CardNewsCard 내용이 화면에서 같은 시작선에 선다.
+     */
+    val listRowPadding: Dp = 20.dp,
+    /** 목록 행의 세로 안쪽 여백 */
+    val listRowPaddingVertical: Dp = 16.dp,
 )
 
 private val BasicDimens = ReadyPortDimens(
     easyMode = false, buttonHeight = 56.dp, screenPadding = 20.dp, cardPadding = 20.dp, gap = 12.dp,
     sectionGap = 32.dp, inner = 8.dp, minTouch = 48.dp, iconBadge = 40.dp, iconBadgeSmall = 32.dp,
     icon = 24.dp, iconSmall = 16.dp, tileMinHeight = 112.dp, tileRowMinHeight = 72.dp, listRowMinHeight = 64.dp,
-    stepBadge = 28.dp,
+    stepBadge = 28.dp, listRowPadding = 20.dp, listRowPaddingVertical = 16.dp,
 )
 private val EasyDimens = ReadyPortDimens(
     easyMode = true, buttonHeight = 64.dp, screenPadding = 20.dp, cardPadding = 24.dp, gap = 16.dp,
     sectionGap = 40.dp, inner = 12.dp, minTouch = 56.dp, iconBadge = 52.dp, iconBadgeSmall = 40.dp,
     icon = 28.dp, iconSmall = 20.dp, tileMinHeight = 128.dp, tileRowMinHeight = 88.dp, listRowMinHeight = 72.dp,
-    stepBadge = 36.dp,
+    stepBadge = 36.dp, listRowPadding = 24.dp, listRowPaddingVertical = 16.dp,
 )
 
 val LocalDimens = staticCompositionLocalOf { BasicDimens }
@@ -327,8 +335,10 @@ fun ReadyPortTheme(easyMode: Boolean = false, content: @Composable () -> Unit) {
             CompositionLocalProvider(
                 LocalMinimumInteractiveComponentSize provides dimens.minTouch,
                 LocalViewConfiguration provides viewConfiguration,
-                content = content,
-            )
+            ) {
+                // 반응형 판정(창 폭 ÷ 실측 글자 배율)을 여기서 한 번 계산해 내려 준다 (재검토 R5)
+                ProvideLayoutInfo(content)
+            }
         }
     }
 }

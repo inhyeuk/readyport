@@ -99,7 +99,7 @@ class HelpShoppingLogicTest {
         assertEquals(noBreak to null, splitLongText(noBreak))
     }
 
-    // ---------------- 전화번호 묶음 (공용 PhoneNumberText — 한국어 줄바꿈은 components/KoreanTextTest) ----------------
+    // ---------------- 전화번호 묶음 (공용 PhoneNumberText의 아주 좁은 창 줄바꿈 자리 — 한국어 줄바꿈은 components/KoreanTextTest) ----------------
 
     @Test
     fun phoneGroupsSplitOnlyAfterHyphens() {

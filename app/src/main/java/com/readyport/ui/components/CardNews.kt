@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -39,6 +40,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.layout.layout
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.heading
@@ -244,31 +246,61 @@ fun FactGrid(facts: List<Fact>, modifier: Modifier = Modifier, columns: Int = re
     TileGrid(facts, modifier, columns) { fact, cell -> StatTile(fact, cell) }
 }
 
-/** 한 줄 사실 칩: 아이콘 16 + 값(굵게) + 라벨 (누를 수 없음) */
+/**
+ * 누를 수 없는 정보 칩 (재검토 R1): 아이콘 + 글자만 — **채움·테두리 없음**. 누를 수 있는 칩·tonal 버튼(채움 + 테두리)과 한눈에 구분된다.
+ * 홈 신뢰 표시(사진 위 — [onDark]), 꼭 챙길 물건 주제(플러그·전압·보조배터리), 귀국 전 확인 주제, 사실 칩(FactChip)이 모두 이 모양이다.
+ * - [value]: 굵게 보일 값(있으면 `값 라벨` 순서, 없으면 [text]만 보통 굵기)
+ * - [tone]: 아이콘 색(밝은 바탕에서 tone.onLight). 글자는 Ink(값)·InkSecondary(라벨)
+ * - [onDark]: 어두운 채움·사진 스크림 위 — 아이콘·글자 모두 Surface(onDark 내용 세트)
+ * - [textStyle]: 글자 스타일(기본 labelLarge — 사진 위 신뢰 표시처럼 작게 둘 때 labelMedium)
+ * TalkBack은 칩 하나를 한 번에 읽는다(mergeDescendants). 글이 길면 칩 안에서 줄을 바꾼다(아이콘은 첫 줄에 맞춤).
+ */
+@Composable
+fun InfoChip(
+    text: String,
+    icon: ImageVector,
+    modifier: Modifier = Modifier,
+    value: String? = null,
+    tone: BadgeTone = BadgeTone.Neutral,
+    onDark: Boolean = false,
+    textStyle: TextStyle? = null,
+) {
+    val valueStyle = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.Bold)
+    val textStyle = textStyle ?: if (value != null) MaterialTheme.typography.bodyMedium else MaterialTheme.typography.labelLarge
+    val firstStyle = if (value != null) valueStyle else textStyle
+    val iconSize = textIconSize(LocalDimens.current.iconSmall + 4.dp, firstStyle)
+    val iconColor = if (onDark) OnDark.content else tone.onLight
+    val valueColor = if (onDark) OnDark.content else Tokens.Ink
+    val textColor = if (onDark) OnDark.content else Tokens.InkSecondary
+    Row(
+        modifier.semantics(mergeDescendants = true) {},
+        verticalAlignment = Alignment.Top,
+        horizontalArrangement = Arrangement.spacedBy(6.dp),
+    ) {
+        Icon(
+            icon,
+            contentDescription = null,
+            tint = iconColor,
+            modifier = Modifier.padding(top = firstLineIconOffset(firstStyle, iconSize)).size(iconSize),
+        )
+        if (value != null) {
+            FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                KoText(value, valueStyle, color = valueColor)
+                if (text.isNotEmpty()) KoText(text, textStyle, Modifier.align(Alignment.Bottom), color = textColor)
+            }
+        } else {
+            KoText(text, textStyle, color = if (onDark) OnDark.content else Tokens.InkSecondary)
+        }
+    }
+}
+
+/** 한 줄 사실(값 + 라벨) — [InfoChip] 모양(채움 없음, 누를 수 없음). 라벨이 비면 값만 */
 @Composable
 fun FactChip(fact: Fact, modifier: Modifier = Modifier) {
-    Surface(
-        color = fact.tone.container,
-        shape = MaterialTheme.shapes.extraSmall,
-        modifier = modifier.semantics(mergeDescendants = true) {},
-    ) {
-        Row(
-            Modifier.padding(horizontal = 10.dp, vertical = 6.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(6.dp),
-        ) {
-            val valueStyle = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.Bold)
-            Icon(
-                fact.icon,
-                contentDescription = null,
-                tint = fact.tone.onLight,
-                modifier = Modifier.size(textIconSize(LocalDimens.current.iconSmall, valueStyle)),
-            )
-            KoText(fact.value, valueStyle, color = Tokens.Ink)
-            if (fact.label.isNotEmpty()) {
-                KoText(fact.label, MaterialTheme.typography.bodyMedium, Modifier.weight(1f, fill = false), color = Tokens.InkSecondary)
-            }
-        }
+    if (fact.label.isEmpty()) {
+        InfoChip(fact.value, fact.icon, modifier, tone = fact.tone)
+    } else {
+        InfoChip(fact.label, fact.icon, modifier, value = fact.value, tone = fact.tone)
     }
 }
 
@@ -332,8 +364,8 @@ fun StepList(steps: List<Step>, modifier: Modifier = Modifier, numbered: Boolean
     val textStyle = MaterialTheme.typography.titleMedium
     val iconSize = textIconSize(if (dimens.easyMode) 24.dp else 20.dp, textStyle)
     val iconTop = firstLineIconOffset(textStyle, iconSize)
-    // 큰 글자(130% 이상)에서는 단계 아이콘(장식)을 빼 글 폭을 넓힌다 — 번호 원은 그대로 (BUNDLE_A_NOTES 요청 3)
-    val showIcons = !largeFont()
+    // 큰 글자 배치에서는 단계 아이콘을 빼지 않고 글 첫 줄 안(맨 앞)으로 옮긴다 — 아이콘 열이 글 폭을 뺏지 않게 (재검토 R5)
+    val inlineIcons = isStackedLayout()
     Column(modifier.fillMaxWidth()) {
         steps.forEachIndexed { i, step ->
             val last = i == steps.lastIndex
@@ -355,11 +387,15 @@ fun StepList(steps: List<Step>, modifier: Modifier = Modifier, numbered: Boolean
                     verticalAlignment = Alignment.Top,
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
                 ) {
-                    if (showIcons && step.icon != null) {
+                    if (!inlineIcons && step.icon != null) {
                         Icon(step.icon, contentDescription = null, tint = Tokens.Accent, modifier = Modifier.padding(top = iconTop).size(iconSize))
                     }
                     Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
-                        KoText(step.text, textStyle, color = Tokens.Ink)
+                        if (inlineIcons && step.icon != null) {
+                            LeadIconText(step.text, step.icon, textStyle, Tokens.Ink, Tokens.Accent)
+                        } else {
+                            KoText(step.text, textStyle, color = Tokens.Ink)
+                        }
                         if (step.detail != null) {
                             KoText(step.detail, MaterialTheme.typography.bodyMedium, color = Tokens.InkSecondary)
                         }
@@ -451,6 +487,27 @@ fun IconBullet(text: String, icon: ImageVector, modifier: Modifier = Modifier, t
             tint = tone.onLight,
             modifier = Modifier.padding(top = firstLineIconOffset(style, size)).size(size),
         )
+        Spacer(Modifier.width(12.dp))
+        KoText(text, style, Modifier.weight(1f), color = Tokens.Ink)
+    }
+}
+
+/**
+ * 팩 문장 목록의 불릿 (재검토 R8): 뜻 없는 6dp 점(InkTertiary) 하나 — 앱은 팩 문장의 뜻(허용·금지)을 추측해 기호를 고르지 않는다.
+ * ✓(Check)는 앱이 확인한 상태(챙겼어요·확인 완료)에만 쓰고, 금지·경고 문장 앞에는 절대 두지 않는다. 대시(—)도 쓰지 않는다.
+ * 점은 글 **첫 줄 가운데**에 맞춘다. 글자는 IconBullet과 같은 bodyLarge·같은 시작선(점 칸 폭 = IconBullet 아이콘 폭).
+ */
+@Composable
+fun DotBullet(text: String, modifier: Modifier = Modifier) {
+    val dimens = LocalDimens.current
+    val style = MaterialTheme.typography.bodyLarge
+    val slot = textIconSize(if (dimens.easyMode) 24.dp else 20.dp, style)
+    val dot = 6.dp
+    val lineHeight = with(LocalDensity.current) { style.lineHeight.toDp() }
+    Row(modifier.fillMaxWidth(), verticalAlignment = Alignment.Top) {
+        Box(Modifier.size(slot, lineHeight), contentAlignment = Alignment.Center) {
+            Box(Modifier.size(dot).background(Tokens.InkTertiary, CircleShape))
+        }
         Spacer(Modifier.width(12.dp))
         KoText(text, style, Modifier.weight(1f), color = Tokens.Ink)
     }

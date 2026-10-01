@@ -75,6 +75,7 @@ import com.readyport.ui.components.DestructiveConfirm
 import com.readyport.ui.components.EmptyState
 import com.readyport.ui.components.InfoCard
 import com.readyport.ui.components.KeyValueRow
+import com.readyport.ui.components.ValueStyle
 import com.readyport.ui.components.KoText
 import com.readyport.ui.components.ListGroup
 import com.readyport.ui.components.ListRow
@@ -97,7 +98,6 @@ import com.readyport.ui.components.TrailingFlow
 import com.readyport.ui.components.minTouchSize
 import com.readyport.ui.components.rememberGridColumns
 import com.readyport.ui.theme.LocalDimens
-import com.readyport.ui.theme.LocalTypeExtras
 import com.readyport.ui.theme.Tokens
 import com.readyport.ui.wallet.ConsentRow
 import com.readyport.ui.wallet.DisabledReason
@@ -384,11 +384,12 @@ private fun PresentHeader(title: String) {
 @Composable
 private fun DocCard(d: DocView, onShare: () -> Unit, onDelete: () -> Unit) {
     val dimens = LocalDimens.current
+    // (라벨, 값, 가린 값인지) — 가린 값은 TalkBack이 점 대신 `가려 둔 값`으로 읽는다(KeyValueRow masked)
     val facts = listOfNotNull(
-        d.maskedName?.let { stringResource(R.string.wallet_passport_name) to it },
-        d.maskedPassport?.let { stringResource(R.string.wallet_passport_number) to it },
-        d.doc.arrivalDate?.let { stringResource(R.string.present_field_arrival) to it },
-        d.doc.flightNo?.let { stringResource(R.string.wallet_booking_flights) to it },
+        d.maskedName?.let { Triple(stringResource(R.string.wallet_passport_name), it, true) },
+        d.maskedPassport?.let { Triple(stringResource(R.string.wallet_passport_number), it, true) },
+        d.doc.arrivalDate?.let { Triple(stringResource(R.string.present_field_arrival), it, false) },
+        d.doc.flightNo?.let { Triple(stringResource(R.string.wallet_booking_flights), it, false) },
     )
     Column(verticalArrangement = Arrangement.spacedBy(dimens.inner)) {
         CardNewsCard(
@@ -417,8 +418,8 @@ private fun DocCard(d: DocView, onShare: () -> Unit, onDelete: () -> Unit) {
             }
             d.doc.confirmationNo?.let { ConfirmationNumber(stringResource(R.string.present_confirmation), it) }
             if (facts.isNotEmpty()) {
-                TileGrid(facts, columns = rememberGridColumns()) { (label, value), cell ->
-                    KeyValueRow(label = label, value = value, modifier = cell, onDark = true)
+                TileGrid(facts, columns = rememberGridColumns()) { (label, value, masked), cell ->
+                    KeyValueRow(label = label, value = value, modifier = cell, onDark = true, masked = masked)
                 }
             }
             SecondaryButton(
@@ -457,13 +458,10 @@ private fun ImageMissing() {
     }
 }
 
-/** 확인 번호: 라벨(White80) + 큰 값(statSmall, Surface) — 심사관이 한눈에 읽게. 한 번에 읽는다 */
+/** 확인 번호: 라벨(White80) + 큰 값(statSmall, Surface) — 심사관이 한눈에 읽게 = 공용 KeyValueRow(onDark, ValueStyle.Stat — 재검토 R3) */
 @Composable
 private fun ConfirmationNumber(label: String, value: String) {
-    Column(Modifier.fillMaxWidth().semantics(mergeDescendants = true) {}, verticalArrangement = Arrangement.spacedBy(2.dp)) {
-        Text(label, style = MaterialTheme.typography.titleSmall, color = OnDark.secondary)
-        Text(value, style = LocalTypeExtras.current.statSmall, color = OnDark.content)
-    }
+    KeyValueRow(label = label, value = value, onDark = true, valueStyle = ValueStyle.Stat, verticalPadding = 0.dp)
 }
 
 /** '밝기 최대로': 이 화면에 있는 동안만 창 밝기를 최대로 */

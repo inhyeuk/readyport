@@ -64,12 +64,13 @@ import androidx.core.net.toUri
 import com.readyport.BuildConfig
 import com.readyport.R
 import com.readyport.ui.components.AppScreen
-import com.readyport.ui.components.BadgeTitleLayout
 import com.readyport.ui.components.IconBadge
 import com.readyport.ui.components.KoText
 import com.readyport.ui.components.LinkRow
 import com.readyport.ui.components.ListDivider
 import com.readyport.ui.components.ListGroup
+import com.readyport.ui.components.ListRow
+import com.readyport.ui.components.isStackedLayout
 import com.readyport.ui.components.PhotoCredit
 import com.readyport.ui.components.Photos
 import com.readyport.ui.components.RowTrailing
@@ -80,10 +81,8 @@ import com.readyport.ui.components.StatusTag
 import com.readyport.ui.components.appSwitchColors
 import com.readyport.ui.components.breakAfter
 import com.readyport.ui.components.cardShadow
-import com.readyport.ui.components.hugeFont
 import com.readyport.ui.components.keepTogether
 import com.readyport.ui.components.keepWords
-import com.readyport.ui.components.largeFont
 import com.readyport.ui.components.loadPhotoCredits
 import com.readyport.ui.components.minTouch
 import com.readyport.ui.components.rememberThumbnail
@@ -111,8 +110,8 @@ fun SettingsScreen(
 ) {
     val context = LocalContext.current
     val openPrivacy = onOpenPrivacy ?: { url: String -> runCatching { context.startActivity(Intent(Intent.ACTION_VIEW, url.toUri())) } }
-    val large = largeFont()
-    val linkStart = if (large) 12.dp else rowTextStart() - 4.dp
+    val large = isStackedLayout()
+    val linkStart = if (large) LocalDimens.current.listRowPadding - 4.dp else rowTextStart() - 4.dp
     AppScreen(
         title = stringResource(R.string.settings_title),
         speech = stringResource(R.string.settings_speech),
@@ -128,7 +127,7 @@ fun SettingsScreen(
                     body = stringResource(R.string.settings_myinfo_body),
                     onClick = onOpenMyInfo,
                 )
-                ListDivider(indent = !large)
+                ListDivider()
                 SettingRow(
                     stringResource(R.string.wallet_companions_title),
                     icon = Icons.Outlined.FamilyRestroom,
@@ -147,7 +146,7 @@ fun SettingsScreen(
                     trailing = RowTrailing.Switch(easyMode, onEasyModeChange),
                     easyPreview = true,
                 )
-                ListDivider(indent = !large)
+                ListDivider()
                 SettingRow(
                     stringResource(R.string.settings_child_mode),
                     icon = Icons.Outlined.ChildCare,
@@ -182,21 +181,21 @@ fun SettingsScreen(
                     onClick = { openPrivacy(PRIVACY_URL) },
                     modifier = Modifier.padding(start = linkStart, end = 12.dp, bottom = 8.dp),
                 )
-                ListDivider(indent = !large)
+                ListDivider()
                 SettingRow(
                     stringResource(R.string.settings_disclaimer),
                     icon = Icons.Outlined.Policy,
                     body = stringResource(R.string.settings_disclaimer_body),
                     trailing = RowTrailing.None,
                 )
-                ListDivider(indent = !large)
+                ListDivider()
                 SettingRow(
                     stringResource(R.string.settings_credits),
                     icon = Icons.Outlined.PhotoLibrary,
                     body = stringResource(R.string.settings_credits_body),
                     onClick = onOpenPhotos,
                 )
-                ListDivider(indent = !large)
+                ListDivider()
                 SettingRow(
                     stringResource(R.string.settings_about),
                     icon = Icons.Outlined.Info,
@@ -208,14 +207,13 @@ fun SettingsScreen(
     }
 }
 
-/** 행 글자가 시작하는 자리 = 행 padding 16 + 배지 + 간격 16 */
+/** 행 글자가 시작하는 자리 = 행 가로 여백(listRowPadding) + 배지 + 간격 16 */
 @Composable
-private fun rowTextStart(): Dp = 16.dp + LocalDimens.current.iconBadge + 16.dp
+private fun rowTextStart(): Dp = LocalDimens.current.listRowPadding + LocalDimens.current.iconBadge + 16.dp
 
 /**
- * 설정 한 줄 — ListRow(4.10)와 같은 모양·동작(배지 + 제목·설명 + 끝 요소, 스위치 행은 줄 전체 Role.Switch·Switch 콜백 null,
- * 누르는 행은 Role.Button, 나머지는 한 덩어리로 읽힘). 다른 점은 배치뿐(BadgeTitleLayout):
- * 설명이 끝 요소 아래까지 넓어지고, 큰 글자(130%↑)에서는 제목·설명이 폭 전체를 쓴다. 150%↑는 배지를 작게.
+ * 설정 한 줄 = 공용 ListRow (재검토 R3·R4 — 같은 행 부품 하나, 여백 토큰 listRowPadding). [easyPreview]면 설명 아래 `가 → 가` 미리보기(장식).
+ * 큰 글자 배치에서는 ListRow가 배지·끝 요소를 윗줄로 올리고 제목·설명에 폭 전체를 준다.
  */
 @Composable
 private fun SettingRow(
@@ -226,51 +224,17 @@ private fun SettingRow(
     onClick: (() -> Unit)? = null,
     easyPreview: Boolean = false,
 ) {
-    val dimens = LocalDimens.current
-    val large = largeFont()
-    val interaction = when {
-        trailing is RowTrailing.Switch -> Modifier.toggleable(value = trailing.checked, role = Role.Switch, onValueChange = trailing.onChange)
-        onClick != null -> Modifier.clickable(role = Role.Button, onClick = onClick)
-        else -> Modifier.semantics(mergeDescendants = true) {}
-    }
-    val end: (@Composable () -> Unit)? = when (trailing) {
-        RowTrailing.Chevron -> if (onClick != null) {
-            { Icon(Icons.AutoMirrored.Outlined.NavigateNext, contentDescription = null, tint = Tokens.InkTertiary) }
+    ListRow(
+        title = title,
+        icon = icon,
+        body = body,
+        trailing = trailing,
+        onClick = onClick,
+        extra = if (easyPreview) {
+            { EasyModePreview() }
         } else {
             null
-        }
-        RowTrailing.External -> {
-            { Icon(Icons.AutoMirrored.Outlined.OpenInNew, contentDescription = null, tint = Tokens.Accent, modifier = Modifier.size(20.dp)) }
-        }
-        RowTrailing.None -> null
-        is RowTrailing.Switch -> {
-            { Switch(checked = trailing.checked, onCheckedChange = null, colors = appSwitchColors()) }
-        }
-        is RowTrailing.Custom -> trailing.content
-    }
-    val below: (@Composable () -> Unit)? = if (body != null || easyPreview) {
-        {
-            Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
-                if (body != null) KoText(body, MaterialTheme.typography.bodyMedium, color = Tokens.InkSecondary)
-                if (easyPreview) EasyModePreview()
-            }
-        }
-    } else {
-        null
-    }
-    val badgeSize = if (hugeFont()) dimens.iconBadgeSmall else dimens.iconBadge
-    BadgeTitleLayout(
-        modifier = Modifier
-            .fillMaxWidth()
-            .heightIn(min = dimens.listRowMinHeight)
-            .then(interaction)
-            .padding(16.dp),
-        badge = { IconBadge(icon, size = badgeSize) },
-        trailing = end,
-        below = below,
-        stack = large,
-        gap = if (large) 12.dp else 16.dp,
-        title = { KoText(title, MaterialTheme.typography.titleMedium, color = Tokens.Ink, glueShort = true) },
+        },
     )
 }
 
@@ -378,10 +342,10 @@ private fun CreditCard(content: @Composable () -> Unit) {
 
 private val ThumbSize = 72.dp
 
-/** 썸네일·견본(고정 폭) + 글. 150%↑는 위아래로 — 72dp 옆 좁은 칸에서 `CC BY / 2.0`처럼 쪼개지지 않게 */
+/** 썸네일·견본(고정 폭) + 글. 큰 글자 배치는 위아래로 — 72dp 옆 좁은 칸에서 `CC BY / 2.0`처럼 쪼개지지 않게 */
 @Composable
 private fun MediaAndTexts(media: @Composable () -> Unit, texts: @Composable () -> Unit) {
-    if (hugeFont()) {
+    if (isStackedLayout()) {
         Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
             media()
             texts()

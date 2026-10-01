@@ -80,12 +80,21 @@ class SourceNamesTest {
                 SourceRef("외교부 해외안전여행 · 인도네시아", "2026.09.28"),
             ),
         )
+        // 재검토 R9: 기관이 다르면 기관마다 한 줄(같은 날짜끼리는 SourceList가 한 덩어리로 날짜를 끝에 한 번), 같은 이름은 한 번만
         assertEquals(
             listOf(
-                SourceRef("외교부 해외안전여행 · 인도네시아, 인도네시아 이민국 · All Indonesia", "2026.09.28"),
+                SourceRef("외교부 해외안전여행 · 인도네시아", "2026.09.28"),
+                SourceRef("인도네시아 이민국 · All Indonesia", "2026.09.28"),
                 SourceRef("주인도네시아 대한민국 대사관", "2026.09.30"),
             ),
             lines,
+        )
+        assertEquals(
+            listOf(
+                SourceRef("외교부 해외안전여행 · 인도네시아\n인도네시아 이민국 · All Indonesia", "2026.09.28"),
+                SourceRef("주인도네시아 대한민국 대사관", "2026.09.30"),
+            ),
+            sourceBlocks(lines),
         )
         // 출처가 하나면 그대로 한 줄
         assertEquals(listOf(SourceRef("a", "d")), sourceLines(listOf(SourceRef("a", "d"))))

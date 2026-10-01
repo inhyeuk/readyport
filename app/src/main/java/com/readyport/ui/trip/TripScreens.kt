@@ -8,28 +8,24 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.outlined.CalendarMonth
 import androidx.compose.material.icons.outlined.Check
 import androidx.compose.material.icons.outlined.DateRange
 import androidx.compose.material.icons.outlined.EditCalendar
 import androidx.compose.material.icons.outlined.ErrorOutline
 import androidx.compose.material.icons.outlined.Lock
-import androidx.compose.material.icons.outlined.RadioButtonUnchecked
 import androidx.compose.material.icons.outlined.TravelExplore
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -78,6 +74,7 @@ import com.readyport.ui.components.NoticeBanner
 import com.readyport.ui.components.Photos
 import com.readyport.ui.components.PrimaryButton
 import com.readyport.ui.components.SectionHeader
+import com.readyport.ui.components.SelectableCard
 import com.readyport.ui.components.TileGrid
 import com.readyport.ui.components.cardShadow
 import com.readyport.ui.components.rememberGridColumns
@@ -278,54 +275,25 @@ private fun datePreview(date: LocalDate): String =
     stringResource(R.string.trip_date_preview, date.monthValue, date.dayOfMonth, date.dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.KOREAN))
 
 /**
- * 나라 라디오 카드: 원형 사진 썸네일(장식) + 한국어·영어 이름. 선택 = AccentSoft 바탕 + 2dp Accent 테두리 + 채운 CheckCircle,
- * 아님 = 흰 바탕 + 1dp LineStrong(조작 요소 경계) + 빈 원. 놓인 그리드가 1열이면 가로, 여러 칸이면 세로.
+ * 나라 선택 카드 = 공용 SelectableCard(재검토 R2 규칙 ②): 원형 사진 썸네일(장식) + 한국어·영어 이름.
+ * 선택 = AccentSoft 바탕 + 2dp Accent 테두리 + 채운 CheckCircle, 아님 = 흰 바탕 + 1dp LineStrong(조작 요소 경계) + 빈 원.
+ * 놓인 그리드가 1열이면 가로, 여러 칸이면 세로.
  */
 @Composable
 private fun CountryRadioCard(c: IndexCountry, selected: Boolean, onClick: () -> Unit, modifier: Modifier = Modifier) {
     val dimens = LocalDimens.current
     val horizontal = (LocalTileColumns.current ?: 1) == 1
-    val shape = MaterialTheme.shapes.medium
     val thumbSize = if (dimens.easyMode) 56.dp else 48.dp
-    val mark: @Composable (Modifier) -> Unit = { m ->
-        Icon(
-            if (selected) Icons.Filled.CheckCircle else Icons.Outlined.RadioButtonUnchecked,
-            contentDescription = null,
-            tint = if (selected) Tokens.Accent else Tokens.LineStrong,
-            modifier = m.size(dimens.icon),
-        )
-    }
-    Box(
-        modifier
-            .fillMaxWidth()
-            .heightIn(min = if (horizontal) dimens.tileRowMinHeight else dimens.tileMinHeight)
-            .clip(shape)
-            .background(if (selected) Tokens.AccentSoft else Tokens.Surface)
-            .border(if (selected) 2.dp else 1.dp, if (selected) Tokens.Accent else Tokens.LineStrong, shape)
-            .selectable(selected = selected, role = Role.RadioButton, onClick = onClick)
-            .padding(12.dp),
+    SelectableCard(
+        selected = selected,
+        onClick = onClick,
+        modifier = modifier,
+        leading = { CountryThumb(c.code, thumbSize) },
+        vertical = !horizontal,
+        minHeight = if (horizontal) dimens.tileRowMinHeight else dimens.tileMinHeight,
+        contentPadding = PaddingValues(12.dp),
     ) {
-        if (horizontal) {
-            Row(
-                Modifier.align(Alignment.CenterStart),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(12.dp),
-            ) {
-                CountryThumb(c.code, thumbSize)
-                CountryNames(c, TextAlign.Start, Modifier.weight(1f))
-                mark(Modifier)
-            }
-        } else {
-            Column(
-                Modifier.align(Alignment.Center).padding(top = 4.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(8.dp),
-            ) {
-                CountryThumb(c.code, thumbSize)
-                CountryNames(c, TextAlign.Center)
-            }
-            mark(Modifier.align(Alignment.TopEnd))
-        }
+        CountryNames(c, if (horizontal) TextAlign.Start else TextAlign.Center)
     }
 }
 

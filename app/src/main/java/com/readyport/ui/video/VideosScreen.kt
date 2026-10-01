@@ -25,7 +25,6 @@ import androidx.compose.material.icons.outlined.CalendarMonth
 import androidx.compose.material.icons.outlined.Clear
 import androidx.compose.material.icons.outlined.CloudOff
 import androidx.compose.material.icons.outlined.Groups
-import androidx.compose.material.icons.outlined.NewReleases
 import androidx.compose.material.icons.outlined.Policy
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material.icons.outlined.SearchOff
@@ -79,20 +78,20 @@ import com.readyport.ui.components.BadgeTone
 import com.readyport.ui.components.ChoiceSegments
 import com.readyport.ui.components.EmptyState
 import com.readyport.ui.components.IconBadge
+import com.readyport.ui.components.IconKeys
 import com.readyport.ui.components.KoText
 import com.readyport.ui.components.LinkRow
 import com.readyport.ui.components.ListDivider
 import com.readyport.ui.components.ListGroup
 import com.readyport.ui.components.LocalAppActions
 import com.readyport.ui.components.LocalShowBack
-import com.readyport.ui.components.NARROW_WINDOW_DP
 import com.readyport.ui.components.NoticeBanner
 import com.readyport.ui.components.OnDark
 import com.readyport.ui.components.SecondaryButton
 import com.readyport.ui.components.cardShadow
+import com.readyport.ui.components.isNarrowWindow
 import com.readyport.ui.components.minTouchSize
 import com.readyport.ui.components.textIconSize
-import com.readyport.ui.components.windowWidthDp
 import com.readyport.ui.nav.VideosRoute
 import com.readyport.ui.theme.LocalDimens
 import com.readyport.ui.theme.Tokens
@@ -182,10 +181,10 @@ fun VideosScreen(viewModel: VideosViewModel = hiltViewModel()) {
 
 // ---------------- 화면 ----------------
 
-/** 정렬 칸: 글자 + 아이콘 (DESIGN_SPEC 5.4 — 조회수 Visibility / 최신 NewReleases / 구독자 Groups) */
+/** 정렬 칸: 글자 + 아이콘 (DESIGN_SPEC 5.4 — 조회수 Visibility / 최신 CalendarMonth(재검토 R11: NewReleases는 경고처럼 읽힘) / 구독자 Groups) */
 private val SortOptions = listOf(
     Triple(VideoSort.Views, R.string.videos_sort_views, Icons.Outlined.Visibility),
-    Triple(VideoSort.Recent, R.string.videos_sort_recent, Icons.Outlined.NewReleases),
+    Triple(VideoSort.Recent, R.string.videos_sort_recent, IconKeys.sortRecent),
     Triple(VideoSort.Subscribers, R.string.videos_sort_subscribers, Icons.Outlined.Groups),
 )
 
@@ -196,7 +195,7 @@ fun VideosContent(countryKo: String, state: VideosState, onOpen: (String) -> Uni
     val showBack = LocalShowBack.current
     val goBack = LocalAppActions.current.goBack
     // 320×470 화면 예산(DESIGN_SPEC 6-07): 좁은 창에서는 제목 앞 아이콘 배지를 뺀다 — 첫 영상 카드가 스크롤 없이 보이게
-    val narrow = windowWidthDp().let { it > 0f && it < NARROW_WINDOW_DP }
+    val narrow = isNarrowWindow()
     AppScreen(
         title = stringResource(R.string.videos_title, countryKo),
         subtitle = stringResource(R.string.videos_subtitle),

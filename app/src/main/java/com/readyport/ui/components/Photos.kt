@@ -1,6 +1,9 @@
 package com.readyport.ui.components
 
 import android.content.Context
+import android.content.res.Resources
+import android.os.Build
+import android.util.LruCache
 import android.graphics.BitmapFactory
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
@@ -27,6 +30,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
+import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -38,12 +42,13 @@ import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.graphics.painter.BitmapPainter
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.platform.LocalWindowInfo
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
@@ -53,6 +58,8 @@ import androidx.compose.ui.unit.dp
 import com.readyport.R
 import com.readyport.ui.theme.LocalDimens
 import com.readyport.ui.theme.Tokens
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
@@ -106,6 +113,7 @@ fun loadPhotoCredits(context: Context): List<PhotoCredit> = runCatching {
  * 자체 바탕(PhotoChip, 검정 0.35 원형 버튼) 위에만 둔다 — 0.18 틴트만 있는 윗부분에는 글자를 두지 않는다.
  * 안에서 fillMaxWidth()를 적용한다(호출하는 쪽 modifier와 weight를 써도 폭이 잘리지 않게).
  * 크기는 [content]가 정한다 — 글자를 키우면 사진 칸도 함께 커진다.
+ * 사진은 [rememberPhoto]로 그릴 폭(창 폭 × [widthFraction], 2열 타일은 0.5)에 맞춰 줄여 백그라운드에서 디코드·캐시한다(재검토 R10).
  */
 @Composable
 fun PhotoBox(
@@ -114,10 +122,11 @@ fun PhotoBox(
     shape: Shape = MaterialTheme.shapes.large,
     minHeight: Dp = 200.dp,
     alignment: Alignment = Alignment.Center,
+    widthFraction: Float = 1f,
     content: @Composable BoxScope.() -> Unit,
 ) {
     PhotoBox(
-        painter = photo?.let { painterResource(it) },
+        painter = rememberPhotoPainter(photo, widthFraction),
         modifier = modifier,
         shape = shape,
         minHeight = minHeight,
@@ -225,7 +234,7 @@ fun PhotoHeaderCard(
     content: @Composable ColumnScope.() -> Unit,
 ) {
     PhotoHeaderCard(
-        painter = photo?.let { painterResource(it) },
+        painter = rememberPhotoPainter(photo, 1f),
         title = title,
         modifier = modifier,
         icon = icon,
@@ -301,6 +310,7 @@ fun CountryPhotoTile(
     PhotoBox(
         photo,
         minHeight = if (large) (if (dimens.easyMode) 220.dp else 200.dp) else 176.dp,
+        widthFraction = if (large) 1f else 0.5f,
         modifier = modifier
             .clickable(enabled = enabled, role = Role.Button, onClickLabel = openLabel, onClick = onClick)
             .semantics(mergeDescendants = true) {
@@ -334,21 +344,97 @@ fun CountryPhotoTile(
 }
 
 /**
- * 96dp 이하 썸네일(아바타, 사진 출처, 나라 선택)용 축소 디코딩(BitmapFactory inSampleSize) — 메모리 절약.
- * 전체 크기 사진은 화면당 히어로 한 번 + 나라 타일만.
+ * 96dp 이하 썸네일(아바타, 사진 출처, 나라 선택)용 축소 디코딩 — [rememberPhoto]와 같은 캐시·백그라운드 디코드(재검토 R10).
  */
 @Composable
 fun rememberThumbnail(@DrawableRes res: Int?, sizeDp: Dp): ImageBitmap? {
-    val resources = LocalResources.current
     val px = with(LocalDensity.current) { sizeDp.roundToPx() }.coerceAtLeast(1)
-    return remember(res, px, resources) {
-        if (res == null) return@remember null
-        runCatching {
-            val bounds = BitmapFactory.Options().apply { inJustDecodeBounds = true }
-            BitmapFactory.decodeResource(resources, res, bounds)
-            var sample = 1
-            while (bounds.outWidth / (sample * 2) >= px && bounds.outHeight / (sample * 2) >= px) sample *= 2
-            BitmapFactory.decodeResource(resources, res, BitmapFactory.Options().apply { inSampleSize = sample })?.asImageBitmap()
-        }.getOrNull()
+    return rememberPhoto(res, px, square = true)
+}
+
+/** [rememberPhoto]를 Painter로 (아직 디코드 전이면 null → 남색 바탕) */
+@Composable
+private fun rememberPhotoPainter(@DrawableRes photo: Int?, widthFraction: Float): Painter? {
+    val bitmap = rememberPhoto(photo, photoTargetPx(widthFraction)) ?: return null
+    return remember(bitmap) { BitmapPainter(bitmap) }
+}
+
+// ---------------- 사진 디코드 (재검토 R10) ----------------
+
+/**
+ * 번들 사진 디코드 캐시 (앱 전체 하나, 재검토 R10). painterResource는 컴포지션 중 메인 스레드에서 1080×675 webp를 통째로 디코드하고
+ * LazyColumn 항목이 다시 들어올 때마다 다시 디코드했다(홈 8장 ≈ 장당 2.9MB). 이제는
+ * ① 그릴 폭에 맞춰 inSampleSize로 줄여(2열 타일은 보통 1/2) ② 백그라운드(IO)에서 디코드하고 ③ (사진, 배율)별로 LruCache에 둔다.
+ * 캐시에 있으면 첫 프레임부터 바로 그린다. 디코드가 끝나기 전에는 PhotoBox 바탕(Navy)만 보인다 — 크기는 사진이 아니라 내용이 정하므로 배치가 흔들리지 않는다.
+ */
+object PhotoCache {
+    /** 최대 24MB(또는 앱 힙의 1/8 중 작은 값) — 홈 한 화면 분량의 사진이 들어간다 */
+    private val maxKb: Int = (minOf(24L * 1024 * 1024, Runtime.getRuntime().maxMemory() / 8) / 1024).toInt().coerceAtLeast(1024)
+
+    private val bitmaps = object : LruCache<Long, ImageBitmap>(maxKb) {
+        override fun sizeOf(key: Long, value: ImageBitmap): Int = (value.width * value.height * 4 / 1024).coerceAtLeast(1)
     }
+
+    /** 사진 원본 크기(헤더만 읽음 — 디코드 없음) */
+    private val bounds = HashMap<Int, IntArray>()
+
+    /**
+     * JVM 테스트(Robolectric)에서는 바로 디코드한다 — 캡처·감사가 백그라운드 디코드를 기다리지 않아 사진 대신 남색 칸이 찍히지 않게.
+     * (실기기·에뮬레이터는 언제나 백그라운드)
+     */
+    internal val decodeImmediately: Boolean = Build.FINGERPRINT == "robolectric"
+
+    private fun key(@DrawableRes res: Int, sample: Int): Long = (res.toLong() shl 8) or sample.toLong()
+
+    /**
+     * 그릴 크기에 맞는 inSampleSize (2의 거듭제곱): 결과 폭이 [targetPx] 이상, [square]면 높이도 이상(원형 썸네일로 잘라도 흐리지 않게).
+     */
+    fun sampleFor(resources: Resources, @DrawableRes res: Int, targetPx: Int, square: Boolean = false): Int {
+        val size = synchronized(bounds) {
+            bounds.getOrPut(res) {
+                val o = BitmapFactory.Options().apply { inJustDecodeBounds = true }
+                BitmapFactory.decodeResource(resources, res, o)
+                intArrayOf(o.outWidth, o.outHeight)
+            }
+        }
+        var sample = 1
+        if (targetPx > 0) while (size[0] / (sample * 2) >= targetPx && (!square || size[1] / (sample * 2) >= targetPx)) sample *= 2
+        return sample
+    }
+
+    fun cached(@DrawableRes res: Int, sample: Int): ImageBitmap? = synchronized(bitmaps) { bitmaps.get(key(res, sample)) }
+
+    /** 디코드해서 캐시에 넣는다 (어느 스레드에서나) */
+    fun load(resources: Resources, @DrawableRes res: Int, sample: Int): ImageBitmap? {
+        cached(res, sample)?.let { return it }
+        val bmp = runCatching {
+            BitmapFactory.decodeResource(resources, res, BitmapFactory.Options().apply { inSampleSize = sample })?.asImageBitmap()
+        }.getOrNull() ?: return null
+        synchronized(bitmaps) { bitmaps.put(key(res, sample), bmp) }
+        return bmp
+    }
+}
+
+/**
+ * 번들 사진을 [targetWidthPx] 폭에 맞게 줄여 디코드한 그림 (재검토 R10). 캐시에 있으면 바로, 없으면 백그라운드에서 디코드한 뒤 돌려준다
+ * (그동안 null). [targetWidthPx]가 0이면 원본 크기. [square]: 정사각형으로 잘라 쓰는 썸네일(가로·세로 모두 맞춤).
+ */
+@Composable
+fun rememberPhoto(@DrawableRes res: Int?, targetWidthPx: Int, square: Boolean = false): ImageBitmap? {
+    if (res == null) return null
+    val resources = LocalResources.current
+    val sample = remember(res, targetWidthPx, square, resources) { PhotoCache.sampleFor(resources, res, targetWidthPx, square) }
+    PhotoCache.cached(res, sample)?.let { return it }
+    if (PhotoCache.decodeImmediately) return remember(res, sample, resources) { PhotoCache.load(resources, res, sample) }
+    val state = produceState<ImageBitmap?>(initialValue = null, res, sample, resources) {
+        value = withContext(Dispatchers.IO) { PhotoCache.load(resources, res, sample) }
+    }
+    return state.value
+}
+
+/** 창 폭 × [fraction](px) — 사진을 그릴 대략의 폭 (2열 타일 0.5) */
+@Composable
+private fun photoTargetPx(fraction: Float): Int {
+    val widthPx = LocalWindowInfo.current.containerSize.width
+    return (widthPx * fraction).toInt()
 }

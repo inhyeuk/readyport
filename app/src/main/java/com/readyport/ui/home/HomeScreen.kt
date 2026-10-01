@@ -5,14 +5,9 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.FlowRow
-import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
@@ -21,17 +16,15 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.FactCheck
-import androidx.compose.material.icons.automirrored.outlined.NavigateNext
 import androidx.compose.material.icons.outlined.Approval
-import androidx.compose.material.icons.outlined.Backpack
 import androidx.compose.material.icons.outlined.Badge
 import androidx.compose.material.icons.outlined.BatteryChargingFull
-import androidx.compose.material.icons.outlined.Checklist
 import androidx.compose.material.icons.outlined.EditNote
 import androidx.compose.material.icons.outlined.ElectricBolt
 import androidx.compose.material.icons.outlined.EventAvailable
 import androidx.compose.material.icons.outlined.FlightTakeoff
 import androidx.compose.material.icons.outlined.HowToReg
+import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.LocalAirport
 import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material.icons.outlined.Luggage
@@ -40,17 +33,14 @@ import androidx.compose.material.icons.outlined.OfflinePin
 import androidx.compose.material.icons.outlined.Power
 import androidx.compose.material.icons.outlined.Schedule
 import androidx.compose.material.icons.outlined.Security
-import androidx.compose.material.icons.outlined.Sos
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -60,12 +50,8 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.heading
-import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.text.rememberTextMeasurer
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
@@ -86,15 +72,16 @@ import com.readyport.ui.components.ButtonStyles
 import com.readyport.ui.components.CardNewsCard
 import com.readyport.ui.components.ChipSpec
 import com.readyport.ui.components.CountryPhotoTile
-import com.readyport.ui.components.Fact
-import com.readyport.ui.components.FactChip
+import com.readyport.ui.components.FitText
+import com.readyport.ui.components.HelpShortcutRow
 import com.readyport.ui.components.IconBadge
+import com.readyport.ui.components.IconBullet
+import com.readyport.ui.components.IconKeys
+import com.readyport.ui.components.InfoChip
 import com.readyport.ui.components.KoText
-import com.readyport.ui.components.LARGE_FONT_SCALE
 import com.readyport.ui.components.NewsStyle
 import com.readyport.ui.components.OnDark
 import com.readyport.ui.components.PhotoBox
-import com.readyport.ui.components.PhotoChip
 import com.readyport.ui.components.PhotoHeaderCard
 import com.readyport.ui.components.PhotoTextArea
 import com.readyport.ui.components.Photos
@@ -105,10 +92,9 @@ import com.readyport.ui.components.SourceList
 import com.readyport.ui.components.SourceRef
 import com.readyport.ui.components.Step
 import com.readyport.ui.components.StepList
-import com.readyport.ui.components.cardShadow
 import com.readyport.ui.components.displayDate
+import com.readyport.ui.components.isStackedLayout
 import com.readyport.ui.components.keepWords
-import com.readyport.ui.components.largeFont
 import com.readyport.ui.components.noBreak
 import com.readyport.ui.components.rememberGridColumns
 import com.readyport.ui.components.rememberThumbnail
@@ -213,9 +199,11 @@ fun HomeScreen(actions: HomeActions, viewModel: HomeViewModel = hiltViewModel())
 /**
  * 홈 (DESIGN_SPEC 6-01·6-02): 사진 히어로(신뢰 칩 3개) → (여행 있으면) 출발까지 카드 → 나라 사진 타일(큰 1장 + 2열) + 출처
  * → 여행 준비 기본 정보(출국 순서 · 꼭 챙길 물건 · 귀국 전 확인 요약) → 여권 등록 → 급할 때는 도움.
- * 신뢰 칩은 어느 모드에서나 히어로 안(처음 5초 안에 보이게, 1.1 ⑤). 1열(쉬운 모드·큰 글자)에서는 히어로 소개 문장 대신
- * 신뢰 칩을 둔다 — 히어로가 길어져 첫 화면에서 나라 사진이 밀려나지 않게(6장 첫 화면 예산, HomeFirstScreenTest).
- * 글자가 크면(130% 이상) 공용 부품이 장식 아이콘(출국 단계 앞)을 빼고 사진 머리 아이콘은 제목 첫 줄에 맞춘다.
+ * 신뢰 표시는 어느 모드에서나 히어로 안(처음 5초 안에 보이게, 1.1 ⑤) — 누를 수 없는 InfoChip(채움 없음, 재검토 R1).
+ * 소개 문장도 어느 모드에서나 보인다(재검토 R5 — 쉬운 모드·큰 글자에서 내용을 숨기지 않는다): 2열은 히어로 안,
+ * 1열(쉬운 모드·큰 글자)은 나라 사진 목록 바로 아래 안내 줄로 자리만 옮긴다 — 히어로가 길어져 첫 화면에서 나라 사진이 밀려나지 않게
+ * (6장 첫 화면 예산, HomeFirstScreenTest. 최종 배치는 B 묶음 R13 홈 첫인상에서 가치 문장과 함께 정한다).
+ * 큰 글자 배치에서는 공용 부품이 출국 단계 아이콘을 글 첫 줄 안으로 옮기고 사진 머리 아이콘은 제목 첫 줄에 맞춘다.
  */
 @Composable
 fun HomeContent(ui: HomeUi, actions: HomeActions, today: LocalDate = LocalDate.now()) {
@@ -225,12 +213,11 @@ fun HomeContent(ui: HomeUi, actions: HomeActions, today: LocalDate = LocalDate.n
     val featured = ui.countries.firstOrNull { it.code == ui.trip?.code } ?: ui.countries.firstOrNull()
     val others = ui.countries.filter { it.code != featured?.code }
     // 칩에 쓴 입국 조건(정책 값)의 출처 — 칩이 출처 없이 보이지 않게 그리드 바로 아래에 (원칙 5).
-    // 나라 이름이 `태/국`, `말레이시/아`처럼 꺾이지 않게 이름 안에서는 어절 단위로만 줄을 바꾼다(API 33 미만)
-    val countrySources = compactSourceRefs(
-        ui.countries.mapNotNull { c ->
-            c.visa?.let { v -> SourceRef(c.sourceName?.takeIf { it.isNotBlank() } ?: fallback, displayDate(v.lastVerified)) }
-        },
-    ).map { it.copy(name = keepWords(it.name)) }
+    // 같은 기관(`외교부 해외안전여행 · 태국`, `… · 일본`)은 공용 SourceList가 한 줄로 묶는다(재검토 R9 — `외교부 해외안전여행 · 태국, 일본`).
+    // 이름 안 줄바꿈(어절 단위)은 SourceFooter가 한다
+    val countrySources = ui.countries.mapNotNull { c ->
+        c.visa?.let { v -> SourceRef(c.sourceName?.takeIf { it.isNotBlank() } ?: fallback, displayDate(v.lastVerified)) }
+    }
     AppScreen(
         title = stringResource(R.string.home_title),
         speech = stringResource(R.string.home_speech),
@@ -257,6 +244,10 @@ fun HomeContent(ui: HomeUi, actions: HomeActions, today: LocalDate = LocalDate.n
         if (countrySources.isNotEmpty()) {
             item(key = "countries-sources") { Box(Modifier.padding(horizontal = 4.dp)) { SourceList(countrySources) } }
         }
+        if (columns == 1) {
+            // 1열: 히어로 소개 문장을 숨기지 않고 나라 목록 아래로 옮긴다 (재검토 R5)
+            item(key = "intro") { IconBullet(stringResource(R.string.home_subtitle), Icons.Outlined.Info) }
+        }
 
         sectionGap("basics-gap")
         item(key = "basics-title") { SectionHeader(stringResource(R.string.home_basics_title)) }
@@ -282,16 +273,17 @@ fun HomeContent(ui: HomeUi, actions: HomeActions, today: LocalDate = LocalDate.n
                 )
             }
         }
-        item(key = "help") { HelpShortcut(actions.openHelp) }
+        item(key = "help") { HelpShortcutRow(actions.openHelp) }
     }
 }
 
 /**
- * 맨 위 사진 머리글: 앱 심볼·이름 + "어디로 떠나세요?"(heading) + 한 줄 소개(2열만) + 신뢰 칩 3개
+ * 맨 위 사진 머리글: 앱 심볼·이름 + "어디로 떠나세요?"(heading) + 한 줄 소개 + 신뢰 표시 3개
  * (공식 출처만 · 폰에만 저장 · 인터넷 없이도 — 처음 5초 안에 보이게, DESIGN_SPEC 1.1 ⑤).
- * 사진 위 글자·칩은 모두 스크림 글자 영역(PhotoTextArea) 안.
- * - 2열: 글 영역이 길어 최소 높이를 280dp로 잡아 글 위로 사진(하늘)이 보이게 한다(스펙 200dp — BUNDLE_A_NOTES ③).
- * - 1열(쉬운 모드·큰 글자): 소개 문장을 빼고 칩만 둔다. 최소 높이 160dp(6-00의 200% 히어로와 같은 값).
+ * 사진 위 글자·표시는 모두 스크림 글자 영역(PhotoTextArea) 안.
+ * - 신뢰 표시는 누를 수 없으므로 버튼처럼 보이는 상자 없이 아이콘 + 글자(InfoChip onDark)로 한 줄에 흐르게 둔다(재검토 R1).
+ * - 소개 문장은 2열에서 여기, 1열에서는 나라 목록 아래(HomeContent — 숨기지 않고 자리만 옮김, 재검토 R5).
+ *   2열은 글 위로 사진(하늘)이 보이게 최소 높이 280dp, 1열은 160dp.
  */
 @Composable
 private fun HomeHero(singleColumn: Boolean) {
@@ -323,73 +315,21 @@ private fun HomeHero(singleColumn: Boolean) {
     }
 }
 
-/** 신뢰 칩 줄의 배치: 같은 폭 3칸(한 줄 글자 / 어절마다 한 줄) 또는 칸에 안 들어가면 PhotoChip 흐름 */
-private enum class TrustFit { OneLine, WordPerLine, Chips }
-
-private val TrustGap = 8.dp
-private val TrustCellPadding = 4.dp
-
 /**
- * 신뢰 칩 3개 (흰 92% 사진 칩 바탕 + Ink, 누를 수 없음). 칩 3개가 2+1로 접혀 균형이 깨지지 않게
- * **같은 폭 3칸(아이콘 위 글자)** 으로 둔다. 칸 폭은 실제 글자 폭으로 고른다(글자 크기·화면 폭과 무관):
- * 세 라벨이 칸에 한 줄로 들어가면 한 줄, 아니면 세 라벨 모두 어절마다 줄을 바꿔 높이를 맞추고,
- * 어절 하나도 칸에 안 들어가면(200% 등) PhotoChip을 흐름으로 놓아 한 줄에 하나씩 쌓는다.
+ * 신뢰 표시 3개 (누를 수 없음): 상자·채움 없이 아이콘 + 글자(InfoChip, onDark)를 한 줄에 흐르게 놓는다 —
+ * 들어가지 않으면 다음 줄로(큰 글자에서도 잘리지 않음). TalkBack은 표시마다 글자 한 번.
  */
 @Composable
 private fun TrustStrip(modifier: Modifier = Modifier) {
-    val items = listOf(
-        Icons.AutoMirrored.Outlined.FactCheck to stringResource(R.string.trust_official),
-        Icons.Outlined.Lock to stringResource(R.string.trust_local),
-        Icons.Outlined.OfflinePin to stringResource(R.string.trust_offline),
-    )
-    val style = MaterialTheme.typography.labelMedium
-    val measurer = rememberTextMeasurer()
-    val density = LocalDensity.current
-    BoxWithConstraints(modifier.fillMaxWidth()) {
-        val cellPx = with(density) { ((maxWidth - TrustGap * 2) / 3 - TrustCellPadding * 2).roundToPx() }
-        val labels = items.map { it.second }
-        val fit = remember(cellPx, labels, style, measurer) {
-            fun fits(s: String) = measurer.measure(s, style, softWrap = false, maxLines = 1).size.width <= cellPx
-            when {
-                labels.all(::fits) -> TrustFit.OneLine
-                labels.all { label -> label.split(' ').all(::fits) } -> TrustFit.WordPerLine
-                else -> TrustFit.Chips
-            }
-        }
-        if (fit == TrustFit.Chips) {
-            FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
-                items.forEach { (icon, text) -> PhotoChip(text, icon) }
-            }
-        } else {
-            Row(Modifier.fillMaxWidth().height(IntrinsicSize.Min), horizontalArrangement = Arrangement.spacedBy(TrustGap)) {
-                items.forEach { (icon, text) ->
-                    TrustCell(
-                        icon = icon,
-                        text = if (fit == TrustFit.WordPerLine) text.replace(' ', '\n') else text,
-                        modifier = Modifier.weight(1f).fillMaxHeight(),
-                    )
-                }
-            }
-        }
-    }
-}
-
-/** 신뢰 칩 한 칸: 사진 칩 바탕(흰 92%) 위 아이콘(20/24dp) + 라벨(labelMedium, 가운데). TalkBack은 라벨 한 번 */
-@Composable
-private fun TrustCell(icon: ImageVector, text: String, modifier: Modifier = Modifier) {
-    val dimens = LocalDimens.current
-    Surface(color = Tokens.PhotoChipBg, contentColor = Tokens.Ink, shape = MaterialTheme.shapes.small, modifier = modifier) {
-        Column(
-            Modifier
-                .fillMaxSize()
-                .padding(horizontal = TrustCellPadding, vertical = 8.dp)
-                .semantics(mergeDescendants = true) {},
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(4.dp, Alignment.CenterVertically),
-        ) {
-            Icon(icon, contentDescription = null, modifier = Modifier.size(dimens.iconSmall + 4.dp))
-            Text(text, style = MaterialTheme.typography.labelMedium, textAlign = TextAlign.Center)
-        }
+    FlowRow(
+        modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.spacedBy(16.dp),
+        verticalArrangement = Arrangement.spacedBy(6.dp),
+    ) {
+        val style = MaterialTheme.typography.labelMedium
+        InfoChip(stringResource(R.string.trust_official), Icons.AutoMirrored.Outlined.FactCheck, onDark = true, textStyle = style)
+        InfoChip(stringResource(R.string.trust_local), Icons.Outlined.Lock, onDark = true, textStyle = style)
+        InfoChip(stringResource(R.string.trust_offline), Icons.Outlined.OfflinePin, onDark = true, textStyle = style)
     }
 }
 
@@ -465,22 +405,23 @@ private fun DepartureCard() {
 }
 
 /**
- * 꼭 챙길 물건: 짐 사진 머리 + 주제 칩 3개(이름만 — 값 없음) + 진행(있을 때) + 준비물 확인 버튼.
- * 진행 줄은 큰 숫자 `n / 5`와 설명을 글자 기준선에 맞춰 한 줄로, 글자가 크면 큰 숫자를 설명 위로 쌓는다.
+ * 꼭 챙길 물건: 짐 사진 머리 + 주제 3개(이름만 — 값 없음, 누를 수 없는 InfoChip — 재검토 R1) + 진행(있을 때) + 준비물 확인 버튼.
+ * 진행 줄은 큰 숫자 `n / 5`와 설명을 글자 기준선에 맞춰 한 줄로, 큰 글자 배치에서는 큰 숫자를 설명 위로 쌓는다.
+ * 아이콘은 '꼭 챙길 물건' 개념 하나(IconKeys.essentials — 홈·여행 준비·꼭 챙길 물건 화면 공통, 재검토 R11).
  */
 @Composable
 private fun EssentialsCard(summary: EssentialsSummary, onOpen: () -> Unit) {
     val dimens = LocalDimens.current
-    val large = largeFont()
+    val large = isStackedLayout()
     PhotoHeaderCard(
         Photos.Packing,
         stringResource(R.string.prepare_items_title),
-        icon = Icons.Outlined.Backpack,
+        icon = IconKeys.essentials,
     ) {
-        FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            FactChip(Fact(Icons.Outlined.Power, stringResource(R.string.home_items_plug), ""))
-            FactChip(Fact(Icons.Outlined.ElectricBolt, stringResource(R.string.home_items_voltage), ""))
-            FactChip(Fact(Icons.Outlined.BatteryChargingFull, stringResource(R.string.home_items_powerbank), ""))
+        FlowRow(horizontalArrangement = Arrangement.spacedBy(16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+            InfoChip(stringResource(R.string.home_items_plug), Icons.Outlined.Power, tone = BadgeTone.Accent)
+            InfoChip(stringResource(R.string.home_items_voltage), Icons.Outlined.ElectricBolt, tone = BadgeTone.Accent)
+            InfoChip(stringResource(R.string.home_items_powerbank), Icons.Outlined.BatteryChargingFull, tone = BadgeTone.Accent)
         }
         if (summary.total > 0) {
             Column(Modifier.semantics(mergeDescendants = true) {}, verticalArrangement = Arrangement.spacedBy(dimens.inner)) {
@@ -510,20 +451,20 @@ private fun EssentialsCard(summary: EssentialsSummary, onOpen: () -> Unit) {
                 )
             }
         }
-        PrimaryButton(stringResource(R.string.home_essentials_open), onClick = onOpen, icon = Icons.Outlined.Checklist)
+        PrimaryButton(stringResource(R.string.home_essentials_open), onClick = onOpen, icon = IconKeys.essentials)
     }
 }
 
 /**
  * 02 내 여행 요약 (DESIGN_SPEC 6-02): Accent 채움 카드 — 나라 사진 원형 썸네일(장식) + eyebrow `내 여행 · 태국`(White85)
  * + 출발까지 큰 숫자(stat) + 날짜 한 줄 + 흰 주 버튼. 어두운 채움 위라 onDark 내용 세트만 쓴다(D18).
- * 글자를 크게 키우면 썸네일을 글 위로 올려 큰 숫자가 좁은 칸에서 쪼개지지 않게 한다.
+ * 큰 글자 배치에서는 썸네일을 글 위로 올리고, 큰 숫자는 칸 폭에 맞춰 한 줄에 들어가는 크기(stat → statSmall)로 그린다(FitText, 재검토 R5·R6).
  */
 @Composable
 private fun TripCountdownCard(trip: HomeTrip, today: LocalDate, onOpen: () -> Unit) {
     val dimens = LocalDimens.current
     val extras = LocalTypeExtras.current
-    val fontScale = LocalDensity.current.fontScale
+    val stacked = isStackedLayout()
     val days = ChronoUnit.DAYS.between(today, trip.startDate).toInt()
     val status = when {
         days > 0 -> stringResource(R.string.home_trip_days, days)
@@ -536,11 +477,12 @@ private fun TripCountdownCard(trip: HomeTrip, today: LocalDate, onOpen: () -> Un
     val head: @Composable () -> Unit = {
         Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
             Text(stringResource(R.string.home_trip_label, trip.countryKo), style = MaterialTheme.typography.labelMedium, color = OnDark.eyebrow)
-            Text(
+            FitText(
                 status,
-                style = if (fontScale >= 1.5f) extras.statSmall else extras.stat,
+                styles = listOf(extras.stat, extras.statSmall),
                 color = OnDark.content,
                 modifier = Modifier.semantics { heading() },
+                breakChars = " ",
             )
         }
     }
@@ -551,7 +493,7 @@ private fun TripCountdownCard(trip: HomeTrip, today: LocalDate, onOpen: () -> Un
         modifier = Modifier.fillMaxWidth(),
     ) {
         Column(Modifier.padding(dimens.cardPadding), verticalArrangement = Arrangement.spacedBy(dimens.inner + 4.dp)) {
-            if (fontScale >= LARGE_FONT_SCALE) {
+            if (stacked) {
                 TripThumbnail(trip.code)
                 head()
             } else {
@@ -579,83 +521,6 @@ private fun TripCountdownCard(trip: HomeTrip, today: LocalDate, onOpen: () -> Un
         }
     }
 }
-
-/**
- * '급할 때는 도움' 바로가기 (6-01 ⑩): 누를 수 있는 흰 카드 — 그림자 + 오른쪽 셰브론 단서(3.5).
- * 안쪽 여백은 위 카드들과 같은 cardPadding(20/24)이라 SOS 배지가 카드 내용 시작선에 맞는다.
- * 스펙의 OfflinePin 칩(`help_offline_badge`)은 바로 위 설명(`인터넷이 없어도 볼 수 있어요`)과 같은 말이라 뺐다(BUNDLE_A_NOTES ④).
- * 글자가 크면 배지를 제목 위 줄로 올리고 셰브론은 그 줄 끝에 둔다 — 글 칸이 카드 폭 전체를 쓴다.
- * 카드 전체가 하나의 버튼이고 이름은 제목 + 설명이다.
- */
-@Composable
-private fun HelpShortcut(onClick: () -> Unit) {
-    val dimens = LocalDimens.current
-    val shape = MaterialTheme.shapes.large
-    val stacked = LocalDensity.current.fontScale >= LARGE_FONT_SCALE
-    Card(
-        onClick = onClick,
-        shape = shape,
-        colors = CardDefaults.cardColors(containerColor = Tokens.Surface, contentColor = Tokens.Ink),
-        elevation = CardDefaults.cardElevation(0.dp),
-        modifier = Modifier
-            .fillMaxWidth()
-            .cardShadow(shape)
-            .semantics { role = Role.Button },
-    ) {
-        val texts: @Composable (Modifier) -> Unit = { m ->
-            Column(m, verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                KoText(stringResource(R.string.help_shortcut_title), style = MaterialTheme.typography.titleMedium, color = Tokens.Ink)
-                KoText(stringResource(R.string.today_help_body), style = MaterialTheme.typography.bodyMedium, color = Tokens.InkSecondary)
-            }
-        }
-        val chevron: @Composable (Modifier) -> Unit = { m ->
-            Icon(Icons.AutoMirrored.Outlined.NavigateNext, contentDescription = null, tint = Tokens.InkTertiary, modifier = m)
-        }
-        if (stacked) {
-            Column(
-                Modifier.heightIn(min = dimens.listRowMinHeight).padding(dimens.cardPadding),
-                verticalArrangement = Arrangement.spacedBy(dimens.inner),
-            ) {
-                Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-                    IconBadge(Icons.Outlined.Sos, tone = BadgeTone.Help)
-                    Spacer(Modifier.weight(1f))
-                    chevron(Modifier)
-                }
-                texts(Modifier)
-            }
-        } else {
-            Row(
-                Modifier.heightIn(min = dimens.listRowMinHeight).padding(dimens.cardPadding),
-                verticalAlignment = Alignment.Top,
-                horizontalArrangement = Arrangement.spacedBy(16.dp),
-            ) {
-                IconBadge(Icons.Outlined.Sos, tone = BadgeTone.Help)
-                texts(Modifier.weight(1f))
-                chevron(Modifier.align(Alignment.CenterVertically))
-            }
-        }
-    }
-}
-
-/**
- * 같은 날짜에 확인한 출처 이름이 앞부분(마지막 ` · ` 앞)까지 같으면 앞부분을 한 번만 쓴다:
- * `외교부 해외안전여행 · 태국`, `외교부 해외안전여행 · 일본` → `외교부 해외안전여행 · 태국, 일본`.
- * 이름을 바꾸거나 지어내지 않고 겹치는 앞부분만 줄인다. 앞부분이 다르거나 하나뿐이면 그대로 둔다(SourceList가 묶음).
- * 스펙 4.5(전체 이름을 `, `로 잇기)와 다르다 — 운영자 확인 항목(BUNDLE_A_NOTES ①).
- */
-internal fun compactSourceRefs(refs: List<SourceRef>): List<SourceRef> =
-    refs.groupBy { it.verified }.flatMap { (date, group) ->
-        val names = group.map { it.name }.distinct()
-        val heads = names.map { it.substringBeforeLast(SOURCE_PART, missingDelimiterValue = "") }
-        val head = heads.first()
-        if (names.size >= 2 && head.isNotEmpty() && heads.all { it == head }) {
-            listOf(SourceRef(head + SOURCE_PART + names.joinToString(", ") { it.substringAfterLast(SOURCE_PART) }, date))
-        } else {
-            group.distinct()
-        }
-    }
-
-private const val SOURCE_PART = " · "
 
 /** 여행 나라 사진 원형 썸네일(장식, 축소 디코딩). 사진이 없으면 비행기 아이콘 배지 */
 @Composable

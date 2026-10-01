@@ -1,6 +1,10 @@
 package com.readyport.ui.components
 
 import android.os.Build
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.text.InlineTextContent
+import androidx.compose.foundation.text.appendInlineContent
+import androidx.compose.material3.Icon
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -9,6 +13,7 @@ import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.semantics.contentDescription
@@ -16,12 +21,16 @@ import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.text
 import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.Placeholder
+import androidx.compose.ui.text.PlaceholderVerticalAlign
 import androidx.compose.ui.text.TextLayoutResult
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.em
 
 // ======================= 한국어 줄바꿈 (DESIGN_SPEC 3.2 보완 — 2단계 통합) =======================
 // 1단계 묶음이 따로 만들었던 보정(A·C·F keepWords, B koreanPhraseWrap, D keepAll, E KoBreak)을 하나로 합친 것.
@@ -264,20 +273,40 @@ fun Modifier.koDescription(original: String, shown: String): Modifier =
     if (shown == original) this else semantics { contentDescription = original }
 
 // ---------------- 큰 글자 ----------------
+// 큰 글자 배치 판정(예전 largeFont()·hugeFont())은 Layout.kt의 rememberLayoutInfo() 한 곳으로 옮겼다 (재검토 R5).
 
-/** 시스템 글자 크기 130% 이상: 배지·끝 요소 옆 좁은 칸 대신 제목·설명에 폭 전체를 준다 */
-const val LARGE_FONT_SCALE = 1.3f
-
-/** 150% 이상: 사진·견본처럼 고정 폭 요소를 글 위로 올린다 */
-const val HUGE_FONT_SCALE = 1.5f
-
+/**
+ * 글 첫 줄 맨 앞에 아이콘을 글자처럼 넣은 Text (큰 글자 배치에서 아이콘 열이 글 폭을 뺏지 않게 — 아이콘을 빼지 않고 자리만 바꾼다).
+ * 보이는 글자는 [koDisplay] 보정, 의미 글자(TalkBack·테스트)는 [text] 원문. 아이콘은 장식(설명 없음).
+ */
 @Composable
-@ReadOnlyComposable
-fun largeFont(): Boolean = LocalDensity.current.fontScale >= LARGE_FONT_SCALE
+fun LeadIconText(
+    text: String,
+    icon: ImageVector,
+    style: TextStyle,
+    color: Color,
+    iconTint: Color,
+    modifier: Modifier = Modifier,
+) {
+    val shown = remember(text) { koDisplay(text) }
+    Text(
+        buildAnnotatedString {
+            appendInlineContent(LEAD_ICON, "[i]")
+            append(' ')
+            append(shown)
+        },
+        modifier = modifier.semantics { this.text = AnnotatedString(text) },
+        style = style,
+        color = color,
+        inlineContent = mapOf(
+            LEAD_ICON to InlineTextContent(Placeholder(1.1.em, 1.1.em, PlaceholderVerticalAlign.TextCenter)) {
+                Icon(icon, contentDescription = null, tint = iconTint, modifier = Modifier.fillMaxSize())
+            },
+        ),
+    )
+}
 
-@Composable
-@ReadOnlyComposable
-fun hugeFont(): Boolean = LocalDensity.current.fontScale >= HUGE_FONT_SCALE
+private const val LEAD_ICON = "lead-icon"
 
 /** 글자 옆 아이콘이 글자를 따라 커지는 최대 배율 */
 private const val MAX_TEXT_ICON_SCALE = 1.5f

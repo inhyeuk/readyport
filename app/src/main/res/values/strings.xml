@@ -18,7 +18,7 @@
     <string name="action_listen">소리로 듣기</string>
     <string name="action_back">이전 화면으로</string>
     <string name="coming_soon">준비 중이에요</string>
-    <string name="source_footer">출처 %1$s\u00A0· 최\u2060종\u00A0확\u2060인 %2$s</string>
+    <string name="source_footer">출처 %1$s\u00A0· 최\u2060종\u00A0확\u2060인\u00A0%2$s</string>
 
     <!-- 첫 실행 -->
     <string name="first_run_title">해외여행이 처음이세요?</string>

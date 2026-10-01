@@ -113,14 +113,14 @@ fun SecurityBanner(modifier: Modifier = Modifier, compact: Boolean = false) {
             Row(
                 Modifier.padding(horizontal = 16.dp, vertical = 12.dp),
                 // 큰 글자로 여러 줄이 되면 자물쇠를 첫 줄에 맞춘다
-                verticalAlignment = if (largeFont()) Alignment.Top else Alignment.CenterVertically,
+                verticalAlignment = if (isStackedLayout()) Alignment.Top else Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(12.dp),
             ) {
                 Icon(
                     Icons.Outlined.Lock,
                     contentDescription = null,
                     tint = Tokens.Surface,
-                    modifier = Modifier.padding(top = if (largeFont()) firstLineIconOffset(style, iconSize) else 0.dp).size(iconSize),
+                    modifier = Modifier.padding(top = if (isStackedLayout()) firstLineIconOffset(style, iconSize) else 0.dp).size(iconSize),
                 )
                 KoText(title, style, Modifier.weight(1f), color = Tokens.Surface, glueShort = true)
             }
@@ -130,7 +130,7 @@ fun SecurityBanner(modifier: Modifier = Modifier, compact: Boolean = false) {
             Column(Modifier.padding(dimens.cardPadding), verticalArrangement = Arrangement.spacedBy(dimens.inner)) {
                 BadgeTitleLayout(
                     badge = { IconBadge(Icons.Outlined.Lock, tone = BadgeTone.OnDark, shape = CircleShape) },
-                    stack = largeFont(),
+                    stack = isStackedLayout(),
                     gap = 12.dp,
                     title = { KoText(title, MaterialTheme.typography.titleLarge, color = Tokens.Surface, glueShort = true) },
                 )
