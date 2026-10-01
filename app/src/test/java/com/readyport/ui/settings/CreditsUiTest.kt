@@ -132,4 +132,12 @@ class CreditsUiTest {
         rule.onNodeWithText(s(R.string.settings_credits)).performClick()
         assertEquals(1, photos)
     }
+
+    /** 개인정보 안내 설명은 맨 위 약속과 같은 '휴대폰'으로 ('이 기기 안에서만' 대신 — 재검토 R18) */
+    @Test
+    fun privacyRowSaysPhoneLikeThePromise() {
+        rule.setContent { ReadyPortTheme { SettingsScreen(easyMode = false, onEasyModeChange = {}) } }
+        rule.onNode(hasScrollAction()).performScrollToNode(hasText(s(R.string.settings_privacy_body_v2)))
+        rule.onAllNodesWithText(s(R.string.settings_privacy_body)).assertCountEquals(0)
+    }
 }

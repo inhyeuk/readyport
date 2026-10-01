@@ -12,6 +12,7 @@ import androidx.compose.ui.test.isDialog
 import androidx.compose.ui.test.junit4.v2.createAndroidComposeRule
 import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onNodeWithText
+import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollToNode
 import androidx.test.core.app.ApplicationProvider
@@ -39,7 +40,7 @@ class PresentUiTest {
     val rule = createAndroidComposeRule<ComponentActivity>()
 
     private val context: Context = ApplicationProvider.getApplicationContext()
-    private fun s(@StringRes id: Int) = context.getString(id)
+    private fun s(@StringRes id: Int, vararg args: Any) = context.getString(id, *args)
 
     private fun shown(text: String) {
         rule.onNode(hasScrollAction()).performScrollToNode(hasText(text))
@@ -84,7 +85,13 @@ class PresentUiTest {
         shown(s(R.string.present_image_missing))
         shown("TDAC-0000")
         shown("L••••••C3")
+        // '다른 폰으로 보내기' 대신 누가·무엇이·어디로 가는지 그대로 (재검토 R18 — '이 휴대폰에만' 약속과 부딪히지 않게)
+        shown(s(R.string.present_share_family))
+        shown(s(R.string.present_share_note))
+        rule.onAllNodesWithText(s(R.string.present_share)).assertCountEquals(0)
+        // 지우기는 맨 아래 관리 줄 — TalkBack은 서류 이름과 함께 읽는다
         shown(s(R.string.present_delete))
+        rule.onNodeWithContentDescription(s(R.string.delete_named_cd, "태국 입국 카드 (TDAC)")).assertExists()
         rule.onNodeWithText(s(R.string.present_delete)).performClick()
         assertEquals(null, deleted)
         rule.onNodeWithText(s(R.string.present_delete_confirm_title)).assertIsDisplayed()
@@ -125,7 +132,9 @@ class PresentUiTest {
         rule.onNodeWithText(s(R.string.companion_passport_add)).performClick()
         assertEquals("c1", register)
 
-        rule.onAllNodesWithText(s(R.string.companion_delete))[0].performClick()
+        // 사람마다의 지우기는 TalkBack에서 누구를 지우는지 함께 읽는다 (재검토 R18)
+        rule.onNodeWithContentDescription(s(R.string.delete_named_cd, "어머니")).assertExists()
+        rule.onNodeWithContentDescription(s(R.string.delete_named_cd, "첫째")).performClick()
         assertEquals(null, deleted)
         rule.onNodeWithText(s(R.string.companion_delete_confirm_title)).assertIsDisplayed()
         // 대화상자에는 이름을 넣지 않는다
@@ -155,5 +164,26 @@ class PresentUiTest {
         rule.onNodeWithText(s(R.string.wallet_unlock)).performClick()
         assertTrue(unlocked)
         rule.onAllNodesWithText(s(R.string.companion_add)).assertCountEquals(0)
+    }
+
+    /** 서류가 둘 이상이면 맨 아래 지우기 버튼마다 서류 이름이 보인다(어느 것을 지우는지) */
+    @Test
+    fun severalDocsNameTheirDeleteButtons() {
+        val other = doc.copy(id = "d2", formId = "OTHER", confirmationNo = null)
+        rule.setContent {
+            ReadyPortTheme {
+                PresentContent(
+                    PresentUi(
+                        locked = false,
+                        travelers = listOf(Traveler("self", s(R.string.present_self))),
+                        docs = listOf(DocView(doc, "태국 입국 카드 (TDAC)", null, null, null), DocView(other, "건강 신고서", null, null, null)),
+                    ),
+                    {}, {}, {}, {},
+                )
+            }
+        }
+        shown(s(R.string.present_delete_named, "태국 입국 카드 (TDAC)"))
+        shown(s(R.string.present_delete_named, "건강 신고서"))
+        rule.onAllNodesWithText(s(R.string.present_delete)).assertCountEquals(0)
     }
 }

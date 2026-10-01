@@ -172,7 +172,8 @@ fun SettingsScreen(
                 SettingRow(
                     stringResource(R.string.settings_privacy),
                     icon = Icons.Outlined.PrivacyTip,
-                    body = stringResource(R.string.settings_privacy_body),
+                    // '기기' 대신 맨 위 약속과 같은 '휴대폰' (재검토 R18)
+                    body = stringResource(R.string.settings_privacy_body_v2),
                     trailing = RowTrailing.None,
                 )
                 // Play 정책: 개인정보처리방침은 스토어와 앱 안 모두에서 볼 수 있어야 한다 — 무엇이 열리는지 글자로 보이는 링크 줄

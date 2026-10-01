@@ -84,9 +84,14 @@ import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.OffsetMapping
+import androidx.compose.ui.text.input.TransformedText
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
@@ -127,18 +132,22 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 import java.util.concurrent.Executors
 
-private val PassportSteps = listOf(R.string.passport_step_scan, R.string.passport_step_chip, R.string.passport_step_confirm)
+/**
+ * 지금 쓸 수 있는 단계만 그린다: 촬영 → 값 확인. 전자여권 칩 확인(NFC)은 아직 없어서 단계로 그리지 않고
+ * 값 확인 화면 맨 아래 '곧 추가돼요'에만 둔다 — 쓸 수 없는 단계를 약속하지 않는다(재검토 R18).
+ */
+private val PassportSteps = listOf(R.string.passport_step_scan, R.string.passport_step_confirm)
 private val PassportStepIcons: List<ImageVector> = listOf(
     Icons.Outlined.PhotoCamera,
-    Icons.Outlined.Nfc,
     Icons.AutoMirrored.Outlined.FactCheck,
 )
 
-/** 칩 확인(선택) 단계 — NFC는 아직 준비 중이라 지나가도 '완료'로 그리지 않는다 */
-private const val OptionalChipStep = 1
+/** 단계 번호 (0부터) */
+private const val StepScan = 0
+private const val StepConfirm = 1
 
 /**
- * 단계 표시: 촬영 → 칩 확인(선택) → 값 확인 (PRD 5.5, DESIGN_SPEC 6-25).
+ * 단계 표시: 촬영 → 값 확인 (PRD 5.5, DESIGN_SPEC 6-25, 재검토 R18).
  * 누를 수 없는 아이콘 스텝퍼 — 지난 단계 Accent 채움 + Check, 지금 Accent 채움 + 단계 아이콘, 다음 흰 원 + LineStrong 테두리.
  * 아이콘 아래 단계 이름 글자를 그대로 두고(원칙 8), TalkBack은 `passport_steps_desc` 한 문장으로 읽는다.
  */
@@ -150,7 +159,7 @@ private fun PassportStepper(current: Int) {
     val node = dimens.iconBadge
     Row(Modifier.fillMaxWidth().clearAndSetSemantics { contentDescription = desc }) {
         labels.forEachIndexed { i, label ->
-            val done = i < current && i != OptionalChipStep
+            val done = i < current
             val now = i == current
             Column(
                 Modifier.weight(1f),
@@ -186,7 +195,7 @@ private fun PassportStepper(current: Int) {
                         )
                     }
                 }
-                // `칩 확인(선택)`이 `(선/택)`처럼 음절에서 꺾이지 않게 (API 33 미만 — 2단계 줄바꿈 보고)
+                // 단계 이름이 음절에서 꺾이지 않게 (API 33 미만 — 2단계 줄바꿈 보고)
                 KoText(
                     label,
                     MaterialTheme.typography.labelMedium.copy(fontWeight = if (now) FontWeight.Bold else FontWeight.SemiBold),
@@ -301,7 +310,7 @@ fun PassportIntroContent(scan: ScanState, onCamera: () -> Unit, onPickPhoto: () 
         speech = stringResource(R.string.passport_speech),
     ) {
         item(key = "security") { SecurityBanner(compact = true) }
-        item(key = "steps") { PassportStepper(current = 0) }
+        item(key = "steps") { PassportStepper(current = StepScan) }
         item(key = "body") {
             InfoCard {
                 MrzIllustration()
@@ -314,8 +323,9 @@ fun PassportIntroContent(scan: ScanState, onCamera: () -> Unit, onPickPhoto: () 
                 title = stringResource(R.string.passport_privacy_title),
                 icon = Icons.Outlined.PrivacyTip,
             ) {
-                IconBullet(stringResource(R.string.passport_privacy_1), Icons.Outlined.NoPhotography, tone = BadgeTone.Accent)
-                IconBullet(stringResource(R.string.passport_privacy_2), Icons.Outlined.Lock, tone = BadgeTone.Accent)
+                // '기기' 대신 약속 문구와 같은 '휴대폰' (재검토 R18)
+                IconBullet(stringResource(R.string.passport_privacy_1_v2), Icons.Outlined.NoPhotography, tone = BadgeTone.Accent)
+                IconBullet(stringResource(R.string.passport_privacy_2_v2), Icons.Outlined.Lock, tone = BadgeTone.Accent)
                 IconBullet(stringResource(R.string.passport_privacy_3), Icons.Outlined.Info, tone = BadgeTone.Accent)
                 HorizontalDivider(Modifier.padding(vertical = 4.dp), thickness = 1.dp, color = Tokens.Line)
                 ConsentRow(
@@ -423,7 +433,7 @@ fun PassportScanContent(granted: Boolean, onAllowCamera: () -> Unit, content: @C
         speech = stringResource(R.string.passport_scan_hint),
     ) {
         item(key = "security") { SecurityBanner(compact = true) }
-        item(key = "steps") { PassportStepper(current = 0) }
+        item(key = "steps") { PassportStepper(current = StepScan) }
         if (!granted) {
             item(key = "permission") {
                 CardNewsCard(
@@ -564,7 +574,7 @@ fun PassportConfirmContent(
         speech = stringResource(R.string.passport_confirm_body),
     ) {
         item(key = "security") { SecurityBanner(compact = true) }
-        item(key = "steps") { PassportStepper(current = 2) }
+        item(key = "steps") { PassportStepper(current = StepConfirm) }
         item(key = "body") {
             KoText(stringResource(R.string.passport_confirm_body), style = MaterialTheme.typography.bodyLarge, color = Tokens.Ink)
         }
@@ -589,16 +599,27 @@ fun PassportConfirmContent(
                     Triple(stringResource(R.string.passport_field_sex), sexLabel(mrz.sex), null),
                     Triple(stringResource(R.string.passport_field_expiry), mrz.expiryDate.toString(), MrzCheck.ExpiryDate),
                 )
+                val expiredTag = stringResource(R.string.passport_expired_tag)
+                val readOk = stringResource(R.string.passport_expiry_read_ok)
                 ListGroup(stringResource(R.string.passport_values_title)) {
                     rows.forEachIndexed { i, (label, value, check) ->
+                        val passed = check != null && mrz.checks[check] == true
+                        // 만료된 여권의 만료일 행: 위 Danger 배너와 같은 신호(빨강 `만료됨`). 확인 숫자가 맞았다는 사실은 작은 보조 글로 남긴다
+                        // (초록 `확인 완료`가 만료 경고와 반대로 읽히지 않게 — 재검토 32). 확인 숫자가 틀리면 날짜를 믿을 수 없어 `확인 안 됨` 그대로
+                        val expiredRow = expired && check == MrzCheck.ExpiryDate && passed
                         KeyValueRow(
                             label = label,
                             value = value,
-                            badge = if (check != null) {
-                                { CheckTag(mrz.checks[check] == true, ok, fail) }
-                            } else {
-                                null
+                            badge = when {
+                                expiredRow -> {
+                                    { StatusTag(expiredTag, StatusKind.Prohibited, icon = Icons.Outlined.EventBusy) }
+                                }
+                                check != null -> {
+                                    { CheckTag(passed, ok, fail) }
+                                }
+                                else -> null
                             },
+                            supporting = if (expiredRow) readOk else null,
                             modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp),
                         )
                         // 아이콘 없는 키-값 행이라 글 시작(16dp)부터 긋는다 — 카드 끝까지 닿는 선은 목록을 무겁게 한다
@@ -629,9 +650,9 @@ fun PassportConfirmContent(
                 QuietButton(stringResource(R.string.passport_use_manual), onClick = onManual, icon = Icons.Outlined.EditNote)
             }
         }
-        // NFC 칩 확인은 2차 — 누를 수 없는 '곧 추가돼요' 묶음으로 (D15)
+        // 전자여권 칩 확인(NFC)은 2차 — 단계 표시에는 그리지 않고 누를 수 없는 '곧 추가돼요' 묶음에만 (D15, 재검토 R18)
         if (mrz != null) {
-            item(key = "chip") { ComingSoonGroup(listOf(Icons.Outlined.Nfc to stringResource(R.string.passport_chip_soon))) }
+            item(key = "chip") { ComingSoonGroup(listOf(Icons.Outlined.Nfc to stringResource(R.string.passport_chip_soon_v2))) }
         }
     }
 }
@@ -686,8 +707,9 @@ fun PassportManualContent(onSave: (PassportRecord) -> Unit) {
 
     fun record(): PassportRecord? {
         val upper = Regex("^[A-Z][A-Z ]*$")
-        val b = runCatching { LocalDate.parse(birth.trim()) }.getOrNull()
-        val e = runCatching { LocalDate.parse(expiry.trim()) }.getOrNull()
+        // 날짜 칸은 숫자 8자리만 받는다(하이픈은 화면에서만 앱이 넣는다)
+        val b = parseDateDigits(birth)
+        val e = parseDateDigits(expiry)
         val num = number.trim().uppercase()
         val nat = nationality.trim().uppercase()
         if (!upper.matches(surname.trim().uppercase()) || b == null || e == null ||
@@ -728,7 +750,13 @@ fun PassportManualContent(onSave: (PassportRecord) -> Unit) {
                         Icons.Outlined.Public,
                         hint = R.string.passport_hint_nationality,
                     ) { nationality = it }
-                    ManualField(R.string.passport_field_birth, birth, Icons.Outlined.CalendarMonth, hint = R.string.passport_date_hint) { birth = it }
+                    ManualField(
+                        R.string.passport_field_birth,
+                        birth,
+                        Icons.Outlined.CalendarMonth,
+                        hint = R.string.passport_date_hint,
+                        date = true,
+                    ) { birth = it }
                     Text(
                         stringResource(R.string.passport_field_sex),
                         style = MaterialTheme.typography.titleSmall,
@@ -750,7 +778,13 @@ fun PassportManualContent(onSave: (PassportRecord) -> Unit) {
                             )
                         }
                     }
-                    ManualField(R.string.passport_field_expiry, expiry, Icons.Outlined.EventBusy, hint = R.string.passport_expiry_hint) { expiry = it }
+                    ManualField(
+                        R.string.passport_field_expiry,
+                        expiry,
+                        Icons.Outlined.EventBusy,
+                        hint = R.string.passport_expiry_hint,
+                        date = true,
+                    ) { expiry = it }
                 }
             }
         }
@@ -772,24 +806,64 @@ fun PassportManualContent(onSave: (PassportRecord) -> Unit) {
 /**
  * 직접 입력 칸: 짧은 라벨 + 앞 아이콘 + 형식·예시는 칸 아래 supportingText(늘 보임).
  * 줄바꿈 입력은 받지 않지만 긴 값은 칸 안에서 여러 줄로 보여 준다(200%에서 값이 잘리지 않게).
+ * [date]: 숫자 자판 + 숫자 8자리만 받고, 화면에서는 `1974-08-12`처럼 하이픈을 앱이 넣어 보인다(재검토 R18 — 숫자·기호를 오가지 않게).
  */
 @Composable
-private fun ManualField(label: Int, value: String, icon: ImageVector, hint: Int? = null, onChange: (String) -> Unit) {
+private fun ManualField(label: Int, value: String, icon: ImageVector, hint: Int? = null, date: Boolean = false, onChange: (String) -> Unit) {
     OutlinedTextField(
         value = value,
-        onValueChange = { onChange(it.replace("\n", "")) },
+        onValueChange = { onChange(if (date) dateDigits(it) else it.replace("\n", "")) },
         label = { Text(stringResource(label)) },
         leadingIcon = { Icon(icon, contentDescription = null) },
         supportingText = hint?.let { { Text(stringResource(it)) } },
-        singleLine = false,
+        singleLine = date,
         textStyle = MaterialTheme.typography.bodyLarge,
         shape = MaterialTheme.shapes.small,
-        // 영문 대문자 입력, 자동 고침 끔, 엔터는 다음 칸으로
+        visualTransformation = if (date) DateDigitsTransformation else VisualTransformation.None,
+        // 영문 대문자 입력(날짜는 숫자 자판), 자동 고침 끔, 엔터는 다음 칸으로
         keyboardOptions = KeyboardOptions(
-            capitalization = KeyboardCapitalization.Characters,
+            capitalization = if (date) KeyboardCapitalization.None else KeyboardCapitalization.Characters,
             autoCorrectEnabled = false,
+            keyboardType = if (date) KeyboardType.Number else KeyboardType.Text,
             imeAction = ImeAction.Next,
         ),
         modifier = Modifier.fillMaxWidth(),
     )
+}
+
+/** 날짜 칸에 받는 글자: 숫자만, 8자리까지 (붙여 넣은 `1974-08-12`도 숫자만 남긴다) */
+internal fun dateDigits(input: String): String = input.filter { it in '0'..'9' }.take(8)
+
+/** 숫자 8자리(`19740812`) → 날짜. 자리가 모자라거나 없는 날짜면 null */
+internal fun parseDateDigits(digits: String): LocalDate? {
+    if (digits.length != 8 || digits.any { it !in '0'..'9' }) return null
+    return runCatching { LocalDate.of(digits.take(4).toInt(), digits.substring(4, 6).toInt(), digits.substring(6).toInt()) }.getOrNull()
+}
+
+/** 날짜(`2026-11-03`) → 날짜 칸 값(`20261103`). 날짜 모양이 아니면 빈 값 */
+internal fun digitsOf(date: String?): String =
+    date?.trim()?.let { runCatching { LocalDate.parse(it) }.getOrNull() }?.toString()?.let(::dateDigits).orEmpty()
+
+/**
+ * 숫자만 저장한 날짜 칸을 `YYYY-MM-DD`로 보이게 한다 — 넷째·여섯째 숫자 뒤에 하이픈(그 뒤 숫자가 있을 때만).
+ * 커서 위치는 숫자 자리에 맞춰 옮긴다(하이픈 자리에서 지워도 숫자가 지워진다).
+ */
+internal object DateDigitsTransformation : VisualTransformation {
+    override fun filter(text: AnnotatedString): TransformedText {
+        val digits = text.text
+        val shown = buildString {
+            digits.forEachIndexed { i, c ->
+                if (i == 4 || i == 6) append('-')
+                append(c)
+            }
+        }
+        val mapping = object : OffsetMapping {
+            override fun originalToTransformed(offset: Int): Int =
+                offset + (if (offset > 4) 1 else 0) + (if (offset > 6) 1 else 0)
+
+            override fun transformedToOriginal(offset: Int): Int =
+                (offset - (if (offset >= 5) 1 else 0) - (if (offset >= 8) 1 else 0)).coerceIn(0, digits.length)
+        }
+        return TransformedText(AnnotatedString(shown), mapping)
+    }
 }

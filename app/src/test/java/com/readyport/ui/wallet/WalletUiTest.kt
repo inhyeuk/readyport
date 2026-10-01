@@ -14,6 +14,13 @@ import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollToNode
 import androidx.compose.ui.test.hasAnyAncestor
 import androidx.compose.ui.test.hasText
+import androidx.compose.ui.test.hasSetTextAction
+import androidx.compose.ui.test.hasContentDescription
+import androidx.compose.ui.test.assertIsEnabled
+import androidx.compose.ui.test.onNodeWithContentDescription
+import androidx.compose.ui.test.performTextInput
+import androidx.compose.ui.test.performTextClearance
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.test.hasScrollAction
 import androidx.compose.ui.test.isDialog
 import androidx.compose.runtime.getValue
@@ -30,6 +37,7 @@ import com.readyport.vault.PassportRecord
 import com.readyport.vault.VaultContents
 import com.readyport.vault.WalletState
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
@@ -46,7 +54,7 @@ class WalletUiTest {
     val rule = createAndroidComposeRule<ComponentActivity>()
 
     private val context: Context = ApplicationProvider.getApplicationContext()
-    private fun s(@StringRes id: Int) = context.getString(id)
+    private fun s(@StringRes id: Int, vararg args: Any) = context.getString(id, *args)
     private val today = LocalDate.of(2026, 9, 28)
 
     /** 긴 목록 아래쪽 항목은 스크롤해서 화면에 보이게 한 뒤 확인한다 */
@@ -87,12 +95,17 @@ class WalletUiTest {
     @Test
     fun unlockedPassportIsMaskedUntilRevealed() {
         wallet(WalletState.Unlocked(VaultContents(passport = passport)))
-        shown(s(R.string.wallet_passport_verified))
+        // 'MRZ' 대신 쉬운 말 (재검토 R18)
+        shown(s(R.string.wallet_passport_verified_v2))
+        rule.onAllNodesWithText(s(R.string.wallet_passport_verified)).assertCountEquals(0)
+        rule.onAllNodesWithText("MRZ", substring = true).assertCountEquals(0)
         shown(maskNumber("L898902C3"))
         rule.onAllNodesWithText("L898902C3").assertCountEquals(0)
         rule.onAllNodesWithText("ERIKSSON", substring = true).assertCountEquals(0)
 
-        rule.onNodeWithText(s(R.string.wallet_passport_show)).performClick()
+        // 가린 값을 보이는 버튼은 '자세히 보기'(다른 화면의 펼치기)가 아니라 '가린 글자 보기'
+        rule.onAllNodesWithText(s(R.string.wallet_passport_show)).assertCountEquals(0)
+        rule.onNodeWithText(s(R.string.wallet_passport_reveal)).performClick()
         rule.onNodeWithText("L898902C3").assertIsDisplayed()
     }
 
@@ -141,14 +154,18 @@ class WalletUiTest {
         rule.setContent {
             ReadyPortTheme { PassportConfirmContent(mrz = good, saveFailed = false, onSave = { saved = true }, onRescan = {}, onManual = {}, today = today) }
         }
-        rule.onAllNodesWithText(s(R.string.passport_check_ok)).assertCountEquals(3)
-        // 표본 여권의 만료일(2012-04-15)은 지났으므로 경고한다
+        // 표본 여권의 만료일(2012-04-15)은 지났으므로 경고한다. 만료일 행은 초록 `확인 완료` 대신 빨강 `만료됨` +
+        // 확인 숫자가 맞았다는 보조 글 — 여권 번호·생년월일만 `확인 완료` (재검토 32)
         shown(s(R.string.wallet_passport_expired))
+        rule.onAllNodesWithText(s(R.string.passport_check_ok)).assertCountEquals(2)
+        shown(s(R.string.passport_expired_tag))
+        shown(s(R.string.passport_expiry_read_ok))
         rule.onNode(hasScrollAction()).performScrollToNode(hasText(s(R.string.passport_save)))
         rule.onNodeWithText(s(R.string.passport_save)).performClick()
         assertTrue(saved)
-        // NFC 칩 확인은 2차 — 누를 수 없다
-        rule.onNodeWithText(s(R.string.passport_chip_soon)).assertIsNotEnabled()
+        // 전자여권 칩 확인은 2차 — 누를 수 없고, 'NFC'·'(준비 중)' 없이 (재검토 R18)
+        rule.onNodeWithText(s(R.string.passport_chip_soon_v2)).assertIsNotEnabled()
+        rule.onAllNodesWithText("NFC", substring = true).assertCountEquals(0)
     }
 
     @Test
@@ -306,5 +323,128 @@ class WalletUiTest {
         listOf("2026-11-03", "2026-11-07", "2026-11-04", "2026-11-06").forEach { rule.onAllNodesWithText(it).assertCountEquals(1) }
         rule.onAllNodesWithText("→", substring = true).assertCountEquals(0)
         rule.onAllNodesWithText(" · ", substring = true).assertCountEquals(0)
+    }
+
+    // ---------------- 재검토 R18 ----------------
+
+    /** 여권 단계 표시는 지금 쓸 수 있는 두 단계(촬영 → 값 확인)만 — 아직 없는 칩 확인(NFC)을 단계로 약속하지 않는다 */
+    @Test
+    fun passportStepperShowsOnlyAvailableSteps() {
+        rule.setContent { ReadyPortTheme { PassportIntroContent(ScanState.Idle, {}, {}, {}) } }
+        rule.onNodeWithContentDescription(s(R.string.passport_steps_desc, s(R.string.passport_step_scan), 1, 2)).assertExists()
+        rule.onAllNodesWithText(s(R.string.passport_step_chip), substring = true).assertCountEquals(0)
+        // '기기' 대신 약속 문구와 같은 '휴대폰'
+        rule.onAllNodesWithText(s(R.string.passport_privacy_1)).assertCountEquals(0)
+        rule.onAllNodesWithText(s(R.string.passport_privacy_2)).assertCountEquals(0)
+        shown(s(R.string.passport_privacy_2_v2))
+    }
+
+    /** 날짜 칸은 숫자만 받고(붙여 넣은 하이픈은 버림), 화면에서만 YYYY-MM-DD 모양 — 커서 위치가 숫자 자리와 오간다 */
+    @Test
+    fun dateDigitsFieldLogic() {
+        assertEquals("19740812", dateDigits("1974-08-12"))
+        assertEquals("20261103", dateDigits("2026-11-03 "))
+        assertEquals("12345678", dateDigits("1234567890"))
+        assertEquals(LocalDate.of(1974, 8, 12), parseDateDigits("19740812"))
+        assertNull(parseDateDigits("19741312"))
+        assertNull(parseDateDigits("197408"))
+        assertEquals("20261103", digitsOf("2026-11-03"))
+        assertEquals("", digitsOf("11월 3일"))
+        listOf("", "1", "1974", "19740", "197408", "1974081", "19740812").forEach { d ->
+            val t = DateDigitsTransformation.filter(AnnotatedString(d))
+            assertEquals(d, t.text.text.replace("-", ""))
+            for (o in 0..d.length) {
+                val shown = t.offsetMapping.originalToTransformed(o)
+                assertTrue("$d $o", shown in 0..t.text.length)
+                assertEquals("$d $o", o, t.offsetMapping.transformedToOriginal(shown))
+            }
+            for (o in 0..t.text.length) assertTrue("$d $o", t.offsetMapping.transformedToOriginal(o) in 0..d.length)
+        }
+        assertEquals("1974-08-12", DateDigitsTransformation.filter(AnnotatedString("19740812")).text.text)
+    }
+
+    @Test
+    fun manualPassportTakesDigitOnlyDates() {
+        var saved: PassportRecord? = null
+        rule.setContent { ReadyPortTheme { PassportManualContent { saved = it } } }
+        fun field(label: Int) = rule.onNode(hasSetTextAction() and hasText(s(label)))
+        field(R.string.passport_field_surname).performTextInput("HONG")
+        field(R.string.passport_field_given).performTextInput("GILDONG")
+        field(R.string.passport_field_number).performTextInput("M12345678")
+        field(R.string.passport_field_birth).performTextInput("19850315")
+        // 붙여 넣은 하이픈은 버리고 숫자만 남는다
+        field(R.string.passport_field_expiry).performTextInput("2034-05-20")
+        rule.onNodeWithText("1985-03-15").assertExists()
+        rule.onNode(hasScrollAction()).performScrollToNode(hasText(s(R.string.passport_save)))
+        rule.onNodeWithText(s(R.string.passport_save)).performClick()
+        assertEquals("1985-03-15", saved?.birthDate)
+        assertEquals("2034-05-20", saved?.expiryDate)
+        assertEquals("manual", saved?.source)
+    }
+
+    /** 숙소 체크인·체크아웃도 숫자 칸: 읽은 날짜가 그대로 들어가고, 반쯤 적은 날짜면 저장을 막는다(버리며 저장하지 않게) */
+    @Test
+    fun bookingLodgingDatesAreDigitFields() {
+        var saved: BookingDraft? = null
+        val fields = BookingExtractor.extract("호텔 예약 확인\n예약번호: HTL88123\n체크인 2026-11-03\n체크아웃 2026-11-07")
+        rule.setContent {
+            ReadyPortTheme {
+                BookingImportContent(
+                    state = ImportState.Review(fields), saveFailed = false,
+                    onPickPhoto = {}, onPickPdf = {}, onText = {}, onSave = { saved = it }, onRestart = {}, onDone = {},
+                )
+            }
+        }
+        rule.onNodeWithText("2026-11-03").assertExists()
+        val checkIn = rule.onNode(hasSetTextAction() and hasText(s(R.string.booking_label_checkin)))
+        checkIn.performTextClearance()
+        checkIn.performTextInput("202611")
+        rule.onNode(hasScrollAction()).performScrollToNode(hasText(s(R.string.booking_save)))
+        rule.onNodeWithText(s(R.string.booking_save)).assertIsNotEnabled()
+        checkIn.performTextInput("04")
+        rule.onNodeWithText(s(R.string.booking_save)).assertIsEnabled().performClick()
+        val record = saved!!.toRecord()
+        assertEquals("2026-11-04", record.checkIn)
+        assertEquals("2026-11-07", record.checkOut)
+    }
+
+    /** 예약 서류의 `지우기`는 TalkBack에서 무엇을 지우는지(보이는 서류 이름) 함께 읽는다 */
+    @Test
+    fun bookingDeleteNamesItsTarget() {
+        var deleted: String? = null
+        val booking = BookingRecord(id = "b1", kind = "flight", title = "방콕 왕복", flightNumbers = listOf("KE651"), savedAt = "x")
+        rule.setContent {
+            ReadyPortTheme {
+                WalletContent(
+                    state = WalletState.Unlocked(VaultContents(bookings = listOf(booking))), deviceSecure = true, autoDestroy = true,
+                    today = today, onUnlock = {}, onLock = {}, onReset = {}, onAddPassport = {}, onDeletePassport = {},
+                    onAddBooking = {}, onDeleteBooking = { deleted = it }, onAutoDestroyChange = {},
+                )
+            }
+        }
+        val name = s(R.string.delete_named_cd, "방콕 왕복")
+        rule.onNode(hasScrollAction()).performScrollToNode(hasContentDescription(name))
+        rule.onNodeWithContentDescription(name).performClick()
+        inDialog(s(R.string.wallet_booking_delete)).performClick()
+        assertEquals("b1", deleted)
+    }
+
+    /** 열린 지갑: 보안 띠는 한 줄(여권 카드가 첫 주인공), 잠긴 지갑은 설명까지 */
+    @Test
+    fun unlockedWalletUsesCompactSecurityLine() {
+        var state by androidx.compose.runtime.mutableStateOf<WalletState>(WalletState.Unlocked(VaultContents(passport = passport)))
+        rule.setContent {
+            ReadyPortTheme {
+                WalletContent(
+                    state = state, deviceSecure = true, autoDestroy = true, today = today,
+                    onUnlock = {}, onLock = {}, onReset = {}, onAddPassport = {}, onDeletePassport = {},
+                    onAddBooking = {}, onDeleteBooking = {}, onAutoDestroyChange = {},
+                )
+            }
+        }
+        rule.onNodeWithText(s(R.string.settings_local_only_title)).assertIsDisplayed()
+        rule.onAllNodesWithText(s(R.string.settings_local_only_body)).assertCountEquals(0)
+        state = WalletState.Locked(hasData = true)
+        rule.onNodeWithText(s(R.string.settings_local_only_body)).assertIsDisplayed()
     }
 }

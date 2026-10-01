@@ -361,7 +361,7 @@ fun HelpContent(
                             tone = BadgeTone.Caution,
                             sources = listOf(ref(proc.source, proc.lastVerified)),
                         ) {
-                            StepList(proc.stepsKo.map { stepOf(it) })
+                            SentenceStepList(proc.stepsKo.map { stepOf(it) })
                         }
                     }
                 }
@@ -409,6 +409,17 @@ fun HelpContent(
     if (fullScreen) {
         selectedPhrase?.let { phrase -> PhraseFullScreen(phrase, onClose = { fullScreen = false }) }
     }
+}
+
+/**
+ * 절차 단계(`여권을 잃어버렸어요` 등): 팩 문장이 두세 줄 문장이라 굵은 제목 글자(titleMedium SemiBold)로 그리면 굵은 글 벽이 된다
+ * (재검토 ④-9). 번호 원만 강조하고 단계 글은 본문 글자(bodyLarge, Ink)로 — 보조 글(bodyMedium, InkSecondary)과는 크기·색으로 구분된다.
+ * 공용 StepList는 그대로 쓰고 이 안의 titleMedium만 바꾼다(부품 동결 — 나라 화면 BodyBreakStepList와 같은 방식, 통합 때 StepList 문장형 옵션 후보).
+ */
+@Composable
+private fun SentenceStepList(steps: List<Step>) {
+    val typography = MaterialTheme.typography
+    MaterialTheme(typography = typography.copy(titleMedium = typography.bodyLarge)) { StepList(steps) }
 }
 
 /** TextButton(QuietButton)의 가로 안쪽 여백 — 글자 버튼을 다른 요소와 같은 왼쪽 선에 맞출 때 당기는 만큼 */
