@@ -80,6 +80,8 @@ class PresentUiTest {
                 )
             }
         }
+        // 그림을 못 열었으면 QR이 있는 것처럼 보이지 않게 그렇다고 알린다
+        shown(s(R.string.present_image_missing))
         shown("TDAC-0000")
         shown("L••••••C3")
         shown(s(R.string.present_delete))
@@ -130,6 +132,19 @@ class PresentUiTest {
         rule.onAllNodesWithText("첫째").assertCountEquals(1)
         inDialog(s(R.string.companion_delete)).performClick()
         assertEquals("c1", deleted)
+    }
+
+    /** 칸 라벨은 짧게 보이지만 TalkBack·테스트가 읽는 칸 이름은 원문(companion_label) 하나 — 예시를 두 번 읽지 않는다 */
+    @Test
+    fun companionNameFieldKeepsFullAccessibleName() {
+        rule.setContent { ReadyPortTheme { CompanionsContent(WalletState.Unlocked(VaultContents()), {}, {}, {}, {}) } }
+        rule.onNode(hasScrollAction()).performScrollToNode(hasText(s(R.string.companion_label)))
+        rule.onNodeWithText(s(R.string.companion_label)).assertIsDisplayed()
+        rule.onAllNodesWithText(s(R.string.companion_label_example)).assertCountEquals(0)
+        rule.onAllNodesWithText(s(R.string.companion_label_short)).assertCountEquals(0)
+        // 빈 상태 본문은 제목을 되풀이하지 않는다
+        shown(s(R.string.companion_empty_body))
+        rule.onAllNodesWithText(s(R.string.companions_body)).assertCountEquals(0)
     }
 
     @Test

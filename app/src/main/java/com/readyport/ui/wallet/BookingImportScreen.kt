@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.selection.selectableGroup
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.AirplaneTicket
 import androidx.compose.material.icons.automirrored.outlined.FactCheck
@@ -41,6 +42,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -129,15 +131,15 @@ fun BookingImportContent(
         item(key = "security") { SecurityBanner(compact = true) }
         when (state) {
             ImportState.Choose -> {
-                item(key = "tip") { NoticeBanner(stringResource(R.string.booking_tip), icon = Icons.Outlined.Share) }
+                item(key = "tip") { NoticeBanner(keepWords(stringResource(R.string.booking_tip)), icon = Icons.Outlined.Share) }
                 item(key = "pickers") {
                     Column(verticalArrangement = Arrangement.spacedBy(LocalDimens.current.gap)) {
                         IconTile(
-                            TileSpec(stringResource(R.string.booking_pick_photo), Icons.Outlined.Screenshot, onPickPhoto),
+                            TileSpec(keepWords(stringResource(R.string.booking_pick_photo)), Icons.Outlined.Screenshot, onPickPhoto),
                             layout = TileLayout.Horizontal,
                         )
                         IconTile(
-                            TileSpec(stringResource(R.string.booking_pick_pdf), Icons.Outlined.PictureAsPdf, onPickPdf),
+                            TileSpec(keepWords(stringResource(R.string.booking_pick_pdf)), Icons.Outlined.PictureAsPdf, onPickPdf),
                             layout = TileLayout.Horizontal,
                         )
                     }
@@ -151,7 +153,7 @@ fun BookingImportContent(
                     verticalArrangement = Arrangement.spacedBy(16.dp),
                 ) {
                     CircularProgressIndicator(color = Tokens.Accent)
-                    Text(stringResource(R.string.booking_reading), style = MaterialTheme.typography.bodyLarge, color = Tokens.Ink)
+                    KeepText(stringResource(R.string.booking_reading), style = MaterialTheme.typography.bodyLarge, color = Tokens.Ink)
                 }
             }
             is ImportState.Review -> item(key = "review") {
@@ -160,13 +162,13 @@ fun BookingImportContent(
             ImportState.Saved -> item(key = "saved") {
                 EmptyState(
                     icon = Icons.Outlined.CheckCircle,
-                    title = stringResource(R.string.booking_saved),
+                    title = keepWords(stringResource(R.string.booking_saved)),
                     body = null,
                     tone = BadgeTone.Success,
                     action = {
                         Column(verticalArrangement = Arrangement.spacedBy(LocalDimens.current.gap)) {
-                            PrimaryButton(stringResource(R.string.wallet_title), onClick = onDone, icon = Icons.Outlined.Badge)
-                            SecondaryButton(stringResource(R.string.wallet_booking_add), onClick = onRestart, icon = Icons.Outlined.Add)
+                            PrimaryButton(keepWords(stringResource(R.string.wallet_title)), onClick = onDone, icon = Icons.Outlined.Badge)
+                            SecondaryButton(keepWords(stringResource(R.string.wallet_booking_add)), onClick = onRestart, icon = Icons.Outlined.Add)
                         }
                     },
                 )
@@ -183,14 +185,16 @@ private fun PasteBox(onText: (String) -> Unit) {
             OutlinedTextField(
                 value = text,
                 onValueChange = { text = it },
-                label = { Text(stringResource(R.string.booking_paste_label)) },
+                // 짧은 라벨(테두리 홈에 한 줄) + 무엇을 붙여넣는지는 칸 아래
+                label = { Text(stringResource(R.string.booking_paste_label_short)) },
+                supportingText = { Text(stringResource(R.string.booking_paste_hint)) },
                 minLines = 3,
                 textStyle = MaterialTheme.typography.bodyLarge,
                 shape = MaterialTheme.shapes.small,
                 modifier = Modifier.fillMaxWidth(),
             )
             SecondaryButton(
-                stringResource(R.string.booking_read_text),
+                keepWords(stringResource(R.string.booking_read_text)),
                 onClick = { onText(text) },
                 icon = Icons.AutoMirrored.Outlined.ManageSearch,
                 enabled = text.isNotBlank(),
@@ -218,39 +222,48 @@ private fun ReviewForm(fields: BookingFields, saveFailed: Boolean, onSave: (Book
 
     Column(verticalArrangement = Arrangement.spacedBy(dimens.gap)) {
         if (nothingFound) {
-            NoticeBanner(stringResource(R.string.booking_nothing_found), icon = Icons.Outlined.SearchOff, tone = BannerTone.Caution)
+            NoticeBanner(keepWords(stringResource(R.string.booking_nothing_found)), icon = Icons.Outlined.SearchOff, tone = BannerTone.Caution)
         } else {
-            NoticeBanner(stringResource(R.string.booking_review_body), icon = Icons.AutoMirrored.Outlined.FactCheck)
+            NoticeBanner(keepWords(stringResource(R.string.booking_review_body)), icon = Icons.AutoMirrored.Outlined.FactCheck)
         }
         // 종류: 세로 아이콘 + 라벨 타일 3칸 (큰 글자·쉬운 모드에서 칸이 좁아지면 1열 가로형)
-        Text(stringResource(R.string.booking_field_kind), style = MaterialTheme.typography.titleSmall, color = Tokens.InkSecondary)
+        KeepText(stringResource(R.string.booking_field_kind), style = MaterialTheme.typography.titleSmall, color = Tokens.InkSecondary)
         TileGrid(
             items = kindLabels.keys.toList(),
             modifier = Modifier.selectableGroup(),
             columns = if (rememberGridColumns() == 1) 1 else 3,
         ) { kind, cell ->
             SelectTile(
-                label = kindLabels.getValue(kind),
+                label = keepWords(kindLabels.getValue(kind)),
                 icon = kindIcons.getValue(kind),
                 selected = draft.kind == kind,
                 onClick = { draft = draft.copy(kind = kind) },
                 modifier = cell,
             )
         }
+        // 입력칸 라벨은 짧게(테두리 홈에 한 줄로 들어가게), 예시·설명은 칸 아래. 값은 칸 안에서 줄바꿈해 끝까지 보인다
         InfoCard {
             Column(verticalArrangement = Arrangement.spacedBy(dimens.gap)) {
-                Field(R.string.booking_field_title, draft.title, Icons.Outlined.Description) { draft = draft.copy(title = it) }
+                Field(R.string.booking_label_title, draft.title, Icons.Outlined.Description, hint = R.string.booking_hint_title) {
+                    draft = draft.copy(title = it)
+                }
                 Field(R.string.booking_field_reference, draft.reference, Icons.Outlined.ConfirmationNumber) { draft = draft.copy(reference = it) }
                 if (draft.kind != BookingKind.Lodging) {
-                    Field(R.string.booking_field_flights, draft.flights, Icons.AutoMirrored.Outlined.AirplaneTicket) { draft = draft.copy(flights = it) }
+                    Field(R.string.wallet_booking_flights, draft.flights, Icons.AutoMirrored.Outlined.AirplaneTicket, hint = R.string.booking_hint_flights) {
+                        draft = draft.copy(flights = it)
+                    }
                 }
                 if (draft.kind == BookingKind.Lodging) {
-                    Field(R.string.booking_field_checkin, draft.checkIn, Icons.Outlined.CalendarMonth) { draft = draft.copy(checkIn = it) }
-                    Field(R.string.booking_field_checkout, draft.checkOut, Icons.Outlined.CalendarMonth) { draft = draft.copy(checkOut = it) }
+                    Field(R.string.booking_label_checkin, draft.checkIn, Icons.Outlined.CalendarMonth, hint = R.string.booking_hint_checkin) {
+                        draft = draft.copy(checkIn = it)
+                    }
+                    Field(R.string.booking_label_checkout, draft.checkOut, Icons.Outlined.CalendarMonth, hint = R.string.booking_hint_checkout) {
+                        draft = draft.copy(checkOut = it)
+                    }
                 }
                 if (draft.dates.isNotEmpty()) {
                     IconBullet(
-                        stringResource(R.string.booking_field_dates) + ": " + draft.dates.joinToString(" · "),
+                        keepWords(stringResource(R.string.booking_field_dates)) + ": " + draft.dates.joinToString(", "),
                         Icons.Outlined.EventAvailable,
                         tone = BadgeTone.Accent,
                     )
@@ -258,10 +271,10 @@ private fun ReviewForm(fields: BookingFields, saveFailed: Boolean, onSave: (Book
             }
         }
         if (saveFailed) {
-            NoticeBanner(stringResource(R.string.booking_save_failed), icon = Icons.Outlined.ErrorOutline, tone = BannerTone.Caution)
+            NoticeBanner(keepWords(stringResource(R.string.booking_save_failed)), icon = Icons.Outlined.ErrorOutline, tone = BannerTone.Caution)
         }
         PrimaryButton(
-            stringResource(R.string.booking_save),
+            keepWords(stringResource(R.string.booking_save)),
             onClick = { onSave(draft) },
             enabled = draft.title.isNotBlank(),
             icon = Icons.Outlined.Check,
@@ -269,16 +282,22 @@ private fun ReviewForm(fields: BookingFields, saveFailed: Boolean, onSave: (Book
     }
 }
 
+/**
+ * 검토 입력칸: 짧은 라벨 + 앞 아이콘 + 예시·설명(supportingText, 늘 보임). 줄바꿈 입력은 받지 않지만
+ * 긴 값(예: `항공권 2026-11-03`)은 칸 안에서 여러 줄로 보여 준다 — 확인하라는 값이 잘리지 않게.
+ */
 @Composable
-private fun Field(label: Int, value: String, icon: ImageVector, onChange: (String) -> Unit) {
+private fun Field(label: Int, value: String, icon: ImageVector, hint: Int? = null, onChange: (String) -> Unit) {
     OutlinedTextField(
         value = value,
-        onValueChange = onChange,
+        onValueChange = { onChange(it.replace("\n", "")) },
         label = { Text(stringResource(label)) },
         leadingIcon = { Icon(icon, contentDescription = null) },
-        singleLine = true,
+        supportingText = hint?.let { { Text(stringResource(it)) } },
+        singleLine = false,
         textStyle = MaterialTheme.typography.bodyLarge,
         shape = MaterialTheme.shapes.small,
+        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
         modifier = Modifier.fillMaxWidth(),
     )
 }

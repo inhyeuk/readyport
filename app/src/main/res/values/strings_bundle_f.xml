@@ -3,18 +3,43 @@
   디자인 개편 1단계 F 묶음(지갑·여권·보여 주기)이 새로 쓰는 문구.
   strings.xml·strings_design_v2.xml은 동결이라 새 키만 여기에 둔다(디자인 원칙 8 — 기존 문구·키는 그대로).
 -->
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!-- 21 입국 때 보여 주기 -->
     <string name="present_empty_title">아직 저장한 입국 서류가 없어요</string>
     <string name="present_empty_body">공식 사이트에서 제출한 뒤 확인 화면을 저장하거나, 확인 메일의 QR 사진을 추가해 주세요.</string>
     <string name="present_field_arrival">도착일</string>
+    <string name="present_image_missing">서류 그림을 열지 못했어요. 아래 정보를 보여 주세요.</string>
 
     <!-- 23·24 내 정보 -->
     <string name="wallet_failed_title">내 정보를 다시 등록해야 해요</string>
     <string name="wallet_booking_flights">편명</string>
     <string name="wallet_booking_dates">날짜</string>
+    <string name="wallet_booking_date_out">가는 날</string>
+    <string name="wallet_booking_date_back">오는 날</string>
+    <string name="wallet_companions_body">가족의 여권과 입국 서류를 함께 챙겨요</string>
 
     <!-- 25 여권 등록 -->
     <string name="passport_privacy_title">여권 정보는 이렇게 다뤄요</string>
     <string name="passport_values_title">여권에서 읽은 값</string>
+    <string name="passport_consent_hint">위 내용을 읽고 체크하면 찍을 수 있어요</string>
+    <string name="passport_scan_camera_title">카메라 권한</string>
+    <string name="passport_label_nationality">국적</string>
+    <string name="passport_hint_nationality">영문 3글자 (예: KOR)</string>
+    <string name="passport_expiry_hint" tools:ignore="TypographyDashes">예: 2031-04-15</string>
+
+    <!-- 26 예약 서류 추가: 입력칸 라벨은 짧게, 예시·설명은 칸 아래 -->
+    <string name="booking_paste_label_short">예약 안내 글</string>
+    <string name="booking_paste_hint">메일이나 문자로 받은 예약 안내를 붙여넣어 주세요</string>
+    <string name="booking_label_title">이름</string>
+    <string name="booking_hint_title">예: 방콕 숙소</string>
+    <string name="booking_hint_flights">여러 개면 쉼표로 나눠 적어요</string>
+    <string name="booking_label_checkin">체크인</string>
+    <string name="booking_label_checkout">체크아웃</string>
+    <string name="booking_hint_checkin" tools:ignore="TypographyDashes">숙소에 들어가는 날 (예: 2026-11-03)</string>
+    <string name="booking_hint_checkout" tools:ignore="TypographyDashes">숙소에서 나오는 날 (예: 2026-11-07)</string>
+
+    <!-- 27 같이 가는 사람 -->
+    <string name="companion_label_short">부르는 이름</string>
+    <string name="companion_label_example">예: 첫째, 어머니</string>
+    <string name="companion_empty_body">사람마다 여권을 등록하고, 입국 때 보여 줄 서류를 따로 모아 둘 수 있어요.</string>
 </resources>

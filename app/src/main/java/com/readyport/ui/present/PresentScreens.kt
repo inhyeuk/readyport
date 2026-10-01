@@ -20,14 +20,15 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.selection.selectableGroup
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material.icons.automirrored.outlined.SendToMobile
 import androidx.compose.material.icons.outlined.AddPhotoAlternate
 import androidx.compose.material.icons.outlined.AirplanemodeActive
 import androidx.compose.material.icons.outlined.Badge
+import androidx.compose.material.icons.outlined.BrokenImage
 import androidx.compose.material.icons.outlined.FamilyRestroom
-import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.LightMode
 import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material.icons.outlined.Person
@@ -54,6 +55,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.text
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.core.content.FileProvider
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
@@ -95,6 +99,10 @@ import com.readyport.ui.theme.LocalDimens
 import com.readyport.ui.theme.LocalTypeExtras
 import com.readyport.ui.theme.Tokens
 import com.readyport.ui.wallet.ConsentRow
+import com.readyport.ui.wallet.DisabledReason
+import com.readyport.ui.wallet.KeepText
+import com.readyport.ui.wallet.SpokenAs
+import com.readyport.ui.wallet.keepWords
 import com.readyport.ui.wallet.maskName
 import com.readyport.ui.wallet.maskNumber
 import com.readyport.ui.wallet.rememberDeviceAuth
@@ -258,9 +266,9 @@ fun PresentContent(
         if (ui.locked) {
             item(key = "locked") {
                 LockedState(
-                    title = stringResource(R.string.wallet_locked_title),
-                    body = stringResource(R.string.wallet_locked_body),
-                    buttonLabel = stringResource(R.string.wallet_unlock),
+                    title = keepWords(stringResource(R.string.wallet_locked_title)),
+                    body = keepWords(stringResource(R.string.wallet_locked_body)),
+                    buttonLabel = keepWords(stringResource(R.string.wallet_unlock)),
                     onUnlock = onUnlock,
                     icon = Icons.Outlined.QrCode2,
                     badgeIcon = Icons.Outlined.Lock,
@@ -285,7 +293,7 @@ fun PresentContent(
         item(key = "bright") {
             ListGroup {
                 ListRow(
-                    title = stringResource(R.string.present_brightness),
+                    title = keepWords(stringResource(R.string.present_brightness)),
                     icon = Icons.Outlined.LightMode,
                     trailing = RowTrailing.Switch(bright) { bright = it },
                 )
@@ -296,12 +304,12 @@ fun PresentContent(
             item(key = "none") {
                 EmptyState(
                     icon = Icons.Outlined.QrCode2,
-                    title = stringResource(R.string.present_empty_title),
-                    body = stringResource(R.string.present_empty_body),
+                    title = keepWords(stringResource(R.string.present_empty_title)),
+                    body = keepWords(stringResource(R.string.present_empty_body)),
                     tone = BadgeTone.Accent,
                     action = {
                         PrimaryButton(
-                            stringResource(R.string.present_add_photo),
+                            keepWords(stringResource(R.string.present_add_photo)),
                             onClick = { onAddPhoto(traveler) },
                             icon = Icons.Outlined.AddPhotoAlternate,
                         )
@@ -314,7 +322,7 @@ fun PresentContent(
             }
             item(key = "add") {
                 SecondaryButton(
-                    stringResource(R.string.present_add_photo),
+                    keepWords(stringResource(R.string.present_add_photo)),
                     onClick = { onAddPhoto(traveler) },
                     icon = Icons.Outlined.AddPhotoAlternate,
                 )
@@ -323,9 +331,9 @@ fun PresentContent(
     }
     pendingDelete?.let { doc ->
         DestructiveConfirm(
-            title = stringResource(R.string.present_delete_confirm_title),
-            body = stringResource(R.string.present_delete_confirm_body),
-            confirmLabel = stringResource(R.string.present_delete),
+            title = keepWords(stringResource(R.string.present_delete_confirm_title)),
+            body = keepWords(stringResource(R.string.present_delete_confirm_body)),
+            confirmLabel = keepWords(stringResource(R.string.present_delete)),
             onConfirm = { pendingDelete = null; onDelete(doc) },
             onDismiss = { pendingDelete = null },
             secure = true,
@@ -353,17 +361,17 @@ private fun PresentHeader(title: String) {
         }
         TrailingFlow(
             trailing = {
-                StatusChip(
-                    stringResource(R.string.present_offline),
-                    container = Tokens.SuccessBg,
-                    content = Tokens.SuccessText,
-                    icon = Icons.Outlined.AirplanemodeActive,
-                )
+                // 칩 글자도 어절 중간에서 꺾지 않는다(`보여/요` 방지) — 읽는 글자는 원문
+                val offline = stringResource(R.string.present_offline)
+                val shown = keepWords(offline)
+                SpokenAs(offline, shown) {
+                    StatusChip(shown, container = Tokens.SuccessBg, content = Tokens.SuccessText, icon = Icons.Outlined.AirplanemodeActive)
+                }
             },
             modifier = Modifier.weight(1f),
             centerVertically = true,
         ) {
-            Text(
+            KeepText(
                 title,
                 style = MaterialTheme.typography.headlineMedium,
                 color = Tokens.Ink,
@@ -385,14 +393,19 @@ private fun DocCard(d: DocView, onShare: () -> Unit, onDelete: () -> Unit) {
     )
     Column(verticalArrangement = Arrangement.spacedBy(dimens.inner)) {
         CardNewsCard(
-            title = d.formName,
+            title = keepWords(d.formName),
             icon = Icons.Outlined.QrCode2,
             style = NewsStyle.Navy,
-            trailing = { StatusTag(stringResource(R.string.present_submitted), StatusKind.Verified) },
+            trailing = {
+                val submitted = stringResource(R.string.present_submitted)
+                val shown = keepWords(submitted)
+                SpokenAs(submitted, shown) { StatusTag(shown, StatusKind.Verified) }
+            },
         ) {
-            d.image?.let {
+            if (d.image != null) {
+                // 심사관이 찍는 QR·확인 화면: 카드 폭 전체 + 흰 8dp 여백(QR 조용한 영역)
                 Image(
-                    bitmap = it,
+                    bitmap = d.image,
                     contentDescription = stringResource(R.string.present_doc_image, d.formName),
                     contentScale = ContentScale.FillWidth,
                     modifier = Modifier
@@ -401,6 +414,9 @@ private fun DocCard(d: DocView, onShare: () -> Unit, onDelete: () -> Unit) {
                         .background(Tokens.Surface)
                         .padding(8.dp),
                 )
+            } else {
+                // 그림을 못 열었으면 QR이 있는 것처럼 보이지 않게 그렇다고 말하고 아래 값을 보여 주게 한다
+                ImageMissing()
             }
             d.doc.confirmationNo?.let { ConfirmationNumber(stringResource(R.string.present_confirmation), it) }
             if (facts.isNotEmpty()) {
@@ -409,15 +425,38 @@ private fun DocCard(d: DocView, onShare: () -> Unit, onDelete: () -> Unit) {
                 }
             }
             SecondaryButton(
-                stringResource(R.string.present_share),
+                keepWords(stringResource(R.string.present_share)),
                 onClick = onShare,
                 icon = Icons.AutoMirrored.Outlined.SendToMobile,
                 onDark = true,
             )
         }
         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
-            DangerButton(stringResource(R.string.present_delete), onClick = onDelete)
+            DangerButton(keepWords(stringResource(R.string.present_delete)), onClick = onDelete)
         }
+    }
+}
+
+/** 서류 그림을 열지 못했을 때 (Navy 카드 안 — onDark 색만): 깨진 그림 아이콘 + 안내 */
+@Composable
+private fun ImageMissing() {
+    Row(
+        Modifier.fillMaxWidth().semantics(mergeDescendants = true) {},
+        verticalAlignment = Alignment.Top,
+        horizontalArrangement = Arrangement.spacedBy(12.dp),
+    ) {
+        Icon(
+            Icons.Outlined.BrokenImage,
+            contentDescription = null,
+            tint = OnDark.secondary,
+            modifier = Modifier.size(LocalDimens.current.icon),
+        )
+        KeepText(
+            stringResource(R.string.present_image_missing),
+            style = MaterialTheme.typography.bodyMedium,
+            color = OnDark.secondary,
+            modifier = Modifier.weight(1f),
+        )
     }
 }
 
@@ -495,16 +534,16 @@ fun CompanionsContent(
     AppScreen(
         title = stringResource(R.string.companions_title),
         // 비어 있으면 같은 문장을 빈 상태 안내로 보이므로 부제는 생략한다(같은 글 두 번 금지)
-        subtitle = if (empty) null else stringResource(R.string.companions_body),
+        subtitle = if (empty) null else keepWords(stringResource(R.string.wallet_companions_body)),
         speech = stringResource(R.string.companions_body),
     ) {
         item(key = "security") { SecurityBanner(compact = true) }
         if (contents == null) {
             item(key = "locked") {
                 LockedState(
-                    title = stringResource(R.string.wallet_locked_title),
-                    body = stringResource(R.string.wallet_locked_body),
-                    buttonLabel = stringResource(R.string.wallet_unlock),
+                    title = keepWords(stringResource(R.string.wallet_locked_title)),
+                    body = keepWords(stringResource(R.string.wallet_locked_body)),
+                    buttonLabel = keepWords(stringResource(R.string.wallet_unlock)),
                     onUnlock = onUnlock,
                     icon = Icons.Outlined.FamilyRestroom,
                 )
@@ -513,10 +552,11 @@ fun CompanionsContent(
         }
         if (empty) {
             item(key = "empty") {
+                // 제목이 이미 '보호자 폰 하나로 가족 서류'를 말하므로 본문은 새 정보(사람마다 여권·서류)만
                 EmptyState(
                     icon = Icons.Outlined.FamilyRestroom,
-                    title = stringResource(R.string.companion_empty_title),
-                    body = stringResource(R.string.companions_body),
+                    title = keepWords(stringResource(R.string.companion_empty_title)),
+                    body = keepWords(stringResource(R.string.companion_empty_body)),
                     tone = BadgeTone.Accent,
                 )
             }
@@ -528,56 +568,56 @@ fun CompanionsContent(
         }
         item(key = "add") {
             val canAdd = consent && label.isNotBlank()
-            CardNewsCard(title = stringResource(R.string.companion_add), icon = Icons.Outlined.PersonAdd) {
-                OutlinedTextField(
-                    value = label,
-                    onValueChange = { label = it },
-                    label = { Text(stringResource(R.string.companion_label)) },
-                    leadingIcon = { Icon(Icons.Outlined.Person, contentDescription = null) },
-                    singleLine = true,
-                    textStyle = MaterialTheme.typography.bodyLarge,
-                    shape = MaterialTheme.shapes.small,
-                    modifier = Modifier.fillMaxWidth(),
-                )
-                Text(stringResource(R.string.companion_consent), style = MaterialTheme.typography.bodyLarge, color = Tokens.Ink)
+            CardNewsCard(title = keepWords(stringResource(R.string.companion_add)), icon = Icons.Outlined.PersonAdd) {
+                CompanionNameField(label) { label = it }
+                KeepText(stringResource(R.string.companion_consent), style = MaterialTheme.typography.bodyLarge, color = Tokens.Ink)
                 ConsentRow(
                     text = stringResource(R.string.companion_consent_yes),
                     checked = consent,
                     onCheckedChange = { consent = it },
                 )
                 // 동의 확인 없이는 추가할 수 없다 (PRD 3.3, 8.2)
-                PrimaryButton(stringResource(R.string.companion_add), enabled = canAdd, icon = Icons.Outlined.PersonAdd, onClick = {
+                PrimaryButton(keepWords(stringResource(R.string.companion_add)), enabled = canAdd, icon = Icons.Outlined.PersonAdd, onClick = {
                     onAdd(label); label = ""; consent = false
                 })
-                if (!canAdd) {
-                    Row(verticalAlignment = Alignment.Top, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                        Icon(
-                            Icons.Outlined.Info,
-                            contentDescription = null,
-                            tint = Tokens.InkSecondary,
-                            modifier = Modifier.padding(top = 2.dp).size(LocalDimens.current.iconSmall),
-                        )
-                        Text(
-                            stringResource(R.string.companion_add_hint),
-                            style = MaterialTheme.typography.bodyMedium,
-                            color = Tokens.InkSecondary,
-                            modifier = Modifier.weight(1f),
-                        )
-                    }
-                }
+                if (!canAdd) DisabledReason(stringResource(R.string.companion_add_hint))
             }
         }
     }
     pendingDelete?.let { id ->
         DestructiveConfirm(
-            title = stringResource(R.string.companion_delete_confirm_title),
-            body = stringResource(R.string.companion_delete_confirm_body),
-            confirmLabel = stringResource(R.string.companion_delete),
+            title = keepWords(stringResource(R.string.companion_delete_confirm_title)),
+            body = keepWords(stringResource(R.string.companion_delete_confirm_body)),
+            confirmLabel = keepWords(stringResource(R.string.companion_delete)),
             onConfirm = { pendingDelete = null; onDelete(id) },
             onDismiss = { pendingDelete = null },
             secure = true,
         )
     }
+}
+
+/**
+ * 부르는 이름 칸 (6-27 `label = companion_label`): 테두리 홈에 들어가는 라벨은 짧게(`부르는 이름`) 그리고 예시는 칸 아래에 둔다 —
+ * 200%에서 긴 라벨이 두 줄로 꺾여 아이콘·테두리 위에 겹치지 않게. TalkBack·테스트가 읽는 칸 이름은 원문 `companion_label`
+ * 그대로이고(예시 포함), 칸 아래 예시는 같은 말을 두 번 읽지 않게 숨긴다.
+ */
+@Composable
+private fun CompanionNameField(value: String, onChange: (String) -> Unit) {
+    val name = stringResource(R.string.companion_label)
+    OutlinedTextField(
+        value = value,
+        onValueChange = { onChange(it.replace("\n", "")) },
+        label = {
+            Text(stringResource(R.string.companion_label_short), modifier = Modifier.semantics { text = AnnotatedString(name) })
+        },
+        leadingIcon = { Icon(Icons.Outlined.Person, contentDescription = null) },
+        supportingText = { Text(stringResource(R.string.companion_label_example), modifier = Modifier.clearAndSetSemantics {}) },
+        singleLine = false,
+        textStyle = MaterialTheme.typography.bodyLarge,
+        shape = MaterialTheme.shapes.small,
+        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
+        modifier = Modifier.fillMaxWidth(),
+    )
 }
 
 /** 같이 가는 사람 한 명: 이니셜 원(글자 크기에 맞춰 커짐, 장식) + 이름 + 여권 상태, 아래 줄 오른쪽에 여권 등록·지우기 */
@@ -596,9 +636,11 @@ private fun CompanionCard(c: TravelCompanion, onRegisterPassport: () -> Unit, on
                     style = MaterialTheme.typography.titleMedium,
                 )
                 Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                    Text(c.label, style = MaterialTheme.typography.titleLarge, color = Tokens.Ink)
+                    KeepText(c.label, style = MaterialTheme.typography.titleLarge, color = Tokens.Ink)
                     if (c.passport != null) {
-                        StatusTag(stringResource(R.string.companion_passport_done), StatusKind.Verified)
+                        val done = stringResource(R.string.companion_passport_done)
+                        val shown = keepWords(done)
+                        SpokenAs(done, shown) { StatusTag(shown, StatusKind.Verified) }
                     }
                 }
             }
@@ -609,13 +651,13 @@ private fun CompanionCard(c: TravelCompanion, onRegisterPassport: () -> Unit, on
             ) {
                 if (c.passport == null) {
                     SecondaryButton(
-                        stringResource(R.string.companion_passport_add),
+                        keepWords(stringResource(R.string.companion_passport_add)),
                         onClick = onRegisterPassport,
                         icon = Icons.Outlined.Badge,
                         fillWidth = false,
                     )
                 }
-                DangerButton(stringResource(R.string.companion_delete), onClick = onDelete)
+                DangerButton(keepWords(stringResource(R.string.companion_delete)), onClick = onDelete)
             }
         }
     }
