@@ -32,6 +32,7 @@ import com.readyport.ui.components.Fact
 import com.readyport.ui.components.FactChip
 import com.readyport.ui.components.IconBullet
 import com.readyport.ui.components.IconTile
+import com.readyport.ui.components.KoreanBreak
 import com.readyport.ui.components.NoticeBanner
 import com.readyport.ui.components.PrimaryButton
 import com.readyport.ui.components.SecondaryButton
@@ -185,7 +186,8 @@ private fun FormCard(f: FormEntry, primary: Boolean, onOpen: () -> Unit) {
         } else {
             IconBullet(stringResource(R.string.guide_form_fee, f.feeKo), Icons.Outlined.Payments)
         }
-        IconBullet(stringResource(R.string.guide_form_window, f.windowKo), Icons.Outlined.Schedule)
+        // `5월 2일~4일`이 `5월 / 2일~4일`로 끊기지 않게 날짜의 달·일 사이는 보이는 글자에서만 붙인다(재검토 ①16)
+        IconBullet(keepMonthDay(stringResource(R.string.guide_form_window, f.windowKo)), Icons.Outlined.Schedule)
         val label = stringResource(R.string.prepare_form_open)
         if (primary) {
             PrimaryButton(label, onClick = onOpen, icon = Icons.Outlined.EditNote, modifier = Modifier.padding(top = 4.dp))
@@ -195,3 +197,7 @@ private fun FormCard(f: FormEntry, primary: Boolean, onOpen: () -> Unit) {
     }
 }
 
+/** `N월 N일` 사이 띄어쓰기를 NBSP로 — 날짜가 달과 일로 갈라져 줄을 바꾸지 않게 (팩 문장 글자는 그대로, 띄어쓰기 모양만) */
+internal fun keepMonthDay(text: String): String = MonthDay.replace(text) { "${it.groupValues[1]}${KoreanBreak.NBSP}${it.groupValues[2]}" }
+
+private val MonthDay = Regex("""(\d{1,2}월) (\d{1,2}일)""")

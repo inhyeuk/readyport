@@ -27,7 +27,6 @@ import androidx.compose.material.icons.outlined.EditCalendar
 import androidx.compose.material.icons.outlined.ErrorOutline
 import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material.icons.outlined.TravelExplore
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
@@ -45,7 +44,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.OffsetMapping
+import androidx.compose.ui.text.input.TransformedText
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -162,7 +165,7 @@ fun TripScreen(onDone: () -> Unit, initialCountry: String? = null, viewModel: Tr
 
 /**
  * 여행 만들기·고치기 (DESIGN_SPEC 6-14).
- * 나라 = 사진 썸네일 라디오 카드 2열(쉬운 모드·큰 글자 1열), 날짜 = 글자 입력(YYYY-MM-DD) 유지 + 달력 아이콘 + `11월 3일 (화)` 확인 글(D20 —
+ * 나라 = 사진 썸네일 라디오 카드 2열(쉬운 모드·큰 글자 1열), 날짜 = 숫자 자판 입력(하이픈은 칸이 그림) + `11월 3일 (화)` 확인 글(D20 —
  * 가로 스와이프 달력을 쓰지 않는다), 기간 칩(4박 5일), 저장 버튼 하나, 지우기는 빨간 버튼 + 확인 대화상자(D8).
  */
 @Composable
@@ -176,14 +179,15 @@ fun TripContent(
     var country by remember(ui.existing) {
         mutableStateOf(initialCountry?.takeIf { c -> ui.countries.any { it.code == c } } ?: ui.existing?.country ?: ui.countries.singleOrNull()?.code)
     }
-    var start by remember(ui.existing) { mutableStateOf(ui.existing?.startDate.orEmpty()) }
-    var end by remember(ui.existing) { mutableStateOf(ui.existing?.endDate.orEmpty()) }
+    // 날짜 칸은 숫자만 받는다(숫자 자판, 하이픈은 보이는 글자에만 — 재검토 R18). 저장값 형식(YYYY-MM-DD)은 그대로
+    var start by remember(ui.existing) { mutableStateOf(dateDigits(ui.existing?.startDate)) }
+    var end by remember(ui.existing) { mutableStateOf(dateDigits(ui.existing?.endDate)) }
     var invalid by remember { mutableStateOf(false) }
     var confirmDelete by remember { mutableStateOf(false) }
     LaunchedEffect(start, end) { invalid = false }
     val columns = rememberGridColumns()
-    val startDate = parseDate(start)
-    val endDate = parseDate(end)
+    val startDate = parseDigits(start)
+    val endDate = parseDigits(end)
     val nights = if (startDate != null && endDate != null) ChronoUnit.DAYS.between(startDate, endDate).toInt().takeIf { it >= 0 } else null
 
     AppScreen(
@@ -242,8 +246,8 @@ fun TripContent(
                 // 만들기 = 여행 만들기(EditCalendar), 고치기 = 저장하기(Check) — 날짜 머리·여행 고치기 버튼과 아이콘이 겹치지 않게
                 icon = if (ui.existing == null) Icons.Outlined.EditCalendar else Icons.Outlined.Check,
                 onClick = {
-                    val s = parseDate(start)
-                    val e = parseDate(end)
+                    val s = parseDigits(start)
+                    val e = parseDigits(end)
                     if (country == null || s == null || e == null || e.isBefore(s)) invalid = true else onSave(country!!, s, e)
                 },
             )
@@ -267,7 +271,40 @@ fun TripContent(
     }
 }
 
-private fun parseDate(text: String): LocalDate? = runCatching { LocalDate.parse(text.trim()) }.getOrNull()
+/** 저장된 날짜(YYYY-MM-DD)에서 숫자 8자리만 (날짜 칸이 다루는 값) */
+internal fun dateDigits(text: String?): String = text.orEmpty().filter(Char::isDigit).take(DATE_DIGITS)
+
+/** 숫자 8자리(YYYYMMDD) → 날짜. 자리가 모자라거나 없는 날이면 null */
+internal fun parseDigits(digits: String): LocalDate? {
+    if (digits.length != DATE_DIGITS) return null
+    return runCatching { LocalDate.parse("${digits.substring(0, 4)}-${digits.substring(4, 6)}-${digits.substring(6, 8)}") }.getOrNull()
+}
+
+private const val DATE_DIGITS = 8
+
+/**
+ * 숫자만 적는 날짜 칸에 하이픈을 그려 준다(`20261103` → `2026-11-03`). 커서 자리도 하이픈을 건너뛰게 맞춘다.
+ * 숫자 자판만으로 적을 수 있어 시니어가 숫자·하이픈 자판을 오가지 않는다 (재검토 R18).
+ */
+internal object DateDigitsTransformation : VisualTransformation {
+    override fun filter(text: AnnotatedString): TransformedText {
+        val digits = text.text
+        val shown = buildString {
+            digits.forEachIndexed { i, c ->
+                if (i == 4 || i == 6) append('-')
+                append(c)
+            }
+        }
+        val mapping = object : OffsetMapping {
+            override fun originalToTransformed(offset: Int): Int =
+                offset + (if (offset > 4) 1 else 0) + (if (offset > 6) 1 else 0)
+
+            override fun transformedToOriginal(offset: Int): Int =
+                (offset - (if (offset > 4) 1 else 0) - (if (offset > 7) 1 else 0)).coerceIn(0, digits.length)
+        }
+        return TransformedText(AnnotatedString(shown), mapping)
+    }
+}
 
 /** 11월 3일 (화) */
 @Composable
@@ -315,7 +352,11 @@ private fun CountryNames(c: IndexCountry, align: TextAlign, modifier: Modifier =
     }
 }
 
-/** 날짜 칸: 글자 입력(YYYY-MM-DD) 그대로 + 달력 아이콘 + 값이 올바르면 `11월 3일 (화)` 확인 글 (D20) */
+/**
+ * 날짜 칸 (D20 + 재검토 R18): 숫자 자판으로 8자리만 적으면 하이픈은 칸이 그려 준다(`2026-11-03`).
+ * 값이 올바르면 `11월 3일 (화)` 확인 글(보조 글이라 InkSecondary — 파란 글자는 링크처럼 보였다).
+ * 앞 달력 아이콘은 누르면 달력이 열릴 것처럼 보여 뺐다(섹션 머리에 같은 아이콘이 있다).
+ */
 @Composable
 private fun DateField(@StringRes label: Int, value: String, parsed: LocalDate?, error: Boolean, onChange: (String) -> Unit) {
     val preview: (@Composable () -> Unit)? = if (parsed != null) {
@@ -325,14 +366,14 @@ private fun DateField(@StringRes label: Int, value: String, parsed: LocalDate?, 
     }
     OutlinedTextField(
         value = value,
-        onValueChange = onChange,
+        onValueChange = { onChange(dateDigits(it)) },
         label = { KoText(stringResource(label)) },
         placeholder = { KoText(stringResource(R.string.trip_date_hint)) },
-        leadingIcon = { Icon(Icons.Outlined.CalendarMonth, contentDescription = null) },
         supportingText = preview,
         isError = error,
         singleLine = true,
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Ascii),
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+        visualTransformation = DateDigitsTransformation,
         textStyle = MaterialTheme.typography.bodyLarge,
         shape = MaterialTheme.shapes.small,
         colors = OutlinedTextFieldDefaults.colors(
@@ -342,11 +383,8 @@ private fun DateField(@StringRes label: Int, value: String, parsed: LocalDate?, 
             unfocusedBorderColor = Tokens.LineStrong,
             focusedBorderColor = Tokens.Accent,
             errorBorderColor = Tokens.DangerText,
-            focusedLeadingIconColor = Tokens.Accent,
-            unfocusedLeadingIconColor = Tokens.InkSecondary,
-            errorLeadingIconColor = Tokens.DangerText,
-            focusedSupportingTextColor = Tokens.Accent,
-            unfocusedSupportingTextColor = Tokens.Accent,
+            focusedSupportingTextColor = Tokens.InkSecondary,
+            unfocusedSupportingTextColor = Tokens.InkSecondary,
             errorSupportingTextColor = Tokens.DangerText,
         ),
         modifier = Modifier.fillMaxWidth(),

@@ -89,14 +89,40 @@ class EssentialsUiTest {
         val list = rule.onNode(hasScrollAction())
         // 규정 배지가 있는 물건은 규정 문장(숫자)을 먼저 — 출처 줄이 가리키는 내용이 접힌 곳에 숨지 않게 (원칙 1)
         list.performScrollToNode(hasText(ruleSentence))
-        // 나머지 문장은 '자세히 보기' 안 — 펼치기 전에는 없다
+        // 나머지 문장은 펼침 안 — 펼치기 전에는 없다. 펼침 이름에 무엇을 펼치는지 담는다(재검토 R18: `자세히 보기`만 되풀이하지 않게)
         rule.onAllNodesWithText("배터리가 빨리 닳아요", substring = true).assertCountEquals(0)
-        list.performScrollToNode(hasText(s(R.string.action_more)))
-        rule.onNodeWithText(s(R.string.action_more)).performClick()
+        val more = s(R.string.essentials_more, "보조배터리")
+        list.performScrollToNode(hasText(more))
+        rule.onNodeWithText(more).performClick()
         rule.onAllNodesWithText("배터리가 빨리 닳아요", substring = true).assertCountEquals(1)
         // 출처 이름을 못 찾으면 내부 ID 대신 '공식 안내'
         list.performScrollToNode(hasText(s(R.string.source_footer, s(R.string.source_official_fallback), "2026.09.29")))
         rule.onAllNodesWithText("molit_powerbank_2026", substring = true).assertCountEquals(0)
+    }
+
+    @Test
+    fun notYetPackedItemsComeFirstAndPackedItemsMoveDown() {
+        var have by mutableStateOf(setOf("passport"))
+        rule.setContent {
+            ReadyPortTheme {
+                EssentialsContent(
+                    EssentialsUi("태국", 4, 11, rules.map { EssentialRow(it, it.id in have, null) }),
+                    { id, v -> have = if (v) have + id else have - id },
+                    {},
+                )
+            }
+        }
+        fun top(text: String) = rule.onNodeWithText(text).fetchSemanticsNode().boundsInRoot.top
+        // 아직 안 챙긴 물건이 위, 챙긴 물건은 아래 묶음 (재검토 R15)
+        rule.onNodeWithText(s(R.string.essentials_done_title, 1)).assertExists()
+        assertTrue(top("보조배터리") < top(s(R.string.essentials_done_title, 1)))
+        assertTrue(top(s(R.string.essentials_done_title, 1)) < top("여권"))
+        // 챙기면 아래 묶음으로 옮겨 간다
+        rule.onNode(hasText("보조배터리") and SemanticsMatcher.expectValue(SemanticsProperties.Role, Role.Checkbox)).performClick()
+        rule.waitForIdle()
+        assertEquals(setOf("passport", "power_bank"), have)
+        rule.onNodeWithText(s(R.string.essentials_done_title, 2)).assertExists()
+        rule.onNodeWithText(s(R.string.essentials_all_done)).assertExists()
     }
 
     @Test
