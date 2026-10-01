@@ -263,7 +263,8 @@ fun PhotoHeaderCard(
     val dimens = LocalDimens.current
     val shape = MaterialTheme.shapes.large
     Card(
-        modifier = modifier.fillMaxWidth().cardShadow(shape),
+        // 사진이 카드 위 가장자리까지 닿는다 — 옅은 카드 테두리가 사진 위에 밝은 선으로 그려지지 않게 그림자만 (3.5 사진 카드)
+        modifier = modifier.fillMaxWidth().cardShadow(shape, border = false),
         shape = shape,
         colors = CardDefaults.cardColors(containerColor = Tokens.Surface, contentColor = Tokens.Ink),
         elevation = CardDefaults.cardElevation(0.dp),

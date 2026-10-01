@@ -2,7 +2,6 @@ package com.readyport.ui.pack
 
 import android.content.Intent
 import androidx.annotation.StringRes
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.FlowRow
@@ -10,7 +9,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.AddShoppingCart
@@ -21,7 +19,6 @@ import androidx.compose.material.icons.outlined.ShoppingBag
 import androidx.compose.material.icons.outlined.Translate
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -32,7 +29,6 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -68,7 +64,10 @@ import com.readyport.ui.components.IconBullet
 import com.readyport.ui.components.IconKeys
 import com.readyport.ui.components.KoText
 import com.readyport.ui.components.QuietButton
+import com.readyport.ui.components.ImportVerdictNote
+import com.readyport.ui.components.NumberText
 import com.readyport.ui.components.ReturnCheckCard
+import com.readyport.ui.components.ReturnCheckMode
 import com.readyport.ui.components.SecondaryButton
 import com.readyport.ui.components.SelectChip
 import com.readyport.ui.components.ShowLocalBody
@@ -76,14 +75,10 @@ import com.readyport.ui.components.SourceList
 import com.readyport.ui.components.SourceRef
 import com.readyport.ui.components.cardShadow
 import com.readyport.ui.components.displayDate
-import com.readyport.ui.components.importKind
-import com.readyport.ui.components.importLabel
 import com.readyport.ui.components.localText
 import com.readyport.ui.components.rememberGridColumns
 import com.readyport.ui.components.resolveSourceName
 import com.readyport.ui.components.sectionGap
-import com.readyport.ui.components.startBar
-import com.readyport.ui.components.textIconSize
 import com.readyport.ui.nav.ShoppingRoute
 import com.readyport.ui.theme.LocalDimens
 import com.readyport.ui.theme.LocalTypeExtras
@@ -223,7 +218,7 @@ fun ShoppingContent(ui: ShoppingUi, onToggle: (String, Boolean) -> Unit, onOpenL
         sectionGap("gap-return")
         item(key = "return") {
             // 줄바꿈(어절 단위·출처 날짜)은 공용 ReturnCheckCard가 한다
-            ReturnCheckCard(ui.returnLinks, ui.returnFacts, ui.indexSources, onOpenLink)
+            ReturnCheckCard(ui.returnLinks, ui.returnFacts, ui.indexSources, onOpenLink, ReturnCheckMode.Summary)
         }
     }
 
@@ -252,7 +247,7 @@ private fun ShopItemCard(
     ) {
         Column(Modifier.padding(dimens.cardPadding), verticalArrangement = Arrangement.spacedBy(dimens.inner)) {
             Row(verticalAlignment = Alignment.Top, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                // 품목 아이콘은 품목마다(재검토 R11), 배지 톤은 모든 화면에서 Neutral — 판정 색은 ImportVerdictPanel만 맡는다
+                // 품목 아이콘은 품목마다(재검토 R11), 배지 톤은 모든 화면에서 Neutral — 판정 색은 판정 알약(ImportVerdictNote)만 맡는다
                 IconBadge(IconKeys.item(item.id, item.category), tone = BadgeTone.Neutral)
                 Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
                     KoText(
@@ -265,13 +260,17 @@ private fun ShopItemCard(
                     Text(item.names.local, style = localText(MaterialTheme.typography.bodyMedium), color = Tokens.InkSecondary)
                 }
             }
-            ImportVerdictPanel(item.import, item.importNoteKo)
+            // 카드 안 판정 = 공용 판정 묶음(StatusTag 알약 + 보통 본문 이유) — 연한 채움 + 막대 블록은 화면 단위 경고에만 (재검토2 ①#4)
+            ImportVerdictNote(item.import, item.importNoteKo)
             val (why, whyMore) = splitLongText(item.whyKo)
-            KoText(why, MaterialTheme.typography.bodyMedium, color = Tokens.Ink)
+            NumberText(why, MaterialTheme.typography.bodyMedium, color = Tokens.Ink)
             if (whyMore != null) {
                 // 펼침 줄 이름에 무엇을 펼치는지(품목 이름) — TalkBack에서 `자세히 보기`만 되풀이되지 않게 (재검토 R18)
-                ExpandableDetail(label = stringResource(R.string.shopping_more, item.names.ko)) {
-                    KoText(whyMore, MaterialTheme.typography.bodyMedium, color = Tokens.Ink)
+                ExpandableDetail(
+                    label = stringResource(R.string.shopping_more, item.names.ko),
+                    target = stringResource(R.string.fold_target_item, item.names.ko),
+                ) {
+                    NumberText(whyMore, MaterialTheme.typography.bodyMedium, color = Tokens.Ink)
                 }
             }
             item.whereKo?.let { IconBullet(stringResource(R.string.shopping_where, it), Icons.Outlined.Place) }
@@ -342,7 +341,7 @@ private fun ShopItemCard(
 internal data class CartAction(@StringRes val label: Int, @StringRes val actionLabel: Int, val icon: ImageVector, val tone: BadgeTone)
 
 /**
- * 담기 버튼 (재검토 22): 한국에 가져올 수 있거나 주의인 품목 = Accent `담기`(카트), 담았으면 Success `담았어요 ✓`.
+ * 담기 버튼 (재검토 22): 한국에 가져올 수 있거나 주의인 품목 = Accent `담기`(카트), 담았으면 Success `담았어요`(✓ 글자 없이 체크 아이콘만 — 운영자 결정 13).
  * 반입 불가 품목은 같은 `담기`가 '사 와도 된다'로 읽히지 않게 **다른 말·다른 모양** — 흰 바탕 Neutral 테두리 버튼
  * `현지에서 먹기로 담기`(먹거리, 식사 아이콘) / `현지에서 쓰기로 담기`(그 밖, 장소 아이콘). 담은 목록은 귀국 단계가
  * 판정과 함께 다시 보여 준다(같은 카트 — 기능은 그대로).
@@ -369,37 +368,6 @@ internal fun cartAction(item: ShoppingItem, inCart: Boolean): CartAction {
             if (food) Icons.Outlined.Restaurant else Icons.Outlined.Place,
             BadgeTone.Neutral,
         )
-    }
-}
-
-/**
- * 반입 판정 칸: 연한 상태 바탕 + 왼쪽 4dp 막대(3.5) 안에 판정(아이콘 + 글자)과 이유(같은 색 bodyMedium) —
- * 판정이 이유 글보다 약해 보이던 위계를 바로잡는다(6-18). 글자는 import_allowed/caution/prohibited 그대로.
- */
-@Composable
-private fun ImportVerdictPanel(status: ImportStatus, note: String?) {
-    val kind = importKind(status)
-    val tone = kind.tone
-    val bar = if (tone == BadgeTone.Caution) Tokens.CautionBorder else tone.content
-    Column(
-        Modifier
-            .fillMaxWidth()
-            .clip(MaterialTheme.shapes.small)
-            .background(tone.container)
-            .startBar(bar)
-            .padding(start = 16.dp, end = 12.dp, top = 8.dp, bottom = 8.dp),
-        verticalArrangement = Arrangement.spacedBy(4.dp),
-    ) {
-        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-            Icon(
-                kind.icon,
-                contentDescription = null,
-                tint = tone.content,
-                modifier = Modifier.size(textIconSize(LocalDimens.current.icon, MaterialTheme.typography.titleSmall)),
-            )
-            KoText(stringResource(importLabel(status)), MaterialTheme.typography.titleSmall, color = tone.content)
-        }
-        note?.let { KoText(it, MaterialTheme.typography.bodyMedium, color = tone.content) }
     }
 }
 

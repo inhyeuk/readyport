@@ -58,6 +58,7 @@ import androidx.compose.material.icons.outlined.Redeem
 import androidx.compose.material.icons.outlined.ReportProblem
 import androidx.compose.material.icons.outlined.Restaurant
 import androidx.compose.material.icons.outlined.Sailing
+import androidx.compose.material.icons.outlined.LocalBar
 import androidx.compose.material.icons.outlined.Savings
 import androidx.compose.material.icons.outlined.School
 import androidx.compose.material.icons.outlined.ShoppingBasket
@@ -178,10 +179,11 @@ object IconKeys {
     }
 
     /**
-     * 귀국 전 확인 사실 행: 출처 ID → 아이콘·톤 (4.15). 문장은 팩 원문 그대로 쓰고 값은 앱에 두지 않는다(D11).
+     * 귀국 전 확인 사실 행: 출처 ID(+ 같은 출처의 몇 번째 문장인지 [occurrence]) → 아이콘·톤 (4.15). 문장은 팩 원문 그대로 쓰고 값은 앱에 두지 않는다(D11).
      */
-    fun returnFact(source: String): Pair<ImageVector, BadgeTone> = when (source) {
-        "customs_allowance" -> Icons.Outlined.Savings to BadgeTone.Accent
+    fun returnFact(source: String, occurrence: Int = 0): Pair<ImageVector, BadgeTone> = when (source) {
+        // 같은 관세청 출처의 둘째 문장(술·담배·향수 별도 면세)은 술잔 — 기본 면세 한도(저금통)와 그림으로 갈린다 (재검토2 ③#2b)
+        "customs_allowance" -> (if (occurrence > 0) Icons.Outlined.LocalBar else Icons.Outlined.Savings) to BadgeTone.Accent
         "apqa_plant" -> Icons.Outlined.Eco to BadgeTone.Caution
         "apqa_livestock" -> Icons.Outlined.NoMeals to BadgeTone.Danger
         else -> Icons.Outlined.Info to BadgeTone.Neutral

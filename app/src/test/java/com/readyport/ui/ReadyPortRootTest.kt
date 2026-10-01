@@ -118,8 +118,8 @@ class ReadyPortRootTest {
         tab(R.string.tab_home).assertIsSelected()
         // 입국·비자: 정부 비제휴 고지가 맨 위, 입국 카드 입력 도우미
         rule.onNodeWithText(s(R.string.guide_not_affiliated)).assertIsDisplayed()
-        scrollTo(hasText(s(R.string.country_form_start)))
-        rule.onNodeWithText(s(R.string.country_form_start)).assertIsDisplayed()
+        scrollTo(hasText(s(R.string.prepare_form_open)))
+        rule.onNodeWithText(s(R.string.prepare_form_open)).assertIsDisplayed()
         scrollTo(hasText(s(R.string.country_tab_shopping)))
         rule.onNodeWithText(s(R.string.country_tab_shopping)).performClick()
         scrollTo(hasText(s(R.string.shopping_open)))

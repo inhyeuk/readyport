@@ -65,7 +65,6 @@
     <string name="form_group_count">%1$d칸</string>
     <string name="form_missing_count">빈칸 %1$d개 남았어요</string>
     <string name="form_go_first_missing">첫 빈칸으로 가기</string>
-    <string name="form_field_required">꼭 채워요</string>
     <string name="form_go_field_cd">%1$s 칸으로 가기</string>
 
     <!-- 19 이동 · 20 도움 -->

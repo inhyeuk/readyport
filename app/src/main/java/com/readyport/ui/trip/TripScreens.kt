@@ -63,6 +63,7 @@ import com.readyport.trip.TripNotifications
 import com.readyport.trip.TripRepository
 import com.readyport.ui.components.AppScreen
 import com.readyport.ui.components.BannerTone
+import com.readyport.ui.components.ButtonPlacement
 import com.readyport.ui.components.DangerButton
 import com.readyport.ui.components.DestructiveConfirm
 import com.readyport.ui.components.Fact
@@ -253,7 +254,7 @@ fun TripContent(
         if (ui.existing != null) {
             sectionGap("delete-gap")
             item(key = "delete") {
-                DangerButton(stringResource(R.string.trip_delete), onClick = { confirmDelete = true }, fillWidth = true)
+                DangerButton(stringResource(R.string.trip_delete), onClick = { confirmDelete = true }, placement = ButtonPlacement.CardAction)
             }
         }
     }

@@ -42,9 +42,12 @@ import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.layout.layout
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.LiveRegionMode
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.clearAndSetSemantics
+import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.heading
+import androidx.compose.ui.semantics.liveRegion
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.semantics.text
@@ -72,7 +75,10 @@ val BadgeTone.onLight: Color
     }
 
 /**
- * 섹션 머리: 아이콘 배지 + 제목(heading). 위 여백 없음 — 섹션 간격은 sectionGap()이 맡는다.
+ * 섹션 머리 (다듬기 D0 — 재검토2 ①#2 '섹션 머리 = 카드 제목' 해결): **배지 없이** 24dp 아이콘(tone 글자색, 글자를 따라 커짐) +
+ * 큰 굵은 제목(headlineSmall 22/30 Bold, 쉬운 모드 24/32). 카드 제목(CardNewsCard)은 한 단계 작은 titleMedium SemiBold + 40dp 배지라
+ * 긴 화면에서 '섹션 → 카드' 두 단이 갈려 읽힌다. 아이콘이 없는 섹션 머리(`어느 나라로 가세요?`)도 같은 글자.
+ * 위 여백 없음 — 섹션 간격은 sectionGap()이 맡는다.
  * [action]은 옆에 두면 제목·부제가 더 꺾일 만큼 폭이 모자라면 제목 아래 줄로 내려간다(4.3 — 글자 크기와 무관하게 실제 폭 기준).
  */
 @Composable
@@ -85,21 +91,40 @@ fun SectionHeader(
     subtitle: String? = null,
     action: (@Composable () -> Unit)? = null,
 ) {
+    val typography = MaterialTheme.typography
+    val titleStyle = typography.headlineSmall
+    val iconSize = textIconSize(LocalDimens.current.icon, titleStyle)
+    // 아이콘은 제목 첫 줄 가운데에 (eyebrow가 있으면 그 줄 아래)
+    val eyebrowShift = if (eyebrow != null) lineHeightDp(typography.labelMedium) + 2.dp else 0.dp
     val texts: @Composable () -> Unit = {
         Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
-            if (eyebrow != null) KoText(eyebrow, MaterialTheme.typography.labelMedium, color = tone.onLight)
-            KoText(title, MaterialTheme.typography.titleLarge, color = Tokens.Ink, heading = true, glueShort = true)
-            if (subtitle != null) KoText(subtitle, MaterialTheme.typography.bodyMedium, color = Tokens.InkSecondary)
+            if (eyebrow != null) KoText(eyebrow, typography.labelMedium, color = tone.onLight)
+            KoText(title, titleStyle, color = Tokens.Ink, heading = true, glueShort = true)
+            if (subtitle != null) KoText(subtitle, typography.bodyMedium, color = Tokens.InkSecondary)
         }
     }
-    Row(modifier.fillMaxWidth(), verticalAlignment = Alignment.Top, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-        if (icon != null) IconBadge(icon, tone = tone)
+    Row(modifier.fillMaxWidth(), verticalAlignment = Alignment.Top, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+        if (icon != null) {
+            Icon(
+                icon,
+                contentDescription = null,
+                tint = tone.onLight,
+                modifier = Modifier.padding(top = eyebrowShift + firstLineIconOffset(titleStyle, iconSize)).size(iconSize),
+            )
+        }
         if (action != null) {
             TrailingFlow(trailing = action, modifier = Modifier.weight(1f), belowGap = 4.dp, main = texts)
         } else {
             Box(Modifier.weight(1f)) { texts() }
         }
     }
+}
+
+/** 글자 스타일의 줄 높이(dp) — 시스템 글자 크기를 따른다 */
+@Composable
+@androidx.compose.runtime.ReadOnlyComposable
+internal fun lineHeightDp(style: TextStyle): Dp = with(LocalDensity.current) {
+    if (style.lineHeight.isSp) style.lineHeight.toDp() else style.fontSize.toDp()
 }
 
 /**
@@ -180,7 +205,8 @@ fun CardNewsCard(
             val head: @Composable () -> Unit = {
                 Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
                     if (eyebrow != null) KoText(eyebrow, MaterialTheme.typography.labelMedium, color = c.eyebrow)
-                    KoText(title, MaterialTheme.typography.titleLarge, color = c.title, heading = true, glueShort = true)
+                    // 카드 제목 = titleMedium SemiBold — 섹션 머리(headlineSmall Bold, 배지 없음)보다 한 단계 작게 (재검토2 ①#2)
+                    KoText(title, MaterialTheme.typography.titleMedium, color = c.title, heading = true, glueShort = true)
                 }
             }
             Row(verticalAlignment = Alignment.Top, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
@@ -189,10 +215,12 @@ fun CardNewsCard(
                 if (trailing != null) {
                     TrailingFlow(trailing = trailing, modifier = Modifier.weight(1f), main = head)
                 } else {
-                    Box(Modifier.weight(1f)) { head() }
+                    // 한 줄 제목은 40dp 배지 가운데에 (두 줄 이상이면 위 맞춤)
+                    Box(Modifier.weight(1f).heightIn(min = LocalDimens.current.iconBadge), contentAlignment = Alignment.CenterStart) { head() }
                 }
             }
-            if (body != null) KoText(body, MaterialTheme.typography.bodyLarge, color = c.body)
+            // 팩 문장일 수 있다 — 숫자 토큰은 굵게(값은 그대로, 재검토2 ③#1)
+            if (body != null) NumberText(body, MaterialTheme.typography.bodyLarge, color = c.body)
             content()
             if (sources.isNotEmpty()) {
                 Box(Modifier.padding(top = 4.dp)) { SourceList(sources, onColor = c.onColor) }
@@ -220,7 +248,7 @@ fun List<Fact>.sourceRefs(): List<SourceRef> = mapNotNull { it.source }
 private val CurrencyAmount = Regex("""([A-Z]{3})\s+(\d[\d,.]*)""")
 
 /**
- * 숫자 타일 (누를 수 없음 — 누르는 요약은 IconTile). 읽기: "90일 비자 없이 머물러요". 톤 연한 바탕 · 16dp 모서리 · 안쪽 16 · 아이콘 → 값 → 라벨.
+ * 숫자 타일 (누를 수 없음 — 누르는 요약은 IconTile). 읽기: "90일 비자 없이 머물러요". Ground 바탕 · 16dp 모서리 · 안쪽 16 · 아이콘(톤 색) → 값 → 라벨.
  * - 값은 **칸 폭에 맞춘 한 줄**([FitText]: stat → statSmall → titleLarge — 쉬운 모드 최소 24sp). `IDR 500,000`·`4박 5일`이
  *   `IDR`/`500,000`처럼 두 줄로 쪼개지지 않는다(재검토 R12). 아주 좁아 가장 작은 크기로도 넘치면 띄어쓰기에서만 줄을 바꾼다.
  * - 통화 코드가 붙은 금액은 코드를 값 위 작은 글자(labelMedium)로 올리고 숫자만 크게 — 화면은 `IDR`⏎`500,000`,
@@ -250,8 +278,10 @@ fun StatTile(fact: Fact, modifier: Modifier = Modifier, wide: Boolean = false) {
     val icon: @Composable () -> Unit = {
         Icon(fact.icon, contentDescription = null, tint = fact.tone.onLight, modifier = Modifier.size(iconSize))
     }
+    // 바탕은 Ground(회청) 하나 — AccentSoft 채움은 '선택됨'에만 쓴다(재검토2 ①#1). 톤 색은 아이콘이 맡는다.
+    // 타일은 흰 카드 안에만 놓인다(비자 카드·정리 단계 사진 카드) — Ground 화면 바탕 위에 바로 두지 않는다.
     Surface(
-        color = fact.tone.container,
+        color = StatTileContainer,
         shape = MaterialTheme.shapes.medium,
         modifier = modifier
             .fillMaxWidth()
@@ -263,18 +293,21 @@ fun StatTile(fact: Fact, modifier: Modifier = Modifier, wide: Boolean = false) {
                 icon()
                 Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
                     value()
-                    KoText(fact.label.replace('\n', ' '), typography.bodyMedium, color = Tokens.InkSecondary)
+                    NumberText(fact.label.replace('\n', ' '), typography.bodyMedium, color = Tokens.InkSecondary)
                 }
             }
         } else {
             Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
                 icon()
                 value()
-                KoText(fact.label, typography.bodyMedium, color = Tokens.InkSecondary)
+                NumberText(fact.label, typography.bodyMedium, color = Tokens.InkSecondary)
             }
         }
     }
 }
+
+/** StatTile 바탕 (InkSecondary 6.98·Accent 6.22 — Ground 위 대비) */
+val StatTileContainer: Color = Tokens.Ground
 
 /**
  * 숫자 타일 그리드. **팩의 구조화 필드에서만** 값을 만든다(D11). 타일이 2개 미만이면 그리지 않는다 — 호출하는 쪽이 글로(또는 [StatTile] `wide` 한 장으로) 보인다.
@@ -408,14 +441,17 @@ fun TextCircle(
  * 행마다 mergeDescendants라 TalkBack은 "1 공항에 가요"처럼 한 번에 읽는다. 높이는 글에 맞춘다.
  * - 단계 글은 짧은 제목이든 문장이든 **본문 줄바꿈**(들어가는 만큼 채움, 어절 단위 — [ReadyPortLineBreak.Body])으로 그린다.
  *   제목용 균형 줄바꿈은 오른쪽에 자리가 남아도 일찍 꺾어 `'오프라인 지도'` 같은 화면 이름까지 갈랐다(재검토 B1).
- * - [sentence]: 단계 글이 두세 줄 문장(도움 절차 `여권을 잃어버렸어요` 등)이면 굵은 제목 글자(titleMedium) 대신
- *   본문 글자(bodyLarge, Ink)로 — 번호 원만 강조해 굵은 글 벽을 만들지 않는다(재검토 ④-9). 보조 글(bodyMedium, InkSecondary)과는 크기·색으로 구분된다.
+ * - 글자 모양은 **부품이 단계 글 길이로 고른다**(다듬기 D0 — 재검토2 ④#2): 모든 단계가 짧은 제목(20자 이하·문장부호 없음 —
+ *   홈 출국 순서 `공항에 가요`)이면 굵은 제목 글자(titleMedium), 하나라도 문장이면 목록 전체를 본문 글자(bodyLarge, Ink)로 —
+ *   번호 원만 강조해 굵은 글 벽(04 e-VOA 단계, 05 지도 저장, 24 도움 절차)을 만들지 않는다. [sentence]로 직접 정할 수도 있다(null = 자동).
+ *   문장형 글과 보조 글은 숫자 토큰을 굵게(팩 문장 — 재검토2 ③#1).
  */
 @Composable
-fun StepList(steps: List<Step>, modifier: Modifier = Modifier, numbered: Boolean = true, sentence: Boolean = false) {
+fun StepList(steps: List<Step>, modifier: Modifier = Modifier, numbered: Boolean = true, sentence: Boolean? = null) {
     val dimens = LocalDimens.current
     val typography = MaterialTheme.typography
-    val textStyle = (if (sentence) typography.bodyLarge else typography.titleMedium).copy(lineBreak = ReadyPortLineBreak.Body)
+    val asSentence = sentence ?: steps.any { isSentenceStep(it.text) }
+    val textStyle = (if (asSentence) typography.bodyLarge else typography.titleMedium).copy(lineBreak = ReadyPortLineBreak.Body)
     val iconSize = textIconSize(if (dimens.easyMode) 24.dp else 20.dp, textStyle)
     val iconTop = firstLineIconOffset(textStyle, iconSize)
     // 큰 글자 배치에서는 단계 아이콘을 빼지 않고 글 첫 줄 안(맨 앞)으로 옮긴다 — 아이콘 열이 글 폭을 뺏지 않게 (재검토 R5)
@@ -447,17 +483,28 @@ fun StepList(steps: List<Step>, modifier: Modifier = Modifier, numbered: Boolean
                     Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
                         if (inlineIcons && step.icon != null) {
                             LeadIconText(step.text, step.icon, textStyle, Tokens.Ink, Tokens.Accent)
+                        } else if (asSentence) {
+                            NumberText(step.text, textStyle, color = Tokens.Ink)
                         } else {
                             KoText(step.text, textStyle, color = Tokens.Ink)
                         }
                         if (step.detail != null) {
-                            KoText(step.detail, MaterialTheme.typography.bodyMedium, color = Tokens.InkSecondary)
+                            NumberText(step.detail, MaterialTheme.typography.bodyMedium, color = Tokens.InkSecondary)
                         }
                     }
                 }
             }
         }
     }
+}
+
+/** 단계 제목 글자로 둘 수 있는 길이 (이보다 길거나 문장부호가 있으면 문장형) */
+private const val STEP_TITLE_MAX = 20
+
+/** 단계 글이 문장인지: 20자를 넘거나 문장부호(. ! ? :)가 있으면 문장 (재검토2 ④#2) */
+internal fun isSentenceStep(text: String): Boolean {
+    val t = text.trim()
+    return t.length > STEP_TITLE_MAX || t.any { it in ".!?:" }
 }
 
 /**
@@ -502,9 +549,16 @@ private val BulletBleed = 12.dp
 /**
  * "• 문장"을 대체하는 아이콘 행. Caution·Danger 톤이면 행 바탕을 연하게 —
  * 이때 바탕은 양옆으로 12dp 내밀어(카드 안쪽 여백 안) 아이콘·글자 위치가 다른 행과 같은 줄에 선다.
+ * 글은 팩 문장일 수 있어 숫자 토큰을 굵게 보인다(값은 그대로, 재검토2 ③#1). [display]: 보일 글자(날짜 묶음 등 — 의미 글자는 [text]).
  */
 @Composable
-fun IconBullet(text: String, icon: ImageVector, modifier: Modifier = Modifier, tone: BadgeTone = BadgeTone.Neutral) {
+fun IconBullet(
+    text: String,
+    icon: ImageVector,
+    modifier: Modifier = Modifier,
+    tone: BadgeTone = BadgeTone.Neutral,
+    display: String? = null,
+) {
     val dimens = LocalDimens.current
     val tinted = tone == BadgeTone.Caution || tone == BadgeTone.Danger
     Row(
@@ -542,7 +596,7 @@ fun IconBullet(text: String, icon: ImageVector, modifier: Modifier = Modifier, t
             modifier = Modifier.padding(top = firstLineIconOffset(style, size)).size(size),
         )
         Spacer(Modifier.width(12.dp))
-        KoText(text, style, Modifier.weight(1f), color = Tokens.Ink)
+        NumberText(text, style, Modifier.weight(1f), color = Tokens.Ink, display = display)
     }
 }
 
@@ -563,59 +617,91 @@ fun DotBullet(text: String, modifier: Modifier = Modifier) {
             Box(Modifier.size(dot).background(Tokens.InkTertiary, CircleShape))
         }
         Spacer(Modifier.width(12.dp))
-        KoText(text, style, Modifier.weight(1f), color = Tokens.Ink)
+        // 팩 문장 — 숫자 토큰 굵게(`20·50·100·500·1,000밧`, `미화 1만 5천 달러`, 재검토2 ③#1)
+        NumberText(text, style, Modifier.weight(1f), color = Tokens.Ink)
     }
 }
 
 /**
  * 펼침 영역. 출처는 절대 이 안에 넣지 않는다. TalkBack: 버튼 + 상태(펼쳐짐/접힘).
  * '소리로 듣기'는 접힘과 무관하게 전체 문장을 읽는다(speech 문자열은 그대로).
+ * [target]: 무엇을 펼치는지(`보조배터리 설명`) — 펼친 뒤 `접기` 버튼의 TalkBack 이름이 `보조배터리 설명 접기`가 된다(재검토2 ②#2).
+ * 펼쳐 나온 내용은 TalkBack이 바로 읽는다(liveRegion Polite) — 버튼 아래에 늘어난 글을 찾아 쓸어 넘기지 않아도 된다.
  */
 @Composable
 fun ExpandableDetail(
     label: String = stringResource(R.string.action_more),
+    target: String? = null,
     content: @Composable ColumnScope.() -> Unit,
 ) {
     var open by rememberSaveable { mutableStateOf(false) }
-    ExpandableDetail(open = open, onOpenChange = { open = it }, label = label, content = content)
+    ExpandableDetail(open = open, onOpenChange = { open = it }, label = label, target = target, content = content)
 }
 
-/**
- * 펼침 상태를 밖에서 쥐는 판 (ReturnCheckCard가 펼치면 위 사실 행을 팩 문장 전체로 바꾸려고 쓴다 — 이때 [content]는 비운다).
- * 펼치면 라벨이 `접기`(action_less)로 바뀐다.
- */
+/** 펼침 상태를 밖에서 쥐는 판 (입국 카드 확인의 출처별 값 묶음처럼 화면이 상태를 기억할 때) */
 @Composable
-internal fun ExpandableDetail(
+fun ExpandableDetail(
     open: Boolean,
     onOpenChange: (Boolean) -> Unit,
     label: String,
+    target: String? = null,
     content: @Composable ColumnScope.() -> Unit,
+) {
+    val dimens = LocalDimens.current
+    Column(Modifier.fillMaxWidth()) {
+        ExpandToggle(open = open, onOpenChange = onOpenChange, label = label, target = target)
+        // 늘 있는 상자에 liveRegion — 내용이 나타나면 그 바뀜을 알린다
+        Column(Modifier.fillMaxWidth().foldLiveRegion()) {
+            AnimatedVisibility(visible = open) {
+                Column(Modifier.padding(top = dimens.inner), verticalArrangement = Arrangement.spacedBy(dimens.inner), content = content)
+            }
+        }
+    }
+}
+
+/**
+ * 펼침·접기 줄 하나 (minTouch, 버튼 + 펼쳐짐/접힘 상태) — 아래에 내용을 더하는 [ExpandableDetail]과, 위 글을 첫 문장 ↔ 전체로
+ * 바꾸는 카드(귀국 전 확인·나라 화면 팩 글)가 함께 쓴다. 글을 바꾸는 쪽은 바뀌는 글 묶음에 [foldLiveRegion]을 둔다
+ * (바뀐 글이 버튼 **위**에 있어 TalkBack 초점이 따라가지 않던 문제 — 재검토2 ②#2).
+ * - 보이는 글: 접힘 [label], 펼침 `접기`(action_less)
+ * - TalkBack 이름: 접힘 [closedName](없으면 보이는 글), 펼침 `{target} 접기`([target]이 있을 때 — 없으면 보이는 글)
+ */
+@Composable
+fun ExpandToggle(
+    open: Boolean,
+    onOpenChange: (Boolean) -> Unit,
+    label: String,
+    modifier: Modifier = Modifier,
+    target: String? = null,
+    closedName: String? = null,
 ) {
     val dimens = LocalDimens.current
     val state = stringResource(if (open) R.string.state_expanded else R.string.state_collapsed)
     val shown = if (open) stringResource(R.string.action_less) else label
-    Column(Modifier.fillMaxWidth()) {
-        Row(
-            Modifier
-                .fillMaxWidth()
-                .minTouch()
-                .clip(MaterialTheme.shapes.small)
-                .toggleable(value = open, role = Role.Button, onValueChange = onOpenChange)
-                .semantics { stateDescription = state }
-                .padding(horizontal = 4.dp, vertical = 8.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-        ) {
-            KoText(shown, MaterialTheme.typography.labelLarge, Modifier.weight(1f), color = Tokens.Accent)
-            Icon(
-                if (open) Icons.Outlined.ExpandLess else Icons.Outlined.ExpandMore,
-                contentDescription = null,
-                tint = Tokens.Accent,
-                modifier = Modifier.size(textIconSize(dimens.icon, MaterialTheme.typography.labelLarge)),
-            )
-        }
-        AnimatedVisibility(visible = open) {
-            Column(Modifier.padding(top = dimens.inner), verticalArrangement = Arrangement.spacedBy(dimens.inner), content = content)
-        }
+    val name = if (open) target?.let { stringResource(R.string.collapse_target_cd, it) } else closedName
+    Row(
+        modifier
+            .fillMaxWidth()
+            .minTouch()
+            .clip(MaterialTheme.shapes.small)
+            .toggleable(value = open, role = Role.Button, onValueChange = onOpenChange)
+            .semantics {
+                stateDescription = state
+                if (name != null) contentDescription = name
+            }
+            .padding(horizontal = 4.dp, vertical = 8.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+    ) {
+        KoText(shown, MaterialTheme.typography.labelLarge, Modifier.weight(1f), color = Tokens.Accent)
+        Icon(
+            if (open) Icons.Outlined.ExpandLess else Icons.Outlined.ExpandMore,
+            contentDescription = null,
+            tint = Tokens.Accent,
+            modifier = Modifier.size(textIconSize(dimens.icon, MaterialTheme.typography.labelLarge)),
+        )
     }
 }
+
+/** 펼침·접기로 글이 바뀌는 묶음: 바뀌면 TalkBack이 새 글을 읽는다(liveRegion Polite, 재검토2 ②#2) */
+fun Modifier.foldLiveRegion(): Modifier = semantics { liveRegion = LiveRegionMode.Polite }

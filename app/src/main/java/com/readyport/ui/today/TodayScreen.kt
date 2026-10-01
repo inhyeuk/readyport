@@ -68,6 +68,7 @@ import com.readyport.ui.components.AppScreen
 import com.readyport.ui.components.BadgeTone
 import com.readyport.ui.components.ButtonStyles
 import com.readyport.ui.components.CardNewsCard
+import com.readyport.ui.components.ButtonPlacement
 import com.readyport.ui.components.DangerButton
 import com.readyport.ui.components.Fact
 import com.readyport.ui.components.FactChip
@@ -75,7 +76,6 @@ import com.readyport.ui.components.FactGrid
 import com.readyport.ui.components.HelpShortcutRow
 import com.readyport.ui.components.IconBadge
 import com.readyport.ui.components.IconKeys
-import com.readyport.ui.components.ImportVerdictBadge
 import com.readyport.ui.components.InfoChip
 import com.readyport.ui.components.InfoTileGrid
 import com.readyport.ui.components.JourneyStepper
@@ -86,7 +86,9 @@ import com.readyport.ui.components.PhotoHeaderCard
 import com.readyport.ui.components.Photos
 import com.readyport.ui.components.PrimaryButton
 import com.readyport.ui.components.QuietButton
+import com.readyport.ui.components.ImportVerdictNote
 import com.readyport.ui.components.ReturnCheckCard
+import com.readyport.ui.components.ReturnCheckMode
 import com.readyport.ui.components.SecondaryButton
 import com.readyport.ui.components.SourceRef
 import com.readyport.ui.components.Step
@@ -357,8 +359,8 @@ fun TodayContent(
                     item(key = "cart") { CartCard(ui) }
                 }
                 item(key = "return-links") {
-                    // 귀국 전 확인은 공용 접힌 요약: 문장마다 첫 문장만, 숫자는 팩 문장 그대로 굵게 (R14 — 홈·나라·쇼핑과 같은 카드)
-                    ReturnCheckCard(ui.returnLinks, ui.returnFacts, ui.indexSources, actions.openLink)
+                    // 귀국 전 확인 전체 모양은 귀국 단계에만(운영자 결정 10): 문장마다 첫 문장, 펼치면 전체 — 숫자는 팩 문장 그대로 굵게 (R14)
+                    ReturnCheckCard(ui.returnLinks, ui.returnFacts, ui.indexSources, actions.openLink, ReturnCheckMode.Full)
                 }
                 if (stage.askDestroy) {
                     item(key = "destroy") {
@@ -375,7 +377,7 @@ fun TodayContent(
                                 verticalArrangement = Arrangement.spacedBy(LocalDimens.current.inner),
                             ) {
                                 SecondaryButton(stringResource(R.string.today_destroy_later), onClick = onPostpone, icon = Icons.Outlined.Schedule)
-                                DangerButton(stringResource(R.string.today_destroy_now_target), onClick = onDestroy, fillWidth = true)
+                                DangerButton(stringResource(R.string.today_destroy_now_target), onClick = onDestroy, placement = ButtonPlacement.CardAction)
                             }
                         }
                     }
@@ -492,8 +494,8 @@ private fun CartRow(item: ShoppingItem) {
         IconBadge(IconKeys.item(item.id, item.category), tone = BadgeTone.Neutral, size = dimens.iconBadgeSmall)
         Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(6.dp)) {
             KoText(item.names.ko, style = MaterialTheme.typography.titleMedium, color = Tokens.Ink)
-            ImportVerdictBadge(item.import)
-            item.importNoteKo?.let { KoText(it, style = MaterialTheme.typography.bodyMedium, color = Tokens.InkSecondary) }
+            // 카드 안 판정 = 공용 판정 묶음(쇼핑 리스트·나라 쇼핑과 같은 모양, 재검토2 ①#4)
+            ImportVerdictNote(item.import, item.importNoteKo)
         }
     }
 }

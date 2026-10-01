@@ -2,23 +2,16 @@ package com.readyport.ui.tabs
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.AssignmentInd
 import androidx.compose.material.icons.outlined.Checklist
 import androidx.compose.material.icons.outlined.Description
-import androidx.compose.material.icons.outlined.EditNote
 import androidx.compose.material.icons.outlined.InstallMobile
-import androidx.compose.material.icons.outlined.MoneyOff
-import androidx.compose.material.icons.outlined.Payments
 import androidx.compose.material.icons.outlined.Policy
-import androidx.compose.material.icons.outlined.Schedule
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.readyport.R
@@ -27,22 +20,15 @@ import com.readyport.pack.PackRepository
 import com.readyport.ui.components.AppScreen
 import com.readyport.ui.components.BadgeTone
 import com.readyport.ui.components.CardNewsCard
+import com.readyport.ui.components.EntryFormCard
 import com.readyport.ui.components.ComingSoonGroup
-import com.readyport.ui.components.Fact
-import com.readyport.ui.components.FactChip
-import com.readyport.ui.components.IconBullet
 import com.readyport.ui.components.IconTile
-import com.readyport.ui.components.KoreanBreak
 import com.readyport.ui.components.NoticeBanner
-import com.readyport.ui.components.PrimaryButton
-import com.readyport.ui.components.SecondaryButton
 import com.readyport.ui.components.SourceRef
 import com.readyport.ui.components.TileLayout
 import com.readyport.ui.components.TileSpec
 import com.readyport.ui.components.displayDate
-import com.readyport.ui.components.feeIcon
 import com.readyport.ui.components.sectionGap
-import com.readyport.ui.components.shortValue
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -159,45 +145,19 @@ fun PrepareContent(
 }
 
 /**
- * 입국 카드 한 장: eyebrow `태국 · 도착 전에 내요` + 제목(양식 이름) → 비용 칩(팩 값이 짧을 때만, 아니면 글 행) →
- * 내는 때(팩 문장 그대로의 글 행 — 기간 칩·타일은 D11에 따라 이번 릴리스에서 만들지 않는다) → 버튼 → 출처.
- * 낱말 보호·출처 날짜 줄바꿈은 공용 부품(CardNewsCard·SourceFooter)이 한다.
+ * 입국 카드 한 장 = 공용 [EntryFormCard](나라 입국·비자 03·04와 같은 카드·같은 말 — 재검토2 ④#1·②#5):
+ * eyebrow `태국 · 도착 전에 내요` + 제목(양식 이름) → 비용(짧은 값이면 정보 칩) → 내는 때(팩 문장 그대로) → `입국 카드 준비하기` → 출처.
  */
 @Composable
 private fun FormCard(f: FormEntry, primary: Boolean, onOpen: () -> Unit) {
     val fallback = stringResource(R.string.source_official_fallback)
-    CardNewsCard(
-        title = f.nameKo,
-        icon = Icons.Outlined.AssignmentInd,
+    EntryFormCard(
+        name = f.nameKo,
+        feeKo = f.feeKo,
+        windowKo = f.windowKo,
+        source = SourceRef(f.sourceName.ifBlank { fallback }, displayDate(f.lastVerified)),
         eyebrow = stringResource(R.string.prepare_form_eyebrow, f.countryKo),
-        sources = listOf(SourceRef(f.sourceName.ifBlank { fallback }, displayDate(f.lastVerified))),
-    ) {
-        val fee = shortValue(f.feeKo)
-        if (fee != null) {
-            val icon = feeIcon(fee)
-            FactChip(
-                Fact(
-                    icon = icon,
-                    value = fee,
-                    label = stringResource(R.string.fact_label_form_fee),
-                    tone = if (icon == Icons.Outlined.MoneyOff) BadgeTone.Success else BadgeTone.Accent,
-                ),
-            )
-        } else {
-            IconBullet(stringResource(R.string.guide_form_fee, f.feeKo), Icons.Outlined.Payments)
-        }
-        // `5월 2일~4일`이 `5월 / 2일~4일`로 끊기지 않게 날짜의 달·일 사이는 보이는 글자에서만 붙인다(재검토 ①16)
-        IconBullet(keepMonthDay(stringResource(R.string.guide_form_window, f.windowKo)), Icons.Outlined.Schedule)
-        val label = stringResource(R.string.prepare_form_open)
-        if (primary) {
-            PrimaryButton(label, onClick = onOpen, icon = Icons.Outlined.EditNote, modifier = Modifier.padding(top = 4.dp))
-        } else {
-            SecondaryButton(label, onClick = onOpen, icon = Icons.Outlined.EditNote, modifier = Modifier.padding(top = 4.dp))
-        }
-    }
+        onStart = onOpen,
+        primary = primary,
+    )
 }
-
-/** `N월 N일` 사이 띄어쓰기를 NBSP로 — 날짜가 달과 일로 갈라져 줄을 바꾸지 않게 (팩 문장 글자는 그대로, 띄어쓰기 모양만) */
-internal fun keepMonthDay(text: String): String = MonthDay.replace(text) { "${it.groupValues[1]}${KoreanBreak.NBSP}${it.groupValues[2]}" }
-
-private val MonthDay = Regex("""(\d{1,2}월) (\d{1,2}일)""")

@@ -264,6 +264,55 @@ internal fun TrailingFlow(
 }
 
 /**
+ * 두 요소를 **같은 폭**으로 한 줄에 놓아 내용선 끝까지 채운다(쉬운 모드 `처음으로`·`소리로 듣기`, 재검토2 ①#5).
+ * 둘 중 하나라도 반 폭에서 한 줄로 안 들어가면(큰 글자) 위아래로 쌓고 둘 다 폭 전체 — 글자는 쪼개지지 않는다.
+ * 한 줄에 둘 때는 높이도 큰 쪽에 맞춘다. [first]·[second]는 받은 Modifier를 꼭 자기 맨 바깥에 붙인다.
+ */
+@Composable
+internal fun EqualWidthPair(
+    gap: Dp,
+    first: @Composable (Modifier) -> Unit,
+    second: @Composable (Modifier) -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    Layout(contents = listOf({ first(Modifier) }, { second(Modifier) }), modifier = modifier.fillMaxWidth()) { (aMs, bMs), constraints ->
+        val a = aMs.first()
+        val b = bMs.first()
+        val g = gap.roundToPx()
+        if (!constraints.hasBoundedWidth) {
+            val ap = a.measure(Constraints())
+            val bp = b.measure(Constraints())
+            return@Layout layout(maxOf(ap.width, bp.width), ap.height + g + bp.height) {
+                ap.placeRelative(0, 0)
+                bp.placeRelative(0, ap.height + g)
+            }
+        }
+        val w = constraints.maxWidth
+        val half = ((w - g) / 2).coerceAtLeast(0)
+        val side = a.maxIntrinsicWidth(Constraints.Infinity) <= half && b.maxIntrinsicWidth(Constraints.Infinity) <= half
+        if (side) {
+            val h = maxOf(a.maxIntrinsicHeight(half), b.maxIntrinsicHeight(half))
+            val cell = Constraints(minWidth = half, maxWidth = half, minHeight = h, maxHeight = maxOf(h, 0))
+            val ap = a.measure(cell)
+            val bp = b.measure(cell)
+            val height = maxOf(ap.height, bp.height)
+            layout(w, height) {
+                ap.placeRelative(0, 0)
+                bp.placeRelative(w - bp.width, 0)
+            }
+        } else {
+            val full = Constraints(minWidth = w, maxWidth = w)
+            val ap = a.measure(full)
+            val bp = b.measure(full)
+            layout(w, ap.height + g + bp.height) {
+                ap.placeRelative(0, 0)
+                bp.placeRelative(0, ap.height + g)
+            }
+        }
+    }
+}
+
+/**
  * 긴 목록(쇼핑 등)용: 한 줄을 lazy item 하나로. [columns]는 화면 composable에서 rememberGridColumns()로 미리 계산해 넘긴다
  * (AppScreen의 content 람다는 LazyListScope라 composable 호출 불가).
  */

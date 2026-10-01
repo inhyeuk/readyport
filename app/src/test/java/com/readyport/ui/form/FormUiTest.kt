@@ -146,7 +146,7 @@ class FormUiTest {
         shown(s(R.string.form_missing_count, missing.size))
         rule.onAllNodesWithText(s(R.string.form_missing_count, missing.size)).assertCountEquals(1)
         // 칸마다 `꼭 채워요` 태그를 되풀이하지 않는다 — 빈 칸은 TalkBack 상태 `빈칸`(작은 느낌표)
-        rule.onAllNodesWithText(s(R.string.form_field_required)).assertCountEquals(0)
+        rule.onAllNodesWithText("꼭 채워요").assertCountEquals(0)
         val blankState = SemanticsMatcher.expectValue(SemanticsProperties.StateDescription, s(R.string.form_blank_cd))
         val occupationField = hasSetTextAction() and hasText(occupation, substring = true)
         rule.onNode(hasScrollAction()).performScrollToNode(occupationField)

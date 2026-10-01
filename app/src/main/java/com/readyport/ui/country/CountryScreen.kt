@@ -14,21 +14,17 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.outlined.Approval
-import androidx.compose.material.icons.outlined.AssignmentInd
 import androidx.compose.material.icons.outlined.CalendarMonth
 import androidx.compose.material.icons.outlined.CheckCircle
 import androidx.compose.material.icons.outlined.EditCalendar
 import androidx.compose.material.icons.outlined.EditNote
 import androidx.compose.material.icons.outlined.ElectricBolt
 import androidx.compose.material.icons.outlined.EventAvailable
-import androidx.compose.material.icons.outlined.ExpandLess
-import androidx.compose.material.icons.outlined.ExpandMore
 import androidx.compose.material.icons.outlined.Explore
 import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material.icons.outlined.GppMaybe
@@ -41,7 +37,6 @@ import androidx.compose.material.icons.outlined.Outlet
 import androidx.compose.material.icons.outlined.Payments
 import androidx.compose.material.icons.outlined.Policy
 import androidx.compose.material.icons.outlined.Power
-import androidx.compose.material.icons.outlined.Schedule
 import androidx.compose.material.icons.outlined.ShoppingBag
 import androidx.compose.material.icons.outlined.SmartDisplay
 import androidx.compose.material.icons.outlined.TouchApp
@@ -67,11 +62,9 @@ import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
@@ -120,7 +113,12 @@ import com.readyport.ui.components.PhotoBox
 import com.readyport.ui.components.PhotoTextColumn
 import com.readyport.ui.components.Photos
 import com.readyport.ui.components.PrimaryButton
+import com.readyport.ui.components.EntryFormCard
+import com.readyport.ui.components.ExpandToggle
+import com.readyport.ui.components.foldLiveRegion
+import com.readyport.ui.components.feeTone
 import com.readyport.ui.components.ReturnCheckCard
+import com.readyport.ui.components.ReturnCheckMode
 import com.readyport.ui.components.SecondaryButton
 import com.readyport.ui.components.SectionHeader
 import com.readyport.ui.components.SourceList
@@ -133,7 +131,6 @@ import com.readyport.ui.components.displayDate
 import com.readyport.ui.components.feeIcon
 import com.readyport.ui.components.importLabel
 import com.readyport.ui.components.koDisplay
-import com.readyport.ui.components.minTouch
 import com.readyport.ui.components.minTouchSize
 import com.readyport.ui.components.rememberGridColumns
 import com.readyport.ui.components.rememberKeyIndex
@@ -390,7 +387,10 @@ fun CountryContent(ui: CountryUi, actions: CountryActions, initialSection: Count
                 if (pack.shopping.isNotEmpty()) {
                     item(key = "shopping") { ShoppingCard(pack, sourceOf) { actions.openShopping(pack.country) } }
                 }
-                item(key = "return") { ReturnCheckCard(ui.returnLinks, ui.returnFacts, ui.indexSources, actions.openLink) }
+                item(key = "return") {
+                    // 나라 쇼핑은 한 줄 요약 + 펼치기 — 전체는 내 여행 귀국 단계에만 (운영자 결정 10)
+                    ReturnCheckCard(ui.returnLinks, ui.returnFacts, ui.indexSources, actions.openLink, ReturnCheckMode.Summary)
+                }
             }
         }
     }
@@ -420,42 +420,19 @@ private fun foldSplit(text: String): Pair<String, String?> {
 }
 
 /**
- * 접힌 글을 펼치는 줄 (minTouch, 버튼 + 펼쳐짐/접힘 상태). 보이는 글은 짧게 `자세히 보기`/`접기`(공용 ExpandableDetail과 같은 말) —
- * 큰 글자에서 두 줄로 꺾이지 않게. 한 화면에 여러 개라 TalkBack 이름은 무엇을 펼치는지 밝힌 [a11yLabel](접혀 있을 때).
- * 글을 바꿔 보이는 방식(접힘 = 첫 문장, 펼침 = 전체)이라 공용 ExpandableDetail(아래에 내용을 더함) 대신 쓴다.
+ * 접힌 글을 펼치는 줄 = 공용 [ExpandToggle]. 보이는 글은 짧게 `자세히 보기`/`접기` — 큰 글자에서 두 줄로 꺾이지 않게.
+ * 한 화면에 여러 개라 TalkBack 이름은 무엇을 펼치는지 밝힌다: 접힘 [a11yLabel], 펼침 `{target} 접기`(재검토2 ②#2).
+ * 글을 바꿔 보이는 방식(접힘 = 첫 문장, 펼침 = 전체)이라 바뀌는 글 묶음에 foldLiveRegion을 둔다(바뀐 글을 TalkBack이 읽는다).
  */
 @Composable
-private fun MoreToggle(open: Boolean, onOpenChange: (Boolean) -> Unit, a11yLabel: String) {
-    val dimens = LocalDimens.current
-    val color = Tokens.Accent
-    val state = stringResource(if (open) R.string.state_expanded else R.string.state_collapsed)
-    Row(
-        Modifier
-            .fillMaxWidth()
-            .minTouch()
-            .clip(MaterialTheme.shapes.small)
-            .toggleable(value = open, role = Role.Button, onValueChange = onOpenChange)
-            .semantics {
-                stateDescription = state
-                if (!open) contentDescription = a11yLabel
-            }
-            .padding(horizontal = 4.dp, vertical = 8.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(8.dp),
-    ) {
-        KoText(
-            stringResource(if (open) R.string.action_less else R.string.action_more),
-            style = MaterialTheme.typography.labelLarge,
-            color = color,
-            modifier = Modifier.weight(1f),
-        )
-        Icon(
-            if (open) Icons.Outlined.ExpandLess else Icons.Outlined.ExpandMore,
-            contentDescription = null,
-            tint = color,
-            modifier = Modifier.size(dimens.icon),
-        )
-    }
+private fun MoreToggle(open: Boolean, onOpenChange: (Boolean) -> Unit, a11yLabel: String, target: String) {
+    ExpandToggle(
+        open = open,
+        onOpenChange = onOpenChange,
+        label = stringResource(R.string.action_more),
+        target = target,
+        closedName = a11yLabel,
+    )
 }
 
 // ======================= 머리글 =======================
@@ -545,9 +522,6 @@ private fun CountryHero(loaded: Loaded<CountryPack>, favorite: Boolean, actions:
 
 // ======================= 03·04 입국·비자 =======================
 
-/** '무료'면 초록(가능), 그 밖의 비용은 기본 Accent — 색만으로 뜻을 전하지 않도록 아이콘(feeIcon)도 함께 바뀐다 */
-private fun feeTone(value: String): BadgeTone = if (value == "무료") BadgeTone.Success else BadgeTone.Accent
-
 /**
  * 비자 카드 (흰 카드뉴스 카드 — 재검토 R12: Accent 채움은 화면의 주 버튼에만). 결론 → 숫자 타일 → 팩 요약(첫 문장, 나머지는 펼쳐서)
  * → 공식 안내 줄 → 출처.
@@ -612,8 +586,9 @@ private fun VisaSummary(summary: String) {
         if (open || rest == null) summary.trim() else first,
         style = MaterialTheme.typography.bodyLarge,
         color = Tokens.Ink,
+        modifier = Modifier.foldLiveRegion(),
     )
-    if (rest != null) MoreToggle(open, { open = it }, stringResource(R.string.country_more_visa))
+    if (rest != null) MoreToggle(open, { open = it }, stringResource(R.string.country_more_visa), stringResource(R.string.fold_target_visa))
 }
 
 /**
@@ -694,50 +669,27 @@ private fun FoldedSteps(steps: List<String>) {
         split.map { (step, long) ->
             Step(step.text, detail = step.detail?.takeIf { open || !long })
         },
+        modifier = Modifier.foldLiveRegion(),
     )
-    if (foldable) MoreToggle(open, { open = it }, stringResource(R.string.country_more_steps))
+    if (foldable) MoreToggle(open, { open = it }, stringResource(R.string.country_more_steps), stringResource(R.string.fold_target_steps))
 }
 
 /**
- * 온라인 입국 신고 카드: 무엇 → 앱이 해 주는 것 → 비용(짧은 값이면 `무료 입국 신고 비용` 정보 칩 — 비자 카드에서 옮겨 옴, 재검토 R12)
- * → 내는 때(팩 원문 그대로) → 입력 도와받기(주 버튼) → 출처.
- * 비용 칩 값은 팩 fee_ko의 짧은 값(shortValue)이고, 뒤에 이어지는 원문(`돈을 받는 사이트와 … 가짜예요`)은 글자 하나 빼지 않고 칩 아래 줄에 둔다.
- * 짧은 값이 없으면(`공식 안내에 요금이 적혀 있지 않아요. …`) 예전처럼 `비용: …` 한 줄.
- * [step] = 1: 비자 온라인 신청이 이 양식을 거친다(인도네시아) — eyebrow `1단계 · 온라인 입국 신고`.
+ * 입국 카드(온라인 입국 신고 양식) 카드 = 공용 [EntryFormCard](여행 준비 18과 같은 카드·같은 말, 재검토2 ④#1·②#5).
+ * 무엇 → 앱이 해 주는 것(자동 입력이면 칸을 채워 줌, 아니면 값 복사) → 비용 → 내는 때 → `입국 카드 준비하기`(주 버튼) → 출처.
+ * [step] = 1: 비자 온라인 신청이 이 양식을 거친다(인도네시아) — eyebrow `1단계 · 온라인 입국 카드`.
  */
 @Composable
 private fun FormCard(form: FormInfo, autofill: Boolean, step: Int?, sourceOf: SourceOf, onStart: () -> Unit) {
-    CardNewsCard(
-        title = form.nameKo,
-        icon = Icons.Outlined.AssignmentInd,
-        eyebrow = stepEyebrow(step, stringResource(R.string.country_form_label)),
+    EntryFormCard(
+        name = form.nameKo,
+        feeKo = form.feeKo,
+        windowKo = form.windowKo,
+        source = sourceOf(form.source, form.lastVerified),
+        eyebrow = stepEyebrow(step, stringResource(R.string.entry_form_label)),
+        onStart = onStart,
         body = stringResource(if (autofill) R.string.country_form_autofill_body else R.string.country_form_manual_body),
-        sources = listOf(sourceOf(form.source, form.lastVerified)),
-    ) {
-        val fee = shortValue(form.feeKo)
-        if (fee != null) {
-            InfoChip(stringResource(R.string.form_fee_chip_label), feeIcon(fee), value = fee, tone = feeTone(fee))
-            feeRest(form.feeKo, fee)?.let { IconBullet(it, Icons.Outlined.Payments) }
-        } else {
-            IconBullet(stringResource(R.string.guide_form_fee, form.feeKo), Icons.Outlined.Payments)
-        }
-        // `5월 / 2일~4일`처럼 날짜가 줄 사이에서 갈라지지 않게 `N월 N일`을 묶어 보인다(글자는 팩 원문 그대로)
-        IconBullet(stringResource(R.string.guide_form_window, glueMonthDay(form.windowKo)), Icons.Outlined.Schedule)
-        val label = stringResource(if (autofill) R.string.country_form_start else R.string.country_form_manual_start)
-        PrimaryButton(label, onClick = onStart, icon = Icons.Outlined.EditNote)
-    }
-}
-
-/** `5월 4일`의 띄어쓰기를 NBSP로 — 보이는 자리에서만(달·날이 줄 사이에서 갈라지지 않게). 다른 글자는 그대로 */
-internal fun glueMonthDay(text: String): String = MonthDay.replace(text) { "${it.groupValues[1]}\u00A0${it.groupValues[2]}" }
-
-private val MonthDay = Regex("""(\d{1,2}월) (\d{1,2}일)""")
-
-/** 팩 비용 원문에서 짧은 값([short]) 뒤에 이어지는 나머지 문장 (`무료. 돈을 받는 …` → `돈을 받는 …`). 없으면 null */
-private fun feeRest(full: String, short: String): String? {
-    val t = full.trim()
-    if (!t.startsWith(short)) return null
-    return t.substring(short.length).trimStart('.', '·', ' ').trim().takeIf { it.isNotEmpty() }
+    )
 }
 
 /**
@@ -759,14 +711,14 @@ private fun SectionCard(s: Section, sourceOf: SourceOf, exclude: List<String> = 
         tone = if (safety) BadgeTone.Caution else BadgeTone.Accent,
         sources = listOf(sourceOf(s.source, s.lastVerified)),
     ) {
-        Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+        Column(Modifier.foldLiveRegion(), verticalArrangement = Arrangement.spacedBy(10.dp)) {
             lines.zip(split).forEach { (full, parts) ->
                 val (first, rest) = parts
                 DotBullet(if (open || rest == null) full.trim() else first)
             }
         }
         if (split.any { it.second != null }) {
-            MoreToggle(open, { open = it }, stringResource(R.string.country_more_section, s.titleKo))
+            MoreToggle(open, { open = it }, stringResource(R.string.country_more_section, s.titleKo), s.titleKo)
         }
     }
 }

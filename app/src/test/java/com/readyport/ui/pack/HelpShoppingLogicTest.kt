@@ -149,7 +149,7 @@ class HelpShoppingLogicTest {
         assertEquals(BadgeTone.Neutral, food.tone)
         assertNotEquals(allowed.icon, food.icon)
         assertNotEquals(allowed.tone, food.tone)
-        // 담은 상태도 '담았어요 ✓'(초록) 대신 현지에서 먹기로
+        // 담은 상태도 '담았어요'(초록) 대신 현지에서 먹기로
         assertEquals(R.string.shopping_in_cart_local_food, cartAction(shop("p", "food", "prohibited"), inCart = true).label)
         assertEquals(R.string.shopping_in_cart, cartAction(shop("a", "food", "allowed"), inCart = true).label)
         // TalkBack 동작 이름: 담기 전에는 품목 이름 + 보이는 말, 담은 뒤에는 빼기

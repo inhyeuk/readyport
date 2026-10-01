@@ -200,7 +200,8 @@ fun ChoiceCard(
         elevation = CardDefaults.cardElevation(0.dp),
         modifier = modifier
             .fillMaxWidth()
-            .cardShadow(shape)
+            // 추천 카드는 자기 2dp Accent 테두리가 있다 — 옅은 카드 테두리를 겹쳐 그리지 않는다
+            .cardShadow(shape, border = !emphasized)
             .heightIn(min = 96.dp)
             .semantics { role = Role.Button },
     ) {

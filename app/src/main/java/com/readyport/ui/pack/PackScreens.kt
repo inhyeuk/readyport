@@ -27,7 +27,6 @@ import androidx.compose.material.icons.outlined.Sos
 import androidx.compose.material.icons.outlined.SupportAgent
 import androidx.compose.material.icons.outlined.TipsAndUpdates
 import androidx.compose.material.icons.outlined.Translate
-import androidx.compose.material.icons.outlined.Update
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -83,8 +82,6 @@ import com.readyport.ui.components.SourceFooter
 import com.readyport.ui.components.SourceList
 import com.readyport.ui.components.SourceRef
 import com.readyport.ui.components.StatusChip
-import com.readyport.ui.components.StatusKind
-import com.readyport.ui.components.StatusTag
 import com.readyport.ui.components.Step
 import com.readyport.ui.components.StepList
 import com.readyport.ui.components.TileGrid
@@ -361,7 +358,7 @@ fun HelpContent(
                             sources = listOf(ref(proc.source, proc.lastVerified)),
                         ) {
                             // 절차 단계는 두세 줄 문장 — 굵은 제목 대신 본문 글자(번호 원만 강조, 재검토 ④-9)
-                            StepList(proc.stepsKo.map { stepOf(it) }, sentence = true)
+                            StepList(proc.stepsKo.map { stepOf(it) })
                         }
                     }
                 }
@@ -462,7 +459,6 @@ private fun PhraseCard(
                         Text(languageName, style = MaterialTheme.typography.labelMedium, color = OnDark.eyebrow)
                     }
                 }
-                if (!phrase.reviewed) StatusTag(icon = Icons.Outlined.Update, kind = StatusKind.Caution, text = stringResource(R.string.help_unreviewed))
             }
             Text(phrase.local, style = extras.localMedium, color = OnDark.content)
             phrase.romanized?.let { Text(it, style = MaterialTheme.typography.bodyMedium, color = OnDark.secondary) }

@@ -1,6 +1,7 @@
 package com.readyport.ui.components
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
@@ -40,16 +41,22 @@ enum class CardTone(val container: Color, val content: Color, val border: Color?
 }
 
 /**
- * 흰 정보 카드 그림자: 2dp, 화면에 보이는 진하기 Ink 8%/12% (DESIGN_SPEC 3.5 — 플랫폼 그림자 알파 보정은 Tokens.ShadowAmbient/Spot).
+ * 흰 정보 카드 경계: 2dp 그림자(화면에 보이는 진하기 Ink 8%/12% — DESIGN_SPEC 3.5, 플랫폼 그림자 알파 보정은 Tokens.ShadowAmbient/Spot)
+ * **+ 아주 옅은 1dp LineSoft 테두리**(운영자 결정 6, 2026-10-01). 그림자가 거의 안 보이는 화면·기기에서도 흰 카드가 Ground 위에서 떠 보인다.
  * 그림자 없는 상태 카드·채움 카드에는 쓰지 않는다.
+ * [border] = false: 자기 테두리가 따로 있는 카드(추천 ChoiceCard 2dp Accent)나 사진이 가장자리까지 닿는 사진 머리 카드 —
+ * 테두리는 내용 위에 그려지므로 사진 가장자리에 밝은 선이 생기지 않게 뺀다(3.5 '사진 카드: 테두리 없음').
  */
-fun Modifier.cardShadow(shape: Shape): Modifier = shadow(
+fun Modifier.cardShadow(shape: Shape, border: Boolean = true): Modifier = shadow(
     elevation = 2.dp,
     shape = shape,
     clip = false,
     ambientColor = Tokens.ShadowAmbient,
     spotColor = Tokens.ShadowSpot,
-)
+).then(if (border) Modifier.border(CardBorderWidth, Tokens.LineSoft, shape) else Modifier)
+
+/** 흰 카드 테두리 두께 (운영자 결정 6) */
+val CardBorderWidth = 1.dp
 
 /** 상태 카드·배너 왼쪽(RTL이면 오른쪽) 색 막대. 바깥 모양(clip)이 모서리를 둥글게 자른다 */
 fun Modifier.startBar(color: Color, width: Dp = 4.dp): Modifier = drawBehind {

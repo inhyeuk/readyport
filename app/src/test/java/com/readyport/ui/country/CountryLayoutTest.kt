@@ -73,13 +73,13 @@ class CountryLayoutTest {
         assertTrue("IDR 500,000이 두 줄 이상: ${amount.height}dp", amount.height < labelLine + statLine * 1.5f)
         // 입국 신고 비용 칩은 입국 신고(All Indonesia) 카드 제목 아래, 비자 타일보다 아래
         val formTitle = rule.onNodeWithText(form.nameKo).bounds().toRect()
-        val formFee = rule.onNode(hasText(s(R.string.form_fee_chip_label))).bounds().toRect()
+        val formFee = rule.onNode(hasText(s(R.string.fact_label_form_fee))).bounds().toRect()
         assertTrue("입국 신고 비용이 양식 카드 밖", formFee.top > formTitle.top && formFee.top > fee.bottom)
         rule.onAllNodesWithText("무료").fetchSemanticsNodes().forEach { n ->
             assertTrue("비자 카드 안에 `무료`", n.boundsInRoot.top / rule.density.density > formTitle.top)
         }
         // 1단계(입국 신고)가 2단계(비자 신청)보다 위
-        val step1 = rule.onNodeWithText(s(R.string.country_step_eyebrow, 1, s(R.string.country_form_label))).bounds().toRect()
+        val step1 = rule.onNodeWithText(s(R.string.country_step_eyebrow, 1, s(R.string.entry_form_label))).bounds().toRect()
         val step2 = rule.onNodeWithText(s(R.string.country_step_eyebrow, 2, s(R.string.country_visa_apply_label))).bounds().toRect()
         assertTrue("1단계(입국 신고)가 2단계(비자 신청)보다 위에 있어야 함", step1.bottom <= step2.top)
     }

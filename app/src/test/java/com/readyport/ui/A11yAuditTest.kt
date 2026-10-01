@@ -9,6 +9,7 @@ import androidx.compose.ui.test.SemanticsMatcher
 import androidx.compose.ui.test.hasClickAction
 import androidx.compose.ui.test.junit4.v2.createComposeRule
 import androidx.compose.ui.text.TextLayoutResult
+import androidx.compose.ui.text.TextMeasurer
 import com.readyport.ui.components.KoreanBreak
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.readyport.ui.components.SourceTextCheck
@@ -33,8 +34,10 @@ import java.io.File
  * 터치 영역(①)은 touchBoundsInRoot — 테마가 쉬운 모드에서 ViewConfiguration.minimumTouchTargetSize를 56dp로 주므로
  * 눈에 보이는 크기가 48dp인 clickable도 터치 영역은 56dp로 넓어져 통과한다(Material 터치 목표 규칙상 맞음).
  * 그래서 ④ **보이는 크기**(boundsInRoot)도 따로 잰다 — 2단계에서 모든 화면 0건을 확인하고 엄격(실패)으로 바꿨다.
- * ⑤ 한국어 줄바꿈 보고(실패 아님): 줄이 한글 낱말 한가운데서 바뀐 곳(`처음이에/요`)과 한글 한 음절만 남은 줄을
- * build/a11y/word-breaks-<클래스>-<모드>.txt에 남긴다 — 캡처 검토(2단계 8장)의 길잡이. 낱말이 한 줄보다 길면 생길 수 있다.
+ * ⑤ 한국어 줄바꿈(다듬기 D0부터 **실패**): 줄이 한글 낱말 한가운데서 바뀐 곳(`처음이에/요`)과 한글 한 음절만 남은 줄 —
+ * 낱말이 한 줄보다 넓어 피할 수 없는 경우만 뺀다. 목록은 build/a11y/word-breaks-<클래스>-<모드>.txt에도 남긴다.
+ * ⑥ 글자가 칸 밖으로 넘친 노드(줄 글자 폭 > 칸 폭, 높이 > 칸 높이, 줄 수 제한 넘음 — hasVisualOverflow 같은 단언)도 실패.
+ * 구성: 393dp(sdk36 100%·200%, sdk31 200%) + 360dp(sdk36 100%, sdk31 200%) + 기기 언어 영어(sdk36 100%) — 재검토2 ④#4.
  */
 abstract class A11yAuditBase {
 
@@ -54,7 +57,16 @@ abstract class A11yAuditBase {
 
     private val invisible = setOf(KoreanBreak.WORD_JOINER, KoreanBreak.ZERO_WIDTH_SPACE)
 
-    /** ⑤ 글자 노드의 줄바꿈 중 한글 낱말 한가운데서 바뀐 곳·한 음절만 남은 줄 */
+    /** 낱말 경계(줄을 바꿀 수 있는 자리): 띄어쓰기·줄바꿈·ZERO WIDTH SPACE. NBSP·WORD JOINER는 낱말 안이다 */
+    private fun isWordBoundary(c: Char) = c == ' ' || c == '\n' || c == '\t' || c == KoreanBreak.ZERO_WIDTH_SPACE
+
+    /**
+     * ⑤ 글자 노드의 줄바꿈 중 한글 낱말 한가운데서 바뀐 곳·한 음절만 남은 줄 (다듬기 D0부터 **실패**).
+     * 줄 끝에서 보이지 않는 문자(WORD JOINER·ZWSP)를 건너뛴 앞 글자로 판정한다 — API 33 미만 keepWords 문자열은 낱말 안 글자 사이에
+     * WORD JOINER가 끼어 있어, 줄 끝 바로 앞 글자만 보면 한글이 아니라서 강제 분절을 놓쳤다(재검토2 ④#4 ③).
+     * 그 낱말이 한 줄보다 넓어 렌더러가 낱말 안에서 끊을 수밖에 없는 경우만 예외(실제 폭을 TextMeasurer로 잰다).
+     * ⑥ 글자가 칸 밖으로 넘친 노드(잘림 — [overflows])도 실패로 모은다.
+     */
     private fun wordBreaks(name: String): List<String> {
         val out = mutableListOf<String>()
         rule.onAllNodes(SemanticsMatcher.keyIsDefined(SemanticsActions.GetTextLayoutResult), useUnmergedTree = true)
@@ -63,24 +75,54 @@ abstract class A11yAuditBase {
                 runCatching { n.config[SemanticsActions.GetTextLayoutResult].action?.invoke(results) }
                 val layout = results.firstOrNull() ?: return@forEach
                 val t = layout.layoutInput.text.text
+                val clean = t.filterNot { it in invisible }.replace('\n', '⏎')
+                if (overflows(layout)) out += "$name: 글자가 칸 밖으로 넘침(잘림) — $clean"
                 for (line in 0 until layout.lineCount) {
                     val start = layout.getLineStart(line)
                     val end = layout.getLineEnd(line)
                     val content = t.substring(start, end).filterNot { it in invisible }.trim()
                     if (layout.lineCount > 1 && content.length == 1 && KoreanBreak.isHangul(content[0])) {
-                        out += "$name: 한 음절 줄 '$content' — ${t.filterNot { it in invisible }.replace('\n', '⏎')}"
+                        // 그 음절이 한 줄보다 넓은 낱말의 끝이면(피할 수 없는 낱말 안 줄바꿈) 빼고 센다
+                        val at = (start until end).first { t[it] == content[0] }
+                        if (!wordWiderThanLine(layout, at)) out += "$name: 한 음절 줄 '$content' — $clean"
                     }
                     if (line == layout.lineCount - 1 || end <= 0 || end >= t.length) continue
-                    val before = t[end - 1]
+                    // 줄 끝의 보이지 않는 문자를 건너뛴 앞 글자 (WORD JOINER 누락 버그 수정)
+                    val before = t.substring(start, end).lastOrNull { it !in invisible } ?: continue
                     val after = t.substring(end).firstOrNull { it !in invisible } ?: continue
-                    if (KoreanBreak.isHangul(before) && KoreanBreak.isHangul(after)) {
-                        val clean = t.filterNot { it in invisible }
+                    if (KoreanBreak.isHangul(before) && KoreanBreak.isHangul(after) && !wordWiderThanLine(layout, end)) {
                         out += "$name: 낱말 중간 줄바꿈 '${t.substring(maxOf(start, end - 6), end).filterNot { it in invisible }}/" +
-                            "${t.substring(end, minOf(t.length, end + 6)).filterNot { it in invisible }}' — ${clean.replace('\n', '⏎')}"
+                            "${t.substring(end, minOf(t.length, end + 6)).filterNot { it in invisible }}' — $clean"
                     }
                 }
             }
         return out.distinct()
+    }
+
+    /**
+     * ⑥ 글자가 칸 밖으로 넘쳤는지(잘림): 어느 줄의 글자 폭이 칸 폭보다 넓거나, 높이가 칸 높이를 넘거나, 줄 수 제한을 넘었다.
+     * `TextLayoutResult.hasVisualOverflow`는 쓰지 않는다 — semantics(GetTextLayoutResult)가 돌려주는 결과는 단락 폭이 칸 최대 폭으로
+     * 다시 만들어져 짧은 글(`1`, `레디포트`)도 넓이 넘침으로 잘못 나온다(다듬기 D0에서 확인). 줄마다 실제 글자 폭으로 잰다.
+     */
+    private fun overflows(layout: TextLayoutResult): Boolean {
+        val c = layout.layoutInput.constraints
+        val wide = c.hasBoundedWidth && (0 until layout.lineCount).any { layout.getLineRight(it) - layout.getLineLeft(it) > c.maxWidth + 1f }
+        val tall = layout.multiParagraph.didExceedMaxLines || (c.hasBoundedHeight && layout.multiParagraph.height > c.maxHeight + 1f)
+        return wide || tall
+    }
+
+    /** [at]에서 갈라진 낱말(띄어쓰기·ZWSP 사이)이 한 줄 폭보다 넓은지 — 그러면 낱말 안 줄바꿈은 피할 수 없다 */
+    private fun wordWiderThanLine(layout: TextLayoutResult, at: Int): Boolean {
+        val input = layout.layoutInput
+        val t = input.text.text
+        var s = at
+        while (s > 0 && !isWordBoundary(t[s - 1])) s--
+        var e = at
+        while (e < t.length && !isWordBoundary(t[e])) e++
+        val word = t.substring(s, e)
+        val measurer = TextMeasurer(input.fontFamilyResolver, input.density, input.layoutDirection, 0)
+        val width = measurer.measure(word, input.style, softWrap = false, maxLines = 1).size.width
+        return width > input.constraints.maxWidth
     }
 
     protected fun audit(easyMode: Boolean) {
@@ -131,7 +173,8 @@ abstract class A11yAuditBase {
         File("build/a11y/word-breaks-${javaClass.simpleName}-${if (easyMode) "easy" else "basic"}.txt")
             .writeText(breaks.joinToString("\n", postfix = if (breaks.isEmpty()) "" else "\n"))
         assertTrue("점검한 버튼이 너무 적음: $audited", audited > 60)
-        assertTrue(problems.joinToString("\n"), problems.isEmpty())
+        // 줄바꿈 위반·넘침도 실패 (재검토2 ④#4 — 예전에는 보고만 해서 `(TDAC)/를`이 감사를 통과했다)
+        assertTrue((problems + breaks).joinToString("\n"), problems.isEmpty() && breaks.isEmpty())
     }
 }
 
@@ -164,4 +207,37 @@ class A11yAuditLargeFontTest : A11yAuditBase() {
 class A11yAuditSdk31Test : A11yAuditBase() {
     @Test fun normalModeLargeFont() = audit(easyMode = false)
     @Test fun easyModeLargeFont() = audit(easyMode = true)
+}
+
+/**
+ * 좁은 창(360dp — 흔한 안드로이드 폭) 100% (재검토2 ④#4 ①). 360dp에서는 Stacked 배치가 약 118%부터라
+ * 393dp 감사만으로는 줄바꿈·배치가 다른 화면을 못 본다.
+ */
+@RunWith(AndroidJUnit4::class)
+@GraphicsMode(GraphicsMode.Mode.NATIVE)
+@Config(application = android.app.Application::class, sdk = [36], qualifiers = "ko-rKR-w360dp-h8000dp")
+class A11yAudit360Test : A11yAuditBase() {
+    @Test fun normalMode() = audit(easyMode = false)
+    @Test fun easyMode() = audit(easyMode = true)
+}
+
+/** 좁은 창(360dp) + 테스트 폰과 같은 sdk 31 + 글자 200% — 가장 빡빡한 조합 */
+@RunWith(AndroidJUnit4::class)
+@GraphicsMode(GraphicsMode.Mode.NATIVE)
+@Config(application = android.app.Application::class, sdk = [31], qualifiers = "ko-rKR-w360dp-h12000dp", fontScale = 2.0f)
+class A11yAudit360Sdk31Test : A11yAuditBase() {
+    @Test fun normalModeLargeFont() = audit(easyMode = false)
+    @Test fun easyModeLargeFont() = audit(easyMode = true)
+}
+
+/**
+ * 기기 언어가 **영어**인 폰 (재검토2 ④#4 ⑤): 어절 줄바꿈은 글자의 언어를 따른다 — 기기 언어가 영어면 `(TDAC)/를`처럼 낱말 안에서
+ * 끊기던 버그(수정 C 2.3)를 감사가 ko-rKR로만 돌아서 못 잡았다. 앱 문구는 한국어 하나라 화면 글자는 같다.
+ */
+@RunWith(AndroidJUnit4::class)
+@GraphicsMode(GraphicsMode.Mode.NATIVE)
+@Config(application = android.app.Application::class, sdk = [36], qualifiers = "en-rUS-w393dp-h8000dp")
+class A11yAuditEnglishTest : A11yAuditBase() {
+    @Test fun normalMode() = audit(easyMode = false)
+    @Test fun easyMode() = audit(easyMode = true)
 }

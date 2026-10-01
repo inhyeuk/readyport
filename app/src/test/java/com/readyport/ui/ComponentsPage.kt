@@ -66,6 +66,13 @@ import com.readyport.ui.components.BadgeTone
 import com.readyport.ui.components.BannerTone
 import com.readyport.ui.components.ButtonStyles
 import com.readyport.ui.components.CardNewsCard
+import com.readyport.ui.components.ImportVerdictNote
+import com.readyport.ui.components.RequiredMark
+import com.readyport.ui.components.RequiredSummary
+import com.readyport.ui.components.EntryFormCard
+import com.readyport.ui.components.AssuranceCard
+import com.readyport.ui.components.ReturnCheckMode
+import com.readyport.ui.components.ButtonPlacement
 import com.readyport.ui.components.ChipSpec
 import com.readyport.ui.components.ChoiceCard
 import com.readyport.ui.components.ChoiceSegments
@@ -188,6 +195,8 @@ fun ComponentsPage(part: Int) {
                 secondLine = stringResource(R.string.country_submit_self), secondIcon = Icons.Outlined.TouchApp,
             )
         }
+        // 안심 카드: 쌓이던 띠 셋(비제휴·이 휴대폰에만·제출은 직접)을 한 장으로 (다듬기 D0)
+        item(key = "assurance") { AssuranceCard() }
         item(key = "notice-tones") {
             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 NoticeBanner(stringResource(R.string.essentials_disclosure), icon = Icons.Outlined.Handshake, title = stringResource(R.string.essentials_affiliate_label))
@@ -232,12 +241,13 @@ fun ComponentsPage(part: Int) {
                 PrimaryButton(stringResource(R.string.home_trip_open), onClick = {}, colors = ButtonStyles.onDark(Tokens.Accent))
             }
         }
+        // 입국 카드 한 장 — 나라 입국·비자와 여행 준비가 같은 부품·같은 말 (다듬기 D0)
         item(key = "form-card") {
-            CardNewsCard(title = form.nameKo, icon = IconKeys.formOrigin(com.readyport.autofill.ValueOrigin.User), eyebrow = stringResource(R.string.country_form_label), sources = listOf(formRef)) {
-                IconBullet(stringResource(R.string.guide_form_fee, form.feeKo), feeIcon(fee))
-                FactChip(Fact(feeIcon(fee), fee, stringResource(R.string.fact_label_form_fee)))
-                PrimaryButton(stringResource(R.string.country_form_start), onClick = {}, icon = Icons.Outlined.EditNote)
-            }
+            EntryFormCard(
+                name = form.nameKo, feeKo = form.feeKo, windowKo = form.windowKo, source = formRef,
+                eyebrow = stringResource(R.string.entry_form_label), onStart = {},
+                body = stringResource(R.string.country_form_autofill_body),
+            )
         }
         item(key = "steps") {
             CardNewsCard(title = stringResource(R.string.today_departure_steps_title), icon = Icons.Outlined.TravelExplore) {
@@ -284,7 +294,7 @@ fun ComponentsPage(part: Int) {
         item(key = "danger-style") {
             CardNewsCard(title = stringResource(R.string.today_destroy_title), icon = Icons.Outlined.Lock, style = NewsStyle.Danger, body = stringResource(R.string.today_destroy_body)) {
                 SecondaryButton(stringResource(R.string.today_destroy_later), onClick = {}, icon = Icons.Outlined.Schedule)
-                DangerButton(stringResource(R.string.today_destroy_now_target), onClick = { confirm = true })
+                DangerButton(stringResource(R.string.today_destroy_now_target), onClick = { confirm = true }, placement = ButtonPlacement.CardAction)
             }
         }
         }
@@ -402,9 +412,32 @@ fun ComponentsPage(part: Int) {
             }
         }
         item(key = "help-row") { HelpShortcutRow(onClick = {}) }
-        item(key = "return-check") { ReturnCheckCard(index.returnLinks, index.returnFacts, indexSources, {}) }
+        item(key = "return-check") { ReturnCheckCard(index.returnLinks, index.returnFacts, indexSources, {}, ReturnCheckMode.Full) }
+        // 홈·나라 쇼핑·쇼핑 리스트의 한 줄 요약 모양 (운영자 결정 10)
+        item(key = "return-summary") { ReturnCheckCard(index.returnLinks, index.returnFacts, indexSources, {}, ReturnCheckMode.Summary) }
         // 출처 이름을 못 찾을 때(`공식 안내` — 내부 ID를 보이지 않음)
-        item(key = "return-fallback") { ReturnCheckCard(index.returnLinks, index.returnFacts, emptyMap(), {}) }
+        item(key = "return-fallback") { ReturnCheckCard(index.returnLinks, index.returnFacts, emptyMap(), {}, ReturnCheckMode.Full) }
+        // 꼭 채울 칸: 묶음 머리 요약 한 줄 + 칸 이름 뒤 느낌표 (다듬기 D0 — 칸마다 `꼭 채워요` 태그 대신)
+        item(key = "required") {
+            CardNewsCard(title = stringResource(R.string.manual_fill_on_site), icon = Icons.Outlined.EditNote) {
+                RequiredSummary(total = 9, required = 7)
+                Row(verticalAlignment = Alignment.Top, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                    KoText(stringResource(R.string.trip_country), MaterialTheme.typography.titleSmall, color = Tokens.InkSecondary)
+                    RequiredMark()
+                }
+                Row(verticalAlignment = Alignment.Top, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                    KoText(stringResource(R.string.trip_dates_title), MaterialTheme.typography.titleSmall, color = Tokens.InkSecondary)
+                    RequiredMark(error = true)
+                }
+            }
+        }
+        // 카드 안 판정: StatusTag 알약 + 보통 본문 이유 (다듬기 D0 — 연한 채움 + 막대 블록 대신)
+        item(key = "verdict") {
+            val item = th.shopping.first()
+            CardNewsCard(title = item.names.ko, icon = IconKeys.item(item.id, item.category), tone = BadgeTone.Neutral) {
+                ImportVerdictNote(ImportStatus.of(item.importStatus), item.importNoteKo)
+            }
+        }
         item(key = "states") {
             Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
                 EmptyState(Icons.Outlined.FamilyRestroom, stringResource(R.string.companion_empty_title), stringResource(R.string.companion_add_hint), action = {
@@ -425,7 +458,7 @@ fun ComponentsPage(part: Int) {
                 SecondaryButton(stringResource(R.string.wallet_lock), onClick = {}, icon = Icons.Outlined.Lock, tone = BadgeTone.Neutral)
                 FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                     SecondaryButton(stringResource(R.string.help_full_screen), onClick = {}, icon = Icons.Outlined.Fullscreen, fillWidth = false)
-                    DangerButton(stringResource(R.string.wallet_booking_delete), onClick = { confirm = true })
+                    DangerButton(stringResource(R.string.wallet_booking_delete), onClick = { confirm = true }, placement = ButtonPlacement.ItemAction)
                     QuietButton(stringResource(R.string.wallet_lock), onClick = {}, icon = Icons.Outlined.Lock)
                 }
                 LinkRow(index.returnLinks.first().labelKo, onClick = {}, icon = Icons.Outlined.CalendarMonth)
@@ -465,7 +498,7 @@ fun PhotoWorstWhitePage() {
                 ) { Icon(Icons.AutoMirrored.Outlined.ArrowBack, contentDescription = stringResource(R.string.country_back), tint = Color.White) }
                 PhotoTextArea {
                     Text(stringResource(R.string.home_brand), style = MaterialTheme.typography.labelLarge, color = Color.White)
-                    Text(stringResource(R.string.home_title), style = MaterialTheme.typography.displaySmall, color = Color.White)
+                    KoText(stringResource(R.string.home_title), MaterialTheme.typography.displaySmall, color = Color.White)
                     FlowRow(horizontalArrangement = Arrangement.spacedBy(16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
                         InfoChip(stringResource(R.string.trust_official), IconKeys.source, onDark = true)
                         InfoChip(stringResource(R.string.trust_local), Icons.Outlined.Lock, onDark = true)

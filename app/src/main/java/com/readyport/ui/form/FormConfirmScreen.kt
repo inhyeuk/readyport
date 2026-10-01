@@ -98,6 +98,9 @@ import com.readyport.ui.components.KeyValueRow
 import com.readyport.ui.components.SelectableCard
 import com.readyport.ui.components.selectionIconTint
 import com.readyport.ui.components.KoText
+import com.readyport.ui.components.requiredMarkColor
+import com.readyport.ui.components.RequiredIcon
+import com.readyport.ui.components.RequiredMark
 import com.readyport.ui.components.KoreanBreak
 import com.readyport.ui.components.LockedState
 import com.readyport.ui.components.NoticeBanner
@@ -328,19 +331,6 @@ fun FormConfirmContent(
             }
         }
 
-        if (!recipe.labelsReviewed) {
-            item(key = "unreviewed") {
-                Row(verticalAlignment = Alignment.Top, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    Icon(
-                        Icons.Outlined.Translate,
-                        contentDescription = null,
-                        tint = Tokens.InkTertiary,
-                        modifier = Modifier.padding(top = 1.dp).size(textIconSize(LocalDimens.current.iconSmall)),
-                    )
-                    KoText(stringResource(R.string.form_labels_unreviewed), MaterialTheme.typography.bodySmall, color = Tokens.InkTertiary)
-                }
-            }
-        }
         // ⑦ 보안 확인과 마지막 '제출'은 직접 — 버튼 바로 위 (누를 수 없는 흰 띠)
         item(key = "notice") {
             NoticeBanner(stringResource(R.string.form_confirm_notice), icon = Icons.Outlined.TouchApp)
@@ -391,11 +381,11 @@ private class FieldFocus {
 /** 칸 상태: [required] = 필수인데 비었음, [error] = 그 빈칸을 오류로 보일 때(빈칸으로 가기를 눌렀거나 칸을 거쳐 나감) */
 private data class FieldState(val required: Boolean, val error: Boolean)
 
-/** 빈칸 표시 색: 손대기 전에는 할 일(주의 글자색), 그 뒤에는 오류(위험 글자색) */
-private fun blankColor(error: Boolean) = if (error) Tokens.DangerText else Tokens.CautionText
+/** 빈칸 표시 색: 손대기 전에는 할 일(주의 글자색), 그 뒤에는 오류(위험 글자색) — 공용 RequiredMark와 같은 규칙 */
+private fun blankColor(error: Boolean) = requiredMarkColor(error)
 
-/** 빈칸 느낌표 (요약 설명과 같은 그림) */
-private val BlankIcon = Icons.Outlined.ErrorOutline
+/** 빈칸 느낌표 (요약 설명·칸 끝 공용 RequiredMark와 같은 그림) */
+private val BlankIcon = RequiredIcon
 
 /**
  * '목록에서 골라 주세요'처럼 공식 사이트 칸의 동작을 설명하는 도움말이면 앞에 `공식 사이트에서는`을 붙인다 (R16) —
@@ -516,6 +506,11 @@ private fun OriginGroupCard(
                         stringResource(R.string.form_group_more_user, fields.size)
                     } else {
                         stringResource(R.string.form_group_more, originName, fields.size)
+                    },
+                    target = if (origin == ValueOrigin.User) {
+                        stringResource(R.string.fold_target_group_user)
+                    } else {
+                        stringResource(R.string.fold_target_group, originName)
                     },
                 ) { rows() }
             }
@@ -744,15 +739,7 @@ private fun ChoiceField(
                 val labelStyle = MaterialTheme.typography.titleMedium
                 KoText(f.labels.ko, labelStyle, Modifier.weight(1f, fill = false), color = Tokens.Ink)
                 // 빈 필수 칸 = 이름 뒤 작은 느낌표 하나 (R16 — 글 칸의 칸 안 느낌표와 같은 그림·같은 색 규칙)
-                if (state.required) {
-                    val size = textIconSize(LocalDimens.current.icon, labelStyle)
-                    Icon(
-                        BlankIcon,
-                        contentDescription = stringResource(R.string.form_blank_cd),
-                        tint = blankColor(state.error),
-                        modifier = Modifier.padding(top = firstLineIconOffset(labelStyle, size)).size(size),
-                    )
-                }
+                if (state.required) RequiredMark(style = labelStyle, error = state.error, base = LocalDimens.current.icon)
             }
             f.otherLabels()?.let {
                 Text(
@@ -865,7 +852,7 @@ private fun BlankSummary(missing: List<RecipeField>, sentence: String?, attempte
             icon = Icons.Outlined.ArrowDownward,
             modifier = Modifier.padding(top = 4.dp),
         )
-        ExpandableDetail(label = stringResource(R.string.form_blank_names, missing.size)) {
+        ExpandableDetail(label = stringResource(R.string.form_blank_names, missing.size), target = stringResource(R.string.fold_target_blank_names)) {
             Column {
                 missing.forEachIndexed { i, f ->
                     if (i > 0) HorizontalDivider(thickness = 1.dp, color = Tokens.LineSoft)

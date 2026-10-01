@@ -21,6 +21,7 @@ import com.readyport.R
 import com.readyport.ui.TestPacks
 import com.readyport.ui.components.SourceRef
 import com.readyport.ui.components.displayDate
+import com.readyport.ui.components.keepMonthDay
 import com.readyport.ui.components.sourceBlocks
 import com.readyport.ui.theme.ReadyPortTheme
 import kotlinx.coroutines.runBlocking
@@ -73,10 +74,10 @@ class CountryDesignTest {
         val evoa = s(R.string.source_footer, id.source(apply.source)!!.name, displayDate(apply.lastVerified))
         scrollTo(evoa)
         assertTrue(rule.onAllNodesWithText(evoa).fetchSemanticsNodes().isNotEmpty())
-        // 입국 신고 카드: `무료 입국 신고 비용` 칩 + 그 양식 출처(이민국 · All Indonesia)
+        // 입국 카드 카드: `무료 입국 카드 비용` 칩(여행 준비와 같은 말) + 그 양식 출처(이민국 · All Indonesia)
         val form = id.forms.single { it.id in req.forms }
-        scrollTo(s(R.string.form_fee_chip_label))
-        rule.onNodeWithText(s(R.string.form_fee_chip_label)).assertIsDisplayed()
+        scrollTo(s(R.string.fact_label_form_fee))
+        rule.onNodeWithText(s(R.string.fact_label_form_fee)).assertIsDisplayed()
         val formLine = s(R.string.source_footer, id.source(form.source)!!.name, displayDate(form.lastVerified))
         scrollTo(formLine)
         assertTrue(rule.onAllNodesWithText(formLine).fetchSemanticsNodes().isNotEmpty())
@@ -217,7 +218,7 @@ class CountryDesignTest {
     /** 내는 때 줄의 `N월 N일`은 줄 사이에서 갈라지지 않게 NBSP로 묶는다 — 다른 글자는 그대로 */
     @Test
     fun monthAndDayStayTogether() {
-        assertEquals("예: 5월 4일 도착이면 5월 2일~4일", glueMonthDay("예: 5월 4일 도착이면 5월 2일~4일"))
-        assertEquals("도착 3일 전부터 낼 수 있어요.", glueMonthDay("도착 3일 전부터 낼 수 있어요."))
+        assertEquals("예: 5월 4일 도착이면 5월 2일~4일", keepMonthDay("예: 5월 4일 도착이면 5월 2일~4일"))
+        assertEquals("도착 3일 전부터 낼 수 있어요.", keepMonthDay("도착 3일 전부터 낼 수 있어요."))
     }
 }

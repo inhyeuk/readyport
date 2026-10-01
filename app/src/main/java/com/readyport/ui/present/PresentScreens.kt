@@ -71,6 +71,7 @@ import com.readyport.security.SecureScreen
 import com.readyport.ui.components.AppScreen
 import com.readyport.ui.components.BadgeTone
 import com.readyport.ui.components.CardNewsCard
+import com.readyport.ui.components.ButtonPlacement
 import com.readyport.ui.components.DangerButton
 import com.readyport.ui.components.DestructiveConfirm
 import com.readyport.ui.components.EmptyState
@@ -340,7 +341,7 @@ fun PresentContent(
                         stringResource(R.string.present_delete_named, d.formName)
                     }
                     val name = stringResource(R.string.delete_named_cd, d.formName)
-                    DangerButton(label, onClick = { pendingDelete = d.doc }, fillWidth = true, contentDescription = name)
+                    DangerButton(label, onClick = { pendingDelete = d.doc }, placement = ButtonPlacement.CardAction, contentDescription = name)
                 }
             }
         }
@@ -676,23 +677,22 @@ private fun CompanionCard(c: TravelCompanion, onRegisterPassport: () -> Unit, on
                     }
                 }
             }
-            FlowRow(
-                Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.End),
-                verticalArrangement = Arrangement.spacedBy(8.dp),
-            ) {
-                if (c.passport == null) {
-                    SecondaryButton(
-                        stringResource(R.string.companion_passport_add),
-                        onClick = onRegisterPassport,
-                        icon = Icons.Outlined.Badge,
-                        fillWidth = false,
-                    )
-                }
-                // 사람마다의 지우기 = 끝 정렬. TalkBack은 누구를 지우는지(카드에 보이는 부르는 이름) 함께 읽는다 (재검토 R18)
-                val deleteName = stringResource(R.string.delete_named_cd, c.label)
-                DangerButton(stringResource(R.string.companion_delete), onClick = onDelete, contentDescription = deleteName)
+            if (c.passport == null) {
+                SecondaryButton(
+                    stringResource(R.string.companion_passport_add),
+                    onClick = onRegisterPassport,
+                    icon = Icons.Outlined.Badge,
+                )
             }
+            // 사람마다의 지우기 = 목록 항목 동작 → 끝 정렬, 제 줄에 혼자(부품이 정한다 — 재검토2 ④#5).
+            // TalkBack은 누구를 지우는지(카드에 보이는 부르는 이름) 함께 읽는다 (재검토 R18)
+            val deleteName = stringResource(R.string.delete_named_cd, c.label)
+            DangerButton(
+                stringResource(R.string.companion_delete),
+                onClick = onDelete,
+                placement = ButtonPlacement.ItemAction,
+                contentDescription = deleteName,
+            )
         }
     }
 }

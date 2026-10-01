@@ -37,7 +37,6 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -62,6 +61,7 @@ import com.readyport.ui.components.BadgeTone
 import com.readyport.ui.components.BannerTone
 import com.readyport.ui.components.CardNewsCard
 import com.readyport.ui.components.ComingSoonGroup
+import com.readyport.ui.components.ButtonPlacement
 import com.readyport.ui.components.DangerButton
 import com.readyport.ui.components.DestructiveConfirm
 import com.readyport.ui.components.IconKeys
@@ -276,7 +276,7 @@ fun WalletContent(
         // 여권 지우기 = 여권 카드의 단독 파괴 동작 → 관리 줄('여행이 끝나면 여권 정보 지우기' 바로 아래) 폭 전체 (재검토 26·30)
         if (unlocked?.contents?.passport != null) {
             item(key = "passport-delete") {
-                DangerButton(stringResource(R.string.wallet_passport_delete), onClick = { confirmPassportDelete = true }, fillWidth = true)
+                DangerButton(stringResource(R.string.wallet_passport_delete), onClick = { confirmPassportDelete = true }, placement = ButtonPlacement.CardAction)
             }
         }
         if (unlocked != null) {
@@ -344,14 +344,13 @@ private fun FailedState(reason: WalletState.Failed.Reason, onUnlock: () -> Unit,
                 tone = BadgeTone.Caution,
                 style = NewsStyle.Caution,
             ) {
-                // 모두 지우는 동작은 주 버튼 자리(폭 전체)에 두지 않는다 — 오른쪽 정렬 일반 모양 (4.11)
-                Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
-                    DangerButton(
-                        stringResource(R.string.wallet_reset),
-                        onClick = onReset,
-                        icon = Icons.Outlined.RestartAlt,
-                    )
-                }
+                // 이 카드의 하나뿐인 행동 = 카드 단위 동작이라 폭 전체 (재검토2 ④#5 — DangerButton 폭 규칙을 부품이 정한다)
+                DangerButton(
+                    stringResource(R.string.wallet_reset),
+                    onClick = onReset,
+                    placement = ButtonPlacement.CardAction,
+                    icon = Icons.Outlined.RestartAlt,
+                )
             }
         }
     }
@@ -391,7 +390,7 @@ private fun PassportCard(passport: PassportRecord, today: LocalDate) {
             ) {
                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                     Icon(Icons.Outlined.Badge, contentDescription = null, tint = colors.icon, modifier = Modifier.size(dimens.icon))
-                    Text(stringResource(R.string.wallet_passport_eyebrow), style = MaterialTheme.typography.labelMedium, color = colors.eyebrow)
+                    KoText(stringResource(R.string.wallet_passport_eyebrow), MaterialTheme.typography.labelMedium, Modifier.weight(1f, fill = false), color = colors.eyebrow)
                 }
             }
             PassportField(
@@ -464,9 +463,12 @@ private fun BookingCard(booking: BookingRecord, onDelete: () -> Unit) {
         bookingDates(booking).forEach { (icon, label, value) -> BookingFact(icon, stringResource(label), value) }
         // 목록 항목마다의 지우기 = 끝 정렬. TalkBack은 무엇을 지우는지(화면에 보이는 서류 이름) 함께 읽는다 (재검토 R18)
         val deleteName = stringResource(R.string.delete_named_cd, booking.title)
-        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
-            DangerButton(stringResource(R.string.wallet_booking_delete), onClick = onDelete, contentDescription = deleteName)
-        }
+        DangerButton(
+            stringResource(R.string.wallet_booking_delete),
+            onClick = onDelete,
+            placement = ButtonPlacement.ItemAction,
+            contentDescription = deleteName,
+        )
     }
 }
 

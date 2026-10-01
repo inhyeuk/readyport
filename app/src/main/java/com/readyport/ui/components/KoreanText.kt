@@ -154,6 +154,15 @@ private val ShortWord = Regex("""(?<=^|[ \u00A0\n])([가-힣]) (?=\S)""")
 /** 한 음절 낱말 뒤 띄어쓰기를 NBSP로 — 제목의 `이 휴대폰`, `두 가지`, `꼭 채워요`에서 한 음절이 줄 끝에 홀로 남지 않게 */
 fun glueShortWords(text: String): String = ShortWord.replace(text) { "${it.groupValues[1]}${KoreanBreak.NBSP}" }
 
+/** 글(또는 줄) 끝의 한 음절 낱말 앞 띄어쓰기 — `숙소가 있는 주`, `사이트에서 직접 적을 칸`, `서류에서 가져온 값` */
+private val LastShortWord = Regex("""(?<=\S) (?=[가-힣][.!?)\]」』'"’”]*(?:\n|$))""")
+
+/**
+ * 글 끝의 한 음절 낱말을 앞 낱말에 붙인다(NBSP) — 좁은 줄(360dp·200%)에서 `칸`·`주`·`값` 한 음절만 다음 줄에 홀로 남지 않게
+ * (다듬기 D0 — 줄바꿈 감사를 실패로 올리며 찾은 것). 보이는 글자만 바꾸고 의미 글자는 원문.
+ */
+fun glueLastShortWord(text: String): String = LastShortWord.replace(text, KoreanBreak.NBSP.toString())
+
 /**
  * 긴 낱말의 줄바꿈 자리(ZERO WIDTH SPACE): 가운뎃점 뒤(`관세청·\u200B농림축산검역본부`, `수카르노하타·주안다`),
  * 여는 괄호 앞(`1단계(여행유의)예요` → `1단계 / (여행유의)예요`), 주소의 점 뒤(`imigrasi.go.id` — 글자 사이 점만, 날짜·숫자는 아님).
@@ -194,13 +203,13 @@ internal fun breakLongWords(text: String): String {
 }
 
 /**
- * [KoText]가 그리는 글자: 모든 API — 띄어 쓴 구분 기호 붙이기, 줄바꿈 자리(여는 괄호 앞·긴 낱말의 가운뎃점 뒤·주소 점 뒤),
+ * [KoText]가 그리는 글자: 모든 API — 띄어 쓴 구분 기호 붙이기, 글 끝 한 음절 낱말 붙이기, 줄바꿈 자리(여는 괄호 앞·긴 낱말의 가운뎃점 뒤·주소 점 뒤),
  * ([glueShort]면) 한 음절 낱말 묶기.
  * API 33 미만 — 여기에 [keepWords]. 의미 글자는 KoText가 원문으로 둔다.
  */
 fun koDisplay(text: String, glueShort: Boolean = false, sdk: Int = Build.VERSION.SDK_INT): String {
     if (text.none(KoreanBreak::isHangul)) return text
-    var s = glueGroups(text)
+    var s = glueLastShortWord(glueGroups(text))
     if (glueShort) s = glueShortWords(s)
     s = breakLongWords(s)
     return keepWords(s, sdk)
@@ -208,6 +217,14 @@ fun koDisplay(text: String, glueShort: Boolean = false, sdk: Int = Build.VERSION
 
 /** 날짜 같은 짧은 덩어리(`11월 3일 (화)`)를 어디서도 끊지 않는다: 띄어쓰기는 NBSP, 글자 사이에는 WORD JOINER (모든 API) */
 fun noBreak(text: String): String = text.replace(' ', KoreanBreak.NBSP).toList().joinToString(KoreanBreak.WORD_JOINER.toString())
+
+private val MonthDay = Regex("""(\d{1,2}월) (\d{1,2}일)""")
+
+/**
+ * `N월 N일` 사이 띄어쓰기를 NBSP로 — 날짜가 달과 일로 갈라져 줄을 바꾸지 않게(`5월 / 2일~4일` 방지, 재검토 ①16).
+ * 보이는 글자에만 쓴다(의미 글자는 원문). 다른 글자는 그대로. (나라 화면·여행 준비가 따로 갖던 두 벌을 하나로 — 재검토2 ④#1)
+ */
+fun keepMonthDay(text: String): String = MonthDay.replace(text) { "${it.groupValues[1]}${KoreanBreak.NBSP}${it.groupValues[2]}" }
 
 /** 이 길이 이하만 한 덩어리로 묶는다 — 긴 이름(`Familydestinationsguide.com Images`)은 띄어쓰기에서 끊는 편이 낫다 */
 private const val KEEP_TOGETHER_MAX = 20

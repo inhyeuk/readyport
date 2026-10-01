@@ -98,6 +98,8 @@ import com.readyport.ui.components.PhotoTextArea
 import com.readyport.ui.components.Photos
 import com.readyport.ui.components.PrimaryButton
 import com.readyport.ui.components.ReturnCheckCard
+import com.readyport.ui.components.foldLiveRegion
+import com.readyport.ui.components.ReturnCheckMode
 import com.readyport.ui.components.SecondaryButton
 import com.readyport.ui.components.SectionHeader
 import com.readyport.ui.components.SourceList
@@ -304,7 +306,7 @@ fun HomeContent(ui: HomeUi, actions: HomeActions, today: LocalDate = LocalDate.n
         if (ui.returnFacts.isNotEmpty() || ui.returnLinks.isNotEmpty()) {
             item(key = "return") {
                 Foldable(easy, returnOpen, returnTitle, Icons.Outlined.Inventory2, { returnOpen = it }) {
-                    ReturnCheckCard(ui.returnLinks, ui.returnFacts, ui.indexSources, actions.openLink)
+                    ReturnCheckCard(ui.returnLinks, ui.returnFacts, ui.indexSources, actions.openLink, ReturnCheckMode.Summary)
                 }
             }
         }
@@ -351,12 +353,15 @@ private fun Foldable(
         content()
         return
     }
-    if (!open) {
-        FoldRow(title, icon, tone, body) { onOpenChange(true) }
-    } else {
-        Column(verticalArrangement = Arrangement.spacedBy(LocalDimens.current.inner)) {
-            content()
-            FoldBackRow(title) { onOpenChange(false) }
+    // 펼치면 누른 줄이 사라지고 카드가 그 자리에 온다 — 바뀐 내용을 TalkBack이 읽게 늘 있는 상자에 liveRegion (재검토2 ②#2)
+    Box(Modifier.foldLiveRegion()) {
+        if (!open) {
+            FoldRow(title, icon, tone, body) { onOpenChange(true) }
+        } else {
+            Column(verticalArrangement = Arrangement.spacedBy(LocalDimens.current.inner)) {
+                content()
+                FoldBackRow(title) { onOpenChange(false) }
+            }
         }
     }
 }
@@ -456,11 +461,12 @@ private fun HomeHero(singleColumn: Boolean) {
                     modifier = Modifier.padding(start = 8.dp),
                 )
             }
-            Text(
+            // 어절 단위로만 줄을 바꾼다(sdk 31·200%·360dp에서 `떠나세/요?` 방지 — KoText)
+            KoText(
                 stringResource(R.string.home_title),
-                style = MaterialTheme.typography.displaySmall,
+                MaterialTheme.typography.displaySmall,
                 color = OnDark.content,
-                modifier = Modifier.semantics { heading() },
+                heading = true,
             )
             ValuePropText(MaterialTheme.typography.titleMedium)
             if (!singleColumn) TrustStrip(Modifier.padding(top = 6.dp), onDark = true)

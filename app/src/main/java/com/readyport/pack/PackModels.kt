@@ -211,7 +211,7 @@ data class Phrase(
     val en: String,
     val local: String,
     val romanized: String? = null,
-    /** 원어민 검수 여부. false면 화면에 '검수 전' 표시 */
+    /** 원어민 검수 여부 (팩 데이터 — 앱 화면에는 표시하지 않는다: 운영자 결정 2, 2026-10-01. 출시 전 원어민 검수 C10은 할 일로 남음) */
     val reviewed: Boolean = false,
 )
 

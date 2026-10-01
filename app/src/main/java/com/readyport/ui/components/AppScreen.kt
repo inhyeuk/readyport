@@ -2,7 +2,6 @@ package com.readyport.ui.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
@@ -82,24 +81,16 @@ fun AppScreen(
         }
         if (dimens.easyMode) {
             scope.item(key = "easy-actions") {
-                // 글자를 키워 한 줄에 둘이 안 들어가면 버튼이 아래 줄로 내려간다(글자가 쪼개지지 않게)
-                FlowRow(
-                    horizontalArrangement = Arrangement.spacedBy(dimens.gap),
-                    verticalArrangement = Arrangement.spacedBy(dimens.gap / 2),
-                ) {
-                    SecondaryButton(
-                        text = stringResource(R.string.action_home),
-                        onClick = actions.goHome,
-                        icon = Icons.Outlined.Home,
-                        fillWidth = false,
-                    )
-                    SecondaryButton(
-                        text = stringResource(R.string.action_listen),
-                        onClick = { actions.speak(speech) },
-                        icon = Icons.AutoMirrored.Outlined.VolumeUp,
-                        fillWidth = false,
-                    )
-                }
+                // 두 버튼이 같은 폭으로 내용선 끝까지 — 반 폭에 라벨이 한 줄로 안 들어가면 위아래로 쌓고 둘 다 폭 전체 (재검토2 ①#5)
+                EqualWidthPair(
+                    gap = dimens.gap,
+                    first = { m ->
+                        EasyActionButton(stringResource(R.string.action_home), Icons.Outlined.Home, actions.goHome, m)
+                    },
+                    second = { m ->
+                        EasyActionButton(stringResource(R.string.action_listen), Icons.AutoMirrored.Outlined.VolumeUp, { actions.speak(speech) }, m)
+                    },
+                )
             }
         }
         scope.content()

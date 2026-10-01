@@ -375,7 +375,7 @@ private fun DriverCard(phrase: String?, address: String, onFullScreen: () -> Uni
         Column(Modifier.padding(dimens.cardPadding), verticalArrangement = Arrangement.spacedBy(dimens.inner)) {
             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 IconBadge(Icons.Outlined.Hail, tone = BadgeTone.OnDark, size = dimens.iconBadgeSmall)
-                Text(stringResource(R.string.move_show_driver), style = MaterialTheme.typography.labelMedium, color = OnDark.eyebrow)
+                KoText(stringResource(R.string.move_show_driver), MaterialTheme.typography.labelMedium, Modifier.weight(1f, fill = false), color = OnDark.eyebrow)
             }
             phrase?.let { Text(it, style = extras.localMedium, color = OnDark.content) }
             Text(address, style = localText(MaterialTheme.typography.titleLarge), color = OnDark.content)

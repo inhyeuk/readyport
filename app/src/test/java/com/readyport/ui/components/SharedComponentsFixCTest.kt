@@ -120,7 +120,7 @@ class SharedComponentsFixCTest {
     @Test
     fun dangerButtonNamesWhatItDeletes() {
         var clicked = 0
-        rule.setContent { ReadyPortTheme { DangerButton("지우기", onClick = { clicked++ }, contentDescription = "방콕 왕복 지우기") } }
+        rule.setContent { ReadyPortTheme { DangerButton("지우기", onClick = { clicked++ }, placement = ButtonPlacement.ItemAction, contentDescription = "방콕 왕복 지우기") } }
         rule.onNodeWithContentDescription("방콕 왕복 지우기").assertHasClickAction().performClick()
         assertEquals(1, clicked)
     }
@@ -155,13 +155,13 @@ class SharedComponentsFixCTest {
         assertNull(photoLiftFilter(bright.asImageBitmap()))
     }
 
-    /** 귀국 전 확인(공용): 첫 문장만 보이고 숫자 토큰 그대로, 펼치면 팩 문장 전체 — 홈·나라·쇼핑·내 여행이 같은 카드 */
+    /** 귀국 전 확인(공용, 전체 모양 — 귀국 단계): 첫 문장만 보이고 숫자 토큰 그대로, 펼치면 팩 문장 전체 */
     @Test
     fun returnCheckCardFoldsToFirstSentences() {
         val index = TestPacks.index.value
         rule.setContent {
             ReadyPortTheme {
-                ReturnCheckCard(index.returnLinks, index.returnFacts, index.sources.associate { it.id to it.name }, {})
+                ReturnCheckCard(index.returnLinks, index.returnFacts, index.sources.associate { it.id to it.name }, {}, ReturnCheckMode.Full)
             }
         }
         val fact = index.returnFacts.first()

@@ -9,6 +9,4 @@
     <string name="home_fold_less_cd">%1$s 접기</string>
     <!-- R12 인도네시아: 비자 신청이 지나가는 입국 신고가 1단계, 비자 신청이 2단계 (팩 신청 단계 순서 그대로) -->
     <string name="country_step_eyebrow">%1$d단계 · %2$s</string>
-    <!-- R12 입국 카드(양식) 카드 안 비용 칩: `무료 입국 신고 비용` (비자 카드에서 옮김 — 비자가 무료로 읽히지 않게) -->
-    <string name="form_fee_chip_label">입국 신고 비용</string>
 </resources>

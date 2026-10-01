@@ -1290,3 +1290,42 @@ enum class StatusKind(val icon: ImageVector, val tone: BadgeTone) {
 | 다음 화면으로(여행 만들기·여권 등록 등) | `AM.Outlined.NavigateNext` | 버튼에서는 라벨 **뒤**에만(부품이 강제) |
 | 팩 문장 불릿(들어갈 때·돈·안전) | 6dp 점(`DotBullet`) | Check·Remove(대시) 대신. ✓는 앱이 확인한 상태(챙겼어요·확인 완료)에만, 금지·경고 문장 앞에는 금지 |
 | 신뢰 표시(공식 출처만·폰에만 저장·인터넷 없이도) | `AM.Outlined.FactCheck`·`Outlined.Lock`·`Outlined.OfflinePin` (`InfoChip`, 상자 없음) | 흰 92% 상자 타일 대신 |
+
+## 부록 D — 다듬기 D0 (2026-10-01, 공용 부품)
+
+운영자 결정(`OWNER_DECISIONS.md` '운영자 결정 기록' 2·6·10·13)과 최종 재검토(`rereview2/*.md`)의 공용 지적을 부품에 반영한 기록이다. 자세한 내용은 `POLISH_D0_REPORT.md`. 이 부록이 4장·부록 C의 같은 항목보다 우선한다.
+
+### D.1 색·층위
+- **흰 카드 경계 = 그림자 + 1dp LineSoft 테두리**(결정 6): `Modifier.cardShadow(shape)`가 둘 다 그린다. 자기 테두리가 있는 추천 `ChoiceCard`와 사진이 가장자리까지 닿는 `PhotoHeaderCard`만 `border = false`.
+- **버튼은 바탕 흰색, 선택은 바탕 AccentSoft**(①#1): `SecondaryButton` = Surface + 1.5dp tone 글자색 테두리 + tone 글자색. Neutral = SurfaceSunken + 1.5dp LineStrong + Ink(흰 바탕 + 1dp LineStrong인 비선택 칩과 구분). onDark는 그대로. `StatTile` 바탕 = Ground(톤 색은 아이콘만). `StatusChip` 기본 바탕 = SurfaceSunken. AccentSoft 채움은 선택(`SelectableCard`)·아이콘 배지·여행 단계 '지금'에만.
+
+### D.2 위계
+- `SectionHeader` = 배지 없이 24dp 아이콘(tone 글자색, 글자 따라 커짐) + headlineSmall(22/30 Bold, 쉬운 24/32). `CardNewsCard` 제목 = titleMedium(17/24 SemiBold, 쉬운 22/30) + 40dp 배지, 한 줄 제목은 배지 가운데(①#2).
+- 쉬운 모드 `처음으로`·`소리로 듣기` = 같은 폭으로 내용선 끝까지(`EqualWidthPair`), 반 폭에 라벨이 안 들어가면 위아래 폭 전체. 모양은 보조 버튼보다 한 단계 낮게: 흰 바탕 + 1dp LineStrong + Ink 글자 + Accent 아이콘, 64dp(①#5 — 4.11 마지막 줄 대체).
+
+### D.3 새 부품
+| 부품 (파일) | 쓰임 |
+|---|---|
+| `AssuranceCard(modifier, items)` · `enum Assurance{NotAffiliated, LocalOnly, SubmitSelf}` (Banners.kt) | 쌓이던 비제휴·보안·제출은 직접 띠를 한 장으로(①#3). 흰 바탕 + 4dp Accent 막대, 줄마다 아이콘 + 기존 문구(한 Text 노드). 화면 채택은 화면 라운드 |
+| `ImportVerdictNote(status, note)` (Status.kt) | 카드 안 반입 판정 = StatusTag 알약 + 보통 본문 이유(①#4). 채움 + 막대 블록은 화면 단위 경고(NoticeBanner)에만 |
+| `RequiredMark(style, error, describe, base, firstLine)` · `RequiredSummary(total, required)` · `RequiredIcon` · `requiredMarkColor()` (Status.kt) | 꼭 채울 칸 = 이름 뒤 작은 느낌표(TalkBack `빈칸`) + 묶음 머리 한 줄 `꼭 채울 칸 N개 · 모두 M칸`. 칸마다 `꼭 채워요` 태그 없음(③#3·②#3·④#3) |
+| `EntryFormCard(name, feeKo, windowKo, source, eyebrow, onStart, modifier, body, primary)` · `feeTone` · `feeRest` (EntryForm.kt) | 나라 입국(03·04)과 여행 준비(18)의 같은 양식 카드 하나(④#1). 말은 **입국 카드** 하나 — eyebrow `온라인 입국 카드`, 비용 칩 `입국 카드 비용`, 버튼 `입국 카드 준비하기`(②#5) |
+| `NumberText(text, style, …, display, emphasisColor)` · `numberRanges` · `emphasizeNumbers(text, shown, color)` (Numbers.kt) | 팩 문장 숫자 토큰 굵게 — 단위 목록 한 곳(통화 띄어 써도 · 한국어 단위 붙여 쓸 때만 · 영문 단위 뒤 영문자 없을 때만, `[A-Z]{3} ` 통화 코드, `만/천/억` 자리). 단위 없는 맨 숫자(번지·우편번호·날짜·전화번호)는 굵게 하지 않는다(`20·50·100`처럼 가운뎃점 숫자 목록만 예외). DotBullet·IconBullet·CardNewsCard 본문·StatTile 라벨·StepList 문장·ReturnCheckCard·판정 메모·꼭 챙길 물건 설명이 안에서 쓴다(③#1) |
+| `ExpandToggle(open, onOpenChange, label, modifier, target, closedName)` · `ExpandableDetail(…, target)`(제어형 공개) · `Modifier.foldLiveRegion()` (CardNews.kt) | 펼침 줄 하나. 펼친 뒤 `접기`의 TalkBack 이름 = `{target} 접기`, 펼쳐 나온 내용·바뀐 글 묶음은 liveRegion(②#2) |
+| `ButtonPlacement{CardAction, ItemAction}` (Buttons.kt) | `DangerButton(placement)` 필수 — 카드·화면 단위 = 폭 전체, 목록 항목 = 끝 정렬(부품이 스스로)(④#5) |
+| `keepMonthDay(text)` (KoreanText.kt) | `N월 N일` 묶음 — 두 벌(glueMonthDay·keepMonthDay)을 하나로 |
+
+### D.4 바뀐 부품
+- `ReturnCheckCard(…, onOpenLink, mode: ReturnCheckMode, modifier)` — `mode` 필수(결정 10). `Full`(내 여행 귀국 단계만) = 안내 → 사실 4행(첫 문장, 펼치면 전체) → 출처 → 링크. `Summary`(홈·나라 쇼핑·쇼핑 리스트) = 첫 사실 한 줄 + `면세 한도·반입 금지 문장 전체 보기` → 펼치면 사실 전체·안내·링크. 출처는 두 모양 모두 접힘 밖. 관세청 둘째 문장(별도 면세)은 `LocalBar` 아이콘(③#2b).
+- `StepList(sentence: Boolean? = null)` — null이면 부품이 고른다: 모든 단계가 20자 이하·문장부호(. ! ? :) 없음이면 제목 글자, 아니면 목록 전체 본문 글자(④#2).
+- `JourneyStepper` 1열(쉬운 모드·큰 글자) = 지금 단계 배지(48/56dp, 글자 따라 최대 1.25배) + 문장 + **폭 전체 여섯 칸 막대**(칸마다 단계 아이콘 — 지난 칸 Accent + Check, 지금 칸 AccentSoft + 2dp Accent, 남은 칸 흰 바탕 + 1dp LineStrong, 아이콘은 글자 따라 커지고 칸 폭을 넘지 않음)(③#4). 5dp 점 줄 삭제.
+- `IconBullet(…, display)` — 보일 글자 따로(날짜 묶음).
+- 지운 것: `help_unreviewed`·`form_labels_unreviewed`와 그 표시(결정 2 — 팩 `reviewed` 값은 그대로), `form_field_required`, `form_fee_chip_label`, `country_form_label`·`country_form_start`·`country_form_manual_start`, 나라 화면 `FormCard` 몸통·`glueMonthDay`·지역 `feeTone`/`feeRest`, 여행 준비 `FormCard` 몸통·`keepMonthDay`, 쇼핑 `ImportVerdictPanel`, 수동 모드 지역 `RequiredMark`, 나라 화면 `MoreToggle` 몸통(공용 ExpandToggle로).
+- 문구: `shopping_in_cart` = `담았어요`(결정 13), `home_passport_body`·`settings_myinfo_body`의 `입국 신고서` → `입국 카드`.
+
+### D.5 테스트 그물 (④#4)
+- `A11yAuditTest` 구성 추가: 360dp(sdk36 100% 기본·쉬운, sdk31 200% 기본·쉬운), 기기 언어 영어(sdk36 100% 기본·쉬운).
+- 줄바꿈 위반(낱말 중간·한 음절 줄)과 글자 넘침(잘림)을 **실패**로. 낱말이 한 줄보다 넓어 피할 수 없는 경우만 예외(TextMeasurer로 실측).
+- WORD JOINER 누락 버그: 줄 끝 앞 글자를 보이지 않는 문자를 건너뛰고 판정.
+- 넘침 판정은 `TextLayoutResult.hasVisualOverflow`를 쓰지 않는다 — semantics가 돌려주는 결과는 단락 폭이 칸 최대 폭으로 다시 만들어져 짧은 글도 넘침으로 나온다. 줄마다 글자 폭(getLineRight − getLineLeft) > 칸 폭, 단락 높이 > 칸 높이, 줄 수 제한 초과를 잰다.
+- 감사로 찾아 고친 것: 글 끝 한 음절 낱말(`적을 칸`·`있는 주`·`가져온 값`)은 `koDisplay`가 앞 낱말에 붙인다(`glueLastShortWord`, 모든 API). 홈 히어로 제목·이동하기 `기사님께 보여주기` eyebrow·여권 카드 `PASSPORT · 여권` eyebrow는 KoText로(sdk 31에서 음절 줄바꿈).

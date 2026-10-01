@@ -3,7 +3,6 @@ package com.readyport.ui.form
 import android.content.Intent
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
@@ -17,7 +16,6 @@ import androidx.compose.material.icons.outlined.Badge
 import androidx.compose.material.icons.outlined.Check
 import androidx.compose.material.icons.outlined.ContentCopy
 import androidx.compose.material.icons.outlined.EditNote
-import androidx.compose.material.icons.outlined.ErrorOutline
 import androidx.compose.material.icons.outlined.HealthAndSafety
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.Policy
@@ -40,7 +38,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
@@ -56,13 +53,14 @@ import com.readyport.ui.components.CardNewsCard
 import com.readyport.ui.components.IconBullet
 import com.readyport.ui.components.KeyValueRow
 import com.readyport.ui.components.KoText
+import com.readyport.ui.components.RequiredSummary
+import com.readyport.ui.components.RequiredMark
 import com.readyport.ui.components.LockedState
 import com.readyport.ui.components.NoticeBanner
 import com.readyport.ui.components.PrimaryButton
 import com.readyport.ui.components.SecondaryButton
 import com.readyport.ui.components.SecurityBanner
 import com.readyport.ui.components.minTouch
-import com.readyport.ui.components.textIconSize
 import com.readyport.ui.theme.LocalDimens
 import com.readyport.ui.theme.Tokens
 import com.readyport.ui.wallet.rememberDeviceAuth
@@ -182,36 +180,21 @@ private fun StepCard(
         }
         if (empty.isNotEmpty()) {
             if (filled.isNotEmpty() || step.noteKo != null) HorizontalDivider(thickness = 1.dp, color = Tokens.LineSoft)
-            OnSiteHeader()
+            OnSiteHeader(total = empty.size, required = empty.count { it.required })
             empty.forEach { f -> OnSiteField(f) }
         }
     }
 }
 
-/** 칸 이름(한국어·영어): 한 줄에 들어가면 나란히, 아니면 다음 줄로 */
+/** 칸 이름(한국어·영어): 한 줄에 들어가면 나란히, 아니면 다음 줄로. [required]면 한국어 이름 바로 뒤 작은 느낌표(공용 RequiredMark) */
 @Composable
-private fun FieldNames(f: RecipeField) {
+private fun FieldNames(f: RecipeField, required: Boolean = false) {
     FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp), verticalArrangement = Arrangement.spacedBy(2.dp)) {
-        KoText(f.labels.ko, MaterialTheme.typography.titleSmall, Modifier.align(Alignment.CenterVertically), color = Tokens.InkSecondary)
+        Row(Modifier.align(Alignment.CenterVertically), verticalAlignment = Alignment.Top, horizontalArrangement = Arrangement.spacedBy(4.dp)) {
+            KoText(f.labels.ko, MaterialTheme.typography.titleSmall, Modifier.weight(1f, fill = false), color = Tokens.InkSecondary)
+            if (required) RequiredMark()
+        }
         Text(f.labels.en, style = MaterialTheme.typography.bodySmall, color = Tokens.InkSecondary, modifier = Modifier.align(Alignment.CenterVertically))
-    }
-}
-
-/**
- * 사이트에서 꼭 채울 칸 표시: 채움 없는 작은 느낌표 + `꼭 채워요`(주의 글자색) — 늘 칸 이름 **아래 줄** 같은 자리에.
- * 예전 노란 채움 태그는 칸 이름 길이에 따라 옆·아래를 오가며 칸마다 되풀이돼 노랑이 넘쳤다(재검토 R16과 같은 규칙).
- */
-@Composable
-private fun RequiredMark() {
-    val style = MaterialTheme.typography.labelMedium
-    Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(4.dp)) {
-        Icon(
-            Icons.Outlined.ErrorOutline,
-            contentDescription = null,
-            tint = Tokens.CautionText,
-            modifier = Modifier.size(textIconSize(LocalDimens.current.iconSmall, style)),
-        )
-        Text(stringResource(R.string.form_field_required), style = style, color = Tokens.CautionText)
     }
 }
 
@@ -257,24 +240,32 @@ private fun CopyButton(fieldName: String, copied: Boolean, onClick: () -> Unit) 
     }
 }
 
-/** `사이트에서 직접 적을 칸` 소제목 — 앱에 값이 없어 사이트에서 사람이 적는 칸들 */
+/**
+ * `사이트에서 직접 적을 칸` 소제목 + 묶음 요약 한 줄(`[!] 꼭 채울 칸 N개 · 모두 M칸`, 공용 RequiredSummary) —
+ * 칸마다 `꼭 채워요` 태그를 되풀이하지 않는다(입국 카드 확인 20과 같은 규칙, 재검토2 ①#10·②#3·③#3).
+ */
 @Composable
-private fun OnSiteHeader() {
-    Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-        Icon(Icons.Outlined.EditNote, contentDescription = null, tint = Tokens.CautionText, modifier = Modifier.size(LocalDimens.current.icon))
-        KoText(stringResource(R.string.manual_fill_on_site), MaterialTheme.typography.titleSmall, color = Tokens.Ink, heading = true)
+private fun OnSiteHeader(total: Int, required: Int) {
+    Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            Icon(Icons.Outlined.EditNote, contentDescription = null, tint = Tokens.CautionText, modifier = Modifier.size(LocalDimens.current.icon))
+            KoText(stringResource(R.string.manual_fill_on_site), MaterialTheme.typography.titleSmall, color = Tokens.Ink, heading = true)
+        }
+        RequiredSummary(total = total, required = required)
     }
 }
 
-/** 값 없는 칸: 칸 이름 + 필수면 `꼭 채워요`(주의 글자 — 오류가 아니라 할 일, 늘 같은 자리) + 도움말(공식 사이트 칸 설명이라 그대로) */
+/**
+ * 값 없는 칸 = 공용 KeyValueRow 모양의 라벨 줄(칸 이름·영어 이름 나란히) — 필수면 이름 **뒤** 작은 느낌표(공용 RequiredMark, TalkBack `빈칸`) +
+ * 도움말(공식 사이트 칸 설명이라 그대로). 시작선은 위 복사 행(KeyValueRow)과 같다(재검토2 ④#3 — 4dp 안쪽으로 들어가 있던 것).
+ */
 @Composable
 private fun OnSiteField(f: RecipeField) {
     Column(
-        Modifier.fillMaxWidth().semantics(mergeDescendants = true) {}.padding(start = 4.dp, top = 2.dp, bottom = 2.dp),
+        Modifier.fillMaxWidth().semantics(mergeDescendants = true) {}.padding(top = 2.dp, bottom = 2.dp),
         verticalArrangement = Arrangement.spacedBy(2.dp),
     ) {
-        FieldNames(f)
-        if (f.required) RequiredMark()
+        FieldNames(f, required = f.required)
         f.hintKo?.let { KoText(it, MaterialTheme.typography.bodySmall, color = Tokens.InkSecondary) }
     }
 }

@@ -72,7 +72,6 @@
     <string name="form_fix_done">다 고쳤어요</string>
     <string name="form_need_required">빈칸을 채워 주세요: %1$s</string>
     <string name="form_need_passport">먼저 여권을 등록해 주세요</string>
-    <string name="form_labels_unreviewed">현지어 표기는 원어민 검수 전이에요</string>
     <string name="form_killed">지금은 이 사이트 자동 입력을 쉬고 있어요. 값을 복사해서 직접 넣어 주세요.</string>
     <string name="form_no_recipe">이 입국 카드는 아직 자동 입력을 준비하지 못했어요. 값을 복사해서 직접 넣어 주세요.</string>
     <string name="form_save_failed">저장하지 못했어요. 내 정보를 다시 열어 주세요.</string>
@@ -222,7 +221,6 @@
     <string name="help_play_sound">소리로 들려주기</string>
     <string name="help_full_screen">화면 크게</string>
     <string name="help_close">닫기</string>
-    <string name="help_unreviewed">원어민 검수 전</string>
     <string name="help_no_tts">이 휴대폰에는 %1$s 음성이 없어요. 화면을 보여 주세요.</string>
     <string name="help_embassy">대한민국 대사관</string>
     <string name="help_embassy_after_hours">근무시간 외 긴급</string>
@@ -374,7 +372,7 @@
     <string name="shopping_empty">이 나라의 쇼핑 리스트는 준비 중이에요.</string>
     <string name="shopping_where">파는 곳: %1$s</string>
     <string name="shopping_add">담기</string>
-    <string name="shopping_in_cart">담았어요 ✓</string>
+    <string name="shopping_in_cart">담았어요</string>
     <string name="shopping_show_staff">직원에게 보여주기</string>
     <string name="shopping_return_title">귀국 전 확인</string>
     <string name="import_allowed">한국 반입 가능</string>
@@ -420,7 +418,7 @@
     <string name="home_departure_title">출국하는 날, 이 순서대로</string>
     <string name="home_essentials_open">준비물 확인하기</string>
     <string name="home_passport_title">여권 정보는 한 번만 등록하세요</string>
-    <string name="home_passport_body">입국 신고서를 쓸 때마다 다시 입력하지 않아도 돼요. 이 휴대폰에만 암호화해 저장하고, 밖으로 보내지 않아요.</string>
+    <string name="home_passport_body">입국 카드를 쓸 때마다 다시 입력하지 않아도 돼요. 이 휴대폰에만 암호화해 저장하고, 밖으로 보내지 않아요.</string>
     <string name="home_passport_open">내 정보 관리</string>
     <string name="home_trip_label">내 여행 · %1$s</string>
     <string name="home_trip_days">출발 %1$d일 전</string>
@@ -438,22 +436,19 @@
     <string name="country_speech">%1$s 안내. 입국과 비자, 여행 정보, 쇼핑을 차례로 볼 수 있어요. 인터넷이 없어도 열려요.</string>
     <string name="country_visa_title">비자</string>
     <string name="country_visa_link">비자 공식 안내 열기</string>
-    <string name="country_form_label">온라인 입국 신고</string>
     <string name="country_visa_apply_label">비자 온라인 신청</string>
     <string name="country_visa_apply_steps">이렇게 신청해요</string>
     <string name="country_visa_apply_start">비자 신청 도와받기</string>
     <string name="country_visa_apply_note">앱은 입력 칸만 채워 드려요. 신청 버튼과 결제는 직접 하세요.</string>
     <string name="country_form_autofill_body">앱 안에서 공식 사이트를 열고 입력 칸을 대신 채워 드려요. 확인한 뒤 마지막 제출 버튼만 직접 누르세요.</string>
     <string name="country_form_manual_body">입력할 값을 한국어로 확인하고 하나씩 복사해 공식 사이트에 붙여 넣을 수 있어요.</string>
-    <string name="country_form_start">입력 도와받기</string>
-    <string name="country_form_manual_start">입력할 값 준비하기</string>
     <string name="country_plan_trip">이 나라로 여행 계획 만들기</string>
     <string name="country_shopping_more">외 %1$d개 더 있어요</string>
 
     <!-- 설정 › 내 정보 -->
     <string name="settings_local_only_title">내 정보는 이 휴대폰에만 저장돼요</string>
     <string name="settings_local_only_body">여권, 예약 서류, 같이 가는 사람 정보는 휴대폰 안에 암호화해 보관해요. 인터넷으로 보내지 않고, 레디포트 운영자도 볼 수 없어요.</string>
-    <string name="settings_myinfo_body">여권과 예약 서류를 한 번 등록해 두면 여러 나라 입국 신고서에 똑같이 써요.</string>
+    <string name="settings_myinfo_body">여권과 예약 서류를 한 번 등록해 두면 여러 나라 입국 카드에 똑같이 써요.</string>
     <string name="settings_myinfo_open">여권·예약 서류 관리</string>
     <string name="photo_credit_author">찍은 사람: %1$s</string>
     <string name="photo_credit_license">라이선스: %1$s</string>

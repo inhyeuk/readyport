@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -27,6 +28,7 @@ import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -108,17 +110,25 @@ fun PrimaryButton(
 @Immutable
 data class SecondaryButtonColors(val container: Color, val content: Color, val border: Color, val borderWidth: Dp)
 
+/** 보조 버튼 테두리 두께 — 선택 카드(SelectableCard, 1dp/2dp)·비선택 칩(1dp)과 두께로도 갈린다 */
+private val SecondaryBorder = 1.5.dp
+
+/**
+ * 보조 버튼 색 규칙 (다듬기 D0 — 재검토2 ①#1 'AccentSoft가 선택됨과 tonal 버튼을 함께 뜻함'):
+ * **버튼은 바탕 흰색, 선택은 바탕 AccentSoft.** AccentSoft 채움은 이제 '선택됨'(SelectableCard)에만 남는다.
+ * - 기본(Accent 등 색 톤): 흰 바탕(Surface) + 1.5dp tone 글자색 테두리 + tone 글자색 (Accent 6.78 / Ground 6.22)
+ * - Neutral: SurfaceSunken 바탕 + 1.5dp LineStrong + Ink — 흰 바탕 + 1dp LineStrong인 비선택 칩(SelectChip)과 모양이 갈린다(재검토2 ④#5).
+ *   비활성(SurfaceHighest + Line 테두리 + InkTertiary)과는 테두리·글자색으로 갈린다.
+ * - onDark: 투명 + 1.5dp Surface 테두리 + Surface 글자 (D18)
+ */
 fun secondaryButtonColors(tone: BadgeTone = BadgeTone.Accent, onDark: Boolean = false): SecondaryButtonColors = when {
-    onDark -> SecondaryButtonColors(Color.Transparent, OnDark.content, OnDark.content, 1.5.dp)
-    // Neutral을 tonal(SurfaceSunken + InkSecondary)로 칠하면 비활성 버튼(SurfaceHighest + InkTertiary)과 거의 같아 보인다(문제 #3).
-    // 흰 바탕 + Ink 글자 + LineStrong 테두리(Surface 4.63 / Ground 4.25)로 '누를 수 있음'을 분명히 한다.
-    tone == BadgeTone.Neutral -> SecondaryButtonColors(Tokens.Surface, Tokens.Ink, Tokens.LineStrong, 1.dp)
-    // D21: 누를 수 있는 tonal 버튼은 항상 1dp tone.content 테두리 (Accent면 Ground 대비 6.22)
-    else -> SecondaryButtonColors(tone.container, tone.content, tone.content, 1.dp)
+    onDark -> SecondaryButtonColors(Color.Transparent, OnDark.content, OnDark.content, SecondaryBorder)
+    tone == BadgeTone.Neutral -> SecondaryButtonColors(Tokens.SurfaceSunken, Tokens.Ink, Tokens.LineStrong, SecondaryBorder)
+    else -> SecondaryButtonColors(Tokens.Surface, tone.onLight, tone.onLight, SecondaryBorder)
 }
 
 /**
- * 보조 버튼 = tonal + 1dp 테두리 (기존 회색 OutlinedButton 대체).
+ * 보조 버튼 = 흰 바탕 + 1.5dp 색 테두리(outlined) — [secondaryButtonColors] 규칙.
  * [onDark]: Accent·Navy 카드·여권 카드 안의 보조 버튼(투명 + 흰 테두리).
  * [fillWidth] = false면 글자 폭만큼 (FlowRow 안 등).
  */
@@ -154,7 +164,15 @@ fun SecondaryButton(
 }
 
 /**
+ * 버튼이 무엇에 딸린 동작인지 (다듬기 D0 — 재검토2 ④#5: 폭을 호출하는 쪽이 고르지 않고 뜻으로 고른다).
+ * - [CardAction]: 카드·화면 단위 동작(그 카드의 하나뿐인 행동, 여권 지우기, 여행 지우기) — **폭 전체**
+ * - [ItemAction]: 목록 항목 하나에 딸린 동작(예약 서류 하나·같이 가는 사람 하나 지우기) — **끝 정렬**, 글자 폭만큼, 제 줄에 혼자
+ */
+enum class ButtonPlacement { CardAction, ItemAction }
+
+/**
  * 지우기 등 되돌릴 수 없는 동작. 밝은 바탕에서만 — 어두운 카드 안에 두지 않는다(D18). 주 버튼 자리에 두지 않는다.
+ * [placement]는 꼭 고른다: 카드·화면 단위 = 폭 전체, 목록 항목 = 끝 정렬(부품이 스스로 끝으로 붙는다 — 따로 Row(End)로 감싸지 않는다).
  * [contentDescription]: 화면 글이 `지우기`처럼 짧아 무엇을 지우는지 안 보일 때 TalkBack 이름(`방콕 왕복 지우기` — `delete_named_cd`, 재검토 R18).
  * 대상은 화면에 이미 보이는 이름만 쓴다. 없으면 화면 글이 이름이다.
  */
@@ -162,11 +180,15 @@ fun SecondaryButton(
 fun DangerButton(
     text: String,
     onClick: () -> Unit,
+    placement: ButtonPlacement,
     modifier: Modifier = Modifier,
     icon: ImageVector = Icons.Outlined.DeleteOutline,
-    fillWidth: Boolean = false,
     contentDescription: String? = null,
 ) {
+    val width = when (placement) {
+        ButtonPlacement.CardAction -> Modifier.fillMaxWidth()
+        ButtonPlacement.ItemAction -> Modifier.fillMaxWidth().wrapContentWidth(Alignment.End)
+    }
     OutlinedButton(
         onClick = onClick,
         shape = MaterialTheme.shapes.medium,
@@ -174,10 +196,32 @@ fun DangerButton(
         colors = ButtonDefaults.outlinedButtonColors(containerColor = Color.Transparent, contentColor = Tokens.DangerText),
         contentPadding = ButtonPadding,
         modifier = modifier
-            .then(if (fillWidth) Modifier.fillMaxWidth() else Modifier)
+            .then(width)
             .then(if (contentDescription != null) Modifier.semantics { this.contentDescription = contentDescription } else Modifier)
             .heightIn(min = LocalDimens.current.buttonHeight),
     ) { ButtonLabel(text, icon) }
+}
+
+/**
+ * 쉬운 모드 공통 줄의 `처음으로`·`소리로 듣기` (재검토2 ①#5): 보조 버튼보다 한 단계 낮은 무게 —
+ * 흰 바탕 + 1dp LineStrong 테두리 + Ink 글자 + Accent 아이콘, 높이는 buttonHeight(64) 그대로. 화면의 주인공 행동보다 먼저 눈에 걸리지 않게.
+ * 폭은 부르는 쪽(AppScreen의 같은 폭 줄)이 정한다.
+ */
+@Composable
+internal fun EasyActionButton(text: String, icon: ImageVector, onClick: () -> Unit, modifier: Modifier = Modifier) {
+    OutlinedButton(
+        onClick = onClick,
+        shape = MaterialTheme.shapes.medium,
+        border = BorderStroke(1.dp, Tokens.LineStrong),
+        colors = ButtonDefaults.outlinedButtonColors(containerColor = Tokens.Surface, contentColor = Tokens.Ink),
+        contentPadding = PaddingValues(horizontal = 12.dp, vertical = 10.dp),
+        modifier = modifier.heightIn(min = LocalDimens.current.buttonHeight),
+    ) {
+        val style = MaterialTheme.typography.labelLarge
+        Icon(icon, contentDescription = null, tint = Tokens.Accent, modifier = Modifier.size(textIconSize(LocalDimens.current.icon, style)))
+        Spacer(Modifier.width(8.dp))
+        KoText(text, style, textAlign = TextAlign.Center)
+    }
 }
 
 /** 3순위 동작(수동 모드, 내 정보 잠그기 등): 글자 버튼 */

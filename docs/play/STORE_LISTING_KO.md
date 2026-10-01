@@ -76,5 +76,5 @@
 | 8 | `screenshot_08_easy_traveling.png` | 쉬운 모드 — 여행 중(큰 타일 넷) | 글자와 버튼을 크게, / 쉬운 모드 |
 
 - 앱 아이콘 512: `design/icons/play-store/readyport_play_512.png`
-- 태국어 문장이 들어 있어 원어민 검수(C10) 뒤 다시 만들 것
+- 앱의 '원어민 검수 전' 표시는 운영자 결정 2로 뺐다(다듬기 D0) — 05·07을 다시 찍어 `docs/play/store/`를 갈아 끼울 것(화면 라운드). 원어민 검수(C10)는 출시 전 할 일로 남음
 - Play 콘솔 업로드는 운영자 컨펌 뒤에만(`docs/design/OWNER_DECISIONS.md`)

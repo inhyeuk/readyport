@@ -55,6 +55,7 @@ import com.readyport.ui.components.IconBadge
 import com.readyport.ui.components.IconBullet
 import com.readyport.ui.components.IconKeys
 import com.readyport.ui.components.KoText
+import com.readyport.ui.components.NumberText
 import com.readyport.ui.components.NoticeBanner
 import com.readyport.ui.components.OnDark
 import com.readyport.ui.components.PhotoBox
@@ -284,11 +285,15 @@ private fun CheckRowCard(row: EssentialRow, onHave: (String, Boolean) -> Unit, o
             }
             // 규정 배지가 있는 물건은 규정 문장(숫자·금지)을 먼저 보인다 — 출처 줄이 가리키는 내용이 접힌 곳에 숨지 않게 (원칙 1)
             val (lead, rest) = splitLead(r.reasonKo, preferRule = r.ruleBadge != null)
-            KoText(lead, MaterialTheme.typography.bodyMedium, color = bodyColor)
+            // 팩 문장 — 숫자 토큰 굵게(`1인당 2개(160Wh 이하)`, 재검토2 ③#1)
+            NumberText(lead, MaterialTheme.typography.bodyMedium, color = bodyColor)
             if (rest != null) {
-                // 무엇을 펼치는지 이름에 담는다 — `자세히 보기`만 여러 번 읽히지 않게 (재검토 R18)
-                ExpandableDetail(label = stringResource(R.string.essentials_more, r.nameKo)) {
-                    KoText(rest, MaterialTheme.typography.bodyMedium, color = bodyColor)
+                // 무엇을 펼치는지 이름에 담는다 — `자세히 보기`만 여러 번 읽히지 않게 (재검토 R18), 접기에도 (재검토2 ②#2)
+                ExpandableDetail(
+                    label = stringResource(R.string.essentials_more, r.nameKo),
+                    target = stringResource(R.string.fold_target_item, r.nameKo),
+                ) {
+                    NumberText(rest, MaterialTheme.typography.bodyMedium, color = bodyColor)
                 }
             }
             r.link?.let { link ->
