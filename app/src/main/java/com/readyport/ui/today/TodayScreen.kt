@@ -1,6 +1,9 @@
 package com.readyport.ui.today
 
 import android.content.Intent
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -10,6 +13,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.NavigateNext
 import androidx.compose.material.icons.automirrored.outlined.ReceiptLong
@@ -17,13 +21,13 @@ import androidx.compose.material.icons.automirrored.outlined.Undo
 import androidx.compose.material.icons.outlined.ArrowDownward
 import androidx.compose.material.icons.outlined.AssignmentInd
 import androidx.compose.material.icons.outlined.Badge
-import androidx.compose.material.icons.outlined.Celebration
 import androidx.compose.material.icons.outlined.Checklist
 import androidx.compose.material.icons.outlined.Cottage
 import androidx.compose.material.icons.outlined.CurrencyExchange
 import androidx.compose.material.icons.outlined.DateRange
 import androidx.compose.material.icons.outlined.EditCalendar
 import androidx.compose.material.icons.outlined.EditNote
+import androidx.compose.material.icons.outlined.EventAvailable
 import androidx.compose.material.icons.outlined.FlightLand
 import androidx.compose.material.icons.outlined.FlightTakeoff
 import androidx.compose.material.icons.outlined.Hotel
@@ -32,7 +36,6 @@ import androidx.compose.material.icons.outlined.LocalAirport
 import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material.icons.outlined.Luggage
 import androidx.compose.material.icons.outlined.MeetingRoom
-import androidx.compose.material.icons.outlined.Public
 import androidx.compose.material.icons.outlined.QrCode2
 import androidx.compose.material.icons.outlined.Schedule
 import androidx.compose.material.icons.outlined.Security
@@ -41,19 +44,28 @@ import androidx.compose.material.icons.outlined.SimCard
 import androidx.compose.material.icons.outlined.TaskAlt
 import androidx.compose.material.icons.outlined.Translate
 import androidx.compose.material.icons.outlined.TravelExplore
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.text
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
@@ -71,7 +83,6 @@ import com.readyport.ui.components.CardNewsCard
 import com.readyport.ui.components.ButtonPlacement
 import com.readyport.ui.components.DangerButton
 import com.readyport.ui.components.Fact
-import com.readyport.ui.components.FactChip
 import com.readyport.ui.components.FactGrid
 import com.readyport.ui.components.HelpShortcutRow
 import com.readyport.ui.components.IconBadge
@@ -82,6 +93,8 @@ import com.readyport.ui.components.JourneyStepper
 import com.readyport.ui.components.KoText
 import com.readyport.ui.components.KoreanBreak
 import com.readyport.ui.components.NewsStyle
+import com.readyport.ui.components.NoticeBanner
+import com.readyport.ui.components.OnDark
 import com.readyport.ui.components.PhotoHeaderCard
 import com.readyport.ui.components.Photos
 import com.readyport.ui.components.PrimaryButton
@@ -91,13 +104,22 @@ import com.readyport.ui.components.ReturnCheckCard
 import com.readyport.ui.components.ReturnCheckMode
 import com.readyport.ui.components.SecondaryButton
 import com.readyport.ui.components.SourceRef
+import com.readyport.ui.components.StatTile
+import com.readyport.ui.components.StatusTag
 import com.readyport.ui.components.Step
 import com.readyport.ui.components.StepList
 import com.readyport.ui.components.TileSpec
+import com.readyport.ui.components.cardShadow
 import com.readyport.ui.components.displayDate
+import com.readyport.ui.components.foldLiveRegion
+import com.readyport.ui.components.importKind
+import com.readyport.ui.components.importLabel
 import com.readyport.ui.components.isNarrowWindow
+import com.readyport.ui.components.keepMonthDay
 import com.readyport.ui.components.keepWords
 import com.readyport.ui.components.rememberKeyIndex
+import com.readyport.ui.components.rememberPhotoLift
+import com.readyport.ui.components.rememberThumbnail
 import com.readyport.ui.components.resolveSourceName
 import com.readyport.ui.components.scrollToKey
 import com.readyport.ui.theme.LocalDimens
@@ -184,13 +206,21 @@ fun TodayContent(
         TripStage.Traveling, TripStage.Arrival -> stringResource(R.string.today_day_n, country, (stage.dayOfTrip ?: 1).toInt())
         else -> stringResource(R.string.today_trip_title, country)
     }
-    // 부제가 '내 여행'이면 제목과 겹치므로 여행 날짜(11월 3일 ~ 7일)를 보인다 (6-09~13 공통)
+    // 부제가 '내 여행'이면 제목과 겹치므로 여행 날짜(11월 3일 ~ 7일)를 보인다 (6-09~13 공통).
+    // 준비 단계는 출발까지 날 수 + 여행 날짜 — 날짜가 준비 단계에서만 빠져 있었다(다듬기 S3, 재검토2 ③#5)
     val dates = tripDates(ui.trip)
     val subtitle = when (stage.stage) {
         TripStage.NoTrip -> stringResource(R.string.today_no_trip)
-        TripStage.Preparing -> stringResource(R.string.today_d_day, (stage.daysLeft ?: 0).toInt())
+        TripStage.Preparing -> {
+            val dDay = stringResource(R.string.today_d_day, (stage.daysLeft ?: 0).toInt())
+            if (dates != null) stringResource(R.string.today_d_day_dates, dDay, dates) else dDay
+        }
         else -> dates ?: stringResource(R.string.today_title)
     }
+    // 입국 카드를 내는 기간(팩 window_days_including_arrival + 내 여행 출발일로 앱이 계산 — `11월 1일 ~ 3일`, 재검토2 ③#5)
+    val formWindow = formWindow(ui.trip, ui.form?.windowDaysIncludingArrival)
+    // `도착을 잘못 눌렀어요`로 되돌린 뒤 출국 단계 맨 위에 한 번 알린다(스낵바 대신 화면에 남는 한 줄 + TalkBack 알림, 재검토2 ②#7)
+    var undone by remember { mutableStateOf(false) }
     val labels = StageLabels.map { stringResource(it) }
     val now = stage.stage.barIndex
     val stageName = labels[now]
@@ -235,7 +265,7 @@ fun TodayContent(
             TripStage.Preparing -> item(key = "next") {
                 // 한 화면에 할 일 하나 (PRD 1.1): 입국 카드 > 여권 > 준비물. 요약 타일 그리드는 두지 않는다(6-10)
                 when {
-                    stage.formWindowOpen && ui.form != null && ui.hasPassport != false -> FormTaskCard(ui.form.nameKo) { actions.openForm(ui.form.id) }
+                    stage.formWindowOpen && ui.form != null && ui.hasPassport != false -> FormTaskCard(ui.form.nameKo, formWindow) { actions.openForm(ui.form.id) }
                     ui.hasPassport == false -> NextCard(
                         icon = Icons.Outlined.Badge,
                         eyebrow = nextLabel,
@@ -260,8 +290,17 @@ fun TodayContent(
                 // 태국처럼 입국 카드 기간에 출국일이 들어 있으면 입국 카드가 지금 할 일(흰 주 버튼)이고 '도착했어요'는 보조 버튼 (원칙 7)
                 val form = ui.form?.takeIf { stage.formWindowOpen }
                 val formTask = form != null
+                if (undone) {
+                    item(key = "undone") {
+                        NoticeBanner(
+                            stringResource(R.string.today_arrived_undone),
+                            modifier = Modifier.foldLiveRegion(),
+                            icon = Icons.AutoMirrored.Outlined.Undo,
+                        )
+                    }
+                }
                 if (form != null) {
-                    item(key = "form") { FormTaskCard(form.nameKo) { actions.openForm(form.id) } }
+                    item(key = "form") { FormTaskCard(form.nameKo, formWindow) { actions.openForm(form.id) } }
                 }
                 item(key = "departure") {
                     // 섹션 표지 사진(공항 = 출국 순서, DESIGN_SPEC 3.7 ①) + 아이콘 단계 목록
@@ -283,10 +322,11 @@ fun TodayContent(
                 }
                 item(key = "arrived") {
                     val label = stringResource(R.string.today_arrived_button)
+                    val arrive = { undone = false; onArrived() }
                     if (formTask) {
-                        SecondaryButton(label, onClick = onArrived, icon = Icons.Outlined.FlightLand)
+                        SecondaryButton(label, onClick = arrive, icon = Icons.Outlined.FlightLand)
                     } else {
-                        PrimaryButton(label, onClick = onArrived, icon = Icons.Outlined.FlightLand)
+                        PrimaryButton(label, onClick = arrive, icon = Icons.Outlined.FlightLand)
                     }
                 }
             }
@@ -323,13 +363,14 @@ fun TodayContent(
                         )
                     }
                 }
-                // '도착했어요'를 잘못 눌렀으면 되돌린다(재검토 R18) — 출발 당일에만: 그 뒤에는 되돌려도 '여행 중'이라 뜻이 없다
+                // '도착했어요'를 잘못 눌렀으면 되돌린다(재검토 R18) — 출발 당일에만: 그 뒤에는 되돌려도 '여행 중'이라 뜻이 없다.
+                // 이름은 조건문(`도착 전이면`)이 아니라 사용자의 말(`도착을 잘못 눌렀어요`, 재검토2 ②#7). 누르면 출국 단계 맨 위에 알림 한 줄
                 if (stage.dayOfTrip == null || stage.dayOfTrip == 1L) {
                     item(key = "undo-arrived") {
                         Box(Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
                             QuietButton(
-                                stringResource(R.string.today_arrived_undo),
-                                onClick = onUndoArrived,
+                                stringResource(R.string.today_arrived_undo_v2),
+                                onClick = { undone = true; onUndoArrived() },
                                 icon = Icons.AutoMirrored.Outlined.Undo,
                             )
                         }
@@ -401,9 +442,12 @@ fun TodayContent(
     }
 }
 
-/** 입국 카드 할 일 (준비 중·출국일에 입국 카드 기간이면) */
+/**
+ * 입국 카드 할 일 (준비 중·출국일에 입국 카드 기간이면). [window]가 있으면 설명 아래 값 칩 `11월 1일 ~ 3일 내는 기간` —
+ * 예시 날짜(`5월 4일 도착이면…`)를 내 날짜로 다시 계산하지 않아도 되게(재검토2 ③#5). 누를 수 없는 InfoChip(onDark).
+ */
 @Composable
-private fun FormTaskCard(formName: String, onOpen: () -> Unit) {
+private fun FormTaskCard(formName: String, window: String?, onOpen: () -> Unit) {
     NextCard(
         icon = Icons.Outlined.AssignmentInd,
         eyebrow = stringResource(R.string.today_next_label),
@@ -412,6 +456,9 @@ private fun FormTaskCard(formName: String, onOpen: () -> Unit) {
         button = stringResource(R.string.prepare_form_open),
         buttonIcon = Icons.Outlined.EditNote,
         onClick = onOpen,
+        extra = window?.let { w ->
+            { InfoChip(stringResource(R.string.today_form_window_label), Icons.Outlined.EventAvailable, value = keepMonthDay(w), onDark = true) }
+        },
     )
 }
 
@@ -428,6 +475,8 @@ private fun NextCard(
     button: String,
     buttonIcon: ImageVector?,
     onClick: () -> Unit,
+    /** 설명과 버튼 사이에 둘 것(값 칩 등) — Accent 채움 위라 onDark 내용 세트만 */
+    extra: (@Composable () -> Unit)? = null,
 ) {
     CardNewsCard(
         title = keepTitle(title),
@@ -436,6 +485,7 @@ private fun NextCard(
         body = body,
         style = NewsStyle.Accent,
     ) {
+        extra?.invoke()
         PrimaryButton(
             text = button,
             onClick = onClick,
@@ -473,6 +523,19 @@ private fun CartCard(ui: TodayUi) {
         icon = Icons.Outlined.ShoppingBag,
         sources = refs,
     ) {
+        // 카드 머리 아래 결론 한 줄: 판정별 알약 `반입 불가 1개 · 반입 주의 1개 · 한국 반입 가능 2개`(위험 순, 로컬 값 — 재검토2 ③#12)
+        val counts = items.groupingBy { it.import }.eachCount()
+        FlowRow(
+            Modifier.padding(bottom = 4.dp),
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            verticalArrangement = Arrangement.spacedBy(6.dp),
+        ) {
+            listOf(ImportStatus.Prohibited, ImportStatus.Caution, ImportStatus.Allowed).forEach { status ->
+                counts[status]?.let { n ->
+                    StatusTag(stringResource(R.string.today_cart_verdict_count, stringResource(importLabel(status)), n), importKind(status))
+                }
+            }
+        }
         items.forEachIndexed { i, item ->
             if (i > 0) HorizontalDivider(thickness = 1.dp, color = Tokens.Line)
             CartRow(item)
@@ -553,12 +616,14 @@ private fun ReturnHeroCard(ui: TodayUi, onGo: () -> Unit) {
 }
 
 /**
- * 정리 단계 축하 카드 (재검토 R14·R19 — 정리 단계의 브랜드 순간): 나라 사진 머리(`태국 여행, 잘 다녀오셨어요`) →
- * 한 줄(정리 끝! 다음 여행도 함께해요) → 숫자 타일(다녀온 나라·여행 기간·담아 온 물건 — 앱 안 값만) → 새 여행 만들기.
- * 장식은 사진과 아이콘 하나로 그친다(과한 장식 금지).
+ * 정리 단계 축하 카드 (재검토 R14·R19 → 재검토2 ①#6·③#13): 귀국 단계(15)의 사진 머리 카드와 **구도를 다르게** —
+ * 흰 카드 가운데 둥근 나라 사진(장식) + 여권 도장 같은 배지(Navy 원 + Gold 테두리·체크) → `태국 여행, 잘 다녀오셨어요` →
+ * 한 줄(정리 끝! 다음 여행도 함께해요) → 숫자 타일(여행 기간·챙긴 물건·담아 온 물건 — 앱 안 값만, 같은 톤) → 새 여행 만들기.
+ * 나라 타일은 제목이 이미 말해서 뺐다. 값이 하나뿐이면 폭 전체 타일 한 장. 장식은 사진과 배지 하나로 그친다(과한 장식 금지).
  */
 @Composable
 private fun WrapUpCard(ui: TodayUi, onNewTrip: () -> Unit) {
+    val dimens = LocalDimens.current
     val country = ui.countryName
     val nights = nightsOf(ui.trip)
     val title = if (country != null) {
@@ -567,29 +632,87 @@ private fun WrapUpCard(ui: TodayUi, onNewTrip: () -> Unit) {
         stringResource(R.string.today_wrapup_photo_title_plain)
     }
     val facts = listOfNotNull(
-        country?.let { Fact(Icons.Outlined.Public, it, stringResource(R.string.today_wrapup_fact_country), tone = BadgeTone.Teal) },
         nights?.let { Fact(Icons.Outlined.DateRange, stringResource(R.string.trip_nights, it, it + 1), stringResource(R.string.trip_length_label)) },
+        ui.essentialsTotal.takeIf { it > 0 }?.let {
+            Fact(IconKeys.essentials, stringResource(R.string.essentials_progress_stat, ui.essentialsDone, it), stringResource(R.string.today_wrapup_fact_essentials))
+        },
         ui.cart.size.takeIf { it > 0 }?.let {
             Fact(Icons.Outlined.ShoppingBag, stringResource(R.string.today_wrapup_fact_cart_value, it), stringResource(R.string.today_wrapup_fact_cart))
         },
     )
-    PhotoHeaderCard(
-        photo = ui.trip?.country?.let(Photos::country),
-        title = title,
-        icon = Icons.Outlined.Celebration,
+    val shape = MaterialTheme.shapes.large
+    Card(
+        shape = shape,
+        colors = CardDefaults.cardColors(containerColor = Tokens.Surface, contentColor = Tokens.Ink),
+        elevation = CardDefaults.cardElevation(0.dp),
+        modifier = Modifier.fillMaxWidth().cardShadow(shape),
     ) {
-        KoText(stringResource(R.string.today_wrapup_title_lines), MaterialTheme.typography.bodyLarge, color = Tokens.Ink)
-        if (facts.size >= 2) {
-            FactGrid(facts, Modifier.padding(vertical = 4.dp))
-        } else {
-            facts.forEach { FactChip(it) }
+        Column(
+            Modifier.fillMaxWidth().padding(dimens.cardPadding),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(dimens.inner),
+        ) {
+            StampPhoto(ui.trip?.country, Modifier.padding(top = 4.dp, bottom = 4.dp))
+            // 이 단계의 주인공 문장 — 사진 머리 카드 제목(15)과 같은 크기(titleLarge), 가운데
+            KoText(title, MaterialTheme.typography.titleLarge, color = Tokens.Ink, textAlign = TextAlign.Center, heading = true, glueShort = true)
+            KoText(
+                stringResource(R.string.today_wrapup_title_lines),
+                MaterialTheme.typography.bodyLarge,
+                color = Tokens.InkSecondary,
+                textAlign = TextAlign.Center,
+            )
+            when {
+                facts.size >= 2 -> FactGrid(facts, Modifier.padding(top = 4.dp))
+                facts.size == 1 -> StatTile(facts.single(), Modifier.padding(top = 4.dp), wide = true)
+            }
+            PrimaryButton(
+                text = stringResource(R.string.today_new_trip),
+                onClick = onNewTrip,
+                icon = Icons.Outlined.EditCalendar,
+                modifier = Modifier.padding(top = 4.dp),
+            )
         }
-        PrimaryButton(
-            text = stringResource(R.string.today_new_trip),
-            onClick = onNewTrip,
-            icon = Icons.Outlined.EditCalendar,
-            modifier = Modifier.padding(top = 4.dp),
-        )
+    }
+}
+
+/**
+ * 정리 단계의 둥근 나라 사진 + 여권 도장 같은 배지(장식 — TalkBack 숨김). 사진 크기는 배지 셋(3 × iconBadge — 기본 120dp, 쉬운 모드 더 크게),
+ * 도장 배지는 iconBadge. 도장 = Navy 원 + 2dp Gold 테두리 + Gold 체크(Gold는 Navy 위에서만 — OnDark 규칙). 사진이 없으면 Navy 원.
+ */
+@Composable
+private fun StampPhoto(country: String?, modifier: Modifier = Modifier) {
+    val dimens = LocalDimens.current
+    val size = dimens.iconBadge * 3
+    val badge = dimens.iconBadge
+    val photo = rememberThumbnail(country?.let(Photos::country), size)
+    Box(modifier.size(size + badge / 4).clearAndSetSemantics {}) {
+        Box(
+            Modifier
+                .size(size)
+                .clip(CircleShape)
+                .background(Tokens.Navy),
+        ) {
+            if (photo != null) {
+                Image(
+                    photo,
+                    contentDescription = null,
+                    contentScale = ContentScale.Crop,
+                    colorFilter = rememberPhotoLift(photo),
+                    modifier = Modifier.matchParentSize(),
+                )
+            }
+        }
+        Box(
+            Modifier
+                .align(Alignment.BottomEnd)
+                .size(badge)
+                .clip(CircleShape)
+                .background(Tokens.Navy)
+                .border(2.dp, OnDark.gold, CircleShape),
+            contentAlignment = Alignment.Center,
+        ) {
+            Icon(Icons.Outlined.TaskAlt, contentDescription = null, tint = OnDark.gold, modifier = Modifier.size(dimens.icon))
+        }
     }
 }
 
@@ -600,6 +723,23 @@ private fun parseDate(text: String?): LocalDate? = text?.let { runCatching { Loc
 private fun tripDates(trip: Trip?): String? {
     val start = parseDate(trip?.startDate) ?: return null
     val end = parseDate(trip?.endDate) ?: return null
+    return dateRange(start, end)
+}
+
+/**
+ * 입국 카드를 내는 기간: 도착일(= 여행 출발일, TripStages·알림 예약과 같은 기준)을 포함해 [days]일 — `11월 1일 ~ 3일`.
+ * 값은 팩 window_days_including_arrival 그대로 쓰고 앱은 날짜만 센다. 여행·값이 없으면 null.
+ */
+@Composable
+private fun formWindow(trip: Trip?, days: Int?): String? {
+    val arrival = parseDate(trip?.startDate) ?: return null
+    if (days == null || days < 1) return null
+    return dateRange(arrival.minusDays((days - 1).toLong()), arrival)
+}
+
+/** 날짜 범위 한 줄: 같은 달이면 `11월 1일 ~ 3일`, 달이 바뀌면 `10월 31일 ~ 11월 2일` */
+@Composable
+private fun dateRange(start: LocalDate, end: LocalDate): String {
     val from = stringResource(R.string.today_date_md, start.monthValue, start.dayOfMonth)
     val to = if (start.year == end.year && start.month == end.month) {
         stringResource(R.string.today_date_d, end.dayOfMonth)

@@ -41,7 +41,6 @@ import androidx.compose.material.icons.outlined.ErrorOutline
 import androidx.compose.material.icons.outlined.EventBusy
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.Lock
-import androidx.compose.material.icons.outlined.Nfc
 import androidx.compose.material.icons.outlined.NoPhotography
 import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material.icons.outlined.PhotoCamera
@@ -107,7 +106,6 @@ import com.readyport.ui.components.AppScreen
 import com.readyport.ui.components.BadgeTone
 import com.readyport.ui.components.BannerTone
 import com.readyport.ui.components.CardNewsCard
-import com.readyport.ui.components.ComingSoonGroup
 import com.readyport.ui.components.IconBullet
 import com.readyport.ui.components.InfoCard
 import com.readyport.ui.components.KeyValueRow
@@ -122,6 +120,7 @@ import com.readyport.ui.components.SelectChip
 import com.readyport.ui.components.StatusKind
 import com.readyport.ui.components.StatusTag
 import com.readyport.ui.components.minTouch
+import com.readyport.ui.components.keepWords
 import com.readyport.ui.components.minTouchSize
 import com.readyport.ui.theme.LocalDimens
 import com.readyport.ui.theme.Tokens
@@ -133,8 +132,8 @@ import java.time.LocalDateTime
 import java.util.concurrent.Executors
 
 /**
- * 지금 쓸 수 있는 단계만 그린다: 촬영 → 값 확인. 전자여권 칩 확인(NFC)은 아직 없어서 단계로 그리지 않고
- * 값 확인 화면 맨 아래 '곧 추가돼요'에만 둔다 — 쓸 수 없는 단계를 약속하지 않는다(재검토 R18).
+ * 지금 쓸 수 있는 단계만 그린다: 촬영 → 값 확인. 전자여권 칩 확인(NFC)은 아직 없어서 단계로 그리지 않는다 — 쓸 수 없는 단계를
+ * 약속하지 않는다(재검토 R18). '곧 추가돼요'는 내 정보 맨 아래 한 곳에 모은다(다듬기 S3 — 재검토2 ⑤#11, 값 확인 화면에서 뺐다).
  */
 private val PassportSteps = listOf(R.string.passport_step_scan, R.string.passport_step_confirm)
 private val PassportStepIcons: List<ImageVector> = listOf(
@@ -595,9 +594,10 @@ fun PassportConfirmContent(
                     Triple(stringResource(R.string.passport_field_given), mrz.givenNames, null),
                     Triple(stringResource(R.string.passport_field_number), mrz.documentNumber, MrzCheck.DocumentNumber),
                     Triple(stringResource(R.string.passport_label_nationality), mrz.nationality, null),
-                    Triple(stringResource(R.string.passport_field_birth), mrz.birthDate.toString(), MrzCheck.BirthDate),
+                    // 날짜는 `1974년 8월 12일`로 보인다(재검토2 ①#13 — 저장 값은 그대로 YYYY-MM-DD)
+                    Triple(stringResource(R.string.passport_field_birth), keepWords(koreanDate(mrz.birthDate, weekday = false)), MrzCheck.BirthDate),
                     Triple(stringResource(R.string.passport_field_sex), sexLabel(mrz.sex), null),
-                    Triple(stringResource(R.string.passport_field_expiry), mrz.expiryDate.toString(), MrzCheck.ExpiryDate),
+                    Triple(stringResource(R.string.passport_field_expiry), keepWords(koreanDate(mrz.expiryDate, weekday = false)), MrzCheck.ExpiryDate),
                 )
                 val expiredTag = stringResource(R.string.passport_expired_tag)
                 val readOk = stringResource(R.string.passport_expiry_read_ok)
@@ -650,10 +650,7 @@ fun PassportConfirmContent(
                 QuietButton(stringResource(R.string.passport_use_manual), onClick = onManual, icon = Icons.Outlined.EditNote)
             }
         }
-        // 전자여권 칩 확인(NFC)은 2차 — 단계 표시에는 그리지 않고 누를 수 없는 '곧 추가돼요' 묶음에만 (D15, 재검토 R18)
-        if (mrz != null) {
-            item(key = "chip") { ComingSoonGroup(listOf(Icons.Outlined.Nfc to stringResource(R.string.passport_chip_soon_v2))) }
-        }
+        // 전자여권 칩 확인(NFC)은 2차 — 단계 표시에도, 이 화면에도 그리지 않는다. '곧 추가돼요'는 내 정보 맨 아래 한 곳(재검토2 ⑤#11)
     }
 }
 

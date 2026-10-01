@@ -17,6 +17,7 @@ import androidx.compose.material.icons.outlined.Badge
 import androidx.compose.material.icons.outlined.CalendarMonth
 import androidx.compose.material.icons.outlined.ConfirmationNumber
 import androidx.compose.material.icons.outlined.ContactPage
+import androidx.compose.material.icons.outlined.DeleteSweep
 import androidx.compose.material.icons.outlined.Description
 import androidx.compose.material.icons.outlined.EventBusy
 import androidx.compose.material.icons.outlined.FamilyRestroom
@@ -26,9 +27,9 @@ import androidx.compose.material.icons.outlined.FlightTakeoff
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.KeyOff
 import androidx.compose.material.icons.outlined.Lock
+import androidx.compose.material.icons.outlined.Nfc
 import androidx.compose.material.icons.outlined.PhonelinkLock
 import androidx.compose.material.icons.outlined.PhotoCamera
-import androidx.compose.material.icons.outlined.QrCode2
 import androidx.compose.material.icons.outlined.ReportProblem
 import androidx.compose.material.icons.outlined.RestartAlt
 import androidx.compose.material.icons.outlined.Visibility
@@ -84,6 +85,10 @@ import com.readyport.ui.components.StatusKind
 import com.readyport.ui.components.StatusTag
 import com.readyport.ui.components.TileGrid
 import com.readyport.ui.components.TrailingFlow
+import com.readyport.ui.components.cardShadow
+import com.readyport.ui.components.firstLineIconOffset
+import com.readyport.ui.components.keepMonthDay
+import com.readyport.ui.components.keepWords
 import com.readyport.ui.components.passportCardColors
 import com.readyport.ui.components.rememberGridColumns
 import com.readyport.ui.components.sectionGap
@@ -94,19 +99,52 @@ import com.readyport.vault.BookingRecord
 import com.readyport.vault.PassportRecord
 import com.readyport.vault.WalletState
 import java.time.LocalDate
+import java.util.Locale
 
 /** 버튼이 비활성인 이유 한 줄 (Info + bodyMedium InkSecondary) — 27 companion_add_hint와 같은 모양 */
 @Composable
 internal fun DisabledReason(text: String, modifier: Modifier = Modifier) {
+    NoteLine(text, modifier)
+}
+
+/**
+ * 버튼에 딸린 보조 한 줄 (아이콘 + bodyMedium InkSecondary): 비활성 이유, 지우기 버튼 **위**에서 무엇이 지워지는지(재검토2 ②#4).
+ * 설명을 버튼 위에 두면 TalkBack도 설명을 먼저 읽고 버튼을 만난다(②#11).
+ */
+@Composable
+internal fun NoteLine(text: String, modifier: Modifier = Modifier, icon: ImageVector = Icons.Outlined.Info) {
+    val style = MaterialTheme.typography.bodyMedium
+    val iconSize = textIconSize(LocalDimens.current.iconSmall, style)
     Row(modifier.fillMaxWidth(), verticalAlignment = Alignment.Top, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
         Icon(
-            Icons.Outlined.Info,
+            icon,
             contentDescription = null,
             tint = Tokens.InkSecondary,
-            modifier = Modifier.padding(top = 2.dp).size(textIconSize(LocalDimens.current.iconSmall)),
+            modifier = Modifier.padding(top = firstLineIconOffset(style, iconSize)).size(iconSize),
         )
-        KoText(text, style = MaterialTheme.typography.bodyMedium, color = Tokens.InkSecondary, modifier = Modifier.weight(1f))
+        KoText(text, style = style, color = Tokens.InkSecondary, modifier = Modifier.weight(1f))
     }
+}
+
+/**
+ * 보이는 날짜 (재검토2 ①#13): `2026-11-03` → `2026년 11월 3일 (화)`, [weekday] = false면 `2031년 4월 15일`.
+ * 저장 값·입력칸 값·사이트에 넣는 값은 그대로 두고 **보이는 글자만** 바꾼다. 날짜 모양이 아니면 받은 글자 그대로.
+ * KeyValueRow 값(보통 Text)에 넣을 때는 [keepWords]로 감싸 API 33 미만에서 `2031/년`처럼 숫자와 단위가 갈라지지 않게 한다.
+ */
+@Composable
+internal fun koreanDate(iso: String, weekday: Boolean = true): String {
+    val date = runCatching { LocalDate.parse(iso.trim()) }.getOrNull() ?: return iso
+    return koreanDate(date, weekday)
+}
+
+@Composable
+internal fun koreanDate(date: LocalDate, weekday: Boolean = true): String = if (weekday) {
+    stringResource(
+        R.string.date_ymd_dow_s3, date.year, date.monthValue, date.dayOfMonth,
+        date.dayOfWeek.getDisplayName(java.time.format.TextStyle.SHORT, Locale.KOREAN),
+    )
+} else {
+    stringResource(R.string.date_ymd_s3, date.year, date.monthValue, date.dayOfMonth)
 }
 
 /**
@@ -149,7 +187,8 @@ fun WalletScreen(
         today = LocalDate.now(),
         onUnlock = { auth { viewModel.unlock() } },
         onLock = viewModel::lock,
-        onReset = viewModel::reset,
+        // 키 분실·손상 카드의 `비우고 여권 다시 등록하기`: 비운 뒤 바로 여권 등록으로 (재검토2 ②#4)
+        onReset = { viewModel.reset(then = onAddPassport) },
         onAddPassport = onAddPassport,
         onDeletePassport = viewModel::deletePassport,
         onAddBooking = onAddBooking,
@@ -163,6 +202,8 @@ fun WalletScreen(
  * 23 내 정보(잠김) / 24 내 정보(열림) (DESIGN_SPEC 6-23·24).
  * 맨 위 SecurityBanner(전체) — 이 정보가 휴대폰 밖으로 나가지 않는다는 약속. 되돌릴 수 없는 지우기는 모두
  * DangerButton + DestructiveConfirm(secure = true, 본문에 개인정보 없음 — D8).
+ * 열린 화면 순서(다듬기 S3): 여권 카드 → 예약 서류 → 관리 줄(같이 가는 사람·여행이 끝나면 여권 정보 지우기) → 잠그기 →
+ * (32dp) 지워지는 범위 한 줄 + 여권 정보 지우기 → (32dp) 곧 추가돼요.
  */
 @Composable
 fun WalletContent(
@@ -261,7 +302,6 @@ fun WalletContent(
                     trailing = RowTrailing.Chevron,
                     onClick = onOpenCompanions,
                 )
-                // 지우기 설정은 맨 아래 — 바로 아래 '여권 정보 지우기' 버튼과 한 자리에 모인다
                 if (unlocked != null) {
                     ListDivider()
                     ListRow(
@@ -273,23 +313,37 @@ fun WalletContent(
                 }
             }
         }
-        // 여권 지우기 = 여권 카드의 단독 파괴 동작 → 관리 줄('여행이 끝나면 여권 정보 지우기' 바로 아래) 폭 전체 (재검토 26·30)
-        if (unlocked?.contents?.passport != null) {
-            item(key = "passport-delete") {
-                DangerButton(stringResource(R.string.wallet_passport_delete), onClick = { confirmPassportDelete = true }, placement = ButtonPlacement.CardAction)
-            }
-        }
         if (unlocked != null) {
             item(key = "lock") { QuietButton(stringResource(R.string.wallet_lock), onClick = onLock, icon = Icons.Outlined.Lock) }
         }
-        // 아직 만들지 않은 기능은 맨 아래 한 장으로 (D15)
-        item(key = "coming-soon") {
-            ComingSoonGroup(
-                listOf(
-                    Icons.Outlined.ContactPage to stringResource(R.string.wallet_profile_title),
-                    Icons.Outlined.QrCode2 to stringResource(R.string.wallet_documents_title),
-                ),
-            )
+        // 여권 지우기 = 화면의 단독 파괴 동작 → 맨 아래 따로, 위 간격 32dp(sectionGap) — 같은 글자의 설정
+        // `여행이 끝나면 여권 정보 지우기`·`내 정보 잠그기` 바로 밑에서 설정 설명이나 잠그기로 착각해 누르지 않게(재검토2 ②#4).
+        // 버튼 위 한 줄이 무엇이 지워지고 무엇이 남는지 말한다(TalkBack도 설명 → 버튼 순서)
+        if (unlocked?.contents?.passport != null) {
+            sectionGap("passport-delete-gap")
+            item(key = "passport-delete") {
+                Column(verticalArrangement = Arrangement.spacedBy(LocalDimens.current.inner)) {
+                    NoteLine(stringResource(R.string.wallet_passport_delete_scope))
+                    DangerButton(
+                        stringResource(R.string.wallet_passport_delete),
+                        onClick = { confirmPassportDelete = true },
+                        placement = ButtonPlacement.CardAction,
+                    )
+                }
+            }
+        }
+        // 아직 없는 기능은 열린 내 정보 맨 아래 한 장으로 모은다(D15, 재검토2 ⑤#11): 여권 칩 확인도 값 확인 화면 대신 여기에.
+        // `받은 서류 (QR·확인서)`는 이미 `입국 때 보여 주기`에 있는 기능이라 '곧 추가'에서 뺐다. 잠김·키 분실 화면에는 두지 않는다
+        if (unlocked != null) {
+            sectionGap("coming-soon-gap")
+            item(key = "coming-soon") {
+                ComingSoonGroup(
+                    listOf(
+                        Icons.Outlined.ContactPage to stringResource(R.string.wallet_profile_title),
+                        Icons.Outlined.Nfc to stringResource(R.string.passport_chip_soon_v2),
+                    ),
+                )
+            }
         }
     }
 
@@ -297,7 +351,8 @@ fun WalletContent(
         DestructiveConfirm(
             title = stringResource(R.string.wallet_reset_confirm_title),
             body = stringResource(R.string.wallet_reset_confirm_body),
-            confirmLabel = stringResource(R.string.wallet_reset),
+            // 확인 버튼도 카드 버튼과 같은 말 — 누르면 비우고 여권 등록으로 간다
+            confirmLabel = stringResource(R.string.wallet_reset_reregister),
             onConfirm = { confirmReset = false; onReset() },
             onDismiss = { confirmReset = false },
             secure = true,
@@ -325,7 +380,11 @@ fun WalletContent(
     }
 }
 
-/** 보관함을 열지 못한 상태: 본인 확인 시간 지남 → 다시 열기 / 키 분실·손상 → 비우고 다시 시작(확인 대화상자) */
+/**
+ * 보관함을 열지 못한 상태: 본인 확인 시간 지남 → 다시 열기 / 키 분실·손상 → 비우고 여권 다시 등록(확인 대화상자 → 여권 등록 화면).
+ * 키 분실 카드 = 카드 안 판정 규칙(재검토2 ①#4·②#4): 호박색 채움 카드 대신 **흰 카드 + 왼쪽 4dp Caution 막대**(다른 흰 카드와 같은 옅은
+ * 테두리·그림자 — 운영자 결정 6) — 빨간 테두리 버튼이 흰 바탕 위에 놓인다. 본문 아래 한 줄이 무엇이 지워지고 무엇이 남는지 말한다.
+ */
 @Composable
 private fun FailedState(reason: WalletState.Failed.Reason, onUnlock: () -> Unit, onReset: () -> Unit) {
     when (reason) {
@@ -342,11 +401,14 @@ private fun FailedState(reason: WalletState.Failed.Reason, onUnlock: () -> Unit,
                 icon = if (keyLost) Icons.Outlined.KeyOff else Icons.Outlined.ReportProblem,
                 body = stringResource(if (keyLost) R.string.wallet_key_lost else R.string.wallet_corrupted),
                 tone = BadgeTone.Caution,
-                style = NewsStyle.Caution,
+                style = NewsStyle.SurfaceCaution,
+                // SurfaceCaution은 그림자가 없다 — 흰 카드 경계(옅은 1dp 테두리 + 그림자)는 다른 흰 카드와 같게 (화면 쪽 보정)
+                modifier = Modifier.cardShadow(MaterialTheme.shapes.large),
             ) {
-                // 이 카드의 하나뿐인 행동 = 카드 단위 동작이라 폭 전체 (재검토2 ④#5 — DangerButton 폭 규칙을 부품이 정한다)
+                NoteLine(stringResource(R.string.wallet_reset_scope), icon = Icons.Outlined.DeleteSweep)
+                // 이 카드의 하나뿐인 행동 = 카드 단위 동작이라 폭 전체 (재검토2 ④#5). 무엇을 하는지(비우고 → 여권 다시 등록) 이름에
                 DangerButton(
-                    stringResource(R.string.wallet_reset),
+                    stringResource(R.string.wallet_reset_reregister),
                     onClick = onReset,
                     placement = ButtonPlacement.CardAction,
                     icon = Icons.Outlined.RestartAlt,
@@ -404,17 +466,26 @@ private fun PassportCard(passport: PassportRecord, today: LocalDate) {
                     if (revealed) passport.documentNumber else maskNumber(passport.documentNumber),
                     !revealed,
                 ),
-                Triple(stringResource(R.string.wallet_passport_expiry), passport.expiryDate, false),
+                // 만료일은 `2031년 4월 15일`로 보인다(재검토2 ①#13 — 저장 값은 그대로). `4월 15일`은 한 덩어리로 줄을 바꾼다
+                Triple(stringResource(R.string.wallet_passport_expiry), keepWords(keepMonthDay(koreanDate(passport.expiryDate, weekday = false))), false),
             )
             TileGrid(pairs, columns = rememberGridColumns()) { (label, value, masked), cell -> PassportField(label, value, cell, masked) }
             val expiry = runCatching { LocalDate.parse(passport.expiryDate) }.getOrNull()
             if (expiry != null && expiry.isBefore(today.plusMonths(6))) {
+                // 카드 안 판정 = 상태 알약 + 보통 본문(재검토2 ①#4) — 여권 카드 안에 채움 + 막대 띠를 두지 않는다
                 val expired = expiry.isBefore(today)
-                NoticeBanner(
-                    text = stringResource(if (expired) R.string.wallet_passport_expired else R.string.wallet_passport_expiring),
-                    icon = Icons.Outlined.EventBusy,
-                    tone = if (expired) BannerTone.Danger else BannerTone.Caution,
-                )
+                Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                    StatusTag(
+                        stringResource(if (expired) R.string.passport_expired_tag else R.string.wallet_passport_expiring_tag),
+                        if (expired) StatusKind.Prohibited else StatusKind.Caution,
+                        icon = Icons.Outlined.EventBusy,
+                    )
+                    KoText(
+                        stringResource(if (expired) R.string.wallet_passport_expired else R.string.wallet_passport_expiring),
+                        MaterialTheme.typography.bodyMedium,
+                        color = colors.value,
+                    )
+                }
             }
             // `자세히 보기`는 다른 화면에서 '펼치기'라 같은 글자에 다른 동작 — 이 버튼은 가린 글자를 보이는 일이다 (재검토 R18)
             SecondaryButton(
@@ -460,7 +531,8 @@ private fun BookingCard(booking: BookingRecord, onDelete: () -> Unit) {
             // 머리의 AirplaneTicket(항공권)과 겹치지 않게 편명은 Flight
             BookingFact(Icons.Outlined.Flight, stringResource(R.string.wallet_booking_flights), booking.flightNumbers.joinToString(", "))
         }
-        bookingDates(booking).forEach { (icon, label, value) -> BookingFact(icon, stringResource(label), value) }
+        // 날짜는 `2026년 11월 3일 (화)`로 보인다(재검토2 ①#13 — 저장 값·입국 카드에 넣는 값은 그대로)
+        bookingDates(booking).forEach { (icon, label, value) -> BookingFact(icon, stringResource(label), keepWords(koreanDate(value))) }
         // 목록 항목마다의 지우기 = 끝 정렬. TalkBack은 무엇을 지우는지(화면에 보이는 서류 이름) 함께 읽는다 (재검토 R18)
         val deleteName = stringResource(R.string.delete_named_cd, booking.title)
         DangerButton(

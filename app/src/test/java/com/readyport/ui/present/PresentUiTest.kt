@@ -89,6 +89,13 @@ class PresentUiTest {
         shown(s(R.string.present_share_family))
         shown(s(R.string.present_share_note))
         rule.onAllNodesWithText("다른 폰으로 보내기").assertCountEquals(0)
+        // 무엇이 어디로 나가는지는 버튼 **위** — TalkBack도 설명을 먼저 듣고 버튼을 만난다(재검토2 ②#11)
+        val note = rule.onNodeWithText(s(R.string.present_share_note)).fetchSemanticsNode().positionInRoot.y
+        val share = rule.onNodeWithText(s(R.string.present_share_family)).fetchSemanticsNode().positionInRoot.y
+        assertTrue(note < share)
+        // 도착일은 `2026년 11월 3일`로 보인다(재검토2 ①#13 — 저장 값은 그대로)
+        rule.onAllNodesWithText("2026-11-03", substring = true).assertCountEquals(0)
+        rule.onNode(hasText("2026년 11월", substring = true)).assertExists()
         // 지우기는 맨 아래 관리 줄 — TalkBack은 서류 이름과 함께 읽는다
         shown(s(R.string.present_delete))
         rule.onNodeWithContentDescription(s(R.string.delete_named_cd, "태국 입국 카드 (TDAC)")).assertExists()

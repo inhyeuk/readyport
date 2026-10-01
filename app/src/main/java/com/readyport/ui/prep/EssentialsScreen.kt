@@ -1,6 +1,7 @@
 package com.readyport.ui.prep
 
 import android.content.Intent
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.FlowRow
@@ -13,7 +14,10 @@ import androidx.compose.foundation.selection.toggleable
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.OpenInNew
 import androidx.compose.material.icons.outlined.CheckCircle
+import androidx.compose.material.icons.outlined.ElectricBolt
 import androidx.compose.material.icons.outlined.Handshake
+import androidx.compose.material.icons.outlined.Outlet
+import androidx.compose.material.icons.outlined.Power
 import androidx.compose.material.icons.outlined.TaskAlt
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -45,15 +49,19 @@ import com.readyport.R
 import com.readyport.data.settings.SettingsRepository
 import com.readyport.pack.EssentialRule
 import com.readyport.pack.PackRepository
+import com.readyport.pack.PowerInfo
 import com.readyport.prep.Essentials
 import com.readyport.trip.TripRepository
 import com.readyport.ui.components.AppScreen
 import com.readyport.ui.components.BadgeTitleLayout
 import com.readyport.ui.components.BadgeTone
+import com.readyport.ui.components.CardBorderWidth
+import com.readyport.ui.components.CardNewsCard
 import com.readyport.ui.components.ExpandableDetail
 import com.readyport.ui.components.IconBadge
 import com.readyport.ui.components.IconBullet
 import com.readyport.ui.components.IconKeys
+import com.readyport.ui.components.InfoChip
 import com.readyport.ui.components.KoText
 import com.readyport.ui.components.NumberText
 import com.readyport.ui.components.NoticeBanner
@@ -93,6 +101,10 @@ data class EssentialsUi(
     val nights: Int? = null,
     val month: Int? = null,
     val rows: List<EssentialRow> = emptyList(),
+    /** 여행지 전기(팩 power 값) — 있으면 값 칩(`220 V 전압`·`한국 플러그 그대로 써요`)을 보인다. 여행이 없으면 null(칩 줄 없음) */
+    val power: PowerInfo? = null,
+    /** [power] 출처 이름(팩 sources). 못 찾으면 null — 화면은 '공식 안내' */
+    val powerSource: String? = null,
 ) {
     val done get() = rows.count { it.have }
     val hasAffiliate get() = rows.any { Essentials.isAffiliate(it.rule) }
@@ -117,6 +129,8 @@ class EssentialsViewModel @Inject constructor(
                 // 이름을 못 찾으면 null — 화면이 '공식 안내'로 보인다. 내부 ID를 화면에 넘기지 않는다 (DESIGN_SPEC 4.5)
                 EssentialRow(r, r.id in s.haveItems, r.source?.let { id -> index?.sources?.firstOrNull { it.id == id }?.name })
             },
+            power = pack?.power,
+            powerSource = pack?.power?.let { p -> pack.source(p.source)?.name },
         )
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), EssentialsUi())
 
@@ -135,7 +149,8 @@ fun EssentialsScreen(viewModel: EssentialsViewModel = hiltViewModel()) {
 }
 
 /**
- * 16 꼭 챙길 물건 (DESIGN_SPEC 6-16, 재검토 R15): 제휴 고지(목록 위) → 짐 사진 머리 카드(챙긴 수·막대) →
+ * 16 꼭 챙길 물건 (DESIGN_SPEC 6-16, 재검토 R15): 수수료 고지(목록 위) → 짐 사진 머리 카드(챙긴 수·막대) →
+ * (여행이 있으면) 여행지 전기 값 칩 카드(재검토2 ①#15·②#9·③#10 — 주제 이름이 아니라 값) →
  * **아직 안 챙긴 물건**(위, 흰 그림자 카드 — 강조) → **챙긴 물건**(아래, 그림자 없는 낮은 카드 — 체크 아이콘 + 흐린 글자).
  * 초록 채움 카드는 쓰지 않는다: 이미 챙긴 물건이 화면에서 가장 큰 색 덩어리가 되어 아직 안 챙긴 물건을 묻었다.
  * 체크 카드는 줄 전체가 Role.Checkbox 토글. 챙기면 그 카드가 아래 묶음으로 옮겨 간다(같은 key라 자리 이동 애니메이션).
@@ -152,12 +167,16 @@ fun EssentialsContent(ui: EssentialsUi, onHave: (String, Boolean) -> Unit, onOpe
         subtitle = subtitle,
         speech = stringResource(R.string.essentials_speech),
     ) {
-        // 제휴 고지는 목록 맨 위 (PRD 5.10). 제휴 링크가 아직 없어도 원칙은 늘 보여 준다. 누를 수 없는 흰 띠 (D21)
+        // 수수료 고지는 목록 맨 위 (PRD 5.10). 수수료 링크가 아직 없어도 원칙은 늘 보여 준다. 누를 수 없는 흰 띠 (D21).
+        // 낱말은 '제휴'가 아니라 '수수료' — 입국 화면의 '정부 기관과 제휴하지 않았어요'와 겹쳐 "그럼 제휴한 거야?"로 읽혔다(재검토2 ⑤#9)
         item(key = "disclosure") {
-            NoticeBanner(stringResource(R.string.essentials_disclosure), icon = Icons.Outlined.Handshake)
+            NoticeBanner(stringResource(R.string.essentials_fee_disclosure), icon = Icons.Outlined.Handshake)
         }
         if (ui.rows.isNotEmpty()) {
             item(key = "progress") { ProgressHero(ui) }
+        }
+        ui.power?.let { power ->
+            item(key = "power") { PowerValuesCard(ui.countryKo, power, ui.powerSource) }
         }
         val todo = ui.rows.filter { !it.have }
         val done = ui.rows.filter { it.have }
@@ -198,7 +217,8 @@ private fun ProgressHero(ui: EssentialsUi) {
     val done = ui.done
     val stacked = rememberGridColumns() == 1
     val sentence = stringResource(R.string.essentials_progress, total, done)
-    PhotoBox(Photos.Packing, minHeight = 112.dp) {
+    // 사진은 위쪽(가방 지퍼·벽)을 보인다 — 가운데의 아이 운동화가 낮은 띠의 스크림 아래로 내려가게(재검토2 ①#7, 사진 교체는 운영자 결정 전까지)
+    PhotoBox(Photos.Packing, minHeight = 112.dp, alignment = Alignment.TopCenter) {
         // 사진 위 글자·막대는 모두 스크림 영역 안 (3.7 ③)
         PhotoTextArea {
             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
@@ -231,9 +251,43 @@ private fun ProgressHero(ui: EssentialsUi) {
 }
 
 /**
+ * 여행지 전기 값 칩 카드 (재검토2 ①#15·②#9·③#10 — `플러그·전압`처럼 주제 이름만 보이던 칩에 **값**을 붙인다):
+ * `220 V 전압`(팩 voltage 원문) + 한국 플러그 판정(`한국 플러그 그대로 써요` / `변환 어댑터 챙기세요` / 확인 안 된 나라는 `변환 어댑터 챙기면 안전해요` —
+ * 목록에 어댑터를 넣는 [Essentials.plugDiffers]와 같은 판단). 누를 수 없는 InfoChip(채움·테두리 없음). 출처·확인 날짜는 카드 맨 아래.
+ * 목록에 어댑터·전압 확인 물건이 왜 있거나 없는지가 이 두 값으로 읽힌다.
+ */
+@Composable
+private fun PowerValuesCard(countryKo: String?, power: PowerInfo, sourceName: String?) {
+    val title = countryKo?.let { stringResource(R.string.essentials_power_title, it) } ?: stringResource(R.string.guide_power_title)
+    val source = SourceRef(sourceName ?: stringResource(R.string.source_official_fallback), displayDate(power.lastVerified))
+    val fits = power.krPlugFits
+    CardNewsCard(title = title, icon = Icons.Outlined.Power, sources = listOf(source)) {
+        FlowRow(horizontalArrangement = Arrangement.spacedBy(16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+            InfoChip(stringResource(R.string.essentials_power_voltage), Icons.Outlined.ElectricBolt, value = power.voltage, tone = BadgeTone.Accent)
+            if (fits == true) {
+                InfoChip(
+                    stringResource(R.string.essentials_power_kr_plug_fits),
+                    Icons.Outlined.Power,
+                    value = stringResource(R.string.essentials_power_kr_plug),
+                    tone = BadgeTone.Success,
+                )
+            } else {
+                InfoChip(
+                    stringResource(if (fits == false) R.string.essentials_power_adapter_needed else R.string.essentials_power_adapter_unknown),
+                    Icons.Outlined.Outlet,
+                    value = stringResource(R.string.essentials_power_adapter),
+                    tone = BadgeTone.Caution,
+                )
+            }
+        }
+    }
+}
+
+/**
  * 물건 한 장 (CheckRowCard, 6-16 · 재검토 R15). 머리 줄 전체가 Role.Checkbox 토글 — 이름 + stateDescription(챙겼어요/아직이에요).
- * - 아직: 흰 정보 카드(그림자) + Accent 배지 + 이름 titleLarge Ink — 화면의 주인공.
- * - 챙김: 그림자 없는 흰 카드(낮게) + 회색 배지 + 이름 titleMedium InkSecondary + 체크 아이콘·`챙겼어요`(앱이 확인한 상태라 체크) — 초록 채움 없음.
+ * 이름은 카드 제목 규칙(titleMedium SemiBold — 섹션 머리보다 한 단계 작게, 재검토2 ①#2 연장).
+ * - 아직: 흰 정보 카드(그림자) + Accent 배지 + 이름 Ink — 화면의 주인공.
+ * - 챙김: 그림자 없는 흰 카드(낮게) + 회색 배지 + 이름 InkSecondary + 체크 아이콘·`챙겼어요`(앱이 확인한 상태라 체크) — 초록 채움 없음.
  * 상태 글자는 언제나 이름 **아래 줄**(이름 길이에 따라 옆·아래를 오가지 않게).
  * 큰 글자(Stacked)에서 이름이 배지와 체크 상자 사이 한 줄에 안 들어가면 배지·체크 상자를 윗줄에 두고 이름에 폭 전체를 준다.
  */
@@ -249,7 +303,10 @@ private fun CheckRowCard(row: EssentialRow, onHave: (String, Boolean) -> Unit, o
         shape = shape,
         colors = CardDefaults.cardColors(containerColor = Tokens.Surface, contentColor = Tokens.Ink),
         elevation = CardDefaults.cardElevation(0.dp),
-        modifier = modifier.fillMaxWidth().then(if (row.have) Modifier else Modifier.cardShadow(shape)),
+        // 챙긴 물건은 그림자 없이 낮게 — 흰 카드 경계(옅은 1dp 테두리, 운영자 결정 6)만 남긴다
+        modifier = modifier.fillMaxWidth().then(
+            if (row.have) Modifier.border(CardBorderWidth, Tokens.LineSoft, shape) else Modifier.cardShadow(shape),
+        ),
     ) {
         Column(
             Modifier
@@ -269,8 +326,9 @@ private fun CheckRowCard(row: EssentialRow, onHave: (String, Boolean) -> Unit, o
                     Checkbox(
                         checked = row.have,
                         onCheckedChange = null,
+                        // 체크 상자 색은 앱 전체 Accent 하나(동의 체크와 같게 — 재검토2 ④#8). '챙겼어요' 완료 뜻은 이름 아래 상태 글자가 맡는다
                         colors = CheckboxDefaults.colors(
-                            checkedColor = Tokens.SuccessText,
+                            checkedColor = Tokens.Accent,
                             uncheckedColor = Tokens.LineStrong,
                             checkmarkColor = Tokens.Surface,
                         ),
@@ -306,11 +364,11 @@ private fun CheckRowCard(row: EssentialRow, onHave: (String, Boolean) -> Unit, o
                         // 큰 글자는 폭 전체 — 글자 폭만큼이면 라벨이 `열/기`처럼 쪼개진다
                         fillWidth = large,
                     )
-                    // '제휴' 라벨은 제휴 링크에만. 보험·금융 안내(official_info)에는 붙이지 않는다
+                    // '수수료 링크' 라벨은 제휴(affiliate) 링크에만. 보험·금융 안내(official_info)에는 붙이지 않는다
                     if (affiliate) {
                         Column(Modifier.align(Alignment.CenterVertically)) {
                             StatusChip(
-                                stringResource(R.string.essentials_affiliate_label),
+                                stringResource(R.string.essentials_fee_link_label),
                                 container = Tokens.SurfaceSunken,
                                 content = Tokens.InkSecondary,
                                 icon = Icons.Outlined.Handshake,
@@ -332,8 +390,9 @@ private fun CheckRowCard(row: EssentialRow, onHave: (String, Boolean) -> Unit, o
 
 /**
  * 이름 + (챙겼으면) 그 아래 줄의 상태 글자 — 언제나 이름 아래 같은 자리(재검토 R15: 이름 길이에 따라 옆·아래를 오가지 않게).
- * 챙김: 이름은 한 단계 작고 흐리게(InkSecondary), 상태는 체크 아이콘 + `챙겼어요`(SuccessText, 채움 없음 — 앱이 확인한 상태라 체크).
- * 아직: 이름 titleLarge Ink만. 아직 안 챙긴 상태는 빈 체크 상자와 위 묶음 자리가 말해 준다(카드마다 `아직이에요`를 되풀이하지 않는다).
+ * 이름은 두 경우 모두 카드 제목 글자(titleMedium SemiBold — 섹션 머리 headlineSmall보다 한 단계 작게, 재검토2 ①#2 연장).
+ * 챙김: 이름을 흐리게(InkSecondary), 상태는 체크 아이콘 + `챙겼어요`(SuccessText, 채움 없음 — 앱이 확인한 상태라 체크).
+ * 아직: 이름 Ink만. 아직 안 챙긴 상태는 빈 체크 상자와 위 묶음 자리가 말해 준다(카드마다 `아직이에요`를 되풀이하지 않는다).
  * TalkBack은 두 경우 모두 줄의 stateDescription(`챙겼어요`/`아직이에요`)으로 한 번만 읽는다.
  */
 @Composable
@@ -342,7 +401,7 @@ private fun NameAndState(name: String, have: Boolean, state: String) {
     Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
         KoText(
             name,
-            if (have) MaterialTheme.typography.titleMedium else MaterialTheme.typography.titleLarge,
+            MaterialTheme.typography.titleMedium,
             color = if (have) Tokens.InkSecondary else Tokens.Ink,
             glueShort = true,
         )

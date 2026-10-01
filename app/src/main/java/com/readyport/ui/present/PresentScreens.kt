@@ -98,6 +98,8 @@ import com.readyport.ui.components.TextCircle
 import com.readyport.ui.components.TileGrid
 import com.readyport.ui.components.TrailingFlow
 import com.readyport.ui.components.firstLineIconOffset
+import com.readyport.ui.components.keepMonthDay
+import com.readyport.ui.components.keepWords
 import com.readyport.ui.components.minTouchSize
 import com.readyport.ui.components.rememberGridColumns
 import com.readyport.ui.components.sectionGap
@@ -106,6 +108,7 @@ import com.readyport.ui.theme.LocalDimens
 import com.readyport.ui.theme.Tokens
 import com.readyport.ui.wallet.ConsentRow
 import com.readyport.ui.wallet.DisabledReason
+import com.readyport.ui.wallet.koreanDate
 import com.readyport.ui.wallet.maskName
 import com.readyport.ui.wallet.maskNumber
 import com.readyport.ui.wallet.rememberDeviceAuth
@@ -410,7 +413,8 @@ private fun DocCard(d: DocView, onShare: () -> Unit) {
     val facts = listOfNotNull(
         d.maskedName?.let { Triple(stringResource(R.string.wallet_passport_name), it, true) },
         d.maskedPassport?.let { Triple(stringResource(R.string.wallet_passport_number), it, true) },
-        d.doc.arrivalDate?.let { Triple(stringResource(R.string.present_field_arrival), it, false) },
+        // 도착일은 `2026년 11월 3일`로 보인다(재검토2 ①#13 — 저장 값은 그대로). 반 폭 칸이라 요일은 빼고 `11월 3일`은 한 덩어리로
+        d.doc.arrivalDate?.let { Triple(stringResource(R.string.present_field_arrival), keepWords(keepMonthDay(koreanDate(it, weekday = false))), false) },
         d.doc.flightNo?.let { Triple(stringResource(R.string.wallet_booking_flights), it, false) },
     )
     CardNewsCard(
@@ -444,18 +448,19 @@ private fun DocCard(d: DocView, onShare: () -> Unit) {
             }
         }
         // `다른 폰으로 보내기`는 `이 휴대폰에만` 약속 바로 아래에서 '밖으로 보낸다'로 읽혔다(재검토 R18).
-        // 누가(가족 폰) 보내는지 이름에, 무엇이(이 서류 그림만) 어디로(내가 고른 앱) 나가고 서버를 거치지 않는다는 실제 동작은 바로 아래 한 줄에
+        // 누가(가족 폰) 보내는지는 버튼 이름에, 무엇이(이 서류 그림만) 어디로(내가 고른 앱) 나가고 서버를 거치지 않는다는 실제 동작은
+        // 버튼 **바로 위** 한 줄에 — TalkBack도 설명을 먼저 듣고 버튼을 만난다(재검토2 ②#11)
+        ShareNote()
         SecondaryButton(
             stringResource(R.string.present_share_family),
             onClick = onShare,
             icon = Icons.AutoMirrored.Outlined.SendToMobile,
             onDark = true,
         )
-        ShareNote()
     }
 }
 
-/** 보내기 버튼 아래 한 줄 (Navy 카드 안 — onDark 색만): 누를 때만, 이 그림만, 내가 고른 앱으로, 서버 없이 */
+/** 보내기 버튼 위 한 줄 (Navy 카드 안 — onDark 색만): 누를 때만, 이 그림만, 내가 고른 앱으로, 서버 없이 */
 @Composable
 private fun ShareNote() {
     val style = MaterialTheme.typography.bodySmall
@@ -671,7 +676,8 @@ private fun CompanionCard(c: TravelCompanion, onRegisterPassport: () -> Unit, on
                     style = MaterialTheme.typography.titleMedium,
                 )
                 Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                    KoText(c.label, style = MaterialTheme.typography.titleLarge, color = Tokens.Ink)
+                    // 카드 제목 규칙(titleMedium SemiBold — 섹션 머리보다 한 단계 작게, 재검토2 ①#2 연장)
+                    KoText(c.label, style = MaterialTheme.typography.titleMedium, color = Tokens.Ink, heading = true)
                     if (c.passport != null) {
                         StatusTag(stringResource(R.string.companion_passport_done), StatusKind.Verified)
                     }

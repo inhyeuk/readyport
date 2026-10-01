@@ -20,6 +20,9 @@ import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollToNode
 import androidx.compose.ui.test.performTextClearance
 import androidx.compose.ui.test.performTextInput
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.semantics.getOrNull
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.readyport.R
@@ -78,8 +81,15 @@ class TripUiTest {
     fun preparingShowsFormWhenWindowOpens() {
         var opened: String? = null
         today(StageInfo(TripStage.Preparing, daysLeft = 2, formWindowOpen = true), actions = TodayActions(openForm = { opened = it }))
-        rule.onNodeWithText(s(R.string.today_d_day, 2)).assertIsDisplayed()
+        // 준비 단계 부제 = 출발까지 + 여행 날짜 (다듬기 S3 — 날짜가 준비 단계에서만 빠져 있었다)
+        rule.onNodeWithText(s(R.string.today_d_day_dates, s(R.string.today_d_day, 2), "11월 3일 ~ 7일")).assertIsDisplayed()
         shown(s(R.string.today_task_form_title, form.nameKo))
+        // 내는 기간을 내 날짜로(팩 window_days_including_arrival = 3, 도착 11월 3일 → 11월 1일 ~ 3일, 재검토2 ③#5)
+        assertEquals(3, form.windowDaysIncludingArrival)
+        rule.onNode(hasText(s(R.string.today_form_window_label), substring = true) and hasText("11월", substring = true)).assertExists()
+        val chip = rule.onNode(hasText(s(R.string.today_form_window_label), substring = true) and hasText("11월", substring = true))
+            .fetchSemanticsNode().config[androidx.compose.ui.semantics.SemanticsProperties.Text].joinToString(" ") { it.text }
+        assertEquals("11월 1일 ~ 3일 " + s(R.string.today_form_window_label), chip.replace('\u00A0', ' '))
         rule.onNodeWithText(s(R.string.prepare_form_open)).performClick()
         assertEquals("TH_TDAC", opened)
     }
@@ -115,10 +125,38 @@ class TripUiTest {
     fun arrivedCanBeUndoneOnDepartureDay() {
         var undone = false
         today(StageInfo(TripStage.Arrival, dayOfTrip = 1), onUndoArrived = { undone = true })
-        // '도착했어요'를 잘못 눌렀으면 되돌린다 (재검토 R18)
-        shown(s(R.string.today_arrived_undo))
-        rule.onNodeWithText(s(R.string.today_arrived_undo)).performClick()
+        // '도착했어요'를 잘못 눌렀으면 되돌린다 (재검토 R18). 이름은 사용자의 말 `도착을 잘못 눌렀어요`(재검토2 ②#7)
+        shown(s(R.string.today_arrived_undo_v2))
+        rule.onAllNodesWithText(s(R.string.today_arrived_undo)).assertCountEquals(0)
+        rule.onNodeWithText(s(R.string.today_arrived_undo_v2)).performClick()
         assertTrue(undone)
+    }
+
+    /** 되돌리면 출국 단계 맨 위에 `출국 단계로 돌아갔어요` 한 줄(TalkBack 알림) — 다시 도착하면 사라진다 */
+    @Test
+    fun undoShowsBackToDepartureNote() {
+        var stage by androidx.compose.runtime.mutableStateOf(StageInfo(TripStage.Arrival, dayOfTrip = 1))
+        rule.setContent {
+            ReadyPortTheme {
+                TodayContent(
+                    TodayUi(trip, stage, "태국", form, true), TodayActions(),
+                    { stage = StageInfo(TripStage.Arrival, dayOfTrip = 1) }, {}, {}, {}, {},
+                    { stage = StageInfo(TripStage.Departure, dayOfTrip = 1) },
+                )
+            }
+        }
+        rule.onAllNodesWithText(s(R.string.today_arrived_undone)).assertCountEquals(0)
+        shown(s(R.string.today_arrived_undo_v2))
+        rule.onNodeWithText(s(R.string.today_arrived_undo_v2)).performClick()
+        rule.waitForIdle()
+        rule.onNodeWithText(s(R.string.today_arrived_undone)).assertIsDisplayed()
+        val note = rule.onNodeWithText(s(R.string.today_arrived_undone)).fetchSemanticsNode()
+        val live = generateSequence(note) { it.parent }.any { it.config.getOrNull(androidx.compose.ui.semantics.SemanticsProperties.LiveRegion) != null }
+        assertTrue("되돌림 알림은 liveRegion 안", live)
+        shown(s(R.string.today_arrived_button))
+        rule.onNodeWithText(s(R.string.today_arrived_button)).performClick()
+        rule.waitForIdle()
+        rule.onAllNodesWithText(s(R.string.today_arrived_undone)).assertCountEquals(0)
     }
 
     @Test
@@ -198,13 +236,54 @@ class TripUiTest {
                 TodayContent(TodayUi(trip, StageInfo(TripStage.WrapUp), "태국", null, true), TodayActions(), {}, {}, {}, {}, { newTrip = true })
             }
         }
-        // 정리 단계 축하 카드 (재검토 R14·R19): 나라 사진 + 한 줄 + 앱 안 값으로 만든 숫자 타일
+        // 정리 단계 축하 카드 (재검토 R14·R19): 나라 사진 + 한 줄 + 앱 안 값으로 만든 숫자 타일.
+        // 나라 타일은 제목이 이미 말해서 뺐다(재검토2 ①#6·③#13)
         rule.onNodeWithText(s(R.string.today_wrapup_photo_title, "태국")).assertIsDisplayed()
-        shown(s(R.string.today_wrapup_fact_country))
+        rule.onAllNodesWithText(s(R.string.today_wrapup_fact_country)).assertCountEquals(0)
         shown(s(R.string.trip_nights, 4, 5))
         shown(s(R.string.today_new_trip))
         rule.onNodeWithText(s(R.string.today_new_trip)).performClick()
         assertTrue(newTrip)
+    }
+
+    /** 정리 단계 숫자 타일 = 여행 기간 · 챙긴 물건 · 담아 온 물건 (앱 안 값만) */
+    @Test
+    fun wrapUpTilesAreAppNumbers() {
+        val th = TestPacks.thailand.value
+        rule.setContent {
+            ReadyPortTheme {
+                TodayContent(
+                    TodayUi(trip, StageInfo(TripStage.WrapUp), "태국", null, true, cart = th.shopping.take(3), essentialsTotal = 5, essentialsDone = 2),
+                    TodayActions(), {}, {}, {}, {}, {},
+                )
+            }
+        }
+        shown(s(R.string.trip_nights, 4, 5))
+        shown(s(R.string.essentials_progress_stat, 2, 5))
+        shown(s(R.string.today_wrapup_fact_essentials))
+        shown(s(R.string.today_wrapup_fact_cart_value, 3))
+        rule.onAllNodesWithText(s(R.string.today_wrapup_fact_country)).assertCountEquals(0)
+    }
+
+    /** 담아 둔 물건 카드 머리 아래 판정 요약 알약(위험 순, 로컬 값 — 재검토2 ③#12) */
+    @Test
+    fun returnCartHasVerdictSummary() {
+        val th = TestPacks.thailand.value
+        rule.setContent {
+            ReadyPortTheme {
+                TodayContent(TodayUi(trip, StageInfo(TripStage.Return), "태국", null, true, cart = th.shopping), TodayActions(), {}, {}, {}, {}, {})
+            }
+        }
+        val counts = th.shopping.groupingBy { it.importStatus }.eachCount()
+        val labels = mapOf("prohibited" to R.string.import_prohibited, "caution" to R.string.import_caution, "allowed" to R.string.import_allowed)
+        val tops = listOf("prohibited", "caution", "allowed").filter { counts[it] != null }.map { st ->
+            val text = s(R.string.today_cart_verdict_count, s(labels.getValue(st)), counts.getValue(st))
+            shown(text)
+            rule.onNodeWithText(text).fetchSemanticsNode().positionInRoot
+        }
+        assertTrue(tops.isNotEmpty())
+        // 위험 순(불가 → 주의 → 가능): 같은 줄이면 왼쪽부터, 아니면 위부터
+        tops.zipWithNext().forEach { (a, b) -> assertTrue(a.y < b.y || (a.y == b.y && a.x < b.x)) }
     }
 
     @Test
