@@ -2,6 +2,7 @@ package com.readyport.ui.country
 
 import android.app.Application
 import android.content.Context
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.test.SemanticsNodeInteraction
 import androidx.compose.ui.test.getBoundsInRoot
@@ -14,6 +15,7 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.readyport.R
 import com.readyport.ui.TestPacks
+import com.readyport.ui.theme.LocalTypeExtras
 import com.readyport.ui.theme.ReadyPortTheme
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
@@ -43,17 +45,43 @@ class CountryLayoutTest {
     private val context: Context = ApplicationProvider.getApplicationContext()
     private fun s(id: Int, vararg args: Any) = context.getString(id, *args)
 
+    /**
+     * 재검토 R12: 비자 카드 타일은 비자 사실만 [30일 도착비자][IDR 500,000 비자 비용] 한 줄, `IDR 500,000`은 쪼개지지 않고
+     * (코드 `IDR` 작은 글자 + 숫자 한 줄), 입국 신고 비용 `무료`는 비자 카드가 아니라 1단계 입국 신고 카드 안 —
+     * 비자 비용 옆에 `무료`가 붙어 비자가 무료로 읽히지 않게. 순서는 1단계 입국 신고 → 2단계 비자 신청.
+     */
     @Test
-    fun visaTilesKeepSpecOrderAndLastOddTileGoesFullWidth() {
-        rule.setContent { ReadyPortTheme { CountryContent(TestPacks.countryUi("ID"), CountryActions()) } }
-        // 2열: [30일 도착비자][IDR 500,000 비자 비용] 다음 줄에 [무료 입국 카드 비용] 폭 전체 (스펙 6-04 순서)
+    fun visaTilesHoldOnlyVisaFactsAndFormFeeMovesToTheFormCard() {
+        var labelLine = 0f
+        var statLine = 0f
+        rule.setContent {
+            ReadyPortTheme {
+                labelLine = MaterialTheme.typography.labelMedium.lineHeight.value
+                statLine = LocalTypeExtras.current.statSmall.lineHeight.value
+                CountryContent(TestPacks.countryUi("ID"), CountryActions())
+            }
+        }
+        val pack = runBlocking { TestPacks.repo.pack("ID")!!.value }
+        val req = pack.requirements.single()
+        val form = pack.forms.single { it.id in req.forms }
         val days = rule.onNodeWithText(s(R.string.fact_days, 30)).bounds().toRect()
         val fee = rule.onNodeWithText("IDR 500,000").bounds().toRect()
-        val form = rule.onNode(hasText(s(R.string.fact_label_form_fee))).bounds().toRect()
         assertEquals("머무는 날과 비자 비용은 같은 줄", days.top, fee.top, 1f)
         assertTrue("머무는 날이 왼쪽", days.right <= fee.left)
-        assertTrue("입국 카드 비용은 다음 줄", form.top >= days.bottom)
-        assertTrue("마지막 홀수 타일은 폭 전체", form.width >= days.width * 1.8f)
+        // 금액 칸 = 통화 코드 한 줄 + 숫자 한 줄 (숫자가 두 줄이면 statSmall 한 줄만큼 더 높다)
+        val amount = rule.onNodeWithText("IDR 500,000", useUnmergedTree = true).bounds().toRect()
+        assertTrue("IDR 500,000이 두 줄 이상: ${amount.height}dp", amount.height < labelLine + statLine * 1.5f)
+        // 입국 신고 비용 칩은 입국 신고(All Indonesia) 카드 제목 아래, 비자 타일보다 아래
+        val formTitle = rule.onNodeWithText(form.nameKo).bounds().toRect()
+        val formFee = rule.onNode(hasText(s(R.string.form_fee_chip_label))).bounds().toRect()
+        assertTrue("입국 신고 비용이 양식 카드 밖", formFee.top > formTitle.top && formFee.top > fee.bottom)
+        rule.onAllNodesWithText("무료").fetchSemanticsNodes().forEach { n ->
+            assertTrue("비자 카드 안에 `무료`", n.boundsInRoot.top / rule.density.density > formTitle.top)
+        }
+        // 1단계(입국 신고)가 2단계(비자 신청)보다 위
+        val step1 = rule.onNodeWithText(s(R.string.country_step_eyebrow, 1, s(R.string.country_form_label))).bounds().toRect()
+        val step2 = rule.onNodeWithText(s(R.string.country_step_eyebrow, 2, s(R.string.country_visa_apply_label))).bounds().toRect()
+        assertTrue("1단계(입국 신고)가 2단계(비자 신청)보다 위에 있어야 함", step1.bottom <= step2.top)
     }
 
     @Test

@@ -18,7 +18,6 @@ import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowBack
-import androidx.compose.material.icons.automirrored.outlined.OpenInNew
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.outlined.Approval
 import androidx.compose.material.icons.outlined.AssignmentInd
@@ -52,6 +51,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconToggleButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -68,11 +69,14 @@ import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
+import androidx.compose.ui.semantics.text
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
@@ -105,36 +109,38 @@ import com.readyport.ui.components.CardNewsCard
 import com.readyport.ui.components.ChoiceSegments
 import com.readyport.ui.components.DotBullet
 import com.readyport.ui.components.Fact
-import com.readyport.ui.components.FactGrid
+import com.readyport.ui.components.FitText
 import com.readyport.ui.components.IconBadge
 import com.readyport.ui.components.IconBullet
 import com.readyport.ui.components.IconKeys
 import com.readyport.ui.components.ImportVerdictBadge
+import com.readyport.ui.components.InfoChip
 import com.readyport.ui.components.InfoTileGrid
 import com.readyport.ui.components.KoText
+import com.readyport.ui.components.LinkRow
 import com.readyport.ui.components.NewsStyle
 import com.readyport.ui.components.NoticeBanner
 import com.readyport.ui.components.OnDark
 import com.readyport.ui.components.PhotoBox
-import com.readyport.ui.components.PhotoChip
 import com.readyport.ui.components.PhotoTextColumn
 import com.readyport.ui.components.Photos
 import com.readyport.ui.components.PrimaryButton
 import com.readyport.ui.components.ReturnCheckCard
 import com.readyport.ui.components.SecondaryButton
 import com.readyport.ui.components.SectionHeader
+import com.readyport.ui.components.SourceList
 import com.readyport.ui.components.SourceRef
-import com.readyport.ui.components.StatTile
-import com.readyport.ui.components.StatusTag
 import com.readyport.ui.components.Step
 import com.readyport.ui.components.StepList
 import com.readyport.ui.components.TileSpec
+import com.readyport.ui.components.TileGrid
 import com.readyport.ui.components.displayDate
 import com.readyport.ui.components.feeIcon
 import com.readyport.ui.components.importLabel
 import com.readyport.ui.components.koDisplay
 import com.readyport.ui.components.minTouch
 import com.readyport.ui.components.minTouchSize
+import com.readyport.ui.components.onLight
 import com.readyport.ui.components.rememberGridColumns
 import com.readyport.ui.components.rememberKeyIndex
 import com.readyport.ui.components.resolveSourceName
@@ -144,7 +150,9 @@ import com.readyport.ui.components.shortValue
 import com.readyport.ui.components.sourceRefs
 import com.readyport.ui.components.textIconSize
 import com.readyport.ui.nav.CountryRoute
+import com.readyport.ui.onboarding.rememberBrightPhoto
 import com.readyport.ui.theme.LocalDimens
+import com.readyport.ui.theme.LocalTypeExtras
 import com.readyport.ui.theme.ReadyPortLineBreak
 import com.readyport.ui.theme.Tokens
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -250,8 +258,14 @@ fun CountryContent(ui: CountryUi, actions: CountryActions, initialSection: Count
     val fallback = stringResource(R.string.source_official_fallback)
     val names = remember(pack, ui.indexSources) { ui.indexSources + pack.sources.associate { it.id to it.name } }
     val sourceOf: SourceOf = { id, date -> SourceRef(resolveSourceName(id, names, fallback), displayDate(date)) }
-    // 비자 온라인 신청 카드가 이미 주 버튼으로 여는 양식 (같은 화면에 파란 주 버튼이 둘이 되지 않게, 원칙 7)
-    val applyForms = remember(pack) { pack.requirements.mapNotNull { it.apply?.form }.toSet() }
+    // 비자 온라인 신청이 지나가는 입국 신고 양식 (인도네시아 e-VOA → All Indonesia). 팩 신청 단계 1번이 '입국 신고 칸을 채워 제출'이므로
+    // 양식 카드가 1단계(주 버튼), 비자 신청 카드가 2단계(보조 버튼) — 같은 화면에 파란 주 버튼이 둘이 되지 않게(원칙 7, 재검토 R12)
+    val formIds = remember(pack) { pack.forms.map { it.id }.toSet() }
+    val applyForms = remember(pack) { pack.requirements.mapNotNull { it.apply?.form }.filter { it in formIds }.toSet() }
+    val krRequirements = remember(pack) { pack.requirements.filter { it.nationality == "KR" } }
+    // 여행경보 3단계 이상 문장 — 여행 정보 맨 위 위험 배너로 끌어올린다(팩 문장 그대로, 재검토 R17)
+    val safety = remember(pack) { pack.sections.firstOrNull { it.id == "safety" } }
+    val advisories = remember(safety) { safety?.bodyKo.orEmpty().filter { isHighAdvisory(it) } }
 
     // 섹션 전환은 2열 폭일 때만 위에 고정한다 — 쉬운 모드·큰 글자에서는 세로 목록이라 고정하면 화면을 가린다 (6-03)
     val single = rememberGridColumns() == 1
@@ -306,17 +320,29 @@ fun CountryContent(ui: CountryUi, actions: CountryActions, initialSection: Count
                         secondIcon = Icons.Outlined.TouchApp,
                     )
                 }
-                pack.requirements.filter { it.nationality == "KR" }.forEach { req ->
+                krRequirements.forEach { req ->
                     item(key = "req-${req.purpose}") { VisaCard(pack, req, sourceOf, actions.openLink) }
-                    req.apply?.let { apply ->
-                        item(key = "visa-apply-${req.purpose}") { VisaApplyCard(apply, sourceOf) { actions.openForm(apply.form) } }
+                }
+                // 1단계: 비자 신청이 지나가는 입국 신고 양식 (없으면 단계 표시 없이 양식 카드만)
+                pack.forms.filter { it.id in applyForms }.forEach { form ->
+                    item(key = "form-${form.id}") {
+                        FormCard(form, autofill = form.id in ui.autofillForms, step = 1, sourceOf = sourceOf) { actions.openForm(form.id) }
                     }
                 }
-                pack.forms.forEach { form ->
-                    item(key = "form-${form.id}") {
-                        FormCard(form, autofill = form.id in ui.autofillForms, primary = form.id !in applyForms, sourceOf) {
-                            actions.openForm(form.id)
+                // 2단계: 비자 온라인 신청 (그 양식이 이 팩에 없으면 단계 표시 없이 주 버튼)
+                krRequirements.forEach { req ->
+                    req.apply?.let { apply ->
+                        val staged = apply.form in applyForms
+                        item(key = "visa-apply-${req.purpose}") {
+                            VisaApplyCard(apply, step = if (staged) 2 else null, primary = !staged, sourceOf = sourceOf) {
+                                actions.openForm(apply.form)
+                            }
                         }
+                    }
+                }
+                pack.forms.filter { it.id !in applyForms }.forEach { form ->
+                    item(key = "form-${form.id}") {
+                        FormCard(form, autofill = form.id in ui.autofillForms, step = null, sourceOf = sourceOf) { actions.openForm(form.id) }
                     }
                 }
                 pack.sections.filter { it.id == "entry" }.forEach { s ->
@@ -332,6 +358,10 @@ fun CountryContent(ui: CountryUi, actions: CountryActions, initialSection: Count
             }
 
             CountrySection.Travel -> {
+                // 여행경보 3단계(출국권고) 이상 문장은 맨 위 위험 배너로 — 화폐 단위와 같은 점 불릿 사이에 묻히지 않게 (재검토 R17)
+                if (safety != null && advisories.isNotEmpty()) {
+                    item(key = "advisory") { AdvisoryBanner(safety, advisories, sourceOf) }
+                }
                 item(key = "tools-title") {
                     SectionHeader(stringResource(R.string.country_travel_tools_title), icon = Icons.Outlined.Explore)
                 }
@@ -356,7 +386,11 @@ fun CountryContent(ui: CountryUi, actions: CountryActions, initialSection: Count
                 sectionGap("gap-tools")
                 pack.power?.let { power -> item(key = "power") { PowerCard(power, sourceOf) } }
                 pack.sections.filter { it.id != "entry" }.forEach { s ->
-                    item(key = "section-${s.id}") { SectionCard(s, sourceOf) }
+                    // 위험 배너로 올린 문장은 안전 카드에서 되풀이하지 않는다(한 사실은 한 번). 남는 문장이 없으면 카드도 없다(출처는 배너 아래에)
+                    val lifted = if (s.id == "safety") advisories else emptyList()
+                    if (s.bodyKo.any { it !in lifted }) {
+                        item(key = "section-${s.id}") { SectionCard(s, sourceOf, exclude = lifted) }
+                    }
                 }
                 item(key = "maps") { MapsCard() }
             }
@@ -398,12 +432,11 @@ private fun foldSplit(text: String): Pair<String, String?> {
  * 접힌 글을 펼치는 줄 (minTouch, 버튼 + 펼쳐짐/접힘 상태). 보이는 글은 짧게 `자세히 보기`/`접기`(공용 ExpandableDetail과 같은 말) —
  * 큰 글자에서 두 줄로 꺾이지 않게. 한 화면에 여러 개라 TalkBack 이름은 무엇을 펼치는지 밝힌 [a11yLabel](접혀 있을 때).
  * 글을 바꿔 보이는 방식(접힘 = 첫 문장, 펼침 = 전체)이라 공용 ExpandableDetail(아래에 내용을 더함) 대신 쓴다.
- * [onDark]: Accent 채움 카드 안 — 공용 펼침 줄의 Accent 글자는 Accent 바탕 위에서 사라지므로 onDark 색.
  */
 @Composable
-private fun MoreToggle(open: Boolean, onOpenChange: (Boolean) -> Unit, a11yLabel: String, onDark: Boolean = false) {
+private fun MoreToggle(open: Boolean, onOpenChange: (Boolean) -> Unit, a11yLabel: String) {
     val dimens = LocalDimens.current
-    val color = if (onDark) OnDark.content else Tokens.Accent
+    val color = Tokens.Accent
     val state = stringResource(if (open) R.string.state_expanded else R.string.state_collapsed)
     Row(
         Modifier
@@ -451,12 +484,16 @@ private fun BodyBreakStepList(steps: List<Step>) {
 /** 히어로 최소 높이 — 320×470 화면 예산(DESIGN_SPEC 6-03)에서 정부 비제휴 고지가 스크롤 없이 보이게 */
 private val HeroMinHeight = 220.dp
 
-/** 나라 대표 경치 머리글: 뒤로 · 찜 · 나라 이름 · 확인 날짜·저장 칩 (글자는 모두 스크림 영역 안, 3.7) */
+/**
+ * 나라 대표 경치 머리글: 뒤로 · 찜 · 나라 이름 · 확인 날짜·저장 표시 (글자는 모두 스크림 영역 안, 3.7).
+ * 확인 날짜·저장 표시는 누를 수 없으므로 상자 없는 정보 칩(InfoChip onDark — 홈 신뢰 표시와 같은 모양, 재검토 R1)으로 한 줄에 흐르게 —
+ * 흰 상자 두 줄보다 스크림이 낮아 사진이 더 보인다. 어두운 사진(해 질 녘 왓아룬 등)은 그릴 때만 밝힌다(재검토 R19, 파일은 그대로).
+ */
 @Composable
 private fun CountryHero(loaded: Loaded<CountryPack>, favorite: Boolean, actions: CountryActions) {
     val pack = loaded.value
     val dimens = LocalDimens.current
-    PhotoBox(Photos.country(pack.country), minHeight = 0.dp, shape = MaterialTheme.shapes.extraLarge) {
+    PhotoBox(rememberBrightPhoto(Photos.country(pack.country)), minHeight = 0.dp, shape = MaterialTheme.shapes.extraLarge) {
         // 버튼 줄과 나라 이름을 세로로 쌓는다 — 글자를 키워도 서로 겹치지 않는다
         Column(Modifier.fillMaxWidth().heightIn(min = HeroMinHeight), verticalArrangement = Arrangement.SpaceBetween) {
             Row(Modifier.fillMaxWidth().padding(8.dp), horizontalArrangement = Arrangement.SpaceBetween) {
@@ -505,16 +542,21 @@ private fun CountryHero(loaded: Loaded<CountryPack>, favorite: Boolean, actions:
                 )
                 FlowRow(
                     Modifier.padding(top = 6.dp),
-                    horizontalArrangement = Arrangement.spacedBy(6.dp),
+                    horizontalArrangement = Arrangement.spacedBy(16.dp),
                     verticalArrangement = Arrangement.spacedBy(6.dp),
                 ) {
-                    PhotoChip(
+                    val style = MaterialTheme.typography.labelMedium
+                    InfoChip(
                         stringResource(R.string.guide_last_verified, displayDate(pack.lastVerified)),
                         Icons.Outlined.CalendarMonth,
+                        onDark = true,
+                        textStyle = style,
                     )
-                    PhotoChip(
+                    InfoChip(
                         stringResource(if (loaded.origin == PackOrigin.Bundled) R.string.guide_origin_bundled else R.string.guide_origin_downloaded),
                         Icons.Outlined.OfflinePin,
+                        onDark = true,
+                        textStyle = style,
                     )
                 }
             }
@@ -528,9 +570,12 @@ private fun CountryHero(loaded: Loaded<CountryPack>, favorite: Boolean, actions:
 private fun feeTone(value: String): BadgeTone = if (value == "무료") BadgeTone.Success else BadgeTone.Accent
 
 /**
- * 비자 카드 (Accent 채움, onDark 내용 세트만). 결론 → 숫자 타일 → 팩 요약(첫 문장, 나머지는 펼쳐서) → 공식 안내 → 출처.
- * 타일 값은 팩의 구조화 필드(stay_limit_days, fee_ko의 짧은 값)에서만 만든다 (D11). 타일 순서는 스펙 6-04 그대로
- * [머무는 날][비자 비용][입국 카드 비용]. 기간(window_days_including_arrival) 타일은 이번 릴리스에서 그리지 않는다(D11) · '직접' 타일 없음.
+ * 비자 카드 (흰 카드뉴스 카드 — 재검토 R12: Accent 채움은 화면의 주 버튼에만). 결론 → 숫자 타일 → 팩 요약(첫 문장, 나머지는 펼쳐서)
+ * → 공식 안내 줄 → 출처.
+ * 타일은 비자 사실만: [머무는 날][비자 비용]. 입국 카드(양식) 비용 `무료`는 그 양식 카드로 옮겼다 — 인도네시아에서
+ * `IDR 500,000 비자 비용` 옆에 초록 `무료`가 붙어 비자가 무료로 읽히던 문제. 값은 팩의 구조화 필드(stay_limit_days, fee_ko의 짧은 값)에서만(D11).
+ * 기간(window_days_including_arrival) 타일은 이번 릴리스에서 그리지 않는다(D11) · '직접' 타일 없음.
+ * 공식 안내는 버튼 대신 링크 줄(LinkRow) — 강한 행동이 한 화면에 여럿 겹치지 않게(재검토 ②-3).
  * 출처 = 요건 출처 + 각 타일 출처 (SourceList가 날짜별로 묶고 중복을 없앤다).
  */
 @Composable
@@ -540,7 +585,6 @@ private fun VisaCard(pack: CountryPack, req: Requirement, sourceOf: SourceOf, on
     val visaFreeLabel = gridLabel(stringResource(R.string.fact_label_visa_free), single)
     val visaArrivalLabel = gridLabel(stringResource(R.string.fact_label_visa_arrival), single)
     val visaFeeLabel = gridLabel(stringResource(R.string.fact_label_visa_fee), single)
-    val formFeeLabel = gridLabel(stringResource(R.string.fact_label_form_fee), single)
     val days = req.stayLimitDays?.let { stringResource(R.string.fact_days, it) }
     val facts = buildList {
         if (days != null) {
@@ -554,11 +598,6 @@ private fun VisaCard(pack: CountryPack, req: Requirement, sourceOf: SourceOf, on
                 add(Fact(feeIcon(v), v, visaFeeLabel, feeTone(v), sourceOf(apply.source, apply.lastVerified)))
             }
         }
-        pack.forms.filter { it.id in req.forms }.forEach { form ->
-            shortValue(form.feeKo)?.let { v ->
-                add(Fact(feeIcon(v), v, formFeeLabel, feeTone(v), sourceOf(form.source, form.lastVerified)))
-            }
-        }
     }
     val headline = when (req.visa) {
         "not_required" -> stringResource(R.string.country_visa_headline_not_required)
@@ -569,19 +608,14 @@ private fun VisaCard(pack: CountryPack, req: Requirement, sourceOf: SourceOf, on
         title = headline,
         icon = Icons.Outlined.Approval,
         eyebrow = stringResource(R.string.country_visa_title),
-        style = NewsStyle.Accent,
+        style = NewsStyle.Surface,
         sources = listOf(reqRef) + facts.sourceRefs(),
     ) {
         FactTiles(facts)
         VisaSummary(req.summaryKo)
         if (req.visa != "not_required") {
             pack.source(req.source)?.let { src ->
-                SecondaryButton(
-                    stringResource(R.string.country_visa_link),
-                    onClick = { onOpenLink(src.url) },
-                    icon = Icons.AutoMirrored.Outlined.OpenInNew,
-                    onDark = true,
-                )
+                LinkRow(stringResource(R.string.country_visa_link), onClick = { onOpenLink(src.url) })
             }
         }
     }
@@ -589,7 +623,7 @@ private fun VisaCard(pack: CountryPack, req: Requirement, sourceOf: SourceOf, on
 
 /**
  * 팩 요약 원문 (굵게 하지 않음 — 결론은 위 제목·타일이 맡는다). 60자를 넘으면 첫 문장만 보이고(원칙 6)
- * 펼치면 전체 원문 한 덩어리. 타일 값(30일·IDR 500,000)을 되풀이하는 뒷문장이 Accent 바탕 위 글 벽이 되지 않게.
+ * 펼치면 전체 원문 한 덩어리. 타일 값(30일·IDR 500,000)을 되풀이하는 뒷문장이 글 벽이 되지 않게.
  */
 @Composable
 private fun VisaSummary(summary: String) {
@@ -598,26 +632,90 @@ private fun VisaSummary(summary: String) {
     KoText(
         if (open || rest == null) summary.trim() else first,
         style = MaterialTheme.typography.bodyLarge,
-        color = OnDark.content,
+        color = Tokens.Ink,
     )
-    if (rest != null) MoreToggle(open, { open = it }, stringResource(R.string.country_more_visa), onDark = true)
+    if (rest != null) MoreToggle(open, { open = it }, stringResource(R.string.country_more_visa))
 }
 
 /**
  * 숫자 타일 묶음 — 순서는 넘겨받은 그대로. 2열에서 타일 수가 홀수면 남는 칸을 비우지 않고 **마지막 타일**을 맨 아래 폭 전체로 놓는다
- * (긴 값을 고르면 순서가 바뀌어 `도착비자 30일 · 무료`처럼 잘못 읽힌다). 1열이면 순서 그대로 쌓는다. 2개 미만이면 그리지 않는다(글이 대신).
+ * (긴 값을 고르면 순서가 바뀌어 잘못 읽힌다). 1열이면 순서 그대로 쌓는다. 타일이 하나면(무비자 나라의 `90일`) 폭 전체 한 장.
+ * 타일은 값을 칸 폭에 맞춘 한 줄로 그린다([FitStatTile] — `IDR 500,000`이 `IDR`/`500,000` 두 줄로 쪼개지지 않게, 재검토 R12).
  */
 @Composable
 private fun FactTiles(facts: List<Fact>) {
-    if (facts.size < 2) return
+    if (facts.isEmpty()) return
     val columns = rememberGridColumns()
-    if (columns == 2 && facts.size % 2 == 1) {
-        Column(verticalArrangement = Arrangement.spacedBy(LocalDimens.current.gap)) {
-            FactGrid(facts.dropLast(1), columns = columns)
-            StatTile(facts.last())
+    val gap = LocalDimens.current.gap
+    // 폭 전체를 쓰는 타일(1열·혼자·홀수 마지막)은 가로형 — 넓은 칸에 큰 빈 자리를 남기지 않는다(IconTile 1열 가로형과 같은 규칙)
+    val grid: @Composable (List<Fact>) -> Unit = { list ->
+        TileGrid(list, columns = columns) { fact, cell -> FitStatTile(fact, cell, wide = columns == 1) }
+    }
+    when {
+        facts.size == 1 -> FitStatTile(facts.single(), wide = true)
+        columns == 2 && facts.size % 2 == 1 -> Column(verticalArrangement = Arrangement.spacedBy(gap)) {
+            grid(facts.dropLast(1))
+            FitStatTile(facts.last(), wide = true)
         }
-    } else {
-        FactGrid(facts, columns = columns)
+        else -> grid(facts)
+    }
+}
+
+/** 통화 코드가 앞에 붙은 금액 (`IDR 500,000`) — 코드와 숫자를 나눠 그린다 */
+private val CurrencyAmount = Regex("""([A-Z]{3})\s+(\d[\d,.]*)""")
+
+/**
+ * 숫자 타일 (누를 수 없음). 공용 StatTile과 같은 모양(톤 연한 바탕 · 16dp 모서리 · tileMinHeight · 안쪽 16 · 아이콘 → 값 → 라벨)이되,
+ * 값은 **칸 폭에 맞춘 한 줄**(FitText: stat → statSmall → titleLarge — 쉬운 모드 최소 24sp). 통화 코드가 붙은 금액은 코드를 값 위
+ * 작은 글자(labelMedium)로 올리고 숫자만 크게 — 화면은 `IDR`⏎`500,000`, TalkBack·테스트는 `IDR 500,000` 한 덩어리 그대로.
+ * (재검토 R12. 통합 담당: 공용 StatTile 값이 FitText를 쓰게 되면 이 함수를 지우고 StatTile로 — 공용 부품은 이번 묶음에서 동결)
+ */
+@Composable
+private fun FitStatTile(fact: Fact, modifier: Modifier = Modifier, wide: Boolean = false) {
+    val dimens = LocalDimens.current
+    val extras = LocalTypeExtras.current
+    val typography = MaterialTheme.typography
+    val styles = listOf(extras.stat, extras.statSmall, typography.titleLarge)
+    val currency = CurrencyAmount.matchEntire(fact.value.trim())
+    val value: @Composable () -> Unit = {
+        if (currency != null) {
+            Column(Modifier.clearAndSetSemantics { text = AnnotatedString(fact.value.trim()) }) {
+                Text(currency.groupValues[1], style = typography.labelMedium, color = Tokens.InkSecondary)
+                FitText(currency.groupValues[2], styles, Tokens.Ink)
+            }
+        } else {
+            FitText(fact.value, styles, Tokens.Ink)
+        }
+    }
+    // 아이콘은 글자 크기를 따라 커진다(최대 1.5배) — 200%에서 큰 숫자 옆에서 점처럼 작아지지 않게
+    val iconSize = textIconSize(dimens.icon, typography.titleLarge)
+    val icon: @Composable () -> Unit = {
+        Icon(fact.icon, contentDescription = null, tint = fact.tone.onLight, modifier = Modifier.size(iconSize))
+    }
+    Surface(
+        color = fact.tone.container,
+        shape = MaterialTheme.shapes.medium,
+        modifier = modifier
+            .fillMaxWidth()
+            .heightIn(min = if (wide) dimens.tileRowMinHeight else dimens.tileMinHeight)
+            .semantics(mergeDescendants = true) {},
+    ) {
+        if (wide) {
+            // 가로형: 아이콘 + (값 / 라벨 한 줄) — 2열용 라벨의 줄바꿈(`비자 없이⏎머물러요`)은 넓은 칸에서 한 줄로
+            Row(Modifier.padding(16.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(16.dp)) {
+                icon()
+                Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                    value()
+                    KoText(fact.label.replace('\n', ' '), typography.bodyMedium, color = Tokens.InkSecondary)
+                }
+            }
+        } else {
+            Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                icon()
+                value()
+                KoText(fact.label, typography.bodyMedium, color = Tokens.InkSecondary)
+            }
+        }
     }
 }
 
@@ -633,18 +731,25 @@ private fun splitFirstSentence(text: String): Step {
     return if (rest.isEmpty()) Step(t) else Step(t.substring(0, i + 1), detail = rest)
 }
 
+/** 카드 eyebrow — [step]이 있으면 `1단계 · 온라인 입국 신고`처럼 순서를 앞에 붙인다(재검토 R12, 인도네시아) */
+@Composable
+private fun stepEyebrow(step: Int?, label: String): String =
+    if (step == null) label else stringResource(R.string.country_step_eyebrow, step, label)
+
 /**
  * 비자 온라인 신청(e-VOA) 카드 (6-04). 단계는 번호만 — 아이콘·'직접 해요' 태그를 단계 순서에 붙이지 않는다(D11).
  * 60자를 넘는 단계의 보조 글은 접어 두고 `단계 설명 자세히 보기`로 펼친다(원칙 6) — '직접 제출'은 위 배너와 아래 안내가 늘 보인다.
  * 대행 사이트 경고는 버튼 바로 위 Danger 배너(고지라 접지 않음).
+ * [step] = 2: 이 신청이 지나가는 입국 신고 양식 카드가 1단계로 위에 있다(팩 신청 단계 1번이 그 양식 제출) — 그 카드가 주 버튼이고
+ * 이 카드 버튼은 보조([primary] = false, 원칙 7 화면당 주 버튼 하나).
  */
 @Composable
-private fun VisaApplyCard(apply: VisaApply, sourceOf: SourceOf, onStart: () -> Unit) {
+private fun VisaApplyCard(apply: VisaApply, step: Int?, primary: Boolean, sourceOf: SourceOf, onStart: () -> Unit) {
     CardNewsCard(
         title = apply.nameKo,
         icon = Icons.Outlined.Approval,
         tone = BadgeTone.Success,
-        eyebrow = stringResource(R.string.country_visa_apply_label),
+        eyebrow = stepEyebrow(step, stringResource(R.string.country_visa_apply_label)),
         sources = listOf(sourceOf(apply.source, apply.lastVerified)),
     ) {
         IconBullet(stringResource(R.string.guide_form_fee, apply.feeKo), Icons.Outlined.Payments)
@@ -659,7 +764,12 @@ private fun VisaApplyCard(apply: VisaApply, sourceOf: SourceOf, onStart: () -> U
             NoticeBanner(warning, icon = Icons.Outlined.GppMaybe, tone = BannerTone.Danger)
         }
         IconBullet(stringResource(R.string.country_visa_apply_note), Icons.Outlined.TouchApp, tone = BadgeTone.Help)
-        PrimaryButton(stringResource(R.string.country_visa_apply_start), onClick = onStart, icon = Icons.Outlined.EditNote)
+        val label = stringResource(R.string.country_visa_apply_start)
+        if (primary) {
+            PrimaryButton(label, onClick = onStart, icon = Icons.Outlined.EditNote)
+        } else {
+            SecondaryButton(label, onClick = onStart, icon = Icons.Outlined.EditNote)
+        }
     }
 }
 
@@ -678,44 +788,59 @@ private fun FoldedSteps(steps: List<String>) {
 }
 
 /**
- * 온라인 입국 신고 카드: 무엇 → 앱이 해 주는 것 → 비용·내는 때(팩 원문 그대로, Payments/Schedule) → 입력 도와받기 → 출처.
- * [primary] = false: 같은 화면의 비자 온라인 신청 카드가 이 양식을 주 버튼으로 이미 연다 → 이 카드 버튼은 보조(원칙 7 화면당 주 버튼 하나)이고,
- * '앱이 칸을 채우고 제출은 직접' 본문은 그 카드 1단계·위 배너와 같은 말이라 되풀이하지 않는다(글 벽 줄이기).
+ * 온라인 입국 신고 카드: 무엇 → 앱이 해 주는 것 → 비용(짧은 값이면 `무료 입국 신고 비용` 정보 칩 — 비자 카드에서 옮겨 옴, 재검토 R12)
+ * → 내는 때(팩 원문 그대로) → 입력 도와받기(주 버튼) → 출처.
+ * 비용 칩 값은 팩 fee_ko의 짧은 값(shortValue)이고, 뒤에 이어지는 원문(`돈을 받는 사이트와 … 가짜예요`)은 글자 하나 빼지 않고 칩 아래 줄에 둔다.
+ * 짧은 값이 없으면(`공식 안내에 요금이 적혀 있지 않아요. …`) 예전처럼 `비용: …` 한 줄.
+ * [step] = 1: 비자 온라인 신청이 이 양식을 거친다(인도네시아) — eyebrow `1단계 · 온라인 입국 신고`.
  */
 @Composable
-private fun FormCard(form: FormInfo, autofill: Boolean, primary: Boolean, sourceOf: SourceOf, onStart: () -> Unit) {
+private fun FormCard(form: FormInfo, autofill: Boolean, step: Int?, sourceOf: SourceOf, onStart: () -> Unit) {
     CardNewsCard(
         title = form.nameKo,
         icon = Icons.Outlined.AssignmentInd,
-        eyebrow = stringResource(R.string.country_form_label),
-        body = if (primary) {
-            stringResource(if (autofill) R.string.country_form_autofill_body else R.string.country_form_manual_body)
-        } else {
-            null
-        },
+        eyebrow = stepEyebrow(step, stringResource(R.string.country_form_label)),
+        body = stringResource(if (autofill) R.string.country_form_autofill_body else R.string.country_form_manual_body),
         sources = listOf(sourceOf(form.source, form.lastVerified)),
     ) {
-        IconBullet(stringResource(R.string.guide_form_fee, form.feeKo), Icons.Outlined.Payments)
-        IconBullet(stringResource(R.string.guide_form_window, form.windowKo), Icons.Outlined.Schedule)
-        val label = stringResource(if (autofill) R.string.country_form_start else R.string.country_form_manual_start)
-        if (primary) {
-            PrimaryButton(label, onClick = onStart, icon = Icons.Outlined.EditNote)
+        val fee = shortValue(form.feeKo)
+        if (fee != null) {
+            InfoChip(stringResource(R.string.form_fee_chip_label), feeIcon(fee), value = fee, tone = feeTone(fee))
+            feeRest(form.feeKo, fee)?.let { IconBullet(it, Icons.Outlined.Payments) }
         } else {
-            SecondaryButton(label, onClick = onStart, icon = Icons.Outlined.EditNote)
+            IconBullet(stringResource(R.string.guide_form_fee, form.feeKo), Icons.Outlined.Payments)
         }
+        // `5월 / 2일~4일`처럼 날짜가 줄 사이에서 갈라지지 않게 `N월 N일`을 묶어 보인다(글자는 팩 원문 그대로)
+        IconBullet(stringResource(R.string.guide_form_window, glueMonthDay(form.windowKo)), Icons.Outlined.Schedule)
+        val label = stringResource(if (autofill) R.string.country_form_start else R.string.country_form_manual_start)
+        PrimaryButton(label, onClick = onStart, icon = Icons.Outlined.EditNote)
     }
+}
+
+/** `5월 4일`의 띄어쓰기를 NBSP로 — 보이는 자리에서만(달·날이 줄 사이에서 갈라지지 않게). 다른 글자는 그대로 */
+internal fun glueMonthDay(text: String): String = MonthDay.replace(text) { "${it.groupValues[1]}\u00A0${it.groupValues[2]}" }
+
+private val MonthDay = Regex("""(\d{1,2}월) (\d{1,2}일)""")
+
+/** 팩 비용 원문에서 짧은 값([short]) 뒤에 이어지는 나머지 문장 (`무료. 돈을 받는 …` → `돈을 받는 …`). 없으면 null */
+private fun feeRest(full: String, short: String): String? {
+    val t = full.trim()
+    if (!t.startsWith(short)) return null
+    return t.substring(short.length).trimStart('.', '·', ' ').trim().takeIf { it.isNotEmpty() }
 }
 
 /**
  * 팩 섹션 카드(들어갈 때·돈·안전): 아이콘 머리 + 문장 행 + 출처.
  * 문장 앞 기호는 문장 뜻을 앱이 추측해 고르지 않는다(D11): 모든 섹션이 뜻 없는 점 하나(DotBullet, 재검토 R8) —
- * `…입국이 거절될 수 있어요`·`3단계(출국권고)예요. 가지 마세요` 옆에 '좋음'으로 읽히는 체크나 대시를 두지 않는다.
+ * `…입국이 거절될 수 있어요` 옆에 '좋음'으로 읽히는 체크나 대시를 두지 않는다.
  * 60자를 넘는 문장은 첫 문장만 보이고 `… 자세히 보기`로 펼친다(원칙 6). 안전(여행경보)은 경고 뒷부분이 숨으면 안 되므로 접지 않는다.
+ * [exclude]: 맨 위 위험 배너(AdvisoryBanner)로 올린 문장 — 여기서는 되풀이하지 않는다.
  */
 @Composable
-private fun SectionCard(s: Section, sourceOf: SourceOf) {
+private fun SectionCard(s: Section, sourceOf: SourceOf, exclude: List<String> = emptyList()) {
     val safety = s.id == "safety"
-    val split = s.bodyKo.map { if (safety) it.trim() to null else foldSplit(it) }
+    val lines = s.bodyKo.filter { it !in exclude }
+    val split = lines.map { if (safety) it.trim() to null else foldSplit(it) }
     var open by rememberSaveable(s.id, s.bodyKo) { mutableStateOf(false) }
     CardNewsCard(
         title = s.titleKo,
@@ -724,7 +849,7 @@ private fun SectionCard(s: Section, sourceOf: SourceOf) {
         sources = listOf(sourceOf(s.source, s.lastVerified)),
     ) {
         Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
-            s.bodyKo.zip(split).forEach { (full, parts) ->
+            lines.zip(split).forEach { (full, parts) ->
                 val (first, rest) = parts
                 DotBullet(if (open || rest == null) full.trim() else first)
             }
@@ -732,6 +857,33 @@ private fun SectionCard(s: Section, sourceOf: SourceOf) {
         if (split.any { it.second != null }) {
             MoreToggle(open, { open = it }, stringResource(R.string.country_more_section, s.titleKo))
         }
+    }
+}
+
+// ======================= 05 여행경보 위험 배너 (재검토 R17) =======================
+
+/**
+ * 외교부 여행경보 중 '가지 말라'는 단계(3단계 출국권고·4단계 여행금지·특별여행주의보)를 말하는 팩 문장인지 —
+ * 문장 안의 단계 이름 그대로 찾는다(앱이 문장 뜻을 지어내지 않는다, D11). 1·2단계만 말하는 문장은 아니다.
+ */
+internal fun isHighAdvisory(sentence: String): Boolean = HighAdvisoryWords.any { it in sentence }
+
+private val HighAdvisoryWords = listOf("3단계", "4단계", "출국권고", "여행금지", "특별여행주의보", "가지 마세요")
+
+/**
+ * 여행 정보 맨 위 위험 배너: 안전 섹션 제목(팩) + 3단계 이상 문장(팩 원문 그대로, 줄마다 한 문장) + 그 출처.
+ * 누를 수 없는 Danger 띠(NoticeBanner) — 출처는 배너 바로 아래(정책 문장이 출처 없이 보이지 않게, 원칙 5).
+ */
+@Composable
+private fun AdvisoryBanner(safety: Section, sentences: List<String>, sourceOf: SourceOf) {
+    Column(verticalArrangement = Arrangement.spacedBy(LocalDimens.current.inner)) {
+        NoticeBanner(
+            sentences.joinToString("\n") { it.trim() },
+            icon = IconKeys.section(safety.id),
+            tone = BannerTone.Danger,
+            title = safety.titleKo,
+        )
+        Box(Modifier.padding(horizontal = 4.dp)) { SourceList(listOf(sourceOf(safety.source, safety.lastVerified))) }
     }
 }
 
