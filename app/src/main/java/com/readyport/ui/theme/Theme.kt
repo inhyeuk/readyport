@@ -18,6 +18,9 @@ import androidx.compose.ui.platform.ViewConfiguration
 import androidx.compose.ui.text.PlatformTextStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import com.readyport.R
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.style.LineBreak
 import androidx.compose.ui.text.style.LineHeightStyle
 import androidx.compose.ui.unit.Dp
@@ -165,6 +168,18 @@ object ReadyPortLineBreak {
 
 private val NoFontPadding = PlatformTextStyle(includeFontPadding = false)
 
+/**
+ * Pretendard Std 1.3.9 (SIL OFL 1.1, 배포 원본 OTF 그대로 번들 — D1 운영자 승인 2026-10-01).
+ * 한글 2,350자·라틴 포함. 없는 글자(태국어 등)는 시스템 글꼴로 자동 대체된다. 라이선스: assets/licenses/pretendard_std_OFL.txt
+ * 가변 글꼴은 굵기 조절이 렌더러(Robolectric 캡처 등)마다 달라 굵기별 정적 글꼴 4개를 쓴다.
+ */
+val Pretendard = FontFamily(
+    Font(R.font.pretendard_std_regular, FontWeight.Normal),
+    Font(R.font.pretendard_std_medium, FontWeight.Medium),
+    Font(R.font.pretendard_std_semibold, FontWeight.SemiBold),
+    Font(R.font.pretendard_std_bold, FontWeight.Bold),
+)
+
 private fun style(
     size: Int,
     line: Int,
@@ -174,6 +189,7 @@ private fun style(
 ) = TextStyle(
     fontSize = size.sp,
     lineHeight = line.sp,
+    fontFamily = Pretendard,
     fontWeight = weight,
     letterSpacing = spacing.sp,
     lineBreak = lineBreak,
@@ -246,6 +262,7 @@ private val LocalLineHeight = LineHeightStyle(alignment = LineHeightStyle.Alignm
 private fun statStyle(size: Int, line: Int) = TextStyle(
     fontSize = size.sp,
     lineHeight = line.sp,
+    fontFamily = Pretendard,
     fontWeight = FontWeight.Bold,
     fontFeatureSettings = "tnum",
     lineBreak = ReadyPortLineBreak.Heading,
