@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -20,11 +21,14 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.NavigateNext
 import androidx.compose.material.icons.automirrored.outlined.OpenInNew
 import androidx.compose.material.icons.outlined.Badge
+import androidx.compose.material.icons.outlined.BusinessCenter
 import androidx.compose.material.icons.outlined.Check
+import androidx.compose.material.icons.outlined.CorporateFare
 import androidx.compose.material.icons.outlined.Description
 import androidx.compose.material.icons.outlined.Edit
 import androidx.compose.material.icons.outlined.EditNote
 import androidx.compose.material.icons.outlined.ErrorOutline
+import androidx.compose.material.icons.outlined.Forum
 import androidx.compose.material.icons.outlined.PauseCircle
 import androidx.compose.material.icons.outlined.Policy
 import androidx.compose.material.icons.outlined.Schedule
@@ -34,6 +38,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
@@ -53,7 +58,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.layout
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.LiveRegionMode
@@ -63,6 +70,8 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.liveRegion
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.text
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
@@ -83,19 +92,17 @@ import com.readyport.ui.components.AppScreen
 import com.readyport.ui.components.BadgeTone
 import com.readyport.ui.components.BannerTone
 import com.readyport.ui.components.CardNewsCard
+import com.readyport.ui.components.ExpandableDetail
 import com.readyport.ui.components.IconBadge
 import com.readyport.ui.components.IconKeys
 import com.readyport.ui.components.KeyValueRow
 import com.readyport.ui.components.LockedState
-import com.readyport.ui.components.NoticeBanner
 import com.readyport.ui.components.PrimaryButton
 import com.readyport.ui.components.QuietButton
 import com.readyport.ui.components.SecondaryButton
 import com.readyport.ui.components.SectionHeader
-import com.readyport.ui.components.SecurityBanner
 import com.readyport.ui.components.SelectChip
 import com.readyport.ui.components.StatusKind
-import com.readyport.ui.components.StatusTag
 import com.readyport.ui.components.cardShadow
 import com.readyport.ui.components.minTouch
 import com.readyport.ui.components.rememberGridColumns
@@ -146,6 +153,10 @@ fun FormConfirmScreen(
  * ① 정부 비제휴(첫 정보 항목) ② 보안 한 줄 ③ 현지어 크게(토글) ④ 서류에서 가져온 값 — 출처별 그룹 카드(KeyValueRow)
  * ⑤ 직접 고를 칸 — 흰 바탕 + 주의 막대 한 장, 칸마다 lazy item(`field-<key>`)이라 빈칸으로 바로 갈 수 있다
  * ⑥ 원어민 검수 전 ⑦ 제출은 직접 ⑧ 남은 빈칸(누르면 그 칸으로) ⑨ 맞아요(빈칸이 있으면 비활성 — D9) ⑩ 고치기 ⑪ 수동 모드.
+ *
+ * 빈 필수 칸 표시(E 검토 반영 — 스펙 6-17 `isError = 필수이고 비었음`의 보완 제안):
+ * 처음 열었을 때는 '할 일'로 차분하게(주의 색 `꼭 채워요` 태그 + 보통 테두리) 보이고, 빈칸 태그·'첫 빈칸으로 가기'를 누르거나
+ * 칸을 한 번 거쳐 나가면 그때 오류(빨간 테두리·아이콘·태그)로 바뀐다 — 손대기 전부터 화면이 빨간 오류로 덮이지 않게.
  */
 @Composable
 fun FormConfirmContent(
@@ -160,13 +171,18 @@ fun FormConfirmContent(
     val recipe = ctx?.recipe
     var localLarge by rememberSaveable { mutableStateOf(false) }
     var editing by rememberSaveable { mutableStateOf(false) }
+    // 빈칸으로 가기를 눌렀는지 / 거쳐 나간 칸 — 이때부터 빈 필수 칸을 오류로 보인다
+    var attempted by rememberSaveable { mutableStateOf(false) }
+    var touched by rememberSaveable { mutableStateOf(listOf<String>()) }
     val formName = ctx?.form?.nameKo ?: ctx?.formId.orEmpty()
     val listState = rememberLazyListState()
     val keys = rememberKeyIndex()
     val scope = rememberCoroutineScope()
     val focus = remember { FieldFocus() }
+    val singleColumn = rememberGridColumns() == 1
     // 빈칸 태그·'첫 빈칸으로 가기': 그 칸으로 스크롤한 뒤 그려진 것을 확인하고 초점을 준다 (4.1)
     val goToField: (String) -> Unit = { key ->
+        attempted = true
         scope.launch {
             val itemKey = fieldItemKey(key)
             if (listState.scrollToKey(keys, itemKey)) {
@@ -177,35 +193,46 @@ fun FormConfirmContent(
             }
         }
     }
+    val onLeave: (String) -> Unit = { key -> if (key !in touched) touched = touched + key }
     val notAffiliated = stringResource(R.string.guide_not_affiliated)
     val submitSelf = stringResource(R.string.country_submit_self)
     val missingSentence = recipe?.let { r ->
         FormValues.missingRequired(r, ui.values).takeIf { it.isNotEmpty() }?.joinToString(", ") { it.labels.ko }
     }?.let { stringResource(R.string.form_need_required, it) }
+    val confirmYes = stringResource(R.string.form_confirm_yes)
+    val fixLabel = stringResource(if (editing) R.string.form_fix_done else R.string.form_confirm_fix)
+    val manualLabel = stringResource(R.string.form_manual_mode)
 
     AppScreen(
-        title = stringResource(R.string.form_confirm_title, formName),
-        subtitle = stringResource(R.string.form_confirm_body),
+        title = KoBreak.display(stringResource(R.string.form_confirm_title, formName)),
+        // 공용 머리(AppScreen)가 그리는 제목·부제는 보이는 글자만 줄바꿈 보정(API 33 미만)
+        subtitle = KoBreak.display(stringResource(R.string.form_confirm_body)),
         speech = stringResource(R.string.form_confirm_body),
         state = listState,
         keyIndex = keys,
     ) {
         // 정부 비제휴 + 제출은 직접 — 입국 화면의 첫 정보 항목 (원칙 5, 4.4)
         item(key = "not-affiliated") {
-            NoticeBanner(notAffiliated, icon = Icons.Outlined.Policy, secondLine = submitSelf, secondIcon = Icons.Outlined.TouchApp)
+            KoNotice(notAffiliated, Icons.Outlined.Policy, secondLine = submitSelf, secondIcon = Icons.Outlined.TouchApp)
         }
         // 보안 화면(SecureScreen): 비제휴 고지 바로 다음에 '이 휴대폰에만' 한 줄 (6장 공통 보안)
-        item(key = "security") { SecurityBanner(compact = true) }
+        item(key = "security") { CompactSecurityLine() }
         if (ctx == null) return@AppScreen
         if (!ctx.autofillAvailable) {
             item(key = "no-autofill") {
                 Column(verticalArrangement = Arrangement.spacedBy(LocalDimens.current.gap)) {
-                    NoticeBanner(
+                    KoNotice(
                         stringResource(if (ctx.killed) R.string.form_killed else R.string.form_no_recipe),
-                        icon = if (ctx.killed) Icons.Outlined.PauseCircle else Icons.Outlined.Schedule,
+                        if (ctx.killed) Icons.Outlined.PauseCircle else Icons.Outlined.Schedule,
                         tone = BannerTone.Caution,
                     )
-                    PrimaryButton(stringResource(R.string.form_manual_mode), onClick = onManual, icon = Icons.AutoMirrored.Outlined.OpenInNew)
+                    val shown = KoBreak.display(manualLabel)
+                    PrimaryButton(
+                        shown,
+                        onClick = onManual,
+                        icon = Icons.AutoMirrored.Outlined.OpenInNew,
+                        modifier = Modifier.koDescription(manualLabel, shown),
+                    )
                 }
             }
             if (recipe == null) return@AppScreen
@@ -214,9 +241,9 @@ fun FormConfirmContent(
             is WalletState.Unlocked -> if (w.contents.passport == null) {
                 item(key = "need-passport") {
                     CardNewsCard(
-                        title = stringResource(R.string.form_need_passport),
+                        title = KoBreak.display(stringResource(R.string.form_need_passport)),
                         icon = Icons.Outlined.Badge,
-                        body = stringResource(R.string.form_need_passport_body),
+                        body = KoBreak.display(stringResource(R.string.form_need_passport_body)),
                     ) {
                         PrimaryButton(stringResource(R.string.wallet_passport_add), onClick = onRegisterPassport)
                     }
@@ -254,6 +281,7 @@ fun FormConfirmContent(
         val individual = recipe.fields.filter { it.confirm == "individual" || ui.values[it.key]?.isEmpty != false }
         val missing = FormValues.missingRequired(recipe, ui.values)
         val missingKeys = missing.mapTo(HashSet()) { it.key }
+        val touchedKeys = touched.toHashSet()
 
         val groups = OriginOrder.mapNotNull { origin ->
             bulk.filter { groupOf(ui.values.getValue(it.key).origin) == origin }.takeIf { it.isNotEmpty() }?.let { origin to it }
@@ -272,12 +300,14 @@ fun FormConfirmContent(
         if (individual.isNotEmpty()) {
             sectionGap("gap-individual")
             item(key = "individual") {
-                CardSegment(SegmentPosition.Top) { IndividualHead(missing.size) }
+                CardSegment(SegmentPosition.Top) { IndividualHead(missing.size, attempted) }
             }
             individual.forEachIndexed { i, f ->
                 item(key = fieldItemKey(f.key)) {
+                    val required = f.key in missingKeys
+                    val state = FieldState(required = required, error = required && (attempted || f.key in touchedKeys))
                     CardSegment(if (i == individual.lastIndex) SegmentPosition.Bottom else SegmentPosition.Middle) {
-                        FieldInput(f, recipe, ui, localLarge, f.key in missingKeys, focus[f.key], onSetValue)
+                        FieldInput(f, recipe, ui, localLarge, state, focus[f.key], { onLeave(f.key) }, onSetValue)
                     }
                 }
             }
@@ -292,38 +322,48 @@ fun FormConfirmContent(
                         tint = Tokens.InkTertiary,
                         modifier = Modifier.padding(top = 1.dp).size(LocalDimens.current.iconSmall),
                     )
-                    Text(stringResource(R.string.form_labels_unreviewed), style = MaterialTheme.typography.bodySmall, color = Tokens.InkTertiary)
+                    KoText(stringResource(R.string.form_labels_unreviewed), MaterialTheme.typography.bodySmall, color = Tokens.InkTertiary)
                 }
             }
         }
         // ⑦ 보안 확인과 마지막 '제출'은 직접 — 버튼 바로 위 (누를 수 없는 흰 띠)
         item(key = "notice") {
-            NoticeBanner(stringResource(R.string.form_confirm_notice), icon = Icons.Outlined.TouchApp)
+            KoNotice(stringResource(R.string.form_confirm_notice), Icons.Outlined.TouchApp)
         }
         if (missing.isNotEmpty() && missingSentence != null) {
-            item(key = "missing") { MissingPanel(missing, missingSentence, goToField) }
+            item(key = "missing") { MissingPanel(missing, missingSentence, attempted, singleColumn, goToField) }
         }
         item(key = "actions") {
             Column(verticalArrangement = Arrangement.spacedBy(LocalDimens.current.gap)) {
                 if (ui.saveFailed) {
-                    NoticeBanner(stringResource(R.string.form_save_failed), icon = Icons.Outlined.ErrorOutline, tone = BannerTone.Danger)
+                    KoNotice(stringResource(R.string.form_save_failed), Icons.Outlined.ErrorOutline, tone = BannerTone.Danger)
                 }
                 if (ctx.autofillAvailable) {
+                    val shown = KoBreak.display(confirmYes)
                     PrimaryButton(
-                        stringResource(R.string.form_confirm_yes),
+                        shown,
                         onClick = onConfirm,
                         enabled = missing.isEmpty(),
                         icon = Icons.Outlined.EditNote,
+                        modifier = Modifier.koDescription(confirmYes, shown),
                     )
                 }
+                val fixShown = KoBreak.display(fixLabel)
                 SecondaryButton(
-                    stringResource(if (editing) R.string.form_fix_done else R.string.form_confirm_fix),
+                    fixShown,
                     onClick = { editing = !editing },
                     icon = if (editing) Icons.Outlined.Check else Icons.Outlined.Edit,
+                    modifier = Modifier.koDescription(fixLabel, fixShown),
                 )
                 // 자동 입력을 쉴 때는 위 안내 카드의 주 버튼이 수동 모드다
                 if (ctx.autofillAvailable) {
-                    QuietButton(stringResource(R.string.form_manual_mode), onClick = onManual, icon = Icons.AutoMirrored.Outlined.OpenInNew)
+                    val manualShown = KoBreak.display(manualLabel)
+                    QuietButton(
+                        manualShown,
+                        onClick = onManual,
+                        icon = Icons.AutoMirrored.Outlined.OpenInNew,
+                        modifier = Modifier.koDescription(manualLabel, manualShown),
+                    )
                 }
             }
         }
@@ -337,6 +377,12 @@ private class FieldFocus {
     private val map = HashMap<String, FocusRequester>()
     operator fun get(key: String): FocusRequester = map.getOrPut(key) { FocusRequester() }
 }
+
+/** 칸 상태: [required] = 필수인데 비었음, [error] = 그 빈칸을 오류로 보일 때(빈칸으로 가기를 눌렀거나 칸을 거쳐 나감) */
+private data class FieldState(val required: Boolean, val error: Boolean)
+
+/** 빈 필수 칸 표시 종류: 손대기 전에는 할 일(주의), 그 뒤에는 오류(위험) */
+private fun requiredKind(error: Boolean): StatusKind = if (error) StatusKind.Required else StatusKind.Caution
 
 // ---------------- ④ 서류에서 가져온 값: 출처별 그룹 ----------------
 
@@ -352,9 +398,12 @@ private fun originLabel(origin: ValueOrigin): Int = when (origin) {
     ValueOrigin.User, ValueOrigin.None -> R.string.form_origin_user
 }
 
-/** 여권 = 보안(Navy 배지), 항공권 = 이동(Violet), 숙소 = 일반 안내(Accent), 직접 입력 = 기타(Neutral) */
+/**
+ * 그룹 배지는 모두 연한 톤 — 누를 수 없는 머리라 화면에서 가장 무거운 요소가 되지 않게(Navy는 보안 띠에만).
+ * 여권 = Teal, 항공권 = 이동(Violet), 숙소 = 일반 안내(Accent), 직접 입력 = 기타(Neutral)
+ */
 private fun originTone(origin: ValueOrigin): BadgeTone = when (origin) {
-    ValueOrigin.Passport -> BadgeTone.Navy
+    ValueOrigin.Passport -> BadgeTone.Teal
     ValueOrigin.Flight -> BadgeTone.Violet
     ValueOrigin.Lodging -> BadgeTone.Accent
     ValueOrigin.User, ValueOrigin.None -> BadgeTone.Neutral
@@ -386,31 +435,46 @@ private fun OriginGroupCard(
             ) {
                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                     IconBadge(IconKeys.formOrigin(origin), tone = originTone(origin))
+                    // 그룹 머리는 아래 값(titleMedium Bold)보다 한 단계 위 — titleLarge
                     Text(
                         stringResource(originLabel(origin)),
-                        style = MaterialTheme.typography.titleMedium,
+                        style = MaterialTheme.typography.titleLarge,
                         color = Tokens.Ink,
                         modifier = Modifier.semantics { heading() },
                     )
                 }
-                StatusTag(
-                    stringResource(R.string.form_group_count, fields.size),
-                    StatusKind.Info,
-                    modifier = Modifier.align(Alignment.CenterVertically),
-                )
+                CountPill(stringResource(R.string.form_group_count, fields.size), Modifier.align(Alignment.CenterVertically))
             }
             fields.forEach { f ->
                 HorizontalDivider(thickness = 1.dp, color = Tokens.LineSoft)
                 val v = ui.values.getValue(f.key)
                 if (editing && v.origin != ValueOrigin.None) {
                     Box(Modifier.padding(vertical = 8.dp)) {
-                        FieldTextField(f, ui.draft[f.key] ?: v.display.orEmpty(), localLarge, isError = false, focusRequester = null, onSetValue = onSetValue)
+                        FieldTextField(
+                            f, ui.draft[f.key] ?: v.display.orEmpty(), localLarge, FieldState(required = false, error = false),
+                            focusRequester = null, onLeave = {}, onSetValue = onSetValue,
+                        )
                     }
                 } else {
                     ValueRow(f, v, localLarge)
                 }
             }
         }
+    }
+}
+
+/** 칸 개수(`6칸`): 상태가 아니라 셈이라 아이콘 없는 중립 태그 */
+@Composable
+private fun CountPill(text: String, modifier: Modifier = Modifier) {
+    Box(
+        modifier
+            .heightIn(min = 28.dp)
+            .clip(MaterialTheme.shapes.extraSmall)
+            .background(Tokens.SurfaceSunken)
+            .padding(horizontal = 10.dp, vertical = 4.dp),
+        contentAlignment = Alignment.Center,
+    ) {
+        Text(text, style = MaterialTheme.typography.labelMedium, color = Tokens.InkSecondary)
     }
 }
 
@@ -484,26 +548,32 @@ private fun Modifier.overlapNextGap(gap: Dp): Modifier = layout { measurable, co
     layout(placeable.width, placeable.height - overlap) { placeable.placeRelative(0, 0) }
 }
 
+/** 직접 고를 칸 머리: 배지 + `직접 골라 주세요` + 남은 빈칸 태그. 큰 글자는 배지를 위로 올려 제목·태그에 폭 전체를 준다 */
 @Composable
-private fun IndividualHead(missingCount: Int) {
-    Row(verticalAlignment = Alignment.Top, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-        IconBadge(Icons.Outlined.EditNote, tone = BadgeTone.Caution)
-        Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(4.dp)) {
-            Text(
-                stringResource(R.string.form_choose_yourself),
-                style = MaterialTheme.typography.titleLarge,
-                color = Tokens.Ink,
-                modifier = Modifier.semantics { heading() },
-            )
-            Box(Modifier.padding(top = 2.dp)) {
+private fun IndividualHead(missingCount: Int, attempted: Boolean) {
+    BadgeTitleLayout(
+        badge = { IconBadge(Icons.Outlined.EditNote, tone = BadgeTone.Caution) },
+        below = {
+            Box(Modifier.padding(top = 4.dp)) {
                 if (missingCount > 0) {
-                    StatusTag(stringResource(R.string.form_missing_count, missingCount), StatusKind.Required)
+                    KoStatusTag(stringResource(R.string.form_missing_count, missingCount), requiredKind(attempted))
                 } else {
-                    StatusTag(stringResource(R.string.form_all_filled), StatusKind.Allowed)
+                    KoStatusTag(stringResource(R.string.form_all_filled), StatusKind.Allowed)
                 }
             }
-        }
-    }
+        },
+        stack = largeFont(),
+        gap = 12.dp,
+        title = {
+            KoText(
+                stringResource(R.string.form_choose_yourself),
+                MaterialTheme.typography.titleLarge,
+                color = Tokens.Ink,
+                glueShort = true,
+                heading = true,
+            )
+        },
+    )
 }
 
 @Composable
@@ -512,49 +582,64 @@ private fun FieldInput(
     recipe: Recipe,
     ui: ConfirmUi,
     localLarge: Boolean,
-    missing: Boolean,
+    state: FieldState,
     focusRequester: FocusRequester,
+    onLeave: () -> Unit,
     onSetValue: (String, String) -> Unit,
 ) {
     val options = f.optionsRef?.let { recipe.options[it] }
     if (options != null) {
-        ChoiceField(f, options, ui.draft[f.key], localLarge, missing, focusRequester) { onSetValue(f.key, it) }
+        ChoiceField(f, options, ui.draft[f.key], localLarge, state, focusRequester) { onSetValue(f.key, it) }
     } else {
-        FieldTextField(f, ui.draft[f.key].orEmpty(), localLarge, isError = missing, focusRequester = focusRequester, onSetValue = onSetValue)
+        FieldTextField(f, ui.draft[f.key].orEmpty(), localLarge, state, focusRequester, onLeave, onSetValue)
     }
 }
 
 /**
  * 직접 적는 칸: 이름은 입력칸 label(TalkBack 이름), 도움말·영어·현지어 라벨은 supportingText(6-17).
- * '현지어 크게'를 켜면 supportingText가 커진다. 필수인데 비었으면 테두리·아이콘만 빨강(도움말 글자는 읽기 쉬운 색 그대로).
+ * 필수인데 비었으면 supportingText 앞에 `꼭 채워요` 태그 — 손대기 전에는 주의 색, 빈칸으로 가기를 눌렀거나 칸을 거쳐 나간 뒤에는
+ * 오류(빨간 테두리·아이콘·태그). '현지어 크게'를 켜면 supportingText가 커진다.
+ * 도움말 조각은 ` · `로 잇되 구분점이 줄 맨 앞에 오지 않게 앞 낱말에 붙여 보인다(TalkBack은 원문).
  */
 @Composable
 private fun FieldTextField(
     f: RecipeField,
     value: String,
     localLarge: Boolean,
-    isError: Boolean,
+    state: FieldState,
     focusRequester: FocusRequester?,
+    onLeave: () -> Unit,
     onSetValue: (String, String) -> Unit,
 ) {
-    val support = listOfNotNull(f.hintKo, f.labels.en, f.labels.local).joinToString(" · ")
+    val parts = listOfNotNull(f.hintKo, f.labels.en, f.labels.local)
+    val support = parts.joinToString(" · ")
+    val supportShown = KoBreak.display(parts.joinToString("${KoBreak.NBSP}· "))
     val requiredLabel = stringResource(R.string.form_field_required)
+    var hadFocus by remember { mutableStateOf(false) }
     OutlinedTextField(
         value = value,
         onValueChange = { onSetValue(f.key, it) },
         singleLine = true,
-        label = { Text(f.labels.ko) },
-        supportingText = support.takeIf { it.isNotEmpty() }?.let {
+        label = { KoText(f.labels.ko, LocalTextStyle.current) },
+        supportingText = if (support.isNotEmpty() || state.required) {
             {
-                Text(
-                    it,
-                    style = if (localLarge) MaterialTheme.typography.headlineMedium else MaterialTheme.typography.bodySmall,
-                )
+                Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                    if (state.required) KoStatusTag(requiredLabel, requiredKind(state.error))
+                    if (support.isNotEmpty()) {
+                        KoText(
+                            support,
+                            if (localLarge) MaterialTheme.typography.headlineMedium else MaterialTheme.typography.bodySmall,
+                            display = supportShown,
+                        )
+                    }
+                }
             }
+        } else {
+            null
         },
-        isError = isError,
-        trailingIcon = if (isError) {
-            { Icon(Icons.Outlined.ErrorOutline, contentDescription = requiredLabel) }
+        isError = state.error,
+        trailingIcon = if (state.error) {
+            { Icon(Icons.Outlined.ErrorOutline, contentDescription = null) }
         } else {
             null
         },
@@ -579,8 +664,28 @@ private fun FieldTextField(
         ),
         modifier = Modifier
             .fillMaxWidth()
-            .then(if (focusRequester != null) Modifier.focusRequester(focusRequester) else Modifier),
+            .then(if (focusRequester != null) Modifier.focusRequester(focusRequester) else Modifier)
+            .onFocusChanged {
+                // 칸을 한 번 거쳐 나가면(초점을 얻었다 잃음) 그 칸의 빈칸을 오류로 보인다
+                if (it.isFocused) {
+                    hadFocus = true
+                } else if (hadFocus) {
+                    hadFocus = false
+                    onLeave()
+                }
+            },
     )
+}
+
+/**
+ * 라디오 행 아이콘 (5.7 IconKeys.option). 선 아이콘 목록 안에서 채운 모양으로 보이던 Work·Groups·Apartment만
+ * 선 모양 아이콘(BusinessCenter·Forum·CorporateFare)으로 바꿔 굵기를 맞춘다.
+ */
+private fun optionIcon(value: String): ImageVector? = when (value) {
+    "business" -> Icons.Outlined.BusinessCenter
+    "meeting" -> Icons.Outlined.Forum
+    "apartment" -> Icons.Outlined.CorporateFare
+    else -> IconKeys.option(value)
 }
 
 /** 고르는 칸(여행 목적·숙소 종류): 폭 전체 라디오 행. 그룹은 selectableGroup, 행은 Role.RadioButton, RadioButton 콜백은 null */
@@ -590,17 +695,19 @@ private fun ChoiceField(
     options: List<RecipeOption>,
     selected: String?,
     localLarge: Boolean,
-    missing: Boolean,
+    state: FieldState,
     focusRequester: FocusRequester,
     onSelect: (String) -> Unit,
 ) {
     val dimens = LocalDimens.current
+    // 1열(쉬운 모드·큰 글자)은 현지어를 다음 줄로 — `ท่อง/เที่ยว`처럼 현지어 낱말 안에서 꺾이지 않게
+    val localOwnLine = rememberGridColumns() == 1
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
         Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
             FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                Text(f.labels.ko, style = MaterialTheme.typography.titleMedium, color = Tokens.Ink, modifier = Modifier.align(Alignment.CenterVertically))
-                if (missing) {
-                    StatusTag(stringResource(R.string.form_field_required), StatusKind.Required, Modifier.align(Alignment.CenterVertically))
+                KoText(f.labels.ko, MaterialTheme.typography.titleMedium, Modifier.align(Alignment.CenterVertically), color = Tokens.Ink)
+                if (state.required) {
+                    KoStatusTag(stringResource(R.string.form_field_required), requiredKind(state.error), Modifier.align(Alignment.CenterVertically))
                 }
             }
             f.otherLabels()?.let {
@@ -629,10 +736,10 @@ private fun ChoiceField(
                     horizontalArrangement = Arrangement.spacedBy(12.dp),
                 ) {
                     // 매핑 없는 값은 아이콘 없음 (옆 RadioButton과 원이 둘로 보이지 않게, 5.7)
-                    IconKeys.option(o.value)?.let {
+                    optionIcon(o.value)?.let {
                         Icon(it, contentDescription = null, tint = if (sel) Tokens.Accent else Tokens.InkSecondary, modifier = Modifier.size(dimens.icon))
                     }
-                    Text(optionText(o, localLarge), style = MaterialTheme.typography.bodyLarge, color = Tokens.Ink, modifier = Modifier.weight(1f))
+                    OptionText(o, localLarge, localOwnLine, Modifier.weight(1f))
                     RadioButton(
                         selected = sel,
                         onClick = null,
@@ -644,29 +751,47 @@ private fun ChoiceField(
     }
 }
 
-/** "관광 · Tourism · ท่องเที่ยว" 한 덩어리 그대로. '현지어 크게'면 현지어 부분만 크게 (글자는 같아 한 Text로 읽힌다) */
+/**
+ * "관광 · Tourism · ท่องเที่ยว" 한 덩어리 그대로(한 Text 노드로 읽힘, 누르면 선택 — 테스트가 찾는 글자).
+ * '현지어 크게'면 현지어 부분만 크게. [ownLine]이면 현지어를 다음 줄에 보인다(TalkBack은 원래 한 줄 문장).
+ */
 @Composable
-private fun optionText(o: RecipeOption, localLarge: Boolean) = buildAnnotatedString {
+private fun OptionText(o: RecipeOption, localLarge: Boolean, ownLine: Boolean, modifier: Modifier = Modifier) {
     val head = listOfNotNull(o.ko, o.en).joinToString(" · ")
-    append(head)
-    if (o.local != null) {
-        append(" · ")
-        if (localLarge) {
-            withStyle(SpanStyle(fontSize = MaterialTheme.typography.headlineMedium.fontSize, fontWeight = FontWeight.SemiBold)) { append(o.local) }
-        } else {
-            append(o.local)
+    val original = if (o.local != null) "$head · ${o.local}" else head
+    val shownHead = KoBreak.display(head)
+    val split = ownLine && o.local != null
+    val shown = buildAnnotatedString {
+        append(shownHead)
+        if (o.local != null) {
+            append(if (split) "\n" else " · ")
+            if (localLarge) {
+                withStyle(SpanStyle(fontSize = MaterialTheme.typography.headlineMedium.fontSize, fontWeight = FontWeight.SemiBold)) { append(o.local) }
+            } else {
+                append(o.local)
+            }
         }
     }
+    Text(
+        shown,
+        style = MaterialTheme.typography.bodyLarge,
+        color = Tokens.Ink,
+        modifier = modifier.then(if (shown.text == original) Modifier else Modifier.clearAndSetSemantics { text = AnnotatedString(original) }),
+    )
 }
 
 // ---------------- ⑧ 남은 빈칸 ----------------
 
+/** 1열에서 바로 보이는 빈칸 줄 수 — 나머지는 '나머지 빈칸 N개 보기' 안 */
+private const val MISSING_LIST_CAP = 4
+
 /**
- * 남은 빈칸: 개수 태그 + 칸 이름 태그(누르면 그 칸으로) + '첫 빈칸으로 가기'.
+ * 남은 빈칸: 개수 태그 + 칸 이름(누르면 그 칸으로) + '첫 빈칸으로 가기'.
+ * 넓은 화면은 칸 이름 태그(FlowRow), 1열(쉬운 모드·큰 글자)은 폭 전체 목록(앞 4개 + 나머지 펼침) — 어느 칸이 비었는지 늘 보인다(⑧).
  * TalkBack에는 `빈칸을 채워 주세요: …` 문장을 liveRegion(Polite)으로 — 빈칸 목록이 바뀔 때만 다시 알린다.
  */
 @Composable
-private fun MissingPanel(missing: List<RecipeField>, sentence: String, onGo: (String) -> Unit) {
+private fun MissingPanel(missing: List<RecipeField>, sentence: String, attempted: Boolean, singleColumn: Boolean, onGo: (String) -> Unit) {
     val dimens = LocalDimens.current
     Column(
         Modifier
@@ -683,26 +808,51 @@ private fun MissingPanel(missing: List<RecipeField>, sentence: String, onGo: (St
                 liveRegion = LiveRegionMode.Polite
             },
         ) {
-            StatusTag(stringResource(R.string.form_missing_count, missing.size), StatusKind.Required)
+            StatusTagShown(stringResource(R.string.form_missing_count, missing.size), requiredKind(attempted))
         }
-        // 칸 이름 태그는 넓은 화면에서만. 쉬운 모드·큰 글자(1열)는 태그가 한 줄에 하나씩 쌓여 버튼을 밀어내므로
-        // 개수 + '첫 빈칸으로 가기' 하나로 (한 화면 할 일 하나, PRD 3.2). 칸마다 '꼭 채워요' 표시는 카드에 그대로 있다
-        if (rememberGridColumns() == 2) {
+        if (singleColumn) {
+            Column {
+                missing.take(MISSING_LIST_CAP).forEachIndexed { i, f ->
+                    if (i > 0) HorizontalDivider(thickness = 1.dp, color = Tokens.LineSoft)
+                    MissingFieldRow(f.labels.ko, attempted) { onGo(f.key) }
+                }
+                val rest = missing.drop(MISSING_LIST_CAP)
+                if (rest.isNotEmpty()) {
+                    ExpandableDetail(label = stringResource(R.string.form_missing_more, rest.size)) {
+                        Column {
+                            rest.forEachIndexed { i, f ->
+                                if (i > 0) HorizontalDivider(thickness = 1.dp, color = Tokens.LineSoft)
+                                MissingFieldRow(f.labels.ko, attempted) { onGo(f.key) }
+                            }
+                        }
+                    }
+                }
+            }
+        } else {
             FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                missing.forEach { f -> MissingFieldChip(f.labels.ko) { onGo(f.key) } }
+                missing.forEach { f -> MissingFieldChip(f.labels.ko, attempted) { onGo(f.key) } }
             }
         }
+        val goFirst = stringResource(R.string.form_go_first_missing)
+        val goFirstShown = KoBreak.display(goFirst)
         SecondaryButton(
-            stringResource(R.string.form_go_first_missing),
+            goFirstShown,
             onClick = { onGo(missing.first().key) },
             icon = Icons.AutoMirrored.Outlined.NavigateNext,
+            modifier = Modifier.koDescription(goFirst, goFirstShown),
         )
     }
 }
 
+/** 개수 태그 — 부모(liveRegion 문장)가 글자를 덮으므로 보이는 글자만 보정한다 */
+@Composable
+private fun StatusTagShown(text: String, kind: StatusKind) {
+    com.readyport.ui.components.StatusTag(KoBreak.display(text), kind)
+}
+
 /** 누를 수 있는 빈칸 이름 태그 (StatusTag는 누를 수 없으므로 쓰지 않는다): minTouch, Role.Button, `직업 (영문) 칸으로 가기` */
 @Composable
-private fun MissingFieldChip(label: String, onClick: () -> Unit) {
+private fun MissingFieldChip(label: String, attempted: Boolean, onClick: () -> Unit) {
     val shape = MaterialTheme.shapes.small
     val goLabel = stringResource(R.string.form_go_field_cd, label)
     Row(
@@ -716,7 +866,38 @@ private fun MissingFieldChip(label: String, onClick: () -> Unit) {
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(6.dp),
     ) {
-        Icon(Icons.Outlined.ErrorOutline, contentDescription = null, tint = Tokens.DangerText, modifier = Modifier.size(LocalDimens.current.iconSmall))
-        Text(label, style = MaterialTheme.typography.labelLarge, color = Tokens.Ink)
+        Icon(
+            Icons.Outlined.ErrorOutline,
+            contentDescription = null,
+            tint = if (attempted) Tokens.DangerText else Tokens.CautionText,
+            modifier = Modifier.size(LocalDimens.current.iconSmall),
+        )
+        KoText(label, MaterialTheme.typography.labelLarge, color = Tokens.Ink)
+    }
+}
+
+/** 1열 빈칸 목록 한 줄: 폭 전체, minTouch, Role.Button, `직업 (영문) 칸으로 가기` — 칸 이름 + 오른쪽 셰브론 */
+@Composable
+private fun MissingFieldRow(label: String, attempted: Boolean, onClick: () -> Unit) {
+    val dimens = LocalDimens.current
+    val goLabel = stringResource(R.string.form_go_field_cd, label)
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .minTouch()
+            .clip(MaterialTheme.shapes.small)
+            .clickable(role = Role.Button, onClickLabel = goLabel, onClick = onClick)
+            .padding(horizontal = 4.dp, vertical = 8.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(12.dp),
+    ) {
+        Icon(
+            Icons.Outlined.ErrorOutline,
+            contentDescription = null,
+            tint = if (attempted) Tokens.DangerText else Tokens.CautionText,
+            modifier = Modifier.size(dimens.iconSmall),
+        )
+        KoText(label, MaterialTheme.typography.labelLarge, Modifier.weight(1f), color = Tokens.Ink)
+        Icon(Icons.AutoMirrored.Outlined.NavigateNext, contentDescription = null, tint = Tokens.Accent, modifier = Modifier.size(dimens.icon))
     }
 }

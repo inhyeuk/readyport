@@ -2,8 +2,10 @@ package com.readyport.ui.settings
 
 import android.content.Context
 import android.content.Intent
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -14,12 +16,18 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.selection.toggleable
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowForward
+import androidx.compose.material.icons.automirrored.outlined.NavigateNext
+import androidx.compose.material.icons.automirrored.outlined.OpenInNew
 import androidx.compose.material.icons.outlined.Badge
 import androidx.compose.material.icons.outlined.ChildCare
+import androidx.compose.material.icons.outlined.ExpandLess
+import androidx.compose.material.icons.outlined.ExpandMore
 import androidx.compose.material.icons.outlined.FamilyRestroom
 import androidx.compose.material.icons.outlined.Info
+import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material.icons.outlined.PhotoLibrary
 import androidx.compose.material.icons.outlined.Policy
 import androidx.compose.material.icons.outlined.PrivacyTip
@@ -35,15 +43,22 @@ import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.clearAndSetSemantics
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -51,30 +66,35 @@ import androidx.core.net.toUri
 import com.readyport.BuildConfig
 import com.readyport.R
 import com.readyport.ui.components.AppScreen
-import com.readyport.ui.components.ExpandableDetail
+import com.readyport.ui.components.BadgeTone
 import com.readyport.ui.components.IconBadge
 import com.readyport.ui.components.LinkRow
 import com.readyport.ui.components.ListDivider
 import com.readyport.ui.components.ListGroup
-import com.readyport.ui.components.ListRow
 import com.readyport.ui.components.PhotoCredit
 import com.readyport.ui.components.Photos
 import com.readyport.ui.components.RowTrailing
 import com.readyport.ui.components.SectionHeader
-import com.readyport.ui.components.SecurityBanner
 import com.readyport.ui.components.StatusKind
-import com.readyport.ui.components.StatusTag
 import com.readyport.ui.components.appSwitchColors
 import com.readyport.ui.components.cardShadow
 import com.readyport.ui.components.loadPhotoCredits
+import com.readyport.ui.components.minTouch
 import com.readyport.ui.components.rememberThumbnail
 import com.readyport.ui.components.sectionGap
+import com.readyport.ui.form.BadgeTitleLayout
+import com.readyport.ui.form.KoBreak
+import com.readyport.ui.form.KoStatusTag
+import com.readyport.ui.form.KoText
+import com.readyport.ui.form.hugeFont
+import com.readyport.ui.form.largeFont
 import com.readyport.ui.theme.LocalDimens
 import com.readyport.ui.theme.Tokens
 
 /**
- * 22 설정 (DESIGN_SPEC 6-22): 맨 위 '내 정보는 이 휴대폰에만'(SecurityBanner) → 묶음 4개(내 정보 · 화면·사용 · 데이터 · 안내·출처).
- * 행은 ListRow(아이콘 배지 + 제목·설명 + 끝 요소) — 글자와 스위치 사이 16dp. 켬·끔은 줄 전체가 Role.Switch.
+ * 22 설정 (DESIGN_SPEC 6-22): 맨 위 '내 정보는 이 휴대폰에만'(SecurityBanner 모양) → 묶음 4개(내 정보 · 화면·사용 · 데이터 · 안내·출처).
+ * 행은 배지 + 제목·설명 + 끝 요소 — 설명은 끝 요소(스위치·셰브론) 아래까지 넓어지고, 글자를 크게 키우면 제목·설명이 폭 전체를 쓴다.
+ * 켬·끔은 줄 전체가 Role.Switch.
  */
 @Composable
 fun SettingsScreen(
@@ -91,23 +111,25 @@ fun SettingsScreen(
 ) {
     val context = LocalContext.current
     val openPrivacy = onOpenPrivacy ?: { url: String -> runCatching { context.startActivity(Intent(Intent.ACTION_VIEW, url.toUri())) } }
+    val large = largeFont()
+    val linkStart = if (large) 12.dp else rowTextStart() - 4.dp
     AppScreen(
         title = stringResource(R.string.settings_title),
         speech = stringResource(R.string.settings_speech),
     ) {
         // 개인정보가 기기 밖으로 나가지 않는다는 약속을 설정 맨 위에 항상 보여 준다
-        item(key = "local-only") { SecurityBanner() }
+        item(key = "local-only") { LocalOnlyCard() }
         // '여권·예약 서류 관리'는 배너 바로 아래 첫 행 (320×470에서도 스크롤 없이 누를 수 있게)
         item(key = "group-myinfo") {
             ListGroup(stringResource(R.string.settings_group_myinfo)) {
-                ListRow(
+                SettingRow(
                     stringResource(R.string.settings_myinfo_open),
                     icon = Icons.Outlined.Badge,
                     body = stringResource(R.string.settings_myinfo_body),
                     onClick = onOpenMyInfo,
                 )
-                ListDivider()
-                ListRow(
+                ListDivider(indent = !large)
+                SettingRow(
                     stringResource(R.string.wallet_companions_title),
                     icon = Icons.Outlined.FamilyRestroom,
                     body = stringResource(R.string.settings_family_mode_desc),
@@ -118,9 +140,15 @@ fun SettingsScreen(
         sectionGap("gap-display")
         item(key = "group-display") {
             ListGroup(stringResource(R.string.settings_group_display)) {
-                EasyModeRow(easyMode, onEasyModeChange)
-                ListDivider()
-                ListRow(
+                SettingRow(
+                    stringResource(R.string.settings_easy_mode),
+                    icon = Icons.Outlined.TextIncrease,
+                    body = stringResource(R.string.settings_easy_mode_desc),
+                    trailing = RowTrailing.Switch(easyMode, onEasyModeChange),
+                    easyPreview = true,
+                )
+                ListDivider(indent = !large)
+                SettingRow(
                     stringResource(R.string.settings_child_mode),
                     icon = Icons.Outlined.ChildCare,
                     body = stringResource(R.string.settings_child_mode_desc),
@@ -131,7 +159,7 @@ fun SettingsScreen(
         sectionGap("gap-data")
         item(key = "group-data") {
             ListGroup(stringResource(R.string.settings_group_data)) {
-                ListRow(
+                SettingRow(
                     stringResource(R.string.explore_wifi_only),
                     icon = Icons.Outlined.Wifi,
                     body = stringResource(R.string.explore_wifi_only_desc),
@@ -142,7 +170,7 @@ fun SettingsScreen(
         sectionGap("gap-about")
         item(key = "group-about") {
             ListGroup(stringResource(R.string.settings_group_about)) {
-                ListRow(
+                SettingRow(
                     stringResource(R.string.settings_privacy),
                     icon = Icons.Outlined.PrivacyTip,
                     body = stringResource(R.string.settings_privacy_body),
@@ -152,24 +180,24 @@ fun SettingsScreen(
                 LinkRow(
                     stringResource(R.string.settings_privacy_open),
                     onClick = { openPrivacy(PRIVACY_URL) },
-                    modifier = Modifier.padding(start = rowTextStart() - 4.dp, end = 12.dp, bottom = 8.dp),
+                    modifier = Modifier.padding(start = linkStart, end = 12.dp, bottom = 8.dp),
                 )
-                ListDivider()
-                ListRow(
+                ListDivider(indent = !large)
+                SettingRow(
                     stringResource(R.string.settings_disclaimer),
                     icon = Icons.Outlined.Policy,
                     body = stringResource(R.string.settings_disclaimer_body),
                     trailing = RowTrailing.None,
                 )
-                ListDivider()
-                ListRow(
+                ListDivider(indent = !large)
+                SettingRow(
                     stringResource(R.string.settings_credits),
                     icon = Icons.Outlined.PhotoLibrary,
                     body = stringResource(R.string.settings_credits_body),
                     onClick = onOpenPhotos,
                 )
-                ListDivider()
-                ListRow(
+                ListDivider(indent = !large)
+                SettingRow(
                     stringResource(R.string.settings_about),
                     icon = Icons.Outlined.Info,
                     body = stringResource(R.string.settings_version, BuildConfig.VERSION_NAME),
@@ -180,53 +208,119 @@ fun SettingsScreen(
     }
 }
 
-/** ListRow 글자가 시작하는 자리 = 행 padding 16 + 배지 + 간격 16 */
+/** 행 글자가 시작하는 자리 = 행 padding 16 + 배지 + 간격 16 */
 @Composable
 private fun rowTextStart(): Dp = 16.dp + LocalDimens.current.iconBadge + 16.dp
+
+/**
+ * "내 정보는 이 휴대폰에만 저장돼요" — components.SecurityBanner(전체형)와 같은 모양(Navy, 원형 Lock 배지, 제목·본문).
+ * 이 화면에서는 제목 줄바꿈을 보정해 그린다: `이`가 줄 끝에 홀로 남지 않게 하고(`이 휴대폰`을 묶음),
+ * 글자를 크게 키우면 배지를 제목 위로 올려 제목에 폭 전체를 준다. (2단계에서 SecurityBanner에 합칠 후보)
+ */
+@Composable
+private fun LocalOnlyCard() {
+    val dimens = LocalDimens.current
+    Surface(color = Tokens.Navy, contentColor = Tokens.Surface, shape = MaterialTheme.shapes.large, modifier = Modifier.fillMaxWidth()) {
+        Column(Modifier.padding(dimens.cardPadding), verticalArrangement = Arrangement.spacedBy(dimens.inner)) {
+            BadgeTitleLayout(
+                badge = { IconBadge(Icons.Outlined.Lock, tone = BadgeTone.OnDark, shape = CircleShape) },
+                stack = largeFont(),
+                gap = 12.dp,
+                title = {
+                    KoText(
+                        stringResource(R.string.settings_local_only_title),
+                        MaterialTheme.typography.titleLarge,
+                        color = Tokens.Surface,
+                        glueShort = true,
+                    )
+                },
+            )
+            KoText(stringResource(R.string.settings_local_only_body), MaterialTheme.typography.bodyLarge, color = Tokens.Surface)
+        }
+    }
+}
+
+/**
+ * 설정 한 줄 — ListRow(4.10)와 같은 모양·동작(배지 + 제목·설명 + 끝 요소, 스위치 행은 줄 전체 Role.Switch·Switch 콜백 null,
+ * 누르는 행은 Role.Button, 나머지는 한 덩어리로 읽힘). 다른 점은 배치뿐(BadgeTitleLayout):
+ * 설명이 끝 요소 아래까지 넓어지고, 큰 글자(130%↑)에서는 제목·설명이 폭 전체를 쓴다. 150%↑는 배지를 작게.
+ */
+@Composable
+private fun SettingRow(
+    title: String,
+    icon: ImageVector,
+    body: String? = null,
+    trailing: RowTrailing = RowTrailing.Chevron,
+    onClick: (() -> Unit)? = null,
+    easyPreview: Boolean = false,
+) {
+    val dimens = LocalDimens.current
+    val large = largeFont()
+    val interaction = when {
+        trailing is RowTrailing.Switch -> Modifier.toggleable(value = trailing.checked, role = Role.Switch, onValueChange = trailing.onChange)
+        onClick != null -> Modifier.clickable(role = Role.Button, onClick = onClick)
+        else -> Modifier.semantics(mergeDescendants = true) {}
+    }
+    val end: (@Composable () -> Unit)? = when (trailing) {
+        RowTrailing.Chevron -> if (onClick != null) {
+            { Icon(Icons.AutoMirrored.Outlined.NavigateNext, contentDescription = null, tint = Tokens.InkTertiary) }
+        } else {
+            null
+        }
+        RowTrailing.External -> {
+            { Icon(Icons.AutoMirrored.Outlined.OpenInNew, contentDescription = null, tint = Tokens.Accent, modifier = Modifier.size(20.dp)) }
+        }
+        RowTrailing.None -> null
+        is RowTrailing.Switch -> {
+            { Switch(checked = trailing.checked, onCheckedChange = null, colors = appSwitchColors()) }
+        }
+        is RowTrailing.Custom -> trailing.content
+    }
+    val below: (@Composable () -> Unit)? = if (body != null || easyPreview) {
+        {
+            Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                if (body != null) KoText(body, MaterialTheme.typography.bodyMedium, color = Tokens.InkSecondary)
+                if (easyPreview) EasyModePreview()
+            }
+        }
+    } else {
+        null
+    }
+    val badgeSize = if (hugeFont()) dimens.iconBadgeSmall else dimens.iconBadge
+    BadgeTitleLayout(
+        modifier = Modifier
+            .fillMaxWidth()
+            .heightIn(min = dimens.listRowMinHeight)
+            .then(interaction)
+            .padding(16.dp),
+        badge = { IconBadge(icon, size = badgeSize) },
+        trailing = end,
+        below = below,
+        stack = large,
+        gap = if (large) 12.dp else 16.dp,
+        title = { KoText(title, MaterialTheme.typography.titleMedium, color = Tokens.Ink, glueShort = true) },
+    )
+}
 
 /** 쉬운 모드 미리보기 글자 (장식, TalkBack에서 숨김) */
 private const val PREVIEW_GLYPH = "가"
 
-/**
- * 쉬운 모드 켬·끔: ListRow(Switch)와 같은 모양에 '가 → 가' 미리보기를 설명 아래에 더한 행.
- * 줄 전체가 Role.Switch 토글이고 Switch는 콜백 null(초점 한 번). 미리보기는 clearAndSetSemantics로 숨긴다(TalkBack 잡음).
- */
+/** 쉬운 모드 행의 '가 → 가' 미리보기. clearAndSetSemantics로 숨긴다(TalkBack 잡음) */
 @Composable
-private fun EasyModeRow(checked: Boolean, onChange: (Boolean) -> Unit) {
-    val dimens = LocalDimens.current
+private fun EasyModePreview() {
     Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .heightIn(min = dimens.listRowMinHeight)
-            .toggleable(value = checked, role = Role.Switch, onValueChange = onChange)
-            .padding(16.dp),
-        verticalAlignment = Alignment.Top,
-        horizontalArrangement = Arrangement.spacedBy(16.dp),
+        Modifier.padding(top = 6.dp).clearAndSetSemantics {},
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
     ) {
-        IconBadge(Icons.Outlined.TextIncrease)
-        Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
-            Text(stringResource(R.string.settings_easy_mode), style = MaterialTheme.typography.titleMedium, color = Tokens.Ink)
-            Text(stringResource(R.string.settings_easy_mode_desc), style = MaterialTheme.typography.bodyMedium, color = Tokens.InkSecondary)
-            Row(
-                Modifier.padding(top = 6.dp).clearAndSetSemantics {},
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-            ) {
-                Text(PREVIEW_GLYPH, style = MaterialTheme.typography.bodyMedium, color = Tokens.InkSecondary)
-                Icon(
-                    Icons.AutoMirrored.Outlined.ArrowForward,
-                    contentDescription = null,
-                    tint = Tokens.InkTertiary,
-                    modifier = Modifier.size(dimens.iconSmall),
-                )
-                Text(
-                    PREVIEW_GLYPH,
-                    style = MaterialTheme.typography.headlineMedium,
-                    color = Tokens.Accent,
-                )
-            }
-        }
-        Switch(checked = checked, onCheckedChange = null, colors = appSwitchColors())
+        Text(PREVIEW_GLYPH, style = MaterialTheme.typography.bodyMedium, color = Tokens.InkSecondary)
+        Icon(
+            Icons.AutoMirrored.Outlined.ArrowForward,
+            contentDescription = null,
+            tint = Tokens.InkTertiary,
+            modifier = Modifier.size(LocalDimens.current.iconSmall),
+        )
+        Text(PREVIEW_GLYPH, style = MaterialTheme.typography.headlineMedium, color = Tokens.Accent)
     }
 }
 
@@ -277,6 +371,7 @@ fun PhotoCreditsScreen(onOpenLink: ((String) -> Unit)? = null) {
 /**
  * 28 사진·글꼴 출처 (DESIGN_SPEC 6-28): 사진마다 72dp 썸네일(장식) + 제목·찍은 사람·라이선스 태그 + 원본 링크,
  * 글꼴은 견본 + 이름·만든 사람·라이선스 + 라이선스 전문 펼침(assets, 네트워크 없음).
+ * 글자 150%↑는 썸네일·견본을 글 위로 올려 글에 폭 전체를 준다.
  */
 @Composable
 fun PhotoCreditsContent(credits: List<PhotoCredit>, onOpenLink: (String) -> Unit, fonts: List<FontCredit> = BundledFonts) {
@@ -288,7 +383,8 @@ fun PhotoCreditsContent(credits: List<PhotoCredit>, onOpenLink: (String) -> Unit
             SectionHeader(
                 stringResource(R.string.credits_photos_title),
                 icon = Icons.Outlined.PhotoLibrary,
-                subtitle = stringResource(R.string.photo_credits_body_v2),
+                // 공용 머리가 그리는 설명은 보이는 글자만 줄바꿈 보정(API 33 미만)
+                subtitle = KoBreak.display(stringResource(R.string.photo_credits_body_v2)),
             )
         }
         credits.forEach { c -> item(key = "credit-${c.id}") { PhotoCreditCard(c, onOpenLink) } }
@@ -318,28 +414,57 @@ private fun CreditCard(content: @Composable () -> Unit) {
 
 private val ThumbSize = 72.dp
 
+/** 썸네일·견본(고정 폭) + 글. 150%↑는 위아래로 — 72dp 옆 좁은 칸에서 `CC BY / 2.0`처럼 쪼개지지 않게 */
+@Composable
+private fun MediaAndTexts(media: @Composable () -> Unit, texts: @Composable () -> Unit) {
+    if (hugeFont()) {
+        Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+            media()
+            texts()
+        }
+    } else {
+        Row(verticalAlignment = Alignment.Top, horizontalArrangement = Arrangement.spacedBy(16.dp)) {
+            media()
+            Box(Modifier.weight(1f)) { texts() }
+        }
+    }
+}
+
+/** 찍은 사람·라이선스 줄: 이름(`Kil Hyung-jin`)·라이선스(`CC BY 2.0`)는 한 덩어리로 줄을 바꾼다. TalkBack·테스트는 원문 */
+@Composable
+private fun CreditTexts(title: String, @androidx.annotation.StringRes authorRes: Int, author: String, license: String) {
+    val authorLine = stringResource(authorRes, author)
+    val authorShown = KoBreak.display(stringResource(authorRes, KoBreak.keepTogether(author)))
+    val licenseLine = stringResource(R.string.photo_credit_license, license)
+    val licenseShown = KoBreak.display(stringResource(R.string.photo_credit_license, KoBreak.keepTogether(license)))
+    Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+        // 띄어쓰기 없는 긴 파일 이름은 하이픈·밑줄 뒤에서 줄을 바꾼다
+        KoText(title, MaterialTheme.typography.titleMedium, color = Tokens.Ink, display = KoBreak.display(KoBreak.breakAfter(title, "-_")))
+        KoText(authorLine, MaterialTheme.typography.bodyMedium, color = Tokens.InkSecondary, display = authorShown)
+        KoStatusTag(licenseLine, StatusKind.Info, shown = licenseShown)
+    }
+}
+
 @Composable
 private fun PhotoCreditCard(c: PhotoCredit, onOpenLink: (String) -> Unit) {
     CreditCard {
-        Row(verticalAlignment = Alignment.Top, horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-            // 썸네일은 장식 — 옆 제목과 이중으로 읽히지 않게 설명 없음
-            val thumb = rememberThumbnail(Photos.byId(c.id), ThumbSize)
-            Box(
-                Modifier.size(ThumbSize).clip(MaterialTheme.shapes.small).background(Tokens.SurfaceSunken),
-                contentAlignment = Alignment.Center,
-            ) {
-                if (thumb != null) {
-                    Image(thumb, contentDescription = null, contentScale = ContentScale.Crop, modifier = Modifier.matchParentSize())
-                } else {
-                    Icon(Icons.Outlined.PhotoLibrary, contentDescription = null, tint = Tokens.InkSecondary)
+        MediaAndTexts(
+            media = {
+                // 썸네일은 장식 — 옆 제목과 이중으로 읽히지 않게 설명 없음
+                val thumb = rememberThumbnail(Photos.byId(c.id), ThumbSize)
+                Box(
+                    Modifier.size(ThumbSize).clip(MaterialTheme.shapes.small).background(Tokens.SurfaceSunken),
+                    contentAlignment = Alignment.Center,
+                ) {
+                    if (thumb != null) {
+                        Image(thumb, contentDescription = null, contentScale = ContentScale.Crop, modifier = Modifier.matchParentSize())
+                    } else {
+                        Icon(Icons.Outlined.PhotoLibrary, contentDescription = null, tint = Tokens.InkSecondary)
+                    }
                 }
-            }
-            Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                Text(c.title, style = MaterialTheme.typography.titleMedium, color = Tokens.Ink)
-                Text(stringResource(R.string.photo_credit_author, c.author), style = MaterialTheme.typography.bodyMedium, color = Tokens.InkSecondary)
-                StatusTag(stringResource(R.string.photo_credit_license, c.license), StatusKind.Info)
-            }
-        }
+            },
+            texts = { CreditTexts(c.title, R.string.photo_credit_author, c.author, c.license) },
+        )
         Column {
             LinkRow(stringResource(R.string.photo_credit_open), onClick = { onOpenLink(c.sourceUrl) })
             if (c.licenseUrl.isNotBlank()) {
@@ -352,18 +477,14 @@ private fun PhotoCreditCard(c: PhotoCredit, onOpenLink: (String) -> Unit) {
 @Composable
 private fun FontCreditCard(f: FontCredit, onOpenLink: (String) -> Unit) {
     CreditCard {
-        Row(verticalAlignment = Alignment.Top, horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-            FontSpecimen()
-            Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                Text("${f.name} ${f.version}", style = MaterialTheme.typography.titleMedium, color = Tokens.Ink)
-                Text(stringResource(R.string.credit_font_author, f.author), style = MaterialTheme.typography.bodyMedium, color = Tokens.InkSecondary)
-                StatusTag(stringResource(R.string.photo_credit_license, f.license), StatusKind.Info)
-            }
-        }
-        Text(stringResource(R.string.credit_font_note), style = MaterialTheme.typography.bodyMedium, color = Tokens.Ink)
+        MediaAndTexts(
+            media = { FontSpecimen() },
+            texts = { CreditTexts("${f.name} ${f.version}", R.string.credit_font_author, f.author, f.license) },
+        )
+        KoText(stringResource(R.string.credit_font_note), MaterialTheme.typography.bodyMedium, color = Tokens.Ink)
         LinkRow(stringResource(R.string.photo_credit_open), onClick = { onOpenLink(f.sourceUrl) })
         // 라이선스 전문: 앱에 든 파일을 그 자리에서 펼친다(새 화면·네트워크 없음). 화면 목록과 함께 세로로 스크롤된다
-        ExpandableDetail(label = stringResource(R.string.credit_license_full)) {
+        LicenseToggle(stringResource(R.string.credit_license_full)) {
             val context = LocalContext.current
             val text = remember(f.licenseAsset) { loadLicenseText(context, f.licenseAsset)?.let(::reflowLicense) }
             Surface(color = Tokens.SurfaceSunken, shape = MaterialTheme.shapes.small, modifier = Modifier.fillMaxWidth()) {
@@ -374,6 +495,42 @@ private fun FontCreditCard(f: FontCredit, onOpenLink: (String) -> Unit) {
                     modifier = Modifier.padding(16.dp),
                 )
             }
+        }
+    }
+}
+
+/**
+ * 라이선스 전문 펼침 — components.ExpandableDetail과 같은 모양·동작(Role.Button 토글, 펼침/접힘 상태, 펼치면 `접기`)에
+ * 라벨 줄바꿈만 보정(`라이선스 전문 보/기` 방지).
+ */
+@Composable
+private fun LicenseToggle(label: String, content: @Composable () -> Unit) {
+    val dimens = LocalDimens.current
+    var open by rememberSaveable { mutableStateOf(false) }
+    val state = stringResource(if (open) R.string.state_expanded else R.string.state_collapsed)
+    val shown = if (open) stringResource(R.string.action_less) else label
+    Column(Modifier.fillMaxWidth()) {
+        Row(
+            Modifier
+                .fillMaxWidth()
+                .minTouch()
+                .clip(MaterialTheme.shapes.small)
+                .toggleable(value = open, role = Role.Button, onValueChange = { open = it })
+                .semantics { stateDescription = state }
+                .padding(horizontal = 4.dp, vertical = 8.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+        ) {
+            KoText(shown, MaterialTheme.typography.labelLarge, Modifier.weight(1f), color = Tokens.Accent)
+            Icon(
+                if (open) Icons.Outlined.ExpandLess else Icons.Outlined.ExpandMore,
+                contentDescription = null,
+                tint = Tokens.Accent,
+                modifier = Modifier.size(dimens.icon),
+            )
+        }
+        AnimatedVisibility(visible = open) {
+            Box(Modifier.padding(top = dimens.inner)) { content() }
         }
     }
 }
