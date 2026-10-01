@@ -54,7 +54,6 @@ import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.clearAndSetSemantics
-import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.text
@@ -341,12 +340,7 @@ fun PresentContent(
                         stringResource(R.string.present_delete_named, d.formName)
                     }
                     val name = stringResource(R.string.delete_named_cd, d.formName)
-                    DangerButton(
-                        label,
-                        onClick = { pendingDelete = d.doc },
-                        fillWidth = true,
-                        modifier = Modifier.semantics { contentDescription = name },
-                    )
+                    DangerButton(label, onClick = { pendingDelete = d.doc }, fillWidth = true, contentDescription = name)
                 }
             }
         }
@@ -697,11 +691,7 @@ private fun CompanionCard(c: TravelCompanion, onRegisterPassport: () -> Unit, on
                 }
                 // 사람마다의 지우기 = 끝 정렬. TalkBack은 누구를 지우는지(카드에 보이는 부르는 이름) 함께 읽는다 (재검토 R18)
                 val deleteName = stringResource(R.string.delete_named_cd, c.label)
-                DangerButton(
-                    stringResource(R.string.companion_delete),
-                    onClick = onDelete,
-                    modifier = Modifier.semantics { contentDescription = deleteName },
-                )
+                DangerButton(stringResource(R.string.companion_delete), onClick = onDelete, contentDescription = deleteName)
             }
         }
     }

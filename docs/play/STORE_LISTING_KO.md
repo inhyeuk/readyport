@@ -54,9 +54,27 @@
 - 카테고리: 여행 및 지역정보
 - 연락처 이메일·웹사이트·개인정보처리방침 주소: `[운영자 입력]`
 
-## 그래픽·스크린숏 (2026-09-30 새 디자인으로 다시 생성)
-`docs/play/store/` — `StoreAssetsTest`(Robolectric)가 실제 앱 화면을 **가짜 값**(ICAO 표본 여권 ERIKSSON ANNA MARIA)으로 그린 것. 다시 만들기: `gradlew :app:testDebugUnitTest --tests "com.readyport.ui.Store*"` → `app/build/store/`.
-- `feature_graphic_1024x500.png` — 그래픽 이미지(필수). 비제휴 문구 포함, 정부 연상 요소 없음. 배경 사진은 CC BY 3.0(출처: 앱 설정 › 사진 출처, `app/src/main/assets/photo_credits.json`)
-- `screenshot_01~06_*.png` — 휴대전화 스크린숏 1215×2160(정확히 9:16 — Play 콘솔 요구): 홈(나라 사진 카드) · 나라 화면(입국·비자) · 입국 카드 3개 국어 확인 · 나라 화면(쇼핑) · 설정(내 정보는 폰에만) · 도움
+## 그래픽·스크린숏 (2026-10-01 디자인 재검토 반영으로 다시 생성)
+`docs/play/store/` — `StoreAssetsTest`(Robolectric)가 실제 앱 화면을 **스토어 전용 가짜 값**으로 그린 것.
+- 스토어 전용 픽스처(`StoreFixture`): 누가 봐도 견본인 여권 `HONG GILDONG`·국적 `KOR`·아직 유효한 만료일(2034-05-20, 화면에서는 이름·번호 가림), 견본 예약(`방콕 왕복`·`방콕 숙소`), 견본 숙소 주소, 견본 휴대폰 번호(010-1234-5678) — 입국 카드 필수 칸을 모두 채워 빈칸 경고가 첫 화면을 덮지 않는다. 오류·만료·경고 상태 없음(테스트가 표본 외국 이름·번호·`만료`·그림 없음 문구가 없는지 확인한다).
+- 나라·도움·입국 카드 화면의 정책 문장은 저장소의 **서명된 실제 팩 그대로** — 스크린숏용으로 지어낸 문장이 없다.
+- 다시 만들기: `gradlew :app:testDebugUnitTest --tests "com.readyport.ui.Store*"` → `app/build/store/` → **같은 파일 이름**으로 `docs/play/store/`에 복사(지난 이름은 지운다).
+
+**그래픽 이미지** — `feature_graphic_1024x500.png`(필수). 비제휴 문구 포함, 정부 연상 요소 없음. 배경 사진은 CC BY 3.0(출처: 앱 설정 › 사진 출처, `app/src/main/assets/photo_credits.json`)
+
+**휴대전화 스크린숏 8장** — 1215×2160(정확히 9:16, Play 콘솔 요구). 각 장 = 위쪽 띠의 캡션(앱 밖 글, 두 줄) + `정부 기관과 제휴하지 않은 앱이에요` + 아래 실제 화면 첫 부분. 영상 화면(YouTube 썸네일·상표)은 쓰지 않는다.
+
+| 순서 | 파일 | 화면 | 캡션 |
+|---|---|---|---|
+| 1 | `screenshot_01_home.png` | 홈 — 사진 히어로(가치 문장 `입국 카드 칸은 앱이 채우고, 제출만 직접 눌러요`)·나라 사진 카드 | 나라만 고르면 / 입국 준비가 한곳에 |
+| 2 | `screenshot_02_form_confirm.png` | 태국 입국 카드(TDAC) 값 확인 — 빈칸 없음, 여권에서 가져온 값 | 입국 카드에 들어갈 값을 / 한국어로 미리 확인해요 |
+| 3 | `screenshot_03_country_entry.png` | 태국 — 입국·비자(숫자 타일·출처·확인 날짜) | 비자·비용은 한눈에, / 공식 출처와 확인 날짜까지 |
+| 4 | `screenshot_04_departure.png` | 내 여행 — 출국하는 날(지금 할 일·공항 순서) | 출발부터 귀국까지, / 오늘 할 일만 차례로 |
+| 5 | `screenshot_05_help.png` | 도움 — 긴급 번호·현지어 문장 | 인터넷 없이도 / 긴급 번호와 현지어 문장 |
+| 6 | `screenshot_06_my_info.png` | 내 정보 — 여권(가림)·예약 서류 | 여권 정보는 암호화해서 / 이 휴대폰 안에만 |
+| 7 | `screenshot_07_transport.png` | 이동하기 — 기사님께 보여 줄 현지어 주소 카드 | 기사님께는 현지어 주소를 / 크게 보여 주세요 |
+| 8 | `screenshot_08_easy_traveling.png` | 쉬운 모드 — 여행 중(큰 타일 넷) | 글자와 버튼을 크게, / 쉬운 모드 |
+
 - 앱 아이콘 512: `design/icons/play-store/readyport_play_512.png`
 - 태국어 문장이 들어 있어 원어민 검수(C10) 뒤 다시 만들 것
+- Play 콘솔 업로드는 운영자 컨펌 뒤에만(`docs/design/OWNER_DECISIONS.md`)

@@ -26,10 +26,12 @@ import com.readyport.ui.theme.Tokens
 /**
  * 현지어(태국어 등)를 표시 역할이 아닌 크기로 보일 때: 행간 1.5배 + 줄 높이 가운데·자르지 않음 —
  * 위아래로 쌓이는 부호(ที่นี่)가 겹치거나 잘리지 않게 (DESIGN_SPEC 3.2). 크기는 [base] 역할 그대로(고정 sp 없음).
+ * 앱 글자 스타일에 고정한 한국어(ReadyPortLineBreak.Korean)는 뺀다 — 현지어 글꼴·줄바꿈은 기기 언어를 따른다(localLarge·localMedium과 같음).
  */
 fun localText(base: TextStyle): TextStyle = base.copy(
     lineHeight = base.fontSize * 1.5f,
     lineHeightStyle = LineHeightStyle(LineHeightStyle.Alignment.Center, LineHeightStyle.Trim.None),
+    localeList = null,
 )
 
 /**

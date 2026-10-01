@@ -50,8 +50,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.contentDescription
-import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.FragmentActivity
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
@@ -467,11 +465,7 @@ private fun BookingCard(booking: BookingRecord, onDelete: () -> Unit) {
         // 목록 항목마다의 지우기 = 끝 정렬. TalkBack은 무엇을 지우는지(화면에 보이는 서류 이름) 함께 읽는다 (재검토 R18)
         val deleteName = stringResource(R.string.delete_named_cd, booking.title)
         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
-            DangerButton(
-                stringResource(R.string.wallet_booking_delete),
-                onClick = onDelete,
-                modifier = Modifier.semantics { contentDescription = deleteName },
-            )
+            DangerButton(stringResource(R.string.wallet_booking_delete), onClick = onDelete, contentDescription = deleteName)
         }
     }
 }

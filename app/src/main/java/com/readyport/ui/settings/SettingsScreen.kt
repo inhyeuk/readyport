@@ -5,21 +5,17 @@ import android.content.Intent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.selection.toggleable
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowForward
-import androidx.compose.material.icons.automirrored.outlined.NavigateNext
-import androidx.compose.material.icons.automirrored.outlined.OpenInNew
 import androidx.compose.material.icons.outlined.Badge
 import androidx.compose.material.icons.outlined.ChildCare
 import androidx.compose.material.icons.outlined.ExpandLess
@@ -64,7 +60,6 @@ import androidx.core.net.toUri
 import com.readyport.BuildConfig
 import com.readyport.R
 import com.readyport.ui.components.AppScreen
-import com.readyport.ui.components.IconBadge
 import com.readyport.ui.components.KoText
 import com.readyport.ui.components.LinkRow
 import com.readyport.ui.components.ListDivider
@@ -78,13 +73,13 @@ import com.readyport.ui.components.SectionHeader
 import com.readyport.ui.components.SecurityBanner
 import com.readyport.ui.components.StatusKind
 import com.readyport.ui.components.StatusTag
-import com.readyport.ui.components.appSwitchColors
 import com.readyport.ui.components.breakAfter
 import com.readyport.ui.components.cardShadow
 import com.readyport.ui.components.keepTogether
 import com.readyport.ui.components.keepWords
 import com.readyport.ui.components.loadPhotoCredits
 import com.readyport.ui.components.minTouch
+import com.readyport.ui.components.rememberPhotoLift
 import com.readyport.ui.components.rememberThumbnail
 import com.readyport.ui.components.sectionGap
 import com.readyport.ui.theme.LocalDimens
@@ -313,7 +308,7 @@ fun PhotoCreditsContent(credits: List<PhotoCredit>, onOpenLink: (String) -> Unit
             SectionHeader(
                 stringResource(R.string.credits_photos_title),
                 icon = Icons.Outlined.PhotoLibrary,
-                subtitle = stringResource(R.string.photo_credits_body_v2),
+                subtitle = stringResource(R.string.photo_credits_body_c),
             )
         }
         credits.forEach { c -> item(key = "credit-${c.id}") { PhotoCreditCard(c, onOpenLink) } }
@@ -386,7 +381,13 @@ private fun PhotoCreditCard(c: PhotoCredit, onOpenLink: (String) -> Unit) {
                     contentAlignment = Alignment.Center,
                 ) {
                     if (thumb != null) {
-                        Image(thumb, contentDescription = null, contentScale = ContentScale.Crop, modifier = Modifier.matchParentSize())
+                        Image(
+                            thumb,
+                            contentDescription = null,
+                            contentScale = ContentScale.Crop,
+                            colorFilter = rememberPhotoLift(thumb),
+                            modifier = Modifier.matchParentSize(),
+                        )
                     } else {
                         Icon(Icons.Outlined.PhotoLibrary, contentDescription = null, tint = Tokens.InkSecondary)
                     }

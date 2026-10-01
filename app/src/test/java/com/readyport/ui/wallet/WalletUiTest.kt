@@ -97,14 +97,13 @@ class WalletUiTest {
         wallet(WalletState.Unlocked(VaultContents(passport = passport)))
         // 'MRZ' 대신 쉬운 말 (재검토 R18)
         shown(s(R.string.wallet_passport_verified_v2))
-        rule.onAllNodesWithText(s(R.string.wallet_passport_verified)).assertCountEquals(0)
         rule.onAllNodesWithText("MRZ", substring = true).assertCountEquals(0)
         shown(maskNumber("L898902C3"))
         rule.onAllNodesWithText("L898902C3").assertCountEquals(0)
         rule.onAllNodesWithText("ERIKSSON", substring = true).assertCountEquals(0)
 
         // 가린 값을 보이는 버튼은 '자세히 보기'(다른 화면의 펼치기)가 아니라 '가린 글자 보기'
-        rule.onAllNodesWithText(s(R.string.wallet_passport_show)).assertCountEquals(0)
+        rule.onAllNodesWithText("자세히 보기").assertCountEquals(0)
         rule.onNodeWithText(s(R.string.wallet_passport_reveal)).performClick()
         rule.onNodeWithText("L898902C3").assertIsDisplayed()
     }
@@ -332,10 +331,10 @@ class WalletUiTest {
     fun passportStepperShowsOnlyAvailableSteps() {
         rule.setContent { ReadyPortTheme { PassportIntroContent(ScanState.Idle, {}, {}, {}) } }
         rule.onNodeWithContentDescription(s(R.string.passport_steps_desc, s(R.string.passport_step_scan), 1, 2)).assertExists()
-        rule.onAllNodesWithText(s(R.string.passport_step_chip), substring = true).assertCountEquals(0)
+        rule.onAllNodesWithText("칩 확인", substring = true).assertCountEquals(0)
         // '기기' 대신 약속 문구와 같은 '휴대폰'
-        rule.onAllNodesWithText(s(R.string.passport_privacy_1)).assertCountEquals(0)
-        rule.onAllNodesWithText(s(R.string.passport_privacy_2)).assertCountEquals(0)
+        rule.onAllNodesWithText("이 기기", substring = true).assertCountEquals(0)
+        shown(s(R.string.passport_privacy_1_v2))
         shown(s(R.string.passport_privacy_2_v2))
     }
 

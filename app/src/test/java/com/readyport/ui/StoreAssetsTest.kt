@@ -126,12 +126,15 @@ internal object StoreFixture {
         ),
     )
 
-    /** 입국 카드에서 사용자가 고르거나 적는 칸 — 견본 값(빈칸 경고가 첫 화면을 덮지 않게) */
+    /** 입국 카드에서 사용자가 고르거나 적는 칸 — 견본 값. 필수 칸을 모두 채워 둔다(빈칸 요약이 첫 화면을 덮어 값이 안 보이지 않게, R20) */
     val formDraft = mapOf(
         "trip.purpose" to "tourism",
         "profile.occupation" to "OFFICE WORKER",
         "profile.country_res" to "대한민국",
         "profile.city_res" to "SEOUL",
+        // 견본 휴대폰 번호(010-1234-5678 — 안내서에 흔히 쓰는 예시 번호). 나라 번호는 레시피 기본값(82)
+        "profile.phone_code" to "82",
+        "profile.phone" to "1012345678",
         "trip.country_board" to "대한민국",
         "stay.type" to "hotel",
         "stay.province" to "Bangkok",
@@ -162,7 +165,8 @@ class StoreScreenshotsTest {
     private val th get() = TestPacks.thailand
 
     private fun shots(): List<StoreShot> = listOf(
-        StoreShot("01_home", "입국 신고서 칸은 앱이 채우고\n제출만 직접 눌러요") {
+        // 히어로 가치 문장(`입국 카드 칸은 앱이 채우고, 제출만 직접 눌러요`)을 캡션에서 되풀이하지 않는다 — 캡션은 홈이 하는 일
+        StoreShot("01_home", "나라만 고르면\n입국 준비가 한곳에") {
             HomeContent(TestPacks.homeUi(), HomeActions(), today = StoreFixture.today)
         },
         StoreShot("02_form_confirm", "입국 카드에 들어갈 값을\n한국어로 미리 확인해요") {

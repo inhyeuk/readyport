@@ -1,6 +1,5 @@
 package com.readyport.ui.onboarding
 
-import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -24,19 +23,14 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.graphics.ColorMatrix
-import androidx.compose.ui.graphics.ImageBitmap
-import androidx.compose.ui.graphics.asAndroidBitmap
-import androidx.compose.ui.graphics.drawscope.DrawScope
-import androidx.compose.ui.graphics.painter.BitmapPainter
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalWindowInfo
 import androidx.compose.ui.res.painterResource
@@ -44,9 +38,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.core.graphics.get
 import com.readyport.R
 import com.readyport.ui.components.ChoiceCard
 import com.readyport.ui.components.KoText
@@ -55,7 +49,7 @@ import com.readyport.ui.components.PhotoBox
 import com.readyport.ui.components.PhotoTextArea
 import com.readyport.ui.components.Photos
 import com.readyport.ui.components.isStackedLayout
-import com.readyport.ui.components.rememberPhoto
+import com.readyport.ui.components.koDisplay
 import com.readyport.ui.theme.LocalDimens
 import com.readyport.ui.theme.Tokens
 
@@ -80,7 +74,7 @@ fun FirstRunScreen(onAnswer: (firstTimeAbroad: Boolean) -> Unit) {
             .padding(dimens.screenPadding),
         verticalArrangement = Arrangement.spacedBy(dimens.gap),
     ) {
-        PhotoBox(rememberBrightPhoto(Photos.Home), minHeight = heroMinHeight(stacked), shape = MaterialTheme.shapes.extraLarge) {
+        PhotoBox(Photos.Home, minHeight = heroMinHeight(stacked), shape = MaterialTheme.shapes.extraLarge) {
             PhotoTextArea {
                 BrandLockup(stacked)
                 KoText(
@@ -127,9 +121,7 @@ private fun BrandLockup(stacked: Boolean) {
     val name: @Composable () -> Unit = {
         Text(stringResource(R.string.home_brand), style = MaterialTheme.typography.titleLarge, color = OnDark.content)
     }
-    val value: @Composable () -> Unit = {
-        KoText(stringResource(R.string.home_value_prop), MaterialTheme.typography.bodyMedium, color = OnDark.content)
-    }
+    val value: @Composable () -> Unit = { ValuePropText(MaterialTheme.typography.bodyMedium) }
     if (stacked) {
         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
             Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
@@ -185,6 +177,26 @@ private fun SizePreview() {
 }
 
 /**
+ * 핵심 가치 문장(`home_value_prop`) — 첫 실행 브랜드 묶음과 홈 히어로가 같이 쓴다(사진 스크림 위 흰 글자).
+ * 쉼표 뒤에서 줄을 바꿔 `입국 카드 칸은 앱이 채우고,` / `제출만 직접 눌러요` 두 뜻 덩어리로 보인다
+ * (균형·채움 줄바꿈은 `앱이 / 채우고`, `제출만 / 직접`처럼 덩어리 가운데서 꺾었다). 그렇게 해서 두 줄을 넘으면
+ * (좁은 창·큰 글자) 줄이 더 늘지 않게 보통 줄바꿈으로 되돌린다. 의미 글자(TalkBack·테스트)는 원문 그대로다(KoText `display`).
+ */
+@Composable
+internal fun ValuePropText(style: TextStyle, modifier: Modifier = Modifier) {
+    val text = stringResource(R.string.home_value_prop)
+    var split by remember(text) { mutableStateOf(true) }
+    KoText(
+        text,
+        style,
+        modifier,
+        color = OnDark.content,
+        display = if (split) koDisplay(text).replaceFirst(", ", ",\n") else null,
+        onTextLayout = { if (split && it.lineCount > 2) split = false },
+    )
+}
+
+/**
  * 앱 심볼: 런처 아이콘과 같은 모양(BrandBlue→Navy 원 + 런처 전경 그림). 장식이라 TalkBack에서 숨긴다.
  * 런처 전경은 108dp 캔버스의 가운데 72dp만 원으로 보이므로(적응형 아이콘 규칙) 원 지름의 1.5배로 그려 가장자리를 잘라 낸다.
  * 홈 히어로의 앱 이름 줄에서도 쓴다.
@@ -205,79 +217,5 @@ internal fun AppSymbol(size: Dp, modifier: Modifier = Modifier) {
             contentDescription = null,
             modifier = Modifier.requiredSize(size * 1.5f),
         )
-    }
-}
-
-// ======================= 어두운 사진 렌더 보정 (재검토 R19 — 사진 파일은 그대로) =======================
-
-/** 이 평균 밝기(0~255)보다 어두운 사진만 밝힌다 */
-private const val PHOTO_TARGET_LUMA = 128f
-
-/** 가장 어두운 사진에도 이 이상은 밝히지 않는다(하늘·불빛이 하얗게 날아가지 않게) */
-private const val PHOTO_MAX_DEFICIT = 0.35f
-
-/**
- * 번들 사진을 그릴 폭(창 폭 × [widthFraction])에 맞춰 공용 캐시([rememberPhoto])로 디코드하고, 평균 밝기가 낮으면
- * **그릴 때만** 밝게 보정한 Painter (재검토 R19 — 해 질 녘 왓아룬·마리나 베이처럼 어두운 사진이 썸네일·히어로에서 검은 덩어리가 되지 않게).
- * 글자 대비는 영향받지 않는다: 글자는 PhotoTextArea 스크림 위에 있고, 그 대비(5.74:1)는 흰 사진 최악을 가정해 계산했다.
- * 디코드 전에는 null(PhotoBox는 남색 바탕). 공용 PhotoBox(painter) 판을 그대로 쓴다.
- * (통합 담당: 공용 PhotoBox·CountryPhotoTile이 이 보정을 품으면 이 함수를 그쪽으로 옮긴다)
- */
-@Composable
-internal fun rememberBrightPhoto(@DrawableRes res: Int?, widthFraction: Float = 1f): Painter? {
-    val widthPx = LocalWindowInfo.current.containerSize.width
-    val bitmap = rememberPhoto(res, (widthPx * widthFraction).toInt()) ?: return null
-    return remember(bitmap) {
-        val inner = BitmapPainter(bitmap)
-        photoLiftFilter(bitmap)?.let { FilteredPainter(inner, it) } ?: inner
-    }
-}
-
-/**
- * 사진 평균 밝기를 격자 몇백 점으로 재서 목표보다 어두우면 밝히는 색 행렬 (밝으면 null).
- * 어두운 정도(0~0.35)에 맞춰 대비를 조금(최대 ×1.21) 올리고 그림자를 조금(최대 +25) 띄운다 — 선형이라 색이 바뀌지 않는다.
- */
-internal fun photoLiftFilter(bitmap: ImageBitmap): ColorFilter? {
-    val luma = runCatching { meanLuma(bitmap) }.getOrNull() ?: return null
-    val deficit = ((PHOTO_TARGET_LUMA - luma) / PHOTO_TARGET_LUMA).coerceIn(0f, PHOTO_MAX_DEFICIT)
-    if (deficit < 0.02f) return null
-    val gain = 1f + deficit * 0.6f
-    val lift = deficit * 70f
-    return ColorFilter.colorMatrix(
-        ColorMatrix(
-            floatArrayOf(
-                gain, 0f, 0f, 0f, lift,
-                0f, gain, 0f, 0f, lift,
-                0f, 0f, gain, 0f, lift,
-                0f, 0f, 0f, 1f, 0f,
-            ),
-        ),
-    )
-}
-
-/** 24×16 격자 점의 평균 밝기(0~255, Rec. 601 가중치) */
-private fun meanLuma(bitmap: ImageBitmap): Float {
-    val bmp = bitmap.asAndroidBitmap()
-    val w = bmp.width
-    val h = bmp.height
-    if (w <= 0 || h <= 0) return PHOTO_TARGET_LUMA
-    var sum = 0f
-    var n = 0
-    for (gy in 0 until 16) {
-        for (gx in 0 until 24) {
-            val p = bmp[(gx * 2 + 1) * w / 48, (gy * 2 + 1) * h / 32]
-            sum += 0.299f * ((p shr 16) and 0xFF) + 0.587f * ((p shr 8) and 0xFF) + 0.114f * (p and 0xFF)
-            n++
-        }
-    }
-    return sum / n
-}
-
-/** 안쪽 Painter를 색 필터와 함께 그린다 (PhotoBox의 Image는 colorFilter를 받지 않으므로 Painter 쪽에서) */
-private class FilteredPainter(private val inner: Painter, private val filter: ColorFilter) : Painter() {
-    override val intrinsicSize: Size get() = inner.intrinsicSize
-
-    override fun DrawScope.onDraw() {
-        with(inner) { draw(size, colorFilter = filter) }
     }
 }

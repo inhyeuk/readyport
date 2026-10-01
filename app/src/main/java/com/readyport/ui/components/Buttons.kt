@@ -31,6 +31,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -151,7 +153,11 @@ fun SecondaryButton(
     ) { ButtonLabel(text, icon) }
 }
 
-/** 지우기 등 되돌릴 수 없는 동작. 밝은 바탕에서만 — 어두운 카드 안에 두지 않는다(D18). 주 버튼 자리에 두지 않는다 */
+/**
+ * 지우기 등 되돌릴 수 없는 동작. 밝은 바탕에서만 — 어두운 카드 안에 두지 않는다(D18). 주 버튼 자리에 두지 않는다.
+ * [contentDescription]: 화면 글이 `지우기`처럼 짧아 무엇을 지우는지 안 보일 때 TalkBack 이름(`방콕 왕복 지우기` — `delete_named_cd`, 재검토 R18).
+ * 대상은 화면에 이미 보이는 이름만 쓴다. 없으면 화면 글이 이름이다.
+ */
 @Composable
 fun DangerButton(
     text: String,
@@ -159,6 +165,7 @@ fun DangerButton(
     modifier: Modifier = Modifier,
     icon: ImageVector = Icons.Outlined.DeleteOutline,
     fillWidth: Boolean = false,
+    contentDescription: String? = null,
 ) {
     OutlinedButton(
         onClick = onClick,
@@ -168,6 +175,7 @@ fun DangerButton(
         contentPadding = ButtonPadding,
         modifier = modifier
             .then(if (fillWidth) Modifier.fillMaxWidth() else Modifier)
+            .then(if (contentDescription != null) Modifier.semantics { this.contentDescription = contentDescription } else Modifier)
             .heightIn(min = LocalDimens.current.buttonHeight),
     ) { ButtonLabel(text, icon) }
 }

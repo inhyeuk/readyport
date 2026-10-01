@@ -45,7 +45,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -111,13 +110,13 @@ import com.readyport.ui.components.keepWords
 import com.readyport.ui.components.minTouch
 import com.readyport.ui.components.noBreak
 import com.readyport.ui.components.rememberGridColumns
+import com.readyport.ui.components.rememberPhotoLift
 import com.readyport.ui.components.rememberThumbnail
 import com.readyport.ui.components.sectionGap
 import com.readyport.ui.components.tileRows
 import com.readyport.ui.components.textIconSize
 import com.readyport.ui.onboarding.AppSymbol
-import com.readyport.ui.onboarding.photoLiftFilter
-import com.readyport.ui.onboarding.rememberBrightPhoto
+import com.readyport.ui.onboarding.ValuePropText
 import com.readyport.ui.tabs.EssentialsSummary
 import com.readyport.ui.theme.LocalDimens
 import com.readyport.ui.theme.LocalTypeExtras
@@ -305,7 +304,7 @@ fun HomeContent(ui: HomeUi, actions: HomeActions, today: LocalDate = LocalDate.n
         if (ui.returnFacts.isNotEmpty() || ui.returnLinks.isNotEmpty()) {
             item(key = "return") {
                 Foldable(easy, returnOpen, returnTitle, Icons.Outlined.Inventory2, { returnOpen = it }) {
-                    ReturnCheckCard(ui.returnLinks, ui.returnFacts, ui.indexSources, actions.openLink, compact = true)
+                    ReturnCheckCard(ui.returnLinks, ui.returnFacts, ui.indexSources, actions.openLink)
                 }
             }
         }
@@ -443,7 +442,7 @@ private fun HomeHero(singleColumn: Boolean) {
     // 심볼 지름 = 앱 이름 한 줄 높이(최소 24dp) — 글자를 키워도 이름과 크기가 어울리고 줄 높이를 늘리지 않는다
     val symbolSize = maxOf(24.dp, with(LocalDensity.current) { brandStyle.lineHeight.toDp() })
     PhotoBox(
-        rememberBrightPhoto(Photos.Home),
+        Photos.Home,
         minHeight = if (singleColumn) 160.dp else 280.dp,
         shape = MaterialTheme.shapes.extraLarge,
     ) {
@@ -463,7 +462,7 @@ private fun HomeHero(singleColumn: Boolean) {
                 color = OnDark.content,
                 modifier = Modifier.semantics { heading() },
             )
-            KoText(stringResource(R.string.home_value_prop), MaterialTheme.typography.titleMedium, color = OnDark.content)
+            ValuePropText(MaterialTheme.typography.titleMedium)
             if (!singleColumn) TrustStrip(Modifier.padding(top = 6.dp), onDark = true)
         }
     }
@@ -684,12 +683,11 @@ private fun TripThumbnail(code: String?) {
     val size = if (LocalDimens.current.easyMode) 64.dp else 56.dp
     val thumb = rememberThumbnail(code?.let { Photos.country(it) }, size)
     if (thumb != null) {
-        val lift = remember(thumb) { photoLiftFilter(thumb) }
         Image(
             bitmap = thumb,
             contentDescription = null,
             contentScale = ContentScale.Crop,
-            colorFilter = lift,
+            colorFilter = rememberPhotoLift(thumb),
             modifier = Modifier
                 .size(size)
                 .clip(CircleShape)

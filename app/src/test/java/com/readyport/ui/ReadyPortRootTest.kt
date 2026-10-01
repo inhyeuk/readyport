@@ -23,6 +23,7 @@ import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performScrollTo
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.readyport.R
@@ -151,7 +152,8 @@ class ReadyPortRootTest {
     @Test
     fun firstRunNoKeepsBasicMode() {
         launch(AppSettings(easyMode = null))
-        rule.onNodeWithText(s(R.string.first_run_no)).performClick()
+        // 첫 실행 화면은 세로 스크롤 — 작은 창(320×470)에서는 두 번째 카드까지 스크롤해서 누른다
+        rule.onNodeWithText(s(R.string.first_run_no)).performScrollTo().performClick()
         assertEquals(false, settings?.easyMode)
         rule.onAllNodesWithText(s(R.string.action_home)).assertCountEquals(0)
     }

@@ -43,9 +43,12 @@ import androidx.compose.ui.layout.layout
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
+import androidx.compose.ui.semantics.text
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -55,6 +58,7 @@ import androidx.compose.ui.unit.dp
 import com.readyport.R
 import com.readyport.ui.theme.LocalDimens
 import com.readyport.ui.theme.LocalTypeExtras
+import com.readyport.ui.theme.ReadyPortLineBreak
 import com.readyport.ui.theme.Tokens
 
 // ======================= 카드뉴스 부품 (DESIGN_SPEC 4.3, 4.6~4.8) =======================
@@ -212,38 +216,83 @@ data class Fact(
 /** 여러 Fact의 출처 (null 제외). 카드 sources에 req.source와 함께 넘기면 SourceList가 중복을 없앤다 */
 fun List<Fact>.sourceRefs(): List<SourceRef> = mapNotNull { it.source }
 
+/** 통화 코드가 앞에 붙은 금액 (`IDR 500,000`) — StatTile이 코드와 숫자를 나눠 그린다 */
+private val CurrencyAmount = Regex("""([A-Z]{3})\s+(\d[\d,.]*)""")
+
 /**
- * 숫자 타일 (누를 수 없음 — 누르는 요약은 IconTile). 읽기: "90일 비자 없이 머물러요".
- * 값이 8자를 넘으면 statSmall.
+ * 숫자 타일 (누를 수 없음 — 누르는 요약은 IconTile). 읽기: "90일 비자 없이 머물러요". 톤 연한 바탕 · 16dp 모서리 · 안쪽 16 · 아이콘 → 값 → 라벨.
+ * - 값은 **칸 폭에 맞춘 한 줄**([FitText]: stat → statSmall → titleLarge — 쉬운 모드 최소 24sp). `IDR 500,000`·`4박 5일`이
+ *   `IDR`/`500,000`처럼 두 줄로 쪼개지지 않는다(재검토 R12). 아주 좁아 가장 작은 크기로도 넘치면 띄어쓰기에서만 줄을 바꾼다.
+ * - 통화 코드가 붙은 금액은 코드를 값 위 작은 글자(labelMedium)로 올리고 숫자만 크게 — 화면은 `IDR`⏎`500,000`,
+ *   TalkBack·테스트는 `IDR 500,000` 한 덩어리 그대로.
+ * - [wide](폭 전체 타일 — 1열·혼자·홀수 마지막): 가로형 아이콘 + (값 / 라벨 한 줄). 2열용 라벨의 줄바꿈(`비자 없이⏎머물러요`)은 넓은 칸에서 한 줄로.
+ * - 아이콘은 글자 크기를 따라 커진다(최대 1.5배) — 200%에서 큰 숫자 옆에서 점처럼 작아지지 않게.
  */
 @Composable
-fun StatTile(fact: Fact, modifier: Modifier = Modifier) {
+fun StatTile(fact: Fact, modifier: Modifier = Modifier, wide: Boolean = false) {
     val dimens = LocalDimens.current
     val extras = LocalTypeExtras.current
+    val typography = MaterialTheme.typography
+    val styles = listOf(extras.stat, extras.statSmall, typography.titleLarge)
+    val raw = fact.value.trim()
+    val currency = CurrencyAmount.matchEntire(raw)
+    val value: @Composable () -> Unit = {
+        if (currency != null) {
+            Column(Modifier.clearAndSetSemantics { text = AnnotatedString(raw) }) {
+                Text(currency.groupValues[1], style = typography.labelMedium, color = Tokens.InkSecondary)
+                FitText(currency.groupValues[2], styles, Tokens.Ink, breakChars = " ")
+            }
+        } else {
+            FitText(raw, styles, Tokens.Ink, breakChars = " ")
+        }
+    }
+    val iconSize = textIconSize(dimens.icon, typography.titleLarge)
+    val icon: @Composable () -> Unit = {
+        Icon(fact.icon, contentDescription = null, tint = fact.tone.onLight, modifier = Modifier.size(iconSize))
+    }
     Surface(
         color = fact.tone.container,
         shape = MaterialTheme.shapes.medium,
         modifier = modifier
             .fillMaxWidth()
-            .heightIn(min = dimens.tileMinHeight)
+            .heightIn(min = if (wide) dimens.tileRowMinHeight else dimens.tileMinHeight)
             .semantics(mergeDescendants = true) {},
     ) {
-        Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
-            Icon(fact.icon, contentDescription = null, tint = fact.tone.onLight, modifier = Modifier.size(dimens.icon))
-            KoText(fact.value, if (fact.value.length > 8) extras.statSmall else extras.stat, color = Tokens.Ink)
-            KoText(fact.label, MaterialTheme.typography.bodyMedium, color = Tokens.InkSecondary)
+        if (wide) {
+            Row(Modifier.padding(16.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(16.dp)) {
+                icon()
+                Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                    value()
+                    KoText(fact.label.replace('\n', ' '), typography.bodyMedium, color = Tokens.InkSecondary)
+                }
+            }
+        } else {
+            Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                icon()
+                value()
+                KoText(fact.label, typography.bodyMedium, color = Tokens.InkSecondary)
+            }
         }
     }
 }
 
 /**
- * 숫자 타일 그리드. **팩의 구조화 필드에서만** 값을 만든다(D11). 타일이 2개 미만이면 그리지 않는다 — 호출하는 쪽이 글로 보인다.
+ * 숫자 타일 그리드. **팩의 구조화 필드에서만** 값을 만든다(D11). 타일이 2개 미만이면 그리지 않는다 — 호출하는 쪽이 글로(또는 [StatTile] `wide` 한 장으로) 보인다.
+ * 순서는 넘겨받은 그대로(긴 값을 골라 옮기면 순서가 바뀌어 잘못 읽힌다). 1열이면 가로형 타일을 쌓고, 2열에서 타일 수가 홀수면
+ * 남는 칸을 비우지 않고 **마지막 타일**을 맨 아래 폭 전체 가로형으로 놓는다(재검토 R12).
  * 바로 아래(카드 안)에 출처를 꼭 둔다: 카드 sources = req.source + facts.sourceRefs().
  */
 @Composable
 fun FactGrid(facts: List<Fact>, modifier: Modifier = Modifier, columns: Int = rememberGridColumns()) {
     if (facts.size < 2) return
-    TileGrid(facts, modifier, columns) { fact, cell -> StatTile(fact, cell) }
+    if (columns == 2 && facts.size % 2 == 1) {
+        Column(modifier, verticalArrangement = Arrangement.spacedBy(LocalDimens.current.gap)) {
+            TileGrid(facts.dropLast(1), columns = columns) { fact, cell -> StatTile(fact, cell) }
+            StatTile(facts.last(), wide = true)
+        }
+    } else {
+        TileGrid(facts, modifier, columns) { fact, cell -> StatTile(fact, cell, wide = columns == 1) }
+    }
 }
 
 /**
@@ -357,11 +406,16 @@ fun TextCircle(
 /**
  * 번호 원 + 세로 연결선 + 단계 글. 번호는 원 안에만(D17) — 문자열에 "N. "을 넣지 않는다.
  * 행마다 mergeDescendants라 TalkBack은 "1 공항에 가요"처럼 한 번에 읽는다. 높이는 글에 맞춘다.
+ * - 단계 글은 짧은 제목이든 문장이든 **본문 줄바꿈**(들어가는 만큼 채움, 어절 단위 — [ReadyPortLineBreak.Body])으로 그린다.
+ *   제목용 균형 줄바꿈은 오른쪽에 자리가 남아도 일찍 꺾어 `'오프라인 지도'` 같은 화면 이름까지 갈랐다(재검토 B1).
+ * - [sentence]: 단계 글이 두세 줄 문장(도움 절차 `여권을 잃어버렸어요` 등)이면 굵은 제목 글자(titleMedium) 대신
+ *   본문 글자(bodyLarge, Ink)로 — 번호 원만 강조해 굵은 글 벽을 만들지 않는다(재검토 ④-9). 보조 글(bodyMedium, InkSecondary)과는 크기·색으로 구분된다.
  */
 @Composable
-fun StepList(steps: List<Step>, modifier: Modifier = Modifier, numbered: Boolean = true) {
+fun StepList(steps: List<Step>, modifier: Modifier = Modifier, numbered: Boolean = true, sentence: Boolean = false) {
     val dimens = LocalDimens.current
-    val textStyle = MaterialTheme.typography.titleMedium
+    val typography = MaterialTheme.typography
+    val textStyle = (if (sentence) typography.bodyLarge else typography.titleMedium).copy(lineBreak = ReadyPortLineBreak.Body)
     val iconSize = textIconSize(if (dimens.easyMode) 24.dp else 20.dp, textStyle)
     val iconTop = firstLineIconOffset(textStyle, iconSize)
     // 큰 글자 배치에서는 단계 아이콘을 빼지 않고 글 첫 줄 안(맨 앞)으로 옮긴다 — 아이콘 열이 글 폭을 뺏지 않게 (재검토 R5)
@@ -527,7 +581,7 @@ fun ExpandableDetail(
 }
 
 /**
- * 펼침 상태를 밖에서 쥐는 판 (ReturnCheckCard compact가 펼치면 요약 줄을 숨기려고 쓴다).
+ * 펼침 상태를 밖에서 쥐는 판 (ReturnCheckCard가 펼치면 위 사실 행을 팩 문장 전체로 바꾸려고 쓴다 — 이때 [content]는 비운다).
  * 펼치면 라벨이 `접기`(action_less)로 바뀐다.
  */
 @Composable

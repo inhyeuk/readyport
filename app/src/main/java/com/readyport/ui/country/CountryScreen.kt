@@ -51,8 +51,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconToggleButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -69,14 +67,11 @@ import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
-import androidx.compose.ui.semantics.text
-import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
@@ -109,7 +104,7 @@ import com.readyport.ui.components.CardNewsCard
 import com.readyport.ui.components.ChoiceSegments
 import com.readyport.ui.components.DotBullet
 import com.readyport.ui.components.Fact
-import com.readyport.ui.components.FitText
+import com.readyport.ui.components.FactGrid
 import com.readyport.ui.components.IconBadge
 import com.readyport.ui.components.IconBullet
 import com.readyport.ui.components.IconKeys
@@ -130,17 +125,16 @@ import com.readyport.ui.components.SecondaryButton
 import com.readyport.ui.components.SectionHeader
 import com.readyport.ui.components.SourceList
 import com.readyport.ui.components.SourceRef
+import com.readyport.ui.components.StatTile
 import com.readyport.ui.components.Step
 import com.readyport.ui.components.StepList
 import com.readyport.ui.components.TileSpec
-import com.readyport.ui.components.TileGrid
 import com.readyport.ui.components.displayDate
 import com.readyport.ui.components.feeIcon
 import com.readyport.ui.components.importLabel
 import com.readyport.ui.components.koDisplay
 import com.readyport.ui.components.minTouch
 import com.readyport.ui.components.minTouchSize
-import com.readyport.ui.components.onLight
 import com.readyport.ui.components.rememberGridColumns
 import com.readyport.ui.components.rememberKeyIndex
 import com.readyport.ui.components.resolveSourceName
@@ -150,10 +144,7 @@ import com.readyport.ui.components.shortValue
 import com.readyport.ui.components.sourceRefs
 import com.readyport.ui.components.textIconSize
 import com.readyport.ui.nav.CountryRoute
-import com.readyport.ui.onboarding.rememberBrightPhoto
 import com.readyport.ui.theme.LocalDimens
-import com.readyport.ui.theme.LocalTypeExtras
-import com.readyport.ui.theme.ReadyPortLineBreak
 import com.readyport.ui.theme.Tokens
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -467,18 +458,6 @@ private fun MoreToggle(open: Boolean, onOpenChange: (Boolean) -> Unit, a11yLabel
     }
 }
 
-/**
- * 단계 목록. 단계 글은 제목 줄바꿈(균형) 대신 본문 줄바꿈(들어가는 만큼 채움, 어절 단위)으로 —
- * 균형 줄바꿈은 오른쪽에 자리가 남아도 일찍 꺾어 따옴표 화면 이름까지 가른다. 공용 StepList는 그대로 쓰고 이 안의 titleMedium만 바꾼다.
- */
-@Composable
-private fun BodyBreakStepList(steps: List<Step>) {
-    val typography = MaterialTheme.typography
-    MaterialTheme(typography = typography.copy(titleMedium = typography.titleMedium.copy(lineBreak = ReadyPortLineBreak.Body))) {
-        StepList(steps)
-    }
-}
-
 // ======================= 머리글 =======================
 
 /** 히어로 최소 높이 — 320×470 화면 예산(DESIGN_SPEC 6-03)에서 정부 비제휴 고지가 스크롤 없이 보이게 */
@@ -493,7 +472,7 @@ private val HeroMinHeight = 220.dp
 private fun CountryHero(loaded: Loaded<CountryPack>, favorite: Boolean, actions: CountryActions) {
     val pack = loaded.value
     val dimens = LocalDimens.current
-    PhotoBox(rememberBrightPhoto(Photos.country(pack.country)), minHeight = 0.dp, shape = MaterialTheme.shapes.extraLarge) {
+    PhotoBox(Photos.country(pack.country), minHeight = 0.dp, shape = MaterialTheme.shapes.extraLarge) {
         // 버튼 줄과 나라 이름을 세로로 쌓는다 — 글자를 키워도 서로 겹치지 않는다
         Column(Modifier.fillMaxWidth().heightIn(min = HeroMinHeight), verticalArrangement = Arrangement.SpaceBetween) {
             Row(Modifier.fillMaxWidth().padding(8.dp), horizontalArrangement = Arrangement.SpaceBetween) {
@@ -638,84 +617,16 @@ private fun VisaSummary(summary: String) {
 }
 
 /**
- * 숫자 타일 묶음 — 순서는 넘겨받은 그대로. 2열에서 타일 수가 홀수면 남는 칸을 비우지 않고 **마지막 타일**을 맨 아래 폭 전체로 놓는다
- * (긴 값을 고르면 순서가 바뀌어 잘못 읽힌다). 1열이면 순서 그대로 쌓는다. 타일이 하나면(무비자 나라의 `90일`) 폭 전체 한 장.
- * 타일은 값을 칸 폭에 맞춘 한 줄로 그린다([FitStatTile] — `IDR 500,000`이 `IDR`/`500,000` 두 줄로 쪼개지지 않게, 재검토 R12).
+ * 숫자 타일 묶음 — 순서는 넘겨받은 그대로. 공용 [FactGrid]가 1열이면 가로형, 2열 홀수면 마지막 타일을 맨 아래 폭 전체로 놓고,
+ * 공용 [StatTile]이 값을 칸 폭에 맞춘 한 줄로 그린다(`IDR 500,000`이 `IDR`/`500,000` 두 줄로 쪼개지지 않게, 재검토 R12).
+ * 타일이 하나면(무비자 나라의 `90일`) 폭 전체 가로형 한 장.
  */
 @Composable
 private fun FactTiles(facts: List<Fact>) {
-    if (facts.isEmpty()) return
-    val columns = rememberGridColumns()
-    val gap = LocalDimens.current.gap
-    // 폭 전체를 쓰는 타일(1열·혼자·홀수 마지막)은 가로형 — 넓은 칸에 큰 빈 자리를 남기지 않는다(IconTile 1열 가로형과 같은 규칙)
-    val grid: @Composable (List<Fact>) -> Unit = { list ->
-        TileGrid(list, columns = columns) { fact, cell -> FitStatTile(fact, cell, wide = columns == 1) }
-    }
     when {
-        facts.size == 1 -> FitStatTile(facts.single(), wide = true)
-        columns == 2 && facts.size % 2 == 1 -> Column(verticalArrangement = Arrangement.spacedBy(gap)) {
-            grid(facts.dropLast(1))
-            FitStatTile(facts.last(), wide = true)
-        }
-        else -> grid(facts)
-    }
-}
-
-/** 통화 코드가 앞에 붙은 금액 (`IDR 500,000`) — 코드와 숫자를 나눠 그린다 */
-private val CurrencyAmount = Regex("""([A-Z]{3})\s+(\d[\d,.]*)""")
-
-/**
- * 숫자 타일 (누를 수 없음). 공용 StatTile과 같은 모양(톤 연한 바탕 · 16dp 모서리 · tileMinHeight · 안쪽 16 · 아이콘 → 값 → 라벨)이되,
- * 값은 **칸 폭에 맞춘 한 줄**(FitText: stat → statSmall → titleLarge — 쉬운 모드 최소 24sp). 통화 코드가 붙은 금액은 코드를 값 위
- * 작은 글자(labelMedium)로 올리고 숫자만 크게 — 화면은 `IDR`⏎`500,000`, TalkBack·테스트는 `IDR 500,000` 한 덩어리 그대로.
- * (재검토 R12. 통합 담당: 공용 StatTile 값이 FitText를 쓰게 되면 이 함수를 지우고 StatTile로 — 공용 부품은 이번 묶음에서 동결)
- */
-@Composable
-private fun FitStatTile(fact: Fact, modifier: Modifier = Modifier, wide: Boolean = false) {
-    val dimens = LocalDimens.current
-    val extras = LocalTypeExtras.current
-    val typography = MaterialTheme.typography
-    val styles = listOf(extras.stat, extras.statSmall, typography.titleLarge)
-    val currency = CurrencyAmount.matchEntire(fact.value.trim())
-    val value: @Composable () -> Unit = {
-        if (currency != null) {
-            Column(Modifier.clearAndSetSemantics { text = AnnotatedString(fact.value.trim()) }) {
-                Text(currency.groupValues[1], style = typography.labelMedium, color = Tokens.InkSecondary)
-                FitText(currency.groupValues[2], styles, Tokens.Ink)
-            }
-        } else {
-            FitText(fact.value, styles, Tokens.Ink)
-        }
-    }
-    // 아이콘은 글자 크기를 따라 커진다(최대 1.5배) — 200%에서 큰 숫자 옆에서 점처럼 작아지지 않게
-    val iconSize = textIconSize(dimens.icon, typography.titleLarge)
-    val icon: @Composable () -> Unit = {
-        Icon(fact.icon, contentDescription = null, tint = fact.tone.onLight, modifier = Modifier.size(iconSize))
-    }
-    Surface(
-        color = fact.tone.container,
-        shape = MaterialTheme.shapes.medium,
-        modifier = modifier
-            .fillMaxWidth()
-            .heightIn(min = if (wide) dimens.tileRowMinHeight else dimens.tileMinHeight)
-            .semantics(mergeDescendants = true) {},
-    ) {
-        if (wide) {
-            // 가로형: 아이콘 + (값 / 라벨 한 줄) — 2열용 라벨의 줄바꿈(`비자 없이⏎머물러요`)은 넓은 칸에서 한 줄로
-            Row(Modifier.padding(16.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-                icon()
-                Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
-                    value()
-                    KoText(fact.label.replace('\n', ' '), typography.bodyMedium, color = Tokens.InkSecondary)
-                }
-            }
-        } else {
-            Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
-                icon()
-                value()
-                KoText(fact.label, typography.bodyMedium, color = Tokens.InkSecondary)
-            }
-        }
+        facts.isEmpty() -> Unit
+        facts.size == 1 -> StatTile(facts.single(), wide = true)
+        else -> FactGrid(facts)
     }
 }
 
@@ -779,7 +690,7 @@ private fun FoldedSteps(steps: List<String>) {
     var open by rememberSaveable(steps) { mutableStateOf(false) }
     val split = steps.map { splitFirstSentence(it) to (it.trim().length > FOLD_CHARS) }
     val foldable = split.any { (step, long) -> long && step.detail != null }
-    BodyBreakStepList(
+    StepList(
         split.map { (step, long) ->
             Step(step.text, detail = step.detail?.takeIf { open || !long })
         },
@@ -932,7 +843,7 @@ private fun MapsCard() {
         tone = BadgeTone.Teal,
         sources = listOf(SourceRef(stringResource(R.string.explore_maps_source), "2026.09.28")),
     ) {
-        BodyBreakStepList(
+        StepList(
             listOf(R.string.explore_maps_step1, R.string.explore_maps_step2, R.string.explore_maps_step3)
                 .map { Step(stringResource(it)) },
         )

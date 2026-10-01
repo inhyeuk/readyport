@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.selection.selectableGroup
@@ -38,12 +37,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.OffsetMapping
@@ -81,6 +78,7 @@ import com.readyport.ui.components.SelectableCard
 import com.readyport.ui.components.TileGrid
 import com.readyport.ui.components.cardShadow
 import com.readyport.ui.components.rememberGridColumns
+import com.readyport.ui.components.rememberPhotoLift
 import com.readyport.ui.components.rememberThumbnail
 import com.readyport.ui.components.sectionGap
 import com.readyport.ui.theme.LocalDimens
@@ -339,7 +337,13 @@ private fun CountryThumb(code: String, size: Dp) {
     val thumb = rememberThumbnail(Photos.country(code), size)
     Box(Modifier.size(size).clip(CircleShape).background(Tokens.Navy)) {
         if (thumb != null) {
-            Image(thumb, contentDescription = null, contentScale = ContentScale.Crop, modifier = Modifier.matchParentSize())
+            Image(
+                thumb,
+                contentDescription = null,
+                contentScale = ContentScale.Crop,
+                colorFilter = rememberPhotoLift(thumb),
+                modifier = Modifier.matchParentSize(),
+            )
         }
     }
 }

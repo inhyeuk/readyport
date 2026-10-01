@@ -187,7 +187,7 @@ class FormUiTest {
         rule.onAllNodesWithText(s(R.string.form_confirm_yes)).assertCountEquals(0)
         // '수동 모드' 대신 쉬운 말 (재검토 R18)
         shown(s(R.string.form_manual_open))
-        rule.onAllNodesWithText(s(R.string.form_manual_mode)).assertCountEquals(0)
+        rule.onAllNodesWithText("수동 모드", substring = true).assertCountEquals(0)
     }
 
     @Test

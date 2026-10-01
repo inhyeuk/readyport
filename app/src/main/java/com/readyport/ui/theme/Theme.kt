@@ -18,6 +18,7 @@ import androidx.compose.ui.platform.ViewConfiguration
 import androidx.compose.ui.text.PlatformTextStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.intl.LocaleList
 import com.readyport.R
 import com.readyport.ui.components.ProvideLayoutInfo
 import androidx.compose.ui.text.font.FontFamily
@@ -172,6 +173,15 @@ object ReadyPortLineBreak {
         } else {
             LineBreak.Simple
         }
+
+    /**
+     * 앱 글자의 언어(한국어). 어절 단위 줄바꿈(WordBreak.Phrase)은 **글자의 언어가 한국어일 때만** 띄어쓰기에서 끊는다 —
+     * 언어를 비워 두면 기기 언어를 따르므로, 기기 언어가 영어인 폰(그리고 언어를 정하지 않은 Robolectric 스토어 캡처)에서
+     * 제목이 `(TDAC)/를`처럼 낱말 안에서 끊겼다(재검토 C). 앱 문구는 한국어뿐이라 글자 스타일에 한국어를 고정한다.
+     * 현지인에게 보여 주는 현지어 스타일(localLarge·localMedium)에는 넣지 않는다(태국어·일본어 글꼴 선택이 기기 언어를 따르게).
+     * 화면 글자(getString)는 그대로다 — 보이지 않는 문자를 넣지 않고 줄 나누기 규칙만 바뀐다.
+     */
+    val Korean: LocaleList = LocaleList("ko-KR")
 }
 
 private val NoFontPadding = PlatformTextStyle(includeFontPadding = false)
@@ -201,6 +211,7 @@ private fun style(
     fontWeight = weight,
     letterSpacing = spacing.sp,
     lineBreak = lineBreak,
+    localeList = ReadyPortLineBreak.Korean,
     platformStyle = NoFontPadding,
 )
 
@@ -274,6 +285,7 @@ private fun statStyle(size: Int, line: Int) = TextStyle(
     fontWeight = FontWeight.Bold,
     fontFeatureSettings = "tnum",
     lineBreak = ReadyPortLineBreak.Heading,
+    localeList = ReadyPortLineBreak.Korean,
     platformStyle = NoFontPadding,
 )
 

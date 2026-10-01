@@ -284,7 +284,7 @@ fun ComponentsPage(part: Int) {
         item(key = "danger-style") {
             CardNewsCard(title = stringResource(R.string.today_destroy_title), icon = Icons.Outlined.Lock, style = NewsStyle.Danger, body = stringResource(R.string.today_destroy_body)) {
                 SecondaryButton(stringResource(R.string.today_destroy_later), onClick = {}, icon = Icons.Outlined.Schedule)
-                DangerButton(stringResource(R.string.today_destroy_now), onClick = { confirm = true })
+                DangerButton(stringResource(R.string.today_destroy_now_target), onClick = { confirm = true })
             }
         }
         }
@@ -376,14 +376,14 @@ fun ComponentsPage(part: Int) {
             Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
                 CountryPhotoTile(
                     th.names.ko, th.names.en, Photos.country("TH"),
-                    listOf(ChipSpec(Icons.Outlined.EventAvailable, stringResource(R.string.home_chip_visa_free, 90)), ChipSpec(Icons.Outlined.EditNote, stringResource(R.string.home_chip_form))),
+                    listOf(ChipSpec(Icons.Outlined.EventAvailable, stringResource(R.string.home_chip_visa_free, 90))),
                     onClick = {}, openLabel = stringResource(R.string.home_country_open, th.names.ko), large = true,
                 )
                 TileGrid(listOf("JP" to "일본", "SG" to "싱가포르")) { (code, name), cell ->
                     CountryPhotoTile(name, code, Photos.country(code), listOf(ChipSpec(Icons.Outlined.EventAvailable, stringResource(R.string.home_chip_visa_free, 90))), onClick = {}, openLabel = stringResource(R.string.home_country_open, name), modifier = cell)
                 }
                 PhotoHeaderCard(Photos.Airport, stringResource(R.string.home_departure_title), icon = IconKeys.stage(1)) {
-                    KoText(stringResource(R.string.home_essentials_body), MaterialTheme.typography.bodyLarge)
+                    KoText(stringResource(R.string.home_value_prop), MaterialTheme.typography.bodyLarge)
                 }
             }
         }
@@ -402,15 +402,16 @@ fun ComponentsPage(part: Int) {
             }
         }
         item(key = "help-row") { HelpShortcutRow(onClick = {}) }
-        item(key = "return-compact") { ReturnCheckCard(index.returnLinks, index.returnFacts, indexSources, {}, compact = true) }
-        item(key = "return-full") { ReturnCheckCard(index.returnLinks, index.returnFacts, emptyMap(), {}) }
+        item(key = "return-check") { ReturnCheckCard(index.returnLinks, index.returnFacts, indexSources, {}) }
+        // 출처 이름을 못 찾을 때(`공식 안내` — 내부 ID를 보이지 않음)
+        item(key = "return-fallback") { ReturnCheckCard(index.returnLinks, index.returnFacts, emptyMap(), {}) }
         item(key = "states") {
             Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
                 EmptyState(Icons.Outlined.FamilyRestroom, stringResource(R.string.companion_empty_title), stringResource(R.string.companion_add_hint), action = {
                     SecondaryButton(stringResource(R.string.companion_add), onClick = {}, fillWidth = false)
                 })
                 LockedState(stringResource(R.string.wallet_locked_title), stringResource(R.string.wallet_locked_body), stringResource(R.string.wallet_unlock), {}, icon = Icons.Outlined.QrCode2, badgeIcon = Icons.Outlined.Lock)
-                ComingSoonGroup(listOf(Icons.Outlined.InstallMobile to stringResource(R.string.prepare_apps_title), Icons.Outlined.Nfc to stringResource(R.string.passport_chip_soon)))
+                ComingSoonGroup(listOf(Icons.Outlined.InstallMobile to stringResource(R.string.prepare_apps_title), Icons.Outlined.Nfc to stringResource(R.string.passport_chip_soon_v2)))
             }
         }
         item(key = "buttons") {
@@ -420,7 +421,7 @@ fun ComponentsPage(part: Int) {
                 SecondaryButton(stringResource(R.string.form_go_first_missing), onClick = {}, icon = Icons.Outlined.ArrowDownward)
                 // 꺾쇠는 라벨 뒤에만(재검토 R11)
                 SecondaryButton(stringResource(R.string.today_make_trip), onClick = {}, icon = Icons.AutoMirrored.Outlined.NavigateNext)
-                SecondaryButton(stringResource(R.string.wallet_passport_show), onClick = {}, icon = Icons.Outlined.Visibility, enabled = false)
+                SecondaryButton(stringResource(R.string.wallet_passport_reveal), onClick = {}, icon = Icons.Outlined.Visibility, enabled = false)
                 SecondaryButton(stringResource(R.string.wallet_lock), onClick = {}, icon = Icons.Outlined.Lock, tone = BadgeTone.Neutral)
                 FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                     SecondaryButton(stringResource(R.string.help_full_screen), onClick = {}, icon = Icons.Outlined.Fullscreen, fillWidth = false)
@@ -477,7 +478,7 @@ fun PhotoWorstWhitePage() {
         item(key = "white-header") {
             Box {
                 PhotoHeaderCard(ColorPainter(Color.White), stringResource(R.string.home_departure_title), icon = IconKeys.stage(1)) {
-                    KoText(stringResource(R.string.home_essentials_body))
+                    KoText(stringResource(R.string.home_value_prop))
                 }
             }
         }

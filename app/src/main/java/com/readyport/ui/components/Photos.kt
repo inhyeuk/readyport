@@ -36,12 +36,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.ColorMatrix
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.graphics.asAndroidBitmap
 import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.painter.BitmapPainter
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -55,6 +60,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.core.graphics.get
 import com.readyport.R
 import com.readyport.ui.theme.LocalDimens
 import com.readyport.ui.theme.Tokens
@@ -114,6 +120,7 @@ fun loadPhotoCredits(context: Context): List<PhotoCredit> = runCatching {
  * 안에서 fillMaxWidth()를 적용한다(호출하는 쪽 modifier와 weight를 써도 폭이 잘리지 않게).
  * 크기는 [content]가 정한다 — 글자를 키우면 사진 칸도 함께 커진다.
  * 사진은 [rememberPhoto]로 그릴 폭(창 폭 × [widthFraction], 2열 타일은 0.5)에 맞춰 줄여 백그라운드에서 디코드·캐시한다(재검토 R10).
+ * 어두운 사진(해 질 녘 왓아룬·마리나 베이 등)은 그릴 때만 밝힌다([photoLiftFilter], 재검토 R19 — 사진 파일은 그대로).
  */
 @Composable
 fun PhotoBox(
@@ -352,11 +359,84 @@ fun rememberThumbnail(@DrawableRes res: Int?, sizeDp: Dp): ImageBitmap? {
     return rememberPhoto(res, px, square = true)
 }
 
-/** [rememberPhoto]를 Painter로 (아직 디코드 전이면 null → 남색 바탕) */
+/**
+ * [rememberPhoto]를 Painter로 (아직 디코드 전이면 null → 남색 바탕). 어두운 사진은 **그릴 때만** 밝힌다([photoLiftFilter], 재검토 R19 —
+ * 사진 파일은 그대로). PhotoBox·PhotoHeaderCard·CountryPhotoTile이 모두 이 길로 그리므로 홈 히어로·나라 타일·나라 히어로·
+ * 사진 머리 카드가 같은 보정을 받는다.
+ */
 @Composable
 private fun rememberPhotoPainter(@DrawableRes photo: Int?, widthFraction: Float): Painter? {
     val bitmap = rememberPhoto(photo, photoTargetPx(widthFraction)) ?: return null
-    return remember(bitmap) { BitmapPainter(bitmap) }
+    return remember(bitmap) {
+        val inner = BitmapPainter(bitmap)
+        photoLiftFilter(bitmap)?.let { FilteredPainter(inner, it) } ?: inner
+    }
+}
+
+// ---------------- 어두운 사진 렌더 보정 (재검토 R19 — 사진 파일은 그대로) ----------------
+
+/** 이 평균 밝기(0~255)보다 어두운 사진만 밝힌다 */
+private const val PHOTO_TARGET_LUMA = 128f
+
+/** 가장 어두운 사진에도 이 이상은 밝히지 않는다(하늘·불빛이 하얗게 날아가지 않게) */
+private const val PHOTO_MAX_DEFICIT = 0.35f
+
+/**
+ * 썸네일(원형 사진 등)에 쓸 밝기 보정 색 필터 — `Image(bitmap, colorFilter = rememberPhotoLift(bitmap))`.
+ * 사진 틀(PhotoBox·PhotoHeaderCard·CountryPhotoTile)은 안에서 이미 보정하므로 따로 부르지 않는다.
+ */
+@Composable
+fun rememberPhotoLift(bitmap: ImageBitmap?): ColorFilter? = remember(bitmap) { bitmap?.let(::photoLiftFilter) }
+
+/**
+ * 사진 평균 밝기를 격자 몇백 점으로 재서 목표보다 어두우면 밝히는 색 행렬 (밝으면 null).
+ * 어두운 정도(0~0.35)에 맞춰 대비를 조금(최대 ×1.21) 올리고 그림자를 조금(최대 +25) 띄운다 — 선형이라 색이 바뀌지 않는다.
+ * 글자 대비는 영향받지 않는다: 사진 위 글자는 PhotoTextArea 스크림 위에 있고, 그 대비(5.74:1)는 흰 사진 최악을 가정해 계산했다.
+ * (지금 번들 사진 중 홈·일본·말레이시아·싱가포르·태국이 보정 대상 — 사진 출처 화면 설명에 적어 둔다)
+ */
+internal fun photoLiftFilter(bitmap: ImageBitmap): ColorFilter? {
+    val luma = runCatching { meanLuma(bitmap) }.getOrNull() ?: return null
+    val deficit = ((PHOTO_TARGET_LUMA - luma) / PHOTO_TARGET_LUMA).coerceIn(0f, PHOTO_MAX_DEFICIT)
+    if (deficit < 0.02f) return null
+    val gain = 1f + deficit * 0.6f
+    val lift = deficit * 70f
+    return ColorFilter.colorMatrix(
+        ColorMatrix(
+            floatArrayOf(
+                gain, 0f, 0f, 0f, lift,
+                0f, gain, 0f, 0f, lift,
+                0f, 0f, gain, 0f, lift,
+                0f, 0f, 0f, 1f, 0f,
+            ),
+        ),
+    )
+}
+
+/** 24×16 격자 점의 평균 밝기(0~255, Rec. 601 가중치) */
+private fun meanLuma(bitmap: ImageBitmap): Float {
+    val bmp = bitmap.asAndroidBitmap()
+    val w = bmp.width
+    val h = bmp.height
+    if (w <= 0 || h <= 0) return PHOTO_TARGET_LUMA
+    var sum = 0f
+    var n = 0
+    for (gy in 0 until 16) {
+        for (gx in 0 until 24) {
+            val p = bmp[(gx * 2 + 1) * w / 48, (gy * 2 + 1) * h / 32]
+            sum += 0.299f * ((p shr 16) and 0xFF) + 0.587f * ((p shr 8) and 0xFF) + 0.114f * (p and 0xFF)
+            n++
+        }
+    }
+    return sum / n
+}
+
+/** 안쪽 Painter를 색 필터와 함께 그린다 (PhotoBox의 Image는 colorFilter를 받지 않으므로 Painter 쪽에서) */
+private class FilteredPainter(private val inner: Painter, private val filter: ColorFilter) : Painter() {
+    override val intrinsicSize: Size get() = inner.intrinsicSize
+
+    override fun DrawScope.onDraw() {
+        with(inner) { draw(size, colorFilter = filter) }
+    }
 }
 
 // ---------------- 사진 디코드 (재검토 R10) ----------------

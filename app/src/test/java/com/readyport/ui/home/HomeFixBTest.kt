@@ -63,8 +63,7 @@ class HomeFixBTest {
             assertTrue("$name 칩 없음", !state.isNullOrBlank())
             assertTrue("$name 칩이 여러 개: $state", ", " !in state!!)
         }
-        assertTrue(rule.onAllNodesWithText(s(R.string.home_chip_form)).fetchSemanticsNodes().isEmpty())
-        assertTrue(rule.onAllNodesWithText(s(R.string.home_chip_visa_apply)).fetchSemanticsNodes().isEmpty())
+        assertTrue(rule.onAllNodesWithText("도우미", substring = true).fetchSemanticsNodes().isEmpty())
     }
 
     /** R13: 급할 때는 도움 줄은 나라 바로 다음, 여행 준비 기본 정보보다 위 */

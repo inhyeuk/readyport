@@ -75,7 +75,6 @@
     <string name="form_labels_unreviewed">현지어 표기는 원어민 검수 전이에요</string>
     <string name="form_killed">지금은 이 사이트 자동 입력을 쉬고 있어요. 값을 복사해서 직접 넣어 주세요.</string>
     <string name="form_no_recipe">이 입국 카드는 아직 자동 입력을 준비하지 못했어요. 값을 복사해서 직접 넣어 주세요.</string>
-    <string name="form_manual_mode">수동 모드</string>
     <string name="form_save_failed">저장하지 못했어요. 내 정보를 다시 열어 주세요.</string>
 
     <!-- 자동 입력 화면 (PRD 5.3) -->
@@ -144,9 +143,7 @@
     <string name="wallet_passport_name">이름</string>
     <string name="wallet_passport_number">여권 번호</string>
     <string name="wallet_passport_expiry">만료일</string>
-    <string name="wallet_passport_verified">MRZ 확인 완료</string>
     <string name="wallet_passport_manual">직접 입력함</string>
-    <string name="wallet_passport_show">자세히 보기</string>
     <string name="wallet_passport_hide">가리기</string>
     <string name="wallet_passport_delete">여권 정보 지우기</string>
     <string name="wallet_passport_expiring">여권 만료가 6개월 안이에요. 나라마다 남은 기간 규칙이 달라서, 여행지 안내에서 꼭 확인해 주세요.</string>
@@ -164,12 +161,9 @@
     <!-- 여권 등록 -->
     <string name="passport_title">여권 등록</string>
     <string name="passport_step_scan">촬영</string>
-    <string name="passport_step_chip">칩 확인(선택)</string>
     <string name="passport_step_confirm">값 확인</string>
     <string name="passport_steps_desc">여권 등록 단계: %1$s (%3$d단계 중 %2$d단계)</string>
     <string name="passport_intro_body">여권 사진이 있는 면의 맨 아래 두 줄(&lt;&lt;&lt; 표시가 있는 줄)을 읽어서 이름·여권 번호·생년월일·만료일을 채워요.</string>
-    <string name="passport_privacy_1">사진은 이 기기 안에서만 읽고, 값을 뽑은 뒤 바로 지워요. 저장하지 않아요.</string>
-    <string name="passport_privacy_2">여권 정보는 이 기기 안에만 암호화해서 저장해요. 레디포트 서버로 보내지 않아요.</string>
     <string name="passport_privacy_3">글자 인식 도구(Google ML Kit)가 기기 종류·앱 버전·성능 정보를 Google에 보낼 수 있어요. 여권 사진과 내용은 보내지 않아요.</string>
     <string name="passport_consent">위 내용을 읽었어요</string>
     <string name="passport_use_camera">카메라로 찍기</string>
@@ -196,7 +190,6 @@
     <string name="passport_sex_x">기타</string>
     <string name="passport_save">확인하고 저장</string>
     <string name="passport_rescan">다시 찍기</string>
-    <string name="passport_chip_soon">NFC 칩으로 한 번 더 확인 (준비 중)</string>
     <string name="passport_manual_body">여권에 적힌 그대로 영문 대문자로 적어 주세요.</string>
     <string name="passport_manual_invalid" tools:ignore="TypographyDashes">빈칸이나 날짜 모양(예: 1974-08-12)을 확인해 주세요.</string>
     <string name="passport_speech">여권 등록. 여권 맨 아래 두 줄을 읽어서 값을 채워요. 사진은 저장하지 않아요.</string>
@@ -286,7 +279,6 @@
     <string name="today_return_title">여행이 끝났어요</string>
     <string name="today_destroy_title">여권 정보를 지울까요?</string>
     <string name="today_destroy_body">사진·영수증은 남고 여권 정보만 지워요. 다음 여행 때 다시 찍으면 돼요.</string>
-    <string name="today_destroy_now">지우기</string>
     <string name="today_destroy_later">7일 미루기</string>
     <string name="today_new_trip">새 여행 만들기</string>
     <string name="today_speech_trip">%1$s. 지금 단계는 %2$s이에요.</string>
@@ -305,7 +297,6 @@
     <string name="present_offline">비행기 모드에서도 보여요</string>
     <string name="present_add_photo">사진에서 추가하기</string>
     <string name="present_self">나</string>
-    <string name="present_share">다른 폰으로 보내기</string>
     <string name="present_delete">이 서류 지우기</string>
     <string name="present_doc_image">%1$s 입국 서류 그림</string>
     <string name="present_confirmation">확인 번호</string>
@@ -360,7 +351,6 @@
     <string name="settings_easy_mode">쉬운 모드</string>
     <string name="settings_easy_mode_desc">글자와 버튼을 크게, 한 화면에 할 일 하나씩</string>
     <string name="settings_privacy">개인정보 안내</string>
-    <string name="settings_privacy_body">여권과 예약 서류는 이 기기 안에서만 읽고 저장해요. 공식 사이트에 입력하는 것도 내가 \'맞아요\'를 누를 때만 해요.</string>
     <string name="settings_disclaimer">출처와 알림</string>
     <string name="settings_disclaimer_body">레디포트는 정부 기관과 제휴하지 않았어요. 모든 안내에 공식 출처와 최종 확인일을 붙여요. 입국 서류의 내용은 신청하는 본인이 책임져요.</string>
     <string name="settings_about">앱 정보</string>
@@ -387,7 +377,6 @@
     <string name="shopping_in_cart">담았어요 ✓</string>
     <string name="shopping_show_staff">직원에게 보여주기</string>
     <string name="shopping_return_title">귀국 전 확인</string>
-    <string name="shopping_return_body">면세 한도와 반입 금지 품목은 관세청·농림축산검역본부 공식 안내로 확인하세요. 규정은 바뀔 수 있어요.</string>
     <string name="import_allowed">한국 반입 가능</string>
     <string name="import_caution">반입 주의</string>
     <string name="import_prohibited">반입 불가</string>
@@ -426,12 +415,9 @@
     <string name="home_chip_visa_free">비자 없이 %1$d일</string>
     <string name="home_chip_visa_arrival">도착비자 %1$d일</string>
     <string name="home_chip_visa_check">비자 안내 보기</string>
-    <string name="home_chip_form">입국 신고 도우미</string>
-    <string name="home_chip_visa_apply">비자 온라인 신청 도우미</string>
     <string name="home_chip_not_ready">안내 준비 중</string>
     <string name="home_basics_title">여행 준비 기본 정보</string>
     <string name="home_departure_title">출국하는 날, 이 순서대로</string>
-    <string name="home_essentials_body">플러그와 전압, 보조배터리 규정처럼 나라마다 다른 준비물을 하나씩 확인해요.</string>
     <string name="home_essentials_open">준비물 확인하기</string>
     <string name="home_passport_title">여권 정보는 한 번만 등록하세요</string>
     <string name="home_passport_body">입국 신고서를 쓸 때마다 다시 입력하지 않아도 돼요. 이 휴대폰에만 암호화해 저장하고, 밖으로 보내지 않아요.</string>

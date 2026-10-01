@@ -88,7 +88,7 @@ class PresentUiTest {
         // '다른 폰으로 보내기' 대신 누가·무엇이·어디로 가는지 그대로 (재검토 R18 — '이 휴대폰에만' 약속과 부딪히지 않게)
         shown(s(R.string.present_share_family))
         shown(s(R.string.present_share_note))
-        rule.onAllNodesWithText(s(R.string.present_share)).assertCountEquals(0)
+        rule.onAllNodesWithText("다른 폰으로 보내기").assertCountEquals(0)
         // 지우기는 맨 아래 관리 줄 — TalkBack은 서류 이름과 함께 읽는다
         shown(s(R.string.present_delete))
         rule.onNodeWithContentDescription(s(R.string.delete_named_cd, "태국 입국 카드 (TDAC)")).assertExists()

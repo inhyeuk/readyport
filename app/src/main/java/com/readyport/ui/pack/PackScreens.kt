@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -33,7 +32,6 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -93,6 +91,7 @@ import com.readyport.ui.components.TileGrid
 import com.readyport.ui.components.displayDate
 import com.readyport.ui.components.rememberGridColumns
 import com.readyport.ui.components.rememberKeyIndex
+import com.readyport.ui.components.rememberPhotoLift
 import com.readyport.ui.components.rememberThumbnail
 import com.readyport.ui.components.resolveSourceName
 import com.readyport.ui.components.scrollToKey
@@ -361,7 +360,8 @@ fun HelpContent(
                             tone = BadgeTone.Caution,
                             sources = listOf(ref(proc.source, proc.lastVerified)),
                         ) {
-                            SentenceStepList(proc.stepsKo.map { stepOf(it) })
+                            // 절차 단계는 두세 줄 문장 — 굵은 제목 대신 본문 글자(번호 원만 강조, 재검토 ④-9)
+                            StepList(proc.stepsKo.map { stepOf(it) }, sentence = true)
                         }
                     }
                 }
@@ -411,17 +411,6 @@ fun HelpContent(
     }
 }
 
-/**
- * 절차 단계(`여권을 잃어버렸어요` 등): 팩 문장이 두세 줄 문장이라 굵은 제목 글자(titleMedium SemiBold)로 그리면 굵은 글 벽이 된다
- * (재검토 ④-9). 번호 원만 강조하고 단계 글은 본문 글자(bodyLarge, Ink)로 — 보조 글(bodyMedium, InkSecondary)과는 크기·색으로 구분된다.
- * 공용 StepList는 그대로 쓰고 이 안의 titleMedium만 바꾼다(부품 동결 — 나라 화면 BodyBreakStepList와 같은 방식, 통합 때 StepList 문장형 옵션 후보).
- */
-@Composable
-private fun SentenceStepList(steps: List<Step>) {
-    val typography = MaterialTheme.typography
-    MaterialTheme(typography = typography.copy(titleMedium = typography.bodyLarge)) { StepList(steps) }
-}
-
 /** TextButton(QuietButton)의 가로 안쪽 여백 — 글자 버튼을 다른 요소와 같은 왼쪽 선에 맞출 때 당기는 만큼 */
 internal val TextButtonInset = 12.dp
 
@@ -434,6 +423,7 @@ private fun CountryAvatar(code: String) {
             thumb,
             contentDescription = null,
             contentScale = ContentScale.Crop,
+            colorFilter = rememberPhotoLift(thumb),
             modifier = Modifier.size(24.dp).clip(CircleShape).background(Tokens.SurfaceSunken),
         )
     }

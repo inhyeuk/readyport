@@ -114,7 +114,7 @@ class ComponentsBehaviorTest {
 
     @Test
     fun comingSoonItemsAreDisabledAndNotClickable() {
-        val soon = context.getString(R.string.passport_chip_soon)
+        val soon = context.getString(R.string.passport_chip_soon_v2)
         rule.setContent {
             ReadyPortTheme {
                 ComingSoonGroup(listOf(Icons.Outlined.Nfc to soon, Icons.Outlined.InstallMobile to context.getString(R.string.prepare_apps_title)))

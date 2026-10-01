@@ -30,6 +30,9 @@ import com.readyport.trip.TripStage
 import com.readyport.ui.FakeSlots
 import com.readyport.ui.ReadyPortRoot
 import com.readyport.ui.TestPacks
+import com.readyport.ui.components.emphasizeNumbers
+import com.readyport.ui.components.firstSentence
+import com.readyport.ui.components.numberRanges
 import com.readyport.ui.present.CompanionsContent
 import com.readyport.ui.theme.ReadyPortTheme
 import com.readyport.ui.trip.TripContent
@@ -136,7 +139,7 @@ class TripUiTest {
         shown(s(R.string.today_destroy_now_target))
         rule.onNodeWithText(s(R.string.today_destroy_now_target)).performClick()
         assertTrue(destroyed)
-        rule.onAllNodesWithText(s(R.string.today_destroy_now)).assertCountEquals(0)
+        rule.onAllNodesWithText("지우기").assertCountEquals(0)
     }
 
     @Test
@@ -166,8 +169,8 @@ class TripUiTest {
         val (lead, rest) = firstSentence(fact.textKo)
         shown(lead)
         rule.onAllNodesWithText(fact.textKo).assertCountEquals(0)
-        shown(s(R.string.today_return_rules_more))
-        rule.onNodeWithText(s(R.string.today_return_rules_more)).performClick()
+        shown(s(R.string.return_check_full))
+        rule.onNodeWithText(s(R.string.return_check_full)).performClick()
         shown(fact.textKo)
         assertTrue(rest != null)
     }

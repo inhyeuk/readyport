@@ -138,6 +138,7 @@ class CreditsUiTest {
     fun privacyRowSaysPhoneLikeThePromise() {
         rule.setContent { ReadyPortTheme { SettingsScreen(easyMode = false, onEasyModeChange = {}) } }
         rule.onNode(hasScrollAction()).performScrollToNode(hasText(s(R.string.settings_privacy_body_v2)))
-        rule.onAllNodesWithText(s(R.string.settings_privacy_body)).assertCountEquals(0)
+        rule.onNodeWithText(s(R.string.settings_privacy_body_v2)).assertExists()
+        rule.onAllNodesWithText("이 기기", substring = true).assertCountEquals(0)
     }
 }

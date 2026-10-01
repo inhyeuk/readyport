@@ -25,10 +25,6 @@
     <string name="home_items_voltage">전압</string>
     <string name="home_items_powerbank">보조배터리</string>
     <string name="help_shortcut_title">급할 때는 도움</string>
-    <string name="return_topic_allowance">면세 한도</string>
-    <string name="return_topic_plant">과일·식물</string>
-    <string name="return_topic_livestock">고기·축산물</string>
-    <string name="return_check_more">면세 한도와 반입 금지 품목 보기</string>
     <string name="today_departure_step1_detail">국제선은 넉넉히 일찍 가는 게 좋아요.</string>
 
     <!-- 03~05 나라 -->
@@ -96,9 +92,6 @@
     <string name="wallet_reset_confirm_body">여권, 예약 서류, 같이 가는 사람, 입국 서류가 이 휴대폰에서 모두 지워져요. 되돌릴 수 없어요.</string>
     <string name="companion_empty_title">보호자 폰 하나로 가족 서류를 챙겨요</string>
     <string name="companion_add_hint">이름을 적고 동의에 체크하면 추가할 수 있어요</string>
-
-    <!-- 28 사진 출처 (CC BY/BY-SA 변경 표시, DESIGN_SPEC 3.7 ⑦) -->
-    <string name="photo_credits_body_v2">모든 사진은 위키미디어 공용에서 가져와 잘라내고 크기를 줄이고, 글자가 잘 보이게 어둡게 덮었어요(일부는 둥글게 잘랐어요).</string>
 
     <!-- 재검토 수정 A (2026-10-01): 공용 부품 -->
     <!-- KeyValueRow(masked): 가린 값(`L••••••C3`)을 TalkBack이 점 대신 읽는 말 -->
