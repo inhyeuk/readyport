@@ -84,6 +84,10 @@ object Photos {
         "SG" -> R.drawable.photo_sg
         "MY" -> R.drawable.photo_my
         "ID" -> R.drawable.photo_id
+        "TW" -> R.drawable.photo_tw
+        "CN" -> R.drawable.photo_cn
+        "PH" -> R.drawable.photo_ph
+        "VN" -> R.drawable.photo_vn
         else -> null
     }
 

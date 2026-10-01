@@ -16,7 +16,7 @@ class M8PacksTest {
 
     private val index = TestPacks.index.value
     private fun pack(c: String) = runBlocking { TestPacks.repo.pack(c)!!.value }
-    private val countries = listOf("TH", "MY", "SG", "ID", "JP")
+    private val countries = listOf("TH", "MY", "SG", "ID", "JP", "TW", "CN", "PH", "VN")
 
     @Test fun offlineEssentialsPerCountry() {
         val home = index.homePower
@@ -31,6 +31,16 @@ class M8PacksTest {
         assertTrue("voltage_check" in ids("JP"))
         assertTrue("plug_adapter" in ids("JP"))
         assertFalse("voltage_check" in ids("MY"))
+        // 대만: 110V·구멍 2개·3개 콘센트 → 전압 확인 + 어댑터. 중국: 220V, 둥근 핀도 맞는 콘센트가 많음(베이징시 안내)
+        assertTrue("voltage_check" in ids("TW"))
+        assertTrue("plug_adapter" in ids("TW"))
+        assertFalse("voltage_check" in ids("CN"))
+        assertFalse("plug_adapter" in ids("CN"))
+        // 필리핀: 관광부가 곳에 따라 11자(납작한 핀) 콘센트도 있다고 안내 — 맞는지 한마디로 말할 수 없어(null) 어댑터 권장. 베트남: 한국 플러그가 맞는 곳이 많다(외교부)
+        assertTrue("plug_adapter" in ids("PH"))
+        assertFalse("plug_adapter" in ids("VN"))
+        assertFalse("voltage_check" in ids("PH"))
+        assertFalse("voltage_check" in ids("VN"))
         assertEquals(0, TestPacks.remoteCalls)
     }
 
@@ -62,6 +72,7 @@ class M8PacksTest {
     @Test fun meatAndFreshFruitAreProhibited() {
         assertEquals(ImportStatus.Prohibited, pack("SG").shopping.first { it.id == "bakkwa" }.import)
         assertEquals(ImportStatus.Prohibited, pack("TH").shopping.first { it.id == "fresh_mango" }.import)
+        assertEquals(ImportStatus.Prohibited, pack("PH").shopping.first { it.id == "fresh_mango" }.import)
     }
 
     @Test fun returnInfoIsOfficial() {

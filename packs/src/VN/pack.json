@@ -1,0 +1,301 @@
+{
+  "schema_version": 1,
+  "country": "VN",
+  "version": "2026.10.02-1",
+  "last_verified": "2026-10-02",
+  "names": {
+    "ko": "베트남",
+    "en": "Vietnam",
+    "local": "Việt Nam"
+  },
+  "local_language": {
+    "name_ko": "베트남어",
+    "tts_lang": "vi-VN"
+  },
+  "sources": [
+    {
+      "id": "mofa_vn",
+      "name": "외교부 해외안전여행 · 베트남",
+      "url": "https://0404.go.kr/ntnSafetyInfo/86/detail"
+    },
+    {
+      "id": "vn_evisa",
+      "name": "베트남 이민국 · 전자비자 공식 사이트(안내·자주 묻는 질문)",
+      "url": "https://evisa.gov.vn/"
+    },
+    {
+      "id": "embassy_vn_lost",
+      "name": "주베트남 대한민국 대사관 · 여권 분실",
+      "url": "https://overseas.mofa.go.kr/vn-ko/brd/m_2192/view.do?seq=1176999"
+    },
+    {
+      "id": "vn_souvenirs",
+      "name": "베트남관광청 · 전통 기념품 12가지",
+      "url": "https://vietnam.travel/things-to-do/12-traditional-vietnamese-souvenirs"
+    },
+    {
+      "id": "customs_allowance",
+      "name": "관세청 여행자 휴대품 면세 범위",
+      "url": "https://customs.go.kr/kcs/cm/cntnts/cntntsView.do?mi=2837&cntntsId=829"
+    },
+    {
+      "id": "apqa_plant_exempt",
+      "name": "농림축산검역본부 검역 제외 식물",
+      "url": "https://www.apqa.go.kr/plant/imQua/plant_notest_ex.jsp"
+    },
+    {
+      "id": "grab_locations",
+      "name": "Grab 서비스 국가",
+      "url": "https://www.grab.com/sg/locations/"
+    },
+    {
+      "id": "gmaps_play",
+      "name": "Google Play · Google 지도",
+      "url": "https://play.google.com/store/apps/details?id=com.google.android.apps.maps"
+    }
+  ],
+  "requirements": [
+    {
+      "nationality": "KR",
+      "purpose": "tourism",
+      "visa": "not_required",
+      "stay_limit_days": 45,
+      "forms": [],
+      "summary_ko": "대한민국 일반 여권은 비자 없이 45일까지 머물 수 있어요(베트남이 정한 무비자). 관광으로 갈 때는 베트남에서 나가는 비행기 표를 가지고 있어야 해요. 45일보다 오래 머물려면 미리 비자를 받아야 해요.",
+      "source": "mofa_vn",
+      "last_verified": "2026-10-02",
+      "apply": {
+        "form": "VN_EVISA",
+        "name_ko": "베트남 전자비자 (45일 넘게 머물 때)",
+        "official_url": "https://evisa.gov.vn/",
+        "fee_ko": "한 번 들어가는 비자 USD 25, 여러 번 들어가는 비자 USD 50. 비자가 안 나와도 돌려받지 못해요",
+        "steps_ko": [
+          "공식 사이트에서 'Apply now'를 누르고 안내를 읽어요. 얼굴 사진(흰 배경, 모자·안경 없이, JPG 2MB 이하)과 여권 사진 면을 올리면 여권 정보가 채워져요.",
+          "채워진 칸이 맞는지 확인하고 나머지 칸을 영어로 직접 적어요. 이름은 여권 아래쪽 기계 판독 줄과 똑같이 대문자로 적어요.",
+          "마지막에 확인 글자(verification code)를 직접 넣고 내요. 이어서 카드로 직접 결제해요.",
+          "결과는 이메일이나 공식 사이트의 'Search'에서 확인해요. 들어가기 1년 전부터 신청할 수 있어요.",
+          "입국 심사 때 전자비자를 꼭 보여 주세요. 보여 주지 않으면 비자 없이 들어온 것으로 처리될 수 있어요."
+        ],
+        "warning_ko": "공식 사이트는 evisa.gov.vn과 thithucdientu.gov.vn뿐이에요. 다른 사이트는 정해지지 않은 돈을 더 받을 수 있어요.",
+        "source": "vn_evisa",
+        "last_verified": "2026-10-02"
+      }
+    }
+  ],
+  "forms": [],
+  "sections": [
+    {
+      "id": "entry",
+      "title_ko": "들어갈 때",
+      "body_ko": [
+        "베트남 이민국은 도착 전에 공식 사이트(prearrival.immigration.gov.vn)에서 입국 정보를 미리 내 두기를 권해요. 미리 내면 입국 심사에서 기다리는 시간이 줄어요.",
+        "전자비자는 최대 90일이에요. 여권 유효기간이 비자 기간보다 30일 이상 길어야 해요.",
+        "전자비자로는 베트남 정부가 정한 국제 공항·항구·육로 국경으로만 드나들 수 있어요."
+      ],
+      "source": "vn_evisa",
+      "last_verified": "2026-10-02"
+    },
+    {
+      "id": "payment",
+      "title_ko": "돈",
+      "body_ko": [
+        "돈 단위는 베트남 동(VND)이에요. 동전은 쓰지 않아요.",
+        "카드보다 현금을 많이 써요. 밖에 나갈 때는 현금을 조금 챙기세요.",
+        "1,500만 동이 넘는 베트남 돈을 가지고 나갈 때는 미리 신고해야 해요."
+      ],
+      "source": "mofa_vn",
+      "last_verified": "2026-10-02"
+    },
+    {
+      "id": "transport",
+      "title_ko": "이동",
+      "body_ko": [
+        "택시 기본요금은 약 9,000~15,000동이고, 회사마다 요금이 달라요.",
+        "휴대폰 앱으로 부르는 택시를 많이 써요. 바가지요금 걱정이 적어요.",
+        "한국에서 받는 국제운전면허증(제네바 협약)은 베트남에서 인정되지 않아요.",
+        "길은 꼭 건널목으로 건너세요. 밤늦게 다닐 때는 더 조심하세요."
+      ],
+      "source": "mofa_vn",
+      "last_verified": "2026-10-02"
+    },
+    {
+      "id": "safety",
+      "title_ko": "안전 (외교부 여행경보)",
+      "body_ko": [
+        "모든 지역이 1단계(여행유의)예요.",
+        "오토바이를 탄 날치기가 많아요. 가방은 차도 반대쪽으로 들고, 현금은 조금만 가지고 다니세요.",
+        "여권을 잃어버리면 새 여권 말고도 출국 비자를 다시 받아야 해서 5일쯤 더 걸려요. 여권을 잘 챙기세요.",
+        "마약은 아주 무겁게 처벌해요. 절대 손대지 마세요.",
+        "여행경보는 자주 바뀌어요. 떠나기 전에 외교부 해외안전여행에서 다시 확인하세요."
+      ],
+      "source": "mofa_vn",
+      "last_verified": "2026-10-02"
+    }
+  ],
+  "transport_apps": [
+    {
+      "name": "Grab",
+      "package": "com.grabtaxi.passenger",
+      "link_type": "open_and_copy",
+      "source": "grab_locations"
+    },
+    {
+      "name": "Google 지도",
+      "package": "com.google.android.apps.maps",
+      "link_type": "maps_url",
+      "source": "gmaps_play"
+    }
+  ],
+  "phrases": [
+    {
+      "id": "restroom",
+      "ko": "화장실이 어디예요?",
+      "en": "Where is the restroom?",
+      "local": "Nhà vệ sinh ở đâu?",
+      "reviewed": false
+    },
+    {
+      "id": "lost",
+      "ko": "길을 잃었어요",
+      "en": "I'm lost.",
+      "local": "Tôi bị lạc đường.",
+      "reviewed": false
+    },
+    {
+      "id": "hospital",
+      "ko": "병원에 가야 해요",
+      "en": "I need to go to a hospital.",
+      "local": "Tôi cần đi bệnh viện.",
+      "reviewed": false
+    },
+    {
+      "id": "slowly",
+      "ko": "천천히 말해 주세요",
+      "en": "Please speak slowly.",
+      "local": "Xin hãy nói chậm lại.",
+      "reviewed": false
+    },
+    {
+      "id": "address",
+      "ko": "이 주소로 가 주세요",
+      "en": "Please take me to this address.",
+      "local": "Làm ơn đưa tôi đến địa chỉ này.",
+      "reviewed": false
+    },
+    {
+      "id": "police",
+      "ko": "경찰을 불러 주세요",
+      "en": "Please call the police.",
+      "local": "Làm ơn gọi cảnh sát.",
+      "reviewed": false
+    },
+    {
+      "id": "help",
+      "ko": "도와주세요",
+      "en": "Help me, please.",
+      "local": "Cứu tôi với!",
+      "reviewed": false
+    }
+  ],
+  "emergency": [
+    {
+      "id": "police",
+      "label_ko": "경찰 (범죄 신고)",
+      "number": "113",
+      "note_ko": "대부분 베트남어로만 통해요.",
+      "source": "mofa_vn",
+      "last_verified": "2026-10-02"
+    },
+    {
+      "id": "fire",
+      "label_ko": "불이 났을 때",
+      "number": "114",
+      "source": "mofa_vn",
+      "last_verified": "2026-10-02"
+    },
+    {
+      "id": "ambulance",
+      "label_ko": "구급차",
+      "number": "115",
+      "note_ko": "대부분 베트남어로만 통하고, 구급차 요금을 내야 할 수 있어요.",
+      "source": "mofa_vn",
+      "last_verified": "2026-10-02"
+    }
+  ],
+  "embassy": {
+    "name_ko": "주베트남 대한민국 대사관 (하노이) — 호치민·다낭에는 총영사관이 따로 있어요",
+    "address": "SQ4, Do Nhuan, Khu Ngaoi Giao Doan, Xuan Tao, Bac Tu Liem, Hanoi, Vietnam",
+    "phone": "+84-24-3771-0404",
+    "emergency_phone": "+84-90-402-6126",
+    "source": "mofa_vn",
+    "last_verified": "2026-10-02"
+  },
+  "procedures": [
+    {
+      "id": "passport_lost",
+      "title_ko": "여권을 잃어버렸어요",
+      "steps_ko": [
+        "잃어버린 곳을 맡은 공안(경찰서)에서 여권분실확인서(Police Report)를 받아요. 베트남어 통역을 데려오라고 하는 곳이 많아요.",
+        "대한민국 대사관 영사부에서 긴급여권(미화 50달러, 1일) 또는 전자여권(성인 10년 58면 기준 미화 52달러, 4~14일)을 신청해요. 사진 2장, 경찰 확인서 원본, 옛 여권 사본이나 한국 신분증 사본을 챙겨요.",
+        "베트남 출입국관리국에서 출국 허가와 비자를 다시 받아야 나갈 수 있어요. 근무일로 5~6일 걸려요. 경찰 확인서 원본, 새 여권, 대사관 확인 공문을 챙겨요."
+      ],
+      "source": "embassy_vn_lost",
+      "last_verified": "2026-10-02"
+    }
+  ],
+  "shopping": [
+    {
+      "id": "coffee",
+      "category": "food",
+      "names": {
+        "ko": "베트남 커피",
+        "en": "Vietnamese coffee",
+        "local": "Cà phê"
+      },
+      "why_ko": "관광청이 대표 기념품으로 소개해요. 한 잔씩 내리는 필터(핀)와 함께 사기도 해요.",
+      "import_status": "allowed",
+      "import_note_ko": "볶아서 포장된 커피는 식물 검역 대상이 아니에요. 볶지 않은 생두는 검역 신고가 필요해요.",
+      "source": "vn_souvenirs",
+      "import_source": "apqa_plant_exempt",
+      "last_verified": "2026-10-02"
+    },
+    {
+      "id": "silk",
+      "category": "souvenir",
+      "names": {
+        "ko": "실크 제품",
+        "en": "Silk products",
+        "local": "Lụa"
+      },
+      "why_ko": "하노이 구시가지 항가이 거리(실크 거리)에 가게가 많아요. 관광청 기념품 안내에 나와요.",
+      "import_status": "allowed",
+      "import_note_ko": "면세 한도(미화 800달러) 안이면 세금 없이 가져올 수 있어요.",
+      "source": "vn_souvenirs",
+      "import_source": "customs_allowance",
+      "last_verified": "2026-10-02"
+    },
+    {
+      "id": "lacquerware",
+      "category": "souvenir",
+      "names": {
+        "ko": "칠기",
+        "en": "Lacquerware",
+        "local": "Sơn mài"
+      },
+      "why_ko": "나무 수액을 여러 겹 칠해 만든 공예품이에요. 관광청 기념품 안내에 나와요.",
+      "import_status": "allowed",
+      "import_note_ko": "면세 한도(미화 800달러) 안이면 세금 없이 가져올 수 있어요.",
+      "source": "vn_souvenirs",
+      "import_source": "customs_allowance",
+      "last_verified": "2026-10-02"
+    }
+  ],
+  "power": {
+    "plug_ko": "콘센트 모양은 여러 가지지만, 한국 플러그가 그대로 맞는 곳이 많아요",
+    "kr_plug_fits": true,
+    "voltage": "220 V",
+    "frequency": "50 Hz",
+    "source": "mofa_vn",
+    "last_verified": "2026-10-02"
+  }
+}

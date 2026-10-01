@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "version": "2026.09.29-1",
+  "version": "2026.10.02-2",
   "countries": [
     {
       "code": "TH",
@@ -30,6 +30,30 @@
       "code": "ID",
       "name_ko": "인도네시아",
       "name_en": "Indonesia",
+      "pack": true
+    },
+    {
+      "code": "TW",
+      "name_ko": "대만",
+      "name_en": "Taiwan",
+      "pack": true
+    },
+    {
+      "code": "CN",
+      "name_ko": "중국",
+      "name_en": "China",
+      "pack": true
+    },
+    {
+      "code": "PH",
+      "name_ko": "필리핀",
+      "name_en": "Philippines",
+      "pack": true
+    },
+    {
+      "code": "VN",
+      "name_ko": "베트남",
+      "name_en": "Vietnam",
       "pack": true
     }
   ],
