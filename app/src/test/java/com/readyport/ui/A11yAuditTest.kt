@@ -61,61 +61,8 @@ abstract class A11yAuditBase {
     @get:Rule
     val rule = createComposeRule()
 
-    private val index get() = TestPacks.index.value
-    private val th get() = TestPacks.thailand
-    private val trip = Trip("TH", "2026-11-03", "2026-11-07")
-
-    private fun screens(): List<Pair<String, @Composable () -> Unit>> = listOf(
-        "first-run" to { FirstRunScreen {} },
-        "today-none" to { TodayContent(TodayUi(), TodayActions(), {}, {}, {}, {}, {}) },
-        "today-preparing" to { TodayContent(TodayUi(trip, StageInfo(TripStage.Preparing, daysLeft = 3, formWindowOpen = true), "태국", th.value.forms.first(), true), TodayActions(), {}, {}, {}, {}, {}) },
-        "today-arrival" to { TodayContent(TodayUi(trip, StageInfo(TripStage.Arrival, dayOfTrip = 1), "태국", th.value.forms.first(), true), TodayActions(), {}, {}, {}, {}, {}) },
-        "today-return" to {
-            TodayContent(
-                TodayUi(trip, StageInfo(TripStage.Return, askDestroy = true), "태국", null, true,
-                    cart = th.value.shopping, returnLinks = index.returnLinks, returnFacts = index.returnFacts),
-                TodayActions(), {}, {}, {}, {}, {},
-            )
-        },
-        "prepare" to { PrepareContent(TestPacks.formEntries(), {}) },
-        "essentials" to {
-            val rules: List<EssentialRule> = Essentials.select(index.essentials, index.homePower, th.value.power)
-            EssentialsContent(EssentialsUi("태국", 4, 11, rules.map { EssentialRow(it, false, "출처") }), { _, _ -> }, {})
-        },
-        "home" to { HomeContent(TestPacks.homeUi(), HomeActions()) },
-        "country-entry" to { CountryContent(TestPacks.countryUi("ID"), CountryActions()) },
-        "country-travel" to { CountryContent(TestPacks.countryUi("TH", favorite = true), CountryActions(), CountrySection.Travel) },
-        "country-shopping" to { CountryContent(TestPacks.countryUi("JP"), CountryActions(), CountrySection.Shopping) },
-        "settings" to { SettingsScreen(easyMode = true, onEasyModeChange = {}) },
-        "videos" to {
-            androidx.compose.runtime.CompositionLocalProvider(com.readyport.ui.video.LocalThumbnailLoader provides { null }) {
-                com.readyport.ui.video.VideosContent("태국", com.readyport.ui.video.VideosState.Ready(listOf(
-            com.readyport.video.Video(id = "AAAAAAAAAA1", title = "방콕 3박 4일 여행 브이로그 | 왓아룬 야경", channelTitle = "여행채널", publishedAt = "2026-09-01T00:00:00Z", viewCount = 1234567, subscriberCount = 89000, durationSeconds = 754, thumbnail = "https://i.ytimg.com/vi/AAAAAAAAAA1/mqdefault.jpg"),
-            com.readyport.video.Video(id = "AAAAAAAAAA2", title = "태국 여행 준비물 총정리", channelTitle = "채널2", publishedAt = "2026-08-11T00:00:00Z", viewCount = 45210, subscriberCount = null, durationSeconds = 3725, thumbnail = "https://i.ytimg.com/vi/AAAAAAAAAA2/mqdefault.jpg")
-                )), {})
-            }
-        },
-        "videos-offline" to { com.readyport.ui.video.VideosContent("태국", com.readyport.ui.video.VideosState.Unavailable, {}) },
-        "photo-credits" to { PhotoCreditsContent(listOf(PhotoCredit("th", "Wat Arun Sunset.jpg", "x", "CC BY 2.0", sourceUrl = "https://commons.wikimedia.org/")), {}) },
-        "shopping" to { ShoppingContent(ShoppingUi("TH", "태국", th.value.shopping, returnLinks = index.returnLinks, returnFacts = index.returnFacts), { _, _ -> }, {}) },
-        "help" to { HelpContent(TestPacks.helpUi(), {}, {}, {}) },
-        "wallet-locked" to {
-            WalletContent(
-                state = WalletState.Locked(hasData = true), deviceSecure = true, autoDestroy = true, today = LocalDate.of(2026, 9, 29),
-                onUnlock = {}, onLock = {}, onReset = {}, onAddPassport = {}, onDeletePassport = {},
-                onAddBooking = {}, onDeleteBooking = {}, onAutoDestroyChange = {},
-            )
-        },
-        "present" to { PresentContent(PresentUi(locked = true), {}, {}, {}, {}) },
-        "trip" to { TripContent(TripFormUi(index.countries.filter { it.pack }, trip, loaded = true), { _, _, _ -> }, {}) },
-        "transport" to {
-            val place = Place("p1", "호텔", "123 ถนนสุขุมวิท กรุงเทพฯ")
-            TransportContent(
-                TransportUi(listOf(place), place, th.value.transportApps.map { RideAppRow(it, installed = false) }, false, "กรุณาพาไปที่นี่"),
-                null, { _, _ -> }, {}, {}, {},
-            )
-        },
-    )
+    /** 모든 화면은 Gallery 한곳에서 관리한다 (디자인 캡처와 같은 목록) */
+    private fun screens(): List<Pair<String, @Composable () -> Unit>> = Gallery.screens()
 
     private fun label(n: SemanticsNode): String? {
         val text = n.config.getOrNull(SemanticsProperties.Text)?.joinToString(" ") { it.text }
