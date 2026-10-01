@@ -5,9 +5,12 @@ import androidx.annotation.StringRes
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.test.SemanticsMatcher
+import androidx.compose.ui.test.assert
 import androidx.compose.ui.test.assertCountEquals
 import androidx.compose.ui.test.assertIsOff
 import androidx.compose.ui.test.assertIsOn
+import androidx.compose.ui.test.hasClickAction
+import androidx.compose.ui.test.hasContentDescription
 import androidx.compose.ui.test.hasScrollAction
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.v2.createComposeRule
@@ -77,7 +80,8 @@ class CreditsUiTest {
         rule.setContent { ReadyPortTheme { PhotoCreditsContent(emptyList(), {}) } }
         rule.onNodeWithText("Pretendard Std 1.3.9").assertExists()
         rule.onNodeWithText(s(R.string.credit_font_author, "Kil Hyung-jin")).assertExists()
-        rule.onNodeWithText(s(R.string.photo_credit_license, "SIL OFL 1.1")).assertExists()
+        // 라이선스는 누를 수 없는 정보 칩(InfoChip) 한 덩어리: 값 `SIL OFL 1.1` + 라벨 `라이선스` (재검토2 ②#12)
+        rule.onNode(hasText("SIL OFL 1.1") and hasText(s(R.string.credit_license_label)) and !hasClickAction()).assertExists()
         // 전문은 접혀 있다가 누르면 앱에 든 파일(assets)에서 읽어 보인다 — 네트워크 없음
         rule.onAllNodesWithText("SIL OPEN FONT LICENSE", substring = true).assertCountEquals(0)
         val toggle = rule.onNode(hasText(s(R.string.credit_license_full)) and SemanticsMatcher.expectValue(SemanticsProperties.Role, Role.Button))
@@ -87,6 +91,34 @@ class CreditsUiTest {
         rule.onAllNodesWithText("Reserved Font Name Pretendard Std", substring = true).assertCountEquals(1)
         rule.onAllNodesWithText(s(R.string.credit_license_missing)).assertCountEquals(0)
         rule.onNode(hasText(s(R.string.action_less)) and SemanticsMatcher.expectValue(SemanticsProperties.Role, Role.Button)).assertIsOn()
+    }
+
+    /**
+     * 같은 글자 링크(`원본 보기`·`라이선스 보기`)가 사진마다 TalkBack에서 구분된다 — 이름 = `{사진 이름(확장자 뺌)} 원본 보기` (재검토2 ②#12).
+     * 보이는 글자는 그대로 `원본 보기`. 라이선스 칩은 누를 수 없다.
+     */
+    @Test
+    fun creditLinksAreNamedPerPhotoAndLicenseIsNotAButton() {
+        val credits = loadPhotoCredits(context)
+        rule.setContent { ReadyPortTheme { PhotoCreditsContent(credits, {}) } }
+        val list = rule.onNode(hasScrollAction())
+        val th = credits.first { it.id == "th" }
+        assertEquals("Wat Arun Sunset", creditName(th.title))
+        list.performScrollToNode(hasContentDescription(s(R.string.photo_credit_open_cd, "Wat Arun Sunset")))
+        rule.onNode(hasContentDescription(s(R.string.photo_credit_open_cd, "Wat Arun Sunset")) and hasClickAction())
+            .assertExists()
+            .assert(hasText(s(R.string.photo_credit_open)))
+        rule.onNode(hasContentDescription(s(R.string.credit_license_open_cd, "Wat Arun Sunset")) and hasClickAction()).assertExists()
+        // 사진마다 다른 이름 — 같은 이름의 링크가 두 개 없다
+        credits.forEach { c ->
+            list.performScrollToNode(hasContentDescription(s(R.string.photo_credit_open_cd, creditName(c.title))))
+            rule.onAllNodes(hasContentDescription(s(R.string.photo_credit_open_cd, creditName(c.title)))).assertCountEquals(1)
+            val chip = hasText(c.license) and hasText(s(R.string.credit_license_label))
+            assertTrue(c.license, rule.onAllNodes(chip).fetchSemanticsNodes().isNotEmpty())
+            rule.onAllNodes(chip and hasClickAction()).assertCountEquals(0)
+        }
+        // 파일 이름이 아닌 이름(글꼴)은 그대로
+        assertEquals("Pretendard Std", creditName("Pretendard Std"))
     }
 
     @Test

@@ -18,6 +18,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowForward
 import androidx.compose.material.icons.outlined.Badge
 import androidx.compose.material.icons.outlined.ChildCare
+import androidx.compose.material.icons.outlined.Copyright
 import androidx.compose.material.icons.outlined.ExpandLess
 import androidx.compose.material.icons.outlined.ExpandMore
 import androidx.compose.material.icons.outlined.FamilyRestroom
@@ -51,6 +52,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.clearAndSetSemantics
+import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.text.font.FontWeight
@@ -60,21 +62,20 @@ import androidx.core.net.toUri
 import com.readyport.BuildConfig
 import com.readyport.R
 import com.readyport.ui.components.AppScreen
+import com.readyport.ui.components.InfoChip
 import com.readyport.ui.components.KoText
 import com.readyport.ui.components.LinkRow
 import com.readyport.ui.components.ListDivider
 import com.readyport.ui.components.ListGroup
 import com.readyport.ui.components.ListRow
-import com.readyport.ui.components.isStackedLayout
 import com.readyport.ui.components.PhotoCredit
 import com.readyport.ui.components.Photos
 import com.readyport.ui.components.RowTrailing
 import com.readyport.ui.components.SectionHeader
 import com.readyport.ui.components.SecurityBanner
-import com.readyport.ui.components.StatusKind
-import com.readyport.ui.components.StatusTag
 import com.readyport.ui.components.breakAfter
 import com.readyport.ui.components.cardShadow
+import com.readyport.ui.components.isStackedLayout
 import com.readyport.ui.components.keepTogether
 import com.readyport.ui.components.keepWords
 import com.readyport.ui.components.loadPhotoCredits
@@ -82,6 +83,7 @@ import com.readyport.ui.components.minTouch
 import com.readyport.ui.components.rememberPhotoLift
 import com.readyport.ui.components.rememberThumbnail
 import com.readyport.ui.components.sectionGap
+import com.readyport.ui.components.textIconSize
 import com.readyport.ui.theme.LocalDimens
 import com.readyport.ui.theme.Tokens
 
@@ -246,11 +248,12 @@ private fun EasyModePreview() {
         horizontalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         Text(PREVIEW_GLYPH, style = MaterialTheme.typography.bodyMedium, color = Tokens.InkSecondary)
+        // 화살표도 옆 글자를 따라 커진다(최대 1.5배) — 200%에서 점처럼 작아 보이지 않게 (재검토2 ①#14)
         Icon(
             Icons.AutoMirrored.Outlined.ArrowForward,
             contentDescription = null,
             tint = Tokens.InkTertiary,
-            modifier = Modifier.size(LocalDimens.current.iconSmall),
+            modifier = Modifier.size(textIconSize(LocalDimens.current.icon, MaterialTheme.typography.bodyMedium)),
         )
         Text(PREVIEW_GLYPH, style = MaterialTheme.typography.headlineMedium, color = Tokens.Accent)
     }
@@ -354,20 +357,28 @@ private fun MediaAndTexts(media: @Composable () -> Unit, texts: @Composable () -
     }
 }
 
-/** 찍은 사람·라이선스 줄: 이름(`Kil Hyung-jin`)·라이선스(`CC BY 2.0`)는 한 덩어리로 줄을 바꾼다. TalkBack·테스트는 원문 */
+/**
+ * 찍은 사람·라이선스 줄: 이름(`Kil Hyung-jin`)은 한 덩어리로 줄을 바꾼다. TalkBack·테스트는 원문.
+ * 라이선스는 누를 수 없는 정보라 채움 없는 [InfoChip](`CC BY 2.0 라이선스`) — AccentSoft 채움 알약은 누를 수 있는 선택 칩처럼 보였다
+ * (재검토2 ②#12·④#9, 'AccentSoft 채움은 선택됨에만'). 누르는 것은 아래 `원본 보기`·`라이선스 보기` 링크 줄.
+ */
 @Composable
 private fun CreditTexts(title: String, @androidx.annotation.StringRes authorRes: Int, author: String, license: String) {
     val authorLine = stringResource(authorRes, author)
     val authorShown = keepWords(stringResource(authorRes, keepTogether(author)))
-    val licenseLine = stringResource(R.string.photo_credit_license, license)
-    val licenseShown = keepWords(stringResource(R.string.photo_credit_license, keepTogether(license)))
-    Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+    Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
         // 띄어쓰기 없는 긴 파일 이름은 하이픈·밑줄 뒤에서 줄을 바꾼다
         KoText(title, MaterialTheme.typography.titleMedium, color = Tokens.Ink, display = keepWords(breakAfter(title, "-_")))
         KoText(authorLine, MaterialTheme.typography.bodyMedium, color = Tokens.InkSecondary, display = authorShown)
-        StatusTag(licenseLine, StatusKind.Info, display = licenseShown)
+        InfoChip(stringResource(R.string.credit_license_label), Icons.Outlined.Copyright, value = license)
     }
 }
+
+/** TalkBack 이름에 쓸 사진·글꼴 이름 — 파일 확장자(`.jpg`)는 뺀다 (`Wat Arun Sunset 원본 보기`) */
+internal fun creditName(title: String): String =
+    title.substringBeforeLast('.').takeIf { it.isNotBlank() && title.substringAfterLast('.').lowercase() in PhotoExtensions } ?: title
+
+private val PhotoExtensions = setOf("jpg", "jpeg", "png", "webp")
 
 @Composable
 private fun PhotoCreditCard(c: PhotoCredit, onOpenLink: (String) -> Unit) {
@@ -395,10 +406,22 @@ private fun PhotoCreditCard(c: PhotoCredit, onOpenLink: (String) -> Unit) {
             },
             texts = { CreditTexts(c.title, R.string.photo_credit_author, c.author, c.license) },
         )
+        // 같은 글자 `원본 보기`가 사진마다 되풀이돼 TalkBack에서 구분되지 않던 것 — 이름은 `{사진 이름} 원본 보기` (재검토2 ②#12)
+        val name = creditName(c.title)
+        val openName = stringResource(R.string.photo_credit_open_cd, name)
+        val licenseName = stringResource(R.string.credit_license_open_cd, name)
         Column {
-            LinkRow(stringResource(R.string.photo_credit_open), onClick = { onOpenLink(c.sourceUrl) })
+            LinkRow(
+                stringResource(R.string.photo_credit_open),
+                onClick = { onOpenLink(c.sourceUrl) },
+                modifier = Modifier.semantics { contentDescription = openName },
+            )
             if (c.licenseUrl.isNotBlank()) {
-                LinkRow(stringResource(R.string.credit_license_open), onClick = { onOpenLink(c.licenseUrl) })
+                LinkRow(
+                    stringResource(R.string.credit_license_open),
+                    onClick = { onOpenLink(c.licenseUrl) },
+                    modifier = Modifier.semantics { contentDescription = licenseName },
+                )
             }
         }
     }
@@ -412,7 +435,12 @@ private fun FontCreditCard(f: FontCredit, onOpenLink: (String) -> Unit) {
             texts = { CreditTexts("${f.name} ${f.version}", R.string.credit_font_author, f.author, f.license) },
         )
         KoText(stringResource(R.string.credit_font_note), MaterialTheme.typography.bodyMedium, color = Tokens.Ink)
-        LinkRow(stringResource(R.string.photo_credit_open), onClick = { onOpenLink(f.sourceUrl) })
+        val openName = stringResource(R.string.photo_credit_open_cd, f.name)
+        LinkRow(
+            stringResource(R.string.photo_credit_open),
+            onClick = { onOpenLink(f.sourceUrl) },
+            modifier = Modifier.semantics { contentDescription = openName },
+        )
         // 라이선스 전문: 앱에 든 파일을 그 자리에서 펼친다(새 화면·네트워크 없음). 화면 목록과 함께 세로로 스크롤된다
         LicenseToggle(stringResource(R.string.credit_license_full)) {
             val context = LocalContext.current
@@ -465,14 +493,17 @@ private fun LicenseToggle(label: String, content: @Composable () -> Unit) {
     }
 }
 
-/** 글꼴 견본 '가 Aa' — 장식. 글자를 품으므로 고정 크기 대신 최소 크기(72dp)만 두고 글자가 크면 함께 커진다 */
+/**
+ * 글꼴 견본 '가 Aa' — 장식. 글자를 품으므로 고정 크기 대신 최소 크기(72dp)만 두고 글자가 크면 함께 커진다.
+ * 바탕은 사진 썸네일 자리와 같은 SurfaceSunken — AccentSoft 채움은 '선택됨'에만(부록 D.1).
+ */
 @Composable
 private fun FontSpecimen() {
     Column(
         Modifier
             .sizeIn(minWidth = ThumbSize, minHeight = ThumbSize)
             .clip(MaterialTheme.shapes.small)
-            .background(Tokens.AccentSoft)
+            .background(Tokens.SurfaceSunken)
             .padding(8.dp)
             .clearAndSetSemantics {},
         horizontalAlignment = Alignment.CenterHorizontally,

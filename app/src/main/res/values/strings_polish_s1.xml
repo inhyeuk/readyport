@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  다듬기 S 화면 라운드(s1: 도움·쇼핑·이동하기·설정·사진 출처)의 새 문구.
+-->
+<resources>
+    <!-- 24 도움: 맨 위 '긴급 번호로 가기' 줄 — 문장 카드가 먼저(운영자 결정 5)라 긴급 번호 묶음은 아래에 있다. 누르면 그 묶음으로 내려간다 -->
+    <string name="help_jump_emergency">긴급 번호 바로 보기</string>
+
+    <!-- 23 이동하기: 기사님 카드의 현지어 부탁 문장이 무슨 뜻인지 (팩 문장의 한국어). %1$s = 한국어 문장 -->
+    <string name="move_driver_meaning">한국어 뜻: %1$s</string>
+
+    <!-- 35 사진·글꼴 출처: 라이선스는 누를 수 없는 정보 칩(InfoChip) — 값(CC BY 2.0) 뒤 라벨 -->
+    <string name="credit_license_label">라이선스</string>
+    <!-- 35: 같은 이름 링크가 TalkBack에서 구분되게 — %1$s = 사진·글꼴 이름 (재검토2 ②#12) -->
+    <string name="photo_credit_open_cd">%1$s 원본 보기</string>
+    <string name="credit_license_open_cd">%1$s 라이선스 보기</string>
+</resources>

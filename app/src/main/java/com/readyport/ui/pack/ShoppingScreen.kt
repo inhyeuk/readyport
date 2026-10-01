@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.material.icons.Icons
@@ -58,14 +57,15 @@ import com.readyport.prep.import
 import com.readyport.ui.components.AppScreen
 import com.readyport.ui.components.BadgeTone
 import com.readyport.ui.components.EmptyState
+import com.readyport.ui.components.EqualWidthPair
 import com.readyport.ui.components.ExpandableDetail
 import com.readyport.ui.components.IconBadge
 import com.readyport.ui.components.IconBullet
 import com.readyport.ui.components.IconKeys
-import com.readyport.ui.components.KoText
-import com.readyport.ui.components.QuietButton
 import com.readyport.ui.components.ImportVerdictNote
+import com.readyport.ui.components.KoText
 import com.readyport.ui.components.NumberText
+import com.readyport.ui.components.QuietButton
 import com.readyport.ui.components.ReturnCheckCard
 import com.readyport.ui.components.ReturnCheckMode
 import com.readyport.ui.components.SecondaryButton
@@ -76,7 +76,6 @@ import com.readyport.ui.components.SourceRef
 import com.readyport.ui.components.cardShadow
 import com.readyport.ui.components.displayDate
 import com.readyport.ui.components.localText
-import com.readyport.ui.components.rememberGridColumns
 import com.readyport.ui.components.resolveSourceName
 import com.readyport.ui.components.sectionGap
 import com.readyport.ui.nav.ShoppingRoute
@@ -226,8 +225,9 @@ fun ShoppingContent(ui: ShoppingUi, onToggle: (String, Boolean) -> Unit, onOpenL
 }
 
 /**
- * 품목 카드 (6-18): 분류 배지 + 한국어 이름·현지어 이름 → 반입 판정(색 + 아이콘 + 글자)과 이유 → 소개 → 파는 곳 →
- * 담기·직원에게 보여주기 → 출처(품목 출처 + 반입 판정 출처). 현지어 이름은 카드에 한 번만.
+ * 품목 카드 (6-18): 분류 배지 + 한국어 이름·현지어 이름 → 반입 판정(StatusTag 알약 + 보통 본문 이유 — 공용 ImportVerdictNote) → 소개 →
+ * 파는 곳 → 담기·직원에게 보여 주기(한 규칙: 같은 폭 한 줄, 모자라면 둘 다 폭 전체로 쌓기) → 출처(품목 출처 + 반입 판정 출처).
+ * 현지어 이름은 카드에 한 번만.
  */
 @Composable
 private fun ShopItemCard(
@@ -250,9 +250,10 @@ private fun ShopItemCard(
                 // 품목 아이콘은 품목마다(재검토 R11), 배지 톤은 모든 화면에서 Neutral — 판정 색은 판정 알약(ImportVerdictNote)만 맡는다
                 IconBadge(IconKeys.item(item.id, item.category), tone = BadgeTone.Neutral)
                 Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                    // 품목 이름 = 카드 제목 글자(titleMedium SemiBold — CardNewsCard 제목과 같은 단, 섹션 머리보다 한 단계 아래, 부록 D.2)
                     KoText(
                         item.names.ko,
-                        style = MaterialTheme.typography.titleLarge,
+                        style = MaterialTheme.typography.titleMedium,
                         color = Tokens.Ink,
                         modifier = Modifier.semantics { heading() },
                     )
@@ -279,59 +280,39 @@ private fun ShopItemCard(
             // TalkBack: 보이는 글자 그대로, 누를 때 읽는 동작 이름에 상품명을 붙인다 (6-18)
             val addAction = stringResource(action.actionLabel, item.names.ko)
             val staffAction = stringResource(R.string.shopping_show_staff_cd, item.names.ko)
-            // 쉬운 모드·큰 글자(1열)에서는 담기를 폭 전체로, 직원에게 보여주기는 그 아래 줄에
-            val stacked = rememberGridColumns() == 1
-            // 카드의 결론은 반입 판정이다 — 담기만 테두리 버튼, 직원에게 보여주기는 글자 버튼으로 가볍게
-            // (카드마다 같은 무게의 버튼 두 개가 판정보다 눈에 띄지 않게)
-            val add: @Composable (Modifier) -> Unit = { m ->
-                SecondaryButton(
-                    text = addLabel,
-                    onClick = { onToggle(!inCart) },
-                    icon = action.icon,
-                    tone = action.tone,
-                    fillWidth = stacked,
-                    modifier = m.semantics {
-                        onClick(label = addAction) {
-                            onToggle(!inCart)
-                            true
-                        }
-                    },
-                )
-            }
-            val staff: @Composable (String, Modifier) -> Unit = { label, m ->
-                QuietButton(
-                    text = label,
-                    onClick = onShowStaff,
-                    icon = Icons.Outlined.Translate,
-                    modifier = m.semantics {
-                        onClick(label = staffAction) {
-                            onShowStaff()
-                            true
-                        }
-                    },
-                )
-            }
-            if (stacked) {
-                Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                    add(Modifier)
-                    // 1열 폭에서는 한 줄에 다 들어가지 않아 어절 사이에서 미리 두 줄로 나눈 라벨을 쓴다 — 글자 폭만큼만 차지해
-                    // 아이콘 옆에 붙는다. 글자 버튼 안쪽 여백만큼 당겨 담기 버튼·출처와 같은 왼쪽 선에
-                    staff(stringResource(R.string.shopping_show_staff_short), Modifier.offset(x = -TextButtonInset))
-                }
-            } else if (item.import == ImportStatus.Prohibited) {
-                // 반입 불가 품목의 담기 라벨(`현지에서 먹기로 담기`)은 길어서 옆에 두면 직원에게 보여주기가 한 어절씩 세로로 쪼개진다 —
-                // 위아래 두 줄로 (글자 버튼은 안쪽 여백만큼 당겨 왼쪽 선 맞춤)
-                Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                    add(Modifier)
-                    staff(stringResource(R.string.shopping_show_staff), Modifier.offset(x = -TextButtonInset))
-                }
-            } else {
-                // 옆에 나란히 — 폭이 모자라면 아래 줄로 넘어가지 않고 글자 버튼 라벨이 제 칸 안에서 줄을 바꾼다
-                Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    add(Modifier)
-                    staff(stringResource(R.string.shopping_show_staff), Modifier.weight(1f, fill = false))
-                }
-            }
+            // 버튼 줄은 모든 품목이 한 규칙(재검토2 ①#16): `[담기(테두리 버튼)] [직원에게 보여 주기(글자 버튼)]`를 같은 폭으로 한 줄에,
+            // 둘 중 하나라도 반 폭에 한 줄로 안 들어가면(긴 `현지에서 먹기로 담기`·휴대폰 폭·큰 글자) 둘 다 폭 전체로 위아래에 쌓는다.
+            // 카드의 결론은 반입 판정이라 담기만 테두리 버튼, 직원에게 보여 주기는 글자 버튼으로 가볍게
+            EqualWidthPair(
+                gap = dimens.inner,
+                first = { m ->
+                    SecondaryButton(
+                        text = addLabel,
+                        onClick = { onToggle(!inCart) },
+                        icon = action.icon,
+                        tone = action.tone,
+                        modifier = m.semantics {
+                            onClick(label = addAction) {
+                                onToggle(!inCart)
+                                true
+                            }
+                        },
+                    )
+                },
+                second = { m ->
+                    QuietButton(
+                        text = stringResource(R.string.shopping_show_staff),
+                        onClick = onShowStaff,
+                        icon = Icons.Outlined.Translate,
+                        modifier = m.semantics {
+                            onClick(label = staffAction) {
+                                onShowStaff()
+                                true
+                            }
+                        },
+                    )
+                },
+            )
             Column(Modifier.padding(top = 4.dp)) { SourceList(sources) }
         }
     }
@@ -371,7 +352,7 @@ internal fun cartAction(item: ShoppingItem, inCart: Boolean): CartAction {
     }
 }
 
-/** 직원에게 보여주기 전체 화면 내용: 현지어 localLarge(행간 1.5배) + 영어·한국어 (고정 sp 없음), 닫기는 아래 고정 */
+/** 직원에게 보여 주기 전체 화면 내용: 현지어 localLarge(행간 1.5배) + 영어·한국어 (고정 sp 없음), 닫기는 아래 고정 */
 @Composable
 internal fun ShowStaffBody(item: ShoppingItem, onClose: () -> Unit) {
     val extras = LocalTypeExtras.current
@@ -382,7 +363,7 @@ internal fun ShowStaffBody(item: ShoppingItem, onClose: () -> Unit) {
     }
 }
 
-/** 직원에게 보여주기 전체 화면 */
+/** 직원에게 보여 주기 전체 화면 */
 @Composable
 private fun ShowStaffScreen(item: ShoppingItem, onClose: () -> Unit) {
     Dialog(onDismissRequest = onClose, properties = DialogProperties(usePlatformDefaultWidth = false)) {
