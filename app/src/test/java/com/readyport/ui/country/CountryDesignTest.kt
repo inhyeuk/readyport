@@ -248,10 +248,10 @@ class CountryDesignTest {
     /** 위험 배너로 올리는 문장 = 팩 안전 문장 중 3단계(출국권고) 이상을 말하는 것만 — 1·2단계·경보 없음 문장은 아니다 */
     @Test
     fun highAdvisoryPicksOnlyLevelThreeSentences() {
-        val lifted = listOf("TH", "JP", "SG", "MY", "ID").associateWith { code ->
+        val lifted = listOf("TH", "JP", "SG", "MY", "ID", "TW", "CN").associateWith { code ->
             pack(code).sections.single { it.id == "safety" }.bodyKo.count { isHighAdvisory(it) }
         }
-        assertEquals(mapOf("TH" to 1, "JP" to 1, "SG" to 0, "MY" to 1, "ID" to 0), lifted)
+        assertEquals(mapOf("TH" to 1, "JP" to 1, "SG" to 0, "MY" to 1, "ID" to 0, "TW" to 0, "CN" to 1), lifted)
         assertTrue(!isHighAdvisory("대부분 지역은 1단계(여행유의)예요."))
         assertTrue(!isHighAdvisory("서파푸아·파푸아·말루쿠·아체는 2단계(여행자제)예요."))
     }

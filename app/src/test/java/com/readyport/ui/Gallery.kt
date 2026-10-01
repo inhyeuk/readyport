@@ -128,6 +128,11 @@ object Gallery {
         // 내 여행(태국 11월 3일)이 있으면 입국 카드 '내는 때'가 일반 예시 대신 내 날짜
         "country-entry-TH" to { CountryContent(TestPacks.countryUi("TH").copy(tripArrival = trip.start), CountryActions()) },
         "country-entry-ID-visa" to { CountryContent(TestPacks.countryUi("ID"), CountryActions()) },
+        // 대만: TWAC 자동 입력 양식 카드(도착 7일 전부터) / 중국: 한시 무비자(2026-12-31까지)·온라인 입국 카드는 미리 안 내도 됨(수동 모드)
+        "country-entry-TW" to { CountryContent(TestPacks.countryUi("TW"), CountryActions()) },
+        "country-entry-CN" to { CountryContent(TestPacks.countryUi("CN"), CountryActions()) },
+        // 중국 여행 정보: 특별여행주의보(티베트·신장) 문장이 맨 위 위험 배너로 올라간다
+        "country-travel-CN" to { CountryContent(TestPacks.countryUi("CN"), CountryActions(), CountrySection.Travel) },
         "country-travel" to { CountryContent(TestPacks.countryUi("TH", favorite = true), CountryActions(), CountrySection.Travel) },
         "country-shopping" to { CountryContent(TestPacks.countryUi("JP"), CountryActions(), CountrySection.Shopping) },
         "videos" to {

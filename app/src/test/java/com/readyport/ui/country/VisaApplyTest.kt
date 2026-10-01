@@ -36,7 +36,7 @@ class VisaApplyTest {
 
     @Test
     fun onlyVisaCountriesHaveApplyAndItPointsAtARecipe() = runBlocking {
-        for (code in listOf("TH", "JP", "SG", "MY", "ID")) {
+        for (code in listOf("TH", "JP", "SG", "MY", "ID", "TW", "CN")) {
             val pack = TestPacks.repo.pack(code)!!.value
             val applies = pack.requirements.mapNotNull { it.apply }
             if (code == "ID") {
