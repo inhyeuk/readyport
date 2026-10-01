@@ -15,7 +15,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Check
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -66,11 +65,12 @@ fun JourneyStepper(current: Int, description: String, modifier: Modifier = Modif
                 ) {
                     Icon(IconKeys.stage(now), contentDescription = null, tint = Tokens.Accent, modifier = Modifier.size(28.dp))
                 }
-                Text(
+                // 어절 단위로만 줄을 바꾼다(`6단/계)` 방지 — KoText). 전체가 clearAndSetSemantics라 읽기는 description
+                KoText(
                     stringResource(R.string.today_stage_now, labels[now], now + 1, labels.size),
-                    style = MaterialTheme.typography.bodyLarge,
+                    MaterialTheme.typography.bodyLarge,
+                    Modifier.weight(1f),
                     color = Tokens.Accent,
-                    modifier = Modifier.weight(1f),
                 )
             }
             Spacer(Modifier.height(8.dp))
@@ -99,9 +99,9 @@ fun JourneyStepper(current: Int, description: String, modifier: Modifier = Modif
                             leftLine = if (i == 0) null else if (!preview && i <= now) Tokens.Accent else Tokens.Line,
                             rightLine = if (i == labels.lastIndex) null else if (!preview && i < now) Tokens.Accent else Tokens.Line,
                         )
-                        Text(
+                        KoText(
                             label,
-                            style = MaterialTheme.typography.labelMedium.copy(
+                            MaterialTheme.typography.labelMedium.copy(
                                 fontWeight = if (state == NodeState.Now) FontWeight.Bold else FontWeight.Medium,
                             ),
                             color = if (state == NodeState.Now) Tokens.Accent else Tokens.InkSecondary,

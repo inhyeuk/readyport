@@ -1,8 +1,6 @@
 package com.readyport.ui.home
 
 import android.content.Intent
-import android.os.Build
-import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -91,6 +89,8 @@ import com.readyport.ui.components.CountryPhotoTile
 import com.readyport.ui.components.Fact
 import com.readyport.ui.components.FactChip
 import com.readyport.ui.components.IconBadge
+import com.readyport.ui.components.KoText
+import com.readyport.ui.components.LARGE_FONT_SCALE
 import com.readyport.ui.components.NewsStyle
 import com.readyport.ui.components.OnDark
 import com.readyport.ui.components.PhotoBox
@@ -107,6 +107,9 @@ import com.readyport.ui.components.Step
 import com.readyport.ui.components.StepList
 import com.readyport.ui.components.cardShadow
 import com.readyport.ui.components.displayDate
+import com.readyport.ui.components.keepWords
+import com.readyport.ui.components.largeFont
+import com.readyport.ui.components.noBreak
 import com.readyport.ui.components.rememberGridColumns
 import com.readyport.ui.components.rememberThumbnail
 import com.readyport.ui.components.sectionGap
@@ -212,7 +215,7 @@ fun HomeScreen(actions: HomeActions, viewModel: HomeViewModel = hiltViewModel())
  * → 여행 준비 기본 정보(출국 순서 · 꼭 챙길 물건 · 귀국 전 확인 요약) → 여권 등록 → 급할 때는 도움.
  * 신뢰 칩은 어느 모드에서나 히어로 안(처음 5초 안에 보이게, 1.1 ⑤). 1열(쉬운 모드·큰 글자)에서는 히어로 소개 문장 대신
  * 신뢰 칩을 둔다 — 히어로가 길어져 첫 화면에서 나라 사진이 밀려나지 않게(6장 첫 화면 예산, HomeFirstScreenTest).
- * 글자가 크면(fontScale ≥ [LARGE_TEXT_SCALE]) 장식 아이콘(사진 머리 제목 앞·출국 단계 앞)을 빼서 글 칸을 넓힌다.
+ * 글자가 크면(130% 이상) 공용 부품이 장식 아이콘(출국 단계 앞)을 빼고 사진 머리 아이콘은 제목 첫 줄에 맞춘다.
  */
 @Composable
 fun HomeContent(ui: HomeUi, actions: HomeActions, today: LocalDate = LocalDate.now()) {
@@ -239,8 +242,8 @@ fun HomeContent(ui: HomeUi, actions: HomeActions, today: LocalDate = LocalDate.n
         }
         item(key = "countries-title") {
             SectionHeader(
-                title = keepWords(stringResource(R.string.home_countries_title)),
-                subtitle = keepWords(stringResource(R.string.home_countries_body)),
+                title = stringResource(R.string.home_countries_title),
+                subtitle = stringResource(R.string.home_countries_body),
             )
         }
         featured?.let { c ->
@@ -256,7 +259,7 @@ fun HomeContent(ui: HomeUi, actions: HomeActions, today: LocalDate = LocalDate.n
         }
 
         sectionGap("basics-gap")
-        item(key = "basics-title") { SectionHeader(keepWords(stringResource(R.string.home_basics_title))) }
+        item(key = "basics-title") { SectionHeader(stringResource(R.string.home_basics_title)) }
         item(key = "departure") { DepartureCard() }
         item(key = "essentials") { EssentialsCard(ui.essentials, actions.openEssentials) }
         if (ui.returnFacts.isNotEmpty() || ui.returnLinks.isNotEmpty()) {
@@ -266,9 +269,9 @@ fun HomeContent(ui: HomeUi, actions: HomeActions, today: LocalDate = LocalDate.n
         }
         item(key = "passport") {
             CardNewsCard(
-                title = keepWords(stringResource(R.string.home_passport_title)),
+                title = stringResource(R.string.home_passport_title),
                 icon = Icons.Outlined.Lock,
-                body = keepWords(stringResource(R.string.home_passport_body)),
+                body = stringResource(R.string.home_passport_body),
                 style = NewsStyle.Navy,
             ) {
                 PrimaryButton(
@@ -313,7 +316,7 @@ private fun HomeHero(singleColumn: Boolean) {
                 modifier = Modifier.semantics { heading() },
             )
             if (!singleColumn) {
-                Text(keepWords(stringResource(R.string.home_subtitle)), style = MaterialTheme.typography.bodyLarge, color = OnDark.content)
+                KoText(stringResource(R.string.home_subtitle), style = MaterialTheme.typography.bodyLarge, color = OnDark.content)
             }
             TrustStrip(Modifier.padding(top = 6.dp))
         }
@@ -355,7 +358,7 @@ private fun TrustStrip(modifier: Modifier = Modifier) {
         }
         if (fit == TrustFit.Chips) {
             FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
-                items.forEach { (icon, text) -> PhotoChip(keepWords(text), icon) }
+                items.forEach { (icon, text) -> PhotoChip(text, icon) }
             }
         } else {
             Row(Modifier.fillMaxWidth().height(IntrinsicSize.Min), horizontalArrangement = Arrangement.spacedBy(TrustGap)) {
@@ -434,34 +437,28 @@ private fun HomeCountryTile(
     )
 }
 
-/** 글자가 크면(1열 200% 등) 장식 아이콘을 빼고 큰 숫자를 글 위로 쌓는 기준 — TripCountdownCard와 같은 값 */
-private const val LARGE_TEXT_SCALE = 1.3f
-
 /**
  * 출국하는 날 순서: 공항 사진 머리 + 번호 단계 5개(1단계는 제목 + 보조문).
- * 글자가 크면 제목 앞 아이콘과 단계 아이콘을 뺀다 — 번호 원만으로 충분하고, 아이콘 열이 글 폭을 줄여
- * `(체/크인)`처럼 어절 중간에서 꺾이던 문제를 없앤다.
+ * 글자가 크면 공용 StepList가 단계 아이콘을 빼고(번호 원만), PhotoHeaderCard는 제목 아이콘을 첫 줄에 맞춘다(2단계 통합).
  */
 @Composable
 private fun DepartureCard() {
-    val large = LocalDensity.current.fontScale >= LARGE_TEXT_SCALE
-    fun icon(icon: ImageVector): ImageVector? = icon.takeUnless { large }
     PhotoHeaderCard(
         Photos.Airport,
-        keepWords(stringResource(R.string.home_departure_title)),
-        icon = icon(Icons.Outlined.FlightTakeoff),
+        stringResource(R.string.home_departure_title),
+        icon = Icons.Outlined.FlightTakeoff,
     ) {
         StepList(
             listOf(
                 Step(
-                    keepWords(stringResource(R.string.today_departure_step1)),
-                    icon(Icons.Outlined.LocalAirport),
-                    keepWords(stringResource(R.string.today_departure_step1_detail)),
+                    stringResource(R.string.today_departure_step1),
+                    Icons.Outlined.LocalAirport,
+                    stringResource(R.string.today_departure_step1_detail),
                 ),
-                Step(keepWords(stringResource(R.string.today_departure_step2)), icon(Icons.Outlined.Luggage)),
-                Step(keepWords(stringResource(R.string.today_departure_step3)), icon(Icons.Outlined.Security)),
-                Step(keepWords(stringResource(R.string.today_departure_step4)), icon(Icons.Outlined.HowToReg)),
-                Step(keepWords(stringResource(R.string.today_departure_step5)), icon(Icons.Outlined.MeetingRoom)),
+                Step(stringResource(R.string.today_departure_step2), Icons.Outlined.Luggage),
+                Step(stringResource(R.string.today_departure_step3), Icons.Outlined.Security),
+                Step(stringResource(R.string.today_departure_step4), Icons.Outlined.HowToReg),
+                Step(stringResource(R.string.today_departure_step5), Icons.Outlined.MeetingRoom),
             ),
         )
     }
@@ -474,11 +471,11 @@ private fun DepartureCard() {
 @Composable
 private fun EssentialsCard(summary: EssentialsSummary, onOpen: () -> Unit) {
     val dimens = LocalDimens.current
-    val large = LocalDensity.current.fontScale >= LARGE_TEXT_SCALE
+    val large = largeFont()
     PhotoHeaderCard(
         Photos.Packing,
-        keepWords(stringResource(R.string.prepare_items_title)),
-        icon = if (large) null else Icons.Outlined.Backpack,
+        stringResource(R.string.prepare_items_title),
+        icon = Icons.Outlined.Backpack,
     ) {
         FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
             FactChip(Fact(Icons.Outlined.Power, stringResource(R.string.home_items_plug), ""))
@@ -517,20 +514,6 @@ private fun EssentialsCard(summary: EssentialsSummary, onOpen: () -> Unit) {
     }
 }
 
-/** 위에 사진, 아래에 설명이 있는 카드 — components.PhotoHeaderCard로 옮겼다 */
-@Deprecated(
-    "components.PhotoHeaderCard 사용 (DESIGN_SPEC 4.0 이동 규칙)",
-    ReplaceWith("PhotoHeaderCard(photo, title, minHeight = 140.dp, content = content)", "com.readyport.ui.components.PhotoHeaderCard"),
-)
-@Composable
-fun PhotoTopCard(
-    @DrawableRes photo: Int,
-    title: String,
-    content: @Composable androidx.compose.foundation.layout.ColumnScope.() -> Unit,
-) {
-    PhotoHeaderCard(photo, title, minHeight = 140.dp, content = content)
-}
-
 /**
  * 02 내 여행 요약 (DESIGN_SPEC 6-02): Accent 채움 카드 — 나라 사진 원형 썸네일(장식) + eyebrow `내 여행 · 태국`(White85)
  * + 출발까지 큰 숫자(stat) + 날짜 한 줄 + 흰 주 버튼. 어두운 채움 위라 onDark 내용 세트만 쓴다(D18).
@@ -549,7 +532,7 @@ private fun TripCountdownCard(trip: HomeTrip, today: LocalDate, onOpen: () -> Un
         else -> stringResource(R.string.home_trip_after)
     }
     val format = DateTimeFormatter.ofPattern(stringResource(R.string.home_trip_date_format), Locale.KOREAN)
-    val dates = stringResource(R.string.home_trip_dates, unbreakable(trip.startDate.format(format)), unbreakable(trip.endDate.format(format)))
+    val dates = stringResource(R.string.home_trip_dates, noBreak(trip.startDate.format(format)), noBreak(trip.endDate.format(format)))
     val head: @Composable () -> Unit = {
         Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
             Text(stringResource(R.string.home_trip_label, trip.countryKo), style = MaterialTheme.typography.labelMedium, color = OnDark.eyebrow)
@@ -568,7 +551,7 @@ private fun TripCountdownCard(trip: HomeTrip, today: LocalDate, onOpen: () -> Un
         modifier = Modifier.fillMaxWidth(),
     ) {
         Column(Modifier.padding(dimens.cardPadding), verticalArrangement = Arrangement.spacedBy(dimens.inner + 4.dp)) {
-            if (fontScale >= LARGE_TEXT_SCALE) {
+            if (fontScale >= LARGE_FONT_SCALE) {
                 TripThumbnail(trip.code)
                 head()
             } else {
@@ -608,7 +591,7 @@ private fun TripCountdownCard(trip: HomeTrip, today: LocalDate, onOpen: () -> Un
 private fun HelpShortcut(onClick: () -> Unit) {
     val dimens = LocalDimens.current
     val shape = MaterialTheme.shapes.large
-    val stacked = LocalDensity.current.fontScale >= LARGE_TEXT_SCALE
+    val stacked = LocalDensity.current.fontScale >= LARGE_FONT_SCALE
     Card(
         onClick = onClick,
         shape = shape,
@@ -621,8 +604,8 @@ private fun HelpShortcut(onClick: () -> Unit) {
     ) {
         val texts: @Composable (Modifier) -> Unit = { m ->
             Column(m, verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                Text(keepWords(stringResource(R.string.help_shortcut_title)), style = MaterialTheme.typography.titleMedium, color = Tokens.Ink)
-                Text(keepWords(stringResource(R.string.today_help_body)), style = MaterialTheme.typography.bodyMedium, color = Tokens.InkSecondary)
+                KoText(stringResource(R.string.help_shortcut_title), style = MaterialTheme.typography.titleMedium, color = Tokens.Ink)
+                KoText(stringResource(R.string.today_help_body), style = MaterialTheme.typography.bodyMedium, color = Tokens.InkSecondary)
             }
         }
         val chevron: @Composable (Modifier) -> Unit = { m ->
@@ -673,35 +656,6 @@ internal fun compactSourceRefs(refs: List<SourceRef>): List<SourceRef> =
     }
 
 private const val SOURCE_PART = " · "
-
-/**
- * 날짜 한 덩어리(`11월 3일 (화)`)가 줄 끝에서 `11 / 월`처럼 쪼개지지 않게 공백은 NBSP, 글자 사이에는 WORD JOINER(U+2060)를 넣는다.
- * 줄은 `~` 앞뒤 공백에서만 바뀐다(API 33 미만은 한국어가 음절 사이 어디서나 끊길 수 있다, DESIGN_SPEC 3.2).
- */
-internal fun unbreakable(text: String): String = text.replace(' ', '\u00A0').toList().joinToString("\u2060")
-
-/**
- * 어절(띄어쓰기로 나눈 덩어리) 안에서는 줄이 바뀌지 않게 이웃한 글자 사이에 WORD JOINER(U+2060)를 넣는다.
- * API 33 미만(테스트 폰 S10, Android 12)은 `LineBreak`(WordBreak.Phrase)가 듣지 않아 한국어가 음절 사이 어디서나 끊긴다
- * (`처음이에/요`, `순/서대로` — DESIGN_SPEC 3.2). 줄은 띄어쓰기에서만 바뀌고, 한 어절이 한 줄보다 길면 플랫폼이 그 어절 안에서 끊는다(잘림 없음).
- * API 33 이상은 테마의 어절 단위 줄바꿈이 맡으므로 글자를 그대로 돌려준다 — 테스트가 찾는 문자열·TalkBack 글자도 그대로.
- */
-internal fun keepWords(text: String, sdk: Int = Build.VERSION.SDK_INT): String {
-    if (sdk >= Build.VERSION_CODES.TIRAMISU) return text
-    val out = StringBuilder(text.length * 2)
-    var prev = -1
-    var i = 0
-    while (i < text.length) {
-        val cp = text.codePointAt(i)
-        if (prev >= 0 && !Character.isWhitespace(prev) && !Character.isWhitespace(cp)) out.append(WORD_JOINER)
-        out.appendCodePoint(cp)
-        prev = cp
-        i += Character.charCount(cp)
-    }
-    return out.toString()
-}
-
-private const val WORD_JOINER = '\u2060'
 
 /** 여행 나라 사진 원형 썸네일(장식, 축소 디코딩). 사진이 없으면 비행기 아이콘 배지 */
 @Composable

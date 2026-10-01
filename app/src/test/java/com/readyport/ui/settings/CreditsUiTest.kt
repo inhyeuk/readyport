@@ -18,6 +18,7 @@ import androidx.compose.ui.test.performScrollToNode
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.readyport.R
+import com.readyport.ui.components.Photos
 import com.readyport.ui.components.loadPhotoCredits
 import com.readyport.ui.theme.ReadyPortTheme
 import org.junit.Assert.assertEquals
@@ -55,6 +56,20 @@ class CreditsUiTest {
         list.performScrollToNode(hasText(s(R.string.photo_credit_open)))
         rule.onAllNodesWithText(s(R.string.photo_credit_open))[0].performClick()
         assertTrue(opened.single() in credits.map { it.sourceUrl })
+    }
+
+    /**
+     * 번들 사진(drawable photo_*)과 크레딧(photo_credits.json)이 1:1이다 — 쓰지 않게 된 호이안 사진(photo_market)은
+     * drawable과 크레딧을 함께 지웠다(DESIGN_SPEC 3.7 ②, 2단계). 크레딧 id는 모두 사진으로 풀린다(Photos.byId).
+     */
+    @Test
+    fun bundledPhotosAndCreditsMatchOneToOne() {
+        val credits = loadPhotoCredits(context)
+        val drawables = R.drawable::class.java.fields.map { it.name }.filter { it.startsWith("photo_") }.map { it.removePrefix("photo_") }.toSet()
+        assertEquals(drawables, credits.map { it.id }.toSet())
+        assertEquals(credits.size, credits.map { it.id }.distinct().size)
+        credits.forEach { assertNotNull("사진으로 풀리지 않는 크레딧 id: ${it.id}", Photos.byId(it.id)) }
+        assertFalse("market" in drawables)
     }
 
     @Test

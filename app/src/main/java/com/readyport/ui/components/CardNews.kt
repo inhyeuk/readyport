@@ -81,9 +81,9 @@ fun SectionHeader(
 ) {
     val texts: @Composable () -> Unit = {
         Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
-            if (eyebrow != null) Text(eyebrow, style = MaterialTheme.typography.labelMedium, color = tone.onLight)
-            Text(title, style = MaterialTheme.typography.titleLarge, color = Tokens.Ink, modifier = Modifier.semantics { heading() })
-            if (subtitle != null) Text(subtitle, style = MaterialTheme.typography.bodyMedium, color = Tokens.InkSecondary)
+            if (eyebrow != null) KoText(eyebrow, MaterialTheme.typography.labelMedium, color = tone.onLight)
+            KoText(title, MaterialTheme.typography.titleLarge, color = Tokens.Ink, heading = true, glueShort = true)
+            if (subtitle != null) KoText(subtitle, MaterialTheme.typography.bodyMedium, color = Tokens.InkSecondary)
         }
     }
     Row(modifier.fillMaxWidth(), verticalAlignment = Alignment.Top, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
@@ -173,8 +173,8 @@ fun CardNewsCard(
         ) {
             val head: @Composable () -> Unit = {
                 Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
-                    if (eyebrow != null) Text(eyebrow, style = MaterialTheme.typography.labelMedium, color = c.eyebrow)
-                    Text(title, style = MaterialTheme.typography.titleLarge, color = c.title, modifier = Modifier.semantics { heading() })
+                    if (eyebrow != null) KoText(eyebrow, MaterialTheme.typography.labelMedium, color = c.eyebrow)
+                    KoText(title, MaterialTheme.typography.titleLarge, color = c.title, heading = true, glueShort = true)
                 }
             }
             Row(verticalAlignment = Alignment.Top, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
@@ -186,7 +186,7 @@ fun CardNewsCard(
                     Box(Modifier.weight(1f)) { head() }
                 }
             }
-            if (body != null) Text(body, style = MaterialTheme.typography.bodyLarge, color = c.body)
+            if (body != null) KoText(body, MaterialTheme.typography.bodyLarge, color = c.body)
             content()
             if (sources.isNotEmpty()) {
                 Box(Modifier.padding(top = 4.dp)) { SourceList(sources, onColor = c.onColor) }
@@ -228,8 +228,8 @@ fun StatTile(fact: Fact, modifier: Modifier = Modifier) {
     ) {
         Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
             Icon(fact.icon, contentDescription = null, tint = fact.tone.onLight, modifier = Modifier.size(dimens.icon))
-            Text(fact.value, style = if (fact.value.length > 8) extras.statSmall else extras.stat, color = Tokens.Ink)
-            Text(fact.label, style = MaterialTheme.typography.bodyMedium, color = Tokens.InkSecondary)
+            KoText(fact.value, if (fact.value.length > 8) extras.statSmall else extras.stat, color = Tokens.Ink)
+            KoText(fact.label, MaterialTheme.typography.bodyMedium, color = Tokens.InkSecondary)
         }
     }
 }
@@ -257,10 +257,16 @@ fun FactChip(fact: Fact, modifier: Modifier = Modifier) {
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(6.dp),
         ) {
-            Icon(fact.icon, contentDescription = null, tint = fact.tone.onLight, modifier = Modifier.size(LocalDimens.current.iconSmall))
-            Text(fact.value, style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.Bold), color = Tokens.Ink)
+            val valueStyle = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.Bold)
+            Icon(
+                fact.icon,
+                contentDescription = null,
+                tint = fact.tone.onLight,
+                modifier = Modifier.size(textIconSize(LocalDimens.current.iconSmall, valueStyle)),
+            )
+            KoText(fact.value, valueStyle, color = Tokens.Ink)
             if (fact.label.isNotEmpty()) {
-                Text(fact.label, style = MaterialTheme.typography.bodyMedium, color = Tokens.InkSecondary, modifier = Modifier.weight(1f, fill = false))
+                KoText(fact.label, MaterialTheme.typography.bodyMedium, Modifier.weight(1f, fill = false), color = Tokens.InkSecondary)
             }
         }
     }
@@ -323,7 +329,11 @@ fun TextCircle(
 @Composable
 fun StepList(steps: List<Step>, modifier: Modifier = Modifier, numbered: Boolean = true) {
     val dimens = LocalDimens.current
-    val iconSize = if (dimens.easyMode) 24.dp else 20.dp
+    val textStyle = MaterialTheme.typography.titleMedium
+    val iconSize = textIconSize(if (dimens.easyMode) 24.dp else 20.dp, textStyle)
+    val iconTop = firstLineIconOffset(textStyle, iconSize)
+    // 큰 글자(130% 이상)에서는 단계 아이콘(장식)을 빼 글 폭을 넓힌다 — 번호 원은 그대로 (BUNDLE_A_NOTES 요청 3)
+    val showIcons = !largeFont()
     Column(modifier.fillMaxWidth()) {
         steps.forEachIndexed { i, step ->
             val last = i == steps.lastIndex
@@ -339,18 +349,20 @@ fun StepList(steps: List<Step>, modifier: Modifier = Modifier, numbered: Boolean
                 minBadge = dimens.stepBadge,
                 modifier = Modifier.semantics(mergeDescendants = true) {},
             ) {
-                Column(
+                // 보조 글(detail)은 아이콘 열이 아니라 단계 글 시작선에 맞춘다 (BUNDLE_A_NOTES 요청 3)
+                Row(
                     Modifier.padding(top = 2.dp, bottom = if (last) 0.dp else dimens.gap),
-                    verticalArrangement = Arrangement.spacedBy(2.dp),
+                    verticalAlignment = Alignment.Top,
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
                 ) {
-                    Row(verticalAlignment = Alignment.Top, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                        if (step.icon != null) {
-                            Icon(step.icon, contentDescription = null, tint = Tokens.Accent, modifier = Modifier.padding(top = 2.dp).size(iconSize))
-                        }
-                        Text(step.text, style = MaterialTheme.typography.titleMedium, color = Tokens.Ink, modifier = Modifier.weight(1f))
+                    if (showIcons && step.icon != null) {
+                        Icon(step.icon, contentDescription = null, tint = Tokens.Accent, modifier = Modifier.padding(top = iconTop).size(iconSize))
                     }
-                    if (step.detail != null) {
-                        Text(step.detail, style = MaterialTheme.typography.bodyMedium, color = Tokens.InkSecondary)
+                    Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                        KoText(step.text, textStyle, color = Tokens.Ink)
+                        if (step.detail != null) {
+                            KoText(step.detail, MaterialTheme.typography.bodyMedium, color = Tokens.InkSecondary)
+                        }
                     }
                 }
             }
@@ -431,14 +443,16 @@ fun IconBullet(text: String, icon: ImageVector, modifier: Modifier = Modifier, t
             ),
         verticalAlignment = Alignment.Top,
     ) {
+        val style = MaterialTheme.typography.bodyLarge
+        val size = textIconSize(if (dimens.easyMode) 24.dp else 20.dp, style)
         Icon(
             icon,
             contentDescription = null,
             tint = tone.onLight,
-            modifier = Modifier.padding(top = 2.dp).size(if (dimens.easyMode) 24.dp else 20.dp),
+            modifier = Modifier.padding(top = firstLineIconOffset(style, size)).size(size),
         )
         Spacer(Modifier.width(12.dp))
-        Text(text, style = MaterialTheme.typography.bodyLarge, color = Tokens.Ink, modifier = Modifier.weight(1f))
+        KoText(text, style, Modifier.weight(1f), color = Tokens.Ink)
     }
 }
 
@@ -481,12 +495,12 @@ internal fun ExpandableDetail(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(8.dp),
         ) {
-            Text(shown, style = MaterialTheme.typography.labelLarge, color = Tokens.Accent, modifier = Modifier.weight(1f))
+            KoText(shown, MaterialTheme.typography.labelLarge, Modifier.weight(1f), color = Tokens.Accent)
             Icon(
                 if (open) Icons.Outlined.ExpandLess else Icons.Outlined.ExpandMore,
                 contentDescription = null,
                 tint = Tokens.Accent,
-                modifier = Modifier.size(dimens.icon),
+                modifier = Modifier.size(textIconSize(dimens.icon, MaterialTheme.typography.labelLarge)),
             )
         }
         AnimatedVisibility(visible = open) {

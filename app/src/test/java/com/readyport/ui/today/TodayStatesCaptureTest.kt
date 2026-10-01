@@ -39,7 +39,7 @@ import java.io.File
 import kotlin.math.abs
 
 /**
- * 갤러리(Gallery.kt — 0단계 동결)에 없는 '내 여행' 상태를 찍고, A11yAudit과 같은 터치·이름 규칙을 확인한다 (C 묶음 검토용).
+ * '내 여행' 상태를 4가지 조건으로 찍고(출국일 입국 카드 상태는 2단계에서 공유 Gallery에도 넣었다), A11yAudit과 같은 터치·이름 규칙을 확인한다 (C 묶음 검토용).
  * - today-departure-form: 출국일에 입국 카드 기간이 열린 경우(태국 TDAC는 도착일 포함 3일이라 보통 이 상태) —
  *   주 버튼(흰 채움)은 입국 카드 하나, `도착했어요`는 보조 버튼이어야 한다(원칙 7).
  * - today-preparing-passport: 여권 미등록 할 일.
@@ -133,7 +133,7 @@ class TodayStatesCaptureTest : TodayStatesCaptureBase() {
     @Test fun easy() = run(easy = true)
 }
 
-/** S10(Android 12)과 같은 sdk 31·글자 200% — keepWords가 낱말을 지키는지 눈으로 본다 */
+/** S10(Android 12)과 같은 sdk 31·글자 200% — 공용 한국어 줄바꿈(keepWords)이 낱말을 지키는지 눈으로 본다 */
 @RunWith(AndroidJUnit4::class)
 @GraphicsMode(GraphicsMode.Mode.NATIVE)
 @Config(application = Application::class, sdk = [31], qualifiers = "ko-rKR-w393dp-h12000dp-xhdpi", fontScale = 2.0f)

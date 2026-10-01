@@ -2,7 +2,6 @@ package com.readyport.ui.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
@@ -55,6 +54,8 @@ sealed interface RowTrailing {
 /**
  * 설정·목록 한 줄: 아이콘 배지 + 제목·설명 + 오른쪽 끝. 글자와 스위치 사이 16dp 보장.
  * Switch 행은 줄 전체 toggleable(Role.Switch), onClick 행은 clickable(Role.Button).
+ * 설명은 제목 시작선에서 끝 요소 아래까지 넓힌다. 큰 글자(130% 이상)에서 제목이 배지와 끝 요소 사이 한 줄에 다 들어가지 않으면
+ * 배지·끝 요소만 윗줄에 두고 제목·설명은 폭 전체로 내린다(`여권 정보 지우/기` 방지 — [BadgeTitleLayout]).
  */
 @Composable
 fun ListRow(
@@ -74,8 +75,8 @@ fun ListRow(
     }
     val texts: @Composable () -> Unit = {
         Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
-            Text(title, style = MaterialTheme.typography.titleMedium, color = Tokens.Ink)
-            if (body != null) Text(body, style = MaterialTheme.typography.bodyMedium, color = Tokens.InkSecondary)
+            KoText(title, MaterialTheme.typography.titleMedium, color = Tokens.Ink)
+            if (body != null) KoText(body, MaterialTheme.typography.bodyMedium, color = Tokens.InkSecondary)
         }
     }
     Row(
@@ -88,8 +89,8 @@ fun ListRow(
         verticalAlignment = if (body != null) Alignment.Top else Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(16.dp),
     ) {
-        if (icon != null) IconBadge(icon, tone = tone)
         if (trailing is RowTrailing.Custom) {
+            if (icon != null) IconBadge(icon, tone = tone)
             // 배지·칩(ImportVerdictBadge 등)이 제목을 쪼갤 만큼 폭이 모자라면 글 아래 줄로 (4.10, 7장 7번)
             TrailingFlow(
                 trailing = trailing.content,
@@ -99,21 +100,37 @@ fun ListRow(
                 main = texts,
             )
         } else {
-            Box(Modifier.weight(1f)) { texts() }
-            when (trailing) {
+            val end: (@Composable () -> Unit)? = when (trailing) {
                 RowTrailing.Chevron -> if (onClick != null) {
-                    Icon(Icons.AutoMirrored.Outlined.NavigateNext, contentDescription = null, tint = Tokens.InkTertiary)
+                    { Icon(Icons.AutoMirrored.Outlined.NavigateNext, contentDescription = null, tint = Tokens.InkTertiary) }
+                } else {
+                    null
                 }
-                RowTrailing.External -> Icon(
-                    Icons.AutoMirrored.Outlined.OpenInNew,
-                    contentDescription = null,
-                    tint = Tokens.Accent,
-                    modifier = Modifier.size(20.dp),
-                )
-                RowTrailing.None -> Unit
-                is RowTrailing.Switch -> Switch(checked = trailing.checked, onCheckedChange = null, colors = appSwitchColors())
-                is RowTrailing.Custom -> Unit // 위에서 TrailingFlow로 그렸다
+                RowTrailing.External -> {
+                    {
+                        Icon(
+                            Icons.AutoMirrored.Outlined.OpenInNew,
+                            contentDescription = null,
+                            tint = Tokens.Accent,
+                            modifier = Modifier.size(textIconSize(20.dp, MaterialTheme.typography.titleMedium)),
+                        )
+                    }
+                }
+                RowTrailing.None -> null
+                is RowTrailing.Switch -> {
+                    { Switch(checked = trailing.checked, onCheckedChange = null, colors = appSwitchColors()) }
+                }
+                is RowTrailing.Custom -> null // 위에서 TrailingFlow로 그렸다
             }
+            BadgeTitleLayout(
+                title = { KoText(title, MaterialTheme.typography.titleMedium, color = Tokens.Ink) },
+                modifier = Modifier.weight(1f),
+                badge = icon?.let { { IconBadge(it, tone = tone) } },
+                trailing = end,
+                below = body?.let { { KoText(it, MaterialTheme.typography.bodyMedium, color = Tokens.InkSecondary) } },
+                stack = largeFont(),
+                gap = 16.dp,
+            )
         }
     }
 }
@@ -141,12 +158,8 @@ fun ListGroup(
     val shape = MaterialTheme.shapes.large
     Column(modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(8.dp)) {
         if (title != null) {
-            Text(
-                title,
-                style = MaterialTheme.typography.titleSmall,
-                color = Tokens.InkSecondary,
-                modifier = Modifier.padding(start = 4.dp).semantics { heading() },
-            )
+            // 제목은 카드 가장자리(화면 여백)와 같은 시작선 — 4dp 들여쓰기 없음 (F 묶음 지적)
+            KoText(title, MaterialTheme.typography.titleSmall, color = Tokens.InkSecondary, heading = true)
         }
         Card(
             shape = shape,
@@ -184,7 +197,7 @@ fun KeyValueRow(
         verticalArrangement = Arrangement.spacedBy(2.dp),
     ) {
         val labelText: @Composable () -> Unit = {
-            Text(label, style = MaterialTheme.typography.titleSmall, color = labelColor)
+            KoText(label, MaterialTheme.typography.titleSmall, color = labelColor)
         }
         if (badge != null) {
             // 배지가 라벨을 쪼갤 만큼 폭이 모자라면 라벨 아래 줄로 (200%·쉬운 모드)
@@ -192,7 +205,7 @@ fun KeyValueRow(
         } else {
             labelText()
         }
-        if (subLabel != null) Text(subLabel, style = MaterialTheme.typography.bodySmall, color = labelColor)
+        if (subLabel != null) KoText(subLabel, MaterialTheme.typography.bodySmall, color = labelColor)
         Text(
             value,
             style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold, fontFeatureSettings = "tnum"),

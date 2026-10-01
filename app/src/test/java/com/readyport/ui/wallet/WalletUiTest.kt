@@ -279,17 +279,6 @@ class WalletUiTest {
         assertEquals("E•••••• A•••", maskName("ERIKSSON", "ANNA MARIA"))
     }
 
-    /** API 33 미만에서만 어절 안 글자 사이에 WORD JOINER — 공백·문장부호 둘레와 이모지는 그대로, 33 이상은 원문 */
-    @Test
-    fun keepWordsJoinsOnlyInsideWordsBelowApi33() {
-        val wj = "⁠"
-        assertEquals("맞${wj}아${wj}요, 저${wj}장${wj}해 주${wj}세${wj}요", keepWords("맞아요, 저장해 주세요", sdk = 31))
-        assertEquals("P${wj}D${wj}F${wj}에${wj}서 고${wj}르${wj}기", keepWords("PDF에서 고르기", sdk = 31))
-        assertEquals("첫${wj}째 👨‍👩‍👧", keepWords("첫째 👨‍👩‍👧", sdk = 31))
-        assertEquals("맞아요, 저장해 주세요", keepWords("맞아요, 저장해 주세요", sdk = 33))
-        assertEquals("맞아요, 저장해 주세요", keepWords("맞아요, 저장해 주세요", sdk = 36))
-    }
-
     /** 항공권 날짜는 가는 날·(가운데)·오는 날 한 줄씩, 숙소는 체크인·체크아웃 — 글 안에 구분 기호를 넣지 않는다 */
     @Test
     fun bookingDatesAreOneLabeledRowEach() {

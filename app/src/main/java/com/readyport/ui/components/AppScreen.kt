@@ -19,7 +19,6 @@ import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.staticCompositionLocalOf
@@ -27,8 +26,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.heading
-import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import com.readyport.R
 import com.readyport.ui.theme.LocalDimens
@@ -125,20 +122,18 @@ private fun TitleBlock(title: String, subtitle: String?, icon: ImageVector?, hea
                 }
             }
             if (icon != null) IconBadge(icon)
-            Text(
-                text = title,
-                style = MaterialTheme.typography.headlineMedium,
-                color = MaterialTheme.colorScheme.onBackground,
-                modifier = Modifier.weight(1f).semantics { heading() },
-            )
-            headerActions()
+            // 오른쪽 칩·버튼(headerActions)이 제목을 쪼갤 만큼 폭이 모자라면 제목 아래 줄로 (F 묶음 지적 — 제목이 한 글자씩 세로로 쪼개짐)
+            TrailingFlow(
+                trailing = { Row(verticalAlignment = Alignment.CenterVertically) { headerActions() } },
+                modifier = Modifier.weight(1f),
+                gap = 8.dp,
+                centerVertically = true,
+            ) {
+                KoText(title, MaterialTheme.typography.headlineMedium, color = MaterialTheme.colorScheme.onBackground, heading = true, glueShort = true)
+            }
         }
         if (subtitle != null) {
-            Text(
-                text = subtitle,
-                style = MaterialTheme.typography.bodyLarge,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-            )
+            KoText(subtitle, MaterialTheme.typography.bodyLarge, color = MaterialTheme.colorScheme.onSurfaceVariant)
         }
     }
 }

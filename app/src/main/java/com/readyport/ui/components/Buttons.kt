@@ -21,7 +21,6 @@ import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
@@ -44,13 +43,15 @@ import com.readyport.ui.theme.Tokens
 
 private val ButtonPadding = PaddingValues(horizontal = 20.dp, vertical = 10.dp)
 
+/** 버튼 라벨: 아이콘(24/28, 글자 크기를 따라 커짐 — 3.6) + 간격 8 + 어절 단위로 줄을 바꾸는 라벨(의미 글자는 원문) */
 @Composable
 private fun RowScope.ButtonLabel(text: String, icon: ImageVector?) {
+    val style = MaterialTheme.typography.labelLarge
     if (icon != null) {
-        Icon(icon, contentDescription = null, modifier = Modifier.size(LocalDimens.current.icon))
+        Icon(icon, contentDescription = null, modifier = Modifier.size(textIconSize(LocalDimens.current.icon, style)))
         Spacer(Modifier.width(8.dp))
     }
-    Text(text, style = MaterialTheme.typography.labelLarge, textAlign = TextAlign.Center)
+    KoText(text, style, textAlign = TextAlign.Center)
 }
 
 /**
@@ -178,20 +179,20 @@ fun DestructiveConfirm(
                 onClick = onConfirm,
                 colors = ButtonDefaults.textButtonColors(contentColor = Tokens.DangerText),
                 modifier = Modifier.minTouch(),
-            ) { Text(confirmLabel, style = MaterialTheme.typography.labelLarge) }
+            ) { KoText(confirmLabel, MaterialTheme.typography.labelLarge) }
         },
         dismissButton = {
             TextButton(
                 onClick = onDismiss,
                 colors = ButtonDefaults.textButtonColors(contentColor = Tokens.Accent),
                 modifier = Modifier.minTouch(),
-            ) { Text(stringResource(R.string.action_cancel_keep), style = MaterialTheme.typography.labelLarge) }
+            ) { KoText(stringResource(R.string.action_cancel_keep), MaterialTheme.typography.labelLarge) }
         },
         icon = { Icon(Icons.Outlined.DeleteOutline, contentDescription = null, tint = Tokens.DangerText) },
-        title = { Text(title, style = MaterialTheme.typography.titleLarge) },
+        title = { KoText(title, MaterialTheme.typography.titleLarge, glueShort = true) },
         text = {
             Column(Modifier.verticalScroll(rememberScrollState())) {
-                Text(body, style = MaterialTheme.typography.bodyLarge)
+                KoText(body, MaterialTheme.typography.bodyLarge)
             }
         },
         shape = MaterialTheme.shapes.extraLarge,

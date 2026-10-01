@@ -64,6 +64,7 @@ import com.readyport.ui.components.BadgeTone
 import com.readyport.ui.components.BannerTone
 import com.readyport.ui.components.CardNewsCard
 import com.readyport.ui.components.IconBadge
+import com.readyport.ui.components.KoText
 import com.readyport.ui.components.ListDivider
 import com.readyport.ui.components.ListGroup
 import com.readyport.ui.components.ListRow
@@ -75,13 +76,12 @@ import com.readyport.ui.components.RowTrailing
 import com.readyport.ui.components.SecondaryButton
 import com.readyport.ui.components.SectionHeader
 import com.readyport.ui.components.SelectChip
+import com.readyport.ui.components.ShowLocalBody
 import com.readyport.ui.components.StatusKind
 import com.readyport.ui.components.StatusTag
+import com.readyport.ui.components.localText
 import com.readyport.ui.components.sectionGap
-import com.readyport.ui.pack.KeepAllText
-import com.readyport.ui.pack.ShowLocalBody
-import com.readyport.ui.pack.keepAll
-import com.readyport.ui.pack.localText
+import com.readyport.ui.components.textIconSize
 import com.readyport.ui.theme.LocalDimens
 import com.readyport.ui.theme.LocalTypeExtras
 import com.readyport.ui.theme.Tokens
@@ -202,19 +202,19 @@ fun TransportContent(
                 CardNewsCard(
                     title = stringResource(R.string.move_destination),
                     icon = Icons.Outlined.EditLocationAlt,
-                    body = if (dest == null) keepAll(stringResource(R.string.move_no_place)) else null,
+                    body = if (dest == null) stringResource(R.string.move_no_place) else null,
                     tone = BadgeTone.Violet,
                 ) {
                     OutlinedTextField(
                         name, { name = it },
-                        label = { Text(keepAll(stringResource(R.string.move_place_name))) },
+                        label = { KoText(stringResource(R.string.move_place_name)) },
                         leadingIcon = { Icon(Icons.Outlined.Place, contentDescription = null) },
                         singleLine = true,
                         modifier = Modifier.fillMaxWidth(),
                     )
                     OutlinedTextField(
                         address, { address = it },
-                        label = { Text(keepAll(stringResource(R.string.move_place_address))) },
+                        label = { KoText(stringResource(R.string.move_place_address)) },
                         minLines = 2,
                         textStyle = localText(MaterialTheme.typography.bodyLarge),
                         modifier = Modifier.fillMaxWidth(),
@@ -239,7 +239,7 @@ fun TransportContent(
                     eyebrow = stringResource(R.string.move_destination),
                     tone = BadgeTone.Violet,
                 ) {
-                    StatusTag(keepAll(stringResource(R.string.move_place_saved)), StatusKind.Allowed)
+                    StatusTag(stringResource(R.string.move_place_saved), StatusKind.Allowed)
                     if (ui.places.size > 1) {
                         // 여러 장소 중 하나 고르기 (한 개만 — Role.RadioButton + selectableGroup)
                         FlowRow(
@@ -278,7 +278,7 @@ fun TransportContent(
         }
         item(key = "ride") {
             if (ui.apps.isEmpty()) {
-                NoticeBanner(keepAll(stringResource(R.string.move_no_apps)), icon = Icons.Outlined.Info)
+                NoticeBanner(stringResource(R.string.move_no_apps), icon = Icons.Outlined.Info)
             } else {
                 ListGroup {
                     ui.apps.forEachIndexed { i, row ->
@@ -291,7 +291,7 @@ fun TransportContent(
                             title = row.app.name,
                             icon = if (maps) Icons.Outlined.Map else Icons.Outlined.LocalTaxi,
                             tone = if (maps) BadgeTone.Teal else BadgeTone.Violet,
-                            body = keepAll(stringResource(rideLabel(row, dest))),
+                            body = stringResource(rideLabel(row, dest)),
                             trailing = RowTrailing.External,
                             onClick = { onRide(row) },
                             modifier = if (getApp == null) {
@@ -314,9 +314,9 @@ fun TransportContent(
                 // 앱을 열고 난 결과 (복사했어요 / 못 열었어요) — 바뀌면 TalkBack이 알린다
                 Box(Modifier.semantics { liveRegion = LiveRegionMode.Polite }) {
                     if (msg == R.string.move_ride_failed) {
-                        NoticeBanner(keepAll(stringResource(msg)), icon = Icons.Outlined.ReportProblem, tone = BannerTone.Caution)
+                        NoticeBanner(stringResource(msg), icon = Icons.Outlined.ReportProblem, tone = BannerTone.Caution)
                     } else {
-                        NoticeBanner(keepAll(stringResource(msg)), icon = Icons.Outlined.CheckCircle, tone = BannerTone.Success)
+                        NoticeBanner(stringResource(msg), icon = Icons.Outlined.CheckCircle, tone = BannerTone.Success)
                     }
                 }
             }
@@ -327,9 +327,9 @@ fun TransportContent(
                     Icons.Outlined.Info,
                     contentDescription = null,
                     tint = Tokens.InkTertiary,
-                    modifier = Modifier.padding(top = 1.dp).size(LocalDimens.current.iconSmall),
+                    modifier = Modifier.padding(top = 1.dp).size(textIconSize(LocalDimens.current.iconSmall)),
                 )
-                KeepAllText(stringResource(R.string.move_fare_note), MaterialTheme.typography.bodySmall, Tokens.InkTertiary)
+                KoText(stringResource(R.string.move_fare_note), MaterialTheme.typography.bodySmall, color = Tokens.InkTertiary)
             }
         }
 
@@ -341,7 +341,7 @@ fun TransportContent(
                 icon = Icons.Outlined.DirectionsSubway,
                 tone = BadgeTone.Violet,
             ) {
-                PrimaryButton(keepAll(stringResource(R.string.move_transit_button)), onClick = onMaps, icon = Icons.Outlined.Map)
+                PrimaryButton(stringResource(R.string.move_transit_button), onClick = onMaps, icon = Icons.Outlined.Map)
             }
         }
     }
@@ -370,7 +370,7 @@ private fun DriverCard(phrase: String?, address: String, onFullScreen: () -> Uni
             phrase?.let { Text(it, style = extras.localMedium, color = OnDark.content) }
             Text(address, style = localText(MaterialTheme.typography.titleLarge), color = OnDark.content)
             SecondaryButton(
-                keepAll(stringResource(R.string.move_full_screen)),
+                stringResource(R.string.move_full_screen),
                 onClick = onFullScreen,
                 icon = Icons.Outlined.Fullscreen,
                 fillWidth = false,

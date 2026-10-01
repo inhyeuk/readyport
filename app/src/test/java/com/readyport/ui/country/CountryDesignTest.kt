@@ -85,8 +85,8 @@ class CountryDesignTest {
         // 원칙 6: 60자를 넘는 요약은 첫 문장만(비자 없이 90일 — OfflinePackTest가 찾는 말은 첫 문장에 있다), 펼치면 원문 전체
         val first = req.summaryKo.substringBefore(". ") + "."
         assertTrue(req.summaryKo.length > 60 && "비자 없이 90일" in first)
-        scrollTo(koreanPhraseWrap(first))
-        rule.onNodeWithText(koreanPhraseWrap(first)).assertIsDisplayed()
+        scrollTo(first)
+        rule.onNodeWithText(first).assertIsDisplayed()
         assertTrue(rule.onAllNodesWithText(req.summaryKo).fetchSemanticsNodes().isEmpty())
         openMore(s(R.string.country_more_visa))
         scrollTo(req.summaryKo)
@@ -103,12 +103,12 @@ class CountryDesignTest {
         val entry = th.sections.single { it.id == "entry" }
         val long = entry.bodyKo.first { it.length > 60 && ". " in it }
         val first = long.substringBefore(". ") + "."
-        scrollTo(koreanPhraseWrap(first))
-        rule.onNodeWithText(koreanPhraseWrap(first)).assertIsDisplayed()
-        assertTrue(rule.onAllNodesWithText(koreanPhraseWrap(long)).fetchSemanticsNodes().isEmpty())
+        scrollTo(first)
+        rule.onNodeWithText(first).assertIsDisplayed()
+        assertTrue(rule.onAllNodesWithText(long).fetchSemanticsNodes().isEmpty())
         openMore(s(R.string.country_more_section, entry.titleKo))
-        scrollTo(koreanPhraseWrap(long))
-        rule.onNodeWithText(koreanPhraseWrap(long)).assertIsDisplayed()
+        scrollTo(long)
+        rule.onNodeWithText(long).assertIsDisplayed()
     }
 
     @Test
@@ -118,8 +118,8 @@ class CountryDesignTest {
         val safety = th.sections.single { it.id == "safety" }
         // '… 3단계(출국권고)예요. 가지 마세요.' — 경고의 뒷문장이 접혀 숨으면 안 된다
         val warning = safety.bodyKo.first { it.length > 60 && ". " in it }
-        scrollTo(koreanPhraseWrap(warning))
-        rule.onNodeWithText(koreanPhraseWrap(warning)).assertIsDisplayed()
+        scrollTo(warning)
+        rule.onNodeWithText(warning).assertIsDisplayed()
         assertTrue(rule.onAllNodesWithContentDescription(s(R.string.country_more_section, safety.titleKo)).fetchSemanticsNodes().isEmpty())
     }
 

@@ -31,7 +31,6 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -57,6 +56,7 @@ import com.readyport.ui.components.EmptyState
 import com.readyport.ui.components.IconBullet
 import com.readyport.ui.components.IconTile
 import com.readyport.ui.components.InfoCard
+import com.readyport.ui.components.KoText
 import com.readyport.ui.components.NoticeBanner
 import com.readyport.ui.components.PrimaryButton
 import com.readyport.ui.components.SecondaryButton
@@ -131,15 +131,15 @@ fun BookingImportContent(
         item(key = "security") { SecurityBanner(compact = true) }
         when (state) {
             ImportState.Choose -> {
-                item(key = "tip") { NoticeBanner(keepWords(stringResource(R.string.booking_tip)), icon = Icons.Outlined.Share) }
+                item(key = "tip") { NoticeBanner(stringResource(R.string.booking_tip), icon = Icons.Outlined.Share) }
                 item(key = "pickers") {
                     Column(verticalArrangement = Arrangement.spacedBy(LocalDimens.current.gap)) {
                         IconTile(
-                            TileSpec(keepWords(stringResource(R.string.booking_pick_photo)), Icons.Outlined.Screenshot, onPickPhoto),
+                            TileSpec(stringResource(R.string.booking_pick_photo), Icons.Outlined.Screenshot, onPickPhoto),
                             layout = TileLayout.Horizontal,
                         )
                         IconTile(
-                            TileSpec(keepWords(stringResource(R.string.booking_pick_pdf)), Icons.Outlined.PictureAsPdf, onPickPdf),
+                            TileSpec(stringResource(R.string.booking_pick_pdf), Icons.Outlined.PictureAsPdf, onPickPdf),
                             layout = TileLayout.Horizontal,
                         )
                     }
@@ -153,7 +153,7 @@ fun BookingImportContent(
                     verticalArrangement = Arrangement.spacedBy(16.dp),
                 ) {
                     CircularProgressIndicator(color = Tokens.Accent)
-                    KeepText(stringResource(R.string.booking_reading), style = MaterialTheme.typography.bodyLarge, color = Tokens.Ink)
+                    KoText(stringResource(R.string.booking_reading), style = MaterialTheme.typography.bodyLarge, color = Tokens.Ink)
                 }
             }
             is ImportState.Review -> item(key = "review") {
@@ -162,13 +162,13 @@ fun BookingImportContent(
             ImportState.Saved -> item(key = "saved") {
                 EmptyState(
                     icon = Icons.Outlined.CheckCircle,
-                    title = keepWords(stringResource(R.string.booking_saved)),
+                    title = stringResource(R.string.booking_saved),
                     body = null,
                     tone = BadgeTone.Success,
                     action = {
                         Column(verticalArrangement = Arrangement.spacedBy(LocalDimens.current.gap)) {
-                            PrimaryButton(keepWords(stringResource(R.string.wallet_title)), onClick = onDone, icon = Icons.Outlined.Badge)
-                            SecondaryButton(keepWords(stringResource(R.string.wallet_booking_add)), onClick = onRestart, icon = Icons.Outlined.Add)
+                            PrimaryButton(stringResource(R.string.wallet_title), onClick = onDone, icon = Icons.Outlined.Badge)
+                            SecondaryButton(stringResource(R.string.wallet_booking_add), onClick = onRestart, icon = Icons.Outlined.Add)
                         }
                     },
                 )
@@ -186,15 +186,15 @@ private fun PasteBox(onText: (String) -> Unit) {
                 value = text,
                 onValueChange = { text = it },
                 // 짧은 라벨(테두리 홈에 한 줄) + 무엇을 붙여넣는지는 칸 아래
-                label = { Text(stringResource(R.string.booking_paste_label_short)) },
-                supportingText = { Text(stringResource(R.string.booking_paste_hint)) },
+                label = { KoText(stringResource(R.string.booking_paste_label_short)) },
+                supportingText = { KoText(stringResource(R.string.booking_paste_hint)) },
                 minLines = 3,
                 textStyle = MaterialTheme.typography.bodyLarge,
                 shape = MaterialTheme.shapes.small,
                 modifier = Modifier.fillMaxWidth(),
             )
             SecondaryButton(
-                keepWords(stringResource(R.string.booking_read_text)),
+                stringResource(R.string.booking_read_text),
                 onClick = { onText(text) },
                 icon = Icons.AutoMirrored.Outlined.ManageSearch,
                 enabled = text.isNotBlank(),
@@ -222,19 +222,19 @@ private fun ReviewForm(fields: BookingFields, saveFailed: Boolean, onSave: (Book
 
     Column(verticalArrangement = Arrangement.spacedBy(dimens.gap)) {
         if (nothingFound) {
-            NoticeBanner(keepWords(stringResource(R.string.booking_nothing_found)), icon = Icons.Outlined.SearchOff, tone = BannerTone.Caution)
+            NoticeBanner(stringResource(R.string.booking_nothing_found), icon = Icons.Outlined.SearchOff, tone = BannerTone.Caution)
         } else {
-            NoticeBanner(keepWords(stringResource(R.string.booking_review_body)), icon = Icons.AutoMirrored.Outlined.FactCheck)
+            NoticeBanner(stringResource(R.string.booking_review_body), icon = Icons.AutoMirrored.Outlined.FactCheck)
         }
         // 종류: 세로 아이콘 + 라벨 타일 3칸 (큰 글자·쉬운 모드에서 칸이 좁아지면 1열 가로형)
-        KeepText(stringResource(R.string.booking_field_kind), style = MaterialTheme.typography.titleSmall, color = Tokens.InkSecondary)
+        KoText(stringResource(R.string.booking_field_kind), style = MaterialTheme.typography.titleSmall, color = Tokens.InkSecondary)
         TileGrid(
             items = kindLabels.keys.toList(),
             modifier = Modifier.selectableGroup(),
             columns = if (rememberGridColumns() == 1) 1 else 3,
         ) { kind, cell ->
             SelectTile(
-                label = keepWords(kindLabels.getValue(kind)),
+                label = kindLabels.getValue(kind),
                 icon = kindIcons.getValue(kind),
                 selected = draft.kind == kind,
                 onClick = { draft = draft.copy(kind = kind) },
@@ -263,7 +263,7 @@ private fun ReviewForm(fields: BookingFields, saveFailed: Boolean, onSave: (Book
                 }
                 if (draft.dates.isNotEmpty()) {
                     IconBullet(
-                        keepWords(stringResource(R.string.booking_field_dates)) + ": " + draft.dates.joinToString(", "),
+                        stringResource(R.string.booking_field_dates) + ": " + draft.dates.joinToString(", "),
                         Icons.Outlined.EventAvailable,
                         tone = BadgeTone.Accent,
                     )
@@ -271,10 +271,10 @@ private fun ReviewForm(fields: BookingFields, saveFailed: Boolean, onSave: (Book
             }
         }
         if (saveFailed) {
-            NoticeBanner(keepWords(stringResource(R.string.booking_save_failed)), icon = Icons.Outlined.ErrorOutline, tone = BannerTone.Caution)
+            NoticeBanner(stringResource(R.string.booking_save_failed), icon = Icons.Outlined.ErrorOutline, tone = BannerTone.Caution)
         }
         PrimaryButton(
-            keepWords(stringResource(R.string.booking_save)),
+            stringResource(R.string.booking_save),
             onClick = { onSave(draft) },
             enabled = draft.title.isNotBlank(),
             icon = Icons.Outlined.Check,
@@ -291,9 +291,9 @@ private fun Field(label: Int, value: String, icon: ImageVector, hint: Int? = nul
     OutlinedTextField(
         value = value,
         onValueChange = { onChange(it.replace("\n", "")) },
-        label = { Text(stringResource(label)) },
+        label = { KoText(stringResource(label)) },
         leadingIcon = { Icon(icon, contentDescription = null) },
-        supportingText = hint?.let { { Text(stringResource(it)) } },
+        supportingText = hint?.let { { KoText(stringResource(it)) } },
         singleLine = false,
         textStyle = MaterialTheme.typography.bodyLarge,
         shape = MaterialTheme.shapes.small,

@@ -68,7 +68,7 @@ class CountryLayoutTest {
     internal fun verdictBelowName(code: String): List<Boolean> {
         val pack = runBlocking { TestPacks.repo.pack(code)!!.value }
         val names = pack.shopping.take(3).map { item ->
-            rule.onNode(hasText(koreanPhraseWrap(item.names.ko)), useUnmergedTree = true).bounds().toRect()
+            rule.onNode(hasText(item.names.ko), useUnmergedTree = true).bounds().toRect()
         }
         val labels = listOf(R.string.import_allowed, R.string.import_caution, R.string.import_prohibited).map { s(it) }
         val verdicts = labels.flatMap { label ->
@@ -107,7 +107,7 @@ class CountryLayoutLargeFontTest {
         val d = rule.density.density
         fun rect(n: androidx.compose.ui.semantics.SemanticsNode) = n.boundsInRoot.let { Rect(it.left / d, it.top / d, it.right / d, it.bottom / d) }
         val names = pack.shopping.take(3).map { item ->
-            rect(rule.onNode(hasText(koreanPhraseWrap(item.names.ko)), useUnmergedTree = true).fetchSemanticsNode())
+            rect(rule.onNode(hasText(item.names.ko), useUnmergedTree = true).fetchSemanticsNode())
         }.sortedBy { it.top }
         val labels = listOf(R.string.import_allowed, R.string.import_caution, R.string.import_prohibited).map { context.getString(it) }
         val verdicts = labels.flatMap { label ->

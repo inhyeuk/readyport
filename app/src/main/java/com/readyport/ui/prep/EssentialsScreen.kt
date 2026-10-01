@@ -6,14 +6,11 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.selection.toggleable
-import androidx.compose.foundation.text.InlineTextContent
-import androidx.compose.foundation.text.appendInlineContent
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.OpenInNew
 import androidx.compose.material.icons.outlined.CheckCircle
@@ -29,7 +26,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -40,12 +36,7 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
-import androidx.compose.ui.text.Placeholder
-import androidx.compose.ui.text.PlaceholderVerticalAlign
-import androidx.compose.ui.text.TextLayoutResult
-import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.em
 import androidx.core.net.toUri
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.ViewModel
@@ -58,10 +49,13 @@ import com.readyport.pack.PackRepository
 import com.readyport.prep.Essentials
 import com.readyport.trip.TripRepository
 import com.readyport.ui.components.AppScreen
+import com.readyport.ui.components.BadgeTitleLayout
 import com.readyport.ui.components.BadgeTone
 import com.readyport.ui.components.ExpandableDetail
 import com.readyport.ui.components.IconBadge
 import com.readyport.ui.components.IconKeys
+import com.readyport.ui.components.KoText
+import com.readyport.ui.components.NoticeBanner
 import com.readyport.ui.components.OnDark
 import com.readyport.ui.components.PhotoBox
 import com.readyport.ui.components.PhotoTextArea
@@ -71,19 +65,14 @@ import com.readyport.ui.components.SourceFooter
 import com.readyport.ui.components.SourceRef
 import com.readyport.ui.components.StatusChip
 import com.readyport.ui.components.StatusKind
+import com.readyport.ui.components.StatusTag
 import com.readyport.ui.components.cardShadow
 import com.readyport.ui.components.displayDate
+import com.readyport.ui.components.largeFont
 import com.readyport.ui.components.minTouch
 import com.readyport.ui.components.rememberGridColumns
 import com.readyport.ui.components.startBar
-import com.readyport.ui.form.BadgeTitleLayout
-import com.readyport.ui.form.KoBreak
-import com.readyport.ui.form.KoNotice
-import com.readyport.ui.form.KoStatusTag
-import com.readyport.ui.form.KoText
-import com.readyport.ui.form.koDescription
-import com.readyport.ui.form.koSemantics
-import com.readyport.ui.form.largeFont
+import com.readyport.ui.components.textIconSize
 import com.readyport.ui.theme.LocalDimens
 import com.readyport.ui.theme.LocalTypeExtras
 import com.readyport.ui.theme.Tokens
@@ -157,13 +146,12 @@ fun EssentialsContent(ui: EssentialsUi, onHave: (String, Boolean) -> Unit, onOpe
     }
     AppScreen(
         title = stringResource(R.string.prepare_items_title),
-        // 부제는 공용 머리(AppScreen)가 그리므로 보이는 글자만 줄바꿈 보정(API 33 미만, `골/랐어요` 방지)
-        subtitle = KoBreak.display(subtitle),
+        subtitle = subtitle,
         speech = stringResource(R.string.essentials_speech),
     ) {
         // 제휴 고지는 목록 맨 위 (PRD 5.10). 제휴 링크가 아직 없어도 원칙은 늘 보여 준다. 누를 수 없는 흰 띠 (D21)
         item(key = "disclosure") {
-            KoNotice(stringResource(R.string.essentials_disclosure), Icons.Outlined.Handshake)
+            NoticeBanner(stringResource(R.string.essentials_disclosure), icon = Icons.Outlined.Handshake)
         }
         if (ui.rows.isNotEmpty()) {
             item(key = "progress") { ProgressHero(ui) }
@@ -273,7 +261,7 @@ private fun CheckRowCard(row: EssentialRow, onHave: (String, Boolean) -> Unit, o
                 title = { NameAndState(r.nameKo, row.have, state) },
             )
             if (r.ruleBadge == "carry_on_only") {
-                KoStatusTag(stringResource(R.string.essentials_badge_carry_on), StatusKind.Caution)
+                StatusTag(stringResource(R.string.essentials_badge_carry_on), StatusKind.Caution)
             }
             // 규정 배지가 있는 물건은 규정 문장(숫자·금지)을 먼저 보인다 — 출처 줄이 가리키는 내용이 접힌 곳에 숨지 않게 (원칙 1)
             val (lead, rest) = splitLead(r.reasonKo, preferRule = r.ruleBadge != null)
@@ -285,15 +273,13 @@ private fun CheckRowCard(row: EssentialRow, onHave: (String, Boolean) -> Unit, o
             }
             r.link?.let { link ->
                 val affiliate = link.type == "affiliate"
-                val label = KoBreak.display(link.labelKo)
                 FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                     SecondaryButton(
-                        label,
+                        link.labelKo,
                         onClick = { onOpenLink(link.url) },
                         icon = Icons.AutoMirrored.Outlined.OpenInNew,
                         // 큰 글자는 폭 전체 — 글자 폭만큼이면 라벨이 `열/기`처럼 쪼개진다
                         fillWidth = large,
-                        modifier = Modifier.koDescription(link.labelKo, label),
                     )
                     // '제휴' 라벨은 제휴 링크에만. 보험·금융 안내(official_info)에는 붙이지 않는다
                     if (affiliate) {
@@ -312,7 +298,7 @@ private fun CheckRowCard(row: EssentialRow, onHave: (String, Boolean) -> Unit, o
                 val name = row.sourceName ?: stringResource(R.string.source_official_fallback)
                 val ref = SourceRef(name, displayDate(r.lastVerified))
                 Column(Modifier.padding(top = 4.dp)) {
-                    if (large) WideSourceFooter(ref) else SourceFooter(ref)
+                    SourceFooter(ref)
                 }
             }
         }
@@ -331,7 +317,7 @@ private fun NameAndState(name: String, have: Boolean, state: String) {
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(4.dp),
             ) {
-                Icon(Icons.Outlined.CheckCircle, contentDescription = null, tint = Tokens.SuccessText, modifier = Modifier.size(dimens.iconSmall))
+                Icon(Icons.Outlined.CheckCircle, contentDescription = null, tint = Tokens.SuccessText, modifier = Modifier.size(textIconSize(dimens.iconSmall)))
                 Text(state, style = MaterialTheme.typography.labelLarge, color = Tokens.SuccessText)
             }
         } else {
@@ -345,39 +331,6 @@ private fun NameAndState(name: String, have: Boolean, state: String) {
         }
     }
 }
-
-private const val SOURCE_ICON = "source"
-
-/**
- * 큰 글자용 출처 줄: 아이콘을 글자 안(첫 줄 앞)에 넣어 글에 카드 폭 전체를 주고, `최종 확인`과 날짜 사이는 끊을 수 있게 해
- * 날짜가 `2026.09.2 / 9`처럼 쪼개지지 않고 통째로 다음 줄로 간다. 글자·TalkBack 문장은 `source_footer` 그대로(SourceFooter와 같음).
- */
-@Composable
-private fun WideSourceFooter(ref: SourceRef) {
-    val full = stringResource(R.string.source_footer, ref.name, ref.verified)
-    val shown = remember(full, ref.verified) { sourceFooterDisplay(full, ref.verified) }
-    val layout = remember { arrayOfNulls<TextLayoutResult>(1) }
-    Text(
-        buildAnnotatedString {
-            appendInlineContent(SOURCE_ICON, "[i]")
-            append(' ')
-            append(shown)
-        },
-        modifier = Modifier.koSemantics(full) { layout[0] },
-        style = MaterialTheme.typography.bodySmall,
-        color = Tokens.InkTertiary,
-        inlineContent = mapOf(
-            SOURCE_ICON to InlineTextContent(Placeholder(1.em, 1.em, PlaceholderVerticalAlign.TextCenter)) {
-                Icon(IconKeys.source, contentDescription = null, tint = Tokens.InkTertiary, modifier = Modifier.fillMaxSize())
-            },
-        ),
-        onTextLayout = { layout[0] = it },
-    )
-}
-
-/** 출처 줄 표시본: 날짜 앞 NBSP만 보통 띄어쓰기로 바꾼다(`최종 확인`은 그대로 한 덩어리). API 33 미만은 낱말 안 음절도 묶는다 */
-internal fun sourceFooterDisplay(full: String, date: String): String =
-    KoBreak.display(full.replace("${KoBreak.NBSP}$date", " $date"))
 
 /** 준비물 ID → 아이콘 (IconKeys.essential, 5.7) */
 private fun essentialIcon(id: String) = IconKeys.essential(id)

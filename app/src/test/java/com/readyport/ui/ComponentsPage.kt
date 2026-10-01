@@ -86,6 +86,7 @@ import com.readyport.ui.components.ImportVerdictBadge
 import com.readyport.ui.components.InfoTileGrid
 import com.readyport.ui.components.JourneyStepper
 import com.readyport.ui.components.KeyValueRow
+import com.readyport.ui.components.KoText
 import com.readyport.ui.components.LinkRow
 import com.readyport.ui.components.ListDivider
 import com.readyport.ui.components.ListGroup
@@ -352,7 +353,7 @@ fun ComponentsPage(part: Int) {
                     CountryPhotoTile(name, code, Photos.country(code), listOf(ChipSpec(Icons.Outlined.EventAvailable, stringResource(R.string.home_chip_visa_free, 90))), onClick = {}, openLabel = stringResource(R.string.home_country_open, name), modifier = cell)
                 }
                 PhotoHeaderCard(Photos.Airport, stringResource(R.string.home_departure_title), icon = IconKeys.stage(1)) {
-                    Text(stringResource(R.string.home_essentials_body), style = MaterialTheme.typography.bodyLarge)
+                    KoText(stringResource(R.string.home_essentials_body), MaterialTheme.typography.bodyLarge)
                 }
             }
         }
@@ -434,7 +435,7 @@ fun PhotoWorstWhitePage() {
         item(key = "white-header") {
             Box {
                 PhotoHeaderCard(ColorPainter(Color.White), stringResource(R.string.home_departure_title), icon = IconKeys.stage(1)) {
-                    Text(stringResource(R.string.home_essentials_body))
+                    KoText(stringResource(R.string.home_essentials_body))
                 }
             }
         }

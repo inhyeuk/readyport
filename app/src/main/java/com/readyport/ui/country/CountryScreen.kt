@@ -55,7 +55,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconToggleButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -114,6 +113,7 @@ import com.readyport.ui.components.IconBullet
 import com.readyport.ui.components.IconKeys
 import com.readyport.ui.components.ImportVerdictBadge
 import com.readyport.ui.components.InfoTileGrid
+import com.readyport.ui.components.KoText
 import com.readyport.ui.components.NewsStyle
 import com.readyport.ui.components.NoticeBanner
 import com.readyport.ui.components.OnDark
@@ -127,12 +127,14 @@ import com.readyport.ui.components.SecondaryButton
 import com.readyport.ui.components.SectionHeader
 import com.readyport.ui.components.SourceRef
 import com.readyport.ui.components.StatTile
+import com.readyport.ui.components.StatusTag
 import com.readyport.ui.components.Step
 import com.readyport.ui.components.StepList
 import com.readyport.ui.components.TileSpec
 import com.readyport.ui.components.displayDate
 import com.readyport.ui.components.feeIcon
 import com.readyport.ui.components.importLabel
+import com.readyport.ui.components.koDisplay
 import com.readyport.ui.components.minTouch
 import com.readyport.ui.components.minTouchSize
 import com.readyport.ui.components.rememberGridColumns
@@ -142,6 +144,7 @@ import com.readyport.ui.components.scrollToKey
 import com.readyport.ui.components.sectionGap
 import com.readyport.ui.components.shortValue
 import com.readyport.ui.components.sourceRefs
+import com.readyport.ui.components.textIconSize
 import com.readyport.ui.nav.CountryRoute
 import com.readyport.ui.theme.LocalDimens
 import com.readyport.ui.theme.ReadyPortLineBreak
@@ -251,9 +254,6 @@ fun CountryContent(ui: CountryUi, actions: CountryActions, initialSection: Count
     val sourceOf: SourceOf = { id, date -> SourceRef(resolveSourceName(id, names, fallback), displayDate(date)) }
     // 비자 온라인 신청 카드가 이미 주 버튼으로 여는 양식 (같은 화면에 파란 주 버튼이 둘이 되지 않게, 원칙 7)
     val applyForms = remember(pack) { pack.requirements.mapNotNull { it.apply?.form }.toSet() }
-    // 공용 귀국 카드에 넘기는 글도 어절 단위로 줄을 바꾼다 (글자는 그대로)
-    val returnLinks = remember(ui.returnLinks) { ui.returnLinks.map { it.copy(labelKo = koreanPhraseWrap(it.labelKo)) } }
-    val returnFacts = remember(ui.returnFacts) { ui.returnFacts.map { it.copy(textKo = koreanPhraseWrap(it.textKo)) } }
 
     // 섹션 전환은 2열 폭일 때만 위에 고정한다 — 쉬운 모드·큰 글자에서는 세로 목록이라 고정하면 화면을 가린다 (6-03)
     val single = rememberGridColumns() == 1
@@ -302,9 +302,9 @@ fun CountryContent(ui: CountryUi, actions: CountryActions, initialSection: Count
                 // 정부 비제휴·제출은 직접 — 입국 화면의 첫 정보 항목 (원칙 5)
                 item(key = "not-affiliated") {
                     NoticeBanner(
-                        stringResource(R.string.guide_not_affiliated).wrapKo(),
+                        stringResource(R.string.guide_not_affiliated),
                         icon = Icons.Outlined.Policy,
-                        secondLine = stringResource(R.string.country_submit_self).wrapKo(),
+                        secondLine = stringResource(R.string.country_submit_self),
                         secondIcon = Icons.Outlined.TouchApp,
                     )
                 }
@@ -326,7 +326,7 @@ fun CountryContent(ui: CountryUi, actions: CountryActions, initialSection: Count
                 }
                 item(key = "plan") {
                     SecondaryButton(
-                        stringResource(R.string.country_plan_trip).wrapKo(),
+                        stringResource(R.string.country_plan_trip),
                         onClick = { actions.planTrip(pack.country) },
                         icon = Icons.Outlined.EditCalendar,
                     )
@@ -335,7 +335,7 @@ fun CountryContent(ui: CountryUi, actions: CountryActions, initialSection: Count
 
             CountrySection.Travel -> {
                 item(key = "tools-title") {
-                    SectionHeader(stringResource(R.string.country_travel_tools_title).wrapKo(), icon = Icons.Outlined.Explore)
+                    SectionHeader(stringResource(R.string.country_travel_tools_title), icon = Icons.Outlined.Explore)
                 }
                 item(key = "tools") {
                     // 현지어·긴급, 이동, 영상, 지도를 한눈에 — 예전 '현지에서 급할 때'·영상·이동 카드를 타일로 흡수 (6-05)
@@ -367,74 +367,19 @@ fun CountryContent(ui: CountryUi, actions: CountryActions, initialSection: Count
                 if (pack.shopping.isNotEmpty()) {
                     item(key = "shopping") { ShoppingCard(pack, sourceOf) { actions.openShopping(pack.country) } }
                 }
-                item(key = "return") { ReturnCheckCard(returnLinks, returnFacts, ui.indexSources, actions.openLink) }
+                item(key = "return") { ReturnCheckCard(ui.returnLinks, ui.returnFacts, ui.indexSources, actions.openLink) }
             }
         }
     }
 }
 
-// ======================= 한국어 줄바꿈 =======================
-
-private const val WORD_JOINER = '\u2060'
-private const val ZERO_WIDTH_SPACE = '\u200B'
-private const val NO_BREAK_SPACE = '\u00A0'
-private val Invisible = setOf(WORD_JOINER, ZERO_WIDTH_SPACE)
-
-/** 낱말을 잇는 가운뎃점들 (`입국·세관`, `서파푸아·파푸아`) */
-private val MiddleDots = setOf('\u00B7', '\u30FB', '\u2027', '\u22C5')
-
-/** 여는 괄호 앞은 줄을 바꿀 수 있는 자리로 둔다 — 긴 괄호 글(`(evisa.imigrasi.go.id)`)이 통째로 다음 줄로 가게 */
-private val Openers = setOf('(', '[', '{', '\u300C', '\u300E')
-
-/** 한 덩어리로 둘 따옴표 화면 이름의 최대 길이 — 더 길면 200%에서 한 줄보다 길어져 오히려 음절에서 끊긴다 */
-private const val QUOTED_KEEP_MAX = 12
-private val ShortQuoted = listOf(
-    Regex("'([^'\\n]{1,$QUOTED_KEEP_MAX})'"),
-    Regex("\u2018([^\u2019\\n]{1,$QUOTED_KEEP_MAX})\u2019"),
-    Regex("\u201C([^\u201D\\n]{1,$QUOTED_KEEP_MAX})\u201D"),
-)
-
-private fun Char.isHangul(): Boolean =
-    this in '\uAC00'..'\uD7A3' || this in '\u1100'..'\u11FF' || this in '\u3131'..'\u318E'
-
-/**
- * 한국어를 어절 단위로 줄바꿈하게 보이지 않는 문자만 더한다 (DESIGN_SPEC 3.2 보완). 보이는 글자는 하나도 바꾸지 않는다.
- * - [joinSyllables](API 33 미만 — S10, Android 12): WordBreak.Phrase가 없어 음절 사이 어디서나 끊긴다(`누르세 / 요.`, `직 / 접`).
- *   한글과 맞닿은 두 글자 사이(띄어쓰기·여는 괄호 앞 빼고 — `0이`, `)는`, `일~4일`)와 가운뎃점 앞에 WORD JOINER(U+2060)를 넣는다.
- * - 모든 API: 가운뎃점으로 이은 긴 낱말(`수카르노하타·주안다·응우라라이·바탐`)은 한 어절이라 한 줄보다 길면 음절에서 끊기므로
- *   가운뎃점 바로 뒤에 ZERO WIDTH SPACE(U+200B)를 넣어 그 자리에서 줄을 바꿀 수 있게 한다.
- * - 모든 API: 짧은 따옴표 화면 이름(`'내 지도 선택'`) 안의 띄어쓰기는 NBSP — 화면 이름이 두 줄로 갈라지지 않게.
- * 앱 문자열·팩 문장을 Text에 넘길 때만 쓴다. contentDescription·소리로 듣기 문장·출처 이름에는 쓰지 않는다.
- * API 33 이상에서 테스트가 찾는 글자는 가운뎃점 뒤와 따옴표 안이 아니면 그대로다.
- */
-internal fun koreanPhraseWrap(text: String, joinSyllables: Boolean = !ReadyPortLineBreak.phraseSupported): String {
-    if (text.isEmpty()) return text
-    val src = ShortQuoted.fold(text) { acc, re ->
-        re.replace(acc) { m -> m.value.replace(' ', NO_BREAK_SPACE) }
-    }
-    val out = StringBuilder(src.length + src.length / 2)
-    for (i in src.indices) {
-        val c = src[i]
-        out.append(c)
-        val n = src.getOrNull(i + 1) ?: break
-        // 띄어쓰기 옆, 문자열에 이미 들어 있는 WORD JOINER·ZWSP 옆에는 더하지 않는다
-        if (c.isWhitespace() || n.isWhitespace() || c in Invisible || n in Invisible) continue
-        when {
-            c in MiddleDots -> out.append(ZERO_WIDTH_SPACE)
-            !joinSyllables -> Unit
-            n in MiddleDots -> out.append(WORD_JOINER)
-            (c.isHangul() || n.isHangul()) && n !in Openers -> out.append(WORD_JOINER)
-        }
-    }
-    return out.toString()
-}
-
-private fun String.wrapKo(): String = koreanPhraseWrap(this)
+// ======================= 타일 라벨 =======================
 
 /**
  * 2열 타일용 라벨(`현지어와\n긴급 번호`)을 1열(쉬운 모드·큰 글자, 폭 전체 칸)에서는 한 줄 문장으로 — 넓은 칸에 짧은 줄이 생기지 않게.
+ * 한국어 줄바꿈(어절 단위)은 IconTile이 한다.
  */
-private fun gridLabel(label: String, single: Boolean): String = (if (single) label.replace('\n', ' ') else label).wrapKo()
+private fun gridLabel(label: String, single: Boolean): String = if (single) label.replace('\n', ' ') else label
 
 // ======================= 긴 글 접기 (원칙 6) =======================
 
@@ -476,8 +421,8 @@ private fun MoreToggle(open: Boolean, onOpenChange: (Boolean) -> Unit, a11yLabel
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(8.dp),
     ) {
-        Text(
-            stringResource(if (open) R.string.action_less else R.string.action_more).wrapKo(),
+        KoText(
+            stringResource(if (open) R.string.action_less else R.string.action_more),
             style = MaterialTheme.typography.labelLarge,
             color = color,
             modifier = Modifier.weight(1f),
@@ -549,14 +494,14 @@ private fun CountryHero(loaded: Loaded<CountryPack>, favorite: Boolean, actions:
                 }
             }
             PhotoTextColumn {
-                Text(
-                    pack.names.ko.wrapKo(),
+                KoText(
+                    pack.names.ko,
                     style = MaterialTheme.typography.displayMedium,
                     color = OnDark.content,
                     modifier = Modifier.semantics { heading() },
                 )
-                Text(
-                    listOf(pack.names.en, pack.names.local).distinct().joinToString(" · ").wrapKo(),
+                KoText(
+                    listOf(pack.names.en, pack.names.local).distinct().joinToString(" · "),
                     style = MaterialTheme.typography.bodyLarge,
                     color = OnDark.content,
                 )
@@ -566,12 +511,11 @@ private fun CountryHero(loaded: Loaded<CountryPack>, favorite: Boolean, actions:
                     verticalArrangement = Arrangement.spacedBy(6.dp),
                 ) {
                     PhotoChip(
-                        stringResource(R.string.guide_last_verified, displayDate(pack.lastVerified)).wrapKo(),
+                        stringResource(R.string.guide_last_verified, displayDate(pack.lastVerified)),
                         Icons.Outlined.CalendarMonth,
                     )
                     PhotoChip(
-                        stringResource(if (loaded.origin == PackOrigin.Bundled) R.string.guide_origin_bundled else R.string.guide_origin_downloaded)
-                            .wrapKo(),
+                        stringResource(if (loaded.origin == PackOrigin.Bundled) R.string.guide_origin_bundled else R.string.guide_origin_downloaded),
                         Icons.Outlined.OfflinePin,
                     )
                 }
@@ -624,9 +568,9 @@ private fun VisaCard(pack: CountryPack, req: Requirement, sourceOf: SourceOf, on
         else -> stringResource(R.string.guide_requirements_title)
     }
     CardNewsCard(
-        title = headline.wrapKo(),
+        title = headline,
         icon = Icons.Outlined.Approval,
-        eyebrow = stringResource(R.string.country_visa_title).wrapKo(),
+        eyebrow = stringResource(R.string.country_visa_title),
         style = NewsStyle.Accent,
         sources = listOf(reqRef) + facts.sourceRefs(),
     ) {
@@ -635,7 +579,7 @@ private fun VisaCard(pack: CountryPack, req: Requirement, sourceOf: SourceOf, on
         if (req.visa != "not_required") {
             pack.source(req.source)?.let { src ->
                 SecondaryButton(
-                    stringResource(R.string.country_visa_link).wrapKo(),
+                    stringResource(R.string.country_visa_link),
                     onClick = { onOpenLink(src.url) },
                     icon = Icons.AutoMirrored.Outlined.OpenInNew,
                     onDark = true,
@@ -653,8 +597,8 @@ private fun VisaCard(pack: CountryPack, req: Requirement, sourceOf: SourceOf, on
 private fun VisaSummary(summary: String) {
     val (first, rest) = foldSplit(summary)
     var open by rememberSaveable(summary) { mutableStateOf(false) }
-    Text(
-        (if (open || rest == null) summary.trim() else first).wrapKo(),
+    KoText(
+        if (open || rest == null) summary.trim() else first,
         style = MaterialTheme.typography.bodyLarge,
         color = OnDark.content,
     )
@@ -699,25 +643,25 @@ private fun splitFirstSentence(text: String): Step {
 @Composable
 private fun VisaApplyCard(apply: VisaApply, sourceOf: SourceOf, onStart: () -> Unit) {
     CardNewsCard(
-        title = apply.nameKo.wrapKo(),
+        title = apply.nameKo,
         icon = Icons.Outlined.Approval,
         tone = BadgeTone.Success,
-        eyebrow = stringResource(R.string.country_visa_apply_label).wrapKo(),
+        eyebrow = stringResource(R.string.country_visa_apply_label),
         sources = listOf(sourceOf(apply.source, apply.lastVerified)),
     ) {
-        IconBullet(stringResource(R.string.guide_form_fee, apply.feeKo).wrapKo(), Icons.Outlined.Payments)
-        Text(
-            stringResource(R.string.country_visa_apply_steps).wrapKo(),
+        IconBullet(stringResource(R.string.guide_form_fee, apply.feeKo), Icons.Outlined.Payments)
+        KoText(
+            stringResource(R.string.country_visa_apply_steps),
             style = MaterialTheme.typography.titleMedium,
             color = Tokens.Ink,
             modifier = Modifier.padding(top = 8.dp).semantics { heading() },
         )
         FoldedSteps(apply.stepsKo)
         apply.warningKo?.let { warning ->
-            NoticeBanner(warning.wrapKo(), icon = Icons.Outlined.GppMaybe, tone = BannerTone.Danger)
+            NoticeBanner(warning, icon = Icons.Outlined.GppMaybe, tone = BannerTone.Danger)
         }
-        IconBullet(stringResource(R.string.country_visa_apply_note).wrapKo(), Icons.Outlined.TouchApp, tone = BadgeTone.Help)
-        PrimaryButton(stringResource(R.string.country_visa_apply_start).wrapKo(), onClick = onStart, icon = Icons.Outlined.EditNote)
+        IconBullet(stringResource(R.string.country_visa_apply_note), Icons.Outlined.TouchApp, tone = BadgeTone.Help)
+        PrimaryButton(stringResource(R.string.country_visa_apply_start), onClick = onStart, icon = Icons.Outlined.EditNote)
     }
 }
 
@@ -729,7 +673,7 @@ private fun FoldedSteps(steps: List<String>) {
     val foldable = split.any { (step, long) -> long && step.detail != null }
     BodyBreakStepList(
         split.map { (step, long) ->
-            Step(step.text.wrapKo(), detail = step.detail?.takeIf { open || !long }?.wrapKo())
+            Step(step.text, detail = step.detail?.takeIf { open || !long })
         },
     )
     if (foldable) MoreToggle(open, { open = it }, stringResource(R.string.country_more_steps))
@@ -743,19 +687,19 @@ private fun FoldedSteps(steps: List<String>) {
 @Composable
 private fun FormCard(form: FormInfo, autofill: Boolean, primary: Boolean, sourceOf: SourceOf, onStart: () -> Unit) {
     CardNewsCard(
-        title = form.nameKo.wrapKo(),
+        title = form.nameKo,
         icon = Icons.Outlined.AssignmentInd,
-        eyebrow = stringResource(R.string.country_form_label).wrapKo(),
+        eyebrow = stringResource(R.string.country_form_label),
         body = if (primary) {
-            stringResource(if (autofill) R.string.country_form_autofill_body else R.string.country_form_manual_body).wrapKo()
+            stringResource(if (autofill) R.string.country_form_autofill_body else R.string.country_form_manual_body)
         } else {
             null
         },
         sources = listOf(sourceOf(form.source, form.lastVerified)),
     ) {
-        IconBullet(stringResource(R.string.guide_form_fee, form.feeKo).wrapKo(), Icons.Outlined.Payments)
-        IconBullet(stringResource(R.string.guide_form_window, form.windowKo).wrapKo(), Icons.Outlined.Schedule)
-        val label = stringResource(if (autofill) R.string.country_form_start else R.string.country_form_manual_start).wrapKo()
+        IconBullet(stringResource(R.string.guide_form_fee, form.feeKo), Icons.Outlined.Payments)
+        IconBullet(stringResource(R.string.guide_form_window, form.windowKo), Icons.Outlined.Schedule)
+        val label = stringResource(if (autofill) R.string.country_form_start else R.string.country_form_manual_start)
         if (primary) {
             PrimaryButton(label, onClick = onStart, icon = Icons.Outlined.EditNote)
         } else {
@@ -777,7 +721,7 @@ private fun SectionCard(s: Section, sourceOf: SourceOf) {
     var open by rememberSaveable(s.id, s.bodyKo) { mutableStateOf(false) }
     val bullet = if (s.id == "entry") Icons.Outlined.Check else Icons.Outlined.Remove
     CardNewsCard(
-        title = s.titleKo.wrapKo(),
+        title = s.titleKo,
         icon = IconKeys.section(s.id),
         tone = if (safety) BadgeTone.Caution else BadgeTone.Accent,
         sources = listOf(sourceOf(s.source, s.lastVerified)),
@@ -785,7 +729,7 @@ private fun SectionCard(s: Section, sourceOf: SourceOf) {
         Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
             s.bodyKo.zip(split).forEach { (full, parts) ->
                 val (first, rest) = parts
-                IconBullet((if (open || rest == null) full.trim() else first).wrapKo(), bullet)
+                IconBullet(if (open || rest == null) full.trim() else first, bullet)
             }
         }
         if (split.any { it.second != null }) {
@@ -807,22 +751,22 @@ private fun PowerCard(power: PowerInfo, sourceOf: SourceOf) {
         PowerValue(Icons.Outlined.ElectricBolt, power.voltage, stringResource(R.string.power_label_voltage)),
         PowerValue(Icons.Outlined.GraphicEq, power.frequency, stringResource(R.string.power_label_frequency)),
     )
-    val tiles = values.mapNotNull { v -> shortValue(v.value)?.takeIf { it == v.value.trim() }?.let { v to Fact(v.icon, it, v.label.wrapKo()) } }
+    val tiles = values.mapNotNull { v -> shortValue(v.value)?.takeIf { it == v.value.trim() }?.let { v to Fact(v.icon, it, v.label) } }
         .takeIf { it.size >= 2 }.orEmpty()
     val rows = values - tiles.map { it.first }.toSet()
     CardNewsCard(
-        title = stringResource(R.string.guide_power_title).wrapKo(),
+        title = stringResource(R.string.guide_power_title),
         icon = Icons.Outlined.Power,
         sources = listOf(sourceOf(power.source, power.lastVerified)),
     ) {
         power.krPlugFits?.let { fits ->
             if (fits) {
-                NoticeBanner(stringResource(R.string.guide_power_kr_fits).wrapKo(), icon = Icons.Outlined.CheckCircle, tone = BannerTone.Success)
+                NoticeBanner(stringResource(R.string.guide_power_kr_fits), icon = Icons.Outlined.CheckCircle, tone = BannerTone.Success)
             } else {
-                NoticeBanner(stringResource(R.string.guide_power_kr_adapter).wrapKo(), icon = Icons.Outlined.Outlet, tone = BannerTone.Caution)
+                NoticeBanner(stringResource(R.string.guide_power_kr_adapter), icon = Icons.Outlined.Outlet, tone = BannerTone.Caution)
             }
         }
-        rows.forEach { IconBullet(it.value.wrapKo(), it.icon) }
+        rows.forEach { IconBullet(it.value, it.icon) }
         FactTiles(tiles.map { it.second })
     }
 }
@@ -834,16 +778,16 @@ private data class PowerValue(val icon: ImageVector, val value: String, val labe
 @Composable
 private fun MapsCard() {
     CardNewsCard(
-        title = stringResource(R.string.explore_maps_title).wrapKo(),
+        title = stringResource(R.string.explore_maps_title),
         icon = Icons.Outlined.Map,
         tone = BadgeTone.Teal,
         sources = listOf(SourceRef(stringResource(R.string.explore_maps_source), "2026.09.28")),
     ) {
         BodyBreakStepList(
             listOf(R.string.explore_maps_step1, R.string.explore_maps_step2, R.string.explore_maps_step3)
-                .map { Step(stringResource(it).wrapKo()) },
+                .map { Step(stringResource(it)) },
         )
-        IconBullet(stringResource(R.string.explore_maps_note).wrapKo(), Icons.Outlined.Info)
+        IconBullet(stringResource(R.string.explore_maps_note), Icons.Outlined.Info)
     }
 }
 
@@ -858,21 +802,21 @@ private fun MapsCard() {
 private fun ShoppingCard(pack: CountryPack, sourceOf: SourceOf, onOpen: () -> Unit) {
     val shown = pack.shopping.take(3)
     CardNewsCard(
-        title = stringResource(R.string.shopping_title, pack.names.ko).wrapKo(),
+        title = stringResource(R.string.shopping_title, pack.names.ko),
         icon = Icons.Outlined.ShoppingBag,
         tone = BadgeTone.Help,
         sources = shown.flatMap { listOf(sourceOf(it.source, it.lastVerified), sourceOf(it.importSource, it.lastVerified)) },
     ) {
-        Text(stringResource(R.string.shopping_subtitle_v2).wrapKo(), style = MaterialTheme.typography.bodyMedium, color = Tokens.InkSecondary)
+        KoText(stringResource(R.string.shopping_subtitle_v2), style = MaterialTheme.typography.bodyMedium, color = Tokens.InkSecondary)
         ShoppingPreviewList(shown)
         if (pack.shopping.size > 3) {
-            Text(
-                stringResource(R.string.country_shopping_more, pack.shopping.size - 3).wrapKo(),
+            KoText(
+                stringResource(R.string.country_shopping_more, pack.shopping.size - 3),
                 style = MaterialTheme.typography.bodySmall,
                 color = Tokens.InkSecondary,
             )
         }
-        PrimaryButton(stringResource(R.string.shopping_open).wrapKo(), onClick = onOpen, icon = Icons.AutoMirrored.Outlined.NavigateNext)
+        PrimaryButton(stringResource(R.string.shopping_open), onClick = onOpen, icon = Icons.AutoMirrored.Outlined.NavigateNext)
     }
 }
 
@@ -894,9 +838,10 @@ private fun ShoppingPreviewList(items: List<ShoppingItem>) {
     val nameStyle = MaterialTheme.typography.titleMedium
     val tagStyle = MaterialTheme.typography.labelMedium
     val needed = items.map { item ->
-        val name = measurer.measure(item.names.ko.wrapKo(), nameStyle).size.width
-        val tag = measurer.measure(stringResource(importLabel(item.import)), tagStyle).size.width
-        name + with(density) { (PreviewGap + StatusTagChrome + dimens.iconSmall).roundToPx() } + tag
+        val name = measurer.measure(koDisplay(item.names.ko), nameStyle).size.width
+        val tag = measurer.measure(koDisplay(stringResource(importLabel(item.import))), tagStyle).size.width
+        // 태그 아이콘은 글자 크기를 따라 커진다(textIconSize — StatusTag와 같은 계산)
+        name + with(density) { (PreviewGap + StatusTagChrome + textIconSize(dimens.iconSmall, tagStyle)).roundToPx() } + tag
     }
     BoxWithConstraints(Modifier.fillMaxWidth()) {
         val textW = with(density) { (maxWidth - dimens.iconBadge - PreviewGap).roundToPx() }
@@ -909,7 +854,7 @@ private val StatusTagChrome = 24.dp
 
 @Composable
 private fun PreviewName(item: ShoppingItem, modifier: Modifier = Modifier) {
-    Text(item.names.ko.wrapKo(), style = MaterialTheme.typography.titleMedium, color = Tokens.Ink, modifier = modifier)
+    KoText(item.names.ko, style = MaterialTheme.typography.titleMedium, color = Tokens.Ink, modifier = modifier)
 }
 
 /** 품목 한 줄: 분류 배지 + 이름 + 반입 판정 — 한 번에 읽는다(mergeDescendants) */

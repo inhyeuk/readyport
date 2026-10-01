@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Inventory2
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -55,7 +54,8 @@ fun ReturnCheckCard(
         tone = BadgeTone.Accent,
         style = NewsStyle.Surface,
     ) {
-        Text(stringResource(R.string.shopping_return_body), style = MaterialTheme.typography.bodyMedium, color = Tokens.InkSecondary)
+        // `관세청·농림축산검역본부`는 긴 가운뎃점 낱말이라 가운뎃점 뒤에서만 줄을 바꾼다(koDisplay)
+        KoText(stringResource(R.string.shopping_return_body), MaterialTheme.typography.bodyMedium, color = Tokens.InkSecondary)
         if (compact) {
             var open by rememberSaveable { mutableStateOf(false) }
             val topics = facts.mapNotNull { f -> returnTopic(f.source)?.let { f.source to it } }.distinctBy { it.first }

@@ -48,7 +48,7 @@ import java.time.LocalDate
 import java.util.Random
 
 /**
- * F 묶음(지갑·여권·보여 주기)의 공유 갤러리에 없는 상태 (공유 Gallery.kt는 동결이라 여기서 찍는다):
+ * F 묶음(지갑·여권·보여 주기)의 공유 갤러리에 없는 상태 (공유 Gallery.kt에 없는 상태를 여기서 찍는다):
  * 21 QR 그림이 있는 보여 주기(사람 둘), 27 사람이 있는 같이 가는 사람(아바타·여권 등록/됨·지우기),
  * 25 카메라 권한·직접 입력·못 찾음·만료 안 된 값 확인, 26 고르기·숙소 검토·저장됨, 24 만료 임박·만료 여권 + 예약 날짜 행.
  * 캡처는 build/gallery/bundle_f/{basic|easy|sdk31_font200/basic|sdk31_font200/easy}/, 같은 루프에서 접근성 점검 규칙

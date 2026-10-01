@@ -53,10 +53,15 @@ import com.readyport.ui.components.AppScreen
 import com.readyport.ui.components.BannerTone
 import com.readyport.ui.components.CardNewsCard
 import com.readyport.ui.components.IconBullet
+import com.readyport.ui.components.KoText
 import com.readyport.ui.components.LockedState
+import com.readyport.ui.components.NoticeBanner
 import com.readyport.ui.components.PrimaryButton
 import com.readyport.ui.components.SecondaryButton
+import com.readyport.ui.components.SecurityBanner
 import com.readyport.ui.components.StatusKind
+import com.readyport.ui.components.StatusTag
+import com.readyport.ui.components.largeFont
 import com.readyport.ui.components.minTouch
 import com.readyport.ui.theme.LocalDimens
 import com.readyport.ui.theme.Tokens
@@ -97,27 +102,24 @@ fun ManualModeContent(
     // 보통 글자 크기면 복사 버튼을 값 옆에, 글자를 크게 키웠으면 값 아래 줄에 (버튼이 값 글자를 음절 단위로 쪼개지 않게)
     val roomy = !largeFont()
     val openLabel = stringResource(R.string.manual_open_site)
-    val openShown = KoBreak.display(openLabel)
     AppScreen(
-        title = KoBreak.display(stringResource(R.string.manual_title)),
-        // 공용 머리(AppScreen)가 그리는 제목·부제는 보이는 글자만 줄바꿈 보정(API 33 미만)
-        subtitle = KoBreak.display(stringResource(R.string.manual_body)),
+        title = stringResource(R.string.manual_title),
+        subtitle = stringResource(R.string.manual_body),
         speech = stringResource(R.string.manual_body),
     ) {
         item(key = "not-affiliated") {
-            KoNotice(stringResource(R.string.guide_not_affiliated), Icons.Outlined.Policy)
+            NoticeBanner(stringResource(R.string.guide_not_affiliated), icon = Icons.Outlined.Policy)
         }
-        item(key = "security") { CompactSecurityLine() }
+        item(key = "security") { SecurityBanner(compact = true) }
         item(key = "open") {
             PrimaryButton(
-                openShown,
+                openLabel,
                 onClick = onOpenSite,
                 icon = Icons.AutoMirrored.Outlined.OpenInNew,
-                modifier = Modifier.koDescription(openLabel, openShown),
             )
         }
         item(key = "human") {
-            KoNotice(stringResource(R.string.autofill_human_banner), Icons.Outlined.TouchApp, tone = BannerTone.Caution)
+            NoticeBanner(stringResource(R.string.autofill_human_banner), icon = Icons.Outlined.TouchApp, tone = BannerTone.Caution)
         }
         if (ui.locked) {
             item(key = "locked") {
@@ -143,10 +145,9 @@ fun ManualModeContent(
             // 긴 목록 끝에서도 바로 사이트로 (주 버튼은 맨 위 하나 — 여기는 보조)
             item(key = "open-bottom") {
                 SecondaryButton(
-                    openShown,
+                    openLabel,
                     onClick = onOpenSite,
                     icon = Icons.AutoMirrored.Outlined.OpenInNew,
-                    modifier = Modifier.koDescription(openLabel, openShown),
                 )
             }
         }
@@ -173,7 +174,7 @@ private fun StepCard(
     fun textOf(f: RecipeField): String = values[f.key].let { v -> (v?.value ?: v?.display).orEmpty() }
     val (filled, empty) = step.fields.partition { textOf(it).isNotEmpty() }
     CardNewsCard(
-        title = KoBreak.display(step.titleKo),
+        title = step.titleKo,
         icon = stepIcon(step.id),
         eyebrow = stringResource(R.string.manual_step_eyebrow, index + 1),
     ) {
@@ -197,7 +198,7 @@ private fun FieldNames(f: RecipeField, required: Boolean = false) {
         KoText(f.labels.ko, MaterialTheme.typography.titleSmall, Modifier.align(Alignment.CenterVertically), color = Tokens.InkSecondary)
         Text(f.labels.en, style = MaterialTheme.typography.bodySmall, color = Tokens.InkSecondary, modifier = Modifier.align(Alignment.CenterVertically))
         if (required) {
-            KoStatusTag(stringResource(R.string.form_field_required), StatusKind.Caution, Modifier.align(Alignment.CenterVertically))
+            StatusTag(stringResource(R.string.form_field_required), StatusKind.Caution, Modifier.align(Alignment.CenterVertically))
         }
     }
 }

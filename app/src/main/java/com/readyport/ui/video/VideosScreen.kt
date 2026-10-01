@@ -79,6 +79,7 @@ import com.readyport.ui.components.BadgeTone
 import com.readyport.ui.components.ChoiceSegments
 import com.readyport.ui.components.EmptyState
 import com.readyport.ui.components.IconBadge
+import com.readyport.ui.components.KoText
 import com.readyport.ui.components.LinkRow
 import com.readyport.ui.components.ListDivider
 import com.readyport.ui.components.ListGroup
@@ -90,8 +91,8 @@ import com.readyport.ui.components.OnDark
 import com.readyport.ui.components.SecondaryButton
 import com.readyport.ui.components.cardShadow
 import com.readyport.ui.components.minTouchSize
+import com.readyport.ui.components.textIconSize
 import com.readyport.ui.components.windowWidthDp
-import com.readyport.ui.country.koreanPhraseWrap
 import com.readyport.ui.nav.VideosRoute
 import com.readyport.ui.theme.LocalDimens
 import com.readyport.ui.theme.Tokens
@@ -197,20 +198,20 @@ fun VideosContent(countryKo: String, state: VideosState, onOpen: (String) -> Uni
     // 320×470 화면 예산(DESIGN_SPEC 6-07): 좁은 창에서는 제목 앞 아이콘 배지를 뺀다 — 첫 영상 카드가 스크롤 없이 보이게
     val narrow = windowWidthDp().let { it > 0f && it < NARROW_WINDOW_DP }
     AppScreen(
-        title = stringResource(R.string.videos_title, countryKo).wrapKo(),
-        subtitle = stringResource(R.string.videos_subtitle).wrapKo(),
+        title = stringResource(R.string.videos_title, countryKo),
+        subtitle = stringResource(R.string.videos_subtitle),
         speech = stringResource(R.string.videos_speech, countryKo),
         icon = if (narrow) null else Icons.Outlined.SmartDisplay,
     ) {
         // YouTube API 정책: 출처가 YouTube라는 것을 분명히 보여 준다 (누를 수 없는 고지 띠)
-        item(key = "notice") { NoticeBanner(stringResource(R.string.videos_notice).wrapKo()) }
+        item(key = "notice") { NoticeBanner(stringResource(R.string.videos_notice)) }
         when (state) {
             VideosState.Loading -> item(key = "loading") { LoadingState() }
             VideosState.Unavailable -> item(key = "none") {
                 EmptyState(
                     icon = Icons.Outlined.CloudOff,
-                    title = stringResource(R.string.videos_unavailable_title).wrapKo(),
-                    body = stringResource(R.string.videos_unavailable_body).wrapKo(),
+                    title = stringResource(R.string.videos_unavailable_title),
+                    body = stringResource(R.string.videos_unavailable_body),
                 )
             }
             is VideosState.Ready -> {
@@ -226,15 +227,15 @@ fun VideosContent(countryKo: String, state: VideosState, onOpen: (String) -> Uni
                 }
                 val shown = state.items.matching(query).sortedBy(sort)
                 item(key = "count") {
-                    Text(
-                        stringResource(R.string.videos_count, shown.size).wrapKo(),
+                    KoText(
+                        stringResource(R.string.videos_count, shown.size),
                         style = MaterialTheme.typography.labelLarge,
                         color = Tokens.InkSecondary,
                     )
                 }
                 if (shown.isEmpty()) {
                     item(key = "no-match") {
-                        NoticeBanner(stringResource(R.string.videos_search_empty, query.trim()).wrapKo(), icon = Icons.Outlined.SearchOff)
+                        NoticeBanner(stringResource(R.string.videos_search_empty, query.trim()), icon = Icons.Outlined.SearchOff)
                     }
                 }
                 shown.forEach { v ->
@@ -245,7 +246,7 @@ fun VideosContent(countryKo: String, state: VideosState, onOpen: (String) -> Uni
         // 목록이 길어서 맨 아래에도 이전 화면으로 가는 버튼을 둔다
         if (showBack) {
             item(key = "back") {
-                SecondaryButton(stringResource(R.string.action_back).wrapKo(), onClick = goBack, icon = Icons.AutoMirrored.Outlined.ArrowBack)
+                SecondaryButton(stringResource(R.string.action_back), onClick = goBack, icon = Icons.AutoMirrored.Outlined.ArrowBack)
             }
         }
         item(key = "terms") { TermsGroup(onOpen) }
@@ -269,7 +270,7 @@ private fun SearchField(query: String, onChange: (String) -> Unit) {
     OutlinedTextField(
         value = query,
         onValueChange = onChange,
-        label = { Text(stringResource(R.string.videos_search_label).wrapKo()) },
+        label = { KoText(stringResource(R.string.videos_search_label)) },
         leadingIcon = { Icon(Icons.Outlined.Search, contentDescription = null) },
         trailingIcon = if (query.isEmpty()) null else {
             {
@@ -304,8 +305,8 @@ private fun LoadingState() {
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
         CircularProgressIndicator(color = Tokens.Accent)
-        Text(
-            stringResource(R.string.videos_loading).wrapKo(),
+        KoText(
+            stringResource(R.string.videos_loading),
             style = MaterialTheme.typography.bodyLarge,
             color = Tokens.InkSecondary,
             textAlign = TextAlign.Center,
@@ -339,12 +340,12 @@ private fun VideoCard(v: Video, onOpen: (String) -> Unit) {
         Column(Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
             Thumbnail(image, v.durationSeconds)
             Column(Modifier.padding(horizontal = 4.dp, vertical = 2.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                Text(v.title.wrapKo(), style = MaterialTheme.typography.titleMedium, color = Tokens.Ink)
-                Text(
+                KoText(v.title, style = MaterialTheme.typography.titleMedium, color = Tokens.Ink)
+                KoText(
                     listOfNotNull(
                         v.channelTitle,
                         v.subscriberCount?.let { stringResource(R.string.videos_subscribers, number.format(it)) },
-                    ).joinToString(" · ").wrapKo(),
+                    ).joinToString(" · "),
                     style = MaterialTheme.typography.bodyMedium,
                     color = Tokens.InkSecondary,
                 )
@@ -408,8 +409,8 @@ private val DurationBg = Color.Black.copy(alpha = 0.75f)
 @Composable
 private fun MetaItem(icon: ImageVector, text: String) {
     Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(4.dp)) {
-        Icon(icon, contentDescription = null, tint = Tokens.InkTertiary, modifier = Modifier.size(LocalDimens.current.iconSmall))
-        Text(text.wrapKo(), style = MaterialTheme.typography.bodySmall, color = Tokens.InkTertiary)
+        Icon(icon, contentDescription = null, tint = Tokens.InkTertiary, modifier = Modifier.size(textIconSize(LocalDimens.current.iconSmall)))
+        KoText(text, style = MaterialTheme.typography.bodySmall, color = Tokens.InkTertiary)
     }
 }
 
@@ -427,8 +428,8 @@ private fun TermsGroup(onOpen: (String) -> Unit) {
             horizontalArrangement = Arrangement.spacedBy(16.dp),
         ) {
             IconBadge(Icons.Outlined.Policy, tone = BadgeTone.Neutral)
-            Text(
-                stringResource(R.string.videos_terms).wrapKo(),
+            KoText(
+                stringResource(R.string.videos_terms),
                 style = MaterialTheme.typography.bodyMedium,
                 color = Tokens.InkSecondary,
                 modifier = Modifier.weight(1f),
@@ -436,14 +437,11 @@ private fun TermsGroup(onOpen: (String) -> Unit) {
         }
         ListDivider(indent = false)
         Column(Modifier.padding(horizontal = 12.dp, vertical = 4.dp)) {
-            LinkRow(stringResource(R.string.videos_youtube_terms).wrapKo(), onClick = { onOpen(YOUTUBE_TERMS) })
-            LinkRow(stringResource(R.string.videos_google_privacy).wrapKo(), onClick = { onOpen(GOOGLE_PRIVACY) })
+            LinkRow(stringResource(R.string.videos_youtube_terms), onClick = { onOpen(YOUTUBE_TERMS) })
+            LinkRow(stringResource(R.string.videos_google_privacy), onClick = { onOpen(GOOGLE_PRIVACY) })
         }
     }
 }
-
-/** 화면에 그리는 앱 문자열·영상 제목을 어절 단위로 줄바꿈 (나라 화면과 같은 규칙, 글자는 그대로) */
-private fun String.wrapKo(): String = koreanPhraseWrap(this)
 
 private fun duration(s: Int): String {
     val h = s / 3600

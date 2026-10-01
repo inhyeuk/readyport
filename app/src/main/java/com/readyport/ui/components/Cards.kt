@@ -30,16 +30,13 @@ import com.readyport.ui.theme.Tokens
  * 기존 정보 카드 톤. 새 코드는 CardNewsCard·NoticeBanner를 먼저 쓴다 (DESIGN_SPEC 3.1·4.7).
  * - Neutral: 테두리 없이 부드러운 그림자 (3.5)
  * - Caution: 테두리 대신 왼쪽 4dp CautionBorder 막대
- * - Notice: 폐지 예정 — NoticeBanner를 쓴다. 사용처가 0이 되면 2단계에서 지운다(모양은 지금 그대로).
+ * (옛 Notice 톤은 2단계에서 사용처 0을 확인하고 지웠다 — 안내 띠는 NoticeBanner)
  */
 enum class CardTone(val container: Color, val content: Color, val border: Color?) {
     Neutral(Tokens.Surface, Tokens.Ink, null),
     Accent(Tokens.Accent, Tokens.Surface, null),
     Navy(Tokens.Navy, Tokens.Surface, null),
     Caution(Tokens.CautionBg, Tokens.CautionText, null),
-
-    @Deprecated("NoticeBanner 사용 (DESIGN_SPEC D21). 2단계에서 사용처가 0이면 지운다")
-    Notice(Tokens.Ground, Tokens.InkSecondary, Tokens.Line),
 }
 
 /**

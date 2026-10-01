@@ -40,6 +40,7 @@ import com.readyport.ui.present.PresentUi
 import com.readyport.ui.present.Traveler
 import com.readyport.ui.settings.PhotoCreditsContent
 import com.readyport.ui.settings.SettingsScreen
+import com.readyport.ui.tabs.EssentialsSummary
 import com.readyport.ui.tabs.PrepareContent
 import com.readyport.ui.today.TodayActions
 import com.readyport.ui.today.TodayContent
@@ -106,7 +107,8 @@ object Gallery {
     /** [thumb]: 영상 썸네일 대역(null 이면 빈 칸) */
     fun screens(thumb: ImageBitmap? = null): List<Pair<String, @Composable () -> Unit>> = listOf(
         "first-run" to { FirstRunScreen {} },
-        "home" to { HomeContent(TestPacks.homeUi(), HomeActions(), today = LocalDate.of(2026, 9, 28)) },
+        // 준비물 진행 줄(2 / 5)까지 보이게 (BUNDLE_A_NOTES 요청 7)
+        "home" to { HomeContent(TestPacks.homeUi().copy(essentials = EssentialsSummary(5, 2)), HomeActions(), today = LocalDate.of(2026, 9, 28)) },
         "home-with-trip" to {
             HomeContent(TestPacks.homeUi().copy(trip = HomeTrip("태국", LocalDate.of(2026, 11, 3), LocalDate.of(2026, 11, 7), code = "TH")),
                 HomeActions(), today = LocalDate.of(2026, 10, 31))
@@ -129,6 +131,13 @@ object Gallery {
         "today-departure" to {
             TodayContent(TodayUi(trip, StageInfo(TripStage.Departure, dayOfTrip = 1), "태국", th.value.forms.first(), true),
                 TodayActions(), {}, {}, {}, {}, {})
+        },
+        // 출국일에 입국 카드 기간이 열린 상태(태국 TDAC는 보통 이 상태) — 주 버튼은 입국 카드 하나, `도착했어요`는 보조 (C 묶음 캡처를 공용 갤러리로)
+        "today-departure-form" to {
+            TodayContent(
+                TodayUi(trip, StageInfo(TripStage.Departure, dayOfTrip = 1, formWindowOpen = true), "태국", th.value.forms.first(), true),
+                TodayActions(), {}, {}, {}, {}, {},
+            )
         },
         "today-arrival" to {
             TodayContent(TodayUi(trip, StageInfo(TripStage.Arrival, dayOfTrip = 1), "태국", th.value.forms.first(), true),

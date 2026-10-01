@@ -7,6 +7,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -35,14 +36,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.disabled
-import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.testTag
+import androidx.compose.ui.semantics.text
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.readyport.R
@@ -142,8 +147,8 @@ fun IconTile(spec: TileSpec, modifier: Modifier = Modifier, layout: TileLayout =
 @Composable
 private fun TileTexts(spec: TileSpec, c: TileColors, modifier: Modifier) {
     Column(modifier, verticalArrangement = Arrangement.spacedBy(2.dp)) {
-        Text(spec.label, style = MaterialTheme.typography.titleMedium, color = c.label)
-        if (spec.supporting != null) Text(spec.supporting, style = MaterialTheme.typography.bodySmall, color = c.supporting)
+        KoText(spec.label, MaterialTheme.typography.titleMedium, color = c.label)
+        if (spec.supporting != null) KoText(spec.supporting, MaterialTheme.typography.bodySmall, color = c.supporting)
     }
 }
 
@@ -155,9 +160,15 @@ fun InfoTileGrid(tiles: List<TileSpec>, modifier: Modifier = Modifier, columns: 
     }
 }
 
+/** 선택 카드를 세로로 쌓는 기준: 글자 150% 이상이거나, 1열 화면(쉬운 모드·좁은 폭)에서 130% 이상 */
+internal fun choiceCardStacked(fontScale: Float, columns: Int): Boolean =
+    fontScale >= HUGE_FONT_SCALE || (columns == 1 && fontScale >= LARGE_FONT_SCALE)
+
 /**
  * 큰 선택 카드 (첫 실행 등). 카드 전체가 버튼, 이름 = title + body.
  * [preview](예: `가 가`)는 TalkBack 잡음이라 숨긴다. [emphasized]: 2dp Accent 테두리 + AccentSoft 바탕.
+ * 큰 글자([choiceCardStacked])에서는 배지·셰브론을 맨 윗줄에, 제목·설명·미리보기를 그 아래 카드 폭 전체에 둔다 —
+ * 52dp 배지와 셰브론 열 사이 좁은 칸에서 제목이 `처음이에/요`처럼 꺾이지 않게 (BUNDLE_A_NOTES ⑥, IconTile 세로형과 같은 배치).
  */
 @Composable
 fun ChoiceCard(
@@ -171,6 +182,25 @@ fun ChoiceCard(
 ) {
     val dimens = LocalDimens.current
     val shape = MaterialTheme.shapes.large
+    val stacked = choiceCardStacked(LocalDensity.current.fontScale, rememberGridColumns())
+    // 강조 카드는 바탕이 AccentSoft라 배지 바탕(AccentSoft)이 사라진다 → 흰 바탕으로 띄운다
+    val badge: @Composable () -> Unit = {
+        IconBadge(icon, size = 52.dp, containerColor = if (emphasized) Tokens.Surface else BadgeTone.Accent.container)
+    }
+    val chevron: @Composable () -> Unit = {
+        Icon(
+            Icons.AutoMirrored.Outlined.NavigateNext,
+            contentDescription = null,
+            tint = if (emphasized) Tokens.Accent else Tokens.InkTertiary,
+        )
+    }
+    val texts: @Composable (Modifier) -> Unit = { m ->
+        Column(m, verticalArrangement = Arrangement.spacedBy(4.dp)) {
+            KoText(title, MaterialTheme.typography.titleLarge, color = Tokens.Ink)
+            if (body != null) KoText(body, MaterialTheme.typography.bodyMedium, color = Tokens.InkSecondary)
+            if (preview != null) Box(Modifier.clearAndSetSemantics {}) { preview() }
+        }
+    }
     Card(
         onClick = onClick,
         shape = shape,
@@ -183,23 +213,25 @@ fun ChoiceCard(
             .heightIn(min = 96.dp)
             .semantics { role = Role.Button },
     ) {
-        Row(
-            Modifier.padding(dimens.cardPadding),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(16.dp),
-        ) {
-            // 강조 카드는 바탕이 AccentSoft라 배지 바탕(AccentSoft)이 사라진다 → 흰 바탕으로 띄운다
-            IconBadge(icon, size = 52.dp, containerColor = if (emphasized) Tokens.Surface else BadgeTone.Accent.container)
-            Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                Text(title, style = MaterialTheme.typography.titleLarge, color = Tokens.Ink)
-                if (body != null) Text(body, style = MaterialTheme.typography.bodyMedium, color = Tokens.InkSecondary)
-                if (preview != null) Box(Modifier.clearAndSetSemantics {}) { preview() }
+        if (stacked) {
+            Column(Modifier.padding(dimens.cardPadding), verticalArrangement = Arrangement.spacedBy(dimens.inner)) {
+                Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+                    badge()
+                    Spacer(Modifier.weight(1f))
+                    chevron()
+                }
+                texts(Modifier.fillMaxWidth())
             }
-            Icon(
-                Icons.AutoMirrored.Outlined.NavigateNext,
-                contentDescription = null,
-                tint = if (emphasized) Tokens.Accent else Tokens.InkTertiary,
-            )
+        } else {
+            Row(
+                Modifier.padding(dimens.cardPadding),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(16.dp),
+            ) {
+                badge()
+                texts(Modifier.weight(1f))
+                chevron()
+            }
         }
     }
 }
@@ -229,14 +261,14 @@ fun SelectTile(label: String, icon: ImageVector, selected: Boolean, onClick: () 
     ) {
         if (horizontal) {
             Row(Modifier.align(Alignment.CenterStart), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                Icon(icon, contentDescription = null, tint = content, modifier = Modifier.size(dimens.icon))
-                Text(label, style = MaterialTheme.typography.titleMedium, color = content, modifier = Modifier.weight(1f))
+                Icon(icon, contentDescription = null, tint = content, modifier = Modifier.size(textIconSize(dimens.icon, MaterialTheme.typography.titleMedium)))
+                KoText(label, MaterialTheme.typography.titleMedium, Modifier.weight(1f), color = content)
                 if (selected) Icon(Icons.Outlined.Check, contentDescription = null, tint = content)
             }
         } else {
             Column(Modifier.align(Alignment.Center), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                Icon(icon, contentDescription = null, tint = content, modifier = Modifier.size(dimens.icon))
-                Text(label, style = MaterialTheme.typography.titleMedium, color = content, textAlign = TextAlign.Center)
+                Icon(icon, contentDescription = null, tint = content, modifier = Modifier.size(textIconSize(dimens.icon, MaterialTheme.typography.titleMedium)))
+                KoText(label, MaterialTheme.typography.titleMedium, color = content, textAlign = TextAlign.Center)
             }
             if (selected) {
                 Icon(Icons.Outlined.Check, contentDescription = null, tint = content, modifier = Modifier.align(Alignment.TopEnd).size(dimens.iconSmall))
@@ -263,15 +295,9 @@ fun EmptyState(
         Box(Modifier.size(96.dp).background(tone.container, CircleShape), contentAlignment = Alignment.Center) {
             Icon(icon, contentDescription = null, tint = tone.onLight, modifier = Modifier.size(40.dp))
         }
-        Text(
-            title,
-            style = MaterialTheme.typography.titleLarge,
-            color = Tokens.Ink,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.semantics { heading() },
-        )
+        KoText(title, MaterialTheme.typography.titleLarge, color = Tokens.Ink, textAlign = TextAlign.Center, heading = true, glueShort = true)
         if (body != null) {
-            Text(body, style = MaterialTheme.typography.bodyLarge, color = Tokens.InkSecondary, textAlign = TextAlign.Center)
+            KoText(body, MaterialTheme.typography.bodyLarge, color = Tokens.InkSecondary, textAlign = TextAlign.Center)
         }
         if (action != null) action()
     }
@@ -304,15 +330,9 @@ fun LockedState(
                 Icon(badgeIcon, contentDescription = null, tint = Tokens.Accent, modifier = Modifier.size(20.dp))
             }
         }
-        Text(
-            title,
-            style = MaterialTheme.typography.titleLarge,
-            color = Tokens.Ink,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.semantics { heading() },
-        )
+        KoText(title, MaterialTheme.typography.titleLarge, color = Tokens.Ink, textAlign = TextAlign.Center, heading = true, glueShort = true)
         if (body != null) {
-            Text(body, style = MaterialTheme.typography.bodyLarge, color = Tokens.InkSecondary, textAlign = TextAlign.Center)
+            KoText(body, MaterialTheme.typography.bodyLarge, color = Tokens.InkSecondary, textAlign = TextAlign.Center)
         }
         PrimaryButton(buttonLabel, onClick = onUnlock, icon = Icons.Outlined.Fingerprint)
     }
@@ -327,23 +347,35 @@ fun ComingSoonGroup(items: List<Pair<ImageVector, String>>, modifier: Modifier =
     val dimens = LocalDimens.current
     Surface(color = Tokens.SurfaceSunken, shape = MaterialTheme.shapes.large, modifier = modifier.fillMaxWidth()) {
         Column(Modifier.padding(dimens.cardPadding), verticalArrangement = Arrangement.spacedBy(dimens.inner)) {
-            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                Text(
+            // 머리 줄: `준비 중이에요` 태그가 제목을 쪼갤 만큼 폭이 모자라면 제목 아래 줄로 (`곧 추/가돼/요` 방지)
+            TrailingFlow(
+                trailing = { StatusTag(stringResource(R.string.coming_soon), StatusKind.Soon) },
+                modifier = Modifier.fillMaxWidth(),
+                gap = 8.dp,
+                centerVertically = true,
+            ) {
+                KoText(
                     stringResource(R.string.coming_soon_group),
-                    style = MaterialTheme.typography.titleSmall,
+                    MaterialTheme.typography.titleSmall,
                     color = Tokens.InkSecondary,
-                    modifier = Modifier.weight(1f).semantics { heading() },
+                    heading = true,
                 )
-                StatusTag(stringResource(R.string.coming_soon), StatusKind.Soon)
             }
+            val style = MaterialTheme.typography.bodyMedium
+            val iconSize = textIconSize(dimens.icon, style)
             items.forEach { (icon, text) ->
                 Row(
                     Modifier.fillMaxWidth().semantics(mergeDescendants = true) { disabled() },
-                    verticalAlignment = Alignment.CenterVertically,
+                    verticalAlignment = Alignment.Top,
                     horizontalArrangement = Arrangement.spacedBy(12.dp),
                 ) {
-                    Icon(icon, contentDescription = null, tint = Tokens.InkTertiary, modifier = Modifier.size(dimens.icon))
-                    Text(text, style = MaterialTheme.typography.bodyMedium, color = Tokens.InkSecondary, modifier = Modifier.weight(1f))
+                    Icon(
+                        icon,
+                        contentDescription = null,
+                        tint = Tokens.InkTertiary,
+                        modifier = Modifier.padding(top = firstLineIconOffset(style, iconSize)).size(iconSize),
+                    )
+                    KoText(text, style, Modifier.weight(1f), color = Tokens.InkSecondary)
                 }
             }
         }
@@ -369,10 +401,53 @@ fun emergencyColors(large: Boolean): EmergencyColors =
         EmergencyColors(Tokens.HelpSoft, Tokens.Ink, Tokens.Ink, Tokens.InkSecondary, Tokens.Help, BadgeTone.Help, bar = Tokens.Help)
     }
 
+/** 2열 칸에 둘 수 있는 짧은 번호 (`1155`·`191`). 더 길면 statSmall (6-20 번호 길이 규칙) */
+private const val STAT_NUMBER_MAX = 8
+
+/** 전화번호를 '-'(또는 띄어쓰기) 바로 뒤에서 나눈 묶음 (`+66-81-914-5803` → `+66-`, `81-`, `914-`, `5803`). 이어 붙이면 원래 번호 */
+fun phoneGroups(number: String): List<String> {
+    val groups = mutableListOf<String>()
+    val cur = StringBuilder()
+    number.forEach { c ->
+        cur.append(c)
+        if (c == '-' || c == ' ') {
+            groups += cur.toString()
+            cur.clear()
+        }
+    }
+    if (cur.isNotEmpty()) groups += cur.toString()
+    return groups
+}
+
+/** 번호 묶음 노드의 testTag (200% 줄바꿈 검사용 — 의미 글자는 번호 전체 한 노드) */
+const val PHONE_GROUP_TAG = "phone-group"
+
+/**
+ * 긴급 전화번호 (6-20 번호 길이 규칙 + 200% 보강). `+66-81-914-5803`은 UAX#14상 한 낱말이라, 줄보다 넓으면
+ * 숫자 한가운데서 끊긴다(`+66-81-914-58 / 03` — 잘못 읽고 잘못 걸 수 있다). 그래서 '-'로 나뉜 번호는
+ * 묶음([phoneGroups])을 간격 없이 FlowRow에 놓는다: 한 줄에 들어가면 한 Text와 똑같이 보이고, 넘치면 '-' 뒤에서만 줄을 바꾼다.
+ * 번호 글자에는 보이지 않는 문자를 넣지 않고(3.2), 의미 글자는 번호 전체 한 노드(테스트·TalkBack이 그대로 찾는다).
+ * (BoxWithConstraints로 재지 않는다 — TileGrid 행이 IntrinsicSize.Min으로 높이를 맞춰 SubcomposeLayout을 쓸 수 없다)
+ */
+@Composable
+fun PhoneNumberText(number: String, style: TextStyle, color: Color, modifier: Modifier = Modifier) {
+    val groups = phoneGroups(number)
+    if (groups.size <= 1) {
+        Text(number, style = style, color = color, modifier = modifier)
+    } else {
+        FlowRow(modifier.semantics { text = AnnotatedString(number) }) {
+            groups.forEach { g ->
+                Text(g, style = style, color = color, modifier = Modifier.clearAndSetSemantics { testTag = PHONE_GROUP_TAG })
+            }
+        }
+    }
+}
+
 /**
  * 긴급 번호 타일 (6-20). 누르면 전화 앱의 다이얼 화면만 연다(자동 발신 없음 — [onCall]이 처리).
- * 번호 길이 규칙: 8자를 넘으면 statSmall. 번호 글자에는 보이지 않는 문자를 넣지 않는다(테스트가 그대로 찾음).
+ * 번호 길이 규칙: 8자를 넘으면 statSmall, 줄이 모자라면 '-' 뒤에서만 줄을 바꾼다([PhoneNumberText]).
  * 2열 그리드에는 6자 이하 번호만 두고, 긴 번호는 폭 전체로 놓는 것은 호출하는 쪽이 정한다.
+ * 연한 Help 타일의 배지는 흰 바탕으로 띄운다(배지 바탕 HelpSoft가 타일 바탕과 같아 사라지지 않게 — D 묶음 지적 반영).
  * TalkBack: 기존 CallButton 설명 형식(`help_call` + 번호) + 보이는 note.
  */
 @Composable
@@ -407,14 +482,24 @@ fun EmergencyCallTile(
             verticalArrangement = Arrangement.spacedBy(6.dp),
         ) {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                IconBadge(icon, tone = c.badge, size = dimens.iconBadgeSmall)
+                IconBadge(
+                    icon,
+                    tone = c.badge,
+                    size = dimens.iconBadgeSmall,
+                    containerColor = if (large) c.badge.container else Tokens.Surface,
+                )
                 Spacer(Modifier.weight(1f))
                 Icon(Icons.Outlined.Call, contentDescription = null, tint = c.call, modifier = Modifier.size(dimens.icon))
             }
-            Text(number, style = if (number.length > 8) extras.statSmall else extras.stat, color = c.number)
-            Text(label, style = MaterialTheme.typography.bodyMedium, color = c.label)
+            PhoneNumberText(
+                number,
+                if (number.length > STAT_NUMBER_MAX) extras.statSmall else extras.stat,
+                c.number,
+                Modifier.fillMaxWidth(),
+            )
+            KoText(label, MaterialTheme.typography.bodyMedium, color = c.label)
             if (note != null) {
-                if (large) StatusTag(note, StatusKind.Info) else Text(note, style = MaterialTheme.typography.bodySmall, color = c.note)
+                if (large) StatusTag(note, StatusKind.Info) else KoText(note, MaterialTheme.typography.bodySmall, color = c.note)
             }
         }
     }

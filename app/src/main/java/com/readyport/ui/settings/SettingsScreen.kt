@@ -16,7 +16,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.selection.toggleable
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowForward
 import androidx.compose.material.icons.automirrored.outlined.NavigateNext
@@ -27,7 +26,6 @@ import androidx.compose.material.icons.outlined.ExpandLess
 import androidx.compose.material.icons.outlined.ExpandMore
 import androidx.compose.material.icons.outlined.FamilyRestroom
 import androidx.compose.material.icons.outlined.Info
-import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material.icons.outlined.PhotoLibrary
 import androidx.compose.material.icons.outlined.Policy
 import androidx.compose.material.icons.outlined.PrivacyTip
@@ -66,8 +64,9 @@ import androidx.core.net.toUri
 import com.readyport.BuildConfig
 import com.readyport.R
 import com.readyport.ui.components.AppScreen
-import com.readyport.ui.components.BadgeTone
+import com.readyport.ui.components.BadgeTitleLayout
 import com.readyport.ui.components.IconBadge
+import com.readyport.ui.components.KoText
 import com.readyport.ui.components.LinkRow
 import com.readyport.ui.components.ListDivider
 import com.readyport.ui.components.ListGroup
@@ -75,19 +74,20 @@ import com.readyport.ui.components.PhotoCredit
 import com.readyport.ui.components.Photos
 import com.readyport.ui.components.RowTrailing
 import com.readyport.ui.components.SectionHeader
+import com.readyport.ui.components.SecurityBanner
 import com.readyport.ui.components.StatusKind
+import com.readyport.ui.components.StatusTag
 import com.readyport.ui.components.appSwitchColors
+import com.readyport.ui.components.breakAfter
 import com.readyport.ui.components.cardShadow
+import com.readyport.ui.components.hugeFont
+import com.readyport.ui.components.keepTogether
+import com.readyport.ui.components.keepWords
+import com.readyport.ui.components.largeFont
 import com.readyport.ui.components.loadPhotoCredits
 import com.readyport.ui.components.minTouch
 import com.readyport.ui.components.rememberThumbnail
 import com.readyport.ui.components.sectionGap
-import com.readyport.ui.form.BadgeTitleLayout
-import com.readyport.ui.form.KoBreak
-import com.readyport.ui.form.KoStatusTag
-import com.readyport.ui.form.KoText
-import com.readyport.ui.form.hugeFont
-import com.readyport.ui.form.largeFont
 import com.readyport.ui.theme.LocalDimens
 import com.readyport.ui.theme.Tokens
 
@@ -118,7 +118,7 @@ fun SettingsScreen(
         speech = stringResource(R.string.settings_speech),
     ) {
         // 개인정보가 기기 밖으로 나가지 않는다는 약속을 설정 맨 위에 항상 보여 준다
-        item(key = "local-only") { LocalOnlyCard() }
+        item(key = "local-only") { SecurityBanner() }
         // '여권·예약 서류 관리'는 배너 바로 아래 첫 행 (320×470에서도 스크롤 없이 누를 수 있게)
         item(key = "group-myinfo") {
             ListGroup(stringResource(R.string.settings_group_myinfo)) {
@@ -213,34 +213,6 @@ fun SettingsScreen(
 private fun rowTextStart(): Dp = 16.dp + LocalDimens.current.iconBadge + 16.dp
 
 /**
- * "내 정보는 이 휴대폰에만 저장돼요" — components.SecurityBanner(전체형)와 같은 모양(Navy, 원형 Lock 배지, 제목·본문).
- * 이 화면에서는 제목 줄바꿈을 보정해 그린다: `이`가 줄 끝에 홀로 남지 않게 하고(`이 휴대폰`을 묶음),
- * 글자를 크게 키우면 배지를 제목 위로 올려 제목에 폭 전체를 준다. (2단계에서 SecurityBanner에 합칠 후보)
- */
-@Composable
-private fun LocalOnlyCard() {
-    val dimens = LocalDimens.current
-    Surface(color = Tokens.Navy, contentColor = Tokens.Surface, shape = MaterialTheme.shapes.large, modifier = Modifier.fillMaxWidth()) {
-        Column(Modifier.padding(dimens.cardPadding), verticalArrangement = Arrangement.spacedBy(dimens.inner)) {
-            BadgeTitleLayout(
-                badge = { IconBadge(Icons.Outlined.Lock, tone = BadgeTone.OnDark, shape = CircleShape) },
-                stack = largeFont(),
-                gap = 12.dp,
-                title = {
-                    KoText(
-                        stringResource(R.string.settings_local_only_title),
-                        MaterialTheme.typography.titleLarge,
-                        color = Tokens.Surface,
-                        glueShort = true,
-                    )
-                },
-            )
-            KoText(stringResource(R.string.settings_local_only_body), MaterialTheme.typography.bodyLarge, color = Tokens.Surface)
-        }
-    }
-}
-
-/**
  * 설정 한 줄 — ListRow(4.10)와 같은 모양·동작(배지 + 제목·설명 + 끝 요소, 스위치 행은 줄 전체 Role.Switch·Switch 콜백 null,
  * 누르는 행은 Role.Button, 나머지는 한 덩어리로 읽힘). 다른 점은 배치뿐(BadgeTitleLayout):
  * 설명이 끝 요소 아래까지 넓어지고, 큰 글자(130%↑)에서는 제목·설명이 폭 전체를 쓴다. 150%↑는 배지를 작게.
@@ -324,13 +296,6 @@ private fun EasyModePreview() {
     }
 }
 
-/** "내 정보는 이 휴대폰에만 저장돼요" — 설정과 내 정보 화면 맨 위. components.SecurityBanner로 옮겼다 (DESIGN_SPEC 4.0) */
-@Deprecated("components.SecurityBanner 사용", ReplaceWith("SecurityBanner()", "com.readyport.ui.components.SecurityBanner"))
-@Composable
-fun LocalOnlyBanner() {
-    com.readyport.ui.components.SecurityBanner()
-}
-
 // ======================= 28 사진·글꼴 출처 =======================
 
 /** 앱에 넣은 글꼴의 출처 (D1 — Pretendard Std 1.3.9, 배포 원본 OTF 그대로) */
@@ -383,8 +348,7 @@ fun PhotoCreditsContent(credits: List<PhotoCredit>, onOpenLink: (String) -> Unit
             SectionHeader(
                 stringResource(R.string.credits_photos_title),
                 icon = Icons.Outlined.PhotoLibrary,
-                // 공용 머리가 그리는 설명은 보이는 글자만 줄바꿈 보정(API 33 미만)
-                subtitle = KoBreak.display(stringResource(R.string.photo_credits_body_v2)),
+                subtitle = stringResource(R.string.photo_credits_body_v2),
             )
         }
         credits.forEach { c -> item(key = "credit-${c.id}") { PhotoCreditCard(c, onOpenLink) } }
@@ -434,14 +398,14 @@ private fun MediaAndTexts(media: @Composable () -> Unit, texts: @Composable () -
 @Composable
 private fun CreditTexts(title: String, @androidx.annotation.StringRes authorRes: Int, author: String, license: String) {
     val authorLine = stringResource(authorRes, author)
-    val authorShown = KoBreak.display(stringResource(authorRes, KoBreak.keepTogether(author)))
+    val authorShown = keepWords(stringResource(authorRes, keepTogether(author)))
     val licenseLine = stringResource(R.string.photo_credit_license, license)
-    val licenseShown = KoBreak.display(stringResource(R.string.photo_credit_license, KoBreak.keepTogether(license)))
+    val licenseShown = keepWords(stringResource(R.string.photo_credit_license, keepTogether(license)))
     Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
         // 띄어쓰기 없는 긴 파일 이름은 하이픈·밑줄 뒤에서 줄을 바꾼다
-        KoText(title, MaterialTheme.typography.titleMedium, color = Tokens.Ink, display = KoBreak.display(KoBreak.breakAfter(title, "-_")))
+        KoText(title, MaterialTheme.typography.titleMedium, color = Tokens.Ink, display = keepWords(breakAfter(title, "-_")))
         KoText(authorLine, MaterialTheme.typography.bodyMedium, color = Tokens.InkSecondary, display = authorShown)
-        KoStatusTag(licenseLine, StatusKind.Info, shown = licenseShown)
+        StatusTag(licenseLine, StatusKind.Info, display = licenseShown)
     }
 }
 

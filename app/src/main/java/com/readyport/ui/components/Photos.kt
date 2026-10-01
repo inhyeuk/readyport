@@ -46,7 +46,6 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
-import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.unit.Dp
@@ -63,9 +62,6 @@ object Photos {
     @DrawableRes val Home = R.drawable.photo_home
     @DrawableRes val Airport = R.drawable.photo_airport
     @DrawableRes val Packing = R.drawable.photo_packing
-
-    /** 베트남 호이안 — 사용 중단(DESIGN_SPEC 3.7 ②). 사용처가 0이 되면 drawable·크레딧과 함께 지운다 */
-    @DrawableRes val Market = R.drawable.photo_market
 
     /** 나라 대표 경치. 사진이 없는 나라는 null → 남색 바탕 */
     @DrawableRes
@@ -84,7 +80,6 @@ object Photos {
         "home" -> Home
         "airport" -> Airport
         "packing" -> Packing
-        "market" -> Market
         else -> country(id.uppercase())
     }
 }
@@ -210,8 +205,9 @@ fun PhotoChip(text: String, icon: ImageVector? = null) {
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(4.dp),
         ) {
-            if (icon != null) Icon(icon, contentDescription = null, modifier = Modifier.size(LocalDimens.current.iconSmall))
-            Text(text, style = MaterialTheme.typography.labelMedium)
+            val style = MaterialTheme.typography.labelMedium
+            if (icon != null) Icon(icon, contentDescription = null, modifier = Modifier.size(textIconSize(LocalDimens.current.iconSmall, style)))
+            KoText(text, style)
         }
     }
 }
@@ -258,14 +254,19 @@ fun PhotoHeaderCard(
     ) {
         PhotoBox(painter, shape = RectangleShape, minHeight = minHeight) {
             PhotoTextArea {
-                Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    if (icon != null) Icon(icon, contentDescription = null, tint = OnDark.content, modifier = Modifier.size(dimens.icon))
-                    Text(
-                        title,
-                        style = MaterialTheme.typography.titleLarge,
-                        color = OnDark.content,
-                        modifier = Modifier.semantics { heading() },
-                    )
+                // 아이콘은 제목 **첫 줄** 가운데에 맞춘다(두 줄 제목의 세로 가운데에 뜨지 않게 — 4.2, BUNDLE_A_NOTES 요청 2)
+                val style = MaterialTheme.typography.titleLarge
+                val iconSize = textIconSize(dimens.icon, style)
+                Row(verticalAlignment = Alignment.Top, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    if (icon != null) {
+                        Icon(
+                            icon,
+                            contentDescription = null,
+                            tint = OnDark.content,
+                            modifier = Modifier.padding(top = firstLineIconOffset(style, iconSize)).size(iconSize),
+                        )
+                    }
+                    KoText(title, style, Modifier.weight(1f, fill = false), color = OnDark.content, heading = true)
                 }
             }
         }
@@ -310,9 +311,9 @@ fun CountryPhotoTile(
         PhotoTextArea {
             Row(verticalAlignment = Alignment.Bottom) {
                 Column(Modifier.weight(1f)) {
-                    Text(
+                    KoText(
                         nameKo,
-                        style = if (large) MaterialTheme.typography.displaySmall else MaterialTheme.typography.titleLarge,
+                        if (large) MaterialTheme.typography.displaySmall else MaterialTheme.typography.titleLarge,
                         color = OnDark.content,
                     )
                     Text(

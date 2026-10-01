@@ -31,7 +31,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.heading
@@ -64,19 +63,24 @@ import com.readyport.ui.components.ExpandableDetail
 import com.readyport.ui.components.IconBadge
 import com.readyport.ui.components.IconBullet
 import com.readyport.ui.components.IconKeys
+import com.readyport.ui.components.KoText
 import com.readyport.ui.components.QuietButton
 import com.readyport.ui.components.ReturnCheckCard
 import com.readyport.ui.components.SecondaryButton
 import com.readyport.ui.components.SelectChip
+import com.readyport.ui.components.ShowLocalBody
 import com.readyport.ui.components.SourceList
 import com.readyport.ui.components.SourceRef
 import com.readyport.ui.components.cardShadow
+import com.readyport.ui.components.displayDate
 import com.readyport.ui.components.importKind
 import com.readyport.ui.components.importLabel
+import com.readyport.ui.components.localText
 import com.readyport.ui.components.rememberGridColumns
 import com.readyport.ui.components.resolveSourceName
 import com.readyport.ui.components.sectionGap
 import com.readyport.ui.components.startBar
+import com.readyport.ui.components.textIconSize
 import com.readyport.ui.nav.ShoppingRoute
 import com.readyport.ui.theme.LocalDimens
 import com.readyport.ui.theme.LocalTypeExtras
@@ -126,22 +130,6 @@ class ShoppingViewModel @Inject constructor(
     fun toggle(itemId: String, inCart: Boolean) = viewModelScope.launch { settings.setInCart(CartKey.of(country, itemId), inCart) }
 }
 
-// ---- 옛 위치 (DESIGN_SPEC 4.0 이동 규칙): components(Status.kt·ReturnCheck.kt)로 옮겼다.
-// 1단계 묶음은 이 위임 함수를 지우거나 시그니처를 바꾸지 않는다. 2단계에서 사용처가 0이면 지운다.
-
-/** 한국 반입 태그 색: 가능 초록 / 주의 주황 / 불가 빨강 (PRD 5.8) */
-@Deprecated("components.importColors 사용", ReplaceWith("importColors(status)", "com.readyport.ui.components.importColors"))
-fun importColors(status: ImportStatus): Pair<Color, Color> = com.readyport.ui.components.importColors(status)
-
-@Deprecated("components.importLabel 사용", ReplaceWith("importLabel(status)", "com.readyport.ui.components.importLabel"))
-fun importLabel(status: ImportStatus): Int = com.readyport.ui.components.importLabel(status)
-
-@Deprecated("components.ImportVerdictBadge 사용", ReplaceWith("ImportVerdictBadge(status)", "com.readyport.ui.components.ImportVerdictBadge"))
-@Composable
-fun ImportTag(status: ImportStatus) {
-    com.readyport.ui.components.ImportVerdictBadge(status)
-}
-
 @Composable
 fun ShoppingScreen(viewModel: ShoppingViewModel = hiltViewModel()) {
     val ui by viewModel.ui.collectAsStateWithLifecycle()
@@ -170,12 +158,12 @@ fun ShoppingContent(ui: ShoppingUi, onToggle: (String, Boolean) -> Unit, onOpenL
     val fallback = stringResource(R.string.source_official_fallback)
     // 품목 출처는 나라 팩, 반입 판정 출처는 나라 팩 또는 index(관세청·검역본부)에 있다. 못 찾으면 '공식 안내' — ID는 보이지 않는다
     // 출처 이름도 API 33 미만에서는 어절 단위로 줄을 바꾼다 (`태국관광청 · 찬타 / 부리` 방지)
-    fun sourceName(id: String) = keepAll(resolveSourceName(id, ui.sourceNames, ui.indexSources[id] ?: fallback))
+    fun sourceName(id: String) = resolveSourceName(id, ui.sourceNames, ui.indexSources[id] ?: fallback)
     val visible = ui.items.filter { category == null || it.category == category }
 
     AppScreen(
         title = stringResource(R.string.shopping_title, ui.countryKo),
-        subtitle = keepAll(stringResource(R.string.shopping_subtitle_v2)),
+        subtitle = stringResource(R.string.shopping_subtitle_v2),
         speech = stringResource(R.string.shopping_speech),
     ) {
         if (ui.items.isNotEmpty()) {
@@ -213,8 +201,8 @@ fun ShoppingContent(ui: ShoppingUi, onToggle: (String, Boolean) -> Unit, onOpenL
                     item = item,
                     inCart = CartKey.of(ui.country, item.id) in ui.cart,
                     sources = listOf(
-                        SourceRef(sourceName(item.source), sourceDate(item.lastVerified)),
-                        SourceRef(sourceName(item.importSource), sourceDate(item.lastVerified)),
+                        SourceRef(sourceName(item.source), displayDate(item.lastVerified)),
+                        SourceRef(sourceName(item.importSource), displayDate(item.lastVerified)),
                     ),
                     onToggle = { onToggle(item.id, it) },
                     onShowStaff = { showing = item },
@@ -223,14 +211,8 @@ fun ShoppingContent(ui: ShoppingUi, onToggle: (String, Boolean) -> Unit, onOpenL
         }
         sectionGap("gap-return")
         item(key = "return") {
-            // 공용 ReturnCheckCard에 넘기기 전에 보이는 글만 다듬는다: 링크·사실 문장은 어절 단위 줄바꿈(API 33 미만),
-            // 출처 날짜는 sourceDate와 같은 이유로 날짜 앞에서 줄이 바뀔 수 있게 (값·출처 ID는 그대로)
-            val links = remember(ui.returnLinks) { ui.returnLinks.map { it.copy(labelKo = keepAll(it.labelKo)) } }
-            val facts = remember(ui.returnFacts) {
-                ui.returnFacts.map { it.copy(textKo = keepAll(it.textKo), lastVerified = SOURCE_DATE_BREAK + it.lastVerified) }
-            }
-            val names = remember(ui.indexSources) { ui.indexSources.mapValues { keepAll(it.value) } }
-            ReturnCheckCard(links, facts, names, onOpenLink)
+            // 줄바꿈(어절 단위·출처 날짜)은 공용 ReturnCheckCard가 한다
+            ReturnCheckCard(ui.returnLinks, ui.returnFacts, ui.indexSources, onOpenLink)
         }
     }
 
@@ -261,7 +243,7 @@ private fun ShopItemCard(
             Row(verticalAlignment = Alignment.Top, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                 IconBadge(IconKeys.shoppingCategory(item.category), tone = BadgeTone.Help)
                 Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
-                    KeepAllText(
+                    KoText(
                         item.names.ko,
                         style = MaterialTheme.typography.titleLarge,
                         color = Tokens.Ink,
@@ -273,13 +255,13 @@ private fun ShopItemCard(
             }
             ImportVerdictPanel(item.import, item.importNoteKo)
             val (why, whyMore) = splitLongText(item.whyKo)
-            KeepAllText(why, MaterialTheme.typography.bodyMedium, Tokens.Ink)
+            KoText(why, MaterialTheme.typography.bodyMedium, color = Tokens.Ink)
             if (whyMore != null) {
                 ExpandableDetail {
-                    KeepAllText(whyMore, MaterialTheme.typography.bodyMedium, Tokens.Ink)
+                    KoText(whyMore, MaterialTheme.typography.bodyMedium, color = Tokens.Ink)
                 }
             }
-            item.whereKo?.let { IconBullet(keepAll(stringResource(R.string.shopping_where, it)), Icons.Outlined.Place) }
+            item.whereKo?.let { IconBullet(stringResource(R.string.shopping_where, it), Icons.Outlined.Place) }
             val addLabel = stringResource(if (inCart) R.string.shopping_in_cart else R.string.shopping_add)
             // TalkBack: 보이는 글자는 '담기' 그대로, 누를 때 읽는 동작 이름에 상품명을 붙인다 (6-18)
             val addAction = stringResource(if (inCart) R.string.shopping_remove_cd else R.string.shopping_add_cd, item.names.ko)
@@ -327,7 +309,7 @@ private fun ShopItemCard(
                 // 옆에 나란히 — 폭이 모자라면 아래 줄로 넘어가지 않고 글자 버튼 라벨이 제 칸 안에서 줄을 바꾼다
                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                     add(Modifier)
-                    staff(keepAll(stringResource(R.string.shopping_show_staff)), Modifier.weight(1f, fill = false))
+                    staff(stringResource(R.string.shopping_show_staff), Modifier.weight(1f, fill = false))
                 }
             }
             Column(Modifier.padding(top = 4.dp)) { SourceList(sources) }
@@ -354,10 +336,15 @@ private fun ImportVerdictPanel(status: ImportStatus, note: String?) {
         verticalArrangement = Arrangement.spacedBy(4.dp),
     ) {
         Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-            Icon(kind.icon, contentDescription = null, tint = tone.content, modifier = Modifier.size(LocalDimens.current.icon))
-            Text(stringResource(importLabel(status)), style = MaterialTheme.typography.titleSmall, color = tone.content)
+            Icon(
+                kind.icon,
+                contentDescription = null,
+                tint = tone.content,
+                modifier = Modifier.size(textIconSize(LocalDimens.current.icon, MaterialTheme.typography.titleSmall)),
+            )
+            KoText(stringResource(importLabel(status)), MaterialTheme.typography.titleSmall, color = tone.content)
         }
-        note?.let { KeepAllText(it, MaterialTheme.typography.bodyMedium, tone.content) }
+        note?.let { KoText(it, MaterialTheme.typography.bodyMedium, color = tone.content) }
     }
 }
 
@@ -368,7 +355,7 @@ internal fun ShowStaffBody(item: ShoppingItem, onClose: () -> Unit) {
     ShowLocalBody(onClose) {
         Text(item.names.local, style = extras.localLarge, textAlign = TextAlign.Center, color = Tokens.Ink)
         Text(item.names.en, style = MaterialTheme.typography.headlineMedium, textAlign = TextAlign.Center, color = Tokens.InkSecondary)
-        KeepAllText(item.names.ko, MaterialTheme.typography.titleLarge, Tokens.InkSecondary, textAlign = TextAlign.Center)
+        KoText(item.names.ko, MaterialTheme.typography.titleLarge, color = Tokens.InkSecondary, textAlign = TextAlign.Center)
     }
 }
 
@@ -380,17 +367,3 @@ private fun ShowStaffScreen(item: ShoppingItem, onClose: () -> Unit) {
     }
 }
 
-/** '귀국 전 확인 — 면세 한도·반입 금지 품목(관세청·검역본부)' — components.ReturnCheckCard(v2)로 옮겼다 */
-@Deprecated(
-    "components.ReturnCheckCard 사용 (DESIGN_SPEC 4.0 이동 규칙)",
-    ReplaceWith("ReturnCheckCard(links, facts, sourceNames, onOpenLink)", "com.readyport.ui.components.ReturnCheckCard"),
-)
-@Composable
-fun ReturnCheckCard(
-    links: List<OfficialLink>,
-    facts: List<SourcedText>,
-    sourceNames: Map<String, String>,
-    onOpenLink: (String) -> Unit,
-) {
-    com.readyport.ui.components.ReturnCheckCard(links, facts, sourceNames, onOpenLink)
-}

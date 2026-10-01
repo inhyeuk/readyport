@@ -21,14 +21,11 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.NavigateNext
 import androidx.compose.material.icons.automirrored.outlined.OpenInNew
 import androidx.compose.material.icons.outlined.Badge
-import androidx.compose.material.icons.outlined.BusinessCenter
 import androidx.compose.material.icons.outlined.Check
-import androidx.compose.material.icons.outlined.CorporateFare
 import androidx.compose.material.icons.outlined.Description
 import androidx.compose.material.icons.outlined.Edit
 import androidx.compose.material.icons.outlined.EditNote
 import androidx.compose.material.icons.outlined.ErrorOutline
-import androidx.compose.material.icons.outlined.Forum
 import androidx.compose.material.icons.outlined.PauseCircle
 import androidx.compose.material.icons.outlined.Policy
 import androidx.compose.material.icons.outlined.Schedule
@@ -60,7 +57,6 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.RectangleShape
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.layout
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.LiveRegionMode
@@ -89,6 +85,7 @@ import com.readyport.autofill.RecipeOption
 import com.readyport.autofill.ValueOrigin
 import com.readyport.security.SecureScreen
 import com.readyport.ui.components.AppScreen
+import com.readyport.ui.components.BadgeTitleLayout
 import com.readyport.ui.components.BadgeTone
 import com.readyport.ui.components.BannerTone
 import com.readyport.ui.components.CardNewsCard
@@ -96,20 +93,29 @@ import com.readyport.ui.components.ExpandableDetail
 import com.readyport.ui.components.IconBadge
 import com.readyport.ui.components.IconKeys
 import com.readyport.ui.components.KeyValueRow
+import com.readyport.ui.components.KoText
+import com.readyport.ui.components.KoreanBreak
 import com.readyport.ui.components.LockedState
+import com.readyport.ui.components.NoticeBanner
 import com.readyport.ui.components.PrimaryButton
 import com.readyport.ui.components.QuietButton
 import com.readyport.ui.components.SecondaryButton
 import com.readyport.ui.components.SectionHeader
+import com.readyport.ui.components.SecurityBanner
 import com.readyport.ui.components.SelectChip
 import com.readyport.ui.components.StatusKind
+import com.readyport.ui.components.StatusTag
 import com.readyport.ui.components.cardShadow
+import com.readyport.ui.components.keepWords
+import com.readyport.ui.components.koDisplay
+import com.readyport.ui.components.largeFont
 import com.readyport.ui.components.minTouch
 import com.readyport.ui.components.rememberGridColumns
 import com.readyport.ui.components.rememberKeyIndex
 import com.readyport.ui.components.scrollToKey
 import com.readyport.ui.components.sectionGap
 import com.readyport.ui.components.startBar
+import com.readyport.ui.components.textIconSize
 import com.readyport.ui.theme.LocalDimens
 import com.readyport.ui.theme.Tokens
 import com.readyport.ui.wallet.rememberDeviceAuth
@@ -204,34 +210,31 @@ fun FormConfirmContent(
     val manualLabel = stringResource(R.string.form_manual_mode)
 
     AppScreen(
-        title = KoBreak.display(stringResource(R.string.form_confirm_title, formName)),
-        // 공용 머리(AppScreen)가 그리는 제목·부제는 보이는 글자만 줄바꿈 보정(API 33 미만)
-        subtitle = KoBreak.display(stringResource(R.string.form_confirm_body)),
+        title = stringResource(R.string.form_confirm_title, formName),
+        subtitle = stringResource(R.string.form_confirm_body),
         speech = stringResource(R.string.form_confirm_body),
         state = listState,
         keyIndex = keys,
     ) {
         // 정부 비제휴 + 제출은 직접 — 입국 화면의 첫 정보 항목 (원칙 5, 4.4)
         item(key = "not-affiliated") {
-            KoNotice(notAffiliated, Icons.Outlined.Policy, secondLine = submitSelf, secondIcon = Icons.Outlined.TouchApp)
+            NoticeBanner(notAffiliated, icon = Icons.Outlined.Policy, secondLine = submitSelf, secondIcon = Icons.Outlined.TouchApp)
         }
         // 보안 화면(SecureScreen): 비제휴 고지 바로 다음에 '이 휴대폰에만' 한 줄 (6장 공통 보안)
-        item(key = "security") { CompactSecurityLine() }
+        item(key = "security") { SecurityBanner(compact = true) }
         if (ctx == null) return@AppScreen
         if (!ctx.autofillAvailable) {
             item(key = "no-autofill") {
                 Column(verticalArrangement = Arrangement.spacedBy(LocalDimens.current.gap)) {
-                    KoNotice(
+                    NoticeBanner(
                         stringResource(if (ctx.killed) R.string.form_killed else R.string.form_no_recipe),
-                        if (ctx.killed) Icons.Outlined.PauseCircle else Icons.Outlined.Schedule,
+                        icon = if (ctx.killed) Icons.Outlined.PauseCircle else Icons.Outlined.Schedule,
                         tone = BannerTone.Caution,
                     )
-                    val shown = KoBreak.display(manualLabel)
                     PrimaryButton(
-                        shown,
+                        manualLabel,
                         onClick = onManual,
                         icon = Icons.AutoMirrored.Outlined.OpenInNew,
-                        modifier = Modifier.koDescription(manualLabel, shown),
                     )
                 }
             }
@@ -241,9 +244,9 @@ fun FormConfirmContent(
             is WalletState.Unlocked -> if (w.contents.passport == null) {
                 item(key = "need-passport") {
                     CardNewsCard(
-                        title = KoBreak.display(stringResource(R.string.form_need_passport)),
+                        title = stringResource(R.string.form_need_passport),
                         icon = Icons.Outlined.Badge,
-                        body = KoBreak.display(stringResource(R.string.form_need_passport_body)),
+                        body = stringResource(R.string.form_need_passport_body),
                     ) {
                         PrimaryButton(stringResource(R.string.wallet_passport_add), onClick = onRegisterPassport)
                     }
@@ -320,7 +323,7 @@ fun FormConfirmContent(
                         Icons.Outlined.Translate,
                         contentDescription = null,
                         tint = Tokens.InkTertiary,
-                        modifier = Modifier.padding(top = 1.dp).size(LocalDimens.current.iconSmall),
+                        modifier = Modifier.padding(top = 1.dp).size(textIconSize(LocalDimens.current.iconSmall)),
                     )
                     KoText(stringResource(R.string.form_labels_unreviewed), MaterialTheme.typography.bodySmall, color = Tokens.InkTertiary)
                 }
@@ -328,7 +331,7 @@ fun FormConfirmContent(
         }
         // ⑦ 보안 확인과 마지막 '제출'은 직접 — 버튼 바로 위 (누를 수 없는 흰 띠)
         item(key = "notice") {
-            KoNotice(stringResource(R.string.form_confirm_notice), Icons.Outlined.TouchApp)
+            NoticeBanner(stringResource(R.string.form_confirm_notice), icon = Icons.Outlined.TouchApp)
         }
         if (missing.isNotEmpty() && missingSentence != null) {
             item(key = "missing") { MissingPanel(missing, missingSentence, attempted, singleColumn, goToField) }
@@ -336,33 +339,27 @@ fun FormConfirmContent(
         item(key = "actions") {
             Column(verticalArrangement = Arrangement.spacedBy(LocalDimens.current.gap)) {
                 if (ui.saveFailed) {
-                    KoNotice(stringResource(R.string.form_save_failed), Icons.Outlined.ErrorOutline, tone = BannerTone.Danger)
+                    NoticeBanner(stringResource(R.string.form_save_failed), icon = Icons.Outlined.ErrorOutline, tone = BannerTone.Danger)
                 }
                 if (ctx.autofillAvailable) {
-                    val shown = KoBreak.display(confirmYes)
                     PrimaryButton(
-                        shown,
+                        confirmYes,
                         onClick = onConfirm,
                         enabled = missing.isEmpty(),
                         icon = Icons.Outlined.EditNote,
-                        modifier = Modifier.koDescription(confirmYes, shown),
                     )
                 }
-                val fixShown = KoBreak.display(fixLabel)
                 SecondaryButton(
-                    fixShown,
+                    fixLabel,
                     onClick = { editing = !editing },
                     icon = if (editing) Icons.Outlined.Check else Icons.Outlined.Edit,
-                    modifier = Modifier.koDescription(fixLabel, fixShown),
                 )
                 // 자동 입력을 쉴 때는 위 안내 카드의 주 버튼이 수동 모드다
                 if (ctx.autofillAvailable) {
-                    val manualShown = KoBreak.display(manualLabel)
                     QuietButton(
-                        manualShown,
+                        manualLabel,
                         onClick = onManual,
                         icon = Icons.AutoMirrored.Outlined.OpenInNew,
-                        modifier = Modifier.koDescription(manualLabel, manualShown),
                     )
                 }
             }
@@ -556,9 +553,9 @@ private fun IndividualHead(missingCount: Int, attempted: Boolean) {
         below = {
             Box(Modifier.padding(top = 4.dp)) {
                 if (missingCount > 0) {
-                    KoStatusTag(stringResource(R.string.form_missing_count, missingCount), requiredKind(attempted))
+                    StatusTag(stringResource(R.string.form_missing_count, missingCount), requiredKind(attempted))
                 } else {
-                    KoStatusTag(stringResource(R.string.form_all_filled), StatusKind.Allowed)
+                    StatusTag(stringResource(R.string.form_all_filled), StatusKind.Allowed)
                 }
             }
         },
@@ -613,7 +610,7 @@ private fun FieldTextField(
 ) {
     val parts = listOfNotNull(f.hintKo, f.labels.en, f.labels.local)
     val support = parts.joinToString(" · ")
-    val supportShown = KoBreak.display(parts.joinToString("${KoBreak.NBSP}· "))
+    val supportShown = keepWords(parts.joinToString("${KoreanBreak.NBSP}· "))
     val requiredLabel = stringResource(R.string.form_field_required)
     var hadFocus by remember { mutableStateOf(false) }
     OutlinedTextField(
@@ -624,7 +621,7 @@ private fun FieldTextField(
         supportingText = if (support.isNotEmpty() || state.required) {
             {
                 Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                    if (state.required) KoStatusTag(requiredLabel, requiredKind(state.error))
+                    if (state.required) StatusTag(requiredLabel, requiredKind(state.error))
                     if (support.isNotEmpty()) {
                         KoText(
                             support,
@@ -677,17 +674,6 @@ private fun FieldTextField(
     )
 }
 
-/**
- * 라디오 행 아이콘 (5.7 IconKeys.option). 선 아이콘 목록 안에서 채운 모양으로 보이던 Work·Groups·Apartment만
- * 선 모양 아이콘(BusinessCenter·Forum·CorporateFare)으로 바꿔 굵기를 맞춘다.
- */
-private fun optionIcon(value: String): ImageVector? = when (value) {
-    "business" -> Icons.Outlined.BusinessCenter
-    "meeting" -> Icons.Outlined.Forum
-    "apartment" -> Icons.Outlined.CorporateFare
-    else -> IconKeys.option(value)
-}
-
 /** 고르는 칸(여행 목적·숙소 종류): 폭 전체 라디오 행. 그룹은 selectableGroup, 행은 Role.RadioButton, RadioButton 콜백은 null */
 @Composable
 private fun ChoiceField(
@@ -707,7 +693,7 @@ private fun ChoiceField(
             FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
                 KoText(f.labels.ko, MaterialTheme.typography.titleMedium, Modifier.align(Alignment.CenterVertically), color = Tokens.Ink)
                 if (state.required) {
-                    KoStatusTag(stringResource(R.string.form_field_required), requiredKind(state.error), Modifier.align(Alignment.CenterVertically))
+                    StatusTag(stringResource(R.string.form_field_required), requiredKind(state.error), Modifier.align(Alignment.CenterVertically))
                 }
             }
             f.otherLabels()?.let {
@@ -736,7 +722,7 @@ private fun ChoiceField(
                     horizontalArrangement = Arrangement.spacedBy(12.dp),
                 ) {
                     // 매핑 없는 값은 아이콘 없음 (옆 RadioButton과 원이 둘로 보이지 않게, 5.7)
-                    optionIcon(o.value)?.let {
+                    IconKeys.option(o.value)?.let {
                         Icon(it, contentDescription = null, tint = if (sel) Tokens.Accent else Tokens.InkSecondary, modifier = Modifier.size(dimens.icon))
                     }
                     OptionText(o, localLarge, localOwnLine, Modifier.weight(1f))
@@ -759,10 +745,10 @@ private fun ChoiceField(
 private fun OptionText(o: RecipeOption, localLarge: Boolean, ownLine: Boolean, modifier: Modifier = Modifier) {
     val head = listOfNotNull(o.ko, o.en).joinToString(" · ")
     val original = if (o.local != null) "$head · ${o.local}" else head
-    val shownHead = KoBreak.display(head)
     val split = ownLine && o.local != null
     val shown = buildAnnotatedString {
-        append(shownHead)
+        // 한국어 부분만 줄바꿈 보정(어절 단위 + 긴 낱말의 가운뎃점 뒤, `아파트·레/지던스` 방지) — 의미 글자는 아래에서 원문
+        append(koDisplay(head))
         if (o.local != null) {
             append(if (split) "\n" else " · ")
             if (localLarge) {
@@ -808,7 +794,7 @@ private fun MissingPanel(missing: List<RecipeField>, sentence: String, attempted
                 liveRegion = LiveRegionMode.Polite
             },
         ) {
-            StatusTagShown(stringResource(R.string.form_missing_count, missing.size), requiredKind(attempted))
+            StatusTag(stringResource(R.string.form_missing_count, missing.size), requiredKind(attempted))
         }
         if (singleColumn) {
             Column {
@@ -834,20 +820,12 @@ private fun MissingPanel(missing: List<RecipeField>, sentence: String, attempted
             }
         }
         val goFirst = stringResource(R.string.form_go_first_missing)
-        val goFirstShown = KoBreak.display(goFirst)
         SecondaryButton(
-            goFirstShown,
+            goFirst,
             onClick = { onGo(missing.first().key) },
             icon = Icons.AutoMirrored.Outlined.NavigateNext,
-            modifier = Modifier.koDescription(goFirst, goFirstShown),
         )
     }
-}
-
-/** 개수 태그 — 부모(liveRegion 문장)가 글자를 덮으므로 보이는 글자만 보정한다 */
-@Composable
-private fun StatusTagShown(text: String, kind: StatusKind) {
-    com.readyport.ui.components.StatusTag(KoBreak.display(text), kind)
 }
 
 /** 누를 수 있는 빈칸 이름 태그 (StatusTag는 누를 수 없으므로 쓰지 않는다): minTouch, Role.Button, `직업 (영문) 칸으로 가기` */
@@ -870,7 +848,7 @@ private fun MissingFieldChip(label: String, attempted: Boolean, onClick: () -> U
             Icons.Outlined.ErrorOutline,
             contentDescription = null,
             tint = if (attempted) Tokens.DangerText else Tokens.CautionText,
-            modifier = Modifier.size(LocalDimens.current.iconSmall),
+            modifier = Modifier.size(textIconSize(LocalDimens.current.iconSmall)),
         )
         KoText(label, MaterialTheme.typography.labelLarge, color = Tokens.Ink)
     }
@@ -895,7 +873,7 @@ private fun MissingFieldRow(label: String, attempted: Boolean, onClick: () -> Un
             Icons.Outlined.ErrorOutline,
             contentDescription = null,
             tint = if (attempted) Tokens.DangerText else Tokens.CautionText,
-            modifier = Modifier.size(dimens.iconSmall),
+            modifier = Modifier.size(textIconSize(dimens.iconSmall)),
         )
         KoText(label, MaterialTheme.typography.labelLarge, Modifier.weight(1f), color = Tokens.Ink)
         Icon(Icons.AutoMirrored.Outlined.NavigateNext, contentDescription = null, tint = Tokens.Accent, modifier = Modifier.size(dimens.icon))

@@ -4,7 +4,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.AirplaneTicket
 import androidx.compose.material.icons.automirrored.outlined.FactCheck
 import androidx.compose.material.icons.outlined.AccountBalance
-import androidx.compose.material.icons.outlined.Apartment
 import androidx.compose.material.icons.outlined.Apps
 import androidx.compose.material.icons.outlined.Backpack
 import androidx.compose.material.icons.outlined.Badge
@@ -12,9 +11,11 @@ import androidx.compose.material.icons.outlined.BatteryChargingFull
 import androidx.compose.material.icons.outlined.BeachAccess
 import androidx.compose.material.icons.outlined.Bed
 import androidx.compose.material.icons.outlined.Block
+import androidx.compose.material.icons.outlined.BusinessCenter
 import androidx.compose.material.icons.outlined.Call
 import androidx.compose.material.icons.outlined.CheckCircle
 import androidx.compose.material.icons.outlined.Checklist
+import androidx.compose.material.icons.outlined.CorporateFare
 import androidx.compose.material.icons.outlined.Cottage
 import androidx.compose.material.icons.outlined.CreditCard
 import androidx.compose.material.icons.outlined.Description
@@ -25,8 +26,8 @@ import androidx.compose.material.icons.outlined.Emergency
 import androidx.compose.material.icons.outlined.Explore
 import androidx.compose.material.icons.outlined.FlightLand
 import androidx.compose.material.icons.outlined.FlightTakeoff
+import androidx.compose.material.icons.outlined.Forum
 import androidx.compose.material.icons.outlined.GppMaybe
-import androidx.compose.material.icons.outlined.Groups
 import androidx.compose.material.icons.outlined.HealthAndSafety
 import androidx.compose.material.icons.outlined.Hearing
 import androidx.compose.material.icons.outlined.Hotel
@@ -53,7 +54,6 @@ import androidx.compose.material.icons.outlined.Sos
 import androidx.compose.material.icons.outlined.SupportAgent
 import androidx.compose.material.icons.outlined.TaskAlt
 import androidx.compose.material.icons.outlined.Wc
-import androidx.compose.material.icons.outlined.Work
 import androidx.compose.material.icons.outlined.WrongLocation
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.readyport.autofill.ValueOrigin
@@ -159,14 +159,15 @@ object IconKeys {
      */
     fun option(value: String): ImageVector? = when (value) {
         "tourism" -> Icons.Outlined.BeachAccess
-        "business" -> Icons.Outlined.Work
-        "meeting" -> Icons.Outlined.Groups
+        // 채운 모양으로 보이던 Work·Groups·Apartment 대신 선 아이콘(굵기 맞춤 — E 묶음 후보 비교 캡처로 고름)
+        "business" -> Icons.Outlined.BusinessCenter
+        "meeting" -> Icons.Outlined.Forum
         "medical" -> Icons.Outlined.LocalHospital
         "education" -> Icons.Outlined.School
         "hotel" -> Icons.Outlined.Hotel
         "guest_house" -> Icons.Outlined.House
         "hostel" -> Icons.Outlined.Bed
-        "apartment" -> Icons.Outlined.Apartment
+        "apartment" -> Icons.Outlined.CorporateFare
         "friend" -> Icons.Outlined.People
         else -> null
     }

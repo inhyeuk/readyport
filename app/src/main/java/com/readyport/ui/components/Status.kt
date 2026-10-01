@@ -18,7 +18,6 @@ import androidx.compose.material.icons.outlined.Verified
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -48,9 +47,10 @@ enum class StatusKind(val icon: ImageVector, val tone: BadgeTone) {
 /**
  * 누를 수 없는 작은 상태 표시 (모서리 8). maxLines 없음 — 글자가 길면 줄을 바꾼다.
  * 누를 수 있는 태그가 필요하면 SelectChip·AssistChip(minTouch, Role.Button)을 쓴다.
+ * [icon]: 상태 아이콘 대신 쓸 아이콘(예: `원어민 검수 전` = Update — 색·톤은 [kind] 그대로). [display]: 보일 글자(줄바꿈 보정본).
  */
 @Composable
-fun StatusTag(text: String, kind: StatusKind, modifier: Modifier = Modifier) {
+fun StatusTag(text: String, kind: StatusKind, modifier: Modifier = Modifier, display: String? = null, icon: ImageVector? = null) {
     Surface(
         color = kind.tone.container,
         contentColor = kind.tone.content,
@@ -62,8 +62,9 @@ fun StatusTag(text: String, kind: StatusKind, modifier: Modifier = Modifier) {
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(4.dp),
         ) {
-            Icon(kind.icon, contentDescription = null, modifier = Modifier.size(LocalDimens.current.iconSmall))
-            Text(text, style = MaterialTheme.typography.labelMedium)
+            val style = MaterialTheme.typography.labelMedium
+            Icon(icon ?: kind.icon, contentDescription = null, modifier = Modifier.size(textIconSize(LocalDimens.current.iconSmall, style)))
+            KoText(text, style, display = display)
         }
     }
 }
@@ -77,8 +78,9 @@ fun StatusChip(text: String, container: Color = Tokens.AccentSoft, content: Colo
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(4.dp),
         ) {
-            if (icon != null) Icon(icon, contentDescription = null, modifier = Modifier.size(LocalDimens.current.iconSmall))
-            Text(text = text, style = MaterialTheme.typography.labelMedium)
+            val style = MaterialTheme.typography.labelMedium
+            if (icon != null) Icon(icon, contentDescription = null, modifier = Modifier.size(textIconSize(LocalDimens.current.iconSmall, style)))
+            KoText(text, style)
         }
     }
 }

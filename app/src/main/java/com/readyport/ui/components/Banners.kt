@@ -18,7 +18,6 @@ import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -68,21 +67,28 @@ fun NoticeBanner(
                 .padding(start = 20.dp, top = 16.dp, end = 16.dp, bottom = 16.dp),
             verticalAlignment = Alignment.Top,
         ) {
-            Icon(icon, contentDescription = null, tint = tone.icon, modifier = Modifier.size(dimens.icon))
+            val textStyle = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.SemiBold)
+            val firstStyle = if (title != null) MaterialTheme.typography.titleSmall else textStyle
+            val iconSize = textIconSize(dimens.icon, textStyle)
+            // 아이콘은 첫 줄 가운데에 (여러 줄 글 옆 — 4.2)
+            Icon(icon, contentDescription = null, tint = tone.icon, modifier = Modifier.padding(top = firstLineIconOffset(firstStyle, iconSize)).size(iconSize))
             Spacer(Modifier.width(12.dp))
             Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                if (title != null) Text(title, style = MaterialTheme.typography.titleSmall, color = tone.text)
-                Text(
-                    text,
-                    style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.SemiBold),
-                    color = tone.text,
-                )
+                if (title != null) KoText(title, MaterialTheme.typography.titleSmall, color = tone.text)
+                KoText(text, textStyle, color = tone.text)
                 if (secondLine != null) {
+                    val secondStyle = MaterialTheme.typography.bodyMedium
+                    val secondSize = textIconSize(20.dp, secondStyle)
                     Row(verticalAlignment = Alignment.Top, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                         if (secondIcon != null) {
-                            Icon(secondIcon, contentDescription = null, tint = tone.icon, modifier = Modifier.padding(top = 1.dp).size(20.dp))
+                            Icon(
+                                secondIcon,
+                                contentDescription = null,
+                                tint = tone.icon,
+                                modifier = Modifier.padding(top = firstLineIconOffset(secondStyle, secondSize)).size(secondSize),
+                            )
                         }
-                        Text(secondLine, style = MaterialTheme.typography.bodyMedium, color = tone.text)
+                        KoText(secondLine, secondStyle, color = tone.text)
                     }
                 }
             }
@@ -93,6 +99,8 @@ fun NoticeBanner(
 /**
  * "내 정보는 이 휴대폰에만 저장돼요" — 보안 화면 맨 위 (기존 LocalOnlyBanner를 옮겨 다시 꾸밈, 문구는 그대로).
  * [compact]: Lock 아이콘 + `settings_local_only_title` 한 줄 (21·25·26·27, 입국 카드 화면).
+ * 제목은 `이`가 줄 끝에 홀로 남지 않게 묶고(`이 휴대폰`), 큰 글자에서는 전체형의 배지를 제목 위로 올려 제목에 폭 전체를 준다
+ * (E 묶음 LocalOnlyCard·CompactSecurityLine 통합).
  */
 @Composable
 fun SecurityBanner(modifier: Modifier = Modifier, compact: Boolean = false) {
@@ -100,23 +108,33 @@ fun SecurityBanner(modifier: Modifier = Modifier, compact: Boolean = false) {
     val title = stringResource(R.string.settings_local_only_title)
     if (compact) {
         Surface(color = Tokens.Navy, contentColor = Tokens.Surface, shape = MaterialTheme.shapes.small, modifier = modifier.fillMaxWidth()) {
+            val style = MaterialTheme.typography.titleSmall
+            val iconSize = textIconSize(dimens.icon, style)
             Row(
                 Modifier.padding(horizontal = 16.dp, vertical = 12.dp),
-                verticalAlignment = Alignment.CenterVertically,
+                // 큰 글자로 여러 줄이 되면 자물쇠를 첫 줄에 맞춘다
+                verticalAlignment = if (largeFont()) Alignment.Top else Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(12.dp),
             ) {
-                Icon(Icons.Outlined.Lock, contentDescription = null, tint = Tokens.Surface, modifier = Modifier.size(dimens.icon))
-                Text(title, style = MaterialTheme.typography.titleSmall, color = Tokens.Surface, modifier = Modifier.weight(1f))
+                Icon(
+                    Icons.Outlined.Lock,
+                    contentDescription = null,
+                    tint = Tokens.Surface,
+                    modifier = Modifier.padding(top = if (largeFont()) firstLineIconOffset(style, iconSize) else 0.dp).size(iconSize),
+                )
+                KoText(title, style, Modifier.weight(1f), color = Tokens.Surface, glueShort = true)
             }
         }
     } else {
         Surface(color = Tokens.Navy, contentColor = Tokens.Surface, shape = MaterialTheme.shapes.large, modifier = modifier.fillMaxWidth()) {
             Column(Modifier.padding(dimens.cardPadding), verticalArrangement = Arrangement.spacedBy(dimens.inner)) {
-                Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                    IconBadge(Icons.Outlined.Lock, tone = BadgeTone.OnDark, shape = CircleShape)
-                    Text(title, style = MaterialTheme.typography.titleLarge, color = Tokens.Surface, modifier = Modifier.weight(1f))
-                }
-                Text(stringResource(R.string.settings_local_only_body), style = MaterialTheme.typography.bodyLarge, color = Tokens.Surface)
+                BadgeTitleLayout(
+                    badge = { IconBadge(Icons.Outlined.Lock, tone = BadgeTone.OnDark, shape = CircleShape) },
+                    stack = largeFont(),
+                    gap = 12.dp,
+                    title = { KoText(title, MaterialTheme.typography.titleLarge, color = Tokens.Surface, glueShort = true) },
+                )
+                KoText(stringResource(R.string.settings_local_only_body), MaterialTheme.typography.bodyLarge, color = Tokens.Surface)
             }
         }
     }
@@ -131,15 +149,18 @@ fun OfflineBanner(modifier: Modifier = Modifier) {
             .background(Tokens.Navy)
             .statusBarsPadding()
             .padding(horizontal = 16.dp, vertical = 10.dp),
-        verticalAlignment = Alignment.CenterVertically,
+        // 여러 줄(큰 글자)이 되면 아이콘을 첫 줄에 맞춘다
+        verticalAlignment = Alignment.Top,
         horizontalArrangement = Arrangement.spacedBy(8.dp),
     ) {
-        Icon(Icons.Outlined.CloudOff, contentDescription = null, tint = Tokens.Surface, modifier = Modifier.size(20.dp))
-        Text(
-            text = stringResource(R.string.offline_banner),
-            color = Tokens.Surface,
-            style = MaterialTheme.typography.labelLarge,
-            modifier = Modifier.weight(1f),
+        val style = MaterialTheme.typography.labelLarge
+        val iconSize = textIconSize(20.dp, style)
+        Icon(
+            Icons.Outlined.CloudOff,
+            contentDescription = null,
+            tint = Tokens.Surface,
+            modifier = Modifier.padding(top = firstLineIconOffset(style, iconSize)).size(iconSize),
         )
+        KoText(stringResource(R.string.offline_banner), style, Modifier.weight(1f), color = Tokens.Surface)
     }
 }

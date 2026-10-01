@@ -119,7 +119,7 @@ class EssentialsUiTest {
 
 /**
  * 테스트 폰(S10, Android 12)과 같은 sdk 31·글자 200%: 출처 줄의 날짜가 줄 사이에서 쪼개지지 않는다(`2026.09.2 / 9` 방지),
- * 한국어 줄바꿈 보정(KoBreak)이 화면 글자에만 들어가고 TalkBack·테스트 글자는 원문 그대로다.
+ * 한국어 줄바꿈 보정(공용 KoText·SourceFooter)이 화면 글자에만 들어가고 TalkBack·테스트 글자는 원문 그대로다.
  */
 @RunWith(AndroidJUnit4::class)
 @GraphicsMode(GraphicsMode.Mode.NATIVE)

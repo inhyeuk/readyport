@@ -72,6 +72,7 @@ import com.readyport.ui.components.DestructiveConfirm
 import com.readyport.ui.components.Fact
 import com.readyport.ui.components.FactChip
 import com.readyport.ui.components.IconBullet
+import com.readyport.ui.components.KoText
 import com.readyport.ui.components.LocalTileColumns
 import com.readyport.ui.components.NoticeBanner
 import com.readyport.ui.components.Photos
@@ -84,7 +85,6 @@ import com.readyport.ui.components.rememberThumbnail
 import com.readyport.ui.components.sectionGap
 import com.readyport.ui.theme.LocalDimens
 import com.readyport.ui.theme.Tokens
-import com.readyport.ui.today.keepWords
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -190,16 +190,16 @@ fun TripContent(
     val nights = if (startDate != null && endDate != null) ChronoUnit.DAYS.between(startDate, endDate).toInt().takeIf { it >= 0 } else null
 
     AppScreen(
-        title = keepWords(stringResource(if (ui.existing == null) R.string.trip_create_title else R.string.trip_edit_title)),
-        subtitle = keepWords(stringResource(R.string.trip_create_lead)),
+        title = stringResource(if (ui.existing == null) R.string.trip_create_title else R.string.trip_edit_title),
+        subtitle = stringResource(R.string.trip_create_lead),
         speech = stringResource(R.string.trip_create_body),
     ) {
         if (ui.countries.isEmpty()) {
-            item(key = "none") { NoticeBanner(keepWords(stringResource(R.string.trip_no_country)), icon = Icons.Outlined.TravelExplore) }
+            item(key = "none") { NoticeBanner(stringResource(R.string.trip_no_country), icon = Icons.Outlined.TravelExplore) }
             return@AppScreen
         }
         item(key = "country-title") {
-            SectionHeader(keepWords(stringResource(R.string.trip_country)), icon = Icons.Outlined.TravelExplore)
+            SectionHeader(stringResource(R.string.trip_country), icon = Icons.Outlined.TravelExplore)
         }
         item(key = "countries") {
             TileGrid(ui.countries, Modifier.selectableGroup(), columns) { c, cell ->
@@ -209,7 +209,7 @@ fun TripContent(
         sectionGap("dates-gap")
         item(key = "dates-title") {
             // 날짜 칸 아이콘(CalendarMonth, 5.1) — EditCalendar는 '여행 만들기·고치기' 동작에만
-            SectionHeader(keepWords(stringResource(R.string.trip_dates_title)), icon = Icons.Outlined.CalendarMonth)
+            SectionHeader(stringResource(R.string.trip_dates_title), icon = Icons.Outlined.CalendarMonth)
         }
         item(key = "dates") {
             // 날짜 칸을 흰 카드 안에 둔다: OutlinedTextField의 라벨 홈(notch)이 뒤 바탕을 비추므로, 회색 Ground 위에 흰 칸을 두면
@@ -224,8 +224,8 @@ fun TripContent(
                         FactChip(
                             Fact(
                                 icon = Icons.Outlined.DateRange,
-                                value = keepWords(stringResource(R.string.trip_nights, nights, nights + 1)),
-                                label = keepWords(stringResource(R.string.trip_length_label)),
+                                value = stringResource(R.string.trip_nights, nights, nights + 1),
+                                label = stringResource(R.string.trip_length_label),
                             ),
                         )
                     }
@@ -234,13 +234,13 @@ fun TripContent(
         }
         if (invalid) {
             item(key = "invalid") {
-                NoticeBanner(keepWords(stringResource(R.string.trip_invalid)), icon = Icons.Outlined.ErrorOutline, tone = BannerTone.Caution)
+                NoticeBanner(stringResource(R.string.trip_invalid), icon = Icons.Outlined.ErrorOutline, tone = BannerTone.Caution)
             }
         }
-        item(key = "local") { IconBullet(keepWords(stringResource(R.string.trip_local_only)), Icons.Outlined.Lock) }
+        item(key = "local") { IconBullet(stringResource(R.string.trip_local_only), Icons.Outlined.Lock) }
         item(key = "save") {
             PrimaryButton(
-                text = keepWords(stringResource(if (ui.existing == null) R.string.trip_save else R.string.trip_save_edit)),
+                text = stringResource(if (ui.existing == null) R.string.trip_save else R.string.trip_save_edit),
                 enabled = country != null,
                 // 만들기 = 여행 만들기(EditCalendar), 고치기 = 저장하기(Check) — 날짜 머리·여행 고치기 버튼과 아이콘이 겹치지 않게
                 icon = if (ui.existing == null) Icons.Outlined.EditCalendar else Icons.Outlined.Check,
@@ -254,16 +254,16 @@ fun TripContent(
         if (ui.existing != null) {
             sectionGap("delete-gap")
             item(key = "delete") {
-                DangerButton(keepWords(stringResource(R.string.trip_delete)), onClick = { confirmDelete = true }, fillWidth = true)
+                DangerButton(stringResource(R.string.trip_delete), onClick = { confirmDelete = true }, fillWidth = true)
             }
         }
     }
 
     if (confirmDelete) {
         DestructiveConfirm(
-            title = keepWords(stringResource(R.string.trip_delete_confirm_title)),
-            body = keepWords(stringResource(R.string.trip_delete_confirm_body)),
-            confirmLabel = keepWords(stringResource(R.string.trip_delete_confirm)),
+            title = stringResource(R.string.trip_delete_confirm_title),
+            body = stringResource(R.string.trip_delete_confirm_body),
+            confirmLabel = stringResource(R.string.trip_delete_confirm),
             onConfirm = { confirmDelete = false; onDelete() },
             onDismiss = { confirmDelete = false },
         )
@@ -342,7 +342,7 @@ private fun CountryThumb(code: String, size: Dp) {
 @Composable
 private fun CountryNames(c: IndexCountry, align: TextAlign, modifier: Modifier = Modifier) {
     Column(modifier, verticalArrangement = Arrangement.spacedBy(2.dp)) {
-        Text(keepWords(c.nameKo), style = MaterialTheme.typography.titleMedium, color = Tokens.Ink, textAlign = align, modifier = Modifier.fillMaxWidth())
+        KoText(c.nameKo, style = MaterialTheme.typography.titleMedium, color = Tokens.Ink, textAlign = align, modifier = Modifier.fillMaxWidth())
         Text(c.nameEn, style = MaterialTheme.typography.bodySmall, color = Tokens.InkSecondary, textAlign = align, modifier = Modifier.fillMaxWidth())
     }
 }
@@ -351,15 +351,15 @@ private fun CountryNames(c: IndexCountry, align: TextAlign, modifier: Modifier =
 @Composable
 private fun DateField(@StringRes label: Int, value: String, parsed: LocalDate?, error: Boolean, onChange: (String) -> Unit) {
     val preview: (@Composable () -> Unit)? = if (parsed != null) {
-        { Text(keepWords(datePreview(parsed))) }
+        { KoText(datePreview(parsed)) }
     } else {
         null
     }
     OutlinedTextField(
         value = value,
         onValueChange = onChange,
-        label = { Text(keepWords(stringResource(label))) },
-        placeholder = { Text(keepWords(stringResource(R.string.trip_date_hint))) },
+        label = { KoText(stringResource(label)) },
+        placeholder = { KoText(stringResource(R.string.trip_date_hint)) },
         leadingIcon = { Icon(Icons.Outlined.CalendarMonth, contentDescription = null) },
         supportingText = preview,
         isError = error,

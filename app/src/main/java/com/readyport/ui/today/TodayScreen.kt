@@ -1,7 +1,6 @@
 package com.readyport.ui.today
 
 import android.content.Intent
-import android.os.Build
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -37,7 +36,6 @@ import androidx.compose.material.icons.outlined.Translate
 import androidx.compose.material.icons.outlined.TravelExplore
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
@@ -69,6 +67,8 @@ import com.readyport.ui.components.IconKeys
 import com.readyport.ui.components.ImportVerdictBadge
 import com.readyport.ui.components.InfoTileGrid
 import com.readyport.ui.components.JourneyStepper
+import com.readyport.ui.components.KoText
+import com.readyport.ui.components.KoreanBreak
 import com.readyport.ui.components.ListGroup
 import com.readyport.ui.components.ListRow
 import com.readyport.ui.components.NewsStyle
@@ -83,6 +83,7 @@ import com.readyport.ui.components.Step
 import com.readyport.ui.components.StepList
 import com.readyport.ui.components.TileSpec
 import com.readyport.ui.components.displayDate
+import com.readyport.ui.components.keepWords
 import com.readyport.ui.components.resolveSourceName
 import com.readyport.ui.theme.LocalDimens
 import com.readyport.ui.theme.Tokens
@@ -140,7 +141,7 @@ fun TodayScreen(actions: TodayActions, viewModel: TodayViewModel = hiltViewModel
  * 내 여행 (DESIGN_SPEC 6-09~13, Departure·WrapUp).
  * 위에서부터: 여행 6단계(JourneyStepper) → 지금 할 일 카드(Accent, 한 화면 할 일 하나) → 단계별 카드뉴스 →
  * 급할 때는 도움(행 전체가 버튼) → 여행 고치기(글자 버튼, 맨 아래).
- * 화면에 그리는 앱 글자는 keepWords()를 거친다(API 33 미만 낱말 안 줄바꿈 방지). 말하기·TalkBack 설명은 원문.
+ * 한국어 줄바꿈(API 33 미만 낱말 보호)은 공용 부품이 한다. 말하기·TalkBack 설명은 원문.
  */
 @Composable
 fun TodayContent(
@@ -175,8 +176,8 @@ fun TodayContent(
     val largeText = LocalDensity.current.fontScale >= 1.8f
 
     AppScreen(
-        title = keepWords(title),
-        subtitle = keepWords(subtitle),
+        title = title,
+        subtitle = subtitle,
         speech = stringResource(R.string.today_speech_trip, title, stageName),
     ) {
         item(key = "stages") {
@@ -201,7 +202,7 @@ fun TodayContent(
                 }
                 item(key = "explore") {
                     SecondaryButton(
-                        text = keepWords(stringResource(R.string.today_next_button)),
+                        text = stringResource(R.string.today_next_button),
                         onClick = actions.explore,
                         icon = Icons.Outlined.TravelExplore,
                     )
@@ -257,7 +258,7 @@ fun TodayContent(
                     }
                 }
                 item(key = "arrived") {
-                    val label = keepWords(stringResource(R.string.today_arrived_button))
+                    val label = stringResource(R.string.today_arrived_button)
                     if (formTask) {
                         SecondaryButton(label, onClick = onArrived, icon = Icons.Outlined.FlightLand)
                     } else {
@@ -291,7 +292,7 @@ fun TodayContent(
                         )
                         // 체크 저장 없이 '다 했어요'만 (D10)
                         SecondaryButton(
-                            text = keepWords(stringResource(R.string.today_arrival_done)),
+                            text = stringResource(R.string.today_arrival_done),
                             onClick = onArrivalDone,
                             icon = Icons.Outlined.TaskAlt,
                             modifier = Modifier.padding(top = 4.dp),
@@ -303,17 +304,17 @@ fun TodayContent(
                 // 2×2 큰 타일 (PRD 5.1). 숙소로 돌아가기만 Navy 강조. 쉬운 모드·큰 글자는 1열 가로형(D4)
                 InfoTileGrid(
                     listOf(
-                        TileSpec(keepWords(stringResource(R.string.today_go_stay)), Icons.Outlined.Hotel, actions.goStay, emphasized = true),
-                        TileSpec(keepWords(stringResource(R.string.today_phrases)), Icons.Outlined.Translate, actions.help, tone = BadgeTone.Help),
-                        TileSpec(keepWords(stringResource(R.string.today_show_qr)), Icons.Outlined.QrCode2, actions.present),
-                        TileSpec(keepWords(stringResource(R.string.today_expense)), Icons.AutoMirrored.Outlined.ReceiptLong, actions.expense),
+                        TileSpec(stringResource(R.string.today_go_stay), Icons.Outlined.Hotel, actions.goStay, emphasized = true),
+                        TileSpec(stringResource(R.string.today_phrases), Icons.Outlined.Translate, actions.help, tone = BadgeTone.Help),
+                        TileSpec(stringResource(R.string.today_show_qr), Icons.Outlined.QrCode2, actions.present),
+                        TileSpec(stringResource(R.string.today_expense), Icons.AutoMirrored.Outlined.ReceiptLong, actions.expense),
                     ),
                 )
             }
             TripStage.Return -> {
                 item(key = "return") {
                     // 결론(여행이 끝났어요) → 담아 둔 물건 → 귀국 전 확인(규정) 순서. 안내 문장은 ReturnCheckCard가 한 번만 말한다
-                    CardNewsCard(title = keepWords(stringResource(R.string.today_return_title)), icon = Icons.Outlined.Cottage)
+                    CardNewsCard(title = stringResource(R.string.today_return_title), icon = Icons.Outlined.Cottage)
                 }
                 // 담아 둔 쇼핑 목록의 반입 가능 여부를 다시 확인 (PRD 11.3) — 불가 → 주의 → 가능 순, 판정 출처를 카드 맨 아래에
                 if (ui.cart.isNotEmpty()) {
@@ -321,9 +322,9 @@ fun TodayContent(
                 }
                 item(key = "return-links") {
                     ReturnCheckCard(
-                        links = ui.returnLinks.map { it.copy(labelKo = keepWords(it.labelKo)) },
-                        facts = ui.returnFacts.map { it.copy(textKo = keepWords(it.textKo), lastVerified = breakableDate(it.lastVerified)) },
-                        sourceNames = ui.indexSources.mapValues { keepWords(it.value) },
+                        links = ui.returnLinks,
+                        facts = ui.returnFacts,
+                        sourceNames = ui.indexSources,
                         onOpenLink = actions.openLink,
                     )
                 }
@@ -331,17 +332,17 @@ fun TodayContent(
                     item(key = "destroy") {
                         // 카드 자체가 확인 단계라 대화상자 없음(D8). 7일 미루기가 먼저(위), 지우기는 빨간 테두리 버튼
                         CardNewsCard(
-                            title = keepWords(stringResource(R.string.today_destroy_title)),
+                            title = stringResource(R.string.today_destroy_title),
                             icon = Icons.Outlined.Lock,
                             tone = BadgeTone.Neutral,
-                            body = keepWords(stringResource(R.string.today_destroy_body)),
+                            body = stringResource(R.string.today_destroy_body),
                         ) {
                             Column(
                                 Modifier.padding(top = 4.dp),
                                 verticalArrangement = Arrangement.spacedBy(LocalDimens.current.inner),
                             ) {
-                                SecondaryButton(keepWords(stringResource(R.string.today_destroy_later)), onClick = onPostpone, icon = Icons.Outlined.Schedule)
-                                DangerButton(keepWords(stringResource(R.string.today_destroy_now)), onClick = onDestroy, fillWidth = true)
+                                SecondaryButton(stringResource(R.string.today_destroy_later), onClick = onPostpone, icon = Icons.Outlined.Schedule)
+                                DangerButton(stringResource(R.string.today_destroy_now), onClick = onDestroy, fillWidth = true)
                             }
                         }
                     }
@@ -365,10 +366,10 @@ fun TodayContent(
         item(key = "help") {
             ListGroup {
                 ListRow(
-                    title = keepWords(stringResource(R.string.help_shortcut_title)),
+                    title = stringResource(R.string.help_shortcut_title),
                     icon = Icons.Outlined.Sos,
                     tone = BadgeTone.Help,
-                    body = if (largeText) null else keepWords(stringResource(R.string.today_help_body)),
+                    body = if (largeText) null else stringResource(R.string.today_help_body),
                     onClick = actions.help,
                 )
             }
@@ -376,7 +377,7 @@ fun TodayContent(
         if (stage.stage != TripStage.NoTrip && stage.stage != TripStage.WrapUp) {
             item(key = "edit") {
                 Box(Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
-                    QuietButton(keepWords(stringResource(R.string.trip_edit_title)), onClick = actions.editTrip, icon = Icons.Outlined.EditCalendar)
+                    QuietButton(stringResource(R.string.trip_edit_title), onClick = actions.editTrip, icon = Icons.Outlined.EditCalendar)
                 }
             }
         }
@@ -399,7 +400,7 @@ private fun FormTaskCard(formName: String, onOpen: () -> Unit) {
 
 /**
  * 지금 할 일 카드 (Accent 채움, onDark 내용 세트만): 아이콘 배지 + eyebrow(지금 할 일) + 제목 + 설명 + 흰 주 버튼.
- * 글자는 여기서 keepWords()를 거친다.
+ * 제목은 keepTitle(`! ` 뒤 줄바꿈, API 33 미만), 낱말 보호는 CardNewsCard가 한다.
  */
 @Composable
 private fun NextCard(
@@ -414,12 +415,12 @@ private fun NextCard(
     CardNewsCard(
         title = keepTitle(title),
         icon = icon,
-        eyebrow = eyebrow?.let(::keepWords),
-        body = body?.let(::keepWords),
+        eyebrow = eyebrow,
+        body = body,
         style = NewsStyle.Accent,
     ) {
         PrimaryButton(
-            text = keepWords(button),
+            text = button,
             onClick = onClick,
             icon = buttonIcon,
             colors = ButtonStyles.onDark(Tokens.Accent),
@@ -428,7 +429,7 @@ private fun NextCard(
 }
 
 /** 단계 한 줄 (글자는 keepWords) */
-private fun step(text: String, icon: ImageVector, detail: String? = null) = Step(keepWords(text), icon, detail?.let(::keepWords))
+private fun step(text: String, icon: ImageVector, detail: String? = null) = Step(text, icon, detail?.let(::keepWords))
 
 /** 320×470 화면 예산을 지켜야 하는 좁은 창 (폭 340dp 미만, DESIGN_SPEC 6장 머리말) */
 @Composable
@@ -460,13 +461,13 @@ private fun CartCard(ui: TodayUi) {
     val items = ui.cart.sortedBy { importOrder(it.import) }
     val ordered = items.map { it.importSource to it.lastVerified } + items.map { it.source to it.lastVerified }
     val refs = ordered
-        .groupBy({ (_, date) -> displayDate(date) }, { (id, _) -> keepWords(resolveSourceName(id, names, fallback)) })
+        .groupBy({ (_, date) -> displayDate(date) }, { (id, _) -> resolveSourceName(id, names, fallback) })
         .map { (date, group) ->
             val distinct = group.distinct()
-            SourceRef(distinct.joinToString(if (distinct.size > STACK_SOURCES_OVER) "\n" else ", "), breakableDate(date))
+            SourceRef(distinct.joinToString(if (distinct.size > STACK_SOURCES_OVER) "\n" else ", "), date)
         }
     CardNewsCard(
-        title = keepWords(stringResource(R.string.today_cart_title)),
+        title = stringResource(R.string.today_cart_title),
         icon = Icons.Outlined.ShoppingBag,
         tone = BadgeTone.Help,
         sources = refs,
@@ -491,9 +492,9 @@ private fun CartRow(item: ShoppingItem) {
     ) {
         IconBadge(IconKeys.shoppingCategory(item.category), tone = BadgeTone.Neutral, size = dimens.iconBadgeSmall)
         Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(6.dp)) {
-            Text(keepWords(item.names.ko), style = MaterialTheme.typography.titleMedium, color = Tokens.Ink)
+            KoText(item.names.ko, style = MaterialTheme.typography.titleMedium, color = Tokens.Ink)
             ImportVerdictBadge(item.import)
-            item.importNoteKo?.let { Text(keepWords(it), style = MaterialTheme.typography.bodyMedium, color = Tokens.InkSecondary) }
+            item.importNoteKo?.let { KoText(it, style = MaterialTheme.typography.bodyMedium, color = Tokens.InkSecondary) }
         }
     }
 }
@@ -514,71 +515,9 @@ private fun tripDates(trip: Trip?): String? {
     return stringResource(R.string.today_trip_dates, from, to)
 }
 
-// ======================= API 33 미만 줄바꿈 보정 (DESIGN_SPEC 3.2) =======================
-// C 묶음(내 여행·여행 고치기·여행 준비) 화면이 함께 쓴다. 공용 부품이 동결이라 화면이 넘기는 글자에서 보정한다 —
-// 2단계에서 부품(IconTile·버튼·CardNewsCard·SectionHeader 등)이 같은 보정을 하게 되면 여기 호출을 지운다.
-
-private const val WORD_JOINER = '⁠'
-private const val NO_BREAK_SPACE = ' '
-
-/** 한 음절·짧은 관형사: 뒤 낱말과 떨어져 줄 끝에 홀로 남으면 어색하다(`도착했어요! 이 / 순서대로`) */
-private val Determiners = setOf("이", "그", "저", "새", "첫", "각", "몇", "온", "어느", "무슨", "모든")
-
-/** 의존 명사: 앞 낱말과 떨어져 줄 머리에 오면 어색하다(`낼 / 수 있어요`) */
-private val BoundNouns = setOf("수", "것", "줄", "데", "뿐", "듯")
-
-private fun isHangul(c: Char): Boolean = c in '가'..'힣' || c in 'ᄀ'..'ᇿ' || c in '㄰'..'㆏'
-
-/** 이 글자 **뒤**에서는 줄을 바꿔도 된다 (`유심·인터넷` → `유심·` 뒤, `2일~4일` → `~` 뒤) */
-private fun isSoftBreak(c: Char): Boolean = c == '·' || c == '/' || c == '—' || c == '–' || c == '~'
-
 /**
- * 한국어 낱말 안에서 줄이 바뀌지 않게 한다: 공백 없이 붙은 두 글자 중 하나라도 한글이면 사이에 WORD JOINER(U+2060)를 넣고,
- * 관형사(`이`, `새`…) 뒤·의존 명사(`수`, `것`…) 앞 공백은 NBSP로 바꿔 이웃 낱말과 함께 넘긴다.
- * 보이는 글자는 그대로(U+2060은 폭 0, TalkBack도 읽지 않음). 낱말 하나가 줄보다 길면 플랫폼이 그 낱말 안에서 끊는다(지금과 같음).
- * 한글이 없는 글(영문·숫자·태국어)은 건드리지 않는다.
+ * 제목용 줄바꿈: 문장 중간의 `! `·`? ` 뒤에서 줄을 바꾼다(`도착했어요!⏎이 순서대로 해요`) — API 33 미만에서만.
+ * 낱말 보호(keepWords)는 제목을 그리는 공용 부품(CardNewsCard 등)이 한다.
  */
-internal fun joinKoreanWords(text: String): String {
-    if (text.none(::isHangul)) return text
-    val out = StringBuilder(text.length * 2)
-    var wordStart = 0
-    text.forEachIndexed { i, c ->
-        if (i > 0) {
-            val p = text[i - 1]
-            val joinable = !p.isWhitespace() && !c.isWhitespace() && !isSoftBreak(p) &&
-                p != WORD_JOINER && c != WORD_JOINER && (isHangul(p) || isHangul(c))
-            if (joinable) out.append(WORD_JOINER)
-        }
-        val glue = c == ' ' && i > 0 && !text[i - 1].isWhitespace() && i + 1 < text.length && !text[i + 1].isWhitespace() &&
-            (text.substring(wordStart, i) in Determiners || text.substring(i + 1).takeWhile { !it.isWhitespace() } in BoundNouns)
-        out.append(if (glue) NO_BREAK_SPACE else c)
-        if (c.isWhitespace()) wordStart = i + 1
-    }
-    return out.toString()
-}
-
-/**
- * 화면에 그릴 앱 글자(제목·버튼·타일 라벨·eyebrow·부제·앱 문장)의 낱말 보호. **API 33 미만에서만** 글자를 바꾼다 —
- * 33 이상은 테마의 WordBreak.Phrase(어절 단위)가 같은 일을 하고, 테스트·TalkBack이 찾는 원문이 그대로 남는다.
- */
-internal fun keepWords(text: String): String = if (Build.VERSION.SDK_INT >= 33) text else joinKoreanWords(text)
-
-/** 제목용 keepWords: 문장 중간의 `! `·`? ` 뒤에서 줄을 바꾼다(`도착했어요!⏎이 순서대로 해요`) — API 33 미만에서만 */
 internal fun keepTitle(text: String): String =
-    if (Build.VERSION.SDK_INT >= 33) text else joinKoreanWords(text.replace("! ", "!\n").replace("? ", "?\n"))
-
-/** `최종 확인 2026.09.29` 덩어리 폭(약 10em)이 카드 안 출처 줄(360dp 폭 기기에서 약 246dp)을 넘기 시작하는 글자 크기 */
-private val SourceUnitBreakSize = 24.dp
-
-/**
- * 출처 줄 날짜. `source_footer`는 `최종 확인`과 날짜를 NBSP로 한 덩어리로 묶어서, 글자가 커져(쉬운 모드 150% 이상·200%)
- * 그 덩어리가 줄보다 길면 날짜 한가운데서 끊긴다(`2026.09.2 / 8`). 그 크기에서만 날짜 앞에 ZERO WIDTH SPACE(U+200B)를 넣어
- * 날짜가 통째로 다음 줄로 가게 한다(보통 크기에서는 `최종 확인`과 날짜가 함께 넘어가는 지금 모양 그대로).
- * 보이는 글자·TalkBack은 그대로. (SourceFooter는 0단계 동결 부품 — 부품이 날짜 앞 줄바꿈을 허용하게 되면 지운다)
- */
-@Composable
-internal fun breakableDate(date: String): String {
-    // sp → dp는 API 34+의 비선형 글자 확대까지 반영한다
-    val size = with(LocalDensity.current) { MaterialTheme.typography.bodySmall.fontSize.toDp() }
-    return if (size > SourceUnitBreakSize) "​$date" else date
-}
+    if (!KoreanBreak.syllableBreaks()) text else text.replace("! ", "!\n").replace("? ", "?\n")

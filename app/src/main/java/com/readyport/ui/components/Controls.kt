@@ -24,7 +24,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SwitchColors
 import androidx.compose.material3.SwitchDefaults
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -81,9 +80,11 @@ fun <T> ChoiceSegments(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.spacedBy(12.dp),
                 ) {
-                    icon(o)?.let { Icon(it, contentDescription = null, tint = if (sel) Tokens.Surface else Tokens.InkSecondary, modifier = Modifier.size(dimens.icon)) }
-                    Text(label(o), style = MaterialTheme.typography.labelLarge, color = content, modifier = Modifier.weight(1f))
-                    if (sel) Icon(Icons.Outlined.Check, contentDescription = null, tint = Tokens.Surface, modifier = Modifier.size(dimens.icon))
+                    val style = MaterialTheme.typography.labelLarge
+                    val iconSize = textIconSize(dimens.icon, style)
+                    icon(o)?.let { Icon(it, contentDescription = null, tint = if (sel) Tokens.Surface else Tokens.InkSecondary, modifier = Modifier.size(iconSize)) }
+                    KoText(label(o), style, Modifier.weight(1f), color = content)
+                    if (sel) Icon(Icons.Outlined.Check, contentDescription = null, tint = Tokens.Surface, modifier = Modifier.size(iconSize))
                 }
             }
         }
@@ -105,7 +106,7 @@ fun <T> ChoiceSegments(
         options.forEach { o ->
             val sel = o == selected
             val content: Color = if (sel) Tokens.Surface else Tokens.Ink
-            val iconSize = if (dimens.easyMode) 20.dp else 16.dp
+            val iconSize = textIconSize(if (dimens.easyMode) 20.dp else 16.dp, MaterialTheme.typography.labelLarge)
             val cell = Modifier
                 .weight(1f)
                 .fillMaxHeight()
@@ -114,9 +115,9 @@ fun <T> ChoiceSegments(
                 .background(if (sel) Tokens.Accent else Color.Transparent)
                 .selectable(selected = sel, role = Role.Tab, onClick = { onSelect(o) })
             val labelText: @Composable () -> Unit = {
-                Text(
+                KoText(
                     label(o),
-                    style = MaterialTheme.typography.labelLarge.copy(fontWeight = if (sel) FontWeight.Bold else FontWeight.SemiBold),
+                    MaterialTheme.typography.labelLarge.copy(fontWeight = if (sel) FontWeight.Bold else FontWeight.SemiBold),
                     color = content,
                     textAlign = TextAlign.Center,
                 )
@@ -174,7 +175,7 @@ fun SelectChip(
     avatar: (@Composable () -> Unit)? = null,
     singleChoice: Boolean = true,
 ) {
-    val iconSize = if (LocalDimens.current.easyMode) 22.dp else 18.dp
+    val iconSize = textIconSize(if (LocalDimens.current.easyMode) 22.dp else 18.dp, MaterialTheme.typography.labelLarge)
     val leading: (@Composable () -> Unit)? = when {
         selected -> {
             { Icon(Icons.Outlined.Check, contentDescription = null, modifier = Modifier.size(iconSize)) }
@@ -188,7 +189,7 @@ fun SelectChip(
     FilterChip(
         selected = selected,
         onClick = onClick,
-        label = { Text(label, style = MaterialTheme.typography.labelLarge) },
+        label = { KoText(label, MaterialTheme.typography.labelLarge) },
         modifier = modifier
             .minTouch()
             .then(if (singleChoice) Modifier.semantics { role = Role.RadioButton } else Modifier),

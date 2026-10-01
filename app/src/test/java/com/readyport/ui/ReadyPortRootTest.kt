@@ -90,6 +90,16 @@ class ReadyPortRootTest {
         }
     }
 
+    /** 홈 '급할 때는 도움' 카드 → 도움 탭 (HomeActions.openHelp 배선, DESIGN_SPEC 6-01 ⑩ — 2단계) */
+    @Test
+    fun homeHelpCardOpensHelpTab() {
+        launch(AppSettings(easyMode = false))
+        scrollTo(hasText(s(R.string.help_shortcut_title)))
+        rule.onNodeWithText(s(R.string.help_shortcut_title)).performClick()
+        heading(R.string.help_title).assertIsDisplayed()
+        tab(R.string.tab_help).assertIsSelected()
+    }
+
     @Test
     fun tripWithoutPlanGoesHomeToChooseCountry() {
         launch(AppSettings(easyMode = false))

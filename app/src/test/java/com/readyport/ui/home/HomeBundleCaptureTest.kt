@@ -36,7 +36,7 @@ import java.io.File
 import java.time.LocalDate
 
 /**
- * 묶음 A 검토용 캡처 (공유 Gallery는 동결이라 묶음 패키지에 둔다): build/gallery/bundle_a/<변형>/
+ * 묶음 A 검토용 캡처 (하단 탭 변형·320dp 폭처럼 공유 Gallery에 없는 상태): build/gallery/bundle_a/<변형>/
  * - tabs.png: 하단 탭 — 선택 탭 4가지 + 자녀 폰 탭 2가지(도움 탭 선택 포함). 쉬운 모드 2줄 라벨·200%·320dp 폭을 변형으로 본다.
  * - home-essentials.png: 홈의 '꼭 챙길 물건' 진행 줄(n / 5)과 아래 카드들 — 갤러리 픽스처에는 진행 데이터가 없다.
  */

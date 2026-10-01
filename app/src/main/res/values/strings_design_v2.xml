@@ -40,7 +40,6 @@
     <string name="fact_label_form_fee">입국 카드 비용</string>
     <string name="fact_label_visa_fee">비자 비용</string>
     <!-- 타일 복원 때 사용 (이번 릴리스 미사용, D11). 2열 라벨은 한 줄 7자 이내 -->
-    <string name="fact_label_window">도착일 포함\n내는 기간</string>
     <string name="country_travel_tools_title">현지에서 쓰는 도구</string>
     <string name="tile_phrases_emergency">현지어와\n긴급 번호</string>
     <string name="tile_videos">여행 영상</string>

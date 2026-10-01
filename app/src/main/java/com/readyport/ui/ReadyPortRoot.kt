@@ -193,6 +193,8 @@ private fun MainScaffold(
                             openTrip = { navController.switchTab(Tab.Trip) },
                             openEssentials = { navController.navigate(EssentialsRoute) },
                             openMyInfo = { navController.navigate(WalletRoute) },
+                            // '급할 때는 도움' 카드 → 도움 탭 (DESIGN_SPEC 6-01 ⑩, 2단계 배선)
+                            openHelp = { navController.switchTab(Tab.Help) },
                         ),
                     )
                 }

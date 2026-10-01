@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -13,16 +14,26 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.OpenInNew
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.foundation.text.InlineTextContent
+import androidx.compose.foundation.text.appendInlineContent
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.text
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.Placeholder
+import androidx.compose.ui.text.PlaceholderVerticalAlign
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.em
 import com.readyport.R
 import com.readyport.ui.theme.LocalDimens
 import com.readyport.ui.theme.Tokens
@@ -50,27 +61,50 @@ fun resolveSourceName(id: String, names: Map<String, String>, fallback: String):
 fun sourceLines(refs: List<SourceRef>): List<SourceRef> =
     refs.groupBy { it.verified }.map { (date, group) -> SourceRef(group.map { it.name }.distinct().joinToString(", "), date) }
 
+private const val SOURCE_ICON = "source-icon"
+
 /**
  * 정책·정보 카드 하단 "출처 {이름} · 최종 확인 {날짜}" (PRD 5장 공통).
- * 글자는 한 Text 노드, 형식 그대로(`OfflinePackTest`가 getString(source_footer, …)로 찾는다).
+ * 글자는 한 Text 노드, 의미 글자는 형식 그대로(`OfflinePackTest`가 getString(source_footer, …)로 찾는다).
+ * 줄바꿈: `source_footer`는 `최종 확인`을 한 덩어리로 묶고 날짜 앞은 보통 띄어쓰기라, 줄이 모자라면 날짜가 **통째로** 다음 줄로 간다
+ * (`2026.09.2 / 8` 방지 — 숫자·점은 UAX#14상 끊기지 않는다). 이름은 어절 단위로만 줄을 바꾼다([koDisplay]).
+ * 큰 글자(130% 이상)에서는 아이콘을 글 첫 줄 앞에 넣어 글에 카드 폭 전체를 준다.
  * [onColor]: 어두운 채움(Accent·Navy) 위면 White85, 아니면 InkTertiary.
  */
 @Composable
 fun SourceFooter(ref: SourceRef, modifier: Modifier = Modifier, onColor: Boolean = false) {
     val color = if (onColor) Tokens.White85 else Tokens.InkTertiary
+    val style = MaterialTheme.typography.bodySmall
+    val full = stringResource(R.string.source_footer, ref.name, ref.verified)
+    if (largeFont()) {
+        val shown = remember(full) { koDisplay(full) }
+        Text(
+            buildAnnotatedString {
+                appendInlineContent(SOURCE_ICON, "[i]")
+                append(' ')
+                append(shown)
+            },
+            modifier = modifier.semantics { text = AnnotatedString(full) },
+            style = style,
+            color = color,
+            inlineContent = mapOf(
+                SOURCE_ICON to InlineTextContent(Placeholder(1.em, 1.em, PlaceholderVerticalAlign.TextCenter)) {
+                    Icon(IconKeys.source, contentDescription = null, tint = color, modifier = Modifier.fillMaxSize())
+                },
+            ),
+        )
+        return
+    }
+    val iconSize = textIconSize(LocalDimens.current.iconSmall, style)
     Row(modifier, verticalAlignment = Alignment.Top) {
         Icon(
             IconKeys.source,
             contentDescription = null,
             tint = color,
-            modifier = Modifier.padding(top = 1.dp).size(LocalDimens.current.iconSmall),
+            modifier = Modifier.padding(top = firstLineIconOffset(style, iconSize)).size(iconSize),
         )
         Spacer(Modifier.width(6.dp))
-        Text(
-            text = stringResource(R.string.source_footer, ref.name, ref.verified),
-            style = MaterialTheme.typography.bodySmall,
-            color = color,
-        )
+        KoText(full, style, color = color)
     }
 }
 
@@ -106,8 +140,9 @@ fun LinkRow(label: String, onClick: () -> Unit, modifier: Modifier = Modifier, i
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(8.dp),
     ) {
-        if (icon != null) Icon(icon, contentDescription = null, tint = Tokens.Accent, modifier = Modifier.size(dimens.icon))
-        Text(label, style = MaterialTheme.typography.labelLarge, color = Tokens.Accent, modifier = Modifier.weight(1f))
-        Icon(Icons.AutoMirrored.Outlined.OpenInNew, contentDescription = null, tint = Tokens.Accent, modifier = Modifier.size(20.dp))
+        val style = MaterialTheme.typography.labelLarge
+        if (icon != null) Icon(icon, contentDescription = null, tint = Tokens.Accent, modifier = Modifier.size(textIconSize(dimens.icon, style)))
+        KoText(label, style, Modifier.weight(1f), color = Tokens.Accent)
+        Icon(Icons.AutoMirrored.Outlined.OpenInNew, contentDescription = null, tint = Tokens.Accent, modifier = Modifier.size(textIconSize(20.dp, style)))
     }
 }

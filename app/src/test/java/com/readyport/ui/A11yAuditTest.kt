@@ -1,12 +1,15 @@
 package com.readyport.ui
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.semantics.SemanticsActions
 import androidx.compose.ui.semantics.SemanticsNode
 import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.semantics.getOrNull
 import androidx.compose.ui.test.SemanticsMatcher
 import androidx.compose.ui.test.hasClickAction
 import androidx.compose.ui.test.junit4.v2.createComposeRule
+import androidx.compose.ui.text.TextLayoutResult
+import com.readyport.ui.components.KoreanBreak
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.readyport.ui.components.SourceTextCheck
 import com.readyport.ui.theme.ReadyPortTheme
@@ -29,8 +32,9 @@ import java.io.File
  *
  * 터치 영역(①)은 touchBoundsInRoot — 테마가 쉬운 모드에서 ViewConfiguration.minimumTouchTargetSize를 56dp로 주므로
  * 눈에 보이는 크기가 48dp인 clickable도 터치 영역은 56dp로 넓어져 통과한다(Material 터치 목표 규칙상 맞음).
- * 그래서 ④ **보이는 크기**(boundsInRoot)도 따로 잰다: 공용 부품 페이지(components-*, photo-worst-white)는 0단계 부품이라 바로 실패,
- * 나머지 화면은 1단계 묶음이 고칠 목록으로 build/a11y/visual-undersized-*.txt에 남긴다(하드코딩 heightIn(48dp) 등 — 2단계에서 0건 확인).
+ * 그래서 ④ **보이는 크기**(boundsInRoot)도 따로 잰다 — 2단계에서 모든 화면 0건을 확인하고 엄격(실패)으로 바꿨다.
+ * ⑤ 한국어 줄바꿈 보고(실패 아님): 줄이 한글 낱말 한가운데서 바뀐 곳(`처음이에/요`)과 한글 한 음절만 남은 줄을
+ * build/a11y/word-breaks-<클래스>-<모드>.txt에 남긴다 — 캡처 검토(2단계 8장)의 길잡이. 낱말이 한 줄보다 길면 생길 수 있다.
  */
 abstract class A11yAuditBase {
 
@@ -48,12 +52,40 @@ abstract class A11yAuditBase {
 
     private val anyNode = SemanticsMatcher("모든 노드") { true }
 
-    /** 0단계 공용 부품만 그린 화면 — 보이는 크기까지 지금 바로 지켜야 한다 */
-    private fun isComponentPage(name: String) = name.startsWith("components") || name.startsWith("photo-worst")
+    private val invisible = setOf(KoreanBreak.WORD_JOINER, KoreanBreak.ZERO_WIDTH_SPACE)
+
+    /** ⑤ 글자 노드의 줄바꿈 중 한글 낱말 한가운데서 바뀐 곳·한 음절만 남은 줄 */
+    private fun wordBreaks(name: String): List<String> {
+        val out = mutableListOf<String>()
+        rule.onAllNodes(SemanticsMatcher.keyIsDefined(SemanticsActions.GetTextLayoutResult), useUnmergedTree = true)
+            .fetchSemanticsNodes().forEach { n ->
+                val results = mutableListOf<TextLayoutResult>()
+                runCatching { n.config[SemanticsActions.GetTextLayoutResult].action?.invoke(results) }
+                val layout = results.firstOrNull() ?: return@forEach
+                val t = layout.layoutInput.text.text
+                for (line in 0 until layout.lineCount) {
+                    val start = layout.getLineStart(line)
+                    val end = layout.getLineEnd(line)
+                    val content = t.substring(start, end).filterNot { it in invisible }.trim()
+                    if (layout.lineCount > 1 && content.length == 1 && KoreanBreak.isHangul(content[0])) {
+                        out += "$name: 한 음절 줄 '$content' — ${t.filterNot { it in invisible }.replace('\n', '⏎')}"
+                    }
+                    if (line == layout.lineCount - 1 || end <= 0 || end >= t.length) continue
+                    val before = t[end - 1]
+                    val after = t.substring(end).firstOrNull { it !in invisible } ?: continue
+                    if (KoreanBreak.isHangul(before) && KoreanBreak.isHangul(after)) {
+                        val clean = t.filterNot { it in invisible }
+                        out += "$name: 낱말 중간 줄바꿈 '${t.substring(maxOf(start, end - 6), end).filterNot { it in invisible }}/" +
+                            "${t.substring(end, minOf(t.length, end + 6)).filterNot { it in invisible }}' — ${clean.replace('\n', '⏎')}"
+                    }
+                }
+            }
+        return out.distinct()
+    }
 
     protected fun audit(easyMode: Boolean) {
         val problems = mutableListOf<String>()
-        val visualTodo = mutableListOf<String>()
+        val breaks = mutableListOf<String>()
         var audited = 0
         var current by androidx.compose.runtime.mutableStateOf(0)
         val list = screens()
@@ -75,11 +107,10 @@ abstract class A11yAuditBase {
                     problems += "$name: 터치 영역 ${(b.width / density).toInt()}x${(b.height / density).toInt()}dp < ${minDp}dp ($lbl)"
                 }
                 if (lbl == null) problems += "$name: 이름 없는 버튼 (${b})"
-                // ④ 보이는 크기 (터치 영역 확장 없이)
+                // ④ 보이는 크기 (터치 영역 확장 없이) — 2단계부터 모든 화면 엄격
                 val v = n.boundsInRoot
                 if (v.width < minPx || v.height < minPx) {
-                    val msg = "$name: 보이는 크기 ${(v.width / density).toInt()}x${(v.height / density).toInt()}dp < ${minDp}dp ($lbl)"
-                    if (isComponentPage(name)) problems += msg else visualTodo += msg
+                    problems += "$name: 보이는 크기 ${(v.width / density).toInt()}x${(v.height / density).toInt()}dp < ${minDp}dp ($lbl)"
                 }
             }
             // ③ 화면이 qualifiers 높이보다 길면 아래쪽 항목이 그려지지 않아 점검에서 빠진다
@@ -93,11 +124,12 @@ abstract class A11yAuditBase {
                     n.config.getOrNull(SemanticsProperties.ContentDescription).orEmpty()
             }
             SourceTextCheck.leaks(texts).forEach { problems += "$name: 내부 ID 또는 '출처 출처'가 보임: $it" }
+            breaks += wordBreaks(name)
         }
-        println("A11Y audited=$audited easy=$easyMode visualTodo=${visualTodo.size}")
+        println("A11Y audited=$audited easy=$easyMode wordBreaks=${breaks.size}")
         File("build/a11y").mkdirs()
-        File("build/a11y/visual-undersized-${javaClass.simpleName}-${if (easyMode) "easy" else "basic"}.txt")
-            .writeText(visualTodo.joinToString("\n", postfix = if (visualTodo.isEmpty()) "" else "\n"))
+        File("build/a11y/word-breaks-${javaClass.simpleName}-${if (easyMode) "easy" else "basic"}.txt")
+            .writeText(breaks.joinToString("\n", postfix = if (breaks.isEmpty()) "" else "\n"))
         assertTrue("점검한 버튼이 너무 적음: $audited", audited > 60)
         assertTrue(problems.joinToString("\n"), problems.isEmpty())
     }

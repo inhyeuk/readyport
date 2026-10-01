@@ -69,14 +69,23 @@ import com.readyport.security.SecureScreen
 import com.readyport.ui.components.BadgeTone
 import com.readyport.ui.components.BannerTone
 import com.readyport.ui.components.IconBullet
+import com.readyport.ui.components.KoText
+import com.readyport.ui.components.KoreanBreak
 import com.readyport.ui.components.LockedState
+import com.readyport.ui.components.NoticeBanner
 import com.readyport.ui.components.PrimaryButton
 import com.readyport.ui.components.QuietButton
 import com.readyport.ui.components.SecondaryButton
+import com.readyport.ui.components.SecurityBanner
 import com.readyport.ui.components.StatusKind
+import com.readyport.ui.components.StatusTag
 import com.readyport.ui.components.TextCircle
 import com.readyport.ui.components.TrailingFlow
+import com.readyport.ui.components.breakAfterDots
+import com.readyport.ui.components.keepWords
+import com.readyport.ui.components.largeFont
 import com.readyport.ui.components.startBar
+import com.readyport.ui.components.textIconSize
 import com.readyport.ui.theme.LocalDimens
 import com.readyport.ui.theme.Tokens
 import com.readyport.ui.wallet.rememberDeviceAuth
@@ -331,15 +340,15 @@ private fun FadingScrollColumn(fade: Color, modifier: Modifier = Modifier, conte
 @Composable
 private fun TopNotices() {
     if (largeFont()) {
-        KoNotice(
+        NoticeBanner(
             stringResource(R.string.guide_not_affiliated),
-            Icons.Outlined.Policy,
+            icon = Icons.Outlined.Policy,
             secondLine = stringResource(R.string.settings_local_only_title),
             secondIcon = Icons.Outlined.Lock,
         )
     } else {
-        KoNotice(stringResource(R.string.guide_not_affiliated), Icons.Outlined.Policy)
-        CompactSecurityLine()
+        NoticeBanner(stringResource(R.string.guide_not_affiliated), icon = Icons.Outlined.Policy)
+        SecurityBanner(compact = true)
     }
 }
 
@@ -350,7 +359,6 @@ private fun SiteStatus(site: SiteState, onManual: () -> Unit) {
     val bg = if (site.official) Tokens.SuccessBg else Tokens.DangerBg
     val fg = if (site.official) Tokens.SuccessText else Tokens.DangerText
     val manual = stringResource(R.string.form_manual_mode)
-    val manualShown = KoBreak.display(manual)
     Surface(color = bg, contentColor = fg, shape = MaterialTheme.shapes.small, modifier = Modifier.fillMaxWidth()) {
         Column(
             Modifier.fillMaxWidth().startBar(fg).padding(start = 16.dp, end = 4.dp, top = 4.dp, bottom = 4.dp),
@@ -358,7 +366,7 @@ private fun SiteStatus(site: SiteState, onManual: () -> Unit) {
         ) {
             // 수동 모드 버튼이 상태 글을 쪼갤 만큼 폭이 모자라면(큰 글자) 글 아래 줄로
             TrailingFlow(
-                trailing = { QuietButton(manualShown, onClick = onManual, modifier = Modifier.koDescription(manual, manualShown)) },
+                trailing = { QuietButton(manual, onClick = onManual, modifier = Modifier) },
                 gap = 8.dp,
                 belowGap = 0.dp,
                 centerVertically = true,
@@ -377,11 +385,11 @@ private fun SiteStatus(site: SiteState, onManual: () -> Unit) {
                     val status = if (site.official) stringResource(R.string.autofill_connected, site.host) else stringResource(R.string.autofill_not_official)
                     // `연결됨 ·`이 한 덩어리로, 긴 호스트는 점 뒤에서 줄을 바꾼다 (`· / tdac.immigration.g / o.th` 방지)
                     val statusShown = if (site.official) {
-                        KoBreak.display(
-                            stringResource(R.string.autofill_connected, KoBreak.breakAfterDots(site.host)).replace(" · ", "${KoBreak.NBSP}· "),
+                        keepWords(
+                            stringResource(R.string.autofill_connected, breakAfterDots(site.host)).replace(" · ", "${KoreanBreak.NBSP}· "),
                         )
                     } else {
-                        KoBreak.display(status)
+                        keepWords(status)
                     }
                     KoText(status, MaterialTheme.typography.labelLarge, color = fg, display = statusShown)
                 }
@@ -418,7 +426,7 @@ private fun SiteSteps(site: SiteState, steps: List<RecipeStep>) {
                     MaterialTheme.typography.labelLarge.copy(fontWeight = if (on) FontWeight.Bold else FontWeight.Medium),
                     color = Tokens.Ink,
                 )
-                if (on) Icon(Icons.Outlined.Visibility, contentDescription = null, tint = Tokens.Accent, modifier = Modifier.size(dimens.iconSmall))
+                if (on) Icon(Icons.Outlined.Visibility, contentDescription = null, tint = Tokens.Accent, modifier = Modifier.size(textIconSize(dimens.iconSmall)))
             }
         }
     }
@@ -473,10 +481,10 @@ private fun ResultPanel(
             FadingScrollColumn(Tokens.Surface, Modifier.heightIn(max = resultMax)) {
                 // 채우기 버튼이 왜 꺼졌는지 버튼 바로 위에서 (D9 '비활성 + 이유')
                 if (notOfficial) {
-                    IconBullet(KoBreak.display(stringResource(R.string.autofill_not_official)), Icons.Outlined.GppMaybe, tone = BadgeTone.Danger)
+                    IconBullet(stringResource(R.string.autofill_not_official), Icons.Outlined.GppMaybe, tone = BadgeTone.Danger)
                 }
                 if (ui.submitted) {
-                    KoNotice(stringResource(R.string.autofill_submitted), Icons.Outlined.TaskAlt, tone = BannerTone.Success)
+                    NoticeBanner(stringResource(R.string.autofill_submitted), icon = Icons.Outlined.TaskAlt, tone = BannerTone.Success)
                     if (fill.captured) {
                         IconBullet(stringResource(R.string.autofill_saved_capture), Icons.Outlined.CheckCircle, tone = BadgeTone.Success)
                     }
@@ -485,7 +493,7 @@ private fun ResultPanel(
                 report?.let { r ->
                     KoText(stringResource(R.string.autofill_result, r.filled.size, r.assist.size), MaterialTheme.typography.titleMedium, color = Tokens.Ink)
                     if (r.missing.isNotEmpty()) {
-                        KoNotice(stringResource(R.string.autofill_failed), Icons.Outlined.ReportProblem, tone = BannerTone.Danger)
+                        NoticeBanner(stringResource(R.string.autofill_failed), icon = Icons.Outlined.ReportProblem, tone = BannerTone.Danger)
                     } else {
                         KoText(stringResource(R.string.autofill_next_hint), MaterialTheme.typography.bodyMedium, color = Tokens.InkSecondary)
                     }
@@ -495,7 +503,7 @@ private fun ResultPanel(
                         FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
                             fill.compare.forEach { (k, ok) ->
                                 val label = labels[k] ?: return@forEach
-                                KoStatusTag(
+                                StatusTag(
                                     stringResource(if (ok) R.string.autofill_compare_same else R.string.autofill_compare_diff, label),
                                     if (ok) StatusKind.Allowed else StatusKind.Caution,
                                 )
@@ -507,45 +515,38 @@ private fun ResultPanel(
         }
         if (ui.submitted && !fill.captured) {
             val save = stringResource(R.string.autofill_save_capture)
-            val saveShown = KoBreak.display(save)
-            PrimaryButton(saveShown, onClick = onSaveCapture, icon = Icons.Outlined.SaveAlt, modifier = Modifier.koDescription(save, saveShown))
+            PrimaryButton(save, onClick = onSaveCapture, icon = Icons.Outlined.SaveAlt, modifier = Modifier)
         }
         val manual = stringResource(R.string.form_manual_mode)
-        val manualShown = KoBreak.display(manual)
         // 칸을 못 찾았으면 다음 할 일은 수동 모드 — 주 버튼으로 먼저 (화면당 주 버튼 하나)
         if (failed && !ui.submitted) {
             PrimaryButton(
-                manualShown,
+                manual,
                 onClick = onManualAfterFail,
                 icon = Icons.AutoMirrored.Outlined.OpenInNew,
-                modifier = Modifier.koDescription(manual, manualShown),
             )
         } else if (failed) {
             SecondaryButton(
-                manualShown,
+                manual,
                 onClick = onManualAfterFail,
                 icon = Icons.AutoMirrored.Outlined.OpenInNew,
-                modifier = Modifier.koDescription(manual, manualShown),
             )
         }
         val fillLabel = stringResource(if (report == null) R.string.autofill_fill_now else R.string.autofill_refill)
-        val fillShown = KoBreak.display(fillLabel)
         if (ui.submitted || failed) {
             // 제출 뒤에는 확인 화면 저장이, 칸을 못 찾았으면 수동 모드가 주 버튼 (화면당 주 버튼 하나)
             SecondaryButton(
-                fillShown,
+                fillLabel,
                 onClick = onFill,
                 icon = Icons.Outlined.EditNote,
                 enabled = site.official,
-                modifier = Modifier.koDescription(fillLabel, fillShown),
             )
         } else {
             PrimaryButton(
-                fillShown,
+                fillLabel,
                 onClick = onFill,
                 enabled = site.official,
                 icon = Icons.Outlined.EditNote,
-                modifier = Modifier.koDescription(fillLabel, fillShown),
             )
         }
     }
