@@ -12,7 +12,10 @@ import androidx.lifecycle.viewModelScope
 import com.readyport.R
 import com.readyport.data.settings.SettingsRepository
 import com.readyport.pack.PackRepository
+import com.readyport.trip.ChecklistProvider
 import com.readyport.trip.TripRepository
+import com.readyport.trip.TripSelection
+import com.readyport.ui.home.essentialsHave
 import com.readyport.ui.components.AppScreen
 import com.readyport.ui.components.Assurance
 import com.readyport.ui.components.AssuranceCard
@@ -61,9 +64,13 @@ class PrepareViewModel @Inject constructor(
     packs: PackRepository,
     settings: SettingsRepository,
     trips: TripRepository,
+    checklists: ChecklistProvider,
 ) : ViewModel() {
-    val essentials: StateFlow<EssentialsSummary> = combine(settings.settings, trips.trip, packs.revision) { s, trip, _ ->
-        essentialsSummary(packs.index()?.value, trip?.let { packs.pack(it.country)?.value }, s.haveItems)
+    val essentials: StateFlow<EssentialsSummary> = combine(settings.settings, trips.book, packs.revision) { s, book, _ ->
+        val trip = TripSelection.active(book.trips, LocalDate.now())
+        // 꼭 챙길 물건 체크 = 지금 여행 체크리스트의 같은 항목(여행이 없으면 설정의 체크)
+        val have = if (trip != null) essentialsHave(checklists.build(trip, book)) else s.haveItems
+        essentialsSummary(packs.index()?.value, trip?.let { packs.pack(it.country)?.value }, have)
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), EssentialsSummary())
 
     /** 찜한 나라의 입국 서류(여행 나라가 맨 앞). 찜이 없으면 받아 둔 모든 나라 */

@@ -76,7 +76,14 @@ import com.readyport.prep.ImportStatus
 import com.readyport.prep.import
 import com.readyport.trip.Trip
 import com.readyport.trip.TripStage
+import androidx.compose.foundation.lazy.LazyListScope
+import com.readyport.trip.ChecklistItem
 import com.readyport.ui.components.AppScreen
+import com.readyport.ui.components.CheckProgressBar
+import com.readyport.ui.components.ChecklistDivider
+import com.readyport.ui.components.IconBullet
+import com.readyport.ui.trip.ChecklistActions
+import com.readyport.ui.trip.ItemRow
 import com.readyport.ui.components.BadgeTone
 import com.readyport.ui.components.ButtonStyles
 import com.readyport.ui.components.CardNewsCard
@@ -152,6 +159,12 @@ data class TodayActions(
     val expense: () -> Unit = {},
     /** 공식 안내 링크(관세청·검역본부)를 브라우저로 연다 */
     val openLink: (String) -> Unit = {},
+    /** 여행 id로 고치기(여러 여행 — 오늘 화면이 보여 주는 여행) */
+    val editTripById: (String) -> Unit = {},
+    /** 이 여행 체크리스트 */
+    val openChecklist: (String) -> Unit = {},
+    /** 내 여행 목록 */
+    val openTrips: () -> Unit = {},
 )
 
 @Composable
@@ -162,7 +175,10 @@ fun TodayScreen(actions: TodayActions, viewModel: TodayViewModel = hiltViewModel
     val context = LocalContext.current
     TodayContent(
         ui = ui,
-        actions = actions.copy(openLink = { url -> runCatching { context.startActivity(Intent(Intent.ACTION_VIEW, url.toUri())) } }),
+        actions = actions.copy(
+            openLink = { url -> runCatching { context.startActivity(Intent(Intent.ACTION_VIEW, url.toUri())) } },
+            editTrip = { ui.trip?.id?.let(actions.editTripById) ?: actions.editTrip() },
+        ),
         onArrived = viewModel::markArrived,
         onArrivalDone = viewModel::dismissArrival,
         onDestroy = {
@@ -173,8 +189,10 @@ fun TodayScreen(actions: TodayActions, viewModel: TodayViewModel = hiltViewModel
             }
         },
         onPostpone = viewModel::postponeDestroy,
-        onNewTrip = { viewModel.newTrip(); actions.makeTrip() },
+        // 새 여행은 지난 여행을 지우지 않고 하나 더 만든다(지난 여행은 목록에 남는다)
+        onNewTrip = actions.makeTrip,
         onUndoArrived = viewModel::undoArrived,
+        onToggle = viewModel::toggle,
     )
 }
 
@@ -195,6 +213,8 @@ fun TodayContent(
     onNewTrip: () -> Unit,
     /** '도착했어요'를 잘못 눌렀을 때 되돌리기 (재검토 R18) */
     onUndoArrived: () -> Unit = {},
+    /** '지금 챙길 것' 체크 */
+    onToggle: (ChecklistItem, Boolean) -> Unit = { _, _ -> },
 ) {
     val stage = ui.stage
     // 귀국 단계의 '지금 할 일' 버튼이 같은 화면 아래 카드(담아 둔 물건·귀국 전 확인)로 데려간다 (4.1 scrollToKey)
@@ -264,29 +284,41 @@ fun TodayContent(
                     )
                 }
             }
-            TripStage.Preparing -> item(key = "next") {
-                // 한 화면에 할 일 하나 (PRD 1.1): 입국 카드 > 여권 > 준비물. 요약 타일 그리드는 두지 않는다(6-10)
-                when {
-                    stage.formWindowOpen && ui.form != null && ui.hasPassport != false -> FormTaskCard(ui.form.nameKo, formWindow) { actions.openForm(ui.form.id) }
-                    ui.hasPassport == false -> NextCard(
-                        icon = Icons.Outlined.Badge,
-                        eyebrow = nextLabel,
-                        title = stringResource(R.string.today_task_passport_title),
-                        body = stringResource(R.string.today_task_passport_body),
-                        button = stringResource(R.string.wallet_passport_add),
-                        buttonIcon = Icons.AutoMirrored.Outlined.NavigateNext,
-                        onClick = actions.registerPassport,
-                    )
-                    else -> NextCard(
-                        icon = Icons.Outlined.TaskAlt,
-                        eyebrow = nextLabel,
-                        title = stringResource(R.string.today_task_ready_title),
-                        body = stringResource(R.string.today_task_ready_body),
-                        button = stringResource(R.string.today_open_prepare),
-                        buttonIcon = Icons.Outlined.Checklist,
-                        onClick = actions.prepare,
-                    )
+            TripStage.Preparing -> {
+                // 한 화면에 할 일 하나 (PRD 1.1): 입국 카드 > 여권 > 체크리스트. 요약 타일 그리드는 두지 않는다(6-10).
+                // 입국 카드·여권 할 일이 없으면 체크리스트 '지금 챙길 것'이 지금 할 일(주 버튼 = 체크리스트 전체 보기)
+                val task = when {
+                    stage.formWindowOpen && ui.form != null && ui.hasPassport != false -> "form"
+                    ui.hasPassport == false -> "passport"
+                    ui.checklistTotal > 0 -> null
+                    else -> "ready"
                 }
+                if (task != null) {
+                    item(key = "next") {
+                        when (task) {
+                            "form" -> FormTaskCard(ui.form!!.nameKo, formWindow) { actions.openForm(ui.form.id) }
+                            "passport" -> NextCard(
+                                icon = Icons.Outlined.Badge,
+                                eyebrow = nextLabel,
+                                title = stringResource(R.string.today_task_passport_title),
+                                body = stringResource(R.string.today_task_passport_body),
+                                button = stringResource(R.string.wallet_passport_add),
+                                buttonIcon = Icons.AutoMirrored.Outlined.NavigateNext,
+                                onClick = actions.registerPassport,
+                            )
+                            else -> NextCard(
+                                icon = Icons.Outlined.TaskAlt,
+                                eyebrow = nextLabel,
+                                title = stringResource(R.string.today_task_ready_title),
+                                body = stringResource(R.string.today_task_ready_body),
+                                button = stringResource(R.string.today_open_prepare),
+                                buttonIcon = Icons.Outlined.Checklist,
+                                onClick = actions.prepare,
+                            )
+                        }
+                    }
+                }
+                nowCard(ui, actions, onToggle, primary = task == null)
             }
             TripStage.Departure -> {
                 // 태국처럼 입국 카드 기간에 출국일이 들어 있으면 입국 카드가 지금 할 일(흰 주 버튼)이고 '도착했어요'는 보조 버튼 (원칙 7)
@@ -304,6 +336,7 @@ fun TodayContent(
                 if (form != null) {
                     item(key = "form") { FormTaskCard(form.nameKo, formWindow) { actions.openForm(form.id) } }
                 }
+                nowCard(ui, actions, onToggle)
                 item(key = "departure") {
                     // 섹션 표지 사진(공항 = 출국 순서, DESIGN_SPEC 3.7 ①) + 아이콘 단계 목록
                     PhotoHeaderCard(
@@ -365,6 +398,7 @@ fun TodayContent(
                         )
                     }
                 }
+                nowCard(ui, actions, onToggle)
                 // '도착했어요'를 잘못 눌렀으면 되돌린다(재검토 R18) — 출발 당일에만: 그 뒤에는 되돌려도 '여행 중'이라 뜻이 없다.
                 // 이름은 조건문(`도착 전이면`)이 아니라 사용자의 말(`도착을 잘못 눌렀어요`, 재검토2 ②#7). 누르면 출국 단계 맨 위에 알림 한 줄
                 if (stage.dayOfTrip == null || stage.dayOfTrip == 1L) {
@@ -379,7 +413,8 @@ fun TodayContent(
                     }
                 }
             }
-            TripStage.Traveling -> item(key = "grid") {
+            TripStage.Traveling -> {
+                item(key = "grid") {
                 // 2×2 큰 타일 (PRD 5.1). 숙소로 돌아가기만 Navy 강조. 쉬운 모드·큰 글자는 1열 가로형(D4)
                 InfoTileGrid(
                     listOf(
@@ -389,6 +424,8 @@ fun TodayContent(
                         TileSpec(stringResource(R.string.today_expense), Icons.AutoMirrored.Outlined.ReceiptLong, actions.expense),
                     ),
                 )
+                }
+                nowCard(ui, actions, onToggle)
             }
             TripStage.Return -> {
                 item(key = "return") {
@@ -397,6 +434,7 @@ fun TodayContent(
                     val target = if (ui.cart.isNotEmpty()) "cart" else "return-links"
                     ReturnHeroCard(ui, onGo = { goTo(target) })
                 }
+                nowCard(ui, actions, onToggle)
                 // 담아 둔 쇼핑 목록의 반입 가능 여부를 다시 확인 (PRD 11.3) — 불가 → 주의 → 가능 순, 판정 출처를 카드 맨 아래에
                 if (ui.cart.isNotEmpty()) {
                     item(key = "cart") { CartCard(ui) }
@@ -434,11 +472,50 @@ fun TodayContent(
 
         // 급할 때는 도움 — 홈과 같은 공용 줄(재검토 R4). 큰 글자에서도 설명을 숨기지 않고 배지·셰브론을 윗줄로 올린다(R5)
         item(key = "help") { HelpShortcutRow(actions.help) }
-        if (stage.stage != TripStage.NoTrip && stage.stage != TripStage.WrapUp) {
+        val canEdit = stage.stage != TripStage.NoTrip && stage.stage != TripStage.WrapUp
+        if (canEdit || ui.tripCount > 0) {
             item(key = "edit") {
-                Box(Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
-                    QuietButton(stringResource(R.string.trip_edit_title), onClick = actions.editTrip, icon = Icons.Outlined.EditCalendar)
+                // 여행 고치기 · 여행 목록 보기(여러 여행) — 글자 버튼 둘, 폭이 모자라면 위아래로
+                FlowRow(
+                    Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterHorizontally),
+                    verticalArrangement = Arrangement.spacedBy(4.dp),
+                ) {
+                    if (canEdit) QuietButton(stringResource(R.string.trip_edit_title), onClick = actions.editTrip, icon = Icons.Outlined.EditCalendar)
+                    if (ui.tripCount > 0) QuietButton(stringResource(R.string.trips_open_list), onClick = actions.openTrips, icon = Icons.Outlined.Luggage)
                 }
+            }
+        }
+    }
+}
+
+/**
+ * 체크리스트 '지금 챙길 것' 카드 (2026-10-02): eyebrow `체크리스트 12 / 30` + 막대 → 지금 단계까지 안 한 항목 몇 개(체크하면 바로 저장 —
+ * 체크리스트 화면과 같은 줄 [ItemRow] 간단 모양: 단계 태그만, 설명·버튼은 체크리스트에서) → `체크리스트 전체 보기`.
+ * [primary]: 이 화면의 지금 할 일이면 주 버튼, 아니면 보조 버튼(주 버튼은 화면에 하나).
+ */
+private fun LazyListScope.nowCard(ui: TodayUi, actions: TodayActions, onToggle: (ChecklistItem, Boolean) -> Unit, primary: Boolean = false) {
+    val trip = ui.trip ?: return
+    if (ui.checklistTotal == 0) return
+    item(key = "checklist-now") {
+        CardNewsCard(
+            title = stringResource(R.string.ck_now_title),
+            icon = IconKeys.essentials,
+            eyebrow = stringResource(R.string.ck_now_eyebrow, ui.checklistDone, ui.checklistTotal),
+        ) {
+            CheckProgressBar(ui.checklistDone, ui.checklistTotal)
+            if (ui.checklistNow.isEmpty()) {
+                IconBullet(stringResource(R.string.ck_now_all_done), Icons.Outlined.TaskAlt, tone = BadgeTone.Success)
+            }
+            ui.checklistNow.forEach { item ->
+                ChecklistDivider()
+                ItemRow(item, trip, ui.today, ChecklistActions(toggle = onToggle), compact = true)
+            }
+            val open = { actions.openChecklist(trip.id) }
+            if (primary) {
+                PrimaryButton(stringResource(R.string.ck_now_open), onClick = open, icon = IconKeys.essentials, modifier = Modifier.padding(top = 4.dp))
+            } else {
+                SecondaryButton(stringResource(R.string.ck_now_open), onClick = open, icon = IconKeys.essentials, modifier = Modifier.padding(top = 4.dp))
             }
         }
     }

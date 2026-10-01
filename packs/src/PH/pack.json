@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "country": "PH",
-  "version": "2026.10.02-1",
+  "version": "2026.10.02-2",
   "last_verified": "2026-10-02",
   "names": {
     "ko": "필리핀",
@@ -70,7 +70,13 @@
       ],
       "summary_ko": "대한민국 일반 여권은 비자 없이 30일까지 머물 수 있어요(필리핀이 정한 무비자). 더 머물려면 필리핀에서 체류 연장을 받아야 해요. 도착하기 전 72시간 안에 eTravel에 등록해야 해요.",
       "source": "mofa_ph",
-      "last_verified": "2026-10-02"
+      "last_verified": "2026-10-02",
+      "passport_validity": {
+        "months": 6,
+        "basis": "arrival",
+        "source": "embassy_ph_entry",
+        "last_verified": "2026-10-02"
+      }
     }
   ],
   "forms": [
@@ -257,5 +263,23 @@
     "frequency": "60 Hz",
     "source": "dot_ph_bring",
     "last_verified": "2026-10-02"
-  }
+  },
+  "checklist": [
+    {
+      "id": "child_docs",
+      "phase": "week",
+      "icon": "family",
+      "title_ko": "아이와 함께 가면 가족 서류 챙기기",
+      "section": "entry",
+      "text_ko": "15세 미만 자녀와 함께 가면 영문 가족관계증명서처럼 내 자녀임을 보여 주는 서류를 챙기세요."
+    },
+    {
+      "id": "cash_declare",
+      "phase": "three_days",
+      "icon": "cash",
+      "title_ko": "현금 신고 기준 알아 두기",
+      "section": "payment",
+      "text_ko": "5만 페소나 미화 1만 달러가 넘는 돈(현금·수표 등)을 가지고 들어가거나 나올 때는 필리핀 중앙은행(BSP)에 전체 금액을 신고해야 해요. 신고하지 않으면 넘는 돈을 빼앗기고 벌금을 낼 수 있어요."
+    }
+  ]
 }

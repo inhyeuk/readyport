@@ -51,7 +51,6 @@
     <string name="trip_save_edit">저장하기</string>
     <string name="trip_nights">%1$d박 %2$d일</string>
     <string name="trip_delete_confirm_title">이 여행을 지울까요?</string>
-    <string name="trip_delete_confirm_body">여행 날짜와 입국 카드 알림이 지워져요. 여권·예약 서류는 남아요.</string>
 
     <!-- 15 준비 · 16 꼭 챙길 물건 -->
     <string name="prepare_form_eyebrow">%1$s · 도착 전에 내요</string>

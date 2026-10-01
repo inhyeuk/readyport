@@ -865,6 +865,7 @@ enum class StatusKind(val icon: ImageVector, val tone: BadgeTone) {
 - 안내 문장 `이 휴대폰에만 저장해요`는 `IconBullet(Lock)`.
 - 유지: `trip_start`, `trip_end`(필드 라벨), `trip_delete`, `trip_create_title/edit_title`.
 - 신규: `trip_save_edit`, `trip_nights`(%1$d박 %2$d일), `trip_delete_confirm_title`(이 여행을 지울까요?), `trip_delete_confirm_body`(**확정**: 여행 날짜와 입국 카드 알림이 지워져요. 여권·예약 서류는 남아요. — 실제 동작 `TripViewModel.delete()` = `trips.clear()` + `TripNotifications.cancelFormWindow()`, 지갑·장바구니는 그대로).
+- *(2026-10-02, 부록 F)*: 여행은 id로 가린다 — `TripRoute(country, tripId)`. tripId가 있으면 그 여행 고치기, 없으면 **새 여행**(지난 여행을 지우지 않는다). 새 여행을 저장하면 그 여행 체크리스트로 간다. 지우기 본문은 `ck_delete_body`(여행 날짜와 이 여행 체크리스트(내가 넣은 항목 포함)가 지워져요. 여권·예약 서류는 남아요.) — `trip_delete_confirm_body`는 지웠다. 동작 = `trips.delete(id)` + 입국 카드 알림을 가장 먼저 떠나는 다른 여행에 다시 맞춤.
 
 ### 15 여행 준비 — `tabs/TabScreens.kt`
 - ① `NoticeBanner(prepare_disclaimer, Policy)`(문구 유지, 제출은 직접 포함) ② 양식 카드 = `CardNewsCard(icon AssignmentInd, eyebrow prepare_forms_title(나라 이름 포함 새 eyebrow `prepare_form_eyebrow`: %1$s · 도착 전에 내요), title form.nameKo)` — `태국 · 태국 입국 카드` 중복 제거, `FactChip` 1개(비용 `shortValue`, `feeIcon`) + 기간은 03처럼 `IconBullet(Schedule, guide_form_window)` 글 행(기간 칩·타일은 D11에 따라 이번 릴리스에서 만들지 않음), `PrimaryButton(prepare_form_open, icon EditNote)`, `SourceFooter`(form.source) ③ `IconTile`(Horizontal, Checklist, `prepare_items_title`, supporting `prepare_items_body`) ④ ~~`ComingSoonGroup`(InstallMobile `prepare_apps_title`, Description `prepare_bookings_title`)~~ — 다듬기 S 통합에서 뺌(예약 서류는 내 정보에 이미 있고, 앱 받기는 이동하기가 맡는다. 재검토2 ⑤#11 — `곧 추가돼요`는 내 정보 맨 아래 한 곳).
@@ -1446,3 +1447,33 @@ fun navTileColors(tone: BadgeTone): NavTileColors
 
 - 모자이크(`NavMosaic`): `TileSpec.illustration`이 있으면 배지 대신 흰색→soft 그라데이션 패널 위 그림 — 큰 타일 76dp, 작은 타일 56dp. 타일 바탕(연한 톤 채움)·크기 차이·위치(내용 맨 끝)는 E.4 그대로.
 - a11y: 그림은 언제나 꾸밈(`contentDescription = null`). 카드·칸은 `selectableGroup()` + `selectable(role = Role.Tab)`(선택 상태를 읽어 준다), 높이 `minTouch` 이상, 묶음 이름 `{나라} 안내 종류`는 보이는 쪽 메뉴에만.
+
+## 부록 F — 여러 여행·여행 체크리스트 (2026-10-02)
+
+운영자 요청(PRD 5.16): 여권 만료 기간부터 돌아와서까지 빠짐없이 챙기는 체크리스트, 같은 나라 여러 번 = 다른 여행. 자세한 기록은 `CHECKLIST_REPORT.md`. 새 문구는 `res/values/strings_checklist.xml`에만.
+
+### F.1 새 공용 부품 (`components/Checklist.kt`)
+| 부품 | 쓰임 |
+|---|---|
+| `ChecklistRow(title, icon, checked, onCheckedChange, stateText, modifier, enabled, emphasis, tags, body, extra)` | 체크리스트 한 줄(체크리스트·오늘 '지금 챙길 것'). 머리 줄(배지 + 제목 + 태그 + 체크 상자) **전체가 Role.Checkbox 토글**(minTouch), TalkBack 상태 = `했어요`/`아직이에요`/`11월 1일부터 할 수 있어요`. 체크하면 배지가 Success로 바뀌며 스프링으로 한 번 살짝 튄다(0.82 → 1). 제목은 흐려지지만 줄을 긋지 않는다. 설명·버튼·출처는 토글 밖(제목 시작선, 큰 글자는 폭 전체). `enabled = false` = 아직 열리지 않은 항목(내용은 그대로 보임) |
+| `CheckEmphasis{Normal, Overdue, Urgent}` | 늦음 = Caution 배지 + `지금 해 두세요`, 빨강(Danger 배지 + `오늘 꼭 내요`)은 출발 당일 안 낸 입국 카드(기간이 정해진 것)에만 |
+| `CheckProgressBar(done, total, modifier, onDark)` | 8dp 둥근 막대. 다 하면 SuccessText. TalkBack은 옆 문장이 읽고 막대는 숨김 |
+| `ChecklistPhaseCard(title, hint, icon, done, total, modifier, now, nowLabel, headerDescription, content)` | 단계 카드: 단계 아이콘(여행 6단계 그림) + 이름(titleLarge, heading) + 언제(`출발 7일 전부터 · 10월 30일까지`) + `3 / 7` + 막대, 지금 단계면 `지금` 태그. 흰 카드 + 그림자 + LineSoft 테두리 |
+| `ChecklistDivider()` | 카드 안 항목 사이 1dp Line |
+| `ChoiceDialog(title, body, first, onFirst, second, onSecond, onDismiss, icon)` | 지우기가 아닌 둘 중 고르기(나라 화면 `새 여행으로 만들까요, 기존 여행을 열까요?`). 버튼 둘 다 Accent 글자, 본문 스크롤 |
+| `QuietDangerButton(text, onClick, contentDescription)` | 내 항목처럼 작은 한 줄 지우기(글자 버튼, DangerText, TalkBack `우산 챙기기 지우기`). 여행·여권은 `DangerButton` + 확인 대화상자 |
+| `IconKeys.checklist(key)` · `checklistPhase(barIndex)` | 틀 `icon` 키 → 아이콘(여권 Badge · 비자 Approval · 입국 카드 AssignmentInd · 보여 주기 QrCode2 · 현금 Payments · 규정 Gavel …, 꼭 챙길 물건은 `essential`과 같은 그림). 섹션 `rules` = Gavel |
+
+### F.2 화면
+- **29 내 여행 목록** (`trip/ChecklistScreens.kt` `TripListContent`): 여행 중 → 다가오는 여행(SectionHeader + 행 카드) → 주 버튼 `새 여행 만들기` → 지난 여행 `지난 여행 n개`(ExpandToggle, 접힘) → `여행과 체크한 것은 이 휴대폰에만 저장돼요`(IconBullet Lock). 행 = 누를 수 있는 흰 카드(Role.Button, 셰브론): 원형 나라 사진 48/56dp + 나라(titleMedium) + 날짜 + InfoChip(상태) + InfoChip(`체크리스트 12 / 30`) + (겹치면) StatusTag Caution `날짜가 겹쳐요` + 막대. TalkBack 한 문장. 겹치는 여행이 있으면 맨 위 NoticeBanner(흰 띠, 막지 않음). 빈 목록 = EmptyState(Luggage).
+- **30 여행 체크리스트** (`TripChecklistContent`): 제목 `태국 여행 체크리스트` + 부제 `11월 3일 ~ 7일 · 4박 5일` → 나라 사진 머리(PhotoBox + PhotoTextArea: 큰 숫자 `12 / 30` + 문장 + 막대 + `지금 일주일 전` 칩) → 단계 카드 8장 → 내가 넣은 항목 카드(글 칸 + `더하기`) → 기기 안 저장 한 줄 → `여행 고치기`(QuietButton) → `이 여행 지우기`(DangerButton + 확인).
+  - 펼침: 지금 단계·다음 단계·그 앞의 안 끝난 단계만 펼친다. 다 끝난 지난 단계 = `한 일 7개 보기`, 먼 뒤 단계 = `항목 3개 보기`(그 자리에서 펼침 — 숨기지 않고 접기만).
+  - 한 일은 제목·태그만(설명·버튼·출처 접힘). 체크를 풀면 다시 다 보인다.
+  - 태그: `앱이 확인했어요`(Verified) · `내가 바꿨어요`(Self, 앱 판단을 사람이 뒤집음) · `11월 1일부터 할 수 있어요`(Soon) · `지금 해 두세요`(Caution) · `오늘 꼭 내요`(Required) · `내 항목`(Self + EditNote).
+  - 항목별 아래 요소: 여권(결과 문장 + 여권 등록하기/내 정보 열기/여권 재발급 안내 열기/외교부 해외안전여행 열기 + `만료일은 저장하지 않고…` 캡션) · 입국 카드(내는 기간 칩 + `입국 카드 준비하기`) · 비자 신청 공식 사이트 · 전화(InfoChip Call) · 꼭 챙길 물건(기내 반입만 태그·공식 비교 사이트) · 귀국 사실(첫 문장 + `면세 한도·반입 금지 문장 전체 보기`) · 여권 정보 지우기(돌아오는 날부터, DangerButton ItemAction + 확인) · 다른 화면(도움·보여 주기·이동하기·쇼핑 리스트)은 보조 버튼 · 출처는 언제나 맨 아래.
+  - '일주일 전' 카드 끝에 `꼭 챙길 물건 자세히 보기`(QuietButton → 16 꼭 챙길 물건).
+- **09~13 내 여행** (오늘): `지금 챙길 것` CardNewsCard(eyebrow `체크리스트 12 / 30` + 막대 + 안 한 항목 3줄(ChecklistRow 간단 모양: 단계 태그만) + `체크리스트 전체 보기`). 준비 단계에서 입국 카드·여권 할 일이 없으면 이 카드가 지금 할 일(주 버튼), 아니면 보조 버튼. 맨 아래 글자 버튼 `여행 고치기` · `여행 목록 보기`. `새 여행 만들기`(정리 단계)는 지난 여행을 지우지 않는다.
+- **01·02 홈 여행 카드**: 날짜 아래 InfoChip(onDark) `체크리스트 12 / 30` + onDark 막대, 여행이 둘 이상이면 onDark 보조 버튼 `여행 n개 모두 보기`.
+- **16 꼭 챙길 물건**: 여행이 있으면 맨 위 `이 체크는 태국 여행 체크리스트와 함께 바뀌어요` + `체크리스트 전체 보기`. 체크 = 그 여행 체크리스트의 같은 항목.
+- **03·04 나라 입국·비자**: `내 여행에 넣기` = 새 여행. 같은 나라 다가오는 여행이 있으면 ChoiceDialog. '들어갈 때' 바로 뒤에 팩 섹션 `rules`(알아 둘 규정 — 중국 「국무원 출입국관리규정」) 카드(SectionCard, 아이콘 Gavel, 출처 0404 안전공지). 여행경보가 아니라서 여행 정보 위험 배너로 올리지 않는다.
+

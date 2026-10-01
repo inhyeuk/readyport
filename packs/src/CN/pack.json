@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "country": "CN",
-  "version": "2026.10.02-1",
+  "version": "2026.10.02-2",
   "last_verified": "2026-10-02",
   "names": {
     "ko": "중국",
@@ -57,6 +57,11 @@
       "id": "apqa_plant_exempt",
       "name": "농림축산검역본부 검역 제외 식물",
       "url": "https://www.apqa.go.kr/plant/imQua/plant_notest_ex.jsp"
+    },
+    {
+      "id": "mofa_cn_rules",
+      "name": "외교부 해외안전여행 · 중국 「국무원 출입국관리규정」 시행에 따른 안전유의 안내(2026-09-24)",
+      "url": "https://0404.go.kr/bbs/safetyNtc/2347906/detail2?ntnCd=189"
     }
   ],
   "requirements": [
@@ -70,7 +75,8 @@
       ],
       "summary_ko": "대한민국 일반 여권은 2026년 12월 31일까지 비자 없이 30일까지 머물 수 있어요(중국이 정한 한시 무비자 정책). 관광·출장·친지 방문·교류 방문·경유 목적만 돼요.",
       "source": "mofa_cn",
-      "last_verified": "2026-10-02"
+      "last_verified": "2026-10-02",
+      "passport_validity": null
     }
   ],
   "forms": [
@@ -99,6 +105,17 @@
         "인민폐 2만 위안이 넘거나 미화 5천 달러어치가 넘는 외화를 가지고 들어가면 세관(가방 속 물건을 확인하는 곳)에 신고해요."
       ],
       "source": "mofa_cn",
+      "last_verified": "2026-10-02"
+    },
+    {
+      "id": "rules",
+      "title_ko": "알아 둘 규정",
+      "body_ko": [
+        "2026년 9월 15일부터 중국 「국무원 출입국관리규정」이 시행되고 있어요.",
+        "중국 이민관리기관(출입국 심사 포함)은 드나드는 사람의 신원과 이유를 확인할 때 문서·자료·전자데이터 같은 정보를 보여 주거나 내라고 요구할 수 있어요. 요구받으면 협조해야 해요.",
+        "거짓 자료를 내거나 불법으로 드나들어 처벌받은 외국인은 1~5년 동안 입국이 막힐 수 있어요."
+      ],
+      "source": "mofa_cn_rules",
       "last_verified": "2026-10-02"
     },
     {
@@ -301,5 +318,39 @@
     "frequency": "미확인",
     "source": "beijing_power",
     "last_verified": "2026-10-02"
-  }
+  },
+  "checklist": [
+    {
+      "id": "medicine_cold",
+      "phase": "week",
+      "icon": "medicine",
+      "title_ko": "감기약 성분 확인하기",
+      "section": "basic",
+      "text_ko": "에페드린·슈도에페드린·메틸에페드린이 든 감기약은 되도록 가져가지 마세요. 이런 약 때문에 형사 입건된 일이 있어요."
+    },
+    {
+      "id": "cash_declare",
+      "phase": "three_days",
+      "icon": "cash",
+      "title_ko": "현금 신고 기준 알아 두기",
+      "section": "entry",
+      "text_ko": "인민폐 2만 위안이 넘거나 미화 5천 달러어치가 넘는 외화를 가지고 들어가면 세관(가방 속 물건을 확인하는 곳)에 신고해요."
+    },
+    {
+      "id": "return_ticket",
+      "phase": "departure_day",
+      "icon": "ticket",
+      "title_ko": "돌아가는 표·숙소 연락처 챙기기",
+      "section": "entry",
+      "text_ko": "입국 심사 때 여행 목적과 머무는 기간을 설명할 수 있게 돌아가는 항공권(또는 다른 나라로 가는 표)과 숙소나 지인 연락처를 챙기세요."
+    },
+    {
+      "id": "stay_register",
+      "phase": "arrival",
+      "icon": "hotel",
+      "title_ko": "호텔이 아닌 곳에 묵으면 숙박 등록하기",
+      "section": "entry",
+      "text_ko": "호텔이 아닌 곳(친구 집 등)에 묵으면 24시간 안에 가까운 공안(경찰) 기관에 숙박 등록(주숙등기)을 해야 해요. 어기면 경고나 2,000위안 이하 벌금을 받을 수 있어요."
+    }
+  ]
 }

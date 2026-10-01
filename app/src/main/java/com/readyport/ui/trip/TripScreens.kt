@@ -59,7 +59,6 @@ import com.readyport.pack.IndexCountry
 import com.readyport.pack.PackRepository
 import com.readyport.pack.PackSync
 import com.readyport.trip.Trip
-import com.readyport.trip.TripNotifications
 import com.readyport.trip.TripRepository
 import com.readyport.ui.components.AppScreen
 import com.readyport.ui.components.BannerTone
@@ -108,54 +107,60 @@ class TripViewModel @Inject constructor(
     private val _ui = MutableStateFlow(TripFormUi())
     val ui: StateFlow<TripFormUi> = _ui.asStateFlow()
 
-    init {
-        viewModelScope.launch {
-            val countries = packs.index()?.value?.countries.orEmpty().filter { it.pack }
-            _ui.value = TripFormUi(countries, trips.current(), loaded = true)
-        }
+    /** [tripId]가 있으면 그 여행 고치기, 없으면 새 여행 만들기 (여행은 id로 가린다 — 같은 나라라도 다른 여행) */
+    fun load(tripId: String?) = viewModelScope.launch {
+        val countries = packs.index()?.value?.countries.orEmpty().filter { it.pack }
+        _ui.value = TripFormUi(countries, tripId?.let { trips.get(it) }, loaded = true)
     }
 
-    /** 여행 저장 + 나라 찜(안내 받아 두기) + 입국 카드 알림 예약 */
-    fun save(country: String, start: LocalDate, end: LocalDate) = viewModelScope.launch {
-        val old = trips.current()
+    /**
+     * 여행 저장 + 나라 찜(안내 받아 두기) + 입국 카드 알림 다시 맞추기. 새 여행이면 새 id로 더한다. 저장한 여행 id를 [onSaved]로.
+     * 고칠 때 나라·출발일이 그대로면 도착 기록을 지킨다. 체크 상태는 여행 id에 붙어 있어 날짜를 고쳐도 남는다.
+     */
+    fun save(country: String, start: LocalDate, end: LocalDate, onSaved: (String) -> Unit = {}) = viewModelScope.launch {
+        val old = _ui.value.existing
         val keep = old?.takeIf { it.country == country && it.startDate == start.toString() }
-        trips.save(
-            Trip(
-                country = country, startDate = start.toString(), endDate = end.toString(),
-                arrivedAt = keep?.arrivedAt, arrivalDismissed = keep?.arrivalDismissed ?: false,
+        val saved = trips.save(
+            (old ?: Trip(country = country, startDate = start.toString(), endDate = end.toString())).copy(
+                country = country,
+                startDate = start.toString(),
+                endDate = end.toString(),
+                arrivedAt = keep?.arrivedAt,
+                arrivalDismissed = keep?.arrivalDismissed ?: false,
             ),
         )
-        // 다른 여행으로 바뀌면 지난 준비물 체크·장바구니를 비운다
-        if (old != null && keep == null && old.country != country) settings.clearTripLists()
         settings.setFavorite(country, true)
         PackSync.requestNow(context, settings.current().wifiOnly)
-        val form = packs.pack(country)?.value?.forms?.firstOrNull()
-        val days = form?.windowDaysIncludingArrival
-        if (form != null && days != null) {
-            TripNotifications.scheduleFormWindow(context, start.minusDays((days - 1).toLong()), form.nameKo)
-        } else {
-            TripNotifications.cancelFormWindow(context)
-        }
+        rescheduleFormReminder(context, trips, packs)
+        onSaved(saved.id)
     }
 
     fun delete() = viewModelScope.launch {
-        trips.clear()
-        TripNotifications.cancelFormWindow(context)
+        _ui.value.existing?.let { trips.delete(it.id) }
+        rescheduleFormReminder(context, trips, packs)
     }
 }
 
 @Composable
-fun TripScreen(onDone: () -> Unit, initialCountry: String? = null, viewModel: TripViewModel = hiltViewModel()) {
+fun TripScreen(
+    onDone: () -> Unit,
+    initialCountry: String? = null,
+    tripId: String? = null,
+    /** 새 여행을 만들었을 때(그 여행 체크리스트로 가기) — 없으면 [onDone] */
+    onCreated: ((String) -> Unit)? = null,
+    viewModel: TripViewModel = hiltViewModel(),
+) {
+    LaunchedEffect(tripId) { viewModel.load(tripId) }
     val ui by viewModel.ui.collectAsStateWithLifecycle()
     // Android 13+ 알림 권한 (입국 카드 제출 가능일 알림)
     val notif = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { }
     if (!ui.loaded) return
+    val creating = ui.existing == null
     TripContent(
         ui = ui,
         onSave = { c, s, e ->
-            viewModel.save(c, s, e)
+            viewModel.save(c, s, e) { id -> if (creating && onCreated != null) onCreated(id) else onDone() }
             if (Build.VERSION.SDK_INT >= 33) notif.launch(Manifest.permission.POST_NOTIFICATIONS)
-            onDone()
         },
         onDelete = { viewModel.delete(); onDone() },
         initialCountry = initialCountry,
@@ -262,7 +267,7 @@ fun TripContent(
     if (confirmDelete) {
         DestructiveConfirm(
             title = stringResource(R.string.trip_delete_confirm_title),
-            body = stringResource(R.string.trip_delete_confirm_body),
+            body = stringResource(R.string.ck_delete_body),
             confirmLabel = stringResource(R.string.trip_delete_confirm),
             onConfirm = { confirmDelete = false; onDelete() },
             onDismiss = { confirmDelete = false },

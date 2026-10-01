@@ -38,8 +38,17 @@ import kotlinx.serialization.Serializable
 /** 준비 › 수동 모드: 값 복사 + 공식 사이트 */
 @Serializable data class FormManualRoute(val formId: String)
 
-/** 여행 만들기·고치기. 나라 화면에서 오면 그 나라를 미리 골라 둔다 */
-@Serializable data class TripRoute(val country: String? = null)
+/**
+ * 여행 만들기·고치기. 나라 화면에서 오면 그 나라를 미리 골라 둔다.
+ * [tripId]가 있으면 그 여행 고치기, 없으면 새 여행(여행은 id로 가린다 — 같은 나라라도 날짜가 다르면 다른 여행)
+ */
+@Serializable data class TripRoute(val country: String? = null, val tripId: String? = null)
+
+/** 내 여행 › 여행 목록 (다가오는 여행·여행 중·지난 여행) */
+@Serializable data object TripsRoute
+
+/** 내 여행 › 한 여행의 체크리스트 */
+@Serializable data class TripChecklistRoute(val tripId: String)
 
 /** 입국 때 보여 주기 (PRD 5.4). 자녀 폰 모드의 첫 화면 */
 @Serializable data object PresentRoute

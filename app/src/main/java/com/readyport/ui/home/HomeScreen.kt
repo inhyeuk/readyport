@@ -68,7 +68,12 @@ import com.readyport.pack.OfficialLink
 import com.readyport.pack.PackRepository
 import com.readyport.pack.Requirement
 import com.readyport.pack.SourcedText
+import com.readyport.trip.ChecklistData
+import com.readyport.trip.ChecklistProvider
 import com.readyport.trip.TripRepository
+import com.readyport.trip.TripSelection
+import com.readyport.ui.components.CheckProgressBar
+import androidx.compose.material.icons.outlined.CalendarMonth
 import com.readyport.ui.components.AppScreen
 import com.readyport.ui.components.BadgeTitleLayout
 import com.readyport.ui.components.BadgeTone
@@ -145,8 +150,19 @@ data class HomeCountry(
     val sourceName: String? = null,
 )
 
-/** 홈 위쪽 '내 여행' 요약. [code]: 나라 코드(사진 썸네일용, DESIGN_SPEC 6-02) */
-data class HomeTrip(val countryKo: String, val startDate: LocalDate, val endDate: LocalDate, val code: String? = null)
+/**
+ * 홈 위쪽 '내 여행' 요약. [code]: 나라 코드(사진 썸네일용, DESIGN_SPEC 6-02).
+ * [checklistDone]/[checklistTotal]: 이 여행 체크리스트 진행(0이면 표시 없음), [tripCount]: 저장된 여행 수(2개 이상이면 `여행 n개 모두 보기`)
+ */
+data class HomeTrip(
+    val countryKo: String,
+    val startDate: LocalDate,
+    val endDate: LocalDate,
+    val code: String? = null,
+    val checklistDone: Int = 0,
+    val checklistTotal: Int = 0,
+    val tripCount: Int = 1,
+)
 
 data class HomeUi(
     val countries: List<HomeCountry> = emptyList(),
@@ -160,6 +176,8 @@ data class HomeUi(
 data class HomeActions(
     val openCountry: (String) -> Unit = {},
     val openTrip: () -> Unit = {},
+    /** 내 여행 목록(여행이 둘 이상일 때) */
+    val openTrips: () -> Unit = {},
     val openEssentials: () -> Unit = {},
     val openMyInfo: () -> Unit = {},
     val openLink: (String) -> Unit = {},
@@ -172,8 +190,11 @@ class HomeViewModel @Inject constructor(
     packs: PackRepository,
     settings: SettingsRepository,
     trips: TripRepository,
+    checklists: ChecklistProvider,
 ) : ViewModel() {
-    val ui: StateFlow<HomeUi> = combine(settings.settings, packs.revision, trips.trip) { s, _, trip ->
+    val ui: StateFlow<HomeUi> = combine(settings.settings, packs.revision, trips.book) { s, _, book ->
+        val today = LocalDate.now()
+        val trip = TripSelection.active(book.trips, today)
         val index = packs.index()?.value
         val countries = index?.countries.orEmpty().map { c ->
             val pack = if (c.pack) packs.pack(c.code)?.value else null
@@ -187,14 +208,22 @@ class HomeViewModel @Inject constructor(
             )
         }
         val tripPack = trip?.let { packs.pack(it.country)?.value }
+        val data = trip?.let { checklists.build(it, book, today) }
         val homeTrip = trip?.let { t ->
-            runCatching { HomeTrip(tripPack?.names?.ko ?: t.country, LocalDate.parse(t.startDate), LocalDate.parse(t.endDate), t.country) }.getOrNull()
+            runCatching {
+                HomeTrip(
+                    tripPack?.names?.ko ?: t.country, LocalDate.parse(t.startDate), LocalDate.parse(t.endDate), t.country,
+                    checklistDone = data?.done ?: 0, checklistTotal = data?.total ?: 0, tripCount = book.trips.size,
+                )
+            }.getOrNull()
         }
+        // 꼭 챙길 물건 체크 = 지금 여행 체크리스트의 같은 항목(여행이 없으면 예전처럼 설정의 체크)
+        val have = if (trip != null) essentialsHave(data) else s.haveItems
         HomeUi(
             countries = countries,
             trip = homeTrip,
             // 여행 준비(18)와 같은 계산 — 진행 n/5 + 값이 있는 정보 칩(여행 나라 전기 · 기내 반입만 되는 물건)과 그 출처
-            essentials = essentialsSummary(index, tripPack, s.haveItems),
+            essentials = essentialsSummary(index, tripPack, have),
             returnLinks = index?.returnLinks.orEmpty(),
             returnFacts = index?.returnFacts.orEmpty(),
             indexSources = index?.sources.orEmpty().associate { it.id to it.name },
@@ -263,7 +292,7 @@ fun HomeContent(ui: HomeUi, actions: HomeActions, today: LocalDate = LocalDate.n
         showHomeAction = false,
     ) {
         ui.trip?.let { trip ->
-            item(key = "trip") { TripCountdownCard(trip, today, actions.openTrip) }
+            item(key = "trip") { TripCountdownCard(trip, today, actions.openTrip, actions.openTrips) }
             sectionGap("countries-gap")
         }
         item(key = "countries-title") {
@@ -609,7 +638,7 @@ private fun EssentialsCard(summary: EssentialsSummary, onOpen: () -> Unit, prima
  * 큰 글자 배치에서는 썸네일을 글 위로 올리고, 큰 숫자는 칸 폭에 맞춰 한 줄에 들어가는 크기(stat → statSmall)로 그린다(FitText, 재검토 R5·R6).
  */
 @Composable
-private fun TripCountdownCard(trip: HomeTrip, today: LocalDate, onOpen: () -> Unit) {
+private fun TripCountdownCard(trip: HomeTrip, today: LocalDate, onOpen: () -> Unit, onOpenAll: () -> Unit = {}) {
     val dimens = LocalDimens.current
     val extras = LocalTypeExtras.current
     val stacked = isStackedLayout()
@@ -659,6 +688,17 @@ private fun TripCountdownCard(trip: HomeTrip, today: LocalDate, onOpen: () -> Un
                 )
                 Text(dates, style = MaterialTheme.typography.titleSmall, color = OnDark.content, modifier = Modifier.weight(1f))
             }
+            // 이 여행 체크리스트 진행 — 앱 안 값(누를 수 없는 칩 + 막대)
+            if (trip.checklistTotal > 0) {
+                Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                    InfoChip(
+                        stringResource(R.string.ck_now_eyebrow, trip.checklistDone, trip.checklistTotal),
+                        IconKeys.essentials,
+                        onDark = true,
+                    )
+                    CheckProgressBar(trip.checklistDone, trip.checklistTotal, onDark = true)
+                }
+            }
             PrimaryButton(
                 stringResource(R.string.home_trip_open),
                 onClick = onOpen,
@@ -666,6 +706,9 @@ private fun TripCountdownCard(trip: HomeTrip, today: LocalDate, onOpen: () -> Un
                 icon = Icons.Outlined.Luggage,
                 colors = ButtonStyles.onDark(content = Tokens.Accent),
             )
+            if (trip.tripCount > 1) {
+                SecondaryButton(stringResource(R.string.home_trips_all, trip.tripCount), onClick = onOpenAll, icon = Icons.Outlined.CalendarMonth, onDark = true)
+            }
         }
     }
 }
@@ -690,3 +733,9 @@ private fun TripThumbnail(code: String?) {
         IconBadge(Icons.Outlined.FlightTakeoff, tone = BadgeTone.OnDark, size = size, shape = CircleShape)
     }
 }
+
+/** 체크리스트의 꼭 챙길 물건 항목 중 체크한 것 → 꼭 챙길 물건 id (홈·여행 준비·꼭 챙길 물건 화면이 같은 체크를 본다) */
+internal fun essentialsHave(data: ChecklistData?): Set<String> =
+    data?.items.orEmpty().filter { it.checked && it.id.startsWith(ESSENTIAL_PREFIX) }.map { it.id.removePrefix(ESSENTIAL_PREFIX) }.toSet()
+
+private val ESSENTIAL_PREFIX = com.readyport.trip.Checklist.essentialItemId("")

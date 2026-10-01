@@ -161,6 +161,9 @@ import com.readyport.ui.components.shortValue
 import com.readyport.ui.components.sourceRefs
 import com.readyport.ui.components.tabBarSurface
 import com.readyport.ui.components.textIconSize
+import com.readyport.trip.Trip
+import com.readyport.ui.components.ChoiceDialog
+import com.readyport.trip.TripSelection
 import com.readyport.ui.nav.CountryRoute
 import com.readyport.ui.theme.LocalDimens
 import com.readyport.ui.theme.Tokens
@@ -187,6 +190,8 @@ data class CountryUi(
      * 있으면 입국 카드 '내는 때'에 일반 예시 대신 팩 기간 일수로 계산한 내 날짜를 보인다(재검토2 ③#5). 없으면 null.
      */
     val tripArrival: LocalDate? = null,
+    /** 이 나라로 가는 다가오는(또는 여행 중인) 여행 — `내 여행에 넣기`를 누르면 새로 만들지 그 여행을 열지 묻는다 */
+    val upcomingTrip: Trip? = null,
 )
 
 /** 나라 화면에서 다른 곳으로 가는 길 */
@@ -194,6 +199,8 @@ data class CountryActions(
     val back: () -> Unit = {},
     val openForm: (String) -> Unit = {},
     val planTrip: (String) -> Unit = {},
+    /** 이미 있는 여행 열기(그 여행 체크리스트) */
+    val openTrip: (String) -> Unit = {},
     val openHelp: (String) -> Unit = {},
     val openMove: () -> Unit = {},
     val openShopping: (String) -> Unit = {},
@@ -212,7 +219,8 @@ class CountryViewModel @Inject constructor(
 ) : ViewModel() {
     val country = handle.toRoute<CountryRoute>().country
 
-    val ui: StateFlow<CountryUi> = combine(settings.settings, packs.revision, trips.trip) { s, _, trip ->
+    val ui: StateFlow<CountryUi> = combine(settings.settings, packs.revision, trips.book) { s, _, book ->
+        val trip = TripSelection.active(book.trips, LocalDate.now())
         val loaded = packs.pack(country)
         val index = packs.index()?.value
         CountryUi(
@@ -226,6 +234,7 @@ class CountryViewModel @Inject constructor(
             tripArrival = trip?.takeIf { it.country == country }
                 ?.let { t -> runCatching { t.start }.getOrNull() }
                 ?.takeIf { !LocalDate.now().isAfter(it) },
+            upcomingTrip = TripSelection.upcomingFor(book.trips, country, LocalDate.now()),
         )
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), CountryUi())
 
@@ -314,6 +323,7 @@ fun CountryContent(
     val keys = rememberKeyIndex()
     val scope = rememberCoroutineScope()
     val sectionsLabel = stringResource(R.string.country_sections, pack.names.ko)
+    var askPlan by remember { mutableStateOf(false) }
 
     // ---- 그림 메뉴(펼침) <-> 고정 줄(접힘) (부록 E.6) ----
     // 그림 메뉴는 히어로 아래 보통 항목이다. 그것이 화면 위로 지나가 **고정 줄 아래로 완전히 숨으면** 고정 줄이 나타난다 -
@@ -464,7 +474,9 @@ fun CountryContent(
                 }
                 // 들어갈 때: 위 비자 카드·입국 카드가 이미 보여 준 문장(같은 말을 길게 공유)은 접어 둔다 — `90일`·TDAC 기간이 한 화면에 두세 번 나오지 않게(재검토2 ③#5·③#12)
                 val shownAbove = krRequirements.map { it.summaryKo } + pack.forms.map { it.windowKo }
-                pack.sections.filter { it.id == "entry" }.forEach { s ->
+                // 들어갈 때 + 알아 둘 규정(중국 「국무원 출입국관리규정」처럼 출입국 심사와 이어지는 규정 — 출처가 다른 0404 공지라 섹션을 따로 둔다).
+                // 규정은 여행경보가 아니라서 위험 배너로 올리지 않는다
+                pack.sections.filter { it.id == "entry" || it.id == "rules" }.forEach { s ->
                     item(key = "section-${s.id}") { SectionCard(s, sourceOf, shownAbove = shownAbove) }
                 }
                 // 다른 화면으로 가는 길은 내용 맨 끝 한 묶음으로 (읽는 카드 사이에 메뉴를 끼우지 않는다)
@@ -474,7 +486,9 @@ fun CountryContent(
                         listOf(
                             TileSpec(
                                 stringResource(R.string.nav_tile_plan_trip), Icons.Outlined.EditCalendar,
-                                onClick = { actions.planTrip(pack.country) }, illustration = Illus.PlanTrip,
+                                // 같은 나라로 가는 다가오는 여행이 있으면 새로 만들지 그 여행을 열지 묻는다(같은 나라라도 날짜가 다르면 다른 여행)
+                                onClick = { if (ui.upcomingTrip != null) askPlan = true else actions.planTrip(pack.country) },
+                                illustration = Illus.PlanTrip,
                             ),
                             TileSpec(
                                 stringResource(R.string.tile_phrases_emergency), Icons.Outlined.Translate,
@@ -491,7 +505,7 @@ fun CountryContent(
                     item(key = "advisory") { AdvisoryBanner(safety, advisories, sourceOf) }
                 }
                 pack.power?.let { power -> item(key = "power") { PowerCard(power, sourceOf) } }
-                pack.sections.filter { it.id != "entry" }.forEach { s ->
+                pack.sections.filter { it.id != "entry" && it.id != "rules" }.forEach { s ->
                     // 위험 배너로 올린 문장은 안전 카드에서 되풀이하지 않는다(한 사실은 한 번). 남는 문장이 없으면 카드도 없다(출처는 배너 아래에)
                     val lifted = if (s.id == "safety") advisories else emptyList()
                     if (s.bodyKo.any { it !in lifted }) {
@@ -544,6 +558,20 @@ fun CountryContent(
                 }
             }
         }
+    }
+    val existing = ui.upcomingTrip
+    if (askPlan && existing != null) {
+        val dates = com.readyport.ui.trip.tripDateRange(existing.start, existing.end)
+        ChoiceDialog(
+            title = stringResource(R.string.ck_plan_dialog_title),
+            body = stringResource(R.string.ck_plan_dialog_body, pack.names.ko, dates),
+            first = stringResource(R.string.ck_plan_new),
+            onFirst = { askPlan = false; actions.planTrip(pack.country) },
+            second = stringResource(R.string.ck_plan_open),
+            onSecond = { askPlan = false; actions.openTrip(existing.id) },
+            onDismiss = { askPlan = false },
+            icon = Icons.Outlined.EditCalendar,
+        )
     }
 }
 

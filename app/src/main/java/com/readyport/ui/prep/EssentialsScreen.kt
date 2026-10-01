@@ -49,7 +49,13 @@ import com.readyport.pack.EssentialRule
 import com.readyport.pack.PackRepository
 import com.readyport.pack.PowerInfo
 import com.readyport.prep.Essentials
+import com.readyport.trip.Checklist
+import com.readyport.trip.ChecklistProvider
 import com.readyport.trip.TripRepository
+import com.readyport.trip.TripSelection
+import com.readyport.ui.components.LinkRow
+import com.readyport.ui.home.essentialsHave
+import androidx.compose.material.icons.automirrored.outlined.NavigateNext
 import com.readyport.ui.components.AppScreen
 import com.readyport.ui.components.BadgeTitleLayout
 import com.readyport.ui.components.BadgeTone
@@ -104,6 +110,8 @@ data class EssentialsUi(
     val power: PowerInfo? = null,
     /** [power] 출처 이름(팩 sources). 못 찾으면 null — 화면은 '공식 안내' */
     val powerSource: String? = null,
+    /** 체크가 함께 바뀌는 여행 체크리스트의 여행 id (여행이 있을 때만) — 화면 위 한 줄 안내 + 체크리스트로 가는 글자 버튼 */
+    val tripId: String? = null,
 ) {
     val done get() = rows.count { it.have }
     val hasAffiliate get() = rows.any { Essentials.isAffiliate(it.rule) }
@@ -113,10 +121,14 @@ data class EssentialsUi(
 class EssentialsViewModel @Inject constructor(
     private val packs: PackRepository,
     private val settings: SettingsRepository,
-    trips: TripRepository,
+    private val trips: TripRepository,
+    private val checklists: ChecklistProvider,
 ) : ViewModel() {
 
-    val ui: StateFlow<EssentialsUi> = combine(settings.settings, trips.trip, packs.revision) { s, trip, _ ->
+    val ui: StateFlow<EssentialsUi> = combine(settings.settings, trips.book, packs.revision) { s, book, _ ->
+        val trip = TripSelection.active(book.trips, java.time.LocalDate.now())
+        // 꼭 챙길 물건은 여행 체크리스트에 들어 있다 — 여행이 있으면 그 여행 체크(같은 저장), 없으면 설정의 체크
+        val have = if (trip != null) essentialsHave(checklists.build(trip, book)) else s.haveItems
         val index = packs.index()?.value
         val pack = trip?.let { packs.pack(it.country)?.value }
         val rules = Essentials.select(index?.essentials.orEmpty(), index?.homePower, pack?.power)
@@ -126,24 +138,29 @@ class EssentialsViewModel @Inject constructor(
             month = trip?.start?.monthValue,
             rows = rules.map { r ->
                 // 이름을 못 찾으면 null — 화면이 '공식 안내'로 보인다. 내부 ID를 화면에 넘기지 않는다 (DESIGN_SPEC 4.5)
-                EssentialRow(r, r.id in s.haveItems, r.source?.let { id -> index?.sources?.firstOrNull { it.id == id }?.name })
+                EssentialRow(r, r.id in have, r.source?.let { id -> index?.sources?.firstOrNull { it.id == id }?.name })
             },
             power = pack?.power,
             powerSource = pack?.power?.let { p -> pack.source(p.source)?.name },
+            tripId = trip?.id,
         )
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), EssentialsUi())
 
-    fun setHave(id: String, have: Boolean) = viewModelScope.launch { settings.setHave(id, have) }
+    fun setHave(id: String, have: Boolean) = viewModelScope.launch {
+        val tripId = ui.value.tripId
+        if (tripId != null) trips.setMark(tripId, Checklist.essentialItemId(id), if (have) true else null) else settings.setHave(id, have)
+    }
 }
 
 @Composable
-fun EssentialsScreen(viewModel: EssentialsViewModel = hiltViewModel()) {
+fun EssentialsScreen(onOpenChecklist: (String) -> Unit = {}, viewModel: EssentialsViewModel = hiltViewModel()) {
     val ui by viewModel.ui.collectAsStateWithLifecycle()
     val context = LocalContext.current
     EssentialsContent(
         ui = ui,
         onHave = viewModel::setHave,
         onOpenLink = { url -> runCatching { context.startActivity(Intent(Intent.ACTION_VIEW, url.toUri())) } },
+        onOpenChecklist = onOpenChecklist,
     )
 }
 
@@ -155,7 +172,13 @@ fun EssentialsScreen(viewModel: EssentialsViewModel = hiltViewModel()) {
  * 체크 카드는 줄 전체가 Role.Checkbox 토글. 챙기면 그 카드가 아래 묶음으로 옮겨 간다(같은 key라 자리 이동 애니메이션).
  */
 @Composable
-fun EssentialsContent(ui: EssentialsUi, onHave: (String, Boolean) -> Unit, onOpenLink: (String) -> Unit) {
+fun EssentialsContent(
+    ui: EssentialsUi,
+    onHave: (String, Boolean) -> Unit,
+    onOpenLink: (String) -> Unit,
+    /** 여행 체크리스트 전체 보기 (여행이 있을 때) */
+    onOpenChecklist: (String) -> Unit = {},
+) {
     val subtitle = if (ui.countryKo != null && ui.nights != null && ui.month != null) {
         stringResource(R.string.essentials_for_trip, ui.countryKo, ui.nights, ui.month)
     } else {
@@ -173,6 +196,15 @@ fun EssentialsContent(ui: EssentialsUi, onHave: (String, Boolean) -> Unit, onOpe
         }
         if (ui.rows.isNotEmpty()) {
             item(key = "progress") { ProgressHero(ui) }
+        }
+        // 여행이 있으면 이 체크는 그 여행 체크리스트의 같은 항목이다 — 두 목록이 따로 놀지 않게 한 줄로 알리고 체크리스트로 가는 길을 둔다
+        if (ui.tripId != null && ui.countryKo != null) {
+            item(key = "synced") {
+                Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                    IconBullet(stringResource(R.string.ess_trip_synced, ui.countryKo), IconKeys.essentials)
+                    LinkRow(stringResource(R.string.ck_now_open), onClick = { onOpenChecklist(ui.tripId) }, icon = Icons.AutoMirrored.Outlined.NavigateNext)
+                }
+            }
         }
         ui.power?.let { power ->
             item(key = "power") { PowerValuesCard(ui.countryKo, power, ui.powerSource) }

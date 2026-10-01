@@ -67,6 +67,24 @@ import androidx.compose.material.icons.outlined.SupportAgent
 import androidx.compose.material.icons.outlined.TaskAlt
 import androidx.compose.material.icons.outlined.Wc
 import androidx.compose.material.icons.outlined.WrongLocation
+import androidx.compose.material.icons.outlined.Approval
+import androidx.compose.material.icons.outlined.Flight
+import androidx.compose.material.icons.outlined.SimCard
+import androidx.compose.material.icons.outlined.OfflinePin
+import androidx.compose.material.icons.outlined.Map
+import androidx.compose.material.icons.outlined.Translate
+import androidx.compose.material.icons.outlined.LocalAirport
+import androidx.compose.material.icons.outlined.QrCode2
+import androidx.compose.material.icons.outlined.Lock
+import androidx.compose.material.icons.outlined.ShoppingBag
+import androidx.compose.material.icons.outlined.Inventory2
+import androidx.compose.material.icons.outlined.DeleteOutline
+import androidx.compose.material.icons.outlined.ConfirmationNumber
+import androidx.compose.material.icons.outlined.Gavel
+import androidx.compose.material.icons.outlined.FamilyRestroom
+import androidx.compose.material.icons.outlined.AssignmentInd
+import androidx.compose.material.icons.outlined.PhoneInTalk
+import androidx.compose.material.icons.outlined.Home
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.readyport.autofill.ValueOrigin
 import com.readyport.prep.ImportStatus
@@ -116,6 +134,7 @@ object IconKeys {
         "entry" -> Icons.Outlined.FlightLand
         "payment" -> Icons.Outlined.Payments
         "safety" -> Icons.Outlined.GppMaybe
+        "rules" -> Icons.Outlined.Gavel
         else -> Icons.Outlined.Info
     }
 
@@ -225,4 +244,47 @@ object IconKeys {
 
     /** 출처·최종 확인 줄 아이콘 */
     val source: ImageVector get() = Icons.AutoMirrored.Outlined.FactCheck
+
+    /**
+     * 여행 체크리스트 항목 아이콘 (팩 틀 `checklist[].icon`, 2026-10-02). 모르는 키는 Checklist.
+     * 같은 개념은 앱 전체와 같은 그림: 여권 Badge · 비자 Approval · 입국 카드 AssignmentInd · 보여 주기 QrCode2 · 꼭 챙길 물건 규칙은 [essential]과 같은 그림.
+     */
+    fun checklist(key: String): ImageVector = when (key) {
+        "passport" -> Icons.Outlined.Badge
+        "visa" -> Icons.Outlined.Approval
+        "flight" -> Icons.Outlined.Flight
+        "insurance" -> Icons.Outlined.HealthAndSafety
+        "advisory" -> Icons.Outlined.GppMaybe
+        "wallet" -> Icons.Outlined.AccountBalanceWallet
+        "data" -> Icons.Outlined.SimCard
+        "card" -> Icons.Outlined.CreditCard
+        "medicine" -> Icons.Outlined.Medication
+        "battery" -> Icons.Outlined.BatteryChargingFull
+        "plug" -> Icons.Outlined.Outlet
+        "voltage" -> Icons.Outlined.ElectricBolt
+        "offline" -> Icons.Outlined.OfflinePin
+        "map" -> Icons.Outlined.Map
+        "address" -> Icons.Outlined.Home
+        "phone" -> Icons.Outlined.PhoneInTalk
+        "form" -> Icons.Outlined.AssignmentInd
+        "phrases" -> Icons.Outlined.Translate
+        "airport" -> Icons.Outlined.LocalAirport
+        "qr" -> Icons.Outlined.QrCode2
+        "emergency" -> Icons.Outlined.Sos
+        "safe" -> Icons.Outlined.Lock
+        "shopping" -> Icons.Outlined.ShoppingBag
+        "customs" -> Icons.Outlined.Inventory2
+        "cash" -> Icons.Outlined.Payments
+        "flight_return" -> Icons.Outlined.FlightTakeoff
+        "delete" -> Icons.Outlined.DeleteOutline
+        "ticket" -> Icons.Outlined.ConfirmationNumber
+        "hotel" -> Icons.Outlined.Hotel
+        "rules" -> Icons.Outlined.Gavel
+        "family" -> Icons.Outlined.FamilyRestroom
+        "custom" -> Icons.Outlined.EditNote
+        else -> Icons.Outlined.Checklist
+    }
+
+    /** 체크리스트 단계 아이콘 — 여행 6단계 그림을 그대로 쓰고, 떠나기 전 세 단계는 '준비'(Backpack) */
+    fun checklistPhase(barIndex: Int): ImageVector = stage(barIndex)
 }

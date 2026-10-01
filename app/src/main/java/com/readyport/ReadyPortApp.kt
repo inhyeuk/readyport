@@ -29,6 +29,7 @@ class ReadyPortApp : Application(), Configuration.Provider {
     @Inject lateinit var workerFactory: HiltWorkerFactory
     @Inject lateinit var trips: TripRepository
     @Inject lateinit var ocr: com.readyport.doc.ocr.OcrEngine
+    @Inject lateinit var tripSignals: com.readyport.trip.TripSignalsRecorder
 
     private val appScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
 
@@ -45,6 +46,11 @@ class ReadyPortApp : Application(), Configuration.Provider {
         ProcessLifecycleOwner.get().lifecycle.addObserver(object : DefaultLifecycleObserver {
             override fun onStop(owner: LifecycleOwner) = wallet.lock()
         })
+        // 예전 한 여행 저장본을 여행 목록으로 옮긴다(예전 꼭 챙길 물건 체크는 그 여행 체크리스트로). 그다음 지갑을 열 때마다 여행별 결과만 적는다
+        appScope.launch {
+            trips.migrateLegacy(settings.current().haveItems)
+            tripSignals.start(appScope)
+        }
         // 하루 한 번 찜한 나라의 새 안내 확인 (와이파이 설정을 따른다)
         appScope.launch { PackSync.scheduleDaily(this@ReadyPortApp, settings.current().wifiOnly) }
         // 찜한 나라·여행 나라가 바뀌면 토픽 구독과 익명 찜 수를 맞춘다. 밀린 실패 리포트도 이때 보낸다

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "country": "VN",
-  "version": "2026.10.02-1",
+  "version": "2026.10.02-2",
   "last_verified": "2026-10-02",
   "names": {
     "ko": "베트남",
@@ -52,6 +52,11 @@
       "id": "gmaps_play",
       "name": "Google Play · Google 지도",
       "url": "https://play.google.com/store/apps/details?id=com.google.android.apps.maps"
+    },
+    {
+      "id": "embassy_vn_visafree",
+      "name": "주베트남 대한민국 대사관 · 무사증 입국 안내(2023-08-14)",
+      "url": "https://overseas.mofa.go.kr/vn-ko/brd/m_2203/view.do?seq=1345773"
     }
   ],
   "requirements": [
@@ -78,6 +83,12 @@
         ],
         "warning_ko": "공식 사이트는 evisa.gov.vn과 thithucdientu.gov.vn뿐이에요. 다른 사이트는 정해지지 않은 돈을 더 받을 수 있어요.",
         "source": "vn_evisa",
+        "last_verified": "2026-10-02"
+      },
+      "passport_validity": {
+        "months": 6,
+        "basis": "arrival",
+        "source": "embassy_vn_visafree",
         "last_verified": "2026-10-02"
       }
     }
@@ -297,5 +308,23 @@
     "frequency": "50 Hz",
     "source": "mofa_vn",
     "last_verified": "2026-10-02"
-  }
+  },
+  "checklist": [
+    {
+      "id": "prearrival",
+      "phase": "three_days",
+      "icon": "form",
+      "title_ko": "입국 정보 미리 내기(권장)",
+      "section": "entry",
+      "text_ko": "베트남 이민국은 도착 전에 공식 사이트(prearrival.immigration.gov.vn)에서 입국 정보를 미리 내 두기를 권해요. 미리 내면 입국 심사에서 기다리는 시간이 줄어요."
+    },
+    {
+      "id": "cash_exit",
+      "phase": "before_return",
+      "icon": "cash",
+      "title_ko": "베트남 돈 가지고 나갈 때 신고 기준 보기",
+      "section": "payment",
+      "text_ko": "1,500만 동이 넘는 베트남 돈을 가지고 나갈 때는 미리 신고해야 해요."
+    }
+  ]
 }
