@@ -87,7 +87,6 @@
     <string name="autofill_result">앱이 채운 칸 %1$d개 · 직접 넣을 칸 %2$d개</string>
     <string name="autofill_next_hint">사이트의 \'다음\'을 누른 뒤 \'지금 화면 채우기\'를 다시 눌러 주세요.</string>
     <string name="autofill_nothing_visible">채울 칸이 보이지 않아요. 사이트에서 \'Arrival Card\'를 눌러 입력 화면을 열어 주세요.</string>
-    <string name="autofill_failed">사이트가 바뀌어서 일부 칸을 찾지 못했어요. 수동 모드로 바꿔 값을 복사해 넣어 주세요.</string>
     <string name="autofill_compare_title">입력값 대조</string>
     <string name="autofill_submitted">제출했어요. 사이트에 나온 확인 화면과 확인 메일을 잘 보관하세요.</string>
 

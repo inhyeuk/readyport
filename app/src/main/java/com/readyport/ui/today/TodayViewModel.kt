@@ -78,6 +78,9 @@ class TodayViewModel @Inject constructor(
         trips.update { it.copy(arrivedAt = System.currentTimeMillis(), arrivalDismissed = false) }
     }
 
+    /** '도착했어요'를 잘못 눌렀을 때 되돌리기 (재검토 R18): 도착 시각을 지워 출발 당일이면 다시 출국 단계로 */
+    fun undoArrived() = viewModelScope.launch { trips.update { it.copy(arrivedAt = null, arrivalDismissed = false) } }
+
     fun dismissArrival() = viewModelScope.launch { trips.update { it.copy(arrivalDismissed = true) } }
 
     fun postponeDestroy() = viewModelScope.launch {

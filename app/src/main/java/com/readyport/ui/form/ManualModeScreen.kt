@@ -17,6 +17,7 @@ import androidx.compose.material.icons.outlined.Badge
 import androidx.compose.material.icons.outlined.Check
 import androidx.compose.material.icons.outlined.ContentCopy
 import androidx.compose.material.icons.outlined.EditNote
+import androidx.compose.material.icons.outlined.ErrorOutline
 import androidx.compose.material.icons.outlined.HealthAndSafety
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.Policy
@@ -60,14 +61,13 @@ import com.readyport.ui.components.NoticeBanner
 import com.readyport.ui.components.PrimaryButton
 import com.readyport.ui.components.SecondaryButton
 import com.readyport.ui.components.SecurityBanner
-import com.readyport.ui.components.StatusKind
-import com.readyport.ui.components.StatusTag
 import com.readyport.ui.components.minTouch
+import com.readyport.ui.components.textIconSize
 import com.readyport.ui.theme.LocalDimens
 import com.readyport.ui.theme.Tokens
 import com.readyport.ui.wallet.rememberDeviceAuth
 
-/** 수동 모드 (PRD 6.6): 자동 입력이 안 될 때 값 복사 + 공식 사이트 */
+/** 값 복사해서 넣기 (예전 '수동 모드', PRD 6.6): 자동 입력이 안 될 때 값 복사 + 공식 사이트 */
 @Composable
 fun ManualModeScreen(viewModel: AutofillViewModel = hiltViewModel()) {
     SecureScreen()
@@ -190,13 +190,28 @@ private fun StepCard(
 
 /** 칸 이름(한국어·영어): 한 줄에 들어가면 나란히, 아니면 다음 줄로 */
 @Composable
-private fun FieldNames(f: RecipeField, required: Boolean = false) {
+private fun FieldNames(f: RecipeField) {
     FlowRow(horizontalArrangement = Arrangement.spacedBy(6.dp), verticalArrangement = Arrangement.spacedBy(2.dp)) {
         KoText(f.labels.ko, MaterialTheme.typography.titleSmall, Modifier.align(Alignment.CenterVertically), color = Tokens.InkSecondary)
         Text(f.labels.en, style = MaterialTheme.typography.bodySmall, color = Tokens.InkSecondary, modifier = Modifier.align(Alignment.CenterVertically))
-        if (required) {
-            StatusTag(stringResource(R.string.form_field_required), StatusKind.Caution, Modifier.align(Alignment.CenterVertically))
-        }
+    }
+}
+
+/**
+ * 사이트에서 꼭 채울 칸 표시: 채움 없는 작은 느낌표 + `꼭 채워요`(주의 글자색) — 늘 칸 이름 **아래 줄** 같은 자리에.
+ * 예전 노란 채움 태그는 칸 이름 길이에 따라 옆·아래를 오가며 칸마다 되풀이돼 노랑이 넘쳤다(재검토 R16과 같은 규칙).
+ */
+@Composable
+private fun RequiredMark() {
+    val style = MaterialTheme.typography.labelMedium
+    Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(4.dp)) {
+        Icon(
+            Icons.Outlined.ErrorOutline,
+            contentDescription = null,
+            tint = Tokens.CautionText,
+            modifier = Modifier.size(textIconSize(LocalDimens.current.iconSmall, style)),
+        )
+        Text(stringResource(R.string.form_field_required), style = style, color = Tokens.CautionText)
     }
 }
 
@@ -251,14 +266,15 @@ private fun OnSiteHeader() {
     }
 }
 
-/** 값 없는 칸: 칸 이름 + 필수면 `꼭 채워요`(주의 — 오류가 아니라 할 일) + 도움말 */
+/** 값 없는 칸: 칸 이름 + 필수면 `꼭 채워요`(주의 글자 — 오류가 아니라 할 일, 늘 같은 자리) + 도움말(공식 사이트 칸 설명이라 그대로) */
 @Composable
 private fun OnSiteField(f: RecipeField) {
     Column(
         Modifier.fillMaxWidth().semantics(mergeDescendants = true) {}.padding(start = 4.dp, top = 2.dp, bottom = 2.dp),
         verticalArrangement = Arrangement.spacedBy(2.dp),
     ) {
-        FieldNames(f, required = f.required)
+        FieldNames(f)
+        if (f.required) RequiredMark()
         f.hintKo?.let { KoText(it, MaterialTheme.typography.bodySmall, color = Tokens.InkSecondary) }
     }
 }

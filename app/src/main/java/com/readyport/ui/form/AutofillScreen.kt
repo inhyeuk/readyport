@@ -352,13 +352,13 @@ private fun TopNotices() {
     }
 }
 
-/** 공식 사이트 연결 상태(초록 = 공식 / 빨강 = 아님, 색 + 아이콘 + 글자) + 수동 모드 */
+/** 공식 사이트 연결 상태(초록 = 공식 / 빨강 = 아님, 색 + 아이콘 + 글자) + 값 복사해서 넣기(예전 `수동 모드` — 쉬운 말, R18) */
 @Composable
 private fun SiteStatus(site: SiteState, onManual: () -> Unit) {
     val dimens = LocalDimens.current
     val bg = if (site.official) Tokens.SuccessBg else Tokens.DangerBg
     val fg = if (site.official) Tokens.SuccessText else Tokens.DangerText
-    val manual = stringResource(R.string.form_manual_mode)
+    val manual = stringResource(R.string.form_manual_open)
     Surface(color = bg, contentColor = fg, shape = MaterialTheme.shapes.small, modifier = Modifier.fillMaxWidth()) {
         Column(
             Modifier.fillMaxWidth().startBar(fg).padding(start = 16.dp, end = 4.dp, top = 4.dp, bottom = 4.dp),
@@ -493,7 +493,7 @@ private fun ResultPanel(
                 report?.let { r ->
                     KoText(stringResource(R.string.autofill_result, r.filled.size, r.assist.size), MaterialTheme.typography.titleMedium, color = Tokens.Ink)
                     if (r.missing.isNotEmpty()) {
-                        NoticeBanner(stringResource(R.string.autofill_failed), icon = Icons.Outlined.ReportProblem, tone = BannerTone.Danger)
+                        NoticeBanner(stringResource(R.string.autofill_failed_plain), icon = Icons.Outlined.ReportProblem, tone = BannerTone.Danger)
                     } else {
                         KoText(stringResource(R.string.autofill_next_hint), MaterialTheme.typography.bodyMedium, color = Tokens.InkSecondary)
                     }
@@ -517,7 +517,7 @@ private fun ResultPanel(
             val save = stringResource(R.string.autofill_save_capture)
             PrimaryButton(save, onClick = onSaveCapture, icon = Icons.Outlined.SaveAlt, modifier = Modifier)
         }
-        val manual = stringResource(R.string.form_manual_mode)
+        val manual = stringResource(R.string.form_manual_open)
         // 칸을 못 찾았으면 다음 할 일은 수동 모드 — 주 버튼으로 먼저 (화면당 주 버튼 하나)
         if (failed && !ui.submitted) {
             PrimaryButton(

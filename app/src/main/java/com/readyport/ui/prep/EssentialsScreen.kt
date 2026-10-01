@@ -1,7 +1,6 @@
 package com.readyport.ui.prep
 
 import android.content.Intent
-import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.FlowRow
@@ -15,6 +14,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.OpenInNew
 import androidx.compose.material.icons.outlined.CheckCircle
 import androidx.compose.material.icons.outlined.Handshake
+import androidx.compose.material.icons.outlined.TaskAlt
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Checkbox
@@ -52,6 +52,7 @@ import com.readyport.ui.components.BadgeTitleLayout
 import com.readyport.ui.components.BadgeTone
 import com.readyport.ui.components.ExpandableDetail
 import com.readyport.ui.components.IconBadge
+import com.readyport.ui.components.IconBullet
 import com.readyport.ui.components.IconKeys
 import com.readyport.ui.components.KoText
 import com.readyport.ui.components.NoticeBanner
@@ -70,7 +71,7 @@ import com.readyport.ui.components.displayDate
 import com.readyport.ui.components.isStackedLayout
 import com.readyport.ui.components.minTouch
 import com.readyport.ui.components.rememberGridColumns
-import com.readyport.ui.components.startBar
+import com.readyport.ui.components.sectionGap
 import com.readyport.ui.components.textIconSize
 import com.readyport.ui.theme.LocalDimens
 import com.readyport.ui.theme.LocalTypeExtras
@@ -133,8 +134,10 @@ fun EssentialsScreen(viewModel: EssentialsViewModel = hiltViewModel()) {
 }
 
 /**
- * 16 꼭 챙길 물건 (DESIGN_SPEC 6-16): 제휴 고지(목록 위) → 짐 사진 머리 카드(챙긴 수·막대) → 물건마다 체크 카드.
- * 체크 카드는 줄 전체가 Role.Checkbox 토글이고, 챙기면 상태 카드(연한 초록 + 왼쪽 막대)로 바뀐다.
+ * 16 꼭 챙길 물건 (DESIGN_SPEC 6-16, 재검토 R15): 제휴 고지(목록 위) → 짐 사진 머리 카드(챙긴 수·막대) →
+ * **아직 안 챙긴 물건**(위, 흰 그림자 카드 — 강조) → **챙긴 물건**(아래, 그림자 없는 낮은 카드 — 체크 아이콘 + 흐린 글자).
+ * 초록 채움 카드는 쓰지 않는다: 이미 챙긴 물건이 화면에서 가장 큰 색 덩어리가 되어 아직 안 챙긴 물건을 묻었다.
+ * 체크 카드는 줄 전체가 Role.Checkbox 토글. 챙기면 그 카드가 아래 묶음으로 옮겨 간다(같은 key라 자리 이동 애니메이션).
  */
 @Composable
 fun EssentialsContent(ui: EssentialsUi, onHave: (String, Boolean) -> Unit, onOpenLink: (String) -> Unit) {
@@ -155,8 +158,30 @@ fun EssentialsContent(ui: EssentialsUi, onHave: (String, Boolean) -> Unit, onOpe
         if (ui.rows.isNotEmpty()) {
             item(key = "progress") { ProgressHero(ui) }
         }
-        ui.rows.forEach { row -> item(key = "item-${row.rule.id}") { CheckRowCard(row, onHave, onOpenLink) } }
+        val todo = ui.rows.filter { !it.have }
+        val done = ui.rows.filter { it.have }
+        if (todo.isNotEmpty()) {
+            // 아직 안 챙긴 물건은 머리 없이 사진 머리 카드(`준비한 물건 5개 중 2개`) 바로 아래 — 첫 화면에 한 장이라도 더 보이게
+            todo.forEach { row ->
+                item(key = "item-${row.rule.id}") { CheckRowCard(row, onHave, onOpenLink, Modifier.animateItem()) }
+            }
+        } else if (done.isNotEmpty()) {
+            item(key = "all-done") { IconBullet(stringResource(R.string.essentials_all_done), Icons.Outlined.TaskAlt, tone = BadgeTone.Success) }
+        }
+        if (done.isNotEmpty()) {
+            if (todo.isNotEmpty()) sectionGap("done-gap")
+            item(key = "done-title") { GroupTitle(stringResource(R.string.essentials_done_title, done.size)) }
+            done.forEach { row ->
+                item(key = "item-${row.rule.id}") { CheckRowCard(row, onHave, onOpenLink, Modifier.animateItem()) }
+            }
+        }
     }
+}
+
+/** 챙긴 물건 묶음 머리 — 낮게(titleSmall InkSecondary). TalkBack 제목 */
+@Composable
+private fun GroupTitle(text: String) {
+    KoText(text, MaterialTheme.typography.titleSmall, Modifier.padding(top = 4.dp), color = Tokens.InkSecondary, heading = true)
 }
 
 /**
@@ -205,28 +230,29 @@ private fun ProgressHero(ui: EssentialsUi) {
 }
 
 /**
- * 물건 한 장 (CheckRowCard, 6-16). 머리 줄 전체가 Role.Checkbox 토글 — 이름 + stateDescription(챙겼어요/아직이에요).
- * 아직 = 흰 정보 카드(그림자) / 챙김 = 상태 카드(그림자 없음 + SuccessBg + 왼쪽 SuccessText 막대). 두 규칙을 섞지 않는다.
- * 큰 글자(130%↑)에서 이름이 배지와 체크 상자 사이 한 줄에 안 들어가면 배지·체크 상자를 윗줄에 두고 이름에 폭 전체를 준다.
+ * 물건 한 장 (CheckRowCard, 6-16 · 재검토 R15). 머리 줄 전체가 Role.Checkbox 토글 — 이름 + stateDescription(챙겼어요/아직이에요).
+ * - 아직: 흰 정보 카드(그림자) + Accent 배지 + 이름 titleLarge Ink — 화면의 주인공.
+ * - 챙김: 그림자 없는 흰 카드(낮게) + 회색 배지 + 이름 titleMedium InkSecondary + 체크 아이콘·`챙겼어요`(앱이 확인한 상태라 체크) — 초록 채움 없음.
+ * 상태 글자는 언제나 이름 **아래 줄**(이름 길이에 따라 옆·아래를 오가지 않게).
+ * 큰 글자(Stacked)에서 이름이 배지와 체크 상자 사이 한 줄에 안 들어가면 배지·체크 상자를 윗줄에 두고 이름에 폭 전체를 준다.
  */
 @Composable
-private fun CheckRowCard(row: EssentialRow, onHave: (String, Boolean) -> Unit, onOpenLink: (String) -> Unit) {
+private fun CheckRowCard(row: EssentialRow, onHave: (String, Boolean) -> Unit, onOpenLink: (String) -> Unit, modifier: Modifier = Modifier) {
     val r = row.rule
     val dimens = LocalDimens.current
     val large = isStackedLayout()
     val shape = MaterialTheme.shapes.large
-    val container by animateColorAsState(if (row.have) Tokens.SuccessBg else Tokens.Surface, label = "essentialCard")
     val state = stringResource(if (row.have) R.string.essentials_have_yes else R.string.essentials_have_no)
+    val bodyColor = if (row.have) Tokens.InkSecondary else Tokens.Ink
     Card(
         shape = shape,
-        colors = CardDefaults.cardColors(containerColor = container, contentColor = Tokens.Ink),
+        colors = CardDefaults.cardColors(containerColor = Tokens.Surface, contentColor = Tokens.Ink),
         elevation = CardDefaults.cardElevation(0.dp),
-        modifier = Modifier.fillMaxWidth().then(if (row.have) Modifier else Modifier.cardShadow(shape)),
+        modifier = modifier.fillMaxWidth().then(if (row.have) Modifier else Modifier.cardShadow(shape)),
     ) {
         Column(
             Modifier
                 .fillMaxWidth()
-                .then(if (row.have) Modifier.startBar(Tokens.SuccessText) else Modifier)
                 .padding(dimens.cardPadding),
             verticalArrangement = Arrangement.spacedBy(dimens.inner),
         ) {
@@ -237,14 +263,7 @@ private fun CheckRowCard(row: EssentialRow, onHave: (String, Boolean) -> Unit, o
                     .clip(MaterialTheme.shapes.small)
                     .toggleable(value = row.have, role = Role.Checkbox, onValueChange = { onHave(r.id, it) })
                     .semantics { stateDescription = state },
-                badge = {
-                    IconBadge(
-                        essentialIcon(r.id),
-                        tone = if (row.have) BadgeTone.Success else BadgeTone.Accent,
-                        // 초록 카드 위에서는 배지 바탕이 카드와 같아 사라지므로 흰 바탕으로 띄운다
-                        containerColor = if (row.have) Tokens.Surface else BadgeTone.Accent.container,
-                    )
-                },
+                badge = { IconBadge(essentialIcon(r.id), tone = if (row.have) BadgeTone.Neutral else BadgeTone.Accent) },
                 trailing = {
                     Checkbox(
                         checked = row.have,
@@ -265,10 +284,11 @@ private fun CheckRowCard(row: EssentialRow, onHave: (String, Boolean) -> Unit, o
             }
             // 규정 배지가 있는 물건은 규정 문장(숫자·금지)을 먼저 보인다 — 출처 줄이 가리키는 내용이 접힌 곳에 숨지 않게 (원칙 1)
             val (lead, rest) = splitLead(r.reasonKo, preferRule = r.ruleBadge != null)
-            KoText(lead, MaterialTheme.typography.bodyMedium, color = Tokens.Ink)
+            KoText(lead, MaterialTheme.typography.bodyMedium, color = bodyColor)
             if (rest != null) {
-                ExpandableDetail {
-                    KoText(rest, MaterialTheme.typography.bodyMedium, color = Tokens.Ink)
+                // 무엇을 펼치는지 이름에 담는다 — `자세히 보기`만 여러 번 읽히지 않게 (재검토 R18)
+                ExpandableDetail(label = stringResource(R.string.essentials_more, r.nameKo)) {
+                    KoText(rest, MaterialTheme.typography.bodyMedium, color = bodyColor)
                 }
             }
             r.link?.let { link ->
@@ -305,29 +325,32 @@ private fun CheckRowCard(row: EssentialRow, onHave: (String, Boolean) -> Unit, o
     }
 }
 
-/** 이름 + 보이는 상태 글자. 폭이 모자라면(긴 이름·큰 글자) 상태 글자는 이름 아래 줄로 내려간다. TalkBack은 stateDescription으로 한 번만 읽는다 */
+/**
+ * 이름 + (챙겼으면) 그 아래 줄의 상태 글자 — 언제나 이름 아래 같은 자리(재검토 R15: 이름 길이에 따라 옆·아래를 오가지 않게).
+ * 챙김: 이름은 한 단계 작고 흐리게(InkSecondary), 상태는 체크 아이콘 + `챙겼어요`(SuccessText, 채움 없음 — 앱이 확인한 상태라 체크).
+ * 아직: 이름 titleLarge Ink만. 아직 안 챙긴 상태는 빈 체크 상자와 위 묶음 자리가 말해 준다(카드마다 `아직이에요`를 되풀이하지 않는다).
+ * TalkBack은 두 경우 모두 줄의 stateDescription(`챙겼어요`/`아직이에요`)으로 한 번만 읽는다.
+ */
 @Composable
 private fun NameAndState(name: String, have: Boolean, state: String) {
     val dimens = LocalDimens.current
-    FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(2.dp)) {
-        KoText(name, MaterialTheme.typography.titleLarge, Modifier.align(Alignment.CenterVertically), color = Tokens.Ink, glueShort = true)
+    Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
+        KoText(
+            name,
+            if (have) MaterialTheme.typography.titleMedium else MaterialTheme.typography.titleLarge,
+            color = if (have) Tokens.InkSecondary else Tokens.Ink,
+            glueShort = true,
+        )
         if (have) {
+            val style = MaterialTheme.typography.labelMedium
             Row(
-                Modifier.align(Alignment.CenterVertically).clearAndSetSemantics {},
+                Modifier.clearAndSetSemantics {},
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(4.dp),
             ) {
-                Icon(Icons.Outlined.CheckCircle, contentDescription = null, tint = Tokens.SuccessText, modifier = Modifier.size(textIconSize(dimens.iconSmall)))
-                Text(state, style = MaterialTheme.typography.labelLarge, color = Tokens.SuccessText)
+                Icon(Icons.Outlined.CheckCircle, contentDescription = null, tint = Tokens.SuccessText, modifier = Modifier.size(textIconSize(dimens.iconSmall, style)))
+                Text(state, style = style, color = Tokens.SuccessText)
             }
-        } else {
-            // 아직이면 아이콘 없이 글자만 — 오른쪽 Checkbox와 두 개의 컨트롤처럼 보이지 않게
-            Text(
-                state,
-                style = MaterialTheme.typography.bodyMedium,
-                color = Tokens.InkSecondary,
-                modifier = Modifier.align(Alignment.CenterVertically).clearAndSetSemantics {},
-            )
         }
     }
 }

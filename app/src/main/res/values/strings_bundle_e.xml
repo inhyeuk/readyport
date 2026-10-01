@@ -9,7 +9,6 @@
     <string name="form_locked_body">지문이나 화면 잠금으로 내 정보를 열면 여권·항공권에서 값을 가져와요.</string>
     <string name="form_need_passport_body">여권을 한 번 등록해 두면 이름·여권 번호·국적을 입국 카드에 채워 드려요.</string>
     <string name="form_all_filled">빈칸을 다 채웠어요</string>
-    <string name="form_missing_more">나머지 빈칸 %1$d개 보기</string>
 
     <!-- 자동 입력 · 수동 모드 -->
     <string name="autofill_compare_same">%1$s · 같아요</string>
