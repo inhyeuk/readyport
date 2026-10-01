@@ -239,7 +239,20 @@ fun TransportContent(
                     eyebrow = stringResource(R.string.move_destination),
                     tone = BadgeTone.Violet,
                 ) {
-                    StatusTag(stringResource(R.string.move_place_saved), StatusKind.Allowed)
+                    // 저장됨 표시와 바꾸기를 한 줄에 (폭이 모자라면 FlowRow가 다음 줄로) — 카드를 짧게 해 기사님 카드가 첫 화면에 더 올라오게
+                    FlowRow(
+                        horizontalArrangement = Arrangement.spacedBy(12.dp),
+                        verticalArrangement = Arrangement.spacedBy(8.dp),
+                        itemVerticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        StatusTag(stringResource(R.string.move_place_saved), StatusKind.Allowed)
+                        SecondaryButton(
+                            stringResource(R.string.move_place_change),
+                            onClick = { editing = true },
+                            icon = Icons.Outlined.EditLocationAlt,
+                            fillWidth = false,
+                        )
+                    }
                     if (ui.places.size > 1) {
                         // 여러 장소 중 하나 고르기 (한 개만 — Role.RadioButton + selectableGroup)
                         FlowRow(
@@ -257,12 +270,6 @@ fun TransportContent(
                             }
                         }
                     }
-                    SecondaryButton(
-                        stringResource(R.string.move_place_change),
-                        onClick = { editing = true },
-                        icon = Icons.Outlined.EditLocationAlt,
-                        fillWidth = false,
-                    )
                 }
             }
         }
@@ -336,10 +343,13 @@ fun TransportContent(
         // ④ 지하철·버스
         sectionGap("gap-transit")
         item(key = "transit") {
+            // 무엇이 열리는지(대중교통 길찾기, RideLinker.mapsUrl travelmode=transit)와 인터넷이 필요하다는 것을 한 줄로 —
+            // 위 기사님 카드는 인터넷 없이 되지만 이 버튼은 아니다
             CardNewsCard(
                 title = stringResource(R.string.move_transit_title),
                 icon = Icons.Outlined.DirectionsSubway,
                 tone = BadgeTone.Violet,
+                body = stringResource(R.string.move_transit_body),
             ) {
                 PrimaryButton(stringResource(R.string.move_transit_button), onClick = onMaps, icon = Icons.Outlined.Map)
             }

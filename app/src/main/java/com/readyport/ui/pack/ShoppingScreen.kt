@@ -1,6 +1,7 @@
 package com.readyport.ui.pack
 
 import android.content.Intent
+import androidx.annotation.StringRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -15,6 +16,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.AddShoppingCart
 import androidx.compose.material.icons.outlined.CheckCircle
 import androidx.compose.material.icons.outlined.Place
+import androidx.compose.material.icons.outlined.Restaurant
 import androidx.compose.material.icons.outlined.ShoppingBag
 import androidx.compose.material.icons.outlined.Translate
 import androidx.compose.material3.Card
@@ -31,6 +33,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.heading
@@ -139,7 +142,14 @@ fun ShoppingScreen(viewModel: ShoppingViewModel = hiltViewModel()) {
 
 private val CATEGORIES = listOf("food" to R.string.shopping_cat_food, "daily" to R.string.shopping_cat_daily, "souvenir" to R.string.shopping_cat_souvenir)
 
-/** 글이 이 글자 수를 넘으면 첫 문장만 보이고 나머지는 '자세히 보기'로 (원칙 6 — 줄 수로 자르지 않는다) */
+/** 목록 순서: 한국 반입 가능 → 반입 주의 → 반입 불가 (sortedBy는 같은 값끼리 원래 순서를 지킨다) */
+internal fun verdictOrder(status: ImportStatus): Int = when (status) {
+    ImportStatus.Allowed -> 0
+    ImportStatus.Caution -> 1
+    ImportStatus.Prohibited -> 2
+}
+
+/** 글이 이 글자 수를 넘으면 첫 문장만 보이고 나머지는 '설명 더 보기'로 (원칙 6 — 줄 수로 자르지 않는다) */
 private const val LONG_TEXT_CHARS = 60
 
 /** 긴 글 → (첫 문장, 나머지). 짧거나 첫 문장 경계(". ")를 못 찾으면 (전체, null) */
@@ -159,7 +169,8 @@ fun ShoppingContent(ui: ShoppingUi, onToggle: (String, Boolean) -> Unit, onOpenL
     // 품목 출처는 나라 팩, 반입 판정 출처는 나라 팩 또는 index(관세청·검역본부)에 있다. 못 찾으면 '공식 안내' — ID는 보이지 않는다
     // 출처 이름도 API 33 미만에서는 어절 단위로 줄을 바꾼다 (`태국관광청 · 찬타 / 부리` 방지)
     fun sourceName(id: String) = resolveSourceName(id, ui.sourceNames, ui.indexSources[id] ?: fallback)
-    val visible = ui.items.filter { category == null || it.category == category }
+    // 가져올 수 있는 것 → 주의 → 가져올 수 없는 것 순서(같은 판정 안에서는 팩 순서) — 반입 불가 품목이 목록을 이끌지 않게 (재검토 22)
+    val visible = ui.items.filter { category == null || it.category == category }.sortedBy { verdictOrder(it.import) }
 
     AppScreen(
         title = stringResource(R.string.shopping_title, ui.countryKo),
@@ -258,14 +269,16 @@ private fun ShopItemCard(
             val (why, whyMore) = splitLongText(item.whyKo)
             KoText(why, MaterialTheme.typography.bodyMedium, color = Tokens.Ink)
             if (whyMore != null) {
-                ExpandableDetail {
+                // 펼침 줄 이름에 무엇을 펼치는지(품목 이름) — TalkBack에서 `자세히 보기`만 되풀이되지 않게 (재검토 R18)
+                ExpandableDetail(label = stringResource(R.string.shopping_more, item.names.ko)) {
                     KoText(whyMore, MaterialTheme.typography.bodyMedium, color = Tokens.Ink)
                 }
             }
             item.whereKo?.let { IconBullet(stringResource(R.string.shopping_where, it), Icons.Outlined.Place) }
-            val addLabel = stringResource(if (inCart) R.string.shopping_in_cart else R.string.shopping_add)
-            // TalkBack: 보이는 글자는 '담기' 그대로, 누를 때 읽는 동작 이름에 상품명을 붙인다 (6-18)
-            val addAction = stringResource(if (inCart) R.string.shopping_remove_cd else R.string.shopping_add_cd, item.names.ko)
+            val action = cartAction(item, inCart)
+            val addLabel = stringResource(action.label)
+            // TalkBack: 보이는 글자 그대로, 누를 때 읽는 동작 이름에 상품명을 붙인다 (6-18)
+            val addAction = stringResource(action.actionLabel, item.names.ko)
             val staffAction = stringResource(R.string.shopping_show_staff_cd, item.names.ko)
             // 쉬운 모드·큰 글자(1열)에서는 담기를 폭 전체로, 직원에게 보여주기는 그 아래 줄에
             val stacked = rememberGridColumns() == 1
@@ -275,8 +288,8 @@ private fun ShopItemCard(
                 SecondaryButton(
                     text = addLabel,
                     onClick = { onToggle(!inCart) },
-                    icon = if (inCart) Icons.Outlined.CheckCircle else Icons.Outlined.AddShoppingCart,
-                    tone = if (inCart) BadgeTone.Success else BadgeTone.Accent,
+                    icon = action.icon,
+                    tone = action.tone,
                     fillWidth = stacked,
                     modifier = m.semantics {
                         onClick(label = addAction) {
@@ -306,6 +319,13 @@ private fun ShopItemCard(
                     // 아이콘 옆에 붙는다. 글자 버튼 안쪽 여백만큼 당겨 담기 버튼·출처와 같은 왼쪽 선에
                     staff(stringResource(R.string.shopping_show_staff_short), Modifier.offset(x = -TextButtonInset))
                 }
+            } else if (item.import == ImportStatus.Prohibited) {
+                // 반입 불가 품목의 담기 라벨(`현지에서 먹기로 담기`)은 길어서 옆에 두면 직원에게 보여주기가 한 어절씩 세로로 쪼개진다 —
+                // 위아래 두 줄로 (글자 버튼은 안쪽 여백만큼 당겨 왼쪽 선 맞춤)
+                Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                    add(Modifier)
+                    staff(stringResource(R.string.shopping_show_staff), Modifier.offset(x = -TextButtonInset))
+                }
             } else {
                 // 옆에 나란히 — 폭이 모자라면 아래 줄로 넘어가지 않고 글자 버튼 라벨이 제 칸 안에서 줄을 바꾼다
                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -315,6 +335,40 @@ private fun ShopItemCard(
             }
             Column(Modifier.padding(top = 4.dp)) { SourceList(sources) }
         }
+    }
+}
+
+/** 담기 버튼 모양: 보이는 글자, TalkBack 동작 이름(%1$s = 품목 이름), 아이콘, 톤 */
+internal data class CartAction(@StringRes val label: Int, @StringRes val actionLabel: Int, val icon: ImageVector, val tone: BadgeTone)
+
+/**
+ * 담기 버튼 (재검토 22): 한국에 가져올 수 있거나 주의인 품목 = Accent `담기`(카트), 담았으면 Success `담았어요 ✓`.
+ * 반입 불가 품목은 같은 `담기`가 '사 와도 된다'로 읽히지 않게 **다른 말·다른 모양** — 흰 바탕 Neutral 테두리 버튼
+ * `현지에서 먹기로 담기`(먹거리, 식사 아이콘) / `현지에서 쓰기로 담기`(그 밖, 장소 아이콘). 담은 목록은 귀국 단계가
+ * 판정과 함께 다시 보여 준다(같은 카트 — 기능은 그대로).
+ */
+internal fun cartAction(item: ShoppingItem, inCart: Boolean): CartAction {
+    if (item.import != ImportStatus.Prohibited) {
+        return if (inCart) {
+            CartAction(R.string.shopping_in_cart, R.string.shopping_remove_cd, Icons.Outlined.CheckCircle, BadgeTone.Success)
+        } else {
+            CartAction(R.string.shopping_add, R.string.shopping_add_cd, Icons.Outlined.AddShoppingCart, BadgeTone.Accent)
+        }
+    }
+    val food = item.category == "food"
+    return when {
+        inCart -> CartAction(
+            if (food) R.string.shopping_in_cart_local_food else R.string.shopping_in_cart_local,
+            R.string.shopping_remove_cd,
+            Icons.Outlined.CheckCircle,
+            BadgeTone.Neutral,
+        )
+        else -> CartAction(
+            if (food) R.string.shopping_add_local_food else R.string.shopping_add_local,
+            if (food) R.string.shopping_add_local_food_cd else R.string.shopping_add_local_cd,
+            if (food) Icons.Outlined.Restaurant else Icons.Outlined.Place,
+            BadgeTone.Neutral,
+        )
     }
 }
 

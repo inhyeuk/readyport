@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  재검토 수정 B3(쇼핑·이동·도움·지갑·여권·보여 주기·설정 — REREVIEW_SUMMARY R18·R19)가 새로 쓰는 문구.
+  다른 문자열 파일은 동결이라 새 키만 여기에 둔다(디자인 원칙 8 — 테스트가 찾는 기존 문구·키는 그대로).
+-->
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- R18 쉬운 말: 'MRZ'·'NFC'·'기기' 대신 -->
+    <string name="wallet_passport_verified_v2">여권 아래 두 줄 확인 완료</string>
+    <string name="wallet_passport_reveal">가린 글자 보기</string>
+    <string name="passport_chip_soon_v2">전자여권 칩으로 한 번 더 확인하기</string>
+    <string name="passport_privacy_1_v2">사진은 이 휴대폰 안에서만 읽고, 값을 뽑은 뒤 바로 지워요. 저장하지 않아요.</string>
+    <string name="passport_privacy_2_v2">여권 정보는 이 휴대폰 안에만 암호화해서 저장해요. 레디포트 서버로 보내지 않아요.</string>
+    <string name="settings_privacy_body_v2">여권과 예약 서류는 이 휴대폰 안에서만 읽고 저장해요. 공식 사이트에 입력하는 것도 내가 \'맞아요\'를 누를 때만 해요.</string>
+
+    <!-- 32 여권 값 확인: 만료된 여권의 만료일 행 (확인 숫자는 맞아도 '확인 완료' 초록 대신) -->
+    <string name="passport_expired_tag">만료됨</string>
+    <string name="passport_expiry_read_ok">날짜는 바르게 읽었어요</string>
+
+
+    <!-- R18 '다른 폰으로 보내기' ↔ '이 휴대폰에만' 약속: 실제 동작(시스템 공유 창, 서버 없음) 그대로 -->
+    <string name="present_share_family">가족 폰으로 보내기</string>
+    <string name="present_share_note">이 버튼을 누를 때만 이 서류 그림이 내가 고른 앱으로 나가요. 받는 사람은 직접 고르고, 레디포트 서버는 거치지 않아요.</string>
+    <string name="present_delete_named">%1$s 지우기</string>
+
+    <!-- R18 TalkBack: 무엇을 지우는지 (화면에 이미 보이는 이름) -->
+    <string name="delete_named_cd">%1$s 지우기</string>
+
+    <!-- R19 쇼핑: 반입 불가 품목은 '담기'와 다른 모양·말 -->
+    <string name="shopping_add_local_food">현지에서 먹기로 담기</string>
+    <string name="shopping_add_local">현지에서 쓰기로 담기</string>
+    <string name="shopping_in_cart_local_food">현지에서 먹기로 담았어요</string>
+    <string name="shopping_in_cart_local">현지에서 쓰기로 담았어요</string>
+    <string name="shopping_add_local_food_cd">%1$s 현지에서 먹기로 담기</string>
+    <string name="shopping_add_local_cd">%1$s 현지에서 쓰기로 담기</string>
+    <string name="shopping_more">%1$s 설명 더 보기</string>
+
+    <!-- R19 이동하기 -->
+    <string name="move_transit_body">가는 곳까지 지하철·버스 길찾기를 Google 지도로 열어요. 인터넷이 필요해요.</string>
+</resources>

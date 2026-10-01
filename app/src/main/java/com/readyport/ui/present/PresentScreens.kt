@@ -29,6 +29,7 @@ import androidx.compose.material.icons.outlined.AirplanemodeActive
 import androidx.compose.material.icons.outlined.Badge
 import androidx.compose.material.icons.outlined.BrokenImage
 import androidx.compose.material.icons.outlined.FamilyRestroom
+import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.LightMode
 import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material.icons.outlined.Person
@@ -53,6 +54,7 @@ import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.clearAndSetSemantics
+import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.text
@@ -95,8 +97,11 @@ import com.readyport.ui.components.StatusTag
 import com.readyport.ui.components.TextCircle
 import com.readyport.ui.components.TileGrid
 import com.readyport.ui.components.TrailingFlow
+import com.readyport.ui.components.firstLineIconOffset
 import com.readyport.ui.components.minTouchSize
 import com.readyport.ui.components.rememberGridColumns
+import com.readyport.ui.components.sectionGap
+import com.readyport.ui.components.textIconSize
 import com.readyport.ui.theme.LocalDimens
 import com.readyport.ui.theme.Tokens
 import com.readyport.ui.wallet.ConsentRow
@@ -240,7 +245,7 @@ fun PresentScreen(defaultFormId: String?, viewModel: PresentViewModel = hiltView
 
 /**
  * 21 입국 때 보여 주기 (DESIGN_SPEC 6-21). 제목 옆 `비행기 모드에서도 보여요`, 맨 위 compact SecurityBanner.
- * 서류 한 장 = Navy '보여 주기' 카드(onDark 내용 세트만) + 카드 밖 오른쪽 지우기(DangerButton + 확인 대화상자 — D8·D18).
+ * 서류 한 장 = Navy '보여 주기' 카드(onDark 내용 세트만). 지우기는 맨 아래 관리 줄 폭 전체(DangerButton + 확인 대화상자 — D8·D18, 재검토 26).
  */
 @Composable
 fun PresentContent(
@@ -316,7 +321,7 @@ fun PresentContent(
             }
         } else {
             mine.forEach { d ->
-                item(key = "doc-${d.doc.id}") { DocCard(d, onShare = { onShare(d.doc) }, onDelete = { pendingDelete = d.doc }) }
+                item(key = "doc-${d.doc.id}") { DocCard(d, onShare = { onShare(d.doc) }) }
             }
             item(key = "add") {
                 SecondaryButton(
@@ -324,6 +329,25 @@ fun PresentContent(
                     onClick = { onAddPhoto(traveler) },
                     icon = Icons.Outlined.AddPhotoAlternate,
                 )
+            }
+            // 지우기는 보내기·추가하기 사이에 끼우지 않고 맨 아래 관리 줄에 폭 전체로 (재검토 26 — 파괴 동작은 따로).
+            // 서류가 둘 이상이면 무엇을 지우는지 보이는 글에 서류 이름을 넣고, TalkBack은 언제나 서류 이름과 함께 읽는다(R18)
+            sectionGap("gap-delete")
+            mine.forEach { d ->
+                item(key = "delete-${d.doc.id}") {
+                    val label = if (mine.size == 1) {
+                        stringResource(R.string.present_delete)
+                    } else {
+                        stringResource(R.string.present_delete_named, d.formName)
+                    }
+                    val name = stringResource(R.string.delete_named_cd, d.formName)
+                    DangerButton(
+                        label,
+                        onClick = { pendingDelete = d.doc },
+                        fillWidth = true,
+                        modifier = Modifier.semantics { contentDescription = name },
+                    )
+                }
             }
         }
     }
@@ -380,9 +404,12 @@ private fun PresentHeader(title: String) {
     }
 }
 
-/** 입국 서류 한 장: Navy 카드(QR 그림·확인 번호·가린 값·보내기) + 카드 밖 오른쪽 지우기 */
+/**
+ * 입국 서류 한 장: Navy 카드(QR 그림·확인 번호·가린 값·가족 폰으로 보내기 + 무엇이 어디로 나가는지 한 줄).
+ * 보내기는 시스템 공유 창을 여는 것뿐이다(서버 없음 — PresentViewModel.share) — `이 휴대폰에만` 약속과 부딪히지 않게 그대로 말한다(R18).
+ */
 @Composable
-private fun DocCard(d: DocView, onShare: () -> Unit, onDelete: () -> Unit) {
+private fun DocCard(d: DocView, onShare: () -> Unit) {
     val dimens = LocalDimens.current
     // (라벨, 값, 가린 값인지) — 가린 값은 TalkBack이 점 대신 `가려 둔 값`으로 읽는다(KeyValueRow masked)
     val facts = listOfNotNull(
@@ -391,47 +418,65 @@ private fun DocCard(d: DocView, onShare: () -> Unit, onDelete: () -> Unit) {
         d.doc.arrivalDate?.let { Triple(stringResource(R.string.present_field_arrival), it, false) },
         d.doc.flightNo?.let { Triple(stringResource(R.string.wallet_booking_flights), it, false) },
     )
-    Column(verticalArrangement = Arrangement.spacedBy(dimens.inner)) {
-        CardNewsCard(
-            title = d.formName,
-            icon = Icons.Outlined.QrCode2,
-            style = NewsStyle.Navy,
-            trailing = {
-                StatusTag(stringResource(R.string.present_submitted), StatusKind.Verified)
-            },
-        ) {
-            if (d.image != null) {
-                // 심사관이 찍는 QR·확인 화면: 카드 폭 전체 + 흰 8dp 여백(QR 조용한 영역)
-                Image(
-                    bitmap = d.image,
-                    contentDescription = stringResource(R.string.present_doc_image, d.formName),
-                    contentScale = ContentScale.FillWidth,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .clip(MaterialTheme.shapes.medium)
-                        .background(Tokens.Surface)
-                        .padding(8.dp),
-                )
-            } else {
-                // 그림을 못 열었으면 QR이 있는 것처럼 보이지 않게 그렇다고 말하고 아래 값을 보여 주게 한다
-                ImageMissing()
-            }
-            d.doc.confirmationNo?.let { ConfirmationNumber(stringResource(R.string.present_confirmation), it) }
-            if (facts.isNotEmpty()) {
-                TileGrid(facts, columns = rememberGridColumns()) { (label, value, masked), cell ->
-                    KeyValueRow(label = label, value = value, modifier = cell, onDark = true, masked = masked)
-                }
-            }
-            SecondaryButton(
-                stringResource(R.string.present_share),
-                onClick = onShare,
-                icon = Icons.AutoMirrored.Outlined.SendToMobile,
-                onDark = true,
+    CardNewsCard(
+        title = d.formName,
+        icon = Icons.Outlined.QrCode2,
+        style = NewsStyle.Navy,
+        trailing = {
+            StatusTag(stringResource(R.string.present_submitted), StatusKind.Verified)
+        },
+    ) {
+        if (d.image != null) {
+            // 심사관이 찍는 QR·확인 화면: 카드 폭 전체 + 흰 8dp 여백(QR 조용한 영역)
+            Image(
+                bitmap = d.image,
+                contentDescription = stringResource(R.string.present_doc_image, d.formName),
+                contentScale = ContentScale.FillWidth,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clip(MaterialTheme.shapes.medium)
+                    .background(Tokens.Surface)
+                    .padding(8.dp),
             )
+        } else {
+            // 그림을 못 열었으면 QR이 있는 것처럼 보이지 않게 그렇다고 말하고 아래 값을 보여 주게 한다
+            ImageMissing()
         }
-        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
-            DangerButton(stringResource(R.string.present_delete), onClick = onDelete)
+        d.doc.confirmationNo?.let { ConfirmationNumber(stringResource(R.string.present_confirmation), it) }
+        if (facts.isNotEmpty()) {
+            TileGrid(facts, columns = rememberGridColumns()) { (label, value, masked), cell ->
+                KeyValueRow(label = label, value = value, modifier = cell, onDark = true, masked = masked)
+            }
         }
+        // `다른 폰으로 보내기`는 `이 휴대폰에만` 약속 바로 아래에서 '밖으로 보낸다'로 읽혔다(재검토 R18).
+        // 누가(가족 폰) 보내는지 이름에, 무엇이(이 서류 그림만) 어디로(내가 고른 앱) 나가고 서버를 거치지 않는다는 실제 동작은 바로 아래 한 줄에
+        SecondaryButton(
+            stringResource(R.string.present_share_family),
+            onClick = onShare,
+            icon = Icons.AutoMirrored.Outlined.SendToMobile,
+            onDark = true,
+        )
+        ShareNote()
+    }
+}
+
+/** 보내기 버튼 아래 한 줄 (Navy 카드 안 — onDark 색만): 누를 때만, 이 그림만, 내가 고른 앱으로, 서버 없이 */
+@Composable
+private fun ShareNote() {
+    val style = MaterialTheme.typography.bodySmall
+    val iconSize = textIconSize(LocalDimens.current.iconSmall, style)
+    Row(
+        Modifier.fillMaxWidth(),
+        verticalAlignment = Alignment.Top,
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+    ) {
+        Icon(
+            Icons.Outlined.Info,
+            contentDescription = null,
+            tint = OnDark.secondary,
+            modifier = Modifier.padding(top = firstLineIconOffset(style, iconSize)).size(iconSize),
+        )
+        KoText(stringResource(R.string.present_share_note), style, Modifier.weight(1f), color = OnDark.secondary)
     }
 }
 
@@ -650,7 +695,13 @@ private fun CompanionCard(c: TravelCompanion, onRegisterPassport: () -> Unit, on
                         fillWidth = false,
                     )
                 }
-                DangerButton(stringResource(R.string.companion_delete), onClick = onDelete)
+                // 사람마다의 지우기 = 끝 정렬. TalkBack은 누구를 지우는지(카드에 보이는 부르는 이름) 함께 읽는다 (재검토 R18)
+                val deleteName = stringResource(R.string.delete_named_cd, c.label)
+                DangerButton(
+                    stringResource(R.string.companion_delete),
+                    onClick = onDelete,
+                    modifier = Modifier.semantics { contentDescription = deleteName },
+                )
             }
         }
     }

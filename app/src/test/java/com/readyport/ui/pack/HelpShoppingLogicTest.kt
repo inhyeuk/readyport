@@ -1,11 +1,18 @@
 package com.readyport.ui.pack
 
+import com.readyport.R
 import com.readyport.pack.EmergencyContact
+import com.readyport.pack.Names
+import com.readyport.pack.ShoppingItem
+import com.readyport.prep.ImportStatus
+import com.readyport.prep.import
+import com.readyport.ui.components.BadgeTone
 import com.readyport.ui.TestPacks
 import com.readyport.ui.components.Step
 import com.readyport.ui.components.phoneGroups
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotEquals
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -107,5 +114,46 @@ class HelpShoppingLogicTest {
         assertEquals(listOf("+82-", "2-", "3210-", "0404"), phoneGroups("+82-2-3210-0404"))
         assertEquals(listOf("1155"), phoneGroups("1155"))
         for (n in listOf("+66-2-481-6000", "050-3816-2787", "1669")) assertEquals(n, phoneGroups(n).joinToString(""))
+    }
+
+    // ---------------- 쇼핑: 반입 불가 품목의 담기 (재검토 22) ----------------
+
+    private fun shop(id: String, category: String, status: String) = ShoppingItem(
+        id, category, Names("이름-$id", "Name-$id", "local-$id"), whyKo = "이유", importStatus = status,
+        source = "tat", importSource = "customs", lastVerified = "2026-09-29",
+    )
+
+    @Test
+    fun shoppingListGoesAllowedThenCautionThenProhibitedKeepingPackOrder() {
+        val th = TestPacks.thailand.value.shopping
+        val sorted = th.sortedBy { verdictOrder(it.import) }
+        assertEquals(th.toSet(), sorted.toSet())
+        assertEquals(listOf(0, 0, 1, 2), sorted.map { verdictOrder(it.import) })
+        // 같은 판정 안에서는 팩 순서 그대로
+        val allowed = th.filter { it.import == ImportStatus.Allowed }
+        assertEquals(allowed, sorted.filter { it.import == ImportStatus.Allowed })
+        assertEquals(ImportStatus.Prohibited, sorted.last().import)
+    }
+
+    @Test
+    fun prohibitedItemsDoNotGetTheSameAddButton() {
+        val allowed = cartAction(shop("a", "food", "allowed"), inCart = false)
+        val caution = cartAction(shop("c", "food", "caution"), inCart = false)
+        val food = cartAction(shop("p", "food", "prohibited"), inCart = false)
+        val other = cartAction(shop("q", "souvenir", "prohibited"), inCart = false)
+        assertEquals(R.string.shopping_add, allowed.label)
+        assertEquals(allowed, caution)
+        // 다른 말 + 다른 모양(흰 바탕 Neutral 테두리, 다른 아이콘) — 같은 Accent `담기`가 '사 와도 된다'로 읽히지 않게
+        assertEquals(R.string.shopping_add_local_food, food.label)
+        assertEquals(R.string.shopping_add_local, other.label)
+        assertEquals(BadgeTone.Neutral, food.tone)
+        assertNotEquals(allowed.icon, food.icon)
+        assertNotEquals(allowed.tone, food.tone)
+        // 담은 상태도 '담았어요 ✓'(초록) 대신 현지에서 먹기로
+        assertEquals(R.string.shopping_in_cart_local_food, cartAction(shop("p", "food", "prohibited"), inCart = true).label)
+        assertEquals(R.string.shopping_in_cart, cartAction(shop("a", "food", "allowed"), inCart = true).label)
+        // TalkBack 동작 이름: 담기 전에는 품목 이름 + 보이는 말, 담은 뒤에는 빼기
+        assertEquals(R.string.shopping_add_local_food_cd, food.actionLabel)
+        assertEquals(R.string.shopping_remove_cd, cartAction(shop("p", "food", "prohibited"), inCart = true).actionLabel)
     }
 }

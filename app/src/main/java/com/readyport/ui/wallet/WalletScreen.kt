@@ -50,6 +50,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.FragmentActivity
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
@@ -189,8 +191,9 @@ fun WalletContent(
         subtitle = stringResource(R.string.wallet_subtitle),
         speech = stringResource(R.string.wallet_speech),
     ) {
-        // 이 정보가 휴대폰 밖으로 나가지 않는다는 약속을 맨 위에 크게 보여 준다 (원칙 5)
-        item(key = "privacy") { SecurityBanner() }
+        // 이 정보가 휴대폰 밖으로 나가지 않는다는 약속을 맨 위에 보여 준다 (원칙 5). 열린 상태에서는 한 줄로 줄여
+        // Navy 띠와 Navy 여권 카드가 붙어 여권 카드가 묻히지 않게 한다 — 여권 카드가 첫 주인공 (재검토 30)
+        item(key = "privacy") { SecurityBanner(compact = unlocked != null) }
         if (!deviceSecure) {
             item(key = "no-lock") {
                 NoticeBanner(
@@ -229,13 +232,8 @@ fun WalletContent(
                             )
                         }
                     } else {
-                        Column(verticalArrangement = Arrangement.spacedBy(LocalDimens.current.inner)) {
-                            PassportCard(passport, today)
-                            // 어두운 카드 안에는 파괴 버튼을 두지 않는다 — 카드 바로 아래 별도 줄 오른쪽 (D18)
-                            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
-                                DangerButton(stringResource(R.string.wallet_passport_delete), onClick = { confirmPassportDelete = true })
-                            }
-                        }
+                        // 지우기는 어두운 카드 안(D18)도, 카드 바로 아래 반폭(주인 없는 버튼처럼 떠 보임)도 아닌 화면 아래 관리 줄에 둔다
+                        PassportCard(passport, today)
                     }
                 }
                 sectionGap("bookings-gap")
@@ -257,16 +255,7 @@ fun WalletContent(
         sectionGap("settings-gap")
         item(key = "rows") {
             ListGroup {
-                if (unlocked != null) {
-                    ListRow(
-                        title = stringResource(R.string.wallet_auto_destroy),
-                        icon = Icons.Outlined.AutoDelete,
-                        body = stringResource(R.string.wallet_auto_destroy_desc),
-                        trailing = RowTrailing.Switch(autoDestroy, onAutoDestroyChange),
-                    )
-                    ListDivider()
-                }
-                // 맨 위 SecurityBanner가 이미 '이 휴대폰에만 암호화'를 말하므로 행 설명은 한 문장만 (같은 약속 두 번 금지)
+                // 맨 위 SecurityBanner가 이미 '이 휴대폰에만'을 말하므로 행 설명은 한 문장만 (같은 약속 두 번 금지)
                 ListRow(
                     title = stringResource(R.string.wallet_companions_title),
                     icon = Icons.Outlined.FamilyRestroom,
@@ -274,6 +263,22 @@ fun WalletContent(
                     trailing = RowTrailing.Chevron,
                     onClick = onOpenCompanions,
                 )
+                // 지우기 설정은 맨 아래 — 바로 아래 '여권 정보 지우기' 버튼과 한 자리에 모인다
+                if (unlocked != null) {
+                    ListDivider()
+                    ListRow(
+                        title = stringResource(R.string.wallet_auto_destroy),
+                        icon = Icons.Outlined.AutoDelete,
+                        body = stringResource(R.string.wallet_auto_destroy_desc),
+                        trailing = RowTrailing.Switch(autoDestroy, onAutoDestroyChange),
+                    )
+                }
+            }
+        }
+        // 여권 지우기 = 여권 카드의 단독 파괴 동작 → 관리 줄('여행이 끝나면 여권 정보 지우기' 바로 아래) 폭 전체 (재검토 26·30)
+        if (unlocked?.contents?.passport != null) {
+            item(key = "passport-delete") {
+                DangerButton(stringResource(R.string.wallet_passport_delete), onClick = { confirmPassportDelete = true }, fillWidth = true)
             }
         }
         if (unlocked != null) {
@@ -380,7 +385,8 @@ private fun PassportCard(passport: PassportRecord, today: LocalDate) {
             // 머리: PASSPORT · 여권 (Gold) + 확인 상태(자체 바탕 태그) — 폭이 모자라면 태그가 아래 줄로
             TrailingFlow(
                 trailing = {
-                    val tag = stringResource(if (passport.mrzVerified) R.string.wallet_passport_verified else R.string.wallet_passport_manual)
+                    // 'MRZ' 대신 쉬운 말 (재검토 R18)
+                    val tag = stringResource(if (passport.mrzVerified) R.string.wallet_passport_verified_v2 else R.string.wallet_passport_manual)
                     StatusTag(tag, if (passport.mrzVerified) StatusKind.Verified else StatusKind.Caution)
                 },
                 centerVertically = true,
@@ -413,8 +419,9 @@ private fun PassportCard(passport: PassportRecord, today: LocalDate) {
                     tone = if (expired) BannerTone.Danger else BannerTone.Caution,
                 )
             }
+            // `자세히 보기`는 다른 화면에서 '펼치기'라 같은 글자에 다른 동작 — 이 버튼은 가린 글자를 보이는 일이다 (재검토 R18)
             SecondaryButton(
-                text = stringResource(if (revealed) R.string.wallet_passport_hide else R.string.wallet_passport_show),
+                text = stringResource(if (revealed) R.string.wallet_passport_hide else R.string.wallet_passport_reveal),
                 onClick = { revealed = !revealed },
                 icon = if (revealed) Icons.Outlined.VisibilityOff else Icons.Outlined.Visibility,
                 onDark = true,
@@ -457,8 +464,14 @@ private fun BookingCard(booking: BookingRecord, onDelete: () -> Unit) {
             BookingFact(Icons.Outlined.Flight, stringResource(R.string.wallet_booking_flights), booking.flightNumbers.joinToString(", "))
         }
         bookingDates(booking).forEach { (icon, label, value) -> BookingFact(icon, stringResource(label), value) }
+        // 목록 항목마다의 지우기 = 끝 정렬. TalkBack은 무엇을 지우는지(화면에 보이는 서류 이름) 함께 읽는다 (재검토 R18)
+        val deleteName = stringResource(R.string.delete_named_cd, booking.title)
         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
-            DangerButton(stringResource(R.string.wallet_booking_delete), onClick = onDelete)
+            DangerButton(
+                stringResource(R.string.wallet_booking_delete),
+                onClick = onDelete,
+                modifier = Modifier.semantics { contentDescription = deleteName },
+            )
         }
     }
 }

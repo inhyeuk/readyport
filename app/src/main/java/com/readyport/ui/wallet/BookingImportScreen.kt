@@ -42,6 +42,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -254,10 +256,11 @@ private fun ReviewForm(fields: BookingFields, saveFailed: Boolean, onSave: (Book
                     }
                 }
                 if (draft.kind == BookingKind.Lodging) {
-                    Field(R.string.booking_label_checkin, draft.checkIn, Icons.Outlined.CalendarMonth, hint = R.string.booking_hint_checkin) {
+                    // 날짜는 숫자 자판 + 숫자만 (하이픈은 앱이 넣어 보인다 — 재검토 R18)
+                    Field(R.string.booking_label_checkin, draft.checkIn, Icons.Outlined.CalendarMonth, hint = R.string.booking_hint_checkin, date = true) {
                         draft = draft.copy(checkIn = it)
                     }
-                    Field(R.string.booking_label_checkout, draft.checkOut, Icons.Outlined.CalendarMonth, hint = R.string.booking_hint_checkout) {
+                    Field(R.string.booking_label_checkout, draft.checkOut, Icons.Outlined.CalendarMonth, hint = R.string.booking_hint_checkout, date = true) {
                         draft = draft.copy(checkOut = it)
                     }
                 }
@@ -276,7 +279,8 @@ private fun ReviewForm(fields: BookingFields, saveFailed: Boolean, onSave: (Book
         PrimaryButton(
             stringResource(R.string.booking_save),
             onClick = { onSave(draft) },
-            enabled = draft.title.isNotBlank(),
+            // 반쯤 적은 날짜는 저장하며 버리지 않는다 — 날짜 칸이 빨간 테두리로 알려 준다
+            enabled = draft.title.isNotBlank() && draft.datesValid,
             icon = Icons.Outlined.Check,
         )
     }
@@ -285,19 +289,25 @@ private fun ReviewForm(fields: BookingFields, saveFailed: Boolean, onSave: (Book
 /**
  * 검토 입력칸: 짧은 라벨 + 앞 아이콘 + 예시·설명(supportingText, 늘 보임). 줄바꿈 입력은 받지 않지만
  * 긴 값(예: `항공권 2026-11-03`)은 칸 안에서 여러 줄로 보여 준다 — 확인하라는 값이 잘리지 않게.
+ * [date]: 숫자 자판 + 숫자 8자리만, 화면에서는 `2026-11-03` 모양(여권 직접 입력과 같은 칸). 올바른 날짜가 아니면 빨간 테두리.
  */
 @Composable
-private fun Field(label: Int, value: String, icon: ImageVector, hint: Int? = null, onChange: (String) -> Unit) {
+private fun Field(label: Int, value: String, icon: ImageVector, hint: Int? = null, date: Boolean = false, onChange: (String) -> Unit) {
     OutlinedTextField(
         value = value,
-        onValueChange = { onChange(it.replace("\n", "")) },
+        onValueChange = { onChange(if (date) dateDigits(it) else it.replace("\n", "")) },
         label = { KoText(stringResource(label)) },
         leadingIcon = { Icon(icon, contentDescription = null) },
         supportingText = hint?.let { { KoText(stringResource(it)) } },
-        singleLine = false,
+        isError = date && value.isNotEmpty() && parseDateDigits(value) == null,
+        singleLine = date,
         textStyle = MaterialTheme.typography.bodyLarge,
         shape = MaterialTheme.shapes.small,
-        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
+        visualTransformation = if (date) DateDigitsTransformation else VisualTransformation.None,
+        keyboardOptions = KeyboardOptions(
+            keyboardType = if (date) KeyboardType.Number else KeyboardType.Text,
+            imeAction = ImeAction.Next,
+        ),
         modifier = Modifier.fillMaxWidth(),
     )
 }
