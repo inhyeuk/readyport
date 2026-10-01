@@ -7,11 +7,11 @@
     <!-- 날짜 칸 아래 확인 글: 11월 3일 (화) -->
     <string name="trip_date_preview">%1$d월 %2$d일 (%3$s)</string>
     <string name="trip_length_label">여행 기간</string>
-    <!-- 여행 요약 타일 라벨: 화요일에 떠나요 (%1$s = 요일 한 글자) -->
-    <string name="trip_start_weekday">%1$s요일에 떠나요</string>
     <string name="trip_dates_title">언제 다녀오세요?</string>
     <!-- trip_create_body를 두 문장으로 나눔: 앞 문장은 부제, 뒤 문장은 자물쇠 아이콘 행 -->
     <string name="trip_create_lead">나라와 날짜만 적으면, 필요한 서류와 할 일을 날짜에 맞춰 알려 드려요.</string>
     <string name="trip_local_only">여행 일정은 이 휴대폰에만 저장해요.</string>
     <string name="trip_delete_confirm">지우기</string>
+    <!-- today_wrapup_title과 같은 문장. 감탄문 뒤에서 줄을 바꾼다(`정리 끝! 다음 / 여행도…`로 끊기지 않게) -->
+    <string name="today_wrapup_title_lines">정리 끝!\n다음 여행도 함께해요</string>
 </resources>
