@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  디자인 개편 1단계 B 묶음(나라·영상) 전용 새 문구 (DESIGN_SPEC_2026-10-01 8장 1단계).
+  strings.xml·strings_design_v2.xml은 동결 — B 묶음의 새 문구는 이 파일에만 둔다.
+  ⁠(WORD JOINER): API 33 미만(테스트 폰 S10)에서 한국어가 음절 사이 어디서나 끊겨 `들어가 / 요`처럼 되는 것을 막는다
+  (source_footer의 `최⁠종`·`확⁠인`과 같은 방법, DESIGN_SPEC 3.2). 줄은 띄어쓰기에서만 바뀐다.
+-->
+<resources>
+    <!-- 03·04 비자 카드 제목: 팩의 구조화 필드 requirements[].visa 값을 그대로 옮긴 결론 (값·기간은 넣지 않는다, D11) -->
+    <string name="country_visa_headline_not_required">비⁠자 없⁠이 들⁠어⁠가⁠요</string>
+    <string name="country_visa_headline_on_arrival">도⁠착⁠비⁠자⁠를 받⁠아⁠야 해⁠요</string>
+
+    <!-- 05 전기 카드 숫자 타일 라벨 (2열 한 줄 7자 이내, DESIGN_SPEC 3.2) -->
+    <string name="power_label_plug">콘⁠센⁠트 모⁠양</string>
+    <string name="power_label_voltage">전⁠압</string>
+    <string name="power_label_frequency">주⁠파⁠수</string>
+</resources>
