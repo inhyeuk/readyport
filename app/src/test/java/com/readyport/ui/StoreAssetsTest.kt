@@ -51,8 +51,12 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.readyport.R
 import com.readyport.autofill.FormValues
 import com.readyport.transport.Place
+import com.readyport.trip.Checklist
+import com.readyport.trip.CustomItem
+import com.readyport.trip.PassportValidity
 import com.readyport.trip.StageInfo
 import com.readyport.trip.Trip
+import com.readyport.trip.TripChecks
 import com.readyport.trip.TripStage
 import com.readyport.ui.components.KoText
 import com.readyport.ui.components.Photos
@@ -73,6 +77,9 @@ import com.readyport.ui.today.TodayUi
 import com.readyport.ui.transport.RideAppRow
 import com.readyport.ui.transport.TransportContent
 import com.readyport.ui.transport.TransportUi
+import com.readyport.ui.trip.ChecklistActions
+import com.readyport.ui.trip.ChecklistUi
+import com.readyport.ui.trip.TripChecklistContent
 import com.readyport.ui.wallet.WalletContent
 import com.readyport.vault.BookingRecord
 import com.readyport.vault.PassportRecord
@@ -93,7 +100,7 @@ import kotlin.math.roundToInt
 /**
  * Play 스토어 등록 이미지 (M10, 재검토 R20, 운영자 결정 '+' — 나라 섞기·1번 캡션). 결과: app/build/store/ (커밋은 docs/play/store/ 로 **같은 이름** 복사)
  * - 스크린숏: 1215×2160 = 정확히 9:16 (Play 콘솔 규칙: 16:9 또는 9:16, 320~3840px)
- * - 순서: 홈 → 입국 카드 확인(태국 TDAC) → 나라 입국·비자(**인도네시아** — 30일·IDR 500,000 타일, 1단계·2단계) → 출국 날 할 일(태국)
+ * - 순서: 홈 → 입국 카드 확인(태국 TDAC) → 나라 화면(**인도네시아** — 히어로 아래 그림 메뉴 세 장, 입국·비자) → 여행 체크리스트(태국, 0.4.0)
  *   → 도움(**일본**) → 내 정보(여권, 가림) → 이동하기(**말레이시아** 기사님 카드) → 쉬운 모드 여행 중(**싱가포르**).
  *   한 나라(태국)가 8장 중 7장이던 것을 다섯 나라로 나눴다(재검토2 ⑤#1). 일본은 자동 입력이 없어 02에 쓰지 않는다.
  *   영상 화면(YouTube 썸네일)은 쓰지 않는다.
@@ -155,6 +162,16 @@ internal object StoreFixture {
 
     /** 쉬운 모드 여행 중(싱가포르 — 08): 같은 날짜의 견본 여행 */
     val tripSg = Trip("SG", "2026-11-03", "2026-11-07")
+
+    /**
+     * 여행 체크리스트(태국 — 04): 같은 태국 여행, 오늘 10월 20일(출발 14일 전 = '떠나기 한 달 전쯤' 단계).
+     * 여권 남은 기간·여권 등록은 앱이 확인(견본 여권 만료일로 실제 계산), 비자·예약은 체크, 여행자 보험·여행경보·데이터는 아직 —
+     * 늦은 항목·오류 없이 한 일과 남은 일이 섞인 모습. 내 항목 하나(견본).
+     */
+    val checklistToday: LocalDate = LocalDate.of(2026, 10, 20)
+    val checklistTrip = Trip("TH", "2026-11-03", "2026-11-07", id = "store-th")
+    val checklistMarks = listOf("visa", "booking").associateWith { true }
+    val checklistCustom = listOf(CustomItem("custom.s1", "우산 챙기기"))
 }
 
 /**
@@ -200,19 +217,23 @@ class StoreScreenshotsTest {
                 { _, _ -> }, {}, {}, {}, {},
             )
         },
-        // 인도네시아: 발리 사원 히어로(나라 이름·최종 확인 날짜) → 입국·비자 → 도착비자 30일·비용 IDR 500,000 타일이 캡션의 '비자·비용'을
-        // 그대로 보여 준다(재검토2 ①#11·⑤#7 — 태국 화면에는 비용 타일이 없었다). 1단계·2단계 서류 카드는 그 아래에 이어진다
+        // 인도네시아: 발리 사원 히어로(나라 이름·최종 확인 날짜) → 그림 메뉴 세 장(입국·비자·여행 정보·쇼핑) → 안심 카드 → 도착비자 카드.
+        // 30일·IDR 500,000 타일이 캡션의 '비자·비용'을 그대로 보여 준다(재검토2 ①#11·⑤#7)
         StoreShot("03_country_entry", "비자·비용은 한눈에,\n공식 출처와 확인 날짜까지") {
             CountryContent(TestPacks.countryUi("ID"), CountryActions())
         },
-        StoreShot("04_departure", "출발부터 귀국까지,\n오늘 할 일만 차례로") {
-            TodayContent(
-                TodayUi(
-                    StoreFixture.trip, StageInfo(TripStage.Departure, dayOfTrip = 1, formWindowOpen = true), "태국",
-                    th.value.forms.first(), hasPassport = true,
-                ),
-                TodayActions(), {}, {}, {}, {}, {},
+        // 태국 여행 체크리스트(0.4.0): 사진 머리(전체 진행·지금 단계) → '떠나기 한 달 전쯤' 단계 카드(여권 남은 기간·여권 등록 = `앱이 확인했어요`)
+        StoreShot("04_checklist", "여권 기간부터 귀국 정리까지\n여행마다 체크리스트로") {
+            val t = StoreFixture.checklistTrip
+            val today = StoreFixture.checklistToday
+            val pack = th.value
+            val checks = TripChecks(
+                marks = StoreFixture.checklistMarks,
+                custom = StoreFixture.checklistCustom,
+                passport = PassportValidity.check(LocalDate.parse(StoreFixture.passport.expiryDate), t, pack.requirements.first().passportValidity),
             )
+            val data = Checklist.build(Checklist.Input(t, TestPacks.index.value, pack, checks, passportSaved = true, today = today))
+            TripChecklistContent(ChecklistUi(loaded = true, trip = t, countryName = "태국", data = data, today = today), ChecklistActions())
         },
         // 일본(한국인 출국 1위): 도움 탭의 긴급 번호 묶음(맨 위 `긴급 번호 바로 보기`로 가는 곳) — 110·119·118, 한국어 24시간 전화, 대사관.
         // 현지어 문장을 크게 보여 주는 장면은 07 기사님 카드가 맡는다
@@ -359,12 +380,16 @@ internal object FeatureGraphicText {
 }
 
 /** 그래픽 이미지 오른쪽 나라 사진 줄 (앱에 든 사진 — 출처는 앱 설정 › 사진·글꼴 출처, photo_credits.json) */
-private val FeatureCountries = listOf("TH" to "태국", "JP" to "일본", "SG" to "싱가포르", "MY" to "말레이시아", "ID" to "인도네시아")
+private val FeatureCountries = listOf(
+    "TH" to "태국", "JP" to "일본", "SG" to "싱가포르",
+    "MY" to "말레이시아", "ID" to "인도네시아", "TW" to "대만",
+    "CN" to "중국", "PH" to "필리핀", "VN" to "베트남",
+)
 
 /**
  * 그래픽 이미지 1024×500 (Play 필수). 정부 연상 요소 없음, 비제휴 문구 포함.
  * 왼쪽 = 아이콘·이름 + 앱 히어로와 같은 가치 문장(해요체) + 약속 한 줄 + 비제휴 한 줄(20px 이상 — 폰 폭으로 줄여도 읽히게),
- * 오른쪽 = 다섯 나라 사진 타일(3 + 2, 이름은 사진 아래 스크림 위 흰 글자) — 빈 하늘이던 오른쪽 3분의 1을 채운다(재검토2 ⑤#4).
+ * 오른쪽 = 앱에 든 아홉 나라 사진 타일(3 × 3, 이름은 사진 아래 스크림 위 흰 글자) — 빈 하늘이던 오른쪽 3분의 1을 채운다(재검토2 ⑤#4, 0.4.0에서 5 → 9).
  */
 @RunWith(AndroidJUnit4::class)
 @GraphicsMode(GraphicsMode.Mode.NATIVE)
@@ -408,16 +433,16 @@ class StoreFeatureGraphicTest {
     }
 }
 
-/** 나라 사진 타일 다섯 장: 윗줄 셋, 아랫줄 둘(가운데). 타일마다 아래쪽 어둡게 덮고 나라 이름 흰 글자 */
+/** 나라 사진 타일 아홉 장(앱에 든 나라 전부): 3 × 3. 타일마다 아래쪽 어둡게 덮고 나라 이름 흰 글자 */
 @Composable
 private fun CountryPhotoStrip() {
-    val tile = 112.dp
-    val gap = 12.dp
+    val tile = 120.dp
+    val gap = 10.dp
     Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(gap)) {
-        listOf(FeatureCountries.take(3), FeatureCountries.drop(3)).forEach { row ->
+        FeatureCountries.chunked(3).forEach { row ->
             Row(horizontalArrangement = Arrangement.spacedBy(gap)) {
                 row.forEach { (code, name) ->
-                    Box(Modifier.width(tile).height(tile * 1.45f).clip(RoundedCornerShape(18.dp)).background(Tokens.Navy)) {
+                    Box(Modifier.width(tile).height(tile * 1.05f).clip(RoundedCornerShape(16.dp)).background(Tokens.Navy)) {
                         Image(
                             painterResource(Photos.country(code)!!),
                             contentDescription = null,
@@ -434,9 +459,9 @@ private fun CountryPhotoStrip() {
                         Text(
                             name,
                             color = Tokens.Surface,
-                            fontSize = 17.sp,
+                            fontSize = 16.sp,
                             fontWeight = FontWeight.Bold,
-                            modifier = Modifier.align(Alignment.BottomStart).padding(start = 12.dp, bottom = 10.dp),
+                            modifier = Modifier.align(Alignment.BottomStart).padding(start = 10.dp, bottom = 8.dp),
                         )
                     }
                 }
