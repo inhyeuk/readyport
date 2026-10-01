@@ -3,4 +3,6 @@
 <resources>
     <!-- 18 쇼핑: 담은 품목의 버튼을 누르면 빼는 동작 (TalkBack 동작 이름, 보이는 글자는 shopping_in_cart 그대로) -->
     <string name="shopping_remove_cd">%1$s 빼기</string>
+    <!-- 18 쇼핑: 1열(쉬운 모드·큰 글자)에서 쓰는 직원에게 보여주기 라벨 — 어절 사이에서 미리 두 줄로 (API 33 미만은 음절 사이에서 끊겨서) -->
+    <string name="shopping_show_staff_short">직원에게\n보여주기</string>
 </resources>

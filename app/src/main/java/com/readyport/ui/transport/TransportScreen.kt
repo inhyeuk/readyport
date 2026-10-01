@@ -1,22 +1,17 @@
 package com.readyport.ui.transport
 
 import android.content.Context
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.selection.selectableGroup
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.CheckCircle
-import androidx.compose.material.icons.outlined.Close
 import androidx.compose.material.icons.outlined.DirectionsSubway
 import androidx.compose.material.icons.outlined.EditLocationAlt
 import androidx.compose.material.icons.outlined.Fullscreen
@@ -43,9 +38,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.LiveRegionMode
 import androidx.compose.ui.semantics.liveRegion
+import androidx.compose.ui.semantics.onClick
 import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.style.LineHeightStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
@@ -84,6 +78,10 @@ import com.readyport.ui.components.SelectChip
 import com.readyport.ui.components.StatusKind
 import com.readyport.ui.components.StatusTag
 import com.readyport.ui.components.sectionGap
+import com.readyport.ui.pack.KeepAllText
+import com.readyport.ui.pack.ShowLocalBody
+import com.readyport.ui.pack.keepAll
+import com.readyport.ui.pack.localText
 import com.readyport.ui.theme.LocalDimens
 import com.readyport.ui.theme.LocalTypeExtras
 import com.readyport.ui.theme.Tokens
@@ -182,15 +180,6 @@ internal fun rideLabel(row: RideAppRow, dest: Place): Int {
     }
 }
 
-/**
- * 현지어(태국어 등)를 표시 역할이 아닌 크기로 보일 때: 행간 1.5배 + 줄 높이 가운데·자르지 않음 —
- * 위아래로 쌓이는 부호(ที่นี่)가 겹치거나 잘리지 않게 (DESIGN_SPEC 3.2). 크기는 [base] 역할 그대로(고정 sp 없음).
- */
-private fun localText(base: TextStyle): TextStyle = base.copy(
-    lineHeight = base.fontSize * 1.5f,
-    lineHeightStyle = LineHeightStyle(LineHeightStyle.Alignment.Center, LineHeightStyle.Trim.None),
-)
-
 @Composable
 fun TransportContent(
     ui: TransportUi,
@@ -213,19 +202,19 @@ fun TransportContent(
                 CardNewsCard(
                     title = stringResource(R.string.move_destination),
                     icon = Icons.Outlined.EditLocationAlt,
-                    body = if (dest == null) stringResource(R.string.move_no_place) else null,
+                    body = if (dest == null) keepAll(stringResource(R.string.move_no_place)) else null,
                     tone = BadgeTone.Violet,
                 ) {
                     OutlinedTextField(
                         name, { name = it },
-                        label = { Text(stringResource(R.string.move_place_name)) },
+                        label = { Text(keepAll(stringResource(R.string.move_place_name))) },
                         leadingIcon = { Icon(Icons.Outlined.Place, contentDescription = null) },
                         singleLine = true,
                         modifier = Modifier.fillMaxWidth(),
                     )
                     OutlinedTextField(
                         address, { address = it },
-                        label = { Text(stringResource(R.string.move_place_address)) },
+                        label = { Text(keepAll(stringResource(R.string.move_place_address))) },
                         minLines = 2,
                         textStyle = localText(MaterialTheme.typography.bodyLarge),
                         modifier = Modifier.fillMaxWidth(),
@@ -241,14 +230,16 @@ fun TransportContent(
                     }
                 }
             } else {
+                // 가는 곳 카드는 짧게(eyebrow·이름·저장됨·바꾸기): 현지어 주소는 바로 아래 기사님 카드(Navy)에 크게 한 번만 —
+                // 같은 주소를 두 카드에 크기만 달리해 겹쳐 보이면 어느 쪽을 보여 줄지 위계가 흐려진다
+                // (스펙 6-19 ①의 localMedium 주소 대신 — 검토 의견 반영, 운영자 확인 항목)
                 CardNewsCard(
                     title = dest.name,
                     icon = Icons.Outlined.Place,
                     eyebrow = stringResource(R.string.move_destination),
                     tone = BadgeTone.Violet,
                 ) {
-                    Text(dest.addressLocal, style = localText(MaterialTheme.typography.bodyLarge), color = Tokens.Ink)
-                    StatusTag(stringResource(R.string.move_place_saved), StatusKind.Allowed)
+                    StatusTag(keepAll(stringResource(R.string.move_place_saved)), StatusKind.Allowed)
                     if (ui.places.size > 1) {
                         // 여러 장소 중 하나 고르기 (한 개만 — Role.RadioButton + selectableGroup)
                         FlowRow(
@@ -287,20 +278,32 @@ fun TransportContent(
         }
         item(key = "ride") {
             if (ui.apps.isEmpty()) {
-                NoticeBanner(stringResource(R.string.move_no_apps), icon = Icons.Outlined.Info)
+                NoticeBanner(keepAll(stringResource(R.string.move_no_apps)), icon = Icons.Outlined.Info)
             } else {
                 ListGroup {
                     ui.apps.forEachIndexed { i, row ->
                         if (i > 0) ListDivider()
                         val maps = LinkType.of(row.app.linkType) == LinkType.MapsUrl
+                        // 보이는 제목은 앱 이름, 본문은 지금 상태(설치 안 됨 / 목적지 넣어 열기 / 열고 주소 복사) — 6-19 ③.
+                        // 설치 안 된 앱은 TalkBack 동작 이름만 `Grab 받기`(transport_get_app) — 보이는 글에 '받기'가 두 번 나오지 않게
+                        val getApp = if (row.installed) null else stringResource(R.string.transport_get_app, row.app.name)
                         ListRow(
-                            // 설치 안 된 앱은 '받기'가 할 일이라 행 이름에 붙인다 (transport_get_app)
-                            title = if (row.installed) row.app.name else stringResource(R.string.transport_get_app, row.app.name),
+                            title = row.app.name,
                             icon = if (maps) Icons.Outlined.Map else Icons.Outlined.LocalTaxi,
                             tone = if (maps) BadgeTone.Teal else BadgeTone.Violet,
-                            body = stringResource(rideLabel(row, dest)),
+                            body = keepAll(stringResource(rideLabel(row, dest))),
                             trailing = RowTrailing.External,
                             onClick = { onRide(row) },
+                            modifier = if (getApp == null) {
+                                Modifier
+                            } else {
+                                Modifier.semantics {
+                                    onClick(label = getApp) {
+                                        onRide(row)
+                                        true
+                                    }
+                                }
+                            },
                         )
                     }
                 }
@@ -311,9 +314,9 @@ fun TransportContent(
                 // 앱을 열고 난 결과 (복사했어요 / 못 열었어요) — 바뀌면 TalkBack이 알린다
                 Box(Modifier.semantics { liveRegion = LiveRegionMode.Polite }) {
                     if (msg == R.string.move_ride_failed) {
-                        NoticeBanner(stringResource(msg), icon = Icons.Outlined.ReportProblem, tone = BannerTone.Caution)
+                        NoticeBanner(keepAll(stringResource(msg)), icon = Icons.Outlined.ReportProblem, tone = BannerTone.Caution)
                     } else {
-                        NoticeBanner(stringResource(msg), icon = Icons.Outlined.CheckCircle, tone = BannerTone.Success)
+                        NoticeBanner(keepAll(stringResource(msg)), icon = Icons.Outlined.CheckCircle, tone = BannerTone.Success)
                     }
                 }
             }
@@ -326,7 +329,7 @@ fun TransportContent(
                     tint = Tokens.InkTertiary,
                     modifier = Modifier.padding(top = 1.dp).size(LocalDimens.current.iconSmall),
                 )
-                Text(stringResource(R.string.move_fare_note), style = MaterialTheme.typography.bodySmall, color = Tokens.InkTertiary)
+                KeepAllText(stringResource(R.string.move_fare_note), MaterialTheme.typography.bodySmall, Tokens.InkTertiary)
             }
         }
 
@@ -338,7 +341,7 @@ fun TransportContent(
                 icon = Icons.Outlined.DirectionsSubway,
                 tone = BadgeTone.Violet,
             ) {
-                PrimaryButton(stringResource(R.string.move_transit_button), onClick = onMaps, icon = Icons.Outlined.Map)
+                PrimaryButton(keepAll(stringResource(R.string.move_transit_button)), onClick = onMaps, icon = Icons.Outlined.Map)
             }
         }
     }
@@ -367,7 +370,7 @@ private fun DriverCard(phrase: String?, address: String, onFullScreen: () -> Uni
             phrase?.let { Text(it, style = extras.localMedium, color = OnDark.content) }
             Text(address, style = localText(MaterialTheme.typography.titleLarge), color = OnDark.content)
             SecondaryButton(
-                stringResource(R.string.move_full_screen),
+                keepAll(stringResource(R.string.move_full_screen)),
                 onClick = onFullScreen,
                 icon = Icons.Outlined.Fullscreen,
                 fillWidth = false,
@@ -379,21 +382,22 @@ private fun DriverCard(phrase: String?, address: String, onFullScreen: () -> Uni
 }
 
 /**
- * 기사님께 보여 주는 전체 화면: 기사님이 읽을 핵심인 주소를 가장 크게(localLarge), 부탁 문장은 그 위에 localMedium.
- * 둘 다 현지어 표시 역할(행간 1.5배) — 고정 sp 없음.
+ * 기사님께 보여 주는 전체 화면 내용: 기사님이 읽을 핵심인 주소를 가장 크게(localLarge), 부탁 문장은 그 위에 localMedium.
+ * 둘 다 현지어 표시 역할(행간 1.5배) — 고정 sp 없음. 닫기는 아래 고정(긴 주소가 화면을 넘겨도 보인다).
  */
 @Composable
-private fun DriverFullScreen(phrase: String?, address: String, onClose: () -> Unit) {
+internal fun DriverFullScreenBody(phrase: String?, address: String, onClose: () -> Unit) {
     val extras = LocalTypeExtras.current
+    ShowLocalBody(onClose) {
+        phrase?.let { Text(it, style = extras.localMedium, textAlign = TextAlign.Center, color = Tokens.InkSecondary) }
+        Text(address, style = extras.localLarge, textAlign = TextAlign.Center, color = Tokens.Ink)
+    }
+}
+
+/** 기사님께 보여 주는 전체 화면 */
+@Composable
+private fun DriverFullScreen(phrase: String?, address: String, onClose: () -> Unit) {
     Dialog(onDismissRequest = onClose, properties = DialogProperties(usePlatformDefaultWidth = false)) {
-        Column(
-            Modifier.fillMaxSize().background(Tokens.Surface).verticalScroll(rememberScrollState()).padding(24.dp),
-            verticalArrangement = Arrangement.spacedBy(24.dp, Alignment.CenterVertically),
-            horizontalAlignment = Alignment.CenterHorizontally,
-        ) {
-            phrase?.let { Text(it, style = extras.localMedium, textAlign = TextAlign.Center, color = Tokens.InkSecondary) }
-            Text(address, style = extras.localLarge, textAlign = TextAlign.Center, color = Tokens.Ink)
-            PrimaryButton(stringResource(R.string.help_close), onClick = onClose, icon = Icons.Outlined.Close)
-        }
+        DriverFullScreenBody(phrase, address, onClose)
     }
 }

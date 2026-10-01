@@ -6,17 +6,14 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.selection.selectableGroup
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.AddShoppingCart
 import androidx.compose.material.icons.outlined.CheckCircle
-import androidx.compose.material.icons.outlined.Close
 import androidx.compose.material.icons.outlined.Place
 import androidx.compose.material.icons.outlined.ShoppingBag
 import androidx.compose.material.icons.outlined.Translate
@@ -67,14 +64,13 @@ import com.readyport.ui.components.ExpandableDetail
 import com.readyport.ui.components.IconBadge
 import com.readyport.ui.components.IconBullet
 import com.readyport.ui.components.IconKeys
-import com.readyport.ui.components.PrimaryButton
+import com.readyport.ui.components.QuietButton
 import com.readyport.ui.components.ReturnCheckCard
 import com.readyport.ui.components.SecondaryButton
 import com.readyport.ui.components.SelectChip
 import com.readyport.ui.components.SourceList
 import com.readyport.ui.components.SourceRef
 import com.readyport.ui.components.cardShadow
-import com.readyport.ui.components.displayDate
 import com.readyport.ui.components.importKind
 import com.readyport.ui.components.importLabel
 import com.readyport.ui.components.rememberGridColumns
@@ -173,11 +169,13 @@ fun ShoppingContent(ui: ShoppingUi, onToggle: (String, Boolean) -> Unit, onOpenL
     var showing by remember { mutableStateOf<ShoppingItem?>(null) }
     val fallback = stringResource(R.string.source_official_fallback)
     // 품목 출처는 나라 팩, 반입 판정 출처는 나라 팩 또는 index(관세청·검역본부)에 있다. 못 찾으면 '공식 안내' — ID는 보이지 않는다
-    fun sourceName(id: String) = resolveSourceName(id, ui.sourceNames, ui.indexSources[id] ?: fallback)
+    // 출처 이름도 API 33 미만에서는 어절 단위로 줄을 바꾼다 (`태국관광청 · 찬타 / 부리` 방지)
+    fun sourceName(id: String) = keepAll(resolveSourceName(id, ui.sourceNames, ui.indexSources[id] ?: fallback))
+    val visible = ui.items.filter { category == null || it.category == category }
 
     AppScreen(
         title = stringResource(R.string.shopping_title, ui.countryKo),
-        subtitle = stringResource(R.string.shopping_subtitle_v2),
+        subtitle = keepAll(stringResource(R.string.shopping_subtitle_v2)),
         speech = stringResource(R.string.shopping_speech),
     ) {
         if (ui.items.isNotEmpty()) {
@@ -209,14 +207,14 @@ fun ShoppingContent(ui: ShoppingUi, onToggle: (String, Boolean) -> Unit, onOpenL
                 EmptyState(icon = Icons.Outlined.ShoppingBag, title = stringResource(R.string.shopping_empty), body = null)
             }
         }
-        ui.items.filter { category == null || it.category == category }.forEach { item ->
+        visible.forEach { item ->
             item(key = "shop-${item.id}") {
                 ShopItemCard(
                     item = item,
                     inCart = CartKey.of(ui.country, item.id) in ui.cart,
                     sources = listOf(
-                        SourceRef(sourceName(item.source), displayDate(item.lastVerified)),
-                        SourceRef(sourceName(item.importSource), displayDate(item.lastVerified)),
+                        SourceRef(sourceName(item.source), sourceDate(item.lastVerified)),
+                        SourceRef(sourceName(item.importSource), sourceDate(item.lastVerified)),
                     ),
                     onToggle = { onToggle(item.id, it) },
                     onShowStaff = { showing = item },
@@ -224,7 +222,16 @@ fun ShoppingContent(ui: ShoppingUi, onToggle: (String, Boolean) -> Unit, onOpenL
             }
         }
         sectionGap("gap-return")
-        item(key = "return") { ReturnCheckCard(ui.returnLinks, ui.returnFacts, ui.indexSources, onOpenLink) }
+        item(key = "return") {
+            // 공용 ReturnCheckCard에 넘기기 전에 보이는 글만 다듬는다: 링크·사실 문장은 어절 단위 줄바꿈(API 33 미만),
+            // 출처 날짜는 sourceDate와 같은 이유로 날짜 앞에서 줄이 바뀔 수 있게 (값·출처 ID는 그대로)
+            val links = remember(ui.returnLinks) { ui.returnLinks.map { it.copy(labelKo = keepAll(it.labelKo)) } }
+            val facts = remember(ui.returnFacts) {
+                ui.returnFacts.map { it.copy(textKo = keepAll(it.textKo), lastVerified = SOURCE_DATE_BREAK + it.lastVerified) }
+            }
+            val names = remember(ui.indexSources) { ui.indexSources.mapValues { keepAll(it.value) } }
+            ReturnCheckCard(links, facts, names, onOpenLink)
+        }
     }
 
     showing?.let { item -> ShowStaffScreen(item, onClose = { showing = null }) }
@@ -254,56 +261,74 @@ private fun ShopItemCard(
             Row(verticalAlignment = Alignment.Top, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                 IconBadge(IconKeys.shoppingCategory(item.category), tone = BadgeTone.Help)
                 Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
-                    Text(
+                    KeepAllText(
                         item.names.ko,
                         style = MaterialTheme.typography.titleLarge,
                         color = Tokens.Ink,
                         modifier = Modifier.semantics { heading() },
                     )
-                    Text(item.names.local, style = MaterialTheme.typography.bodyMedium, color = Tokens.InkSecondary)
+                    // 현지어 이름: 위아래로 쌓이는 태국어 부호가 한국어 제목에 붙거나 겹치지 않게 행간 1.5배 (3.2)
+                    Text(item.names.local, style = localText(MaterialTheme.typography.bodyMedium), color = Tokens.InkSecondary)
                 }
             }
             ImportVerdictPanel(item.import, item.importNoteKo)
             val (why, whyMore) = splitLongText(item.whyKo)
-            Text(why, style = MaterialTheme.typography.bodyMedium, color = Tokens.Ink)
+            KeepAllText(why, MaterialTheme.typography.bodyMedium, Tokens.Ink)
             if (whyMore != null) {
                 ExpandableDetail {
-                    Text(whyMore, style = MaterialTheme.typography.bodyMedium, color = Tokens.Ink)
+                    KeepAllText(whyMore, MaterialTheme.typography.bodyMedium, Tokens.Ink)
                 }
             }
-            item.whereKo?.let { IconBullet(stringResource(R.string.shopping_where, it), Icons.Outlined.Place) }
+            item.whereKo?.let { IconBullet(keepAll(stringResource(R.string.shopping_where, it)), Icons.Outlined.Place) }
             val addLabel = stringResource(if (inCart) R.string.shopping_in_cart else R.string.shopping_add)
             // TalkBack: 보이는 글자는 '담기' 그대로, 누를 때 읽는 동작 이름에 상품명을 붙인다 (6-18)
             val addAction = stringResource(if (inCart) R.string.shopping_remove_cd else R.string.shopping_add_cd, item.names.ko)
             val staffAction = stringResource(R.string.shopping_show_staff_cd, item.names.ko)
-            // 쉬운 모드·큰 글자(1열)에서는 두 버튼을 폭 전체로 쌓는다 — 글자 폭만큼이면 라벨이 음절 단위로 꺾인다
+            // 쉬운 모드·큰 글자(1열)에서는 담기를 폭 전체로, 직원에게 보여주기는 그 아래 줄에
             val stacked = rememberGridColumns() == 1
-            FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            // 카드의 결론은 반입 판정이다 — 담기만 테두리 버튼, 직원에게 보여주기는 글자 버튼으로 가볍게
+            // (카드마다 같은 무게의 버튼 두 개가 판정보다 눈에 띄지 않게)
+            val add: @Composable (Modifier) -> Unit = { m ->
                 SecondaryButton(
                     text = addLabel,
                     onClick = { onToggle(!inCart) },
                     icon = if (inCart) Icons.Outlined.CheckCircle else Icons.Outlined.AddShoppingCart,
                     tone = if (inCart) BadgeTone.Success else BadgeTone.Accent,
                     fillWidth = stacked,
-                    modifier = Modifier.semantics {
+                    modifier = m.semantics {
                         onClick(label = addAction) {
                             onToggle(!inCart)
                             true
                         }
                     },
                 )
-                SecondaryButton(
-                    text = stringResource(R.string.shopping_show_staff),
+            }
+            val staff: @Composable (String, Modifier) -> Unit = { label, m ->
+                QuietButton(
+                    text = label,
                     onClick = onShowStaff,
                     icon = Icons.Outlined.Translate,
-                    fillWidth = stacked,
-                    modifier = Modifier.semantics {
+                    modifier = m.semantics {
                         onClick(label = staffAction) {
                             onShowStaff()
                             true
                         }
                     },
                 )
+            }
+            if (stacked) {
+                Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                    add(Modifier)
+                    // 1열 폭에서는 한 줄에 다 들어가지 않아 어절 사이에서 미리 두 줄로 나눈 라벨을 쓴다 — 글자 폭만큼만 차지해
+                    // 아이콘 옆에 붙는다. 글자 버튼 안쪽 여백만큼 당겨 담기 버튼·출처와 같은 왼쪽 선에
+                    staff(stringResource(R.string.shopping_show_staff_short), Modifier.offset(x = -TextButtonInset))
+                }
+            } else {
+                // 옆에 나란히 — 폭이 모자라면 아래 줄로 넘어가지 않고 글자 버튼 라벨이 제 칸 안에서 줄을 바꾼다
+                Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    add(Modifier)
+                    staff(keepAll(stringResource(R.string.shopping_show_staff)), Modifier.weight(1f, fill = false))
+                }
             }
             Column(Modifier.padding(top = 4.dp)) { SourceList(sources) }
         }
@@ -332,25 +357,26 @@ private fun ImportVerdictPanel(status: ImportStatus, note: String?) {
             Icon(kind.icon, contentDescription = null, tint = tone.content, modifier = Modifier.size(LocalDimens.current.icon))
             Text(stringResource(importLabel(status)), style = MaterialTheme.typography.titleSmall, color = tone.content)
         }
-        note?.let { Text(it, style = MaterialTheme.typography.bodyMedium, color = tone.content) }
+        note?.let { KeepAllText(it, MaterialTheme.typography.bodyMedium, tone.content) }
     }
 }
 
-/** 직원에게 보여주기 전체 화면: 현지어 localLarge(행간 1.5배) + 영어·한국어 (고정 sp 없음) */
+/** 직원에게 보여주기 전체 화면 내용: 현지어 localLarge(행간 1.5배) + 영어·한국어 (고정 sp 없음), 닫기는 아래 고정 */
+@Composable
+internal fun ShowStaffBody(item: ShoppingItem, onClose: () -> Unit) {
+    val extras = LocalTypeExtras.current
+    ShowLocalBody(onClose) {
+        Text(item.names.local, style = extras.localLarge, textAlign = TextAlign.Center, color = Tokens.Ink)
+        Text(item.names.en, style = MaterialTheme.typography.headlineMedium, textAlign = TextAlign.Center, color = Tokens.InkSecondary)
+        KeepAllText(item.names.ko, MaterialTheme.typography.titleLarge, Tokens.InkSecondary, textAlign = TextAlign.Center)
+    }
+}
+
+/** 직원에게 보여주기 전체 화면 */
 @Composable
 private fun ShowStaffScreen(item: ShoppingItem, onClose: () -> Unit) {
-    val extras = LocalTypeExtras.current
     Dialog(onDismissRequest = onClose, properties = DialogProperties(usePlatformDefaultWidth = false)) {
-        Column(
-            Modifier.fillMaxSize().background(Tokens.Surface).verticalScroll(rememberScrollState()).padding(24.dp),
-            verticalArrangement = Arrangement.spacedBy(24.dp, Alignment.CenterVertically),
-            horizontalAlignment = Alignment.CenterHorizontally,
-        ) {
-            Text(item.names.local, style = extras.localLarge, textAlign = TextAlign.Center, color = Tokens.Ink)
-            Text(item.names.en, style = MaterialTheme.typography.headlineMedium, textAlign = TextAlign.Center, color = Tokens.InkSecondary)
-            Text(item.names.ko, style = MaterialTheme.typography.titleLarge, textAlign = TextAlign.Center, color = Tokens.InkSecondary)
-            PrimaryButton(stringResource(R.string.help_close), onClick = onClose, icon = Icons.Outlined.Close)
-        }
+        ShowStaffBody(item, onClose)
     }
 }
 

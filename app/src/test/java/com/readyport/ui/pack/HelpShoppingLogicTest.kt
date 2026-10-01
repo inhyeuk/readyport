@@ -97,4 +97,43 @@ class HelpShoppingLogicTest {
         val noBreak = "가".repeat(80)
         assertEquals(noBreak to null, splitLongText(noBreak))
     }
+
+    // ---------------- 줄바꿈 도우미 (API 33 미만 keep-all, 출처 날짜, 전화번호 묶음) ----------------
+
+    @Test
+    fun joinWordsGluesHangulInsideWordsOnly() {
+        val wj = "\u2060"
+        assertEquals("주${wj}세${wj}요", joinWords("주세요"))
+        // 공백은 그대로 줄바꿈 자리, 괄호·쉼표는 붙은 어절과 함께
+        assertEquals("무${wj}료${wj})", joinWords("무료)"))
+        assertEquals("천${wj}천${wj}히 말${wj}해 주${wj}세${wj}요", joinWords("천천히 말해 주세요"))
+        // 한글이 없는 글(라틴·숫자·태국어)은 손대지 않는다
+        assertEquals("Play Store 123", joinWords("Play Store 123"))
+        assertEquals("กรุณาเรียกตำรวจ", joinWords("กรุณาเรียกตำรวจ"))
+        // 섞인 어절은 한글 쪽 경계만: Play는 그대로, '스토어에서'는 묶음
+        assertEquals("Play 스${wj}토${wj}어${wj}에${wj}서 받${wj}기", joinWords("Play 스토어에서 받기"))
+        // 보이지 않는 문자만 더해진다 — 빼면 원문
+        listOf("관광경찰 (영어·한국어, 무료)", "여권을 잃어버렸어요", "직원에게 보여주기").forEach {
+            assertEquals(it, joinWords(it).replace(wj, ""))
+        }
+        // 여는 괄호 앞과 가운뎃점 뒤는 줄을 바꿔도 된다 (긴 덩어리 앞에 `미화`만 홀로 남지 않게)
+        assertEquals("달${wj}러(${wj}과${wj}세", joinWords("달러(과세"))
+        assertEquals("고${wj}기${wj}·햄${wj}·소", joinWords("고기·햄·소"))
+        // 두 번 해도 같다
+        assertEquals(joinWords("주세요"), joinWords(joinWords("주세요")))
+    }
+
+    @Test
+    fun sourceDateKeepsTheDateButLetsItMoveToTheNextLine() {
+        assertEquals("\u200B2026.09.29", sourceDate("2026-09-29"))
+        assertEquals("2026.09.29", sourceDate("2026-09-29").removePrefix(SOURCE_DATE_BREAK))
+    }
+
+    @Test
+    fun phoneGroupsSplitOnlyAfterHyphens() {
+        assertEquals(listOf("+66-", "81-", "914-", "5803"), phoneGroups("+66-81-914-5803"))
+        assertEquals(listOf("+82-", "2-", "3210-", "0404"), phoneGroups("+82-2-3210-0404"))
+        assertEquals(listOf("1155"), phoneGroups("1155"))
+        for (n in listOf("+66-2-481-6000", "050-3816-2787", "1669")) assertEquals(n, phoneGroups(n).joinToString(""))
+    }
 }
