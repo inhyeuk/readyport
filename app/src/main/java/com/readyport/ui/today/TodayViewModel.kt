@@ -8,6 +8,7 @@ import com.readyport.pack.OfficialLink
 import com.readyport.pack.ShoppingItem
 import com.readyport.pack.SourcedText
 import com.readyport.prep.CartKey
+import com.readyport.prep.Essentials
 import com.readyport.pack.PackRepository
 import com.readyport.trip.StageInfo
 import com.readyport.trip.Trip
@@ -42,6 +43,9 @@ data class TodayUi(
     val indexSources: Map<String, String> = emptyMap(),
     /** 여행 나라 팩 출처 id → 이름 (담아 둔 물건의 품목·반입 판정 출처, DESIGN_SPEC 6-13) */
     val sourceNames: Map<String, String> = emptyMap(),
+    /** 이 여행의 꼭 챙길 물건 수·챙긴 수 — 정리 단계 숫자 타일 `2 / 5 챙긴 물건`(재검토2 ①#6). 0이면 타일 없음 */
+    val essentialsTotal: Int = 0,
+    val essentialsDone: Int = 0,
 )
 
 @HiltViewModel
@@ -60,6 +64,8 @@ class TodayViewModel @Inject constructor(
         val form = pack?.forms?.firstOrNull()
         val contents = (w as? WalletState.Unlocked)?.contents
         val submitted = form?.let { contents?.forms?.get(it.id)?.status == "submitted" } ?: false
+        val index = packs.index()?.value
+        val essentials = trip?.let { Essentials.select(index?.essentials.orEmpty(), index?.homePower, pack?.power) }.orEmpty()
         TodayUi(
             trip = trip,
             stage = TripStages.compute(trip, LocalDate.now(), now, form?.windowDaysIncludingArrival, submitted),
@@ -67,10 +73,12 @@ class TodayViewModel @Inject constructor(
             form = form,
             hasPassport = contents?.let { it.passport != null },
             cart = trip?.let { t -> pack?.shopping.orEmpty().filter { CartKey.of(t.country, it.id) in s.cart } }.orEmpty(),
-            returnLinks = packs.index()?.value?.returnLinks.orEmpty(),
-            returnFacts = packs.index()?.value?.returnFacts.orEmpty(),
-            indexSources = packs.index()?.value?.sources.orEmpty().associate { it.id to it.name },
+            returnLinks = index?.returnLinks.orEmpty(),
+            returnFacts = index?.returnFacts.orEmpty(),
+            indexSources = index?.sources.orEmpty().associate { it.id to it.name },
             sourceNames = pack?.sources.orEmpty().associate { it.id to it.name },
+            essentialsTotal = essentials.size,
+            essentialsDone = essentials.count { it.id in s.haveItems },
         )
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), TodayUi())
 

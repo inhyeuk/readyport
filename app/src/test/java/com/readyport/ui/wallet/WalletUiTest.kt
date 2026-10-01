@@ -124,7 +124,12 @@ class WalletUiTest {
     fun keyLostOffersReset() {
         wallet(WalletState.Failed(WalletState.Failed.Reason.KeyLost))
         rule.onNodeWithText(s(R.string.wallet_key_lost)).assertIsDisplayed()
-        rule.onNodeWithText(s(R.string.wallet_reset)).assertIsDisplayed()
+        // 무엇이 지워지고 무엇이 남는지 한 줄, 버튼은 하는 일 그대로(`비우고 여권 다시 등록하기`) — 재검토2 ②#4
+        shown(s(R.string.wallet_reset_scope))
+        shown(s(R.string.wallet_reset_reregister))
+        rule.onAllNodesWithText(s(R.string.wallet_reset)).assertCountEquals(0)
+        // 잠김·키 분실 화면에는 '곧 추가돼요' 묶음을 두지 않는다(재검토2 ⑤#11)
+        rule.onAllNodesWithText(s(R.string.coming_soon_group)).assertCountEquals(0)
     }
 
     @Test
@@ -162,9 +167,13 @@ class WalletUiTest {
         rule.onNode(hasScrollAction()).performScrollToNode(hasText(s(R.string.passport_save)))
         rule.onNodeWithText(s(R.string.passport_save)).performClick()
         assertTrue(saved)
-        // 전자여권 칩 확인은 2차 — 누를 수 없고, 'NFC'·'(준비 중)' 없이 (재검토 R18)
-        rule.onNodeWithText(s(R.string.passport_chip_soon_v2)).assertIsNotEnabled()
+        // 전자여권 칩 확인은 2차 — 값 확인 화면에는 그리지 않는다('곧 추가돼요'는 내 정보 맨 아래 한 곳, 재검토2 ⑤#11). 'NFC' 글자도 없음
+        rule.onAllNodesWithText(s(R.string.passport_chip_soon_v2)).assertCountEquals(0)
+        rule.onAllNodesWithText(s(R.string.coming_soon_group)).assertCountEquals(0)
         rule.onAllNodesWithText("NFC", substring = true).assertCountEquals(0)
+        // 날짜는 `1974년 8월 12일`로 보인다(재검토2 ①#13)
+        shown("1974년 8월 12일")
+        rule.onAllNodesWithText("1974-08-12").assertCountEquals(0)
     }
 
     @Test
@@ -255,10 +264,10 @@ class WalletUiTest {
 
         state = WalletState.Failed(WalletState.Failed.Reason.Corrupted)
         rule.onNodeWithText(s(R.string.wallet_corrupted)).assertIsDisplayed()
-        rule.onNodeWithText(s(R.string.wallet_reset)).performClick()
+        rule.onNodeWithText(s(R.string.wallet_reset_reregister)).performClick()
         assertTrue(!reset)
         rule.onNodeWithText(s(R.string.wallet_reset_confirm_title)).assertIsDisplayed()
-        inDialog(s(R.string.wallet_reset)).performClick()
+        inDialog(s(R.string.wallet_reset_reregister)).performClick()
         assertTrue(reset)
     }
 
@@ -284,9 +293,34 @@ class WalletUiTest {
         shown(s(R.string.wallet_companions_title))
         rule.onNodeWithText(s(R.string.wallet_companions_title)).performClick()
         assertTrue(opened)
-        // 준비 중 기능은 누를 수 없는 묶음으로
+        // 준비 중 기능은 누를 수 없는 묶음으로 — 열린 내 정보 맨 아래 한 곳(여권 칩 확인도 여기로)
         shown(s(R.string.wallet_profile_title))
         rule.onNodeWithText(s(R.string.wallet_profile_title)).assertIsNotEnabled()
+        shown(s(R.string.passport_chip_soon_v2))
+        rule.onNodeWithText(s(R.string.passport_chip_soon_v2)).assertIsNotEnabled()
+        // `받은 서류(QR)`는 이미 `입국 때 보여 주기`에 있는 기능 — '곧 추가'라고 하지 않는다(재검토2 ⑤#11)
+        rule.onAllNodesWithText(s(R.string.wallet_documents_title)).assertCountEquals(0)
+    }
+
+    /**
+     * 여권 정보 지우기는 같은 글자의 설정(`여행이 끝나면 여권 정보 지우기`)·`내 정보 잠그기`와 떨어진 맨 아래(위 32dp),
+     * 바로 위 한 줄이 무엇이 지워지고 무엇이 남는지 말한다 (재검토2 ②#4)
+     */
+    @Test
+    @Config(qualifiers = "w393dp-h4000dp")
+    fun passportDeleteSitsApartWithScopeLine() {
+        wallet(WalletState.Unlocked(VaultContents(passport = passport)))
+        shown(s(R.string.wallet_passport_delete))
+        shown(s(R.string.wallet_passport_delete_scope))
+        fun node(id: Int) = rule.onNodeWithText(s(id)).fetchSemanticsNode()
+        val toggle = node(R.string.wallet_auto_destroy).boundsInRoot
+        val lock = node(R.string.wallet_lock).boundsInRoot
+        val scope = node(R.string.wallet_passport_delete_scope).boundsInRoot
+        val delete = node(R.string.wallet_passport_delete).boundsInRoot
+        val soon = node(R.string.coming_soon_group).boundsInRoot
+        assertTrue("설정 → 잠그기 → 범위 한 줄 → 지우기 → 곧 추가 순서", toggle.bottom < lock.top && lock.bottom < scope.top && scope.bottom < delete.top && delete.bottom < soon.top)
+        val gapDp = (scope.top - lock.bottom) / rule.density.density
+        assertTrue("잠그기와 지우기 묶음 사이 24dp 이상: $gapDp", gapDp >= 24f)
     }
 
     @Test
@@ -319,7 +353,10 @@ class WalletUiTest {
         shown(s(R.string.wallet_booking_date_back))
         shown(s(R.string.booking_label_checkin))
         shown(s(R.string.booking_label_checkout))
-        listOf("2026-11-03", "2026-11-07", "2026-11-04", "2026-11-06").forEach { rule.onAllNodesWithText(it).assertCountEquals(1) }
+        // 보이는 날짜는 `2026년 11월 3일 (화)` — ISO 모양은 화면에 없다(재검토2 ①#13, 저장 값은 그대로)
+        listOf("2026년 11월 3일 (화)", "2026년 11월 7일 (토)", "2026년 11월 4일 (수)", "2026년 11월 6일 (금)")
+            .forEach { rule.onAllNodesWithText(it).assertCountEquals(1) }
+        listOf("2026-11-03", "2026-11-07", "2026-11-04", "2026-11-06").forEach { rule.onAllNodesWithText(it).assertCountEquals(0) }
         rule.onAllNodesWithText("→", substring = true).assertCountEquals(0)
         rule.onAllNodesWithText(" · ", substring = true).assertCountEquals(0)
     }

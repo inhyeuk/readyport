@@ -42,7 +42,11 @@ class WalletViewModel @Inject constructor(
 
     fun unlock() = viewModelScope.launch { repo.unlock() }
     fun lock() = repo.lock()
-    fun reset() = viewModelScope.launch { repo.wipe() }
+    /** 내 정보를 비운다(키 분실·손상). 다 비우면 [then] — 화면은 여권 등록으로 데려간다(재검토2 ②#4) */
+    fun reset(then: () -> Unit = {}) = viewModelScope.launch {
+        repo.wipe()
+        then()
+    }
     fun deletePassport() = viewModelScope.launch { repo.update { it.copy(passport = null) } }
     fun deleteBooking(id: String) = viewModelScope.launch { repo.update { c -> c.copy(bookings = c.bookings.filterNot { it.id == id }) } }
     fun setAutoDestroy(enabled: Boolean) = viewModelScope.launch { settings.setAutoDestroyPassport(enabled) }

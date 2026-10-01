@@ -10,6 +10,7 @@ import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.performScrollToNode
 import androidx.compose.ui.test.junit4.v2.createComposeRule
 import androidx.compose.ui.test.onAllNodesWithText
+import androidx.compose.ui.test.onFirst
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.test.core.app.ApplicationProvider
@@ -103,7 +104,7 @@ class M8UiTest {
 
     @Test fun disclosureIsAtTopAboveItems() {
         essentials()
-        val disclosure = rule.onNodeWithText(s(R.string.essentials_disclosure)).assertIsDisplayed().getBoundsInRoot()
+        val disclosure = rule.onNodeWithText(s(R.string.essentials_fee_disclosure)).assertIsDisplayed().getBoundsInRoot()
         val firstItem = rule.onNodeWithText("여권").getBoundsInRoot()
         assertTrue(disclosure.top < firstItem.top)
         rule.onNodeWithText(s(R.string.essentials_for_trip, "일본", 4, 11)).assertIsDisplayed()
@@ -111,9 +112,40 @@ class M8UiTest {
 
     @Test fun affiliateLabelOnlyOnAffiliateLinks() {
         essentials()
-        // 제휴 링크 1개(어댑터)에만 '제휴' 라벨. 보험(official_info)에는 없다
-        rule.onAllNodesWithText(s(R.string.essentials_affiliate_label)).assertCountEquals(1)
+        // 제휴 링크 1개(어댑터)에만 '수수료 링크' 라벨. 보험(official_info)에는 없다
+        rule.onAllNodesWithText(s(R.string.essentials_fee_link_label)).assertCountEquals(1)
         rule.onNodeWithText("공식 비교 사이트 열기").assertExists()
+        // '제휴'라는 낱말은 이 화면에 없다 — 입국 화면의 '정부 기관과 제휴하지 않았어요'와 겹치지 않게(재검토2 ⑤#9)
+        rule.onAllNodesWithText("제휴", substring = true).assertCountEquals(0)
+    }
+
+    /** 여행지 전기 값 칩: 주제 이름이 아니라 값(`220 V 전압`)과 한국 플러그 판정 + 출처 (재검토2 ①#15·②#9·③#10) */
+    @Test fun powerChipsShowValues() {
+        fun show(power: PowerInfo?) {
+            val ui = EssentialsUi("태국", 4, 11, Essentials.select(rules, kr, power).map { EssentialRow(it, false, null) }, power, "태국관광청 전기 안내")
+            rule.setContent { ReadyPortTheme { EssentialsContent(ui, { _, _ -> }, {}) } }
+        }
+        show(th)
+        fun chip(value: String, label: Int) = rule.onNode(hasText(value, substring = true) and hasText(s(label), substring = true))
+        chip("220 V", R.string.essentials_power_voltage).assertExists()
+        chip(s(R.string.essentials_power_kr_plug), R.string.essentials_power_kr_plug_fits).assertExists()
+        rule.onNodeWithText(s(R.string.essentials_power_title, "태국")).assertExists()
+        rule.onAllNodes(hasText("태국관광청 전기 안내", substring = true)).onFirst().assertExists()
+    }
+
+    @Test fun powerChipsAskAdapterWhenPlugDiffers() {
+        val ui = EssentialsUi("싱가포르", 4, 11, Essentials.select(rules, kr, sg).map { EssentialRow(it, false, null) }, sg, null)
+        rule.setContent { ReadyPortTheme { EssentialsContent(ui, { _, _ -> }, {}) } }
+        rule.onNode(hasText("230 V", substring = true) and hasText(s(R.string.essentials_power_voltage), substring = true)).assertExists()
+        rule.onNode(hasText(s(R.string.essentials_power_adapter_needed), substring = true)).assertExists()
+        // 출처 이름이 없으면 '공식 안내' (내부 ID를 보이지 않는다)
+        rule.onAllNodes(hasText(s(R.string.source_official_fallback), substring = true)).onFirst().assertExists()
+        rule.onAllNodes(hasText("src", substring = true)).assertCountEquals(0)
+    }
+
+    @Test fun noPowerChipsWithoutTrip() {
+        essentials()
+        rule.onAllNodesWithText(s(R.string.essentials_power_voltage)).assertCountEquals(0)
     }
 
     @Test fun progressAndBadge() {

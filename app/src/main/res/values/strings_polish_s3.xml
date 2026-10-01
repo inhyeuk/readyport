@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  다듬기 화면 라운드 S3(내 여행·여행 고치기·꼭 챙길 물건·내 정보·여권·예약 서류·보여 주기·같이 가는 사람)의 새 문구.
+  docs/design/POLISH_D0_REPORT.md 5절 + rereview2 '남은 문제'.
+-->
+<resources>
+    <!-- ===== 꼭 챙길 물건 (19) ===== -->
+    <!-- '제휴' 표시가 입국 화면의 '정부 기관과 제휴하지 않았어요'와 같은 낱말이라 "그럼 제휴한 거야?"로 읽혔다(재검토2 ⑤#9) —
+         경제적 이해관계를 그대로 말하는 '수수료 링크'로 -->
+    <string name="essentials_fee_link_label">수수료 링크</string>
+    <string name="essentials_fee_disclosure">‘수수료 링크’ 표시가 붙은 링크로 사면 레디포트가 수수료를 받을 수 있어요. 보험·금융 상품은 수수료 없이 안내만 해요.</string>
+    <!-- 여행지 전기 값 칩 묶음 (팩 power 값 그대로 + 한국 플러그가 맞는지 판정). %1$s = 나라 이름 -->
+    <string name="essentials_power_title">%1$s 전기·콘센트</string>
+    <string name="essentials_power_voltage">전압</string>
+    <string name="essentials_power_kr_plug">한국 플러그</string>
+    <string name="essentials_power_kr_plug_fits">그대로 써요</string>
+    <string name="essentials_power_adapter">변환 어댑터</string>
+    <string name="essentials_power_adapter_needed">챙기세요</string>
+    <!-- 한국 플러그가 맞는지 공식 확인이 없는 나라(목록에 어댑터를 넣는 것과 같은 판단) -->
+    <string name="essentials_power_adapter_unknown">챙기면 안전해요</string>
+
+    <!-- ===== 날짜 표시 (재검토2 ①#13 — 보이는 날짜만, 저장 값·입력칸·사이트에 넣는 값은 그대로) ===== -->
+    <string name="date_ymd_s3">%1$d년 %2$d월 %3$d일</string>
+    <!-- %4$s = 요일 한 글자 (화) -->
+    <string name="date_ymd_dow_s3">%1$d년 %2$d월 %3$d일 (%4$s)</string>
+
+    <!-- ===== 내 정보 (28~30) ===== -->
+    <!-- 29 키 분실·손상: 카드의 하나뿐인 행동 — 무엇을 하는지(비우고 → 여권 다시 등록) 버튼에, 지워지는 범위는 본문 한 줄에 (재검토2 ②#4) -->
+    <string name="wallet_reset_reregister">비우고 여권 다시 등록하기</string>
+    <string name="wallet_reset_scope">비우면 이 휴대폰의 여권·예약 서류·같이 가는 사람·입국 서류가 지워져요. 여행 일정은 그대로예요.</string>
+    <!-- 30 여권 정보 지우기 위 한 줄: 같은 이름의 '여행이 끝나면 여권 정보 지우기' 설정과 떨어진 자리에서 무엇이 지워지는지 -->
+    <string name="wallet_passport_delete_scope">이 휴대폰에서 내 여권 정보만 지워요. 예약 서류·입국 서류·같이 가는 사람은 그대로예요.</string>
+    <!-- 여권 카드 안 판정 알약 (카드 안 판정 = 알약 + 본문, 재검토2 ①#4) -->
+    <string name="wallet_passport_expiring_tag">만료 6개월 안</string>
+
+    <!-- ===== 내 여행 (09~16) ===== -->
+    <!-- 13 되돌리기: 조건문(`도착 전이면`)은 "나는 도착했는데 눌러야 하나?"로 읽혔다(재검토2 ②#7) -->
+    <string name="today_arrived_undo_v2">도착을 잘못 눌렀어요</string>
+    <string name="today_arrived_undone">출국 단계로 돌아갔어요. 도착하면 ‘도착했어요’를 다시 눌러 주세요.</string>
+    <!-- 10 준비 단계 부제: 출발까지 + 여행 날짜(다른 단계는 날짜만) — %1$s = 출발까지 N일, %2$s = 11월 3일 ~ 7일 -->
+    <string name="today_d_day_dates">%1$s · %2$s</string>
+    <!-- 입국 카드 할 일 카드의 내는 기간 칩(팩 window_days_including_arrival + 내 여행 출발일로 앱이 계산, 재검토2 ③#5) -->
+    <string name="today_form_window_label">내는 기간</string>
+    <!-- 15 담아 둔 물건 판정 요약 알약: %1$s = 반입 불가·반입 주의·한국 반입 가능, %2$d = 품목 수 (재검토2 ③#12) -->
+    <string name="today_cart_verdict_count">%1$s %2$d개</string>
+    <!-- 16 정리 단계 숫자 타일: 나라 타일은 사진 제목이 이미 말해서 빼고 앱 안 숫자만 (재검토2 ①#6·③#13) -->
+    <string name="today_wrapup_fact_essentials">챙긴 물건</string>
+</resources>

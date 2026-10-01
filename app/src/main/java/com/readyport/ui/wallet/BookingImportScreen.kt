@@ -217,6 +217,7 @@ private fun ReviewForm(fields: BookingFields, saveFailed: Boolean, onSave: (Book
         BookingKind.Lodging to Icons.Outlined.Hotel,
         BookingKind.Unknown to Icons.Outlined.Description,
     )
+    // 이름 기본값은 입력칸 값이라 원형 그대로(`항공권 2026-11-03` — 재검토2 ①#13 '입력칸 값은 원형'). 보이는 날짜(찾은 날짜)만 한국어 모양
     val defaultTitle = kindLabels.getValue(fields.kind) + (fields.dates.firstOrNull()?.let { " $it" } ?: "")
     var draft by remember(fields) { mutableStateOf(BookingDraft.from(fields, defaultTitle)) }
     val nothingFound = fields.reference == null && fields.flightNumbers.isEmpty() && fields.dates.isEmpty()
@@ -265,8 +266,10 @@ private fun ReviewForm(fields: BookingFields, saveFailed: Boolean, onSave: (Book
                     }
                 }
                 if (draft.dates.isNotEmpty()) {
+                    // 찾은 날짜는 `2026년 11월 3일 (화)`로 보인다(재검토2 ①#13). 저장 값은 그대로(YYYY-MM-DD)
+                    val shownDates = draft.dates.map { koreanDate(it) }
                     IconBullet(
-                        stringResource(R.string.booking_field_dates) + ": " + draft.dates.joinToString(", "),
+                        stringResource(R.string.booking_field_dates) + ": " + shownDates.joinToString(", "),
                         Icons.Outlined.EventAvailable,
                         tone = BadgeTone.Accent,
                     )

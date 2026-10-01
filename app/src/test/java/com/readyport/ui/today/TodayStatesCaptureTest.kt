@@ -26,7 +26,11 @@ import com.readyport.R
 import com.readyport.trip.StageInfo
 import com.readyport.trip.Trip
 import com.readyport.trip.TripStage
+import com.readyport.prep.Essentials
 import com.readyport.ui.TestPacks
+import com.readyport.ui.prep.EssentialRow
+import com.readyport.ui.prep.EssentialsContent
+import com.readyport.ui.prep.EssentialsUi
 import com.readyport.ui.theme.ReadyPortTheme
 import com.readyport.ui.theme.Tokens
 import org.junit.Assert.assertTrue
@@ -66,7 +70,32 @@ abstract class TodayStatesCaptureBase {
         "today-preparing-passport" to {
             TodayContent(TodayUi(trip, StageInfo(TripStage.Preparing, daysLeft = 10), "태국", form, false), TodayActions(), {}, {}, {}, {}, {})
         },
+        // 정리 단계 숫자 타일이 모두 있는 경우(다듬기 S3 — 나라 타일 대신 여행 기간·챙긴 물건·담아 온 물건)
+        "today-wrapup-full" to {
+            TodayContent(
+                TodayUi(trip, StageInfo(TripStage.WrapUp), "태국", null, true, cart = TestPacks.thailand.value.shopping.take(4), essentialsTotal = 5, essentialsDone = 2),
+                TodayActions(), {}, {}, {}, {}, {},
+            )
+        },
+        // 꼭 챙길 물건의 여행지 전기 값 칩(다듬기 S3): 태국(한국 플러그 그대로)·일본(어댑터·전압 확인 — 확인 안 된 나라)
+        "essentials-power-TH" to { EssentialsSample("TH") },
+        "essentials-power-JP" to { EssentialsSample("JP") },
     )
+
+    @Composable
+    private fun EssentialsSample(code: String) {
+        val index = TestPacks.index.value
+        val pack = kotlinx.coroutines.runBlocking { TestPacks.repo.pack(code) }!!.value
+        val rules = Essentials.select(index.essentials, index.homePower, pack.power)
+        EssentialsContent(
+            EssentialsUi(
+                pack.names.ko, 4, 11,
+                rules.mapIndexed { i, r -> EssentialRow(r, i == 0, r.source?.let { id -> index.sources.firstOrNull { it.id == id }?.name }) },
+                pack.power, pack.power?.let { p -> pack.source(p.source)?.name },
+            ),
+            { _, _ -> }, {},
+        )
+    }
 
     private val groundArgb = argb(Tokens.Ground)
 
