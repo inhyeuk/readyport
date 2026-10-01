@@ -110,13 +110,16 @@ class CountryDesignTest {
         val th = pack("TH")
         rule.setContent { ReadyPortTheme { CountryContent(TestPacks.countryUi("TH"), CountryActions()) } }
         rule.onNodeWithText(s(R.string.country_visa_headline_not_required)).assertIsDisplayed()
+        rule.onNodeWithText(s(R.string.fact_days, 90)).assertIsDisplayed()
         val req = th.requirements.single()
-        // 원칙 6: 60자를 넘는 요약은 첫 문장만(비자 없이 90일 — OfflinePackTest가 찾는 말은 첫 문장에 있다), 펼치면 원문 전체
+        // 다듬기 S(재검토2 ③#5): 숫자 타일(`90일 비자 없이 머물러요`)이 있으면 요약은 처음부터 `비자 설명 자세히 보기` 안 —
+        // 타일 바로 밑에서 `비자 없이 90일까지 머물 수 있어요`를 되풀이하지 않는다. 펼치면 원문 전체
         val first = req.summaryKo.substringBefore(". ") + "."
-        assertTrue(req.summaryKo.length > 60 && "비자 없이 90일" in first)
-        scrollTo(first)
-        rule.onNodeWithText(first).assertIsDisplayed()
+        assertTrue("비자 없이 90일" in first)
+        assertTrue(rule.onAllNodesWithText(first).fetchSemanticsNodes().isEmpty())
         assertTrue(rule.onAllNodesWithText(req.summaryKo).fetchSemanticsNodes().isEmpty())
+        // 보이는 글도 무엇을 펼치는지 밝힌다(같은 `자세히 보기`가 여러 번 보이지 않게)
+        rule.onNodeWithText(s(R.string.country_more_visa)).assertIsDisplayed()
         openMore(s(R.string.country_more_visa))
         scrollTo(req.summaryKo)
         rule.onNodeWithText(req.summaryKo).assertIsDisplayed()
@@ -127,10 +130,12 @@ class CountryDesignTest {
 
     @Test
     fun longEntrySentencesFoldButSafetyWarningsNever() {
-        val th = pack("TH")
-        rule.setContent { ReadyPortTheme { CountryContent(TestPacks.countryUi("TH"), CountryActions()) } }
-        val entry = th.sections.single { it.id == "entry" }
-        val long = entry.bodyKo.first { it.length > 60 && ". " in it }
+        // 인도네시아 들어갈 때: 위 카드와 겹치지 않는 60자 넘는 문장은 첫 문장만 보이고 펼치면 원문 전체
+        val id = pack("ID")
+        rule.setContent { ReadyPortTheme { CountryContent(TestPacks.countryUi("ID"), CountryActions()) } }
+        val entry = id.sections.single { it.id == "entry" }
+        val shownAbove = id.requirements.map { it.summaryKo } + id.forms.map { it.windowKo }
+        val long = entry.bodyKo.first { it.length > 60 && ". " in it && !isRestated(it, shownAbove) }
         val first = long.substringBefore(". ") + "."
         scrollTo(first)
         rule.onNodeWithText(first).assertIsDisplayed()
@@ -138,6 +143,34 @@ class CountryDesignTest {
         openMore(s(R.string.country_more_section, entry.titleKo))
         scrollTo(long)
         rule.onNodeWithText(long).assertIsDisplayed()
+    }
+
+    /**
+     * 다듬기 S(재검토2 ③#5·③#12·⑤#15): 태국 들어갈 때의 `비자 없이 90일까지…`(비자 카드와 같은 말)·TDAC 기간 문장(입국 카드 내는 때와 같은 말)은
+     * 접어 두고 — 한 화면에 `90일`·기간이 두세 번 나오지 않게 — 펼치면 팩 원문 전체가 팩 순서대로 나온다. 앱은 문장을 지우거나 고치지 않는다.
+     */
+    @Test
+    fun entrySentencesAlreadyOnCardsAboveFoldAway() {
+        val th = pack("TH")
+        rule.setContent { ReadyPortTheme { CountryContent(TestPacks.countryUi("TH"), CountryActions()) } }
+        val entry = th.sections.single { it.id == "entry" }
+        val shownAbove = th.requirements.map { it.summaryKo } + th.forms.map { it.windowKo }
+        val restated = entry.bodyKo.filter { isRestated(it, shownAbove) }
+        assertEquals(2, restated.size)
+        assertTrue(restated.any { "90일" in it } && restated.any { "TDAC" in it })
+        restated.forEach { r ->
+            listOf(r, r.substringBefore(". ") + ".").forEach { t ->
+                assertTrue("위 카드와 같은 문장이 보임: $t", rule.onAllNodesWithText(t).fetchSemanticsNodes().isEmpty())
+            }
+        }
+        val kept = entry.bodyKo.filterNot { isRestated(it, shownAbove) }
+        scrollTo(kept.last())
+        rule.onNodeWithText(kept.last()).assertIsDisplayed()
+        openMore(s(R.string.country_more_section, entry.titleKo))
+        entry.bodyKo.forEach { line ->
+            scrollTo(line)
+            rule.onNodeWithText(line).assertIsDisplayed()
+        }
     }
 
     @Test

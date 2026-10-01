@@ -50,6 +50,7 @@ import com.readyport.ui.components.PhotoTextArea
 import com.readyport.ui.components.Photos
 import com.readyport.ui.components.isStackedLayout
 import com.readyport.ui.components.koDisplay
+import com.readyport.ui.components.textIconSize
 import com.readyport.ui.theme.LocalDimens
 import com.readyport.ui.theme.Tokens
 
@@ -166,11 +167,12 @@ private fun SizePreview() {
         horizontalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         Text(glyph, style = MaterialTheme.typography.bodyMedium, color = Tokens.InkSecondary)
+        // 화살표도 옆 글자를 따라 커진다(최대 1.5배) — 큰 글자에서 점처럼 작아지지 않게 (재검토2 ①#14)
         Icon(
             Icons.AutoMirrored.Outlined.ArrowForward,
             contentDescription = null,
             tint = Tokens.Accent,
-            modifier = Modifier.size(LocalDimens.current.iconSmall),
+            modifier = Modifier.size(textIconSize(LocalDimens.current.iconSmall, MaterialTheme.typography.bodyMedium)),
         )
         Text(glyph, style = MaterialTheme.typography.headlineMedium, color = Tokens.Accent)
     }

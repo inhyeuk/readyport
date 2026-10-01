@@ -28,8 +28,6 @@ import androidx.compose.material.icons.outlined.CheckCircle
 import androidx.compose.material.icons.outlined.EditNote
 import androidx.compose.material.icons.outlined.GppMaybe
 import androidx.compose.material.icons.outlined.Info
-import androidx.compose.material.icons.outlined.Lock
-import androidx.compose.material.icons.outlined.Policy
 import androidx.compose.material.icons.outlined.ReportProblem
 import androidx.compose.material.icons.outlined.SaveAlt
 import androidx.compose.material.icons.outlined.TaskAlt
@@ -42,12 +40,12 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
@@ -66,6 +64,8 @@ import com.readyport.R
 import com.readyport.autofill.RecipeStep
 import com.readyport.autofill.UrlPolicy
 import com.readyport.security.SecureScreen
+import com.readyport.ui.components.Assurance
+import com.readyport.ui.components.AssuranceCard
 import com.readyport.ui.components.BadgeTone
 import com.readyport.ui.components.BannerTone
 import com.readyport.ui.components.IconBullet
@@ -76,7 +76,6 @@ import com.readyport.ui.components.NoticeBanner
 import com.readyport.ui.components.PrimaryButton
 import com.readyport.ui.components.QuietButton
 import com.readyport.ui.components.SecondaryButton
-import com.readyport.ui.components.SecurityBanner
 import com.readyport.ui.components.StatusKind
 import com.readyport.ui.components.StatusTag
 import com.readyport.ui.components.TextCircle
@@ -334,22 +333,12 @@ private fun FadingScrollColumn(fade: Color, modifier: Modifier = Modifier, conte
 }
 
 /**
- * 정부 비제휴(첫 항목) + 보안 한 줄 (입국 카드 화면 공통, DESIGN_SPEC 6장 머리말).
- * 큰 글자(130%↑)는 두 줄을 한 띠로 묶어 높이를 아낀다(정부 비제휴가 여전히 첫 줄).
+ * 정부 비제휴(첫 항목) + 이 휴대폰에만 (입국 카드 화면 공통, DESIGN_SPEC 6장 머리말) = 공용 안심 카드 한 장(입국 카드 확인 20·값 복사해서 넣기 21과
+ * 같은 부품, 재검토2 ①#3). 띠 둘(흰 비제휴 + Navy 보안)이 쌓이지 않고, 정부 비제휴가 여전히 첫 줄. 제출은 직접은 바로 아래 `직접 확인 필요` 띠가 말한다.
  */
 @Composable
 private fun TopNotices() {
-    if (isStackedLayout()) {
-        NoticeBanner(
-            stringResource(R.string.guide_not_affiliated),
-            icon = Icons.Outlined.Policy,
-            secondLine = stringResource(R.string.settings_local_only_title),
-            secondIcon = Icons.Outlined.Lock,
-        )
-    } else {
-        NoticeBanner(stringResource(R.string.guide_not_affiliated), icon = Icons.Outlined.Policy)
-        SecurityBanner(compact = true)
-    }
+    AssuranceCard(items = listOf(Assurance.NotAffiliated, Assurance.LocalOnly))
 }
 
 /** 공식 사이트 연결 상태(초록 = 공식 / 빨강 = 아님, 색 + 아이콘 + 글자) + 값 복사해서 넣기(예전 `수동 모드` — 쉬운 말, R18) */

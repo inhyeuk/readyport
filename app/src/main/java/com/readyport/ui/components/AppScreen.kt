@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
@@ -46,7 +47,7 @@ val LocalShowBack = staticCompositionLocalOf { false }
 /**
  * 모든 탭 화면의 공통 틀.
  * - 제목은 TalkBack 제목(heading)으로 표시한다. [icon]이 있으면 제목 앞에 아이콘 배지.
- * - 쉬운 모드에서는 '처음으로'와 '소리로 듣기' 버튼을 모든 화면에 둔다 (PRD 3.2).
+ * - 쉬운 모드에서는 '처음으로'와 '소리로 듣기' 버튼을 모든 화면에 둔다 (PRD 3.2). 홈 자신은 '소리로 듣기'만([showHomeAction] = false).
  * - 스와이프 동작은 쓰지 않는다. 세로 스크롤만 있다.
  * - [state]를 넘기면 화면이 스크롤 위치를 다룰 수 있고, [keyIndex]를 넘기면 AppScreen이 넣는 header·easy-actions와
  *   화면이 넣는 모든 item의 key가 순서대로 기록된다 → `state.scrollToKey(keyIndex, "key")` (DESIGN_SPEC 4.1)
@@ -63,6 +64,8 @@ fun AppScreen(
     icon: ImageVector? = null,
     state: LazyListState = rememberLazyListState(),
     keyIndex: KeyIndex? = null,
+    /** 쉬운 모드 `처음으로` 버튼을 둘지 — 홈 화면 자신은 처음 화면이라 false(눌러도 아무 일 없음, 재검토2 ⑤#12): `소리로 듣기`만 폭 전체 */
+    showHomeAction: Boolean = true,
     content: LazyListScope.() -> Unit,
 ) {
     val dimens = LocalDimens.current
@@ -79,7 +82,16 @@ fun AppScreen(
         } else {
             scope.item(key = "header") { TitleBlock(title, subtitle, icon, headerActions) }
         }
-        if (dimens.easyMode) {
+        if (dimens.easyMode && !showHomeAction) {
+            scope.item(key = "easy-actions") {
+                EasyActionButton(
+                    stringResource(R.string.action_listen),
+                    Icons.AutoMirrored.Outlined.VolumeUp,
+                    { actions.speak(speech) },
+                    Modifier.fillMaxWidth(),
+                )
+            }
+        } else if (dimens.easyMode) {
             scope.item(key = "easy-actions") {
                 // 두 버튼이 같은 폭으로 내용선 끝까지 — 반 폭에 라벨이 한 줄로 안 들어가면 위아래로 쌓고 둘 다 폭 전체 (재검토2 ①#5)
                 EqualWidthPair(

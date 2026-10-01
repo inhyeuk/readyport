@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  다듬기 S2(화면 라운드 — 홈·나라·여행 준비·입국 카드 확인·값 복사해서 넣기)의 새 문구. 다른 파일의 기존 문구·키는 그대로.
+-->
+<resources>
+    <!-- 입국 카드 '내는 때' — 내 여행 날짜로 앱이 계산한 기간(팩 window_days_including_arrival + 여행 출발일). 일반 예시(예: 5월 4일…) 대신.
+         %1$s = 도착일(11월 3일), %2$s = 낼 수 있는 기간(11월 1일~3일). 출발일에 도착한다고 가정하므로 '도착하면'으로 조건을 밝힌다 -->
+    <string name="form_window_mine">내 여행: %1$s에 도착하면 %2$s</string>
+    <string name="date_month_day">%1$d월 %2$d일</string>
+    <!-- 같은 달 기간 11월 1일~3일 / 달이 바뀌는 기간 10월 31일~11월 2일 -->
+    <string name="date_range_same_month">%1$d월 %2$d일~%3$d일</string>
+    <string name="date_range_two_months">%1$d월 %2$d일~%3$d월 %4$d일</string>
+
+    <!-- 04 순서 머리(번호 원 + 한 줄): 비자 신청이 지나가는 입국 카드가 1, 비자 온라인 신청이 2 (팩 신청 단계 순서 그대로) -->
+    <string name="country_step_head_form">먼저 입국 카드를 내요</string>
+    <string name="country_step_head_visa">그다음 비자를 신청해요</string>
+    <!-- 04 비자 신청 카드 안 판정 알약(대행 사이트 경고 — 이유는 팩 warning_ko 그대로) -->
+    <string name="country_visa_apply_warning_tag">대행 사이트 주의</string>
+    <!-- 05 전기 카드 안 판정 알약 (팩 kr_plug_fits 값) -->
+    <string name="power_tag_fits">한국 플러그 그대로</string>
+    <string name="power_tag_adapter">변환 어댑터 필요</string>
+
+    <!-- 꼭 챙길 물건 정보 칩(값 + 말) — 여행 나라 팩 power, 기내 반입만 되는 물건(rule_badge) -->
+    <string name="items_chip_plug_value">한국 플러그</string>
+    <string name="items_chip_plug_fits">그대로 써요</string>
+    <string name="items_chip_adapter_value">변환 어댑터</string>
+    <string name="items_chip_adapter">챙기세요</string>
+
+    <!-- 20 입국 카드 확인: 빈칸이 남은 동안 주 버튼 자리 (%1$d = 남은 빈칸 수) -->
+    <string name="form_go_first_missing_count">첫 빈칸으로 가기 (%1$d개 남음)</string>
+    <!-- 20 고른 값이 있는 선택 칸: 고른 줄 하나만 보이고 나머지 선택지는 펼쳐서 (%1$d = 모든 선택지 수) -->
+    <string name="form_choice_all">선택지 %1$d개 모두 보기</string>
+    <!-- TalkBack 접기 대상: %1$s = 칸 이름(여행 목적) -->
+    <string name="fold_target_choices">%1$s 선택지</string>
+</resources>

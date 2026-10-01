@@ -1,19 +1,20 @@
 package com.readyport.ui.form
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.FlowRow
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.shape.ZeroCornerSize
 import androidx.compose.material.icons.Icons
@@ -29,7 +30,6 @@ import androidx.compose.material.icons.outlined.EditNote
 import androidx.compose.material.icons.outlined.ErrorOutline
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.PauseCircle
-import androidx.compose.material.icons.outlined.Policy
 import androidx.compose.material.icons.outlined.Schedule
 import androidx.compose.material.icons.outlined.TouchApp
 import androidx.compose.material.icons.outlined.Translate
@@ -53,6 +53,9 @@ import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.drawWithContent
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
@@ -86,16 +89,19 @@ import com.readyport.autofill.RecipeOption
 import com.readyport.autofill.ValueOrigin
 import com.readyport.security.SecureScreen
 import com.readyport.ui.components.AppScreen
+import com.readyport.ui.components.AssuranceCard
 import com.readyport.ui.components.BadgeTitleLayout
 import com.readyport.ui.components.BadgeTone
 import com.readyport.ui.components.BannerTone
+import com.readyport.ui.components.CardBorderWidth
 import com.readyport.ui.components.CardNewsCard
+import com.readyport.ui.components.ExpandToggle
 import com.readyport.ui.components.ExpandableDetail
 import com.readyport.ui.components.IconBadge
 import com.readyport.ui.components.IconBullet
 import com.readyport.ui.components.IconKeys
 import com.readyport.ui.components.KeyValueRow
-import com.readyport.ui.components.SelectableCard
+import com.readyport.ui.components.SelectionMark
 import com.readyport.ui.components.selectionIconTint
 import com.readyport.ui.components.KoText
 import com.readyport.ui.components.requiredMarkColor
@@ -108,9 +114,9 @@ import com.readyport.ui.components.PrimaryButton
 import com.readyport.ui.components.QuietButton
 import com.readyport.ui.components.SecondaryButton
 import com.readyport.ui.components.SectionHeader
-import com.readyport.ui.components.SecurityBanner
 import com.readyport.ui.components.SelectChip
 import com.readyport.ui.components.cardShadow
+import com.readyport.ui.components.foldLiveRegion
 import com.readyport.ui.components.firstLineIconOffset
 import com.readyport.ui.components.keepTogether
 import com.readyport.ui.components.keepWords
@@ -162,11 +168,14 @@ fun FormConfirmScreen(
 }
 
 /**
- * 17 입국 카드 확인 (DESIGN_SPEC 6-17, 재검토 R16).
- * ① 정부 비제휴(첫 정보 항목) ② 보안 한 줄 ③ 현지어 크게(토글) ④ **빈칸 요약 하나**(`빈칸 N개 남았어요` + 첫 빈칸으로 가기 + 빈칸 이름 펼침)
+ * 17 입국 카드 확인 (DESIGN_SPEC 6-17, 재검토 R16, 다듬기 S).
+ * ① 안심 카드 한 장(정부 비제휴 — 첫 정보 항목 · 이 휴대폰에만 · 제출은 직접, 재검토2 ①#3) ③ 현지어 크게(토글)
+ * ④ **빈칸 요약 하나**(`빈칸 N개 남았어요` + 첫 빈칸으로 가기 + 빈칸 이름 펼침)
  * ⑤ 서류에서 가져온 값 — 출처별 그룹 카드, 기본은 접힘(값만 한 줄로 보이고 펼치면 칸 이름 3개 국어 + 값)
- * ⑥ 직접 고를 칸 — 흰 한 장, 칸마다 lazy item(`field-<key>`)이라 빈칸으로 바로 갈 수 있다
- * ⑦ 원어민 검수 전 ⑧ 제출은 직접 ⑨ 맞아요(빈칸이 있으면 비활성 + 바로 위 이유 한 줄 — D9) ⑩ 고치기 ⑪ 값 복사해서 넣기.
+ * ⑥ 직접 고를 칸 — 흰 한 장(옆선 1dp), 칸마다 lazy item(`field-<key>`)이라 빈칸으로 바로 갈 수 있다. 고르는 칸은 구분선 목록 한 장(재검토2 ①#8),
+ *   이미 고른 칸은 고른 줄 하나 + `선택지 N개 모두 보기`(②#1)
+ * ⑧ 버튼 설명 한 줄(확인하면 앱이 넣음 · 보안 확인과 제출은 직접) ⑨ 빈칸이 남으면 주 버튼 = `첫 빈칸으로 가기 (N개 남음)` +
+ *   이유 한 줄 + 비활성 `맞아요`(①#9 — 다 채우면 `맞아요`가 주 버튼) ⑩ 고치기 ⑪ 값 복사해서 넣기.
  *
  * 노란 신호는 실제 빈칸에만(R16 — 예전엔 머리 태그·칸마다 `꼭 채워요`·아래 빈칸 칩으로 같은 경고가 세 겹, 노랑 17회):
  * 빈 필수 칸에는 작은 느낌표 표시 하나(TalkBack 상태 `빈칸`), 요약은 맨 위 한 곳. 처음에는 '할 일'로 차분하게(주의 색 느낌표),
@@ -207,8 +216,6 @@ fun FormConfirmContent(
         }
     }
     val onLeave: (String) -> Unit = { key -> if (key !in touched) touched = touched + key }
-    val notAffiliated = stringResource(R.string.guide_not_affiliated)
-    val submitSelf = stringResource(R.string.country_submit_self)
     val missingSentence = recipe?.let { r ->
         FormValues.missingRequired(r, ui.values).takeIf { it.isNotEmpty() }?.joinToString(", ") { it.labels.ko }
     }?.let { stringResource(R.string.form_need_required, it) }
@@ -224,12 +231,9 @@ fun FormConfirmContent(
         state = listState,
         keyIndex = keys,
     ) {
-        // 정부 비제휴 + 제출은 직접 — 입국 화면의 첫 정보 항목 (원칙 5, 4.4)
-        item(key = "not-affiliated") {
-            NoticeBanner(notAffiliated, icon = Icons.Outlined.Policy, secondLine = submitSelf, secondIcon = Icons.Outlined.TouchApp)
-        }
-        // 보안 화면(SecureScreen): 비제휴 고지 바로 다음에 '이 휴대폰에만' 한 줄 (6장 공통 보안)
-        item(key = "security") { SecurityBanner(compact = true) }
+        // 정부 비제휴(첫 정보 항목) · 이 휴대폰에만(보안 화면) · 제출은 직접 — 띠 셋 대신 공용 안심 카드 한 장 (원칙 5, 재검토2 ①#3).
+        // Navy 보안 띠는 지갑·여권 화면에만
+        item(key = "not-affiliated") { AssuranceCard() }
         if (ctx == null) return@AppScreen
         if (!ctx.autofillAvailable) {
             item(key = "no-autofill") {
@@ -331,24 +335,34 @@ fun FormConfirmContent(
             }
         }
 
-        // ⑦ 보안 확인과 마지막 '제출'은 직접 — 버튼 바로 위 (누를 수 없는 흰 띠)
-        item(key = "notice") {
-            NoticeBanner(stringResource(R.string.form_confirm_notice), icon = Icons.Outlined.TouchApp)
-        }
         item(key = "actions") {
             Column(verticalArrangement = Arrangement.spacedBy(LocalDimens.current.gap)) {
                 if (ui.saveFailed) {
                     NoticeBanner(stringResource(R.string.form_save_failed), icon = Icons.Outlined.ErrorOutline, tone = BannerTone.Danger)
                 }
-                // 비활성 버튼 바로 위에 이유 한 줄(D9) — 빈칸 개수·이름은 맨 위 요약 한 곳에만 (R16: 같은 경고를 되풀이하지 않는다)
-                if (ctx.autofillAvailable && missing.isNotEmpty()) {
-                    IconBullet(stringResource(R.string.form_confirm_disabled_reason), Icons.Outlined.Info)
+                val blanks = ctx.autofillAvailable && missing.isNotEmpty()
+                // 빈칸이 남은 동안 주 버튼 자리는 `첫 빈칸으로 가기 (N개 남음)` — 비활성 회색 주 버튼 아래 보조 버튼이 화면에서 가장 진한 버튼이
+                // 되지 않게(재검토2 ①#9). 다 채우면 `맞아요, 입력해 주세요`가 주 버튼 자리로 돌아온다
+                if (blanks) {
+                    PrimaryButton(
+                        stringResource(R.string.form_go_first_missing_count, missing.size),
+                        onClick = { goToField(missing.first().key) },
+                        icon = Icons.Outlined.ArrowDownward,
+                    )
                 }
+                // ⑦ 확인하면 앱이 넣어 줌 · 보안 확인과 마지막 '제출'은 직접 — `맞아요` 바로 위 한 줄(띠가 아니라 버튼 설명 — 굵은 띠가 쌓이지 않게,
+                // 재검토2 ①#3·①#12). 자동 입력을 쉴 때는 위 안내 카드가 말한다
                 if (ctx.autofillAvailable) {
+                    IconBullet(stringResource(R.string.form_confirm_notice), Icons.Outlined.TouchApp, tone = BadgeTone.Help)
+                }
+                if (blanks) {
+                    // 비활성 버튼 바로 위에 이유 한 줄(D9) — 빈칸 이름은 맨 위 요약 한 곳에만 (R16: 같은 경고를 되풀이하지 않는다)
+                    IconBullet(stringResource(R.string.form_confirm_disabled_reason), Icons.Outlined.Info)
+                    SecondaryButton(confirmYes, onClick = onConfirm, enabled = false, icon = Icons.Outlined.EditNote)
+                } else if (ctx.autofillAvailable) {
                     PrimaryButton(
                         confirmYes,
                         onClick = onConfirm,
-                        enabled = missing.isEmpty(),
                         icon = Icons.Outlined.EditNote,
                     )
                 }
@@ -474,10 +488,10 @@ private fun OriginGroupCard(
             ) {
                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                     IconBadge(IconKeys.formOrigin(origin), tone = originTone(origin))
-                    // 그룹 머리는 아래 값(titleMedium Bold)보다 한 단계 위 — titleLarge
+                    // 그룹 머리 = 카드 제목 규칙(titleMedium SemiBold) — 위 섹션 머리(`서류에서 가져온 값`, headlineSmall Bold)보다 한 단계 아래 (재검토2 ①#2)
                     Text(
                         originName,
-                        style = MaterialTheme.typography.titleLarge,
+                        style = MaterialTheme.typography.titleMedium,
                         color = Tokens.Ink,
                         modifier = Modifier.semantics { heading() },
                     )
@@ -553,7 +567,8 @@ private fun ValueRow(f: RecipeField, v: FieldValue, localLarge: Boolean) {
 private enum class SegmentPosition { Top, Middle, Bottom }
 
 /**
- * 칸마다 lazy item으로 나눈 카드 조각. 흰 바탕(그림자 없음 — 조각마다 그림자를 그리면 이음매에 줄이 생긴다).
+ * 칸마다 lazy item으로 나눈 카드 조각. 흰 바탕(그림자 없음 — 조각마다 그림자를 그리면 이음매에 줄이 생긴다) +
+ * 다른 흰 카드와 같은 아주 옅은 1dp LineSoft 테두리(운영자 결정 6) — 이어지는 쪽 가장자리의 가로선만 지워 한 장의 테두리로 보인다.
  * 왼쪽 주의 막대는 뺐다: 노란 신호는 실제 빈칸에만 (R16).
  * 위·가운데 조각은 아래쪽 [gap]만큼을 목록 간격 자리에 겹쳐 그려(높이는 gap만큼 작게 알림) 다음 조각과 이음매 없이 한 장으로 보인다.
  * 겹치는 자리는 조각의 아래 여백이라 누르는 요소는 언제나 조각 안에 있다.
@@ -573,6 +588,15 @@ private fun CardSegment(position: SegmentPosition, content: @Composable ColumnSc
             .then(if (joinsNext) Modifier.overlapNextGap(dimens.gap) else Modifier)
             .fillMaxWidth()
             .clip(shape)
+            .drawWithContent {
+                drawContent()
+                // 다음·앞 조각과 이어지는 가장자리의 테두리 가로선을 바탕색으로 덮는다(옆선은 남긴다)
+                val w = CardBorderWidth.toPx()
+                val inner = Size((size.width - 2 * w).coerceAtLeast(0f), w)
+                if (position != SegmentPosition.Top) drawRect(Tokens.Surface, topLeft = Offset(w, 0f), size = inner)
+                if (joinsNext) drawRect(Tokens.Surface, topLeft = Offset(w, size.height - w), size = inner)
+            }
+            .border(CardBorderWidth, Tokens.LineSoft, shape)
             .background(Tokens.Surface)
             .padding(
                 start = dimens.cardPadding,
@@ -606,7 +630,7 @@ private fun IndividualHead(fieldCount: Int) {
             FlowRow(horizontalArrangement = Arrangement.spacedBy(12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 KoText(
                     stringResource(R.string.form_choose_yourself),
-                    MaterialTheme.typography.titleLarge,
+                    MaterialTheme.typography.titleMedium,
                     Modifier.align(Alignment.CenterVertically),
                     color = Tokens.Ink,
                     glueShort = true,
@@ -717,8 +741,10 @@ private fun FieldTextField(
 }
 
 /**
- * 고르는 칸(여행 목적·숙소 종류): 폭 전체 선택 행 = 공용 SelectableCard(재검토 R2 규칙 ② — 선택 AccentSoft + 2dp Accent + CheckCircle,
- * 비선택 흰 바탕 + 1dp LineStrong + 빈 원). 그룹은 selectableGroup, 행은 Role.RadioButton.
+ * 고르는 칸(여행 목적·숙소 종류): 선택지는 **구분선 목록 한 장**(1dp LineStrong 테두리 안 행 + LineSoft 구분선) — 선택지마다 테두리 카드가
+ * 쌓여 설문지 벽처럼 보이고 '선택된 카드'가 버튼처럼 보이던 문제(재검토2 ①#8·①#1). 고른 행만 AccentSoft + 채운 CheckCircle, 나머지는 빈 원.
+ * 이미 고른 칸은 고른 행 하나만 보이고 `선택지 N개 모두 보기`로 펼친다(②#1 — 큰 글자에서 선택지마다 세 줄씩 늘어지지 않게). 빈 칸은 늘 전체.
+ * 그룹은 selectableGroup, 행은 Role.RadioButton. 펼침으로 바뀌는 목록은 liveRegion.
  */
 @Composable
 private fun ChoiceField(
@@ -730,9 +756,11 @@ private fun ChoiceField(
     focusRequester: FocusRequester,
     onSelect: (String) -> Unit,
 ) {
-    val dimens = LocalDimens.current
     // 1열(쉬운 모드·큰 글자)은 현지어를 다음 줄로 — `ท่อง/เที่ยว`처럼 현지어 낱말 안에서 꺾이지 않게
     val localOwnLine = rememberGridColumns() == 1
+    var showAll by rememberSaveable(f.key) { mutableStateOf(false) }
+    val chosen = options.firstOrNull { it.value == selected }
+    val shown = if (chosen != null && !showAll) listOf(chosen) else options
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
         Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
             Row(verticalAlignment = Alignment.Top, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -749,25 +777,65 @@ private fun ChoiceField(
                 )
             }
         }
-        Column(Modifier.fillMaxWidth().selectableGroup(), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            options.forEachIndexed { i, o ->
-                val sel = selected == o.value
-                // 매핑 없는 값은 아이콘 없음 (옆 선택 표시와 원이 둘로 보이지 않게, 5.7)
-                val optionIcon = IconKeys.option(o.value)
-                SelectableCard(
-                    selected = sel,
-                    onClick = { onSelect(o.value) },
+        val shape = MaterialTheme.shapes.small
+        Column(
+            Modifier
+                .fillMaxWidth()
+                .clip(shape)
+                .border(1.dp, Tokens.LineStrong, shape)
+                .foldLiveRegion()
+                .selectableGroup(),
+        ) {
+            shown.forEachIndexed { i, o ->
+                if (i > 0) HorizontalDivider(thickness = 1.dp, color = Tokens.LineSoft)
+                OptionRow(
+                    o, selected == o.value, localLarge, localOwnLine,
                     modifier = if (i == 0) Modifier.focusRequester(focusRequester) else Modifier,
-                    leading = optionIcon?.let { icon ->
-                        { Icon(icon, contentDescription = null, tint = selectionIconTint(sel), modifier = Modifier.size(dimens.icon)) }
-                    },
-                    shape = MaterialTheme.shapes.small,
-                    contentPadding = PaddingValues(horizontal = 12.dp, vertical = 8.dp),
-                ) {
-                    OptionText(o, localLarge, localOwnLine)
-                }
+                ) { onSelect(o.value) }
             }
         }
+        if (chosen != null) {
+            ExpandToggle(
+                open = showAll,
+                onOpenChange = { showAll = it },
+                label = stringResource(R.string.form_choice_all, options.size),
+                target = stringResource(R.string.fold_target_choices, f.labels.ko),
+            )
+        }
+    }
+}
+
+/**
+ * 선택지 한 행: (뜻 아이콘) + `관광 · Tourism · ท่องเที่ยว` + 선택 표시(공용 SelectionMark). 고른 행만 AccentSoft 바탕(C.2 — AccentSoft 채움은 선택됨에만).
+ * 테두리는 목록 한 장이 맡는다(행마다 테두리 없음). 높이는 글이 정한다(최소 minTouch).
+ */
+@Composable
+private fun OptionRow(
+    o: RecipeOption,
+    selected: Boolean,
+    localLarge: Boolean,
+    localOwnLine: Boolean,
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit,
+) {
+    val dimens = LocalDimens.current
+    // 매핑 없는 값은 아이콘 없음 (옆 선택 표시와 원이 둘로 보이지 않게, 5.7)
+    val optionIcon = IconKeys.option(o.value)
+    Row(
+        modifier
+            .fillMaxWidth()
+            .heightIn(min = dimens.minTouch)
+            .background(if (selected) Tokens.AccentSoft else Tokens.Surface)
+            .selectable(selected = selected, role = Role.RadioButton, onClick = onClick)
+            .padding(horizontal = 12.dp, vertical = dimens.inner),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(12.dp),
+    ) {
+        if (optionIcon != null) {
+            Icon(optionIcon, contentDescription = null, tint = selectionIconTint(selected), modifier = Modifier.size(dimens.icon))
+        }
+        Box(Modifier.weight(1f)) { OptionText(o, localLarge, localOwnLine) }
+        SelectionMark(selected)
     }
 }
 

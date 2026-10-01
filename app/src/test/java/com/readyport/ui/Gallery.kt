@@ -40,7 +40,7 @@ import com.readyport.ui.present.PresentUi
 import com.readyport.ui.present.Traveler
 import com.readyport.ui.settings.PhotoCreditsContent
 import com.readyport.ui.settings.SettingsScreen
-import com.readyport.ui.tabs.EssentialsSummary
+import com.readyport.ui.tabs.essentialsSummary
 import com.readyport.ui.tabs.PrepareContent
 import com.readyport.ui.today.TodayActions
 import com.readyport.ui.today.TodayContent
@@ -78,6 +78,9 @@ object Gallery {
     private val th get() = TestPacks.thailand
     private val trip = Trip("TH", "2026-11-03", "2026-11-07")
 
+    /** 꼭 챙길 물건 중 챙긴 것(진행 2 / 5) */
+    private val gotItems = setOf("passport", "medicine")
+
     /** 출처 id → 이름 (운영 ViewModel과 같은 방식). 픽스처에서 내부 ID가 화면에 보이지 않게 한다 */
     private val indexSources get() = index.sources.associate { it.id to it.name }
     private val thSources get() = th.value.sources.associate { it.id to it.name }
@@ -108,12 +111,19 @@ object Gallery {
     fun screens(thumb: ImageBitmap? = null): List<Pair<String, @Composable () -> Unit>> = listOf(
         "first-run" to { FirstRunScreen {} },
         // 준비물 진행 줄(2 / 5)까지 보이게 (BUNDLE_A_NOTES 요청 7)
-        "home" to { HomeContent(TestPacks.homeUi().copy(essentials = EssentialsSummary(5, 2)), HomeActions(), today = LocalDate.of(2026, 9, 28)) },
+        // 꼭 챙길 물건 값 칩(기내 반입만 보조배터리)·진행 2 / 5 — 운영 ViewModel과 같은 계산(essentialsSummary)
+        "home" to { HomeContent(TestPacks.homeUi().copy(essentials = essentialsSummary(index, null, gotItems)), HomeActions(), today = LocalDate.of(2026, 9, 28)) },
         "home-with-trip" to {
-            HomeContent(TestPacks.homeUi().copy(trip = HomeTrip("태국", LocalDate.of(2026, 11, 3), LocalDate.of(2026, 11, 7), code = "TH")),
-                HomeActions(), today = LocalDate.of(2026, 10, 31))
+            HomeContent(
+                TestPacks.homeUi().copy(
+                    trip = HomeTrip("태국", LocalDate.of(2026, 11, 3), LocalDate.of(2026, 11, 7), code = "TH"),
+                    essentials = essentialsSummary(index, th.value, gotItems),
+                ),
+                HomeActions(), today = LocalDate.of(2026, 10, 31),
+            )
         },
-        "country-entry-TH" to { CountryContent(TestPacks.countryUi("TH"), CountryActions()) },
+        // 내 여행(태국 11월 3일)이 있으면 입국 카드 '내는 때'가 일반 예시 대신 내 날짜
+        "country-entry-TH" to { CountryContent(TestPacks.countryUi("TH").copy(tripArrival = trip.start), CountryActions()) },
         "country-entry-ID-visa" to { CountryContent(TestPacks.countryUi("ID"), CountryActions()) },
         "country-travel" to { CountryContent(TestPacks.countryUi("TH", favorite = true), CountryActions(), CountrySection.Travel) },
         "country-shopping" to { CountryContent(TestPacks.countryUi("JP"), CountryActions(), CountrySection.Shopping) },
@@ -159,7 +169,13 @@ object Gallery {
             TodayContent(TodayUi(trip, StageInfo(TripStage.WrapUp), "태국", null, true), TodayActions(), {}, {}, {}, {}, {})
         },
         "trip-edit" to { TripContent(TripFormUi(index.countries.filter { it.pack }, trip, loaded = true), { _, _, _ -> }, {}) },
-        "prepare" to { PrepareContent(TestPacks.formEntries(), {}) },
+        "prepare" to {
+            val days = th.value.forms.associate { it.id to it.windowDaysIncludingArrival }
+            PrepareContent(
+                TestPacks.formEntries().map { it.copy(windowDays = days[it.formId], tripArrival = trip.start) }, {},
+                essentialsSummary(index, th.value, gotItems),
+            )
+        },
         "essentials" to {
             val rules: List<EssentialRule> = Essentials.select(index.essentials, index.homePower, th.value.power)
             EssentialsContent(

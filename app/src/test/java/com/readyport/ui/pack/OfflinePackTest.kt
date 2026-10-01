@@ -109,7 +109,8 @@ class OfflinePackTest {
         launchOffline()
         rule.onNodeWithContentDescription(context.getString(R.string.home_country_open, "태국")).performClick()
         rule.onAllNodesWithText("태국").onFirst().assertIsDisplayed()
-        shown("비자 없이 90일", substring = true)
+        // 비자 카드 숫자 타일 `90일` (요약 문장은 타일과 같은 말이라 `비자 설명 자세히 보기` 안 — 다듬기 S)
+        shown(context.getString(R.string.fact_days, 90))
         shown("태국 입국 카드 (TDAC)")
         // 정책 카드 아래 '출처 … · 최종 확인 …'
         shown(context.getString(R.string.source_footer, "외교부 해외안전여행 · 태국", "2026.09.28"))

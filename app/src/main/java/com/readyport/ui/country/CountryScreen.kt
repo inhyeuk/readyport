@@ -20,7 +20,6 @@ import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.outlined.Approval
 import androidx.compose.material.icons.outlined.CalendarMonth
-import androidx.compose.material.icons.outlined.CheckCircle
 import androidx.compose.material.icons.outlined.EditCalendar
 import androidx.compose.material.icons.outlined.EditNote
 import androidx.compose.material.icons.outlined.ElectricBolt
@@ -35,7 +34,6 @@ import androidx.compose.material.icons.outlined.Map
 import androidx.compose.material.icons.outlined.OfflinePin
 import androidx.compose.material.icons.outlined.Outlet
 import androidx.compose.material.icons.outlined.Payments
-import androidx.compose.material.icons.outlined.Policy
 import androidx.compose.material.icons.outlined.Power
 import androidx.compose.material.icons.outlined.ShoppingBag
 import androidx.compose.material.icons.outlined.SmartDisplay
@@ -62,6 +60,7 @@ import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
@@ -91,6 +90,8 @@ import com.readyport.pack.SourcedText
 import com.readyport.pack.VisaApply
 import com.readyport.prep.import
 import com.readyport.ui.components.AppScreen
+import com.readyport.ui.components.Assurance
+import com.readyport.ui.components.AssuranceCard
 import com.readyport.ui.components.BadgeTone
 import com.readyport.ui.components.BannerTone
 import com.readyport.ui.components.CardNewsCard
@@ -108,6 +109,7 @@ import com.readyport.ui.components.KoText
 import com.readyport.ui.components.LinkRow
 import com.readyport.ui.components.NewsStyle
 import com.readyport.ui.components.NoticeBanner
+import com.readyport.ui.components.NumberText
 import com.readyport.ui.components.OnDark
 import com.readyport.ui.components.PhotoBox
 import com.readyport.ui.components.PhotoTextColumn
@@ -124,8 +126,11 @@ import com.readyport.ui.components.SectionHeader
 import com.readyport.ui.components.SourceList
 import com.readyport.ui.components.SourceRef
 import com.readyport.ui.components.StatTile
+import com.readyport.ui.components.StatusKind
+import com.readyport.ui.components.StatusTag
 import com.readyport.ui.components.Step
 import com.readyport.ui.components.StepList
+import com.readyport.ui.components.TextCircle
 import com.readyport.ui.components.TileSpec
 import com.readyport.ui.components.displayDate
 import com.readyport.ui.components.feeIcon
@@ -140,6 +145,7 @@ import com.readyport.ui.components.sectionGap
 import com.readyport.ui.components.shortValue
 import com.readyport.ui.components.sourceRefs
 import com.readyport.ui.components.textIconSize
+import com.readyport.trip.TripRepository
 import com.readyport.ui.nav.CountryRoute
 import com.readyport.ui.theme.LocalDimens
 import com.readyport.ui.theme.Tokens
@@ -150,6 +156,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import java.time.LocalDate
 import javax.inject.Inject
 
 data class CountryUi(
@@ -160,6 +167,11 @@ data class CountryUi(
     val returnLinks: List<OfficialLink> = emptyList(),
     val returnFacts: List<SourcedText> = emptyList(),
     val indexSources: Map<String, String> = emptyMap(),
+    /**
+     * 이 나라로 가는(아직 끝나지 않은) 내 여행의 출발일 — 도착일로 본다(오늘 단계·입국 카드 알림과 같은 계산).
+     * 있으면 입국 카드 '내는 때'에 일반 예시 대신 팩 기간 일수로 계산한 내 날짜를 보인다(재검토2 ③#5). 없으면 null.
+     */
+    val tripArrival: LocalDate? = null,
 )
 
 /** 나라 화면에서 다른 곳으로 가는 길 */
@@ -181,10 +193,11 @@ class CountryViewModel @Inject constructor(
     @ApplicationContext private val context: Context,
     private val packs: PackRepository,
     private val settings: SettingsRepository,
+    trips: TripRepository,
 ) : ViewModel() {
     val country = handle.toRoute<CountryRoute>().country
 
-    val ui: StateFlow<CountryUi> = combine(settings.settings, packs.revision) { s, _ ->
+    val ui: StateFlow<CountryUi> = combine(settings.settings, packs.revision, trips.trip) { s, _, trip ->
         val loaded = packs.pack(country)
         val index = packs.index()?.value
         CountryUi(
@@ -194,6 +207,10 @@ class CountryViewModel @Inject constructor(
             returnLinks = index?.returnLinks.orEmpty(),
             returnFacts = index?.returnFacts.orEmpty(),
             indexSources = index?.sources.orEmpty().associate { it.id to it.name },
+            // 이 나라 여행이고 아직 출발 전(또는 당일)일 때만 — 지난 여행 날짜로 기간을 보이지 않는다
+            tripArrival = trip?.takeIf { it.country == country }
+                ?.let { t -> runCatching { t.start }.getOrNull() }
+                ?.takeIf { !LocalDate.now().isAfter(it) },
         )
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), CountryUi())
 
@@ -299,42 +316,47 @@ fun CountryContent(ui: CountryUi, actions: CountryActions, initialSection: Count
 
         when (CountrySection.entries[section]) {
             CountrySection.Entry -> {
-                // 정부 비제휴·제출은 직접 — 입국 화면의 첫 정보 항목 (원칙 5)
+                // 정부 비제휴·제출은 직접 — 입국 화면의 첫 정보 항목 (원칙 5). 띠 대신 공용 안심 카드 한 장(여행 준비 18과 같은 부품·문구, 재검토2 ①#3)
                 item(key = "not-affiliated") {
-                    NoticeBanner(
-                        stringResource(R.string.guide_not_affiliated),
-                        icon = Icons.Outlined.Policy,
-                        secondLine = stringResource(R.string.country_submit_self),
-                        secondIcon = Icons.Outlined.TouchApp,
-                    )
+                    AssuranceCard(items = listOf(Assurance.NotAffiliated, Assurance.SubmitSelf))
                 }
                 krRequirements.forEach { req ->
                     item(key = "req-${req.purpose}") { VisaCard(pack, req, sourceOf, actions.openLink) }
                 }
-                // 1단계: 비자 신청이 지나가는 입국 신고 양식 (없으면 단계 표시 없이 양식 카드만)
+                // ① 비자 신청이 지나가는 입국 카드 (없으면 순서 머리 없이 양식 카드만) — 순서는 번호 원 머리(StepList와 같은 원)로,
+                // eyebrow `1단계 · …` 글자 대신 (재검토2 ③#3·③#9)
                 pack.forms.filter { it.id in applyForms }.forEach { form ->
                     item(key = "form-${form.id}") {
-                        FormCard(form, autofill = form.id in ui.autofillForms, step = 1, sourceOf = sourceOf) { actions.openForm(form.id) }
+                        StepGroup(1, stringResource(R.string.country_step_head_form)) {
+                            FormCard(form, autofill = form.id in ui.autofillForms, sourceOf = sourceOf, tripArrival = ui.tripArrival) {
+                                actions.openForm(form.id)
+                            }
+                        }
                     }
                 }
-                // 2단계: 비자 온라인 신청 (그 양식이 이 팩에 없으면 단계 표시 없이 주 버튼)
+                // ② 비자 온라인 신청 (그 양식이 이 팩에 없으면 순서 머리 없이 주 버튼)
                 krRequirements.forEach { req ->
                     req.apply?.let { apply ->
                         val staged = apply.form in applyForms
                         item(key = "visa-apply-${req.purpose}") {
-                            VisaApplyCard(apply, step = if (staged) 2 else null, primary = !staged, sourceOf = sourceOf) {
-                                actions.openForm(apply.form)
+                            val card: @Composable () -> Unit = {
+                                VisaApplyCard(apply, primary = !staged, sourceOf = sourceOf) { actions.openForm(apply.form) }
                             }
+                            if (staged) StepGroup(2, stringResource(R.string.country_step_head_visa), card) else card()
                         }
                     }
                 }
                 pack.forms.filter { it.id !in applyForms }.forEach { form ->
                     item(key = "form-${form.id}") {
-                        FormCard(form, autofill = form.id in ui.autofillForms, step = null, sourceOf = sourceOf) { actions.openForm(form.id) }
+                        FormCard(form, autofill = form.id in ui.autofillForms, sourceOf = sourceOf, tripArrival = ui.tripArrival) {
+                            actions.openForm(form.id)
+                        }
                     }
                 }
+                // 들어갈 때: 위 비자 카드·입국 카드가 이미 보여 준 문장(같은 말을 길게 공유)은 접어 둔다 — `90일`·TDAC 기간이 한 화면에 두세 번 나오지 않게(재검토2 ③#5·③#12)
+                val shownAbove = krRequirements.map { it.summaryKo } + pack.forms.map { it.windowKo }
                 pack.sections.filter { it.id == "entry" }.forEach { s ->
-                    item(key = "section-${s.id}") { SectionCard(s, sourceOf) }
+                    item(key = "section-${s.id}") { SectionCard(s, sourceOf, shownAbove = shownAbove) }
                 }
                 item(key = "plan") {
                     SecondaryButton(
@@ -420,20 +442,146 @@ private fun foldSplit(text: String): Pair<String, String?> {
 }
 
 /**
- * 접힌 글을 펼치는 줄 = 공용 [ExpandToggle]. 보이는 글은 짧게 `자세히 보기`/`접기` — 큰 글자에서 두 줄로 꺾이지 않게.
- * 한 화면에 여러 개라 TalkBack 이름은 무엇을 펼치는지 밝힌다: 접힘 [a11yLabel], 펼침 `{target} 접기`(재검토2 ②#2).
- * 글을 바꿔 보이는 방식(접힘 = 첫 문장, 펼침 = 전체)이라 바뀌는 글 묶음에 foldLiveRegion을 둔다(바뀐 글을 TalkBack이 읽는다).
+ * 접힌 글을 펼치는 줄 = 공용 [ExpandToggle]. 한 화면(04)에 펼침 줄이 셋까지 있어 **보이는 글도 대상을 밝힌다**(`비자 설명 자세히 보기`·
+ * `단계 설명 자세히 보기`·`들어갈 때 자세히 보기` — 같은 `자세히 보기`가 세 번 보이던 문제, 재검토2 ②#2). 큰 글자에서는 줄을 바꿔 다 보인다.
+ * TalkBack 이름도 같은 글, 펼침 뒤에는 `{target} 접기`. 글을 바꿔 보이는 방식(접힘 = 첫 문장, 펼침 = 전체)이라 바뀌는 글 묶음에 foldLiveRegion.
  */
 @Composable
-private fun MoreToggle(open: Boolean, onOpenChange: (Boolean) -> Unit, a11yLabel: String, target: String) {
+private fun MoreToggle(open: Boolean, onOpenChange: (Boolean) -> Unit, label: String, target: String) {
     ExpandToggle(
         open = open,
         onOpenChange = onOpenChange,
-        label = stringResource(R.string.action_more),
+        label = label,
         target = target,
-        closedName = a11yLabel,
+        closedName = label,
     )
 }
+
+// ======================= 순서 머리 (04 · 21) =======================
+
+/**
+ * 순서 머리 한 줄: StepList와 같은 번호 원(TextCircle — 글자 따라 커짐) + 짧은 글(titleMedium). 카드 바로 위에 붙여
+ * `1단계 · …` 글자 eyebrow 대신 순서를 보인다(재검토2 ③#3·③#9 — 2단계의 Success 색도 Accent 하나로).
+ * 공용 카드(EntryFormCard·CardNewsCard)에 배지 자리가 없어 카드 밖 머리로 둔다(04 나라 입국·21 값 복사해서 넣기 공통).
+ * TalkBack: 한 덩어리 제목 `1단계 · {글}`.
+ */
+@Composable
+internal fun StepHead(number: Int, text: String, modifier: Modifier = Modifier) {
+    val a11y = stringResource(R.string.country_step_eyebrow, number, text)
+    Row(
+        modifier
+            .fillMaxWidth()
+            .clearAndSetSemantics {
+                contentDescription = a11y
+                heading()
+            },
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(LocalDimens.current.gap),
+    ) {
+        TextCircle("$number")
+        KoText(text, MaterialTheme.typography.titleMedium, Modifier.weight(1f), color = Tokens.Ink, glueShort = true)
+    }
+}
+
+/** 순서 머리 + 그 카드 한 묶음(위 카드와는 목록 간격 + inner, 머리와 카드 사이는 inner) — 한 lazy item 안이라 둘이 떨어지지 않는다 */
+@Composable
+private fun StepGroup(number: Int, head: String, card: @Composable () -> Unit) {
+    val dimens = LocalDimens.current
+    Column(Modifier.padding(top = dimens.inner), verticalArrangement = Arrangement.spacedBy(dimens.inner)) {
+        StepHead(number, head)
+        card()
+    }
+}
+
+// ======================= 내 여행 날짜로 '내는 때' (03·18) =======================
+
+/** 팩 '내는 때' 문장에서 일반 예시(`예: 5월 4일 도착이면 …` 문장, `(예: …)` 괄호)를 뺀 규칙 문장. 예시가 없으면 그대로 */
+internal fun windowRuleOnly(windowKo: String): String {
+    val t = windowKo.trim().replace(ExampleParen, "")
+    return t.split(SentenceBreak).filterNot { ExampleLead.containsMatchIn(it) }.joinToString(" ").trim()
+}
+
+private val ExampleParen = Regex("""\s*\(\s*예\s*:[^)]*\)""")
+private val ExampleLead = Regex("""^\s*예\s*:""")
+private val SentenceBreak = Regex("""(?<=\.)\s+""")
+
+/** 도착일 [arrival]을 포함해 [days]일 동안 낼 수 있는 기간 (첫날, 도착일) — 오늘 단계(TripStages)·알림과 같은 계산 */
+internal fun formWindowRange(arrival: LocalDate, days: Int): Pair<LocalDate, LocalDate> =
+    arrival.minusDays((days - 1).coerceAtLeast(0).toLong()) to arrival
+
+/**
+ * 입국 카드 '내는 때' 글: 내 여행([arrival])과 팩 기간 일수([days])가 있으면 일반 예시 대신 내 날짜 —
+ * `태국에 도착하는 날을 포함해 3일 안에 내요.⏎내 여행: 11월 3일에 도착하면 11월 1일~3일`. 날짜는 앱이 계산하고(값을 지어내지 않음 — 팩 일수 + 내 출발일),
+ * 출발일에 도착한다고 보므로 '도착하면'으로 조건을 밝힌다. 둘 중 하나라도 없으면 팩 문장 그대로.
+ */
+@Composable
+internal fun personalWindowKo(windowKo: String, days: Int?, arrival: LocalDate?): String {
+    if (days == null || days < 1 || arrival == null) return windowKo
+    val (from, to) = formWindowRange(arrival, days)
+    val range = when {
+        from == to -> stringResource(R.string.date_month_day, to.monthValue, to.dayOfMonth)
+        from.monthValue == to.monthValue -> stringResource(R.string.date_range_same_month, from.monthValue, from.dayOfMonth, to.dayOfMonth)
+        else -> stringResource(R.string.date_range_two_months, from.monthValue, from.dayOfMonth, to.monthValue, to.dayOfMonth)
+    }
+    val mine = stringResource(R.string.form_window_mine, stringResource(R.string.date_month_day, arrival.monthValue, arrival.dayOfMonth), range)
+    val rule = windowRuleOnly(windowKo)
+    // 내 날짜는 제 줄에 — 규칙 문장 끝에 이어 붙으면 날짜가 문장 속에 묻힌다
+    return if (rule.isEmpty()) mine else "$rule\n$mine"
+}
+
+// ======================= 같은 말 되풀이 접기 (03 들어갈 때) =======================
+
+/** 같은 말로 셀 이어짐의 최소 길이(띄어쓰기를 뺀 글자 수) — `All Indonesia`·`비자 없이`처럼 짧게 겹치는 이름·말은 세지 않는다 */
+private const val RESTATED_RUN = 8
+
+/** 보이는 문장 가운데 위 카드와 같은 말이 차지하는 몫이 이 이상이면 '이미 보여 준 문장' */
+private const val RESTATED_SHARE = 0.5
+
+/**
+ * [sentence]의 **보이는 부분**(60자를 넘으면 첫 문장 — 접힘 규칙과 같다)이 [shown](같은 화면 위 카드의 팩 글 — 비자 요약·입국 카드 내는 때)과
+ * 같은 말로 절반 이상 채워지는지. 같은 말 = 띄어쓰기를 뺀 [RESTATED_RUN]자 이상 이어진 같은 부분.
+ * 예: `비자 없이 90일까지 머물 수 있어요(관광·친척 방문 등).`(비자 요약과 같은 말), `태국에 도착하는 날을 포함해 3일 안에(예: …)…`(내는 때와 같은 말).
+ * 앱은 문장을 지우거나 고치지 않는다 — 접어 두고 `자세히 보기`로 원문 전체를 보인다.
+ */
+internal fun isRestated(sentence: String, shown: List<String>): Boolean {
+    val visible = foldSplit(sentence).first.filterNot { it.isWhitespace() }
+    if (visible.isEmpty()) return false
+    val covered = BooleanArray(visible.length)
+    shown.forEach { other -> markCommonRuns(visible, other.filterNot { it.isWhitespace() }, covered) }
+    return covered.count { it } >= visible.length * RESTATED_SHARE
+}
+
+/** [a]에서 [b]와 [RESTATED_RUN]자 이상 같은 이어짐에 든 글자를 [covered]에 표시한다 */
+private fun markCommonRuns(a: String, b: String, covered: BooleanArray) {
+    if (b.isEmpty()) return
+    val prev = IntArray(b.length + 1)
+    val cur = IntArray(b.length + 1)
+    for (i in 1..a.length) {
+        for (j in 1..b.length) {
+            cur[j] = if (a[i - 1] == b[j - 1]) prev[j - 1] + 1 else 0
+            if (cur[j] >= RESTATED_RUN) for (k in i - cur[j] until i) covered[k] = true
+        }
+        cur.copyInto(prev)
+    }
+}
+
+// ======================= 머리글 확인 날짜 =======================
+
+/**
+ * 나라 화면이 보여 주는 팩 안내의 **가장 최근** 확인 날짜(요건·비자 신청·입국 카드·섹션·전기·쇼핑 품목·팩 전체) —
+ * 히어로 `최종 확인`이 화면 안 어떤 카드보다 오래된 날짜로 보이지 않게(재검토2 ②#8·③#7). 카드마다 출처 날짜는 그대로.
+ * ISO(yyyy-MM-dd) 문자열이라 사전순 = 날짜순.
+ */
+internal fun CountryPack.latestVerified(): String = buildList {
+    add(lastVerified)
+    requirements.forEach { r -> add(r.lastVerified); r.apply?.let { add(it.lastVerified) } }
+    forms.forEach { add(it.lastVerified) }
+    sections.forEach { add(it.lastVerified) }
+    power?.let { add(it.lastVerified) }
+    shopping.forEach { add(it.lastVerified) }
+}.filter { IsoDate.matches(it) }.maxOrNull() ?: lastVerified
+
+private val IsoDate = Regex("""\d{4}-\d{2}-\d{2}""")
 
 // ======================= 머리글 =======================
 
@@ -502,8 +650,9 @@ private fun CountryHero(loaded: Loaded<CountryPack>, favorite: Boolean, actions:
                     verticalArrangement = Arrangement.spacedBy(6.dp),
                 ) {
                     val style = MaterialTheme.typography.labelMedium
+                    // 화면 안 카드 중 가장 최근 확인 날짜 — 카드 출처 줄보다 오래된 날짜로 보이지 않게(재검토2 ②#8·③#7)
                     InfoChip(
-                        stringResource(R.string.guide_last_verified, displayDate(pack.lastVerified)),
+                        stringResource(R.string.guide_last_verified, displayDate(pack.latestVerified())),
                         Icons.Outlined.CalendarMonth,
                         onDark = true,
                         textStyle = style,
@@ -565,7 +714,7 @@ private fun VisaCard(pack: CountryPack, req: Requirement, sourceOf: SourceOf, on
         sources = listOf(reqRef) + facts.sourceRefs(),
     ) {
         FactTiles(facts)
-        VisaSummary(req.summaryKo)
+        VisaSummary(req.summaryKo, tiles = facts.isNotEmpty())
         if (req.visa != "not_required") {
             pack.source(req.source)?.let { src ->
                 LinkRow(stringResource(R.string.country_visa_link), onClick = { onOpenLink(src.url) })
@@ -575,20 +724,28 @@ private fun VisaCard(pack: CountryPack, req: Requirement, sourceOf: SourceOf, on
 }
 
 /**
- * 팩 요약 원문 (굵게 하지 않음 — 결론은 위 제목·타일이 맡는다). 60자를 넘으면 첫 문장만 보이고(원칙 6)
- * 펼치면 전체 원문 한 덩어리. 타일 값(30일·IDR 500,000)을 되풀이하는 뒷문장이 글 벽이 되지 않게.
+ * 팩 요약 원문 (굵게 하지 않음 — 결론은 위 제목·타일이 맡는다).
+ * - 숫자 타일이 있으면([tiles]) 요약은 처음부터 `비자 설명 자세히 보기` 안 — 타일(`90일 비자 없이 머물러요`) 바로 밑에서 같은 말
+ *   (`비자 없이 90일까지 머물 수 있어요`)을 되풀이하지 않는다(재검토2 ③#5·③#12). 펼치면 원문 전체 한 덩어리.
+ * - 타일이 없으면 60자를 넘을 때 첫 문장만 보이고(원칙 6) 펼치면 전체.
  */
 @Composable
-private fun VisaSummary(summary: String) {
+private fun VisaSummary(summary: String, tiles: Boolean) {
     val (first, rest) = foldSplit(summary)
     var open by rememberSaveable(summary) { mutableStateOf(false) }
-    KoText(
-        if (open || rest == null) summary.trim() else first,
-        style = MaterialTheme.typography.bodyLarge,
-        color = Tokens.Ink,
-        modifier = Modifier.foldLiveRegion(),
-    )
-    if (rest != null) MoreToggle(open, { open = it }, stringResource(R.string.country_more_visa), stringResource(R.string.fold_target_visa))
+    val shown = when {
+        open -> summary.trim()
+        tiles -> null
+        rest == null -> summary.trim()
+        else -> first
+    }
+    // 늘 있는 묶음에 liveRegion — 펼쳐 나온 요약을 TalkBack이 읽는다
+    Column(Modifier.fillMaxWidth().foldLiveRegion()) {
+        if (shown != null) KoText(shown, style = MaterialTheme.typography.bodyLarge, color = Tokens.Ink)
+    }
+    if (tiles || rest != null) {
+        MoreToggle(open, { open = it }, stringResource(R.string.country_more_visa), stringResource(R.string.fold_target_visa))
+    }
 }
 
 /**
@@ -617,25 +774,20 @@ private fun splitFirstSentence(text: String): Step {
     return if (rest.isEmpty()) Step(t) else Step(t.substring(0, i + 1), detail = rest)
 }
 
-/** 카드 eyebrow — [step]이 있으면 `1단계 · 온라인 입국 신고`처럼 순서를 앞에 붙인다(재검토 R12, 인도네시아) */
-@Composable
-private fun stepEyebrow(step: Int?, label: String): String =
-    if (step == null) label else stringResource(R.string.country_step_eyebrow, step, label)
-
 /**
  * 비자 온라인 신청(e-VOA) 카드 (6-04). 단계는 번호만 — 아이콘·'직접 해요' 태그를 단계 순서에 붙이지 않는다(D11).
- * 60자를 넘는 단계의 보조 글은 접어 두고 `단계 설명 자세히 보기`로 펼친다(원칙 6) — '직접 제출'은 위 배너와 아래 안내가 늘 보인다.
- * 대행 사이트 경고는 버튼 바로 위 Danger 배너(고지라 접지 않음).
- * [step] = 2: 이 신청이 지나가는 입국 신고 양식 카드가 1단계로 위에 있다(팩 신청 단계 1번이 그 양식 제출) — 그 카드가 주 버튼이고
+ * 60자를 넘는 단계의 보조 글은 접어 두고 `단계 설명 자세히 보기`로 펼친다(원칙 6) — '직접 제출'은 위 안심 카드와 아래 안내가 늘 보인다.
+ * 대행 사이트 경고는 카드 안 판정 규칙(재검토2 ①#4): 빨간 채움 블록 대신 `대행 사이트 주의` 알약(StatusTag) + 보통 본문 이유(팩 문장, 숫자 굵게) —
+ * 고지라 접지 않는다. 배지·eyebrow는 Accent(초록은 '가능·완료' 뜻이라 2번째 순서가 끝난 것처럼 읽혔다, ③#9).
+ * 순서 머리 ②가 위에 붙을 때는 이 신청이 지나가는 입국 카드가 ①로 위에 있다(팩 신청 단계 1번이 그 양식 제출) — 그 카드가 주 버튼이고
  * 이 카드 버튼은 보조([primary] = false, 원칙 7 화면당 주 버튼 하나).
  */
 @Composable
-private fun VisaApplyCard(apply: VisaApply, step: Int?, primary: Boolean, sourceOf: SourceOf, onStart: () -> Unit) {
+private fun VisaApplyCard(apply: VisaApply, primary: Boolean, sourceOf: SourceOf, onStart: () -> Unit) {
     CardNewsCard(
         title = apply.nameKo,
         icon = Icons.Outlined.Approval,
-        tone = BadgeTone.Success,
-        eyebrow = stepEyebrow(step, stringResource(R.string.country_visa_apply_label)),
+        eyebrow = stringResource(R.string.country_visa_apply_label),
         sources = listOf(sourceOf(apply.source, apply.lastVerified)),
     ) {
         IconBullet(stringResource(R.string.guide_form_fee, apply.feeKo), Icons.Outlined.Payments)
@@ -643,11 +795,14 @@ private fun VisaApplyCard(apply: VisaApply, step: Int?, primary: Boolean, source
             stringResource(R.string.country_visa_apply_steps),
             style = MaterialTheme.typography.titleMedium,
             color = Tokens.Ink,
-            modifier = Modifier.padding(top = 8.dp).semantics { heading() },
+            modifier = Modifier.padding(top = LocalDimens.current.inner).semantics { heading() },
         )
         FoldedSteps(apply.stepsKo)
         apply.warningKo?.let { warning ->
-            NoticeBanner(warning, icon = Icons.Outlined.GppMaybe, tone = BannerTone.Danger)
+            Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                StatusTag(stringResource(R.string.country_visa_apply_warning_tag), StatusKind.Prohibited, icon = Icons.Outlined.GppMaybe)
+                NumberText(warning, MaterialTheme.typography.bodyMedium, color = Tokens.InkSecondary, emphasisColor = Tokens.Ink)
+            }
         }
         IconBullet(stringResource(R.string.country_visa_apply_note), Icons.Outlined.TouchApp, tone = BadgeTone.Help)
         val label = stringResource(R.string.country_visa_apply_start)
@@ -677,16 +832,17 @@ private fun FoldedSteps(steps: List<String>) {
 /**
  * 입국 카드(온라인 입국 신고 양식) 카드 = 공용 [EntryFormCard](여행 준비 18과 같은 카드·같은 말, 재검토2 ④#1·②#5).
  * 무엇 → 앱이 해 주는 것(자동 입력이면 칸을 채워 줌, 아니면 값 복사) → 비용 → 내는 때 → `입국 카드 준비하기`(주 버튼) → 출처.
- * [step] = 1: 비자 온라인 신청이 이 양식을 거친다(인도네시아) — eyebrow `1단계 · 온라인 입국 카드`.
+ * 내는 때: 이 나라 여행이 있으면([tripArrival]) 일반 예시 대신 내 날짜(팩 기간 일수 + 출발일, 재검토2 ③#5).
+ * 비자 온라인 신청이 이 양식을 거치면(인도네시아) 부르는 쪽이 번호 원 순서 머리 ①을 위에 붙인다.
  */
 @Composable
-private fun FormCard(form: FormInfo, autofill: Boolean, step: Int?, sourceOf: SourceOf, onStart: () -> Unit) {
+private fun FormCard(form: FormInfo, autofill: Boolean, sourceOf: SourceOf, tripArrival: LocalDate?, onStart: () -> Unit) {
     EntryFormCard(
         name = form.nameKo,
         feeKo = form.feeKo,
-        windowKo = form.windowKo,
+        windowKo = personalWindowKo(form.windowKo, form.windowDaysIncludingArrival, tripArrival),
         source = sourceOf(form.source, form.lastVerified),
-        eyebrow = stepEyebrow(step, stringResource(R.string.entry_form_label)),
+        eyebrow = stringResource(R.string.entry_form_label),
         onStart = onStart,
         body = stringResource(if (autofill) R.string.country_form_autofill_body else R.string.country_form_manual_body),
     )
@@ -696,14 +852,19 @@ private fun FormCard(form: FormInfo, autofill: Boolean, step: Int?, sourceOf: So
  * 팩 섹션 카드(들어갈 때·돈·안전): 아이콘 머리 + 문장 행 + 출처.
  * 문장 앞 기호는 문장 뜻을 앱이 추측해 고르지 않는다(D11): 모든 섹션이 뜻 없는 점 하나(DotBullet, 재검토 R8) —
  * `…입국이 거절될 수 있어요` 옆에 '좋음'으로 읽히는 체크나 대시를 두지 않는다.
- * 60자를 넘는 문장은 첫 문장만 보이고 `… 자세히 보기`로 펼친다(원칙 6). 안전(여행경보)은 경고 뒷부분이 숨으면 안 되므로 접지 않는다.
+ * 60자를 넘는 문장은 첫 문장만 보이고 `{섹션} 자세히 보기`로 펼친다(원칙 6). 안전(여행경보)은 경고 뒷부분이 숨으면 안 되므로 접지 않는다.
  * [exclude]: 맨 위 위험 배너(AdvisoryBanner)로 올린 문장 — 여기서는 되풀이하지 않는다.
+ * [shownAbove]: 같은 화면 위 카드가 이미 보여 준 팩 글(비자 요약·입국 카드 내는 때) — 그 말을 길게 공유하는 문장은 접어 두고
+ * 펼치면 팩 순서대로 원문 전체(재검토2 ③#5·③#12·⑤#15). 모든 문장이 겹치면 접지 않는다(빈 카드 방지).
  */
 @Composable
-private fun SectionCard(s: Section, sourceOf: SourceOf, exclude: List<String> = emptyList()) {
+private fun SectionCard(s: Section, sourceOf: SourceOf, exclude: List<String> = emptyList(), shownAbove: List<String> = emptyList()) {
     val safety = s.id == "safety"
     val lines = s.bodyKo.filter { it !in exclude }
     val split = lines.map { if (safety) it.trim() to null else foldSplit(it) }
+    val restated = remember(lines, shownAbove) {
+        lines.map { !safety && isRestated(it, shownAbove) }.takeIf { r -> r.any { !it } } ?: lines.map { false }
+    }
     var open by rememberSaveable(s.id, s.bodyKo) { mutableStateOf(false) }
     CardNewsCard(
         title = s.titleKo,
@@ -712,12 +873,15 @@ private fun SectionCard(s: Section, sourceOf: SourceOf, exclude: List<String> = 
         sources = listOf(sourceOf(s.source, s.lastVerified)),
     ) {
         Column(Modifier.foldLiveRegion(), verticalArrangement = Arrangement.spacedBy(10.dp)) {
-            lines.zip(split).forEach { (full, parts) ->
-                val (first, rest) = parts
-                DotBullet(if (open || rest == null) full.trim() else first)
+            lines.indices.forEach { i ->
+                val (first, rest) = split[i]
+                when {
+                    open || (rest == null && !restated[i]) -> DotBullet(lines[i].trim())
+                    !restated[i] -> DotBullet(first)
+                }
             }
         }
-        if (split.any { it.second != null }) {
+        if (split.any { it.second != null } || restated.any { it }) {
             MoreToggle(open, { open = it }, stringResource(R.string.country_more_section, s.titleKo), s.titleKo)
         }
     }
@@ -753,7 +917,8 @@ private fun AdvisoryBanner(safety: Section, sentences: List<String>, sourceOf: S
 // ======================= 05 여행 정보 =======================
 
 /**
- * 전기 카드: 결론(한국 플러그가 맞는지) 배너 → 숫자 타일(짧은 값만) → 나머지는 글 행 → 출처.
+ * 전기 카드: 결론(한국 플러그가 맞는지 — 팩 kr_plug_fits) → 숫자 타일(짧은 값만) → 나머지는 글 행 → 출처.
+ * 결론은 카드 안 판정 규칙(재검토2 ①#4): 초록 채움 배너 대신 `한국 플러그 그대로`(Success)·`변환 어댑터 필요`(Caution) 알약 + 한 줄.
  * 값은 팩 원문 그대로. 짧게 줄일 수 없는 값(플러그 모양 설명 등)은 타일로 만들지 않는다.
  */
 @Composable
@@ -772,10 +937,17 @@ private fun PowerCard(power: PowerInfo, sourceOf: SourceOf) {
         sources = listOf(sourceOf(power.source, power.lastVerified)),
     ) {
         power.krPlugFits?.let { fits ->
-            if (fits) {
-                NoticeBanner(stringResource(R.string.guide_power_kr_fits), icon = Icons.Outlined.CheckCircle, tone = BannerTone.Success)
-            } else {
-                NoticeBanner(stringResource(R.string.guide_power_kr_adapter), icon = Icons.Outlined.Outlet, tone = BannerTone.Caution)
+            Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                if (fits) {
+                    StatusTag(stringResource(R.string.power_tag_fits), StatusKind.Allowed)
+                } else {
+                    StatusTag(stringResource(R.string.power_tag_adapter), StatusKind.Caution, icon = Icons.Outlined.Outlet)
+                }
+                KoText(
+                    stringResource(if (fits) R.string.guide_power_kr_fits else R.string.guide_power_kr_adapter),
+                    MaterialTheme.typography.bodyMedium,
+                    color = Tokens.InkSecondary,
+                )
             }
         }
         rows.forEach { IconBullet(it.value, it.icon) }
