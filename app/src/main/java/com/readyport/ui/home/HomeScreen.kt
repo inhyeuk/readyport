@@ -202,7 +202,8 @@ class HomeViewModel @Inject constructor(
             HomeCountry(
                 code = c.code, nameKo = c.nameKo, nameEn = c.nameEn,
                 visa = visa,
-                hasForm = pack?.forms?.isNotEmpty() == true,
+                // 꼭 내야 하는 입국 카드가 있는 나라인지 — 의무가 아닌 신고(forms[].optional)는 세지 않는다
+                hasForm = pack?.requiredForms?.isNotEmpty() == true,
                 ready = pack != null,
                 sourceName = visa?.let { pack.source(it.source)?.name },
             )

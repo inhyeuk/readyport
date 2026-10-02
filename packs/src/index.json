@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "version": "2026.10.02-3",
+  "version": "2026.10.03-1",
   "countries": [
     {
       "code": "TH",
@@ -376,6 +376,16 @@
       "kind": "generic",
       "title_ko": "공항에 넉넉히 일찍 가기",
       "body_ko": "국제선은 짐 부치기와 보안 검색에 시간이 걸려요. 항공사가 안내한 시간보다 늦지 않게 가세요."
+    },
+    {
+      "id": "airport_steps",
+      "phase": "arrival",
+      "icon": "airport",
+      "kind": "pack",
+      "title_ko": "도착 공항 순서 보기",
+      "body_ko": "입국 심사·짐 찾기·세관을 어떤 순서로 지나는지, 입국 카드는 어디서 보여 주는지 공항별로 볼 수 있어요.",
+      "from": "airports",
+      "action": "open_airport"
     },
     {
       "id": "show_entry",

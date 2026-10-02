@@ -30,6 +30,7 @@ import androidx.compose.material.icons.outlined.EventAvailable
 import androidx.compose.material.icons.outlined.EventBusy
 import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material.icons.outlined.Luggage
+import androidx.compose.material.icons.outlined.LocalAirport
 import androidx.compose.material.icons.outlined.OfflinePin
 import androidx.compose.material.icons.outlined.Badge
 import androidx.compose.material.icons.outlined.AccountBalanceWallet
@@ -376,6 +377,8 @@ data class ChecklistActions(
     val destroyPassport: () -> Unit = {},
     val editTrip: (String) -> Unit = {},
     val deleteTrip: () -> Unit = {},
+    /** 나라 화면 `공항에 도착하면` 묶음 (나라, 처음 고를 공항) */
+    val openAirport: (String, String?) -> Unit = { _, _ -> },
 )
 
 @HiltViewModel
@@ -808,6 +811,15 @@ private fun ItemExtra(item: ChecklistItem, trip: Trip, today: LocalDate, actions
             }
         }
         is ItemDetail.Offline -> d.packVersion?.let { InfoChip(stringResource(R.string.ck_offline_value, displayDate(it)), Icons.Outlined.OfflinePin, tone = BadgeTone.Teal) }
+        is ItemDetail.AirportGuide -> {
+            // 고른 공항이 있으면 값 칩, 없으면 고르는 곳 안내(여행 고치기) — 공항 순서는 나라 화면 공항 묶음에서
+            if (d.name != null) {
+                InfoChip(stringResource(R.string.ck_airport_chosen), Icons.Outlined.LocalAirport, value = d.name, tone = BadgeTone.Accent)
+            } else {
+                KoText(stringResource(R.string.ck_airport_not_chosen), MaterialTheme.typography.bodyMedium, color = Tokens.InkSecondary)
+            }
+            SecondaryButton(stringResource(R.string.ck_action_airport), onClick = { actions.openAirport(d.country, d.code) }, icon = Icons.Outlined.LocalAirport)
+        }
         null -> Unit
     }
     // 다른 화면으로 가는 버튼(입국 카드·여권은 위에서 이미)
@@ -946,7 +958,8 @@ private fun CustomField(
 internal suspend fun rescheduleFormReminder(context: android.content.Context, trips: TripRepository, packs: PackRepository) {
     val today = LocalDate.now()
     val next = trips.all().filter { it.datesValid && it.start.isAfter(today.minusDays(1)) }.sortedBy { it.start }.firstNotNullOfOrNull { t ->
-        val form = packs.pack(t.country)?.value?.forms?.firstOrNull()
+        // 꼭 내야 하는 입국 카드만 알림을 만든다 — 의무가 아닌 신고(forms[].optional)로는 기한 알림을 걸지 않는다
+        val form = packs.pack(t.country)?.value?.requiredForms?.firstOrNull()
         val days = form?.windowDaysIncludingArrival
         if (form != null && days != null) Triple(t, form, days) else null
     }

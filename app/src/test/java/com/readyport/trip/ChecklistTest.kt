@@ -36,15 +36,20 @@ class ChecklistTest {
 
     private fun ChecklistData.item(id: String) = items.firstOrNull { it.id == id }
 
+    /** 팩에 공항 안내가 있으면 `도착 공항 순서 보기` 한 줄 */
+    private fun airportItem(cc: String) = if (pack(cc).airports.isNotEmpty()) 1 else 0
+
     // ---------------- 나라별 항목 ----------------
 
     @Test
     fun thailandAndChinaTripCounts() {
         val th = build(trip("TH"))
         val cn = build(trip("CN"))
-        // 틀 28줄 중 태국·중국은 어댑터·전압(한국 플러그·220 V 그대로)이 빠지고, 나라 팩 항목이 더해진다
-        assertEquals(27, th.total)
-        assertEquals(30, cn.total)
+        // 틀 29줄 중 태국·중국은 어댑터·전압(한국 플러그·220 V 그대로)이 빠지고, 나라 팩 항목이 더해진다.
+        // `도착 공항 순서 보기`는 팩에 공항 안내(airports)가 있는 나라만 — 공항을 합치면 그 나라 수가 하나 는다(merge_airports.py)
+        assertEquals(27 + airportItem("TH"), th.total)
+        assertEquals(1, airportItem("TH"))
+        assertEquals(30 + airportItem("CN"), cn.total)
         assertEquals(ChecklistPhase.entries.toList(), th.phases)
         // 단계 순서 — 떠나기 한 달 전쯤 항목이 맨 앞, 여권 정보 지우기가 맨 끝
         assertEquals("passport_validity", th.items.first().id)
@@ -52,7 +57,10 @@ class ChecklistTest {
         assertTrue(cn.items.any { it.id == "country.stay_register" && it.phase == ChecklistPhase.Arrival })
         // 나머지 나라: 전기 조건(어댑터·전압)·입국 카드 유무·나라 팩 항목 수만큼 달라진다
         val counts = listOf("JP", "SG", "MY", "ID", "TW", "PH", "VN").associateWith { build(trip(it)).total }
-        assertEquals(mapOf("JP" to 29, "SG" to 29, "MY" to 28, "ID" to 27, "TW" to 30, "PH" to 29, "VN" to 26), counts)
+        // 베트남은 사전 입국 정보(PAI)가 양식 카드로 옮겨 가면서 `입국 정보 미리 내기` 팩 항목이 빠졌다 —
+        // 의무가 아닌 신고(forms[].optional)는 기한 있는 할 일로 세지 않는다
+        val base = mapOf("JP" to 29, "SG" to 29, "MY" to 28, "ID" to 27, "TW" to 30, "PH" to 29, "VN" to 25)
+        assertEquals(base.mapValues { (cc, n) -> n + airportItem(cc) }, counts)
     }
 
     @Test
@@ -69,9 +77,9 @@ class ChecklistTest {
             data.items.filter { it.id.startsWith("country.") }.forEach { item ->
                 assertTrue("$cc ${item.id}", p.sections.any { s -> item.body in s.bodyKo })
             }
-            // 입국 카드가 없는 나라(베트남)는 입국 카드·확인 화면 항목을 만들지 않는다
-            assertEquals(cc, p.forms.isNotEmpty(), data.item("entry_form") != null)
-            assertEquals(cc, p.forms.isNotEmpty(), data.item("show_entry") != null)
+            // 꼭 내야 하는 입국 카드가 없는 나라(베트남 — 사전 입국 정보는 의무가 아님)는 입국 카드·확인 화면 항목을 만들지 않는다
+            assertEquals(cc, p.requiredForms.isNotEmpty(), data.item("entry_form") != null)
+            assertEquals(cc, p.requiredForms.isNotEmpty(), data.item("show_entry") != null)
         }
     }
 
@@ -244,6 +252,53 @@ class ChecklistTest {
         assertFalse(stored.contains("1990"))
     }
 
+    // ---------------- 도착 공항 순서 (2026-10-03) ----------------
+
+    @Test
+    fun airportItemOnlyWhenPackHasAirports() {
+        val th = build(trip("TH"))
+        val item = th.item("airport_steps")
+        assertNotNull(item)
+        assertEquals(ChecklistPhase.Arrival, item!!.phase)
+        assertEquals(ChecklistAction.OpenAirport, item.action)
+        // 공항을 고르지 않았으면 코드 없이(나라 화면이 여행 공항·첫 공항을 고른다), 출처는 첫 공항 안내
+        val d = item.detail as ItemDetail.AirportGuide
+        assertEquals("TH", d.country)
+        assertNull(d.code)
+        val first = pack("TH").airports.first()
+        assertEquals(pack("TH").source(first.source)!!.name, item.source!!.name)
+        assertEquals(first.lastVerified, item.source!!.lastVerified)
+        // 공항 안내가 없는 팩에는 항목이 없다
+        listOf("TH", "JP", "SG", "MY", "ID", "TW", "CN", "PH", "VN").filter { pack(it).airports.isEmpty() }.forEach { cc ->
+            assertNull(cc, build(trip(cc)).item("airport_steps"))
+        }
+    }
+
+    @Test
+    fun airportItemCarriesChosenAirport() {
+        val dmk = build(trip("TH").copy(arrivalAirport = "DMK")).item("airport_steps")!!
+        val d = dmk.detail as ItemDetail.AirportGuide
+        assertEquals("DMK", d.code)
+        assertEquals("돈므앙 공항", d.name)
+        // 팩에 없는 코드(나라를 바꾼 뒤 남은 값 등)는 고르지 않은 것으로
+        val unknown = build(trip("TH").copy(arrivalAirport = "NRT")).item("airport_steps")!!.detail as ItemDetail.AirportGuide
+        assertNull(unknown.code)
+    }
+
+    @Test
+    fun arrivalAirportIsOptionalInStoredTrip() {
+        val json = Json { ignoreUnknownKeys = true; encodeDefaults = false }
+        // 예전 저장본(공항 없음)은 null로 읽힌다
+        val old = json.decodeFromString(Trip.serializer(), """{"country":"TH","startDate":"2026-11-03","endDate":"2026-11-07","id":"x"}""")
+        assertNull(old.arrivalAirport)
+        assertFalse(json.encodeToString(Trip.serializer(), old).contains("arrivalAirport"))
+        // 공항 코드만 저장한다(날짜·나라·코드 — 개인정보 없음)
+        val withAirport = old.copy(arrivalAirport = "BKK")
+        val stored = json.encodeToString(Trip.serializer(), withAirport)
+        assertTrue(stored.contains("\"arrivalAirport\":\"BKK\""))
+        assertEquals(withAirport, json.decodeFromString(Trip.serializer(), stored))
+    }
+
     // ---------------- 같은 나라 두 여행 ----------------
 
     @Test
@@ -258,8 +313,8 @@ class ChecklistTest {
         assertEquals(1, dataB.done)
         assertFalse(dataB.item("booking")!!.checked)
         assertTrue(dataB.custom.isEmpty())
-        assertEquals(28, dataA.total)
-        assertEquals(27, dataB.total)
+        assertEquals(28 + airportItem("TH"), dataA.total)
+        assertEquals(27 + airportItem("TH"), dataB.total)
         // 입국 카드 기간도 각 여행 날짜로
         assertEquals(d("2026-11-01"), dataA.item("entry_form")!!.opensOn)
         assertEquals(d("2027-02-08"), dataB.item("entry_form")!!.opensOn)

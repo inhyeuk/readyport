@@ -88,9 +88,11 @@ class CountryPolishS2Test {
         val th = pack("TH")
         val entry = th.sections.single { it.id == "entry" }
         assertTrue(entry.lastVerified > th.lastVerified)
-        assertEquals(entry.lastVerified, th.latestVerified())
+        // 공항 안내(airports, 2026-10-03)도 화면 안 카드라 가장 최근 날짜에 든다
+        val latest = (listOf(entry.lastVerified) + th.airports.map { it.lastVerified }).max()
+        assertEquals(latest, th.latestVerified())
         rule.setContent { ReadyPortTheme { CountryContent(TestPacks.countryUi("TH"), CountryActions()) } }
-        rule.onNodeWithText(s(R.string.guide_last_verified, displayDate(entry.lastVerified))).assertIsDisplayed()
+        rule.onNodeWithText(s(R.string.guide_last_verified, displayDate(latest))).assertIsDisplayed()
         assertTrue(rule.onAllNodesWithText(s(R.string.guide_last_verified, displayDate(th.lastVerified))).fetchSemanticsNodes().isEmpty())
     }
 

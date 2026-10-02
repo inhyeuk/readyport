@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "country": "VN",
-  "version": "2026.10.02-2",
+  "version": "2026.10.03-1",
   "last_verified": "2026-10-02",
   "names": {
     "ko": "베트남",
@@ -57,6 +57,41 @@
       "id": "embassy_vn_visafree",
       "name": "주베트남 대한민국 대사관 · 무사증 입국 안내(2023-08-14)",
       "url": "https://overseas.mofa.go.kr/vn-ko/brd/m_2203/view.do?seq=1345773"
+    },
+    {
+      "id": "mps_pai",
+      "name": "베트남 공안부(MPS) · Immigration Department launches Pre-arrival Information System(2026-05-13)",
+      "url": "https://en.mps.gov.vn/article/immigration-department-launches-pre-arrival-information-system-1778670404"
+    },
+    {
+      "id": "vn_mofa_pai",
+      "name": "주싱가포르 베트남대사관(베트남 외교부 포털) · Notice on Viet Nam's Pre-Arrival Information Declaration(2026-07-02)",
+      "url": "https://vnembassy-singapore.mofa.gov.vn/en/tin-chi-tiet/chi-tiet/notice-on-viet-nam-39-s-pre-arrival-information-declaration-60731-1390.html"
+    },
+    {
+      "id": "vn_pai_portal",
+      "name": "베트남 출입국관리국 · Pre-Arrival Information 공식 사이트",
+      "url": "https://prearrival.immigration.gov.vn/"
+    },
+    {
+      "id": "vn_gov_autogate",
+      "name": "베트남 정부 전자신문(baochinhphu.vn) · Five airports deploy automatic entry system(2023-08-21)",
+      "url": "https://en.baochinhphu.vn/five-airports-deploy-automatic-entry-system-111230821151824437.htm"
+    },
+    {
+      "id": "han_flow",
+      "name": "노이바이 국제공항(ACV) · Flow of International Flight - Arrival Procedure",
+      "url": "https://www.noibaiairport.vn/en/international-arrival-passenger-nid35.html"
+    },
+    {
+      "id": "dad_flow",
+      "name": "다낭 국제공항 · Airport Guide / Arrival Guide(Terminal 2 - International)",
+      "url": "https://danangairport.vn/airport-guide-arrival-guide"
+    },
+    {
+      "id": "cxr_flow",
+      "name": "깜라인 국제터미널(CRTC) · Arrival Guide",
+      "url": "https://camranh.aero/airport-guide/arrival-guide"
     }
   ],
   "requirements": [
@@ -93,13 +128,25 @@
       }
     }
   ],
-  "forms": [],
+  "forms": [
+    {
+      "id": "VN_PAI",
+      "name_ko": "베트남 사전 입국 정보 (PAI)",
+      "name_en": "Pre-Arrival Information Declaration",
+      "official_url": "https://prearrival.immigration.gov.vn/",
+      "optional": true,
+      "fee_ko": "공식 안내에 요금이 적혀 있지 않아요. 돈을 받는 대행 사이트는 쓰지 마세요.",
+      "window_ko": "베트남에 도착하기 3일 전부터 낼 수 있고, 도착한 뒤에 내도 돼요. 노이바이·떤선녓·다낭·깜라인·푸꾸옥 공항에서 쓸 수 있어요.",
+      "window_days_including_arrival": null,
+      "source": "vn_mofa_pai",
+      "last_verified": "2026-10-03"
+    }
+  ],
   "sections": [
     {
       "id": "entry",
       "title_ko": "들어갈 때",
       "body_ko": [
-        "베트남 이민국은 도착 전에 공식 사이트(prearrival.immigration.gov.vn)에서 입국 정보를 미리 내 두기를 권해요. 미리 내면 입국 심사에서 기다리는 시간이 줄어요.",
         "전자비자는 최대 90일이에요. 여권 유효기간이 비자 기간보다 30일 이상 길어야 해요.",
         "전자비자로는 베트남 정부가 정한 국제 공항·항구·육로 국경으로만 드나들 수 있어요."
       ],
@@ -309,15 +356,201 @@
     "source": "mofa_vn",
     "last_verified": "2026-10-02"
   },
-  "checklist": [
+  "airports": [
     {
-      "id": "prearrival",
-      "phase": "three_days",
-      "icon": "form",
-      "title_ko": "입국 정보 미리 내기(권장)",
-      "section": "entry",
-      "text_ko": "베트남 이민국은 도착 전에 공식 사이트(prearrival.immigration.gov.vn)에서 입국 정보를 미리 내 두기를 권해요. 미리 내면 입국 심사에서 기다리는 시간이 줄어요."
+      "code": "SGN",
+      "name_ko": "떤선녓 국제공항",
+      "name_en": "Tan Son Nhat International Airport",
+      "city_ko": "호찌민",
+      "egate_kr": false,
+      "egate_note_ko": "베트남 정부 전자신문의 2023년 8월 발표를 따랐어요. 그 뒤 바뀐 공식 안내는 찾지 못했어요.",
+      "form_check_ko": "사전 입국 정보(PAI)를 냈다면 입국 심사 때 QR을 보여 줘요. 꼭 내야 하는 건 아니에요.",
+      "steps": [
+        {
+          "kind": "form_check",
+          "title_ko": "사전 입국 정보(PAI) — 의무 아님",
+          "body_ko": "공식 사이트에서 사전 입국 정보를 내면 QR이 나와요. 휴대폰에 저장하거나 인쇄해 두세요.",
+          "where_ko": null,
+          "source": "vn_mofa_pai"
+        },
+        {
+          "kind": "egate",
+          "title_ko": "자동 심사대는 베트남 국민용",
+          "body_ko": "자동 출입국 심사대(오토게이트)는 베트남 국민이 쓰는 곳이에요. 외국인은 베트남 거주증이 있으면 출국할 때만 쓸 수 있어요.",
+          "where_ko": null,
+          "source": "vn_gov_autogate"
+        },
+        {
+          "kind": "immigration",
+          "title_ko": "입국 심사",
+          "body_ko": "입국 심사대에서 여권을 보여 줘요. PAI를 미리 냈으면 기다리는 시간을 줄일 수 있어요.",
+          "where_ko": null,
+          "source": "vn_pai_portal"
+        }
+      ],
+      "map_url": "https://en.mps.gov.vn/article/immigration-department-launches-pre-arrival-information-system-1778670404",
+      "source": "mps_pai",
+      "last_verified": "2026-10-03",
+      "form_check_source": "mps_pai"
     },
+    {
+      "code": "HAN",
+      "name_ko": "노이바이 국제공항",
+      "name_en": "Noi Bai International Airport",
+      "city_ko": "하노이",
+      "egate_kr": false,
+      "egate_note_ko": "베트남 정부 전자신문의 2023년 8월 발표를 따랐어요. 그 뒤 바뀐 공식 안내는 찾지 못했어요.",
+      "form_check_ko": "사전 입국 정보(PAI)를 냈다면 입국 심사 때 QR을 보여 줘요. 꼭 내야 하는 건 아니에요.",
+      "steps": [
+        {
+          "kind": "deplane",
+          "title_ko": "비행기에서 내려요",
+          "body_ko": "'Arrivals(도착)' 표지를 따라 입국 심사 구역으로 가요.",
+          "where_ko": null
+        },
+        {
+          "kind": "health",
+          "title_ko": "검역",
+          "body_ko": "입국 심사 구역 앞에서 자동 체온 측정기를 지나며 검역을 받아요.",
+          "where_ko": "입국 심사 구역 앞"
+        },
+        {
+          "kind": "egate",
+          "title_ko": "자동 심사대는 베트남 국민용",
+          "body_ko": "자동 출입국 심사대(오토게이트)는 베트남 국민이 쓰는 곳이에요. 외국인은 베트남 거주증이 있으면 출국할 때만 쓸 수 있어요.",
+          "where_ko": null,
+          "source": "vn_gov_autogate"
+        },
+        {
+          "kind": "immigration",
+          "title_ko": "입국 심사",
+          "body_ko": "입국 심사대에서 여권을 보여 줘요.",
+          "where_ko": null
+        },
+        {
+          "kind": "baggage",
+          "title_ko": "짐 찾기",
+          "body_ko": "화면에서 내 항공편의 수하물 벨트를 확인하고 짐을 찾아요. 짐 카트는 무료예요.",
+          "where_ko": null
+        },
+        {
+          "kind": "customs",
+          "title_ko": "세관",
+          "body_ko": "세관은 가방 속 물건을 확인하는 곳이에요. 담배·술·개인 물품이 면세 한도를 넘으면 세금을 내야 해요.",
+          "where_ko": null
+        }
+      ],
+      "map_url": "https://www.noibaiairport.vn/en/international-arrival-passenger-nid35.html",
+      "source": "han_flow",
+      "last_verified": "2026-10-03",
+      "form_check_source": "mps_pai"
+    },
+    {
+      "code": "DAD",
+      "name_ko": "다낭 국제공항",
+      "name_en": "Da Nang International Airport",
+      "city_ko": "다낭",
+      "egate_kr": false,
+      "egate_note_ko": "다낭 공항 공식 안내에 적힌 내용이에요.",
+      "form_check_ko": "사전 입국 정보(PAI)를 냈다면 입국 심사 때 QR을 보여 줘요. 꼭 내야 하는 건 아니에요.",
+      "steps": [
+        {
+          "kind": "deplane",
+          "title_ko": "비행기에서 내려요",
+          "body_ko": "'Arrivals(도착)' 표지를 따라 입국 심사장으로 가요.",
+          "where_ko": "제2터미널(국제선)"
+        },
+        {
+          "kind": "health",
+          "title_ko": "검역",
+          "body_ko": "입국 심사 전에 자동 검역 시스템을 지나요.",
+          "where_ko": null
+        },
+        {
+          "kind": "egate",
+          "title_ko": "자동 심사대는 베트남 여권만",
+          "body_ko": "제2터미널(국제선) 도착 자동 심사대는 지금은 베트남 여권을 가진 사람만 쓸 수 있어요.",
+          "where_ko": null,
+          "source": "dad_flow"
+        },
+        {
+          "kind": "immigration",
+          "title_ko": "입국 심사",
+          "body_ko": "심사관 안내에 따라 줄을 서요. 모자·마스크·선글라스는 벗고, 탑승권과 여권을 보여 줘요.",
+          "where_ko": "1층(지상층) 입국 심사장"
+        },
+        {
+          "kind": "baggage",
+          "title_ko": "짐 찾기",
+          "body_ko": "입국 심사장 뒤쪽 화면에서 벨트 번호를 확인하고 짐을 찾아요. 짐 카트는 무료예요. 큰 짐은 대형 수하물 찾는 곳에서 찾아요.",
+          "where_ko": null
+        },
+        {
+          "kind": "customs",
+          "title_ko": "세관",
+          "body_ko": "세관은 가방 속 물건을 확인하는 곳이에요. 현금이 1,500만 동 또는 미화 5,000달러 상당을 넘으면 세관 외화 신고 데스크에 신고해요.",
+          "where_ko": null
+        },
+        {
+          "kind": "exit",
+          "title_ko": "도착 홀로 나가요",
+          "body_ko": "지상층 도착 홀 일반 구역에 ATM이 있어요. 택시는 도착 홀 바로 밖에서 타요.",
+          "where_ko": "1층(지상층) 도착 홀"
+        }
+      ],
+      "map_url": "https://danangairport.vn/airport-guide-arrival-guide",
+      "source": "dad_flow",
+      "last_verified": "2026-10-03",
+      "form_check_source": "mps_pai"
+    },
+    {
+      "code": "CXR",
+      "name_ko": "깜라인 국제공항",
+      "name_en": "Cam Ranh International Airport",
+      "city_ko": "나트랑",
+      "egate_kr": false,
+      "egate_note_ko": "베트남 정부 전자신문의 2023년 8월 발표를 따랐어요. 그 뒤 바뀐 공식 안내는 찾지 못했어요.",
+      "form_check_ko": "사전 입국 정보(PAI)를 냈다면 입국 심사 때 QR을 보여 줘요. 꼭 내야 하는 건 아니에요.",
+      "steps": [
+        {
+          "kind": "immigration",
+          "title_ko": "입국 심사",
+          "body_ko": "안내를 따라 입국 심사 구역으로 가요. 탑승권과 여권을 준비해요.",
+          "where_ko": null
+        },
+        {
+          "kind": "egate",
+          "title_ko": "자동 심사대는 베트남 국민용",
+          "body_ko": "자동 출입국 심사대(오토게이트)는 베트남 국민이 쓰는 곳이에요. 외국인은 베트남 거주증이 있으면 출국할 때만 쓸 수 있어요.",
+          "where_ko": null,
+          "source": "vn_gov_autogate"
+        },
+        {
+          "kind": "baggage",
+          "title_ko": "짐 찾기",
+          "body_ko": "내 항공편이 표시된 벨트에서 기다려요. 짐을 찾을 때 수하물표와 맞는지 확인해요.",
+          "where_ko": null
+        },
+        {
+          "kind": "customs",
+          "title_ko": "세관",
+          "body_ko": "세관은 가방 속 물건을 확인하는 곳이에요. 세관 안내에 따라 짐 검사를 받아요.",
+          "where_ko": null
+        },
+        {
+          "kind": "exit",
+          "title_ko": "도착 홀로 나가요",
+          "body_ko": "세관 검사가 끝나면 일반 도착 구역으로 나가요.",
+          "where_ko": null
+        }
+      ],
+      "map_url": "https://camranh.aero/airport-guide/arrival-guide",
+      "source": "cxr_flow",
+      "last_verified": "2026-10-03",
+      "form_check_source": "mps_pai"
+    }
+  ],
+  "checklist": [
     {
       "id": "cash_exit",
       "phase": "before_return",

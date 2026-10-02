@@ -49,6 +49,8 @@ enum class ChecklistAction(val key: String) {
     OpenReturn("open_return"),
     DestroyPassport("destroy_passport"),
     OpenLink("open_link"),
+    /** 나라 화면 입국·비자의 `공항에 도착하면` 묶음으로 (그 여행의 도착 공항을 골라 둔 채) */
+    OpenAirport("open_airport"),
     ;
 
     companion object {
@@ -91,6 +93,9 @@ sealed interface ItemDetail {
     data class Destroy(val hasPassport: Boolean?) : ItemDetail
 
     data class Offline(val packVersion: String?) : ItemDetail
+
+    /** 도착 공항 순서. [code]·[name] = 이 여행의 도착 공항(고르지 않았으면 null — 화면은 공항을 고르라고 안내) */
+    data class AirportGuide(val country: String, val code: String?, val name: String?) : ItemDetail
 }
 
 data class ChecklistItem(
@@ -163,7 +168,8 @@ object Checklist {
         val names = index?.sources.orEmpty().associate { it.id to it.name } + pack?.sources.orEmpty().associate { it.id to it.name }
         fun src(id: String?, date: String?) = if (id == null || date == null) null else ItemSource(names[id], date)
         val requirement = pack?.requirements?.firstOrNull { it.nationality == "KR" && it.purpose == "tourism" }
-        val form = pack?.forms?.firstOrNull()
+        // 꼭 내야 하는 입국 카드만 할 일로 센다 — 베트남 PAI처럼 의무가 아닌 신고(forms[].optional)는 기한 있는 할 일이 아니다
+        val form = pack?.requiredForms?.firstOrNull()
         val essentials = Essentials.select(index?.essentials.orEmpty(), index?.homePower, pack?.power)
         val built = mutableListOf<ChecklistItem>()
 
@@ -358,6 +364,19 @@ object Checklist {
                     source = src(e.source, e.lastVerified),
                     action = ChecklistAction.of(t.action),
                     detail = ItemDetail.Phone(e.labelKo, e.number),
+                )
+            }
+            "airports" -> {
+                // 팩에 공항 안내가 있을 때만 — 출처는 이 여행의 도착 공항(고르지 않았으면 첫 공항) 안내
+                val airports = pack?.airports.orEmpty()
+                if (airports.isEmpty()) return null
+                val chosen = pack?.airport(input.trip.arrivalAirport)
+                val shown = chosen ?: airports.first()
+                ChecklistItem(
+                    t.id, phase, ItemKind.Pack, t.icon, title, t.bodyKo,
+                    source = src(shown.source, shown.lastVerified),
+                    action = ChecklistAction.OpenAirport,
+                    detail = ItemDetail.AirportGuide(input.trip.country, chosen?.code, chosen?.nameKo),
                 )
             }
             "return_facts" -> {

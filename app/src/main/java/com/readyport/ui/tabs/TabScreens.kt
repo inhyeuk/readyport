@@ -55,6 +55,8 @@ data class FormEntry(
     val windowDays: Int? = null,
     /** 이 나라로 가는 내 여행의 출발일(=도착일로 본다 — 오늘 단계·알림과 같은 계산). 있으면 일반 예시 대신 내 여행 기간을 보인다 */
     val tripArrival: LocalDate? = null,
+    /** 의무가 아닌(권장) 신고인지 (팩 forms[].optional — 베트남 PAI). 주 버튼이 되지 않고 `꼭 내야 하는 건 아니에요`로 보인다 */
+    val optional: Boolean = false,
 )
 
 // '꼭 챙길 물건' 요약(EssentialsSummary·essentialsSummary·칩·진행 줄)은 홈과 함께 쓰는 공용 부품(components/Essentials.kt)
@@ -86,6 +88,7 @@ class PrepareViewModel @Inject constructor(
                     f.id, f.nameKo, pack.names.ko, f.feeKo, f.windowKo, pack.source(f.source)?.name.orEmpty(), f.lastVerified,
                     windowDays = f.windowDaysIncludingArrival,
                     tripArrival = upcoming?.takeIf { it.country == pack.country }?.start,
+                    optional = f.optional,
                 )
             }
         }
@@ -130,8 +133,8 @@ fun PrepareContent(
             }
         }
         forms.forEachIndexed { i, f ->
-            // 주 버튼은 화면에 하나 — 둘째 서류부터는 보조 버튼
-            item(key = "form-${f.formId}") { FormCard(f, primary = i == 0, onOpen = { onOpenForm(f.formId) }) }
+            // 주 버튼은 화면에 하나 — 둘째 서류부터는 보조 버튼. 의무가 아닌 신고는 첫 장이어도 주 버튼이 되지 않는다
+            item(key = "form-${f.formId}") { FormCard(f, primary = i == 0 && !f.optional, onOpen = { onOpenForm(f.formId) }) }
         }
         sectionGap("items-gap")
         item(key = "items") { EssentialsPrepCard(essentials, onOpenEssentials) }
@@ -145,6 +148,7 @@ fun PrepareContent(
  * 입국 카드 한 장 = 공용 [EntryFormCard](나라 입국·비자 03·04와 같은 카드·같은 말 — 재검토2 ④#1·②#5):
  * eyebrow `태국 · 도착 전에 내요` + 제목(양식 이름) → 비용(짧은 값이면 정보 칩) → 내는 때 → `입국 카드 준비하기` → 출처.
  * 내는 때: 내 여행이 이 나라면 일반 예시(`예: 5월 4일 도착이면…`) 대신 팩 기간 일수 + 내 출발일로 계산한 날짜(재검토2 ③#5).
+ * 의무가 아닌 신고(베트남 PAI)는 eyebrow가 `베트남 · 내면 좋아요 (의무 아님)`이고 알약·버튼도 바뀐다.
  */
 @Composable
 private fun FormCard(f: FormEntry, primary: Boolean, onOpen: () -> Unit) {
@@ -154,9 +158,13 @@ private fun FormCard(f: FormEntry, primary: Boolean, onOpen: () -> Unit) {
         feeKo = f.feeKo,
         windowKo = personalWindowKo(f.windowKo, f.windowDays, f.tripArrival),
         source = SourceRef(f.sourceName.ifBlank { fallback }, displayDate(f.lastVerified)),
-        eyebrow = stringResource(R.string.prepare_form_eyebrow, f.countryKo),
+        eyebrow = stringResource(
+            if (f.optional) R.string.prepare_form_eyebrow_optional else R.string.prepare_form_eyebrow,
+            f.countryKo,
+        ),
         onStart = onOpen,
         primary = primary,
+        optional = f.optional,
     )
 }
 

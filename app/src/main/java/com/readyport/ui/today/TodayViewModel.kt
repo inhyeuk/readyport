@@ -3,6 +3,7 @@ package com.readyport.ui.today
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.readyport.data.settings.SettingsRepository
+import com.readyport.pack.Airport
 import com.readyport.pack.FormInfo
 import com.readyport.pack.OfficialLink
 import com.readyport.pack.ShoppingItem
@@ -58,6 +59,10 @@ data class TodayUi(
     /** 저장된 여행 수(지난 여행 포함) — 1개 이상이면 `여행 목록 보기` */
     val tripCount: Int = 0,
     val today: LocalDate = LocalDate.now(),
+    /** 이 여행의 도착 공항 안내(여행에 고른 공항, 팩에 공항이 하나뿐이면 그 공항). 없으면 null — 공항 카드 없음 */
+    val airport: Airport? = null,
+    /** 여행 나라 팩에 공항 안내가 있는지(공항을 고르지 않았을 때 `공항별 도착 순서 보기`) */
+    val hasAirports: Boolean = false,
 )
 
 @HiltViewModel
@@ -77,7 +82,8 @@ class TodayViewModel @Inject constructor(
         // 여러 여행 중 지금 여행(여행 중 → 가장 가까운 다가오는 여행 → 정리 안 한 최근 여행)
         val trip = TripSelection.active(book.trips, today)
         val pack = trip?.let { packs.pack(it.country)?.value }
-        val form = pack?.forms?.firstOrNull()
+        // 꼭 내야 하는 입국 카드만 오늘 단계·알림에 쓴다 — 의무가 아닌 신고(forms[].optional)는 기한을 만들지 않는다
+        val form = pack?.requiredForms?.firstOrNull()
         val contents = (w as? WalletState.Unlocked)?.contents
         // 입국 카드를 냈는지는 이 여행 기준(같은 나라를 또 가도 지난 여행 제출로 닫히지 않게): 지갑이 열려 있으면 바로, 아니면 지난번 기록
         val submitted = trip?.let { t ->
@@ -104,6 +110,8 @@ class TodayViewModel @Inject constructor(
             checklistTotal = data?.total ?: 0,
             tripCount = book.trips.size,
             today = today,
+            airport = trip?.let { t -> pack?.airport(t.arrivalAirport) } ?: pack?.airports?.singleOrNull(),
+            hasAirports = pack?.airports?.isNotEmpty() == true,
         )
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), TodayUi())
 

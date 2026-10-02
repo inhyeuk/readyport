@@ -1477,3 +1477,17 @@ fun navTileColors(tone: BadgeTone): NavTileColors
 - **16 꼭 챙길 물건**: 여행이 있으면 맨 위 `이 체크는 태국 여행 체크리스트와 함께 바뀌어요` + `체크리스트 전체 보기`. 체크 = 그 여행 체크리스트의 같은 항목.
 - **03·04 나라 입국·비자**: `내 여행에 넣기` = 새 여행. 같은 나라 다가오는 여행이 있으면 ChoiceDialog. '들어갈 때' 바로 뒤에 팩 섹션 `rules`(알아 둘 규정 — 중국 「국무원 출입국관리규정」) 카드(SectionCard, 아이콘 Gavel, 출처 0404 안전공지). 여행경보가 아니라서 여행 정보 위험 배너로 올리지 않는다.
 
+## 부록 G — 공항에 도착하면 (2026-10-03)
+
+운영자 요청: "각 국가별 공항에서 입국 신고하는 위치를 안내". 자세한 기록 `AIRPORT_GUIDE_REPORT.md`. 새 문구는 `res/values/strings_airports.xml`에만.
+
+| 부품 (`components/AirportGuide.kt`) | 쓰임 |
+|---|---|
+| `AirportPicker(airports, selected, onSelect, extra?, withCity)` | 공항 이름 SelectChip(RadioButton 역할, selectableGroup, FlowRow). 여행 고치기는 `수완나품 공항 · 방콕` + `아직 몰라요` |
+| `AirportSteps(airport, showBody, extra)` | StepList와 같은 번호 원·세로선(공용 `StepRow`). 단계 = kind 아이콘(`IconKeys.airportStep`: FlightLand · HealthAndSafety · HowToReg · DoorSliding · QrCode2 · Luggage · Inventory2 · ConnectingAirports · DirectionsWalk) + 제목(titleMedium) + 위치 칩(InfoChip Place, Accent, 공식 위치만) + 설명(bodyMedium InkSecondary). 입국 카드 줄 = IconBullet QrCode2 Caution(연노랑 바탕) — form_check 단계, 없으면 입국 심사 단계 안. 자동 심사대 줄 = 입국 심사 단계 안(✅ CheckCircle Success / ❌ Block Neutral, null이면 없음). 큰 글자 배치는 아이콘을 제목 첫 줄 안으로 |
+| `AirportGuideCard` | 나라 화면 입국·비자, 입국 카드 다음: 제목 `공항에 도착하면`(FlightLand) → `내리는 공항을 고르세요` + 칩(둘 이상) → 공항 머리(titleLarge + `방콕 · BKK · Suvarnabhumi Airport`) → 단계(설명 포함) → LinkRow `공항 안내도 열기 (공식)`(Map) → 출처 |
+| `AirportCompactCard` | 오늘 화면: 출국하는 날 `도착하면 이 순서예요`(eyebrow `수완나품 공항 · 방콕`), 도착 단계 `도착했어요! 이 순서대로 해요`(공항 단계 뒤에 유심·환전·숙소가 번호를 이어 간다 + `다 했어요`). 단계 제목·위치·입국 카드 줄만(설명은 나라 화면에서) + 보조 버튼 `공항 순서 자세히 보기`(나라 화면 공항 묶음으로 바로 내려감) |
+
+- 공항을 고르지 않은 도착 단계(팩 공항이 둘 이상): 예전 일반 순서 그대로 + 보조 버튼 `공항별 도착 순서 보기`. 팩에 공항이 하나뿐이면 고르지 않아도 그 공항.
+- 체크리스트 '도착하면' `도착 공항 순서 보기`: 고른 공항 InfoChip(`내리는 공항 수완나품 공항`) 또는 안내 한 줄 + 보조 버튼 `공항 순서 보기` + 출처.
+- 쉬운 모드·200%에서도 숨기는 내용 없음(설명·위치·입국 카드 줄 모두 보임). 색은 토큰만.

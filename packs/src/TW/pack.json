@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "country": "TW",
-  "version": "2026.10.02-2",
+  "version": "2026.10.03-1",
   "last_verified": "2026-10-02",
   "names": {
     "ko": "대만",
@@ -72,6 +72,51 @@
       "id": "boca_visa_exempt",
       "name": "대만 외교부 영사사무국(BOCA) · 무비자 입국 요건",
       "url": "https://www.boca.gov.tw/cp-149-4486-7785a-2.html"
+    },
+    {
+      "id": "tpe_entry",
+      "name": "타오위안 국제공항(桃園國際機場) · 抵達手續(도착 절차)",
+      "url": "https://www.taoyuan-airport.com/entry"
+    },
+    {
+      "id": "tpe_passport",
+      "name": "타오위안 국제공항 · 證照查驗(입국 심사·e-Gate 신청 자격/장소)",
+      "url": "https://www.taoyuan-airport.com/passportcontrol_in"
+    },
+    {
+      "id": "tpe_customs",
+      "name": "타오위안 국제공항 · 海關行李檢查(세관 검사)",
+      "url": "https://www.taoyuan-airport.com/inspection_luggage"
+    },
+    {
+      "id": "tsa_flow",
+      "name": "타이베이 쑹산 공항(臺北國際航空站) · 搭機資訊 > 入境流程 > 國際線入境流程",
+      "url": "https://www.tsa.gov.tw/layout?id=421f4be9-cb97-4993-a181-520cf59de332&culture=1"
+    },
+    {
+      "id": "khh_flow",
+      "name": "가오슝 국제공항(高雄國際航空站) · 出入境程序 > 國際線入境程序導引",
+      "url": "https://www.kia.gov.tw/FACNSER.html#deparr"
+    },
+    {
+      "id": "nia_twac",
+      "name": "대만 내정부 이민서(NIA) · TWAC 전면 시행 보도자료(2025-09-21)",
+      "url": "https://www.immigration.gov.tw/5385/7229/7238/398036/"
+    },
+    {
+      "id": "nia_egate_foreign",
+      "name": "대만 이민서(NIA) · Enrollment and Usage for Foreign Persons(e-Gate)",
+      "url": "https://www.immigration.gov.tw/5475/5478/6928/6931/366038/"
+    },
+    {
+      "id": "nia_egate_locations",
+      "name": "대만 이민서(NIA) · e-Gate Enrollment Locations",
+      "url": "https://www.immigration.gov.tw/5475/5478/6928/6931/366035/"
+    },
+    {
+      "id": "tw_customs_law",
+      "name": "대만 재정부 법규 · 입국 여객 휴대품 신고·검사 규정(Regulations Governing the Declaration, Inspection, Duty, and Release of Personal Luggage or Goods of Inward Passengers) 제7조",
+      "url": "https://law-out.mof.gov.tw/EngLawContent.aspx?id=20804"
     }
   ],
   "requirements": [
@@ -333,6 +378,174 @@
     "source": "tw_tourism_tips",
     "last_verified": "2026-10-02"
   },
+  "airports": [
+    {
+      "code": "TPE",
+      "name_ko": "타오위안 국제공항",
+      "name_en": "Taiwan Taoyuan International Airport",
+      "city_ko": "타이베이",
+      "egate_kr": true,
+      "egate_note_ko": "처음 쓰기 전에 반드시 직원이 있는 심사 카운터에서 등록해야 해요(얼굴·지문을 찍고 1분쯤 걸려요). 등록을 마치면 한국 전자여권으로 e-Gate를 쓸 수 있어요. 등록하는 곳: 제1터미널 도착층 카운터(제한구역 안, 매일 08:00~23:00), 제2터미널 도착층 카운터(제한구역 안, 매일 05:30~23:00). e-Gate를 쓸 때도 TWAC는 올 때마다 내요.",
+      "form_check_ko": "TWAC는 입국 심사 때 따로 보여 주지 않아요. 심사관이 여권을 읽으면 미리 낸 내용이 자동으로 떠요.",
+      "steps": [
+        {
+          "kind": "deplane",
+          "title_ko": "비행기에서 내려요",
+          "body_ko": "여권과 필요한 서류를 챙겨요. TWAC는 미리 온라인으로 내 두세요.",
+          "where_ko": null
+        },
+        {
+          "kind": "health",
+          "title_ko": "검역",
+          "body_ko": "도착 동선을 따라가면 사람·동식물 검역을 거쳐요.",
+          "where_ko": null
+        },
+        {
+          "kind": "egate",
+          "title_ko": "자동 심사대(e-Gate)는 등록부터",
+          "body_ko": "등록을 마치면 e-Gate로 지나갈 수 있어요. 등록하지 않았다면 직원이 있는 카운터로 가요.",
+          "where_ko": null,
+          "source": "nia_egate_foreign"
+        },
+        {
+          "kind": "immigration",
+          "title_ko": "입국 심사",
+          "body_ko": "여권을 보여 줘요. 등록을 마쳤으면 e-Gate와 직원 카운터 중에서 고를 수 있어요.",
+          "where_ko": null,
+          "source": "tpe_passport"
+        },
+        {
+          "kind": "baggage",
+          "title_ko": "짐 찾기",
+          "body_ko": "입국 심사가 끝나면 수하물 벨트에서 짐을 찾아요.",
+          "where_ko": null
+        },
+        {
+          "kind": "customs",
+          "title_ko": "세관",
+          "body_ko": "세관은 가방 속 물건을 확인하는 곳이에요. 면세 범위 안이고 신고할 물건이 없으면 초록 줄(免申報), 있으면 빨간 줄(應申報)로 가요.",
+          "where_ko": null,
+          "source": "tpe_customs"
+        },
+        {
+          "kind": "exit",
+          "title_ko": "도착 홀로 나가요",
+          "body_ko": "제한구역을 나가면 다시 들어갈 수 없어요. 짐을 다 챙겼는지 확인하고 나가요.",
+          "where_ko": "도착 홀(接機大廳)"
+        }
+      ],
+      "map_url": "https://www.taoyuan-airport.com/map/",
+      "source": "tpe_entry",
+      "last_verified": "2026-10-03",
+      "form_check_source": "nia_twac"
+    },
+    {
+      "code": "TSA",
+      "name_ko": "쑹산 공항",
+      "name_en": "Taipei Songshan Airport",
+      "city_ko": "타이베이",
+      "egate_kr": true,
+      "egate_note_ko": "처음 쓰기 전에 반드시 직원이 있는 심사 카운터에서 등록해야 해요(얼굴·지문을 찍고 1분쯤 걸려요). 등록을 마치면 한국 전자여권으로 e-Gate를 쓸 수 있어요. 쑹산 공항에서 등록하는 곳: 제1터미널 1층 출국장 카운터(제한구역 밖, 세븐일레븐 옆, 매일 07:00~18:00). e-Gate를 쓸 때도 TWAC는 올 때마다 내요.",
+      "form_check_ko": "TWAC는 입국 심사 때 따로 보여 주지 않아요. 심사관이 여권을 읽으면 미리 낸 내용이 자동으로 떠요.",
+      "steps": [
+        {
+          "kind": "deplane",
+          "title_ko": "비행기에서 내려요",
+          "body_ko": "국제선은 제1터미널 3층으로 도착해요.",
+          "where_ko": "제1터미널 3층"
+        },
+        {
+          "kind": "health",
+          "title_ko": "검역",
+          "body_ko": "먼저 사람 검역을 거쳐요.",
+          "where_ko": null
+        },
+        {
+          "kind": "egate",
+          "title_ko": "자동 심사대(e-Gate)는 등록부터",
+          "body_ko": "등록을 마치면 e-Gate로 지나갈 수 있어요. 등록하지 않았다면 직원이 있는 카운터로 가요.",
+          "where_ko": null,
+          "source": "nia_egate_foreign"
+        },
+        {
+          "kind": "immigration",
+          "title_ko": "입국 심사",
+          "body_ko": "2층 입국 심사장으로 내려가서 여권을 보여 줘요.",
+          "where_ko": "2층 입국 심사장(證照查驗大廳)"
+        },
+        {
+          "kind": "baggage",
+          "title_ko": "짐 찾기",
+          "body_ko": "입국 심사가 끝나면 짐을 찾아요.",
+          "where_ko": null
+        },
+        {
+          "kind": "customs",
+          "title_ko": "세관",
+          "body_ko": "세관은 가방 속 물건을 확인하는 곳이에요. 면세 범위 안이고 신고할 물건이 없으면 초록 줄, 있으면 빨간 줄로 가요.",
+          "where_ko": null,
+          "source": "tw_customs_law"
+        }
+      ],
+      "map_url": "https://www.tsa.gov.tw/layout?id=421f4be9-cb97-4993-a181-520cf59de332&culture=1",
+      "source": "tsa_flow",
+      "last_verified": "2026-10-03",
+      "form_check_source": "nia_twac"
+    },
+    {
+      "code": "KHH",
+      "name_ko": "가오슝 국제공항",
+      "name_en": "Kaohsiung International Airport",
+      "city_ko": "가오슝",
+      "egate_kr": true,
+      "egate_note_ko": "처음 쓰기 전에 반드시 직원이 있는 심사 카운터에서 등록해야 해요(얼굴·지문을 찍고 1분쯤 걸려요). 등록을 마치면 한국 전자여권으로 e-Gate를 쓸 수 있어요. 가오슝 공항에서 등록하는 곳: 도착 홀 카운터(제한구역 안, 매일 08:00~22:00). e-Gate를 쓸 때도 TWAC는 올 때마다 내요.",
+      "form_check_ko": "TWAC는 입국 심사 때 따로 보여 주지 않아요. 심사관이 여권을 읽으면 미리 낸 내용이 자동으로 떠요.",
+      "steps": [
+        {
+          "kind": "deplane",
+          "title_ko": "비행기에서 내려요",
+          "body_ko": "2층에서 내려 에스컬레이터로 1층까지 내려가요.",
+          "where_ko": "국제선 터미널 2층 → 1층"
+        },
+        {
+          "kind": "egate",
+          "title_ko": "자동 심사대(e-Gate)는 등록부터",
+          "body_ko": "등록을 마치면 e-Gate로 지나갈 수 있어요. 등록하지 않았다면 직원이 있는 카운터로 가요.",
+          "where_ko": null,
+          "source": "nia_egate_foreign"
+        },
+        {
+          "kind": "immigration",
+          "title_ko": "입국 심사",
+          "body_ko": "입국 심사대에서 여권을 보여 줘요.",
+          "where_ko": null
+        },
+        {
+          "kind": "baggage",
+          "title_ko": "짐 찾기",
+          "body_ko": "심사가 끝나면 수하물 찾는 곳에서 짐을 찾아요.",
+          "where_ko": null
+        },
+        {
+          "kind": "customs",
+          "title_ko": "세관",
+          "body_ko": "세관은 가방 속 물건을 확인하는 곳이에요. 금지 물품은 가져오면 안 돼요. 신고할 물건이 없으면 초록 줄, 있으면 빨간 줄로 가요.",
+          "where_ko": null,
+          "source": "tw_customs_law"
+        },
+        {
+          "kind": "exit",
+          "title_ko": "도착 홀로 나가요",
+          "body_ko": "모든 절차가 끝나면 마중 나온 사람들이 기다리는 홀(迎客大廳)로 나가요.",
+          "where_ko": "1층 도착 홀"
+        }
+      ],
+      "map_url": "https://www.kia.gov.tw/FACNSER.html#deparr",
+      "source": "khh_flow",
+      "last_verified": "2026-10-03",
+      "form_check_source": "nia_twac"
+    }
+  ],
   "checklist": [
     {
       "id": "medicine_rx",

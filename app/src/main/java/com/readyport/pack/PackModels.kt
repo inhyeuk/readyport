@@ -160,8 +160,77 @@ data class CountryPack(
     val shopping: List<ShoppingItem> = emptyList(),
     /** 이 나라만의 체크리스트 항목 — 문장은 [sections]의 같은 문장 그대로(출처·확인일도 그 섹션 것, 빌드가 검사) */
     val checklist: List<CountryChecklistItem> = emptyList(),
+    /** 도착 공항 순서 (공항에 도착하면, 2026-10-03). 없는 팩(예전 팩 포함)은 빈 목록 — 앱은 공항 묶음을 그리지 않는다 */
+    val airports: List<Airport> = emptyList(),
 ) {
     fun source(id: String): PackSource? = sources.firstOrNull { it.id == id }
+
+    /**
+     * 꼭 내야 하는 입국 카드 양식 — `forms` 에서 선택(권장) 신고를 뺀 것. 체크리스트 할 일·오늘 단계·알림이
+     * '그 나라 입국 카드'로 세는 것은 이 목록뿐이다(베트남 PAI처럼 의무가 아닌 신고를 기한 있는 할 일로 만들지 않는다).
+     */
+    val requiredForms: List<FormInfo> get() = forms.filter { !it.optional }
+
+    /** IATA 코드로 공항 찾기 (없으면 null) */
+    fun airport(code: String?): Airport? = code?.let { c -> airports.firstOrNull { it.code == c } }
+}
+
+/**
+ * 도착 공항 하나 — 비행기에서 내려 공항을 나갈 때까지의 순서. 문장은 공항 운영사·이민국·세관·0404 공식 안내에서 연 것만(작업 규칙 6).
+ * [egateKr]: 한국 여권으로 자동 출입국 심사대를 쓸 수 있는지 — 공식 안내가 한국 여권을 콕 집어 밝혔을 때만 true/false, 모르면 null(줄을 숨긴다).
+ * [formCheckKo]: 입국 카드(QR·확인 메일)를 어디서 보여 주는지 — 앱은 form_check(없으면 입국 심사) 단계 안에 강조해 보인다.
+ * [formCheckSource]: 그 줄만 다른 출처일 때(예: 0404). 없으면 [source].
+ */
+@Serializable
+data class Airport(
+    val code: String,
+    @SerialName("name_ko") val nameKo: String,
+    @SerialName("name_en") val nameEn: String,
+    @SerialName("city_ko") val cityKo: String,
+    @SerialName("egate_kr") val egateKr: Boolean? = null,
+    @SerialName("egate_note_ko") val egateNoteKo: String? = null,
+    @SerialName("form_check_ko") val formCheckKo: String? = null,
+    @SerialName("form_check_source") val formCheckSource: String? = null,
+    val steps: List<AirportStep> = emptyList(),
+    @SerialName("map_url") val mapUrl: String,
+    val source: String,
+    @SerialName("last_verified") val lastVerified: String,
+) {
+    /** 입국 카드 줄을 붙일 단계 번호: form_check 단계 → 없으면 입국 심사 → 없으면 null(줄을 단계 목록 위에) */
+    val formStepIndex: Int?
+        get() = steps.indexOfFirst { it.kind == AirportStep.FORM_CHECK }.takeIf { it >= 0 }
+            ?: steps.indexOfFirst { it.kind == AirportStep.IMMIGRATION }.takeIf { it >= 0 }
+
+    /**
+     * 자동 심사대 줄을 붙일 단계 번호: egate 단계 → 없으면 입국 심사 → 없으면 null(줄을 단계 목록 위에).
+     * egate 단계를 먼저 보는 이유: 조건이 있는 나라(대만은 먼저 등록, 베트남은 베트남 국민용)는 그 단계 제목이 조건을 말하므로
+     * 판정 줄이 바로 그 아래 있어야 조건을 놓치지 않는다.
+     */
+    val egateStepIndex: Int?
+        get() = steps.indexOfFirst { it.kind == AirportStep.EGATE }.takeIf { it >= 0 }
+            ?: steps.indexOfFirst { it.kind == AirportStep.IMMIGRATION }.takeIf { it >= 0 }
+
+    /** 이 공항 안내의 출처 id 전부(공항 → 단계 → 입국 카드 줄 순서, 겹침 없음) */
+    val sourceIds: List<String>
+        get() = (listOf(source) + steps.mapNotNull { it.source } + listOfNotNull(formCheckKo?.let { formCheckSource ?: source })).distinct()
+}
+
+/** 공항 순서 한 단계. kind: deplane·health·immigration·egate·form_check·baggage·customs·transfer·exit (아이콘을 고른다) */
+@Serializable
+data class AirportStep(
+    val kind: String,
+    @SerialName("title_ko") val titleKo: String,
+    @SerialName("body_ko") val bodyKo: String,
+    /** 공식 안내에 적힌 위치(층·홀)만 */
+    @SerialName("where_ko") val whereKo: String? = null,
+    /** 이 단계만 다른 출처일 때 */
+    val source: String? = null,
+) {
+    companion object {
+        const val FORM_CHECK = "form_check"
+        const val IMMIGRATION = "immigration"
+        const val EGATE = "egate"
+    }
 }
 
 /** 나라 팩 체크리스트 항목. [textKo]는 [section] 섹션 body_ko의 한 문장과 글자까지 같아야 한다(build_packs.py) */
@@ -232,6 +301,11 @@ data class FormInfo(
     @SerialName("name_ko") val nameKo: String,
     @SerialName("name_en") val nameEn: String,
     @SerialName("official_url") val officialUrl: String,
+    /**
+     * 의무가 아닌(권장) 신고인지 — 베트남 사전 입국 정보(PAI). true 면 앱은 `꼭 내야 하는 건 아니에요`로 보이고,
+     * 체크리스트·오늘 단계의 '입국 카드' 할 일로 세지 않는다 (의무인 양식만 센다).
+     */
+    val optional: Boolean = false,
     @SerialName("fee_ko") val feeKo: String,
     @SerialName("window_ko") val windowKo: String,
     /** 도착일을 포함해 며칠 전부터 낼 수 있는지 (3 = 도착 2일 전~도착일) */

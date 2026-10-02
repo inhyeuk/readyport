@@ -120,6 +120,10 @@ class KoreanTextTest {
         assertEquals("낼${nbsp}수 있${wj}어${wj}요", joinKoreanWords("낼 수 있어요"))
         // '수'로 시작하는 보통 낱말(수입)은 그대로
         assertTrue(joinKoreanWords("밝힌 수입 금지").contains("힌 수"))
+        // '건'(것은의 준말)도 앞 낱말과 함께 — `꼭 내야 하는 / 건 아니에요`로 끊기지 않게 (공항 안내 2026-10-03)
+        assertTrue(joinKoreanWords("하는 건 아니에요").contains("는${nbsp}건"))
+        // '건'으로 시작하는 보통 낱말(건강)은 그대로
+        assertTrue(joinKoreanWords("몸이 건강하면").contains("이 건"))
     }
 
     @Test

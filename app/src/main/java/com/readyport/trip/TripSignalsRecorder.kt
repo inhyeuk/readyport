@@ -61,9 +61,12 @@ class TripSignalsRecorder @Inject constructor(
             return (contents.passport != null) to perTrip
         }
 
-        /** 이 여행 입국 카드를 그 여행 기간에 냈는지. 낸 기록이 없으면 false, 양식이 없는 나라는 null */
+        /**
+         * 이 여행 입국 카드를 그 여행 기간에 냈는지. 낸 기록이 없으면 false, 꼭 내야 하는 양식이 없는 나라는 null —
+         * 의무가 아닌 신고(forms[].optional, 베트남 PAI)는 '안 냈다'로 보지 않는다.
+         */
         fun formSubmitted(contents: VaultContents, trip: Trip, pack: CountryPack?): Boolean? {
-            val form = pack?.forms?.firstOrNull() ?: return null
+            val form = pack?.requiredForms?.firstOrNull() ?: return null
             val record = contents.forms[form.id] ?: return false
             if (record.status != "submitted") return false
             val at = record.submittedAt?.let { runCatching { LocalDateTime.parse(it).toLocalDate() }.getOrNull() } ?: return false

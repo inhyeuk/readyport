@@ -78,7 +78,7 @@
 
 ### 9.9 여행 장부·체크리스트 저장 (2026-10-02)
 - 예전: DataStore `trip`의 `current_trip` 키 하나 = 여행 하나. **지금**: 같은 DataStore의 `trip_book` 키 하나에 JSON `TripBook { trips: [Trip(id=UUID, …)], checks: {tripId → TripChecks}, passportSaved }`. 백업 제외 규칙(`backup_rules.xml`·`data_extraction_rules.xml` 앱 데이터 전체 제외)은 그대로 적용된다.
-- `Trip`은 날짜·나라·도착 기록뿐(개인정보 없음). 여행은 `id`로 가린다 — 같은 나라라도 다른 여행. `TripChecks = { marks(항목 id → 사람이 정한 체크), custom(내 항목 글), passport(여권 결과), formSubmitted }`.
+- `Trip`은 날짜·나라·도착 기록·내리는 공항 IATA 코드(`arrivalAirport`, 2026-10-03 — 없으면 null, 예전 저장본도 null로 읽힘)뿐(개인정보 없음). 여행은 `id`로 가린다 — 같은 나라라도 다른 여행. `TripChecks = { marks(항목 id → 사람이 정한 체크), custom(내 항목 글), passport(여권 결과), formSubmitted }`.
 - **옮기기**: 읽을 때 `trip_book`이 없고 `current_trip`만 있으면 그 여행을 목록 하나로 읽는다(id = 저장본 글자에서 만든 이름 UUID — 옮기기 전에 읽어도 같은 id). 앱 시작 때 `migrateLegacy(settings.haveItems)`가 장부로 옮기고 예전 '꼭 챙길 물건' 체크를 그 여행의 `essential.<id>` 체크로 옮긴 뒤 예전 키를 지운다. 새 장부를 한 번이라도 쓰면 예전 키는 지운다(같은 여행이 두 번 생기지 않게). 테스트 `TripRepositoryTest`.
 - **지금 여행** = `TripSelection.active`(여행 중 → 가장 가까운 다가오는 여행 → 가장 최근 지난 여행: 귀국 단계는 정리할 때까지, 정리 단계는 14일). `TripRepository.trip`·`current()`·`update(transform)`는 이 여행을 뜻한다(오늘 화면·도착 감지·클라우드 토픽이 그대로 쓴다). 단계 계산 `TripStages.compute`는 여행마다 그대로.
 - **여권 남은 기간의 개인정보 처리**: `TripSignalsRecorder`(앱 범위)가 지갑 상태를 지켜보다가 **열려 있을 때만** 여행마다 `PassportValidity.check(만료일, 여행, 팩 기준)`을 계산해 결과(`ok`/`short`/`unknown`, 기준 달 수, 기준일 종류, 어떤 여행 날짜·기준으로 셌는지 key)만 장부에 쓴다. 만료일은 메모리에서만 쓰고 저장·로그·알림·서버에 넣지 않는다(`toString`도 상태만). 지갑이 잠겨 있으면 지난 결과를 쓰고, 여행 날짜나 팩 기준이 바뀌면(key 불일치) 결과를 쓰지 않는다. 지갑 파일이 없으면 '여권 없음'. 같은 방법으로 '이 여행 입국 카드를 냈는지'(제출 시각이 그 여행 입국 카드 기간 ~ 귀국일)를 있다/없다로만 적는다 — 같은 나라를 또 가도 지난 여행 제출로 닫히지 않는다.
@@ -171,6 +171,15 @@
 - **`requirements[].passport_validity`**: `{months(1~24), basis(arrival|departure|stay_end), source, last_verified}` 또는 `null`(공식 안내가 기준을 밝히지 않음 — 앱은 '공식 안내에서 확인하세요'만). `build_packs.py`가 출처·basis·months를 검사, 테스트 `tools/packs/test_build_packs.py`.
 - **섹션 id `rules`**(알아 둘 규정): 출처가 다른 공지(예: 0404 안전공지)의 규정 문장을 '한 섹션 한 출처' 규칙을 지키며 담는다. 나라 화면 '입국·비자' 갈래의 '들어갈 때' 바로 뒤에 보이고, 여행경보 단계가 아니라서 위험 배너로 올리지 않는다.
 
+### 10.4c 도착 공항 순서 `airports[]` (2026-10-03)
+- **나라 팩 `airports[]`** (선택, `pack.schema.json`): `{code(IATA), name_ko, name_en, city_ko, egate_kr(true|false|null), egate_note_ko?, form_check_ko?, form_check_source?, steps[3~7], map_url(https), source, last_verified}`, 단계 = `{kind, title_ko, body_ko, where_ko?, source?}`, `kind` ∈ deplane · health · immigration · egate · form_check · baggage · customs · transfer · exit. 모든 문장은 공항 운영사·이민국·세관·0404/대사관 공식 페이지에서 연 것만, `where_ko`는 공식 안내에 적힌 층·홀만, `egate_kr`는 공식 안내가 한국 여권을 밝혔을 때만 값(아니면 null — 앱은 줄을 숨긴다). `form_check_source`는 입국 카드 줄만 다른 출처일 때(태국 = 0404 `접수 확인 메일을 입국심사관에게 제시`).
+- 검사: `build_packs.py check_airports`(공항·단계·입국 카드 줄 출처가 sources에 있는지, 코드 겹침, kind, https, 실제 날짜, 단계 3~7개) + 스키마. 공항이 없는 팩(예전 팩 포함)도 그대로 통과·파싱(`airports = []`). 예전 앱은 `ignoreUnknownKeys`라 새 팩을 그대로 읽는다.
+- **합치기 도구** `tools/packs/merge_airports.py --dir <폴더> [CC …] [--check]`: 조사 파일 `<CC>.json`(`{country, airports, sources}`)의 airports를 팩에 통째로 넣고 sources는 id로 겹침 없이 더한다(같은 id·다른 url이면 멈춤) → 검증 → 바뀌었으면 팩 version 올림(다시 돌려도 같은 결과). 서명은 `build_packs.py`.
+- 색인 체크리스트 틀 `airport_steps`(phase arrival, `from: airports`, `action: open_airport`) — 팩에 공항이 있을 때만 항목이 생긴다. 나라 화면 길 `CountryRoute(country, focusAirports, airport)`.
+- **자동 심사대 줄 자리**(2026-10-03 아홉 나라 합침): `Airport.egateStepIndex` = `egate` 단계 → 없으면 `immigration` 단계. 조건이 있는 나라는 `egate` 단계 제목이 조건을 먼저 말하고(대만 `자동 심사대(e-Gate)는 등록부터` — 처음 쓰기 전 유인 카운터 등록 필수, 베트남 `자동 심사대는 베트남 국민용`) 판정 줄·메모가 바로 그 아래 붙는다. `egate_kr: null` + `egate_note_ko`가 있으면 `…쓸 수 있는지는 공식 안내가 분명하지 않아요`(물음표) 줄로 메모를 보인다 — 공식 안내끼리 다른 나라(인도네시아: 공항 안내는 외국인을 유인 심사대로, 이민국 2024년 발표는 전자여권 + e-VOA/e-Visa면 자동 게이트)를 앱이 한쪽으로 정리하지 않고 둘 다 적는다. 판정도 메모도 없으면 줄을 그리지 않는다(일본·중국·태국).
+- `map_url`은 공항 운영사·이민국이 올린 그 공항 **도착 안내 페이지**(안내도가 있으면 안내도) — 앱 링크 글도 `공식 안내 페이지 열기`. 공식 공항 안내 페이지가 없는 곳(떤선녓)은 그 공항 단계의 근거 페이지(공안부 PAI 안내)를 가리킨다.
+- 아홉 나라 공항·자동 심사대 판정·확인하지 못한 것: `docs/design/AIRPORT_GUIDE_REPORT.md`.
+
 ### 10.5 쇼핑 항목
 ```json
 {"id": "dried_mango", "category": "food",
@@ -190,6 +199,7 @@
 - **원본과 배포본**: 사람이 고치는 원본은 `packs/src/`(서명 없음). `tools/packs/build_packs.py`가 스키마(`packs/schema/`)·출처 연결·미확정 표시(`[확인 필요]`,`[재확인]`)를 검사한 뒤 서명해 `app/src/main/assets/packs/`(내장 기본 팩, 커밋함)와 `hosting/public/packs/`(배포본, 커밋 안 함)에 쓴다. 원어민 검수 전 문장(`reviewed:false`)은 경고만 한다. (2026-10-01 운영자 결정 2번으로 화면 배지는 뺐다. `reviewed` 필드·빌드 경고와 출시 전 원어민 검수(QUESTIONS C10·C16·C17)는 그대로 — 아래 디자인 개편 기록)
 - **저장**: 받은 팩은 Room 대신 `noBackupFilesDir/packs/` 파일로 둔다. 읽을 때마다 서명을 다시 검증하고(기기 안 변조 대비), 내장본과 받은 본 중 서명이 맞고 스키마를 아는 가장 새 버전을 쓴다. Room은 체크리스트·쇼핑 목록 상태(M8)에서 쓴다.
 - **스키마 변경**: 10.1 대비 `embassy.address`(공관이 공개한 표기 그대로 — 한글 주소를 지어내지 않음), `forms[].window_days_including_arrival`(태국 TDAC는 공식 안내가 "도착일 포함 3일"이라 72시간 표기 대신), `phrases[].reviewed`, `sections[]`(콘텐츠를 id별 목록으로), `procedures[]`(위기 때 할 일 순서), 인덱스의 `common_emergency`(영사콜센터).
+- **`forms[].optional`** (2026-10-03): 의무가 아닌(공식 안내가 권하는) 사전 신고 — 지금은 베트남 사전 입국 정보 `VN_PAI`. 앱은 양식 카드에 `꼭 내야 하는 건 아니에요` 알약·보조 버튼으로 보이고(PRD 5.3 ③b), `CountryPack.requiredForms`(= optional이 아닌 것)만 체크리스트 할 일·오늘 단계·알림의 '입국 카드'로 센다. `build_packs.check_optional_forms`가 optional 양식에 레시피나 기간 일수(`window_days_including_arrival`)가 있으면 막는다 — 자동 입력을 약속하거나 기한을 만들지 않게. 예전 앱은 모르는 필드를 무시하고(`ignoreUnknownKeys`) 의무 양식으로 보이므로, optional 양식이 생긴 나라는 새 앱과 함께 배포한다.
 - **배포 주소**: `https://readyport-app.web.app/packs/{index.json | CC/pack.json}` (+ `.sig`), `Cache-Control: max-age=300`. Remote Config 키 `index_version`, `pack_version_{CC}`와 같은 값일 때만 받는다(무료 전송 한도).
 - **동기화**: `PackSyncWorker`(WorkManager) — 찜을 바꾸면 즉시 1회, 그리고 하루 1회. 기본은 와이파이(UNMETERED)에서만. 서명·스키마가 틀린 팩은 버리고 재시도하지 않는다. 네트워크 오류만 재시도.
 
@@ -317,7 +327,7 @@
 - 필리핀 eTravel(`PH_ETRAVEL`): 이메일 계정 + 6자리 확인 코드 뒤에 칸이 있어 레시피 없이 값 복사(수동) 모드(일본 VJW와 같음). `window_days_including_arrival` 3 = 공식 '도착 72시간 안'에 늘 들어가는 날짜 단위 기간.
 - 베트남 전자비자(`requirements[].apply.form = VN_EVISA`): 팩 양식도 레시피도 아닌 신청 → 나라 화면 신청 카드는 공식 사이트(`official_url`)를 여는 안내 카드(`siteOnly`). 양식이 신고 안내 동의 창 뒤에 있고 사진 업로드·확인 글자가 있어 구조를 읽지 않았다(동의 금지).
 - 비자 없이 들어가는 나라(`visa = not_required`)의 신청은 비자 카드 비용 타일로 올리지 않고 버튼도 보조 — 짧은 여행에도 비자가 필요한 것처럼 읽히지 않게.
-- 베트남 이민국이 권하는 도착 전 입국 정보(prearrival.immigration.gov.vn)는 의무가 아니고 확인 글자 창이 먼저 떠서 양식 카드로 만들지 않고 '들어갈 때' 문장으로만 안내.
+- ~~베트남 이민국이 권하는 도착 전 입국 정보(prearrival.immigration.gov.vn)는 의무가 아니고 확인 글자 창이 먼저 떠서 양식 카드로 만들지 않고 '들어갈 때' 문장으로만 안내.~~ → **2026-10-03 바꿈**: 공식 출처가 생겨(베트남 공안부 2026-05-13 `Immigration Department launches Pre-arrival Information System`, 주싱가포르 베트남대사관 2026-07-02 공지) **의무가 아닌 양식**(`forms[].optional = true`)으로 옮겼다 — `VN_PAI`, 공식 주소 prearrival.immigration.gov.vn, 노이바이·떤선녓·다낭·깜라인·푸꾸옥 5개 공항, 도착 3일 전부터 또는 도착한 뒤에도, `강력 권장이지만 의무 아님`, QR은 입국 심사에서. 확인 글자 창은 그대로라 **레시피를 두지 않는다**(`build_packs.check_optional_forms`가 optional 양식의 레시피·기간 일수를 막는다). 출처가 맞지 않던 '들어갈 때' 문장(출처가 전자비자 사이트였다)과 그 문장을 쓰던 나라 팩 체크리스트 항목 `prearrival`은 지웠다 — 한 사실을 한 곳에서만 말한다.
 - c1(대만·중국)과 c2(필리핀·베트남) 합치기: 나라 목록은 기존 5개(TH JP SG MY ID) 자리를 그대로 두고 TW·CN·PH·VN을 뒤에 붙였다(이미 쓰던 사람의 홈 순서가 바뀌지 않게). 두 가지가 각자 다른 내용으로 index `2026.10.02-1`을 썼으므로 합친 index는 `2026.10.02-2`(받아 둔 쪽이 어느 것이든 새 목록을 다시 받게).
 
 ## 구현 결정 기록 (여러 여행·여행 체크리스트, 2026-10-02)

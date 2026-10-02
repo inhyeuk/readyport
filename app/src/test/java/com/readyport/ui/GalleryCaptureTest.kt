@@ -239,7 +239,8 @@ class GalleryCaptureSdk31Test : GalleryCaptureBase() {
 
     override val folder = "sdk31_font200/"
 
-    override val contentHeightDp = 12000
+    // 공항 묶음(2026-10-03)까지 들어간 나라 입국 화면은 쉬운 모드 200%에서 한 화면이 1만 5천 dp를 넘는다
+    override val contentHeightDp = 18000
 
     @Test fun basic() = captureAll(easy = false)
 

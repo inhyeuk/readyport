@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "country": "PH",
-  "version": "2026.10.02-2",
+  "version": "2026.10.03-1",
   "last_verified": "2026-10-02",
   "names": {
     "ko": "필리핀",
@@ -57,6 +57,36 @@
       "id": "gmaps_play",
       "name": "Google Play · Google 지도",
       "url": "https://play.google.com/store/apps/details?id=com.google.android.apps.maps"
+    },
+    {
+      "id": "newnaia_guide",
+      "name": "New NAIA Infra Corp.(NAIA 운영사) · Passenger Guide(When You Arrive · eTravel System)",
+      "url": "https://www.newnaia.com.ph/passenger-guide"
+    },
+    {
+      "id": "mcia_arrival",
+      "name": "막탄 세부 국제공항 · International Arrival Guide",
+      "url": "https://www.mactancebuairport.com/airport-guide/international-arrival-guide"
+    },
+    {
+      "id": "boc_one_qr",
+      "name": "필리핀 관세청(Bureau of Customs) · BOC and DICT to implement one QR code in the e-Travel System for all airports(2024-05-09)",
+      "url": "https://customs.gov.ph/boc-and-dict-to-implement-one-qr-code-in-the-e-travel-system-for-all-airports-by-10-may-2024-reiterates-strict-implementation-of-bsp-rules-in-bringing-in-or-taking-out-of-currencies/"
+    },
+    {
+      "id": "bi_etravel",
+      "name": "필리핀 이민국(Bureau of Immigration) · BI reminds travelers to register with eTravel for seamless processing",
+      "url": "https://immigration.gov.ph/bi-reminds-travelers-to-register-with-etravel-for-seamless-processing/"
+    },
+    {
+      "id": "bi_egates",
+      "name": "필리핀 이민국(Bureau of Immigration) · BI conducts dry run of additional eGates at NAIA",
+      "url": "https://immigration.gov.ph/bi-conducts-dry-run-of-additional-egates-at-naia/"
+    },
+    {
+      "id": "boc_guidelines",
+      "name": "필리핀 관세청 · Guidelines on Arriving Travelers",
+      "url": "https://customs.gov.ph/guidelines-for-airport-passengers/"
     }
   ],
   "requirements": [
@@ -264,6 +294,78 @@
     "source": "dot_ph_bring",
     "last_verified": "2026-10-02"
   },
+  "airports": [
+    {
+      "code": "MNL",
+      "name_ko": "마닐라 니노이 아키노 국제공항",
+      "name_en": "Ninoy Aquino International Airport (NAIA)",
+      "city_ko": "마닐라",
+      "egate_kr": false,
+      "egate_note_ko": "필리핀 이민국 안내(e게이트 시험 운영): 지금은 도착하는 필리핀 국민과 출국하는 해외 근로자만 쓸 수 있어요. 외국인 확대는 다음 단계로 예정돼 있어요.",
+      "form_check_ko": "입국 심사관이 여권으로 eTravel 등록을 확인해요. 세관에서는 받은 QR을 세관 직원에게 보여 줘요.",
+      "steps": [
+        {
+          "kind": "health",
+          "title_ko": "검역 확인",
+          "body_ko": "eTravel QR이 초록색이면 바로 입국 심사로 가요. 빨간색이면 입국 심사 전에 검역소(BOQ) 확인을 더 받아요.",
+          "where_ko": null,
+          "source": "etravel_faq"
+        },
+        {
+          "kind": "immigration",
+          "title_ko": "입국 심사",
+          "body_ko": "입국 심사관에게 여권을 보여 줘요. eTravel 등록은 입국 심사를 받기 전에 꼭 해야 하는 일이에요.",
+          "where_ko": null,
+          "source": "bi_etravel"
+        },
+        {
+          "kind": "customs",
+          "title_ko": "세관",
+          "body_ko": "세관은 가방 속 물건을 확인하는 곳이에요. 엑스레이에서 표시된 가방은 전부 열어 검사할 수 있어요. 외화가 미화 1만 달러 상당을 넘으면 전액 신고하고, 필리핀 페소는 5만 페소까지만 가지고 들어올 수 있어요.",
+          "where_ko": null,
+          "source": "boc_guidelines"
+        }
+      ],
+      "map_url": "https://www.newnaia.com.ph/passenger-guide",
+      "source": "newnaia_guide",
+      "last_verified": "2026-10-03",
+      "form_check_source": "boc_one_qr"
+    },
+    {
+      "code": "CEB",
+      "name_ko": "막탄 세부 국제공항",
+      "name_en": "Mactan-Cebu International Airport",
+      "city_ko": "세부",
+      "egate_kr": null,
+      "egate_note_ko": null,
+      "form_check_ko": "입국 심사관이 여권으로 eTravel 등록을 확인해요. 세관에서는 받은 QR을 세관 직원에게 보여 줘요.",
+      "steps": [
+        {
+          "kind": "health",
+          "title_ko": "검역",
+          "body_ko": "도착하면 건강 검사가 있을 수 있어요. 공항과 보건 당국의 안내를 따라요. eTravel QR이 빨간색이면 입국 심사 전에 검역소(BOQ) 확인을 더 받아요.",
+          "where_ko": null,
+          "source": "etravel_faq"
+        },
+        {
+          "kind": "immigration",
+          "title_ko": "입국 심사",
+          "body_ko": "여권(필요하면 비자)을 준비해서 보여 줘요.",
+          "where_ko": null
+        },
+        {
+          "kind": "customs",
+          "title_ko": "세관",
+          "body_ko": "세관은 가방 속 물건을 확인하는 곳이에요. 세관 직원이 검사를 요청하면 협조해요.",
+          "where_ko": null
+        }
+      ],
+      "map_url": "https://www.mactancebuairport.com/airport-guide/international-arrival-guide",
+      "source": "mcia_arrival",
+      "last_verified": "2026-10-03",
+      "form_check_source": "boc_one_qr"
+    }
+  ],
   "checklist": [
     {
       "id": "child_docs",

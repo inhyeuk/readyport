@@ -26,8 +26,11 @@ import kotlinx.serialization.Serializable
 /** 지갑 › 예약 서류 추가. 다른 앱의 '공유하기'로도 들어온다 */
 @Serializable data object BookingImportRoute
 
-/** 홈 › 나라 화면(입국·여행·쇼핑). 인터넷 없이 저장해 둔 팩으로 보여 준다 */
-@Serializable data class CountryRoute(val country: String)
+/**
+ * 홈 › 나라 화면(입국·여행·쇼핑). 인터넷 없이 저장해 둔 팩으로 보여 준다.
+ * [focusAirports]: 입국·비자의 `공항에 도착하면` 묶음으로 바로 내려간다(체크리스트·오늘 화면의 `공항 순서 보기`), [airport]: 처음 고를 공항(IATA)
+ */
+@Serializable data class CountryRoute(val country: String, val focusAirports: Boolean = false, val airport: String? = null)
 
 /** 준비 › 입국 카드 3개 국어 확인 (PRD 5.2) */
 @Serializable data class FormConfirmRoute(val formId: String)

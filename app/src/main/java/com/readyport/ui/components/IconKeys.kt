@@ -2,6 +2,7 @@ package com.readyport.ui.components
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.AirplaneTicket
+import androidx.compose.material.icons.automirrored.outlined.DirectionsWalk
 import androidx.compose.material.icons.automirrored.outlined.FactCheck
 import androidx.compose.material.icons.outlined.AccountBalance
 import androidx.compose.material.icons.outlined.AccountBalanceWallet
@@ -36,6 +37,10 @@ import androidx.compose.material.icons.outlined.ElectricBolt
 import androidx.compose.material.icons.outlined.Emergency
 import androidx.compose.material.icons.outlined.Explore
 import androidx.compose.material.icons.outlined.FlightLand
+import androidx.compose.material.icons.outlined.ConnectingAirports
+import androidx.compose.material.icons.outlined.DoorSliding
+import androidx.compose.material.icons.outlined.HowToReg
+import androidx.compose.material.icons.outlined.Luggage
 import androidx.compose.material.icons.outlined.FlightTakeoff
 import androidx.compose.material.icons.outlined.Forum
 import androidx.compose.material.icons.outlined.GppMaybe
@@ -283,6 +288,24 @@ object IconKeys {
         "family" -> Icons.Outlined.FamilyRestroom
         "custom" -> Icons.Outlined.EditNote
         else -> Icons.Outlined.Checklist
+    }
+
+    /**
+     * 공항 도착 순서 단계 아이콘 (팩 `airports[].steps[].kind`, 2026-10-03). 앱 전체와 같은 그림:
+     * 내리기 FlightLand · 검역 HealthAndSafety · 입국 심사 HowToReg(오늘 화면 입국 심사와 같다) · 자동 심사대 DoorSliding ·
+     * 입국 카드 확인 QrCode2(보여 주기와 같다) · 짐 Luggage · 세관 Inventory2(체크리스트 customs와 같다) · 갈아타기 ConnectingAirports · 나가기 DirectionsWalk.
+     */
+    fun airportStep(kind: String): ImageVector = when (kind) {
+        "deplane" -> Icons.Outlined.FlightLand
+        "health" -> Icons.Outlined.HealthAndSafety
+        "immigration" -> Icons.Outlined.HowToReg
+        "egate" -> Icons.Outlined.DoorSliding
+        "form_check" -> Icons.Outlined.QrCode2
+        "baggage" -> Icons.Outlined.Luggage
+        "customs" -> Icons.Outlined.Inventory2
+        "transfer" -> Icons.Outlined.ConnectingAirports
+        "exit" -> Icons.AutoMirrored.Outlined.DirectionsWalk
+        else -> Icons.Outlined.LocalAirport
     }
 
     /** 체크리스트 단계 아이콘 — 여행 6단계 그림을 그대로 쓰고, 떠나기 전 세 단계는 '준비'(Backpack) */
