@@ -597,6 +597,128 @@
         }
       }
     },
+    "airports": {
+      "description": "도착 공항 순서(공항에 도착하면). 공항 운영사·이민국·세관·0404 공식 안내에서 연 문장만, 짧은 해요체로 (작업 규칙 6·7). 없으면 앱은 공항 묶음을 그리지 않는다",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "code",
+          "name_ko",
+          "name_en",
+          "city_ko",
+          "egate_kr",
+          "form_check_ko",
+          "steps",
+          "map_url",
+          "source",
+          "last_verified"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "code": {
+            "type": "string",
+            "pattern": "^[A-Z]{3}$",
+            "description": "IATA 공항 코드"
+          },
+          "name_ko": {
+            "type": "string",
+            "minLength": 1
+          },
+          "name_en": {
+            "type": "string",
+            "minLength": 1
+          },
+          "city_ko": {
+            "type": "string",
+            "minLength": 1
+          },
+          "egate_kr": {
+            "type": [
+              "boolean",
+              "null"
+            ],
+            "description": "한국 여권으로 자동 출입국 심사대(e-gate)를 쓸 수 있는지. 공식 안내가 한국 여권을 콕 집어 밝힐 때만 true/false, 아니면 null(앱은 줄을 숨긴다)"
+          },
+          "egate_note_ko": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "form_check_ko": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "입국 카드(QR·확인 메일)를 어디서 보여 주는지. 앱은 입국 심사(또는 form_check) 단계에 강조해 보인다"
+          },
+          "form_check_source": {
+            "type": "string",
+            "description": "form_check_ko 만 다른 공식 출처일 때(sources[].id). 없으면 공항 source"
+          },
+          "steps": {
+            "type": "array",
+            "minItems": 3,
+            "maxItems": 7,
+            "items": {
+              "type": "object",
+              "required": [
+                "kind",
+                "title_ko",
+                "body_ko"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "kind": {
+                  "enum": [
+                    "deplane",
+                    "health",
+                    "immigration",
+                    "egate",
+                    "form_check",
+                    "baggage",
+                    "customs",
+                    "transfer",
+                    "exit"
+                  ]
+                },
+                "title_ko": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "body_ko": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "where_ko": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "description": "공식 안내에 적힌 위치(층·홀)만. 지도·기억으로 짐작하지 않는다"
+                },
+                "source": {
+                  "type": "string",
+                  "description": "이 단계만 다른 공식 출처일 때(sources[].id). 없으면 공항 source"
+                }
+              }
+            }
+          },
+          "map_url": {
+            "type": "string",
+            "pattern": "^https://",
+            "description": "공식 공항 안내도·도착 안내 페이지"
+          },
+          "source": {
+            "type": "string"
+          },
+          "last_verified": {
+            "$ref": "#/$defs/date"
+          }
+        }
+      }
+    },
     "checklist": {
       "description": "이 나라만의 여행 체크리스트 항목. text_ko는 같은 팩 sections[section].body_ko의 한 문장과 글자까지 같아야 한다(출처·확인일은 그 섹션 것 — build_packs.py가 검사)",
       "type": "array",

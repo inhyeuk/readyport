@@ -220,9 +220,13 @@ object Gallery {
             TodayContent(TodayUi(trip, StageInfo(TripStage.Preparing, daysLeft = 3, formWindowOpen = true), "태국", th.value.forms.first(), true),
                 TodayActions(), {}, {}, {}, {}, {})
         },
+        // 출국일 + 도착 공항(수완나품)을 골라 둔 여행 — `도착하면 이 순서예요` 짧은 공항 카드
         "today-departure" to {
-            TodayContent(TodayUi(trip, StageInfo(TripStage.Departure, dayOfTrip = 1), "태국", th.value.forms.first(), true),
-                TodayActions(), {}, {}, {}, {}, {})
+            TodayContent(
+                TodayUi(trip, StageInfo(TripStage.Departure, dayOfTrip = 1), "태국", th.value.forms.first(), true,
+                    indexSources = indexSources, sourceNames = thSources, airport = th.value.airport("BKK"), hasAirports = true),
+                TodayActions(), {}, {}, {}, {}, {},
+            )
         },
         // 출국일에 입국 카드 기간이 열린 상태(태국 TDAC는 보통 이 상태) — 주 버튼은 입국 카드 하나, `도착했어요`는 보조 (C 묶음 캡처를 공용 갤러리로)
         "today-departure-form" to {
@@ -231,8 +235,17 @@ object Gallery {
                 TodayActions(), {}, {}, {}, {}, {},
             )
         },
+        // 도착 단계 + 수완나품: 공항 순서(팩 — 위치·입국 카드 줄·출처) 뒤에 유심·환전·숙소가 번호를 이어 간다
         "today-arrival" to {
-            TodayContent(TodayUi(trip, StageInfo(TripStage.Arrival, dayOfTrip = 1), "태국", th.value.forms.first(), true),
+            TodayContent(
+                TodayUi(trip, StageInfo(TripStage.Arrival, dayOfTrip = 1), "태국", th.value.forms.first(), true,
+                    indexSources = indexSources, sourceNames = thSources, airport = th.value.airport("BKK"), hasAirports = true),
+                TodayActions(), {}, {}, {}, {}, {},
+            )
+        },
+        // 도착 단계, 공항을 아직 고르지 않음(태국은 공항이 셋) — 일반 순서 + `공항별 도착 순서 보기`
+        "today-arrival-no-airport" to {
+            TodayContent(TodayUi(trip, StageInfo(TripStage.Arrival, dayOfTrip = 1), "태국", th.value.forms.first(), true, hasAirports = true),
                 TodayActions(), {}, {}, {}, {}, {})
         },
         "today-traveling" to {
@@ -250,7 +263,13 @@ object Gallery {
         "today-wrapup" to {
             TodayContent(TodayUi(trip, StageInfo(TripStage.WrapUp), "태국", null, true), TodayActions(), {}, {}, {}, {}, {})
         },
-        "trip-edit" to { TripContent(TripFormUi(index.countries.filter { it.pack }, trip, loaded = true), { _, _, _ -> }, {}) },
+        // 여행 고치기: 내리는 공항(태국 팩 공항 셋 + 아직 몰라요) — 수완나품을 골라 둔 여행
+        "trip-edit" to {
+            TripContent(
+                TripFormUi(index.countries.filter { it.pack }, trip.copy(arrivalAirport = "BKK"), loaded = true, airports = mapOf("TH" to th.value.airports)),
+                { _, _, _, _ -> }, {},
+            )
+        },
         // 내 여행 목록: 다가오는 여행 셋(태국 둘 = 다른 여행·다른 체크리스트, 일본은 날짜 겹침) + 지난 여행(접힘)
         "trips-list" to { TripListContent(TripListUi(loaded = true, rows = tripRows, today = LocalDate.of(2026, 10, 2)), {}, {}) },
         "trips-empty" to { TripListContent(TripListUi(loaded = true), {}, {}) },
@@ -261,6 +280,15 @@ object Gallery {
         // 중국 출발 당일 — 입국 카드 급함(빨강), 여권 기준 없음(공식 안내 링크), 지난 단계 접힘
         "trip-checklist-cn" to {
             TripChecklistContent(ChecklistUi(loaded = true, trip = ckCn, countryName = "중국", data = ckCnData, today = ckCn.start), ChecklistActions())
+        },
+        // 태국 여행 도착 다음 날(도착하면 단계) — `도착 공항 순서 보기`(내리는 공항 수완나품 칩 + 공항 순서 보기 + 출처). 앞 단계는 모두 했음
+        "trip-checklist-arrival" to {
+            val t = ckTh.copy(arrivalAirport = "BKK")
+            val today = LocalDate.of(2026, 11, 4)
+            val first = checklist(t, today, TripChecks())
+            val before = first.items.filter { it.phase!! < ChecklistPhase.Arrival }
+            val data = checklist(t, today, TripChecks(marks = before.associate { it.id to true }))
+            TripChecklistContent(ChecklistUi(loaded = true, trip = t, countryName = "태국", data = data, today = today), ChecklistActions())
         },
         // 오늘 화면 '지금 챙길 것'(입국 카드·여권 할 일이 없을 때 지금 할 일 = 체크리스트)
         "today-checklist" to {

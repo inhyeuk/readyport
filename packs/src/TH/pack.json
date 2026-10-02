@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "country": "TH",
-  "version": "2026.10.02-1",
+  "version": "2026.10.03-1",
   "last_verified": "2026-09-28",
   "names": {
     "ko": "태국",
@@ -87,6 +87,21 @@
       "id": "apqa_plant_exempt",
       "name": "농림축산검역본부 검역 제외 식물",
       "url": "https://www.apqa.go.kr/plant/imQua/plant_notest_ex.jsp"
+    },
+    {
+      "id": "aot_bkk_arrival",
+      "name": "태국공항공사(AOT) · 수완나품 공항 도착 절차",
+      "url": "https://suvarnabhumi.airportthai.co.th/service/airport-guide/detail/Arrival_MTB"
+    },
+    {
+      "id": "aot_dmk_arrival",
+      "name": "태국공항공사(AOT) · 돈므앙 공항 도착 절차",
+      "url": "https://donmueang.airportthai.co.th/service/airport-guide/detail/ArrivalProcedure_DMK"
+    },
+    {
+      "id": "aot_hkt_arrival",
+      "name": "태국공항공사(AOT) · 푸껫 공항 도착 절차",
+      "url": "https://phuket.airportthai.co.th/service/airport-guide/detail/Arrival_Procedure_HKT"
     }
   ],
   "requirements": [
@@ -368,6 +383,161 @@
     "source": "tat_power",
     "last_verified": "2026-09-29"
   },
+  "airports": [
+    {
+      "code": "BKK",
+      "name_ko": "수완나품 공항",
+      "name_en": "Suvarnabhumi Airport",
+      "city_ko": "방콕",
+      "egate_kr": null,
+      "egate_note_ko": null,
+      "form_check_ko": "TDAC를 내고 받은 접수 확인 메일을 입국 심사관에게 보여 줘야 해요.",
+      "form_check_source": "mofa_th",
+      "steps": [
+        {
+          "kind": "deplane",
+          "title_ko": "비행기에서 내려요",
+          "body_ko": "내리면 먼저 입국 심사(Passport Control)로 가요.",
+          "where_ko": null
+        },
+        {
+          "kind": "immigration",
+          "title_ko": "입국 심사",
+          "body_ko": "여권을 보여 줘요. 70세 이상, 임신부, 아기를 데리고 온 사람, 몸이 불편한 사람은 우선 줄을 쓸 수 있어요.",
+          "where_ko": null
+        },
+        {
+          "kind": "health",
+          "title_ko": "검역",
+          "body_ko": "병이나 해로운 동식물이 들어오지 않게 확인하는 곳(건강·식물·동물 검역)을 지나요.",
+          "where_ko": null
+        },
+        {
+          "kind": "baggage",
+          "title_ko": "짐 찾기",
+          "body_ko": "국제선 짐은 5번부터 23번까지 벨트에서 나와요.",
+          "where_ko": "2층 도착 홀"
+        },
+        {
+          "kind": "customs",
+          "title_ko": "세관",
+          "body_ko": "세관은 가방 속 물건을 확인하는 곳이에요. 신고할 물건이 없으면 초록 줄, 있으면 빨간 줄로 가요.",
+          "where_ko": null
+        },
+        {
+          "kind": "exit",
+          "title_ko": "공항을 나가요",
+          "body_ko": "택시, Grab, 리무진, 버스, 공항철도(Airport Rail Link), 렌터카로 시내에 갈 수 있어요.",
+          "where_ko": null
+        }
+      ],
+      "map_url": "https://suvarnabhumi.airportthai.co.th/airport-map",
+      "source": "aot_bkk_arrival",
+      "last_verified": "2026-10-03"
+    },
+    {
+      "code": "DMK",
+      "name_ko": "돈므앙 공항",
+      "name_en": "Don Mueang International Airport",
+      "city_ko": "방콕",
+      "egate_kr": null,
+      "egate_note_ko": null,
+      "form_check_ko": "TDAC를 내고 받은 접수 확인 메일을 입국 심사관에게 보여 줘야 해요.",
+      "form_check_source": "mofa_th",
+      "steps": [
+        {
+          "kind": "deplane",
+          "title_ko": "비행기에서 내려요",
+          "body_ko": "내리면 입국 심사 전에 검역대로 가요.",
+          "where_ko": null
+        },
+        {
+          "kind": "health",
+          "title_ko": "검역",
+          "body_ko": "감염병 검역대를 지나요. 검역은 병이 들어오지 않게 확인하는 곳이에요.",
+          "where_ko": null
+        },
+        {
+          "kind": "immigration",
+          "title_ko": "입국 심사",
+          "body_ko": "여권을 보여 줘요. 70세 이상, 임신부, 아이를 데리고 온 사람, 몸이 불편한 사람은 우선 줄을 쓸 수 있어요.",
+          "where_ko": null
+        },
+        {
+          "kind": "baggage",
+          "title_ko": "짐 찾기",
+          "body_ko": "국제선 짐은 1번부터 6번까지 벨트에서 나와요.",
+          "where_ko": "1터미널 1층"
+        },
+        {
+          "kind": "customs",
+          "title_ko": "세관",
+          "body_ko": "식물·동물·식품 검사대를 지나 세관으로 가요. 신고할 물건이 없으면 초록 줄, 있으면 빨간 줄로 가요.",
+          "where_ko": null
+        },
+        {
+          "kind": "exit",
+          "title_ko": "공항을 나가요",
+          "body_ko": "미터 택시, Grab, 리무진, 공항 셔틀버스(A1~A4)로 시내에 갈 수 있어요.",
+          "where_ko": null
+        }
+      ],
+      "map_url": "https://donmueang.airportthai.co.th/airport-map",
+      "source": "aot_dmk_arrival",
+      "last_verified": "2026-10-03"
+    },
+    {
+      "code": "HKT",
+      "name_ko": "푸껫 공항",
+      "name_en": "Phuket International Airport",
+      "city_ko": "푸껫",
+      "egate_kr": null,
+      "egate_note_ko": null,
+      "form_check_ko": "TDAC를 내고 받은 접수 확인 메일을 입국 심사관에게 보여 줘야 해요.",
+      "form_check_source": "mofa_th",
+      "steps": [
+        {
+          "kind": "deplane",
+          "title_ko": "비행기에서 내려요",
+          "body_ko": "내리면 먼저 입국 심사(Passport Control)로 가요.",
+          "where_ko": null
+        },
+        {
+          "kind": "immigration",
+          "title_ko": "입국 심사",
+          "body_ko": "여권을 보여 줘요. 70세 이상, 임신부, 아기를 데리고 온 사람, 몸이 불편한 사람은 우선 줄을 쓸 수 있어요.",
+          "where_ko": null
+        },
+        {
+          "kind": "health",
+          "title_ko": "검역",
+          "body_ko": "병이나 해로운 동식물이 들어오지 않게 확인하는 곳(건강·식물·동물 검역)을 지나요.",
+          "where_ko": null
+        },
+        {
+          "kind": "baggage",
+          "title_ko": "짐 찾기",
+          "body_ko": "국제선 짐은 1번부터 5번까지 벨트에서 나와요.",
+          "where_ko": "국제선 터미널 1층"
+        },
+        {
+          "kind": "customs",
+          "title_ko": "세관",
+          "body_ko": "세관은 가방 속 물건을 확인하는 곳이에요. 신고할 물건이 없으면 초록 줄, 있으면 빨간 줄로 가요.",
+          "where_ko": "국제선 터미널 1층"
+        },
+        {
+          "kind": "exit",
+          "title_ko": "공항을 나가요",
+          "body_ko": "리무진, 미터 택시, 버스, 렌터카, Grab으로 이동할 수 있어요.",
+          "where_ko": null
+        }
+      ],
+      "map_url": "https://phuket.airportthai.co.th/airport-map",
+      "source": "aot_hkt_arrival",
+      "last_verified": "2026-10-03"
+    }
+  ],
   "checklist": [
     {
       "id": "cash_declare",

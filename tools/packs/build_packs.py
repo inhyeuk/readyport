@@ -76,6 +76,52 @@ def check_sources(doc, label, errors):
             errors.append(f"{label}: essentials[{i}] 금융 상품에 제휴 링크 금지")
     check_passport_validity(doc, label, ids, errors)
     check_checklist(doc, label, errors)
+    check_airports(doc, label, ids, errors)
+
+
+AIRPORT_STEP_KINDS = ("deplane", "health", "immigration", "egate", "form_check", "baggage", "customs", "transfer", "exit")
+
+
+def check_airports(doc, label, ids, errors):
+    """airports[]: 출처가 sources 에 있는지(공항·단계·입국 카드 줄), 코드가 겹치지 않는지, 단계 kind, https 링크, 확인 날짜 (작업 규칙 6).
+    JSON Schema 가 모양을 보고, 여기서는 스키마로 못 보는 것(출처 연결·겹침·실제 날짜)을 본다. 스키마 없이도(merge_airports.py) 같은 검사를 한다."""
+    import datetime
+
+    seen = set()
+    for i, ap in enumerate(doc.get("airports", [])):
+        where = f"{label}: airports[{i}]"
+        code = ap.get("code")
+        if code in seen:
+            errors.append(f"{where}.code '{code}' 가 겹침")
+        seen.add(code)
+        for key in ("code", "name_ko", "name_en", "city_ko", "steps", "map_url", "source", "last_verified"):
+            if not ap.get(key):
+                errors.append(f"{where}.{key} 가 비어 있음")
+        if "egate_kr" not in ap:
+            errors.append(f"{where}.egate_kr 가 없음 (모르면 null)")
+        elif ap["egate_kr"] is not None and not isinstance(ap["egate_kr"], bool):
+            errors.append(f"{where}.egate_kr 는 true/false/null")
+        if ap.get("source") not in ids:
+            errors.append(f"{where}.source '{ap.get('source')}' 가 sources 에 없음")
+        if "form_check_source" in ap and ap["form_check_source"] not in ids:
+            errors.append(f"{where}.form_check_source '{ap['form_check_source']}' 가 sources 에 없음")
+        if not str(ap.get("map_url", "")).startswith("https://"):
+            errors.append(f"{where}.map_url 은 https:// 로 시작")
+        try:
+            datetime.date.fromisoformat(str(ap.get("last_verified")))
+        except ValueError:
+            errors.append(f"{where}.last_verified '{ap.get('last_verified')}' 는 YYYY-MM-DD 날짜")
+        steps = ap.get("steps") or []
+        if not 3 <= len(steps) <= 7:
+            errors.append(f"{where}.steps 는 3~7개 (지금 {len(steps)}개)")
+        for j, st in enumerate(steps):
+            if st.get("kind") not in AIRPORT_STEP_KINDS:
+                errors.append(f"{where}.steps[{j}].kind '{st.get('kind')}' 는 {'/'.join(AIRPORT_STEP_KINDS)} 중 하나")
+            for key in ("title_ko", "body_ko"):
+                if not st.get(key):
+                    errors.append(f"{where}.steps[{j}].{key} 가 비어 있음")
+            if "source" in st and st["source"] not in ids:
+                errors.append(f"{where}.steps[{j}].source '{st['source']}' 가 sources 에 없음")
 
 
 def check_passport_validity(doc, label, ids, errors):

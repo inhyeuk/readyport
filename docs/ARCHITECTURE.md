@@ -78,7 +78,7 @@
 
 ### 9.9 여행 장부·체크리스트 저장 (2026-10-02)
 - 예전: DataStore `trip`의 `current_trip` 키 하나 = 여행 하나. **지금**: 같은 DataStore의 `trip_book` 키 하나에 JSON `TripBook { trips: [Trip(id=UUID, …)], checks: {tripId → TripChecks}, passportSaved }`. 백업 제외 규칙(`backup_rules.xml`·`data_extraction_rules.xml` 앱 데이터 전체 제외)은 그대로 적용된다.
-- `Trip`은 날짜·나라·도착 기록뿐(개인정보 없음). 여행은 `id`로 가린다 — 같은 나라라도 다른 여행. `TripChecks = { marks(항목 id → 사람이 정한 체크), custom(내 항목 글), passport(여권 결과), formSubmitted }`.
+- `Trip`은 날짜·나라·도착 기록·내리는 공항 IATA 코드(`arrivalAirport`, 2026-10-03 — 없으면 null, 예전 저장본도 null로 읽힘)뿐(개인정보 없음). 여행은 `id`로 가린다 — 같은 나라라도 다른 여행. `TripChecks = { marks(항목 id → 사람이 정한 체크), custom(내 항목 글), passport(여권 결과), formSubmitted }`.
 - **옮기기**: 읽을 때 `trip_book`이 없고 `current_trip`만 있으면 그 여행을 목록 하나로 읽는다(id = 저장본 글자에서 만든 이름 UUID — 옮기기 전에 읽어도 같은 id). 앱 시작 때 `migrateLegacy(settings.haveItems)`가 장부로 옮기고 예전 '꼭 챙길 물건' 체크를 그 여행의 `essential.<id>` 체크로 옮긴 뒤 예전 키를 지운다. 새 장부를 한 번이라도 쓰면 예전 키는 지운다(같은 여행이 두 번 생기지 않게). 테스트 `TripRepositoryTest`.
 - **지금 여행** = `TripSelection.active`(여행 중 → 가장 가까운 다가오는 여행 → 가장 최근 지난 여행: 귀국 단계는 정리할 때까지, 정리 단계는 14일). `TripRepository.trip`·`current()`·`update(transform)`는 이 여행을 뜻한다(오늘 화면·도착 감지·클라우드 토픽이 그대로 쓴다). 단계 계산 `TripStages.compute`는 여행마다 그대로.
 - **여권 남은 기간의 개인정보 처리**: `TripSignalsRecorder`(앱 범위)가 지갑 상태를 지켜보다가 **열려 있을 때만** 여행마다 `PassportValidity.check(만료일, 여행, 팩 기준)`을 계산해 결과(`ok`/`short`/`unknown`, 기준 달 수, 기준일 종류, 어떤 여행 날짜·기준으로 셌는지 key)만 장부에 쓴다. 만료일은 메모리에서만 쓰고 저장·로그·알림·서버에 넣지 않는다(`toString`도 상태만). 지갑이 잠겨 있으면 지난 결과를 쓰고, 여행 날짜나 팩 기준이 바뀌면(key 불일치) 결과를 쓰지 않는다. 지갑 파일이 없으면 '여권 없음'. 같은 방법으로 '이 여행 입국 카드를 냈는지'(제출 시각이 그 여행 입국 카드 기간 ~ 귀국일)를 있다/없다로만 적는다 — 같은 나라를 또 가도 지난 여행 제출로 닫히지 않는다.
@@ -170,6 +170,12 @@
 - **나라 팩 `checklist[]`** (`pack.schema.json`): `{id, phase, icon, title_ko, section, text_ko}` — `text_ko`는 같은 팩 `sections[section].body_ko`의 한 문장과 글자까지 같아야 한다(`build_packs.py`가 검사, 출처·확인일은 그 섹션 것). 예: 현금 신고 기준, 중국 감기약 성분·주숙등기, 싱가포르 담배·전자담배.
 - **`requirements[].passport_validity`**: `{months(1~24), basis(arrival|departure|stay_end), source, last_verified}` 또는 `null`(공식 안내가 기준을 밝히지 않음 — 앱은 '공식 안내에서 확인하세요'만). `build_packs.py`가 출처·basis·months를 검사, 테스트 `tools/packs/test_build_packs.py`.
 - **섹션 id `rules`**(알아 둘 규정): 출처가 다른 공지(예: 0404 안전공지)의 규정 문장을 '한 섹션 한 출처' 규칙을 지키며 담는다. 나라 화면 '입국·비자' 갈래의 '들어갈 때' 바로 뒤에 보이고, 여행경보 단계가 아니라서 위험 배너로 올리지 않는다.
+
+### 10.4c 도착 공항 순서 `airports[]` (2026-10-03)
+- **나라 팩 `airports[]`** (선택, `pack.schema.json`): `{code(IATA), name_ko, name_en, city_ko, egate_kr(true|false|null), egate_note_ko?, form_check_ko?, form_check_source?, steps[3~7], map_url(https), source, last_verified}`, 단계 = `{kind, title_ko, body_ko, where_ko?, source?}`, `kind` ∈ deplane · health · immigration · egate · form_check · baggage · customs · transfer · exit. 모든 문장은 공항 운영사·이민국·세관·0404/대사관 공식 페이지에서 연 것만, `where_ko`는 공식 안내에 적힌 층·홀만, `egate_kr`는 공식 안내가 한국 여권을 밝혔을 때만 값(아니면 null — 앱은 줄을 숨긴다). `form_check_source`는 입국 카드 줄만 다른 출처일 때(태국 = 0404 `접수 확인 메일을 입국심사관에게 제시`).
+- 검사: `build_packs.py check_airports`(공항·단계·입국 카드 줄 출처가 sources에 있는지, 코드 겹침, kind, https, 실제 날짜, 단계 3~7개) + 스키마. 공항이 없는 팩(예전 팩 포함)도 그대로 통과·파싱(`airports = []`). 예전 앱은 `ignoreUnknownKeys`라 새 팩을 그대로 읽는다.
+- **합치기 도구** `tools/packs/merge_airports.py --dir <폴더> [CC …] [--check]`: 조사 파일 `<CC>.json`(`{country, airports, sources}`)의 airports를 팩에 통째로 넣고 sources는 id로 겹침 없이 더한다(같은 id·다른 url이면 멈춤) → 검증 → 바뀌었으면 팩 version 올림(다시 돌려도 같은 결과). 서명은 `build_packs.py`.
+- 색인 체크리스트 틀 `airport_steps`(phase arrival, `from: airports`, `action: open_airport`) — 팩에 공항이 있을 때만 항목이 생긴다. 나라 화면 길 `CountryRoute(country, focusAirports, airport)`.
 
 ### 10.5 쇼핑 항목
 ```json

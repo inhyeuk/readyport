@@ -227,6 +227,7 @@ private fun MainScaffold(
                             editTripById = { id -> navController.navigate(TripRoute(tripId = id)) },
                             openChecklist = { id -> navController.navigate(TripChecklistRoute(id)) },
                             openTrips = { navController.navigate(TripsRoute) },
+                            openAirportGuide = { code, airport -> navController.navigate(CountryRoute(code, focusAirports = true, airport = airport)) },
                             explore = { navController.switchTab(Tab.Home) },
                             prepare = { navController.navigate(PrepareRoute) },
                             openForm = { formId -> navController.navigate(FormConfirmRoute(formId)) },
@@ -270,6 +271,7 @@ private fun MainScaffold(
                             openShopping = { code -> navController.navigate(ShoppingRoute(code)) },
                             openEssentials = { navController.navigate(EssentialsRoute) },
                             editTrip = { id -> navController.navigate(TripRoute(tripId = id)) },
+                            openAirport = { code, airport -> navController.navigate(CountryRoute(code, focusAirports = true, airport = airport)) },
                         ),
                         onDeleted = { navController.popBackStack() },
                     )

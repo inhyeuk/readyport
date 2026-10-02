@@ -78,7 +78,9 @@ import com.readyport.trip.Trip
 import com.readyport.trip.TripStage
 import androidx.compose.foundation.lazy.LazyListScope
 import com.readyport.trip.ChecklistItem
+import com.readyport.ui.components.AirportCompactCard
 import com.readyport.ui.components.AppScreen
+import com.readyport.ui.components.airportSources
 import com.readyport.ui.components.CheckProgressBar
 import com.readyport.ui.components.ChecklistDivider
 import com.readyport.ui.components.IconBullet
@@ -165,6 +167,8 @@ data class TodayActions(
     val openChecklist: (String) -> Unit = {},
     /** 내 여행 목록 */
     val openTrips: () -> Unit = {},
+    /** 나라 화면 입국·비자의 `공항에 도착하면` 묶음 (나라, 처음 고를 공항 — 없으면 여행 공항·첫 공항) */
+    val openAirportGuide: (String, String?) -> Unit = { _, _ -> },
 )
 
 @Composable
@@ -355,6 +359,17 @@ fun TodayContent(
                         )
                     }
                 }
+                // 도착하면 이 순서예요 — 이 여행의 도착 공항 순서(짧은 모양: 단계 제목·위치·입국 카드 줄), 자세히는 나라 화면 공항 묶음
+                ui.airport?.let { airport ->
+                    item(key = "airport") {
+                        AirportCompactCard(
+                            title = keepTitle(stringResource(R.string.airport_today_departure_title)),
+                            airport = airport,
+                            sources = todayAirportSources(ui, airport),
+                            onOpenGuide = { ui.trip?.let { actions.openAirportGuide(it.country, airport.code) } },
+                        )
+                    }
+                }
                 item(key = "arrived") {
                     val label = stringResource(R.string.today_arrived_button)
                     val arrive = { undone = false; onArrived() }
@@ -379,16 +394,7 @@ fun TodayContent(
                     )
                 }
                 item(key = "arrival") {
-                    CardNewsCard(title = keepTitle(stringResource(R.string.today_arrival_title)), icon = Icons.Outlined.FlightLand) {
-                        StepList(
-                            listOf(
-                                step(stringResource(R.string.today_arrival_step1), Icons.Outlined.HowToReg),
-                                step(stringResource(R.string.today_arrival_step2), Icons.Outlined.Luggage),
-                                step(stringResource(R.string.today_arrival_step3), Icons.Outlined.SimCard),
-                                step(stringResource(R.string.today_arrival_step4), Icons.Outlined.CurrencyExchange),
-                                step(stringResource(R.string.today_arrival_step5), Icons.Outlined.Hotel),
-                            ),
-                        )
+                    val done: @Composable () -> Unit = {
                         // 체크 저장 없이 '다 했어요'만 (D10)
                         SecondaryButton(
                             text = stringResource(R.string.today_arrival_done),
@@ -396,6 +402,43 @@ fun TodayContent(
                             icon = Icons.Outlined.TaskAlt,
                             modifier = Modifier.padding(top = 4.dp),
                         )
+                    }
+                    // 공항 다음 할 일(유심·환전·숙소)은 앱 안내 단계 — 공항 순서 뒤에 번호를 이어 붙인다
+                    val after = listOf(
+                        step(stringResource(R.string.today_arrival_step3), Icons.Outlined.SimCard),
+                        step(stringResource(R.string.today_arrival_step4), Icons.Outlined.CurrencyExchange),
+                        step(stringResource(R.string.today_arrival_step5), Icons.Outlined.Hotel),
+                    )
+                    val airport = ui.airport
+                    if (airport != null) {
+                        // 도착 공항을 알면 입국 심사·짐 찾기 대신 그 공항의 순서(팩 — 위치·입국 카드 줄·출처)를 보여 준다
+                        AirportCompactCard(
+                            title = keepTitle(stringResource(R.string.today_arrival_title)),
+                            airport = airport,
+                            sources = todayAirportSources(ui, airport),
+                            onOpenGuide = { ui.trip?.let { actions.openAirportGuide(it.country, airport.code) } },
+                            extra = after,
+                            footer = { done() },
+                        )
+                    } else {
+                        CardNewsCard(title = keepTitle(stringResource(R.string.today_arrival_title)), icon = Icons.Outlined.FlightLand) {
+                            StepList(
+                                listOf(
+                                    step(stringResource(R.string.today_arrival_step1), Icons.Outlined.HowToReg),
+                                    step(stringResource(R.string.today_arrival_step2), Icons.Outlined.Luggage),
+                                ) + after,
+                            )
+                            // 공항을 고르지 않았지만 팩에 공항 안내가 있으면 나라 화면 공항 묶음으로
+                            if (ui.hasAirports) {
+                                // 다른 화면으로 가는 길은 글자 버튼(이 카드의 할 일 `다 했어요`보다 약하게 — 공항 카드와 같은 모양)
+                                QuietButton(
+                                    stringResource(R.string.airport_open_guide_any),
+                                    onClick = { ui.trip?.let { actions.openAirportGuide(it.country, null) } },
+                                    icon = Icons.Outlined.LocalAirport,
+                                )
+                            }
+                            done()
+                        }
                     }
                 }
                 nowCard(ui, actions, onToggle)
@@ -487,6 +530,14 @@ fun TodayContent(
             }
         }
     }
+}
+
+/** 공항 안내 출처 줄 — 팩 출처 이름(못 찾으면 `공식 안내`), 날짜는 공항 확인일 */
+@Composable
+private fun todayAirportSources(ui: TodayUi, airport: com.readyport.pack.Airport): List<SourceRef> {
+    val fallback = stringResource(R.string.source_official_fallback)
+    val names = ui.indexSources + ui.sourceNames
+    return airportSources(airport) { id, date -> SourceRef(resolveSourceName(id, names, fallback), displayDate(date)) }
 }
 
 /**

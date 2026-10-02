@@ -107,5 +107,130 @@ class ChecklistTest(unittest.TestCase):
         self.assertTrue(schema_errors(INDEX_SCHEMA, bad))
 
 
+class AirportsTest(unittest.TestCase):
+    """공항 도착 순서 airports[] (2026-10-03): 스키마 + 출처 연결·kind·https·날짜 검사"""
+
+    def setUp(self):
+        self.pack = load("packs/src/TH/pack.json")
+
+    def test_th_airports_valid(self):
+        self.assertEqual(["BKK", "DMK", "HKT"], [a["code"] for a in self.pack["airports"]])
+        self.assertEqual([], schema_errors(PACK_SCHEMA, self.pack))
+        self.assertEqual([], check(self.pack))
+
+    def test_pack_without_airports_still_valid(self):
+        pack = copy.deepcopy(self.pack)
+        del pack["airports"]
+        self.assertEqual([], schema_errors(PACK_SCHEMA, pack))
+        self.assertEqual([], check(pack))
+
+    def test_unknown_sources_rejected(self):
+        for where in ("airport", "step", "form"):
+            pack = copy.deepcopy(self.pack)
+            ap = pack["airports"][0]
+            if where == "airport":
+                ap["source"] = "made_up"
+            elif where == "step":
+                ap["steps"][0]["source"] = "made_up"
+            else:
+                ap["form_check_source"] = "made_up"
+            self.assertTrue(any("made_up" in e for e in check(pack)), where)
+
+    def test_bad_kind_url_date_count_rejected(self):
+        pack = copy.deepcopy(self.pack)
+        pack["airports"][0]["steps"][0]["kind"] = "lounge"
+        self.assertTrue(schema_errors(PACK_SCHEMA, pack))
+        self.assertTrue(any("kind" in e for e in check(pack)))
+        pack = copy.deepcopy(self.pack)
+        pack["airports"][0]["map_url"] = "http://example.org"
+        self.assertTrue(schema_errors(PACK_SCHEMA, pack))
+        self.assertTrue(any("https" in e for e in check(pack)))
+        pack = copy.deepcopy(self.pack)
+        pack["airports"][0]["last_verified"] = "2026-13-40"
+        self.assertTrue(any("last_verified" in e for e in check(pack)))
+        pack = copy.deepcopy(self.pack)
+        pack["airports"][0]["steps"] = pack["airports"][0]["steps"][:2]
+        self.assertTrue(schema_errors(PACK_SCHEMA, pack))
+        self.assertTrue(any("3~7" in e for e in check(pack)))
+
+    def test_required_fields_and_egate(self):
+        pack = copy.deepcopy(self.pack)
+        del pack["airports"][0]["egate_kr"]
+        self.assertTrue(schema_errors(PACK_SCHEMA, pack))
+        self.assertTrue(any("egate_kr" in e for e in check(pack)))
+        pack = copy.deepcopy(self.pack)
+        pack["airports"][0]["egate_kr"] = "yes"
+        self.assertTrue(schema_errors(PACK_SCHEMA, pack))
+        pack = copy.deepcopy(self.pack)
+        pack["airports"][1]["code"] = pack["airports"][0]["code"]
+        self.assertTrue(any("겹침" in e for e in check(pack)))
+
+    def test_index_airport_checklist_item(self):
+        index = load("packs/src/index.json")
+        item = next(i for i in index["checklist"] if i["id"] == "airport_steps")
+        self.assertEqual(("arrival", "airports", "open_airport"), (item["phase"], item["from"], item["action"]))
+
+
+class MergeAirportsTest(unittest.TestCase):
+    """merge_airports.py: 조사 파일을 팩에 합치기 — 출처 겹침 없애기, 다른 주소 같은 id 막기, 버전 올리기, 다시 돌려도 같음"""
+
+    def setUp(self):
+        import merge_airports
+
+        self.m = merge_airports
+        self.pack = load("packs/src/TH/pack.json")
+        self.data = {
+            "country": "TH",
+            "airports": copy.deepcopy(self.pack["airports"]),
+            "sources": [s for s in self.pack["sources"] if s["id"] in {"aot_bkk_arrival", "aot_dmk_arrival", "aot_hkt_arrival", "mofa_th"}],
+        }
+        self.base = copy.deepcopy(self.pack)
+        del self.base["airports"]
+        self.base["sources"] = [s for s in self.base["sources"] if not s["id"].startswith("aot_")]
+        self.base["version"] = "2026.10.02-1"
+
+    def test_merge_adds_airports_sources_and_bumps(self):
+        import datetime
+
+        merged, changed = self.m.merge_one(self.data, self.base, datetime.date(2026, 10, 3))
+        self.assertTrue(changed)
+        self.assertEqual("2026.10.03-1", merged["version"])
+        self.assertEqual(["BKK", "DMK", "HKT"], [a["code"] for a in merged["airports"]])
+        ids = [s["id"] for s in merged["sources"]]
+        self.assertEqual(len(ids), len(set(ids)))
+        self.assertIn("aot_bkk_arrival", ids)
+        # airports 는 checklist 앞에
+        keys = list(merged)
+        self.assertLess(keys.index("airports"), keys.index("checklist"))
+        # 다시 합치면 바뀐 것 없음(버전 그대로)
+        again, changed2 = self.m.merge_one(self.data, merged, datetime.date(2026, 10, 3))
+        self.assertFalse(changed2)
+        self.assertEqual(merged, again)
+
+    def test_same_day_bumps_counter(self):
+        self.assertEqual("2026.10.03-2", self.m.bump_version("2026.10.03-1", __import__("datetime").date(2026, 10, 3)))
+        self.assertEqual("2026.10.04-1", self.m.bump_version("2026.10.03-5", __import__("datetime").date(2026, 10, 4)))
+
+    def test_conflicting_source_url_rejected(self):
+        import datetime
+
+        data = copy.deepcopy(self.data)
+        next(s for s in data["sources"] if s["id"] == "mofa_th")["url"] = "https://example.org/other"
+        with self.assertRaises(self.m.MergeError):
+            self.m.merge_one(data, self.base, datetime.date(2026, 10, 3))
+
+    def test_invalid_data_rejected(self):
+        import datetime
+
+        data = copy.deepcopy(self.data)
+        data["airports"][0]["source"] = "nowhere"
+        with self.assertRaises(self.m.MergeError):
+            self.m.merge_one(data, self.base, datetime.date(2026, 10, 3))
+        data = copy.deepcopy(self.data)
+        data["country"] = "JP"
+        with self.assertRaises(self.m.MergeError):
+            self.m.merge_one(data, self.base, datetime.date(2026, 10, 3))
+
+
 if __name__ == "__main__":
     unittest.main()

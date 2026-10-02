@@ -318,7 +318,7 @@ class TripUiTest {
         var deleted = false
         rule.setContent {
             ReadyPortTheme {
-                TripContent(TripFormUi(TestPacks.index.value.countries.filter { it.pack }, trip, loaded = true), { _, _, _ -> }, { deleted = true })
+                TripContent(TripFormUi(TestPacks.index.value.countries.filter { it.pack }, trip, loaded = true), { _, _, _, _ -> }, { deleted = true })
             }
         }
         // 날짜가 올바르면 칸 아래에 요일까지 보인다 (D20)

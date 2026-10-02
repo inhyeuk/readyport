@@ -3,6 +3,7 @@ package com.readyport.ui.today
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.readyport.data.settings.SettingsRepository
+import com.readyport.pack.Airport
 import com.readyport.pack.FormInfo
 import com.readyport.pack.OfficialLink
 import com.readyport.pack.ShoppingItem
@@ -58,6 +59,10 @@ data class TodayUi(
     /** 저장된 여행 수(지난 여행 포함) — 1개 이상이면 `여행 목록 보기` */
     val tripCount: Int = 0,
     val today: LocalDate = LocalDate.now(),
+    /** 이 여행의 도착 공항 안내(여행에 고른 공항, 팩에 공항이 하나뿐이면 그 공항). 없으면 null — 공항 카드 없음 */
+    val airport: Airport? = null,
+    /** 여행 나라 팩에 공항 안내가 있는지(공항을 고르지 않았을 때 `공항별 도착 순서 보기`) */
+    val hasAirports: Boolean = false,
 )
 
 @HiltViewModel
@@ -104,6 +109,8 @@ class TodayViewModel @Inject constructor(
             checklistTotal = data?.total ?: 0,
             tripCount = book.trips.size,
             today = today,
+            airport = trip?.let { t -> pack?.airport(t.arrivalAirport) } ?: pack?.airports?.singleOrNull(),
+            hasAirports = pack?.airports?.isNotEmpty() == true,
         )
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), TodayUi())
 

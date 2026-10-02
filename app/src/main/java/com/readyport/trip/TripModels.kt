@@ -25,6 +25,11 @@ data class Trip(
     val wrappedUp: Boolean = false,
     /** 여행 고유 번호(UUID). 비어 있으면 저장할 때 저장소가 새로 붙인다. 예전 한 여행 저장본은 옮길 때 붙인다 */
     val id: String = "",
+    /**
+     * 내릴 공항 IATA 코드(예: BKK) — 그 나라 팩 airports에 있는 공항만 고를 수 있고, 모르면 null(`아직 몰라요`).
+     * 공항 코드는 개인정보가 아니다(편명·예약 번호는 넣지 않는다). 예전 저장본에는 없어서 null로 읽힌다(기본값, encodeDefaults=false).
+     */
+    val arrivalAirport: String? = null,
 ) {
     val start: LocalDate get() = LocalDate.parse(startDate)
     val end: LocalDate get() = LocalDate.parse(endDate)

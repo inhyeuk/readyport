@@ -53,6 +53,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconToggleButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -100,7 +101,9 @@ import com.readyport.pack.SourcedText
 import com.readyport.pack.VisaApply
 import com.readyport.prep.import
 import com.readyport.trip.TripRepository
+import com.readyport.ui.components.AirportGuideCard
 import com.readyport.ui.components.AppScreen
+import com.readyport.ui.components.airportSources
 import com.readyport.ui.components.Assurance
 import com.readyport.ui.components.AssuranceCard
 import com.readyport.ui.components.BadgeTone
@@ -192,6 +195,10 @@ data class CountryUi(
     val tripArrival: LocalDate? = null,
     /** 이 나라로 가는 다가오는(또는 여행 중인) 여행 — `내 여행에 넣기`를 누르면 새로 만들지 그 여행을 열지 묻는다 */
     val upcomingTrip: Trip? = null,
+    /** 체크리스트·오늘 화면의 `공항 순서 보기`로 왔을 때 — 입국·비자의 `공항에 도착하면` 묶음으로 바로 내려간다 */
+    val focusAirports: Boolean = false,
+    /** 처음 고를 공항(IATA). 없으면 이 나라 여행의 도착 공항([upcomingTrip]) → 팩 첫 공항 */
+    val focusAirport: String? = null,
 )
 
 /** 나라 화면에서 다른 곳으로 가는 길 */
@@ -217,7 +224,8 @@ class CountryViewModel @Inject constructor(
     private val settings: SettingsRepository,
     trips: TripRepository,
 ) : ViewModel() {
-    val country = handle.toRoute<CountryRoute>().country
+    private val route = handle.toRoute<CountryRoute>()
+    val country = route.country
 
     val ui: StateFlow<CountryUi> = combine(settings.settings, packs.revision, trips.book) { s, _, book ->
         val trip = TripSelection.active(book.trips, LocalDate.now())
@@ -235,6 +243,8 @@ class CountryViewModel @Inject constructor(
                 ?.let { t -> runCatching { t.start }.getOrNull() }
                 ?.takeIf { !LocalDate.now().isAfter(it) },
             upcomingTrip = TripSelection.upcomingFor(book.trips, country, LocalDate.now()),
+            focusAirports = route.focusAirports,
+            focusAirport = route.airport,
         )
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), CountryUi())
 
@@ -363,6 +373,16 @@ fun CountryContent(
         }
     }
 
+    // `공항 순서 보기`로 왔으면 한 번만 공항 묶음으로 내려간다(첫 카드 윗변 = 고정 줄 아래 + gap — onSelect와 같은 약속)
+    var airportsFocused by rememberSaveable(pack.country) { mutableStateOf(false) }
+    LaunchedEffect(ui.focusAirports, pack.country) {
+        if (!ui.focusAirports || airportsFocused || pack.airports.isEmpty() || section != CountrySection.Entry.ordinal) return@LaunchedEffect
+        airportsFocused = true
+        withFrameNanos { }
+        val target = keys.indexOf("airports") ?: return@LaunchedEffect
+        listState.scrollToItem(target, -(barHeight() + gapPx))
+    }
+
     AppScreen(
         title = pack.names.ko,
         speech = stringResource(R.string.country_speech, pack.names.ko),
@@ -470,6 +490,22 @@ fun CountryContent(
                         FormCard(form, autofill = form.id in ui.autofillForms, sourceOf = sourceOf, tripArrival = ui.tripArrival) {
                             actions.openForm(form.id)
                         }
+                    }
+                }
+                // 공항에 도착하면 (2026-10-03): 입국 카드 다음 — 그 카드를 어디서 보여 주는지까지 이어 읽는다. 팩에 공항이 없으면 그리지 않는다.
+                // 처음 고른 공항 = 부른 곳이 준 공항 → 이 나라 여행의 도착 공항 → 팩 첫 공항
+                if (pack.airports.isNotEmpty()) {
+                    item(key = "airports") {
+                        val initial = (pack.airport(ui.focusAirport) ?: pack.airport(ui.upcomingTrip?.arrivalAirport) ?: pack.airports.first()).code
+                        var picked by rememberSaveable(pack.country, initial) { mutableStateOf(initial) }
+                        val airport = pack.airport(picked) ?: pack.airports.first()
+                        AirportGuideCard(
+                            airports = pack.airports,
+                            selected = airport,
+                            onSelect = { picked = it },
+                            sources = airportSources(airport, sourceOf),
+                            onOpenMap = actions.openLink,
+                        )
                     }
                 }
                 // 들어갈 때: 위 비자 카드·입국 카드가 이미 보여 준 문장(같은 말을 길게 공유)은 접어 둔다 — `90일`·TDAC 기간이 한 화면에 두세 번 나오지 않게(재검토2 ③#5·③#12)
@@ -678,6 +714,7 @@ internal fun CountryPack.latestVerified(): String = buildList {
     sections.forEach { add(it.lastVerified) }
     power?.let { add(it.lastVerified) }
     shopping.forEach { add(it.lastVerified) }
+    airports.forEach { add(it.lastVerified) }
 }.filter { IsoDate.matches(it) }.maxOrNull() ?: lastVerified
 
 private val IsoDate = Regex("""\d{4}-\d{2}-\d{2}""")

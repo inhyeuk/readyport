@@ -538,7 +538,7 @@ fun StepHead(number: Int, text: String, modifier: Modifier = Modifier) {
  * 높이는 글이 정한다. (IntrinsicSize를 쓰면 weight가 걸린 글의 고유 높이가 지나치게 크게 계산돼 직접 잰다)
  */
 @Composable
-private fun StepRow(
+internal fun StepRow(
     badge: @Composable () -> Unit,
     showLine: Boolean,
     minBadge: Dp,
