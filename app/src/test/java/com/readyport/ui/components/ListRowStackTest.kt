@@ -22,9 +22,10 @@ import org.robolectric.annotation.Config
 import org.robolectric.annotation.GraphicsMode
 import kotlin.math.abs
 
-/** 설정 화면 행 제목들(배지 있는 ListRow 9줄) */
+/** 설정 화면 행 제목들(배지 있는 ListRow 11줄 — 알림 묶음 2줄 포함) */
 private val settingsTitles = listOf(
     R.string.settings_myinfo_open, R.string.wallet_companions_title, R.string.settings_easy_mode, R.string.settings_child_mode,
+    R.string.settings_alerts, R.string.settings_alert_hour,
     R.string.explore_wifi_only, R.string.settings_privacy, R.string.settings_disclaimer, R.string.settings_credits, R.string.settings_about,
 )
 
@@ -60,7 +61,7 @@ class ListRowStackLargeFontTest {
     private val context: Context = ApplicationProvider.getApplicationContext()
 
     private fun settingsRowsStackTogether(easy: Boolean) {
-        rule.setContent { ReadyPortTheme(easyMode = easy) { SettingsScreen(easyMode = easy, onEasyModeChange = {}) } }
+        rule.setContent { ReadyPortTheme(easyMode = easy) { SettingsScreen(easyMode = easy, onEasyModeChange = {}, notifGranted = true) } }
         val titles = settingsTitles.map { context.getString(it) }
         val l = lefts(rule, titles)
         assertSameStart("설정 200%" + if (easy) " 쉬운 모드" else "", l)
@@ -97,7 +98,7 @@ class ListRowStackDefaultFontTest {
 
     @Test
     fun settingsTitlesSitBesideBadge() {
-        rule.setContent { ReadyPortTheme { SettingsScreen(easyMode = false, onEasyModeChange = {}) } }
+        rule.setContent { ReadyPortTheme { SettingsScreen(easyMode = false, onEasyModeChange = {}, notifGranted = true) } }
         val l = lefts(rule, settingsTitles.map { context.getString(it) })
         assertSameStart("설정 100%", l)
         val badgeSide = rule.density.run { (LIST_ROW_TEXT_BESIDE_MIN_DP).toFloat() * density }

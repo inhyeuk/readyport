@@ -32,6 +32,8 @@ import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material.icons.outlined.Luggage
 import androidx.compose.material.icons.outlined.LocalAirport
 import androidx.compose.material.icons.outlined.OfflinePin
+import androidx.compose.material.icons.outlined.NotificationsActive
+import androidx.compose.material.icons.outlined.NotificationsOff
 import androidx.compose.material.icons.outlined.Badge
 import androidx.compose.material.icons.outlined.AccountBalanceWallet
 import androidx.compose.material.icons.outlined.QrCode2
@@ -71,19 +73,20 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewModelScope
 import com.readyport.R
-import com.readyport.pack.PackRepository
+import com.readyport.data.settings.SettingsRepository
 import com.readyport.trip.AutoState
 import com.readyport.trip.Checklist
 import com.readyport.trip.ChecklistAction
+import com.readyport.trip.ChecklistAlerts
 import com.readyport.trip.ChecklistData
 import com.readyport.trip.ChecklistItem
 import com.readyport.trip.ChecklistPhase
+import com.readyport.trip.ChecklistReminders
 import com.readyport.trip.ChecklistProvider
 import com.readyport.trip.ItemDetail
 import com.readyport.trip.ItemKind
 import com.readyport.trip.PassportStatus
 import com.readyport.trip.Trip
-import com.readyport.trip.TripNotifications
 import com.readyport.trip.TripRepository
 import com.readyport.trip.TripSelection
 import com.readyport.trip.TripTiming
@@ -109,6 +112,8 @@ import com.readyport.ui.components.IconKeys
 import com.readyport.ui.components.InfoChip
 import com.readyport.ui.components.KoText
 import com.readyport.ui.components.LinkRow
+import com.readyport.ui.components.ListGroup
+import com.readyport.ui.components.ListRow
 import com.readyport.ui.components.NoticeBanner
 import com.readyport.ui.components.NumberText
 import com.readyport.ui.components.OnDark
@@ -119,6 +124,7 @@ import com.readyport.ui.components.Photos
 import com.readyport.ui.components.PrimaryButton
 import com.readyport.ui.components.QuietButton
 import com.readyport.ui.components.QuietDangerButton
+import com.readyport.ui.components.RowTrailing
 import com.readyport.ui.components.SecondaryButton
 import com.readyport.ui.components.SectionHeader
 import com.readyport.ui.components.SourceFooter
@@ -144,7 +150,6 @@ import com.readyport.ui.wallet.rememberDeviceAuth
 import com.readyport.vault.WalletRepository
 import com.readyport.vault.WalletState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -357,6 +362,14 @@ data class ChecklistUi(
     val data: ChecklistData = ChecklistData(),
     val today: LocalDate = LocalDate.now(),
     val overlaps: Boolean = false,
+    /** 챙길 일 알림이 켜져 있는지 (설정) */
+    val alertsOn: Boolean = true,
+    /** 알려 줄 시각 (설정) */
+    val alertHour: Int = ChecklistReminders.DEFAULT_HOUR,
+    /** 이 여행만 조용히 두었는지 */
+    val muted: Boolean = false,
+    /** 지금 시(다음 알림이 오늘인지 내일인지 보여 주려고) */
+    val nowHour: Int = java.time.LocalTime.now().hour,
 )
 
 /** 체크리스트 화면에서 다른 곳으로 가는 길·하는 일 */
@@ -379,15 +392,17 @@ data class ChecklistActions(
     val deleteTrip: () -> Unit = {},
     /** 나라 화면 `공항에 도착하면` 묶음 (나라, 처음 고를 공항) */
     val openAirport: (String, String?) -> Unit = { _, _ -> },
+    /** 이 여행만 알림 끄기·켜기 */
+    val setMuted: (Boolean) -> Unit = {},
 )
 
 @HiltViewModel
 class ChecklistViewModel @Inject constructor(
-    @ApplicationContext private val context: android.content.Context,
     private val trips: TripRepository,
     private val checklists: ChecklistProvider,
     private val wallet: WalletRepository,
-    private val packs: PackRepository,
+    private val settings: SettingsRepository,
+    private val alerts: ChecklistAlerts,
 ) : ViewModel() {
     private val tripId = MutableStateFlow<String?>(null)
 
@@ -395,7 +410,7 @@ class ChecklistViewModel @Inject constructor(
         tripId.value = id
     }
 
-    val ui: StateFlow<ChecklistUi> = combine(trips.book, tripId) { b, id ->
+    val ui: StateFlow<ChecklistUi> = combine(trips.book, tripId, settings.settings) { b, id, s ->
         val trip = b.trips.firstOrNull { it.id == id } ?: return@combine ChecklistUi(loaded = id != null)
         val today = LocalDate.now()
         ChecklistUi(
@@ -405,8 +420,16 @@ class ChecklistViewModel @Inject constructor(
             data = checklists.build(trip, b, today),
             today = today,
             overlaps = trip.id in TripSelection.overlapping(b.trips),
+            alertsOn = s.alertsOn,
+            alertHour = ChecklistReminders.hourOrDefault(s.alertHour),
+            muted = trip.id in s.alertMutedTrips,
         )
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), ChecklistUi())
+
+    /** 이 여행만 조용히 두기 (설정이 바뀌면 ChecklistAlerts가 작업을 다시 맞춘다) */
+    fun setMuted(muted: Boolean) = viewModelScope.launch {
+        tripId.value?.let { settings.setTripAlertMuted(it, muted) }
+    }
 
     fun toggle(item: ChecklistItem, checked: Boolean) = viewModelScope.launch {
         val id = tripId.value ?: return@launch
@@ -430,7 +453,8 @@ class ChecklistViewModel @Inject constructor(
     fun deleteTrip() = viewModelScope.launch {
         val id = tripId.value ?: return@launch
         trips.delete(id)
-        rescheduleFormReminder(context, trips, packs)
+        // 지운 여행의 알림·작업을 바로 치운다(나머지는 ChecklistAlerts가 여행 장부가 바뀐 것을 보고 다시 맞춘다)
+        alerts.forget(id)
     }
 }
 
@@ -468,6 +492,7 @@ fun TripChecklistScreen(
                 }
             },
             deleteTrip = { viewModel.deleteTrip(); onDeleted() },
+            setMuted = { viewModel.setMuted(it) },
         ),
     )
 }
@@ -501,6 +526,8 @@ fun TripChecklistContent(ui: ChecklistUi, actions: ChecklistActions) {
         if (ui.overlaps) {
             item(key = "overlap") { NoticeBanner(stringResource(R.string.trips_overlap_note), icon = Icons.Outlined.EventBusy) }
         }
+        // 못한 일을 언제 알려 주는지 + 이 여행만 조용히 두기 (PRD 6.1)
+        item(key = "alert") { ReminderRow(ui, actions) }
         data.phases.forEach { phase ->
             item(key = "phase-${phase.key}") {
                 PhaseCard(
@@ -952,21 +979,40 @@ private fun CustomField(
 }
 
 /**
- * 가장 가까운 다가오는 여행의 입국 카드 알림을 다시 맞춘다(알림 작업은 하나뿐 — 여행이 여럿이면 가장 먼저 떠나는 여행).
- * 기간이 정해진 입국 카드가 없으면 알림을 지운다.
+ * 알림 한 줄 + 이 여행만 조용히 두기 (PRD 6.1).
+ * 알림이 켜져 있으면 **다음에 언제 알려 주는지**를 그대로 보여 준다(`못한 일이 있으면 내일 아침 9시에 알려 드려요`).
+ * 스위치를 끄면 이 여행만 알리지 않는다 — 다른 여행과 설정은 그대로.
  */
-internal suspend fun rescheduleFormReminder(context: android.content.Context, trips: TripRepository, packs: PackRepository) {
-    val today = LocalDate.now()
-    val next = trips.all().filter { it.datesValid && it.start.isAfter(today.minusDays(1)) }.sortedBy { it.start }.firstNotNullOfOrNull { t ->
-        // 꼭 내야 하는 입국 카드만 알림을 만든다 — 의무가 아닌 신고(forms[].optional)로는 기한 알림을 걸지 않는다
-        val form = packs.pack(t.country)?.value?.requiredForms?.firstOrNull()
-        val days = form?.windowDaysIncludingArrival
-        if (form != null && days != null) Triple(t, form, days) else null
-    }
-    if (next == null) {
-        TripNotifications.cancelFormWindow(context)
+@Composable
+private fun ReminderRow(ui: ChecklistUi, actions: ChecklistActions) {
+    val hourLabel = alertHourLabel(ui.alertHour)
+    val whenLabel = if (ui.nowHour < ui.alertHour) {
+        stringResource(R.string.ck_alert_today, hourLabel)
     } else {
-        val (t, form, days) = next
-        TripNotifications.scheduleFormWindow(context, t.start.minusDays((days - 1).toLong()), form.nameKo)
+        stringResource(R.string.ck_alert_tomorrow, hourLabel)
+    }
+    val body = when {
+        !ui.alertsOn -> stringResource(R.string.ck_alert_off)
+        ui.muted -> stringResource(R.string.ck_alert_muted)
+        else -> stringResource(R.string.ck_alert_next, whenLabel)
+    }
+    ListGroup {
+        ListRow(
+            title = stringResource(R.string.ck_alert_title),
+            icon = if (ui.alertsOn && !ui.muted) Icons.Outlined.NotificationsActive else Icons.Outlined.NotificationsOff,
+            body = body,
+            // 설정에서 아예 꺼 두었으면 여행별 스위치는 보이지 않는다(끌 것이 없다)
+            trailing = if (ui.alertsOn) RowTrailing.Switch(!ui.muted) { actions.setMuted(!it) } else RowTrailing.None,
+        )
     }
 }
+
+/** 알림 시각 이름: 아침 8시 · 아침 9시 · 저녁 8시 */
+@Composable
+internal fun alertHourLabel(hour: Int): String = stringResource(
+    when (hour) {
+        8 -> R.string.alert_hour_8
+        20 -> R.string.alert_hour_20
+        else -> R.string.alert_hour_9
+    },
+)

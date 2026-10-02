@@ -108,6 +108,12 @@ fun ReadyPortRoot(
     /** 위젯에서 열면 바로 '입국 때 보여 주기' */
     openPresent: Boolean = false,
     onSetWifiOnly: (Boolean) -> Unit = {},
+    /** 챙길 일 알림에서 열면 바로 그 여행 체크리스트 */
+    openChecklistTripId: String? = null,
+    /** 그 여행으로 간 뒤 — 같은 알림을 또 눌러도 다시 열리게 비워 둔다 */
+    onChecklistOpened: () -> Unit = {},
+    onSetAlertsOn: (Boolean) -> Unit = {},
+    onSetAlertHour: (Int) -> Unit = {},
 ) {
     when {
         settings == null -> Box(Modifier.fillMaxSize().background(Tokens.Ground))
@@ -117,7 +123,10 @@ fun ReadyPortRoot(
             }
         }
         else -> ReadyPortTheme(easyMode = settings.easyMode) {
-            MainScaffold(settings, onSetEasyMode, onSetChildMode, onSetWifiOnly, onSpeak, hasPendingShare, online, slots, openPresent)
+            MainScaffold(
+                settings, onSetEasyMode, onSetChildMode, onSetWifiOnly, onSpeak, hasPendingShare, online, slots, openPresent,
+                openChecklistTripId, onChecklistOpened, onSetAlertsOn, onSetAlertHour,
+            )
         }
     }
 }
@@ -133,6 +142,10 @@ private fun MainScaffold(
     online: Boolean,
     slots: ScreenSlots,
     openPresent: Boolean,
+    openChecklistTripId: String?,
+    onChecklistOpened: () -> Unit,
+    onSetAlertsOn: (Boolean) -> Unit,
+    onSetAlertHour: (Int) -> Unit,
 ) {
     val easyMode = settings.easyMode == true
     val tabs = if (settings.childMode) Tab.Child else Tab.Main
@@ -170,6 +183,14 @@ private fun MainScaffold(
 
     LaunchedEffect(hasPendingShare) {
         if (hasPendingShare) navController.navigate(BookingImportRoute) { launchSingleTop = true }
+    }
+
+    // 챙길 일 알림을 누르면 그 여행 체크리스트로 (PRD 6.1). 열고 나면 비워 둔다 — 같은 알림을 또 눌러도 열리게
+    LaunchedEffect(openChecklistTripId) {
+        if (openChecklistTripId != null) {
+            navController.navigate(TripChecklistRoute(openChecklistTripId)) { launchSingleTop = true }
+            onChecklistOpened()
+        }
     }
 
     val actions = remember(navController, onSpeak) {
@@ -351,6 +372,8 @@ private fun MainScaffold(
                         easyMode = easyMode, onEasyModeChange = onSetEasyMode,
                         childMode = settings.childMode, onChildModeChange = onSetChildMode,
                         wifiOnly = settings.wifiOnly, onWifiOnlyChange = onSetWifiOnly,
+                        alertsOn = settings.alertsOn, onAlertsOnChange = onSetAlertsOn,
+                        alertHour = settings.alertHour, onAlertHourChange = onSetAlertHour,
                         onOpenMyInfo = { navController.navigate(WalletRoute) },
                         onOpenFamily = { navController.navigate(CompanionsRoute) },
                         onOpenPhotos = { navController.navigate(PhotoCreditsRoute) },

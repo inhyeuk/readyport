@@ -5,6 +5,7 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.core.stringSetPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
@@ -12,6 +13,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
+import java.time.LocalDate
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -33,6 +35,14 @@ data class AppSettings(
     val haveItems: Set<String> = emptySet(),
     /** 쇼핑 리스트에 담은 항목 "TH/item-id" (PRD 5.8). 귀국 때 반입 여부를 다시 보여 준다 */
     val cart: Set<String> = emptySet(),
+    /** 챙길 일 알림 (PRD 6.1). 기본 켬 — 빼먹지 않게 */
+    val alertsOn: Boolean = true,
+    /** 알려 줄 시각(시, 0~23). 기본 아침 9시 (ChecklistReminders.DEFAULT_HOUR) */
+    val alertHour: Int = 9,
+    /** 알림을 꺼 둔 여행 id (체크리스트 화면의 조용히 두기) */
+    val alertMutedTrips: Set<String> = emptySet(),
+    /** 여행 id → 마지막으로 알린 날 yyyy-MM-dd (한 여행에 하루 한 번만) */
+    val alertLastNotified: Map<String, String> = emptyMap(),
 )
 
 private val Context.settingsStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
@@ -49,6 +59,10 @@ class SettingsRepository @Inject constructor(
     private val childModeKey = booleanPreferencesKey("child_mode")
     private val haveItemsKey = stringSetPreferencesKey("have_items")
     private val cartKey = stringSetPreferencesKey("shopping_cart")
+    private val alertsOnKey = booleanPreferencesKey("alerts_on")
+    private val alertHourKey = intPreferencesKey("alert_hour")
+    private val alertMutedKey = stringSetPreferencesKey("alert_muted_trips")
+    private val alertLastKey = stringSetPreferencesKey("alert_last_notified")
 
     val settings: Flow<AppSettings> = context.settingsStore.data.map { prefs ->
         AppSettings(
@@ -60,6 +74,10 @@ class SettingsRepository @Inject constructor(
             childMode = prefs[childModeKey] ?: false,
             haveItems = prefs[haveItemsKey].orEmpty(),
             cart = prefs[cartKey].orEmpty(),
+            alertsOn = prefs[alertsOnKey] ?: true,
+            alertHour = prefs[alertHourKey] ?: 9,
+            alertMutedTrips = prefs[alertMutedKey].orEmpty(),
+            alertLastNotified = readAlerted(prefs[alertLastKey].orEmpty()),
         )
     }
 
@@ -113,4 +131,45 @@ class SettingsRepository @Inject constructor(
     suspend fun setHelpCountry(country: String) {
         context.settingsStore.edit { it[helpCountryKey] = country }
     }
+
+    // ---------------- 챙길 일 알림 (PRD 6.1) ----------------
+
+    suspend fun setAlertsOn(enabled: Boolean) {
+        context.settingsStore.edit { it[alertsOnKey] = enabled }
+    }
+
+    suspend fun setAlertHour(hour: Int) {
+        context.settingsStore.edit { it[alertHourKey] = hour }
+    }
+
+    /** 이 여행만 조용히 두기 (체크리스트 화면) */
+    suspend fun setTripAlertMuted(tripId: String, muted: Boolean) {
+        context.settingsStore.edit {
+            val now = it[alertMutedKey].orEmpty()
+            it[alertMutedKey] = if (muted) now + tripId else now - tripId
+        }
+    }
+
+    /**
+     * 그 여행에 오늘 알렸다고 적는다(하루 한 번 규칙). 오래된 기록([keepDays]일 지난 것)은 지운다 — 설정이 끝없이 커지지 않게.
+     * 저장 모양: `여행id|yyyy-MM-dd` 묶음 (여행 id는 UUID라 `|`가 없다).
+     */
+    suspend fun markAlerted(tripIds: Collection<String>, date: LocalDate, keepDays: Long = 30) {
+        if (tripIds.isEmpty()) return
+        val day = date.toString()
+        val keepFrom = date.minusDays(keepDays).toString()
+        context.settingsStore.edit { prefs ->
+            val kept = prefs[alertLastKey].orEmpty()
+                .filterNot { it.substringBeforeLast('|') in tripIds }
+                .filter { it.substringAfterLast('|', "") >= keepFrom }
+            prefs[alertLastKey] = (kept + tripIds.map { "$it|$day" }).toSet()
+        }
+    }
+
+    private fun readAlerted(raw: Set<String>): Map<String, String> =
+        raw.mapNotNull { entry ->
+            val id = entry.substringBeforeLast('|', "")
+            val day = entry.substringAfterLast('|', "")
+            if (id.isEmpty() || day.isEmpty()) null else id to day
+        }.toMap()
 }

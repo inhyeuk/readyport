@@ -281,8 +281,7 @@
 
     <!-- 알림 -->
     <string name="notif_channel_trip">여행 알림</string>
-    <string name="notif_form_title">%1$s를 낼 수 있어요</string>
-    <string name="notif_form_body">앱을 열어 확인하면 공식 사이트에 채워 드려요.</string>
+    <!-- 입국 카드 제출 가능일 문구는 strings_alerts.xml(alert_body_form)로 옮겼다 — 여행별 '챙길 일 알림' 한 장에 담긴다 -->
     <string name="notif_arrival_title">도착했어요</string>
     <string name="notif_arrival_body">입국 심사 → 짐 찾기 → 숙소 가기 순서를 보여 드릴게요.</string>
 
