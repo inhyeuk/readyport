@@ -53,7 +53,7 @@ object TestPacks {
             HomeCountry(
                 c.code, c.nameKo, c.nameEn,
                 visa = visa,
-                hasForm = pack?.forms?.isNotEmpty() == true,
+                hasForm = pack?.requiredForms?.isNotEmpty() == true,
                 ready = pack != null,
                 sourceName = visa?.let { pack.source(it.source)?.name },
             )
@@ -77,8 +77,15 @@ object TestPacks {
 
     val tdacRecipe get() = runBlocking { repo.recipe("TH_TDAC")!! }
 
-    fun formEntries() = thailand.value.forms.map { f ->
-        FormEntry(f.id, f.nameKo, thailand.value.names.ko, f.feeKo, f.windowKo, thailand.value.source(f.source)!!.name, f.lastVerified)
+    /** 준비 탭 입국 서류 줄 — 팩 값 그대로(기간 일수·의무 아님 포함). 기본은 태국, [codes]로 여러 나라를 섞을 수 있다 */
+    fun formEntries(codes: List<String> = listOf("TH")) = codes.flatMap { cc ->
+        val p = runBlocking { repo.pack(cc)!! }.value
+        p.forms.map { f ->
+            FormEntry(
+                f.id, f.nameKo, p.names.ko, f.feeKo, f.windowKo, p.source(f.source)!!.name, f.lastVerified,
+                windowDays = f.windowDaysIncludingArrival, optional = f.optional,
+            )
+        }
     }
 
     fun helpUi() = HelpUi(

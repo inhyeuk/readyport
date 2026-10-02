@@ -168,7 +168,8 @@ object Checklist {
         val names = index?.sources.orEmpty().associate { it.id to it.name } + pack?.sources.orEmpty().associate { it.id to it.name }
         fun src(id: String?, date: String?) = if (id == null || date == null) null else ItemSource(names[id], date)
         val requirement = pack?.requirements?.firstOrNull { it.nationality == "KR" && it.purpose == "tourism" }
-        val form = pack?.forms?.firstOrNull()
+        // 꼭 내야 하는 입국 카드만 할 일로 센다 — 베트남 PAI처럼 의무가 아닌 신고(forms[].optional)는 기한 있는 할 일이 아니다
+        val form = pack?.requiredForms?.firstOrNull()
         val essentials = Essentials.select(index?.essentials.orEmpty(), index?.homePower, pack?.power)
         val built = mutableListOf<ChecklistItem>()
 

@@ -25,6 +25,8 @@ jobs:
         run: |
           pip install -r tools/packs/requirements.txt
           python tools/packs/build_packs.py --check
+      - name: Pack tool tests (validator rules, airports, merge tool)
+        run: python tools/packs/test_build_packs.py
       - name: ARIA ops modules and deploy helper tests (no network)
         run: |
           python -m unittest discover -s ops/aria/tests -t .

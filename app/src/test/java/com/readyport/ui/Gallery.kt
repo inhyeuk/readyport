@@ -205,8 +205,13 @@ object Gallery {
         // 필리핀: 무비자 30일 + eTravel(값 복사 모드). 여행 정보 맨 위 위험 배너(3·4단계 지역)는 country-travel-PH
         "country-entry-PH" to { CountryContent(TestPacks.countryUi("PH"), CountryActions()) },
         "country-travel-PH" to { CountryContent(TestPacks.countryUi("PH"), CountryActions(), CountrySection.Travel) },
-        // 베트남: 무비자 45일, 입국 카드 없음. 45일 넘게 머물 때만 전자비자 — 공식 사이트 열기(보조 버튼)
+        // 베트남: 무비자 45일. 꼭 내야 하는 입국 카드는 없고 사전 입국 정보(PAI)는 의무가 아닌 신고 카드 —
+        // 공항 묶음에는 `자동 심사대는 베트남 국민용`(쓸 수 없어요) 줄
         "country-entry-VN" to { CountryContent(TestPacks.countryUi("VN"), CountryActions()) },
+        // 싱가포르: 자동 심사대를 국적과 관계없이 쓸 수 있어요(초록 줄) · 창이 공항 하나라 고르기 칩 없음
+        "country-entry-SG" to { CountryContent(TestPacks.countryUi("SG"), CountryActions()) },
+        // 일본: 자동 심사대 판정이 없어 줄을 그리지 않는다(모름) · 공동 키오스크(VJW) 단계가 있는 공항 넷
+        "country-entry-JP" to { CountryContent(TestPacks.countryUi("JP"), CountryActions()) },
         "country-travel" to { CountryContent(TestPacks.countryUi("TH", favorite = true), CountryActions(), CountrySection.Travel) },
         "country-shopping" to { CountryContent(TestPacks.countryUi("JP"), CountryActions(), CountrySection.Shopping) },
         "videos" to {
@@ -302,10 +307,12 @@ object Gallery {
                 TodayActions(), {}, {}, {}, {}, {},
             )
         },
+        // 태국 TDAC(의무 — 주 버튼, 내 여행 날짜) + 베트남 PAI(의무 아님 — 알약·보조 버튼)
         "prepare" to {
-            val days = th.value.forms.associate { it.id to it.windowDaysIncludingArrival }
             PrepareContent(
-                TestPacks.formEntries().map { it.copy(windowDays = days[it.formId], tripArrival = trip.start) }, {},
+                TestPacks.formEntries(listOf("TH", "VN"))
+                    .map { f -> f.copy(tripArrival = trip.start.takeIf { f.formId.startsWith("TH") }) },
+                {},
                 essentialsSummary(index, th.value, gotItems),
             )
         },

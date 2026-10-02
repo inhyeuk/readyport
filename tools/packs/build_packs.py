@@ -124,6 +124,25 @@ def check_airports(doc, label, ids, errors):
                 errors.append(f"{where}.steps[{j}].source '{st['source']}' 가 sources 에 없음")
 
 
+def check_optional_forms(docs, errors, recipes=None):
+    """forms[].optional(의무가 아닌 권장 신고 — 베트남 PAI)에는 자동 입력 레시피를 두지 않는다.
+
+    앱이 '칸을 채워 드려요'라고 말하면 꼭 내야 하는 서류처럼 읽힌다 (작업 규칙 6·7).
+    기한(window_days_including_arrival)도 두지 않는다 — 오늘 단계·알림이 급한 할 일로 만들지 않게.
+    [recipes]: 있는 레시피 form_id 집합 (없으면 packs/src/recipes 폴더를 본다 — 테스트에서 넣어 쓴다)
+    """
+    if recipes is None:
+        recipes = {p.stem for p in (SRC / "recipes").glob("*.json")}
+    for label, doc in docs.items():
+        for i, form in enumerate(doc.get("forms", [])):
+            if not form.get("optional"):
+                continue
+            if form["id"] in recipes:
+                errors.append(f"{label}: forms[{i}] '{form['id']}' 는 optional 인데 레시피가 있음 — 레시피를 두지 않는다")
+            if form.get("window_days_including_arrival") is not None:
+                errors.append(f"{label}: forms[{i}] '{form['id']}' 는 optional 인데 기간 일수가 있음 — null 로 둔다")
+
+
 def check_passport_validity(doc, label, ids, errors):
     """requirements[].passport_validity: 값이 있으면 출처가 sources 에 있어야 하고, 근거 없는 숫자를 막는다 (작업 규칙 6)."""
     for i, req in enumerate(doc.get("requirements", [])):
@@ -194,6 +213,8 @@ def validate_all():
             for mark in UNSETTLED:
                 if mark in s:
                     errors.append(f"{name}{p}: 미확정 표시 '{mark}' — 확인 후 지우고 게시한다 (작업 규칙 6)")
+    check_optional_forms(docs, errors)
+
     recipe_schema = load(SCHEMA / "recipe.schema.json")
     for path in sorted((SRC / "recipes").glob("*.json")):
         recipe = load(path)

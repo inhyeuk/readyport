@@ -263,6 +263,10 @@
             "type": "string",
             "pattern": "^https://"
           },
+          "optional": {
+            "type": "boolean",
+            "description": "의무가 아닌(권장) 신고인지. true 면 앱이 '꼭 내야 하는 건 아니에요'로 보이고, 체크리스트·오늘 단계의 입국 카드 할 일로 세지 않는다"
+          },
           "fee_ko": {
             "type": "string"
           },

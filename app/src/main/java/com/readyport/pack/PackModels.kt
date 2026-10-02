@@ -165,6 +165,12 @@ data class CountryPack(
 ) {
     fun source(id: String): PackSource? = sources.firstOrNull { it.id == id }
 
+    /**
+     * 꼭 내야 하는 입국 카드 양식 — `forms` 에서 선택(권장) 신고를 뺀 것. 체크리스트 할 일·오늘 단계·알림이
+     * '그 나라 입국 카드'로 세는 것은 이 목록뿐이다(베트남 PAI처럼 의무가 아닌 신고를 기한 있는 할 일로 만들지 않는다).
+     */
+    val requiredForms: List<FormInfo> get() = forms.filter { !it.optional }
+
     /** IATA 코드로 공항 찾기 (없으면 null) */
     fun airport(code: String?): Airport? = code?.let { c -> airports.firstOrNull { it.code == c } }
 }
@@ -195,6 +201,15 @@ data class Airport(
         get() = steps.indexOfFirst { it.kind == AirportStep.FORM_CHECK }.takeIf { it >= 0 }
             ?: steps.indexOfFirst { it.kind == AirportStep.IMMIGRATION }.takeIf { it >= 0 }
 
+    /**
+     * 자동 심사대 줄을 붙일 단계 번호: egate 단계 → 없으면 입국 심사 → 없으면 null(줄을 단계 목록 위에).
+     * egate 단계를 먼저 보는 이유: 조건이 있는 나라(대만은 먼저 등록, 베트남은 베트남 국민용)는 그 단계 제목이 조건을 말하므로
+     * 판정 줄이 바로 그 아래 있어야 조건을 놓치지 않는다.
+     */
+    val egateStepIndex: Int?
+        get() = steps.indexOfFirst { it.kind == AirportStep.EGATE }.takeIf { it >= 0 }
+            ?: steps.indexOfFirst { it.kind == AirportStep.IMMIGRATION }.takeIf { it >= 0 }
+
     /** 이 공항 안내의 출처 id 전부(공항 → 단계 → 입국 카드 줄 순서, 겹침 없음) */
     val sourceIds: List<String>
         get() = (listOf(source) + steps.mapNotNull { it.source } + listOfNotNull(formCheckKo?.let { formCheckSource ?: source })).distinct()
@@ -214,6 +229,7 @@ data class AirportStep(
     companion object {
         const val FORM_CHECK = "form_check"
         const val IMMIGRATION = "immigration"
+        const val EGATE = "egate"
     }
 }
 
@@ -285,6 +301,11 @@ data class FormInfo(
     @SerialName("name_ko") val nameKo: String,
     @SerialName("name_en") val nameEn: String,
     @SerialName("official_url") val officialUrl: String,
+    /**
+     * 의무가 아닌(권장) 신고인지 — 베트남 사전 입국 정보(PAI). true 면 앱은 `꼭 내야 하는 건 아니에요`로 보이고,
+     * 체크리스트·오늘 단계의 '입국 카드' 할 일로 세지 않는다 (의무인 양식만 센다).
+     */
+    val optional: Boolean = false,
     @SerialName("fee_ko") val feeKo: String,
     @SerialName("window_ko") val windowKo: String,
     /** 도착일을 포함해 며칠 전부터 낼 수 있는지 (3 = 도착 2일 전~도착일) */

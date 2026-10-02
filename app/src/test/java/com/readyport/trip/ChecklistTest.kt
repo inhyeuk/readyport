@@ -57,7 +57,9 @@ class ChecklistTest {
         assertTrue(cn.items.any { it.id == "country.stay_register" && it.phase == ChecklistPhase.Arrival })
         // 나머지 나라: 전기 조건(어댑터·전압)·입국 카드 유무·나라 팩 항목 수만큼 달라진다
         val counts = listOf("JP", "SG", "MY", "ID", "TW", "PH", "VN").associateWith { build(trip(it)).total }
-        val base = mapOf("JP" to 29, "SG" to 29, "MY" to 28, "ID" to 27, "TW" to 30, "PH" to 29, "VN" to 26)
+        // 베트남은 사전 입국 정보(PAI)가 양식 카드로 옮겨 가면서 `입국 정보 미리 내기` 팩 항목이 빠졌다 —
+        // 의무가 아닌 신고(forms[].optional)는 기한 있는 할 일로 세지 않는다
+        val base = mapOf("JP" to 29, "SG" to 29, "MY" to 28, "ID" to 27, "TW" to 30, "PH" to 29, "VN" to 25)
         assertEquals(base.mapValues { (cc, n) -> n + airportItem(cc) }, counts)
     }
 
@@ -75,9 +77,9 @@ class ChecklistTest {
             data.items.filter { it.id.startsWith("country.") }.forEach { item ->
                 assertTrue("$cc ${item.id}", p.sections.any { s -> item.body in s.bodyKo })
             }
-            // 입국 카드가 없는 나라(베트남)는 입국 카드·확인 화면 항목을 만들지 않는다
-            assertEquals(cc, p.forms.isNotEmpty(), data.item("entry_form") != null)
-            assertEquals(cc, p.forms.isNotEmpty(), data.item("show_entry") != null)
+            // 꼭 내야 하는 입국 카드가 없는 나라(베트남 — 사전 입국 정보는 의무가 아님)는 입국 카드·확인 화면 항목을 만들지 않는다
+            assertEquals(cc, p.requiredForms.isNotEmpty(), data.item("entry_form") != null)
+            assertEquals(cc, p.requiredForms.isNotEmpty(), data.item("show_entry") != null)
         }
     }
 

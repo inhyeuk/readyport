@@ -51,9 +51,12 @@ class M5RecipesTest {
         val ph = runBlocking { TestPacks.repo.pack("PH") }!!.value
         assertTrue(ph.emergency.isNotEmpty() && ph.embassy != null && ph.forms.single().id == "PH_ETRAVEL")
         assertEquals(null, runBlocking { TestPacks.repo.recipe("PH_ETRAVEL") })
-        // 베트남은 입국 신고 양식이 없다(무비자 45일). 전자비자는 안내만 — 레시피 없음
+        // 베트남은 꼭 내야 하는 입국 신고 양식이 없다(무비자 45일). 사전 입국 정보(PAI)는 의무가 아닌 양식이고,
+        // 확인 글자 창이 먼저 떠서 레시피를 두지 않는다. 전자비자도 안내만 — 레시피 없음
         val vn = runBlocking { TestPacks.repo.pack("VN") }!!.value
-        assertTrue(vn.emergency.isNotEmpty() && vn.embassy != null && vn.forms.isEmpty())
+        assertTrue(vn.emergency.isNotEmpty() && vn.embassy != null && vn.requiredForms.isEmpty())
+        assertEquals("VN_PAI", vn.forms.single().id)
+        assertEquals(null, runBlocking { TestPacks.repo.recipe("VN_PAI") })
         assertEquals(null, runBlocking { TestPacks.repo.recipe("VN_EVISA") })
     }
 

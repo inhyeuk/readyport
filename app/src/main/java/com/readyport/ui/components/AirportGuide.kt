@@ -136,14 +136,14 @@ fun AirportHead(airport: Airport, modifier: Modifier = Modifier) {
  * - 위치: where_ko가 있을 때만 위치 칩(Place) — 팩 원문 그대로
  * - 설명: [showBody]일 때만 body_ko(보조 글) — 오늘 화면의 짧은 모양은 제목·위치만
  * - 입국 카드 줄(form_check_ko): form_check 단계(없으면 입국 심사)에 노란 강조 줄 — 이 줄은 짧은 모양에서도 늘 보인다
- * - 자동 심사대 줄: egate_kr이 true/false일 때만 입국 심사 단계에(null이면 그리지 않는다)
+ * - 자동 심사대 줄: egate 단계(없으면 입국 심사) 안에 — 그 단계 제목이 조건을 먼저 말한다(대만 `등록부터`, 베트남 `베트남 국민용`)
  * [extra]: 팩 단계 뒤에 이어 붙일 앱 안내 단계(오늘 화면 도착 단계의 유심·환전·숙소) — 번호가 이어진다.
  */
 @Composable
 fun AirportSteps(airport: Airport, showBody: Boolean, modifier: Modifier = Modifier, extra: List<Step> = emptyList()) {
     val dimens = LocalDimens.current
     val formAt = airport.formStepIndex
-    val egateAt = airport.steps.indexOfFirst { it.kind == AirportStep.IMMIGRATION || it.kind == "egate" }.takeIf { it >= 0 }
+    val egateAt = airport.egateStepIndex
     val total = airport.steps.size + extra.size
     Column(modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(dimens.inner)) {
         // 붙일 단계가 없으면 단계 목록 위에
@@ -222,17 +222,33 @@ private fun FormCheckLine(text: String) {
     IconBullet(text, Icons.Outlined.QrCode2, tone = BadgeTone.Caution)
 }
 
-/** 자동 출입국 심사대: true = 쓸 수 있어요(초록 체크), false = 쓸 수 없어요(막힘), null = 그리지 않는다. 팩 메모는 아래 보조 글 */
+/**
+ * 자동 출입국 심사대: true = 쓸 수 있어요(초록 체크), false = 쓸 수 없어요(막힘), null이면
+ * 팩 메모가 있을 때만 `분명하지 않아요`(물음표 — 인도네시아처럼 공식 안내 두 곳이 다를 때). 메모도 없으면 아무것도 그리지 않는다.
+ * 조건·갈린 안내는 팩 메모(egate_note_ko) 그대로 바로 아래 보조 글로 — 앱이 조건을 지어내거나 요약하지 않는다.
+ */
 @Composable
 private fun EgateLine(airport: Airport) {
-    val ok = airport.egateKr ?: return
+    val ok = airport.egateKr
+    val note = airport.egateNoteKo?.takeIf { it.isNotBlank() }
+    if (ok == null && note == null) return
     Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(2.dp)) {
         IconBullet(
-            stringResource(if (ok) R.string.airport_egate_yes else R.string.airport_egate_no),
-            if (ok) Icons.Outlined.CheckCircle else Icons.Outlined.Block,
-            tone = if (ok) BadgeTone.Success else BadgeTone.Neutral,
+            stringResource(
+                when (ok) {
+                    true -> R.string.airport_egate_yes
+                    false -> R.string.airport_egate_no
+                    null -> R.string.airport_egate_unknown
+                },
+            ),
+            when (ok) {
+                true -> Icons.Outlined.CheckCircle
+                false -> Icons.Outlined.Block
+                null -> Icons.AutoMirrored.Outlined.HelpOutline
+            },
+            tone = if (ok == true) BadgeTone.Success else BadgeTone.Neutral,
         )
-        airport.egateNoteKo?.takeIf { it.isNotBlank() }?.let {
+        note?.let {
             NumberText(it, MaterialTheme.typography.bodySmall, Modifier.padding(start = 32.dp), color = Tokens.InkSecondary)
         }
     }

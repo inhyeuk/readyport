@@ -38,6 +38,8 @@ jobs:
         run: pip install -r tools/packs/requirements.txt google-auth requests
       - name: Validate packs (schema, sources, no unsettled markers)
         run: python tools/packs/build_packs.py --check
+      - name: Pack tool tests (validator rules, airports, merge tool)
+        run: python tools/packs/test_build_packs.py
       - name: Sign packs
         env:
           PACK_SIGNING_KEY_PEM: ${{ secrets.PACK_SIGNING_KEY_PEM }}

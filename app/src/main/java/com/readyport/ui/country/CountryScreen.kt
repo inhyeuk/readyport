@@ -980,17 +980,26 @@ private fun FoldedSteps(steps: List<String>) {
  * 무엇 → 앱이 해 주는 것(자동 입력이면 칸을 채워 줌, 아니면 값 복사) → 비용 → 내는 때 → `입국 카드 준비하기`(주 버튼) → 출처.
  * 내는 때: 이 나라 여행이 있으면([tripArrival]) 일반 예시 대신 내 날짜(팩 기간 일수 + 출발일, 재검토2 ③#5).
  * 비자 온라인 신청이 이 양식을 거치면(인도네시아) 부르는 쪽이 번호 원 순서 머리 ①을 위에 붙인다.
+ * 의무가 아닌 신고(베트남 PAI, forms[].optional)는 eyebrow·알약·버튼·설명이 모두 `의무 아님`으로 바뀌고 주 버튼이 되지 않는다 —
+ * 꼭 내야 하는 입국 카드처럼 읽히지 않게. 레시피가 없으니 자동 입력을 말하지도 않는다.
  */
 @Composable
 private fun FormCard(form: FormInfo, autofill: Boolean, sourceOf: SourceOf, tripArrival: LocalDate?, onStart: () -> Unit) {
+    val body = when {
+        form.optional -> R.string.country_form_optional_body
+        autofill -> R.string.country_form_autofill_body
+        else -> R.string.country_form_manual_body
+    }
     EntryFormCard(
         name = form.nameKo,
         feeKo = form.feeKo,
         windowKo = personalWindowKo(form.windowKo, form.windowDaysIncludingArrival, tripArrival),
         source = sourceOf(form.source, form.lastVerified),
-        eyebrow = stringResource(R.string.entry_form_label),
+        eyebrow = stringResource(if (form.optional) R.string.entry_form_label_optional else R.string.entry_form_label),
         onStart = onStart,
-        body = stringResource(if (autofill) R.string.country_form_autofill_body else R.string.country_form_manual_body),
+        body = stringResource(body),
+        primary = !form.optional,
+        optional = form.optional,
     )
 }
 

@@ -31,6 +31,7 @@ import com.readyport.ui.today.TodayContent
 import com.readyport.ui.today.TodayUi
 import com.readyport.ui.trip.TripContent
 import com.readyport.ui.trip.TripFormUi
+import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
@@ -229,6 +230,91 @@ class AirportGuideTest {
         shown(s(R.string.trip_save_edit))
         rule.onNodeWithText(s(R.string.trip_save_edit)).performClick()
         assertNull(saved)
+    }
+
+    // ---------------- 자동 심사대 줄 (나라별 판정, 2026-10-03 아홉 나라) ----------------
+
+    private fun entry(cc: String) = rule.setContent { ReadyPortTheme { CountryContent(TestPacks.countryUi(cc), CountryActions()) } }
+
+    private fun airportOf(cc: String, code: String) = runBlocking { TestPacks.repo.pack(cc)!!.value.airport(code)!! }
+
+    /** 싱가포르: 국적과 관계없이 쓸 수 있어요(초록 줄) + 조건 메모. 공항이 하나라 고르기 칩이 없다 */
+    @Test
+    fun singaporeShowsEgateYesWithConditions() {
+        entry("SG")
+        shown(s(R.string.airport_egate_yes))
+        shown("사전 등록 없이", substring = true)
+        rule.onAllNodesWithText(s(R.string.airport_guide_pick)).assertCountEquals(0)
+        rule.onAllNodesWithText(s(R.string.airport_egate_no)).assertCountEquals(0)
+        rule.onAllNodesWithText(s(R.string.airport_egate_unknown)).assertCountEquals(0)
+    }
+
+    /** 대만: 쓸 수 있지만 **처음에 유인 카운터 등록**이 조건 — 단계 제목이 먼저 등록을 말하고 메모가 장소·시간을 말한다 */
+    @Test
+    fun taiwanEgateRequiresFirstTimeRegistration() {
+        entry("TW")
+        val tpe = airportOf("TW", "TPE")
+        shown(tpe.steps.first { it.kind == "egate" }.titleKo)
+        shown(s(R.string.airport_egate_yes))
+        shown("처음 쓰기 전에 반드시", substring = true)
+        shown("제1터미널 도착층 카운터", substring = true)
+    }
+
+    /** 필리핀 마닐라: 쓸 수 없어요(막힘 줄) + 왜인지 메모 */
+    @Test
+    fun manilaShowsEgateNo() {
+        entry("PH")
+        shown(s(R.string.airport_egate_no))
+        shown("필리핀 국민", substring = true)
+        rule.onAllNodesWithText(s(R.string.airport_egate_yes)).assertCountEquals(0)
+    }
+
+    /** 일본: 공식 안내가 한국 여권을 밝히지 않았고 메모도 없다 → 자동 심사대 줄이 아예 없다 */
+    @Test
+    fun japanDrawsNoEgateLine() {
+        entry("JP")
+        shown(s(R.string.airport_guide_title))
+        listOf(R.string.airport_egate_yes, R.string.airport_egate_no, R.string.airport_egate_unknown).forEach {
+            rule.onAllNodesWithText(s(it)).assertCountEquals(0)
+        }
+        // 공동 키오스크(VJW) 단계와 입국 카드 줄은 보인다
+        shown(airportOf("JP", "NRT").steps.first { it.kind == "form_check" }.titleKo)
+        shown(airportOf("JP", "NRT").formCheckKo!!)
+    }
+
+    /** 인도네시아: 판정은 모름(`분명하지 않아요` 줄)이고, 자카르타는 서로 다른 공식 안내 두 곳을 그대로 보여 준다 */
+    @Test
+    fun indonesiaShowsBothOfficialAnswers() {
+        entry("ID")
+        // 처음 고른 공항은 팩 첫 공항(발리) — 이민국 발표 + 공항 안내에 자동 게이트 이야기가 없다는 말
+        shown(s(R.string.airport_egate_unknown))
+        shown("인도네시아 이민국 발표(2024년)", substring = true)
+        rule.onAllNodesWithText(s(R.string.airport_egate_yes)).assertCountEquals(0)
+        rule.onAllNodesWithText(s(R.string.airport_egate_no)).assertCountEquals(0)
+        // 자카르타로 바꾸면 두 안내가 서로 다르다는 말이 먼저 나온다(앱이 한쪽을 고르지 않는다)
+        val cgk = airportOf("ID", "CGK")
+        rule.onNode(hasText(cgk.nameKo) and SemanticsMatcher.expectValue(SemanticsProperties.Role, Role.RadioButton)).performClick()
+        shown("공식 안내 두 곳이 서로 달라요", substring = true)
+        shown(s(R.string.airport_egate_unknown))
+    }
+
+    /**
+     * 베트남: 사전 입국 정보(PAI)는 의무가 아닌 양식 — `꼭 내야 하는 건 아니에요` 알약·`미리 준비해 두기` 버튼이고
+     * `입국 카드 준비하기`(의무 서류 버튼)는 쓰지 않는다. 공항 줄도 의무가 아니라고 말한다.
+     */
+    @Test
+    fun vietnamPreArrivalFormIsShownAsOptional() {
+        entry("VN")
+        val vn = runBlocking { TestPacks.repo.pack("VN")!!.value }
+        shown(vn.forms.single().nameKo)
+        shown(s(R.string.entry_form_optional_tag))
+        shown(s(R.string.entry_form_optional_open))
+        shown(s(R.string.entry_form_label_optional))
+        rule.onAllNodesWithText(s(R.string.prepare_form_open)).assertCountEquals(0)
+        rule.onAllNodesWithText(s(R.string.entry_form_label)).assertCountEquals(0)
+        // 공항 묶음: 입국 카드 줄 + 자동 심사대는 베트남 국민용
+        shown(airportOf("VN", "SGN").formCheckKo!!)
+        shown(s(R.string.airport_egate_no))
     }
 
     @Test

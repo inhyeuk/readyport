@@ -21,9 +21,12 @@ import java.time.LocalDate
 // - 버튼: 화면과 상관없이 `입국 카드 준비하기`(prepare_form_open) — 같은 양식이면 03·18의 비용 라벨·버튼 라벨이 같다
 
 /**
- * 입국 카드(온라인 입국 신고 양식) 카드: eyebrow + 제목(양식 이름) → [body](있으면) → 비용(짧은 값이면 정보 칩 + 나머지 원문 글 행) →
+ * 입국 카드(온라인 입국 신고 양식) 카드: eyebrow + 제목(양식 이름) → [optional]이면 `꼭 내야 하는 건 아니에요` 알약 →
+ * [body](있으면) → 비용(짧은 값이면 정보 칩 + 나머지 원문 글 행) →
  * 내는 때(팩 문장 그대로 — 기간 칩·타일은 D11에 따라 만들지 않는다, `5월 4일`의 달·일은 보이는 자리에서만 묶음) → 버튼 → 출처.
  * [primary]: 화면의 주 버튼이면 Accent 채움, 아니면 보조 버튼(원칙 7 — 화면당 주 버튼 하나).
+ * [optional]: 의무가 아닌(권장) 신고 — 제목 바로 아래 알약으로 먼저 밝히고, 버튼도 `미리 준비해 두기`(기한 있는 할 일로 읽히지 않게).
+ * 알약은 Info(파랑)다: 안 하면 안 되는 일이 아니므로 Caution(노랑)으로 겁주지 않는다.
  */
 @Composable
 fun EntryFormCard(
@@ -36,6 +39,7 @@ fun EntryFormCard(
     modifier: Modifier = Modifier,
     body: String? = null,
     primary: Boolean = true,
+    optional: Boolean = false,
 ) {
     CardNewsCard(
         title = name,
@@ -45,6 +49,7 @@ fun EntryFormCard(
         body = body,
         sources = listOf(source),
     ) {
+        if (optional) StatusTag(stringResource(R.string.entry_form_optional_tag), StatusKind.Info)
         val fee = shortValue(feeKo)
         if (fee != null) {
             InfoChip(stringResource(R.string.fact_label_form_fee), feeIcon(fee), value = fee, tone = feeTone(fee))
@@ -54,7 +59,7 @@ fun EntryFormCard(
         }
         val window = stringResource(R.string.guide_form_window, windowKo)
         IconBullet(window, Icons.Outlined.Schedule, display = koDisplay(keepMonthDay(window)))
-        val label = stringResource(R.string.prepare_form_open)
+        val label = stringResource(if (optional) R.string.entry_form_optional_open else R.string.prepare_form_open)
         if (primary) {
             PrimaryButton(label, onClick = onStart, icon = Icons.Outlined.EditNote, modifier = Modifier.padding(top = 4.dp))
         } else {

@@ -958,7 +958,8 @@ private fun CustomField(
 internal suspend fun rescheduleFormReminder(context: android.content.Context, trips: TripRepository, packs: PackRepository) {
     val today = LocalDate.now()
     val next = trips.all().filter { it.datesValid && it.start.isAfter(today.minusDays(1)) }.sortedBy { it.start }.firstNotNullOfOrNull { t ->
-        val form = packs.pack(t.country)?.value?.forms?.firstOrNull()
+        // 꼭 내야 하는 입국 카드만 알림을 만든다 — 의무가 아닌 신고(forms[].optional)로는 기한 알림을 걸지 않는다
+        val form = packs.pack(t.country)?.value?.requiredForms?.firstOrNull()
         val days = form?.windowDaysIncludingArrival
         if (form != null && days != null) Triple(t, form, days) else null
     }

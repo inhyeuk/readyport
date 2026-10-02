@@ -82,7 +82,8 @@ class TodayViewModel @Inject constructor(
         // 여러 여행 중 지금 여행(여행 중 → 가장 가까운 다가오는 여행 → 정리 안 한 최근 여행)
         val trip = TripSelection.active(book.trips, today)
         val pack = trip?.let { packs.pack(it.country)?.value }
-        val form = pack?.forms?.firstOrNull()
+        // 꼭 내야 하는 입국 카드만 오늘 단계·알림에 쓴다 — 의무가 아닌 신고(forms[].optional)는 기한을 만들지 않는다
+        val form = pack?.requiredForms?.firstOrNull()
         val contents = (w as? WalletState.Unlocked)?.contents
         // 입국 카드를 냈는지는 이 여행 기준(같은 나라를 또 가도 지난 여행 제출로 닫히지 않게): 지갑이 열려 있으면 바로, 아니면 지난번 기록
         val submitted = trip?.let { t ->
