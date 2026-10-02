@@ -58,6 +58,7 @@ import com.readyport.data.settings.SettingsRepository
 import com.readyport.pack.IndexCountry
 import com.readyport.pack.PackRepository
 import com.readyport.pack.PackSync
+import com.readyport.trip.ChecklistAlerts
 import com.readyport.trip.Trip
 import com.readyport.trip.TripRepository
 import com.readyport.ui.components.AppScreen
@@ -103,6 +104,7 @@ class TripViewModel @Inject constructor(
     private val trips: TripRepository,
     private val packs: PackRepository,
     private val settings: SettingsRepository,
+    private val alerts: ChecklistAlerts,
 ) : ViewModel() {
     private val _ui = MutableStateFlow(TripFormUi())
     val ui: StateFlow<TripFormUi> = _ui.asStateFlow()
@@ -114,8 +116,9 @@ class TripViewModel @Inject constructor(
     }
 
     /**
-     * 여행 저장 + 나라 찜(안내 받아 두기) + 입국 카드 알림 다시 맞추기. 새 여행이면 새 id로 더한다. 저장한 여행 id를 [onSaved]로.
+     * 여행 저장 + 나라 찜(안내 받아 두기). 새 여행이면 새 id로 더한다. 저장한 여행 id를 [onSaved]로.
      * 고칠 때 나라·출발일이 그대로면 도착 기록을 지킨다. 체크 상태는 여행 id에 붙어 있어 날짜를 고쳐도 남는다.
+     * 알림 작업(하루 쓸기·입국 카드 기간)은 화면이 걸지 않는다 — 여행 장부가 바뀐 것을 보고 [ChecklistAlerts]가 맞춘다.
      */
     fun save(country: String, start: LocalDate, end: LocalDate, onSaved: (String) -> Unit = {}) = viewModelScope.launch {
         val old = _ui.value.existing
@@ -131,13 +134,14 @@ class TripViewModel @Inject constructor(
         )
         settings.setFavorite(country, true)
         PackSync.requestNow(context, settings.current().wifiOnly)
-        rescheduleFormReminder(context, trips, packs)
         onSaved(saved.id)
     }
 
     fun delete() = viewModelScope.launch {
-        _ui.value.existing?.let { trips.delete(it.id) }
-        rescheduleFormReminder(context, trips, packs)
+        _ui.value.existing?.let {
+            trips.delete(it.id)
+            alerts.forget(it.id)
+        }
     }
 }
 

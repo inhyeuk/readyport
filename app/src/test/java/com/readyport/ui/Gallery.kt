@@ -256,11 +256,22 @@ object Gallery {
         "trips-empty" to { TripListContent(TripListUi(loaded = true), {}, {}) },
         // 한 여행 체크리스트(태국, 일주일 전 단계) — 단계 카드·앱이 확인·늦음·기간 전 잠김·출처·내 항목
         "trip-checklist" to {
-            TripChecklistContent(ChecklistUi(loaded = true, trip = ckTh, countryName = "태국", data = ckThData, today = ckThToday, overlaps = true), ChecklistActions())
+            TripChecklistContent(
+                ChecklistUi(
+                    loaded = true, trip = ckTh, countryName = "태국", data = ckThData, today = ckThToday, overlaps = true,
+                    // 알림 한 줄: 아침 9시로 해 둔 아침 7시 — `못한 일이 있으면 오늘 아침 9시에 알려 드려요`
+                    nowHour = 7,
+                ),
+                ChecklistActions(),
+            )
         },
         // 중국 출발 당일 — 입국 카드 급함(빨강), 여권 기준 없음(공식 안내 링크), 지난 단계 접힘
         "trip-checklist-cn" to {
-            TripChecklistContent(ChecklistUi(loaded = true, trip = ckCn, countryName = "중국", data = ckCnData, today = ckCn.start), ChecklistActions())
+            TripChecklistContent(
+                // 이 여행만 알림을 꺼 둔 모습 (`이 여행은 알림을 꺼 두었어요`)
+                ChecklistUi(loaded = true, trip = ckCn, countryName = "중국", data = ckCnData, today = ckCn.start, muted = true, nowHour = 10),
+                ChecklistActions(),
+            )
         },
         // 오늘 화면 '지금 챙길 것'(입국 카드·여권 할 일이 없을 때 지금 할 일 = 체크리스트)
         "today-checklist" to {
@@ -344,7 +355,7 @@ object Gallery {
             )
         },
         // 쉬운 모드 캡처(easy/)에서는 쉬운 모드 스위치가 켜진 모습 — 테마의 쉬운 모드 값을 그대로 넘긴다
-        "settings" to { SettingsScreen(easyMode = LocalDimens.current.easyMode, onEasyModeChange = {}) },
+        "settings" to { SettingsScreen(easyMode = LocalDimens.current.easyMode, onEasyModeChange = {}, notifGranted = true) },
         "wallet-locked" to {
             WalletContent(
                 state = WalletState.Locked(hasData = true), deviceSecure = true, autoDestroy = true, today = LocalDate.of(2026, 9, 29),
@@ -394,6 +405,10 @@ object Gallery {
         "components-4" to { ComponentsPage(4) },
         // 흰 단색 사진 최악 경우: PhotoTextArea 스크림·PhotoChip·사진 위 버튼 (DESIGN_SPEC 3.7)
         "photo-worst-white" to { PhotoWorstWhitePage() },
+        // 설정 › 알림: 휴대폰 알림 권한이 없을 때 (안내 줄 + `휴대폰 알림 설정 열기`)
+        "settings-alerts-blocked" to {
+            SettingsScreen(easyMode = LocalDimens.current.easyMode, onEasyModeChange = {}, alertHour = 20, notifGranted = false)
+        },
         // 길잡이 v4: 그림 메뉴가 위로 지나간 뒤의 **접힌 고정 줄**(썸네일 + 라벨 + 밑줄). 실기기 높이 창에서 내용 몇 칸 아래로 내려 둔 상태
         // (다른 캡처는 아주 긴 칸에 한 번에 그려 스크롤이 없어서 고정 줄이 나타나지 않는다). 번호가 밀리지 않게 맨 끝에 둔다.
         "country-compact-bar" to {

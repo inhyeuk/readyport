@@ -2,6 +2,7 @@ package com.readyport.ui.settings
 
 import android.content.Context
 import android.content.Intent
+import android.provider.Settings
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -16,6 +17,7 @@ import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.selection.toggleable
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowForward
+import androidx.compose.material.icons.automirrored.outlined.OpenInNew
 import androidx.compose.material.icons.outlined.Badge
 import androidx.compose.material.icons.outlined.ChildCare
 import androidx.compose.material.icons.outlined.Copyright
@@ -23,9 +25,13 @@ import androidx.compose.material.icons.outlined.ExpandLess
 import androidx.compose.material.icons.outlined.ExpandMore
 import androidx.compose.material.icons.outlined.FamilyRestroom
 import androidx.compose.material.icons.outlined.Info
+import androidx.compose.material.icons.outlined.Lock
+import androidx.compose.material.icons.outlined.NotificationsActive
+import androidx.compose.material.icons.outlined.NotificationsOff
 import androidx.compose.material.icons.outlined.PhotoLibrary
 import androidx.compose.material.icons.outlined.Policy
 import androidx.compose.material.icons.outlined.PrivacyTip
+import androidx.compose.material.icons.outlined.Schedule
 import androidx.compose.material.icons.outlined.TextFields
 import androidx.compose.material.icons.outlined.TextIncrease
 import androidx.compose.material.icons.outlined.Wifi
@@ -37,6 +43,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -59,9 +66,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import com.readyport.BuildConfig
 import com.readyport.R
+import com.readyport.trip.ChecklistReminders
+import com.readyport.trip.TripNotifications
 import com.readyport.ui.components.AppScreen
+import com.readyport.ui.components.ChoiceSegments
+import com.readyport.ui.components.IconBullet
 import com.readyport.ui.components.InfoChip
 import com.readyport.ui.components.KoText
 import com.readyport.ui.components.LinkRow
@@ -71,6 +85,7 @@ import com.readyport.ui.components.ListRow
 import com.readyport.ui.components.PhotoCredit
 import com.readyport.ui.components.Photos
 import com.readyport.ui.components.RowTrailing
+import com.readyport.ui.components.SecondaryButton
 import com.readyport.ui.components.SectionHeader
 import com.readyport.ui.components.SecurityBanner
 import com.readyport.ui.components.breakAfter
@@ -86,6 +101,7 @@ import com.readyport.ui.components.sectionGap
 import com.readyport.ui.components.textIconSize
 import com.readyport.ui.theme.LocalDimens
 import com.readyport.ui.theme.Tokens
+import com.readyport.ui.trip.alertHourLabel
 
 /**
  * 22 설정 (DESIGN_SPEC 6-22): 맨 위 '내 정보는 이 휴대폰에만'(SecurityBanner 모양) → 묶음 4개(내 정보 · 화면·사용 · 데이터 · 안내·출처).
@@ -104,11 +120,23 @@ fun SettingsScreen(
     onOpenFamily: () -> Unit = {},
     onOpenPhotos: () -> Unit = {},
     onOpenPrivacy: ((String) -> Unit)? = null,
+    alertsOn: Boolean = true,
+    onAlertsOnChange: (Boolean) -> Unit = {},
+    alertHour: Int = ChecklistReminders.DEFAULT_HOUR,
+    onAlertHourChange: (Int) -> Unit = {},
+    /** 휴대폰 알림 권한이 있는지. null이면 이 화면이 직접 본다(테스트·갤러리는 값을 넣는다) */
+    notifGranted: Boolean? = null,
+    /** 휴대폰 알림 설정 열기. null이면 시스템 설정을 연다 */
+    onOpenNotifSettings: (() -> Unit)? = null,
 ) {
     val context = LocalContext.current
     val openPrivacy = onOpenPrivacy ?: { url: String -> runCatching { context.startActivity(Intent(Intent.ACTION_VIEW, url.toUri())) } }
+    val granted = notifGranted ?: rememberNotificationsGranted()
+    val openNotifSettings = onOpenNotifSettings ?: { openSystemNotificationSettings(context) }
     val large = isStackedLayout()
     val linkStart = if (large) LocalDimens.current.listRowPadding - 4.dp else rowTextStart() - 4.dp
+    /** 카드 안 행과 같은 가로 여백 (행 아래 세그먼트·버튼이 카드 폭을 그대로 쓰게) */
+    val rowPadding = LocalDimens.current.listRowPadding
     AppScreen(
         title = stringResource(R.string.settings_title),
         speech = stringResource(R.string.settings_speech),
@@ -152,6 +180,54 @@ fun SettingsScreen(
                 )
             }
         }
+        sectionGap("gap-alerts")
+        // 알림 (PRD 6.1): 켬·끔 → 알려 줄 시각 → (권한이 없으면) 휴대폰 설정 열기 → 이 휴대폰 안에서만 읽는다는 한 줄
+        item(key = "group-alerts") {
+            ListGroup(stringResource(R.string.settings_group_alerts)) {
+                SettingRow(
+                    stringResource(R.string.settings_alerts),
+                    icon = Icons.Outlined.NotificationsActive,
+                    body = stringResource(R.string.settings_alerts_desc),
+                    trailing = RowTrailing.Switch(alertsOn, onAlertsOnChange),
+                )
+                if (alertsOn) {
+                    ListDivider()
+                    SettingRow(
+                        stringResource(R.string.settings_alert_hour),
+                        icon = Icons.Outlined.Schedule,
+                        body = stringResource(R.string.settings_alert_hour_desc),
+                        trailing = RowTrailing.None,
+                    )
+                    // 세그먼트·버튼은 카드 안쪽 여백에 맞춰 폭을 다 쓴다(글 시작선에 맞추면 `아침 9시`가 두 줄로 접힌다)
+                    Box(Modifier.padding(horizontal = rowPadding).padding(bottom = 16.dp)) {
+                        ChoiceSegments(
+                            options = ChecklistReminders.HOURS,
+                            selected = ChecklistReminders.hourOrDefault(alertHour),
+                            onSelect = onAlertHourChange,
+                            label = { alertHourLabel(it) },
+                            icon = { null },
+                        )
+                    }
+                    if (!granted) {
+                        ListDivider()
+                        SettingRow(
+                            stringResource(R.string.settings_alerts_blocked),
+                            icon = Icons.Outlined.NotificationsOff,
+                            body = stringResource(R.string.settings_alerts_blocked_desc),
+                            trailing = RowTrailing.None,
+                        )
+                        Box(Modifier.padding(horizontal = rowPadding).padding(bottom = 16.dp)) {
+                            SecondaryButton(
+                                stringResource(R.string.settings_alerts_open),
+                                onClick = openNotifSettings,
+                                icon = Icons.AutoMirrored.Outlined.OpenInNew,
+                            )
+                        }
+                    }
+                }
+            }
+        }
+        item(key = "alerts-local") { IconBullet(stringResource(R.string.settings_alerts_local), Icons.Outlined.Lock) }
         sectionGap("gap-data")
         item(key = "group-data") {
             ListGroup(stringResource(R.string.settings_group_data)) {
@@ -203,6 +279,36 @@ fun SettingsScreen(
             }
         }
     }
+}
+
+/**
+ * 휴대폰 알림 권한(POST_NOTIFICATIONS)이 있는지 — 설정 화면이 다시 보일 때마다 새로 본다
+ * (휴대폰 설정에서 켜고 돌아오면 안내 줄이 저절로 사라진다).
+ */
+@Composable
+private fun rememberNotificationsGranted(): Boolean {
+    val context = LocalContext.current
+    val lifecycle = LocalLifecycleOwner.current.lifecycle
+    var granted by remember { mutableStateOf(TripNotifications.canNotify(context)) }
+    DisposableEffect(lifecycle) {
+        val observer = LifecycleEventObserver { _, event ->
+            if (event == Lifecycle.Event.ON_RESUME) granted = TripNotifications.canNotify(context)
+        }
+        lifecycle.addObserver(observer)
+        onDispose { lifecycle.removeObserver(observer) }
+    }
+    return granted
+}
+
+/** 이 앱의 휴대폰 알림 설정 화면 (못 열면 앱 정보 화면) */
+private fun openSystemNotificationSettings(context: Context) {
+    val app = Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS)
+        .putExtra(Settings.EXTRA_APP_PACKAGE, context.packageName)
+        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+    if (runCatching { context.startActivity(app) }.isSuccess) return
+    val details = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, "package:${context.packageName}".toUri())
+        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+    runCatching { context.startActivity(details) }
 }
 
 /** 행 글자가 시작하는 자리 = 행 가로 여백(listRowPadding) + 배지 + 간격 16 */
