@@ -82,6 +82,8 @@ class StayAutofillTest {
         val my = FormValues.build(recipe("MY_MDAC"), only, emptyMap())
         assertTrue(my.getValue("stay.type").isEmpty)
         assertEquals(emptyMap<String, String>(), FormValues.suggest(recipe("MY_MDAC"), only))
+        // 비운 칸은 **빈 필수 칸으로 센다** — 운영자 결정(다듬기 S2): 앱이 대신 고른 값이 사람 눈에 안 보이게 제출되면 안 된다
+        assertTrue("stay.type" in FormValues.missingRequired(recipe("MY_MDAC"), my).map { it.key })
         // TDAC에는 있다
         val th = FormValues.build(recipe("TH_TDAC"), only, emptyMap())
         assertEquals("게스트하우스 → GUEST HOUSE", th.getValue("stay.type").value)

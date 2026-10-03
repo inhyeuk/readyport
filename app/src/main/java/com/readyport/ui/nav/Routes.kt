@@ -27,9 +27,11 @@ import kotlinx.serialization.Serializable
 
 /**
  * 내 여행 › 묵는 곳 하나 넣기·고치기 (2026-10-03). [stayId]가 없으면 새 숙소.
+ * [tripId]: 그 여행의 예약 단계에서 들어왔으면 그 여행 — 설정 › 내 정보의 묵는 곳 목록에서 들어오면 null이고,
+ * 그때는 숙소가 원래 붙어 있던 여행을 그대로 둔다 (다듬기 S2).
  * 주소가 있어 암호화 보관함에만 저장하고 화면 캡처를 막는다(FLAG_SECURE).
  */
-@Serializable data class StayEditRoute(val tripId: String, val stayId: String? = null)
+@Serializable data class StayEditRoute(val tripId: String? = null, val stayId: String? = null)
 
 /**
  * 둘러보기 › 나라 화면(입국·여행·쇼핑). 인터넷 없이 저장해 둔 팩으로 보여 준다.

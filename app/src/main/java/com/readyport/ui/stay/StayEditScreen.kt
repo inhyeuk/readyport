@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.outlined.Backspace
 import androidx.compose.material.icons.outlined.CalendarMonth
 import androidx.compose.material.icons.outlined.Category
 import androidx.compose.material.icons.outlined.Check
@@ -15,14 +16,16 @@ import androidx.compose.material.icons.outlined.ConfirmationNumber
 import androidx.compose.material.icons.outlined.EditNote
 import androidx.compose.material.icons.outlined.ErrorOutline
 import androidx.compose.material.icons.outlined.Hotel
+import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.Lock
+import androidx.compose.material.icons.outlined.Map
+import androidx.compose.material.icons.outlined.MyLocation
 import androidx.compose.material.icons.outlined.PhoneInTalk
 import androidx.compose.material.icons.outlined.Place
 import androidx.compose.material.icons.outlined.Translate
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -31,10 +34,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.VisualTransformation
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
@@ -43,32 +48,43 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
 import com.readyport.R
 import com.readyport.security.SecureScreen
+import com.readyport.stay.Coordinates
+import com.readyport.stay.LatLng
+import com.readyport.stay.StayLinks
 import com.readyport.stay.StayType
 import com.readyport.stay.Stays
 import com.readyport.transport.PlacesRepository
+import com.readyport.trip.Trip
+import com.readyport.trip.TripRepository
 import com.readyport.ui.components.AppScreen
+import com.readyport.ui.components.BadgeTone
 import com.readyport.ui.components.BannerTone
 import com.readyport.ui.components.ButtonPlacement
 import com.readyport.ui.components.DangerButton
+import com.readyport.ui.components.DatePickField
+import com.readyport.ui.components.DateRules
 import com.readyport.ui.components.DestructiveConfirm
+import com.readyport.ui.components.ExpandableDetail
 import com.readyport.ui.components.IconBullet
 import com.readyport.ui.components.KoText
 import com.readyport.ui.components.LockedState
 import com.readyport.ui.components.NoticeBanner
 import com.readyport.ui.components.PrimaryButton
+import com.readyport.ui.components.QuietButton
 import com.readyport.ui.components.SectionHeader
 import com.readyport.ui.components.SelectTile
 import com.readyport.ui.components.TileGrid
 import com.readyport.ui.components.cardShadow
+import com.readyport.ui.components.dateFieldColors
+import com.readyport.ui.components.dateDigits
 import com.readyport.ui.components.localText
+import com.readyport.ui.components.parseDateDigits
 import com.readyport.ui.components.rememberGridColumns
 import com.readyport.ui.components.sectionGap
 import com.readyport.ui.nav.StayEditRoute
 import com.readyport.ui.theme.LocalDimens
 import com.readyport.ui.theme.Tokens
-import com.readyport.ui.trip.DateDigitsTransformation
-import com.readyport.ui.trip.dateDigits
-import com.readyport.ui.trip.parseDigits
+import com.readyport.ui.trip.tripDateRange
 import com.readyport.ui.wallet.rememberDeviceAuth
 import com.readyport.vault.StayRecord
 import com.readyport.vault.WalletRepository
@@ -87,6 +103,12 @@ import javax.inject.Inject
 //
 // 주소는 개인정보에 가까워 **암호화 보관함**에만 저장하고(예약 서류와 같은 파일), 화면 캡처를 막는다(FLAG_SECURE).
 // 저장하면 '가는 곳'(기사님께 보여 주기·차 부르기)도 같은 id로 맞춰 둔다 — 같은 호텔을 두 번 적지 않는다.
+//
+// 다듬기 S2 (운영자 요청 *"좌표 입력도 넣고 … 날짜를 입력할 때, 달력에서 선택할 수 있도록"*):
+//  ① 묵는 날짜는 공용 날짜 칸([DatePickField]) — 달력이 주 입력, 숫자로 적는 길도 그대로.
+//     달력은 **이 여행 날짜가 있는 달**에서 열리고, 체크아웃 달력은 체크인 앞 날짜를 막는다(있을 수 없는 날).
+//  ② 좌표는 **접어 둔 묶음** 하나 — 대부분은 건너뛴다. 숫자 두 개도, 구글 지도 링크도 받고 읽은 값을 그대로 보여 준다.
+//     앱 안에 지도는 없다(지도 SDK·API 키·네트워크 없음).
 // =====================================================================================
 
 /** 화면에서 고치는 값 (저장 전 메모리에만) */
@@ -101,9 +123,11 @@ data class StayDraft(
     val type: String? = null,
     val phone: String = "",
     val memo: String = "",
+    /** 사람이 적거나 붙여 넣은 좌표 글자 (`37.5665, 126.978` 또는 구글 지도 링크) */
+    val coords: String = "",
 ) {
-    private val from get() = parseDigits(checkIn)
-    private val to get() = parseDigits(checkOut)
+    private val from get() = parseDateDigits(checkIn)
+    private val to get() = parseDateDigits(checkOut)
 
     /** 반쯤 적은 날짜를 저장하며 버리지 않는다 */
     val datesValid: Boolean get() = (checkIn.isEmpty() || from != null) && (checkOut.isEmpty() || to != null)
@@ -111,28 +135,38 @@ data class StayDraft(
     /** 체크아웃이 체크인보다 빠르면 알려 준다(막지는 않는다 — 저장 버튼만 막는다) */
     val datesOrdered: Boolean get() = from == null || to == null || !to!!.isBefore(from)
 
-    val canSave: Boolean get() = name.isNotBlank() && datesValid && datesOrdered
+    /** 적어 둔 좌표에서 읽어 낸 값. 못 읽으면 null */
+    val coordsParsed get() = Coordinates.parse(coords)
 
-    override fun toString() = "StayDraft(hasAddress=${address.isNotBlank()})"
+    /** 좌표 칸이 비었거나 읽을 수 있는지 — 못 읽은 글자를 조용히 버리지 않게 저장 버튼을 막는다(날짜와 같은 규칙) */
+    val coordsValid: Boolean get() = coords.isBlank() || coordsParsed != null
 
-    fun toRecord(existing: StayRecord?, tripId: String, now: LocalDateTime = LocalDateTime.now()) = StayRecord(
-        id = existing?.id ?: Stays.newId(),
-        // 이 여행에서 고쳤으면 이 여행 숙소가 된다(예전 예약 서류에서 옮겨 온 숙소도 여기서 여행에 붙는다)
-        tripId = tripId,
-        name = name.trim(),
-        addressLocal = address.trim(),
-        addressKo = addressKo.trim().ifEmpty { null },
-        checkIn = parseDigits(checkIn)?.toString(),
-        checkOut = parseDigits(checkOut)?.toString(),
-        reference = reference.trim().ifEmpty { null },
-        type = type,
-        // 좌표는 화면에서 적지 않는다(시니어가 숫자를 받아 적을 일이 아니다) — 있던 값은 그대로 지킨다
-        lat = existing?.lat,
-        lng = existing?.lng,
-        phone = phone.trim().ifEmpty { null },
-        memo = memo.trim().ifEmpty { null },
-        savedAt = now.toString(),
-    )
+    val canSave: Boolean get() = name.isNotBlank() && datesValid && datesOrdered && coordsValid
+
+    override fun toString() = "StayDraft(hasAddress=${address.isNotBlank()}, hasCoords=${coordsParsed != null})"
+
+    /** [tripId]가 null이면(설정 › 내 정보에서 고칠 때) 원래 붙어 있던 여행을 그대로 둔다 */
+    fun toRecord(existing: StayRecord?, tripId: String?, now: LocalDateTime = LocalDateTime.now()): StayRecord {
+        val coords = coordsParsed
+        return StayRecord(
+            id = existing?.id ?: Stays.newId(),
+            // 이 여행에서 고쳤으면 이 여행 숙소가 된다(예전 예약 서류에서 옮겨 온 숙소도 여기서 여행에 붙는다)
+            tripId = tripId ?: existing?.tripId,
+            name = name.trim(),
+            addressLocal = address.trim(),
+            addressKo = addressKo.trim().ifEmpty { null },
+            checkIn = parseDateDigits(checkIn)?.toString(),
+            checkOut = parseDateDigits(checkOut)?.toString(),
+            reference = reference.trim().ifEmpty { null },
+            type = type,
+            // 좌표 칸을 비우면 저장된 좌표도 지워진다(사람이 지운 것이다)
+            lat = coords?.lat,
+            lng = coords?.lng,
+            phone = phone.trim().ifEmpty { null },
+            memo = memo.trim().ifEmpty { null },
+            savedAt = now.toString(),
+        )
+    }
 
     companion object {
         fun from(stay: StayRecord?): StayDraft = if (stay == null) {
@@ -148,6 +182,7 @@ data class StayDraft(
                 type = stay.type,
                 phone = stay.phone.orEmpty(),
                 memo = stay.memo.orEmpty(),
+                coords = Coordinates.text(stay.lat, stay.lng),
             )
         }
     }
@@ -158,6 +193,8 @@ data class StayEditUi(
     /** 보관함이 잠겨 있으면 먼저 잠금을 푼다 */
     val locked: Boolean = true,
     val existing: StayRecord? = null,
+    /** 어느 여행의 숙소인지 — 날짜 달력이 이 여행 달에서 열린다 (설정 › 내 정보에서 고칠 때는 null) */
+    val trip: Trip? = null,
     val saveFailed: Boolean = false,
 )
 
@@ -166,6 +203,7 @@ class StayEditViewModel @Inject constructor(
     handle: SavedStateHandle,
     private val wallet: WalletRepository,
     private val places: PlacesRepository,
+    private val trips: TripRepository,
 ) : ViewModel() {
     private val route = handle.toRoute<StayEditRoute>()
     private val _ui = MutableStateFlow(StayEditUi())
@@ -173,6 +211,8 @@ class StayEditViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
+            // 날짜 달력이 열릴 달을 알려면 이 여행 날짜가 필요하다 (여행 장부에는 주소 글자가 없다)
+            val trip = route.tripId?.let { trips.get(it) }
             if (wallet.state.value !is WalletState.Unlocked) wallet.unlock()
             wallet.state.collect { state ->
                 val contents = (state as? WalletState.Unlocked)?.contents
@@ -181,6 +221,7 @@ class StayEditViewModel @Inject constructor(
                         loaded = true,
                         locked = contents == null,
                         existing = route.stayId?.let { id -> contents?.stays?.firstOrNull { s -> s.id == id } },
+                        trip = trip,
                     )
                 }
             }
@@ -244,8 +285,9 @@ fun StayEditScreen(onDone: () -> Unit, viewModel: StayEditViewModel = hiltViewMo
 }
 
 /**
- * 숙소 넣기·고치기: 이름·주소(현지 글자)·한국어 주소 메모 → 묵는 날짜(숫자 자판, 하이픈은 칸이 그린다) →
- * 숙소 종류(입국 카드 선택지와 같은 값) → 예약번호·전화·메모 → 기기 안 저장 한 줄 → 저장 → (고칠 때) 지우기.
+ * 숙소 넣기·고치기: 이름·주소(현지 글자)·한국어 주소 메모 → 묵는 날짜(달력 또는 숫자) →
+ * 숙소 종류(입국 카드 선택지와 같은 값) → 좌표(접어 둠, 안 넣어도 됨) → 예약번호·전화·메모 →
+ * 기기 안 저장 한 줄 → 저장 → (고칠 때) 지우기.
  */
 @Composable
 fun StayEditContent(
@@ -256,7 +298,11 @@ fun StayEditContent(
 ) {
     var draft by remember(ui.existing) { mutableStateOf(StayDraft.from(ui.existing)) }
     var confirmDelete by remember { mutableStateOf(false) }
+    // 저장해 둔 좌표가 있으면 좌표 묶음을 펼친 채로 — 적어 둔 값이 접힌 채 숨지 않게
+    var coordsOpen by remember(ui.existing) { mutableStateOf(StayDraft.from(ui.existing).coordsParsed != null) }
     val editing = ui.existing != null
+    val checkIn = parseDateDigits(draft.checkIn)
+    val tripRange = ui.trip?.takeIf { it.datesValid }?.let { tripDateRange(it.start, it.end) }
     AppScreen(
         title = stringResource(if (editing) R.string.stay_edit_title else R.string.stay_add_title),
         subtitle = stringResource(R.string.stay_form_lead),
@@ -298,9 +344,25 @@ fun StayEditContent(
         item(key = "dates-title") { SectionHeader(stringResource(R.string.stay_dates_title), icon = Icons.Outlined.CalendarMonth) }
         item(key = "dates") {
             FieldCard {
-                // 날짜 칸 앞에는 달력 아이콘을 두지 않는다(누르면 달력이 열릴 것처럼 보인다 — 여행 만들기와 같은 규칙)
-                StayField(R.string.stay_field_checkin, draft.checkIn, icon = null, date = true) { draft = draft.copy(checkIn = it) }
-                StayField(R.string.stay_field_checkout, draft.checkOut, icon = null, date = true) { draft = draft.copy(checkOut = it) }
+                // 달력은 이 여행 날짜가 있는 달에서 열린다(여행을 모르면 오늘 달)
+                DatePickField(
+                    label = stringResource(R.string.stay_field_checkin),
+                    value = draft.checkIn,
+                    onChange = { draft = draft.copy(checkIn = it) },
+                    note = tripRange?.let { stringResource(R.string.stay_dates_trip_note, it) } ?: stringResource(R.string.date_pick_note),
+                    rules = DateRules(openOn = ui.trip?.takeIf { it.datesValid }?.start),
+                )
+                DatePickField(
+                    label = stringResource(R.string.stay_field_checkout),
+                    value = draft.checkOut,
+                    onChange = { draft = draft.copy(checkOut = it) },
+                    note = stringResource(R.string.date_pick_note),
+                    // 나가는 날이 들어가는 날보다 빠를 수는 없다 — 달력에서 그 앞은 고를 수 없다(정말 불가능한 날)
+                    rules = DateRules(
+                        openOn = checkIn ?: ui.trip?.takeIf { it.datesValid }?.start,
+                        notBefore = checkIn,
+                    ),
+                )
                 if (!draft.datesOrdered) {
                     NoticeBanner(stringResource(R.string.stay_date_invalid), icon = Icons.Outlined.ErrorOutline, tone = BannerTone.Caution)
                 }
@@ -322,6 +384,16 @@ fun StayEditContent(
                 }
                 KoText(stringResource(R.string.stay_type_hint), MaterialTheme.typography.bodyMedium, color = Tokens.InkSecondary)
             }
+        }
+        sectionGap("coords-gap")
+        item(key = "coords-title") { SectionHeader(stringResource(R.string.stay_coords_title), icon = Icons.Outlined.MyLocation) }
+        item(key = "coords") {
+            StayCoordsSection(
+                draft = draft,
+                open = coordsOpen,
+                onOpenChange = { coordsOpen = it },
+                onChange = { draft = draft.copy(coords = it) },
+            )
         }
         sectionGap("more-gap")
         item(key = "more-title") { SectionHeader(stringResource(R.string.stay_more_title), icon = Icons.Outlined.EditNote) }
@@ -367,6 +439,67 @@ fun StayEditContent(
     }
 }
 
+/**
+ * 좌표 묶음 (다듬기 S2) — **접어 둔다**. 대부분은 건너뛰고, 지도에서 정확한 자리를 찾고 싶은 사람만 펼친다.
+ * 숫자 두 개(`37.5665, 126.978`)도, 구글 지도 링크도 받는다. 읽은 값은 위도·경도로 **그대로 보여 주고**,
+ * 못 읽으면 모르겠다고 말한다(지어내지 않는다). 앱 안에 지도는 없다 — 그 사실도 한 줄로 적는다.
+ */
+@Composable
+private fun StayCoordsSection(draft: StayDraft, open: Boolean, onOpenChange: (Boolean) -> Unit, onChange: (String) -> Unit) {
+    val context = LocalContext.current
+    val coords = draft.coordsParsed
+    val label = stringResource(R.string.stay_coords_toggle)
+    FieldCard {
+        KoText(stringResource(R.string.stay_coords_help), MaterialTheme.typography.bodyMedium, color = Tokens.InkSecondary)
+        // 접기 이름은 짧게 (`좌표 접기`) — 긴 라벨을 그대로 쓰면 TalkBack이 괄호 설명까지 다시 읽는다
+        ExpandableDetail(open = open, onOpenChange = onOpenChange, label = label, target = stringResource(R.string.stay_coords_title)) {
+            // 앱 안에 지도가 없다는 사실을 칸 바로 위에 — 지도에서 집고 싶으면 링크를 복사해 붙여 넣는다
+            IconBullet(stringResource(R.string.stay_coords_no_map), Icons.Outlined.Info)
+            OutlinedTextField(
+                value = draft.coords,
+                onValueChange = { onChange(it.replace("\n", "")) },
+                label = { KoText(stringResource(R.string.stay_coords_field)) },
+                leadingIcon = { Icon(Icons.Outlined.MyLocation, contentDescription = null) },
+                supportingText = { KoText(stringResource(R.string.stay_coords_hint)) },
+                isError = !draft.coordsValid,
+                textStyle = MaterialTheme.typography.bodyLarge,
+                shape = MaterialTheme.shapes.small,
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text, imeAction = ImeAction.Done),
+                colors = dateFieldColors(),
+                modifier = Modifier.fillMaxWidth(),
+            )
+            when {
+                coords != null -> {
+                    IconBullet(
+                        stringResource(R.string.stay_coords_read, Coordinates.number(coords.lat), Coordinates.number(coords.lng)),
+                        Icons.Outlined.Check,
+                        tone = BadgeTone.Success,
+                    )
+                    val openCd = stringResource(R.string.stay_coords_open_cd, Coordinates.format(coords))
+                    QuietButton(
+                        stringResource(R.string.stay_coords_open),
+                        // 좌표만 들고 지도를 연다 — Stays.searchQuery가 좌표를 주소보다 먼저 쓴다
+                        onClick = { StayLinks.openSearch(context, coordsOnly(coords)) },
+                        icon = Icons.Outlined.Map,
+                        modifier = Modifier.semantics { contentDescription = openCd },
+                    )
+                    QuietButton(stringResource(R.string.stay_coords_clear), onClick = { onChange("") }, icon = Icons.AutoMirrored.Outlined.Backspace)
+                    KoText(stringResource(R.string.stay_coords_prefer), MaterialTheme.typography.bodyMedium, color = Tokens.InkSecondary)
+                }
+                draft.coords.isNotBlank() -> IconBullet(
+                    stringResource(R.string.stay_coords_unknown),
+                    Icons.Outlined.ErrorOutline,
+                    tone = BadgeTone.Caution,
+                )
+            }
+        }
+    }
+}
+
+/** 좌표만 든 숙소 한 줄 — `지도에서 좌표 확인`이 쓰는 임시 값(저장하지 않는다. 이름·주소는 넣지 않아 좌표로만 열린다) */
+private fun coordsOnly(coords: LatLng) =
+    StayRecord(id = "coords-check", name = "", addressLocal = "", lat = coords.lat, lng = coords.lng, savedAt = "")
+
 /** 흰 카드 안의 입력칸 묶음 — 회색 바탕 위 흰 칸의 라벨 홈이 비치지 않게 (여행 만들기와 같은 규칙) */
 @Composable
 private fun FieldCard(content: @Composable () -> Unit) {
@@ -379,7 +512,7 @@ private fun FieldCard(content: @Composable () -> Unit) {
 
 /**
  * 입력칸 하나: 짧은 라벨 + 앞 아이콘 + 설명(supportingText).
- * [date]면 숫자 자판으로 8자리만 받고 하이픈은 칸이 그려 준다(`2026-11-03`), [local]이면 현지 글자가 잘 보이게 행간을 넓힌다.
+ * [local]이면 현지 글자가 잘 보이게 행간을 넓힌다. 날짜 칸은 이 부품이 아니라 공용 [DatePickField]다.
  */
 @Composable
 private fun StayField(
@@ -387,38 +520,19 @@ private fun StayField(
     value: String,
     icon: androidx.compose.ui.graphics.vector.ImageVector?,
     @StringRes hint: Int? = null,
-    date: Boolean = false,
     local: Boolean = false,
     onChange: (String) -> Unit,
 ) {
-    val parsed = if (date) parseDigits(value) else null
-    val error = date && value.isNotEmpty() && parsed == null
     OutlinedTextField(
         value = value,
-        onValueChange = { onChange(if (date) dateDigits(it) else it.replace("\n", "")) },
+        onValueChange = { onChange(it.replace("\n", "")) },
         label = { KoText(stringResource(label)) },
         leadingIcon = icon?.let { { Icon(it, contentDescription = null) } },
         supportingText = hint?.let { { KoText(stringResource(it)) } },
-        isError = error,
-        singleLine = date,
         textStyle = if (local) localText(MaterialTheme.typography.bodyLarge) else MaterialTheme.typography.bodyLarge,
         shape = MaterialTheme.shapes.small,
-        visualTransformation = if (date) DateDigitsTransformation else VisualTransformation.None,
-        keyboardOptions = KeyboardOptions(
-            keyboardType = if (date) KeyboardType.Number else KeyboardType.Text,
-            imeAction = ImeAction.Next,
-        ),
-        colors = OutlinedTextFieldDefaults.colors(
-            focusedContainerColor = Tokens.Surface,
-            unfocusedContainerColor = Tokens.Surface,
-            errorContainerColor = Tokens.Surface,
-            unfocusedBorderColor = Tokens.LineStrong,
-            focusedBorderColor = Tokens.Accent,
-            errorBorderColor = Tokens.DangerText,
-            focusedSupportingTextColor = Tokens.InkSecondary,
-            unfocusedSupportingTextColor = Tokens.InkSecondary,
-            errorSupportingTextColor = Tokens.DangerText,
-        ),
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text, imeAction = ImeAction.Next),
+        colors = dateFieldColors(),
         modifier = Modifier.fillMaxWidth(),
     )
 }

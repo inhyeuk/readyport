@@ -188,6 +188,43 @@ class StaysTest {
         assertEquals("2026-12-04", fromDates.checkOut)
     }
 
+    /** 설정 › 내 정보의 묵는 곳 목록: 여행별 묶음 + 여행이 없는 숙소 묶음 (다듬기 S2) */
+    @Test
+    fun groupsStaysByTripAndKeepsOrphansInTheirOwnGroup() {
+        val jp = Trip("JP", "2026-12-01", "2026-12-04", id = "t2")
+        val a = stay("s1", "방콕 숙소", "2026-11-03", "2026-11-05")
+        val b = stay("s2", "아유타야 숙소", "2026-11-05", "2026-11-07")
+        val c = stay("s3", "교토 숙소", "2026-12-01", "2026-12-04", tripId = "t2")
+        // 여행 id가 없는 숙소(예전 예약 서류에서 옮겨 온 것)와 여행이 지워진 숙소는 같은 '여행 없음' 묶음
+        val orphan = stay("s4", "예전 예약 호텔", tripId = null)
+        val gone = stay("s5", "지워진 여행 숙소", tripId = "사라진여행")
+        val groups = Stays.group(listOf(c, orphan, b, gone, a), listOf(jp, trip))
+        assertEquals(3, groups.size)
+        // 여행 날짜 빠른 순(태국 11월 → 일본 12월) → 여행 없는 묶음 맨 끝
+        assertEquals(listOf("t1", "t2", null), groups.map { it.trip?.id })
+        assertEquals(listOf("s1", "s2"), groups[0].stays.map { it.id })
+        assertEquals(listOf("s3"), groups[1].stays.map { it.id })
+        assertEquals(listOf("s4", "s5"), groups[2].stays.map { it.id })
+        // 숙소가 없으면 빈 목록 (묶음을 그리지 않는다)
+        assertTrue(Stays.group(emptyList(), listOf(trip)).isEmpty())
+        // 여행이 하나도 없어도 숙소는 '여행 없음' 묶음으로 보인다 (볼 화면이 없던 문제 — STAYS_REPORT 6.2)
+        assertEquals(listOf(null), Stays.group(listOf(a, orphan), emptyList()).map { it.trip?.id })
+    }
+
+    /** 좌표가 있으면 지도·기사님께 보여 주기가 주소보다 좌표를 먼저 쓴다 (다듬기 S2) */
+    @Test
+    fun coordinatesWinOverTheAddressText() {
+        val withCoords = stay("s9", "리버뷰 호텔", address = "123 Fake Road, Bangkok", lat = 13.7461, lng = 100.5349)
+        assertEquals("13.7461,100.5349", Stays.searchQuery(withCoords))
+        assertTrue(Stays.searchUrl(withCoords)!!.endsWith("query=13.7461%2C100.5349"))
+        val place = Stays.place(withCoords)!!
+        assertEquals(13.7461, place.lat!!, 0.000001)
+        assertTrue(RideLinker.mapsUrl(place).contains("destination=13.7461%2C100.5349"))
+        // 좌표가 없으면 예전처럼 주소로
+        val noCoords = withCoords.copy(lat = null, lng = null)
+        assertEquals("123 Fake Road, Bangkok", Stays.searchQuery(noCoords))
+    }
+
     @Test
     fun stayTypeValuesMatchRecipeOptionValues() {
         // 레시피 stay_type 선택지 값과 글자가 같아야 입국 카드에 넣을 수 있다 (사이트 글자를 지어내지 않는다)

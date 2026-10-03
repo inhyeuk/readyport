@@ -64,6 +64,12 @@ enum class StayNoteKind {
 
 data class StayNote(val kind: StayNoteKind, val from: LocalDate? = null, val to: LocalDate? = null)
 
+/**
+ * 한 여행의 숙소 묶음 (설정 › 내 정보의 묵는 곳 목록, 다듬기 S2). [trip]이 null이면 **여행이 없는 숙소** 묶음이다 —
+ * 예전 예약 서류에서 옮겨 와 아직 어느 여행에도 붙지 않은 숙소.
+ */
+data class StayGrouping(val trip: Trip?, val stays: List<StayRecord>)
+
 object Stays {
 
     // ---------------- 날짜 ----------------
@@ -122,6 +128,25 @@ object Stays {
         val mine = forTrip(stays, trip)
         if (!trip.datesValid) return mine.firstOrNull()
         return on(mine, trip.start) ?: mine.firstOrNull()
+    }
+
+    /**
+     * 숙소를 **여행별로 묶는다** — 설정 › 내 정보의 묵는 곳 목록(다듬기 S2)이 쓴다.
+     * 여행 id가 붙은 숙소만 그 여행 묶음에 넣고, **여행 id가 없거나 그 여행이 사라진** 숙소는 마지막 묶음([StayGrouping.trip] = null)이다
+     * — 예전 `lodging` 예약 서류에서 옮겨 와 아직 여행에 붙지 않은 숙소를 볼 화면이 없던 문제(STAYS_REPORT 6.2).
+     * 한 숙소가 두 묶음에 들어가지 않도록 여기서는 날짜로 추측하지 않는다(여행 화면의 [forTrip]은 날짜로도 찾는다).
+     * 순서: 여행 날짜 빠른 순(날짜가 깨진 여행은 뒤) → 여행 없는 묶음 맨 끝. 빈 묶음은 돌려주지 않는다.
+     */
+    fun group(stays: List<StayRecord>, trips: List<Trip>): List<StayGrouping> {
+        if (stays.isEmpty()) return emptyList()
+        val known = trips.associateBy { it.id }
+        val byTrip = trips
+            .sortedWith(compareBy({ if (it.datesValid) 0 else 1 }, { it.startDate }, { it.endDate }))
+            .mapNotNull { trip ->
+                sorted(stays.filter { it.tripId == trip.id }).takeIf { it.isNotEmpty() }?.let { StayGrouping(trip, it) }
+            }
+        val orphans = sorted(stays.filter { it.tripId == null || it.tripId !in known.keys })
+        return byTrip + listOfNotNull(orphans.takeIf { it.isNotEmpty() }?.let { StayGrouping(null, it) })
     }
 
     // ---------------- 부드러운 알림 ----------------

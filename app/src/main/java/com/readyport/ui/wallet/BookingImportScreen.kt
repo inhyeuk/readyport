@@ -44,7 +44,6 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -55,6 +54,8 @@ import com.readyport.security.SecureScreen
 import com.readyport.ui.components.AppScreen
 import com.readyport.ui.components.BadgeTone
 import com.readyport.ui.components.BannerTone
+import com.readyport.ui.components.DatePickField
+import com.readyport.ui.components.DateRules
 import com.readyport.ui.components.EmptyState
 import com.readyport.ui.components.IconBullet
 import com.readyport.ui.components.IconTile
@@ -68,6 +69,7 @@ import com.readyport.ui.components.SelectTile
 import com.readyport.ui.components.TileGrid
 import com.readyport.ui.components.TileLayout
 import com.readyport.ui.components.TileSpec
+import com.readyport.ui.components.parseDateDigits
 import com.readyport.ui.components.rememberGridColumns
 import com.readyport.ui.theme.LocalDimens
 import com.readyport.ui.theme.Tokens
@@ -273,13 +275,24 @@ private fun ReviewForm(fields: BookingFields, saveFailed: Boolean, onSave: (Book
                     }
                 }
                 if (draft.kind == BookingKind.Lodging) {
-                    // 날짜는 숫자 자판 + 숫자만 (하이픈은 앱이 넣어 보인다 — 재검토 R18)
-                    Field(R.string.booking_label_checkin, draft.checkIn, Icons.Outlined.CalendarMonth, hint = R.string.booking_hint_checkin, date = true) {
-                        draft = draft.copy(checkIn = it)
-                    }
-                    Field(R.string.booking_label_checkout, draft.checkOut, Icons.Outlined.CalendarMonth, hint = R.string.booking_hint_checkout, date = true) {
-                        draft = draft.copy(checkOut = it)
-                    }
+                    // 날짜는 공용 날짜 칸 — 달력에서 고르는 게 주 입력, 숫자로 적는 길도 그대로 (다듬기 S2)
+                    val checkInDate = parseDateDigits(draft.checkIn)
+                    DatePickField(
+                        label = stringResource(R.string.booking_label_checkin),
+                        value = draft.checkIn,
+                        onChange = { draft = draft.copy(checkIn = it) },
+                        leadingIcon = Icons.Outlined.CalendarMonth,
+                        note = stringResource(R.string.booking_hint_checkin_s2),
+                    )
+                    DatePickField(
+                        label = stringResource(R.string.booking_label_checkout),
+                        value = draft.checkOut,
+                        onChange = { draft = draft.copy(checkOut = it) },
+                        leadingIcon = Icons.Outlined.CalendarMonth,
+                        note = stringResource(R.string.booking_hint_checkout_s2),
+                        // 나가는 날이 들어가는 날보다 빠를 수는 없다 — 달력에서 그 앞은 고를 수 없다
+                        rules = DateRules(openOn = checkInDate, notBefore = checkInDate),
+                    )
                 }
                 if (draft.dates.isNotEmpty()) {
                     // 찾은 날짜는 `2026년 11월 3일 (화)`로 보인다(재검토2 ①#13). 저장 값은 그대로(YYYY-MM-DD)
@@ -308,23 +321,20 @@ private fun ReviewForm(fields: BookingFields, saveFailed: Boolean, onSave: (Book
 /**
  * 검토 입력칸: 짧은 라벨 + 앞 아이콘 + 예시·설명(supportingText, 늘 보임). 줄바꿈 입력은 받지 않지만
  * 긴 값(예: `항공권 2026-11-03`)은 칸 안에서 여러 줄로 보여 준다 — 확인하라는 값이 잘리지 않게.
- * [date]: 숫자 자판 + 숫자 8자리만, 화면에서는 `2026-11-03` 모양(여권 직접 입력과 같은 칸). 올바른 날짜가 아니면 빨간 테두리.
+ * 날짜 칸은 이 부품이 아니라 공용 [DatePickField]다 (다듬기 S2 — 달력에서 고르고 숫자로도 적는다).
  */
 @Composable
-private fun Field(label: Int, value: String, icon: ImageVector, hint: Int? = null, date: Boolean = false, onChange: (String) -> Unit) {
+private fun Field(label: Int, value: String, icon: ImageVector, hint: Int? = null, onChange: (String) -> Unit) {
     OutlinedTextField(
         value = value,
-        onValueChange = { onChange(if (date) dateDigits(it) else it.replace("\n", "")) },
+        onValueChange = { onChange(it.replace("\n", "")) },
         label = { KoText(stringResource(label)) },
         leadingIcon = { Icon(icon, contentDescription = null) },
         supportingText = hint?.let { { KoText(stringResource(it)) } },
-        isError = date && value.isNotEmpty() && parseDateDigits(value) == null,
-        singleLine = date,
         textStyle = MaterialTheme.typography.bodyLarge,
         shape = MaterialTheme.shapes.small,
-        visualTransformation = if (date) DateDigitsTransformation else VisualTransformation.None,
         keyboardOptions = KeyboardOptions(
-            keyboardType = if (date) KeyboardType.Number else KeyboardType.Text,
+            keyboardType = KeyboardType.Text,
             imeAction = ImeAction.Next,
         ),
         modifier = Modifier.fillMaxWidth(),

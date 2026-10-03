@@ -303,6 +303,9 @@ private fun MainScaffold(
                         { navController.navigate(PassportGraph()) },
                         { navController.navigate(BookingImportRoute()) },
                         { navController.navigate(CompanionsRoute) },
+                        // 내 정보의 묵는 곳 목록에서 숙소 고치기 — 여행 id 없이 열어 그 숙소가 붙어 있던 여행을 그대로 둔다 (다듬기 S2)
+                        { stayId -> navController.navigate(StayEditRoute(stayId = stayId)) },
+                        { tripId -> navController.navigate(TripChecklistRoute(tripId)) },
                     )
                 }
                 navigation<PassportGraph>(startDestination = PassportIntroRoute) {
@@ -368,10 +371,21 @@ private fun MainScaffold(
 data class ScreenSlots(
     val home: @Composable (actions: HomeActions) -> Unit = { HomeScreen(actions = it) },
     val country: @Composable (country: String, actions: CountryActions) -> Unit = { _, a -> CountryScreen(actions = a) },
-    val wallet: @Composable (onAddPassport: () -> Unit, onAddBooking: () -> Unit, onOpenCompanions: () -> Unit) -> Unit =
-        { onAddPassport, onAddBooking, onOpenCompanions ->
-            WalletScreen(onAddPassport = onAddPassport, onAddBooking = onAddBooking, onOpenCompanions = onOpenCompanions)
-        },
+    val wallet: @Composable (
+        onAddPassport: () -> Unit,
+        onAddBooking: () -> Unit,
+        onOpenCompanions: () -> Unit,
+        onEditStay: (String) -> Unit,
+        onOpenTrip: (String) -> Unit,
+    ) -> Unit = { onAddPassport, onAddBooking, onOpenCompanions, onEditStay, onOpenTrip ->
+        WalletScreen(
+            onAddPassport = onAddPassport,
+            onAddBooking = onAddBooking,
+            onOpenCompanions = onOpenCompanions,
+            onEditStay = onEditStay,
+            onOpenTrip = onOpenTrip,
+        )
+    },
     val help: @Composable () -> Unit = { HelpScreen() },
     val trips: @Composable (onOpen: (String) -> Unit, onAdd: () -> Unit) -> Unit =
         { onOpen, onAdd -> TripListScreen(onOpen = onOpen, onAdd = onAdd) },

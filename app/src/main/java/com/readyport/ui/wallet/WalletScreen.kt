@@ -24,6 +24,7 @@ import androidx.compose.material.icons.outlined.FamilyRestroom
 import androidx.compose.material.icons.outlined.Flight
 import androidx.compose.material.icons.outlined.FlightLand
 import androidx.compose.material.icons.outlined.FlightTakeoff
+import androidx.compose.material.icons.outlined.Hotel
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.KeyOff
 import androidx.compose.material.icons.outlined.Lock
@@ -79,6 +80,7 @@ import com.readyport.ui.components.PrimaryButton
 import com.readyport.ui.components.QuietButton
 import com.readyport.ui.components.RowTrailing
 import com.readyport.ui.components.SecondaryButton
+import com.readyport.stay.StayGrouping
 import com.readyport.ui.components.SectionHeader
 import com.readyport.ui.components.SecurityBanner
 import com.readyport.ui.components.StatusKind
@@ -92,6 +94,8 @@ import com.readyport.ui.components.keepWords
 import com.readyport.ui.components.passportCardColors
 import com.readyport.ui.components.rememberGridColumns
 import com.readyport.ui.components.sectionGap
+import com.readyport.ui.stay.StayGroupCard
+import com.readyport.ui.stay.StayManageActions
 import com.readyport.ui.components.textIconSize
 import com.readyport.ui.theme.LocalDimens
 import com.readyport.ui.theme.Tokens
@@ -172,11 +176,15 @@ fun WalletScreen(
     onAddPassport: () -> Unit,
     onAddBooking: () -> Unit,
     onOpenCompanions: () -> Unit = {},
+    onEditStay: (String) -> Unit = {},
+    onOpenTrip: (String) -> Unit = {},
     viewModel: WalletViewModel = hiltViewModel(),
 ) {
     SecureScreen()
     val state by viewModel.state.collectAsStateWithLifecycle()
     val autoDestroy by viewModel.autoDestroy.collectAsStateWithLifecycle()
+    val stayGroups by viewModel.stayGroups.collectAsStateWithLifecycle()
+    val countryNames by viewModel.countryNames.collectAsStateWithLifecycle()
     val context = LocalContext.current
     val deviceSecure = remember { DeviceAuth.isAvailable(context) }
     val auth = rememberDeviceAuth()
@@ -195,6 +203,11 @@ fun WalletScreen(
         onDeleteBooking = viewModel::deleteBooking,
         onAutoDestroyChange = viewModel::setAutoDestroy,
         onOpenCompanions = onOpenCompanions,
+        stayGroups = stayGroups,
+        countryNames = countryNames,
+        onEditStay = onEditStay,
+        onDeleteStay = viewModel::deleteStay,
+        onOpenTrip = onOpenTrip,
     )
 }
 
@@ -202,8 +215,11 @@ fun WalletScreen(
  * 23 내 정보(잠김) / 24 내 정보(열림) (DESIGN_SPEC 6-23·24).
  * 맨 위 SecurityBanner(전체) — 이 정보가 휴대폰 밖으로 나가지 않는다는 약속. 되돌릴 수 없는 지우기는 모두
  * DangerButton + DestructiveConfirm(secure = true, 본문에 개인정보 없음 — D8).
- * 열린 화면 순서(다듬기 S3): 여권 카드 → 예약 서류 → 관리 줄(같이 가는 사람·여행이 끝나면 여권 정보 지우기) → 잠그기 →
- * (32dp) 지워지는 범위 한 줄 + 여권 정보 지우기 → (32dp) 곧 추가돼요.
+ * 열린 화면 순서(다듬기 S3 + S2): 여권 카드 → 예약 서류 → **묵는 곳(모든 여행)** → 관리 줄(같이 가는 사람·여행이 끝나면
+ * 여권 정보 지우기) → 잠그기 → (32dp) 지워지는 범위 한 줄 + 여권 정보 지우기 → (32dp) 곧 추가돼요.
+ *
+ * 묵는 곳 목록(다듬기 S2)은 **모든 여행의 숙소를 여행별로 모아 보는 곳**이다 — 숙소를 넣는 자리는 그 여행의 예약 단계이고
+ * (부록 H 한 길 규칙), 여기서는 찾고 고치고 지운다. 여행이 사라진 숙소(예전 예약 서류에서 옮겨 온 것)도 여기서만 보인다.
  */
 @Composable
 fun WalletContent(
@@ -220,11 +236,20 @@ fun WalletContent(
     onDeleteBooking: (String) -> Unit,
     onAutoDestroyChange: (Boolean) -> Unit,
     onOpenCompanions: () -> Unit = {},
+    /** 모든 여행의 숙소 — 여행별 묶음 (Stays.group) */
+    stayGroups: List<StayGrouping> = emptyList(),
+    /** 나라 코드 → 한국어 이름 (팩에서 — 화면에 나라 코드를 보이지 않게) */
+    countryNames: Map<String, String> = emptyMap(),
+    onEditStay: (String) -> Unit = {},
+    onDeleteStay: (String) -> Unit = {},
+    onOpenTrip: (String) -> Unit = {},
 ) {
     var confirmReset by remember { mutableStateOf(false) }
     var confirmPassportDelete by remember { mutableStateOf(false) }
     var pendingBookingDelete by remember { mutableStateOf<String?>(null) }
+    var pendingStayDelete by remember { mutableStateOf<String?>(null) }
     val unlocked = state as? WalletState.Unlocked
+    val stayActions = StayManageActions(edit = onEditStay, delete = { pendingStayDelete = it }, openTrip = onOpenTrip)
     AppScreen(
         title = stringResource(R.string.wallet_title),
         subtitle = stringResource(R.string.wallet_subtitle),
@@ -288,6 +313,22 @@ fun WalletContent(
                 }
                 item(key = "booking-add") {
                     SecondaryButton(stringResource(R.string.wallet_booking_add), onClick = onAddBooking, icon = Icons.Outlined.Add)
+                }
+                // 묵는 곳 (다듬기 S2): 모든 여행의 숙소를 여행별로. 넣는 자리는 그 여행의 예약 단계라 여기에 `숙소 추가`를 두지 않는다
+                sectionGap("stays-gap")
+                item(key = "stays-title") {
+                    SectionHeader(
+                        title = stringResource(R.string.wallet_stays_title),
+                        icon = Icons.Outlined.Hotel,
+                        subtitle = stringResource(
+                            if (stayGroups.isEmpty()) R.string.wallet_stays_empty else R.string.wallet_stays_lead,
+                        ),
+                    )
+                }
+                stayGroups.forEachIndexed { i, group ->
+                    item(key = "stay-group-${group.trip?.id ?: "none"}-$i") {
+                        StayGroupCard(group, group.trip?.let { countryNames[it.country] }, stayActions)
+                    }
                 }
             }
         }
@@ -375,6 +416,17 @@ fun WalletContent(
             confirmLabel = stringResource(R.string.wallet_booking_delete),
             onConfirm = { pendingBookingDelete = null; onDeleteBooking(id) },
             onDismiss = { pendingBookingDelete = null },
+            secure = true,
+        )
+    }
+    // 숙소 지우기도 되돌릴 수 없다 — 숙소 고치기 화면과 같은 확인 대화상자(본문에 개인정보 없음, D8)
+    pendingStayDelete?.let { id ->
+        DestructiveConfirm(
+            title = stringResource(R.string.stay_delete_confirm_title),
+            body = stringResource(R.string.stay_delete_confirm_body),
+            confirmLabel = stringResource(R.string.stay_delete_confirm),
+            onConfirm = { pendingStayDelete = null; onDeleteStay(id) },
+            onDismiss = { pendingStayDelete = null },
             secure = true,
         )
     }

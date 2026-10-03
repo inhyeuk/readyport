@@ -32,6 +32,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import com.readyport.R
 import com.readyport.stay.StayLinks
+import com.readyport.stay.StayGrouping
 import com.readyport.stay.StayNote
 import com.readyport.stay.StayNoteKind
 import com.readyport.stay.StayType
@@ -39,7 +40,9 @@ import com.readyport.stay.Stays
 import com.readyport.trip.Trip
 import com.readyport.ui.components.BadgeTone
 import com.readyport.ui.components.CardNewsCard
+import com.readyport.ui.components.ButtonPlacement
 import com.readyport.ui.components.ChecklistDivider
+import com.readyport.ui.components.DangerButton
 import com.readyport.ui.components.IconBadge
 import com.readyport.ui.components.IconBullet
 import com.readyport.ui.components.IconKeys
@@ -237,6 +240,109 @@ private fun StayLinkButtons(stay: StayRecord, actions: StayActions) {
                 modifier = Modifier.semantics { contentDescription = driverCd },
             )
         }
+    }
+}
+
+// ======================= 설정 › 내 정보의 묵는 곳 목록 (다듬기 S2) =======================
+
+/** 내 정보의 묵는 곳 목록에서 할 수 있는 일 — 넣는 곳은 그 여행의 예약 단계다(여기서는 찾고 정리만 한다) */
+data class StayManageActions(
+    /** 숙소 고치기 */
+    val edit: (String) -> Unit = {},
+    /** 숙소 지우기 (화면이 확인 대화상자를 띄운 뒤 부른다) */
+    val delete: (String) -> Unit = {},
+    /** 그 여행 화면 열기 — 숙소를 넣는 자리(예약 단계)로 가는 길 */
+    val openTrip: (String) -> Unit = {},
+)
+
+/**
+ * 한 여행의 숙소 묶음 카드. 제목은 그 여행(`태국 · 11월 3일 ~ 7일`), [group]의 여행이 없으면 `여행이 없는 숙소`.
+ * 줄마다 이름·날짜·주소와 `고치기`·`지우기`, 여행이 있으면 맨 아래 `이 여행 열기`(숙소를 넣는 자리로 — 부록 H 한 길 규칙).
+ * [countryName]은 팩에서 푼 나라 이름(모르면 날짜만 보인다 — 나라 코드를 화면에 보이지 않는다).
+ */
+@Composable
+fun StayGroupCard(group: StayGrouping, countryName: String?, actions: StayManageActions) {
+    val trip = group.trip
+    val dates = trip?.takeIf { it.datesValid }?.let { tripDateRange(it.start, it.end) }
+    val title = when {
+        trip == null -> stringResource(R.string.wallet_stays_no_trip)
+        countryName != null && dates != null -> stringResource(R.string.wallet_stay_group, countryName, dates)
+        countryName != null -> countryName
+        dates != null -> dates
+        else -> stringResource(R.string.wallet_stays_title)
+    }
+    CardNewsCard(
+        title = title,
+        icon = Icons.Outlined.Hotel,
+        eyebrow = stringResource(R.string.wallet_stay_count, group.stays.size),
+        body = if (trip == null) stringResource(R.string.wallet_stays_no_trip_body) else null,
+    ) {
+        group.stays.forEachIndexed { i, stay ->
+            if (i > 0) ChecklistDivider()
+            StayManageRow(stay, actions)
+        }
+        if (trip != null) {
+            val openName = stringResource(R.string.wallet_stays_open_trip_cd, title)
+            QuietButton(
+                stringResource(R.string.wallet_stays_open_trip),
+                onClick = { actions.openTrip(trip.id) },
+                icon = Icons.AutoMirrored.Outlined.NavigateNext,
+                modifier = Modifier.semantics { contentDescription = openName },
+            )
+        }
+    }
+}
+
+/** 내 정보 목록의 숙소 한 줄: 누르면 고치기 + 아래 `이 숙소 지우기`(되돌릴 수 없어 화면이 확인 대화상자를 띄운다) */
+@Composable
+private fun StayManageRow(stay: StayRecord, actions: StayManageActions) {
+    val dimens = LocalDimens.current
+    val dates = stayDatesLabel(stay, withType = true)
+    val address = stay.addressLocal.trim()
+    val addressShown = address.ifEmpty { stringResource(R.string.stay_address_none) }
+    val rowCd = stringResource(R.string.stay_row_cd, stay.name, dates, addressShown)
+    val editName = stringResource(R.string.stay_edit_target, stay.name)
+    val deleteName = stringResource(R.string.delete_named_cd, stay.name)
+    Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(dimens.inner)) {
+        Row(
+            Modifier
+                .fillMaxWidth()
+                .minTouch()
+                .clickable(role = Role.Button, onClickLabel = editName) { actions.edit(stay.id) }
+                .semantics(mergeDescendants = true) { contentDescription = rowCd }
+                .padding(vertical = 4.dp),
+            verticalAlignment = Alignment.Top,
+            horizontalArrangement = Arrangement.spacedBy(12.dp),
+        ) {
+            IconBadge(Icons.Outlined.Place, tone = BadgeTone.Neutral, size = dimens.iconBadgeSmall)
+            Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                KoText(stay.name, MaterialTheme.typography.titleMedium, color = Tokens.Ink, glueShort = true)
+                KoText(
+                    dates,
+                    MaterialTheme.typography.bodyMedium,
+                    color = Tokens.InkSecondary,
+                    display = koDisplay(keepMonthDay(dates), glueShort = true),
+                )
+                if (address.isEmpty()) {
+                    KoText(addressShown, MaterialTheme.typography.bodyMedium, color = Tokens.InkTertiary)
+                } else {
+                    Text(address, style = localText(MaterialTheme.typography.bodyMedium), color = Tokens.InkSecondary)
+                }
+            }
+            Icon(
+                Icons.AutoMirrored.Outlined.NavigateNext,
+                contentDescription = null,
+                tint = Tokens.InkTertiary,
+                modifier = Modifier.padding(top = 4.dp).size(dimens.icon),
+            )
+        }
+        // 되돌릴 수 없는 지우기는 예약 서류 카드와 같은 빨간 테두리 버튼 — 목록 항목이라 끝 정렬(D8·ItemAction)
+        DangerButton(
+            stringResource(R.string.wallet_booking_delete),
+            onClick = { actions.delete(stay.id) },
+            placement = ButtonPlacement.ItemAction,
+            contentDescription = deleteName,
+        )
     }
 }
 

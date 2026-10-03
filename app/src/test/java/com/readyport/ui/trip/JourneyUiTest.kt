@@ -350,7 +350,10 @@ class JourneyUiTest {
         }
         // 날짜가 올바르면 칸 아래에 요일까지 보인다 (D20)
         shown(s(R.string.trip_date_preview, 11, 3, "화"))
-        // 날짜 칸은 숫자만 적는다 (재검토 R18): 20261110 → 11월 10일 (화)
+        // 달력이 주 입력이고(다듬기 S2) 숫자로 적는 길도 그대로: `달력 대신 숫자로 적기` → 20261110 → 11월 10일 (화)
+        rule.onNodeWithContentDescription(s(R.string.date_pick_type_cd, s(R.string.trip_start))).performClick()
+        rule.mainClock.advanceTimeBy(1_000)
+        rule.waitForIdle()
         val startField = rule.onAllNodes(hasSetTextAction())[0]
         startField.performTextClearance()
         startField.performTextInput("20261110")
