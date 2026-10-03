@@ -90,12 +90,14 @@ object ChecklistReminders {
 
     /** 여행 하나: 알릴 것이 있으면 알림 하나, 없으면 null */
     fun reminderFor(trip: Trip, data: ChecklistData, today: LocalDate): Reminder? {
-        val current = Checklist.currentPhase(trip, today)
-        // 지금 단계까지의 안 한 항목만 — 뒤 단계는 알리지 않고, 아직 할 수 없는 항목(기간 전)도 뺀다.
-        // 내가 넣은 항목(phase == null, 사람이 쓴 글)은 알림에 담지 않는다
+        val current = Checklist.currentDue(trip, today)
+        // 지금 기한 칸까지의 안 한 항목만 — 뒤 칸은 알리지 않고, 아직 할 수 없는 항목(기간 전)도 뺀다.
+        // 내가 넣은 항목(due == null, 사람이 쓴 글)은 알림에 담지 않는다.
+        // 묶는 축(단계)이 바뀌어도 알리는 항목은 그대로다 — 알림은 기한 축만 본다
         val pending = data.items
-            .filter { it.phase != null && it.phase <= current && !it.checked && !it.locked(today) }
-            .sortedWith(compareBy({ !it.urgent }, { !it.overdue }))
+            .filter { it.due != null && it.due <= current && !it.checked && !it.locked(today) }
+            // 급한 것 → 늦은 것 → 기한이 이른 것. 기한으로 묶어 세우므로 **묶는 단계가 바뀌어도 차례가 흔들리지 않는다**
+            .sortedWith(compareBy({ !it.urgent }, { !it.overdue }, { it.due }))
         if (pending.isEmpty()) return null
         val titles = pending.map { it.title }
         val daysLeft = trip.start.toEpochDay() - today.toEpochDay()

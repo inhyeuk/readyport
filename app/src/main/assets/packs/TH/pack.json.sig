@@ -1,1 +1,1 @@
-{"kid": "rp-2026-1", "alg": "Ed25519", "sig": "PHhGJJMWepFt2UxS6XZFFZW5219+4rRhWyGRuv4E7niKJBE0LIDqvGmK1SPB9P9xh6TtQCd/Iw5wINO5d9YADw=="}
+{"kid": "rp-2026-1", "alg": "Ed25519", "sig": "yTL2H6qzXo7Y0omF4bsn8+hFSuygbqrChon+3bksPiuymoYxcisdBpjjMsF2g62HcVQHFoFNDQYyEgq9tswNDg=="}

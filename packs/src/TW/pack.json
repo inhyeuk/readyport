@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "country": "TW",
-  "version": "2026.10.03-1",
+  "version": "2026.10.03-2",
   "last_verified": "2026-10-02",
   "names": {
     "ko": "대만",
@@ -550,6 +550,7 @@
     {
       "id": "medicine_rx",
       "phase": "week",
+      "stage": "pack",
       "icon": "medicine",
       "title_ko": "약 성분·처방전 확인하기",
       "section": "basic",
@@ -558,6 +559,7 @@
     {
       "id": "cash_declare",
       "phase": "three_days",
+      "stage": "docs",
       "icon": "cash",
       "title_ko": "현금 신고 기준 알아 두기",
       "section": "payment",

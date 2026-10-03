@@ -47,13 +47,11 @@
 
     <!-- 09~14 내 여행 -->
     <string name="today_trip_dates">%1$s ~ %2$s</string>
-    <string name="today_arrival_qr_title">입국 심사 때 QR을 보여 주세요</string>
     <string name="trip_save_edit">저장하기</string>
     <string name="trip_nights">%1$d박 %2$d일</string>
     <string name="trip_delete_confirm_title">이 여행을 지울까요?</string>
 
     <!-- 15 준비 · 16 꼭 챙길 물건 -->
-    <string name="prepare_form_eyebrow">%1$s · 도착 전에 내요</string>
     <string name="essentials_have_yes">챙겼어요</string>
     <string name="essentials_have_no">아직이에요</string>
     <!-- 인자 순서 (done, total) — 기존 essentials_progress(total, done)와 반대 -->

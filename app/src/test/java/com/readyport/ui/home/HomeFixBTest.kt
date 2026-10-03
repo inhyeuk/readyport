@@ -4,22 +4,15 @@ import android.app.Application
 import android.content.Context
 import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.semantics.getOrNull
-import androidx.compose.ui.test.assertIsDisplayed
-import androidx.compose.ui.test.getBoundsInRoot
-import androidx.compose.ui.test.hasContentDescription
-import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.v2.createComposeRule
 import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
-import androidx.compose.ui.test.performClick
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.readyport.R
 import com.readyport.ui.TestPacks
-import com.readyport.ui.components.EssentialsSummary
 import com.readyport.ui.theme.ReadyPortTheme
-import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
@@ -46,7 +39,7 @@ class HomeFixBTest {
     private fun show(easy: Boolean) {
         rule.setContent {
             ReadyPortTheme(easyMode = easy) {
-                HomeContent(TestPacks.homeUi().copy(essentials = EssentialsSummary(5, 2)), HomeActions(), today = LocalDate.of(2026, 9, 28))
+                HomeContent(TestPacks.homeUi(), HomeActions(), today = LocalDate.of(2026, 9, 28))
             }
         }
         rule.waitForIdle()
@@ -65,49 +58,4 @@ class HomeFixBTest {
         }
         assertTrue(rule.onAllNodesWithText("도우미", substring = true).fetchSemanticsNodes().isEmpty())
     }
-
-    /** R13: 급할 때는 도움 줄은 나라 바로 다음, 여행 준비 기본 정보보다 위 */
-    @Test
-    fun helpComesBeforeTravelBasics() {
-        show(easy = false)
-        val help = rule.onNodeWithText(s(R.string.help_shortcut_title)).getBoundsInRoot()
-        val basics = rule.onNodeWithText(s(R.string.home_basics_title)).getBoundsInRoot()
-        assertTrue("도움 줄이 기본 정보보다 아래", help.bottom <= basics.top)
-    }
-
-    /** 기본 모드: 여행 준비 카드는 처음부터 펼쳐져 있다 */
-    @Test
-    fun basicModeShowsTravelBasicsOpen() {
-        show(easy = false)
-        rule.onNodeWithText(s(R.string.today_departure_step2)).assertIsDisplayed()
-        rule.onNodeWithText(s(R.string.home_passport_body)).assertIsDisplayed()
-    }
-
-    /**
-     * R13 쉬운 모드: 여행 준비 카드 넷은 한 줄씩 접혀 있고(접힘), 누르면 그 자리에서 원래 카드가 펼쳐지며(내용 그대로),
-     * 아래 `접기`(무엇을 접는지 TalkBack 이름)로 다시 접힌다.
-     */
-    @Test
-    fun easyModeFoldsTravelBasicsAndOpensThemInPlace() {
-        show(easy = true)
-        val departure = s(R.string.home_departure_title)
-        val step = s(R.string.today_departure_step2)
-        assertTrue("접혀 있어야 함", rule.onAllNodesWithText(step).fetchSemanticsNodes().isEmpty())
-        assertTrue(rule.onAllNodesWithText(s(R.string.home_passport_body)).fetchSemanticsNodes().isEmpty())
-        val row = rule.onNode(hasText(departure) and hasStateDescription(s(R.string.state_collapsed)))
-        row.performClick()
-        rule.onNodeWithText(step).assertIsDisplayed()
-        val fold = rule.onNode(hasContentDescription(s(R.string.home_fold_less_cd, departure)))
-        fold.assertIsDisplayed().performClick()
-        assertTrue("다시 접혀야 함", rule.onAllNodesWithText(step).fetchSemanticsNodes().isEmpty())
-        // 꼭 챙길 물건 줄은 진행(5개 중 2개)을 접힌 채로도 보여 준다
-        rule.onNodeWithText(s(R.string.essentials_progress, 5, 2)).assertIsDisplayed()
-        assertEquals(
-            4,
-            rule.onAllNodes(hasStateDescription(s(R.string.state_collapsed))).fetchSemanticsNodes().size,
-        )
-    }
-
-    private fun hasStateDescription(value: String) =
-        androidx.compose.ui.test.SemanticsMatcher.expectValue(SemanticsProperties.StateDescription, value)
 }

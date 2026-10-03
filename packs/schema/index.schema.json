@@ -281,6 +281,7 @@
             "pattern": "^[a-z0-9_.]+$"
           },
           "phase": {
+            "description": "기한 축(언제까지) — 기한·늦음·알림이 쓴다. 묶는 축은 stage",
             "enum": [
               "month",
               "week",
@@ -290,6 +291,19 @@
               "during",
               "before_return",
               "back"
+            ]
+          },
+          "stage": {
+            "description": "묶는 축(할 일의 종류 — 여행 과정 8단계). 화면이 항목을 이 값으로 묶는다. 없으면 앱이 phase 에서 옮겨 온다(예전 서명 팩)",
+            "enum": [
+              "plan",
+              "book",
+              "docs",
+              "pack",
+              "departure",
+              "arrival",
+              "during",
+              "return"
             ]
           },
           "icon": {

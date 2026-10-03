@@ -23,7 +23,6 @@
     <string name="entry_form_optional_open">미리 준비해 두기</string>
     <string name="country_form_optional_body">공식 안내가 내기를 권해요. 미리 내면 QR이 나오고, 입국 심사에서 기다리는 시간을 줄일 수 있어요. 앱이 칸을 대신 채워 주지는 않아요.</string>
     <!-- 여행 준비 탭: 태국 · 도착 전에 내요 와 같은 자리 -->
-    <string name="prepare_form_eyebrow_optional">%1$s · 내면 좋아요 (의무 아님)</string>
 
     <!-- 오늘 화면 -->
     <string name="airport_today_departure_title">도착하면 이 순서예요</string>

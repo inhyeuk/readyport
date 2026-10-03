@@ -5,23 +5,14 @@
 -->
 <resources>
     <!-- 15 귀국: 사진 머리 카드 + 한 줄 + 지금 할 일 (R14) -->
-    <string name="today_return_photo_title">%1$s 여행이 끝났어요</string>
-    <string name="today_fact_nights">%1$d박 %2$d일 여행</string>
-    <string name="today_fact_cart">담아 둔 물건 %1$d개</string>
-    <string name="today_return_task_cart">공항 가기 전에 담아 둔 물건의 한국 반입을 다시 확인해요</string>
-    <string name="today_return_task_cart_button">담아 둔 물건 보기</string>
-    <string name="today_return_task_rules">한국에 들어올 때 면세 한도와 반입 금지 품목을 확인해요</string>
-    <string name="today_return_task_rules_button">귀국 전 확인 보기</string>
     <!-- 여권 정보 지우기 제안: 버튼 이름에 무엇을 지우는지 (R18 TalkBack) -->
     <string name="today_destroy_now_target">여권 정보 지우기</string>
 
     <!-- 도착했어요를 잘못 눌렀을 때 되돌리기 (R18) -->
-    <string name="today_arrived_undo">도착 전이면 되돌리기</string>
 
     <!-- 16 정리: 축하 사진 카드 (R14·R19) -->
     <string name="today_wrapup_photo_title">%1$s 여행, 잘 다녀오셨어요</string>
     <string name="today_wrapup_photo_title_plain">여행 잘 다녀오셨어요</string>
-    <string name="today_wrapup_fact_country">다녀온 나라</string>
     <string name="today_wrapup_fact_cart">담아 온 물건</string>
     <string name="today_wrapup_fact_cart_value">%1$d개</string>
 

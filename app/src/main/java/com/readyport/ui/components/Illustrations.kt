@@ -344,4 +344,158 @@ object Illus {
             p("M54,9.6Q54.75,12.25 57.4,13Q54.75,13.75 54,16.4Q53.25,13.75 50.6,13Q53.25,12.25 54,9.6Z", fill = Tokens.Gold, stroke = Tokens.Help, width = 1.2f)
         }
     }
+
+    // ---------------- 여행 과정 8단계 (2026-10-03, 부록 H) ----------------
+    // 단계마다 한 장. `서류`는 입국·비자와 같은 일이라 [Entry]를, `여행 중`은 지도·핀 대신 사진기를 쓴다.
+    // 색 차례는 파랑 · 청록 · 파랑 · 보라 | 파랑 · 청록 · 주황 · 보라 — 이웃한 단계가 같은 색이 되지 않게.
+
+    /** 계획: 벽걸이 달력 + 금색으로 동그라미 친 날짜 (파랑) */
+    val Plan: ImageVector by lazy {
+        illus("illus_plan") {
+            p("M12,58.4A20,2.4 0 1 0 52,58.4A20,2.4 0 1 0 12,58.4Z", fill = Tokens.AccentDeep, fillAlpha = 0.14f)
+            p("M20,8V17", stroke = Tokens.AccentDeep, width = 2.6f)
+            p("M44,8V17", stroke = Tokens.AccentDeep, width = 2.6f)
+            p("M16,14H48A6,6 0 0 1 54,20V48A6,6 0 0 1 48,54H16A6,6 0 0 1 10,48V20A6,6 0 0 1 16,14Z", fill = Color.White, stroke = Tokens.AccentDeep, width = 2.4f)
+            p("M16,14H48A6,6 0 0 1 54,20V25H10V20A6,6 0 0 1 16,14Z", fill = Tokens.BrandBlue, stroke = Tokens.AccentDeep, width = 1.8f)
+            p("M15.9,33A2.1,2.1 0 1 0 20.1,33A2.1,2.1 0 1 0 15.9,33Z", fill = Tokens.IllusBlueMid)
+            p("M23.9,33A2.1,2.1 0 1 0 28.1,33A2.1,2.1 0 1 0 23.9,33Z", fill = Tokens.IllusBlueMid)
+            p("M31.9,33A2.1,2.1 0 1 0 36.1,33A2.1,2.1 0 1 0 31.9,33Z", fill = Tokens.IllusBlueMid)
+            p("M39.9,33A2.1,2.1 0 1 0 44.1,33A2.1,2.1 0 1 0 39.9,33Z", fill = Tokens.IllusBlueMid)
+            p("M47.9,33A2.1,2.1 0 1 0 52.1,33A2.1,2.1 0 1 0 47.9,33Z", fill = Tokens.IllusBlueMid)
+            p("M15.9,42A2.1,2.1 0 1 0 20.1,42A2.1,2.1 0 1 0 15.9,42Z", fill = Tokens.IllusBlueMid)
+            p("M23.9,42A2.1,2.1 0 1 0 28.1,42A2.1,2.1 0 1 0 23.9,42Z", fill = Tokens.IllusBlueMid)
+            p("M39.9,42A2.1,2.1 0 1 0 44.1,42A2.1,2.1 0 1 0 39.9,42Z", fill = Tokens.IllusBlueMid)
+            p("M47.9,42A2.1,2.1 0 1 0 52.1,42A2.1,2.1 0 1 0 47.9,42Z", fill = Tokens.IllusBlueMid)
+            p("M15.9,50A2.1,2.1 0 1 0 20.1,50A2.1,2.1 0 1 0 15.9,50Z", fill = Tokens.IllusBlueMid)
+            p("M23.9,50A2.1,2.1 0 1 0 28.1,50A2.1,2.1 0 1 0 23.9,50Z", fill = Tokens.IllusBlueMid)
+            p("M31.9,50A2.1,2.1 0 1 0 36.1,50A2.1,2.1 0 1 0 31.9,50Z", fill = Tokens.IllusBlueMid)
+            p("M27.6,42A6.4,6.4 0 1 0 40.4,42A6.4,6.4 0 1 0 27.6,42Z", stroke = Tokens.Gold, width = 2.3f)
+            p("M31.9,42A2.1,2.1 0 1 0 36.1,42A2.1,2.1 0 1 0 31.9,42Z", fill = Tokens.Gold)
+            p("M58,7.6Q58.7426,10.2574 61.4,11Q58.7426,11.7426 58,14.4Q57.2574,11.7426 54.6,11Q57.2574,10.2574 58,7.6Z", fill = Tokens.Gold, stroke = Tokens.AccentDeep, width = 1.2f)
+        }
+    }
+
+    /** 예약: 항공권 두 장(뒤 한 장) + 금색 절취선 쪽 + 작은 비행기 (청록) */
+    val Book: ImageVector by lazy {
+        illus("illus_book") {
+            p("M11,58.4A21,2.4 0 1 0 53,58.4A21,2.4 0 1 0 11,58.4Z", fill = Tokens.TealText, fillAlpha = 0.14f)
+            group(rotate = -10f, pivotX = 32f, pivotY = 26f, translationX = 0f, translationY = 0f, scale = 1f) {
+                p("M15,16H49A4,4 0 0 1 53,20V28A4,4 0 0 1 49,32H15A4,4 0 0 1 11,28V20A4,4 0 0 1 15,16Z", fill = Tokens.IllusTealMid, stroke = Tokens.TealText, width = 2.2f)
+                p("M19,24L35,24", stroke = Tokens.TealText, width = 1.8f, strokeAlpha = 0.4f)
+            }
+            p("M13,30H51A5,5 0 0 1 56,35V46A5,5 0 0 1 51,51H13A5,5 0 0 1 8,46V35A5,5 0 0 1 13,30Z", fill = Color.White, stroke = Tokens.TealText, width = 2.4f)
+            p("M42,30H51A5,5 0 0 1 56,35V46A5,5 0 0 1 51,51H42Z", fill = Tokens.Gold, stroke = Tokens.TealText, width = 2.2f)
+            p("M42,32.5V35.9", stroke = Tokens.TealText, width = 1.4f, strokeAlpha = 0.55f)
+            p("M42,38V41.4", stroke = Tokens.TealText, width = 1.4f, strokeAlpha = 0.55f)
+            p("M42,43.5V46.9", stroke = Tokens.TealText, width = 1.4f, strokeAlpha = 0.55f)
+            p("M46.8,40.5A2.2,2.2 0 1 0 51.2,40.5A2.2,2.2 0 1 0 46.8,40.5Z", fill = Color.White, stroke = Tokens.TealText, width = 1.3f)
+            p("M14,44.5L33,44.5", stroke = Tokens.IllusTealMid, width = 2.4f)
+            p("M14,48L26,48", stroke = Tokens.IllusTealMid, width = 2.2f, strokeAlpha = 0.8f)
+            group(rotate = -12f, pivotX = 0f, pivotY = 0f, translationX = 23f, translationY = 37f, scale = 0.95f) {
+                p("M9.6,0Q9.6,1.6 6.4,1.6L2.6,1.6L-2.2,8.2L-4.6,8.2L-2.4,1.6L-6.2,1.6L-8.2,4.4L-9.8,4.4L-8.8,0L-9.8,-4.4L-8.2,-4.4L-6.2,-1.6L-2.4,-1.6L-4.6,-8.2L-2.2,-8.2L2.6,-1.6L6.4,-1.6Q9.6,-1.6 9.6,0Z", fill = Tokens.IllusTeal, stroke = Tokens.TealText, width = 2f)
+            }
+            p("M8,8.8Q8.69888,11.3011 11.2,12Q8.69888,12.6989 8,15.2Q7.30112,12.6989 4.8,12Q7.30112,11.3011 8,8.8Z", fill = Tokens.Gold, stroke = Tokens.TealText, width = 1.2f)
+        }
+    }
+
+    /** 짐: 여행 가방 + 금색 이름표 (보라) */
+    val Pack: ImageVector by lazy {
+        illus("illus_pack") {
+            p("M10,58.6A21,2.4 0 1 0 52,58.6A21,2.4 0 1 0 10,58.6Z", fill = Tokens.VioletText, fillAlpha = 0.14f)
+            p("M24,22V17Q24,14.4 26.6,14.4H35.4Q38,14.4 38,17V22", stroke = Tokens.VioletText, width = 2.6f)
+            p("M16,21H42A7,7 0 0 1 49,28V47A7,7 0 0 1 42,54H16A7,7 0 0 1 9,47V28A7,7 0 0 1 16,21Z", fill = Tokens.IllusViolet, stroke = Tokens.VioletText, width = 2.4f)
+            p("M40,22.2H42A5.8,5.8 0 0 1 47.8,28V47A5.8,5.8 0 0 1 42,52.8H40Z", fill = Tokens.VioletText, fillAlpha = 0.18f)
+            p("M18,21.8V53.2", stroke = Tokens.VioletText, width = 1.8f, strokeAlpha = 0.5f)
+            p("M40,21.8V53.2", stroke = Tokens.VioletText, width = 1.8f, strokeAlpha = 0.5f)
+            p("M24,33H34A2.6,2.6 0 0 1 36.6,35.6V40A2.6,2.6 0 0 1 34,42.6H24A2.6,2.6 0 0 1 21.4,40V35.6A2.6,2.6 0 0 1 24,33Z", fill = Color.White)
+            p("M25.6,36.4L32.4,36.4", stroke = Tokens.IllusVioletMid, width = 2f)
+            p("M25.6,39.6L30,39.6", stroke = Tokens.IllusVioletMid, width = 2f)
+            p("M13.8,56.6A2.2,2.2 0 1 0 18.2,56.6A2.2,2.2 0 1 0 13.8,56.6Z", fill = Tokens.VioletText)
+            p("M39.8,56.6A2.2,2.2 0 1 0 44.2,56.6A2.2,2.2 0 1 0 39.8,56.6Z", fill = Tokens.VioletText)
+            p("M38,18.6L44.5,22.4", stroke = Tokens.VioletText, width = 1.6f)
+            group(rotate = 16f, pivotX = 50f, pivotY = 29f, translationX = 0f, translationY = 0f, scale = 1f) {
+                p("M45.6,22.6H54.4A2.4,2.4 0 0 1 56.8,25V33.4A2.4,2.4 0 0 1 54.4,35.8H45.6A2.4,2.4 0 0 1 43.2,33.4V25A2.4,2.4 0 0 1 45.6,22.6Z", fill = Tokens.Gold, stroke = Tokens.VioletText, width = 2f)
+                p("M46.8,27.6L53.2,27.6", stroke = Tokens.VioletText, width = 1.4f, strokeAlpha = 0.55f)
+                p("M46.8,31L51,31", stroke = Tokens.VioletText, width = 1.4f, strokeAlpha = 0.55f)
+            }
+            p("M8,9.6Q8.74256,12.2574 11.4,13Q8.74256,13.7426 8,16.4Q7.25744,13.7426 4.6,13Q7.25744,12.2574 8,9.6Z", fill = Tokens.Gold, stroke = Tokens.VioletText, width = 1.2f)
+        }
+    }
+
+    /** 출국: 이륙하는 비행기 + 활주로 + 구름 (파랑) */
+    val Departure: ImageVector by lazy {
+        illus("illus_departure") {
+            p("M10,58.6A22,2.4 0 1 0 54,58.6A22,2.4 0 1 0 10,58.6Z", fill = Tokens.AccentDeep, fillAlpha = 0.14f)
+            p("M7,52.5L57,52.5", stroke = Tokens.AccentDeep, width = 2.6f)
+            p("M14,47.5L22,47.5", stroke = Tokens.IllusBlueMid, width = 2.4f)
+            p("M27,47.5L35,47.5", stroke = Tokens.IllusBlueMid, width = 2.4f)
+            p("M40,47.5L48,47.5", stroke = Tokens.IllusBlueMid, width = 2.4f)
+            p("M10,20.5Q10,16.5 14,16.5Q15.6,12.9 20,13.8Q22.8,11.1 25,14.8Q28.3,15.2 27.9,19.2Q27.4,22 24.3,22H13Q10,22 10,20.5Z", fill = Tokens.IllusBlueMid, fillAlpha = 0.8f)
+            group(rotate = -26f, pivotX = 0f, pivotY = 0f, translationX = 36f, translationY = 29f, scale = 1.75f) {
+                p("M9.6,0Q9.6,1.6 6.4,1.6L2.6,1.6L-2.2,8.2L-4.6,8.2L-2.4,1.6L-6.2,1.6L-8.2,4.4L-9.8,4.4L-8.8,0L-9.8,-4.4L-8.2,-4.4L-6.2,-1.6L-2.4,-1.6L-4.6,-8.2L-2.2,-8.2L2.6,-1.6L6.4,-1.6Q9.6,-1.6 9.6,0Z", fill = Color.White, stroke = Tokens.AccentDeep, width = 1.4f)
+                p("M2.4,-0.9L6.4,-0.9", stroke = Tokens.BrandBlue, width = 1.1f)
+            }
+            p("M14,38.5A2,2 0 1 0 18,38.5A2,2 0 1 0 14,38.5Z", fill = Tokens.BrandBlue, fillAlpha = 0.45f)
+            p("M9.1,42.5A1.5,1.5 0 1 0 12.1,42.5A1.5,1.5 0 1 0 9.1,42.5Z", fill = Tokens.BrandBlue, fillAlpha = 0.3f)
+            p("M55,9.6Q55.7426,12.2574 58.4,13Q55.7426,13.7426 55,16.4Q54.2574,13.7426 51.6,13Q54.2574,12.2574 55,9.6Z", fill = Tokens.Gold, stroke = Tokens.AccentDeep, width = 1.2f)
+        }
+    }
+
+    /** 입국: 내려오는 비행기 + 공항 터미널 + 입국 심사 줄 (청록) */
+    val Arrival: ImageVector by lazy {
+        illus("illus_arrival") {
+            p("M10,58.6A22,2.4 0 1 0 54,58.6A22,2.4 0 1 0 10,58.6Z", fill = Tokens.TealText, fillAlpha = 0.14f)
+            p("M9,52.5H55", stroke = Tokens.TealText, width = 2.6f)
+            p("M13,52.5V36H51V52.5Z", fill = Tokens.IllusTealMid, stroke = Tokens.TealText, width = 2.4f)
+            p("M43,36H51V52.5H43Z", fill = Tokens.TealText, fillAlpha = 0.12f)
+            p("M8,36H56A1.6,1.6 0 0 1 56,39.2H8A1.6,1.6 0 0 1 8,36Z", fill = Tokens.IllusTeal, stroke = Tokens.TealText, width = 2f)
+            p("M17,43H24A1.8,1.8 0 0 1 25.8,44.8V47.4A1.8,1.8 0 0 1 24,49.2H17A1.8,1.8 0 0 1 15.2,47.4V44.8A1.8,1.8 0 0 1 17,43Z", fill = Color.White)
+            p("M40,43H47A1.8,1.8 0 0 1 48.8,44.8V47.4A1.8,1.8 0 0 1 47,49.2H40A1.8,1.8 0 0 1 38.2,47.4V44.8A1.8,1.8 0 0 1 40,43Z", fill = Color.White)
+            p("M28,52.5V45.6A4,4 0 0 1 36,45.6V52.5Z", fill = Color.White, stroke = Tokens.TealText, width = 2f)
+            p("M32,45.2V52.5", stroke = Tokens.TealText, width = 1.4f, strokeAlpha = 0.5f)
+            p("M26.4,30.4H37.6A2.4,2.4 0 0 1 37.6,35.2H26.4A2.4,2.4 0 0 1 26.4,30.4Z", fill = Tokens.Gold, stroke = Tokens.TealText, width = 1.8f)
+            p("M29.4,32.8L31.6,32.8M33.4,32.8L35.4,32.8", stroke = Tokens.TealText, width = 1.5f, strokeAlpha = 0.5f)
+            group(rotate = 26f, pivotX = 0f, pivotY = 0f, translationX = 48f, translationY = 13f, scale = 1.2f) {
+                p("M9.6,0Q9.6,1.6 6.4,1.6L2.6,1.6L-2.2,8.2L-4.6,8.2L-2.4,1.6L-6.2,1.6L-8.2,4.4L-9.8,4.4L-8.8,0L-9.8,-4.4L-8.2,-4.4L-6.2,-1.6L-2.4,-1.6L-4.6,-8.2L-2.2,-8.2L2.6,-1.6L6.4,-1.6Q9.6,-1.6 9.6,0Z", fill = Color.White, stroke = Tokens.TealText, width = 1.5f)
+                p("M2.4,-0.9L6.4,-0.9", stroke = Tokens.IllusTeal, width = 1.2f)
+            }
+            p("M11.2,11A1.8,1.8 0 1 0 14.8,11A1.8,1.8 0 1 0 11.2,11Z", fill = Tokens.IllusTeal, fillAlpha = 0.45f)
+            p("M17.3,15.4A1.3,1.3 0 1 0 19.9,15.4A1.3,1.3 0 1 0 17.3,15.4Z", fill = Tokens.IllusTeal, fillAlpha = 0.3f)
+            p("M8,21.8Q8.69888,24.3011 11.2,25Q8.69888,25.6989 8,28.2Q7.30112,25.6989 4.8,25Q7.30112,24.3011 8,21.8Z", fill = Tokens.Gold, stroke = Tokens.TealText, width = 1.2f)
+        }
+    }
+
+    /** 여행 중: 사진기 + 금색 셔터 (따뜻한 주황) */
+    val During: ImageVector by lazy {
+        illus("illus_during") {
+            p("M11,58.6A21,2.4 0 1 0 53,58.6A21,2.4 0 1 0 11,58.6Z", fill = Tokens.Help, fillAlpha = 0.14f)
+            p("M25,25V21.4Q25,18.4 28,18.4H36Q39,18.4 39,21.4V25", fill = Tokens.IllusWarmMid, stroke = Tokens.Help, width = 2.2f)
+            p("M13,25H51A6,6 0 0 1 57,31V48A6,6 0 0 1 51,54H13A6,6 0 0 1 7,48V31A6,6 0 0 1 13,25Z", fill = Tokens.IllusWarm, stroke = Tokens.Help, width = 2.4f)
+            p("M45,26.2H51A4.8,4.8 0 0 1 55.8,31V48A4.8,4.8 0 0 1 51,52.8H45Z", fill = Tokens.Help, fillAlpha = 0.16f)
+            p("M21,39.5A11,11 0 1 0 43,39.5A11,11 0 1 0 21,39.5Z", fill = Color.White, stroke = Tokens.Help, width = 2.4f)
+            p("M25.6,39.5A6.4,6.4 0 1 0 38.4,39.5A6.4,6.4 0 1 0 25.6,39.5Z", fill = Tokens.IllusWarmMid, stroke = Tokens.Help, width = 1.8f)
+            p("M27.8,35.6Q29.6,33.4 32.6,33.2", stroke = Color.White, width = 1.8f, strokeAlpha = 0.9f)
+            p("M45.4,31A2.6,2.6 0 1 0 50.6,31A2.6,2.6 0 1 0 45.4,31Z", fill = Tokens.Gold, stroke = Tokens.Help, width = 1.4f)
+            p("M13,31H19A1.6,1.6 0 0 1 20.6,32.6V33.4A1.6,1.6 0 0 1 19,35H13A1.6,1.6 0 0 1 11.4,33.4V32.6A1.6,1.6 0 0 1 13,31Z", fill = Tokens.Help, fillAlpha = 0.3f)
+            p("M54.5,9.1Q55.2426,11.7574 57.9,12.5Q55.2426,13.2426 54.5,15.9Q53.7574,13.2426 51.1,12.5Q53.7574,11.7574 54.5,9.1Z", fill = Tokens.Gold, stroke = Tokens.Help, width = 1.2f)
+            p("M10.5,12.6Q11.0242,14.4758 12.9,15Q11.0242,15.5242 10.5,17.4Q9.97584,15.5242 8.1,15Q9.97584,14.4758 10.5,12.6Z", fill = Tokens.IllusWarmMid, stroke = Tokens.Help, width = 1f)
+        }
+    }
+
+    /** 복귀: 우리 집 + 돌아오는 비행기 (보라) */
+    val Return: ImageVector by lazy {
+        illus("illus_return") {
+            p("M11,58.6A21,2.4 0 1 0 53,58.6A21,2.4 0 1 0 11,58.6Z", fill = Tokens.VioletText, fillAlpha = 0.14f)
+            p("M16,32L32,19.6L48,32V50A4,4 0 0 1 44,54H20A4,4 0 0 1 16,50Z", fill = Color.White, stroke = Tokens.VioletText, width = 2.4f)
+            p("M32,15.6L56,34.4H8Z", fill = Tokens.IllusViolet, stroke = Tokens.VioletText, width = 2.4f)
+            p("M44,28.6L56,34.4H44Z", fill = Tokens.VioletText, fillAlpha = 0.18f)
+            p("M26.4,54V43.6A5.6,5.6 0 0 1 37.6,43.6V54Z", fill = Tokens.IllusVioletMid, stroke = Tokens.VioletText, width = 2f)
+            p("M28.4,39A3.6,3.6 0 1 0 35.6,39A3.6,3.6 0 1 0 28.4,39Z", fill = Tokens.Gold, stroke = Tokens.VioletText, width = 1.8f)
+            group(rotate = 30f, pivotX = 0f, pivotY = 0f, translationX = 47.5f, translationY = 9.5f, scale = 0.88f) {
+                p("M9.6,0Q9.6,1.6 6.4,1.6L2.6,1.6L-2.2,8.2L-4.6,8.2L-2.4,1.6L-6.2,1.6L-8.2,4.4L-9.8,4.4L-8.8,0L-9.8,-4.4L-8.2,-4.4L-6.2,-1.6L-2.4,-1.6L-4.6,-8.2L-2.2,-8.2L2.6,-1.6L6.4,-1.6Q9.6,-1.6 9.6,0Z", fill = Color.White, stroke = Tokens.VioletText, width = 1.7f)
+            }
+            p("M58.9,3.6A1.5,1.5 0 1 0 61.9,3.6A1.5,1.5 0 1 0 58.9,3.6Z", fill = Tokens.IllusViolet, fillAlpha = 0.4f)
+            p("M8.5,40.8Q9.19888,43.3011 11.7,44Q9.19888,44.6989 8.5,47.2Q7.80112,44.6989 5.3,44Q7.80112,43.3011 8.5,40.8Z", fill = Tokens.Gold, stroke = Tokens.VioletText, width = 1.2f)
+        }
+    }
 }

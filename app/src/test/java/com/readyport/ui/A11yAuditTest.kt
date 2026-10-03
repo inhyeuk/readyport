@@ -28,7 +28,7 @@ import java.io.File
  *  ② TalkBack이 읽을 이름(글자 또는 설명)이 있다.
  * 같은 루프에서 화면 글자에 내부 ID(`tat_chanthaburi`)나 `출처 출처`가 보이지 않는지도 본다 (DESIGN_SPEC 4.5).
  * 글자 폭을 실제로 재도록 NATIVE 그래픽(LEGACY는 글자 하나를 1px로 재서 줄바꿈·화면 길이가 실제와 다르다)으로 돌린다.
- * 화면을 아주 길게 잡아(h8000dp·글자 200%는 h18000dp) 목록 항목이 모두 그려지게 하고,
+ * 화면을 아주 길게 잡아(h13000dp·글자 200%는 h18000dp) 목록 항목이 모두 그려지게 하고,
  * ③ 그래도 스크롤이 남으면(= 아래쪽 항목이 그려지지 않아 점검에서 빠짐) 실패한다.
  *
  * 터치 영역(①)은 touchBoundsInRoot — 테마가 쉬운 모드에서 ViewConfiguration.minimumTouchTargetSize를 56dp로 주므로
@@ -190,7 +190,7 @@ private operator fun <T> androidx.compose.runtime.MutableState<T>.setValue(thisO
 
 @RunWith(AndroidJUnit4::class)
 @GraphicsMode(GraphicsMode.Mode.NATIVE)
-@Config(application = android.app.Application::class, sdk = [36], qualifiers = "ko-rKR-w393dp-h8000dp")
+@Config(application = android.app.Application::class, sdk = [36], qualifiers = "ko-rKR-w393dp-h13000dp")
 class A11yAuditTest : A11yAuditBase() {
     @Test fun normalMode() = audit(easyMode = false)
     @Test fun easyMode() = audit(easyMode = true)
@@ -222,7 +222,7 @@ class A11yAuditSdk31Test : A11yAuditBase() {
  */
 @RunWith(AndroidJUnit4::class)
 @GraphicsMode(GraphicsMode.Mode.NATIVE)
-@Config(application = android.app.Application::class, sdk = [36], qualifiers = "ko-rKR-w360dp-h8000dp")
+@Config(application = android.app.Application::class, sdk = [36], qualifiers = "ko-rKR-w360dp-h13000dp")
 class A11yAudit360Test : A11yAuditBase() {
     @Test fun normalMode() = audit(easyMode = false)
     @Test fun easyMode() = audit(easyMode = true)
@@ -243,7 +243,7 @@ class A11yAudit360Sdk31Test : A11yAuditBase() {
  */
 @RunWith(AndroidJUnit4::class)
 @GraphicsMode(GraphicsMode.Mode.NATIVE)
-@Config(application = android.app.Application::class, sdk = [36], qualifiers = "en-rUS-w393dp-h8000dp")
+@Config(application = android.app.Application::class, sdk = [36], qualifiers = "en-rUS-w393dp-h13000dp")
 class A11yAuditEnglishTest : A11yAuditBase() {
     @Test fun normalMode() = audit(easyMode = false)
     @Test fun easyMode() = audit(easyMode = true)

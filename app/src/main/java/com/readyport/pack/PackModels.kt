@@ -34,7 +34,13 @@ data class PackIndex(
 @Serializable
 data class ChecklistTemplateItem(
     val id: String,
+    /** 기한 축(언제까지) — `com.readyport.trip.DueWindow`. 기한·늦음·알림만 쓴다 */
     val phase: String,
+    /**
+     * 묶는 축(할 일의 종류) — `com.readyport.trip.JourneyStage`. 화면이 항목을 이 값으로 묶는다.
+     * 없으면(예전 서명 팩) [phase]에서 옮겨 온다(`JourneyStage.ofLegacy`).
+     */
+    val stage: String? = null,
     val icon: String,
     val kind: String,
     @SerialName("title_ko") val titleKo: String? = null,
@@ -237,7 +243,10 @@ data class AirportStep(
 @Serializable
 data class CountryChecklistItem(
     val id: String,
+    /** 기한 축(언제까지) — `com.readyport.trip.DueWindow` */
     val phase: String,
+    /** 묶는 축(할 일의 종류) — `com.readyport.trip.JourneyStage`. 없으면 [phase]에서 옮겨 온다 */
+    val stage: String? = null,
     val icon: String,
     @SerialName("title_ko") val titleKo: String,
     val section: String,

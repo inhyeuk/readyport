@@ -19,9 +19,7 @@ import com.readyport.doc.mrz.MrzParser
 import com.readyport.pack.EssentialRule
 import com.readyport.prep.Essentials
 import com.readyport.transport.Place
-import com.readyport.trip.StageInfo
 import com.readyport.trip.Trip
-import com.readyport.trip.TripStage
 import com.readyport.ui.components.essentialsSummary
 import com.readyport.ui.components.loadPhotoCredits
 import com.readyport.ui.country.CountryActions
@@ -34,7 +32,6 @@ import com.readyport.ui.form.FormContext
 import com.readyport.ui.form.ManualModeContent
 import com.readyport.ui.home.HomeActions
 import com.readyport.ui.home.HomeContent
-import com.readyport.ui.home.HomeTrip
 import com.readyport.ui.onboarding.FirstRunScreen
 import com.readyport.ui.pack.HelpContent
 import com.readyport.ui.pack.ShoppingContent
@@ -49,24 +46,25 @@ import com.readyport.ui.present.PresentUi
 import com.readyport.ui.present.Traveler
 import com.readyport.ui.settings.PhotoCreditsContent
 import com.readyport.ui.settings.SettingsScreen
-import com.readyport.ui.tabs.PrepareContent
 import com.readyport.ui.theme.LocalDimens
-import com.readyport.ui.today.TodayActions
-import com.readyport.ui.today.TodayContent
-import com.readyport.ui.today.TodayUi
 import com.readyport.ui.transport.RideAppRow
 import com.readyport.ui.transport.TransportContent
 import com.readyport.ui.transport.TransportUi
+import com.readyport.trip.ChecklistData
+import com.readyport.trip.JourneyStage
+import com.readyport.trip.StageInfo
+import com.readyport.trip.TripStage
+import com.readyport.trip.TripStages
+import com.readyport.ui.home.HomeTrip
 import com.readyport.ui.trip.ChecklistActions
-import com.readyport.ui.trip.ChecklistUi
-import com.readyport.ui.trip.TripChecklistContent
+import com.readyport.ui.trip.JourneyUi
+import com.readyport.ui.trip.TripJourneyContent
 import com.readyport.ui.trip.TripContent
 import com.readyport.ui.trip.TripFormUi
 import com.readyport.ui.trip.TripListContent
 import com.readyport.ui.trip.TripListUi
 import com.readyport.ui.trip.TripRow
 import com.readyport.trip.Checklist
-import com.readyport.trip.ChecklistPhase
 import com.readyport.trip.CustomItem
 import com.readyport.trip.PassportValidity
 import com.readyport.trip.TripChecks
@@ -119,11 +117,13 @@ object Gallery {
 
     /** 중국 여행 출발 당일: 앞 단계는 감기약 성분 확인 하나만 남김(늦음), 입국 카드 안 냄(급함), 여권 기준은 공식 안내에 없음 */
     private val ckCn = Trip("CN", "2026-10-30", "2026-11-03", id = "g-cn")
-    private val ckCnData: com.readyport.trip.ChecklistData
+    private val ckCnData: ChecklistData
         get() {
             val today = ckCn.start
             val first = checklist(ckCn, today, TripChecks())
-            val before = first.items.filter { it.phase!! < ChecklistPhase.DepartureDay && it.id != "country.medicine_cold" && it.id != "entry_form" }
+            val before = first.items.filter {
+                it.stage!! < JourneyStage.Departure && it.id != "country.medicine_cold" && it.id != "entry_form"
+            }
             return checklist(
                 ckCn, today,
                 TripChecks(
@@ -133,6 +133,49 @@ object Gallery {
                 ),
             )
         }
+
+    /** 한 여행 화면 값 한 벌 — 운영 JourneyViewModel과 같은 계산(단계·공항·쇼핑·귀국 사실) */
+    private fun journeyUi(
+        t: Trip,
+        today: LocalDate,
+        data: ChecklistData,
+        cart: List<com.readyport.pack.ShoppingItem> = emptyList(),
+        nowHour: Int = 7,
+        muted: Boolean = false,
+        overlaps: Boolean = false,
+    ): JourneyUi {
+        val pack = packOf(t.country)
+        val form = pack.requiredForms.firstOrNull()
+        return JourneyUi(
+            loaded = true,
+            trip = t,
+            countryName = pack.names.ko,
+            data = data,
+            today = today,
+            overlaps = overlaps,
+            muted = muted,
+            nowHour = nowHour,
+            stage = TripStages.compute(t, today, today.atTime(10, 0).atZone(java.time.ZoneId.systemDefault()).toInstant().toEpochMilli(), form?.windowDaysIncludingArrival),
+            form = form,
+            cart = cart,
+            returnLinks = index.returnLinks,
+            returnFacts = index.returnFacts,
+            indexSources = indexSources,
+            sourceNames = pack.sources.associate { it.id to it.name },
+            airport = pack.airport(t.arrivalAirport) ?: pack.airports.singleOrNull(),
+            hasAirports = pack.airports.isNotEmpty(),
+            hasShopping = pack.shopping.isNotEmpty(),
+            essentialsTotal = 5,
+            essentialsDone = 2,
+        )
+    }
+
+    /** 그 단계가 '지금 단계'가 되도록 앞 단계를 모두 체크한 체크리스트 (떠나기 전 단계는 한 일로 나아간다) */
+    private fun through(t: Trip, today: LocalDate, upTo: JourneyStage, extra: TripChecks = TripChecks()): ChecklistData {
+        val first = checklist(t, today, extra)
+        val marks = first.items.filter { it.stage!! < upTo }.associate { it.id to true }
+        return checklist(t, today, extra.copy(marks = extra.marks + marks))
+    }
 
     private fun row(t: Trip, timing: TripTiming, name: String, today: LocalDate, checks: TripChecks = TripChecks(), overlaps: Boolean = false): TripRow {
         val data = checklist(t, today, checks)
@@ -184,12 +227,14 @@ object Gallery {
         "first-run" to { FirstRunScreen {} },
         // 준비물 진행 줄(2 / 5)까지 보이게 (BUNDLE_A_NOTES 요청 7)
         // 꼭 챙길 물건 값 칩(기내 반입만 보조배터리)·진행 2 / 5 — 운영 ViewModel과 같은 계산(essentialsSummary)
-        "home" to { HomeContent(TestPacks.homeUi().copy(essentials = essentialsSummary(index, null, gotItems)), HomeActions(), today = LocalDate.of(2026, 9, 28)) },
-        "home-with-trip" to {
+        // 둘러보기: 여행이 없으면 `여행 만들기` 하나 — 여행 흐름 조각(출국 순서·꼭 챙길 물건·귀국 전 확인·여권)은 내 여행 탭으로 옮겼다
+        "explore" to { HomeContent(TestPacks.homeUi(), HomeActions(), today = LocalDate.of(2026, 9, 28)) },
+        // 둘러보기(여행이 있을 때): 그 여행으로 가는 한 줄 + 나라 고르기
+        "explore-with-trip" to {
             HomeContent(
                 TestPacks.homeUi().copy(
-                    trip = HomeTrip("태국", LocalDate.of(2026, 11, 3), LocalDate.of(2026, 11, 7), code = "TH"),
-                    essentials = essentialsSummary(index, th.value, gotItems),
+                    trip = HomeTrip("태국", LocalDate.of(2026, 11, 3), LocalDate.of(2026, 11, 7), code = "TH", id = "g-th",
+                        checklistDone = 12, checklistTotal = 28, tripCount = 3),
                 ),
                 HomeActions(), today = LocalDate.of(2026, 10, 31),
             )
@@ -220,53 +265,46 @@ object Gallery {
             }
         },
         "videos-offline" to { VideosContent("태국", VideosState.Unavailable, {}) },
-        "today-none" to { TodayContent(TodayUi(), TodayActions(), {}, {}, {}, {}, {}) },
-        "today-preparing" to {
-            TodayContent(TodayUi(trip, StageInfo(TripStage.Preparing, daysLeft = 3, formWindowOpen = true), "태국", th.value.forms.first(), true),
-                TodayActions(), {}, {}, {}, {}, {})
+        // ---- 한 여행 화면(여행 과정 8단계, 2026-10-03 부록 H) ----
+        // 계획 단계: 아무것도 안 한 새 여행 — 단계 막대 첫 칸이 `지금`, 계획 단계에 나라 안내·날짜 고치기 모자이크
+        "trip-plan" to {
+            TripJourneyContent(journeyUi(ckTh, ckThToday, checklist(ckTh, ckThToday, TripChecks())), ChecklistActions())
         },
-        // 출국일 + 도착 공항(수완나품)을 골라 둔 여행 — `도착하면 이 순서예요` 짧은 공항 카드
-        "today-departure" to {
-            TodayContent(
-                TodayUi(trip, StageInfo(TripStage.Departure, dayOfTrip = 1), "태국", th.value.forms.first(), true,
-                    indexSources = indexSources, sourceNames = thSources, airport = th.value.airport("BKK"), hasAirports = true),
-                TodayActions(), {}, {}, {}, {}, {},
+        // 예약 단계: 계획을 다 했다 — 예약 서류 가져오기 카드(예약의 집)
+        "trip-book" to {
+            TripJourneyContent(journeyUi(ckTh, ckThToday, through(ckTh, ckThToday, JourneyStage.Book)), ChecklistActions())
+        },
+        // 서류 단계: 입국 카드(11월 1일부터)·여권 정보 — 기간 전 잠김 태그
+        "trip-docs" to {
+            TripJourneyContent(journeyUi(ckTh, ckThToday, through(ckTh, ckThToday, JourneyStage.Docs, ckThChecks)), ChecklistActions())
+        },
+        // 짐 단계: 꼭 챙길 물건 묶음 + 꼭 챙길 물건 자세히 보기
+        "trip-pack" to {
+            TripJourneyContent(journeyUi(ckTh, ckThToday, through(ckTh, ckThToday, JourneyStage.Pack, ckThChecks)), ChecklistActions())
+        },
+        // 출국 단계(출발 당일): 출국 순서 카드 + 도착 공항 짧은 카드 + 도착했어요
+        "trip-departure" to {
+            val t = ckTh.copy(arrivalAirport = "BKK")
+            val today = t.start
+            TripJourneyContent(journeyUi(t, today, through(t, today, JourneyStage.Departure, ckThChecks)), ChecklistActions())
+        },
+        // 입국 단계(도착했어요를 누른 뒤): 보여 주기 + 공항 순서 + 유심·환전·숙소 + 다 했어요
+        "trip-arrival" to {
+            val t = ckTh.copy(arrivalAirport = "BKK", arrivedAt = 1L)
+            val today = t.start
+            TripJourneyContent(journeyUi(t, today, through(t, today, JourneyStage.Arrival, ckThChecks)), ChecklistActions())
+        },
+        // 복귀 단계(돌아온 뒤): 담아 둔 물건 + 귀국 전 확인 전체 + 여권 정보 지우기
+        "trip-return" to {
+            val today = LocalDate.of(2026, 11, 8)
+            TripJourneyContent(
+                journeyUi(ckTh, today, through(ckTh, today, JourneyStage.Return, ckThChecks), cart = th.value.shopping.take(4)),
+                ChecklistActions(),
             )
         },
-        // 출국일에 입국 카드 기간이 열린 상태(태국 TDAC는 보통 이 상태) — 주 버튼은 입국 카드 하나, `도착했어요`는 보조 (C 묶음 캡처를 공용 갤러리로)
-        "today-departure-form" to {
-            TodayContent(
-                TodayUi(trip, StageInfo(TripStage.Departure, dayOfTrip = 1, formWindowOpen = true), "태국", th.value.forms.first(), true),
-                TodayActions(), {}, {}, {}, {}, {},
-            )
-        },
-        // 도착 단계 + 수완나품: 공항 순서(팩 — 위치·입국 카드 줄·출처) 뒤에 유심·환전·숙소가 번호를 이어 간다
-        "today-arrival" to {
-            TodayContent(
-                TodayUi(trip, StageInfo(TripStage.Arrival, dayOfTrip = 1), "태국", th.value.forms.first(), true,
-                    indexSources = indexSources, sourceNames = thSources, airport = th.value.airport("BKK"), hasAirports = true),
-                TodayActions(), {}, {}, {}, {}, {},
-            )
-        },
-        // 도착 단계, 공항을 아직 고르지 않음(태국은 공항이 셋) — 일반 순서 + `공항별 도착 순서 보기`
-        "today-arrival-no-airport" to {
-            TodayContent(TodayUi(trip, StageInfo(TripStage.Arrival, dayOfTrip = 1), "태국", th.value.forms.first(), true, hasAirports = true),
-                TodayActions(), {}, {}, {}, {}, {})
-        },
-        "today-traveling" to {
-            TodayContent(TodayUi(trip, StageInfo(TripStage.Traveling, dayOfTrip = 2), "태국", th.value.forms.first(), true),
-                TodayActions(), {}, {}, {}, {}, {})
-        },
-        "today-return" to {
-            TodayContent(
-                TodayUi(trip, StageInfo(TripStage.Return, askDestroy = true), "태국", null, true,
-                    cart = th.value.shopping, returnLinks = index.returnLinks, returnFacts = index.returnFacts,
-                    indexSources = indexSources, sourceNames = thSources),
-                TodayActions(), {}, {}, {}, {}, {},
-            )
-        },
-        "today-wrapup" to {
-            TodayContent(TodayUi(trip, StageInfo(TripStage.WrapUp), "태국", null, true), TodayActions(), {}, {}, {}, {}, {})
+        // 중국 출발 당일 — 입국 카드 급함(빨강), 여권 기준 없음(공식 안내 링크), 이 여행만 알림 꺼 둠
+        "trip-cn" to {
+            TripJourneyContent(journeyUi(ckCn, ckCn.start, ckCnData, nowHour = 10, muted = true), ChecklistActions())
         },
         // 여행 고치기: 내리는 공항(태국 팩 공항 셋 + 아직 몰라요) — 수완나품을 골라 둔 여행
         "trip-edit" to {
@@ -278,55 +316,7 @@ object Gallery {
         // 내 여행 목록: 다가오는 여행 셋(태국 둘 = 다른 여행·다른 체크리스트, 일본은 날짜 겹침) + 지난 여행(접힘)
         "trips-list" to { TripListContent(TripListUi(loaded = true, rows = tripRows, today = LocalDate.of(2026, 10, 2)), {}, {}) },
         "trips-empty" to { TripListContent(TripListUi(loaded = true), {}, {}) },
-        // 한 여행 체크리스트(태국, 일주일 전 단계) — 단계 카드·앱이 확인·늦음·기간 전 잠김·출처·내 항목
-        "trip-checklist" to {
-            TripChecklistContent(
-                ChecklistUi(
-                    loaded = true, trip = ckTh, countryName = "태국", data = ckThData, today = ckThToday, overlaps = true,
-                    // 알림 한 줄: 아침 9시로 해 둔 아침 7시 — `못한 일이 있으면 오늘 아침 9시에 알려 드려요`
-                    nowHour = 7,
-                ),
-                ChecklistActions(),
-            )
-        },
-        // 중국 출발 당일 — 입국 카드 급함(빨강), 여권 기준 없음(공식 안내 링크), 지난 단계 접힘
-        "trip-checklist-cn" to {
-            TripChecklistContent(
-                // 이 여행만 알림을 꺼 둔 모습 (`이 여행은 알림을 꺼 두었어요`)
-                ChecklistUi(loaded = true, trip = ckCn, countryName = "중국", data = ckCnData, today = ckCn.start, muted = true, nowHour = 10),
-                ChecklistActions(),
-            )
-        },
-        // 태국 여행 도착 다음 날(도착하면 단계) — `도착 공항 순서 보기`(내리는 공항 수완나품 칩 + 공항 순서 보기 + 출처). 앞 단계는 모두 했음
-        "trip-checklist-arrival" to {
-            val t = ckTh.copy(arrivalAirport = "BKK")
-            val today = LocalDate.of(2026, 11, 4)
-            val first = checklist(t, today, TripChecks())
-            val before = first.items.filter { it.phase!! < ChecklistPhase.Arrival }
-            val data = checklist(t, today, TripChecks(marks = before.associate { it.id to true }))
-            TripChecklistContent(ChecklistUi(loaded = true, trip = t, countryName = "태국", data = data, today = today), ChecklistActions())
-        },
-        // 오늘 화면 '지금 챙길 것'(입국 카드·여권 할 일이 없을 때 지금 할 일 = 체크리스트)
-        "today-checklist" to {
-            val data = ckThData
-            TodayContent(
-                TodayUi(
-                    ckTh, StageInfo(TripStage.Preparing, daysLeft = 4), "태국", th.value.forms.first(), true,
-                    checklistNow = Checklist.nowItems(data, ckTh, ckThToday), checklistDone = data.done, checklistTotal = data.total,
-                    tripCount = 3, today = ckThToday,
-                ),
-                TodayActions(), {}, {}, {}, {}, {},
-            )
-        },
         // 태국 TDAC(의무 — 주 버튼, 내 여행 날짜) + 베트남 PAI(의무 아님 — 알약·보조 버튼)
-        "prepare" to {
-            PrepareContent(
-                TestPacks.formEntries(listOf("TH", "VN"))
-                    .map { f -> f.copy(tripArrival = trip.start.takeIf { f.formId.startsWith("TH") }) },
-                {},
-                essentialsSummary(index, th.value, gotItems),
-            )
-        },
         // 여행지 전기 값 칩 카드(220 V·한국 플러그)까지 — 운영 EssentialsViewModel과 같은 팩 값(power·출처 이름)
         "essentials" to {
             val power = th.value.power

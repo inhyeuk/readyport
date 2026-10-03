@@ -107,6 +107,46 @@ class ChecklistTest(unittest.TestCase):
         self.assertTrue(schema_errors(INDEX_SCHEMA, bad))
 
 
+class JourneyStageTest(unittest.TestCase):
+    """여행 과정 8단계 stage (2026-10-03) — 묶는 축. 기한 축 phase 와 따로다(DESIGN_SPEC 부록 H)"""
+
+    STAGES = {"plan", "book", "docs", "pack", "departure", "arrival", "during", "return"}
+
+    def setUp(self):
+        self.index = load("packs/src/index.json")
+
+    def test_every_template_item_has_a_known_stage(self):
+        self.assertEqual(29, len(self.index["checklist"]))
+        for item in self.index["checklist"]:
+            self.assertIn(item.get("stage"), self.STAGES, item["id"])
+        self.assertEqual([], schema_errors(INDEX_SCHEMA, self.index))
+
+    def test_every_country_pack_item_has_a_stage(self):
+        for cc in ("TH", "JP", "SG", "MY", "ID", "TW", "CN", "PH", "VN"):
+            pack = load(f"packs/src/{cc}/pack.json")
+            for item in pack.get("checklist", []):
+                self.assertIn(item.get("stage"), self.STAGES, f"{cc} {item['id']}")
+
+    def test_missing_stage_is_an_error(self):
+        bad = copy.deepcopy(self.index)
+        del bad["checklist"][0]["stage"]
+        errors = []
+        build_packs.check_checklist(bad, "index.json", errors)
+        self.assertTrue(any("stage 없음" in e for e in errors), errors)
+
+    def test_unknown_stage_rejected_by_schema(self):
+        bad = copy.deepcopy(self.index)
+        bad["checklist"][0]["stage"] = "someday"
+        self.assertTrue(schema_errors(INDEX_SCHEMA, bad))
+
+    def test_old_packs_without_stage_still_pass_the_schema(self):
+        """예전 서명 팩(단계 값 없음)도 스키마는 통과한다 — 앱이 phase 에서 옮겨 온다"""
+        old = copy.deepcopy(self.index)
+        for item in old["checklist"]:
+            item.pop("stage", None)
+        self.assertEqual([], schema_errors(INDEX_SCHEMA, old))
+
+
 class AirportsTest(unittest.TestCase):
     """공항 도착 순서 airports[] (2026-10-03): 스키마 + 출처 연결·kind·https·날짜 검사"""
 

@@ -16,7 +16,6 @@
     <string name="passport_expired_tag">만료됨</string>
     <string name="passport_expiry_read_ok">날짜는 바르게 읽었어요</string>
 
-
     <!-- R18 '다른 폰으로 보내기' ↔ '이 휴대폰에만' 약속: 실제 동작(시스템 공유 창, 서버 없음) 그대로 -->
     <string name="present_share_family">가족 폰으로 보내기</string>
     <string name="present_share_note">이 버튼을 누를 때만 이 서류 그림이 내가 고른 앱으로 나가요. 받는 사람은 직접 고르고, 레디포트 서버는 거치지 않아요.</string>

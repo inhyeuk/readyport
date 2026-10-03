@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "country": "VN",
-  "version": "2026.10.03-1",
+  "version": "2026.10.03-2",
   "last_verified": "2026-10-02",
   "names": {
     "ko": "베트남",
@@ -554,6 +554,7 @@
     {
       "id": "cash_exit",
       "phase": "before_return",
+      "stage": "return",
       "icon": "cash",
       "title_ko": "베트남 돈 가지고 나갈 때 신고 기준 보기",
       "section": "payment",

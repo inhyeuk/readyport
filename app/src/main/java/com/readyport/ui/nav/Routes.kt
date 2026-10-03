@@ -2,12 +2,8 @@ package com.readyport.ui.nav
 
 import kotlinx.serialization.Serializable
 
-/** 메인 홈: 여행 기본 정보 + 나라 사진 카드 */
+/** 둘러보기: 나라 사진 카드로 어디 갈지 고르고 여행을 만든다 (여행 흐름이 아닌 '생각' 단계) */
 @Serializable data object HomeRoute
-/** 내 여행: 여행 단계별 할 일 */
-@Serializable data object TodayRoute
-/** 내 여행 › 준비 목록 */
-@Serializable data object PrepareRoute
 /** 설정 › 내 정보(여권·예약 서류·같이 가는 사람). 기기 안에만 저장 */
 @Serializable data object WalletRoute
 @Serializable data object HelpRoute
@@ -27,10 +23,16 @@ import kotlinx.serialization.Serializable
 @Serializable data object BookingImportRoute
 
 /**
- * 홈 › 나라 화면(입국·여행·쇼핑). 인터넷 없이 저장해 둔 팩으로 보여 준다.
- * [focusAirports]: 입국·비자의 `공항에 도착하면` 묶음으로 바로 내려간다(체크리스트·오늘 화면의 `공항 순서 보기`), [airport]: 처음 고를 공항(IATA)
+ * 둘러보기 › 나라 화면(입국·여행·쇼핑). 인터넷 없이 저장해 둔 팩으로 보여 준다.
+ * [focusAirports]: 입국·비자의 `공항에 도착하면` 묶음으로 바로 내려간다(체크리스트의 `공항 순서 보기`), [airport]: 처음 고를 공항(IATA).
+ * [tripId]: 어느 여행에서 열었는지 — 있으면 머리에 `이 여행` 띠와 돌아가는 길을 보인다(2026-10-03).
  */
-@Serializable data class CountryRoute(val country: String, val focusAirports: Boolean = false, val airport: String? = null)
+@Serializable data class CountryRoute(
+    val country: String,
+    val focusAirports: Boolean = false,
+    val airport: String? = null,
+    val tripId: String? = null,
+)
 
 /** 준비 › 입국 카드 3개 국어 확인 (PRD 5.2) */
 @Serializable data class FormConfirmRoute(val formId: String)
@@ -47,10 +49,13 @@ import kotlinx.serialization.Serializable
  */
 @Serializable data class TripRoute(val country: String? = null, val tripId: String? = null)
 
-/** 내 여행 › 여행 목록 (다가오는 여행·여행 중·지난 여행) */
+/** 내 여행 탭의 첫 화면 — 여행 목록 (여행 중·다가오는 여행·지난 여행) */
 @Serializable data object TripsRoute
 
-/** 내 여행 › 한 여행의 체크리스트 */
+/**
+ * 내 여행 › **한 여행 화면** — 여행 과정 8단계 막대 + 지금 할 일 + 단계마다 할 일·안내.
+ * 이 여행의 모든 것이 여기서 닿는다. 챙길 일 알림이 여는 곳이기도 하다(딥링크, 이름 그대로 둔다).
+ */
 @Serializable data class TripChecklistRoute(val tripId: String)
 
 /** 입국 때 보여 주기 (PRD 5.4). 자녀 폰 모드의 첫 화면 */

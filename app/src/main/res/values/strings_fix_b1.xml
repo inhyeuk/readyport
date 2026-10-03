@@ -6,7 +6,6 @@
     <!-- R13 홈·첫 실행 핵심 가치 한 줄 (모든 모드에서 히어로 안) -->
     <string name="home_value_prop">입국 카드 칸은 앱이 채우고, 제출만 직접 눌러요</string>
     <!-- R13 쉬운 모드 홈: 펼친 카드 아래 접기 줄의 TalkBack 이름 (무엇을 접는지) -->
-    <string name="home_fold_less_cd">%1$s 접기</string>
     <!-- R12 인도네시아: 비자 신청이 지나가는 입국 신고가 1단계, 비자 신청이 2단계 (팩 신청 단계 순서 그대로) -->
     <string name="country_step_eyebrow">%1$d단계 · %2$s</string>
 </resources>

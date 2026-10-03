@@ -159,12 +159,12 @@ fun CheckProgressBar(done: Int, total: Int, modifier: Modifier = Modifier, onDar
 }
 
 /**
- * 체크리스트 단계 카드: 머리(단계 아이콘 + 단계 이름 + 언제 할지 + `3 / 7` + 막대) → 항목들(사이 1dp Line).
- * 지금 단계면 머리에 `지금` 태그(Accent). 흰 카드 + 그림자 + 옅은 테두리(결정 6).
- * TalkBack: 머리는 제목(heading) 하나로 `일주일 전, 7개 중 3개 했어요`를 읽는다.
+ * 여행 과정 단계 카드 (2026-10-03 — 예전 이름 `ChecklistPhaseCard`): 머리(단계 아이콘 + 단계 이름 + 언제까지 + `3 / 7` + 막대)
+ * → 항목들(사이 1dp Line). 지금 단계면 머리에 `지금` 태그(Accent). 흰 카드 + 그림자 + 옅은 테두리(결정 6).
+ * TalkBack: 머리는 제목(heading) 하나로 `짐, 8개 중 3개 했어요`를 읽는다.
  */
 @Composable
-fun ChecklistPhaseCard(
+fun StageSectionCard(
     title: String,
     hint: String?,
     icon: ImageVector,
