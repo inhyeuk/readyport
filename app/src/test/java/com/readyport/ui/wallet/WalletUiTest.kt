@@ -21,6 +21,11 @@ import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.performTextInput
 import androidx.compose.ui.test.performTextClearance
 import androidx.compose.ui.text.AnnotatedString
+import com.readyport.ui.components.DateDigitsTransformation
+import com.readyport.ui.components.dateDigits
+import com.readyport.ui.components.digitsOf
+import com.readyport.ui.components.parseDateDigits
+import androidx.compose.ui.test.hasContentDescriptionExactly
 import androidx.compose.ui.test.hasScrollAction
 import androidx.compose.ui.test.isDialog
 import androidx.compose.runtime.getValue
@@ -404,12 +409,22 @@ class WalletUiTest {
         var saved: PassportRecord? = null
         rule.setContent { ReadyPortTheme { PassportManualContent { saved = it } } }
         fun field(label: Int) = rule.onNode(hasSetTextAction() and hasText(s(label)))
+        // 날짜 칸은 달력이 주 입력이다(다듬기 S2) — `달력 대신 숫자로 적기`를 거쳐 숫자 칸으로 바꾼 뒤 적는다
+        fun typeDate(label: Int, digits: String) {
+            val cd = s(R.string.date_pick_type_cd, s(label))
+            // 단추를 누르려면 화면에 보여야 한다(목록이 길다)
+            rule.onNode(hasScrollAction()).performScrollToNode(hasContentDescriptionExactly(cd))
+            rule.onNodeWithContentDescription(cd).performClick()
+            rule.mainClock.advanceTimeBy(1_000)
+            rule.waitForIdle()
+            field(label).performTextInput(digits)
+        }
         field(R.string.passport_field_surname).performTextInput("HONG")
         field(R.string.passport_field_given).performTextInput("GILDONG")
         field(R.string.passport_field_number).performTextInput("M12345678")
-        field(R.string.passport_field_birth).performTextInput("19850315")
+        typeDate(R.string.passport_field_birth, "19850315")
         // 붙여 넣은 하이픈은 버리고 숫자만 남는다
-        field(R.string.passport_field_expiry).performTextInput("2034-05-20")
+        typeDate(R.string.passport_field_expiry, "2034-05-20")
         rule.onNodeWithText("1985-03-15").assertExists()
         rule.onNode(hasScrollAction()).performScrollToNode(hasText(s(R.string.passport_save)))
         rule.onNodeWithText(s(R.string.passport_save)).performClick()
@@ -432,6 +447,12 @@ class WalletUiTest {
             }
         }
         rule.onNodeWithText("2026-11-03").assertExists()
+        // 달력이 주 입력 — 숫자로 적으려면 칸 아래 `숫자로 적기` (다듬기 S2)
+        val typeCd = s(R.string.date_pick_type_cd, s(R.string.booking_label_checkin))
+        rule.onNode(hasScrollAction()).performScrollToNode(hasContentDescriptionExactly(typeCd))
+        rule.onNodeWithContentDescription(typeCd).performClick()
+        rule.mainClock.advanceTimeBy(1_000)
+        rule.waitForIdle()
         val checkIn = rule.onNode(hasSetTextAction() and hasText(s(R.string.booking_label_checkin)))
         checkIn.performTextClearance()
         checkIn.performTextInput("202611")

@@ -119,6 +119,9 @@ object Gallery {
         )
     private val ckThData get() = checklist(ckTh, ckThToday, ckThChecks)
 
+    /** 일본 여행(날짜가 태국과 겹친다) — 내 정보의 묵는 곳 목록이 **두 여행**을 보이게 하는 두 번째 여행 */
+    private val ckJp = Trip("JP", "2026-11-06", "2026-11-09", id = "g-jp")
+
     /** 중국 여행 출발 당일: 앞 단계는 감기약 성분 확인 하나만 남김(늦음), 입국 카드 안 냄(급함), 여권 기준은 공식 안내에 없음 */
     private val ckCn = Trip("CN", "2026-10-30", "2026-11-03", id = "g-cn")
     private val ckCnData: ChecklistData
@@ -156,6 +159,24 @@ object Gallery {
             type = "guest_house", savedAt = "2026-10-02T10:05",
         ),
     )
+
+    /**
+     * 다른 여행(일본)의 숙소와 **아직 어느 여행에도 붙지 않은 숙소** — 설정 › 내 정보의 묵는 곳 목록이
+     * 두 여행 묶음 + `여행이 없는 숙소` 묶음을 보이게 한다 (다듬기 S2). 모두 지어낸 값이다.
+     */
+    private val otherStays = listOf(
+        StayRecord(
+            id = "stay-3", tripId = "g-jp", name = "교토 마치야 게스트하우스",
+            addressLocal = "12-3 Fake-cho, Nakagyo-ku, Kyoto 604-0000",
+            addressKo = "시조역에서 걸어서 10분", checkIn = "2026-11-06", checkOut = "2026-11-09",
+            type = "guest_house", lat = 35.0116, lng = 135.7681, savedAt = "2026-10-02T11:00",
+        ),
+        // 예전 `lodging` 예약 서류에서 옮겨 온 숙소: 여행도 주소도 없다 — 내 정보에서만 보인다
+        StayRecord(id = "stay-4", tripId = null, name = "예전 예약 호텔", reference = "OLD-0000", savedAt = "2026-09-20T09:00"),
+    )
+
+    /** 보관함에 든 숙소 전부 (여행 화면은 그 여행 숙소만 본다 — [stays]) */
+    private val allStays = stays + otherStays
 
     /** 한 여행 화면 값 한 벌 — 운영 JourneyViewModel과 같은 계산(단계·공항·쇼핑·귀국 사실) */
     private fun journeyUi(
@@ -213,7 +234,7 @@ object Gallery {
             val today = LocalDate.of(2026, 10, 2)
             return listOf(
                 row(ckTh, TripTiming.Upcoming, "태국", today, ckThChecks, overlaps = true),
-                row(Trip("JP", "2026-11-06", "2026-11-09", id = "g-jp"), TripTiming.Upcoming, "일본", today, overlaps = true),
+                row(ckJp, TripTiming.Upcoming, "일본", today, overlaps = true),
                 row(Trip("TH", "2027-02-10", "2027-02-14", id = "g-th2"), TripTiming.Upcoming, "태국", today),
                 row(Trip("SG", "2026-08-10", "2026-08-13", wrappedUp = true, id = "g-sg"), TripTiming.Past, "싱가포르", today),
             )
@@ -238,7 +259,7 @@ object Gallery {
             BookingRecord(id = "1", kind = "flight", title = "방콕 왕복", flightNumbers = listOf("KE651", "KE652"),
                 dates = listOf("2026-11-03", "2026-11-07"), savedAt = "x"),
         ),
-        stays = stays,
+        stays = allStays,
     )
 
     val videos = listOf(
@@ -328,9 +349,13 @@ object Gallery {
         },
         // 숙소 고치기: 이름·주소(현지 글자)·한국어 메모 → 묵는 날짜 → 숙소 종류 → 예약번호·전화·메모 → 저장·지우기.
         // 입력칸 값은 사람이 적은 글자라 앱이 줄바꿈을 보정하지 않는다 — 예약 확인서에 흔한 영문 이름으로 둔다(가짜)
+        // 좌표를 적어 둔 숙소라 **좌표 묶음이 펼쳐진 채로** 보인다(다듬기 S2) — 날짜 칸은 달력 단추가 붙은 공용 칸
         "stay-edit" to {
-            val stay = stays.first().copy(name = "Riverview Hotel Bangkok", addressKo = "나나역 근처")
-            StayEditContent(StayEditUi(loaded = true, locked = false, existing = stay), {}, {}, {})
+            val stay = stays.first().copy(
+                name = "Riverview Hotel Bangkok", addressKo = "나나역 근처",
+                lat = 13.7461, lng = 100.5349,
+            )
+            StayEditContent(StayEditUi(loaded = true, locked = false, existing = stay, trip = ckTh), {}, {}, {})
         },
         // 복귀 단계(돌아온 뒤): 담아 둔 물건 + 귀국 전 확인 전체 + 여권 정보 지우기
         "trip-return" to {
@@ -437,11 +462,14 @@ object Gallery {
                 onAddBooking = {}, onDeleteBooking = {}, onAutoDestroyChange = {},
             )
         },
+        // 열린 내 정보: 여권 → 예약 서류 → **묵는 곳(태국 2곳 · 일본 1곳 · 여행 없는 숙소 1곳)** — 다듬기 S2
         "wallet-unlocked" to {
             WalletContent(
                 state = WalletState.Unlocked(contents), deviceSecure = true, autoDestroy = true, today = LocalDate.of(2026, 9, 29),
                 onUnlock = {}, onLock = {}, onReset = {}, onAddPassport = {}, onDeletePassport = {},
                 onAddBooking = {}, onDeleteBooking = {}, onAutoDestroyChange = {},
+                stayGroups = Stays.group(allStays, listOf(ckTh, ckJp)),
+                countryNames = index.countries.associate { it.code to it.nameKo },
             )
         },
         "passport-intro" to { PassportIntroContent(ScanState.Idle, {}, {}, {}) },

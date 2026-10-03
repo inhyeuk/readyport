@@ -68,7 +68,7 @@
 | D17 | 번호 붙은 문자열 | ④ 문자열 그대로 두고 아이콘만 | **`today_departure_step1~5`, `today_arrival_step1~5`, `explore_maps_step1~3`의 `N. ` 접두를 문자열에서 지우고 번호는 `StepList` 원 배지로 그린다.** 테스트는 리소스를 `getString`으로 찾으므로 통과. **접두 삭제와 같은 0단계에서 세 곳(HomeScreen 출국 순서, TodayScreen StepsCard 2곳, CountryScreen 지도 단계)을 최소한 `StepList`로 바꾼다** — 묶음별 머지 사이에 번호 없는 순서 목록이 생기지 않게 | 번호 중복 표시 제거 |
 | D18 | 어두운 바탕 위 색 | (비평) Help·InkTertiary·DangerText·Accent가 Navy 위에서 2.2~2.8:1 | **`onDark 내용 세트`만 쓴다(3.1절)**: Accent·Navy·AccentDeep·BrandBlue·사진(스크림) 위 글자·아이콘은 Surface, White85/White80, Gold(Navy·AccentDeep 위에서만) 중 하나. 금지 쌍은 테스트가 코드에서 찾아 막는다(3.8절). 어두운 카드 안 파괴 버튼은 두지 않는다(카드 밖 별도 줄 일반 `DangerButton`) | 대비 4.5:1·3:1 보장 |
 | D19 | 쉬운 모드 글자 상한 | PRD 3.2 `쉬운 모드 18~28sp` / 스펙의 displayLarge 56·displayMedium 36·displaySmall 32·stat 34 | **현지인에게 보여 주는 글자(현지어 전체 화면·기사님 카드·선택 문장), 히어로 이름, 큰 숫자(stat)는 PRD 3.2의 예외로 운영자 승인을 받아 문서에 남긴다(8장 3단계).** 쉬운 모드 하단 탭은 autoSize 최소 18sp, 모자라면 줄이지 않고 2줄 | 기존 하드코딩을 공식화하는 것이므로 승인 필요 |
-| D20 | 여행 날짜 입력 | 원안 M3 `DatePickerDialog` / (비평) 달력 모드는 가로 스와이프 `LazyRow`, 날짜 칸 고정 40dp, UTC 하루 밀림 | **지금의 텍스트 입력(`YYYY-MM-DD`)을 유지**하고 `leadingIcon = CalendarMonth`, `supportingText`에 `11월 3일 (화)`를 보인다. M3 DatePicker는 쓰지 않는다 | 7장 1번(가로 스와이프 금지)과 200% 제약 동시 충족, 새 시간대 변환 위험 없음 |
+| D20 | 여행 날짜 입력 | 원안 M3 `DatePickerDialog` / (비평) 달력 모드는 가로 스와이프 `LazyRow`, 날짜 칸 고정 40dp, UTC 하루 밀림 | ~~텍스트 입력 유지, M3 DatePicker 금지~~ → **2026-10-03 다듬기 S2에서 운영자가 뒤집음: 달력이 주 입력, 숫자 자판은 칸 아래 `숫자로 적기`로 남긴다**(부록 J) | 지금 M3 달력은 달을 `<` `>` 단추로 넘겨 가로 스와이프가 아니다. 날짜는 시간대 없이 UTC 자정으로만 오가서 하루 밀림 없음. 날짜 칸은 터치 48dp(쉬운 모드도) |
 | D21 | 누를 수 있는 것과 없는 것의 구분 | (비평) `NoticeBanner`와 tonal `SecondaryButton`이 둘 다 AccentSoft 바탕 + 아이콘 + 굵은 글자 | **누를 수 있는 tonal 버튼은 항상 1dp `tone.content` 테두리**(Accent면 Ground 대비 6.22). **누를 수 없는 폭 전체 띠(배너·카드)에는 AccentSoft 채움을 쓰지 않는다** — `NoticeBanner(Notice)`는 흰 바탕 + 4dp Accent 막대. 작은 배지·`StatTile`·`StatusTag`는 예외(테두리·Accent 글자 없음) | 문제 #3을 나이 든 사용자에게도 확실히 해결 |
 
 ---
@@ -859,7 +859,7 @@ enum class StatusKind(val icon: ImageVector, val tone: BadgeTone) {
 
 ### 14 여행 고치기 — `trip/TripScreens.kt`
 - 나라 선택: `TileGrid` 2열 `CountryRadioCard`(원형 48dp 사진 썸네일 `rememberThumbnail` + 이름 titleMedium, 선택 시 2dp Accent 테두리 + `Filled.CheckCircle`, `selectable(role = RadioButton)`), 쉬운 모드 1열.
-- 날짜(D20): **M3 `DatePickerDialog`는 쓰지 않는다**(달력 모드는 달 목록이 가로로 스와이프되는 `LazyRow`라 7장 1번 위반, 날짜 칸이 고정 약 40dp라 200%·쉬운 모드에서 숫자가 잘림). 지금의 텍스트 입력(`YYYY-MM-DD`, 라벨 `trip_start`/`trip_end`)을 유지하고 `OutlinedTextField(leadingIcon = CalendarMonth, supportingText = 11월 3일 (화) — 값이 올바를 때만)`로 바꾼다. 저장값 형식 검증은 지금처럼. 시간대 변환이 없으므로 UTC 하루 밀림 문제도 없다. 아래 요약 `FactChip`(`trip_nights` 4박 5일).
+- 날짜(D20, **다듬기 S2에서 바뀜**): 공용 `DatePickField`(부록 J) — 달력 대화상자가 주 입력, 칸 아래 `숫자로 적기`로 예전 숫자 자판 길을 남긴다. 칸 값은 `YYYY-MM-DD` 모양(저장은 숫자 8자리), 올바르면 `supportingText`에 `11월 3일 (화)`. 라벨은 `trip_start`/`trip_end` 그대로. 아래 요약 `FactChip`(`trip_nights` 4박 5일).
 - 주 버튼: 편집이면 `trip_save_edit`(저장하기), 새로 만들기면 `trip_save`. 삭제 = `DangerButton(trip_delete)` + `DestructiveConfirm(trip_delete_confirm_title, trip_delete_confirm_body)`.
 - 나라 없음·잘못된 값 상태(갤러리 밖): 공통 치환표(오류는 `NoticeBanner(Caution)`).
 - 안내 문장 `이 휴대폰에만 저장해요`는 `IconBullet(Lock)`.
@@ -1165,7 +1165,7 @@ enum class StatusKind(val icon: ImageVector, val tone: BadgeTone) {
 | 1-12 | 출처·최종 확인 누락 5곳 | 반영 | ① 20 대표 번호 아래 SourceFooter ② ⑨ sources 명시 ③ 13·06에 품목+`importSource` SourceList ④ 홈 그리드 아래 SourceList ⑤ 07 `videos_terms` 문단 유지 (D6, 6-01, 6-06, 6-07, 6-13, 6-20) |
 | 1-13 | e-VOA 단계 인덱스 매핑 | 반영 | 번호만 있는 StepList, `Step.selfAction`·`step_self` 삭제 (4.8, 6-04, 부록 B) |
 | 1-14 | 스크림 위 24dp 구간·사진 위 글자 위치 | 반영 | PhotoTextArea 위 padding ≥ 24dp, 사진 위 글자는 PhotoTextArea·자체 바탕 위에만, 흰 사진 최악 캡처 (3.7, 4.13, 6-00, 8장) |
-| 1-15 | DatePicker 가로 스와이프·고정 칸 | 대안 반영 | M3 DatePicker를 쓰지 않고 텍스트 입력 유지 + supportingText `11월 3일 (화)` (D20, 6-14, 7장 1번) |
+| 1-15 | DatePicker 가로 스와이프·고정 칸 | 대안 반영 → **다듬기 S2에서 재검토** | 지금 M3 달력은 `<` `>` 단추로 달을 넘긴다(가로 스와이프 아님). 운영자 요청으로 달력을 주 입력으로 하고 숫자 자판 길을 함께 남겼다 (D20, 부록 J) |
 | 1-16 | ChoiceSegments 높이·sticky·트랙 대비 | 반영 | `heightIn(min)`, 1열이면 sticky 끄고 세로 라디오 목록, 트랙 1dp LineStrong, `selectableGroup()` (D7, 4.17, 6-03) |
 | 1-17 | SelectChip role·이중 초점 | 반영 | 단일 선택은 Role.RadioButton 덮어쓰기 + `selectableGroup()`, 행 안 RadioButton·Checkbox·Switch 콜백 null (4 공통 규칙, 4.17) |
 | 1-18 | TalkBack 이름 4건 | 반영 | ① note를 설명 뒤에 붙임 ② 미리보기 `clearAndSetSemantics` ③ KeyValueRow 병합 ④ 스텝퍼 단계 이름 글자 유지 (4.10, 4.16, 6-20, 6-22, 6-25) |
@@ -1203,7 +1203,7 @@ enum class StatusKind(val icon: ImageVector, val tone: BadgeTone) {
 | 2-19 | 원칙 6과 줄 수 자르기 충돌 | 반영 | 글자 수(60자) 기준 첫 문장 + ExpandableDetail, 말줄임 금지, 06 미리보기 whyKo 제거, 18 전체 표시, 영상 제목 maxLines 제거 (원칙 6, 6-06·07·16·18, 7장 7번) |
 | 2-20 | 캡처에 그림자 안 보임·3600dp 잘림 | 반영 | `pixelCopyRenderMode=hardware`로 확인, 안 되면 실기기 캡처, h6000dp (D2, 8장 0·3단계) |
 | 2-21 | Card·AlertDialog 기본 회색 | 반영 | ColorScheme 근거 정정, 모든 Card·AlertDialog `containerColor = Surface` 명시 규칙 (3.1, 4 공통 규칙, 4.7·4.10·4.11·4.16) |
-| 2-22 | 날짜 달력 격자·UTC | 대안 반영 | DatePicker 자체를 쓰지 않아(D20) 격자·시간대 문제가 생기지 않음. 저장 형식 검증 유지 (6-14) |
+| 2-22 | 날짜 달력 격자·UTC | 대안 반영 → **다듬기 S2에서 재검토** | 달력을 쓰되 날짜↔UTC 자정으로만 오간다(`toPickerMillis`/`pickerDateOf`, 단위 테스트). 저장 형식 검증 유지 (6-14, 부록 J) |
 | 2-23 | sticky 헤더 가림 | 반영(1-16과 통합) | 2열일 때만 sticky, 바탕 Ground, 오프셋에서 헤더 높이 뺌 (4.17, 6-03) |
 | 2-24 | sectionGap 계산 | 반영 | Spacer = sectionGap − 2×gap(8dp) (3.4, 4.1) |
 | 2-25 | 문제 #1 과장·정규식·도움 버그 | 반영 | #1을 '픽스처 결함 + 방어적 폴백 + commonSourceName 버그'로 재작성, 앵커 없는 정규식, D 묶음 수정, 컨펌 때 정확히 보고 (1.2, 4.5, 8장) |
@@ -1596,13 +1596,76 @@ fun navTileColors(tone: BadgeTone): NavTileColors
 
 ### I.4 숙소 넣기·고치기 화면
 
-- 머리(숙소 넣기 / 숙소 고치기) → `묵는 곳`(이름·주소·주소 메모) → `묵는 날짜`(숫자 자판, 하이픈은 칸이 그린다 — 여행 만들기와 같은 칸) → `숙소 종류`(타일 6, 입국 카드 선택지와 같은 값) → `더 적어 둘 것`(예약번호·전화·메모) → 기기 안 저장 한 줄 → `저장하기` → (고칠 때) `이 숙소 지우기` + 확인 대화상자(D8).
+- 머리(숙소 넣기 / 숙소 고치기) → `묵는 곳`(이름·주소·주소 메모) → `묵는 날짜`(공용 `DatePickField` — 부록 J) → `숙소 종류`(타일 6, 입국 카드 선택지와 같은 값) → **`좌표`(접힘, 안 넣어도 됨 — 부록 J.3)** → `더 적어 둘 것`(예약번호·전화·메모) → 기기 안 저장 한 줄 → `저장하기` → (고칠 때) `이 숙소 지우기` + 확인 대화상자(D8).
 - 섹션 머리에 있는 그림은 그 섹션 입력칸 앞에 또 두지 않는다(이름·날짜·메모 칸은 앞 아이콘 없음 — 여행 만들기 날짜 칸과 같은 규칙).
 - 보관함이 잠겨 있으면 `LockedState` 한 장(잠금 풀기)만 보인다. 화면은 FLAG_SECURE.
-- 좌표는 적는 칸이 없다(시니어가 받아 적을 값이 아니다). 값이 있으면 지도 찾기가 좌표를 쓴다.
+- 좌표는 **접어 둔 묶음** 하나로 적는다(다듬기 S2, 부록 J.3). 값이 있으면 지도 찾기·기사님께 보여 주기가 주소보다 좌표를 먼저 쓴다.
 
 ### I.5 토큰·규칙
 
 - 새 색·새 크기 없음. 카드는 `CardNewsCard`(Surface), 줄 구분은 `ChecklistDivider`, 버튼은 `SecondaryButton`/`QuietButton`, 배지는 `IconBadge`.
 - 아이콘: 묵는 곳 = `Hotel`(체크리스트 `hotel`과 같은 그림), 숙소 줄 = `Place`(가는 곳과 같은 그림), 지도 = `Map`, 기사님 = `Hail`, 종류 타일은 입국 카드 선택지와 같은 그림(`IconKeys.option`), `그 밖의 숙소`만 `MoreHoriz`.
 - 새 문구는 `res/values/strings_stays.xml` 한 파일에.
+
+
+---
+
+## 부록 J — 달력·좌표·내 정보 묵는 곳 (다듬기 S2, 2026-10-03)
+
+운영자 결정: *"좌표 입력도 넣고, 내 정보에 숙소 목록 두고, 종류는 비워 둬. 그리고 날짜를 입력할 때, 달력에서 선택할 수 있도록 해줘"*
+(`docs/design/STAYS2_REPORT.md`, `OWNER_DECISIONS.md` S2-1~S2-4)
+
+### J.1 날짜 칸 하나 — `ui/components/DatePick.kt`
+
+앱의 **모든** 날짜 입력(여행 떠나는 날·돌아오는 날, 숙소 체크인·체크아웃, 예약 서류 체크인·체크아웃, 여권 생년월일·만료일 — 8칸)이 `DatePickField` 하나를 쓴다. 화면마다 따로 만든 날짜 칸은 0개다.
+
+```
+┌ 떠나는 날 ───────────────────────┐
+│ 2026-11-03                [달력] │   ← 읽기 전용, 누르면 달력. 끝은 CalendarMonth IconButton(Accent)
+└──────────────────────────────────┘
+  11월 3일 (화)                        ← supportingText (값이 올바를 때). 아니면 설명 줄
+  [⠿] 숫자로 적기                       ← QuietButton(Dialpad). 누르면 이 칸이 숫자 자판 칸이 된다
+```
+
+- **달력이 주 입력**: 칸을 누르거나(Initial 패스에서 누름만 가져간다 — 글자 칸이 커서를 옮기지 않게, 스크롤은 막지 않는다) 끝 단추를 누르면 `DatePickerDialog`가 열린다. 단추는 `그만두기`·`이 날로 하기` 둘.
+- **숫자로 적는 길**은 대화상자 안이 아니라 **칸 아래**에 둔다 — 달력을 열지 않아도 보이고, 접근성 점검(A11yAudit)·갤러리 캡처가 그 단추를 본다(대화상자는 못 본다). 한 번 바꾸면 그 칸은 계속 숫자 칸이고 달력 단추는 그대로 남는다.
+- 대화상자 안은 `DatePickCalendar` = 앱 색을 입힌 M3 `DatePicker`(`showModeToggle = false`, 머리글 `떠나는 날 고르기`, 선택 = Accent 원, 오늘 = Accent 테두리) + 세로 스크롤(200%·쉬운 모드에서 머리글이 커져 잘리지 않게) + `paneTitle`.
+- **TalkBack 이름**: 달력 단추 `떠나는 날 달력에서 고르기, 지금 11월 3일 (화)` / `…, 아직 안 골랐어요`, 숫자 단추 `떠나는 날 숫자로 적기`. 읽기 전용 칸에도 `onClick` 시맨틱(`달력에서 고르기`)을 달아 칸에서 바로 달력을 연다.
+- **크기**: 두 단추는 공용 `minTouchSize()`(기본 48 / 쉬운 모드 56). 달력 날짜 칸은 Material이 정한 격자라 앱 토큰으로 못 바꾼다 — 잰 값은 기본 모드 보이는 48×48dp, 쉬운 모드 보이는 28×48dp, **터치 영역은 두 모드 모두 48×48dp**(`DatePickFieldTest`가 재서 `build/gallery/datepick/touch-*.txt`에 적고 48dp 아래면 실패).
+- **날짜↔달력 값**: 시간대 없이 UTC 자정으로만 오간다(`toPickerMillis` / `pickerDateOf`) — 하루 밀림 없음(단위 테스트).
+
+### J.2 달력 테두리 — 막지 않고 길잡이만
+
+| 쓰는 곳 | 여는 달 | 넘길 수 있는 해 | 막는 날 |
+|---|---|---|---|
+| 여행 떠나는 날·돌아오는 날 | 적어 둔 값 → 떠나는 날 → 오늘 | 지난해 ~ 5년 뒤 | 없음(어긋나면 띠 + 저장 버튼 막힘) |
+| 숙소 체크인 | 적어 둔 값 → 이 여행 시작일 → 오늘 | 1900~2100(기본) | 없음 |
+| 숙소·예약 서류 체크아웃 | 적어 둔 값 → 체크인 → 여행 시작일 | 기본 | **체크인 앞은 못 고른다**(있을 수 없는 날) |
+| 여권 생년월일 | 마흔 해 전 | 1900 ~ 올해 | 없음 |
+| 여권 만료일 | 올해 | 10년 전 ~ 30년 뒤 | 없음 |
+
+숙소 날짜 칸 설명 줄은 이 여행 날짜를 알려 준다(`이 여행은 11월 3일 ~ 7일이에요.`). 여행 밖 날짜도 고를 수 있고, 고르면 예전처럼 `여행 날짜 밖의 숙소가 있어요` 알림이 뜬다.
+
+### J.3 좌표 묶음 (숙소 넣기·고치기)
+
+- 자리: `숙소 종류` 다음, **접힘**(`ExpandableDetail`, 라벨 `좌표 넣기 (안 넣어도 돼요)`, 접기 이름은 짧게 `좌표`). 저장해 둔 좌표가 있으면 펼친 채로 연다. 섹션 머리 아이콘 `MyLocation`.
+- 흰 카드 안 차례: 한 줄 설명(`지도에서 정확한 자리를 찾을 때 써요.`) → 펼침 → `IconBullet(Info)` **`앱 안에는 지도가 없어요. … 구글 지도에서 링크를 복사해 여기에 붙여 넣어 주세요.`** → 입력칸(`위도·경도 또는 구글 지도 링크`, leadingIcon `MyLocation`, 예시 `37.5665, 126.978`) → 읽은 값(`IconBullet(Check, Success)` `이렇게 읽었어요 — 위도 … · 경도 …`) 또는 못 읽음(`IconBullet(ErrorOutline, Caution)`) → `지도에서 좌표 확인`(`Map`) · `좌표 지우기`(`Backspace`) → `좌표를 넣어 두면 지도와 기사님께 보여 주기가 주소보다 좌표를 먼저 써요.`
+- 못 읽는 글자가 남으면 저장 버튼이 막힌다(반쯤 적은 날짜와 같은 규칙) — 적어 둔 글자를 조용히 버리지 않는다.
+- 새 색·새 크기 없음. **지도 라이브러리·API 키·네트워크 호출 없음**(`ACTION_VIEW` 인텐트만).
+
+### J.4 설정 › 내 정보의 묵는 곳 목록
+
+- 자리: 여권 카드 → 예약 서류 → **묵는 곳** → 관리 줄 → 잠그기 → 여권 정보 지우기 → 곧 추가돼요.
+- `SectionHeader(묵는 곳, Hotel)` + 부제 `넣는 곳은 그 여행의 예약 단계예요. 여기서는 모두 모아 보고 고치거나 지워요.`(숙소가 없으면 `아직 넣어 둔 숙소가 없어요…`).
+- 여행마다 `CardNewsCard` 하나: eyebrow `숙소 2곳`, 제목 `태국 · 11월 3일 ~ 7일`(나라 이름은 팩에서 — 나라 코드를 화면에 보이지 않는다). 줄은 예약 단계 `묵는 곳` 카드와 같은 모양(`Place` 배지 + 이름 + 날짜·박수·종류 + 주소 + 셰브론), 누르면 고치기. 줄 아래 `DangerButton(지우기, ItemAction)` — 예약 서류 카드와 같은 신호(D8) + `DestructiveConfirm`. 카드 맨 아래 `이 여행 열기`(`NavigateNext`).
+- `여행이 없는 숙소` 묶음은 맨 끝, 본문으로 왜 여기 있는지 말한다. `숙소 추가`는 **두지 않는다**(넣는 길은 예약 단계 하나 — 부록 H).
+
+### J.5 입국 카드 확인 화면의 숙소 종류 줄
+
+주소를 넣어 주는 나라에서는 기존 `주소는 넣어 드리고, 지역은 사이트에서 골라 주세요` 카드 안에, 그렇지 않으면 `숙소 종류는 사이트에서 골라 주세요` 카드로 따로 — `IconBullet(Category, Caution)` 한 줄:
+적어 둔 종류가 그 나라 선택지에 없으면 `적어 둔 숙소 종류가 이 나라 사이트 선택지에 없어서 비워 뒀어요. 잘못 고른 값이 그대로 제출되면 안 되니까요. …`, 아직 안 골랐으면 `아직 안 고른 칸이라 빈칸으로 남아 있어요. …`. 비운 칸은 빈 필수 칸으로 세어 맨 위 요약과 주 버튼 막기에 그대로 들어간다.
+
+### J.6 문구·토큰
+
+- 새 색·새 크기 없음. 새 문구는 `res/values/strings_stays2.xml` 한 파일에.
+- 새 아이콘: 날짜 칸 끝 `CalendarMonth`(Accent), 숫자로 적기 `Dialpad`, 좌표 `MyLocation`, 좌표 지우기 `Backspace`, 숙소 종류 안내 `Category`.

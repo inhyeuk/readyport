@@ -25,7 +25,6 @@
     <string name="passport_scan_camera_title">카메라 권한</string>
     <string name="passport_label_nationality">국적</string>
     <string name="passport_hint_nationality">영문 3글자 (예: KOR)</string>
-    <string name="passport_expiry_hint" tools:ignore="TypographyDashes">예: 2031-04-15</string>
 
     <!-- 26 예약 서류 추가: 입력칸 라벨은 짧게, 예시·설명은 칸 아래 -->
     <string name="booking_paste_label_short">예약 안내 글</string>
@@ -35,8 +34,6 @@
     <string name="booking_hint_flights">여러 개면 쉼표로 나눠 적어요</string>
     <string name="booking_label_checkin">체크인</string>
     <string name="booking_label_checkout">체크아웃</string>
-    <string name="booking_hint_checkin" tools:ignore="TypographyDashes">숙소에 들어가는 날 (예: 2026-11-03)</string>
-    <string name="booking_hint_checkout" tools:ignore="TypographyDashes">숙소에서 나오는 날 (예: 2026-11-07)</string>
 
     <!-- 27 같이 가는 사람 -->
     <string name="companion_label_short">부르는 이름</string>

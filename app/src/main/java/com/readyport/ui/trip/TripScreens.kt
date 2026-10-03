@@ -17,7 +17,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.CalendarMonth
 import androidx.compose.material.icons.outlined.Check
@@ -28,8 +27,6 @@ import androidx.compose.material.icons.outlined.FlightLand
 import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material.icons.outlined.TravelExplore
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -42,11 +39,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.AnnotatedString
-import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.OffsetMapping
-import androidx.compose.ui.text.input.TransformedText
-import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -68,6 +60,8 @@ import com.readyport.ui.components.AppScreen
 import com.readyport.ui.components.BannerTone
 import com.readyport.ui.components.ButtonPlacement
 import com.readyport.ui.components.DangerButton
+import com.readyport.ui.components.DatePickField
+import com.readyport.ui.components.DateRules
 import com.readyport.ui.components.DestructiveConfirm
 import com.readyport.ui.components.Fact
 import com.readyport.ui.components.FactChip
@@ -81,6 +75,8 @@ import com.readyport.ui.components.SectionHeader
 import com.readyport.ui.components.SelectableCard
 import com.readyport.ui.components.TileGrid
 import com.readyport.ui.components.cardShadow
+import com.readyport.ui.components.dateDigits
+import com.readyport.ui.components.parseDateDigits
 import com.readyport.ui.components.rememberGridColumns
 import com.readyport.ui.components.rememberPhotoLift
 import com.readyport.ui.components.rememberThumbnail
@@ -94,9 +90,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import java.time.LocalDate
-import java.time.format.TextStyle
 import java.time.temporal.ChronoUnit
-import java.util.Locale
 import javax.inject.Inject
 
 /** [airports]: 나라 코드 → 그 나라 팩의 도착 공항(공항 안내가 있는 나라만) — 여행 고치기의 `내리는 공항` 선택지 */
@@ -185,8 +179,9 @@ fun TripScreen(
 
 /**
  * 여행 만들기·고치기 (DESIGN_SPEC 6-14).
- * 나라 = 사진 썸네일 라디오 카드 2열(쉬운 모드·큰 글자 1열), 날짜 = 숫자 자판 입력(하이픈은 칸이 그림) + `11월 3일 (화)` 확인 글(D20 —
- * 가로 스와이프 달력을 쓰지 않는다), 기간 칩(4박 5일), 저장 버튼 하나, 지우기는 빨간 버튼 + 확인 대화상자(D8).
+ * 나라 = 사진 썸네일 라디오 카드 2열(쉬운 모드·큰 글자 1열), 날짜 = 공용 날짜 칸(달력 대화상자가 주 입력, 숫자 자판은 보조 —
+ * 다듬기 S2가 D20의 '가로 스와이프 달력 금지'를 Material 달력 대화상자로 바꿨다) + `11월 3일 (화)` 확인 글,
+ * 기간 칩(4박 5일), 저장 버튼 하나, 지우기는 빨간 버튼 + 확인 대화상자(D8).
  */
 @Composable
 fun TripContent(
@@ -208,8 +203,8 @@ fun TripContent(
     var confirmDelete by remember { mutableStateOf(false) }
     LaunchedEffect(start, end) { invalid = false }
     val columns = rememberGridColumns()
-    val startDate = parseDigits(start)
-    val endDate = parseDigits(end)
+    val startDate = parseDateDigits(start)
+    val endDate = parseDateDigits(end)
     val nights = if (startDate != null && endDate != null) ChronoUnit.DAYS.between(startDate, endDate).toInt().takeIf { it >= 0 } else null
     // 고른 나라 팩의 공항만 — 나라를 바꾸면 그 나라에 없는 공항은 `아직 몰라요`로 보인다
     val airportOptions = ui.airports[country].orEmpty()
@@ -244,8 +239,14 @@ fun TripContent(
             val shape = MaterialTheme.shapes.large
             Surface(color = Tokens.Surface, shape = shape, modifier = Modifier.fillMaxWidth().cardShadow(shape)) {
                 Column(Modifier.padding(dimens.cardPadding), verticalArrangement = Arrangement.spacedBy(dimens.gap)) {
-                    DateField(R.string.trip_start, start, startDate, error = invalid && startDate == null) { start = it }
-                    DateField(R.string.trip_end, end, endDate, error = invalid && (endDate == null || nights == null)) { end = it }
+                    DateField(R.string.trip_start, start, openOn = startDate, error = invalid && startDate == null) { start = it }
+                    DateField(
+                        R.string.trip_end,
+                        end,
+                        // 돌아오는 날 달력은 떠나는 날이 있는 달에서 열린다(없으면 오늘)
+                        openOn = endDate ?: startDate,
+                        error = invalid && (endDate == null || nights == null),
+                    ) { end = it }
                     if (nights != null) {
                         FactChip(
                             Fact(
@@ -289,8 +290,8 @@ fun TripContent(
                 // 만들기 = 여행 만들기(EditCalendar), 고치기 = 저장하기(Check) — 날짜 머리·여행 고치기 버튼과 아이콘이 겹치지 않게
                 icon = if (ui.existing == null) Icons.Outlined.EditCalendar else Icons.Outlined.Check,
                 onClick = {
-                    val s = parseDigits(start)
-                    val e = parseDigits(end)
+                    val s = parseDateDigits(start)
+                    val e = parseDateDigits(end)
                     if (country == null || s == null || e == null || e.isBefore(s)) invalid = true else onSave(country!!, s, e, pickedAirport)
                 },
             )
@@ -313,46 +314,6 @@ fun TripContent(
         )
     }
 }
-
-/** 저장된 날짜(YYYY-MM-DD)에서 숫자 8자리만 (날짜 칸이 다루는 값) */
-internal fun dateDigits(text: String?): String = text.orEmpty().filter(Char::isDigit).take(DATE_DIGITS)
-
-/** 숫자 8자리(YYYYMMDD) → 날짜. 자리가 모자라거나 없는 날이면 null */
-internal fun parseDigits(digits: String): LocalDate? {
-    if (digits.length != DATE_DIGITS) return null
-    return runCatching { LocalDate.parse("${digits.substring(0, 4)}-${digits.substring(4, 6)}-${digits.substring(6, 8)}") }.getOrNull()
-}
-
-private const val DATE_DIGITS = 8
-
-/**
- * 숫자만 적는 날짜 칸에 하이픈을 그려 준다(`20261103` → `2026-11-03`). 커서 자리도 하이픈을 건너뛰게 맞춘다.
- * 숫자 자판만으로 적을 수 있어 시니어가 숫자·하이픈 자판을 오가지 않는다 (재검토 R18).
- */
-internal object DateDigitsTransformation : VisualTransformation {
-    override fun filter(text: AnnotatedString): TransformedText {
-        val digits = text.text
-        val shown = buildString {
-            digits.forEachIndexed { i, c ->
-                if (i == 4 || i == 6) append('-')
-                append(c)
-            }
-        }
-        val mapping = object : OffsetMapping {
-            override fun originalToTransformed(offset: Int): Int =
-                offset + (if (offset > 4) 1 else 0) + (if (offset > 6) 1 else 0)
-
-            override fun transformedToOriginal(offset: Int): Int =
-                (offset - (if (offset > 4) 1 else 0) - (if (offset > 7) 1 else 0)).coerceIn(0, digits.length)
-        }
-        return TransformedText(AnnotatedString(shown), mapping)
-    }
-}
-
-/** 11월 3일 (화) */
-@Composable
-private fun datePreview(date: LocalDate): String =
-    stringResource(R.string.trip_date_preview, date.monthValue, date.dayOfMonth, date.dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.KOREAN))
 
 /**
  * 나라 선택 카드 = 공용 SelectableCard(재검토 R2 규칙 ②): 원형 사진 썸네일(장식) + 한국어·영어 이름.
@@ -402,40 +363,20 @@ private fun CountryNames(c: IndexCountry, align: TextAlign, modifier: Modifier =
 }
 
 /**
- * 날짜 칸 (D20 + 재검토 R18): 숫자 자판으로 8자리만 적으면 하이픈은 칸이 그려 준다(`2026-11-03`).
- * 값이 올바르면 `11월 3일 (화)` 확인 글(보조 글이라 InkSecondary — 파란 글자는 링크처럼 보였다).
- * 앞 달력 아이콘은 누르면 달력이 열릴 것처럼 보여 뺐다(섹션 머리에 같은 아이콘이 있다).
+ * 날짜 칸 (다듬기 S2): 달력에서 고르는 게 주 입력이고 숫자로 적는 길도 그대로 — 공용 [DatePickField] 하나다.
+ * `돌아오는 날` 달력은 떠나는 날이 있는 달에서 열리지만 **그 앞 날짜도 고를 수 있다**(막지 않고 띠로 알려 준다 — 앱의 습관).
  */
 @Composable
-private fun DateField(@StringRes label: Int, value: String, parsed: LocalDate?, error: Boolean, onChange: (String) -> Unit) {
-    val preview: (@Composable () -> Unit)? = if (parsed != null) {
-        { KoText(datePreview(parsed)) }
-    } else {
-        null
-    }
-    OutlinedTextField(
+private fun DateField(@StringRes label: Int, value: String, openOn: LocalDate?, error: Boolean, onChange: (String) -> Unit) {
+    DatePickField(
+        label = stringResource(label),
         value = value,
-        onValueChange = { onChange(dateDigits(it)) },
-        label = { KoText(stringResource(label)) },
-        placeholder = { KoText(stringResource(R.string.trip_date_hint)) },
-        supportingText = preview,
-        isError = error,
-        singleLine = true,
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-        visualTransformation = DateDigitsTransformation,
-        textStyle = MaterialTheme.typography.bodyLarge,
-        shape = MaterialTheme.shapes.small,
-        colors = OutlinedTextFieldDefaults.colors(
-            focusedContainerColor = Tokens.Surface,
-            unfocusedContainerColor = Tokens.Surface,
-            errorContainerColor = Tokens.Surface,
-            unfocusedBorderColor = Tokens.LineStrong,
-            focusedBorderColor = Tokens.Accent,
-            errorBorderColor = Tokens.DangerText,
-            focusedSupportingTextColor = Tokens.InkSecondary,
-            unfocusedSupportingTextColor = Tokens.InkSecondary,
-            errorSupportingTextColor = Tokens.DangerText,
-        ),
-        modifier = Modifier.fillMaxWidth(),
+        onChange = onChange,
+        note = stringResource(R.string.date_pick_note),
+        error = error,
+        rules = DateRules(openOn = openOn, years = tripYears()),
     )
 }
+
+/** 여행 날짜를 고를 때 달력에서 넘길 수 있는 해 — 지난해부터 5년 뒤까지(그보다 먼 여행은 거의 없다) */
+private fun tripYears(today: LocalDate = LocalDate.now()): IntRange = (today.year - 1)..(today.year + 5)

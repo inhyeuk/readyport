@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!--
+      다듬기 S2 (2026-10-03) — 운영자 결정 네 가지.
+      "좌표 입력도 넣고, 내 정보에 숙소 목록 두고, 종류는 비워 둬. 그리고 날짜를 입력할 때, 달력에서 선택할 수 있도록 해줘"
+      문구 규칙은 PRD 3.4 — 중1이 읽는 쉬운 말(해요체), 한 화면 할 일 하나. 정부 비제휴·제출은 직접 규칙 그대로.
+    -->
+
+    <!-- ① 달력에서 날짜 고르기 (앱의 모든 날짜 칸) -->
+    <string name="date_pick_note">달력에서 고르거나 숫자로 적어요.</string>
+    <string name="date_pick_title">%1$s 고르기</string>
+    <!-- 달력 단추 이름: `떠나는 날 달력에서 고르기, 지금 11월 3일 (화)` -->
+    <string name="date_pick_open_cd">%1$s 달력에서 고르기, 지금 %2$s</string>
+    <string name="date_pick_open_empty_cd">%1$s 달력에서 고르기, 아직 안 골랐어요</string>
+    <string name="date_pick_confirm">이 날로 하기</string>
+    <string name="date_pick_type">숫자로 적기</string>
+    <string name="date_pick_type_cd">%1$s 숫자로 적기</string>
+
+    <!-- 예약 서류 숙소 날짜 칸 설명 (달력이 생겨 `예: 2026-11-03`을 대신한다) -->
+    <string name="booking_hint_checkin_s2">숙소에 들어가는 날이에요. 달력에서 고르거나 숫자로 적어요.</string>
+    <string name="booking_hint_checkout_s2">숙소에서 나오는 날이에요. 달력에서 고르거나 숫자로 적어요.</string>
+
+    <!-- 숙소 날짜: 이 여행 날짜를 알려 주고 달력도 그 달에서 열린다 -->
+    <string name="stay_dates_trip_note">이 여행은 %1$s이에요. 달력에서 고르거나 숫자로 적어요.</string>
+
+    <!-- ② 숙소 좌표 (안 넣어도 되는 칸) -->
+    <string name="stay_coords_title">좌표</string>
+    <string name="stay_coords_toggle">좌표 넣기 (안 넣어도 돼요)</string>
+    <string name="stay_coords_help">지도에서 정확한 자리를 찾을 때 써요.</string>
+    <string name="stay_coords_no_map">앱 안에는 지도가 없어요. 지도에서 고르고 싶으면 구글 지도에서 링크를 복사해 여기에 붙여 넣어 주세요.</string>
+    <string name="stay_coords_field">위도·경도 또는 구글 지도 링크</string>
+    <string name="stay_coords_hint" tools:ignore="TypographyDashes">예: 37.5665, 126.978</string>
+    <string name="stay_coords_read">이렇게 읽었어요 — 위도 %1$s · 경도 %2$s</string>
+    <string name="stay_coords_unknown">무슨 좌표인지 모르겠어요. 숫자 두 개(위도, 경도)나 구글 지도 링크를 붙여 넣어 주세요.</string>
+    <string name="stay_coords_open">지도에서 좌표 확인</string>
+    <string name="stay_coords_open_cd">좌표 %1$s를 구글 지도에서 확인</string>
+    <string name="stay_coords_clear">좌표 지우기</string>
+    <string name="stay_coords_prefer">좌표를 넣어 두면 지도와 기사님께 보여 주기가 주소보다 좌표를 먼저 써요.</string>
+
+    <!-- ③ 설정 › 내 정보의 묵는 곳 목록 (모든 여행) -->
+    <string name="wallet_stays_title">묵는 곳</string>
+    <string name="wallet_stays_lead">넣는 곳은 그 여행의 예약 단계예요. 여기서는 모두 모아 보고 고치거나 지워요.</string>
+    <string name="wallet_stays_empty">아직 넣어 둔 숙소가 없어요. 여행을 열고 예약 단계에서 넣어 주세요.</string>
+    <string name="wallet_stay_group">%1$s · %2$s</string>
+    <string name="wallet_stay_count">숙소 %1$d곳</string>
+    <string name="wallet_stays_no_trip">여행이 없는 숙소</string>
+    <string name="wallet_stays_no_trip_body">예전 예약 서류에서 옮겨 온 숙소예요. 여행을 만들고 이 숙소 날짜를 맞추면 그 여행에서도 보여요.</string>
+    <string name="wallet_stays_open_trip">이 여행 열기</string>
+    <string name="wallet_stays_open_trip_cd">%1$s 여행 열기</string>
+
+    <!-- ④ 입국 카드: 사이트 선택지에 없는 숙소 종류는 비워 둔다 (앱이 대신 고르지 않아요) -->
+    <string name="form_stay_type_title">숙소 종류는 사이트에서 골라 주세요</string>
+    <string name="form_stay_type_body">숙소 종류는 공식 사이트 목록에서 고르는 칸이에요. 앱이 짐작해서 고르지 않아요.</string>
+    <string name="form_stay_type_not_listed">적어 둔 숙소 종류가 이 나라 사이트 선택지에 없어서 비워 뒀어요. 잘못 고른 값이 그대로 제출되면 안 되니까요. 사이트에서 직접 골라 주세요.</string>
+    <string name="form_stay_type_blank">아직 안 고른 칸이라 빈칸으로 남아 있어요. 사이트에서 골라 주세요.</string>
+</resources>

@@ -86,7 +86,7 @@ object TestPacks {
 
 /** Hilt 없이 루트를 띄우는 화면 대역 */
 val FakeSlots = ScreenSlots(
-    wallet = { onAddPassport, onAddBooking, _ ->
+    wallet = { onAddPassport, onAddBooking, _, _, _ ->
         WalletContent(
             state = WalletState.Locked(hasData = false),
             deviceSecure = true,

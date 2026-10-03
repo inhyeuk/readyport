@@ -83,14 +83,10 @@ import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.OffsetMapping
-import androidx.compose.ui.text.input.TransformedText
-import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
@@ -106,6 +102,8 @@ import com.readyport.ui.components.AppScreen
 import com.readyport.ui.components.BadgeTone
 import com.readyport.ui.components.BannerTone
 import com.readyport.ui.components.CardNewsCard
+import com.readyport.ui.components.DatePickField
+import com.readyport.ui.components.DateRules
 import com.readyport.ui.components.IconBullet
 import com.readyport.ui.components.InfoCard
 import com.readyport.ui.components.KeyValueRow
@@ -122,6 +120,7 @@ import com.readyport.ui.components.StatusTag
 import com.readyport.ui.components.minTouch
 import com.readyport.ui.components.keepWords
 import com.readyport.ui.components.minTouchSize
+import com.readyport.ui.components.parseDateDigits
 import com.readyport.ui.theme.LocalDimens
 import com.readyport.ui.theme.Tokens
 import com.readyport.vault.PassportRecord
@@ -701,6 +700,7 @@ fun PassportManualContent(onSave: (PassportRecord) -> Unit) {
     var expiry by remember { mutableStateOf("") }
     var sex by remember { mutableStateOf('M') }
     var invalid by remember { mutableStateOf(false) }
+    val today = remember { LocalDate.now() }
 
     fun record(): PassportRecord? {
         val upper = Regex("^[A-Z][A-Z ]*$")
@@ -747,13 +747,16 @@ fun PassportManualContent(onSave: (PassportRecord) -> Unit) {
                         Icons.Outlined.Public,
                         hint = R.string.passport_hint_nationality,
                     ) { nationality = it }
-                    ManualField(
-                        R.string.passport_field_birth,
-                        birth,
-                        Icons.Outlined.CalendarMonth,
-                        hint = R.string.passport_date_hint,
-                        date = true,
-                    ) { birth = it }
+                    // 생년월일·만료일은 공용 날짜 칸 — 달력에서 고르는 게 주 입력, 숫자로 적는 길도 그대로 (다듬기 S2)
+                    DatePickField(
+                        label = stringResource(R.string.passport_field_birth),
+                        value = birth,
+                        onChange = { birth = it },
+                        leadingIcon = Icons.Outlined.CalendarMonth,
+                        note = stringResource(R.string.date_pick_note),
+                        // 달력은 어른이 많은 해(마흔 해 전)에서 열리고, 올해까지만 넘긴다
+                        rules = DateRules(openOn = today.minusYears(BIRTH_OPEN_YEARS), years = BIRTH_FIRST_YEAR..today.year),
+                    )
                     Text(
                         stringResource(R.string.passport_field_sex),
                         style = MaterialTheme.typography.titleSmall,
@@ -775,13 +778,16 @@ fun PassportManualContent(onSave: (PassportRecord) -> Unit) {
                             )
                         }
                     }
-                    ManualField(
-                        R.string.passport_field_expiry,
-                        expiry,
-                        Icons.Outlined.EventBusy,
-                        hint = R.string.passport_expiry_hint,
-                        date = true,
-                    ) { expiry = it }
+                    DatePickField(
+                        label = stringResource(R.string.passport_field_expiry),
+                        value = expiry,
+                        onChange = { expiry = it },
+                        leadingIcon = Icons.Outlined.EventBusy,
+                        note = stringResource(R.string.date_pick_note),
+                        // 여권 만료일은 앞으로의 날짜 — 달력은 올해에서 열고 열 해 뒤까지 넘긴다(지난 여권도 적을 수 있게 과거도 둔다)
+                        rules = DateRules(years = (today.year - EXPIRY_PAST_YEARS)..(today.year + EXPIRY_FUTURE_YEARS)),
+                        imeAction = ImeAction.Done,
+                    )
                 }
             }
         }
@@ -803,64 +809,31 @@ fun PassportManualContent(onSave: (PassportRecord) -> Unit) {
 /**
  * 직접 입력 칸: 짧은 라벨 + 앞 아이콘 + 형식·예시는 칸 아래 supportingText(늘 보임).
  * 줄바꿈 입력은 받지 않지만 긴 값은 칸 안에서 여러 줄로 보여 준다(200%에서 값이 잘리지 않게).
- * [date]: 숫자 자판 + 숫자 8자리만 받고, 화면에서는 `1974-08-12`처럼 하이픈을 앱이 넣어 보인다(재검토 R18 — 숫자·기호를 오가지 않게).
+ * 날짜 칸은 이 부품이 아니라 공용 [DatePickField]다 (다듬기 S2 — 달력에서 고르고 숫자로도 적는다).
  */
 @Composable
-private fun ManualField(label: Int, value: String, icon: ImageVector, hint: Int? = null, date: Boolean = false, onChange: (String) -> Unit) {
+private fun ManualField(label: Int, value: String, icon: ImageVector, hint: Int? = null, onChange: (String) -> Unit) {
     OutlinedTextField(
         value = value,
-        onValueChange = { onChange(if (date) dateDigits(it) else it.replace("\n", "")) },
+        onValueChange = { onChange(it.replace("\n", "")) },
         label = { Text(stringResource(label)) },
         leadingIcon = { Icon(icon, contentDescription = null) },
         supportingText = hint?.let { { Text(stringResource(it)) } },
-        singleLine = date,
         textStyle = MaterialTheme.typography.bodyLarge,
         shape = MaterialTheme.shapes.small,
-        visualTransformation = if (date) DateDigitsTransformation else VisualTransformation.None,
-        // 영문 대문자 입력(날짜는 숫자 자판), 자동 고침 끔, 엔터는 다음 칸으로
+        // 영문 대문자 입력, 자동 고침 끔, 엔터는 다음 칸으로
         keyboardOptions = KeyboardOptions(
-            capitalization = if (date) KeyboardCapitalization.None else KeyboardCapitalization.Characters,
+            capitalization = KeyboardCapitalization.Characters,
             autoCorrectEnabled = false,
-            keyboardType = if (date) KeyboardType.Number else KeyboardType.Text,
+            keyboardType = KeyboardType.Text,
             imeAction = ImeAction.Next,
         ),
         modifier = Modifier.fillMaxWidth(),
     )
 }
 
-/** 날짜 칸에 받는 글자: 숫자만, 8자리까지 (붙여 넣은 `1974-08-12`도 숫자만 남긴다) */
-internal fun dateDigits(input: String): String = input.filter { it in '0'..'9' }.take(8)
-
-/** 숫자 8자리(`19740812`) → 날짜. 자리가 모자라거나 없는 날짜면 null */
-internal fun parseDateDigits(digits: String): LocalDate? {
-    if (digits.length != 8 || digits.any { it !in '0'..'9' }) return null
-    return runCatching { LocalDate.of(digits.take(4).toInt(), digits.substring(4, 6).toInt(), digits.substring(6).toInt()) }.getOrNull()
-}
-
-/** 날짜(`2026-11-03`) → 날짜 칸 값(`20261103`). 날짜 모양이 아니면 빈 값 */
-internal fun digitsOf(date: String?): String =
-    date?.trim()?.let { runCatching { LocalDate.parse(it) }.getOrNull() }?.toString()?.let(::dateDigits).orEmpty()
-
-/**
- * 숫자만 저장한 날짜 칸을 `YYYY-MM-DD`로 보이게 한다 — 넷째·여섯째 숫자 뒤에 하이픈(그 뒤 숫자가 있을 때만).
- * 커서 위치는 숫자 자리에 맞춰 옮긴다(하이픈 자리에서 지워도 숫자가 지워진다).
- */
-internal object DateDigitsTransformation : VisualTransformation {
-    override fun filter(text: AnnotatedString): TransformedText {
-        val digits = text.text
-        val shown = buildString {
-            digits.forEachIndexed { i, c ->
-                if (i == 4 || i == 6) append('-')
-                append(c)
-            }
-        }
-        val mapping = object : OffsetMapping {
-            override fun originalToTransformed(offset: Int): Int =
-                offset + (if (offset > 4) 1 else 0) + (if (offset > 6) 1 else 0)
-
-            override fun transformedToOriginal(offset: Int): Int =
-                (offset - (if (offset >= 5) 1 else 0) - (if (offset >= 8) 1 else 0)).coerceIn(0, digits.length)
-        }
-        return TransformedText(AnnotatedString(shown), mapping)
-    }
-}
+/** 여권 직접 입력 달력이 여는 자리·넘길 수 있는 해 (다듬기 S2) */
+private const val BIRTH_OPEN_YEARS = 40L
+private const val BIRTH_FIRST_YEAR = 1900
+private const val EXPIRY_PAST_YEARS = 10
+private const val EXPIRY_FUTURE_YEARS = 30

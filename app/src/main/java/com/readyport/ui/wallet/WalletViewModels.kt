@@ -13,7 +13,13 @@ import com.readyport.doc.mrz.MrzParser
 import com.readyport.doc.ocr.OcrEngine
 import com.readyport.share.SharedPayload
 import com.readyport.share.ShareInbox
+import com.readyport.pack.PackRepository
+import com.readyport.stay.StayGrouping
 import com.readyport.stay.Stays
+import com.readyport.transport.PlacesRepository
+import com.readyport.trip.TripRepository
+import com.readyport.ui.components.digitsOf
+import com.readyport.ui.components.parseDateDigits
 import com.readyport.vault.BookingRecord
 import com.readyport.vault.StayRecord
 import com.readyport.vault.PassportRecord
@@ -24,6 +30,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
@@ -37,10 +45,26 @@ import javax.inject.Inject
 class WalletViewModel @Inject constructor(
     private val repo: WalletRepository,
     private val settings: SettingsRepository,
+    private val places: PlacesRepository,
+    trips: TripRepository,
+    packs: PackRepository,
 ) : ViewModel() {
     val state: StateFlow<WalletState> = repo.state
     val autoDestroy: StateFlow<Boolean> = settings.settings.map { it.autoDestroyPassport }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), true)
+
+    /**
+     * 모든 여행의 숙소를 여행별로 묶은 목록 (다듬기 S2 — 설정 › 내 정보의 묵는 곳).
+     * 보관함이 잠겨 있으면 빈 목록이다(주소 글자는 보관함을 열어야 읽는다).
+     */
+    val stayGroups: StateFlow<List<StayGrouping>> = combine(repo.state, trips.trips) { state, all ->
+        Stays.group((state as? WalletState.Unlocked)?.contents?.stays.orEmpty(), all)
+    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyList())
+
+    /** 나라 코드 → 한국어 이름 (화면에 나라 코드를 보이지 않게 — 팩 목록에서 푼다) */
+    val countryNames: StateFlow<Map<String, String>> = flow {
+        emit(packs.index()?.value?.countries.orEmpty().associate { it.code to it.nameKo })
+    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyMap())
 
     fun unlock() = viewModelScope.launch { repo.unlock() }
     fun lock() = repo.lock()
@@ -51,6 +75,13 @@ class WalletViewModel @Inject constructor(
     }
     fun deletePassport() = viewModelScope.launch { repo.update { it.copy(passport = null) } }
     fun deleteBooking(id: String) = viewModelScope.launch { repo.update { c -> c.copy(bookings = c.bookings.filterNot { it.id == id }) } }
+
+    /** 숙소 하나를 지운다 — 기사님께 보여 주던 '가는 곳'도 함께 (숙소 고치기 화면과 같은 규칙) */
+    fun deleteStay(id: String) = viewModelScope.launch {
+        val result = repo.update { c -> c.copy(stays = c.stays.filterNot { it.id == id }) }
+        if (result == WalletRepository.SaveResult.Saved) places.syncStay(id, null)
+    }
+
     fun setAutoDestroy(enabled: Boolean) = viewModelScope.launch { settings.setAutoDestroyPassport(enabled) }
 }
 
@@ -134,7 +165,7 @@ class BookingImportViewModel @Inject constructor(
     private val repo: WalletRepository,
     private val ocr: OcrEngine,
     private val inbox: ShareInbox,
-    private val places: com.readyport.transport.PlacesRepository,
+    private val places: PlacesRepository,
     private val contentResolver: android.content.ContentResolver,
 ) : ViewModel() {
     /** 어느 여행의 서류인지 (여행 화면 `묵는 곳`에서 들어오면 있다). 설정 › 내 정보에서 들어오면 null */
