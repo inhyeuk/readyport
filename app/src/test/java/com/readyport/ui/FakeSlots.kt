@@ -102,6 +102,6 @@ val FakeSlots = ScreenSlots(
     country = { code, actions -> CountryContent(TestPacks.countryUi(code), actions) },
     help = { HelpContent(TestPacks.helpUi(), {}, {}, {}) },
     // 내 여행 탭 첫 화면 = 여행 목록(빈 목록 — 저장소 없이 띄운다)
-    trips = { onOpen, onAdd -> TripListContent(TripListUi(loaded = true), onOpen, onAdd) },
+    trips = { onOpen, onAdd, openPast -> TripListContent(TripListUi(loaded = true), onOpen, onAdd, openPast) },
     present = { PresentContent(PresentUi(locked = true), {}, {}, {}, {}) },
 )

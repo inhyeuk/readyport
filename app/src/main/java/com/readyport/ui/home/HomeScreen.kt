@@ -1,130 +1,71 @@
 package com.readyport.ui.home
 
-import android.content.Intent
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.FactCheck
-import androidx.compose.material.icons.automirrored.outlined.NavigateNext
 import androidx.compose.material.icons.outlined.Approval
-import androidx.compose.material.icons.outlined.Badge
 import androidx.compose.material.icons.outlined.EditCalendar
 import androidx.compose.material.icons.outlined.EventAvailable
-import androidx.compose.material.icons.outlined.ExpandLess
-import androidx.compose.material.icons.outlined.ExpandMore
 import androidx.compose.material.icons.outlined.FlightTakeoff
-import androidx.compose.material.icons.outlined.HowToReg
+import androidx.compose.material.icons.outlined.History
 import androidx.compose.material.icons.outlined.Info
-import androidx.compose.material.icons.outlined.Inventory2
-import androidx.compose.material.icons.outlined.LocalAirport
 import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material.icons.outlined.Luggage
-import androidx.compose.material.icons.outlined.MeetingRoom
 import androidx.compose.material.icons.outlined.OfflinePin
 import androidx.compose.material.icons.outlined.Schedule
-import androidx.compose.material.icons.outlined.Security
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.Role
-import androidx.compose.ui.semantics.contentDescription
-import androidx.compose.ui.semantics.heading
-import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.unit.dp
-import androidx.core.net.toUri
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewModelScope
 import com.readyport.R
-import com.readyport.data.settings.SettingsRepository
-import com.readyport.pack.OfficialLink
 import com.readyport.pack.PackRepository
 import com.readyport.pack.Requirement
-import com.readyport.pack.SourcedText
-import com.readyport.trip.ChecklistData
 import com.readyport.trip.ChecklistProvider
 import com.readyport.trip.TripRepository
 import com.readyport.trip.TripSelection
-import com.readyport.ui.components.CheckProgressBar
-import androidx.compose.material.icons.outlined.CalendarMonth
+import com.readyport.trip.TripTiming
 import com.readyport.ui.components.AppScreen
-import com.readyport.ui.components.BadgeTitleLayout
 import com.readyport.ui.components.BadgeTone
 import com.readyport.ui.components.ButtonStyles
-import com.readyport.ui.components.CardNewsCard
+import com.readyport.ui.components.CheckProgressBar
 import com.readyport.ui.components.ChipSpec
 import com.readyport.ui.components.CountryPhotoTile
+import com.readyport.ui.components.EqualWidthPair
 import com.readyport.ui.components.FitText
-import com.readyport.ui.components.HelpShortcutRow
-import com.readyport.ui.components.IconBadge
 import com.readyport.ui.components.IconBullet
 import com.readyport.ui.components.IconKeys
 import com.readyport.ui.components.InfoChip
 import com.readyport.ui.components.KoText
-import com.readyport.ui.components.ListGroup
-import com.readyport.ui.components.NewsStyle
 import com.readyport.ui.components.OnDark
 import com.readyport.ui.components.PhotoBox
-import com.readyport.ui.components.PhotoHeaderCard
 import com.readyport.ui.components.PhotoTextArea
 import com.readyport.ui.components.Photos
 import com.readyport.ui.components.PrimaryButton
-import com.readyport.ui.components.ReturnCheckCard
-import com.readyport.ui.components.foldLiveRegion
-import com.readyport.ui.components.ReturnCheckMode
 import com.readyport.ui.components.SecondaryButton
 import com.readyport.ui.components.SectionHeader
 import com.readyport.ui.components.SourceList
 import com.readyport.ui.components.SourceRef
-import com.readyport.ui.components.Step
-import com.readyport.ui.components.StepList
 import com.readyport.ui.components.displayDate
-import com.readyport.ui.components.isStackedLayout
-import com.readyport.ui.components.isStackedListRow
-import com.readyport.ui.components.minTouch
 import com.readyport.ui.components.noBreak
 import com.readyport.ui.components.rememberGridColumns
-import com.readyport.ui.components.rememberPhotoLift
-import com.readyport.ui.components.rememberThumbnail
-import com.readyport.ui.components.sectionGap
 import com.readyport.ui.components.tileRows
-import com.readyport.ui.components.textIconSize
 import com.readyport.ui.onboarding.AppSymbol
 import com.readyport.ui.onboarding.ValuePropText
-import com.readyport.ui.components.EssentialsChips
-import com.readyport.ui.components.EssentialsProgress
-import com.readyport.ui.components.EssentialsSummary
-import com.readyport.ui.components.essentialsSources
-import com.readyport.ui.components.essentialsSummary
 import com.readyport.ui.theme.LocalDimens
 import com.readyport.ui.theme.LocalTypeExtras
 import com.readyport.ui.theme.Tokens
@@ -154,7 +95,7 @@ data class HomeCountry(
 
 /**
  * 둘러보기가 가리키는 '내 여행' 한 줄. [code]: 나라 코드(사진 썸네일용), [id]: 그 여행 화면으로 가는 길.
- * [checklistDone]/[checklistTotal]: 그 여행 진행(0이면 표시 없음), [tripCount]: 저장된 여행 수(2개 이상이면 `여행 n개 모두 보기`)
+ * [checklistDone]/[checklistTotal]: 그 여행 진행(0이면 표시 없음)
  */
 data class HomeTrip(
     val countryKo: String,
@@ -164,12 +105,17 @@ data class HomeTrip(
     val id: String = "",
     val checklistDone: Int = 0,
     val checklistTotal: Int = 0,
-    val tripCount: Int = 1,
 )
 
+/**
+ * [trip]: 지금 가리키는 여행(TripSelection.active — 여행 중 → 다가오는 → 최근 지난 여행 차례).
+ * [activeTrips]: 여행 중·다가오는 여행 수, [pastTrips]: 끝난 여행 수 — 히어로의 여행 버튼 세 개를 이 수가 정한다.
+ */
 data class HomeUi(
     val countries: List<HomeCountry> = emptyList(),
     val trip: HomeTrip? = null,
+    val activeTrips: Int = 0,
+    val pastTrips: Int = 0,
 )
 
 data class HomeActions(
@@ -178,10 +124,10 @@ data class HomeActions(
     val openTrip: (String) -> Unit = {},
     /** 내 여행 목록 */
     val openTrips: () -> Unit = {},
-    /** 새 여행 만들기 — 둘러보기의 단 하나의 주 버튼 */
+    /** 내 여행 목록의 `지난 여행` 묶음을 펼친 채로 — 히어로 `예전 여행지 다시보기` */
+    val openPastTrips: () -> Unit = {},
+    /** 새 여행 만들기 */
     val makeTrip: () -> Unit = {},
-    /** '급할 때는 도움' 줄 → 도움 탭 (DESIGN_SPEC 6-01) */
-    val openHelp: () -> Unit = {},
 )
 
 @HiltViewModel
@@ -212,11 +158,13 @@ class HomeViewModel @Inject constructor(
             runCatching {
                 HomeTrip(
                     tripPack?.names?.ko ?: t.country, LocalDate.parse(t.startDate), LocalDate.parse(t.endDate), t.country, t.id,
-                    checklistDone = data?.done ?: 0, checklistTotal = data?.total ?: 0, tripCount = book.trips.size,
+                    checklistDone = data?.done ?: 0, checklistTotal = data?.total ?: 0,
                 )
             }.getOrNull()
         }
-        HomeUi(countries = countries, trip = homeTrip)
+        val valid = book.trips.filter { it.datesValid }
+        val past = valid.count { TripSelection.timing(it, today) == TripTiming.Past }
+        HomeUi(countries = countries, trip = homeTrip, activeTrips = valid.size - past, pastTrips = past)
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), HomeUi())
 }
 
@@ -227,11 +175,11 @@ fun HomeScreen(actions: HomeActions, viewModel: HomeViewModel = hiltViewModel())
 }
 
 /**
- * 둘러보기 (예전 '홈', 2026-10-03 부록 H): **어디 갈까를 고르는 화면**이다 — 여행 흐름(출국 순서·꼭 챙길 물건·귀국 전 확인·여권)은
+ * 둘러보기 (예전 '홈', 2026-10-03 부록 H·H.5): **어디 갈까를 고르는 화면**이다 — 여행 흐름(출국 순서·꼭 챙길 물건·귀국 전 확인·여권)은
  * 모두 내 여행 탭의 한 여행 화면으로 옮겼다. 같은 일을 두 곳에서 하지 않는다.
- * 위에서부터: 사진 히어로(앱 이름 · 질문 · 핵심 가치 한 줄 · 신뢰 표시) → 여행 만들기(또는 내 여행으로 가는 한 줄)
- * → 나라 사진 타일(큰 1장 + 2열) + 출처 + 소개 문장 → 급할 때는 도움.
- * - 주 버튼(채움)은 화면에 하나(원칙 7): 여행이 없으면 `여행 만들기`, 있으면 `내 여행 보기`.
+ * 위에서부터 **단 두 덩어리**다: ① 히어로 한 장(`어디로 떠나세요?` + 내 여행 상태 + 여행 버튼) ② `어느 나라로 가세요?` + 나라 사진 타일 + 출처 + 소개 문장.
+ * - 여행으로 가는 길은 히어로 **안에만** 있다(운영자 2026-10-03): 예전의 `새 여행 만들기` 카드와 `출발까지` 카드는 히어로가 흡수했다.
+ * - 급할 때 도움은 아래 **도움 탭**이 맡는다 — 둘러보기 안의 `급할 때는 도움` 줄은 같은 길이 두 개여서 지웠다.
  * - 1열(쉬운 모드·큰 글자)에서는 신뢰 표시 3개를 히어로에서 나라 목록 아래로 옮긴다(숨기지 않고 자리만 — 재검토 R5).
  */
 @Composable
@@ -248,22 +196,13 @@ fun HomeContent(ui: HomeUi, actions: HomeActions, today: LocalDate = LocalDate.n
     AppScreen(
         title = stringResource(R.string.home_title),
         speech = stringResource(R.string.home_speech),
-        header = { HomeHero(singleColumn = columns == 1, hasTrip = ui.trip != null) },
+        header = { HomeHero(ui, actions, today, singleColumn = columns == 1) },
         // 둘러보기 자신에서는 `처음으로`를 숨긴다(눌러도 아무 일 없음) — 쉬운 모드는 `소리로 듣기`만 폭 전체
         showHomeAction = false,
     ) {
-        // 여행이 있으면 그 여행으로 가는 카드가 맨 위 — 여행이 없으면 나라를 먼저 보여 주고(첫 화면 예산, 운영자 결정 9)
-        // `여행 만들기`는 나라 목록 **아래**에 둔다: 둘러보다가 고른 다음이 자연스러운 자리다
-        ui.trip?.let { trip ->
-            item(key = "trip") { TripCountdownCard(trip, today, { actions.openTrip(trip.id) }, actions.openTrips) }
-            sectionGap("countries-gap")
-        }
-        item(key = "countries-title") {
-            SectionHeader(
-                title = stringResource(R.string.home_countries_title),
-                subtitle = stringResource(R.string.home_countries_body),
-            )
-        }
+        // 나라 묶음 머리글은 제목 한 줄만 — `사진을 누르면 그 나라 안내가 열려요`(home_countries_body)는 맨 아래
+        // 소개 문장(`나라를 고르면 입국 서류부터 … 알려 드려요`)과 같은 말이라 지웠다(한 화면에서 같은 말 두 번 금지, 운영자 2026-10-03)
+        item(key = "countries-title") { SectionHeader(title = stringResource(R.string.home_countries_title)) }
         featured?.let { c ->
             item(key = "country-${c.code}") { HomeCountryTile(c, large = true, onOpen = actions.openCountry) }
         }
@@ -282,53 +221,31 @@ fun HomeContent(ui: HomeUi, actions: HomeActions, today: LocalDate = LocalDate.n
                 if (columns == 1) TrustStrip(onDark = false)
             }
         }
-        if (ui.trip == null) {
-            item(key = "make-trip") { MakeTripCard(actions.makeTrip) }
-        }
-        item(key = "help") { HelpShortcutRow(actions.openHelp) }
     }
 }
 
 /**
- * 여행이 없을 때의 단 하나의 할 일 (Accent 채움): `여행을 만들면 순서대로 알려 드려요` + `새 여행 만들기`.
- * 여행을 만들면 이 자리에 내 여행 카드가 들어온다 — 둘러보기에는 언제나 여행으로 가는 길이 한 줄 있다.
+ * 맨 위 히어로 **한 장**: 사진 위 스크림 글자 영역(PhotoTextArea) 하나에 앱 심볼·이름 + "어디로 떠나세요?"(heading)
+ * + 핵심 가치 한 줄(재검토 R13 — 모든 모드) + 신뢰 표시 3개 + **내 여행 상태 + 여행 버튼**(운영자 2026-10-03)을 차례로 담는다.
+ * - 여행 버튼을 사진 **안**에 두는 이유(운영자 말 그대로 `어디로 떠나세요 안에 배치`): 흰 몸통을 따로 붙이면 사진 아래 여백과 몸통 여백이
+ *   겹쳐 첫 화면 예산(운영자 결정 9 — 1열에서도 나라 사진이 첫 화면에 보여야 한다)을 40dp 더 먹는다. 사진 위 글자는 이미 스크림 영역
+ *   (아래로 갈수록 검정 0.60 → 0.88)에 있어 흰 채움 버튼·흰 테두리 버튼이 가장 또렷하다.
+ * - 어두운 채움 위이므로 onDark 내용 세트만 쓴다(D18): 채움 주 버튼은 **흰 바탕 + Accent 글자**(`ButtonStyles.onDark`),
+ *   보조는 투명 + 1.5dp 흰 테두리. 사진 위에 Accent 단색을 또 깔면 사진과 버튼의 경계가 흐려진다.
+ * - 사진은 그릴 때만 밝기 보정(운영자 결정 11, 파일은 그대로).
+ * - 신뢰 표시는 누를 수 없으므로 아이콘 + 글자(InfoChip onDark)로 한 줄에 흐르게 둔다(재검토 R1).
+ *   1열([singleColumn] — 쉬운 모드·큰 글자)이면 나라 목록 아래로 옮긴다 — 첫 화면에서 나라 사진이 밀려나지 않게.
  */
 @Composable
-private fun MakeTripCard(onMake: () -> Unit) {
-    CardNewsCard(
-        title = stringResource(R.string.journey_explore_none_title),
-        icon = Icons.Outlined.EditCalendar,
-        eyebrow = stringResource(R.string.today_next_label),
-        body = stringResource(R.string.journey_explore_none_body),
-        style = NewsStyle.Accent,
-    ) {
-        PrimaryButton(
-            text = stringResource(R.string.today_new_trip),
-            onClick = onMake,
-            // 배지(EditCalendar)와 같은 아이콘을 버튼에 되풀이하지 않는다 — 버튼은 '다음 화면으로'
-            icon = Icons.AutoMirrored.Outlined.NavigateNext,
-            colors = ButtonStyles.onDark(Tokens.Accent),
-        )
-    }
-}
-
-/**
- * 맨 위 사진 머리글: 앱 심볼·이름 + "어디로 떠나세요?"(heading) + 핵심 가치 한 줄(재검토 R13 — 모든 모드) + 신뢰 표시 3개
- * (공식 출처만 · 폰에만 저장 · 인터넷 없이도 — 처음 5초 안에 보이게, DESIGN_SPEC 1.1 ⑤).
- * 사진 위 글자·표시는 모두 스크림 글자 영역(PhotoTextArea) 안. 사진은 그릴 때만 밝기 보정(재검토 R19, 파일은 그대로).
- * - 신뢰 표시는 누를 수 없으므로 버튼처럼 보이는 상자 없이 아이콘 + 글자(InfoChip onDark)로 한 줄에 흐르게 둔다(재검토 R1).
- *   1열([singleColumn] — 쉬운 모드·큰 글자)이면 나라 목록 아래로 옮긴다 — 가치 문장이 들어오면서 첫 화면에서 나라 사진이 밀려나지 않게.
- * - 2열은 글 위로 사진(하늘)이 보이게 최소 높이 280dp, 1열·여행이 있을 때는 160dp(내용 높이 — 출발까지 카드를 위로).
- */
-@Composable
-private fun HomeHero(singleColumn: Boolean, hasTrip: Boolean) {
+private fun HomeHero(ui: HomeUi, actions: HomeActions, today: LocalDate, singleColumn: Boolean) {
+    val dimens = LocalDimens.current
     val brandStyle = MaterialTheme.typography.labelLarge
     // 심볼 지름 = 앱 이름 한 줄 높이(최소 24dp) — 글자를 키워도 이름과 크기가 어울리고 줄 높이를 늘리지 않는다
     val symbolSize = maxOf(24.dp, with(LocalDensity.current) { brandStyle.lineHeight.toDp() })
     PhotoBox(
         Photos.Home,
-        // 여행이 있으면 사진 높이를 내용만큼으로 — 출발까지 카드가 첫 화면 위쪽에 오게 (재검토2 ⑤#13, 글은 그대로)
-        minHeight = if (singleColumn || hasTrip) 160.dp else 280.dp,
+        // 1열은 글이 이미 길어 사진을 낮게(160dp), 2열은 글 위로 하늘이 보이게 220dp (나라 히어로와 같은 값)
+        minHeight = if (singleColumn) 160.dp else 220.dp,
         shape = MaterialTheme.shapes.extraLarge,
     ) {
         PhotoTextArea {
@@ -350,6 +267,103 @@ private fun HomeHero(singleColumn: Boolean, hasTrip: Boolean) {
             )
             ValuePropText(MaterialTheme.typography.titleMedium)
             if (!singleColumn) TrustStrip(Modifier.padding(top = 6.dp), onDark = true)
+            // 여행으로 가는 길 — 같은 스크림 영역 안, 브랜드·가치 글 묶음과 조금 떼어 둔다
+            Column(
+                Modifier.padding(top = dimens.inner),
+                verticalArrangement = Arrangement.spacedBy(dimens.inner),
+            ) {
+                ui.trip?.let { HeroTripStatus(it, today) }
+                HeroTripActions(ui, actions)
+            }
+        }
+    }
+}
+
+/**
+ * 히어로의 내 여행 상태 (예전 `TripCountdownCard`가 하던 일 — 카드를 따로 두지 않는다):
+ * eyebrow `내 여행 · 태국` → 결론 큰 숫자 `출발 3일 전`(원칙 1) → 날짜 한 줄 → 이 여행 체크리스트 진행.
+ * 큰 글자에서는 큰 숫자를 칸 폭에 맞춰 한 줄에 들어가는 크기로 그린다(FitText, 재검토 R5·R6).
+ * 바로 아래 `내 여행 점검` 버튼이 어느 여행으로 가는지 말해 주는 자리라 버튼은 여기 두지 않는다.
+ */
+@Composable
+private fun HeroTripStatus(trip: HomeTrip, today: LocalDate) {
+    val extras = LocalTypeExtras.current
+    val days = ChronoUnit.DAYS.between(today, trip.startDate).toInt()
+    val status = when {
+        days > 0 -> stringResource(R.string.home_trip_days, days)
+        days == 0 -> stringResource(R.string.home_trip_today)
+        !today.isAfter(trip.endDate) -> stringResource(R.string.home_trip_during)
+        else -> stringResource(R.string.home_trip_after)
+    }
+    val format = DateTimeFormatter.ofPattern(stringResource(R.string.home_trip_date_format), Locale.KOREAN)
+    val dates = stringResource(R.string.home_trip_dates, noBreak(trip.startDate.format(format)), noBreak(trip.endDate.format(format)))
+    Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
+        Text(
+            stringResource(R.string.home_trip_label, trip.countryKo),
+            style = MaterialTheme.typography.labelMedium,
+            color = OnDark.eyebrow,
+        )
+        FitText(status, styles = listOf(extras.stat, extras.statSmall), color = OnDark.content, breakChars = " ")
+        InfoChip(dates, Icons.Outlined.FlightTakeoff, onDark = true)
+        // 이 여행 체크리스트 진행 — 앱 안 값(누를 수 없는 칩 + 막대)
+        if (trip.checklistTotal > 0) {
+            InfoChip(
+                stringResource(R.string.ck_now_eyebrow, trip.checklistDone, trip.checklistTotal),
+                IconKeys.essentials,
+                onDark = true,
+            )
+            CheckProgressBar(trip.checklistDone, trip.checklistTotal, onDark = true)
+        }
+    }
+}
+
+/**
+ * 히어로의 여행 버튼 — 둘러보기에서 여행으로 가는 **단 하나의 자리**(운영자 2026-10-03).
+ * 상태가 버튼을 정한다: 언제나 `새 여행 만들기`, 여행 중·다가오는 여행이 있으면 `내 여행 점검`, 끝난 여행이 있으면 `예전 여행지 다시보기`.
+ * 채움 버튼은 하나(원칙 7): 할 일이 남은 여행이 있으면 `내 여행 점검`, 없으면 `새 여행 만들기`. 사진 위라 흰 채움 + Accent 글자(D18).
+ * - `내 여행 점검`은 다가오는 여행이 하나면 그 여행 화면으로, 둘 이상이면 어느 여행인지 고르도록 내 여행 목록으로 간다.
+ * - 보조 버튼이 둘이면 같은 폭으로 한 줄에, 반 폭에 한 줄로 안 들어가면(큰 글자) 위아래로 쌓고 둘 다 폭 전체(EqualWidthPair).
+ */
+@Composable
+private fun HeroTripActions(ui: HomeUi, actions: HomeActions) {
+    val dimens = LocalDimens.current
+    val newTrip: @Composable (Modifier) -> Unit = { m ->
+        SecondaryButton(
+            stringResource(R.string.today_new_trip),
+            onClick = actions.makeTrip,
+            modifier = m,
+            icon = Icons.Outlined.EditCalendar,
+            onDark = true,
+        )
+    }
+    val pastTrips: @Composable (Modifier) -> Unit = { m ->
+        SecondaryButton(
+            stringResource(R.string.explore_past_trips),
+            onClick = actions.openPastTrips,
+            modifier = m,
+            icon = Icons.Outlined.History,
+            onDark = true,
+        )
+    }
+    Column(verticalArrangement = Arrangement.spacedBy(dimens.inner)) {
+        if (ui.activeTrips > 0) {
+            val trip = ui.trip
+            PrimaryButton(
+                stringResource(R.string.explore_trip_check),
+                onClick = { if (ui.activeTrips == 1 && trip != null) actions.openTrip(trip.id) else actions.openTrips() },
+                // 앞에 붙는 뜻 아이콘 — 내 여행 탭과 같은 짐가방 (BUNDLE_A_NOTES ②)
+                icon = Icons.Outlined.Luggage,
+                colors = ButtonStyles.onDark(Tokens.Accent),
+            )
+            if (ui.pastTrips > 0) EqualWidthPair(dimens.inner, first = newTrip, second = pastTrips) else newTrip(Modifier)
+        } else {
+            PrimaryButton(
+                stringResource(R.string.today_new_trip),
+                onClick = actions.makeTrip,
+                icon = Icons.Outlined.EditCalendar,
+                colors = ButtonStyles.onDark(Tokens.Accent),
+            )
+            if (ui.pastTrips > 0) pastTrips(Modifier)
         }
     }
 }
@@ -411,106 +425,4 @@ private fun HomeCountryTile(
         large = large,
         enabled = c.ready,
     )
-}
-
-/**
- * 02 내 여행 요약 (DESIGN_SPEC 6-02): Accent 채움 카드 — 나라 사진 원형 썸네일(장식) + eyebrow `내 여행 · 태국`(White85)
- * + 출발까지 큰 숫자(stat) + 날짜 한 줄 + 흰 주 버튼. 어두운 채움 위라 onDark 내용 세트만 쓴다(D18).
- * 큰 글자 배치에서는 썸네일을 글 위로 올리고, 큰 숫자는 칸 폭에 맞춰 한 줄에 들어가는 크기(stat → statSmall)로 그린다(FitText, 재검토 R5·R6).
- */
-@Composable
-private fun TripCountdownCard(trip: HomeTrip, today: LocalDate, onOpen: () -> Unit, onOpenAll: () -> Unit = {}) {
-    val dimens = LocalDimens.current
-    val extras = LocalTypeExtras.current
-    val stacked = isStackedLayout()
-    val days = ChronoUnit.DAYS.between(today, trip.startDate).toInt()
-    val status = when {
-        days > 0 -> stringResource(R.string.home_trip_days, days)
-        days == 0 -> stringResource(R.string.home_trip_today)
-        !today.isAfter(trip.endDate) -> stringResource(R.string.home_trip_during)
-        else -> stringResource(R.string.home_trip_after)
-    }
-    val format = DateTimeFormatter.ofPattern(stringResource(R.string.home_trip_date_format), Locale.KOREAN)
-    val dates = stringResource(R.string.home_trip_dates, noBreak(trip.startDate.format(format)), noBreak(trip.endDate.format(format)))
-    val head: @Composable () -> Unit = {
-        Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
-            Text(stringResource(R.string.home_trip_label, trip.countryKo), style = MaterialTheme.typography.labelMedium, color = OnDark.eyebrow)
-            FitText(
-                status,
-                styles = listOf(extras.stat, extras.statSmall),
-                color = OnDark.content,
-                modifier = Modifier.semantics { heading() },
-                breakChars = " ",
-            )
-        }
-    }
-    Card(
-        shape = MaterialTheme.shapes.large,
-        colors = CardDefaults.cardColors(containerColor = Tokens.Accent, contentColor = OnDark.content),
-        elevation = CardDefaults.cardElevation(0.dp),
-        modifier = Modifier.fillMaxWidth(),
-    ) {
-        Column(Modifier.padding(dimens.cardPadding), verticalArrangement = Arrangement.spacedBy(dimens.inner + 4.dp)) {
-            if (stacked) {
-                TripThumbnail(trip.code)
-                head()
-            } else {
-                Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-                    TripThumbnail(trip.code)
-                    Box(Modifier.weight(1f)) { head() }
-                }
-            }
-            Row(verticalAlignment = Alignment.Top, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                Icon(
-                    Icons.Outlined.FlightTakeoff,
-                    contentDescription = null,
-                    tint = OnDark.content,
-                    modifier = Modifier.padding(top = 1.dp).size(dimens.iconSmall + 4.dp),
-                )
-                Text(dates, style = MaterialTheme.typography.titleSmall, color = OnDark.content, modifier = Modifier.weight(1f))
-            }
-            // 이 여행 체크리스트 진행 — 앱 안 값(누를 수 없는 칩 + 막대)
-            if (trip.checklistTotal > 0) {
-                Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
-                    InfoChip(
-                        stringResource(R.string.ck_now_eyebrow, trip.checklistDone, trip.checklistTotal),
-                        IconKeys.essentials,
-                        onDark = true,
-                    )
-                    CheckProgressBar(trip.checklistDone, trip.checklistTotal, onDark = true)
-                }
-            }
-            PrimaryButton(
-                stringResource(R.string.home_trip_open),
-                onClick = onOpen,
-                // 앞에 붙는 아이콘이라 '>'(NavigateNext)보다 내 여행 탭과 같은 짐가방이 자연스럽다 (BUNDLE_A_NOTES ②)
-                icon = Icons.Outlined.Luggage,
-                colors = ButtonStyles.onDark(content = Tokens.Accent),
-            )
-            if (trip.tripCount > 1) {
-                SecondaryButton(stringResource(R.string.home_trips_all, trip.tripCount), onClick = onOpenAll, icon = Icons.Outlined.CalendarMonth, onDark = true)
-            }
-        }
-    }
-}
-
-/** 여행 나라 사진 원형 썸네일(장식, 축소 디코딩). 어두운 사진은 그릴 때만 밝힌다(재검토 R19). 사진이 없으면 비행기 아이콘 배지 */
-@Composable
-private fun TripThumbnail(code: String?) {
-    val size = if (LocalDimens.current.easyMode) 64.dp else 56.dp
-    val thumb = rememberThumbnail(code?.let { Photos.country(it) }, size)
-    if (thumb != null) {
-        Image(
-            bitmap = thumb,
-            contentDescription = null,
-            contentScale = ContentScale.Crop,
-            colorFilter = rememberPhotoLift(thumb),
-            modifier = Modifier
-                .size(size)
-                .clip(CircleShape)
-                .border(2.dp, OnDark.content, CircleShape),
-        )
-    } else {
-        IconBadge(Icons.Outlined.FlightTakeoff, tone = BadgeTone.OnDark, size = size, shape = CircleShape)
-    }
 }

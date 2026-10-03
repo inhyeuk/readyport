@@ -48,7 +48,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -57,6 +59,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.runtime.withFrameNanos
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -131,6 +134,8 @@ import com.readyport.ui.components.SectionHeader
 import com.readyport.ui.components.SourceFooter
 import com.readyport.ui.components.SourceList
 import com.readyport.ui.components.SourceRef
+import com.readyport.ui.components.rememberKeyIndex
+import com.readyport.ui.components.scrollToKey
 import com.readyport.ui.components.StatusKind
 import com.readyport.ui.components.StatusTag
 import com.readyport.ui.components.cardShadow
@@ -196,27 +201,47 @@ class TripListViewModel @Inject constructor(
 }
 
 @Composable
-fun TripListScreen(onOpen: (String) -> Unit, onAdd: () -> Unit, viewModel: TripListViewModel = hiltViewModel()) {
+fun TripListScreen(
+    onOpen: (String) -> Unit,
+    onAdd: () -> Unit,
+    openPast: Boolean = false,
+    viewModel: TripListViewModel = hiltViewModel(),
+) {
     val ui by viewModel.ui.collectAsStateWithLifecycle()
     if (!ui.loaded) return
-    TripListContent(ui, onOpen, onAdd)
+    TripListContent(ui, onOpen, onAdd, openPast)
 }
 
 /**
  * 내 여행 목록: 여행 중 → 다가오는 여행 → 지난 여행(접어 둠). 줄마다 나라 사진 원형 썸네일 + 이름 + 날짜 + 상태 + 체크리스트 `12 / 30` 막대.
  * 날짜가 겹치는 여행이 있으면 맨 위 가벼운 안내 한 줄 + 그 줄에 `날짜가 겹쳐요`(주의 태그) — 막지는 않는다.
  * 주 버튼은 `새 여행 만들기` 하나(목록 아래).
+ * [openPast]: 둘러보기 히어로의 `예전 여행지 다시보기`로 들어왔으면 `지난 여행` 묶음을 펼친 채로 그 자리로 내려간다
+ * (지난 여행만 보는 화면을 따로 만들지 않는다 — 여행 목록 하나가 모든 여행의 집이다).
  */
 @Composable
-fun TripListContent(ui: TripListUi, onOpen: (String) -> Unit, onAdd: () -> Unit) {
+fun TripListContent(ui: TripListUi, onOpen: (String) -> Unit, onAdd: () -> Unit, openPast: Boolean = false) {
     var pastOpen by rememberSaveable { mutableStateOf(false) }
     val ongoing = ui.rows.filter { it.timing == TripTiming.Ongoing }
     val upcoming = ui.rows.filter { it.timing == TripTiming.Upcoming }
     val past = ui.rows.filter { it.timing == TripTiming.Past }
+    val listState = rememberLazyListState()
+    val keys = rememberKeyIndex()
+    // `예전 여행지 다시보기`로 들어왔으면 한 번만 펼치고 그 묶음으로 내려간다
+    var pastFocused by rememberSaveable { mutableStateOf(false) }
+    LaunchedEffect(openPast, past.size) {
+        if (!openPast || pastFocused || past.isEmpty()) return@LaunchedEffect
+        pastFocused = true
+        pastOpen = true
+        withFrameNanos { }
+        listState.scrollToKey(keys, "past-toggle")
+    }
     AppScreen(
         title = stringResource(R.string.trips_title),
         subtitle = stringResource(R.string.trips_subtitle),
         speech = stringResource(R.string.trips_speech),
+        state = listState,
+        keyIndex = keys,
     ) {
         if (ui.rows.isEmpty()) {
             item(key = "empty") {

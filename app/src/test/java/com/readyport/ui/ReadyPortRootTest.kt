@@ -91,12 +91,17 @@ class ReadyPortRootTest {
         }
     }
 
-    /** 홈 '급할 때는 도움' 카드 → 도움 탭 (HomeActions.openHelp 배선, DESIGN_SPEC 6-01 ⑩ — 2단계) */
+    /**
+     * 둘러보기에서 도움까지는 **탭 막대 한 번**이다 (운영자 2026-10-03: 둘러보기 안의 `급할 때는 도움` 줄은 같은 길이 두 개라 지웠다).
+     * 급할 때 가는 길이 사라지지 않았음을 지킨다 — 스크롤 없이, 둘러보기 어디에서나 보이는 탭으로.
+     */
     @Test
-    fun homeHelpCardOpensHelpTab() {
+    fun helpIsOneTapFromExploreViaTheTabBar() {
         launch(AppSettings(easyMode = false))
-        scrollTo(hasText(s(R.string.help_shortcut_title)))
-        rule.onNodeWithText(s(R.string.help_shortcut_title)).performClick()
+        heading(R.string.home_title).assertIsDisplayed()
+        // 둘러보기 본문에는 SOS 바로가기 줄이 없다 — 도움 탭이 그 일을 맡는다
+        assertEquals(0, rule.onAllNodesWithText(s(R.string.help_shortcut_title)).fetchSemanticsNodes().size)
+        tab(R.string.tab_help).performClick()
         heading(R.string.help_title).assertIsDisplayed()
         tab(R.string.tab_help).assertIsSelected()
     }
@@ -127,6 +132,10 @@ class ReadyPortRootTest {
         scrollTo(hasText(s(R.string.shopping_open)))
         scrollTo(hasContentDescription(s(R.string.country_back)))
         rule.onNodeWithContentDescription(s(R.string.country_back)).performClick()
+        // 돌아오면 둘러보기의 **그 자리**(누르고 간 나라 타일)다 — 히어로는 위로 올라가 있으므로 올려 보고 제목을 확인한다
+        rule.onNodeWithContentDescription(context.getString(R.string.home_country_open, "태국")).assertIsDisplayed()
+        tab(R.string.tab_explore).assertIsSelected()
+        scrollTo(hasText(s(R.string.home_title)))
         heading(R.string.home_title).assertIsDisplayed()
     }
 

@@ -60,6 +60,7 @@ import com.readyport.ui.nav.PassportGraph
 import com.readyport.ui.nav.PassportIntroRoute
 import com.readyport.ui.nav.PassportManualRoute
 import com.readyport.ui.nav.PassportScanRoute
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -151,6 +152,8 @@ private fun MainScaffold(
     val destination = backStack?.destination
     // 탭이 아닌 화면(설정, 여권 등록 등)에서는 들어온 탭을 선택된 채로 둔다
     var lastTab by remember(tabs) { mutableStateOf(tabs.first()) }
+    // 둘러보기 히어로의 `예전 여행지 다시보기` → 내 여행 목록의 `지난 여행` 묶음을 펼친 채로 (목록이 한 번 쓰고 끈다)
+    var showPastTrips by remember { mutableStateOf(false) }
     val matched = tabs.firstOrNull { tab -> destination?.hasRoute(tab.route::class) == true }
     // 탭이 아닌 화면은 **들어온 탭**을 켠 채로 둔다([lastTab]) — 같은 화면(나라 안내·예약 서류·여권)에 길이 여럿이라
     // 화면만 보고 탭을 정하면 내 여행에서 들어가도 둘러보기가 켜졌다. 여행 줄기(알림 딥링크 포함)만 내 여행으로 못 박는다.
@@ -208,8 +211,12 @@ private fun MainScaffold(
                             // 여행 흐름은 모두 내 여행 탭이 맡는다 — 둘러보기는 길만 가리킨다
                             openTrip = { id -> navController.navigate(TripChecklistRoute(id)) },
                             openTrips = { navController.switchTab(Tab.Trip) },
+                            // 지난 여행만 보는 화면을 새로 만들지 않는다 — 여행 목록의 `지난 여행` 묶음을 펼쳐 준다
+                            openPastTrips = {
+                                showPastTrips = true
+                                navController.switchTab(Tab.Trip)
+                            },
                             makeTrip = { navController.navigate(TripRoute()) },
-                            openHelp = { navController.switchTab(Tab.Help) },
                         ),
                     )
                 }
@@ -248,7 +255,10 @@ private fun MainScaffold(
                     slots.trips(
                         { id -> navController.navigate(TripChecklistRoute(id)) },
                         { navController.navigate(TripRoute()) },
+                        showPastTrips,
                     )
+                    // 목록을 떠날 때 표시를 끈다 — 다음에 내 여행 탭을 그냥 눌렀을 때 또 펼쳐지지 않게
+                    DisposableEffect(Unit) { onDispose { showPastTrips = false } }
                 }
                 composable<TripChecklistRoute> { entry ->
                     val tripId = entry.toRoute<TripChecklistRoute>().tripId
@@ -387,8 +397,8 @@ data class ScreenSlots(
         )
     },
     val help: @Composable () -> Unit = { HelpScreen() },
-    val trips: @Composable (onOpen: (String) -> Unit, onAdd: () -> Unit) -> Unit =
-        { onOpen, onAdd -> TripListScreen(onOpen = onOpen, onAdd = onAdd) },
+    val trips: @Composable (onOpen: (String) -> Unit, onAdd: () -> Unit, openPast: Boolean) -> Unit =
+        { onOpen, onAdd, openPast -> TripListScreen(onOpen = onOpen, onAdd = onAdd, openPast = openPast) },
     val present: @Composable () -> Unit = { PresentScreen(defaultFormId = null) },
 )
 

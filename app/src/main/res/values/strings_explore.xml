@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  둘러보기 히어로 — 여행으로 가는 길을 `어디로 떠나세요?` 안에 모았다 (운영자 2026-10-03, DESIGN_SPEC 부록 H.5).
+  `새 여행 만들기`는 이미 있는 today_new_trip을 그대로 쓴다(문구가 같고 테스트가 찾는 값이다).
+-->
+<resources>
+    <!-- 여행 중·다가오는 여행이 있을 때의 주 버튼 (여행이 하나면 그 여행, 둘 이상이면 내 여행 목록) -->
+    <string name="explore_trip_check">내 여행 점검</string>
+    <!-- 끝난 여행이 있을 때 — 내 여행 목록의 `지난 여행` 묶음을 펼친 채로 열어 준다 -->
+    <string name="explore_past_trips">예전 여행지 다시보기</string>
+</resources>

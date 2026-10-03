@@ -51,10 +51,6 @@
     <string name="journey_booking_body">항공권·숙소 확인 메일이나 사진을 이 휴대폰 안에 넣어 둬요. 입국 카드 칸을 채울 때 쓰고, 인터넷이 없어도 열려요.</string>
     <string name="journey_booking_open">예약 서류 가져오기</string>
 
-    <!-- 둘러보기 탭 -->
-    <string name="journey_explore_none_title">여행을 만들면 순서대로 알려 드려요</string>
-    <string name="journey_explore_none_body">나라와 날짜만 고르면 계획·예약·서류·짐부터 복귀까지 할 일을 차례로 보여 드려요.</string>
-
     <!-- 나라 화면을 여행에서 열었을 때 -->
     <string name="journey_country_trip">이 여행 · %1$s</string>
     <string name="journey_country_back">여행으로 돌아가기</string>
