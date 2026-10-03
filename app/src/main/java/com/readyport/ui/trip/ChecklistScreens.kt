@@ -39,6 +39,7 @@ import androidx.compose.material.icons.outlined.AccountBalanceWallet
 import androidx.compose.material.icons.outlined.QrCode2
 import androidx.compose.material.icons.outlined.Translate
 import androidx.compose.material.icons.outlined.Home
+import androidx.compose.material.icons.outlined.Hotel
 import androidx.compose.material.icons.outlined.ShoppingBag
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -381,6 +382,12 @@ data class ChecklistActions(
     val openCountry: (String) -> Unit = {},
     /** 예약 서류 가져오기 (예약 단계의 집, 2026-10-03) */
     val openBooking: () -> Unit = {},
+    /** 묵는 곳 카드로 (같은 화면 예약 단계로 내려간다 — 체크리스트의 `숙소 주소 저장하기`) */
+    val openStays: () -> Unit = {},
+    /** 숙소 넣기·고치기 (null이면 새 숙소) */
+    val openStayEdit: (String?) -> Unit = {},
+    /** 이 숙소 주소를 기사님께 보여 주기 (가는 곳으로 골라 두고 이동하기 화면으로) */
+    val showStayToDriver: (String) -> Unit = {},
     /** 도착했어요 (출국 단계) */
     val arrived: () -> Unit = {},
     /** 도착을 잘못 눌렀어요 */
@@ -591,6 +598,8 @@ private fun ItemExtra(item: ChecklistItem, trip: Trip, today: LocalDate, actions
         ChecklistAction.OpenHelp -> SecondaryButton(stringResource(R.string.ck_action_help), onClick = actions.openHelp, icon = Icons.Outlined.Translate)
         ChecklistAction.OpenPresent -> SecondaryButton(stringResource(R.string.ck_action_present), onClick = actions.openPresent, icon = Icons.Outlined.QrCode2)
         ChecklistAction.OpenTransport -> SecondaryButton(stringResource(R.string.ck_action_transport), onClick = actions.openTransport, icon = Icons.Outlined.Home)
+        // 묵는 곳 카드로 내려간다 (주소를 적는 곳이 한 군데 — 2026-10-03)
+        ChecklistAction.OpenStays -> SecondaryButton(stringResource(R.string.ck_action_stays), onClick = actions.openStays, icon = Icons.Outlined.Hotel)
         ChecklistAction.OpenShopping -> SecondaryButton(stringResource(R.string.ck_action_shopping), onClick = { actions.openShopping(trip.country) }, icon = Icons.Outlined.ShoppingBag)
         ChecklistAction.OpenLink -> if (item.detail !is ItemDetail.Visa) {
             item.link?.let { link -> SecondaryButton(stringResource(R.string.ck_official_open), onClick = { actions.openLink(link.url) }, icon = Icons.AutoMirrored.Outlined.OpenInNew) }

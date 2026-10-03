@@ -357,7 +357,7 @@
           },
           "from": {
             "type": "string",
-            "pattern": "^(passport_validity|passport_saved|offline_pack|entry_form|passport_destroyed|visa|advisory|consular|emergency|return_facts|airports|essential:[a-z0-9_]+)$"
+            "pattern": "^(passport_validity|passport_saved|stay_saved|offline_pack|entry_form|passport_destroyed|visa|advisory|consular|emergency|return_facts|airports|essential:[a-z0-9_]+)$"
           },
           "action": {
             "enum": [
@@ -372,7 +372,9 @@
               "open_return",
               "destroy_passport",
               "open_link",
-              "open_airport"
+              "open_airport",
+              "open_booking",
+              "open_stays"
             ]
           },
           "when": {

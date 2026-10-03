@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "form_id": "TW_TWAC",
-  "version": "2026.10.02-1",
+  "version": "2026.10.02-2",
   "last_verified": "2026-10-02",
   "site_version_seen": "Last updated on July 29, 2026",
   "sources": [
@@ -89,7 +89,7 @@
           "labels": { "ko": "방문 목적", "en": "Purpose of Visit" }, "source": "user_choice", "confirm": "individual", "required": true,
           "options_ref": "purpose" },
         { "key": "stay.address", "selector": "#traveler1_address", "widget": "text",
-          "labels": { "ko": "호텔 이름 또는 숙소 주소 (영문)", "en": "Hotel Name / Residential Address" }, "source": "user_input", "confirm": "individual", "required": true,
+          "labels": { "ko": "호텔 이름 또는 숙소 주소 (영문)", "en": "Hotel Name / Residential Address" }, "source": "booking", "confirm": "bulk", "required": true,
           "hint_ko": "사이트에서 '호텔 이름'이나 '거주 주소' 버튼을 먼저 고르면 칸이 나와요" }
       ]
     }
