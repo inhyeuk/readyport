@@ -93,6 +93,7 @@ import androidx.compose.material.icons.outlined.Home
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.readyport.autofill.ValueOrigin
 import com.readyport.prep.ImportStatus
+import com.readyport.trip.JourneyStage
 
 /**
  * 팩·앱의 기존 ID → 아이콘 (DESIGN_SPEC 5장 표의 코드 버전).
@@ -308,6 +309,19 @@ object IconKeys {
         else -> Icons.Outlined.LocalAirport
     }
 
-    /** 체크리스트 단계 아이콘 — 여행 6단계 그림을 그대로 쓰고, 떠나기 전 세 단계는 '준비'(Backpack) */
-    fun checklistPhase(barIndex: Int): ImageVector = stage(barIndex)
+    /**
+     * 여행 과정 8단계 아이콘 (2026-10-03) — 그림 패널([journeyStageArt])을 쓸 수 없는 작은 자리에만.
+     * 같은 개념은 앱 전체와 같은 그림: 계획 달력 · 예약 항공권 · 서류 입국 카드 · 짐 여행 가방 ·
+     * 출국 이륙 · 입국 착륙 · 여행 중 둘러보기 · 복귀 집.
+     */
+    fun journeyStage(stage: JourneyStage): ImageVector = when (stage) {
+        JourneyStage.Plan -> Icons.Outlined.CalendarMonth
+        JourneyStage.Book -> Icons.AutoMirrored.Outlined.AirplaneTicket
+        JourneyStage.Docs -> Icons.Outlined.AssignmentInd
+        JourneyStage.Pack -> Icons.Outlined.Luggage
+        JourneyStage.Departure -> Icons.Outlined.FlightTakeoff
+        JourneyStage.Arrival -> Icons.Outlined.FlightLand
+        JourneyStage.During -> Icons.Outlined.Explore
+        JourneyStage.Return -> Icons.Outlined.Cottage
+    }
 }

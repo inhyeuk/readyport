@@ -165,9 +165,10 @@
 - `link.type`: `affiliate`(물건·여행 서비스, 앱에 '수수료 링크' 표시) / `official_info`(보험·환전·카드, 수수료 없음)
 - 조건: 목적지 기후·플러그·전압, 기간, 아이 동반, 계절
 
-### 10.4b 여행 체크리스트 틀·여권 남은 기간 (2026-10-02)
-- **색인 `checklist[]`** (`index.schema.json`): `{id, phase, icon, kind, title_ko?, body_ko?, from?, action?, when?}` — 모든 나라 공통 순서와 '챙기기' 안내 글(숫자 없음). `phase` = month · week · three_days · departure_day · arrival · during · before_return · back. `kind` = generic(안내) · auto(앱이 확인: `from` = passport_validity · passport_saved · offline_pack · entry_form · passport_destroyed) · pack(팩·색인 사실: visa · advisory · consular · emergency · return_facts) · essential(`from` = `essential:<id>`, 꼭 챙길 물건 규칙과 조건 그대로). **정책 사실은 틀에 적지 않는다** — 사실이 필요한 항목은 팩·색인 값에서 가져오고 값이 없는 나라에서는 앱이 항목을 만들지 않는다. 서명된 색인이라 팩과 같이 고쳐 배포한다.
-- **나라 팩 `checklist[]`** (`pack.schema.json`): `{id, phase, icon, title_ko, section, text_ko}` — `text_ko`는 같은 팩 `sections[section].body_ko`의 한 문장과 글자까지 같아야 한다(`build_packs.py`가 검사, 출처·확인일은 그 섹션 것). 예: 현금 신고 기준, 중국 감기약 성분·주숙등기, 싱가포르 담배·전자담배.
+### 10.4b 여행 체크리스트 틀·여권 남은 기간 (2026-10-02, 두 축 2026-10-03)
+- **두 축 (2026-10-03, PRD 4.3)**: `phase` = **기한**(언제까지 — 기한 날짜·늦음·알림), `stage` = **단계**(무엇을 하는 일 — 묶기·단계 막대·지금 할 일). `stage` ∈ plan · book · docs · pack · departure · arrival · during · return. 두 값은 **독립**이라 같은 단계 안에 기한이 다른 항목이 함께 있다. `stage`가 없는 **예전 서명 팩**은 앱이 `phase`에서 옮겨 온다(`JourneyStage.ofLegacy`: month→plan · week→pack · three_days→docs · departure_day→departure · arrival→arrival · during→during · before_return·back→return) — 항목이 빠지지 않고, 체크는 항목 id에 붙어 있어 그대로 남는다. 새로 쓰는 팩에는 `build_packs.py`가 `stage`를 **요구**한다.
+- **색인 `checklist[]`** (`index.schema.json`): `{id, phase, stage, icon, kind, title_ko?, body_ko?, from?, action?, when?}` — 모든 나라 공통 순서와 '챙기기' 안내 글(숫자 없음). `phase` = month · week · three_days · departure_day · arrival · during · before_return · back. `kind` = generic(안내) · auto(앱이 확인: `from` = passport_validity · passport_saved · offline_pack · entry_form · passport_destroyed) · pack(팩·색인 사실: visa · advisory · consular · emergency · return_facts) · essential(`from` = `essential:<id>`, 꼭 챙길 물건 규칙과 조건 그대로). **정책 사실은 틀에 적지 않는다** — 사실이 필요한 항목은 팩·색인 값에서 가져오고 값이 없는 나라에서는 앱이 항목을 만들지 않는다. 서명된 색인이라 팩과 같이 고쳐 배포한다.
+- **나라 팩 `checklist[]`** (`pack.schema.json`): `{id, phase, stage, icon, title_ko, section, text_ko}` — `text_ko`는 같은 팩 `sections[section].body_ko`의 한 문장과 글자까지 같아야 한다(`build_packs.py`가 검사, 출처·확인일은 그 섹션 것). 예: 현금 신고 기준, 중국 감기약 성분·주숙등기, 싱가포르 담배·전자담배.
 - **`requirements[].passport_validity`**: `{months(1~24), basis(arrival|departure|stay_end), source, last_verified}` 또는 `null`(공식 안내가 기준을 밝히지 않음 — 앱은 '공식 안내에서 확인하세요'만). `build_packs.py`가 출처·basis·months를 검사, 테스트 `tools/packs/test_build_packs.py`.
 - **섹션 id `rules`**(알아 둘 규정): 출처가 다른 공지(예: 0404 안전공지)의 규정 문장을 '한 섹션 한 출처' 규칙을 지키며 담는다. 나라 화면 '입국·비자' 갈래의 '들어갈 때' 바로 뒤에 보이고, 여행경보 단계가 아니라서 위험 배너로 올리지 않는다.
 
@@ -175,7 +176,7 @@
 - **나라 팩 `airports[]`** (선택, `pack.schema.json`): `{code(IATA), name_ko, name_en, city_ko, egate_kr(true|false|null), egate_note_ko?, form_check_ko?, form_check_source?, steps[3~7], map_url(https), source, last_verified}`, 단계 = `{kind, title_ko, body_ko, where_ko?, source?}`, `kind` ∈ deplane · health · immigration · egate · form_check · baggage · customs · transfer · exit. 모든 문장은 공항 운영사·이민국·세관·0404/대사관 공식 페이지에서 연 것만, `where_ko`는 공식 안내에 적힌 층·홀만, `egate_kr`는 공식 안내가 한국 여권을 밝혔을 때만 값(아니면 null — 앱은 줄을 숨긴다). `form_check_source`는 입국 카드 줄만 다른 출처일 때(태국 = 0404 `접수 확인 메일을 입국심사관에게 제시`).
 - 검사: `build_packs.py check_airports`(공항·단계·입국 카드 줄 출처가 sources에 있는지, 코드 겹침, kind, https, 실제 날짜, 단계 3~7개) + 스키마. 공항이 없는 팩(예전 팩 포함)도 그대로 통과·파싱(`airports = []`). 예전 앱은 `ignoreUnknownKeys`라 새 팩을 그대로 읽는다.
 - **합치기 도구** `tools/packs/merge_airports.py --dir <폴더> [CC …] [--check]`: 조사 파일 `<CC>.json`(`{country, airports, sources}`)의 airports를 팩에 통째로 넣고 sources는 id로 겹침 없이 더한다(같은 id·다른 url이면 멈춤) → 검증 → 바뀌었으면 팩 version 올림(다시 돌려도 같은 결과). 서명은 `build_packs.py`.
-- 색인 체크리스트 틀 `airport_steps`(phase arrival, `from: airports`, `action: open_airport`) — 팩에 공항이 있을 때만 항목이 생긴다. 나라 화면 길 `CountryRoute(country, focusAirports, airport)`.
+- 색인 체크리스트 틀 `airport_steps`(phase·stage 모두 arrival, `from: airports`, `action: open_airport`) — 팩에 공항이 있을 때만 항목이 생긴다. 나라 화면 길 `CountryRoute(country, focusAirports, airport)`.
 - **자동 심사대 줄 자리**(2026-10-03 아홉 나라 합침): `Airport.egateStepIndex` = `egate` 단계 → 없으면 `immigration` 단계. 조건이 있는 나라는 `egate` 단계 제목이 조건을 먼저 말하고(대만 `자동 심사대(e-Gate)는 등록부터` — 처음 쓰기 전 유인 카운터 등록 필수, 베트남 `자동 심사대는 베트남 국민용`) 판정 줄·메모가 바로 그 아래 붙는다. `egate_kr: null` + `egate_note_ko`가 있으면 `…쓸 수 있는지는 공식 안내가 분명하지 않아요`(물음표) 줄로 메모를 보인다 — 공식 안내끼리 다른 나라(인도네시아: 공항 안내는 외국인을 유인 심사대로, 이민국 2024년 발표는 전자여권 + e-VOA/e-Visa면 자동 게이트)를 앱이 한쪽으로 정리하지 않고 둘 다 적는다. 판정도 메모도 없으면 줄을 그리지 않는다(일본·중국·태국).
 - `map_url`은 공항 운영사·이민국이 올린 그 공항 **도착 안내 페이지**(안내도가 있으면 안내도) — 앱 링크 글도 `공식 안내 페이지 열기`. 공식 공항 안내 페이지가 없는 곳(떤선녓)은 그 공항 단계의 근거 페이지(공안부 PAI 안내)를 가리킨다.
 - 아홉 나라 공항·자동 심사대 판정·확인하지 못한 것: `docs/design/AIRPORT_GUIDE_REPORT.md`.
@@ -354,3 +355,16 @@
 - **알림 모양**: 여행마다 알림 번호(`1000 + 여행 id 해시`)·묶음(`setGroup`)이 따로고, 통로는 새 `checklist`(도착·안내 변경은 그대로 `trip`). 누르면 `MainActivity`가 `readyport.open_checklist`(여행 id) 엑스트라를 읽어 그 여행 체크리스트로 간다.
 - **개인정보(9.6·9.9 그대로)**: 알림 글에 이름·여권 번호·생년월일을 넣지 않고, 내가 넣은 항목(사람이 쓴 글)은 아예 담지 않는다(틀·팩 제목만). 읽는 값은 전부 기기 안(여행 장부·체크·팩)이고 네트워크도, 새 권한도, 새 라이브러리도 없다. 권한(POST_NOTIFICATIONS)이 없으면 알리지 않고 '오늘 알림' 기록도 남기지 않는다.
 - 설정은 기존 설정 DataStore에 네 가지만 더했다: `alerts_on`(기본 true) · `alert_hour`(기본 9) · `alert_muted_trips` · `alert_last_notified`.
+
+## 구현 결정 기록 (여행 과정 길잡이, 2026-10-03)
+
+운영자 지적(PRD 4.1): *"메뉴 구조가 여전히 조금 구분이 모호하고 디자인의 완성도가 낮은 상태야. 여행 일정(생각 → 일정 검토 및 정리 → 각종 예약 → (반)자동 신청 등 처리 → … → 출국/입국 → 여행 → 복귀) 등의 과정이 제대로 안내 되고 그 흐름으로 처리되면 좋겠는데 현재 메뉴 구조는 그렇지 않아."*
+
+- **두 축을 갈랐다**(핵심): 예전 `ChecklistPhase` 하나가 '무엇을 하는 일'과 '언제까지'를 함께 담고 있었다 → `JourneyStage`(묶기) + `DueWindow`(기한)로 나누고, 팩에는 `stage`를 더했다(`phase`는 **값·뜻 모두 그대로**). 그래서 기한·늦음·알림 계산이 하루도 움직이지 않는다 — `JourneyStagesTest`가 기한 날짜 표와 예전 팩/새 팩의 알림이 같은지 본다.
+- **예전 서명 팩 호환**: `stage`가 없으면 `phase`에서 옮겨 온다. 앱이 새 팩을 못 받은 기기, 또는 캐시에 남은 예전 원격 팩에서도 여덟 단계가 모두 뜬다. 체크는 항목 id로 저장하므로(9.9) 묶음이 바뀌어도 살아남는다.
+- **화면 둘을 하나로**: `오늘`(단계별 카드)과 `여행 체크리스트`(시간별 묶음)가 같은 여행을 두 화면에서 보여 주고 있었다 → `ui/trip/JourneyScreen.kt` 한 화면(`TripJourneyScreen` + `JourneyViewModel`). `ui/today/`와 `ui/tabs/`(여행 준비 탭 화면)는 지웠다. 예전 오늘 화면의 카드(출국 순서·도착 공항·도착했어요·여행 중 타일·귀국 전 확인·여권 지우기·정리 축하)는 **그 단계 카드 안**으로 옮겼다 — 지운 기능은 없다.
+- **탭**: `홈` → `둘러보기`(어디 갈까만), `내 여행` 탭의 첫 화면을 `오늘`에서 **여행 목록**으로. 탭이 아닌 화면은 들어온 탭(`lastTab`)을 켠 채로 둔다 — 같은 화면(나라 안내·예약 서류·여권)에 길이 여럿이라 화면만 보고 탭을 정하면 내 여행에서 들어가도 둘러보기가 켜졌다. 여행 줄기(`TripRoute`·`TripsRoute`·`TripChecklistRoute`)만 내 여행으로 못 박아 알림 딥링크가 바른 탭을 켠다.
+- **예약의 집**: 예약 서류 가져오기(`BookingImportRoute`)를 설정 › 내 정보 안에서 여행의 `예약` 단계로 올렸다(내 정보에서도 그대로 갈 수 있다 — 거기는 목록을 보는 곳).
+- **단계 막대**: 나라 화면 그림 메뉴(부록 E.6)와 같은 부품 언어로 `components/JourneyBar.kt`. 여덟 칸을 가로 스크롤하지 않고 4칸 두 줄(좁으면 2칸 네 줄)로 **모두** 보인다. 단계 그림 일곱 장을 새로 그렸고(`Illus.Plan·Book·Pack·Departure·Arrival·During·Return`), `서류`는 같은 일이라 `Illus.Entry`를 그대로 쓴다.
+- **지금 단계**는 떠나기 전에는 날짜가 아니라 **아직 안 끝난 첫 준비 단계**다. 날짜로 정하면 '예약을 2주 전에 끝낸 사람'과 '아직 안 한 사람'이 같은 화면을 보게 된다.
+- 지우지 않고 **옮긴** 것, 정말 **지운** 것, 운영자에게 물을 것: `docs/design/JOURNEY_IA_REPORT.md`.

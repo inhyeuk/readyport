@@ -25,9 +25,9 @@ import androidx.compose.ui.unit.dp
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.readyport.R
+import com.readyport.ui.TestPacks
 import com.readyport.ui.nav.BottomTabs
 import com.readyport.ui.nav.Tab
-import com.readyport.ui.components.EssentialsSummary
 import com.readyport.ui.theme.ReadyPortTheme
 import com.readyport.ui.theme.Tokens
 import org.junit.Assert.assertTrue
@@ -77,12 +77,12 @@ abstract class BundleACaptureBase {
                             BottomTabs(selected = Tab.Present, onSelect = {}, tabs = Tab.Child)
                             BottomTabs(selected = Tab.Help, onSelect = {}, tabs = Tab.Child)
                         }
-                        else -> HomeContent(HomeUi(essentials = EssentialsSummary(total = 5, done = 2)), HomeActions(), today = LocalDate.of(2026, 9, 28))
+                        else -> HomeContent(TestPacks.homeUi(), HomeActions(), today = LocalDate.of(2026, 9, 28))
                     }
                 }
             }
         }
-        listOf("tabs", "home-essentials").forEachIndexed { i, name ->
+        listOf("tabs", "explore").forEachIndexed { i, name ->
             rule.runOnIdle { page = i }
             rule.mainClock.advanceTimeBy(2_000)
             rule.waitForIdle()

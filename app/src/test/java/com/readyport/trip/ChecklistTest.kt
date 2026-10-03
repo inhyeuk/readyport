@@ -50,11 +50,11 @@ class ChecklistTest {
         assertEquals(27 + airportItem("TH"), th.total)
         assertEquals(1, airportItem("TH"))
         assertEquals(30 + airportItem("CN"), cn.total)
-        assertEquals(ChecklistPhase.entries.toList(), th.phases)
-        // 단계 순서 — 떠나기 한 달 전쯤 항목이 맨 앞, 여권 정보 지우기가 맨 끝
+        assertEquals(JourneyStage.entries.toList(), th.stages)
+        // 단계 순서 — 계획이 맨 앞, 복귀(여권 정보 지우기)가 맨 끝
         assertEquals("passport_validity", th.items.first().id)
         assertEquals("passport_destroy", th.items.last().id)
-        assertTrue(cn.items.any { it.id == "country.stay_register" && it.phase == ChecklistPhase.Arrival })
+        assertTrue(cn.items.any { it.id == "country.stay_register" && it.stage == JourneyStage.Arrival })
         // 나머지 나라: 전기 조건(어댑터·전압)·입국 카드 유무·나라 팩 항목 수만큼 달라진다
         val counts = listOf("JP", "SG", "MY", "ID", "TW", "PH", "VN").associateWith { build(trip(it)).total }
         // 베트남은 사전 입국 정보(PAI)가 양식 카드로 옮겨 가면서 `입국 정보 미리 내기` 팩 항목이 빠졌다 —
@@ -104,7 +104,9 @@ class ChecklistTest {
     fun entryFormUnlocksWhenWindowOpens() {
         val t = trip("TH")
         val form = build(t).item("entry_form")!!
-        assertEquals(ChecklistPhase.ThreeDays, form.phase)
+        // 기한 축은 기간 일수가 정하고(3일 → 3일 전 칸), 묶는 축은 언제나 서류 단계다
+        assertEquals(DueWindow.ThreeDays, form.due)
+        assertEquals(JourneyStage.Docs, form.stage)
         assertEquals(d("2026-11-01"), form.opensOn)
         assertTrue(form.locked(d("2026-10-31")))
         assertFalse(form.locked(d("2026-11-01")))
@@ -124,10 +126,11 @@ class ChecklistTest {
     fun windowLengthPicksPhase() {
         // 대만 TWAC는 도착 7일 전부터 → 일주일 전 단계, 중국 온라인 입국 카드는 기간이 없어 잠그지 않는다
         val tw = build(trip("TW")).item("entry_form")!!
-        assertEquals(ChecklistPhase.Week, tw.phase)
+        assertEquals(DueWindow.Week, tw.due)
+        assertEquals(JourneyStage.Docs, tw.stage)
         assertEquals(d("2026-10-28"), tw.opensOn)
         val cn = build(trip("CN")).item("entry_form")!!
-        assertEquals(ChecklistPhase.ThreeDays, cn.phase)
+        assertEquals(DueWindow.ThreeDays, cn.due)
         assertNull(cn.opensOn)
         // 미리 안 내도 되는 입국 카드(기간 없음)는 출발 당일에도 빨강·늦음을 붙이지 않는다
         val cnDay = build(trip("CN"), today = "2026-11-03").item("entry_form")!!
@@ -259,7 +262,8 @@ class ChecklistTest {
         val th = build(trip("TH"))
         val item = th.item("airport_steps")
         assertNotNull(item)
-        assertEquals(ChecklistPhase.Arrival, item!!.phase)
+        assertEquals(JourneyStage.Arrival, item!!.stage)
+        assertEquals(DueWindow.Arrival, item.due)
         assertEquals(ChecklistAction.OpenAirport, item.action)
         // 공항을 고르지 않았으면 코드 없이(나라 화면이 여행 공항·첫 공항을 고른다), 출처는 첫 공항 안내
         val d = item.detail as ItemDetail.AirportGuide
@@ -323,38 +327,38 @@ class ChecklistTest {
     // ---------------- 지금 챙길 것 ----------------
 
     @Test
-    fun nowItemsFollowCurrentPhase() {
+    fun nowItemsFollowCurrentDueWindow() {
         val t = trip("TH")
-        assertEquals(ChecklistPhase.Month, Checklist.currentPhase(t, d("2026-10-02")))
-        assertEquals(ChecklistPhase.Week, Checklist.currentPhase(t, d("2026-10-28")))
-        assertEquals(ChecklistPhase.ThreeDays, Checklist.currentPhase(t, d("2026-11-01")))
-        assertEquals(ChecklistPhase.DepartureDay, Checklist.currentPhase(t, d("2026-11-03")))
-        assertEquals(ChecklistPhase.Arrival, Checklist.currentPhase(t.copy(arrivedAt = 1L), d("2026-11-03")))
-        assertEquals(ChecklistPhase.During, Checklist.currentPhase(t, d("2026-11-05")))
-        assertEquals(ChecklistPhase.BeforeReturn, Checklist.currentPhase(t, d("2026-11-06")))
-        assertEquals(ChecklistPhase.Back, Checklist.currentPhase(t, d("2026-11-08")))
+        assertEquals(DueWindow.Month, Checklist.currentDue(t, d("2026-10-02")))
+        assertEquals(DueWindow.Week, Checklist.currentDue(t, d("2026-10-28")))
+        assertEquals(DueWindow.ThreeDays, Checklist.currentDue(t, d("2026-11-01")))
+        assertEquals(DueWindow.DepartureDay, Checklist.currentDue(t, d("2026-11-03")))
+        assertEquals(DueWindow.Arrival, Checklist.currentDue(t.copy(arrivedAt = 1L), d("2026-11-03")))
+        assertEquals(DueWindow.During, Checklist.currentDue(t, d("2026-11-05")))
+        assertEquals(DueWindow.BeforeReturn, Checklist.currentDue(t, d("2026-11-06")))
+        assertEquals(DueWindow.Back, Checklist.currentDue(t, d("2026-11-08")))
 
         val now = Checklist.nowItems(build(t), t, d("2026-10-02"))
         assertEquals(3, now.size)
-        assertTrue(now.all { it.phase == ChecklistPhase.Month })
+        assertTrue(now.all { it.due == DueWindow.Month })
         // 출발 당일: 아직 안 낸 입국 카드가 맨 앞(급함)
         val dep = Checklist.nowItems(build(t, today = "2026-11-03"), t, d("2026-11-03"))
         assertEquals("entry_form", dep.first().id)
         // 다 했으면 다음 단계에서 미리 할 것
-        val allMonth = build(t).phase(ChecklistPhase.Month).associate { it.id to true }
+        val allMonth = build(t).due(DueWindow.Month).associate { it.id to true }
         val ahead = Checklist.nowItems(build(t, checks = TripChecks(marks = allMonth)), t, d("2026-10-02"))
         assertTrue(ahead.isNotEmpty())
-        assertTrue(ahead.all { it.phase!! > ChecklistPhase.Month })
+        assertTrue(ahead.all { it.due!! > DueWindow.Month })
         // 아직 열리지 않은 입국 카드는 '지금 챙길 것'에 없다
         assertTrue(ahead.none { it.id == "entry_form" })
     }
 
     @Test
     fun markForReturnsToAppJudgement() {
-        val auto = ChecklistItem("x", ChecklistPhase.Month, ItemKind.Auto, "passport", "x", auto = AutoState.Done, checked = true)
+        val auto = ChecklistItem("x", JourneyStage.Plan, DueWindow.Month, ItemKind.Auto, "passport", "x", auto = AutoState.Done, checked = true)
         assertNull(markFor(auto, true))
         assertEquals(false, markFor(auto, false))
-        val manual = ChecklistItem("y", ChecklistPhase.Month, ItemKind.Generic, "flight", "y")
+        val manual = ChecklistItem("y", JourneyStage.Plan, DueWindow.Month, ItemKind.Generic, "flight", "y")
         assertEquals(true, markFor(manual, true))
         assertNull(markFor(manual, false))
     }

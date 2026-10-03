@@ -12,7 +12,9 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 
 /**
- * 챙길 일 알림 판단 (2026-10-03): 순수 함수 [ChecklistReminders]만 — 안드로이드 없이 서명된 내장 팩으로 돌린다.
+ * 챙길 일 알림 판단 (2026-10-03): 순수 함수 [ChecklistReminders]만 — 알림은 **기한 축**([DueWindow])만 본다.
+ * 여행 과정 단계(묶는 축)가 바뀌어도 알리는 항목·때는 그대로여야 한다(2026-10-03 부록 H).
+ * 안드로이드 없이 서명된 내장 팩으로 돌린다.
  * 태국 TDAC는 기간 3일(도착일 포함)이라 11월 3일 출발이면 11월 1일에 기간이 열린다.
  */
 class ChecklistRemindersTest {
@@ -27,14 +29,14 @@ class ChecklistRemindersTest {
     private fun data(trip: Trip, today: LocalDate, checks: TripChecks = TripChecks()) =
         Checklist.build(Checklist.Input(trip, index, pack(trip.country), checks, passportSaved = true, today = today))
 
-    /** [phase]보다 앞선 단계의 항목을 모두 '했음'으로 (늦음을 없애고 지금 단계만 남긴다) */
-    private fun checkedBefore(trip: Trip, today: LocalDate, phase: ChecklistPhase): TripChecks =
-        TripChecks(marks = data(trip, today).items.filter { it.phase!! < phase }.associate { it.id to true })
+    /** [due]보다 앞선 기한 칸의 항목을 모두 '했음'으로 (늦음을 없애고 지금 칸만 남긴다) */
+    private fun checkedBefore(trip: Trip, today: LocalDate, due: DueWindow): TripChecks =
+        TripChecks(marks = data(trip, today).items.filter { it.due!! < due }.associate { it.id to true })
 
-    /** 지금 단계까지 **모두** 했음 */
+    /** 지금 기한 칸까지 **모두** 했음 */
     private fun checkedThrough(trip: Trip, today: LocalDate): TripChecks {
-        val current = Checklist.currentPhase(trip, today)
-        return TripChecks(marks = data(trip, today).items.filter { it.phase!! <= current }.associate { it.id to true })
+        val current = Checklist.currentDue(trip, today)
+        return TripChecks(marks = data(trip, today).items.filter { it.due!! <= current }.associate { it.id to true })
     }
 
     private fun reminders(
@@ -60,8 +62,8 @@ class ChecklistRemindersTest {
         assertEquals(th.id, r.tripId)
         assertEquals(th.start, r.departure)
         // 알리는 제목은 지금 단계까지의 것뿐 — 뒤 단계('돌아와서' 등)는 담지 않는다
-        val current = Checklist.currentPhase(th, today)
-        val allowed = data(th, today).items.filter { it.phase!! <= current }.map { it.title }
+        val current = Checklist.currentDue(th, today)
+        val allowed = data(th, today).items.filter { it.due!! <= current }.map { it.title }
         assertTrue(r.titles.toString(), r.titles.isNotEmpty() && r.titles.all { it in allowed })
         // 아직 기간이 열리지 않은 입국 카드(11월 1일부터)는 담지 않는다
         val form = data(th, today).items.first { it.detail is ItemDetail.Form }
@@ -75,7 +77,7 @@ class ChecklistRemindersTest {
     @Test
     fun quietWhenNothingIsOverdueAndNoCountdownDay() {
         val today = d("2026-10-29") // 출발 5일 전 — '일주일 전'은 10월 30일까지라 아직 늦지 않았다
-        val checks = checkedBefore(th, today, ChecklistPhase.Week)
+        val checks = checkedBefore(th, today, DueWindow.Week)
         val r = reminders(listOf(th), today, mapOf(th.id to checks))
         assertTrue(r.toString(), r.isEmpty())
     }
@@ -113,7 +115,7 @@ class ChecklistRemindersTest {
         val today = d("2026-11-04") // 출발 다음 날 — 출발하는 날 단계가 지났다
         val checks = TripChecks(
             marks = data(jp, today).items
-                .filter { it.phase!! <= ChecklistPhase.Arrival && it.detail !is ItemDetail.Form }
+                .filter { it.due!! <= DueWindow.Arrival && it.detail !is ItemDetail.Form }
                 .associate { it.id to true },
         )
         val r = reminders(listOf(jp), today, mapOf(jp.id to checks))
@@ -126,7 +128,7 @@ class ChecklistRemindersTest {
     fun countdownSummaryOnSevenThreeAndOneDayBefore() {
         listOf("2026-10-27" to 7L, "2026-10-31" to 3L, "2026-11-02" to 1L).forEach { (day, left) ->
             val today = d(day)
-            val current = Checklist.currentPhase(th, today)
+            val current = Checklist.currentDue(th, today)
             val r = reminders(listOf(th), today, mapOf(th.id to checkedBefore(th, today, current))).single()
             assertEquals("$day 단계 요약", ReminderReason.Countdown, r.reason)
             assertEquals(left, r.daysLeft)
@@ -138,7 +140,7 @@ class ChecklistRemindersTest {
     fun noCountdownOnOtherDays() {
         listOf("2026-10-28", "2026-10-29", "2026-11-01").forEach { day ->
             val today = d(day)
-            val current = Checklist.currentPhase(th, today)
+            val current = Checklist.currentDue(th, today)
             val checks = checkedBefore(th, today, current)
             // 11월 1일은 입국 카드 기간이 열리는 날이라 그 이유로 알린다 — 요약(Countdown)은 아니다
             val r = reminders(listOf(th), today, mapOf(th.id to checks)).firstOrNull()
@@ -194,7 +196,7 @@ class ChecklistRemindersTest {
     @Test
     fun afterTheTripNothingIsOverdue() {
         val today = d("2026-11-10")
-        val checks = TripChecks(marks = data(th, today).items.filter { it.phase!! <= ChecklistPhase.Arrival }.associate { it.id to true })
+        val checks = TripChecks(marks = data(th, today).items.filter { it.due!! <= DueWindow.Arrival }.associate { it.id to true })
         assertTrue(reminders(listOf(th), today, mapOf(th.id to checks)).isEmpty())
     }
 

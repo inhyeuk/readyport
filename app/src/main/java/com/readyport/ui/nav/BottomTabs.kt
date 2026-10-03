@@ -20,13 +20,13 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.foundation.text.TextAutoSize
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Luggage
 import androidx.compose.material.icons.filled.QrCode2
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.SupportAgent
-import androidx.compose.material.icons.outlined.Home
+import androidx.compose.material.icons.filled.TravelExplore
 import androidx.compose.material.icons.outlined.Luggage
+import androidx.compose.material.icons.outlined.TravelExplore
 import androidx.compose.material.icons.outlined.QrCode2
 import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material.icons.outlined.SupportAgent
@@ -53,10 +53,13 @@ import com.readyport.R
 import com.readyport.ui.theme.LocalDimens
 import com.readyport.ui.theme.Tokens
 
+// 탭 넷: 둘러보기 · 내 여행 · 도움 · 설정 (2026-10-03 — 예전 '홈'은 여행 흐름 조각을 다 들고 있어서 내 여행 탭과 겹쳤다)
+
 /** [selectedIcon]: 선택된 탭에서만 쓰는 채운 아이콘 (Filled는 '켜짐·선택' 상태에만, D12) */
 enum class Tab(@StringRes val label: Int, val icon: ImageVector, val route: Any, val selectedIcon: ImageVector = icon) {
-    Home(R.string.tab_home, Icons.Outlined.Home, HomeRoute, Icons.Filled.Home),
-    Trip(R.string.tab_trip, Icons.Outlined.Luggage, TodayRoute, Icons.Filled.Luggage),
+    /** 둘러보기 = 어디 갈까(생각 단계). 여행 흐름은 내 여행 탭이 맡는다 (2026-10-03 부록 H) */
+    Home(R.string.tab_explore, Icons.Outlined.TravelExplore, HomeRoute, Icons.Filled.TravelExplore),
+    Trip(R.string.tab_trip, Icons.Outlined.Luggage, TripsRoute, Icons.Filled.Luggage),
     Help(R.string.tab_help, Icons.Outlined.SupportAgent, HelpRoute, Icons.Filled.SupportAgent),
     Settings(R.string.tab_settings, Icons.Outlined.Settings, SettingsRoute, Icons.Filled.Settings),
 
@@ -78,7 +81,7 @@ private val IndicatorHeight = 32.dp
 private val BasicLabelMinSize = 10.sp
 
 /**
- * 하단 탭 4개: 홈 · 내 여행 · 도움 · 설정 (DESIGN_SPEC 6장 공통 틀).
+ * 하단 탭 4개: 둘러보기 · 내 여행 · 도움 · 설정 (DESIGN_SPEC 6장 공통 틀, 부록 H).
  * Material NavigationBar는 높이가 고정이라 글자를 크게 키우면 라벨이 잘린다.
  * 그래서 높이가 내용에 맞춰 늘어나는 탭 막대를 직접 그린다.
  * - 선택 탭: 아이콘 뒤 64×32dp 알약(AccentSoft, 도움 탭은 HelpSoft) + 채운 아이콘 + 굵은 라벨 — 색 말고도 모양·굵기로 구분

@@ -17,7 +17,6 @@ import com.readyport.ui.TestPacks
 import com.readyport.ui.components.displayDate
 import com.readyport.ui.components.formWindowRange
 import com.readyport.ui.components.windowRuleOnly
-import com.readyport.ui.tabs.PrepareContent
 import com.readyport.ui.theme.ReadyPortTheme
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
@@ -180,21 +179,5 @@ class CountryPolishS2Test {
         val tag = rule.onNodeWithText(s(R.string.power_tag_fits)).fetchSemanticsNode().boundsInRoot
         val line = rule.onNodeWithText(s(R.string.guide_power_kr_fits)).fetchSemanticsNode().boundsInRoot
         assertTrue(line.top >= tag.bottom)
-    }
-
-    // ---------------- 18 여행 준비 ----------------
-
-    /** 여행 준비도 안심 카드(나라 입국 화면과 같은 문구) + 내 여행 날짜 */
-    @Test
-    fun prepareUsesAssuranceCardAndTripDates() {
-        val form = pack("TH").forms.single()
-        val entries = TestPacks.formEntries().map { it.copy(windowDays = form.windowDaysIncludingArrival, tripArrival = LocalDate.of(2026, 11, 3)) }
-        rule.setContent { ReadyPortTheme { PrepareContent(entries, {}) } }
-        rule.onNodeWithText(s(R.string.guide_not_affiliated)).assertIsDisplayed()
-        rule.onNodeWithText(s(R.string.country_submit_self)).assertIsDisplayed()
-        assertTrue(rule.onAllNodesWithText(s(R.string.prepare_disclaimer)).fetchSemanticsNodes().isEmpty())
-        val mine = s(R.string.form_window_mine, s(R.string.date_month_day, 11, 3), s(R.string.date_range_same_month, 11, 1, 3))
-        scrollTo(mine, substring = true)
-        rule.onNodeWithText(mine, substring = true).assertIsDisplayed()
     }
 }

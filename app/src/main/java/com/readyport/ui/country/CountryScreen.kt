@@ -9,6 +9,7 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.scrollBy
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -49,6 +50,7 @@ import androidx.compose.material.icons.outlined.TouchApp
 import androidx.compose.material.icons.outlined.Translate
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.Surface
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconToggleButton
 import androidx.compose.material3.MaterialTheme
@@ -72,6 +74,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.clearAndSetSemantics
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
@@ -155,6 +158,7 @@ import com.readyport.ui.components.importLabel
 import com.readyport.ui.components.isNarrowWindow
 import com.readyport.ui.components.koDisplay
 import com.readyport.ui.components.minTouchSize
+import com.readyport.ui.components.minTouch
 import com.readyport.ui.components.personalWindowKo
 import com.readyport.ui.components.rememberGridColumns
 import com.readyport.ui.components.rememberKeyIndex
@@ -202,6 +206,40 @@ data class CountryUi(
 )
 
 /** 나라 화면에서 다른 곳으로 가는 길 */
+/**
+ * 이 여행에서 연 나라 화면의 머리 띠 (2026-10-03): 연한 Accent 바탕 한 줄 — `이 여행 · 태국` + `여행으로 돌아가기`.
+ * 줄 전체가 버튼(Role.Button)이고 TalkBack은 한 문장으로 읽는다.
+ */
+@Composable
+private fun TripContextRow(country: String, onBack: () -> Unit) {
+    val dimens = LocalDimens.current
+    val title = stringResource(R.string.journey_country_trip, country)
+    val back = stringResource(R.string.journey_country_back)
+    Surface(color = Tokens.AccentSoft, shape = MaterialTheme.shapes.medium, modifier = Modifier.fillMaxWidth()) {
+        Row(
+            Modifier
+                .fillMaxWidth()
+                .minTouch()
+                .clickable(role = Role.Button, onClick = onBack)
+                .semantics(mergeDescendants = true) { contentDescription = "$title, $back" }
+                .padding(horizontal = 16.dp, vertical = 10.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(12.dp),
+        ) {
+            Icon(
+                Icons.AutoMirrored.Outlined.ArrowBack,
+                contentDescription = null,
+                tint = Tokens.Accent,
+                modifier = Modifier.size(textIconSize(dimens.icon, MaterialTheme.typography.titleSmall)),
+            )
+            Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                KoText(title, MaterialTheme.typography.titleSmall, color = Tokens.AccentDeep, glueShort = true)
+                KoText(back, MaterialTheme.typography.bodySmall, color = Tokens.Accent, glueShort = true)
+            }
+        }
+    }
+}
+
 data class CountryActions(
     val back: () -> Unit = {},
     val openForm: (String) -> Unit = {},
@@ -214,6 +252,11 @@ data class CountryActions(
     val openVideos: (String) -> Unit = {},
     val openLink: (String) -> Unit = {},
     val toggleFavorite: () -> Unit = {},
+    /**
+     * 이 여행에서 열었을 때 그 여행으로 돌아가는 길 (2026-10-03). null이면 둘러보기에서 연 것 —
+     * 머리 띠를 그리지 않는다. 나라 화면의 메뉴·내용은 어느 쪽에서 열어도 똑같다(부록 E·E.6 그대로).
+     */
+    val backToTrip: (() -> Unit)? = null,
 )
 
 @HiltViewModel
@@ -418,6 +461,10 @@ fun CountryContent(
             }
         },
     ) {
+        // 이 여행에서 열었으면 머리에 `이 여행` 띠 — 어디서 왔는지 보이고 한 번에 돌아간다
+        actions.backToTrip?.let { back ->
+            item(key = "trip-context") { TripContextRow(pack.names.ko, back) }
+        }
         // 머리 묶음(히어로 + 그림 메뉴) 다음부터가 내용이다. 그림 메뉴는 보통 항목이라 함께 올라가고,
         // 다 지나가면 위 overlay의 접힌 고정 줄이 이어받는다(모든 모드 - 쉬운 모드와 큰 글자에서도 같은 구조).
         item(key = "sections") {

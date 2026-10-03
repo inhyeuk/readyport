@@ -159,13 +159,19 @@ def check_passport_validity(doc, label, ids, errors):
 
 
 def check_checklist(doc, label, errors):
-    """체크리스트: 나라 팩 항목 문장은 같은 팩 섹션 문장 그대로, 색인 틀의 essential:<id> 는 essentials 에 있어야 한다."""
+    """체크리스트: 나라 팩 항목 문장은 같은 팩 섹션 문장 그대로, 색인 틀의 essential:<id> 는 essentials 에 있어야 한다.
+
+    두 축(2026-10-03)을 모두 적는다: phase = 언제까지(기한·늦음·알림), stage = 할 일의 종류(묶기·길잡이).
+    stage 가 없으면 앱이 phase 에서 옮겨 오지만(예전 서명 팩), 새로 쓰는 팩에는 반드시 넣는다.
+    """
     sections = {s["id"]: s for s in doc.get("sections", [])}
     seen = set()
     for i, item in enumerate(doc.get("checklist", [])):
         if item.get("id") in seen:
             errors.append(f"{label}: checklist[{i}].id '{item.get('id')}' 가 겹침")
         seen.add(item.get("id"))
+        if not item.get("stage"):
+            errors.append(f"{label}: checklist[{i}] stage 없음 — 할 일의 종류(plan/book/docs/pack/departure/arrival/during/return)를 적는다")
         if "section" in item:
             sec = sections.get(item["section"])
             if sec is None:

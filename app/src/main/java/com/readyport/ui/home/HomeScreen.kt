@@ -17,8 +17,10 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.FactCheck
+import androidx.compose.material.icons.automirrored.outlined.NavigateNext
 import androidx.compose.material.icons.outlined.Approval
 import androidx.compose.material.icons.outlined.Badge
+import androidx.compose.material.icons.outlined.EditCalendar
 import androidx.compose.material.icons.outlined.EventAvailable
 import androidx.compose.material.icons.outlined.ExpandLess
 import androidx.compose.material.icons.outlined.ExpandMore
@@ -151,14 +153,15 @@ data class HomeCountry(
 )
 
 /**
- * 홈 위쪽 '내 여행' 요약. [code]: 나라 코드(사진 썸네일용, DESIGN_SPEC 6-02).
- * [checklistDone]/[checklistTotal]: 이 여행 체크리스트 진행(0이면 표시 없음), [tripCount]: 저장된 여행 수(2개 이상이면 `여행 n개 모두 보기`)
+ * 둘러보기가 가리키는 '내 여행' 한 줄. [code]: 나라 코드(사진 썸네일용), [id]: 그 여행 화면으로 가는 길.
+ * [checklistDone]/[checklistTotal]: 그 여행 진행(0이면 표시 없음), [tripCount]: 저장된 여행 수(2개 이상이면 `여행 n개 모두 보기`)
  */
 data class HomeTrip(
     val countryKo: String,
     val startDate: LocalDate,
     val endDate: LocalDate,
     val code: String? = null,
+    val id: String = "",
     val checklistDone: Int = 0,
     val checklistTotal: Int = 0,
     val tripCount: Int = 1,
@@ -167,32 +170,27 @@ data class HomeTrip(
 data class HomeUi(
     val countries: List<HomeCountry> = emptyList(),
     val trip: HomeTrip? = null,
-    val essentials: EssentialsSummary = EssentialsSummary(),
-    val returnLinks: List<OfficialLink> = emptyList(),
-    val returnFacts: List<SourcedText> = emptyList(),
-    val indexSources: Map<String, String> = emptyMap(),
 )
 
 data class HomeActions(
     val openCountry: (String) -> Unit = {},
-    val openTrip: () -> Unit = {},
-    /** 내 여행 목록(여행이 둘 이상일 때) */
+    /** 그 여행 화면으로 (내 여행 탭의 한 여행 화면) */
+    val openTrip: (String) -> Unit = {},
+    /** 내 여행 목록 */
     val openTrips: () -> Unit = {},
-    val openEssentials: () -> Unit = {},
-    val openMyInfo: () -> Unit = {},
-    val openLink: (String) -> Unit = {},
-    /** '급할 때는 도움' 줄 → 도움 탭 (DESIGN_SPEC 6-01 ⑩, ReadyPortRoot 배선은 2단계) */
+    /** 새 여행 만들기 — 둘러보기의 단 하나의 주 버튼 */
+    val makeTrip: () -> Unit = {},
+    /** '급할 때는 도움' 줄 → 도움 탭 (DESIGN_SPEC 6-01) */
     val openHelp: () -> Unit = {},
 )
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     packs: PackRepository,
-    settings: SettingsRepository,
     trips: TripRepository,
     checklists: ChecklistProvider,
 ) : ViewModel() {
-    val ui: StateFlow<HomeUi> = combine(settings.settings, packs.revision, trips.book) { s, _, book ->
+    val ui: StateFlow<HomeUi> = combine(packs.revision, trips.book) { _, book ->
         val today = LocalDate.now()
         val trip = TripSelection.active(book.trips, today)
         val index = packs.index()?.value
@@ -213,75 +211,37 @@ class HomeViewModel @Inject constructor(
         val homeTrip = trip?.let { t ->
             runCatching {
                 HomeTrip(
-                    tripPack?.names?.ko ?: t.country, LocalDate.parse(t.startDate), LocalDate.parse(t.endDate), t.country,
+                    tripPack?.names?.ko ?: t.country, LocalDate.parse(t.startDate), LocalDate.parse(t.endDate), t.country, t.id,
                     checklistDone = data?.done ?: 0, checklistTotal = data?.total ?: 0, tripCount = book.trips.size,
                 )
             }.getOrNull()
         }
-        // 꼭 챙길 물건 체크 = 지금 여행 체크리스트의 같은 항목(여행이 없으면 예전처럼 설정의 체크)
-        val have = if (trip != null) essentialsHave(data) else s.haveItems
-        HomeUi(
-            countries = countries,
-            trip = homeTrip,
-            // 여행 준비(18)와 같은 계산 — 진행 n/5 + 값이 있는 정보 칩(여행 나라 전기 · 기내 반입만 되는 물건)과 그 출처
-            essentials = essentialsSummary(index, tripPack, have),
-            returnLinks = index?.returnLinks.orEmpty(),
-            returnFacts = index?.returnFacts.orEmpty(),
-            indexSources = index?.sources.orEmpty().associate { it.id to it.name },
-        )
+        HomeUi(countries = countries, trip = homeTrip)
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), HomeUi())
 }
 
 @Composable
 fun HomeScreen(actions: HomeActions, viewModel: HomeViewModel = hiltViewModel()) {
     val ui by viewModel.ui.collectAsStateWithLifecycle()
-    val context = LocalContext.current
-    HomeContent(
-        ui = ui,
-        actions = actions.copy(openLink = { url -> runCatching { context.startActivity(Intent(Intent.ACTION_VIEW, url.toUri())) } }),
-    )
+    HomeContent(ui = ui, actions = actions)
 }
 
 /**
- * 홈 (DESIGN_SPEC 6-01·6-02, 재검토 R13): 사진 히어로(앱 이름 · 질문 · **핵심 가치 한 줄** · 신뢰 표시) → (여행 있으면) 출발까지 카드
- * → 나라 사진 타일(큰 1장 + 2열, 칩은 나라마다 입국 조건 1개) + 출처 + 소개 문장 → 급할 때는 도움
- * → 여행 준비 기본 정보(출국 순서 · 꼭 챙길 물건 · 귀국 전 확인 요약 · 여권 등록).
- * - 가치 문장(`입국 카드 칸은 앱이 채우고, 제출만 직접 눌러요`)은 어느 모드에서나 히어로 안이다. 첫 화면 예산(HomeFirstScreenTest —
- *   쉬운 모드에서 두 번째 나라 사진이 첫 화면에 보여야 한다)을 지키려고 1열(쉬운 모드·큰 글자)에서는 신뢰 표시 3개를 히어로에서
- *   나라 목록 아래 소개 문장 밑으로 옮긴다(숨기지 않고 자리만 — 재검토 R5. 가치 문장의 `제출만 직접`이 히어로에 남는다).
- *   소개 문장(`home_subtitle`)은 모든 모드에서 나라 목록 바로 아래 안내 줄이다(히어로 글을 가치 문장 하나로).
- * - 나라 타일 칩은 나라마다 같은 구성(입국 조건 1개 — 재검토 R19). `입력 도우미`는 칩 대신 히어로 가치 문장이 말한다.
- * - 주 버튼(채움)은 화면에 하나(원칙 7): 여행이 있으면 출발까지 카드의 `내 여행 보기`, 없으면 `준비물 확인하기`.
- *   여권 카드 버튼은 늘 테두리 보조 버튼.
- * - 쉬운 모드: 여행 준비 기본 정보 카드 넷을 한 줄씩 접어 둔다(누르면 그 자리에서 카드가 펼쳐지고, 아래 `접기`로 다시 접는다) —
- *   히어로·여행 카드·나라·도움이 먼저 보이고 화면 길이가 절반 아래로 준다. 내용은 그대로 다 열어 볼 수 있다.
- * 큰 글자 배치에서는 공용 부품이 출국 단계 아이콘을 글 첫 줄 안으로 옮기고 사진 머리 아이콘은 제목 첫 줄에 맞춘다.
+ * 둘러보기 (예전 '홈', 2026-10-03 부록 H): **어디 갈까를 고르는 화면**이다 — 여행 흐름(출국 순서·꼭 챙길 물건·귀국 전 확인·여권)은
+ * 모두 내 여행 탭의 한 여행 화면으로 옮겼다. 같은 일을 두 곳에서 하지 않는다.
+ * 위에서부터: 사진 히어로(앱 이름 · 질문 · 핵심 가치 한 줄 · 신뢰 표시) → 여행 만들기(또는 내 여행으로 가는 한 줄)
+ * → 나라 사진 타일(큰 1장 + 2열) + 출처 + 소개 문장 → 급할 때는 도움.
+ * - 주 버튼(채움)은 화면에 하나(원칙 7): 여행이 없으면 `여행 만들기`, 있으면 `내 여행 보기`.
+ * - 1열(쉬운 모드·큰 글자)에서는 신뢰 표시 3개를 히어로에서 나라 목록 아래로 옮긴다(숨기지 않고 자리만 — 재검토 R5).
  */
 @Composable
 fun HomeContent(ui: HomeUi, actions: HomeActions, today: LocalDate = LocalDate.now()) {
     val columns = rememberGridColumns()
-    val easy = LocalDimens.current.easyMode
     val fallback = stringResource(R.string.source_official_fallback)
-    var departureOpen by rememberSaveable { mutableStateOf(false) }
-    var essentialsOpen by rememberSaveable { mutableStateOf(false) }
-    var returnOpen by rememberSaveable { mutableStateOf(false) }
-    var passportOpen by rememberSaveable { mutableStateOf(false) }
-    val essentialsPrimary = ui.trip == null
-    val departureTitle = stringResource(R.string.home_departure_title)
-    val essentialsTitle = stringResource(R.string.prepare_items_title)
-    val returnTitle = stringResource(R.string.shopping_return_title)
-    val passportTitle = stringResource(R.string.home_passport_title)
-    val essentialsProgress = if (ui.essentials.total > 0) {
-        stringResource(R.string.essentials_progress, ui.essentials.total, ui.essentials.done)
-    } else {
-        null
-    }
     // 여행 중인 나라(없으면 첫 나라)를 크게, 나머지는 2열(쉬운 모드·큰 글자는 모두 1열 큰 타일)
     val featured = ui.countries.firstOrNull { it.code == ui.trip?.code } ?: ui.countries.firstOrNull()
     val others = ui.countries.filter { it.code != featured?.code }
-    // 칩에 쓴 입국 조건(정책 값)의 출처 — 칩이 출처 없이 보이지 않게 그리드 바로 아래에 (원칙 5).
-    // 같은 기관(`외교부 해외안전여행 · 태국`, `… · 일본`)은 공용 SourceList가 한 줄로 묶는다(재검토 R9 — `외교부 해외안전여행 · 태국, 일본`).
-    // 이름 안 줄바꿈(어절 단위)은 SourceFooter가 한다
+    // 칩에 쓴 입국 조건(정책 값)의 출처 — 칩이 출처 없이 보이지 않게 그리드 바로 아래에 (원칙 5)
     val countrySources = ui.countries.mapNotNull { c ->
         c.visa?.let { v -> SourceRef(c.sourceName?.takeIf { it.isNotBlank() } ?: fallback, displayDate(v.lastVerified)) }
     }
@@ -289,11 +249,13 @@ fun HomeContent(ui: HomeUi, actions: HomeActions, today: LocalDate = LocalDate.n
         title = stringResource(R.string.home_title),
         speech = stringResource(R.string.home_speech),
         header = { HomeHero(singleColumn = columns == 1, hasTrip = ui.trip != null) },
-        // 홈 자신에서는 `처음으로`를 숨긴다(눌러도 아무 일 없음) — 쉬운 모드는 `소리로 듣기`만 폭 전체 (재검토2 ⑤#12)
+        // 둘러보기 자신에서는 `처음으로`를 숨긴다(눌러도 아무 일 없음) — 쉬운 모드는 `소리로 듣기`만 폭 전체
         showHomeAction = false,
     ) {
+        // 여행이 있으면 그 여행으로 가는 카드가 맨 위 — 여행이 없으면 나라를 먼저 보여 주고(첫 화면 예산, 운영자 결정 9)
+        // `여행 만들기`는 나라 목록 **아래**에 둔다: 둘러보다가 고른 다음이 자연스러운 자리다
         ui.trip?.let { trip ->
-            item(key = "trip") { TripCountdownCard(trip, today, actions.openTrip, actions.openTrips) }
+            item(key = "trip") { TripCountdownCard(trip, today, { actions.openTrip(trip.id) }, actions.openTrips) }
             sectionGap("countries-gap")
         }
         item(key = "countries-title") {
@@ -320,161 +282,32 @@ fun HomeContent(ui: HomeUi, actions: HomeActions, today: LocalDate = LocalDate.n
                 if (columns == 1) TrustStrip(onDark = false)
             }
         }
-        // 급할 때는 도움 — 나라 바로 다음(쉬운 모드 우선순위: 히어로 · 여행 · 나라 · 도움, 재검토 R13)
+        if (ui.trip == null) {
+            item(key = "make-trip") { MakeTripCard(actions.makeTrip) }
+        }
         item(key = "help") { HelpShortcutRow(actions.openHelp) }
-
-        sectionGap("basics-gap")
-        item(key = "basics-title") { SectionHeader(stringResource(R.string.home_basics_title)) }
-        item(key = "departure") {
-            Foldable(easy, departureOpen, departureTitle, Icons.Outlined.FlightTakeoff, { departureOpen = it }) { DepartureCard() }
-        }
-        item(key = "essentials") {
-            Foldable(easy, essentialsOpen, essentialsTitle, IconKeys.essentials, { essentialsOpen = it }, body = essentialsProgress) {
-                EssentialsCard(ui.essentials, actions.openEssentials, primary = essentialsPrimary)
-            }
-        }
-        if (ui.returnFacts.isNotEmpty() || ui.returnLinks.isNotEmpty()) {
-            item(key = "return") {
-                Foldable(easy, returnOpen, returnTitle, Icons.Outlined.Inventory2, { returnOpen = it }) {
-                    ReturnCheckCard(ui.returnLinks, ui.returnFacts, ui.indexSources, actions.openLink, ReturnCheckMode.Summary)
-                }
-            }
-        }
-        item(key = "passport") {
-            Foldable(easy, passportOpen, passportTitle, Icons.Outlined.Lock, { passportOpen = it }, tone = BadgeTone.Navy) {
-                PassportCard(actions.openMyInfo)
-            }
-        }
     }
 }
 
 /**
- * 여권 등록 카드 (Navy, onDark 내용 세트). 버튼은 테두리 보조 버튼 — 화면의 채운 주 버튼은 하나(원칙 7, 재검토 R13).
+ * 여행이 없을 때의 단 하나의 할 일 (Accent 채움): `여행을 만들면 순서대로 알려 드려요` + `새 여행 만들기`.
+ * 여행을 만들면 이 자리에 내 여행 카드가 들어온다 — 둘러보기에는 언제나 여행으로 가는 길이 한 줄 있다.
  */
 @Composable
-private fun PassportCard(onOpen: () -> Unit) {
+private fun MakeTripCard(onMake: () -> Unit) {
     CardNewsCard(
-        title = stringResource(R.string.home_passport_title),
-        icon = Icons.Outlined.Lock,
-        body = stringResource(R.string.home_passport_body),
-        style = NewsStyle.Navy,
+        title = stringResource(R.string.journey_explore_none_title),
+        icon = Icons.Outlined.EditCalendar,
+        eyebrow = stringResource(R.string.today_next_label),
+        body = stringResource(R.string.journey_explore_none_body),
+        style = NewsStyle.Accent,
     ) {
-        SecondaryButton(stringResource(R.string.home_passport_open), onClick = onOpen, icon = Icons.Outlined.Badge, onDark = true)
-    }
-}
-
-/**
- * 쉬운 모드에서 접어 두는 카드 (재검토 R13): 접혀 있으면 한 줄(아이콘 배지 + 제목 + [body] + 펼침 표시 — 줄 전체가 버튼, `접힘`),
- * 누르면 그 자리에 원래 카드를 그대로 펼치고 바로 아래 `접기` 줄을 둔다. 기본 모드([easy] = false)는 늘 펼친 카드.
- * 정보를 숨기지 않는다 — 한 번 누르면 원래 카드 전체가 보인다.
- */
-@Composable
-private fun Foldable(
-    easy: Boolean,
-    open: Boolean,
-    title: String,
-    icon: ImageVector,
-    onOpenChange: (Boolean) -> Unit,
-    body: String? = null,
-    tone: BadgeTone = BadgeTone.Accent,
-    content: @Composable () -> Unit,
-) {
-    if (!easy) {
-        content()
-        return
-    }
-    // 펼치면 누른 줄이 사라지고 카드가 그 자리에 온다 — 바뀐 내용을 TalkBack이 읽게 늘 있는 상자에 liveRegion (재검토2 ②#2)
-    Box(Modifier.foldLiveRegion()) {
-        if (!open) {
-            FoldRow(title, icon, tone, body) { onOpenChange(true) }
-        } else {
-            Column(verticalArrangement = Arrangement.spacedBy(LocalDimens.current.inner)) {
-                content()
-                FoldBackRow(title) { onOpenChange(false) }
-            }
-        }
-    }
-}
-
-/**
- * 접힌 카드 한 줄: 흰 그림자 카드 안 목록 행(ListRow와 같은 여백 토큰·배지·배치 — BadgeTitleLayout) + 끝에 펼침 표시(ExpandMore).
- * 줄 전체가 버튼이고 상태는 `접힘`. 큰 글자 배치(Stacked)에서는 **네 줄 모두** 배지·펼침 표시를 윗줄에, 제목·설명을 폭 전체로 —
- * 줄마다 '제목이 옆에 들어가는지'로 따로 정하면 한 목록 안에서 모양이 섞였다(재검토2 ②#10·④#6). 숨기는 글은 없다.
- * (ListRow의 끝 요소는 다음 화면 꺾쇠라 '펼침'과 뜻이 달라 같은 배치 부품으로 직접 짠다)
- */
-@Composable
-private fun FoldRow(title: String, icon: ImageVector, tone: BadgeTone, body: String?, onOpen: () -> Unit) {
-    val dimens = LocalDimens.current
-    val collapsed = stringResource(R.string.state_collapsed)
-    val titleStyle = MaterialTheme.typography.titleMedium
-    val iconSize = textIconSize(dimens.icon, titleStyle)
-    val stacked = isStackedListRow()
-    val chevron: @Composable () -> Unit = {
-        Icon(Icons.Outlined.ExpandMore, contentDescription = null, tint = Tokens.Accent, modifier = Modifier.size(iconSize))
-    }
-    val titleText: @Composable () -> Unit = { KoText(title, titleStyle, color = Tokens.Ink, glueShort = true) }
-    val bodyText: (@Composable () -> Unit)? = body?.let { b -> { KoText(b, MaterialTheme.typography.bodyMedium, color = Tokens.InkSecondary) } }
-    ListGroup {
-        Row(
-            Modifier
-                .fillMaxWidth()
-                .heightIn(min = dimens.listRowMinHeight)
-                .clickable(role = Role.Button, onClick = onOpen)
-                .semantics { stateDescription = collapsed }
-                .padding(horizontal = dimens.listRowPadding, vertical = dimens.listRowPaddingVertical),
-            verticalAlignment = if (body != null || stacked) Alignment.Top else Alignment.CenterVertically,
-        ) {
-            if (stacked) {
-                Column(Modifier.weight(1f)) {
-                    Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-                        IconBadge(icon, tone = tone)
-                        Spacer(Modifier.weight(1f))
-                        chevron()
-                    }
-                    Box(Modifier.padding(top = dimens.inner)) { titleText() }
-                    if (bodyText != null) Box(Modifier.padding(top = 2.dp)) { bodyText() }
-                }
-            } else {
-                BadgeTitleLayout(
-                    title = titleText,
-                    modifier = Modifier.weight(1f),
-                    badge = { IconBadge(icon, tone = tone) },
-                    trailing = chevron,
-                    below = bodyText,
-                    gap = 16.dp,
-                )
-            }
-        }
-    }
-}
-
-/** 펼친 카드 아래 `접기` 줄 (ExpandableDetail 펼침 줄과 같은 모양). TalkBack 이름은 무엇을 접는지(`출국하는 날, 이 순서대로 접기`) */
-@Composable
-private fun FoldBackRow(title: String, onFold: () -> Unit) {
-    val dimens = LocalDimens.current
-    val expanded = stringResource(R.string.state_expanded)
-    val name = stringResource(R.string.home_fold_less_cd, title)
-    val style = MaterialTheme.typography.labelLarge
-    Row(
-        Modifier
-            .fillMaxWidth()
-            .minTouch()
-            .clip(MaterialTheme.shapes.small)
-            .clickable(role = Role.Button, onClick = onFold)
-            .semantics {
-                contentDescription = name
-                stateDescription = expanded
-            }
-            .padding(horizontal = 4.dp, vertical = 8.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(8.dp),
-    ) {
-        KoText(stringResource(R.string.action_less), style, Modifier.weight(1f), color = Tokens.Accent)
-        Icon(
-            Icons.Outlined.ExpandLess,
-            contentDescription = null,
-            tint = Tokens.Accent,
-            modifier = Modifier.size(textIconSize(dimens.icon, style)),
+        PrimaryButton(
+            text = stringResource(R.string.today_new_trip),
+            onClick = onMake,
+            // 배지(EditCalendar)와 같은 아이콘을 버튼에 되풀이하지 않는다 — 버튼은 '다음 화면으로'
+            icon = Icons.AutoMirrored.Outlined.NavigateNext,
+            colors = ButtonStyles.onDark(Tokens.Accent),
         )
     }
 }
@@ -581,59 +414,6 @@ private fun HomeCountryTile(
 }
 
 /**
- * 출국하는 날 순서: 공항 사진 머리 + 번호 단계 5개(1단계는 제목 + 보조문).
- * 글자가 크면 공용 StepList가 단계 아이콘을 빼고(번호 원만), PhotoHeaderCard는 제목 아이콘을 첫 줄에 맞춘다(2단계 통합).
- */
-@Composable
-private fun DepartureCard() {
-    PhotoHeaderCard(
-        Photos.Airport,
-        stringResource(R.string.home_departure_title),
-        icon = Icons.Outlined.FlightTakeoff,
-    ) {
-        StepList(
-            listOf(
-                Step(
-                    stringResource(R.string.today_departure_step1),
-                    Icons.Outlined.LocalAirport,
-                    stringResource(R.string.today_departure_step1_detail),
-                ),
-                Step(stringResource(R.string.today_departure_step2), Icons.Outlined.Luggage),
-                Step(stringResource(R.string.today_departure_step3), Icons.Outlined.Security),
-                Step(stringResource(R.string.today_departure_step4), Icons.Outlined.HowToReg),
-                Step(stringResource(R.string.today_departure_step5), Icons.Outlined.MeetingRoom),
-            ),
-        )
-    }
-}
-
-/**
- * 꼭 챙길 물건: 짐 사진 머리 + **값이 있는 정보 칩**(여행 나라 전기 `한국 플러그 그대로 써요`·`220 V 전압`, `보조배터리 기내 반입만 가능` —
- * 값 없는 주제 이름만 늘어놓지 않는다, 재검토2 ①#15·②#9) + 진행 `n / 5`와 막대(여행 준비 18과 같은 부품, ③#10) + 준비물 확인 버튼 + 칩 값의 출처.
- * 아이콘은 '꼭 챙길 물건' 개념 하나(IconKeys.essentials — 홈·여행 준비·꼭 챙길 물건 화면 공통, 재검토 R11).
- * [primary] = false(여행이 있어 출발까지 카드의 `내 여행 보기`가 주 버튼)면 보조 버튼 — 화면의 채운 버튼은 하나(원칙 7, 재검토 R13).
- */
-@Composable
-private fun EssentialsCard(summary: EssentialsSummary, onOpen: () -> Unit, primary: Boolean) {
-    PhotoHeaderCard(
-        Photos.Packing,
-        stringResource(R.string.prepare_items_title),
-        icon = IconKeys.essentials,
-    ) {
-        EssentialsChips(summary)
-        EssentialsProgress(summary)
-        if (primary) {
-            PrimaryButton(stringResource(R.string.home_essentials_open), onClick = onOpen, icon = IconKeys.essentials)
-        } else {
-            SecondaryButton(stringResource(R.string.home_essentials_open), onClick = onOpen, icon = IconKeys.essentials)
-        }
-        // 칩 값(팩 전기·기내 반입 기준)이 출처 없이 보이지 않게 — 카드 맨 아래(원칙 5)
-        val sources = essentialsSources(summary)
-        if (sources.isNotEmpty()) Box(Modifier.padding(top = 4.dp)) { SourceList(sources) }
-    }
-}
-
-/**
  * 02 내 여행 요약 (DESIGN_SPEC 6-02): Accent 채움 카드 — 나라 사진 원형 썸네일(장식) + eyebrow `내 여행 · 태국`(White85)
  * + 출발까지 큰 숫자(stat) + 날짜 한 줄 + 흰 주 버튼. 어두운 채움 위라 onDark 내용 세트만 쓴다(D18).
  * 큰 글자 배치에서는 썸네일을 글 위로 올리고, 큰 숫자는 칸 폭에 맞춰 한 줄에 들어가는 크기(stat → statSmall)로 그린다(FitText, 재검토 R5·R6).
@@ -734,9 +514,3 @@ private fun TripThumbnail(code: String?) {
         IconBadge(Icons.Outlined.FlightTakeoff, tone = BadgeTone.OnDark, size = size, shape = CircleShape)
     }
 }
-
-/** 체크리스트의 꼭 챙길 물건 항목 중 체크한 것 → 꼭 챙길 물건 id (홈·여행 준비·꼭 챙길 물건 화면이 같은 체크를 본다) */
-internal fun essentialsHave(data: ChecklistData?): Set<String> =
-    data?.items.orEmpty().filter { it.checked && it.id.startsWith(ESSENTIAL_PREFIX) }.map { it.id.removePrefix(ESSENTIAL_PREFIX) }.toSet()
-
-private val ESSENTIAL_PREFIX = com.readyport.trip.Checklist.essentialItemId("")

@@ -64,6 +64,7 @@ import androidx.compose.ui.graphics.painter.ColorPainter
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.readyport.R
+import com.readyport.trip.JourneyStage
 import com.readyport.prep.ImportStatus
 import com.readyport.ui.components.AppScreen
 import com.readyport.ui.components.BadgeTone
@@ -107,10 +108,11 @@ import com.readyport.ui.components.FactChip
 import com.readyport.ui.components.FactGrid
 import com.readyport.ui.components.IconBullet
 import com.readyport.ui.components.IconKeys
+import com.readyport.ui.components.JourneyStageBar
+import com.readyport.ui.components.JourneyStageCell
 import com.readyport.ui.components.IconTile
 import com.readyport.ui.components.ImportVerdictBadge
 import com.readyport.ui.components.InfoTileGrid
-import com.readyport.ui.components.JourneyStepper
 import com.readyport.ui.components.KeyValueRow
 import com.readyport.ui.components.KoText
 import com.readyport.ui.components.LinkRow
@@ -463,10 +465,12 @@ fun ComponentsPage(part: Int) {
             }
         }
         item(key = "journey") {
-            Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
-                JourneyStepper(2, stringResource(R.string.today_stage_desc, stringResource(R.string.stage_arrival), 3, 6))
-                JourneyStepper(0, stringResource(R.string.today_stage_desc, stringResource(R.string.stage_prepare), 1, 6), preview = true)
-            }
+            // 여행 과정 8단계 막대 (부록 H) — 예전 6칸 JourneyStepper를 대신한다
+            JourneyStageBar(
+                JourneyStage.entries.mapIndexed { i, s -> JourneyStageCell(s, done = if (i < 2) 3 else 0, total = 3, now = i == 2) },
+                selected = JourneyStage.Docs,
+                onSelect = {},
+            )
         }
         item(key = "info-chips") {
             // 누를 수 없는 정보 칩(재검토 R1): 채움·테두리 없는 아이콘 + 글자

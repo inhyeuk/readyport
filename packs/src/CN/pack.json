@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "country": "CN",
-  "version": "2026.10.03-1",
+  "version": "2026.10.03-2",
   "last_verified": "2026-10-02",
   "names": {
     "ko": "중국",
@@ -505,6 +505,7 @@
     {
       "id": "medicine_cold",
       "phase": "week",
+      "stage": "pack",
       "icon": "medicine",
       "title_ko": "감기약 성분 확인하기",
       "section": "basic",
@@ -513,6 +514,7 @@
     {
       "id": "cash_declare",
       "phase": "three_days",
+      "stage": "docs",
       "icon": "cash",
       "title_ko": "현금 신고 기준 알아 두기",
       "section": "entry",
@@ -521,6 +523,7 @@
     {
       "id": "return_ticket",
       "phase": "departure_day",
+      "stage": "departure",
       "icon": "ticket",
       "title_ko": "돌아가는 표·숙소 연락처 챙기기",
       "section": "entry",
@@ -529,6 +532,7 @@
     {
       "id": "stay_register",
       "phase": "arrival",
+      "stage": "arrival",
       "icon": "hotel",
       "title_ko": "호텔이 아닌 곳에 묵으면 숙박 등록하기",
       "section": "entry",

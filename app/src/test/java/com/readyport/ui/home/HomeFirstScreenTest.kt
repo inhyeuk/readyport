@@ -43,7 +43,7 @@ abstract class HomeFirstScreenBase {
     }
 
     private fun homeTab() = rule.onNode(
-        hasText(context.getString(R.string.tab_home)) and SemanticsMatcher.expectValue(SemanticsProperties.Role, Role.Tab),
+        hasText(context.getString(R.string.tab_explore)) and SemanticsMatcher.expectValue(SemanticsProperties.Role, Role.Tab),
     ).fetchSemanticsNode()
 
     /** 탭 막대 위쪽에서 [name] 나라 타일 위쪽까지(dp) = 첫 화면에 보이는 타일 높이. 그려지지 않았으면 null */

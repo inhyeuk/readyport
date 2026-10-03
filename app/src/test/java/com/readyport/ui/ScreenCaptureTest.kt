@@ -7,6 +7,8 @@ import androidx.compose.ui.graphics.asAndroidBitmap
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.test.SemanticsMatcher
 import androidx.compose.ui.test.captureToImage
+import androidx.compose.ui.test.hasContentDescription
+import androidx.compose.ui.test.hasScrollAction
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.v2.createComposeRule
 import androidx.compose.ui.test.onRoot
@@ -55,6 +57,10 @@ class ScreenCaptureTest {
         File(outDir, "$name.png").outputStream().use { bitmap.compress(Bitmap.CompressFormat.PNG, 100, it) }
     }
 
+    private fun scrollTo(description: String) {
+        rule.onNode(hasScrollAction()).performScrollToNode(hasContentDescription(description))
+    }
+
     private fun openTab(label: Int) {
         rule.onNode(
             hasText(context.getString(label)) and SemanticsMatcher.expectValue(SemanticsProperties.Role, Role.Tab),
@@ -64,6 +70,8 @@ class ScreenCaptureTest {
     private fun captureAll(prefix: String, settings: AppSettings) {
         rule.setContent { ReadyPortRoot(settings = settings, onSetEasyMode = {}, onSpeak = {}, slots = FakeSlots) }
         capture("${prefix}_1_home")
+        // 둘러보기 맨 위는 `여행 만들기`(또는 내 여행 한 줄) — 나라 타일은 그 아래라 스크롤해서 누른다
+        scrollTo(context.getString(R.string.home_country_open, "태국"))
         rule.onNodeWithContentDescription(context.getString(R.string.home_country_open, "태국")).performClick()
         capture("${prefix}_2_country")
         openTab(R.string.tab_trip); capture("${prefix}_3_trip")
@@ -93,6 +101,7 @@ class ScreenCaptureTest {
             )
         }
         capture("m3_1_home_offline")
+        scrollTo(context.getString(R.string.home_country_open, "일본"))
         rule.onNodeWithContentDescription(context.getString(R.string.home_country_open, "일본")).performClick(); capture("m3_2_country")
         rule.onNodeWithText(context.getString(R.string.country_tab_travel)).performClick(); capture("m3_3_country_travel")
         openTab(R.string.tab_help); capture("m3_4_help")

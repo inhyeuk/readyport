@@ -22,13 +22,16 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.readyport.R
 import com.readyport.trip.StageInfo
+import com.readyport.trip.Checklist
+import com.readyport.trip.JourneyStage
 import com.readyport.trip.Trip
-import com.readyport.trip.TripStage
+import com.readyport.trip.TripChecks
 import com.readyport.ui.TestPacks
+import com.readyport.ui.trip.ChecklistActions
+import com.readyport.ui.trip.JourneyUi
+import com.readyport.ui.trip.TripJourneyContent
+import com.readyport.trip.TripStage
 import com.readyport.ui.theme.ReadyPortTheme
-import com.readyport.ui.today.TodayActions
-import com.readyport.ui.today.TodayContent
-import com.readyport.ui.today.TodayUi
 import com.readyport.ui.trip.TripContent
 import com.readyport.ui.trip.TripFormUi
 import kotlinx.coroutines.runBlocking
@@ -137,17 +140,35 @@ class AirportGuideTest {
         rule.onNode(hasText("돈므앙 공항") and SemanticsMatcher.expectValue(SemanticsProperties.Role, Role.RadioButton)).assertIsSelected()
     }
 
+
+    /**
+     * 한 여행 화면 값 한 벌 — 그 단계가 '지금 단계'가 되게 앞 단계를 모두 체크한다
+     * (떠나기 전 단계는 날짜가 아니라 한 일로 나아간다, [Checklist.currentStage]).
+     */
+    private fun journeyUi(trip: Trip, today: java.time.LocalDate, upTo: JourneyStage, airport: com.readyport.pack.Airport?): JourneyUi {
+        val first = Checklist.build(Checklist.Input(trip, TestPacks.index.value, th, TripChecks(), true, today))
+        val marks = first.items.filter { it.stage!! < upTo }.associate { it.id to true }
+        val data = Checklist.build(Checklist.Input(trip, TestPacks.index.value, th, TripChecks(marks = marks), true, today))
+        return JourneyUi(
+            loaded = true, trip = trip, countryName = "태국", data = data, today = today,
+            stage = StageInfo(if (upTo == JourneyStage.Arrival) TripStage.Arrival else TripStage.Departure, dayOfTrip = 1),
+            form = th.forms.first(),
+            sourceNames = th.sources.associate { it.id to it.name },
+            indexSources = TestPacks.index.value.sources.associate { it.id to it.name },
+            airport = airport, hasAirports = true, hasShopping = th.shopping.isNotEmpty(),
+        )
+    }
+
     @Test
-    fun todayArrivalShowsAirportStepsAndOpensGuide() {
-        val trip = Trip("TH", "2026-11-03", "2026-11-07", id = "t", arrivalAirport = "BKK")
+    fun arrivalStageShowsAirportStepsAndOpensGuide() {
+        val trip = Trip("TH", "2026-11-03", "2026-11-07", id = "t", arrivalAirport = "BKK", arrivedAt = 1L)
         var opened: Pair<String, String?>? = null
         val bkk = th.airport("BKK")!!
         rule.setContent {
             ReadyPortTheme {
-                TodayContent(
-                    TodayUi(trip, StageInfo(TripStage.Arrival, dayOfTrip = 1), "태국", th.forms.first(), true,
-                        sourceNames = th.sources.associate { it.id to it.name }, airport = bkk, hasAirports = true),
-                    TodayActions(openAirportGuide = { c, a -> opened = c to a }), {}, {}, {}, {}, {},
+                TripJourneyContent(
+                    journeyUi(trip, trip.start, JourneyStage.Arrival, bkk),
+                    ChecklistActions(openAirport = { c, a -> opened = c to a }),
                 )
             }
         }
@@ -162,14 +183,14 @@ class AirportGuideTest {
     }
 
     @Test
-    fun todayArrivalWithoutAirportKeepsGenericStepsAndOffersGuide() {
-        val trip = Trip("TH", "2026-11-03", "2026-11-07", id = "t")
+    fun arrivalStageWithoutAirportKeepsGenericStepsAndOffersGuide() {
+        val trip = Trip("TH", "2026-11-03", "2026-11-07", id = "t", arrivedAt = 1L)
         var opened: Pair<String, String?>? = null
         rule.setContent {
             ReadyPortTheme {
-                TodayContent(
-                    TodayUi(trip, StageInfo(TripStage.Arrival, dayOfTrip = 1), "태국", th.forms.first(), true, hasAirports = true),
-                    TodayActions(openAirportGuide = { c, a -> opened = c to a }), {}, {}, {}, {}, {},
+                TripJourneyContent(
+                    journeyUi(trip, trip.start, JourneyStage.Arrival, null),
+                    ChecklistActions(openAirport = { c, a -> opened = c to a }),
                 )
             }
         }
@@ -181,15 +202,12 @@ class AirportGuideTest {
     }
 
     @Test
-    fun todayDepartureShowsCompactAirportCard() {
+    fun departureStageShowsCompactAirportCard() {
         val trip = Trip("TH", "2026-11-03", "2026-11-07", id = "t", arrivalAirport = "DMK")
         val dmk = th.airport("DMK")!!
         rule.setContent {
             ReadyPortTheme {
-                TodayContent(
-                    TodayUi(trip, StageInfo(TripStage.Departure, dayOfTrip = 1), "태국", th.forms.first(), true, airport = dmk, hasAirports = true),
-                    TodayActions(), {}, {}, {}, {}, {},
-                )
+                TripJourneyContent(journeyUi(trip, trip.start, JourneyStage.Departure, dmk), ChecklistActions())
             }
         }
         shown(s(R.string.airport_today_departure_title))

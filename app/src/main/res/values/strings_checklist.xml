@@ -19,30 +19,12 @@
     <string name="trips_status_today">오늘 출발</string>
     <string name="trips_status_ongoing">여행 중</string>
     <string name="trips_status_past">다녀왔어요</string>
-    <string name="trips_open_list">여행 목록 보기</string>
     <string name="trips_local_only">여행과 체크한 것은 이 휴대폰에만 저장돼요.</string>
 
     <!-- 여행 체크리스트 -->
-    <string name="ck_title">%1$s 여행 체크리스트</string>
     <string name="ck_speech">%1$s 여행 체크리스트예요. 모두 %2$d개 중 %3$d개 했어요.</string>
     <string name="ck_progress_sentence">모두 %1$d개 중 %2$d개 했어요</string>
     <string name="ck_progress_title">%1$s · %2$s</string>
-    <string name="ck_phase_month">떠나기 한 달 전쯤</string>
-    <string name="ck_phase_week">일주일 전</string>
-    <string name="ck_phase_three_days">3일 전</string>
-    <string name="ck_phase_departure_day">출발하는 날</string>
-    <string name="ck_phase_arrival">도착하면</string>
-    <string name="ck_phase_during">여행 중</string>
-    <string name="ck_phase_before_return">돌아오기 전</string>
-    <string name="ck_phase_back">돌아와서</string>
-    <string name="ck_hint_month">출발 한 달 전쯤부터 · %1$s까지</string>
-    <string name="ck_hint_week">출발 7일 전부터 · %1$s까지</string>
-    <string name="ck_hint_three_days">출발 3일 전부터 · %1$s까지</string>
-    <string name="ck_hint_departure_day">%1$s</string>
-    <string name="ck_hint_arrival">도착한 뒤 · %1$s까지</string>
-    <string name="ck_hint_during">여행하는 동안 · %1$s까지</string>
-    <string name="ck_hint_before_return">돌아오기 하루 전부터 · %1$s까지</string>
-    <string name="ck_hint_back">%1$s 돌아온 뒤</string>
     <string name="ck_phase_now">지금</string>
     <string name="ck_phase_show">한 일 %1$d개 보기</string>
     <string name="ck_phase_show_items">항목 %1$d개 보기</string>
@@ -100,7 +82,6 @@
     <string name="ck_delete_body">여행 날짜와 이 여행 체크리스트(내가 넣은 항목 포함)가 지워져요. 여권·예약 서류는 남아요.</string>
 
     <!-- 오늘 화면 · 홈 -->
-    <string name="ck_now_title">지금 챙길 것</string>
     <string name="ck_now_eyebrow">체크리스트 %1$d / %2$d</string>
     <string name="ck_now_open">체크리스트 전체 보기</string>
     <string name="ck_now_all_done">지금 챙길 것은 다 했어요.</string>

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "country": "PH",
-  "version": "2026.10.03-1",
+  "version": "2026.10.03-2",
   "last_verified": "2026-10-02",
   "names": {
     "ko": "필리핀",
@@ -370,6 +370,7 @@
     {
       "id": "child_docs",
       "phase": "week",
+      "stage": "docs",
       "icon": "family",
       "title_ko": "아이와 함께 가면 가족 서류 챙기기",
       "section": "entry",
@@ -378,6 +379,7 @@
     {
       "id": "cash_declare",
       "phase": "three_days",
+      "stage": "docs",
       "icon": "cash",
       "title_ko": "현금 신고 기준 알아 두기",
       "section": "payment",

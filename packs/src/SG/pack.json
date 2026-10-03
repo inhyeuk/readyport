@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "country": "SG",
-  "version": "2026.10.03-1",
+  "version": "2026.10.03-2",
   "last_verified": "2026-09-28",
   "names": {
     "ko": "싱가포르",
@@ -398,6 +398,7 @@
     {
       "id": "no_tobacco",
       "phase": "week",
+      "stage": "pack",
       "icon": "rules",
       "title_ko": "담배·전자담배는 두고 가기",
       "section": "entry",
@@ -406,6 +407,7 @@
     {
       "id": "cash_declare",
       "phase": "three_days",
+      "stage": "docs",
       "icon": "cash",
       "title_ko": "현금 신고 기준 알아 두기",
       "section": "entry",

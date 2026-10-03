@@ -42,7 +42,7 @@ import kotlin.math.ceil
 
 /**
  * 디자인 검토용: 모든 화면을 전체 길이로 찍어 build/gallery/{basic|easy}/이름.png 로 남긴다.
- * **쪽 단위로 그려 이어 붙인다**(2단계): 화면 내용은 아주 긴 칸([contentHeightDp] — 기본 8000dp, 글자 200%는 12000dp)에
+ * **쪽 단위로 그려 이어 붙인다**(2단계): 화면 내용은 아주 긴 칸([contentHeightDp] — 기본 11000dp, 글자 200%는 18000dp)에
  * 한 번 배치해 목록 항목이 모두 그려지게 하고, 기기 높이 창(h700dp)에 한 쪽씩 끌어올려(graphicsLayer) 찍은 뒤 이어 붙인다.
  * - 긴 창 한 장으로 찍으면 그림자 광원이 창 맨 위라 아래쪽 카드일수록 그림자가 아래로 밀려 겹친 카드처럼 보였다
  *   (BUNDLE_A_NOTES 8 — 캡처 인공물). 쪽마다 실기기 화면 높이 안에서 그리므로 그림자가 실기기와 같다.
@@ -61,7 +61,7 @@ abstract class GalleryCaptureBase {
     protected open val folder: String = ""
 
     /** 화면 내용을 배치할 칸 높이 — 이보다 긴 화면은 잘림으로 실패 */
-    protected open val contentHeightDp: Int = 8000
+    protected open val contentHeightDp: Int = 11000
 
     protected val groundArgb = android.graphics.Color.argb(
         255, (Tokens.Ground.red * 255).toInt(), (Tokens.Ground.green * 255).toInt(), (Tokens.Ground.blue * 255).toInt(),

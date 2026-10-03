@@ -71,15 +71,14 @@ import com.readyport.ui.home.HomeContent
 import com.readyport.ui.pack.HelpContent
 import com.readyport.ui.theme.ReadyPortTheme
 import com.readyport.ui.theme.Tokens
-import com.readyport.ui.today.TodayActions
-import com.readyport.ui.today.TodayContent
-import com.readyport.ui.today.TodayUi
 import com.readyport.ui.transport.RideAppRow
 import com.readyport.ui.transport.TransportContent
 import com.readyport.ui.transport.TransportUi
+import com.readyport.trip.JourneyStage
+import com.readyport.trip.TripStages
 import com.readyport.ui.trip.ChecklistActions
-import com.readyport.ui.trip.ChecklistUi
-import com.readyport.ui.trip.TripChecklistContent
+import com.readyport.ui.trip.JourneyUi
+import com.readyport.ui.trip.TripJourneyContent
 import com.readyport.ui.wallet.WalletContent
 import com.readyport.vault.BookingRecord
 import com.readyport.vault.PassportRecord
@@ -222,8 +221,8 @@ class StoreScreenshotsTest {
         StoreShot("03_country_entry", "비자·비용은 한눈에,\n공식 출처와 확인 날짜까지") {
             CountryContent(TestPacks.countryUi("ID"), CountryActions())
         },
-        // 태국 여행 체크리스트(0.4.0): 사진 머리(전체 진행·지금 단계) → '떠나기 한 달 전쯤' 단계 카드(여권 남은 기간·여권 등록 = `앱이 확인했어요`)
-        StoreShot("04_checklist", "여권 기간부터 귀국 정리까지\n여행마다 체크리스트로") {
+        // 태국 한 여행 화면(0.5.0): 사진 머리(전체 진행) → 여행 과정 8단계 막대 → 지금 할 일 → 단계 카드
+        StoreShot("04_checklist", "계획부터 복귀까지\n여행 과정 그대로 안내") {
             val t = StoreFixture.checklistTrip
             val today = StoreFixture.checklistToday
             val pack = th.value
@@ -233,7 +232,20 @@ class StoreScreenshotsTest {
                 passport = PassportValidity.check(LocalDate.parse(StoreFixture.passport.expiryDate), t, pack.requirements.first().passportValidity),
             )
             val data = Checklist.build(Checklist.Input(t, TestPacks.index.value, pack, checks, passportSaved = true, today = today))
-            TripChecklistContent(ChecklistUi(loaded = true, trip = t, countryName = "태국", data = data, today = today), ChecklistActions())
+            val pack2 = th.value
+            TripJourneyContent(
+                JourneyUi(
+                    loaded = true, trip = t, countryName = "태국", data = data, today = today,
+                    stage = TripStages.compute(t, today, 0L, pack2.requiredForms.firstOrNull()?.windowDaysIncludingArrival),
+                    form = pack2.requiredForms.firstOrNull(),
+                    indexSources = TestPacks.index.value.sources.associate { it.id to it.name },
+                    sourceNames = pack2.sources.associate { it.id to it.name },
+                    airport = pack2.airports.firstOrNull(),
+                    hasAirports = pack2.airports.isNotEmpty(),
+                    hasShopping = pack2.shopping.isNotEmpty(),
+                ),
+                ChecklistActions(),
+            )
         },
         // 일본(한국인 출국 1위): 도움 탭의 긴급 번호 묶음(맨 위 `긴급 번호 바로 보기`로 가는 곳) — 110·119·118, 한국어 24시간 전화, 대사관.
         // 현지어 문장을 크게 보여 주는 장면은 07 기사님 카드가 맡는다
@@ -269,9 +281,24 @@ class StoreScreenshotsTest {
         // 싱가포르 여행 중, 쉬운 모드. 캡션은 기능 이름 대신 누구를 위한 것인지(재검토2 ⑤#12)
         StoreShot("08_easy_traveling", "해외여행이 처음이라면\n글자와 버튼을 크게", easy = true) {
             val sg = pack("SG").value
-            TodayContent(
-                TodayUi(StoreFixture.tripSg, StageInfo(TripStage.Traveling, dayOfTrip = 2), sg.names.ko, sg.forms.first(), hasPassport = true),
-                TodayActions(), {}, {}, {}, {}, {},
+            val t2 = StoreFixture.tripSg
+            // 여행 중(싱가포르 2일째) — 여행 중 단계의 큰 타일 넷
+            val today2 = LocalDate.parse(t2.startDate).plusDays(1)
+            val data2 = Checklist.build(
+                Checklist.Input(t2, TestPacks.index.value, sg, TripChecks(marks = emptyMap()), passportSaved = true, today = today2),
+            )
+            TripJourneyContent(
+                JourneyUi(
+                    loaded = true, trip = t2, countryName = sg.names.ko, data = data2, today = today2,
+                    stage = StageInfo(TripStage.Traveling, dayOfTrip = 2),
+                    form = sg.requiredForms.firstOrNull(),
+                    indexSources = TestPacks.index.value.sources.associate { it.id to it.name },
+                    sourceNames = sg.sources.associate { it.id to it.name },
+                    airport = sg.airports.singleOrNull(),
+                    hasAirports = sg.airports.isNotEmpty(),
+                    hasShopping = sg.shopping.isNotEmpty(),
+                ),
+                ChecklistActions(),
             )
         },
     )
