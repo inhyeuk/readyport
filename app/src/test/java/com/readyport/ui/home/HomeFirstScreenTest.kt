@@ -95,10 +95,14 @@ class HomeFirstScreenTest : HomeFirstScreenBase() {
         assertVisible("태국", "basic")
     }
 
-    /** ScreenCaptureTest.guideAndOffline: 쉬운 모드 + 오프라인 배너에서 두 번째 나라(일본)를 바로 누른다 */
-    @Test fun easyOfflineShowsSecondCountry() {
+    /**
+     * 쉬운 모드 + 오프라인 배너: 첫 나라(태국) 타일이 첫 화면에 보인다.
+     * (예전에는 **둘째** 나라 일본까지 요구했다 — 2026-10-03 히어로가 여행 버튼을 품으면서 1열에서 한 칸 분량이 아래로 밀렸다.
+     * `ScreenCaptureTest.guideAndOffline`은 일본을 누르기 전에 스크롤하므로 흐름은 그대로다.)
+     */
+    @Test fun easyOfflineShowsFirstCountry() {
         launch(easy = true, online = false)
-        assertVisible("일본", "easy-offline")
+        assertVisible("태국", "easy-offline")
     }
 
     /** ScreenCaptureTest.easyModeDoubleFont: 쉬운 모드 + 글자 200%에서 첫 나라(태국)를 바로 누른다 */

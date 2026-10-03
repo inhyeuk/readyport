@@ -102,6 +102,12 @@ object Gallery {
     private val th get() = TestPacks.thailand
     private val trip = Trip("TH", "2026-11-03", "2026-11-07")
 
+    /** 둘러보기 히어로가 가리키는 여행(태국 11월 3~7일, 체크리스트 28개 중 12개) */
+    private val galleryHomeTrip = HomeTrip(
+        "태국", LocalDate.of(2026, 11, 3), LocalDate.of(2026, 11, 7), code = "TH", id = "g-th",
+        checklistDone = 12, checklistTotal = 28,
+    )
+
     // ---------------- 여러 여행·체크리스트 (2026-10-02) ----------------
     private fun packOf(cc: String) = runBlocking { TestPacks.repo.pack(cc)!!.value }
     private fun checklist(t: Trip, today: LocalDate, checks: TripChecks, saved: Boolean? = true) =
@@ -274,16 +280,31 @@ object Gallery {
         "first-run" to { FirstRunScreen {} },
         // 준비물 진행 줄(2 / 5)까지 보이게 (BUNDLE_A_NOTES 요청 7)
         // 꼭 챙길 물건 값 칩(기내 반입만 보조배터리)·진행 2 / 5 — 운영 ViewModel과 같은 계산(essentialsSummary)
-        // 둘러보기: 여행이 없으면 `여행 만들기` 하나 — 여행 흐름 조각(출국 순서·꼭 챙길 물건·귀국 전 확인·여권)은 내 여행 탭으로 옮겼다
+        // ---- 둘러보기 히어로 네 가지 상태 (운영자 2026-10-03, 부록 H.5): 여행으로 가는 길은 히어로 안에만 있다 ----
+        // ① 여행이 없음: 주 버튼 `새 여행 만들기` 하나
         "explore" to { HomeContent(TestPacks.homeUi(), HomeActions(), today = LocalDate.of(2026, 9, 28)) },
-        // 둘러보기(여행이 있을 때): 그 여행으로 가는 한 줄 + 나라 고르기
+        // ② 다가오는 여행 하나: 주 버튼 `내 여행 점검`(그 여행으로) + 보조 `새 여행 만들기`
         "explore-with-trip" to {
             HomeContent(
-                TestPacks.homeUi().copy(
-                    trip = HomeTrip("태국", LocalDate.of(2026, 11, 3), LocalDate.of(2026, 11, 7), code = "TH", id = "g-th",
-                        checklistDone = 12, checklistTotal = 28, tripCount = 3),
-                ),
+                TestPacks.homeUi().copy(trip = galleryHomeTrip, activeTrips = 1),
                 HomeActions(), today = LocalDate.of(2026, 10, 31),
+            )
+        },
+        // ③ 다가오는 여행 + 지난 여행: 보조 버튼 둘이 같은 폭 한 줄(큰 글자면 쌓임)
+        "explore-trip-and-past" to {
+            HomeContent(
+                TestPacks.homeUi().copy(trip = galleryHomeTrip, activeTrips = 1, pastTrips = 2),
+                HomeActions(), today = LocalDate.of(2026, 10, 31),
+            )
+        },
+        // ④ 지난 여행만: 주 버튼은 `새 여행 만들기`, 상태 줄은 다녀온 여행
+        "explore-past-only" to {
+            HomeContent(
+                TestPacks.homeUi().copy(
+                    trip = galleryHomeTrip.copy(checklistDone = 28, checklistTotal = 28),
+                    pastTrips = 1,
+                ),
+                HomeActions(), today = LocalDate.of(2026, 11, 12),
             )
         },
         // 내 여행(태국 11월 3일)이 있으면 입국 카드 '내는 때'가 일반 예시 대신 내 날짜
