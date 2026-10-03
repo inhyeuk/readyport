@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "country": "MY",
-  "version": "2026.10.02-1",
+  "version": "2026.10.03-2",
   "last_verified": "2026-09-28",
   "names": {
     "ko": "말레이시아",
@@ -62,6 +62,46 @@
       "id": "customs_allowance",
       "name": "관세청 여행자 휴대품 면세 범위",
       "url": "https://customs.go.kr/kcs/cm/cntnts/cntntsView.do?mi=2837&cntntsId=829"
+    },
+    {
+      "id": "mahb_klia1_ci",
+      "name": "Malaysia Airports · KLIA Terminal 1 Customs & Immigration",
+      "url": "https://www.malaysiaairports.com.my/en/klia1/air-travel/customs-and-immigration"
+    },
+    {
+      "id": "mahb_klia2_ci",
+      "name": "Malaysia Airports · KLIA2 Customs & Immigration",
+      "url": "https://www.malaysiaairports.com.my/en/klia2/air-travel/customs-and-immigration"
+    },
+    {
+      "id": "mahb_klia1_transfer",
+      "name": "Malaysia Airports · KLIA Terminal 1 Flight Transfer",
+      "url": "https://www.malaysiaairports.com.my/en/klia1/air-travel/flight-transfer"
+    },
+    {
+      "id": "mahb_bki_ci",
+      "name": "Malaysia Airports · Kota Kinabalu Customs & Immigration",
+      "url": "https://www.malaysiaairports.com.my/en/bki/air-travel/customs-and-immigration"
+    },
+    {
+      "id": "mahb_bki_transfer",
+      "name": "Malaysia Airports · Kota Kinabalu Flight Transfer",
+      "url": "https://www.malaysiaairports.com.my/en/bki/air-travel/flight-transfer"
+    },
+    {
+      "id": "imi_mdac",
+      "name": "말레이시아 이민청 · MDAC 공식 사이트(등록 방법 인포그래픽)",
+      "url": "https://imigresen-online.imi.gov.my/mdac/main"
+    },
+    {
+      "id": "imi_egate",
+      "name": "말레이시아 이민청 · MDAC Egate 이용 자격 확인(63개국)",
+      "url": "https://imigresen-online.imi.gov.my/mdac/egate"
+    },
+    {
+      "id": "mofa_kk_mdac",
+      "name": "주코타키나발루 대한민국 분관 · MDAC 사칭·대행 사이트 주의",
+      "url": "https://overseas.mofa.go.kr/my-kk-ko/brd/m_27578/view.do?seq=13111"
     }
   ],
   "requirements": [
@@ -293,10 +333,90 @@
     "source": "tnb_system",
     "last_verified": "2026-09-29"
   },
+  "airports": [
+    {
+      "code": "KUL",
+      "name_ko": "쿠알라룸푸르 국제공항 (KLIA 제1·제2터미널)",
+      "name_en": "Kuala Lumpur International Airport (KLIA Terminal 1 & Terminal 2)",
+      "city_ko": "쿠알라룸푸르",
+      "egate_kr": true,
+      "egate_note_ko": "말레이시아 이민청 MDAC 사이트의 자동 게이트(egate) 이용 가능 63개국에 한국(Republic of Korea)이 들어 있어요. 전자여권이 있어야 하고, MDAC를 미리 내야 해요.",
+      "form_check_ko": "미리 낸 MDAC 등록 내용을 입국 심사대에서 보여 줘요.",
+      "steps": [
+        {
+          "kind": "immigration",
+          "title_ko": "입국 심사",
+          "body_ko": "입국 심사대에서 여권을 확인받아요.",
+          "where_ko": null,
+          "source": "imi_mdac"
+        },
+        {
+          "kind": "egate",
+          "title_ko": "자동 게이트",
+          "body_ko": "조건에 맞으면 직원이 있는 카운터 대신 자동 게이트로 지나갈 수 있어요.",
+          "where_ko": null,
+          "source": "imi_egate"
+        },
+        {
+          "kind": "baggage",
+          "title_ko": "짐 찾기",
+          "body_ko": "입국 심사를 지나 짐을 찾아요.",
+          "where_ko": null,
+          "source": "mahb_klia1_transfer"
+        },
+        {
+          "kind": "customs",
+          "title_ko": "세관 (가방 속 물건 확인)",
+          "body_ko": "세금을 내야 하는 물건이나 금지 물품은 모두 신고해요. 세관 직원이 가방을 열어 보자고 할 수 있어요.",
+          "where_ko": null
+        }
+      ],
+      "map_url": "https://www.malaysiaairports.com.my/en/klia1/map",
+      "source": "mahb_klia1_ci",
+      "last_verified": "2026-10-03",
+      "form_check_source": "imi_mdac"
+    },
+    {
+      "code": "BKI",
+      "name_ko": "코타키나발루 국제공항",
+      "name_en": "Kota Kinabalu International Airport",
+      "city_ko": "코타키나발루",
+      "egate_kr": null,
+      "egate_note_ko": null,
+      "form_check_ko": "미리 낸 MDAC 등록 내용을 입국 심사대에서 보여 줘요.",
+      "steps": [
+        {
+          "kind": "immigration",
+          "title_ko": "입국 심사",
+          "body_ko": "입국 심사대에서 여권을 확인받아요.",
+          "where_ko": null,
+          "source": "imi_mdac"
+        },
+        {
+          "kind": "baggage",
+          "title_ko": "짐 찾기",
+          "body_ko": "입국 심사를 지나 짐을 찾아요.",
+          "where_ko": null,
+          "source": "mahb_bki_transfer"
+        },
+        {
+          "kind": "customs",
+          "title_ko": "세관 (가방 속 물건 확인)",
+          "body_ko": "세금을 내야 하는 물건이나 금지 물품은 모두 신고해요. 세관 직원이 가방을 열어 보자고 할 수 있어요.",
+          "where_ko": null
+        }
+      ],
+      "map_url": "https://www.malaysiaairports.com.my/en/bki/air-travel/customs-and-immigration",
+      "source": "mahb_bki_ci",
+      "last_verified": "2026-10-03",
+      "form_check_source": "imi_mdac"
+    }
+  ],
   "checklist": [
     {
       "id": "cash_declare",
       "phase": "three_days",
+      "stage": "docs",
       "icon": "cash",
       "title_ko": "현금 신고 기준 알아 두기",
       "section": "entry",

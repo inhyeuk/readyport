@@ -36,12 +36,14 @@ import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.layout
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.semantics.SemanticsActions
 import androidx.compose.ui.test.captureToImage
 import androidx.compose.ui.test.hasScrollAction
 import androidx.compose.ui.test.junit4.v2.createComposeRule
 import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onRoot
 import androidx.compose.ui.test.performScrollToKey
+import androidx.compose.ui.test.performSemanticsAction
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.dp
@@ -50,14 +52,13 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.readyport.R
 import com.readyport.autofill.FormValues
-import com.readyport.transport.Place
+import com.readyport.stay.Stays
 import com.readyport.trip.Checklist
+import com.readyport.trip.ChecklistData
 import com.readyport.trip.CustomItem
 import com.readyport.trip.PassportValidity
-import com.readyport.trip.StageInfo
 import com.readyport.trip.Trip
 import com.readyport.trip.TripChecks
-import com.readyport.trip.TripStage
 import com.readyport.ui.components.KoText
 import com.readyport.ui.components.Photos
 import com.readyport.ui.components.keepWords
@@ -68,21 +69,22 @@ import com.readyport.ui.form.FormConfirmContent
 import com.readyport.ui.form.FormContext
 import com.readyport.ui.home.HomeActions
 import com.readyport.ui.home.HomeContent
+import com.readyport.ui.home.HomeTrip
+import com.readyport.ui.home.HomeUi
 import com.readyport.ui.pack.HelpContent
 import com.readyport.ui.theme.ReadyPortTheme
 import com.readyport.ui.theme.Tokens
-import com.readyport.ui.today.TodayActions
-import com.readyport.ui.today.TodayContent
-import com.readyport.ui.today.TodayUi
-import com.readyport.ui.transport.RideAppRow
-import com.readyport.ui.transport.TransportContent
-import com.readyport.ui.transport.TransportUi
+import com.readyport.trip.JourneyStage
+import com.readyport.trip.TripStages
 import com.readyport.ui.trip.ChecklistActions
-import com.readyport.ui.trip.ChecklistUi
-import com.readyport.ui.trip.TripChecklistContent
+import com.readyport.ui.trip.JOURNEY_ALL_FOLDED
+import com.readyport.ui.trip.JourneyUi
+import com.readyport.ui.trip.TripJourneyContent
+import com.readyport.ui.trip.stageKey
 import com.readyport.ui.wallet.WalletContent
 import com.readyport.vault.BookingRecord
 import com.readyport.vault.PassportRecord
+import com.readyport.vault.StayRecord
 import com.readyport.vault.VaultContents
 import com.readyport.vault.WalletState
 import kotlinx.coroutines.runBlocking
@@ -98,14 +100,17 @@ import java.time.LocalDate
 import kotlin.math.roundToInt
 
 /**
- * Play 스토어 등록 이미지 (M10, 재검토 R20, 운영자 결정 '+' — 나라 섞기·1번 캡션). 결과: app/build/store/ (커밋은 docs/play/store/ 로 **같은 이름** 복사)
+ * Play 스토어 등록 이미지 (M10, 재검토 R20, 운영자 결정 '+' — 나라 섞기). 결과: app/build/store/ (커밋은 docs/play/store/ 로 **같은 이름** 복사)
  * - 스크린숏: 1215×2160 = 정확히 9:16 (Play 콘솔 규칙: 16:9 또는 9:16, 320~3840px)
- * - 순서: 홈 → 입국 카드 확인(태국 TDAC) → 나라 화면(**인도네시아** — 히어로 아래 그림 메뉴 세 장, 입국·비자) → 여행 체크리스트(태국, 0.4.0)
- *   → 도움(**일본**) → 내 정보(여권, 가림) → 이동하기(**말레이시아** 기사님 카드) → 쉬운 모드 여행 중(**싱가포르**).
- *   한 나라(태국)가 8장 중 7장이던 것을 다섯 나라로 나눴다(재검토2 ⑤#1). 일본은 자동 입력이 없어 02에 쓰지 않는다.
+ * - 0.5.0 순서: 둘러보기(내 여행 흰 박스 ①②·아홉 나라 타일) → 한 여행 화면(**태국** — 번호 붙은 여행 과정 8단계)
+ *   → 입국 카드 확인(**태국** TDAC) → 공항에 도착하면(**싱가포르** 창이 — 자동 심사대 ✅) → 묵는 곳(**말레이시아** 여행의 숙소 두 곳)
+ *   → 나라 화면(**인도네시아** — 그림 메뉴·도착비자 타일) → 내 정보(여권, 가림) → 도움(**일본** 긴급 번호).
+ * - 0.4.0에서 바뀐 것: 02 체크리스트 → 여행 과정 8단계(01도 히어로가 바뀌었다), 공항·묵는 곳 두 장을 넣고
+ *   이동하기(말레이시아 기사님 카드)·쉬운 모드(싱가포르 여행 중) 두 장을 뺐다 — 말레이시아는 묵는 곳 장이,
+ *   싱가포르는 공항 장이 이어받아 나라는 그대로 다섯이다(재검토2 ⑤#1). 일본은 자동 입력이 없어 입국 카드 장에 쓰지 않는다.
  *   영상 화면(YouTube 썸네일)은 쓰지 않는다.
  * - 각 장 = 위쪽 띠의 앱 밖 캡션(두 줄 + `정부 기관과 제휴하지 않은 앱이에요`) + 아래 실제 화면(축소).
- * - 정책 문장·번호·현지어 문장은 모두 저장소의 서명된 실제 팩 값 — 스크린숏용으로 지어낸 문장이 없다.
+ * - 정책 문장·공항 순서·번호·현지어 문장은 모두 저장소의 서명된 실제 팩 값 — 스크린숏용으로 지어낸 문장이 없다.
  */
 private fun Bitmap.saveTo(name: String): File {
     val dir = File("build/store").apply { mkdirs() }
@@ -118,14 +123,36 @@ private fun Bitmap.saveTo(name: String): File {
  * 정책 문장은 지어내지 않는다 — 나라·도움·입국 카드 화면은 저장소의 서명된 실제 팩(TestPacks)을 그대로 읽는다.
  */
 internal object StoreFixture {
-    /** 화면 기준 날짜: 출발(11월 3일) 3일 전 */
+    /** 모든 장이 같은 날 본 화면이다: 태국 여행 출발(11월 3일) 3일 전 */
     val today: LocalDate = LocalDate.of(2026, 10, 31)
-    val trip = Trip("TH", "2026-11-03", "2026-11-07")
+
+    /** 태국 여행(02 여행 과정·03 입국 카드) */
+    val trip = Trip("TH", "2026-11-03", "2026-11-07", id = "store-th")
+
+    /** 말레이시아 여행(05 묵는 곳) — 날짜가 이어지는 숙소 두 곳이 있는 다음 여행 */
+    val tripMy = Trip("MY", "2026-11-20", "2026-11-24", id = "store-my")
 
     val passport = PassportRecord(
         surname = "HONG", givenNames = "GILDONG", documentNumber = "M12345678",
         nationality = "KOR", issuingState = "KOR", birthDate = "1985-03-15", sex = "M",
         expiryDate = "2034-05-20", source = "mrz", mrzVerified = true, savedAt = "2026-10-01T10:00",
+    )
+
+    /**
+     * 묵는 곳 두 곳(05) — 말레이시아 여행 11월 20일~24일을 **날짜별로 나눈** 견본 숙소.
+     * 이름은 누가 봐도 견본이고 주소는 거리·도시 이름만이다(실제 숙소 주소·예약 정보가 아니다).
+     */
+    val stays = listOf(
+        StayRecord(
+            id = "store-stay-1", tripId = "store-my", name = "쿠알라룸푸르 숙소",
+            addressLocal = "Jalan Bukit Bintang, Kuala Lumpur", addressKo = "부킷빈탕 거리",
+            checkIn = "2026-11-20", checkOut = "2026-11-22", type = "hotel", savedAt = "2026-10-01T10:00",
+        ),
+        StayRecord(
+            id = "store-stay-2", tripId = "store-my", name = "말라카 숙소",
+            addressLocal = "Jalan Hang Jebat, Melaka", addressKo = "말라카 구도심",
+            checkIn = "2026-11-22", checkOut = "2026-11-24", type = "guest_house", savedAt = "2026-10-01T10:05",
+        ),
     )
 
     val contents = VaultContents(
@@ -140,6 +167,7 @@ internal object StoreFixture {
                 checkIn = "2026-11-03", checkOut = "2026-11-07", savedAt = "2026-10-01T10:00",
             ),
         ),
+        stays = stays,
     )
 
     /** 입국 카드에서 사용자가 고르거나 적는 칸 — 견본 값. 필수 칸을 모두 채워 둔다(빈칸 요약이 첫 화면을 덮어 값이 안 보이지 않게, R20) */
@@ -157,32 +185,75 @@ internal object StoreFixture {
         "stay.address" to "SAMPLE HOTEL, SUKHUMVIT SOI 11",
     )
 
-    /** 가는 곳(말레이시아 — 07): 거리·도시 이름만 있는 견본 주소(실제 숙소 주소가 아님) */
-    val placeMy = Place("p1", "쿠알라룸푸르 숙소", "Jalan Bukit Bintang, Kuala Lumpur")
-
-    /** 쉬운 모드 여행 중(싱가포르 — 08): 같은 날짜의 견본 여행 */
-    val tripSg = Trip("SG", "2026-11-03", "2026-11-07")
-
     /**
-     * 여행 체크리스트(태국 — 04): 같은 태국 여행, 오늘 10월 20일(출발 14일 전 = '떠나기 한 달 전쯤' 단계).
-     * 여권 남은 기간·여권 등록은 앱이 확인(견본 여권 만료일로 실제 계산), 비자·예약은 체크, 여행자 보험·여행경보·데이터는 아직 —
-     * 늦은 항목·오류 없이 한 일과 남은 일이 섞인 모습. 내 항목 하나(견본).
+     * 한 일(02·05): 비자·예약은 체크, 여권 남은 기간·여권 등록은 앱이 확인(견본 만료일로 실제 계산),
+     * 여행자 보험·여행경보·데이터는 아직 — 늦은 항목·오류 없이 한 일과 남은 일이 섞인 모습. 내 항목 하나(견본).
      */
-    val checklistToday: LocalDate = LocalDate.of(2026, 10, 20)
-    val checklistTrip = Trip("TH", "2026-11-03", "2026-11-07", id = "store-th")
-    val checklistMarks = listOf("visa", "booking").associateWith { true }
-    val checklistCustom = listOf(CustomItem("custom.s1", "우산 챙기기"))
+    val marks = listOf("visa", "booking").associateWith { true }
+    val custom = listOf(CustomItem("custom.s1", "우산 챙기기"))
+
+    /** 그 여행의 체크리스트 — 둘러보기 흰 박스의 진행과 여행 화면 머리가 **같은 값**을 쓰도록 한 번만 센다 */
+    fun checklist(t: Trip): ChecklistData {
+        val pack = runBlocking { TestPacks.repo.pack(t.country)!! }.value
+        val checks = TripChecks(
+            marks = marks,
+            custom = custom,
+            passport = PassportValidity.check(
+                LocalDate.parse(passport.expiryDate), t, pack.requirements.firstOrNull()?.passportValidity,
+            ),
+        )
+        return Checklist.build(
+            Checklist.Input(t, TestPacks.index.value, pack, checks, passportSaved = true, today = today),
+        )
+    }
+
+    /** 둘러보기 히어로의 내 여행 흰 박스 둘(01) — 번호 ① 태국(사흘 뒤), ② 말레이시아. 진행은 실제 체크리스트 값 */
+    fun homeUi(): HomeUi {
+        val th = checklist(trip)
+        val my = checklist(tripMy)
+        return TestPacks.homeUi().copy(
+            trips = listOf(
+                HomeTrip("태국", trip.start, trip.end, code = trip.country, id = trip.id, checklistDone = th.done, checklistTotal = th.total),
+                HomeTrip("말레이시아", tripMy.start, tripMy.end, code = tripMy.country, id = tripMy.id, checklistDone = my.done, checklistTotal = my.total),
+            ),
+            activeTrips = 2,
+        )
+    }
+
+    /** 한 여행 화면의 값 — 02(태국)·05(말레이시아)가 같은 틀을 쓴다 */
+    fun journeyUi(t: Trip): JourneyUi {
+        val pack = runBlocking { TestPacks.repo.pack(t.country)!! }.value
+        return JourneyUi(
+            loaded = true,
+            trip = t,
+            countryName = pack.names.ko,
+            data = checklist(t),
+            today = today,
+            stage = TripStages.compute(t, today, 0L, pack.requiredForms.firstOrNull()?.windowDaysIncludingArrival),
+            form = pack.requiredForms.firstOrNull(),
+            indexSources = TestPacks.index.value.sources.associate { it.id to it.name },
+            sourceNames = pack.sources.associate { it.id to it.name },
+            airport = pack.airports.firstOrNull(),
+            hasAirports = pack.airports.isNotEmpty(),
+            hasShopping = pack.shopping.isNotEmpty(),
+            stays = Stays.forTrip(stays, t),
+            stayNotes = Stays.notes(stays, t),
+        )
+    }
 }
 
 /**
  * 스크린숏 한 장: 파일 이름, 캡션(줄은 뜻 단위로 직접 나눈다), 쉬운 모드인지, 화면.
  * [scrollKey]: 찍기 전에 화면 목록을 그 항목까지 내린다(맨 위가 아닌 장면을 보여 줄 때 — 화면 자체는 그대로).
+ * [scrollMoreDp]: 그 항목으로 내린 뒤 더 움직이는 양 — 양수는 더 내리고(카드 한 장이 길어 보여 줄 부분이 아래쪽에 있을 때),
+ *   음수는 되돌린다(나라 화면의 고정 줄이 카드 머리를 가리지 않게).
  */
 private class StoreShot(
     val name: String,
     val caption: String,
     val easy: Boolean = false,
     val scrollKey: String? = null,
+    val scrollMoreDp: Int = 0,
     val content: @Composable () -> Unit,
 )
 
@@ -204,11 +275,17 @@ class StoreScreenshotsTest {
     private fun pack(code: String) = runBlocking { TestPacks.repo.pack(code)!! }
 
     private fun shots(): List<StoreShot> = listOf(
-        // 1번 캡션 = 앱의 차별점 그대로(운영자 결정 '+') — 스토어 사용자는 화면 안 글보다 캡션을 읽는다
-        StoreShot("01_home", "칸은 앱이 채워요\n제출만 직접") {
-            HomeContent(TestPacks.homeUi(), HomeActions(), today = StoreFixture.today)
+        // 둘러보기 히어로(0.5.0): 소개 한 줄 → 내 여행 흰 박스 둘(둥근 번호 ①②, 나라 이름·출발까지·날짜·진행 막대)
+        // → `새 여행 만들기` → 아홉 나라 사진 타일. 캡션은 이 화면이 하는 일 그대로(차별점 한 줄은 그래픽 이미지가 맡는다)
+        StoreShot("01_home", "여행을 만들면\n할 일을 차례로 알려 줘요") {
+            HomeContent(StoreFixture.homeUi(), HomeActions(), today = StoreFixture.today)
         },
-        StoreShot("02_form_confirm", "입국 카드에 들어갈 값을\n한국어로 미리 확인해요") {
+        // 태국 한 여행 화면(0.5.0의 가장 큰 변화) 맨 위: 여행 이름·날짜 → 사진 머리의 전체 진행 → `지금 할 일`(그 단계를 바로 열어 준다)
+        // → `못한 일 알림` → 번호 배지가 붙은 단계 카드(1단계 계획, `지금` 태그). 단계는 모두 접어 두어 여덟 칸이 차례로 이어진다
+        StoreShot("02_journey", "계획부터 복귀까지\n여행 과정 8단계로") {
+            TripJourneyContent(StoreFixture.journeyUi(StoreFixture.trip), ChecklistActions(), openAtFirst = JOURNEY_ALL_FOLDED)
+        },
+        StoreShot("03_form_confirm", "입국 카드에 들어갈 값을\n한국어로 미리 확인해요") {
             val recipe = TestPacks.tdacRecipe
             val ctx = FormContext("TH_TDAC", th.value.forms.first(), recipe.value, recipe.version, false)
             val vault = StoreFixture.contents
@@ -217,62 +294,38 @@ class StoreScreenshotsTest {
                 { _, _ -> }, {}, {}, {}, {},
             )
         },
+        // 싱가포르 창이(0.5.0 신규): 나라 › 입국·비자의 `공항에 도착하면` 카드 — 공항 머리 → 번호 단계(팩 문장 그대로)
+        // → 자동 심사대 ✅ 줄과 공식 메모. 아홉 나라 중 자동 심사대가 **조건 없이 ✅**인 곳이라 이 장에 썼다(ICA 안내)
+        StoreShot("04_airport", "공항에 도착하면\n어디서 무엇을 할지", scrollKey = "airports", scrollMoreDp = -55) {
+            CountryContent(TestPacks.countryUi("SG"), CountryActions())
+        },
+        // 말레이시아 여행의 예약 단계(0.5.0 신규): `묵는 곳` 카드 — 날짜가 이어지는 숙소 두 곳(날짜·몇 박·종류·주소)과
+        // 지도에서 보기·기사님께 보여 주기. 예약 단계를 펼친 채로 찍고 카드가 보일 만큼 더 내린다
+        StoreShot(
+            "05_stays", "날짜별로 묵는 곳을 모아\n지도로 바로 열어요",
+            scrollKey = stageKey(JourneyStage.Book), scrollMoreDp = 660,
+        ) {
+            TripJourneyContent(
+                StoreFixture.journeyUi(StoreFixture.tripMy),
+                ChecklistActions(),
+                openAtFirst = JourneyStage.Book.key,
+            )
+        },
         // 인도네시아: 발리 사원 히어로(나라 이름·최종 확인 날짜) → 그림 메뉴 세 장(입국·비자·여행 정보·쇼핑) → 안심 카드 → 도착비자 카드.
         // 30일·IDR 500,000 타일이 캡션의 '비자·비용'을 그대로 보여 준다(재검토2 ①#11·⑤#7)
-        StoreShot("03_country_entry", "비자·비용은 한눈에,\n공식 출처와 확인 날짜까지") {
+        StoreShot("06_country_entry", "비자·비용은 한눈에,\n공식 출처와 확인 날짜까지") {
             CountryContent(TestPacks.countryUi("ID"), CountryActions())
         },
-        // 태국 여행 체크리스트(0.4.0): 사진 머리(전체 진행·지금 단계) → '떠나기 한 달 전쯤' 단계 카드(여권 남은 기간·여권 등록 = `앱이 확인했어요`)
-        StoreShot("04_checklist", "여권 기간부터 귀국 정리까지\n여행마다 체크리스트로") {
-            val t = StoreFixture.checklistTrip
-            val today = StoreFixture.checklistToday
-            val pack = th.value
-            val checks = TripChecks(
-                marks = StoreFixture.checklistMarks,
-                custom = StoreFixture.checklistCustom,
-                passport = PassportValidity.check(LocalDate.parse(StoreFixture.passport.expiryDate), t, pack.requirements.first().passportValidity),
-            )
-            val data = Checklist.build(Checklist.Input(t, TestPacks.index.value, pack, checks, passportSaved = true, today = today))
-            TripChecklistContent(ChecklistUi(loaded = true, trip = t, countryName = "태국", data = data, today = today), ChecklistActions())
-        },
-        // 일본(한국인 출국 1위): 도움 탭의 긴급 번호 묶음(맨 위 `긴급 번호 바로 보기`로 가는 곳) — 110·119·118, 한국어 24시간 전화, 대사관.
-        // 현지어 문장을 크게 보여 주는 장면은 07 기사님 카드가 맡는다
-        StoreShot("05_help", "인터넷 없이도\n긴급 번호와 대사관 연락처", scrollKey = "emergency") {
-            HelpContent(TestPacks.helpUi().copy(selected = pack("JP")), {}, {}, {})
-        },
-        StoreShot("06_my_info", "여권 정보는 암호화해서\n이 휴대폰 안에만") {
+        StoreShot("07_my_info", "여권 정보는 암호화해서\n이 휴대폰 안에만") {
             WalletContent(
                 state = WalletState.Unlocked(StoreFixture.contents), deviceSecure = true, autoDestroy = true, today = StoreFixture.today,
                 onUnlock = {}, onLock = {}, onReset = {}, onAddPassport = {}, onDeletePassport = {},
                 onAddBooking = {}, onDeleteBooking = {}, onAutoDestroyChange = {},
             )
         },
-        // 말레이시아: 말레이어 부탁 문장 + 한국어 뜻 + 견본 주소, 차 부르기(Grab·Bolt)
-        StoreShot("07_transport", "기사님께는 현지어 주소를\n크게 보여 주세요") {
-            val place = StoreFixture.placeMy
-            val my = pack("MY").value
-            val phrase = my.phrases.firstOrNull { it.id == "address" }
-            TransportContent(
-                TransportUi(
-                    places = listOf(place),
-                    selected = place,
-                    // 운영 화면과 같이 지도 앱은 차 부르기 목록에서 뺀다(TransportViewModel)
-                    apps = my.transportApps.filter { it.linkType != "maps_url" }.map { RideAppRow(it, installed = true) },
-                    mapsInstalled = true,
-                    // 부탁 문장도 팩의 실제 문장(`이 주소로 가 주세요`)과 그 한국어
-                    driverPhrase = phrase?.local,
-                    driverPhraseKo = phrase?.ko,
-                ),
-                null, { _, _ -> }, {}, {}, {},
-            )
-        },
-        // 싱가포르 여행 중, 쉬운 모드. 캡션은 기능 이름 대신 누구를 위한 것인지(재검토2 ⑤#12)
-        StoreShot("08_easy_traveling", "해외여행이 처음이라면\n글자와 버튼을 크게", easy = true) {
-            val sg = pack("SG").value
-            TodayContent(
-                TodayUi(StoreFixture.tripSg, StageInfo(TripStage.Traveling, dayOfTrip = 2), sg.names.ko, sg.forms.first(), hasPassport = true),
-                TodayActions(), {}, {}, {}, {}, {},
-            )
+        // 일본(한국인 출국 1위): 도움 탭의 긴급 번호 묶음(맨 위 `긴급 번호 바로 보기`로 가는 곳) — 110·119·118, 한국어 24시간 전화, 대사관
+        StoreShot("08_help", "인터넷 없이도\n긴급 번호와 대사관 연락처", scrollKey = "emergency") {
+            HelpContent(TestPacks.helpUi().copy(selected = pack("JP")), {}, {}, {})
         },
     )
 
@@ -292,6 +345,12 @@ class StoreScreenshotsTest {
             rule.waitForIdle()
             shot.scrollKey?.let { key ->
                 rule.onNode(hasScrollAction()).performScrollToKey(key)
+                rule.mainClock.advanceTimeBy(2_000)
+                rule.waitForIdle()
+            }
+            if (shot.scrollMoreDp != 0) {
+                val px = with(rule.density) { shot.scrollMoreDp.dp.toPx() }
+                rule.onNode(hasScrollAction()).performSemanticsAction(SemanticsActions.ScrollBy) { it(0f, px) }
                 rule.mainClock.advanceTimeBy(2_000)
                 rule.waitForIdle()
             }

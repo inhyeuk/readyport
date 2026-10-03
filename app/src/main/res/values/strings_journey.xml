@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+      여행 과정 길잡이 (2026-10-03, DESIGN_SPEC 부록 H).
+      운영자 지적: 메뉴 구조가 여행 과정(생각 → 일정 → 예약 → 신청 → 출국·입국 → 여행 → 복귀)을 따르지 않는다.
+      문구 규칙은 PRD 3.4 — 중1이 읽는 쉬운 말, 한 화면 할 일 하나.
+    -->
+
+    <!-- 아래 탭 -->
+    <string name="tab_explore">둘러보기</string>
+
+    <!-- 여행 과정 8단계 이름 (묶는 축) -->
+    <string name="journey_plan">계획</string>
+    <string name="journey_book">예약</string>
+    <string name="journey_docs">서류</string>
+    <string name="journey_pack">짐</string>
+    <string name="journey_departure">출국</string>
+    <string name="journey_arrival">입국</string>
+    <string name="journey_during">여행 중</string>
+    <string name="journey_return">복귀</string>
+
+    <!-- 단계마다 무엇을 하는지 한 줄 -->
+    <string name="journey_plan_body">어디로 언제 갈지 정하고, 내릴 공항을 골라요.</string>
+    <string name="journey_book_body">항공권·숙소·보험·데이터를 잡아 둬요.</string>
+    <string name="journey_docs_body">여권 정보를 넣고 비자·입국 카드를 내요.</string>
+    <string name="journey_pack_body">꼭 챙길 물건과 인터넷 없이 볼 것을 챙겨요.</string>
+    <string name="journey_departure_body">공항으로 가는 날이에요.</string>
+    <string name="journey_arrival_body">공항에 내려서 나갈 때까지 순서예요.</string>
+    <string name="journey_during_body">여행하는 동안 챙길 것들이에요.</string>
+    <string name="journey_return_body">돌아오기 전과 돌아와서 할 일이에요.</string>
+
+    <!-- 단계 '언제까지' -->
+    <string name="journey_due_by">%1$s까지 해 두면 좋아요</string>
+    <string name="journey_hint_departure">떠나는 날 · %1$s</string>
+    <string name="journey_hint_arrival">공항에 내린 날</string>
+    <string name="journey_hint_during">여행하는 동안</string>
+    <string name="journey_hint_return">돌아오기 전부터 돌아온 뒤까지</string>
+
+    <!--
+      예전 단계 막대(4칸 두 줄 그림 격자)의 문구 journey_bar_cd·journey_now_stage와 `%1$s 단계로`(journey_open_stage)는
+      2026-10-03 다듬기(부록 H.7)에서 지웠다 — 막대 대신 단계 카드가 접혔다 펴지고, 번호는 strings_explore2.xml이 맡는다.
+    -->
+
+    <!-- 트립 화면 -->
+    <string name="journey_trip_title">%1$s 여행</string>
+    <string name="journey_plan_edit">날짜·공항 고치기</string>
+    <string name="journey_plan_country">%1$s 안내 보기</string>
+
+    <!-- 예약 단계: 예약 서류의 집 (예전에는 설정 › 내 정보 안에만 있었다) -->
+    <string name="journey_booking_title">예약 서류 넣어 두기</string>
+    <string name="journey_booking_body">항공권·숙소 확인 메일이나 사진을 이 휴대폰 안에 넣어 둬요. 입국 카드 칸을 채울 때 쓰고, 인터넷이 없어도 열려요.</string>
+    <string name="journey_booking_open">예약 서류 가져오기</string>
+
+    <!-- 나라 화면을 여행에서 열었을 때 -->
+    <string name="journey_country_trip">이 여행 · %1$s</string>
+    <string name="journey_country_back">여행으로 돌아가기</string>
+</resources>

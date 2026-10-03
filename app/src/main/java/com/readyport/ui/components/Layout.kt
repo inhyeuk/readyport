@@ -19,6 +19,7 @@ import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.staticCompositionLocalOf
+import androidx.compose.runtime.withFrameNanos
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.layout.layout
@@ -469,5 +470,22 @@ fun rememberKeyIndex(): KeyIndex = remember { KeyIndex() }
 suspend fun LazyListState.scrollToKey(index: KeyIndex, key: String, headerOffsetPx: Int = 0): Boolean {
     val i = index.indexOf(key) ?: return false
     animateScrollToItem(i, -headerOffsetPx)
+    return true
+}
+
+/**
+ * [key] item의 **머리가 화면 안에 보이게 필요한 만큼만** 스크롤한다 (단계 아코디언을 펼친 뒤 — 부록 H.7).
+ * 이미 보이면 아무 일도 하지 않는다: 누른 자리를 지키고 긴 스크롤 점프를 만들지 않는다
+ * (운영자 2026-10-03: *"하단으로 이동한 뒤 상단으로 바로 이동할 수 있는 방법이 없어"* — 그 점프를 없앤 자리다).
+ * 펼침으로 바뀐 배치를 보고 재려고 한 프레임 기다린다.
+ * @return 스크롤했으면 true
+ */
+suspend fun LazyListState.keepKeyVisible(index: KeyIndex, key: String): Boolean {
+    val i = index.indexOf(key) ?: return false
+    withFrameNanos { }
+    val info = layoutInfo
+    val item = info.visibleItemsInfo.firstOrNull { it.index == i }
+    if (item != null && item.offset >= info.viewportStartOffset) return false
+    animateScrollToItem(i)
     return true
 }

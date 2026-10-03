@@ -28,6 +28,7 @@ class MainActivity : FragmentActivity() {
         enableEdgeToEdge()
         if (savedInstanceState == null) shareInbox.offer(intent)
         openPresent = intent?.getBooleanExtra(EXTRA_OPEN_PRESENT, false) == true
+        openChecklist = intent?.getStringExtra(EXTRA_OPEN_CHECKLIST)
         setContent {
             val settings by viewModel.settings.collectAsStateWithLifecycle()
             val pendingShare by shareInbox.pending.collectAsStateWithLifecycle()
@@ -41,6 +42,10 @@ class MainActivity : FragmentActivity() {
                 onSetChildMode = viewModel::setChildMode,
                 onSetWifiOnly = viewModel::setWifiOnly,
                 openPresent = openPresent,
+                openChecklistTripId = openChecklist,
+                onChecklistOpened = { openChecklist = null },
+                onSetAlertsOn = viewModel::setAlertsOn,
+                onSetAlertHour = viewModel::setAlertHour,
             )
         }
     }
@@ -49,12 +54,19 @@ class MainActivity : FragmentActivity() {
         super.onNewIntent(intent)
         shareInbox.offer(intent)
         if (intent.getBooleanExtra(EXTRA_OPEN_PRESENT, false)) openPresent = true
+        intent.getStringExtra(EXTRA_OPEN_CHECKLIST)?.let { openChecklist = it }
     }
 
     private var openPresent by androidx.compose.runtime.mutableStateOf(false)
 
+    /** 챙길 일 알림에서 열 때의 여행 id */
+    private var openChecklist by androidx.compose.runtime.mutableStateOf<String?>(null)
+
     companion object {
         /** 홈 화면 위젯에서 열 때 */
         const val EXTRA_OPEN_PRESENT = "readyport.open_present"
+
+        /** 챙길 일 알림에서 열 때 — 그 여행 체크리스트로 (여행 id만, 개인정보 없음) */
+        const val EXTRA_OPEN_CHECKLIST = "readyport.open_checklist"
     }
 }

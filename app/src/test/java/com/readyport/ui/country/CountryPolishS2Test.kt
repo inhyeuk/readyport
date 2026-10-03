@@ -17,7 +17,6 @@ import com.readyport.ui.TestPacks
 import com.readyport.ui.components.displayDate
 import com.readyport.ui.components.formWindowRange
 import com.readyport.ui.components.windowRuleOnly
-import com.readyport.ui.tabs.PrepareContent
 import com.readyport.ui.theme.ReadyPortTheme
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
@@ -88,9 +87,11 @@ class CountryPolishS2Test {
         val th = pack("TH")
         val entry = th.sections.single { it.id == "entry" }
         assertTrue(entry.lastVerified > th.lastVerified)
-        assertEquals(entry.lastVerified, th.latestVerified())
+        // 공항 안내(airports, 2026-10-03)도 화면 안 카드라 가장 최근 날짜에 든다
+        val latest = (listOf(entry.lastVerified) + th.airports.map { it.lastVerified }).max()
+        assertEquals(latest, th.latestVerified())
         rule.setContent { ReadyPortTheme { CountryContent(TestPacks.countryUi("TH"), CountryActions()) } }
-        rule.onNodeWithText(s(R.string.guide_last_verified, displayDate(entry.lastVerified))).assertIsDisplayed()
+        rule.onNodeWithText(s(R.string.guide_last_verified, displayDate(latest))).assertIsDisplayed()
         assertTrue(rule.onAllNodesWithText(s(R.string.guide_last_verified, displayDate(th.lastVerified))).fetchSemanticsNodes().isEmpty())
     }
 
@@ -178,21 +179,5 @@ class CountryPolishS2Test {
         val tag = rule.onNodeWithText(s(R.string.power_tag_fits)).fetchSemanticsNode().boundsInRoot
         val line = rule.onNodeWithText(s(R.string.guide_power_kr_fits)).fetchSemanticsNode().boundsInRoot
         assertTrue(line.top >= tag.bottom)
-    }
-
-    // ---------------- 18 여행 준비 ----------------
-
-    /** 여행 준비도 안심 카드(나라 입국 화면과 같은 문구) + 내 여행 날짜 */
-    @Test
-    fun prepareUsesAssuranceCardAndTripDates() {
-        val form = pack("TH").forms.single()
-        val entries = TestPacks.formEntries().map { it.copy(windowDays = form.windowDaysIncludingArrival, tripArrival = LocalDate.of(2026, 11, 3)) }
-        rule.setContent { ReadyPortTheme { PrepareContent(entries, {}) } }
-        rule.onNodeWithText(s(R.string.guide_not_affiliated)).assertIsDisplayed()
-        rule.onNodeWithText(s(R.string.country_submit_self)).assertIsDisplayed()
-        assertTrue(rule.onAllNodesWithText(s(R.string.prepare_disclaimer)).fetchSemanticsNodes().isEmpty())
-        val mine = s(R.string.form_window_mine, s(R.string.date_month_day, 11, 3), s(R.string.date_range_same_month, 11, 1, 3))
-        scrollTo(mine, substring = true)
-        rule.onNodeWithText(mine, substring = true).assertIsDisplayed()
     }
 }

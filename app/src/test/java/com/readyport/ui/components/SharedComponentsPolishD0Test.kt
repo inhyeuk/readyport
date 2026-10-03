@@ -35,7 +35,6 @@ import com.readyport.ui.country.CountryActions
 import com.readyport.ui.country.CountryContent
 import com.readyport.ui.country.CountrySection
 import com.readyport.ui.pack.HelpContent
-import com.readyport.ui.tabs.PrepareContent
 import com.readyport.ui.theme.ReadyPortTheme
 import com.readyport.ui.theme.Tokens
 import org.junit.Assert.assertEquals
@@ -249,10 +248,11 @@ class SharedComponentsPolishD0Test {
         var screen by androidx.compose.runtime.mutableStateOf(0)
         rule.setContent {
             ReadyPortTheme {
+                // 입국 카드 카드는 이제 나라 화면 한 곳뿐이다(여행 준비 탭은 2026-10-03에 없앴다 — 같은 일에 길 하나)
                 if (screen == 0) {
                     CountryContent(TestPacks.countryUi("TH"), CountryActions(), CountrySection.Entry)
                 } else {
-                    PrepareContent(TestPacks.formEntries(), {})
+                    CountryContent(TestPacks.countryUi("TW"), CountryActions(), CountrySection.Entry)
                 }
             }
         }

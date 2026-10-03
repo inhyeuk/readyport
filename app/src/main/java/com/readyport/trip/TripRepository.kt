@@ -46,6 +46,17 @@ data class TripChecks(
     val passport: PassportCheck? = null,
     /** 이 여행 입국 카드 기간 안에 '냈어요' 기록이 있는지(지갑을 열었을 때 앱이 확인). 모르면 null */
     val formSubmitted: Boolean? = null,
+    /** 이 여행 묵는 곳 가운데 **주소를 적어 둔 곳**이 있는지(지갑을 열었을 때 앱이 확인). 주소 글자는 적지 않는다. 모르면 null */
+    val stayAddress: Boolean? = null,
+)
+
+/**
+ * 지갑을 열었을 때 앱이 본 여행 하나의 결과 — **판정과 있다/없다만**. 여권 번호·만료일·숙소 주소 같은 글자는 담지 않는다.
+ */
+data class TripSignal(
+    val passport: PassportCheck? = null,
+    val formSubmitted: Boolean? = null,
+    val stayAddress: Boolean? = null,
 )
 
 /** 내가 넣은 항목 — 글자만 */
@@ -136,14 +147,18 @@ class TripRepository @Inject constructor(
 
     /**
      * 지갑을 열었을 때 앱이 본 것을 적는다(개인정보 없음 — 있다/없다·결과만).
-     * [passportSaved]: 여권이 저장돼 있는지. [perTrip]: 여행 id → (여권 결과, 입국 카드 냈는지).
+     * [passportSaved]: 여권이 저장돼 있는지. [perTrip]: 여행 id → 그 여행 결과([TripSignal]).
      */
-    suspend fun recordSignals(passportSaved: Boolean, perTrip: Map<String, Pair<PassportCheck?, Boolean?>>) = editBook { b ->
+    suspend fun recordSignals(passportSaved: Boolean, perTrip: Map<String, TripSignal>) = editBook { b ->
         val checks = b.checks.toMutableMap()
         b.trips.forEach { t ->
-            val (passport, form) = perTrip[t.id] ?: (null to null)
+            val signal = perTrip[t.id] ?: TripSignal()
             val old = checks[t.id] ?: TripChecks()
-            val next = old.copy(passport = passport, formSubmitted = form ?: old.formSubmitted)
+            val next = old.copy(
+                passport = signal.passport,
+                formSubmitted = signal.formSubmitted ?: old.formSubmitted,
+                stayAddress = signal.stayAddress ?: old.stayAddress,
+            )
             if (next != old) checks[t.id] = next
         }
         b.copy(checks = checks, passportSaved = passportSaved)

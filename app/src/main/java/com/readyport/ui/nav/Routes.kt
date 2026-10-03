@@ -2,12 +2,8 @@ package com.readyport.ui.nav
 
 import kotlinx.serialization.Serializable
 
-/** 메인 홈: 여행 기본 정보 + 나라 사진 카드 */
+/** 둘러보기: 나라 사진 카드로 어디 갈지 고르고 여행을 만든다 (여행 흐름이 아닌 '생각' 단계) */
 @Serializable data object HomeRoute
-/** 내 여행: 여행 단계별 할 일 */
-@Serializable data object TodayRoute
-/** 내 여행 › 준비 목록 */
-@Serializable data object PrepareRoute
 /** 설정 › 내 정보(여권·예약 서류·같이 가는 사람). 기기 안에만 저장 */
 @Serializable data object WalletRoute
 @Serializable data object HelpRoute
@@ -23,11 +19,31 @@ import kotlinx.serialization.Serializable
 @Serializable data object PassportConfirmRoute
 @Serializable data object PassportManualRoute
 
-/** 지갑 › 예약 서류 추가. 다른 앱의 '공유하기'로도 들어온다 */
-@Serializable data object BookingImportRoute
+/**
+ * 지갑 › 예약 서류 추가. 다른 앱의 '공유하기'로도 들어온다.
+ * [tripId]: 여행의 `묵는 곳`에서 들어왔으면 그 여행 — 숙소 서류를 저장할 때 그 여행 숙소로 붙인다.
+ */
+@Serializable data class BookingImportRoute(val tripId: String? = null)
 
-/** 홈 › 나라 화면(입국·여행·쇼핑). 인터넷 없이 저장해 둔 팩으로 보여 준다 */
-@Serializable data class CountryRoute(val country: String)
+/**
+ * 내 여행 › 묵는 곳 하나 넣기·고치기 (2026-10-03). [stayId]가 없으면 새 숙소.
+ * [tripId]: 그 여행의 예약 단계에서 들어왔으면 그 여행 — 설정 › 내 정보의 묵는 곳 목록에서 들어오면 null이고,
+ * 그때는 숙소가 원래 붙어 있던 여행을 그대로 둔다 (다듬기 S2).
+ * 주소가 있어 암호화 보관함에만 저장하고 화면 캡처를 막는다(FLAG_SECURE).
+ */
+@Serializable data class StayEditRoute(val tripId: String? = null, val stayId: String? = null)
+
+/**
+ * 둘러보기 › 나라 화면(입국·여행·쇼핑). 인터넷 없이 저장해 둔 팩으로 보여 준다.
+ * [focusAirports]: 입국·비자의 `공항에 도착하면` 묶음으로 바로 내려간다(체크리스트의 `공항 순서 보기`), [airport]: 처음 고를 공항(IATA).
+ * [tripId]: 어느 여행에서 열었는지 — 있으면 머리에 `이 여행` 띠와 돌아가는 길을 보인다(2026-10-03).
+ */
+@Serializable data class CountryRoute(
+    val country: String,
+    val focusAirports: Boolean = false,
+    val airport: String? = null,
+    val tripId: String? = null,
+)
 
 /** 준비 › 입국 카드 3개 국어 확인 (PRD 5.2) */
 @Serializable data class FormConfirmRoute(val formId: String)
@@ -44,10 +60,13 @@ import kotlinx.serialization.Serializable
  */
 @Serializable data class TripRoute(val country: String? = null, val tripId: String? = null)
 
-/** 내 여행 › 여행 목록 (다가오는 여행·여행 중·지난 여행) */
+/** 내 여행 탭의 첫 화면 — 여행 목록 (여행 중·다가오는 여행·지난 여행) */
 @Serializable data object TripsRoute
 
-/** 내 여행 › 한 여행의 체크리스트 */
+/**
+ * 내 여행 › **한 여행 화면** — 여행 과정 8단계 막대 + 지금 할 일 + 단계마다 할 일·안내.
+ * 이 여행의 모든 것이 여기서 닿는다. 챙길 일 알림이 여는 곳이기도 하다(딥링크, 이름 그대로 둔다).
+ */
 @Serializable data class TripChecklistRoute(val tripId: String)
 
 /** 입국 때 보여 주기 (PRD 5.4). 자녀 폰 모드의 첫 화면 */

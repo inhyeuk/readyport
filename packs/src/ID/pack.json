@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "country": "ID",
-  "version": "2026.10.02-1",
+  "version": "2026.10.03-2",
   "last_verified": "2026-09-30",
   "names": {
     "ko": "인도네시아",
@@ -92,6 +92,31 @@
       "id": "evisa_faq",
       "name": "인도네시아 이민국 e-Visa · 자주 묻는 질문",
       "url": "https://evisa.imigrasi.go.id/front/faqs/university"
+    },
+    {
+      "id": "injourney_dps_arrival",
+      "name": "InJourney Airports · 응우라라이 국제공항 International Arrival 안내",
+      "url": "https://ngurahrai.injourneyairports.id/passenger/arrival-guide/8774a056-b0ab-4ba3-ab68-3ba0107da380"
+    },
+    {
+      "id": "injourney_cgk_arrival",
+      "name": "InJourney Airports · 수카르노하타 국제공항 International Arrival 안내",
+      "url": "https://soekarnohatta.injourneyairports.id/passenger/arrival-guide/8774a056-b0ab-4ba3-ab68-3ba0107da380"
+    },
+    {
+      "id": "imigrasi_allindonesia",
+      "name": "인도네시아 이민국 · All Indonesia 의무화 보도자료(2025-10-01)",
+      "url": "https://imigrasi.go.id/siaran_pers/2025/10/02/mulai-1-oktober-deklarasi-kedatangan-penumpang-wajib-dilakukan-di-aplikasi-all-indonesia"
+    },
+    {
+      "id": "imigrasi_autogate",
+      "name": "인도네시아 이민국 · 자동 게이트 이용 대상 보도자료(2024-04-02)",
+      "url": "https://imigrasi.go.id/siaran_pers/2024/04/02/siapa-saja-yang-bisa-menggunakan-autogate-ini-penjelasannya"
+    },
+    {
+      "id": "evisa_imigrasi",
+      "name": "인도네시아 이민국 · 공식 eVisa 사이트",
+      "url": "https://evisa.imigrasi.go.id/"
     }
   ],
   "requirements": [
@@ -358,10 +383,108 @@
     "source": "wi_power",
     "last_verified": "2026-09-29"
   },
+  "airports": [
+    {
+      "code": "DPS",
+      "name_ko": "발리 응우라라이 국제공항",
+      "name_en": "I Gusti Ngurah Rai International Airport",
+      "city_ko": "발리",
+      "egate_kr": null,
+      "egate_note_ko": "인도네시아 이민국 발표(2024년): 전자여권이 있고 e-VOA나 e-Visa를 가진 외국인은 자동 게이트를 쓸 수 있어요. 14세 이하 어린이는 쓸 수 없어요. 응우라라이 공항 안내에는 자동 게이트 이야기가 없어요. 현장 안내를 따라요.",
+      "form_check_ko": "All Indonesia를 미리 내지 않았으면 도착 구역의 All Indonesia 카운터에서 내요. 안 내면 심사대에서 하나하나 확인받아 더 오래 걸려요.",
+      "steps": [
+        {
+          "kind": "deplane",
+          "title_ko": "비행기에서 내려요",
+          "body_ko": "국제선 도착 터미널로 들어와요.",
+          "where_ko": null
+        },
+        {
+          "kind": "form_check",
+          "title_ko": "도착비자(VOA) 카운터",
+          "body_ko": "비자를 미리 받지 않았다면 도착 구역의 도착비자(VOA) 카운터에서 받아요.",
+          "where_ko": "국제선 도착 구역"
+        },
+        {
+          "kind": "immigration",
+          "title_ko": "입국 심사",
+          "body_ko": "입국 심사를 받아요.",
+          "where_ko": null
+        },
+        {
+          "kind": "baggage",
+          "title_ko": "짐 찾기",
+          "body_ko": "컨베이어 벨트에서 짐을 찾아요.",
+          "where_ko": null
+        },
+        {
+          "kind": "customs",
+          "title_ko": "세관 (가방 속 물건 확인)",
+          "body_ko": "세관은 가방 속 물건을 확인하는 곳이에요. 세관 검사를 받아요.",
+          "where_ko": null
+        },
+        {
+          "kind": "exit",
+          "title_ko": "도착 출구로 나가요",
+          "body_ko": "국제선 도착 출구로 나가요. 외국인은 발리 관광세 15만 루피아를 내야 해요. 도착 구역 관광세 카운터나 온라인으로 낼 수 있어요.",
+          "where_ko": null
+        }
+      ],
+      "map_url": "https://ngurahrai.injourneyairports.id/passenger/arrival-guide/8774a056-b0ab-4ba3-ab68-3ba0107da380",
+      "source": "injourney_dps_arrival",
+      "last_verified": "2026-10-03",
+      "form_check_source": "imigrasi_allindonesia"
+    },
+    {
+      "code": "CGK",
+      "name_ko": "자카르타 수카르노하타 국제공항",
+      "name_en": "Soekarno-Hatta International Airport",
+      "city_ko": "자카르타",
+      "egate_kr": null,
+      "egate_note_ko": "공식 안내 두 곳이 서로 달라요. 수카르노하타 공항 안내: 자동 게이트는 인도네시아 여권 소지자가 쓰고, 외국인은 직원이 있는 심사대에서 비자 확인을 받아요. 인도네시아 이민국 발표(2024년): 전자여권이 있고 e-VOA나 e-Visa를 가진 외국인은 자동 게이트를 쓸 수 있어요. 14세 이하 어린이는 쓸 수 없어요. 어느 쪽인지 아직 정해지지 않았으니 현장 안내를 따라요.",
+      "form_check_ko": "입국 심사 전에 All Indonesia 확인 구역을 지나요. 여기서 여권, 전자비자 같은 서류를 확인해요.",
+      "steps": [
+        {
+          "kind": "form_check",
+          "title_ko": "All Indonesia 확인 구역",
+          "body_ko": "여권, 전자비자, 디지털 서류를 미리 꺼내 두세요.",
+          "where_ko": null
+        },
+        {
+          "kind": "immigration",
+          "title_ko": "입국 심사",
+          "body_ko": "외국인은 일반 입국 심사대에서 비자 확인과 입국 심사를 받아요. 여권 확인이 끝나면 짐 찾는 곳으로 가요.",
+          "where_ko": null
+        },
+        {
+          "kind": "baggage",
+          "title_ko": "짐 찾기",
+          "body_ko": "도착 구역 화면에서 내 항공편의 벨트 번호를 확인해요. 짐이 망가지거나 안 나오면 분실물 카운터나 항공사 카운터에 알려요.",
+          "where_ko": null
+        },
+        {
+          "kind": "customs",
+          "title_ko": "세관 (가방 속 물건 확인)",
+          "body_ko": "신고할 물건이 없으면 초록 줄(Green Line), 면세 한도를 넘거나 신고할 물건이 있으면 빨간 줄(Red Line)로 가요. 세관 직원이 짐을 검사할 수 있어요.",
+          "where_ko": null
+        },
+        {
+          "kind": "exit",
+          "title_ko": "도착 로비로 나가요",
+          "body_ko": "도착 로비에서 마중 나온 사람을 만나요. 택시, 버스, 셔틀, 터미널 간 스카이트레인을 탈 수 있어요.",
+          "where_ko": null
+        }
+      ],
+      "map_url": "https://soekarnohatta.injourneyairports.id/passenger/arrival-guide/8774a056-b0ab-4ba3-ab68-3ba0107da380",
+      "source": "injourney_cgk_arrival",
+      "last_verified": "2026-10-03"
+    }
+  ],
   "checklist": [
     {
       "id": "cash_declare",
       "phase": "three_days",
+      "stage": "docs",
       "icon": "cash",
       "title_ko": "현금 신고 기준 알아 두기",
       "section": "entry",

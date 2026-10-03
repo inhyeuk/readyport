@@ -1,5 +1,6 @@
 package com.readyport.ui.form
 
+import androidx.annotation.StringRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -30,6 +31,8 @@ import androidx.compose.material.icons.outlined.EditNote
 import androidx.compose.material.icons.outlined.ErrorOutline
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.PauseCircle
+import androidx.compose.material.icons.outlined.Category
+import androidx.compose.material.icons.outlined.Place
 import androidx.compose.material.icons.outlined.Schedule
 import androidx.compose.material.icons.outlined.TouchApp
 import androidx.compose.material.icons.outlined.Translate
@@ -319,6 +322,12 @@ fun FormConfirmContent(
             }
         }
 
+        // 숙소 주소는 넣어 드리지만 주·구·동·우편번호는 사이트 목록에서 고르는 칸이다 — 채웠다고 말하지 않고,
+        // 저장해 둔 주소를 보여 주며 사이트에서 고르라고 한다 (2026-10-03 묵는 곳)
+        stayFormNote(recipe, ui)?.let { note ->
+            item(key = "stay-region") { StayFormNoteCard(note) }
+        }
+
         if (individual.isNotEmpty()) {
             sectionGap("gap-individual")
             item(key = "individual") {
@@ -385,6 +394,57 @@ fun FormConfirmContent(
 }
 
 private fun fieldItemKey(key: String) = "field-$key"
+
+/**
+ * 숙소 칸 안내 한 장에 들어갈 것 (2026-10-03 + 다듬기 S2).
+ * @property address 앱이 넣어 주는 숙소 주소 (사이트 목록에서 골라야 하는 칸이 남아 있을 때만 — 없으면 null)
+ * @property typeNote 숙소 종류 칸이 비어 있을 때 쓸 문구 (사이트 선택지에 없어서 비웠는지 / 아직 안 고른 칸인지)
+ */
+private data class StayFormNote(@StringRes val typeNote: Int?, val address: String? = null)
+
+/**
+ * 숙소 주소를 넣어 준 레시피에서 **사이트 목록에서 골라야 하는 숙소 칸**(주·구·동·우편번호)이 남아 있으면 저장해 둔 주소를 담고,
+ * **숙소 종류 칸이 비어 있으면** 왜 비었는지 담는다. 둘 다 아니면 null(안내 카드를 그리지 않는다).
+ *
+ * 운영자 결정(다듬기 S2): 그 나라 사이트 선택지에 없는 숙소 종류는 **앱이 대신 고르지 않고 비워 둔다** —
+ * 잘못 고른 값이 사람 눈에 안 보이게 제출될 수 있기 때문이다. 비운 칸은 빈 필수 칸으로 세고(맨 위 빈칸 요약),
+ * 이 카드가 그 칸을 사이트에서 직접 고르는 칸이라고 한국어로 말한다.
+ */
+private fun stayFormNote(recipe: Recipe, ui: ConfirmUi): StayFormNote? {
+    val address = ui.values["stay.address"]?.takeIf { it.origin == ValueOrigin.Lodging }?.display?.takeIf { it.isNotBlank() }
+    val regionPicked = recipe.fields.any { f ->
+        f.key.startsWith("stay.") && f.key !in FilledStayKeys && ui.values[f.key]?.isEmpty != false
+    }
+    val typeNote = if (recipe.fields.any { it.key == "stay.type" } && ui.values["stay.type"]?.isEmpty != false) {
+        // 저장해 둔 숙소에 종류가 있는데도 비었다면 = 그 종류가 이 나라 사이트 선택지에 없는 것이다
+        val savedType = (ui.wallet as? WalletState.Unlocked)?.contents?.stays?.firstNotNullOfOrNull { it.type }
+        if (savedType != null) R.string.form_stay_type_not_listed else R.string.form_stay_type_blank
+    } else {
+        null
+    }
+    if (typeNote == null && !(address != null && regionPicked)) return null
+    return StayFormNote(typeNote, address.takeIf { regionPicked })
+}
+
+/** 앱이 값을 넣는 숙소 칸 (나머지 숙소 칸은 사이트에서 고른다) */
+private val FilledStayKeys = setOf("stay.address", "stay.hotel", "stay.type")
+
+/**
+ * `주소는 넣어 드리고, 지역은 사이트에서 골라 주세요` — 왼쪽 주의 막대 대신 일반 안내 카드(빈칸 경고와 섞이지 않게).
+ * 저장해 둔 주소를 그대로 한 번 더 보여 줘서 사이트 목록에서 보고 고를 수 있게 하고,
+ * 숙소 종류를 비워 둔 칸이면 왜 비웠는지 한 줄 더 (다듬기 S2).
+ */
+@Composable
+private fun StayFormNoteCard(note: StayFormNote) {
+    CardNewsCard(
+        title = stringResource(if (note.address != null) R.string.form_stay_region_title else R.string.form_stay_type_title),
+        icon = Icons.Outlined.Place,
+        body = stringResource(if (note.address != null) R.string.form_stay_region_body else R.string.form_stay_type_body),
+    ) {
+        note.address?.let { KeyValueRow(label = stringResource(R.string.form_stay_saved_address), value = it) }
+        note.typeNote?.let { IconBullet(stringResource(it), Icons.Outlined.Category, tone = BadgeTone.Caution) }
+    }
+}
 
 /** 직접 입력 칸마다 초점 (빈칸으로 가기) */
 private class FieldFocus {
@@ -488,12 +548,14 @@ private fun OriginGroupCard(
             ) {
                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                     IconBadge(IconKeys.formOrigin(origin), tone = originTone(origin))
-                    // 그룹 머리 = 카드 제목 규칙(titleMedium SemiBold) — 위 섹션 머리(`서류에서 가져온 값`, headlineSmall Bold)보다 한 단계 아래 (재검토2 ①#2)
-                    Text(
+                    // 그룹 머리 = 카드 제목 규칙(titleMedium SemiBold) — 위 섹션 머리(`서류에서 가져온 값`, headlineSmall Bold)보다 한 단계 아래 (재검토2 ①#2).
+                    // 한국어 줄바꿈 보정(KoText): `예약 확인서에서`가 200%에서 낱말 가운데서 꺾이지 않게 (2026-10-03 숙소 묶음이 생기며 드러났다)
+                    KoText(
                         originName,
-                        style = MaterialTheme.typography.titleMedium,
+                        MaterialTheme.typography.titleMedium,
                         color = Tokens.Ink,
-                        modifier = Modifier.semantics { heading() },
+                        heading = true,
+                        glueShort = true,
                     )
                 }
                 CountPill(stringResource(R.string.form_group_count, fields.size), Modifier.align(Alignment.CenterVertically))

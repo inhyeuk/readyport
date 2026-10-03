@@ -76,13 +76,13 @@ class ReadyPortRootTest {
     fun everyTabNavigates() {
         launch(AppSettings(easyMode = false))
         heading(R.string.home_title).assertIsDisplayed()
-        tab(R.string.tab_home).assertIsSelected()
+        tab(R.string.tab_explore).assertIsSelected()
 
         val tabs = listOf(
-            R.string.tab_trip to R.string.today_title,
+            R.string.tab_trip to R.string.trips_title,
             R.string.tab_help to R.string.help_title,
             R.string.tab_settings to R.string.settings_title,
-            R.string.tab_home to R.string.home_title,
+            R.string.tab_explore to R.string.home_title,
         )
         for ((label, title) in tabs) {
             tab(label).performClick()
@@ -91,31 +91,38 @@ class ReadyPortRootTest {
         }
     }
 
-    /** 홈 '급할 때는 도움' 카드 → 도움 탭 (HomeActions.openHelp 배선, DESIGN_SPEC 6-01 ⑩ — 2단계) */
+    /**
+     * 둘러보기에서 도움까지는 **탭 막대 한 번**이다 (운영자 2026-10-03: 둘러보기 안의 `급할 때는 도움` 줄은 같은 길이 두 개라 지웠다).
+     * 급할 때 가는 길이 사라지지 않았음을 지킨다 — 스크롤 없이, 둘러보기 어디에서나 보이는 탭으로.
+     */
     @Test
-    fun homeHelpCardOpensHelpTab() {
+    fun helpIsOneTapFromExploreViaTheTabBar() {
         launch(AppSettings(easyMode = false))
-        scrollTo(hasText(s(R.string.help_shortcut_title)))
-        rule.onNodeWithText(s(R.string.help_shortcut_title)).performClick()
+        heading(R.string.home_title).assertIsDisplayed()
+        // 둘러보기 본문에는 SOS 바로가기 줄이 없다 — 도움 탭이 그 일을 맡는다
+        assertEquals(0, rule.onAllNodesWithText(s(R.string.help_shortcut_title)).fetchSemanticsNodes().size)
+        tab(R.string.tab_help).performClick()
         heading(R.string.help_title).assertIsDisplayed()
         tab(R.string.tab_help).assertIsSelected()
     }
 
+    /** 내 여행 탭의 첫 화면은 여행 목록이다 (2026-10-03 부록 H — 여행 줄기의 시작점) */
     @Test
-    fun tripWithoutPlanGoesHomeToChooseCountry() {
+    fun tripTabStartsAtTheTripList() {
         launch(AppSettings(easyMode = false))
         tab(R.string.tab_trip).performClick()
-        rule.onNodeWithText(s(R.string.today_next_button)).performClick()
-        heading(R.string.home_title).assertIsDisplayed()
-        tab(R.string.tab_home).assertIsSelected()
+        heading(R.string.trips_title).assertIsDisplayed()
+        rule.onNodeWithText(s(R.string.trips_empty_title)).assertIsDisplayed()
+        tab(R.string.tab_trip).assertIsSelected()
     }
 
     @Test
     fun countryPhotoCardOpensCountryWithSections() {
         launch(AppSettings(easyMode = false))
+        scrollTo(hasContentDescription(context.getString(R.string.home_country_open, "태국")))
         rule.onNodeWithContentDescription(context.getString(R.string.home_country_open, "태국")).performClick()
         rule.onNode(isHeading() and hasText("태국")).assertIsDisplayed()
-        tab(R.string.tab_home).assertIsSelected()
+        tab(R.string.tab_explore).assertIsSelected()
         // 입국·비자: 정부 비제휴 고지가 맨 위, 입국 카드 입력 도우미
         rule.onNodeWithText(s(R.string.guide_not_affiliated)).assertIsDisplayed()
         scrollTo(hasText(s(R.string.prepare_form_open)))
@@ -125,6 +132,10 @@ class ReadyPortRootTest {
         scrollTo(hasText(s(R.string.shopping_open)))
         scrollTo(hasContentDescription(s(R.string.country_back)))
         rule.onNodeWithContentDescription(s(R.string.country_back)).performClick()
+        // 돌아오면 둘러보기의 **그 자리**(누르고 간 나라 타일)다 — 히어로는 위로 올라가 있으므로 올려 보고 제목을 확인한다
+        rule.onNodeWithContentDescription(context.getString(R.string.home_country_open, "태국")).assertIsDisplayed()
+        tab(R.string.tab_explore).assertIsSelected()
+        scrollTo(hasText(s(R.string.home_title)))
         heading(R.string.home_title).assertIsDisplayed()
     }
 
@@ -186,7 +197,7 @@ class ReadyPortRootTest {
         heading(R.string.help_title).assertIsDisplayed()
         rule.onNodeWithText(s(R.string.action_home)).performClick()
         heading(R.string.home_title).assertIsDisplayed()
-        tab(R.string.tab_home).assertIsSelected()
+        tab(R.string.tab_explore).assertIsSelected()
     }
 
     @Test
@@ -202,7 +213,7 @@ class ReadyPortRootTest {
         RuntimeEnvironment.setFontScale(2.0f)
         launch(AppSettings(easyMode = true))
         heading(R.string.home_title).assertIsDisplayed()
-        for (label in listOf(R.string.tab_trip, R.string.tab_help, R.string.tab_settings, R.string.tab_home)) {
+        for (label in listOf(R.string.tab_trip, R.string.tab_help, R.string.tab_settings, R.string.tab_explore)) {
             tab(label).assertIsDisplayed().performClick()
             tab(label).assertIsSelected()
         }
@@ -214,12 +225,11 @@ class ReadyPortRootTest {
         // 사진 카드는 나라 이름으로 읽힌다
         scrollTo(hasContentDescription(context.getString(R.string.home_country_open, "일본")))
         rule.onNodeWithContentDescription(context.getString(R.string.home_country_open, "일본")).assertIsDisplayed()
-        // 여행 단계 표시줄은 한 문장으로 읽힌다
+        // 내 여행 탭은 여행 목록으로 열린다(빈 목록 안내)
         tab(R.string.tab_trip).performClick()
-        val stage = context.getString(R.string.today_stage_desc, s(R.string.stage_prepare), 1, 6)
-        rule.onNodeWithContentDescription(stage).assertIsDisplayed()
+        rule.onNodeWithText(s(R.string.trips_empty_title)).assertIsDisplayed()
         // 탭 4개 모두 Tab 역할과 이름을 가진다
-        for (label in listOf(R.string.tab_home, R.string.tab_trip, R.string.tab_help, R.string.tab_settings)) {
+        for (label in listOf(R.string.tab_explore, R.string.tab_trip, R.string.tab_help, R.string.tab_settings)) {
             tab(label).assert(SemanticsMatcher.keyIsDefined(SemanticsProperties.Selected))
         }
     }

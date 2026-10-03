@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "country": "CN",
-  "version": "2026.10.02-2",
+  "version": "2026.10.03-2",
   "last_verified": "2026-10-02",
   "names": {
     "ko": "중국",
@@ -62,6 +62,31 @@
       "id": "mofa_cn_rules",
       "name": "외교부 해외안전여행 · 중국 「국무원 출입국관리규정」 시행에 따른 안전유의 안내(2026-09-24)",
       "url": "https://0404.go.kr/bbs/safetyNtc/2347906/detail2?ntnCd=189"
+    },
+    {
+      "id": "pvg_flow",
+      "name": "상하이공항그룹(上海机场集团) · 乘机指南 > 到达机场(푸둥 T1/T2 국제·홍콩·마카오·대만 도착 절차)",
+      "url": "https://www.shanghaiairport.com/ddjc/index.html"
+    },
+    {
+      "id": "pek_flow",
+      "name": "베이징 서우두 국제공항(北京首都国际机场) · 旅客指南 > 抵达 > 国际、港/澳/台抵达",
+      "url": "https://www.bcia.com.cn/lkzndd.html"
+    },
+    {
+      "id": "pkx_flow",
+      "name": "베이징 다싱 국제공항(北京大兴国际机场) · 指南 > 到达流程 > 国际到达(국제 도착 흐름도)",
+      "url": "https://www.bdia.com.cn/#/guidearr/arrivalProcess"
+    },
+    {
+      "id": "nia_arrival_card",
+      "name": "주미 중국대사관 · China Launches Online Arrival Card for International Travelers(2025-12-03, 국가이민관리국 시행 안내)",
+      "url": "https://us.china-embassy.gov.cn/eng/lsfw/zj/qz2021/202512/t20251203_11765346.htm"
+    },
+    {
+      "id": "gacc_2025_43",
+      "name": "중국 해관총서 공고 2025년 제43호(입출경 인원 휴대품 신고, 정부 정책 DB)",
+      "url": "https://www.gov.cn/zhengce/zhengceku/202504/P020250404445611224125.pdf"
     }
   ],
   "requirements": [
@@ -319,10 +344,168 @@
     "source": "beijing_power",
     "last_verified": "2026-10-02"
   },
+  "airports": [
+    {
+      "code": "PVG",
+      "name_ko": "상하이 푸둥 국제공항",
+      "name_en": "Shanghai Pudong International Airport",
+      "city_ko": "상하이",
+      "egate_kr": null,
+      "egate_note_ko": null,
+      "form_check_ko": "입국 카드를 미리 내지 않았으면 입국 심사장에서 휴대폰으로 QR을 찍거나, 현장 기계나 종이 입국 카드로 낼 수 있어요.",
+      "steps": [
+        {
+          "kind": "deplane",
+          "title_ko": "비행기에서 내려요",
+          "body_ko": "탑승구에서 내려 '국제·홍콩·마카오·대만 도착' 통로를 따라가요.",
+          "where_ko": null
+        },
+        {
+          "kind": "health",
+          "title_ko": "검역",
+          "body_ko": "세관(위생 검역)을 먼저 거쳐요.",
+          "where_ko": null
+        },
+        {
+          "kind": "immigration",
+          "title_ko": "입국 심사",
+          "body_ko": "변방검사(입국 심사)에서 여권을 보여 줘요.",
+          "where_ko": null
+        },
+        {
+          "kind": "baggage",
+          "title_ko": "짐 찾기",
+          "body_ko": "부친 짐을 찾아요.",
+          "where_ko": null
+        },
+        {
+          "kind": "customs",
+          "title_ko": "세관",
+          "body_ko": "세관은 가방 속 물건을 확인하는 곳이에요. 신고할 물건이 없으면 신고서 없이 초록 통로로, 있으면 신고서를 내고 빨간 통로로 가요.",
+          "where_ko": null,
+          "source": "gacc_2025_43"
+        },
+        {
+          "kind": "exit",
+          "title_ko": "도착 홀로 나가요",
+          "body_ko": "도착 맞이 홀(到达迎客大厅)로 나가요.",
+          "where_ko": null
+        }
+      ],
+      "map_url": "https://www.shanghaiairport.com/jcznt/index.html",
+      "source": "pvg_flow",
+      "last_verified": "2026-10-03",
+      "form_check_source": "nia_arrival_card"
+    },
+    {
+      "code": "PEK",
+      "name_ko": "베이징 서우두 국제공항",
+      "name_en": "Beijing Capital International Airport",
+      "city_ko": "베이징",
+      "egate_kr": null,
+      "egate_note_ko": null,
+      "form_check_ko": "입국 카드를 미리 내지 않았으면 입국 심사장에서 휴대폰으로 QR을 찍거나, 현장 기계나 종이 입국 카드로 낼 수 있어요.",
+      "steps": [
+        {
+          "kind": "deplane",
+          "title_ko": "비행기에서 내려요",
+          "body_ko": "터미널 안 도착 안내 표지를 따라가요.",
+          "where_ko": null
+        },
+        {
+          "kind": "health",
+          "title_ko": "검역",
+          "body_ko": "세관 위생 검역을 거쳐요. 건강 상태를 묻거나 체온을 잴 수 있어요.",
+          "where_ko": null
+        },
+        {
+          "kind": "immigration",
+          "title_ko": "입국 심사",
+          "body_ko": "여권(필요하면 비자)과 작성한 입국 카드를 변방검사 심사관에게 보여 줘요.",
+          "where_ko": null
+        },
+        {
+          "kind": "baggage",
+          "title_ko": "짐 찾기",
+          "body_ko": "수하물 찾는 곳 입구 화면에서 내 항공편 번호로 벨트를 확인해요. 짐 카트는 무료예요.",
+          "where_ko": null
+        },
+        {
+          "kind": "customs",
+          "title_ko": "세관",
+          "body_ko": "세관은 가방 속 물건을 확인하는 곳이에요. 신고할 물건이 없으면 신고서 없이 '무신고 통로(초록)', 있으면 신고서를 내고 '신고 통로(빨강)'로 가요. 외화 현금이 미화 5,000달러 상당을 넘거나 동·식물 제품이 있으면 신고해요.",
+          "where_ko": null
+        },
+        {
+          "kind": "exit",
+          "title_ko": "도착 홀로 나가요",
+          "body_ko": "도착 홀로 나가요. 공항 정식 직원증이 없는 사람의 호객이나 무허가 차량은 이용하지 마세요.",
+          "where_ko": null
+        }
+      ],
+      "map_url": "https://www.bcia.com.cn/lkzndd.html",
+      "source": "pek_flow",
+      "last_verified": "2026-10-03",
+      "form_check_source": "nia_arrival_card"
+    },
+    {
+      "code": "PKX",
+      "name_ko": "베이징 다싱 국제공항",
+      "name_en": "Beijing Daxing International Airport",
+      "city_ko": "베이징",
+      "egate_kr": null,
+      "egate_note_ko": null,
+      "form_check_ko": "입국 카드를 미리 내지 않았으면 입국 심사장에서 휴대폰으로 QR을 찍거나, 현장 기계나 종이 입국 카드로 낼 수 있어요.",
+      "steps": [
+        {
+          "kind": "deplane",
+          "title_ko": "비행기에서 내려요",
+          "body_ko": "2층으로 도착해서 에스컬레이터로 1층에 내려가요.",
+          "where_ko": "2층 도착 → 1층"
+        },
+        {
+          "kind": "health",
+          "title_ko": "검역",
+          "body_ko": "위생 검역을 거쳐요.",
+          "where_ko": "1층"
+        },
+        {
+          "kind": "immigration",
+          "title_ko": "입국 심사",
+          "body_ko": "변방검사(입국 심사)에서 여권을 보여 줘요.",
+          "where_ko": "1층"
+        },
+        {
+          "kind": "baggage",
+          "title_ko": "짐 찾기",
+          "body_ko": "수하물 벨트에서 짐을 찾아요.",
+          "where_ko": "1층"
+        },
+        {
+          "kind": "customs",
+          "title_ko": "세관",
+          "body_ko": "세관은 가방 속 물건을 확인하는 곳이에요. 신고할 물건이 없으면 초록 통로, 있으면 신고서를 내고 빨간 통로로 가요.",
+          "where_ko": "1층",
+          "source": "gacc_2025_43"
+        },
+        {
+          "kind": "exit",
+          "title_ko": "도착 홀로 나가요",
+          "body_ko": "세관을 지나면 택시·버스는 1층, 철도·장기 주차는 지하 1층, 시간제 주차·차량 호출은 2층이에요.",
+          "where_ko": null
+        }
+      ],
+      "map_url": "https://www.bdia.com.cn/#/guidearr/arrivalProcess",
+      "source": "pkx_flow",
+      "last_verified": "2026-10-03",
+      "form_check_source": "nia_arrival_card"
+    }
+  ],
   "checklist": [
     {
       "id": "medicine_cold",
       "phase": "week",
+      "stage": "pack",
       "icon": "medicine",
       "title_ko": "감기약 성분 확인하기",
       "section": "basic",
@@ -331,6 +514,7 @@
     {
       "id": "cash_declare",
       "phase": "three_days",
+      "stage": "docs",
       "icon": "cash",
       "title_ko": "현금 신고 기준 알아 두기",
       "section": "entry",
@@ -339,6 +523,7 @@
     {
       "id": "return_ticket",
       "phase": "departure_day",
+      "stage": "departure",
       "icon": "ticket",
       "title_ko": "돌아가는 표·숙소 연락처 챙기기",
       "section": "entry",
@@ -347,6 +532,7 @@
     {
       "id": "stay_register",
       "phase": "arrival",
+      "stage": "arrival",
       "icon": "hotel",
       "title_ko": "호텔이 아닌 곳에 묵으면 숙박 등록하기",
       "section": "entry",

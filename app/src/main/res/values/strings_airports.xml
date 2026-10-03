@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 공항 도착 순서 (공항에 도착하면, 2026-10-03). 공항 이름·단계 문장은 팩 데이터, 여기는 앱 문구만 -->
+<resources>
+    <!-- 나라 화면 입국·비자 › 공항에 도착하면 -->
+    <string name="airport_guide_title">공항에 도착하면</string>
+    <string name="airport_guide_pick">내리는 공항을 고르세요</string>
+    <!-- 공항 고르기 칩 묶음 TalkBack 이름 -->
+    <string name="airport_picker_desc">내리는 공항 고르기</string>
+    <!-- 방콕 · BKK -->
+    <string name="airport_city_code">%1$s · %2$s</string>
+    <!-- 단계 위치 칩 TalkBack -->
+    <string name="airport_where_desc">위치 %1$s</string>
+    <string name="airport_egate_yes">한국 여권으로 자동 출입국 심사대를 쓸 수 있어요</string>
+    <string name="airport_egate_no">한국 여권으로는 자동 출입국 심사대를 쓸 수 없어요. 직원이 있는 심사대로 가요.</string>
+    <!-- 공식 안내가 한국 여권을 밝히지 않았거나 안내끼리 다를 때 (팩 메모가 있을 때만 보인다) -->
+    <string name="airport_egate_unknown">한국 여권으로 자동 출입국 심사대를 쓸 수 있는지는 공식 안내가 분명하지 않아요</string>
+    <!-- 공항 운영사·이민국이 올린 그 공항 도착 안내 페이지 (안내도만은 아니다) -->
+    <string name="airport_map_open">공식 안내 페이지 열기</string>
+
+    <!-- 의무가 아닌(권장) 신고 — 베트남 사전 입국 정보(PAI) -->
+    <string name="entry_form_label_optional">권장하는 사전 신고</string>
+    <string name="entry_form_optional_tag">꼭 내야 하는 건 아니에요</string>
+    <string name="entry_form_optional_open">미리 준비해 두기</string>
+    <string name="country_form_optional_body">공식 안내가 내기를 권해요. 미리 내면 QR이 나오고, 입국 심사에서 기다리는 시간을 줄일 수 있어요. 앱이 칸을 대신 채워 주지는 않아요.</string>
+    <!-- 여행 준비 탭: 태국 · 도착 전에 내요 와 같은 자리 -->
+
+    <!-- 오늘 화면 -->
+    <string name="airport_today_departure_title">도착하면 이 순서예요</string>
+    <string name="airport_open_guide">공항 순서 자세히 보기</string>
+    <string name="airport_open_guide_any">공항별 도착 순서 보기</string>
+
+    <!-- 여행 만들기·고치기 -->
+    <string name="trip_airport_title">내리는 공항</string>
+    <string name="trip_airport_unknown">아직 몰라요</string>
+    <string name="trip_airport_hint">고르면 도착할 때 그 공항 순서를 보여 드려요. 나중에 바꿔도 돼요.</string>
+
+    <!-- 체크리스트 › 도착 공항 순서 보기 -->
+    <string name="ck_action_airport">공항 순서 보기</string>
+    <string name="ck_airport_chosen">내리는 공항</string>
+    <string name="ck_airport_not_chosen">내리는 공항을 아직 고르지 않았어요. 여행 고치기에서 고를 수 있어요.</string>
+</resources>

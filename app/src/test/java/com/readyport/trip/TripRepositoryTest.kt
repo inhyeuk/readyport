@@ -117,7 +117,7 @@ class TripRepositoryTest {
     fun signalsKeepOnlyResults() = runBlocking {
         val t = trips.save(Trip("TH", "2026-11-03", "2026-11-07"))
         val check = PassportCheck(PassportStatus.Short, 6, "arrival", "TH|x")
-        trips.recordSignals(true, mapOf(t.id to (check to true)))
+        trips.recordSignals(true, mapOf(t.id to TripSignal(check, formSubmitted = true)))
         val book = trips.book.first()
         assertEquals(true, book.passportSaved)
         assertEquals(check, book.checks[t.id]?.passport)

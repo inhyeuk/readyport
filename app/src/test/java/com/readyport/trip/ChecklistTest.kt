@@ -36,23 +36,31 @@ class ChecklistTest {
 
     private fun ChecklistData.item(id: String) = items.firstOrNull { it.id == id }
 
+    /** 팩에 공항 안내가 있으면 `도착 공항 순서 보기` 한 줄 */
+    private fun airportItem(cc: String) = if (pack(cc).airports.isNotEmpty()) 1 else 0
+
     // ---------------- 나라별 항목 ----------------
 
     @Test
     fun thailandAndChinaTripCounts() {
         val th = build(trip("TH"))
         val cn = build(trip("CN"))
-        // 틀 28줄 중 태국·중국은 어댑터·전압(한국 플러그·220 V 그대로)이 빠지고, 나라 팩 항목이 더해진다
-        assertEquals(27, th.total)
-        assertEquals(30, cn.total)
-        assertEquals(ChecklistPhase.entries.toList(), th.phases)
-        // 단계 순서 — 떠나기 한 달 전쯤 항목이 맨 앞, 여권 정보 지우기가 맨 끝
+        // 틀 29줄 중 태국·중국은 어댑터·전압(한국 플러그·220 V 그대로)이 빠지고, 나라 팩 항목이 더해진다.
+        // `도착 공항 순서 보기`는 팩에 공항 안내(airports)가 있는 나라만 — 공항을 합치면 그 나라 수가 하나 는다(merge_airports.py)
+        assertEquals(27 + airportItem("TH"), th.total)
+        assertEquals(1, airportItem("TH"))
+        assertEquals(30 + airportItem("CN"), cn.total)
+        assertEquals(JourneyStage.entries.toList(), th.stages)
+        // 단계 순서 — 계획이 맨 앞, 복귀(여권 정보 지우기)가 맨 끝
         assertEquals("passport_validity", th.items.first().id)
         assertEquals("passport_destroy", th.items.last().id)
-        assertTrue(cn.items.any { it.id == "country.stay_register" && it.phase == ChecklistPhase.Arrival })
+        assertTrue(cn.items.any { it.id == "country.stay_register" && it.stage == JourneyStage.Arrival })
         // 나머지 나라: 전기 조건(어댑터·전압)·입국 카드 유무·나라 팩 항목 수만큼 달라진다
         val counts = listOf("JP", "SG", "MY", "ID", "TW", "PH", "VN").associateWith { build(trip(it)).total }
-        assertEquals(mapOf("JP" to 29, "SG" to 29, "MY" to 28, "ID" to 27, "TW" to 30, "PH" to 29, "VN" to 26), counts)
+        // 베트남은 사전 입국 정보(PAI)가 양식 카드로 옮겨 가면서 `입국 정보 미리 내기` 팩 항목이 빠졌다 —
+        // 의무가 아닌 신고(forms[].optional)는 기한 있는 할 일로 세지 않는다
+        val base = mapOf("JP" to 29, "SG" to 29, "MY" to 28, "ID" to 27, "TW" to 30, "PH" to 29, "VN" to 25)
+        assertEquals(base.mapValues { (cc, n) -> n + airportItem(cc) }, counts)
     }
 
     @Test
@@ -69,9 +77,9 @@ class ChecklistTest {
             data.items.filter { it.id.startsWith("country.") }.forEach { item ->
                 assertTrue("$cc ${item.id}", p.sections.any { s -> item.body in s.bodyKo })
             }
-            // 입국 카드가 없는 나라(베트남)는 입국 카드·확인 화면 항목을 만들지 않는다
-            assertEquals(cc, p.forms.isNotEmpty(), data.item("entry_form") != null)
-            assertEquals(cc, p.forms.isNotEmpty(), data.item("show_entry") != null)
+            // 꼭 내야 하는 입국 카드가 없는 나라(베트남 — 사전 입국 정보는 의무가 아님)는 입국 카드·확인 화면 항목을 만들지 않는다
+            assertEquals(cc, p.requiredForms.isNotEmpty(), data.item("entry_form") != null)
+            assertEquals(cc, p.requiredForms.isNotEmpty(), data.item("show_entry") != null)
         }
     }
 
@@ -96,7 +104,9 @@ class ChecklistTest {
     fun entryFormUnlocksWhenWindowOpens() {
         val t = trip("TH")
         val form = build(t).item("entry_form")!!
-        assertEquals(ChecklistPhase.ThreeDays, form.phase)
+        // 기한 축은 기간 일수가 정하고(3일 → 3일 전 칸), 묶는 축은 언제나 서류 단계다
+        assertEquals(DueWindow.ThreeDays, form.due)
+        assertEquals(JourneyStage.Docs, form.stage)
         assertEquals(d("2026-11-01"), form.opensOn)
         assertTrue(form.locked(d("2026-10-31")))
         assertFalse(form.locked(d("2026-11-01")))
@@ -116,10 +126,11 @@ class ChecklistTest {
     fun windowLengthPicksPhase() {
         // 대만 TWAC는 도착 7일 전부터 → 일주일 전 단계, 중국 온라인 입국 카드는 기간이 없어 잠그지 않는다
         val tw = build(trip("TW")).item("entry_form")!!
-        assertEquals(ChecklistPhase.Week, tw.phase)
+        assertEquals(DueWindow.Week, tw.due)
+        assertEquals(JourneyStage.Docs, tw.stage)
         assertEquals(d("2026-10-28"), tw.opensOn)
         val cn = build(trip("CN")).item("entry_form")!!
-        assertEquals(ChecklistPhase.ThreeDays, cn.phase)
+        assertEquals(DueWindow.ThreeDays, cn.due)
         assertNull(cn.opensOn)
         // 미리 안 내도 되는 입국 카드(기간 없음)는 출발 당일에도 빨강·늦음을 붙이지 않는다
         val cnDay = build(trip("CN"), today = "2026-11-03").item("entry_form")!!
@@ -218,6 +229,53 @@ class ChecklistTest {
         assertFalse(jpItem.checked)
     }
 
+    /** 숙소 주소 저장하기(`address_local`)는 앱이 스스로 확인하는 항목이다 (2026-10-03 묵는 곳) */
+    @Test
+    fun stayAddressItemChecksItself() {
+        val t = trip("TH")
+        val unknown = build(t).item("address_local")!!
+        assertEquals(ItemKind.Auto, unknown.kind)
+        assertEquals(ChecklistAction.OpenStays, unknown.action)
+        // 지갑을 아직 못 봤으면 모름(체크되지 않는다)
+        assertEquals(AutoState.Unknown, unknown.auto)
+        assertFalse(unknown.checked)
+        // 주소를 적어 둔 숙소가 없으면 안 함
+        val none = build(t, checks = TripChecks(stayAddress = false)).item("address_local")!!
+        assertEquals(AutoState.NotDone, none.auto)
+        assertFalse(none.checked)
+        // 주소가 하나라도 있으면 앱이 스스로 체크한다
+        val done = build(t, checks = TripChecks(stayAddress = true)).item("address_local")!!
+        assertEquals(AutoState.Done, done.auto)
+        assertTrue(done.checked)
+        // 사람이 되돌릴 수 있다(사람이 정한 값이 앱 판단보다 먼저)
+        val overridden = build(t, checks = TripChecks(stayAddress = true, marks = mapOf("address_local" to false))).item("address_local")!!
+        assertFalse(overridden.checked)
+        assertTrue(overridden.overridden)
+    }
+
+    /** 지갑을 열었을 때 적는 신호에 주소 글자가 아니라 '있다/없다'만 들어간다 */
+    @Test
+    fun stayAddressSignalKeepsNoAddressText() {
+        val t = trip("TH")
+        val contents = VaultContents(
+            stays = listOf(
+                com.readyport.vault.StayRecord(
+                    id = "s1", tripId = t.id, name = "리버뷰 방콕 호텔",
+                    addressLocal = "123 Soi Sukhumvit 11, Bangkok 10110",
+                    checkIn = "2026-11-03", checkOut = "2026-11-07", savedAt = "x",
+                ),
+            ),
+        )
+        val (_, perTrip) = TripSignalsRecorder.signals(contents, listOf(t), mapOf("TH" to pack("TH")))
+        assertEquals(true, perTrip[t.id]!!.stayAddress)
+        val stored = Json.encodeToString(TripBook.serializer(), TripBook(checks = mapOf(t.id to TripChecks(stayAddress = true))))
+        assertFalse(stored.contains("Sukhumvit"))
+        assertFalse(stored.contains("리버뷰"))
+        // 주소가 비어 있으면 false
+        val blank = contents.copy(stays = contents.stays.map { it.copy(addressLocal = "  ") })
+        assertEquals(false, TripSignalsRecorder.signals(blank, listOf(t), mapOf("TH" to pack("TH"))).second[t.id]!!.stayAddress)
+    }
+
     @Test
     fun signalsStoreResultsNotDates() {
         val th = trip("TH")
@@ -231,17 +289,65 @@ class ChecklistTest {
         val (saved, perTrip) = TripSignalsRecorder.signals(contents, listOf(th, thLater, jp), packs)
         assertTrue(saved)
         // 11월 여행: 2027-05-03 이상 필요 → 괜찮음, 2월 여행: 2027-08-10 이상 필요 → 모자람 (같은 나라라도 여행마다 다르다)
-        assertEquals(PassportStatus.Ok, perTrip[th.id]!!.first!!.status)
-        assertEquals(PassportStatus.Short, perTrip[thLater.id]!!.first!!.status)
-        assertEquals(PassportStatus.Unknown, perTrip[jp.id]!!.first!!.status)
+        assertEquals(PassportStatus.Ok, perTrip[th.id]!!.passport!!.status)
+        assertEquals(PassportStatus.Short, perTrip[thLater.id]!!.passport!!.status)
+        assertEquals(PassportStatus.Unknown, perTrip[jp.id]!!.passport!!.status)
         // 입국 카드 제출 기록은 그 여행 기간 것만
-        assertEquals(true, perTrip[th.id]!!.second)
-        assertEquals(false, perTrip[thLater.id]!!.second)
+        assertEquals(true, perTrip[th.id]!!.formSubmitted)
+        assertEquals(false, perTrip[thLater.id]!!.formSubmitted)
         // 저장되는 결과에 날짜·여권 번호가 없다
-        val stored = Json.encodeToString(TripBook.serializer(), TripBook(checks = perTrip.mapValues { (_, v) -> TripChecks(passport = v.first, formSubmitted = v.second) }))
+        val stored = Json.encodeToString(TripBook.serializer(), TripBook(checks = perTrip.mapValues { (_, v) -> TripChecks(passport = v.passport, formSubmitted = v.formSubmitted, stayAddress = v.stayAddress) }))
         assertFalse(stored.contains("2027-06-01"))
         assertFalse(stored.contains("M12345678"))
         assertFalse(stored.contains("1990"))
+    }
+
+    // ---------------- 도착 공항 순서 (2026-10-03) ----------------
+
+    @Test
+    fun airportItemOnlyWhenPackHasAirports() {
+        val th = build(trip("TH"))
+        val item = th.item("airport_steps")
+        assertNotNull(item)
+        assertEquals(JourneyStage.Arrival, item!!.stage)
+        assertEquals(DueWindow.Arrival, item.due)
+        assertEquals(ChecklistAction.OpenAirport, item.action)
+        // 공항을 고르지 않았으면 코드 없이(나라 화면이 여행 공항·첫 공항을 고른다), 출처는 첫 공항 안내
+        val d = item.detail as ItemDetail.AirportGuide
+        assertEquals("TH", d.country)
+        assertNull(d.code)
+        val first = pack("TH").airports.first()
+        assertEquals(pack("TH").source(first.source)!!.name, item.source!!.name)
+        assertEquals(first.lastVerified, item.source!!.lastVerified)
+        // 공항 안내가 없는 팩에는 항목이 없다
+        listOf("TH", "JP", "SG", "MY", "ID", "TW", "CN", "PH", "VN").filter { pack(it).airports.isEmpty() }.forEach { cc ->
+            assertNull(cc, build(trip(cc)).item("airport_steps"))
+        }
+    }
+
+    @Test
+    fun airportItemCarriesChosenAirport() {
+        val dmk = build(trip("TH").copy(arrivalAirport = "DMK")).item("airport_steps")!!
+        val d = dmk.detail as ItemDetail.AirportGuide
+        assertEquals("DMK", d.code)
+        assertEquals("돈므앙 공항", d.name)
+        // 팩에 없는 코드(나라를 바꾼 뒤 남은 값 등)는 고르지 않은 것으로
+        val unknown = build(trip("TH").copy(arrivalAirport = "NRT")).item("airport_steps")!!.detail as ItemDetail.AirportGuide
+        assertNull(unknown.code)
+    }
+
+    @Test
+    fun arrivalAirportIsOptionalInStoredTrip() {
+        val json = Json { ignoreUnknownKeys = true; encodeDefaults = false }
+        // 예전 저장본(공항 없음)은 null로 읽힌다
+        val old = json.decodeFromString(Trip.serializer(), """{"country":"TH","startDate":"2026-11-03","endDate":"2026-11-07","id":"x"}""")
+        assertNull(old.arrivalAirport)
+        assertFalse(json.encodeToString(Trip.serializer(), old).contains("arrivalAirport"))
+        // 공항 코드만 저장한다(날짜·나라·코드 — 개인정보 없음)
+        val withAirport = old.copy(arrivalAirport = "BKK")
+        val stored = json.encodeToString(Trip.serializer(), withAirport)
+        assertTrue(stored.contains("\"arrivalAirport\":\"BKK\""))
+        assertEquals(withAirport, json.decodeFromString(Trip.serializer(), stored))
     }
 
     // ---------------- 같은 나라 두 여행 ----------------
@@ -258,8 +364,8 @@ class ChecklistTest {
         assertEquals(1, dataB.done)
         assertFalse(dataB.item("booking")!!.checked)
         assertTrue(dataB.custom.isEmpty())
-        assertEquals(28, dataA.total)
-        assertEquals(27, dataB.total)
+        assertEquals(28 + airportItem("TH"), dataA.total)
+        assertEquals(27 + airportItem("TH"), dataB.total)
         // 입국 카드 기간도 각 여행 날짜로
         assertEquals(d("2026-11-01"), dataA.item("entry_form")!!.opensOn)
         assertEquals(d("2027-02-08"), dataB.item("entry_form")!!.opensOn)
@@ -268,38 +374,38 @@ class ChecklistTest {
     // ---------------- 지금 챙길 것 ----------------
 
     @Test
-    fun nowItemsFollowCurrentPhase() {
+    fun nowItemsFollowCurrentDueWindow() {
         val t = trip("TH")
-        assertEquals(ChecklistPhase.Month, Checklist.currentPhase(t, d("2026-10-02")))
-        assertEquals(ChecklistPhase.Week, Checklist.currentPhase(t, d("2026-10-28")))
-        assertEquals(ChecklistPhase.ThreeDays, Checklist.currentPhase(t, d("2026-11-01")))
-        assertEquals(ChecklistPhase.DepartureDay, Checklist.currentPhase(t, d("2026-11-03")))
-        assertEquals(ChecklistPhase.Arrival, Checklist.currentPhase(t.copy(arrivedAt = 1L), d("2026-11-03")))
-        assertEquals(ChecklistPhase.During, Checklist.currentPhase(t, d("2026-11-05")))
-        assertEquals(ChecklistPhase.BeforeReturn, Checklist.currentPhase(t, d("2026-11-06")))
-        assertEquals(ChecklistPhase.Back, Checklist.currentPhase(t, d("2026-11-08")))
+        assertEquals(DueWindow.Month, Checklist.currentDue(t, d("2026-10-02")))
+        assertEquals(DueWindow.Week, Checklist.currentDue(t, d("2026-10-28")))
+        assertEquals(DueWindow.ThreeDays, Checklist.currentDue(t, d("2026-11-01")))
+        assertEquals(DueWindow.DepartureDay, Checklist.currentDue(t, d("2026-11-03")))
+        assertEquals(DueWindow.Arrival, Checklist.currentDue(t.copy(arrivedAt = 1L), d("2026-11-03")))
+        assertEquals(DueWindow.During, Checklist.currentDue(t, d("2026-11-05")))
+        assertEquals(DueWindow.BeforeReturn, Checklist.currentDue(t, d("2026-11-06")))
+        assertEquals(DueWindow.Back, Checklist.currentDue(t, d("2026-11-08")))
 
         val now = Checklist.nowItems(build(t), t, d("2026-10-02"))
         assertEquals(3, now.size)
-        assertTrue(now.all { it.phase == ChecklistPhase.Month })
+        assertTrue(now.all { it.due == DueWindow.Month })
         // 출발 당일: 아직 안 낸 입국 카드가 맨 앞(급함)
         val dep = Checklist.nowItems(build(t, today = "2026-11-03"), t, d("2026-11-03"))
         assertEquals("entry_form", dep.first().id)
         // 다 했으면 다음 단계에서 미리 할 것
-        val allMonth = build(t).phase(ChecklistPhase.Month).associate { it.id to true }
+        val allMonth = build(t).due(DueWindow.Month).associate { it.id to true }
         val ahead = Checklist.nowItems(build(t, checks = TripChecks(marks = allMonth)), t, d("2026-10-02"))
         assertTrue(ahead.isNotEmpty())
-        assertTrue(ahead.all { it.phase!! > ChecklistPhase.Month })
+        assertTrue(ahead.all { it.due!! > DueWindow.Month })
         // 아직 열리지 않은 입국 카드는 '지금 챙길 것'에 없다
         assertTrue(ahead.none { it.id == "entry_form" })
     }
 
     @Test
     fun markForReturnsToAppJudgement() {
-        val auto = ChecklistItem("x", ChecklistPhase.Month, ItemKind.Auto, "passport", "x", auto = AutoState.Done, checked = true)
+        val auto = ChecklistItem("x", JourneyStage.Plan, DueWindow.Month, ItemKind.Auto, "passport", "x", auto = AutoState.Done, checked = true)
         assertNull(markFor(auto, true))
         assertEquals(false, markFor(auto, false))
-        val manual = ChecklistItem("y", ChecklistPhase.Month, ItemKind.Generic, "flight", "y")
+        val manual = ChecklistItem("y", JourneyStage.Plan, DueWindow.Month, ItemKind.Generic, "flight", "y")
         assertEquals(true, markFor(manual, true))
         assertNull(markFor(manual, false))
     }

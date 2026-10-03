@@ -30,6 +30,7 @@ class ReadyPortApp : Application(), Configuration.Provider {
     @Inject lateinit var trips: TripRepository
     @Inject lateinit var ocr: com.readyport.doc.ocr.OcrEngine
     @Inject lateinit var tripSignals: com.readyport.trip.TripSignalsRecorder
+    @Inject lateinit var checklistAlerts: com.readyport.trip.ChecklistAlerts
 
     private val appScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
 
@@ -50,6 +51,8 @@ class ReadyPortApp : Application(), Configuration.Provider {
         appScope.launch {
             trips.migrateLegacy(settings.current().haveItems)
             tripSignals.start(appScope)
+            // 못한 일 알림: 하루 쓸기와 여행별 입국 카드 알림을 여기서 맞춘다(화면을 열지 않아도 알려 준다 — PRD 6.1)
+            checklistAlerts.start(appScope)
         }
         // 하루 한 번 찜한 나라의 새 안내 확인 (와이파이 설정을 따른다)
         appScope.launch { PackSync.scheduleDaily(this@ReadyPortApp, settings.current().wifiOnly) }

@@ -14,10 +14,8 @@ import com.readyport.ui.pack.HelpContent
 import com.readyport.ui.pack.HelpUi
 import com.readyport.ui.present.PresentContent
 import com.readyport.ui.present.PresentUi
-import com.readyport.ui.tabs.FormEntry
-import com.readyport.ui.today.TodayContent
-import com.readyport.ui.today.TodayUi
-import com.readyport.ui.tabs.PrepareContent
+import com.readyport.ui.trip.TripListContent
+import com.readyport.ui.trip.TripListUi
 import com.readyport.ui.wallet.WalletContent
 import com.readyport.vault.WalletState
 import kotlinx.coroutines.Dispatchers
@@ -53,14 +51,11 @@ object TestPacks {
             HomeCountry(
                 c.code, c.nameKo, c.nameEn,
                 visa = visa,
-                hasForm = pack?.forms?.isNotEmpty() == true,
+                hasForm = pack?.requiredForms?.isNotEmpty() == true,
                 ready = pack != null,
                 sourceName = visa?.let { pack.source(it.source)?.name },
             )
         },
-        returnLinks = index.value.returnLinks,
-        returnFacts = index.value.returnFacts,
-        indexSources = index.value.sources.associate { it.id to it.name },
     )
 
     fun countryUi(code: String = "TH", favorite: Boolean = false) = runBlocking {
@@ -77,10 +72,6 @@ object TestPacks {
 
     val tdacRecipe get() = runBlocking { repo.recipe("TH_TDAC")!! }
 
-    fun formEntries() = thailand.value.forms.map { f ->
-        FormEntry(f.id, f.nameKo, thailand.value.names.ko, f.feeKo, f.windowKo, thailand.value.source(f.source)!!.name, f.lastVerified)
-    }
-
     fun helpUi() = HelpUi(
         countries = index.value.countries.filter { it.pack },
         selected = thailand,
@@ -95,7 +86,7 @@ object TestPacks {
 
 /** Hilt 없이 루트를 띄우는 화면 대역 */
 val FakeSlots = ScreenSlots(
-    wallet = { onAddPassport, onAddBooking, _ ->
+    wallet = { onAddPassport, onAddBooking, _, _, _ ->
         WalletContent(
             state = WalletState.Locked(hasData = false),
             deviceSecure = true,
@@ -110,7 +101,7 @@ val FakeSlots = ScreenSlots(
     home = { actions -> HomeContent(TestPacks.homeUi(), actions, today = LocalDate.of(2026, 9, 28)) },
     country = { code, actions -> CountryContent(TestPacks.countryUi(code), actions) },
     help = { HelpContent(TestPacks.helpUi(), {}, {}, {}) },
-    prepare = { onOpenForm, onEssentials -> PrepareContent(TestPacks.formEntries(), onOpenForm, onOpenEssentials = onEssentials) },
-    today = { actions -> TodayContent(TodayUi(), actions, {}, {}, {}, {}, {}) },
+    // 내 여행 탭 첫 화면 = 여행 목록(빈 목록 — 저장소 없이 띄운다)
+    trips = { onOpen, onAdd, openPast -> TripListContent(TripListUi(loaded = true), onOpen, onAdd, openPast) },
     present = { PresentContent(PresentUi(locked = true), {}, {}, {}, {}) },
 )

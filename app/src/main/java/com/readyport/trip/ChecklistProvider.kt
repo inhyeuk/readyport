@@ -29,6 +29,12 @@ class ChecklistProvider @Inject constructor(private val packs: PackRepository) {
         packs.pack(code)?.value?.names?.ko ?: packs.index()?.value?.countries?.firstOrNull { it.code == code }?.nameKo ?: code
 }
 
+/** 체크리스트의 꼭 챙길 물건 항목 중 체크한 것 → 꼭 챙길 물건 id (꼭 챙길 물건 화면과 체크리스트가 같은 체크를 본다) */
+fun essentialsHave(data: ChecklistData?): Set<String> {
+    val prefix = Checklist.essentialItemId("")
+    return data?.items.orEmpty().filter { it.checked && it.id.startsWith(prefix) }.map { it.id.removePrefix(prefix) }.toSet()
+}
+
 /** 사람이 체크를 바꿨을 때 저장할 값: 앱 판단과 같으면 표시를 지워 앱 판단으로 되돌리고, 다르면 사람이 정한 값으로 */
 fun markFor(item: ChecklistItem, checked: Boolean): Boolean? {
     val auto = item.auto

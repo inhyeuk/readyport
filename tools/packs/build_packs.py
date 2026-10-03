@@ -76,6 +76,71 @@ def check_sources(doc, label, errors):
             errors.append(f"{label}: essentials[{i}] 금융 상품에 제휴 링크 금지")
     check_passport_validity(doc, label, ids, errors)
     check_checklist(doc, label, errors)
+    check_airports(doc, label, ids, errors)
+
+
+AIRPORT_STEP_KINDS = ("deplane", "health", "immigration", "egate", "form_check", "baggage", "customs", "transfer", "exit")
+
+
+def check_airports(doc, label, ids, errors):
+    """airports[]: 출처가 sources 에 있는지(공항·단계·입국 카드 줄), 코드가 겹치지 않는지, 단계 kind, https 링크, 확인 날짜 (작업 규칙 6).
+    JSON Schema 가 모양을 보고, 여기서는 스키마로 못 보는 것(출처 연결·겹침·실제 날짜)을 본다. 스키마 없이도(merge_airports.py) 같은 검사를 한다."""
+    import datetime
+
+    seen = set()
+    for i, ap in enumerate(doc.get("airports", [])):
+        where = f"{label}: airports[{i}]"
+        code = ap.get("code")
+        if code in seen:
+            errors.append(f"{where}.code '{code}' 가 겹침")
+        seen.add(code)
+        for key in ("code", "name_ko", "name_en", "city_ko", "steps", "map_url", "source", "last_verified"):
+            if not ap.get(key):
+                errors.append(f"{where}.{key} 가 비어 있음")
+        if "egate_kr" not in ap:
+            errors.append(f"{where}.egate_kr 가 없음 (모르면 null)")
+        elif ap["egate_kr"] is not None and not isinstance(ap["egate_kr"], bool):
+            errors.append(f"{where}.egate_kr 는 true/false/null")
+        if ap.get("source") not in ids:
+            errors.append(f"{where}.source '{ap.get('source')}' 가 sources 에 없음")
+        if "form_check_source" in ap and ap["form_check_source"] not in ids:
+            errors.append(f"{where}.form_check_source '{ap['form_check_source']}' 가 sources 에 없음")
+        if not str(ap.get("map_url", "")).startswith("https://"):
+            errors.append(f"{where}.map_url 은 https:// 로 시작")
+        try:
+            datetime.date.fromisoformat(str(ap.get("last_verified")))
+        except ValueError:
+            errors.append(f"{where}.last_verified '{ap.get('last_verified')}' 는 YYYY-MM-DD 날짜")
+        steps = ap.get("steps") or []
+        if not 3 <= len(steps) <= 7:
+            errors.append(f"{where}.steps 는 3~7개 (지금 {len(steps)}개)")
+        for j, st in enumerate(steps):
+            if st.get("kind") not in AIRPORT_STEP_KINDS:
+                errors.append(f"{where}.steps[{j}].kind '{st.get('kind')}' 는 {'/'.join(AIRPORT_STEP_KINDS)} 중 하나")
+            for key in ("title_ko", "body_ko"):
+                if not st.get(key):
+                    errors.append(f"{where}.steps[{j}].{key} 가 비어 있음")
+            if "source" in st and st["source"] not in ids:
+                errors.append(f"{where}.steps[{j}].source '{st['source']}' 가 sources 에 없음")
+
+
+def check_optional_forms(docs, errors, recipes=None):
+    """forms[].optional(의무가 아닌 권장 신고 — 베트남 PAI)에는 자동 입력 레시피를 두지 않는다.
+
+    앱이 '칸을 채워 드려요'라고 말하면 꼭 내야 하는 서류처럼 읽힌다 (작업 규칙 6·7).
+    기한(window_days_including_arrival)도 두지 않는다 — 오늘 단계·알림이 급한 할 일로 만들지 않게.
+    [recipes]: 있는 레시피 form_id 집합 (없으면 packs/src/recipes 폴더를 본다 — 테스트에서 넣어 쓴다)
+    """
+    if recipes is None:
+        recipes = {p.stem for p in (SRC / "recipes").glob("*.json")}
+    for label, doc in docs.items():
+        for i, form in enumerate(doc.get("forms", [])):
+            if not form.get("optional"):
+                continue
+            if form["id"] in recipes:
+                errors.append(f"{label}: forms[{i}] '{form['id']}' 는 optional 인데 레시피가 있음 — 레시피를 두지 않는다")
+            if form.get("window_days_including_arrival") is not None:
+                errors.append(f"{label}: forms[{i}] '{form['id']}' 는 optional 인데 기간 일수가 있음 — null 로 둔다")
 
 
 def check_passport_validity(doc, label, ids, errors):
@@ -94,13 +159,19 @@ def check_passport_validity(doc, label, ids, errors):
 
 
 def check_checklist(doc, label, errors):
-    """체크리스트: 나라 팩 항목 문장은 같은 팩 섹션 문장 그대로, 색인 틀의 essential:<id> 는 essentials 에 있어야 한다."""
+    """체크리스트: 나라 팩 항목 문장은 같은 팩 섹션 문장 그대로, 색인 틀의 essential:<id> 는 essentials 에 있어야 한다.
+
+    두 축(2026-10-03)을 모두 적는다: phase = 언제까지(기한·늦음·알림), stage = 할 일의 종류(묶기·길잡이).
+    stage 가 없으면 앱이 phase 에서 옮겨 오지만(예전 서명 팩), 새로 쓰는 팩에는 반드시 넣는다.
+    """
     sections = {s["id"]: s for s in doc.get("sections", [])}
     seen = set()
     for i, item in enumerate(doc.get("checklist", [])):
         if item.get("id") in seen:
             errors.append(f"{label}: checklist[{i}].id '{item.get('id')}' 가 겹침")
         seen.add(item.get("id"))
+        if not item.get("stage"):
+            errors.append(f"{label}: checklist[{i}] stage 없음 — 할 일의 종류(plan/book/docs/pack/departure/arrival/during/return)를 적는다")
         if "section" in item:
             sec = sections.get(item["section"])
             if sec is None:
@@ -148,6 +219,8 @@ def validate_all():
             for mark in UNSETTLED:
                 if mark in s:
                     errors.append(f"{name}{p}: 미확정 표시 '{mark}' — 확인 후 지우고 게시한다 (작업 규칙 6)")
+    check_optional_forms(docs, errors)
+
     recipe_schema = load(SCHEMA / "recipe.schema.json")
     for path in sorted((SRC / "recipes").glob("*.json")):
         recipe = load(path)

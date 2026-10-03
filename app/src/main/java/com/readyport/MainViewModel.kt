@@ -43,6 +43,15 @@ class MainViewModel @Inject constructor(
         }
     }
 
+    /** 챙길 일 알림 켬·끔 (PRD 6.1). 작업을 다시 맞추는 일은 ChecklistAlerts가 설정을 지켜보다가 한다 */
+    fun setAlertsOn(enabled: Boolean) {
+        viewModelScope.launch { settingsRepository.setAlertsOn(enabled) }
+    }
+
+    fun setAlertHour(hour: Int) {
+        viewModelScope.launch { settingsRepository.setAlertHour(hour) }
+    }
+
     fun speak(text: String) = speaker.speak(text)
 
     override fun onCleared() {

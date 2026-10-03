@@ -51,10 +51,10 @@ import com.readyport.pack.PowerInfo
 import com.readyport.prep.Essentials
 import com.readyport.trip.Checklist
 import com.readyport.trip.ChecklistProvider
+import com.readyport.trip.essentialsHave
 import com.readyport.trip.TripRepository
 import com.readyport.trip.TripSelection
 import com.readyport.ui.components.LinkRow
-import com.readyport.ui.home.essentialsHave
 import androidx.compose.material.icons.automirrored.outlined.NavigateNext
 import com.readyport.ui.components.AppScreen
 import com.readyport.ui.components.BadgeTitleLayout

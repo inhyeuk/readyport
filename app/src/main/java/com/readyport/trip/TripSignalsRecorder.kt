@@ -2,6 +2,7 @@ package com.readyport.trip
 
 import com.readyport.pack.CountryPack
 import com.readyport.pack.PackRepository
+import com.readyport.stay.Stays
 import com.readyport.vault.VaultContents
 import com.readyport.vault.WalletRepository
 import com.readyport.vault.WalletState
@@ -45,25 +46,33 @@ class TripSignalsRecorder @Inject constructor(
     }
 
     companion object {
-        /** 순수 함수(테스트용): 지갑 내용 → (여권 있음, 여행 id → (여권 결과, 입국 카드 냈는지)) */
+        /** 순수 함수(테스트용): 지갑 내용 → (여권 있음, 여행 id → 그 여행 결과) */
         fun signals(
             contents: VaultContents,
             list: List<Trip>,
             packsByCountry: Map<String, CountryPack?>,
-        ): Pair<Boolean, Map<String, Pair<PassportCheck?, Boolean?>>> {
+        ): Pair<Boolean, Map<String, TripSignal>> {
             val expiry = contents.passport?.expiryDate?.let { runCatching { LocalDate.parse(it.trim()) }.getOrNull() }
             val perTrip = list.filter { it.datesValid }.associate { trip ->
                 val pack = packsByCountry[trip.country]
                 val rule = pack?.requirements?.firstOrNull { it.nationality == "KR" && it.purpose == "tourism" }?.passportValidity
                 val check = expiry?.let { PassportValidity.check(it, trip, rule) }
-                trip.id to (check to formSubmitted(contents, trip, pack))
+                trip.id to TripSignal(
+                    passport = check,
+                    formSubmitted = formSubmitted(contents, trip, pack),
+                    // 주소 글자는 적지 않고 '주소를 적어 둔 숙소가 있는지'만 (숙소 주소 저장 항목이 스스로 체크되게)
+                    stayAddress = Stays.forTrip(contents.stays, trip).any { it.addressLocal.isNotBlank() },
+                )
             }
             return (contents.passport != null) to perTrip
         }
 
-        /** 이 여행 입국 카드를 그 여행 기간에 냈는지. 낸 기록이 없으면 false, 양식이 없는 나라는 null */
+        /**
+         * 이 여행 입국 카드를 그 여행 기간에 냈는지. 낸 기록이 없으면 false, 꼭 내야 하는 양식이 없는 나라는 null —
+         * 의무가 아닌 신고(forms[].optional, 베트남 PAI)는 '안 냈다'로 보지 않는다.
+         */
         fun formSubmitted(contents: VaultContents, trip: Trip, pack: CountryPack?): Boolean? {
-            val form = pack?.forms?.firstOrNull() ?: return null
+            val form = pack?.requiredForms?.firstOrNull() ?: return null
             val record = contents.forms[form.id] ?: return false
             if (record.status != "submitted") return false
             val at = record.submittedAt?.let { runCatching { LocalDateTime.parse(it).toLocalDate() }.getOrNull() } ?: return false

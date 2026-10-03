@@ -2,6 +2,7 @@ package com.readyport.ui.components
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.AirplaneTicket
+import androidx.compose.material.icons.automirrored.outlined.DirectionsWalk
 import androidx.compose.material.icons.automirrored.outlined.FactCheck
 import androidx.compose.material.icons.outlined.AccountBalance
 import androidx.compose.material.icons.outlined.AccountBalanceWallet
@@ -36,6 +37,10 @@ import androidx.compose.material.icons.outlined.ElectricBolt
 import androidx.compose.material.icons.outlined.Emergency
 import androidx.compose.material.icons.outlined.Explore
 import androidx.compose.material.icons.outlined.FlightLand
+import androidx.compose.material.icons.outlined.ConnectingAirports
+import androidx.compose.material.icons.outlined.DoorSliding
+import androidx.compose.material.icons.outlined.HowToReg
+import androidx.compose.material.icons.outlined.Luggage
 import androidx.compose.material.icons.outlined.FlightTakeoff
 import androidx.compose.material.icons.outlined.Forum
 import androidx.compose.material.icons.outlined.GppMaybe
@@ -88,6 +93,7 @@ import androidx.compose.material.icons.outlined.Home
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.readyport.autofill.ValueOrigin
 import com.readyport.prep.ImportStatus
+import com.readyport.trip.JourneyStage
 
 /**
  * 팩·앱의 기존 ID → 아이콘 (DESIGN_SPEC 5장 표의 코드 버전).
@@ -285,6 +291,37 @@ object IconKeys {
         else -> Icons.Outlined.Checklist
     }
 
-    /** 체크리스트 단계 아이콘 — 여행 6단계 그림을 그대로 쓰고, 떠나기 전 세 단계는 '준비'(Backpack) */
-    fun checklistPhase(barIndex: Int): ImageVector = stage(barIndex)
+    /**
+     * 공항 도착 순서 단계 아이콘 (팩 `airports[].steps[].kind`, 2026-10-03). 앱 전체와 같은 그림:
+     * 내리기 FlightLand · 검역 HealthAndSafety · 입국 심사 HowToReg(오늘 화면 입국 심사와 같다) · 자동 심사대 DoorSliding ·
+     * 입국 카드 확인 QrCode2(보여 주기와 같다) · 짐 Luggage · 세관 Inventory2(체크리스트 customs와 같다) · 갈아타기 ConnectingAirports · 나가기 DirectionsWalk.
+     */
+    fun airportStep(kind: String): ImageVector = when (kind) {
+        "deplane" -> Icons.Outlined.FlightLand
+        "health" -> Icons.Outlined.HealthAndSafety
+        "immigration" -> Icons.Outlined.HowToReg
+        "egate" -> Icons.Outlined.DoorSliding
+        "form_check" -> Icons.Outlined.QrCode2
+        "baggage" -> Icons.Outlined.Luggage
+        "customs" -> Icons.Outlined.Inventory2
+        "transfer" -> Icons.Outlined.ConnectingAirports
+        "exit" -> Icons.AutoMirrored.Outlined.DirectionsWalk
+        else -> Icons.Outlined.LocalAirport
+    }
+
+    /**
+     * 여행 과정 8단계 아이콘 (2026-10-03) — 그림 패널([journeyStageArt])을 쓸 수 없는 작은 자리에만.
+     * 같은 개념은 앱 전체와 같은 그림: 계획 달력 · 예약 항공권 · 서류 입국 카드 · 짐 여행 가방 ·
+     * 출국 이륙 · 입국 착륙 · 여행 중 둘러보기 · 복귀 집.
+     */
+    fun journeyStage(stage: JourneyStage): ImageVector = when (stage) {
+        JourneyStage.Plan -> Icons.Outlined.CalendarMonth
+        JourneyStage.Book -> Icons.AutoMirrored.Outlined.AirplaneTicket
+        JourneyStage.Docs -> Icons.Outlined.AssignmentInd
+        JourneyStage.Pack -> Icons.Outlined.Luggage
+        JourneyStage.Departure -> Icons.Outlined.FlightTakeoff
+        JourneyStage.Arrival -> Icons.Outlined.FlightLand
+        JourneyStage.During -> Icons.Outlined.Explore
+        JourneyStage.Return -> Icons.Outlined.Cottage
+    }
 }

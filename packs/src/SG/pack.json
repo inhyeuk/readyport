@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "country": "SG",
-  "version": "2026.10.02-1",
+  "version": "2026.10.03-2",
   "last_verified": "2026-09-28",
   "names": {
     "ko": "싱가포르",
@@ -77,6 +77,26 @@
       "id": "ica_entering",
       "name": "싱가포르 이민국(ICA) · 싱가포르에 들어갈 때",
       "url": "https://www.ica.gov.sg/enter-transit-depart/entering-singapore"
+    },
+    {
+      "id": "changi_arrival_immigration",
+      "name": "Changi Airport Group · Arrival Immigration Clearance",
+      "url": "https://www.changiairport.com/en/fly/arrival-guide/immigration.html"
+    },
+    {
+      "id": "changi_faq",
+      "name": "Changi Airport Group · FAQ (Arrival, Customs)",
+      "url": "https://www.changiairport.com/en/help/assistance/faq.html"
+    },
+    {
+      "id": "ica_automated_lanes",
+      "name": "싱가포르 이민국(ICA) · Automated Lanes at the Passenger Halls",
+      "url": "https://www.ica.gov.sg/enter-transit-depart/at-our-checkpoints/for-travellers/automated-lanes"
+    },
+    {
+      "id": "ica_epass",
+      "name": "싱가포르 이민국(ICA) · Retrieval of Electronic Visit Pass",
+      "url": "https://www.ica.gov.sg/enter-transit-depart/at-our-checkpoints/for-travellers/retrieval-of-electronic-visit-pass"
     }
   ],
   "requirements": [
@@ -337,10 +357,48 @@
     "source": "sp_group",
     "last_verified": "2026-09-29"
   },
+  "airports": [
+    {
+      "code": "SIN",
+      "name_ko": "창이 공항",
+      "name_en": "Singapore Changi Airport",
+      "city_ko": "싱가포르",
+      "egate_kr": true,
+      "egate_note_ko": "싱가포르 이민국(ICA) 안내: 국적과 관계없이 모든 외국인 방문객이 사전 등록 없이 자동 심사대(Automated Lane)를 쓸 수 있어요. 6세 이상이어야 하고, 남은 기간이 6개월 이상인 국제 규격(ICAO) 여권이 필요해요.",
+      "form_check_ko": "공식 안내에는 SG Arrival Card(SGAC)를 공항에서 따로 보여 준다는 말이 없어요. 심사가 끝나면 여권 도장 대신 SGAC에 적은 이메일로 전자 방문 허가(e-Pass)가 와요.",
+      "steps": [
+        {
+          "kind": "egate",
+          "title_ko": "자동 심사대로 입국 심사",
+          "body_ko": "자동 심사대에서 여권을 읽혀요. 처음 온 사람도 사전 등록 없이 쓸 수 있어요. 선글라스, 모자, 마스크는 벗어요.",
+          "where_ko": null,
+          "source": "ica_automated_lanes"
+        },
+        {
+          "kind": "baggage",
+          "title_ko": "짐 찾기",
+          "body_ko": "입국 심사를 마치고 수하물 찾는 곳에서 짐을 찾아요. 큰 짐도 같은 곳에서 찾아요.",
+          "where_ko": null
+        },
+        {
+          "kind": "customs",
+          "title_ko": "세관 (가방 속 물건 확인)",
+          "body_ko": "신고할 물건이 없으면 초록 줄(Green Channel), 있거나 잘 모르겠으면 빨간 줄(Red Channel)로 가요. 어느 줄이든 짐 검사를 받을 수 있어요. S$20,000가 넘는 현금(외화 포함)은 빨간 줄에서 신고해요.",
+          "where_ko": null,
+          "source": "changi_faq"
+        }
+      ],
+      "map_url": "https://www.changiairport.com/en/fly/arrival-guide/immigration.html",
+      "source": "changi_arrival_immigration",
+      "last_verified": "2026-10-03",
+      "form_check_source": "ica_epass"
+    }
+  ],
   "checklist": [
     {
       "id": "no_tobacco",
       "phase": "week",
+      "stage": "pack",
       "icon": "rules",
       "title_ko": "담배·전자담배는 두고 가기",
       "section": "entry",
@@ -349,6 +407,7 @@
     {
       "id": "cash_declare",
       "phase": "three_days",
+      "stage": "docs",
       "icon": "cash",
       "title_ko": "현금 신고 기준 알아 두기",
       "section": "entry",

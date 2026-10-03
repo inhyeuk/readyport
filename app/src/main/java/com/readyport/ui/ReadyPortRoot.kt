@@ -34,10 +34,8 @@ import com.readyport.ui.country.CountryActions
 import com.readyport.ui.country.CountryScreen
 import com.readyport.ui.settings.PhotoCreditsScreen
 import com.readyport.ui.nav.HelpRoute
-import com.readyport.ui.nav.PrepareRoute
 import com.readyport.ui.nav.SettingsRoute
 import com.readyport.ui.nav.Tab
-import com.readyport.ui.nav.TodayRoute
 import com.readyport.ui.nav.WalletRoute
 import com.readyport.ui.onboarding.FirstRunScreen
 import com.readyport.ui.settings.SettingsScreen
@@ -49,7 +47,6 @@ import com.readyport.ui.nav.FormConfirmRoute
 import com.readyport.ui.nav.FormManualRoute
 import com.readyport.ui.pack.HelpScreen
 import androidx.navigation.toRoute
-import com.readyport.ui.tabs.PrepareScreen
 import com.readyport.ui.wallet.BookingImportScreen
 import com.readyport.ui.wallet.PassportConfirmScreen
 import com.readyport.ui.wallet.PassportFlowViewModel
@@ -63,6 +60,7 @@ import com.readyport.ui.nav.PassportGraph
 import com.readyport.ui.nav.PassportIntroRoute
 import com.readyport.ui.nav.PassportManualRoute
 import com.readyport.ui.nav.PassportScanRoute
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -72,13 +70,13 @@ import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.compose.navigation
 import com.readyport.ui.theme.ReadyPortTheme
 import com.readyport.ui.theme.Tokens
-import com.readyport.ui.today.TodayActions
-import com.readyport.ui.today.TodayScreen
 import com.readyport.ui.trip.TripScreen
 import com.readyport.ui.present.PresentScreen
 import com.readyport.ui.present.CompanionsScreen
 import com.readyport.ui.nav.TripRoute
+import com.readyport.ui.nav.StayEditRoute
 import com.readyport.ui.nav.TransportRoute
+import com.readyport.ui.stay.StayEditScreen
 import com.readyport.ui.nav.EssentialsRoute
 import com.readyport.ui.nav.ShoppingRoute
 import com.readyport.ui.prep.EssentialsScreen
@@ -89,7 +87,7 @@ import com.readyport.ui.nav.CompanionsRoute
 import com.readyport.ui.nav.TripChecklistRoute
 import com.readyport.ui.nav.TripsRoute
 import com.readyport.ui.trip.ChecklistActions
-import com.readyport.ui.trip.TripChecklistScreen
+import com.readyport.ui.trip.TripJourneyScreen
 import com.readyport.ui.trip.TripListScreen
 
 /**
@@ -108,6 +106,12 @@ fun ReadyPortRoot(
     /** 위젯에서 열면 바로 '입국 때 보여 주기' */
     openPresent: Boolean = false,
     onSetWifiOnly: (Boolean) -> Unit = {},
+    /** 챙길 일 알림에서 열면 바로 그 여행 체크리스트 */
+    openChecklistTripId: String? = null,
+    /** 그 여행으로 간 뒤 — 같은 알림을 또 눌러도 다시 열리게 비워 둔다 */
+    onChecklistOpened: () -> Unit = {},
+    onSetAlertsOn: (Boolean) -> Unit = {},
+    onSetAlertHour: (Int) -> Unit = {},
 ) {
     when {
         settings == null -> Box(Modifier.fillMaxSize().background(Tokens.Ground))
@@ -117,7 +121,10 @@ fun ReadyPortRoot(
             }
         }
         else -> ReadyPortTheme(easyMode = settings.easyMode) {
-            MainScaffold(settings, onSetEasyMode, onSetChildMode, onSetWifiOnly, onSpeak, hasPendingShare, online, slots, openPresent)
+            MainScaffold(
+                settings, onSetEasyMode, onSetChildMode, onSetWifiOnly, onSpeak, hasPendingShare, online, slots, openPresent,
+                openChecklistTripId, onChecklistOpened, onSetAlertsOn, onSetAlertHour,
+            )
         }
     }
 }
@@ -133,6 +140,10 @@ private fun MainScaffold(
     online: Boolean,
     slots: ScreenSlots,
     openPresent: Boolean,
+    openChecklistTripId: String?,
+    onChecklistOpened: () -> Unit,
+    onSetAlertsOn: (Boolean) -> Unit,
+    onSetAlertHour: (Int) -> Unit,
 ) {
     val easyMode = settings.easyMode == true
     val tabs = if (settings.childMode) Tab.Child else Tab.Main
@@ -141,24 +152,17 @@ private fun MainScaffold(
     val destination = backStack?.destination
     // 탭이 아닌 화면(설정, 여권 등록 등)에서는 들어온 탭을 선택된 채로 둔다
     var lastTab by remember(tabs) { mutableStateOf(tabs.first()) }
+    // 둘러보기 히어로의 `예전 여행지 다시보기` → 내 여행 목록의 `지난 여행` 묶음을 펼친 채로 (목록이 한 번 쓰고 끈다)
+    var showPastTrips by remember { mutableStateOf(false) }
     val matched = tabs.firstOrNull { tab -> destination?.hasRoute(tab.route::class) == true }
+    // 탭이 아닌 화면은 **들어온 탭**을 켠 채로 둔다([lastTab]) — 같은 화면(나라 안내·예약 서류·여권)에 길이 여럿이라
+    // 화면만 보고 탭을 정하면 내 여행에서 들어가도 둘러보기가 켜졌다. 여행 줄기(알림 딥링크 포함)만 내 여행으로 못 박는다.
     val selectedTab = when {
         matched != null -> matched
         settings.childMode -> lastTab
         destination?.hierarchy?.any {
-            it.hasRoute(PassportGraph::class) || it.hasRoute(BookingImportRoute::class) || it.hasRoute(CompanionsRoute::class) ||
-                it.hasRoute(WalletRoute::class) || it.hasRoute(PhotoCreditsRoute::class)
-        } == true -> Tab.Settings
-        destination?.hierarchy?.any {
-            it.hasRoute(TripRoute::class) || it.hasRoute(PresentRoute::class) || it.hasRoute(PrepareRoute::class) ||
-                it.hasRoute(TripsRoute::class) || it.hasRoute(TripChecklistRoute::class)
+            it.hasRoute(TripRoute::class) || it.hasRoute(TripsRoute::class) || it.hasRoute(TripChecklistRoute::class)
         } == true -> Tab.Trip
-        destination?.hierarchy?.any {
-            it.hasRoute(CountryRoute::class) || it.hasRoute(TransportRoute::class) || it.hasRoute(ShoppingRoute::class) ||
-                it.hasRoute(VideosRoute::class) ||
-                it.hasRoute(FormConfirmRoute::class) || it.hasRoute(AutofillRoute::class) || it.hasRoute(FormManualRoute::class) ||
-                it.hasRoute(EssentialsRoute::class)
-        } == true -> Tab.Home
         else -> lastTab
     }
     LaunchedEffect(selectedTab) { lastTab = selectedTab }
@@ -169,7 +173,15 @@ private fun MainScaffold(
     }
 
     LaunchedEffect(hasPendingShare) {
-        if (hasPendingShare) navController.navigate(BookingImportRoute) { launchSingleTop = true }
+        if (hasPendingShare) navController.navigate(BookingImportRoute()) { launchSingleTop = true }
+    }
+
+    // 챙길 일 알림을 누르면 그 여행 체크리스트로 (PRD 6.1). 열고 나면 비워 둔다 — 같은 알림을 또 눌러도 열리게
+    LaunchedEffect(openChecklistTripId) {
+        if (openChecklistTripId != null) {
+            navController.navigate(TripChecklistRoute(openChecklistTripId)) { launchSingleTop = true }
+            onChecklistOpened()
+        }
     }
 
     val actions = remember(navController, onSpeak) {
@@ -196,18 +208,23 @@ private fun MainScaffold(
                     slots.home(
                         HomeActions(
                             openCountry = { code -> navController.navigate(CountryRoute(code)) },
-                            openTrip = { navController.switchTab(Tab.Trip) },
-                            openTrips = { navController.navigate(TripsRoute) },
-                            openEssentials = { navController.navigate(EssentialsRoute) },
-                            openMyInfo = { navController.navigate(WalletRoute) },
-                            // '급할 때는 도움' 카드 → 도움 탭 (DESIGN_SPEC 6-01 ⑩, 2단계 배선)
-                            openHelp = { navController.switchTab(Tab.Help) },
+                            // 여행 흐름은 모두 내 여행 탭이 맡는다 — 둘러보기는 길만 가리킨다
+                            openTrip = { id -> navController.navigate(TripChecklistRoute(id)) },
+                            openTrips = { navController.switchTab(Tab.Trip) },
+                            // 지난 여행만 보는 화면을 새로 만들지 않는다 — 여행 목록의 `지난 여행` 묶음을 펼쳐 준다
+                            openPastTrips = {
+                                showPastTrips = true
+                                navController.switchTab(Tab.Trip)
+                            },
+                            makeTrip = { navController.navigate(TripRoute()) },
                         ),
                     )
                 }
                 composable<CountryRoute> { entry ->
+                    val route = entry.toRoute<CountryRoute>()
+                    val popToTrip: () -> Unit = { navController.popBackStack() }
                     slots.country(
-                        entry.toRoute<CountryRoute>().country,
+                        route.country,
                         CountryActions(
                             back = { navController.popBackStack() },
                             openForm = { formId -> navController.navigate(FormConfirmRoute(formId)) },
@@ -217,24 +234,8 @@ private fun MainScaffold(
                             openMove = { navController.navigate(TransportRoute) },
                             openShopping = { code -> navController.navigate(ShoppingRoute(code)) },
                             openVideos = { code -> navController.navigate(VideosRoute(code)) },
-                        ),
-                    )
-                }
-                composable<TodayRoute> {
-                    slots.today(
-                        TodayActions(
-                            makeTrip = { navController.navigate(TripRoute()) },
-                            editTripById = { id -> navController.navigate(TripRoute(tripId = id)) },
-                            openChecklist = { id -> navController.navigate(TripChecklistRoute(id)) },
-                            openTrips = { navController.navigate(TripsRoute) },
-                            explore = { navController.switchTab(Tab.Home) },
-                            prepare = { navController.navigate(PrepareRoute) },
-                            openForm = { formId -> navController.navigate(FormConfirmRoute(formId)) },
-                            registerPassport = { navController.navigate(PassportGraph()) },
-                            present = { navController.navigate(PresentRoute) },
-                            help = { navController.switchTab(Tab.Help) },
-                            goStay = { navController.navigate(TransportRoute) },
-                            expense = { navController.navigate(PrepareRoute) },
+                            // 이 여행에서 열었으면 머리 띠에 여행으로 돌아가는 길
+                            backToTrip = route.tripId?.let { popToTrip },
                         ),
                     )
                 }
@@ -251,14 +252,17 @@ private fun MainScaffold(
                     )
                 }
                 composable<TripsRoute> {
-                    TripListScreen(
-                        onOpen = { id -> navController.navigate(TripChecklistRoute(id)) },
-                        onAdd = { navController.navigate(TripRoute()) },
+                    slots.trips(
+                        { id -> navController.navigate(TripChecklistRoute(id)) },
+                        { navController.navigate(TripRoute()) },
+                        showPastTrips,
                     )
+                    // 목록을 떠날 때 표시를 끈다 — 다음에 내 여행 탭을 그냥 눌렀을 때 또 펼쳐지지 않게
+                    DisposableEffect(Unit) { onDispose { showPastTrips = false } }
                 }
                 composable<TripChecklistRoute> { entry ->
                     val tripId = entry.toRoute<TripChecklistRoute>().tripId
-                    TripChecklistScreen(
+                    TripJourneyScreen(
                         tripId = tripId,
                         actions = ChecklistActions(
                             openPassport = { navController.navigate(PassportGraph()) },
@@ -270,17 +274,23 @@ private fun MainScaffold(
                             openShopping = { code -> navController.navigate(ShoppingRoute(code)) },
                             openEssentials = { navController.navigate(EssentialsRoute) },
                             editTrip = { id -> navController.navigate(TripRoute(tripId = id)) },
+                            openAirport = { code, airport ->
+                                navController.navigate(CountryRoute(code, focusAirports = true, airport = airport, tripId = tripId))
+                            },
+                            openCountry = { code -> navController.navigate(CountryRoute(code, tripId = tripId)) },
+                            // 예약 서류의 집은 이 여행의 예약 단계다 (설정 내 정보에서도 갈 수 있다).
+                            // 이 여행에서 들어가면 숙소 서류는 이 여행 `묵는 곳`으로 저장된다
+                            openBooking = { navController.navigate(BookingImportRoute(tripId = tripId)) },
+                            openStayEdit = { stayId -> navController.navigate(StayEditRoute(tripId = tripId, stayId = stayId)) },
                         ),
                         onDeleted = { navController.popBackStack() },
                     )
                 }
+                composable<StayEditRoute> { StayEditScreen(onDone = { navController.popBackStack() }) }
                 composable<TransportRoute> { TransportScreen() }
                 composable<PresentRoute> { slots.present() }
                 composable<CompanionsRoute> {
                     CompanionsScreen(onRegisterPassport = { id -> navController.navigate(PassportGraph(traveler = id)) })
-                }
-                composable<PrepareRoute> {
-                    slots.prepare({ formId -> navController.navigate(FormConfirmRoute(formId)) }, { navController.navigate(EssentialsRoute) })
                 }
                 composable<EssentialsRoute> { EssentialsScreen(onOpenChecklist = { id -> navController.navigate(TripChecklistRoute(id)) }) }
                 composable<ShoppingRoute> { ShoppingScreen() }
@@ -301,8 +311,11 @@ private fun MainScaffold(
                 composable<WalletRoute> {
                     slots.wallet(
                         { navController.navigate(PassportGraph()) },
-                        { navController.navigate(BookingImportRoute) },
+                        { navController.navigate(BookingImportRoute()) },
                         { navController.navigate(CompanionsRoute) },
+                        // 내 정보의 묵는 곳 목록에서 숙소 고치기 — 여행 id 없이 열어 그 숙소가 붙어 있던 여행을 그대로 둔다 (다듬기 S2)
+                        { stayId -> navController.navigate(StayEditRoute(stayId = stayId)) },
+                        { tripId -> navController.navigate(TripChecklistRoute(tripId)) },
                     )
                 }
                 navigation<PassportGraph>(startDestination = PassportIntroRoute) {
@@ -349,6 +362,8 @@ private fun MainScaffold(
                         easyMode = easyMode, onEasyModeChange = onSetEasyMode,
                         childMode = settings.childMode, onChildModeChange = onSetChildMode,
                         wifiOnly = settings.wifiOnly, onWifiOnlyChange = onSetWifiOnly,
+                        alertsOn = settings.alertsOn, onAlertsOnChange = onSetAlertsOn,
+                        alertHour = settings.alertHour, onAlertHourChange = onSetAlertHour,
                         onOpenMyInfo = { navController.navigate(WalletRoute) },
                         onOpenFamily = { navController.navigate(CompanionsRoute) },
                         onOpenPhotos = { navController.navigate(PhotoCreditsRoute) },
@@ -366,14 +381,24 @@ private fun MainScaffold(
 data class ScreenSlots(
     val home: @Composable (actions: HomeActions) -> Unit = { HomeScreen(actions = it) },
     val country: @Composable (country: String, actions: CountryActions) -> Unit = { _, a -> CountryScreen(actions = a) },
-    val wallet: @Composable (onAddPassport: () -> Unit, onAddBooking: () -> Unit, onOpenCompanions: () -> Unit) -> Unit =
-        { onAddPassport, onAddBooking, onOpenCompanions ->
-            WalletScreen(onAddPassport = onAddPassport, onAddBooking = onAddBooking, onOpenCompanions = onOpenCompanions)
-        },
+    val wallet: @Composable (
+        onAddPassport: () -> Unit,
+        onAddBooking: () -> Unit,
+        onOpenCompanions: () -> Unit,
+        onEditStay: (String) -> Unit,
+        onOpenTrip: (String) -> Unit,
+    ) -> Unit = { onAddPassport, onAddBooking, onOpenCompanions, onEditStay, onOpenTrip ->
+        WalletScreen(
+            onAddPassport = onAddPassport,
+            onAddBooking = onAddBooking,
+            onOpenCompanions = onOpenCompanions,
+            onEditStay = onEditStay,
+            onOpenTrip = onOpenTrip,
+        )
+    },
     val help: @Composable () -> Unit = { HelpScreen() },
-    val prepare: @Composable (onOpenForm: (String) -> Unit, onOpenEssentials: () -> Unit) -> Unit =
-        { f, e -> PrepareScreen(onOpenForm = f, onOpenEssentials = e) },
-    val today: @Composable (actions: TodayActions) -> Unit = { TodayScreen(actions = it) },
+    val trips: @Composable (onOpen: (String) -> Unit, onAdd: () -> Unit, openPast: Boolean) -> Unit =
+        { onOpen, onAdd, openPast -> TripListScreen(onOpen = onOpen, onAdd = onAdd, openPast = openPast) },
     val present: @Composable () -> Unit = { PresentScreen(defaultFormId = null) },
 )
 

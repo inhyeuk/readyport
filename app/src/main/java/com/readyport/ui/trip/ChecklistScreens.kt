@@ -30,12 +30,16 @@ import androidx.compose.material.icons.outlined.EventAvailable
 import androidx.compose.material.icons.outlined.EventBusy
 import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material.icons.outlined.Luggage
+import androidx.compose.material.icons.outlined.LocalAirport
 import androidx.compose.material.icons.outlined.OfflinePin
+import androidx.compose.material.icons.outlined.NotificationsActive
+import androidx.compose.material.icons.outlined.NotificationsOff
 import androidx.compose.material.icons.outlined.Badge
 import androidx.compose.material.icons.outlined.AccountBalanceWallet
 import androidx.compose.material.icons.outlined.QrCode2
 import androidx.compose.material.icons.outlined.Translate
 import androidx.compose.material.icons.outlined.Home
+import androidx.compose.material.icons.outlined.Hotel
 import androidx.compose.material.icons.outlined.ShoppingBag
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -44,7 +48,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -53,6 +59,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.runtime.withFrameNanos
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -70,19 +77,19 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewModelScope
 import com.readyport.R
-import com.readyport.pack.PackRepository
+import com.readyport.data.settings.SettingsRepository
 import com.readyport.trip.AutoState
 import com.readyport.trip.Checklist
 import com.readyport.trip.ChecklistAction
+import com.readyport.trip.ChecklistAlerts
 import com.readyport.trip.ChecklistData
 import com.readyport.trip.ChecklistItem
-import com.readyport.trip.ChecklistPhase
+import com.readyport.trip.ChecklistReminders
 import com.readyport.trip.ChecklistProvider
 import com.readyport.trip.ItemDetail
 import com.readyport.trip.ItemKind
 import com.readyport.trip.PassportStatus
 import com.readyport.trip.Trip
-import com.readyport.trip.TripNotifications
 import com.readyport.trip.TripRepository
 import com.readyport.trip.TripSelection
 import com.readyport.trip.TripTiming
@@ -95,8 +102,9 @@ import com.readyport.ui.components.CheckEmphasis
 import com.readyport.ui.components.CheckProgressBar
 import com.readyport.ui.components.ChecklistActions
 import com.readyport.ui.components.ChecklistDivider
-import com.readyport.ui.components.ChecklistPhaseCard
+import com.readyport.ui.components.StageSectionCard
 import com.readyport.ui.components.ChecklistRow
+import com.readyport.ui.components.journeyStageStepName
 import com.readyport.ui.components.DangerButton
 import com.readyport.ui.components.DestructiveConfirm
 import com.readyport.ui.components.DotBullet
@@ -108,6 +116,8 @@ import com.readyport.ui.components.IconKeys
 import com.readyport.ui.components.InfoChip
 import com.readyport.ui.components.KoText
 import com.readyport.ui.components.LinkRow
+import com.readyport.ui.components.ListGroup
+import com.readyport.ui.components.ListRow
 import com.readyport.ui.components.NoticeBanner
 import com.readyport.ui.components.NumberText
 import com.readyport.ui.components.OnDark
@@ -118,11 +128,14 @@ import com.readyport.ui.components.Photos
 import com.readyport.ui.components.PrimaryButton
 import com.readyport.ui.components.QuietButton
 import com.readyport.ui.components.QuietDangerButton
+import com.readyport.ui.components.RowTrailing
 import com.readyport.ui.components.SecondaryButton
 import com.readyport.ui.components.SectionHeader
 import com.readyport.ui.components.SourceFooter
 import com.readyport.ui.components.SourceList
 import com.readyport.ui.components.SourceRef
+import com.readyport.ui.components.rememberKeyIndex
+import com.readyport.ui.components.scrollToKey
 import com.readyport.ui.components.StatusKind
 import com.readyport.ui.components.StatusTag
 import com.readyport.ui.components.cardShadow
@@ -143,7 +156,6 @@ import com.readyport.ui.wallet.rememberDeviceAuth
 import com.readyport.vault.WalletRepository
 import com.readyport.vault.WalletState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -189,27 +201,47 @@ class TripListViewModel @Inject constructor(
 }
 
 @Composable
-fun TripListScreen(onOpen: (String) -> Unit, onAdd: () -> Unit, viewModel: TripListViewModel = hiltViewModel()) {
+fun TripListScreen(
+    onOpen: (String) -> Unit,
+    onAdd: () -> Unit,
+    openPast: Boolean = false,
+    viewModel: TripListViewModel = hiltViewModel(),
+) {
     val ui by viewModel.ui.collectAsStateWithLifecycle()
     if (!ui.loaded) return
-    TripListContent(ui, onOpen, onAdd)
+    TripListContent(ui, onOpen, onAdd, openPast)
 }
 
 /**
  * 내 여행 목록: 여행 중 → 다가오는 여행 → 지난 여행(접어 둠). 줄마다 나라 사진 원형 썸네일 + 이름 + 날짜 + 상태 + 체크리스트 `12 / 30` 막대.
  * 날짜가 겹치는 여행이 있으면 맨 위 가벼운 안내 한 줄 + 그 줄에 `날짜가 겹쳐요`(주의 태그) — 막지는 않는다.
  * 주 버튼은 `새 여행 만들기` 하나(목록 아래).
+ * [openPast]: 둘러보기 히어로의 `예전 여행지 다시보기`로 들어왔으면 `지난 여행` 묶음을 펼친 채로 그 자리로 내려간다
+ * (지난 여행만 보는 화면을 따로 만들지 않는다 — 여행 목록 하나가 모든 여행의 집이다).
  */
 @Composable
-fun TripListContent(ui: TripListUi, onOpen: (String) -> Unit, onAdd: () -> Unit) {
+fun TripListContent(ui: TripListUi, onOpen: (String) -> Unit, onAdd: () -> Unit, openPast: Boolean = false) {
     var pastOpen by rememberSaveable { mutableStateOf(false) }
     val ongoing = ui.rows.filter { it.timing == TripTiming.Ongoing }
     val upcoming = ui.rows.filter { it.timing == TripTiming.Upcoming }
     val past = ui.rows.filter { it.timing == TripTiming.Past }
+    val listState = rememberLazyListState()
+    val keys = rememberKeyIndex()
+    // `예전 여행지 다시보기`로 들어왔으면 한 번만 펼치고 그 묶음으로 내려간다
+    var pastFocused by rememberSaveable { mutableStateOf(false) }
+    LaunchedEffect(openPast, past.size) {
+        if (!openPast || pastFocused || past.isEmpty()) return@LaunchedEffect
+        pastFocused = true
+        pastOpen = true
+        withFrameNanos { }
+        listState.scrollToKey(keys, "past-toggle")
+    }
     AppScreen(
         title = stringResource(R.string.trips_title),
         subtitle = stringResource(R.string.trips_subtitle),
         speech = stringResource(R.string.trips_speech),
+        state = listState,
+        keyIndex = keys,
     ) {
         if (ui.rows.isEmpty()) {
             item(key = "empty") {
@@ -349,16 +381,7 @@ internal fun monthDay(date: LocalDate): String = stringResource(R.string.today_d
 // 여행 체크리스트 (한 여행)
 // =====================================================================================
 
-data class ChecklistUi(
-    val loaded: Boolean = false,
-    val trip: Trip? = null,
-    val countryName: String? = null,
-    val data: ChecklistData = ChecklistData(),
-    val today: LocalDate = LocalDate.now(),
-    val overlaps: Boolean = false,
-)
-
-/** 체크리스트 화면에서 다른 곳으로 가는 길·하는 일 */
+/** 한 여행 화면에서 다른 곳으로 가는 길·하는 일 */
 data class ChecklistActions(
     val toggle: (ChecklistItem, Boolean) -> Unit = { _, _ -> },
     val addCustom: (String) -> Unit = {},
@@ -376,204 +399,37 @@ data class ChecklistActions(
     val destroyPassport: () -> Unit = {},
     val editTrip: (String) -> Unit = {},
     val deleteTrip: () -> Unit = {},
+    /** 나라 화면 `공항에 도착하면` 묶음 (나라, 처음 고를 공항) */
+    val openAirport: (String, String?) -> Unit = { _, _ -> },
+    /** 이 여행만 알림 끄기·켜기 */
+    val setMuted: (Boolean) -> Unit = {},
+    /** 이 여행의 나라 안내 (계획 단계) */
+    val openCountry: (String) -> Unit = {},
+    /** 예약 서류 가져오기 (예약 단계의 집, 2026-10-03) */
+    val openBooking: () -> Unit = {},
+    /** 묵는 곳 카드로 (같은 화면 예약 단계로 내려간다 — 체크리스트의 `숙소 주소 저장하기`) */
+    val openStays: () -> Unit = {},
+    /** 숙소 넣기·고치기 (null이면 새 숙소) */
+    val openStayEdit: (String?) -> Unit = {},
+    /** 이 숙소 주소를 기사님께 보여 주기 (가는 곳으로 골라 두고 이동하기 화면으로) */
+    val showStayToDriver: (String) -> Unit = {},
+    /** 도착했어요 (출국 단계) */
+    val arrived: () -> Unit = {},
+    /** 도착을 잘못 눌렀어요 */
+    val undoArrived: () -> Unit = {},
+    /** 도착 순서를 다 봤어요 */
+    val arrivalDone: () -> Unit = {},
+    /** 여권 정보 지우기를 7일 미루기 (복귀 단계) */
+    val postponeDestroy: () -> Unit = {},
 )
 
-@HiltViewModel
-class ChecklistViewModel @Inject constructor(
-    @ApplicationContext private val context: android.content.Context,
-    private val trips: TripRepository,
-    private val checklists: ChecklistProvider,
-    private val wallet: WalletRepository,
-    private val packs: PackRepository,
-) : ViewModel() {
-    private val tripId = MutableStateFlow<String?>(null)
-
-    fun load(id: String) {
-        tripId.value = id
-    }
-
-    val ui: StateFlow<ChecklistUi> = combine(trips.book, tripId) { b, id ->
-        val trip = b.trips.firstOrNull { it.id == id } ?: return@combine ChecklistUi(loaded = id != null)
-        val today = LocalDate.now()
-        ChecklistUi(
-            loaded = true,
-            trip = trip,
-            countryName = checklists.countryName(trip.country),
-            data = checklists.build(trip, b, today),
-            today = today,
-            overlaps = trip.id in TripSelection.overlapping(b.trips),
-        )
-    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), ChecklistUi())
-
-    fun toggle(item: ChecklistItem, checked: Boolean) = viewModelScope.launch {
-        val id = tripId.value ?: return@launch
-        trips.setMark(id, item.id, markFor(item, checked))
-    }
-
-    fun addCustom(text: String) = viewModelScope.launch { tripId.value?.let { trips.addCustom(it, text) } }
-
-    fun editCustom(itemId: String, text: String) = viewModelScope.launch { tripId.value?.let { trips.editCustom(it, itemId, text) } }
-
-    fun removeCustom(itemId: String) = viewModelScope.launch { tripId.value?.let { trips.removeCustom(it, itemId) } }
-
-    /** 여권 정보만 지운다(오늘 화면 귀국 단계와 같은 동작). 지갑이 잠겨 있으면 먼저 연다 */
-    suspend fun destroyPassportInfo(): WalletRepository.SaveResult {
-        if (wallet.state.value !is WalletState.Unlocked) wallet.unlock()
-        val r = wallet.update { it.withoutPassportInfo() }
-        if (r == WalletRepository.SaveResult.Saved) tripId.value?.let { id -> trips.update(id) { it.copy(wrappedUp = true) } }
-        return r
-    }
-
-    fun deleteTrip() = viewModelScope.launch {
-        val id = tripId.value ?: return@launch
-        trips.delete(id)
-        rescheduleFormReminder(context, trips, packs)
-    }
-}
-
-@Composable
-fun TripChecklistScreen(
-    tripId: String,
-    actions: ChecklistActions,
-    onDeleted: () -> Unit,
-    viewModel: ChecklistViewModel = hiltViewModel(),
-) {
-    androidx.compose.runtime.LaunchedEffect(tripId) { viewModel.load(tripId) }
-    val ui by viewModel.ui.collectAsStateWithLifecycle()
-    val context = LocalContext.current
-    val scope = rememberCoroutineScope()
-    val auth = rememberDeviceAuth()
-    if (!ui.loaded) return
-    if (ui.trip == null) {
-        // 지운 여행 — 목록으로
-        androidx.compose.runtime.LaunchedEffect(Unit) { onDeleted() }
-        return
-    }
-    TripChecklistContent(
-        ui = ui,
-        actions = actions.copy(
-            toggle = viewModel::toggle,
-            addCustom = { viewModel.addCustom(it) },
-            editCustom = { id, t -> viewModel.editCustom(id, t) },
-            removeCustom = { viewModel.removeCustom(it) },
-            openLink = { url -> runCatching { context.startActivity(Intent(Intent.ACTION_VIEW, url.toUri())) } },
-            destroyPassport = {
-                scope.launch {
-                    if (viewModel.destroyPassportInfo() != WalletRepository.SaveResult.Saved) {
-                        auth { scope.launch { viewModel.destroyPassportInfo() } }
-                    }
-                }
-            },
-            deleteTrip = { viewModel.deleteTrip(); onDeleted() },
-        ),
-    )
-}
-
 /**
- * 한 여행의 체크리스트 (2026-10-02 운영자 요청 — 여권 만료 기간부터 돌아와서 할 일까지 빠짐없이).
- * 위에서부터: 나라 사진 머리(전체 `12 / 30` + 막대 + 지금 단계) → 단계 카드 여덟(떠나기 한 달 전쯤 … 돌아와서, 단계마다 `3 / 7` 막대)
- * → 내가 넣은 항목 → 기기 안 저장 한 줄 → 여행 고치기 · 이 여행 지우기.
- * - 항목 표시: 앱이 확인한 항목 = `앱이 확인했어요`(체크 아이콘 태그, 사람이 바꿀 수 있음) · 팩 사실 = 출처·확인일 · 내 항목 = `내 항목`.
- * - 이미 지난 단계를 다 했으면 그 단계 카드는 머리만 보이고 `한 일 7개 보기`로 펼친다(화면이 길어지지 않게 — 내용은 숨기지 않고 접기만).
- * - 늦은 항목은 주의 태그(`지금 해 두세요`), 빨강은 출발 당일 입국 카드(`오늘 꼭 내요`)에만.
- */
-@Composable
-fun TripChecklistContent(ui: ChecklistUi, actions: ChecklistActions) {
-    val trip = ui.trip ?: return
-    val country = ui.countryName ?: trip.country
-    val data = ui.data
-    val current = Checklist.currentPhase(trip, ui.today)
-    val nights = ChronoUnit.DAYS.between(trip.start, trip.end).toInt()
-    val dates = tripDateRange(trip.start, trip.end)
-    val subtitle = stringResource(R.string.ck_progress_title, dates, stringResource(R.string.trip_nights, nights, nights + 1))
-    var confirmDelete by remember { mutableStateOf(false) }
-    var confirmDestroy by remember { mutableStateOf(false) }
-    AppScreen(
-        title = stringResource(R.string.ck_title, country),
-        subtitle = subtitle,
-        speech = stringResource(R.string.ck_speech, country, data.total, data.done),
-        icon = Icons.Outlined.Checklist,
-    ) {
-        item(key = "hero") { ChecklistHero(trip.country, data, phaseName(current)) }
-        if (ui.overlaps) {
-            item(key = "overlap") { NoticeBanner(stringResource(R.string.trips_overlap_note), icon = Icons.Outlined.EventBusy) }
-        }
-        data.phases.forEach { phase ->
-            item(key = "phase-${phase.key}") {
-                PhaseCard(
-                    phase, data.phase(phase), trip, ui.today, now = phase == current, actions = actions, onDestroy = { confirmDestroy = true },
-                    currentDone = data.phase(current).all { it.checked },
-                )
-            }
-        }
-        sectionGap("custom-gap")
-        item(key = "custom") { CustomCard(data.custom, actions) }
-        item(key = "local") { IconBullet(stringResource(R.string.ck_saved_local), Icons.Outlined.Lock) }
-        item(key = "edit") {
-            Box(Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
-                QuietButton(stringResource(R.string.trip_edit_title), onClick = { actions.editTrip(trip.id) }, icon = Icons.Outlined.EditCalendar)
-            }
-        }
-        item(key = "delete") {
-            DangerButton(stringResource(R.string.trip_delete), onClick = { confirmDelete = true }, placement = ButtonPlacement.CardAction)
-        }
-    }
-    if (confirmDelete) {
-        DestructiveConfirm(
-            title = stringResource(R.string.trip_delete_confirm_title),
-            body = stringResource(R.string.ck_delete_body),
-            confirmLabel = stringResource(R.string.trip_delete_confirm),
-            onConfirm = { confirmDelete = false; actions.deleteTrip() },
-            onDismiss = { confirmDelete = false },
-        )
-    }
-    if (confirmDestroy) {
-        DestructiveConfirm(
-            title = stringResource(R.string.today_destroy_title),
-            body = stringResource(R.string.today_destroy_body),
-            confirmLabel = stringResource(R.string.today_destroy_now_target),
-            onConfirm = { confirmDestroy = false; actions.destroyPassport() },
-            onDismiss = { confirmDestroy = false },
-        )
-    }
-}
-
-@Composable
-internal fun phaseName(phase: ChecklistPhase): String = stringResource(
-    when (phase) {
-        ChecklistPhase.Month -> R.string.ck_phase_month
-        ChecklistPhase.Week -> R.string.ck_phase_week
-        ChecklistPhase.ThreeDays -> R.string.ck_phase_three_days
-        ChecklistPhase.DepartureDay -> R.string.ck_phase_departure_day
-        ChecklistPhase.Arrival -> R.string.ck_phase_arrival
-        ChecklistPhase.During -> R.string.ck_phase_during
-        ChecklistPhase.BeforeReturn -> R.string.ck_phase_before_return
-        ChecklistPhase.Back -> R.string.ck_phase_back
-    },
-)
-
-/** 단계 언제: `출발 7일 전부터 · 10월 30일까지` */
-@Composable
-internal fun phaseHint(phase: ChecklistPhase, trip: Trip): String {
-    val due = monthDay(Checklist.dueBy(phase, trip))
-    return when (phase) {
-        ChecklistPhase.Month -> stringResource(R.string.ck_hint_month, due)
-        ChecklistPhase.Week -> stringResource(R.string.ck_hint_week, due)
-        ChecklistPhase.ThreeDays -> stringResource(R.string.ck_hint_three_days, due)
-        ChecklistPhase.DepartureDay -> stringResource(R.string.ck_hint_departure_day, due)
-        ChecklistPhase.Arrival -> stringResource(R.string.ck_hint_arrival, due)
-        ChecklistPhase.During -> stringResource(R.string.ck_hint_during, due)
-        ChecklistPhase.BeforeReturn -> stringResource(R.string.ck_hint_before_return, due)
-        ChecklistPhase.Back -> stringResource(R.string.ck_hint_back, monthDay(trip.end))
-    }
-}
-
-/**
- * 체크리스트 사진 머리(섹션 표지 — 나라 사진): 스크림 영역 안에 큰 숫자 `12 / 30` + 문장 + 막대 + 지금 단계 칩.
+ * 한 여행 머리(섹션 표지 — 나라 사진): 스크림 영역 안에 큰 숫자 `12 / 30` + 문장 + 막대.
+ * 지금 단계는 바로 아래 단계 막대가 `지금 단계`로 또렷하게 말하므로 여기서 또 적지 않는다(2026-10-03).
  * 큰 숫자는 보는 사람용 — TalkBack은 문장(`모두 30개 중 12개 했어요`)을 읽는다. 쉬운 모드·큰 글자는 숫자 아래에 문장.
  */
 @Composable
-private fun ChecklistHero(country: String, data: ChecklistData, nowPhase: String) {
+internal fun ChecklistHero(country: String, data: ChecklistData) {
     val dimens = LocalDimens.current
     val extras = LocalTypeExtras.current
     val stacked = isStackedLayout() || dimens.easyMode
@@ -592,63 +448,6 @@ private fun ChecklistHero(country: String, data: ChecklistData, nowPhase: String
             }
             if (stacked) KoText(sentence, MaterialTheme.typography.bodyLarge, color = OnDark.content, glueShort = true)
             CheckProgressBar(data.done, data.total, Modifier.padding(top = 4.dp), onDark = true)
-            InfoChip(nowPhase, IconKeys.essentials, value = stringResource(R.string.ck_phase_now), onDark = true, modifier = Modifier.padding(top = 4.dp))
-        }
-    }
-}
-
-@Composable
-private fun PhaseCard(
-    phase: ChecklistPhase,
-    items: List<ChecklistItem>,
-    trip: Trip,
-    today: LocalDate,
-    now: Boolean,
-    actions: ChecklistActions,
-    onDestroy: () -> Unit,
-    /** 지금 단계 항목을 다 했는지(그러면 다음 단계를 펼친다) */
-    currentDone: Boolean = false,
-) {
-    val name = phaseName(phase)
-    val done = items.count { it.checked }
-    val total = items.size
-    val allDone = total > 0 && done == total
-    // 펼쳐 둘 단계: 지금 단계와 그 앞의 아직 안 끝난 단계(늦은 일이 묻히지 않게).
-    // 다 끝난 지난 단계(`한 일 7개 보기`)와 뒤 단계(`항목 3개 보기`)는 머리·진행만 보이고 그 자리에서 펼친다 — 숨기지 않고 접기만.
-    // 지금 단계를 다 했으면 바로 다음 단계를 펼쳐 미리 할 수 있게 한다
-    val current = Checklist.currentPhase(trip, today)
-    val next = ChecklistPhase.entries.getOrNull(current.ordinal + 1)
-    val foldable = (allDone && phase < current) || (phase > current && !(phase == next && currentDone))
-    var open by rememberSaveable(phase.key, foldable) { mutableStateOf(!foldable) }
-    ChecklistPhaseCard(
-        title = name,
-        hint = phaseHint(phase, trip),
-        icon = IconKeys.checklistPhase(phase.barIndex),
-        done = done,
-        total = total,
-        now = now,
-        nowLabel = stringResource(R.string.ck_phase_now),
-        headerDescription = stringResource(R.string.ck_phase_cd, name, total, done),
-    ) {
-        if (foldable) {
-            ExpandToggle(
-                open = open,
-                onOpenChange = { open = it },
-                label = if (allDone) stringResource(R.string.ck_phase_show, done) else stringResource(R.string.ck_phase_show_items, total),
-                target = stringResource(R.string.ck_phase_target, name),
-            )
-        }
-        if (open) {
-            items.forEachIndexed { i, item ->
-                if (i > 0) ChecklistDivider()
-                ItemRow(item, trip, today, actions, onDestroy)
-            }
-            if (phase == ChecklistPhase.Week && items.any { it.detail is ItemDetail.Essential }) {
-                // 같은 앱 안 화면으로 — 바깥 링크 모양(LinkRow) 대신 글자 버튼
-                Box(Modifier.fillMaxWidth()) {
-                    QuietButton(stringResource(R.string.ck_essentials_link), onClick = actions.openEssentials, icon = IconKeys.essentials)
-                }
-            }
         }
     }
 }
@@ -700,7 +499,8 @@ private fun itemTags(item: ChecklistItem, locked: Boolean, openDate: String?, co
     val autoDone = stringResource(R.string.ck_auto_marker)
     val override = stringResource(R.string.ck_auto_override)
     val custom = stringResource(R.string.ck_custom_kind)
-    val phase = item.phase?.let { phaseName(it) }
+    // 어느 단계 일인지 알려 주는 태그 — 배지를 그릴 수 없는 좁은 자리라 번호를 말에 넣는다(`3단계 서류`, 운영자 2026-10-03)
+    val stage = item.stage?.let { journeyStageStepName(it) }
     val tags = buildList<@Composable () -> Unit> {
         if (item.urgent) add { StatusTag(urgent, StatusKind.Required) }
         else if (item.overdue) add { StatusTag(overdue, StatusKind.Caution) }
@@ -708,7 +508,7 @@ private fun itemTags(item: ChecklistItem, locked: Boolean, openDate: String?, co
         if (item.kind == ItemKind.Auto && item.auto == AutoState.Done && !item.overridden) add { StatusTag(autoDone, StatusKind.Verified) }
         if (item.overridden) add { StatusTag(override, StatusKind.Self) }
         if (item.kind == ItemKind.Custom) add { StatusTag(custom, StatusKind.Self, icon = Icons.Outlined.EditNote) }
-        if (compact && phase != null && !item.urgent && !item.overdue && !locked) add { StatusTag(phase, StatusKind.Info) }
+        if (compact && stage != null && !item.urgent && !item.overdue && !locked) add { StatusTag(stage, StatusKind.Info) }
     }
     if (tags.isEmpty()) return null
     return { tags.forEach { it() } }
@@ -808,6 +608,15 @@ private fun ItemExtra(item: ChecklistItem, trip: Trip, today: LocalDate, actions
             }
         }
         is ItemDetail.Offline -> d.packVersion?.let { InfoChip(stringResource(R.string.ck_offline_value, displayDate(it)), Icons.Outlined.OfflinePin, tone = BadgeTone.Teal) }
+        is ItemDetail.AirportGuide -> {
+            // 고른 공항이 있으면 값 칩, 없으면 고르는 곳 안내(여행 고치기) — 공항 순서는 나라 화면 공항 묶음에서
+            if (d.name != null) {
+                InfoChip(stringResource(R.string.ck_airport_chosen), Icons.Outlined.LocalAirport, value = d.name, tone = BadgeTone.Accent)
+            } else {
+                KoText(stringResource(R.string.ck_airport_not_chosen), MaterialTheme.typography.bodyMedium, color = Tokens.InkSecondary)
+            }
+            SecondaryButton(stringResource(R.string.ck_action_airport), onClick = { actions.openAirport(d.country, d.code) }, icon = Icons.Outlined.LocalAirport)
+        }
         null -> Unit
     }
     // 다른 화면으로 가는 버튼(입국 카드·여권은 위에서 이미)
@@ -815,6 +624,8 @@ private fun ItemExtra(item: ChecklistItem, trip: Trip, today: LocalDate, actions
         ChecklistAction.OpenHelp -> SecondaryButton(stringResource(R.string.ck_action_help), onClick = actions.openHelp, icon = Icons.Outlined.Translate)
         ChecklistAction.OpenPresent -> SecondaryButton(stringResource(R.string.ck_action_present), onClick = actions.openPresent, icon = Icons.Outlined.QrCode2)
         ChecklistAction.OpenTransport -> SecondaryButton(stringResource(R.string.ck_action_transport), onClick = actions.openTransport, icon = Icons.Outlined.Home)
+        // 묵는 곳 카드로 내려간다 (주소를 적는 곳이 한 군데 — 2026-10-03)
+        ChecklistAction.OpenStays -> SecondaryButton(stringResource(R.string.ck_action_stays), onClick = actions.openStays, icon = Icons.Outlined.Hotel)
         ChecklistAction.OpenShopping -> SecondaryButton(stringResource(R.string.ck_action_shopping), onClick = { actions.openShopping(trip.country) }, icon = Icons.Outlined.ShoppingBag)
         ChecklistAction.OpenLink -> if (item.detail !is ItemDetail.Visa) {
             item.link?.let { link -> SecondaryButton(stringResource(R.string.ck_official_open), onClick = { actions.openLink(link.url) }, icon = Icons.AutoMirrored.Outlined.OpenInNew) }
@@ -837,14 +648,14 @@ private fun ItemExtra(item: ChecklistItem, trip: Trip, today: LocalDate, actions
 
 /** 내가 넣은 항목 카드: 항목(체크 + 고치기·지우기) → 더하기 칸 */
 @Composable
-private fun CustomCard(items: List<ChecklistItem>, actions: ChecklistActions) {
+internal fun CustomCard(items: List<ChecklistItem>, actions: ChecklistActions) {
     val dimens = LocalDimens.current
     val shape = MaterialTheme.shapes.large
     var text by rememberSaveable { mutableStateOf("") }
     var editing by rememberSaveable { mutableStateOf<String?>(null) }
     var editText by rememberSaveable { mutableStateOf("") }
     val done = items.count { it.checked }
-    ChecklistPhaseCard(
+    StageSectionCard(
         title = stringResource(R.string.ck_custom_title),
         hint = if (items.isEmpty()) stringResource(R.string.ck_custom_empty) else null,
         icon = Icons.Outlined.EditNote,
@@ -940,20 +751,40 @@ private fun CustomField(
 }
 
 /**
- * 가장 가까운 다가오는 여행의 입국 카드 알림을 다시 맞춘다(알림 작업은 하나뿐 — 여행이 여럿이면 가장 먼저 떠나는 여행).
- * 기간이 정해진 입국 카드가 없으면 알림을 지운다.
+ * 알림 한 줄 + 이 여행만 조용히 두기 (PRD 6.1).
+ * 알림이 켜져 있으면 **다음에 언제 알려 주는지**를 그대로 보여 준다(`못한 일이 있으면 내일 아침 9시에 알려 드려요`).
+ * 스위치를 끄면 이 여행만 알리지 않는다 — 다른 여행과 설정은 그대로.
  */
-internal suspend fun rescheduleFormReminder(context: android.content.Context, trips: TripRepository, packs: PackRepository) {
-    val today = LocalDate.now()
-    val next = trips.all().filter { it.datesValid && it.start.isAfter(today.minusDays(1)) }.sortedBy { it.start }.firstNotNullOfOrNull { t ->
-        val form = packs.pack(t.country)?.value?.forms?.firstOrNull()
-        val days = form?.windowDaysIncludingArrival
-        if (form != null && days != null) Triple(t, form, days) else null
-    }
-    if (next == null) {
-        TripNotifications.cancelFormWindow(context)
+@Composable
+internal fun ReminderRow(ui: JourneyUi, actions: ChecklistActions) {
+    val hourLabel = alertHourLabel(ui.alertHour)
+    val whenLabel = if (ui.nowHour < ui.alertHour) {
+        stringResource(R.string.ck_alert_today, hourLabel)
     } else {
-        val (t, form, days) = next
-        TripNotifications.scheduleFormWindow(context, t.start.minusDays((days - 1).toLong()), form.nameKo)
+        stringResource(R.string.ck_alert_tomorrow, hourLabel)
+    }
+    val body = when {
+        !ui.alertsOn -> stringResource(R.string.ck_alert_off)
+        ui.muted -> stringResource(R.string.ck_alert_muted)
+        else -> stringResource(R.string.ck_alert_next, whenLabel)
+    }
+    ListGroup {
+        ListRow(
+            title = stringResource(R.string.ck_alert_title),
+            icon = if (ui.alertsOn && !ui.muted) Icons.Outlined.NotificationsActive else Icons.Outlined.NotificationsOff,
+            body = body,
+            // 설정에서 아예 꺼 두었으면 여행별 스위치는 보이지 않는다(끌 것이 없다)
+            trailing = if (ui.alertsOn) RowTrailing.Switch(!ui.muted) { actions.setMuted(!it) } else RowTrailing.None,
+        )
     }
 }
+
+/** 알림 시각 이름: 아침 8시 · 아침 9시 · 저녁 8시 */
+@Composable
+internal fun alertHourLabel(hour: Int): String = stringResource(
+    when (hour) {
+        8 -> R.string.alert_hour_8
+        20 -> R.string.alert_hour_20
+        else -> R.string.alert_hour_9
+    },
+)

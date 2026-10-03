@@ -9,6 +9,7 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.scrollBy
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -49,10 +50,12 @@ import androidx.compose.material.icons.outlined.TouchApp
 import androidx.compose.material.icons.outlined.Translate
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.Surface
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconToggleButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -71,6 +74,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.clearAndSetSemantics
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
@@ -100,7 +104,9 @@ import com.readyport.pack.SourcedText
 import com.readyport.pack.VisaApply
 import com.readyport.prep.import
 import com.readyport.trip.TripRepository
+import com.readyport.ui.components.AirportGuideCard
 import com.readyport.ui.components.AppScreen
+import com.readyport.ui.components.airportSources
 import com.readyport.ui.components.Assurance
 import com.readyport.ui.components.AssuranceCard
 import com.readyport.ui.components.BadgeTone
@@ -152,6 +158,7 @@ import com.readyport.ui.components.importLabel
 import com.readyport.ui.components.isNarrowWindow
 import com.readyport.ui.components.koDisplay
 import com.readyport.ui.components.minTouchSize
+import com.readyport.ui.components.minTouch
 import com.readyport.ui.components.personalWindowKo
 import com.readyport.ui.components.rememberGridColumns
 import com.readyport.ui.components.rememberKeyIndex
@@ -192,9 +199,47 @@ data class CountryUi(
     val tripArrival: LocalDate? = null,
     /** 이 나라로 가는 다가오는(또는 여행 중인) 여행 — `내 여행에 넣기`를 누르면 새로 만들지 그 여행을 열지 묻는다 */
     val upcomingTrip: Trip? = null,
+    /** 체크리스트·오늘 화면의 `공항 순서 보기`로 왔을 때 — 입국·비자의 `공항에 도착하면` 묶음으로 바로 내려간다 */
+    val focusAirports: Boolean = false,
+    /** 처음 고를 공항(IATA). 없으면 이 나라 여행의 도착 공항([upcomingTrip]) → 팩 첫 공항 */
+    val focusAirport: String? = null,
 )
 
 /** 나라 화면에서 다른 곳으로 가는 길 */
+/**
+ * 이 여행에서 연 나라 화면의 머리 띠 (2026-10-03): 연한 Accent 바탕 한 줄 — `이 여행 · 태국` + `여행으로 돌아가기`.
+ * 줄 전체가 버튼(Role.Button)이고 TalkBack은 한 문장으로 읽는다.
+ */
+@Composable
+private fun TripContextRow(country: String, onBack: () -> Unit) {
+    val dimens = LocalDimens.current
+    val title = stringResource(R.string.journey_country_trip, country)
+    val back = stringResource(R.string.journey_country_back)
+    Surface(color = Tokens.AccentSoft, shape = MaterialTheme.shapes.medium, modifier = Modifier.fillMaxWidth()) {
+        Row(
+            Modifier
+                .fillMaxWidth()
+                .minTouch()
+                .clickable(role = Role.Button, onClick = onBack)
+                .semantics(mergeDescendants = true) { contentDescription = "$title, $back" }
+                .padding(horizontal = 16.dp, vertical = 10.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(12.dp),
+        ) {
+            Icon(
+                Icons.AutoMirrored.Outlined.ArrowBack,
+                contentDescription = null,
+                tint = Tokens.Accent,
+                modifier = Modifier.size(textIconSize(dimens.icon, MaterialTheme.typography.titleSmall)),
+            )
+            Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                KoText(title, MaterialTheme.typography.titleSmall, color = Tokens.AccentDeep, glueShort = true)
+                KoText(back, MaterialTheme.typography.bodySmall, color = Tokens.Accent, glueShort = true)
+            }
+        }
+    }
+}
+
 data class CountryActions(
     val back: () -> Unit = {},
     val openForm: (String) -> Unit = {},
@@ -207,6 +252,11 @@ data class CountryActions(
     val openVideos: (String) -> Unit = {},
     val openLink: (String) -> Unit = {},
     val toggleFavorite: () -> Unit = {},
+    /**
+     * 이 여행에서 열었을 때 그 여행으로 돌아가는 길 (2026-10-03). null이면 둘러보기에서 연 것 —
+     * 머리 띠를 그리지 않는다. 나라 화면의 메뉴·내용은 어느 쪽에서 열어도 똑같다(부록 E·E.6 그대로).
+     */
+    val backToTrip: (() -> Unit)? = null,
 )
 
 @HiltViewModel
@@ -217,7 +267,8 @@ class CountryViewModel @Inject constructor(
     private val settings: SettingsRepository,
     trips: TripRepository,
 ) : ViewModel() {
-    val country = handle.toRoute<CountryRoute>().country
+    private val route = handle.toRoute<CountryRoute>()
+    val country = route.country
 
     val ui: StateFlow<CountryUi> = combine(settings.settings, packs.revision, trips.book) { s, _, book ->
         val trip = TripSelection.active(book.trips, LocalDate.now())
@@ -235,6 +286,8 @@ class CountryViewModel @Inject constructor(
                 ?.let { t -> runCatching { t.start }.getOrNull() }
                 ?.takeIf { !LocalDate.now().isAfter(it) },
             upcomingTrip = TripSelection.upcomingFor(book.trips, country, LocalDate.now()),
+            focusAirports = route.focusAirports,
+            focusAirport = route.airport,
         )
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), CountryUi())
 
@@ -363,6 +416,16 @@ fun CountryContent(
         }
     }
 
+    // `공항 순서 보기`로 왔으면 한 번만 공항 묶음으로 내려간다(첫 카드 윗변 = 고정 줄 아래 + gap — onSelect와 같은 약속)
+    var airportsFocused by rememberSaveable(pack.country) { mutableStateOf(false) }
+    LaunchedEffect(ui.focusAirports, pack.country) {
+        if (!ui.focusAirports || airportsFocused || pack.airports.isEmpty() || section != CountrySection.Entry.ordinal) return@LaunchedEffect
+        airportsFocused = true
+        withFrameNanos { }
+        val target = keys.indexOf("airports") ?: return@LaunchedEffect
+        listState.scrollToItem(target, -(barHeight() + gapPx))
+    }
+
     AppScreen(
         title = pack.names.ko,
         speech = stringResource(R.string.country_speech, pack.names.ko),
@@ -398,6 +461,10 @@ fun CountryContent(
             }
         },
     ) {
+        // 이 여행에서 열었으면 머리에 `이 여행` 띠 — 어디서 왔는지 보이고 한 번에 돌아간다
+        actions.backToTrip?.let { back ->
+            item(key = "trip-context") { TripContextRow(pack.names.ko, back) }
+        }
         // 머리 묶음(히어로 + 그림 메뉴) 다음부터가 내용이다. 그림 메뉴는 보통 항목이라 함께 올라가고,
         // 다 지나가면 위 overlay의 접힌 고정 줄이 이어받는다(모든 모드 - 쉬운 모드와 큰 글자에서도 같은 구조).
         item(key = "sections") {
@@ -470,6 +537,22 @@ fun CountryContent(
                         FormCard(form, autofill = form.id in ui.autofillForms, sourceOf = sourceOf, tripArrival = ui.tripArrival) {
                             actions.openForm(form.id)
                         }
+                    }
+                }
+                // 공항에 도착하면 (2026-10-03): 입국 카드 다음 — 그 카드를 어디서 보여 주는지까지 이어 읽는다. 팩에 공항이 없으면 그리지 않는다.
+                // 처음 고른 공항 = 부른 곳이 준 공항 → 이 나라 여행의 도착 공항 → 팩 첫 공항
+                if (pack.airports.isNotEmpty()) {
+                    item(key = "airports") {
+                        val initial = (pack.airport(ui.focusAirport) ?: pack.airport(ui.upcomingTrip?.arrivalAirport) ?: pack.airports.first()).code
+                        var picked by rememberSaveable(pack.country, initial) { mutableStateOf(initial) }
+                        val airport = pack.airport(picked) ?: pack.airports.first()
+                        AirportGuideCard(
+                            airports = pack.airports,
+                            selected = airport,
+                            onSelect = { picked = it },
+                            sources = airportSources(airport, sourceOf),
+                            onOpenMap = actions.openLink,
+                        )
                     }
                 }
                 // 들어갈 때: 위 비자 카드·입국 카드가 이미 보여 준 문장(같은 말을 길게 공유)은 접어 둔다 — `90일`·TDAC 기간이 한 화면에 두세 번 나오지 않게(재검토2 ③#5·③#12)
@@ -678,6 +761,7 @@ internal fun CountryPack.latestVerified(): String = buildList {
     sections.forEach { add(it.lastVerified) }
     power?.let { add(it.lastVerified) }
     shopping.forEach { add(it.lastVerified) }
+    airports.forEach { add(it.lastVerified) }
 }.filter { IsoDate.matches(it) }.maxOrNull() ?: lastVerified
 
 private val IsoDate = Regex("""\d{4}-\d{2}-\d{2}""")
@@ -943,17 +1027,26 @@ private fun FoldedSteps(steps: List<String>) {
  * 무엇 → 앱이 해 주는 것(자동 입력이면 칸을 채워 줌, 아니면 값 복사) → 비용 → 내는 때 → `입국 카드 준비하기`(주 버튼) → 출처.
  * 내는 때: 이 나라 여행이 있으면([tripArrival]) 일반 예시 대신 내 날짜(팩 기간 일수 + 출발일, 재검토2 ③#5).
  * 비자 온라인 신청이 이 양식을 거치면(인도네시아) 부르는 쪽이 번호 원 순서 머리 ①을 위에 붙인다.
+ * 의무가 아닌 신고(베트남 PAI, forms[].optional)는 eyebrow·알약·버튼·설명이 모두 `의무 아님`으로 바뀌고 주 버튼이 되지 않는다 —
+ * 꼭 내야 하는 입국 카드처럼 읽히지 않게. 레시피가 없으니 자동 입력을 말하지도 않는다.
  */
 @Composable
 private fun FormCard(form: FormInfo, autofill: Boolean, sourceOf: SourceOf, tripArrival: LocalDate?, onStart: () -> Unit) {
+    val body = when {
+        form.optional -> R.string.country_form_optional_body
+        autofill -> R.string.country_form_autofill_body
+        else -> R.string.country_form_manual_body
+    }
     EntryFormCard(
         name = form.nameKo,
         feeKo = form.feeKo,
         windowKo = personalWindowKo(form.windowKo, form.windowDaysIncludingArrival, tripArrival),
         source = sourceOf(form.source, form.lastVerified),
-        eyebrow = stringResource(R.string.entry_form_label),
+        eyebrow = stringResource(if (form.optional) R.string.entry_form_label_optional else R.string.entry_form_label),
         onStart = onStart,
-        body = stringResource(if (autofill) R.string.country_form_autofill_body else R.string.country_form_manual_body),
+        body = stringResource(body),
+        primary = !form.optional,
+        optional = form.optional,
     )
 }
 

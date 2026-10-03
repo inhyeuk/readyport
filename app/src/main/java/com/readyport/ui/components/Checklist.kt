@@ -1,5 +1,6 @@
 package com.readyport.ui.components
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.Spring
@@ -42,10 +43,15 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.readyport.R
+import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.DeleteOutline
+import androidx.compose.material.icons.outlined.ExpandLess
+import androidx.compose.material.icons.outlined.ExpandMore
 import com.readyport.ui.theme.LocalDimens
 import com.readyport.ui.theme.Tokens
 
@@ -159,12 +165,19 @@ fun CheckProgressBar(done: Int, total: Int, modifier: Modifier = Modifier, onDar
 }
 
 /**
- * 체크리스트 단계 카드: 머리(단계 아이콘 + 단계 이름 + 언제 할지 + `3 / 7` + 막대) → 항목들(사이 1dp Line).
- * 지금 단계면 머리에 `지금` 태그(Accent). 흰 카드 + 그림자 + 옅은 테두리(결정 6).
- * TalkBack: 머리는 제목(heading) 하나로 `일주일 전, 7개 중 3개 했어요`를 읽는다.
+ * 여행 과정 단계 카드 (2026-10-03 — 예전 이름 `ChecklistPhaseCard`): 머리(**번호 배지** + 단계 이름 + 언제까지 + `3 / 7` + 막대)
+ * → 항목들(사이 1dp Line). 지금 단계면 머리에 `지금` 태그(Accent). 흰 카드 + 그림자 + 옅은 테두리(결정 6).
+ * TalkBack: 머리는 하나로 `2단계 예약, 8개 중 3개 했어요`를 읽는다.
+ *
+ * **아코디언** (운영자 2026-10-03, 부록 H.7 — *"각 단계를 클릭하면 접혔다가 펴지는 형태로 해줘"*):
+ * [open]이 null이 아니면 머리 **전체**가 펼침·접기 단추([Role.Button] + 펼쳐짐/접힘 상태)이고 내용은 그 자리에서 접힌다.
+ * 접혀도 번호·이름·언제까지·진행은 머리에 그대로 남는다(숨기지 않고 접기만 — 부록 F 규칙 그대로).
+ * [open]이 null이면 늘 펼친 카드다(`내가 넣은 항목`처럼 단계가 아닌 묶음).
+ *
+ * @param step 몇 번째 단계인지(1~8). null이면 번호 배지 없음
  */
 @Composable
-fun ChecklistPhaseCard(
+fun StageSectionCard(
     title: String,
     hint: String?,
     icon: ImageVector,
@@ -174,38 +187,69 @@ fun ChecklistPhaseCard(
     now: Boolean = false,
     nowLabel: String? = null,
     headerDescription: String,
+    step: Int? = null,
+    open: Boolean? = null,
+    onOpenChange: (Boolean) -> Unit = {},
     content: @Composable ColumnScope.() -> Unit,
 ) {
     val dimens = LocalDimens.current
     val shape = MaterialTheme.shapes.large
     val stacked = isStackedLayout() || dimens.easyMode
+    val style = MaterialTheme.typography.titleLarge
+    val state = stringResource(if (open == true) R.string.state_expanded else R.string.state_collapsed)
     Card(
         shape = shape,
         colors = CardDefaults.cardColors(containerColor = Tokens.Surface, contentColor = Tokens.Ink),
         elevation = CardDefaults.cardElevation(0.dp),
         modifier = modifier.fillMaxWidth().cardShadow(shape),
     ) {
-        Column(Modifier.fillMaxWidth().padding(dimens.cardPadding), verticalArrangement = Arrangement.spacedBy(dimens.inner + 4.dp)) {
+        Column(Modifier.fillMaxWidth().padding(dimens.cardPadding)) {
             Column(
-                Modifier.fillMaxWidth().semantics(mergeDescendants = true) { contentDescription = headerDescription },
+                Modifier
+                    .fillMaxWidth()
+                    .then(
+                        if (open != null) {
+                            Modifier
+                                .clip(MaterialTheme.shapes.medium)
+                                .minTouch()
+                                .toggleable(value = open, role = Role.Button, onValueChange = onOpenChange)
+                        } else {
+                            Modifier
+                        },
+                    )
+                    .semantics(mergeDescendants = true) {
+                        contentDescription = headerDescription
+                        if (open != null) stateDescription = state
+                    },
                 verticalArrangement = Arrangement.spacedBy(8.dp),
             ) {
-                val style = MaterialTheme.typography.titleLarge
-                Row(verticalAlignment = Alignment.Top, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                    val size = textIconSize(dimens.icon, style)
-                    Icon(
-                        icon,
-                        contentDescription = null,
-                        tint = if (now) Tokens.Accent else Tokens.InkSecondary,
-                        modifier = Modifier.padding(top = firstLineIconOffset(style, size)).size(size),
-                    )
-                    Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
-                        KoText(title, style, color = Tokens.Ink, heading = true, glueShort = true)
-                        if (hint != null && !stacked) PhaseHint(hint, stacked = false)
-                    }
-                    if (!stacked) Count(done, total)
-                }
-                // 큰 글자 배치: 언제 할지는 폭 전체로 — 아이콘·숫자 사이 좁은 칸에서 `전쯤부/터`처럼 쪼개지지 않게(`·` 자리에서 줄을 바꾼다).
+                BadgeTitleLayout(
+                    title = { KoText(title, style, color = Tokens.Ink, heading = true, glueShort = true) },
+                    badge = {
+                        if (step != null) {
+                            StageStepBadge(step, now)
+                        } else {
+                            val size = textIconSize(dimens.icon, style)
+                            Icon(
+                                icon,
+                                contentDescription = null,
+                                tint = if (now) Tokens.Accent else Tokens.InkSecondary,
+                                modifier = Modifier.padding(top = firstLineIconOffset(style, size)).size(size),
+                            )
+                        }
+                    },
+                    trailing = {
+                        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                            if (!stacked) Count(done, total)
+                            if (open != null) FoldChevron(open, style)
+                        }
+                    },
+                    // 큰 글자 배치에서는 언제 할지를 머리 묶음 아래 폭 전체로 (바로 아래에서 따로 그린다)
+                    below = if (hint != null && !stacked) ({ PhaseHint(hint, stacked = false) }) else null,
+                    stack = stacked,
+                    gap = 12.dp,
+                )
+                // 큰 글자 배치: 언제 할지는 폭 전체로 — 배지·숫자 사이 좁은 칸에서 `전쯤부/터`처럼 쪼개지지 않게(`·` 자리에서 줄을 바꾼다).
                 // `3 / 7`은 막대 옆으로 내려 제목에 폭을 준다
                 if (hint != null && stacked) PhaseHint(hint, stacked = true)
                 if (now && nowLabel != null) StatusTag(nowLabel, StatusKind.Info)
@@ -218,9 +262,37 @@ fun ChecklistPhaseCard(
                     CheckProgressBar(done, total)
                 }
             }
-            content()
+            if (open == null) {
+                Column(
+                    Modifier.fillMaxWidth().padding(top = dimens.inner + 4.dp),
+                    verticalArrangement = Arrangement.spacedBy(dimens.inner + 4.dp),
+                    content = content,
+                )
+            } else {
+                // 늘 있는 상자에 liveRegion — 펼쳐진 내용이 나타나면 그 바뀜을 알린다(접힘·펼침 자체는 stateDescription이 알린다)
+                Column(Modifier.fillMaxWidth().foldLiveRegion()) {
+                    AnimatedVisibility(visible = open) {
+                        Column(
+                            Modifier.fillMaxWidth().padding(top = dimens.inner + 4.dp),
+                            verticalArrangement = Arrangement.spacedBy(dimens.inner + 4.dp),
+                            content = content,
+                        )
+                    }
+                }
+            }
         }
     }
+}
+
+/** 접힘·펼침 꺾쇠 (머리 전체가 단추라 이 아이콘은 꾸밈 — 상태는 머리의 stateDescription이 알린다) */
+@Composable
+private fun FoldChevron(open: Boolean, style: androidx.compose.ui.text.TextStyle) {
+    Icon(
+        if (open) Icons.Outlined.ExpandLess else Icons.Outlined.ExpandMore,
+        contentDescription = null,
+        tint = Tokens.Accent,
+        modifier = Modifier.size(textIconSize(LocalDimens.current.icon, style)),
+    )
 }
 
 /** 단계 '언제' 한 줄(`출발 7일 전부터 · 10월 30일까지`). [stacked]면 `·` 자리에서 줄을 바꿔 폭 전체로 */

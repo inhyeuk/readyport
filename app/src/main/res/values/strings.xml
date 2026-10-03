@@ -8,7 +8,6 @@
     <string name="app_name">레디포트</string>
 
     <!-- 하단 탭 -->
-    <string name="tab_home">홈</string>
     <string name="tab_trip">내 여행</string>
     <string name="tab_settings">설정</string>
     <string name="tab_help">도움</string>
@@ -27,30 +26,11 @@
     <string name="first_run_no">아니요, 가 봤어요</string>
 
     <!-- 오늘 -->
-    <string name="today_title">내 여행</string>
-    <string name="today_no_trip">아직 만든 여행이 없어요</string>
-    <string name="today_stage_desc">여행 단계: %1$s (%3$d단계 중 %2$d단계)</string>
-    <string name="today_stage_now">지금: %1$s (%3$d단계 중 %2$d단계)</string>
-    <string name="stage_prepare">준비</string>
-    <string name="stage_departure">출국</string>
-    <string name="stage_arrival">도착</string>
-    <string name="stage_traveling">여행 중</string>
-    <string name="stage_return">귀국</string>
-    <string name="stage_wrapup">정리</string>
     <string name="today_next_label">지금 할 일</string>
-    <string name="today_next_title">어디로 여행 가세요?</string>
-    <string name="today_next_body">여행 날짜를 넣으면 날마다 할 일을 차례로 알려 드려요.</string>
-    <string name="today_next_button">나라 사진 보며 고르기</string>
     <string name="today_help_body">현지어 문장 카드와 긴급 연락처는 인터넷이 없어도 볼 수 있어요.</string>
 
     <!-- 준비 -->
-    <string name="prepare_title">여행 준비</string>
-    <string name="prepare_subtitle">서류와 준비물을 하나씩 챙겨요</string>
-    <string name="prepare_disclaimer">레디포트는 정부 기관과 제휴하지 않았어요. 공식 사이트 화면을 그대로 보여 드리고, 마지막 제출은 직접 해요.</string>
-    <string name="prepare_forms_title">도착 전에 내는 입국 카드</string>
-    <string name="prepare_forms_body">여행을 만들면 어떤 서류가 필요한지 알려 드리고, 앱이 대신 채워 드려요.</string>
     <string name="prepare_items_title">꼭 챙길 물건</string>
-    <string name="prepare_items_body">여행지와 계절에 맞춰 챙길 물건을 골라 드려요.</string>
     <string name="prepare_form_open">입국 카드 준비하기</string>
 
     <!-- 입국 카드 3개 국어 확인 (PRD 5.2) -->
@@ -61,7 +41,8 @@
     <string name="form_choose_yourself">직접 골라 주세요</string>
     <string name="form_origin_passport">여권에서</string>
     <string name="form_origin_flight">항공권에서</string>
-    <string name="form_origin_lodging">예약 확인서에서</string>
+    <!-- 숙소 값의 출처: 2026-10-03부터 예약 서류 한 줄이 아니라 여행의 `묵는 곳`에서 온다 -->
+    <string name="form_origin_lodging">묵는 곳에서</string>
     <string name="form_origin_user">직접 입력</string>
     <string name="form_empty_value">비어 있어요</string>
     <string name="form_confirm_notice">확인하면 앱이 공식 사이트에 넣어 드려요. 보안 확인과 마지막 \'제출\'은 직접 눌러 주세요.</string>
@@ -92,7 +73,6 @@
     <string name="manual_copy">복사</string>
     <string name="manual_copied">복사했어요</string>
     <string name="manual_open_site">공식 사이트 열기</string>
-    <string name="prepare_speech">여행 준비. 레디포트는 정부 기관과 제휴하지 않았어요. 입국 카드와 꼭 챙길 물건을 챙겨요.</string>
 
     <!-- 여행지 -->
     <string name="explore_favorite_add">%1$s 찜하기</string>
@@ -181,7 +161,6 @@
     <string name="passport_field_birth">생년월일</string>
     <string name="passport_field_sex">성별</string>
     <string name="passport_field_expiry">만료일</string>
-    <string name="passport_date_hint" tools:ignore="TypographyDashes">예: 1974-08-12</string>
     <string name="passport_sex_m">남</string>
     <string name="passport_sex_f">여</string>
     <string name="passport_sex_x">기타</string>
@@ -243,17 +222,8 @@
     <string name="trip_no_country">여행지 탭에서 안내가 있는 나라를 먼저 골라 주세요.</string>
 
     <!-- 오늘: 단계별 (PRD 4.2) -->
-    <string name="today_trip_title">%1$s 여행</string>
-    <string name="today_d_day">출발까지 %1$d일</string>
-    <string name="today_day_n">%1$s 여행 %2$d일째</string>
     <string name="today_make_trip">여행 만들기</string>
     <string name="today_task_form_title">%1$s를 낼 수 있어요</string>
-    <string name="today_task_form_body">도착 전에 내는 입국 카드예요. 앱이 채워 드리고, 마지막 제출만 직접 해요.</string>
-    <string name="today_task_passport_title">여권을 등록해 주세요</string>
-    <string name="today_task_passport_body">입국 카드를 채우려면 여권 정보가 필요해요. 사진은 저장하지 않아요.</string>
-    <string name="today_task_ready_title">지금은 급한 일이 없어요</string>
-    <string name="today_task_ready_body">준비 탭에서 챙길 것을 하나씩 확인해 보세요.</string>
-    <string name="today_open_prepare">준비 탭 열기</string>
     <string name="today_departure_steps_title">공항에서 이 순서대로</string>
     <string name="today_departure_step1">공항에 가요</string>
     <string name="today_departure_step2">비행기 표 받고 짐 맡기기 (체크인)</string>
@@ -272,17 +242,14 @@
     <string name="today_go_stay">숙소로 돌아가기</string>
     <string name="today_phrases">현지어 카드</string>
     <string name="today_expense">오늘 쓴 돈 적기</string>
-    <string name="today_return_title">여행이 끝났어요</string>
     <string name="today_destroy_title">여권 정보를 지울까요?</string>
     <string name="today_destroy_body">사진·영수증은 남고 여권 정보만 지워요. 다음 여행 때 다시 찍으면 돼요.</string>
     <string name="today_destroy_later">7일 미루기</string>
     <string name="today_new_trip">새 여행 만들기</string>
-    <string name="today_speech_trip">%1$s. 지금 단계는 %2$s이에요.</string>
 
     <!-- 알림 -->
     <string name="notif_channel_trip">여행 알림</string>
-    <string name="notif_form_title">%1$s를 낼 수 있어요</string>
-    <string name="notif_form_body">앱을 열어 확인하면 공식 사이트에 채워 드려요.</string>
+    <!-- 입국 카드 제출 가능일 문구는 strings_alerts.xml(alert_body_form)로 옮겼다 — 여행별 '챙길 일 알림' 한 장에 담긴다 -->
     <string name="notif_arrival_title">도착했어요</string>
     <string name="notif_arrival_body">입국 심사 → 짐 찾기 → 숙소 가기 순서를 보여 드릴게요.</string>
 
@@ -412,11 +379,10 @@
     <string name="home_chip_not_ready">안내 준비 중</string>
     <string name="home_basics_title">여행 준비 기본 정보</string>
     <string name="home_departure_title">출국하는 날, 이 순서대로</string>
-    <string name="home_essentials_open">준비물 확인하기</string>
     <string name="home_passport_title">여권 정보는 한 번만 등록하세요</string>
     <string name="home_passport_body">입국 카드를 쓸 때마다 다시 입력하지 않아도 돼요. 이 휴대폰에만 암호화해 저장하고, 밖으로 보내지 않아요.</string>
     <string name="home_passport_open">내 정보 관리</string>
-    <string name="home_trip_label">내 여행 · %1$s</string>
+    <!-- home_trip_label(`내 여행 · 태국`)은 2026-10-03 2차(부록 H.7)에서 지웠다 — 나라 이름이 여행 박스 안에 크게 들어가고 묶음 머리는 `내 여행` 한 줄이다 -->
     <string name="home_trip_days">출발 %1$d일 전</string>
     <string name="home_trip_today">오늘 출발해요</string>
     <string name="home_trip_during">여행 중이에요</string>

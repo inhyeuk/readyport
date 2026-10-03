@@ -18,10 +18,9 @@ import com.readyport.doc.booking.BookingExtractor
 import com.readyport.doc.mrz.MrzParser
 import com.readyport.pack.EssentialRule
 import com.readyport.prep.Essentials
+import com.readyport.stay.Stays
 import com.readyport.transport.Place
-import com.readyport.trip.StageInfo
 import com.readyport.trip.Trip
-import com.readyport.trip.TripStage
 import com.readyport.ui.components.essentialsSummary
 import com.readyport.ui.components.loadPhotoCredits
 import com.readyport.ui.country.CountryActions
@@ -34,7 +33,6 @@ import com.readyport.ui.form.FormContext
 import com.readyport.ui.form.ManualModeContent
 import com.readyport.ui.home.HomeActions
 import com.readyport.ui.home.HomeContent
-import com.readyport.ui.home.HomeTrip
 import com.readyport.ui.onboarding.FirstRunScreen
 import com.readyport.ui.pack.HelpContent
 import com.readyport.ui.pack.ShoppingContent
@@ -49,24 +47,27 @@ import com.readyport.ui.present.PresentUi
 import com.readyport.ui.present.Traveler
 import com.readyport.ui.settings.PhotoCreditsContent
 import com.readyport.ui.settings.SettingsScreen
-import com.readyport.ui.tabs.PrepareContent
 import com.readyport.ui.theme.LocalDimens
-import com.readyport.ui.today.TodayActions
-import com.readyport.ui.today.TodayContent
-import com.readyport.ui.today.TodayUi
 import com.readyport.ui.transport.RideAppRow
 import com.readyport.ui.transport.TransportContent
 import com.readyport.ui.transport.TransportUi
+import com.readyport.trip.ChecklistData
+import com.readyport.trip.JourneyStage
+import com.readyport.trip.StageInfo
+import com.readyport.trip.TripStage
+import com.readyport.trip.TripStages
+import com.readyport.ui.home.HomeTrip
+import com.readyport.ui.home.MAX_TRIP_BOXES
 import com.readyport.ui.trip.ChecklistActions
-import com.readyport.ui.trip.ChecklistUi
-import com.readyport.ui.trip.TripChecklistContent
+import com.readyport.ui.trip.JOURNEY_ALL_FOLDED
+import com.readyport.ui.trip.JourneyUi
+import com.readyport.ui.trip.TripJourneyContent
 import com.readyport.ui.trip.TripContent
 import com.readyport.ui.trip.TripFormUi
 import com.readyport.ui.trip.TripListContent
 import com.readyport.ui.trip.TripListUi
 import com.readyport.ui.trip.TripRow
 import com.readyport.trip.Checklist
-import com.readyport.trip.ChecklistPhase
 import com.readyport.trip.CustomItem
 import com.readyport.trip.PassportValidity
 import com.readyport.trip.TripChecks
@@ -81,9 +82,12 @@ import com.readyport.ui.wallet.PassportConfirmContent
 import com.readyport.ui.wallet.PassportIntroContent
 import com.readyport.ui.wallet.ScanState
 import com.readyport.ui.wallet.WalletContent
+import com.readyport.ui.stay.StayEditContent
+import com.readyport.ui.stay.StayEditUi
 import com.readyport.vault.BookingRecord
 import com.readyport.vault.EntryDoc
 import com.readyport.vault.PassportRecord
+import com.readyport.vault.StayRecord
 import com.readyport.vault.VaultContents
 import com.readyport.vault.WalletState
 import com.readyport.video.Video
@@ -99,6 +103,24 @@ object Gallery {
     private val index get() = TestPacks.index.value
     private val th get() = TestPacks.thailand
     private val trip = Trip("TH", "2026-11-03", "2026-11-07")
+
+    /**
+     * 둘러보기 히어로의 여행 박스 넷 (2026-10-03 부록 H.7) — 오늘 10월 31일 기준
+     * ① 태국 출발 3일 전(28개 중 12개) ② 일본 출발 6일 전(24개 중 3개) ③ 싱가포르 ④ 베트남.
+     * 히어로는 앞 두 개만 박스로 보여 주고 셋 이상이면 `여행 n개 모두 보기` 줄을 붙인다.
+     */
+    private val galleryHomeTrips = listOf(
+        HomeTrip("태국", LocalDate.of(2026, 11, 3), LocalDate.of(2026, 11, 7), code = "TH", id = "g-th", checklistDone = 12, checklistTotal = 28),
+        HomeTrip("일본", LocalDate.of(2026, 11, 6), LocalDate.of(2026, 11, 9), code = "JP", id = "g-jp", checklistDone = 3, checklistTotal = 24),
+        HomeTrip("싱가포르", LocalDate.of(2027, 1, 10), LocalDate.of(2027, 1, 13), code = "SG", id = "g-sg2", checklistDone = 0, checklistTotal = 22),
+        HomeTrip("베트남", LocalDate.of(2027, 2, 14), LocalDate.of(2027, 2, 20), code = "VN", id = "g-vn", checklistDone = 0, checklistTotal = 21),
+    )
+
+    /** 히어로가 박스로 보여 줄 여행 [n]개 (운영 HomeViewModel과 같은 자르기 — MAX_TRIP_BOXES) */
+    private fun homeUiWithTrips(n: Int) = TestPacks.homeUi().copy(
+        trips = galleryHomeTrips.take(minOf(n, MAX_TRIP_BOXES)),
+        activeTrips = n,
+    )
 
     // ---------------- 여러 여행·체크리스트 (2026-10-02) ----------------
     private fun packOf(cc: String) = runBlocking { TestPacks.repo.pack(cc)!!.value }
@@ -117,13 +139,18 @@ object Gallery {
         )
     private val ckThData get() = checklist(ckTh, ckThToday, ckThChecks)
 
+    /** 일본 여행(날짜가 태국과 겹친다) — 내 정보의 묵는 곳 목록이 **두 여행**을 보이게 하는 두 번째 여행 */
+    private val ckJp = Trip("JP", "2026-11-06", "2026-11-09", id = "g-jp")
+
     /** 중국 여행 출발 당일: 앞 단계는 감기약 성분 확인 하나만 남김(늦음), 입국 카드 안 냄(급함), 여권 기준은 공식 안내에 없음 */
     private val ckCn = Trip("CN", "2026-10-30", "2026-11-03", id = "g-cn")
-    private val ckCnData: com.readyport.trip.ChecklistData
+    private val ckCnData: ChecklistData
         get() {
             val today = ckCn.start
             val first = checklist(ckCn, today, TripChecks())
-            val before = first.items.filter { it.phase!! < ChecklistPhase.DepartureDay && it.id != "country.medicine_cold" && it.id != "entry_form" }
+            val before = first.items.filter {
+                it.stage!! < JourneyStage.Departure && it.id != "country.medicine_cold" && it.id != "entry_form"
+            }
             return checklist(
                 ckCn, today,
                 TripChecks(
@@ -133,6 +160,89 @@ object Gallery {
                 ),
             )
         }
+
+    /**
+     * 묵는 곳 두 곳 — **날짜별로 다른 호텔**(11월 3일~5일 방콕, 5일~7일 아유타야).
+     * 이름·주소는 모두 지어낸 가짜다(실제 사람·실제 예약 정보 없음).
+     */
+    private val stays = listOf(
+        StayRecord(
+            id = "stay-1", tripId = "g-th", name = "리버뷰 방콕 호텔",
+            addressLocal = "123 Soi Sukhumvit 11, Khlong Toei Nuea, Watthana, Bangkok 10110",
+            addressKo = "BTS 나나역에서 걸어서 7분", checkIn = "2026-11-03", checkOut = "2026-11-05",
+            reference = "RV-0000-0000", type = "hotel", phone = "+66-2-000-0000", savedAt = "2026-10-02T10:00",
+        ),
+        StayRecord(
+            id = "stay-2", tripId = "g-th", name = "아유타야 리버 게스트하우스",
+            addressLocal = "45 Naresuan Road, Pratu Chai, Phra Nakhon Si Ayutthaya 13000",
+            addressKo = "아유타야 역에서 툭툭으로 10분", checkIn = "2026-11-05", checkOut = "2026-11-07",
+            type = "guest_house", savedAt = "2026-10-02T10:05",
+        ),
+    )
+
+    /**
+     * 다른 여행(일본)의 숙소와 **아직 어느 여행에도 붙지 않은 숙소** — 설정 › 내 정보의 묵는 곳 목록이
+     * 두 여행 묶음 + `여행이 없는 숙소` 묶음을 보이게 한다 (다듬기 S2). 모두 지어낸 값이다.
+     */
+    private val otherStays = listOf(
+        StayRecord(
+            id = "stay-3", tripId = "g-jp", name = "교토 마치야 게스트하우스",
+            addressLocal = "12-3 Fake-cho, Nakagyo-ku, Kyoto 604-0000",
+            addressKo = "시조역에서 걸어서 10분", checkIn = "2026-11-06", checkOut = "2026-11-09",
+            type = "guest_house", lat = 35.0116, lng = 135.7681, savedAt = "2026-10-02T11:00",
+        ),
+        // 예전 `lodging` 예약 서류에서 옮겨 온 숙소: 여행도 주소도 없다 — 내 정보에서만 보인다
+        StayRecord(id = "stay-4", tripId = null, name = "예전 예약 호텔", reference = "OLD-0000", savedAt = "2026-09-20T09:00"),
+    )
+
+    /** 보관함에 든 숙소 전부 (여행 화면은 그 여행 숙소만 본다 — [stays]) */
+    private val allStays = stays + otherStays
+
+    /** 한 여행 화면 값 한 벌 — 운영 JourneyViewModel과 같은 계산(단계·공항·쇼핑·귀국 사실) */
+    private fun journeyUi(
+        t: Trip,
+        today: LocalDate,
+        data: ChecklistData,
+        cart: List<com.readyport.pack.ShoppingItem> = emptyList(),
+        nowHour: Int = 7,
+        muted: Boolean = false,
+        overlaps: Boolean = false,
+    ): JourneyUi {
+        val pack = packOf(t.country)
+        val form = pack.requiredForms.firstOrNull()
+        return JourneyUi(
+            loaded = true,
+            trip = t,
+            countryName = pack.names.ko,
+            data = data,
+            today = today,
+            overlaps = overlaps,
+            muted = muted,
+            nowHour = nowHour,
+            stage = TripStages.compute(t, today, today.atTime(10, 0).atZone(java.time.ZoneId.systemDefault()).toInstant().toEpochMilli(), form?.windowDaysIncludingArrival),
+            form = form,
+            cart = cart,
+            returnLinks = index.returnLinks,
+            returnFacts = index.returnFacts,
+            indexSources = indexSources,
+            sourceNames = pack.sources.associate { it.id to it.name },
+            airport = pack.airport(t.arrivalAirport) ?: pack.airports.singleOrNull(),
+            hasAirports = pack.airports.isNotEmpty(),
+            hasShopping = pack.shopping.isNotEmpty(),
+            essentialsTotal = 5,
+            essentialsDone = 2,
+            // 묵는 곳 — 운영 JourneyViewModel과 같은 계산(그 여행 숙소를 날짜 순으로 + 부드러운 알림)
+            stays = Stays.forTrip(stays, t),
+            stayNotes = Stays.notes(stays, t),
+        )
+    }
+
+    /** 그 단계가 '지금 단계'가 되도록 앞 단계를 모두 체크한 체크리스트 (떠나기 전 단계는 한 일로 나아간다) */
+    private fun through(t: Trip, today: LocalDate, upTo: JourneyStage, extra: TripChecks = TripChecks()): ChecklistData {
+        val first = checklist(t, today, extra)
+        val marks = first.items.filter { it.stage!! < upTo }.associate { it.id to true }
+        return checklist(t, today, extra.copy(marks = extra.marks + marks))
+    }
 
     private fun row(t: Trip, timing: TripTiming, name: String, today: LocalDate, checks: TripChecks = TripChecks(), overlaps: Boolean = false): TripRow {
         val data = checklist(t, today, checks)
@@ -144,7 +254,7 @@ object Gallery {
             val today = LocalDate.of(2026, 10, 2)
             return listOf(
                 row(ckTh, TripTiming.Upcoming, "태국", today, ckThChecks, overlaps = true),
-                row(Trip("JP", "2026-11-06", "2026-11-09", id = "g-jp"), TripTiming.Upcoming, "일본", today, overlaps = true),
+                row(ckJp, TripTiming.Upcoming, "일본", today, overlaps = true),
                 row(Trip("TH", "2027-02-10", "2027-02-14", id = "g-th2"), TripTiming.Upcoming, "태국", today),
                 row(Trip("SG", "2026-08-10", "2026-08-13", wrappedUp = true, id = "g-sg"), TripTiming.Past, "싱가포르", today),
             )
@@ -162,14 +272,14 @@ object Gallery {
         nationality = "KOR", issuingState = "KOR", birthDate = "1974-08-12", sex = "F",
         expiryDate = "2031-04-15", source = "mrz", mrzVerified = true, savedAt = "2026-09-29T10:00",
     )
+    // 숙소는 예약 서류가 아니라 `묵는 곳`으로 둔다 (2026-10-03 — 예전 lodging 예약 서류는 보관함을 열 때 옮겨진다)
     private val contents = VaultContents(
         passport = passport,
         bookings = listOf(
             BookingRecord(id = "1", kind = "flight", title = "방콕 왕복", flightNumbers = listOf("KE651", "KE652"),
                 dates = listOf("2026-11-03", "2026-11-07"), savedAt = "x"),
-            BookingRecord(id = "2", kind = "lodging", title = "방콕 숙소", reference = "0000-0000",
-                checkIn = "2026-11-03", checkOut = "2026-11-07", savedAt = "x"),
         ),
+        stays = allStays,
     )
 
     val videos = listOf(
@@ -184,15 +294,22 @@ object Gallery {
         "first-run" to { FirstRunScreen {} },
         // 준비물 진행 줄(2 / 5)까지 보이게 (BUNDLE_A_NOTES 요청 7)
         // 꼭 챙길 물건 값 칩(기내 반입만 보조배터리)·진행 2 / 5 — 운영 ViewModel과 같은 계산(essentialsSummary)
-        "home" to { HomeContent(TestPacks.homeUi().copy(essentials = essentialsSummary(index, null, gotItems)), HomeActions(), today = LocalDate.of(2026, 9, 28)) },
-        "home-with-trip" to {
-            HomeContent(
-                TestPacks.homeUi().copy(
-                    trip = HomeTrip("태국", LocalDate.of(2026, 11, 3), LocalDate.of(2026, 11, 7), code = "TH"),
-                    essentials = essentialsSummary(index, th.value, gotItems),
-                ),
-                HomeActions(), today = LocalDate.of(2026, 10, 31),
-            )
+        // ---- 둘러보기 히어로 (운영자 2026-10-03, 부록 H.5·H.7): 여행으로 가는 길은 히어로 안에만 있다 ----
+        // ① 여행이 없음: 소개 한 줄 + 채움 버튼 `새 여행 만들기` 하나
+        "explore" to { HomeContent(TestPacks.homeUi(), HomeActions(), today = LocalDate.of(2026, 9, 28)) },
+        // ② 여행 하나: 흰 박스 하나(둥근 번호 1 + 태국 + 출발 3일 전 + 날짜 + 진행)
+        "explore-1-trip" to { HomeContent(homeUiWithTrips(1), HomeActions(), today = LocalDate.of(2026, 10, 31)) },
+        // ③ 여행 둘: 박스 둘이 번호 1·2로 갈린다 (운영자 요청의 핵심 모습)
+        "explore-2-trips" to { HomeContent(homeUiWithTrips(2), HomeActions(), today = LocalDate.of(2026, 10, 31)) },
+        // ④ 여행 넷: 박스 둘 + `여행 4개 모두 보기` 줄 (히어로가 첫 화면을 다 먹지 않게)
+        "explore-4-trips" to { HomeContent(homeUiWithTrips(4), HomeActions(), today = LocalDate.of(2026, 10, 31)) },
+        // ⑤ 여행 둘 + 지난 여행: 박스 아래 `새 여행 만들기`(채움) + `예전 여행지 다시보기`(테두리)
+        "explore-trips-and-past" to {
+            HomeContent(homeUiWithTrips(2).copy(pastTrips = 2), HomeActions(), today = LocalDate.of(2026, 10, 31))
+        },
+        // ⑥ 지난 여행만: 박스 없음(지난 여행은 `예전 여행지 다시보기` 뒤에 있다) + 채움 버튼 `새 여행 만들기`
+        "explore-past-only" to {
+            HomeContent(TestPacks.homeUi().copy(pastTrips = 1), HomeActions(), today = LocalDate.of(2026, 11, 12))
         },
         // 내 여행(태국 11월 3일)이 있으면 입국 카드 '내는 때'가 일반 예시 대신 내 날짜
         "country-entry-TH" to { CountryContent(TestPacks.countryUi("TH").copy(tripArrival = trip.start), CountryActions()) },
@@ -205,8 +322,13 @@ object Gallery {
         // 필리핀: 무비자 30일 + eTravel(값 복사 모드). 여행 정보 맨 위 위험 배너(3·4단계 지역)는 country-travel-PH
         "country-entry-PH" to { CountryContent(TestPacks.countryUi("PH"), CountryActions()) },
         "country-travel-PH" to { CountryContent(TestPacks.countryUi("PH"), CountryActions(), CountrySection.Travel) },
-        // 베트남: 무비자 45일, 입국 카드 없음. 45일 넘게 머물 때만 전자비자 — 공식 사이트 열기(보조 버튼)
+        // 베트남: 무비자 45일. 꼭 내야 하는 입국 카드는 없고 사전 입국 정보(PAI)는 의무가 아닌 신고 카드 —
+        // 공항 묶음에는 `자동 심사대는 베트남 국민용`(쓸 수 없어요) 줄
         "country-entry-VN" to { CountryContent(TestPacks.countryUi("VN"), CountryActions()) },
+        // 싱가포르: 자동 심사대를 국적과 관계없이 쓸 수 있어요(초록 줄) · 창이 공항 하나라 고르기 칩 없음
+        "country-entry-SG" to { CountryContent(TestPacks.countryUi("SG"), CountryActions()) },
+        // 일본: 자동 심사대 판정이 없어 줄을 그리지 않는다(모름) · 공동 키오스크(VJW) 단계가 있는 공항 넷
+        "country-entry-JP" to { CountryContent(TestPacks.countryUi("JP"), CountryActions()) },
         "country-travel" to { CountryContent(TestPacks.countryUi("TH", favorite = true), CountryActions(), CountrySection.Travel) },
         "country-shopping" to { CountryContent(TestPacks.countryUi("JP"), CountryActions(), CountrySection.Shopping) },
         "videos" to {
@@ -215,72 +337,90 @@ object Gallery {
             }
         },
         "videos-offline" to { VideosContent("태국", VideosState.Unavailable, {}) },
-        "today-none" to { TodayContent(TodayUi(), TodayActions(), {}, {}, {}, {}, {}) },
-        "today-preparing" to {
-            TodayContent(TodayUi(trip, StageInfo(TripStage.Preparing, daysLeft = 3, formWindowOpen = true), "태국", th.value.forms.first(), true),
-                TodayActions(), {}, {}, {}, {}, {})
+        // ---- 한 여행 화면(여행 과정 8단계, 2026-10-03 부록 H) ----
+        // 계획 단계: 아무것도 안 한 새 여행 — 단계 막대 첫 칸이 `지금`, 계획 단계에 나라 안내·날짜 고치기 모자이크
+        "trip-plan" to {
+            TripJourneyContent(journeyUi(ckTh, ckThToday, checklist(ckTh, ckThToday, TripChecks())), ChecklistActions())
         },
-        "today-departure" to {
-            TodayContent(TodayUi(trip, StageInfo(TripStage.Departure, dayOfTrip = 1), "태국", th.value.forms.first(), true),
-                TodayActions(), {}, {}, {}, {}, {})
+        // 예약 단계: 계획을 다 했다 — 예약 서류 가져오기 카드(예약의 집)
+        "trip-book" to {
+            TripJourneyContent(journeyUi(ckTh, ckThToday, through(ckTh, ckThToday, JourneyStage.Book)), ChecklistActions())
         },
-        // 출국일에 입국 카드 기간이 열린 상태(태국 TDAC는 보통 이 상태) — 주 버튼은 입국 카드 하나, `도착했어요`는 보조 (C 묶음 캡처를 공용 갤러리로)
-        "today-departure-form" to {
-            TodayContent(
-                TodayUi(trip, StageInfo(TripStage.Departure, dayOfTrip = 1, formWindowOpen = true), "태국", th.value.forms.first(), true),
-                TodayActions(), {}, {}, {}, {}, {},
+        // 서류 단계: 입국 카드(11월 1일부터)·여권 정보 — 기간 전 잠김 태그
+        "trip-docs" to {
+            TripJourneyContent(journeyUi(ckTh, ckThToday, through(ckTh, ckThToday, JourneyStage.Docs, ckThChecks)), ChecklistActions())
+        },
+        // 짐 단계: 꼭 챙길 물건 묶음 + 꼭 챙길 물건 자세히 보기
+        "trip-pack" to {
+            TripJourneyContent(journeyUi(ckTh, ckThToday, through(ckTh, ckThToday, JourneyStage.Pack, ckThChecks)), ChecklistActions())
+        },
+        // 출국 단계(출발 당일): 출국 순서 카드 + 도착 공항 짧은 카드 + 도착했어요
+        "trip-departure" to {
+            val t = ckTh.copy(arrivalAirport = "BKK")
+            val today = t.start
+            TripJourneyContent(journeyUi(t, today, through(t, today, JourneyStage.Departure, ckThChecks)), ChecklistActions())
+        },
+        // 입국 단계(도착했어요를 누른 뒤): 도착한 날 묵는 곳(주소·지도) + 보여 주기 + 공항 순서 + 유심·환전·숙소 + 다 했어요
+        "trip-arrival" to {
+            val t = ckTh.copy(arrivalAirport = "BKK", arrivedAt = 1L)
+            val today = t.start
+            TripJourneyContent(journeyUi(t, today, through(t, today, JourneyStage.Arrival, ckThChecks)), ChecklistActions())
+        },
+        // 여행 중 단계(11월 5일 — 호텔을 옮기는 날): `오늘 묵는 곳`이 두 번째 숙소(아유타야)로 바뀐다
+        "trip-during" to {
+            val t = ckTh.copy(arrivalAirport = "BKK", arrivedAt = 1L)
+            val today = LocalDate.of(2026, 11, 5)
+            TripJourneyContent(journeyUi(t, today, through(t, today, JourneyStage.During, ckThChecks)), ChecklistActions())
+        },
+        // 숙소 고치기: 이름·주소(현지 글자)·한국어 메모 → 묵는 날짜 → 숙소 종류 → 예약번호·전화·메모 → 저장·지우기.
+        // 입력칸 값은 사람이 적은 글자라 앱이 줄바꿈을 보정하지 않는다 — 예약 확인서에 흔한 영문 이름으로 둔다(가짜)
+        // 좌표를 적어 둔 숙소라 **좌표 묶음이 펼쳐진 채로** 보인다(다듬기 S2) — 날짜 칸은 달력 단추가 붙은 공용 칸
+        "stay-edit" to {
+            val stay = stays.first().copy(
+                name = "Riverview Hotel Bangkok", addressKo = "나나역 근처",
+                lat = 13.7461, lng = 100.5349,
+            )
+            StayEditContent(StayEditUi(loaded = true, locked = false, existing = stay, trip = ckTh), {}, {}, {})
+        },
+        // 복귀 단계(돌아온 뒤): 담아 둔 물건 + 귀국 전 확인 전체 + 여권 정보 지우기
+        "trip-return" to {
+            val today = LocalDate.of(2026, 11, 8)
+            TripJourneyContent(
+                journeyUi(ckTh, today, through(ckTh, today, JourneyStage.Return, ckThChecks), cart = th.value.shopping.take(4)),
+                ChecklistActions(),
             )
         },
-        "today-arrival" to {
-            TodayContent(TodayUi(trip, StageInfo(TripStage.Arrival, dayOfTrip = 1), "태국", th.value.forms.first(), true),
-                TodayActions(), {}, {}, {}, {}, {})
+        // 중국 출발 당일 — 입국 카드 급함(빨강), 여권 기준 없음(공식 안내 링크), 이 여행만 알림 꺼 둠
+        "trip-cn" to {
+            TripJourneyContent(journeyUi(ckCn, ckCn.start, ckCnData, nowHour = 10, muted = true), ChecklistActions())
         },
-        "today-traveling" to {
-            TodayContent(TodayUi(trip, StageInfo(TripStage.Traveling, dayOfTrip = 2), "태국", th.value.forms.first(), true),
-                TodayActions(), {}, {}, {}, {}, {})
-        },
-        "today-return" to {
-            TodayContent(
-                TodayUi(trip, StageInfo(TripStage.Return, askDestroy = true), "태국", null, true,
-                    cart = th.value.shopping, returnLinks = index.returnLinks, returnFacts = index.returnFacts,
-                    indexSources = indexSources, sourceNames = thSources),
-                TodayActions(), {}, {}, {}, {}, {},
+        // 아코디언(부록 H.7): 지금 단계가 아닌 단계(복귀 = 8단계)를 눌러 **그 자리에서** 펼친 모습 — 앞 단계는 모두 접힌다
+        "trip-stage-open-return" to {
+            TripJourneyContent(
+                journeyUi(ckTh, ckThToday, checklist(ckTh, ckThToday, ckThChecks)),
+                ChecklistActions(),
+                openAtFirst = JourneyStage.Return.key,
             )
         },
-        "today-wrapup" to {
-            TodayContent(TodayUi(trip, StageInfo(TripStage.WrapUp), "태국", null, true), TodayActions(), {}, {}, {}, {}, {})
+        // 아코디언: 펼친 단계를 다시 눌러 **모두 접힌** 모습 — 번호·이름·언제까지·진행은 머리에 그대로 남는다
+        "trip-stages-folded" to {
+            TripJourneyContent(
+                journeyUi(ckTh, ckThToday, checklist(ckTh, ckThToday, ckThChecks)),
+                ChecklistActions(),
+                openAtFirst = JOURNEY_ALL_FOLDED,
+            )
         },
-        "trip-edit" to { TripContent(TripFormUi(index.countries.filter { it.pack }, trip, loaded = true), { _, _, _ -> }, {}) },
+        // 여행 고치기: 내리는 공항(태국 팩 공항 셋 + 아직 몰라요) — 수완나품을 골라 둔 여행
+        "trip-edit" to {
+            TripContent(
+                TripFormUi(index.countries.filter { it.pack }, trip.copy(arrivalAirport = "BKK"), loaded = true, airports = mapOf("TH" to th.value.airports)),
+                { _, _, _, _ -> }, {},
+            )
+        },
         // 내 여행 목록: 다가오는 여행 셋(태국 둘 = 다른 여행·다른 체크리스트, 일본은 날짜 겹침) + 지난 여행(접힘)
         "trips-list" to { TripListContent(TripListUi(loaded = true, rows = tripRows, today = LocalDate.of(2026, 10, 2)), {}, {}) },
         "trips-empty" to { TripListContent(TripListUi(loaded = true), {}, {}) },
-        // 한 여행 체크리스트(태국, 일주일 전 단계) — 단계 카드·앱이 확인·늦음·기간 전 잠김·출처·내 항목
-        "trip-checklist" to {
-            TripChecklistContent(ChecklistUi(loaded = true, trip = ckTh, countryName = "태국", data = ckThData, today = ckThToday, overlaps = true), ChecklistActions())
-        },
-        // 중국 출발 당일 — 입국 카드 급함(빨강), 여권 기준 없음(공식 안내 링크), 지난 단계 접힘
-        "trip-checklist-cn" to {
-            TripChecklistContent(ChecklistUi(loaded = true, trip = ckCn, countryName = "중국", data = ckCnData, today = ckCn.start), ChecklistActions())
-        },
-        // 오늘 화면 '지금 챙길 것'(입국 카드·여권 할 일이 없을 때 지금 할 일 = 체크리스트)
-        "today-checklist" to {
-            val data = ckThData
-            TodayContent(
-                TodayUi(
-                    ckTh, StageInfo(TripStage.Preparing, daysLeft = 4), "태국", th.value.forms.first(), true,
-                    checklistNow = Checklist.nowItems(data, ckTh, ckThToday), checklistDone = data.done, checklistTotal = data.total,
-                    tripCount = 3, today = ckThToday,
-                ),
-                TodayActions(), {}, {}, {}, {}, {},
-            )
-        },
-        "prepare" to {
-            val days = th.value.forms.associate { it.id to it.windowDaysIncludingArrival }
-            PrepareContent(
-                TestPacks.formEntries().map { it.copy(windowDays = days[it.formId], tripArrival = trip.start) }, {},
-                essentialsSummary(index, th.value, gotItems),
-            )
-        },
+        // 태국 TDAC(의무 — 주 버튼, 내 여행 날짜) + 베트남 PAI(의무 아님 — 알약·보조 버튼)
         // 여행지 전기 값 칩 카드(220 V·한국 플러그)까지 — 운영 EssentialsViewModel과 같은 팩 값(power·출처 이름)
         "essentials" to {
             val power = th.value.power
@@ -293,9 +433,12 @@ object Gallery {
                 { _, _ -> }, {},
             )
         },
+        // 숙소 주소는 `묵는 곳에서` 묶음으로 들어오고, 사이트에서 골라야 하는 주·구·동·우편번호는 안내 카드가 말한다 (2026-10-03)
         "form-confirm" to {
             val recipe = TestPacks.tdacRecipe
-            val draft = mapOf("trip.purpose" to "tourism", "profile.country_res" to "대한민국")
+            // 운영 FormConfirmViewModel과 같은 초안: 레시피 제안값 + 보관함에서 온 고르는 값(숙소 종류) + 사람이 고친 값
+            val draft = FormValues.defaults(recipe.value) + FormValues.suggest(recipe.value, contents) +
+                mapOf("trip.purpose" to "tourism", "profile.country_res" to "대한민국")
             val ctx = FormContext("TH_TDAC", th.value.forms.first(), recipe.value, recipe.version, false)
             FormConfirmContent(ConfirmUi(ctx, WalletState.Unlocked(contents), FormValues.build(recipe.value, contents, draft), draft),
                 { _, _ -> }, {}, {}, {}, {})
@@ -344,7 +487,7 @@ object Gallery {
             )
         },
         // 쉬운 모드 캡처(easy/)에서는 쉬운 모드 스위치가 켜진 모습 — 테마의 쉬운 모드 값을 그대로 넘긴다
-        "settings" to { SettingsScreen(easyMode = LocalDimens.current.easyMode, onEasyModeChange = {}) },
+        "settings" to { SettingsScreen(easyMode = LocalDimens.current.easyMode, onEasyModeChange = {}, notifGranted = true) },
         "wallet-locked" to {
             WalletContent(
                 state = WalletState.Locked(hasData = true), deviceSecure = true, autoDestroy = true, today = LocalDate.of(2026, 9, 29),
@@ -360,11 +503,14 @@ object Gallery {
                 onAddBooking = {}, onDeleteBooking = {}, onAutoDestroyChange = {},
             )
         },
+        // 열린 내 정보: 여권 → 예약 서류 → **묵는 곳(태국 2곳 · 일본 1곳 · 여행 없는 숙소 1곳)** — 다듬기 S2
         "wallet-unlocked" to {
             WalletContent(
                 state = WalletState.Unlocked(contents), deviceSecure = true, autoDestroy = true, today = LocalDate.of(2026, 9, 29),
                 onUnlock = {}, onLock = {}, onReset = {}, onAddPassport = {}, onDeletePassport = {},
                 onAddBooking = {}, onDeleteBooking = {}, onAutoDestroyChange = {},
+                stayGroups = Stays.group(allStays, listOf(ckTh, ckJp)),
+                countryNames = index.countries.associate { it.code to it.nameKo },
             )
         },
         "passport-intro" to { PassportIntroContent(ScanState.Idle, {}, {}, {}) },
@@ -394,6 +540,10 @@ object Gallery {
         "components-4" to { ComponentsPage(4) },
         // 흰 단색 사진 최악 경우: PhotoTextArea 스크림·PhotoChip·사진 위 버튼 (DESIGN_SPEC 3.7)
         "photo-worst-white" to { PhotoWorstWhitePage() },
+        // 설정 › 알림: 휴대폰 알림 권한이 없을 때 (안내 줄 + `휴대폰 알림 설정 열기`)
+        "settings-alerts-blocked" to {
+            SettingsScreen(easyMode = LocalDimens.current.easyMode, onEasyModeChange = {}, alertHour = 20, notifGranted = false)
+        },
         // 길잡이 v4: 그림 메뉴가 위로 지나간 뒤의 **접힌 고정 줄**(썸네일 + 라벨 + 밑줄). 실기기 높이 창에서 내용 몇 칸 아래로 내려 둔 상태
         // (다른 캡처는 아주 긴 칸에 한 번에 그려 스크롤이 없어서 고정 줄이 나타나지 않는다). 번호가 밀리지 않게 맨 끝에 둔다.
         "country-compact-bar" to {

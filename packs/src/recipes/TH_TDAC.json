@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "form_id": "TH_TDAC",
-  "version": "2026.09.28-2",
+  "version": "2026.09.28-3",
   "last_verified": "2026-09-28",
   "site_version_seen": "2026.09.00-0543",
   "sources": [
@@ -91,7 +91,7 @@
         { "key": "stay.post_code", "selector": "[formcontrolname=\"accPostCode\"]", "widget": "text",
           "labels": { "ko": "숙소 우편번호 (5자리)", "en": "Post Code" }, "source": "user_input", "confirm": "individual", "required": false },
         { "key": "stay.address", "selector": "[formcontrolname=\"accAddress\"]", "widget": "text", "transform": "upper",
-          "labels": { "ko": "숙소 주소 (영문)", "en": "Address" }, "source": "user_input", "confirm": "individual", "required": true,
+          "labels": { "ko": "숙소 주소 (영문)", "en": "Address" }, "source": "booking", "confirm": "bulk", "required": true,
           "hint_ko": "예약 확인서에 적힌 영문 주소를 그대로" }
       ]
     },

@@ -64,6 +64,7 @@ import androidx.compose.ui.graphics.painter.ColorPainter
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.readyport.R
+import com.readyport.trip.JourneyStage
 import com.readyport.prep.ImportStatus
 import com.readyport.ui.components.AppScreen
 import com.readyport.ui.components.BadgeTone
@@ -107,10 +108,15 @@ import com.readyport.ui.components.FactChip
 import com.readyport.ui.components.FactGrid
 import com.readyport.ui.components.IconBullet
 import com.readyport.ui.components.IconKeys
+import com.readyport.ui.components.JourneyStageHeader
+import com.readyport.ui.components.StageSectionCard
+import com.readyport.ui.components.StageStepBadge
+import com.readyport.ui.components.journeyStageBody
+import com.readyport.ui.components.journeyStageName
+import com.readyport.ui.components.journeyStageStepName
 import com.readyport.ui.components.IconTile
 import com.readyport.ui.components.ImportVerdictBadge
 import com.readyport.ui.components.InfoTileGrid
-import com.readyport.ui.components.JourneyStepper
 import com.readyport.ui.components.KeyValueRow
 import com.readyport.ui.components.KoText
 import com.readyport.ui.components.LinkRow
@@ -463,9 +469,46 @@ fun ComponentsPage(part: Int) {
             }
         }
         item(key = "journey") {
-            Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
-                JourneyStepper(2, stringResource(R.string.today_stage_desc, stringResource(R.string.stage_arrival), 3, 6))
-                JourneyStepper(0, stringResource(R.string.today_stage_desc, stringResource(R.string.stage_prepare), 1, 6), preview = true)
+            // 여행 과정 단계 카드 = 번호 배지 + 아코디언 (부록 H.7 — 예전 단계 막대를 대신한다):
+            // 펼친 단계 하나(지금 단계) + 접힌 단계 하나 + 번호 배지 여덟
+            Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                StageSectionCard(
+                    title = journeyStageName(JourneyStage.Docs),
+                    hint = stringResource(R.string.journey_due_by, "10월 30일"),
+                    icon = IconKeys.journeyStage(JourneyStage.Docs),
+                    done = 2,
+                    total = 5,
+                    now = true,
+                    nowLabel = stringResource(R.string.ck_phase_now),
+                    headerDescription = stringResource(R.string.ck_phase_cd, journeyStageStepName(JourneyStage.Docs), 5, 2),
+                    step = JourneyStage.Docs.step,
+                    open = true,
+                    onOpenChange = {},
+                ) {
+                    Row(verticalAlignment = Alignment.Top, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                        JourneyStageHeader(JourneyStage.Docs, size = 48.dp)
+                        KoText(
+                            journeyStageBody(JourneyStage.Docs),
+                            MaterialTheme.typography.bodyMedium,
+                            Modifier.weight(1f),
+                            color = Tokens.InkSecondary,
+                        )
+                    }
+                }
+                StageSectionCard(
+                    title = journeyStageName(JourneyStage.Return),
+                    hint = stringResource(R.string.journey_hint_return),
+                    icon = IconKeys.journeyStage(JourneyStage.Return),
+                    done = 0,
+                    total = 4,
+                    headerDescription = stringResource(R.string.ck_phase_cd, journeyStageStepName(JourneyStage.Return), 4, 0),
+                    step = JourneyStage.Return.step,
+                    open = false,
+                    onOpenChange = {},
+                ) {}
+                FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                    JourneyStage.entries.forEach { StageStepBadge(it.step, now = it == JourneyStage.Docs) }
+                }
             }
         }
         item(key = "info-chips") {
