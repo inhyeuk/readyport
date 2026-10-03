@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.FactCheck
 import androidx.compose.material.icons.outlined.Approval
+import androidx.compose.material.icons.outlined.DateRange
 import androidx.compose.material.icons.outlined.EditCalendar
 import androidx.compose.material.icons.outlined.EventAvailable
 import androidx.compose.material.icons.outlined.FlightTakeoff
@@ -20,6 +21,7 @@ import androidx.compose.material.icons.outlined.Luggage
 import androidx.compose.material.icons.outlined.OfflinePin
 import androidx.compose.material.icons.outlined.Schedule
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -27,6 +29,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.clearAndSetSemantics
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.role
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.ViewModel
@@ -36,17 +43,17 @@ import com.readyport.R
 import com.readyport.pack.PackRepository
 import com.readyport.pack.Requirement
 import com.readyport.trip.ChecklistProvider
+import com.readyport.trip.Trip
 import com.readyport.trip.TripRepository
 import com.readyport.trip.TripSelection
 import com.readyport.trip.TripTiming
 import com.readyport.ui.components.AppScreen
 import com.readyport.ui.components.BadgeTone
+import com.readyport.ui.components.BadgeTitleLayout
 import com.readyport.ui.components.ButtonStyles
 import com.readyport.ui.components.CheckProgressBar
 import com.readyport.ui.components.ChipSpec
 import com.readyport.ui.components.CountryPhotoTile
-import com.readyport.ui.components.EqualWidthPair
-import com.readyport.ui.components.FitText
 import com.readyport.ui.components.IconBullet
 import com.readyport.ui.components.IconKeys
 import com.readyport.ui.components.InfoChip
@@ -60,14 +67,18 @@ import com.readyport.ui.components.SecondaryButton
 import com.readyport.ui.components.SectionHeader
 import com.readyport.ui.components.SourceList
 import com.readyport.ui.components.SourceRef
+import com.readyport.ui.components.StatusKind
+import com.readyport.ui.components.StatusTag
+import com.readyport.ui.components.TextCircle
+import com.readyport.ui.components.FitLines
+import com.readyport.ui.components.isStackedLayout
+import com.readyport.ui.components.rememberLayoutInfo
 import com.readyport.ui.components.displayDate
 import com.readyport.ui.components.noBreak
 import com.readyport.ui.components.rememberGridColumns
 import com.readyport.ui.components.tileRows
 import com.readyport.ui.onboarding.AppSymbol
-import com.readyport.ui.onboarding.ValuePropText
 import com.readyport.ui.theme.LocalDimens
-import com.readyport.ui.theme.LocalTypeExtras
 import com.readyport.ui.theme.Tokens
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
@@ -108,15 +119,33 @@ data class HomeTrip(
 )
 
 /**
- * [trip]: 지금 가리키는 여행(TripSelection.active — 여행 중 → 다가오는 → 최근 지난 여행 차례).
- * [activeTrips]: 여행 중·다가오는 여행 수, [pastTrips]: 끝난 여행 수 — 히어로의 여행 버튼 세 개를 이 수가 정한다.
+ * [trips]: 히어로에 **흰 박스로 하나씩** 보여 줄 여행 — 여행 중 먼저, 그다음 떠나는 날 가까운 순,
+ *   최대 [MAX_TRIP_BOXES]개(그보다 많으면 `여행 n개 모두 보기` 줄). 지난 여행은 들어오지 않는다.
+ * [activeTrips]: 여행 중·다가오는 여행 **전체** 수, [pastTrips]: 끝난 여행 수.
  */
 data class HomeUi(
     val countries: List<HomeCountry> = emptyList(),
-    val trip: HomeTrip? = null,
+    val trips: List<HomeTrip> = emptyList(),
     val activeTrips: Int = 0,
     val pastTrips: Int = 0,
 )
+
+/**
+ * 히어로에 흰 박스로 둘 여행 수 (2026-10-03 부록 H.7).
+ * 박스 하나가 나라 이름 + 출발까지 + 날짜 + 체크리스트 + 막대라 기본 모드에서 약 150dp, 쉬운 모드에서 약 230dp다.
+ * 셋을 두면 히어로만으로 휴대폰 첫 화면을 다 먹어 **둘러보기의 본일(어느 나라로 갈까)인 나라 사진이 첫 화면에서 사라진다**
+ * (운영자 결정 9). 둘이면 현실의 거의 모든 경우(여행 중 하나 + 다음 하나)를 담고 첫 나라 타일이 남는다 —
+ * 더 많으면 `여행 n개 모두 보기`가 내 여행 목록으로 데려간다.
+ */
+const val MAX_TRIP_BOXES = 2
+
+/**
+ * 히어로 박스에 올릴 여행 순서 (순수 함수 — 단위 테스트가 이 규칙만 본다):
+ * **여행 중 먼저, 그다음 떠나는 날 가까운 순**(내 여행 목록과 같은 순서). 지난 여행은 들어오지 않는다 —
+ * 그것은 `예전 여행지 다시보기`가 맡는다(운영자 2026-10-03).
+ */
+internal fun heroTripOrder(trips: List<Trip>, today: LocalDate): List<Trip> =
+    TripSelection.ordered(trips, today).filter { (timing, _) -> timing != TripTiming.Past }.map { it.second }
 
 data class HomeActions(
     val openCountry: (String) -> Unit = {},
@@ -138,7 +167,6 @@ class HomeViewModel @Inject constructor(
 ) : ViewModel() {
     val ui: StateFlow<HomeUi> = combine(packs.revision, trips.book) { _, book ->
         val today = LocalDate.now()
-        val trip = TripSelection.active(book.trips, today)
         val index = packs.index()?.value
         val countries = index?.countries.orEmpty().map { c ->
             val pack = if (c.pack) packs.pack(c.code)?.value else null
@@ -152,19 +180,21 @@ class HomeViewModel @Inject constructor(
                 sourceName = visa?.let { pack.source(it.source)?.name },
             )
         }
-        val tripPack = trip?.let { packs.pack(it.country)?.value }
-        val data = trip?.let { checklists.build(it, book, today) }
-        val homeTrip = trip?.let { t ->
+        // 히어로 박스 순서 = 내 여행 목록과 같은 순서(여행 중 → 다가오는 여행 가까운 순). 지난 여행은 `예전 여행지 다시보기`가 맡는다
+        val active = heroTripOrder(book.trips, today)
+        // 체크리스트는 **보여 줄 박스만** 센다(여행이 많아도 둘러보기가 느려지지 않게)
+        val boxes = active.take(MAX_TRIP_BOXES).mapNotNull { t ->
             runCatching {
+                val pack = packs.pack(t.country)?.value
+                val data = checklists.build(t, book, today)
                 HomeTrip(
-                    tripPack?.names?.ko ?: t.country, LocalDate.parse(t.startDate), LocalDate.parse(t.endDate), t.country, t.id,
-                    checklistDone = data?.done ?: 0, checklistTotal = data?.total ?: 0,
+                    pack?.names?.ko ?: t.country, LocalDate.parse(t.startDate), LocalDate.parse(t.endDate), t.country, t.id,
+                    checklistDone = data.done, checklistTotal = data.total,
                 )
             }.getOrNull()
         }
-        val valid = book.trips.filter { it.datesValid }
-        val past = valid.count { TripSelection.timing(it, today) == TripTiming.Past }
-        HomeUi(countries = countries, trip = homeTrip, activeTrips = valid.size - past, pastTrips = past)
+        val past = book.trips.count { it.datesValid && TripSelection.timing(it, today) == TripTiming.Past }
+        HomeUi(countries = countries, trips = boxes, activeTrips = active.size, pastTrips = past)
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), HomeUi())
 }
 
@@ -187,7 +217,7 @@ fun HomeContent(ui: HomeUi, actions: HomeActions, today: LocalDate = LocalDate.n
     val columns = rememberGridColumns()
     val fallback = stringResource(R.string.source_official_fallback)
     // 여행 중인 나라(없으면 첫 나라)를 크게, 나머지는 2열(쉬운 모드·큰 글자는 모두 1열 큰 타일)
-    val featured = ui.countries.firstOrNull { it.code == ui.trip?.code } ?: ui.countries.firstOrNull()
+    val featured = ui.countries.firstOrNull { it.code == ui.trips.firstOrNull()?.code } ?: ui.countries.firstOrNull()
     val others = ui.countries.filter { it.code != featured?.code }
     // 칩에 쓴 입국 조건(정책 값)의 출처 — 칩이 출처 없이 보이지 않게 그리드 바로 아래에 (원칙 5)
     val countrySources = ui.countries.mapNotNull { c ->
@@ -265,14 +295,14 @@ private fun HomeHero(ui: HomeUi, actions: HomeActions, today: LocalDate, singleC
                 color = OnDark.content,
                 heading = true,
             )
-            ValuePropText(MaterialTheme.typography.titleMedium)
+            HeroTagline()
             if (!singleColumn) TrustStrip(Modifier.padding(top = 6.dp), onDark = true)
-            // 여행으로 가는 길 — 같은 스크림 영역 안, 브랜드·가치 글 묶음과 조금 떼어 둔다
+            // 여행으로 가는 길 — 같은 스크림 영역 안, 브랜드·소개 글 묶음과 조금 떼어 둔다
             Column(
                 Modifier.padding(top = dimens.inner),
                 verticalArrangement = Arrangement.spacedBy(dimens.inner),
             ) {
-                ui.trip?.let { HeroTripStatus(it, today) }
+                if (ui.trips.isNotEmpty()) HeroTrips(ui, actions, today)
                 HeroTripActions(ui, actions)
             }
         }
@@ -280,14 +310,83 @@ private fun HomeHero(ui: HomeUi, actions: HomeActions, today: LocalDate, singleC
 }
 
 /**
- * 히어로의 내 여행 상태 (예전 `TripCountdownCard`가 하던 일 — 카드를 따로 두지 않는다):
- * eyebrow `내 여행 · 태국` → 결론 큰 숫자 `출발 3일 전`(원칙 1) → 날짜 한 줄 → 이 여행 체크리스트 진행.
- * 큰 글자에서는 큰 숫자를 칸 폭에 맞춰 한 줄에 들어가는 크기로 그린다(FitText, 재검토 R5·R6).
- * 바로 아래 `내 여행 점검` 버튼이 어느 여행으로 가는지 말해 주는 자리라 버튼은 여기 두지 않는다.
+ * 히어로 한 줄 소개 (운영자 2026-10-03 — 부록 H.7).
+ * 운영자 지적(그대로): *"어디로 떠나세요에서 '입국 카드 … 눌러요'라는 문구가 첫화면에 있어서 뜬금 없는 의미를 전달하고 있어.
+ * 따라서 '레디포트는 당신의 여행이 수월해지도록 돕습니다.'라는 문구를 작게 2줄 이내로 표시해줘."*
+ * - 문장은 **운영자가 적어 준 그대로**다 — 앱의 다른 글은 해요체인데 이 한 줄만 합니다체인 것은 **일부러 둔 예외**다.
+ * - 작은 글자(labelMedium — 바로 아래 신뢰 표시와 같은 크기, 사진 스크림 위에서 흰 SemiBold라 또렷하다).
+ * - **두 줄을 넘지 않는다**: 글자를 키운 사람(200%)·좁은 창(360dp)·쉬운 모드에서는 줄이 늘어나는 대신 글자를 조금씩 줄여
+ *   두 줄에 맞춘다([FitLines]). 줄이는 한도는 `1 / 글자 배율`까지 — 100%의 기본 크기(기본 13sp·쉬운 모드 18sp)로 그려지는
+ *   **실제 크기보다 작아지지 않는다**(키운 배율만 되돌리는 셈이다. 쉬운 모드 18sp 아래로 내려가지 않는다는 뜻).
+ * - 예전 `입국 카드 칸은 앱이 채우고, 제출만 직접 눌러요`(`home_value_prop`)는 **첫 실행 안내와 스토어 그래픽에 그대로 남는다** —
+ *   그 자리에서는 앱을 처음 보는 사람에게 맞는 말이다. 둘러보기 첫 화면에서만 바꿨다.
  */
 @Composable
-private fun HeroTripStatus(trip: HomeTrip, today: LocalDate) {
-    val extras = LocalTypeExtras.current
+private fun HeroTagline(modifier: Modifier = Modifier) {
+    val base = MaterialTheme.typography.labelMedium
+    val scale = rememberLayoutInfo().textScale
+    val floor = (1f / scale).coerceIn(MIN_TAGLINE_FACTOR, 1f)
+    val factors = listOf(1f, 0.86f, 0.74f, 0.62f, floor).map { maxOf(it, floor) }.distinct()
+    val styles = factors.map { f ->
+        if (f >= 1f) base else base.copy(fontSize = base.fontSize * f, lineHeight = base.lineHeight * f)
+    }
+    FitLines(
+        stringResource(R.string.explore_hero_tagline),
+        styles = styles,
+        color = OnDark.content,
+        maxLines = TAGLINE_MAX_LINES,
+        modifier = modifier,
+    )
+}
+
+/** 히어로 소개 한 줄의 최대 줄 수 (운영자: `작게 2줄 이내로`) */
+internal const val TAGLINE_MAX_LINES = 2
+
+/** 소개 한 줄을 줄일 수 있는 최소 비율 — 글자 200%를 100% 크기로 되돌리는 선 */
+private const val MIN_TAGLINE_FACTOR = 0.5f
+
+/**
+ * 히어로의 **내 여행 흰 박스들** (운영자 2026-10-03 — 부록 H.7).
+ * 운영자 지적(그대로): *"내 여행이 1개 이상일 경우, 여행을 흰색 박스로 각 여행을 구분해 주고, 여행 국가는 좀 더 선명하게
+ * 표시하고, 둥근 박스 형태로 1, 2,.. 로 번호를 매겨줘."*
+ * - 묶음 머리글은 `내 여행` 한 줄(eyebrow) — 나라 이름은 이제 박스 안에 크게 있어서 `내 여행 · 태국`을 되풀이하지 않는다.
+ * - 박스는 최대 [MAX_TRIP_BOXES]개. 더 있으면 `여행 n개 모두 보기`가 내 여행 목록으로 데려간다.
+ */
+@Composable
+private fun HeroTrips(ui: HomeUi, actions: HomeActions, today: LocalDate) {
+    val dimens = LocalDimens.current
+    Column(verticalArrangement = Arrangement.spacedBy(dimens.inner)) {
+        Text(
+            stringResource(R.string.tab_trip),
+            style = MaterialTheme.typography.labelMedium,
+            color = OnDark.eyebrow,
+        )
+        ui.trips.forEachIndexed { i, trip ->
+            HeroTripBox(number = i + 1, trip = trip, today = today, onOpen = { actions.openTrip(trip.id) })
+        }
+        if (ui.activeTrips > ui.trips.size) {
+            SecondaryButton(
+                stringResource(R.string.explore_trips_all, ui.activeTrips),
+                onClick = actions.openTrips,
+                // 내 여행 탭과 같은 짐가방 (BUNDLE_A_NOTES ②)
+                icon = Icons.Outlined.Luggage,
+                onDark = true,
+            )
+        }
+    }
+}
+
+/**
+ * 여행 한 박스 (사진 위 **흰 Surface** — 어두운 스크림 위라 테두리 없이도 또렷하게 떨어진다. 그림자는 사진 위에서 탁해져 쓰지 않는다).
+ * 줄 차례: **둥근 번호 + 나라 이름(크게)** → `출발 3일 전` 태그 → 날짜 → `체크리스트 12 / 28` + 진행 막대.
+ * - 나라 이름은 titleLarge(기본 20sp·쉬운 모드 24sp, Bold) — 예전 히어로에서 가장 큰 글자였던 `출발 3일 전`은 태그로 내려
+ *   **나라가 가장 선명한 글자**가 되게 했다(운영자 요청).
+ * - 박스 전체가 그 여행으로 가는 단추다. TalkBack은 한 번에 `여행 1, 태국, 출발 3일 전, 11월 3일 (화) ~ 11월 7일 (토), 체크리스트 12 / 28`.
+ */
+@Composable
+private fun HeroTripBox(number: Int, trip: HomeTrip, today: LocalDate, onOpen: () -> Unit) {
+    val dimens = LocalDimens.current
+    val shape = MaterialTheme.shapes.large
     val days = ChronoUnit.DAYS.between(today, trip.startDate).toInt()
     val status = when {
         days > 0 -> stringResource(R.string.home_trip_days, days)
@@ -297,73 +396,70 @@ private fun HeroTripStatus(trip: HomeTrip, today: LocalDate) {
     }
     val format = DateTimeFormatter.ofPattern(stringResource(R.string.home_trip_date_format), Locale.KOREAN)
     val dates = stringResource(R.string.home_trip_dates, noBreak(trip.startDate.format(format)), noBreak(trip.endDate.format(format)))
-    Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
-        Text(
-            stringResource(R.string.home_trip_label, trip.countryKo),
-            style = MaterialTheme.typography.labelMedium,
-            color = OnDark.eyebrow,
-        )
-        FitText(status, styles = listOf(extras.stat, extras.statSmall), color = OnDark.content, breakChars = " ")
-        InfoChip(dates, Icons.Outlined.FlightTakeoff, onDark = true)
-        // 이 여행 체크리스트 진행 — 앱 안 값(누를 수 없는 칩 + 막대)
-        if (trip.checklistTotal > 0) {
-            InfoChip(
-                stringResource(R.string.ck_now_eyebrow, trip.checklistDone, trip.checklistTotal),
-                IconKeys.essentials,
-                onDark = true,
+    val numberName = stringResource(R.string.explore_trip_number_cd, number)
+    val meta = MaterialTheme.typography.labelMedium
+    Surface(
+        onClick = onOpen,
+        color = Tokens.Surface,
+        contentColor = Tokens.Ink,
+        shape = shape,
+        modifier = Modifier
+            .fillMaxWidth()
+            .semantics(mergeDescendants = true) { role = Role.Button },
+    ) {
+        Column(
+            Modifier.fillMaxWidth().padding(dimens.cardPadding),
+            verticalArrangement = Arrangement.spacedBy(dimens.inner),
+        ) {
+            BadgeTitleLayout(
+                title = { KoText(trip.countryKo, MaterialTheme.typography.titleLarge, color = Tokens.Ink, glueShort = true) },
+                // 둥근 번호(몇 번째 여행) — 단계 번호는 네모다(부록 H.7). TalkBack은 `여행 1`
+                badge = { TextCircle(number.toString(), modifier = Modifier.clearAndSetSemantics { contentDescription = numberName }) },
+                // 출발까지는 나라 이름 **옆** 태그로 — 이름이 가장 큰 글자로 남고 박스 한 줄이 줄어든다.
+                // 큰 글자 배치에서는 BadgeTitleLayout이 번호·태그를 윗줄로 올리고 이름에 폭 전체를 준다
+                trailing = { StatusTag(status, StatusKind.Info, icon = Icons.Outlined.FlightTakeoff) },
+                stack = isStackedLayout(),
+                gap = 12.dp,
             )
-            CheckProgressBar(trip.checklistDone, trip.checklistTotal, onDark = true)
+            InfoChip(dates, Icons.Outlined.DateRange, textStyle = meta)
+            // 이 여행 체크리스트 진행 — 앱 안 값(누를 수 없는 칩 + 막대)
+            if (trip.checklistTotal > 0) {
+                InfoChip(
+                    stringResource(R.string.ck_now_eyebrow, trip.checklistDone, trip.checklistTotal),
+                    IconKeys.essentials,
+                    textStyle = meta,
+                )
+                CheckProgressBar(trip.checklistDone, trip.checklistTotal)
+            }
         }
     }
 }
 
 /**
- * 히어로의 여행 버튼 — 둘러보기에서 여행으로 가는 **단 하나의 자리**(운영자 2026-10-03).
- * 상태가 버튼을 정한다: 언제나 `새 여행 만들기`, 여행 중·다가오는 여행이 있으면 `내 여행 점검`, 끝난 여행이 있으면 `예전 여행지 다시보기`.
- * 채움 버튼은 하나(원칙 7): 할 일이 남은 여행이 있으면 `내 여행 점검`, 없으면 `새 여행 만들기`. 사진 위라 흰 채움 + Accent 글자(D18).
- * - `내 여행 점검`은 다가오는 여행이 하나면 그 여행 화면으로, 둘 이상이면 어느 여행인지 고르도록 내 여행 목록으로 간다.
- * - 보조 버튼이 둘이면 같은 폭으로 한 줄에, 반 폭에 한 줄로 안 들어가면(큰 글자) 위아래로 쌓고 둘 다 폭 전체(EqualWidthPair).
+ * 히어로의 여행 버튼 (2026-10-03 부록 H.7로 고쳐 씀).
+ * 이제 **여행마다 흰 박스가 그 여행으로 가는 길**이라서 예전의 `내 여행 점검` 채움 버튼은 지웠다 —
+ * 같은 일을 하는 자리가 둘이 되고, 둘 이상일 때는 '어느 여행인지' 다시 고르게 해 한 번 더 누르게 했다.
+ * 그래서 **채움 버튼은 언제나 `새 여행 만들기`** 하나다(원칙 7 — 화면에 채운 버튼 하나):
+ * 박스로 갈 수 없는 단 하나의 할 일이고, 여행이 없을 때 화면에서 할 수 있는 유일한 일이다.
+ * 끝난 여행이 있으면 `예전 여행지 다시보기`가 테두리 버튼으로 아래에 붙는다. 사진 위라 흰 채움 + Accent 글자(D18).
  */
 @Composable
 private fun HeroTripActions(ui: HomeUi, actions: HomeActions) {
     val dimens = LocalDimens.current
-    val newTrip: @Composable (Modifier) -> Unit = { m ->
-        SecondaryButton(
+    Column(verticalArrangement = Arrangement.spacedBy(dimens.inner)) {
+        PrimaryButton(
             stringResource(R.string.today_new_trip),
             onClick = actions.makeTrip,
-            modifier = m,
             icon = Icons.Outlined.EditCalendar,
-            onDark = true,
+            colors = ButtonStyles.onDark(Tokens.Accent),
         )
-    }
-    val pastTrips: @Composable (Modifier) -> Unit = { m ->
-        SecondaryButton(
-            stringResource(R.string.explore_past_trips),
-            onClick = actions.openPastTrips,
-            modifier = m,
-            icon = Icons.Outlined.History,
-            onDark = true,
-        )
-    }
-    Column(verticalArrangement = Arrangement.spacedBy(dimens.inner)) {
-        if (ui.activeTrips > 0) {
-            val trip = ui.trip
-            PrimaryButton(
-                stringResource(R.string.explore_trip_check),
-                onClick = { if (ui.activeTrips == 1 && trip != null) actions.openTrip(trip.id) else actions.openTrips() },
-                // 앞에 붙는 뜻 아이콘 — 내 여행 탭과 같은 짐가방 (BUNDLE_A_NOTES ②)
-                icon = Icons.Outlined.Luggage,
-                colors = ButtonStyles.onDark(Tokens.Accent),
+        if (ui.pastTrips > 0) {
+            SecondaryButton(
+                stringResource(R.string.explore_past_trips),
+                onClick = actions.openPastTrips,
+                icon = Icons.Outlined.History,
+                onDark = true,
             )
-            if (ui.pastTrips > 0) EqualWidthPair(dimens.inner, first = newTrip, second = pastTrips) else newTrip(Modifier)
-        } else {
-            PrimaryButton(
-                stringResource(R.string.today_new_trip),
-                onClick = actions.makeTrip,
-                icon = Icons.Outlined.EditCalendar,
-                colors = ButtonStyles.onDark(Tokens.Accent),
-            )
-            if (ui.pastTrips > 0) pastTrips(Modifier)
         }
     }
 }

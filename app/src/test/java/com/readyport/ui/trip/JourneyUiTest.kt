@@ -9,8 +9,7 @@ import androidx.compose.ui.test.assertCountEquals
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsEnabled
 import androidx.compose.ui.test.assertIsNotEnabled
-import androidx.compose.ui.test.assertIsNotSelected
-import androidx.compose.ui.test.assertIsSelected
+import androidx.compose.ui.test.hasContentDescription
 import androidx.compose.ui.test.hasScrollAction
 import androidx.compose.ui.test.hasSetTextAction
 import androidx.compose.ui.test.hasText
@@ -23,7 +22,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
-import androidx.compose.ui.test.performScrollToIndex
 import androidx.compose.ui.test.performScrollToNode
 import androidx.compose.ui.test.performTextClearance
 import androidx.compose.ui.test.performTextInput
@@ -118,11 +116,6 @@ class JourneyUiTest {
         rule.onAllNodesWithText(text).onFirst().assertIsDisplayed()
     }
 
-    private fun stageTab(stage: JourneyStage) = rule.onNode(
-        SemanticsMatcher.expectValue(SemanticsProperties.Role, Role.Tab) and
-            hasText(s(stageName(stage)), substring = true),
-    )
-
     private fun stageName(stage: JourneyStage) = when (stage) {
         JourneyStage.Plan -> R.string.journey_plan
         JourneyStage.Book -> R.string.journey_book
@@ -136,31 +129,16 @@ class JourneyUiTest {
 
     // ---------------- 단계 막대 ----------------
 
-    /** 여덟 단계가 **모두** 한 화면에 있고(숨기거나 가로 스크롤하지 않는다), 지금 단계가 골라져 있다 */
+    /** 여덟 단계 카드가 **모두** 한 화면에 있고(숨기거나 가로 스크롤하지 않는다), 머리는 `3단계 서류, …`로 읽힌다 */
     @Test
-    fun stageBarShowsAllEightStagesAndSelectsTheCurrentOne() {
+    fun everyStageHasANumberedHeader() {
         show(ui())
-        JourneyStage.entries.forEach { stage -> stageTab(stage).assertIsDisplayed() }
-        // 아무것도 안 한 새 여행 = 계획 단계
-        stageTab(JourneyStage.Plan).assertIsSelected()
-        // 칸 이름은 한 문장(`계획, 1번째 단계, 3개 중 0개 했어요`)
-        val plan = ui().data.stage(JourneyStage.Plan)
-        rule.onNodeWithContentDescription(s(R.string.journey_bar_cd, s(R.string.journey_plan), 1, plan.size, 0))
-            .assertIsDisplayed()
-    }
-
-    /** 단계를 누르면 그 단계가 골라진다 (그리고 그 단계 카드로 내려간다) */
-    @Test
-    fun tappingAStageSelectsIt() {
-        show(ui())
-        stageTab(JourneyStage.Plan).assertIsSelected()
-        stageTab(JourneyStage.Return).performClick()
-        rule.waitForIdle()
-        // 누르면 그 단계 카드로 내려간다 — 막대가 화면 위로 지나가므로 맨 위로 돌아와서 고른 칸을 본다
-        rule.onNode(hasScrollAction()).performScrollToIndex(0)
-        rule.waitForIdle()
-        stageTab(JourneyStage.Return).assertIsSelected()
-        stageTab(JourneyStage.Plan).assertIsNotSelected()
+        JourneyStage.entries.forEach { stage ->
+            val items = ui().data.stage(stage)
+            val cd = s(R.string.ck_phase_cd, s(R.string.journey_stage_step_cd, stage.step, s(stageName(stage))), items.size, items.count { it.checked })
+            rule.onNode(hasScrollAction()).performScrollToNode(hasContentDescription(cd))
+            rule.onNodeWithContentDescription(cd).assertIsDisplayed()
+        }
     }
 
     // ---------------- 지금 할 일 ----------------
@@ -178,7 +156,7 @@ class JourneyUiTest {
         // 같은 제목이 서류 단계 카드에도 있다(가리키는 것과 가리켜지는 것) — 맨 위 카드의 것을 본다
         rule.onAllNodesWithText("입국 카드 내기").onFirst().assertIsDisplayed()
         shown(s(R.string.ck_urgent))
-        shown(s(R.string.journey_open_stage, s(R.string.journey_docs)))
+        shown(s(R.string.journey_open_stage_step, JourneyStage.Docs.step, s(R.string.journey_docs)))
     }
 
     // ---------------- 단계마다 하는 일 ----------------

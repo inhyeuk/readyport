@@ -57,7 +57,9 @@ import com.readyport.trip.StageInfo
 import com.readyport.trip.TripStage
 import com.readyport.trip.TripStages
 import com.readyport.ui.home.HomeTrip
+import com.readyport.ui.home.MAX_TRIP_BOXES
 import com.readyport.ui.trip.ChecklistActions
+import com.readyport.ui.trip.JOURNEY_ALL_FOLDED
 import com.readyport.ui.trip.JourneyUi
 import com.readyport.ui.trip.TripJourneyContent
 import com.readyport.ui.trip.TripContent
@@ -102,10 +104,22 @@ object Gallery {
     private val th get() = TestPacks.thailand
     private val trip = Trip("TH", "2026-11-03", "2026-11-07")
 
-    /** 둘러보기 히어로가 가리키는 여행(태국 11월 3~7일, 체크리스트 28개 중 12개) */
-    private val galleryHomeTrip = HomeTrip(
-        "태국", LocalDate.of(2026, 11, 3), LocalDate.of(2026, 11, 7), code = "TH", id = "g-th",
-        checklistDone = 12, checklistTotal = 28,
+    /**
+     * 둘러보기 히어로의 여행 박스 넷 (2026-10-03 부록 H.7) — 오늘 10월 31일 기준
+     * ① 태국 출발 3일 전(28개 중 12개) ② 일본 출발 6일 전(24개 중 3개) ③ 싱가포르 ④ 베트남.
+     * 히어로는 앞 두 개만 박스로 보여 주고 셋 이상이면 `여행 n개 모두 보기` 줄을 붙인다.
+     */
+    private val galleryHomeTrips = listOf(
+        HomeTrip("태국", LocalDate.of(2026, 11, 3), LocalDate.of(2026, 11, 7), code = "TH", id = "g-th", checklistDone = 12, checklistTotal = 28),
+        HomeTrip("일본", LocalDate.of(2026, 11, 6), LocalDate.of(2026, 11, 9), code = "JP", id = "g-jp", checklistDone = 3, checklistTotal = 24),
+        HomeTrip("싱가포르", LocalDate.of(2027, 1, 10), LocalDate.of(2027, 1, 13), code = "SG", id = "g-sg2", checklistDone = 0, checklistTotal = 22),
+        HomeTrip("베트남", LocalDate.of(2027, 2, 14), LocalDate.of(2027, 2, 20), code = "VN", id = "g-vn", checklistDone = 0, checklistTotal = 21),
+    )
+
+    /** 히어로가 박스로 보여 줄 여행 [n]개 (운영 HomeViewModel과 같은 자르기 — MAX_TRIP_BOXES) */
+    private fun homeUiWithTrips(n: Int) = TestPacks.homeUi().copy(
+        trips = galleryHomeTrips.take(minOf(n, MAX_TRIP_BOXES)),
+        activeTrips = n,
     )
 
     // ---------------- 여러 여행·체크리스트 (2026-10-02) ----------------
@@ -280,32 +294,22 @@ object Gallery {
         "first-run" to { FirstRunScreen {} },
         // 준비물 진행 줄(2 / 5)까지 보이게 (BUNDLE_A_NOTES 요청 7)
         // 꼭 챙길 물건 값 칩(기내 반입만 보조배터리)·진행 2 / 5 — 운영 ViewModel과 같은 계산(essentialsSummary)
-        // ---- 둘러보기 히어로 네 가지 상태 (운영자 2026-10-03, 부록 H.5): 여행으로 가는 길은 히어로 안에만 있다 ----
-        // ① 여행이 없음: 주 버튼 `새 여행 만들기` 하나
+        // ---- 둘러보기 히어로 (운영자 2026-10-03, 부록 H.5·H.7): 여행으로 가는 길은 히어로 안에만 있다 ----
+        // ① 여행이 없음: 소개 한 줄 + 채움 버튼 `새 여행 만들기` 하나
         "explore" to { HomeContent(TestPacks.homeUi(), HomeActions(), today = LocalDate.of(2026, 9, 28)) },
-        // ② 다가오는 여행 하나: 주 버튼 `내 여행 점검`(그 여행으로) + 보조 `새 여행 만들기`
-        "explore-with-trip" to {
-            HomeContent(
-                TestPacks.homeUi().copy(trip = galleryHomeTrip, activeTrips = 1),
-                HomeActions(), today = LocalDate.of(2026, 10, 31),
-            )
+        // ② 여행 하나: 흰 박스 하나(둥근 번호 1 + 태국 + 출발 3일 전 + 날짜 + 진행)
+        "explore-1-trip" to { HomeContent(homeUiWithTrips(1), HomeActions(), today = LocalDate.of(2026, 10, 31)) },
+        // ③ 여행 둘: 박스 둘이 번호 1·2로 갈린다 (운영자 요청의 핵심 모습)
+        "explore-2-trips" to { HomeContent(homeUiWithTrips(2), HomeActions(), today = LocalDate.of(2026, 10, 31)) },
+        // ④ 여행 넷: 박스 둘 + `여행 4개 모두 보기` 줄 (히어로가 첫 화면을 다 먹지 않게)
+        "explore-4-trips" to { HomeContent(homeUiWithTrips(4), HomeActions(), today = LocalDate.of(2026, 10, 31)) },
+        // ⑤ 여행 둘 + 지난 여행: 박스 아래 `새 여행 만들기`(채움) + `예전 여행지 다시보기`(테두리)
+        "explore-trips-and-past" to {
+            HomeContent(homeUiWithTrips(2).copy(pastTrips = 2), HomeActions(), today = LocalDate.of(2026, 10, 31))
         },
-        // ③ 다가오는 여행 + 지난 여행: 보조 버튼 둘이 같은 폭 한 줄(큰 글자면 쌓임)
-        "explore-trip-and-past" to {
-            HomeContent(
-                TestPacks.homeUi().copy(trip = galleryHomeTrip, activeTrips = 1, pastTrips = 2),
-                HomeActions(), today = LocalDate.of(2026, 10, 31),
-            )
-        },
-        // ④ 지난 여행만: 주 버튼은 `새 여행 만들기`, 상태 줄은 다녀온 여행
+        // ⑥ 지난 여행만: 박스 없음(지난 여행은 `예전 여행지 다시보기` 뒤에 있다) + 채움 버튼 `새 여행 만들기`
         "explore-past-only" to {
-            HomeContent(
-                TestPacks.homeUi().copy(
-                    trip = galleryHomeTrip.copy(checklistDone = 28, checklistTotal = 28),
-                    pastTrips = 1,
-                ),
-                HomeActions(), today = LocalDate.of(2026, 11, 12),
-            )
+            HomeContent(TestPacks.homeUi().copy(pastTrips = 1), HomeActions(), today = LocalDate.of(2026, 11, 12))
         },
         // 내 여행(태국 11월 3일)이 있으면 입국 카드 '내는 때'가 일반 예시 대신 내 날짜
         "country-entry-TH" to { CountryContent(TestPacks.countryUi("TH").copy(tripArrival = trip.start), CountryActions()) },
@@ -389,6 +393,22 @@ object Gallery {
         // 중국 출발 당일 — 입국 카드 급함(빨강), 여권 기준 없음(공식 안내 링크), 이 여행만 알림 꺼 둠
         "trip-cn" to {
             TripJourneyContent(journeyUi(ckCn, ckCn.start, ckCnData, nowHour = 10, muted = true), ChecklistActions())
+        },
+        // 아코디언(부록 H.7): 지금 단계가 아닌 단계(복귀 = 8단계)를 눌러 **그 자리에서** 펼친 모습 — 앞 단계는 모두 접힌다
+        "trip-stage-open-return" to {
+            TripJourneyContent(
+                journeyUi(ckTh, ckThToday, checklist(ckTh, ckThToday, ckThChecks)),
+                ChecklistActions(),
+                openAtFirst = JourneyStage.Return.key,
+            )
+        },
+        // 아코디언: 펼친 단계를 다시 눌러 **모두 접힌** 모습 — 번호·이름·언제까지·진행은 머리에 그대로 남는다
+        "trip-stages-folded" to {
+            TripJourneyContent(
+                journeyUi(ckTh, ckThToday, checklist(ckTh, ckThToday, ckThChecks)),
+                ChecklistActions(),
+                openAtFirst = JOURNEY_ALL_FOLDED,
+            )
         },
         // 여행 고치기: 내리는 공항(태국 팩 공항 셋 + 아직 몰라요) — 수완나품을 골라 둔 여행
         "trip-edit" to {

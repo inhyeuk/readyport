@@ -51,8 +51,11 @@ enum class JourneyStage(val key: String, val legacy: List<String> = emptyList())
     Return("return", listOf("before_return", "back")),
     ;
 
-    /** 단계 막대의 칸 번호 (0부터) */
-    val barIndex: Int get() = ordinal
+    /**
+     * 몇 번째 단계인지 (1~8) — 화면에 번호 배지로 붙고 TalkBack이 `2단계 예약`으로 읽는다.
+     * 운영자 2026-10-03: *"각 단계에 번호가 붙으면 좋겠어. 번호가 없으니 순서가 명확치 않아서 뭘 해야 할지 잘 모르겠어."*
+     */
+    val step: Int get() = ordinal + 1
 
     /** 떠나기 전에 하는 단계인지 (계획·예약·서류·짐) */
     val beforeDeparture: Boolean get() = this < Departure

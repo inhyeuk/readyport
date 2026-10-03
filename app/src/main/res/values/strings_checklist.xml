@@ -26,9 +26,7 @@
     <string name="ck_progress_sentence">모두 %1$d개 중 %2$d개 했어요</string>
     <string name="ck_progress_title">%1$s · %2$s</string>
     <string name="ck_phase_now">지금</string>
-    <string name="ck_phase_show">한 일 %1$d개 보기</string>
-    <string name="ck_phase_show_items">항목 %1$d개 보기</string>
-    <string name="ck_phase_target">%1$s 항목</string>
+    <!-- ck_phase_show·ck_phase_show_items·ck_phase_target(단계 카드 안 펼치기 줄)은 2026-10-03 아코디언(부록 H.7)이 대신해 지웠다 -->
     <string name="ck_phase_cd">%1$s, %2$d개 중 %3$d개 했어요</string>
     <string name="ck_state_done">했어요</string>
     <string name="ck_state_todo">아직이에요</string>

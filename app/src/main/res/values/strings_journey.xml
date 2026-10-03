@@ -36,15 +36,15 @@
     <string name="journey_hint_during">여행하는 동안</string>
     <string name="journey_hint_return">돌아오기 전부터 돌아온 뒤까지</string>
 
-    <!-- 단계 막대 -->
-    <string name="journey_bar_cd">%1$s, %2$d번째 단계, %3$d개 중 %4$d개 했어요</string>
+    <!--
+      예전 단계 막대(4칸 두 줄 그림 격자)의 문구 journey_bar_cd·journey_now_stage와 `%1$s 단계로`(journey_open_stage)는
+      2026-10-03 다듬기(부록 H.7)에서 지웠다 — 막대 대신 단계 카드가 접혔다 펴지고, 번호는 strings_explore2.xml이 맡는다.
+    -->
 
     <!-- 트립 화면 -->
     <string name="journey_trip_title">%1$s 여행</string>
-    <string name="journey_now_stage">지금 단계</string>
     <string name="journey_plan_edit">날짜·공항 고치기</string>
     <string name="journey_plan_country">%1$s 안내 보기</string>
-    <string name="journey_open_stage">%1$s 단계로</string>
 
     <!-- 예약 단계: 예약 서류의 집 (예전에는 설정 › 내 정보 안에만 있었다) -->
     <string name="journey_booking_title">예약 서류 넣어 두기</string>

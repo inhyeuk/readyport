@@ -65,15 +65,18 @@ abstract class HomeFirstScreenBase {
         assertValueLineOnFirstScreen(label)
     }
 
-    /** 재검토 R13: 핵심 가치 한 줄(`입국 카드 칸은 앱이 채우고, 제출만 직접 눌러요`)이 어느 모드에서나 첫 화면(탭 막대 위)에 다 보인다 */
+    /**
+     * 재검토 R13 + 운영자 2026-10-03: 히어로 소개 한 줄(`레디포트는 당신의 여행이 수월해지도록 돕습니다.`)이
+     * 어느 모드에서나 첫 화면(탭 막대 위)에 다 보인다.
+     */
     private fun assertValueLineOnFirstScreen(label: String) {
-        val node = rule.onAllNodes(hasText(context.getString(R.string.home_value_prop))).fetchSemanticsNodes().firstOrNull()
-        assertNotNull("$label: 가치 문장이 없음", node)
+        val node = rule.onAllNodes(hasText(context.getString(R.string.explore_hero_tagline))).fetchSemanticsNodes().firstOrNull()
+        assertNotNull("$label: 소개 문장이 없음", node)
         val d = rule.density.density
         val bottom = node!!.boundsInRoot.bottom / d
         val tabTop = homeTab().boundsInRoot.top / d
         println("HOMEBUDGET $label: value bottom=$bottom tabTop=$tabTop")
-        assertTrue("$label: 가치 문장이 첫 화면 밖 ($bottom > $tabTop)", bottom <= tabTop)
+        assertTrue("$label: 소개 문장이 첫 화면 밖 ($bottom > $tabTop)", bottom <= tabTop)
     }
 
     companion object {

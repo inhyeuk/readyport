@@ -104,7 +104,7 @@ import com.readyport.ui.components.ChecklistActions
 import com.readyport.ui.components.ChecklistDivider
 import com.readyport.ui.components.StageSectionCard
 import com.readyport.ui.components.ChecklistRow
-import com.readyport.ui.components.journeyStageName
+import com.readyport.ui.components.journeyStageStepName
 import com.readyport.ui.components.DangerButton
 import com.readyport.ui.components.DestructiveConfirm
 import com.readyport.ui.components.DotBullet
@@ -499,7 +499,8 @@ private fun itemTags(item: ChecklistItem, locked: Boolean, openDate: String?, co
     val autoDone = stringResource(R.string.ck_auto_marker)
     val override = stringResource(R.string.ck_auto_override)
     val custom = stringResource(R.string.ck_custom_kind)
-    val stage = item.stage?.let { journeyStageName(it) }
+    // 어느 단계 일인지 알려 주는 태그 — 배지를 그릴 수 없는 좁은 자리라 번호를 말에 넣는다(`3단계 서류`, 운영자 2026-10-03)
+    val stage = item.stage?.let { journeyStageStepName(it) }
     val tags = buildList<@Composable () -> Unit> {
         if (item.urgent) add { StatusTag(urgent, StatusKind.Required) }
         else if (item.overdue) add { StatusTag(overdue, StatusKind.Caution) }
