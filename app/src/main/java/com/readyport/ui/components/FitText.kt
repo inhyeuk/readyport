@@ -118,3 +118,85 @@ private class FitTextPolicy(
     override fun IntrinsicMeasureScope.maxIntrinsicHeight(measurables: List<IntrinsicMeasurable>, width: Int): Int =
         choose(width).size.height
 }
+
+// ======================= 줄 수를 지키는 글자 (둘러보기 히어로 한 줄, 2026-10-03) =======================
+
+/**
+ * [text]를 **[maxLines]줄 안에 들어가는 가장 큰 스타일**로 그린다 — 글자를 키우거나 창이 좁아도 줄이 늘지 않는 소개 한 줄용.
+ * [styles]는 큰 것부터 작은 것 순서다. 가장 작은 스타일로도 [maxLines]줄에 안 들어가면 그 스타일로 **잘리지 않고** 더 많은 줄로 그린다
+ * (내용을 자르거나 숨기지 않는다 — DESIGN_SPEC 4.1).
+ * - 보이는 글은 한국어 낱말 보호([koDisplay])를 거쳐 낱말 한가운데서 줄이 바뀌지 않는다.
+ * - 의미 글자(TalkBack·테스트)는 언제나 [text] 원문 한 노드이고, 실제 줄 수는 `GetTextLayoutResult`로 알려 준다.
+ * [FitText]와 다른 점은 '한 줄에 맞추기'가 아니라 '[maxLines]줄에 맞추기'라는 것뿐이다.
+ */
+@Composable
+fun FitLines(
+    text: String,
+    styles: List<TextStyle>,
+    color: Color,
+    maxLines: Int,
+    modifier: Modifier = Modifier,
+) {
+    require(styles.isNotEmpty())
+    val measurer = rememberTextMeasurer(cacheSize = styles.size + 2)
+    val layout = remember { mutableStateOf<TextLayoutResult?>(null) }
+    val shown = remember(text) { koDisplay(text) }
+    val policy = remember(shown, styles, measurer, maxLines) { FitLinesPolicy(shown, styles, measurer, maxLines, layout) }
+    Layout(
+        modifier = modifier
+            .semantics {
+                this.text = AnnotatedString(text)
+                getTextLayoutResult { results ->
+                    val r = layout.value ?: return@getTextLayoutResult false
+                    results += r
+                    true
+                }
+            }
+            .drawBehind { layout.value?.let { drawText(it, color = color) } },
+        measurePolicy = policy,
+    )
+}
+
+private class FitLinesPolicy(
+    private val shown: String,
+    private val styles: List<TextStyle>,
+    private val measurer: TextMeasurer,
+    private val maxLines: Int,
+    private val layout: MutableState<TextLayoutResult?>,
+) : MeasurePolicy {
+
+    /** 낱말(띄어쓰기 단위) — 가장 작은 스타일의 가장 긴 낱말이 최소 고유 폭이다 */
+    private val words: List<String> = shown.split(' ').filter { it.isNotEmpty() }
+
+    private fun oneLine(style: TextStyle): TextLayoutResult = measurer.measure(shown, style, softWrap = false, maxLines = 1)
+
+    private fun wrapped(style: TextStyle, maxWidth: Int): TextLayoutResult =
+        measurer.measure(shown, style, constraints = Constraints(maxWidth = maxWidth.coerceAtLeast(0)))
+
+    /** 폭 [maxWidth] 안에서 [maxLines]줄 안에 들어가는 첫 스타일. 없으면 가장 작은 스타일 그대로 */
+    fun choose(maxWidth: Int): TextLayoutResult {
+        for (style in styles) {
+            val r = wrapped(style, maxWidth)
+            if (r.lineCount <= maxLines) return r
+        }
+        return wrapped(styles.last(), maxWidth)
+    }
+
+    override fun MeasureScope.measure(measurables: List<Measurable>, constraints: Constraints): MeasureResult {
+        val r = if (constraints.hasBoundedWidth) choose(constraints.maxWidth) else oneLine(styles.first())
+        layout.value = r
+        return layout(constraints.constrainWidth(r.size.width), constraints.constrainHeight(r.size.height)) {}
+    }
+
+    override fun IntrinsicMeasureScope.maxIntrinsicWidth(measurables: List<IntrinsicMeasurable>, height: Int): Int =
+        oneLine(styles.first()).size.width
+
+    override fun IntrinsicMeasureScope.minIntrinsicWidth(measurables: List<IntrinsicMeasurable>, height: Int): Int =
+        words.maxOfOrNull { measurer.measure(it, styles.last(), softWrap = false, maxLines = 1).size.width } ?: 0
+
+    override fun IntrinsicMeasureScope.minIntrinsicHeight(measurables: List<IntrinsicMeasurable>, width: Int): Int =
+        choose(width).size.height
+
+    override fun IntrinsicMeasureScope.maxIntrinsicHeight(measurables: List<IntrinsicMeasurable>, width: Int): Int =
+        choose(width).size.height
+}

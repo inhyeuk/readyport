@@ -382,7 +382,7 @@
     <string name="home_passport_title">여권 정보는 한 번만 등록하세요</string>
     <string name="home_passport_body">입국 카드를 쓸 때마다 다시 입력하지 않아도 돼요. 이 휴대폰에만 암호화해 저장하고, 밖으로 보내지 않아요.</string>
     <string name="home_passport_open">내 정보 관리</string>
-    <string name="home_trip_label">내 여행 · %1$s</string>
+    <!-- home_trip_label(`내 여행 · 태국`)은 2026-10-03 2차(부록 H.7)에서 지웠다 — 나라 이름이 여행 박스 안에 크게 들어가고 묶음 머리는 `내 여행` 한 줄이다 -->
     <string name="home_trip_days">출발 %1$d일 전</string>
     <string name="home_trip_today">오늘 출발해요</string>
     <string name="home_trip_during">여행 중이에요</string>

@@ -37,6 +37,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.layout.layout
@@ -411,6 +412,8 @@ data class Step(val text: String, val icon: ImageVector? = null, val detail: Str
 /**
  * 글자를 품는 원(번호 원·이니셜 아바타). 고정 크기 원 대신 글자가 크기를 정한다 —
  * [minSize]보다 크면 가로·세로 중 큰 값으로 정사각형을 맞춘다(200%에서도 숫자가 넘치거나 잘리지 않음).
+ * [shape]: 기본은 원. **네모 배지**(모서리 12dp — 여행 과정 단계 번호 [StageStepBadge])는 같은 틀을 모양만 바꿔 쓴다 —
+ * 원 = 몇 번째 여행·몇 번째 순서 줄, 네모 = 몇 번째 단계 (부록 H.7).
  */
 @Composable
 fun TextCircle(
@@ -420,10 +423,11 @@ fun TextCircle(
     container: Color = Tokens.Accent,
     content: Color = Tokens.Surface,
     style: TextStyle = MaterialTheme.typography.labelLarge,
+    shape: Shape = CircleShape,
 ) {
     Box(
         modifier = modifier
-            .background(container, CircleShape)
+            .background(container, shape)
             .layout { measurable, constraints ->
                 val placeable = measurable.measure(constraints.copy(minWidth = 0, minHeight = 0))
                 val side = maxOf(placeable.width, placeable.height, minSize.roundToPx())

@@ -110,7 +110,6 @@ import com.readyport.ui.components.ChecklistDivider
 import com.readyport.ui.components.StageSectionCard
 import com.readyport.ui.components.DangerButton
 import com.readyport.ui.components.DestructiveConfirm
-import com.readyport.ui.components.ExpandToggle
 import com.readyport.ui.components.Fact
 import com.readyport.ui.components.FactGrid
 import com.readyport.ui.components.HelpShortcutRow
@@ -120,8 +119,7 @@ import com.readyport.ui.components.IconKeys
 import com.readyport.ui.components.InfoChip
 import com.readyport.ui.components.InfoTileGrid
 import com.readyport.ui.components.ImportVerdictNote
-import com.readyport.ui.components.JourneyStageBar
-import com.readyport.ui.components.JourneyStageCell
+import com.readyport.ui.components.JourneyStageHeader
 import com.readyport.ui.components.KoText
 import com.readyport.ui.components.NavMosaic
 import com.readyport.ui.components.NewsStyle
@@ -149,12 +147,13 @@ import com.readyport.ui.components.importKind
 import com.readyport.ui.components.importLabel
 import com.readyport.ui.components.journeyStageBody
 import com.readyport.ui.components.journeyStageName
+import com.readyport.ui.components.journeyStageStepName
 import com.readyport.ui.components.keepWords
+import com.readyport.ui.components.keepKeyVisible
 import com.readyport.ui.components.rememberKeyIndex
 import com.readyport.ui.components.rememberPhotoLift
 import com.readyport.ui.components.rememberThumbnail
 import com.readyport.ui.components.resolveSourceName
-import com.readyport.ui.components.scrollToKey
 import com.readyport.ui.components.sectionGap
 import com.readyport.ui.stay.StayActions
 import com.readyport.ui.stay.StayHereCard
@@ -394,14 +393,26 @@ fun TripJourneyScreen(
 
 /**
  * 한 여행 화면 — 이 여행의 모든 것이 여기서 닿는다.
- * 위에서부터: 나라 사진 머리(`12 / 30` + 막대 + 지금 단계) → **여행 과정 8단계 막대**(누르면 그 단계로) →
- * 지금 할 일(가장 급한 일 한 가지 + 그 단계로 가는 버튼) → 알림 한 줄 → 단계 카드 여덟(항목 + 그 단계에서 하는 일)
- * → 내가 넣은 항목 → 급할 때는 도움 → 기기 안 저장 → 이 여행 지우기.
+ * 위에서부터: 나라 사진 머리(`12 / 30` + 막대 + 지금 단계) → 지금 할 일(가장 급한 일 한 가지 + 그 단계를 펼치는 버튼)
+ * → 알림 한 줄 → **번호 붙은 단계 카드 여덟**(접혔다 펴지는 아코디언) → 내가 넣은 항목 → 급할 때는 도움
+ * → 기기 안 저장 → 이 여행 지우기.
  * - 묶는 축은 **단계**(무엇을 하는 일), 늦음·알림은 **기한 축**(언제까지)이 따로 맡는다.
- * - 지난 단계를 다 했으면 그 카드는 머리만 보이고 `한 일 7개 보기`로 펼친다(숨기지 않고 접기만).
+ *
+ * **아코디언** (운영자 2026-10-03, 부록 H.7):
+ * *"내 여행에서 계획, 예약, 등을 클릭하면 하단으로 이동한 뒤 상단으로 바로 이동할 수 있는 방법이 없어.
+ * 따라서 각 단계를 클릭하면 접혔다가 펴지는 형태로 해줘. 다른 단계를 클릭하면 펼쳐져있던 기존 내용이 모두 접히도록 해줘."*
+ * - 한 번에 **한 단계만** 펼쳐진다. 누른 단계가 그 자리에서 펴지고 나머지는 모두 접힌다. 열린 단계를 다시 누르면 접힌다(모두 접힘).
+ * - 처음 열 때 펼쳐져 있는 단계는 **지금 단계**다. 고른 단계는 rememberSaveable로 화면이 다시 만들어져도(회전·프로세스 종료) 그대로다.
+ * - **예전 단계 막대(4칸 두 줄 그림 격자)는 지웠다**: 막대를 누르면 긴 스크롤로 아래 카드까지 내려가고 돌아오는 길이 없었다 —
+ *   운영자가 말한 바로 그 문제다. 막대가 들고 있던 그림·진행·`지금`은 카드 머리로 들어갔고, 아코디언이 '고르기'를 맡는다.
+ * - 접힌 단계도 머리에 **번호·이름·언제까지·`3 / 7`·막대**가 남는다 — 숨기지 않고 접기만 한다. 여덟 머리가 모두 짧아
+ *   어느 단계를 펼쳐도 조금만 올리면 단계 목록 전체가 다시 보인다.
+ *
+ * @param openAtFirst 처음 펼쳐 둘 단계의 key. null이면 **지금 단계**(운영 기본값), [JOURNEY_ALL_FOLDED]면 모두 접힘.
+ *   갤러리 캡처·테스트가 한 상태를 바로 띄워 보려고 쓴다 — 운영 화면은 넘기지 않는다.
  */
 @Composable
-fun TripJourneyContent(ui: JourneyUi, actions: ChecklistActions) {
+fun TripJourneyContent(ui: JourneyUi, actions: ChecklistActions, openAtFirst: String? = null) {
     val trip = ui.trip ?: return
     val country = ui.countryName ?: trip.country
     val data = ui.data
@@ -411,24 +422,33 @@ fun TripJourneyContent(ui: JourneyUi, actions: ChecklistActions) {
     val subtitle = stringResource(R.string.ck_progress_title, dates, stringResource(R.string.trip_nights, nights, nights + 1))
     var confirmDelete by remember { mutableStateOf(false) }
     var confirmDestroy by remember { mutableStateOf(false) }
-    var shown by rememberSaveable(trip.id) { mutableStateOf<String?>(null) }
-    val selected = JourneyStage.of(shown) ?: current
+    // 펼친 단계: null = 아직 고르지 않음(지금 단계가 펼쳐져 있다), ALL_FOLDED = 모두 접음, 그 밖 = 그 단계 key
+    var chosen by rememberSaveable(trip.id) { mutableStateOf(openAtFirst) }
+    val open: JourneyStage? = when (chosen) {
+        null -> current
+        JOURNEY_ALL_FOLDED -> null
+        else -> JourneyStage.of(chosen)
+    }
     val listState = rememberLazyListState()
     val keys = rememberKeyIndex()
-    val scope = rememberCoroutineScope()
-    val goToStage: (JourneyStage) -> Unit = { s ->
-        shown = s.key
-        scope.launch { listState.scrollToKey(keys, stageKey(s)) }
+    // 펼친 단계의 머리가 화면 밖으로 밀렸을 때만 **필요한 만큼** 올린다(긴 점프 없음 — keepKeyVisible)
+    var ensure by remember { mutableStateOf<JourneyStage?>(null) }
+    LaunchedEffect(ensure) {
+        val s = ensure ?: return@LaunchedEffect
+        listState.keepKeyVisible(keys, stageKey(s))
+        ensure = null
     }
-    // `묵는 곳 보기`는 같은 화면 예약 단계로 내려간다 — 주소를 적는 곳이 한 군데뿐이라(2026-10-03)
-    val acts = actions.copy(openStays = { goToStage(JourneyStage.Book) })
+    val setOpen: (JourneyStage, Boolean) -> Unit = { s, want ->
+        chosen = if (want) s.key else JOURNEY_ALL_FOLDED
+        if (want) ensure = s
+    }
+    // 지금 할 일·`묵는 곳 보기`처럼 **밖에서 가리키는** 길은 접지 않고 언제나 그 단계를 펼친다
+    val openStage: (JourneyStage) -> Unit = { s -> setOpen(s, true) }
+    // `묵는 곳 보기`는 같은 화면 예약 단계를 펼친다 — 주소를 적는 곳이 한 군데뿐이라(2026-10-03)
+    val acts = actions.copy(openStays = { openStage(JourneyStage.Book) })
     // 여행 과정은 **언제나 여덟 단계**다 — 그 나라에 항목이 없는 단계(예전 서명 팩 등)도 자리를 비우지 않는다.
     // 단계마다 그 단계에서 하는 일(예약 서류 넣어 두기 등)이 있어서, 항목이 비어도 카드가 할 일을 들고 있다
     val stages = JourneyStage.entries
-    val cells = stages.map { s ->
-        val items = data.stage(s)
-        JourneyStageCell(s, items.count { it.checked }, items.size, now = s == current)
-    }
     AppScreen(
         title = stringResource(R.string.journey_trip_title, country),
         subtitle = subtitle,
@@ -441,10 +461,7 @@ fun TripJourneyContent(ui: JourneyUi, actions: ChecklistActions) {
         if (ui.overlaps) {
             item(key = "overlap") { NoticeBanner(stringResource(R.string.trips_overlap_note), icon = Icons.Outlined.EventBusy) }
         }
-        item(key = "stages") {
-            JourneyStageBar(cells, selected, onSelect = goToStage)
-        }
-        item(key = "next") { NowCard(ui, current, goToStage) }
+        item(key = "next") { NowCard(ui, current, openStage) }
         // 못한 일을 언제 알려 주는지 + 이 여행만 조용히 두기 (PRD 6.1)
         item(key = "alert") { ReminderRow(ui, actions) }
         stages.forEach { stage ->
@@ -454,8 +471,8 @@ fun TripJourneyContent(ui: JourneyUi, actions: ChecklistActions) {
                     items = data.stage(stage),
                     ui = ui,
                     now = stage == current,
-                    current = current,
-                    currentDone = data.stage(current).all { it.checked },
+                    open = stage == open,
+                    onOpenChange = { want -> setOpen(stage, want) },
                     actions = acts,
                     onDestroy = { confirmDestroy = true },
                 )
@@ -489,12 +506,19 @@ fun TripJourneyContent(ui: JourneyUi, actions: ChecklistActions) {
     }
 }
 
-/** 목록에서 그 단계 카드를 찾는 열쇠 (단계 막대가 눌리면 여기로 내려간다) */
+/** 목록에서 그 단계 카드를 찾는 열쇠 (펼친 뒤 머리가 보이는지 볼 때 쓴다) */
 internal fun stageKey(stage: JourneyStage) = "stage-${stage.key}"
 
 /**
- * 지금 할 일 (Accent 채움, 화면에 하나): 가장 급한 안 한 일 **한 가지**와 그 일이 있는 단계로 가는 버튼.
- * 항목을 여기서 다시 그리지 않는다 — 누르면 그 단계 카드로 내려가서 설명·버튼·출처를 함께 본다(길은 하나).
+ * 아코디언이 '모두 접힘'을 기억하는 값 (단계 key와 겹치지 않는 빈 글자).
+ * [TripJourneyContent]의 `openAtFirst`에 넘기면 모두 접힌 모습으로 띄운다(갤러리 캡처·테스트).
+ */
+internal const val JOURNEY_ALL_FOLDED = ""
+
+/**
+ * 지금 할 일 (Accent 채움, 화면에 하나): 가장 급한 안 한 일 **한 가지**와 그 일이 있는 **단계를 펼치는** 버튼.
+ * 항목을 여기서 다시 그리지 않는다 — 누르면 그 단계 카드가 그 자리에서 펴지고 설명·버튼·출처를 함께 본다(길은 하나).
+ * 버튼 글자에 단계 번호가 들어간다(`3단계 서류 열기`) — 번호가 순서를 말해 준다(운영자 2026-10-03).
  * 다 했으면 지금 단계 이름과 `이 단계는 다 했어요`.
  */
 @Composable
@@ -502,7 +526,6 @@ private fun NowCard(ui: JourneyUi, current: JourneyStage, onGo: (JourneyStage) -
     val trip = ui.trip ?: return
     val next = Checklist.nowItems(ui.data, trip, ui.today, limit = 1).firstOrNull()
     val stage = next?.stage ?: current
-    val stageName = journeyStageName(stage)
     CardNewsCard(
         title = next?.title ?: stringResource(R.string.ck_now_all_done),
         icon = IconKeys.journeyStage(stage),
@@ -518,9 +541,9 @@ private fun NowCard(ui: JourneyUi, current: JourneyStage, onGo: (JourneyStage) -
             }
         }
         PrimaryButton(
-            text = stringResource(R.string.journey_open_stage, stageName),
+            text = stringResource(R.string.journey_open_stage_step, stage.step, journeyStageName(stage)),
             onClick = { onGo(stage) },
-            // 같은 화면 아래로 이동 = ArrowDownward (버튼 앞 꺾쇠 금지, R11)
+            // 그 단계 카드는 이 카드 아래에 있다 = ArrowDownward (버튼 앞 꺾쇠 금지, R11)
             icon = Icons.Outlined.ArrowDownward,
             colors = ButtonStyles.onDark(Tokens.Accent),
         )
@@ -528,8 +551,11 @@ private fun NowCard(ui: JourneyUi, current: JourneyStage, onGo: (JourneyStage) -
 }
 
 /**
- * 단계 카드 하나: 머리(그림 단계 아이콘 + 이름 + 언제까지 + `3 / 7` + 막대, 지금 단계면 `지금` 태그)
- * → 항목들 → **그 단계에서 하는 일**(출국 순서·공항 카드·예약 서류 가져오기 같은 안내 카드).
+ * 단계 카드 하나 — **접혔다 펴지는 아코디언**(운영자 2026-10-03, 부록 H.7).
+ * 머리(**번호 배지** + 이름 + 언제까지 + `3 / 7` + 막대, 지금 단계면 `지금` 태그, 끝에 펼침 꺾쇠) **전체가 단추**다.
+ * 펼치면 그림 패널 + 그 단계가 무엇을 하는 때인지 한 줄 → 항목들 → **그 단계에서 하는 일**(출국 순서·공항 카드·예약 서류
+ * 가져오기 같은 안내 카드). 접히면 머리만 남는다(숨기지 않고 접기만).
+ * TalkBack: 머리는 `3단계 서류, 7개 중 2개 했어요` + 펼쳐짐/접힘 상태.
  */
 @Composable
 private fun StageCard(
@@ -537,47 +563,43 @@ private fun StageCard(
     items: List<ChecklistItem>,
     ui: JourneyUi,
     now: Boolean,
-    current: JourneyStage,
-    currentDone: Boolean,
+    open: Boolean,
+    onOpenChange: (Boolean) -> Unit,
     actions: ChecklistActions,
     onDestroy: () -> Unit,
 ) {
     val trip = ui.trip ?: return
-    val name = journeyStageName(stage)
+    val dimens = LocalDimens.current
     val done = items.count { it.checked }
     val total = items.size
-    val allDone = total > 0 && done == total
-    // 펼쳐 둘 단계: 지금 단계와 그 앞의 아직 안 끝난 단계(늦은 일이 묻히지 않게).
-    // 다 끝난 지난 단계와 뒤 단계는 머리·진행만 보이고 그 자리에서 펼친다 — 숨기지 않고 접기만
-    val next = JourneyStage.entries.getOrNull(current.ordinal + 1)
-    val foldable = (allDone && stage < current) || (stage > current && !(stage == next && currentDone))
-    var open by rememberSaveable(stage.key, foldable) { mutableStateOf(!foldable) }
     StageSectionCard(
-        title = name,
+        title = journeyStageName(stage),
         hint = stageHint(stage, items, trip),
         icon = IconKeys.journeyStage(stage),
         done = done,
         total = total,
         now = now,
         nowLabel = stringResource(R.string.ck_phase_now),
-        headerDescription = stringResource(R.string.ck_phase_cd, name, total, done),
+        headerDescription = stringResource(R.string.ck_phase_cd, journeyStageStepName(stage), total, done),
+        step = stage.step,
+        open = open,
+        onOpenChange = onOpenChange,
     ) {
-        if (foldable) {
-            ExpandToggle(
-                open = open,
-                onOpenChange = { open = it },
-                label = if (allDone) stringResource(R.string.ck_phase_show, done) else stringResource(R.string.ck_phase_show_items, total),
-                target = stringResource(R.string.ck_phase_target, name),
+        // 단계 그림은 펼친 글 옆에 (예전 단계 막대의 그림 언어를 여기로 옮겼다 — 부록 E.6·H.3)
+        Row(verticalAlignment = Alignment.Top, horizontalArrangement = Arrangement.spacedBy(dimens.inner + 4.dp)) {
+            JourneyStageHeader(stage, size = dimens.iconBadge + 8.dp)
+            KoText(
+                journeyStageBody(stage),
+                MaterialTheme.typography.bodyMedium,
+                Modifier.weight(1f),
+                color = Tokens.InkSecondary,
             )
         }
-        if (open) {
-            KoText(journeyStageBody(stage), MaterialTheme.typography.bodyMedium, color = Tokens.InkSecondary)
-            items.forEachIndexed { i, item ->
-                if (i > 0) ChecklistDivider()
-                ItemRow(item, trip, ui.today, actions, onDestroy)
-            }
-            StageExtras(stage, ui, actions)
+        items.forEachIndexed { i, item ->
+            if (i > 0) ChecklistDivider()
+            ItemRow(item, trip, ui.today, actions, onDestroy)
         }
+        StageExtras(stage, ui, actions)
     }
 }
 

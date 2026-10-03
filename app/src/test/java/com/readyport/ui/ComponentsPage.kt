@@ -108,8 +108,12 @@ import com.readyport.ui.components.FactChip
 import com.readyport.ui.components.FactGrid
 import com.readyport.ui.components.IconBullet
 import com.readyport.ui.components.IconKeys
-import com.readyport.ui.components.JourneyStageBar
-import com.readyport.ui.components.JourneyStageCell
+import com.readyport.ui.components.JourneyStageHeader
+import com.readyport.ui.components.StageSectionCard
+import com.readyport.ui.components.StageStepBadge
+import com.readyport.ui.components.journeyStageBody
+import com.readyport.ui.components.journeyStageName
+import com.readyport.ui.components.journeyStageStepName
 import com.readyport.ui.components.IconTile
 import com.readyport.ui.components.ImportVerdictBadge
 import com.readyport.ui.components.InfoTileGrid
@@ -465,12 +469,47 @@ fun ComponentsPage(part: Int) {
             }
         }
         item(key = "journey") {
-            // 여행 과정 8단계 막대 (부록 H) — 예전 6칸 JourneyStepper를 대신한다
-            JourneyStageBar(
-                JourneyStage.entries.mapIndexed { i, s -> JourneyStageCell(s, done = if (i < 2) 3 else 0, total = 3, now = i == 2) },
-                selected = JourneyStage.Docs,
-                onSelect = {},
-            )
+            // 여행 과정 단계 카드 = 번호 배지 + 아코디언 (부록 H.7 — 예전 단계 막대를 대신한다):
+            // 펼친 단계 하나(지금 단계) + 접힌 단계 하나 + 번호 배지 여덟
+            Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                StageSectionCard(
+                    title = journeyStageName(JourneyStage.Docs),
+                    hint = stringResource(R.string.journey_due_by, "10월 30일"),
+                    icon = IconKeys.journeyStage(JourneyStage.Docs),
+                    done = 2,
+                    total = 5,
+                    now = true,
+                    nowLabel = stringResource(R.string.ck_phase_now),
+                    headerDescription = stringResource(R.string.ck_phase_cd, journeyStageStepName(JourneyStage.Docs), 5, 2),
+                    step = JourneyStage.Docs.step,
+                    open = true,
+                    onOpenChange = {},
+                ) {
+                    Row(verticalAlignment = Alignment.Top, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                        JourneyStageHeader(JourneyStage.Docs, size = 48.dp)
+                        KoText(
+                            journeyStageBody(JourneyStage.Docs),
+                            MaterialTheme.typography.bodyMedium,
+                            Modifier.weight(1f),
+                            color = Tokens.InkSecondary,
+                        )
+                    }
+                }
+                StageSectionCard(
+                    title = journeyStageName(JourneyStage.Return),
+                    hint = stringResource(R.string.journey_hint_return),
+                    icon = IconKeys.journeyStage(JourneyStage.Return),
+                    done = 0,
+                    total = 4,
+                    headerDescription = stringResource(R.string.ck_phase_cd, journeyStageStepName(JourneyStage.Return), 4, 0),
+                    step = JourneyStage.Return.step,
+                    open = false,
+                    onOpenChange = {},
+                ) {}
+                FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                    JourneyStage.entries.forEach { StageStepBadge(it.step, now = it == JourneyStage.Docs) }
+                }
+            }
         }
         item(key = "info-chips") {
             // 누를 수 없는 정보 칩(재검토 R1): 채움·테두리 없는 아이콘 + 글자
