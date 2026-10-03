@@ -24,6 +24,7 @@ import androidx.compose.material.icons.outlined.ErrorOutline
 import androidx.compose.material.icons.outlined.EventAvailable
 import androidx.compose.material.icons.outlined.Hotel
 import androidx.compose.material.icons.outlined.PictureAsPdf
+import androidx.compose.material.icons.outlined.Place
 import androidx.compose.material.icons.outlined.Screenshot
 import androidx.compose.material.icons.outlined.SearchOff
 import androidx.compose.material.icons.outlined.Share
@@ -70,7 +71,6 @@ import com.readyport.ui.components.TileSpec
 import com.readyport.ui.components.rememberGridColumns
 import com.readyport.ui.theme.LocalDimens
 import com.readyport.ui.theme.Tokens
-import com.readyport.vault.BookingRecord
 import com.readyport.vault.WalletRepository
 import kotlinx.coroutines.launch
 
@@ -92,12 +92,12 @@ fun BookingImportScreen(
         if (uri != null) viewModel.fromPdf(uri)
     }
 
-    fun save(record: BookingRecord) {
+    fun save(draft: BookingDraft) {
         scope.launch {
-            when (viewModel.save(record)) {
+            when (viewModel.save(draft)) {
                 WalletRepository.SaveResult.Saved -> Unit
                 WalletRepository.SaveResult.Failed -> saveFailed = true
-                else -> auth { scope.launch { if (viewModel.save(record) != WalletRepository.SaveResult.Saved) saveFailed = true } }
+                else -> auth { scope.launch { if (viewModel.save(draft) != WalletRepository.SaveResult.Saved) saveFailed = true } }
             }
         }
     }
@@ -108,7 +108,7 @@ fun BookingImportScreen(
         onPickPhoto = { photoPicker.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)) },
         onPickPdf = { pdfPicker.launch(arrayOf("application/pdf")) },
         onText = viewModel::fromText,
-        onSave = { save(it.toRecord()) },
+        onSave = { save(it) },
         onRestart = viewModel::restart,
         onDone = onDone,
     )
@@ -229,6 +229,10 @@ private fun ReviewForm(fields: BookingFields, saveFailed: Boolean, onSave: (Book
         } else {
             NoticeBanner(stringResource(R.string.booking_review_body), icon = Icons.AutoMirrored.Outlined.FactCheck)
         }
+        // 숙소를 고르면 어디에 저장되는지 한 줄로 (예약 서류 목록이 아니라 이 여행의 `묵는 곳`)
+        if (draft.kind == BookingKind.Lodging) {
+            IconBullet(stringResource(R.string.stay_import_note), Icons.Outlined.Hotel, tone = BadgeTone.Accent)
+        }
         // 종류: 세로 아이콘 + 라벨 타일 3칸 (큰 글자·쉬운 모드에서 칸이 좁아지면 1열 가로형)
         KoText(stringResource(R.string.booking_field_kind), style = MaterialTheme.typography.titleSmall, color = Tokens.InkSecondary)
         TileGrid(
@@ -247,8 +251,20 @@ private fun ReviewForm(fields: BookingFields, saveFailed: Boolean, onSave: (Book
         // 입력칸 라벨은 짧게(테두리 홈에 한 줄로 들어가게), 예시·설명은 칸 아래. 값은 칸 안에서 줄바꿈해 끝까지 보인다
         InfoCard {
             Column(verticalArrangement = Arrangement.spacedBy(dimens.gap)) {
-                Field(R.string.booking_label_title, draft.title, Icons.Outlined.Description, hint = R.string.booking_hint_title) {
+                val lodging = draft.kind == BookingKind.Lodging
+                // 숙소 서류는 '이름'이 숙소 이름이다 — 저장하면 예약 서류가 아니라 이 여행의 `묵는 곳`이 된다
+                Field(
+                    if (lodging) R.string.stay_field_name else R.string.booking_label_title,
+                    draft.title,
+                    if (lodging) Icons.Outlined.Hotel else Icons.Outlined.Description,
+                    hint = if (lodging) R.string.stay_hint_name else R.string.booking_hint_title,
+                ) {
                     draft = draft.copy(title = it)
+                }
+                if (lodging) {
+                    Field(R.string.stay_field_address, draft.address, Icons.Outlined.Place, hint = R.string.stay_hint_address) {
+                        draft = draft.copy(address = it)
+                    }
                 }
                 Field(R.string.booking_field_reference, draft.reference, Icons.Outlined.ConfirmationNumber) { draft = draft.copy(reference = it) }
                 if (draft.kind != BookingKind.Lodging) {

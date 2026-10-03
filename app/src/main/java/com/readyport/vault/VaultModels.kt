@@ -17,9 +17,12 @@ data class VaultContents(
     val companions: List<TravelCompanion> = emptyList(),
     /** 받은 입국 서류(QR·확인서 화면). 그림은 따로 암호화한 파일(blobId) */
     val entryDocs: List<EntryDoc> = emptyList(),
+    /** 묵는 곳 — 날짜별로 여러 곳이 될 수 있다 (2026-10-03). 주소가 있어 예약 서류와 같은 암호화 보관함에 둔다 */
+    val stays: List<StayRecord> = emptyList(),
 ) {
     override fun toString() =
-        "VaultContents(passport=${passport != null}, bookings=${bookings.size}, forms=${forms.keys}, companions=${companions.size}, docs=${entryDocs.size})"
+        "VaultContents(passport=${passport != null}, bookings=${bookings.size}, forms=${forms.keys}, " +
+            "companions=${companions.size}, docs=${entryDocs.size}, stays=${stays.size})"
 
     /** 여행이 끝나면 여권 정보만 지운다. 받은 서류 그림·예약 서류는 남긴다 (PRD 4.2 ⑧) */
     fun withoutPassportInfo(): VaultContents = copy(
@@ -95,6 +98,37 @@ data class PassportRecord(
     val savedAt: String,
 ) {
     override fun toString() = "PassportRecord(source=$source, verified=$mrzVerified)"
+}
+
+/**
+ * 묵는 곳 하나 (2026-10-03 — 운영자 요청 *"날짜별로 숙소가 달라질 수 있으니"*).
+ * 한 여행에 0개 이상이고, 밤마다 다른 숙소여도 된다(11/3~11/5 호텔 A, 11/5~11/7 호텔 B).
+ * 주소는 개인정보에 가까워 예약 서류와 같은 암호화 보관함에만 둔다 — 로그·알림·서버로 나가지 않는다.
+ */
+@Serializable
+data class StayRecord(
+    val id: String,
+    /** 어느 여행의 숙소인지 ([com.readyport.trip.Trip.id]). 예전 예약 서류에서 옮겨 온 숙소는 null — 날짜가 맞는 여행에서 보인다 */
+    val tripId: String? = null,
+    val name: String,
+    /** 예약 확인서에 적힌 주소 그대로(현지 글자) — 기사님께 보여 주고, 지도에서 찾고, 입국 카드 주소 칸에 넣는다 */
+    val addressLocal: String = "",
+    /** 그 주소가 어디인지 한국어로 적어 둔 메모 (예: 수쿰윗 11번 골목, BTS 나나역 5분) */
+    val addressKo: String? = null,
+    /** ISO-8601 (yyyy-MM-dd) */
+    val checkIn: String? = null,
+    val checkOut: String? = null,
+    val reference: String? = null,
+    /** 숙소 종류 — 입국 카드 선택지와 같은 값 ([com.readyport.stay.StayType]) */
+    val type: String? = null,
+    val lat: Double? = null,
+    val lng: Double? = null,
+    val phone: String? = null,
+    val memo: String? = null,
+    val savedAt: String,
+) {
+    /** 개인정보를 찍지 않는다 (작업 규칙 3) */
+    override fun toString() = "StayRecord(hasAddress=${addressLocal.isNotBlank()}, hasDates=${checkIn != null || checkOut != null})"
 }
 
 @Serializable

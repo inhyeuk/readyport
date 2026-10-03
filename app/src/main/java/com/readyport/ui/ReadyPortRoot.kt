@@ -73,7 +73,9 @@ import com.readyport.ui.trip.TripScreen
 import com.readyport.ui.present.PresentScreen
 import com.readyport.ui.present.CompanionsScreen
 import com.readyport.ui.nav.TripRoute
+import com.readyport.ui.nav.StayEditRoute
 import com.readyport.ui.nav.TransportRoute
+import com.readyport.ui.stay.StayEditScreen
 import com.readyport.ui.nav.EssentialsRoute
 import com.readyport.ui.nav.ShoppingRoute
 import com.readyport.ui.prep.EssentialsScreen
@@ -168,7 +170,7 @@ private fun MainScaffold(
     }
 
     LaunchedEffect(hasPendingShare) {
-        if (hasPendingShare) navController.navigate(BookingImportRoute) { launchSingleTop = true }
+        if (hasPendingShare) navController.navigate(BookingImportRoute()) { launchSingleTop = true }
     }
 
     // 챙길 일 알림을 누르면 그 여행 체크리스트로 (PRD 6.1). 열고 나면 비워 둔다 — 같은 알림을 또 눌러도 열리게
@@ -266,12 +268,15 @@ private fun MainScaffold(
                                 navController.navigate(CountryRoute(code, focusAirports = true, airport = airport, tripId = tripId))
                             },
                             openCountry = { code -> navController.navigate(CountryRoute(code, tripId = tripId)) },
-                            // 예약 서류의 집은 이 여행의 예약 단계다 (설정 내 정보에서도 갈 수 있다)
-                            openBooking = { navController.navigate(BookingImportRoute) },
+                            // 예약 서류의 집은 이 여행의 예약 단계다 (설정 내 정보에서도 갈 수 있다).
+                            // 이 여행에서 들어가면 숙소 서류는 이 여행 `묵는 곳`으로 저장된다
+                            openBooking = { navController.navigate(BookingImportRoute(tripId = tripId)) },
+                            openStayEdit = { stayId -> navController.navigate(StayEditRoute(tripId = tripId, stayId = stayId)) },
                         ),
                         onDeleted = { navController.popBackStack() },
                     )
                 }
+                composable<StayEditRoute> { StayEditScreen(onDone = { navController.popBackStack() }) }
                 composable<TransportRoute> { TransportScreen() }
                 composable<PresentRoute> { slots.present() }
                 composable<CompanionsRoute> {
@@ -296,7 +301,7 @@ private fun MainScaffold(
                 composable<WalletRoute> {
                     slots.wallet(
                         { navController.navigate(PassportGraph()) },
-                        { navController.navigate(BookingImportRoute) },
+                        { navController.navigate(BookingImportRoute()) },
                         { navController.navigate(CompanionsRoute) },
                     )
                 }

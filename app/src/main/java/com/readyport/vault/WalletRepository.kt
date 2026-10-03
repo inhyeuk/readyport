@@ -45,7 +45,10 @@ class WalletRepository(
             if (!file.exists()) return@withContext WalletState.Unlocked(VaultContents())
             try {
                 val plain = cipher.decrypt(file.readBytes())
-                WalletState.Unlocked(json.decodeFromString(VaultContents.serializer(), plain.decodeToString()))
+                val read = json.decodeFromString(VaultContents.serializer(), plain.decodeToString())
+                // 예전 `lodging` 예약 서류를 묵는 곳으로 옮긴다 (2026-10-03). 옮길 게 없으면 그대로 —
+                // 메모리에서만 옮기고, 다음 저장 때 파일에 남는다(복호화한 자리에서 한 번만 하면 되도록)
+                WalletState.Unlocked(com.readyport.stay.Stays.migrate(read))
             } catch (e: Exception) {
                 classify(e)
             }

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+      묵는 곳 (2026-10-03).
+      운영자 요청: "호텔 예약 정보도 관리하는 거지?" → "날짜별로 숙소가 달라질 수 있으니 이것도 고려해서 작업해줘.
+      그리고 숙소는 구글 맵에서 바로 찾아볼 수 있도록 link 되도록 해줘."
+      문구 규칙은 PRD 3.4 — 중1이 읽는 쉬운 말(해요체), 한 화면 할 일 하나. 정부 비제휴·제출은 직접 규칙 그대로.
+    -->
+
+    <!-- 예약 단계의 `묵는 곳` 카드 -->
+    <string name="stays_title">묵는 곳</string>
+    <string name="stays_card_body">날짜별로 다른 숙소도 괜찮아요. 주소를 한 번 적어 두면 입국 카드 주소 칸과 지도·기사님께 보여 주기에 그대로 써요.</string>
+    <string name="stays_empty">아직 넣어 둔 숙소가 없어요.</string>
+    <string name="stays_add">숙소 추가</string>
+    <string name="stays_import">예약 서류에서 가져오기</string>
+
+    <!-- 숙소 한 줄 -->
+    <string name="stay_nights">%1$d박</string>
+    <string name="stay_nights_same_day">당일</string>
+    <string name="stay_dates_from">%1$s부터</string>
+    <string name="stay_dates_until">%1$s까지</string>
+    <string name="stay_dates_none">날짜를 아직 안 적었어요</string>
+    <string name="stay_address_none">주소를 아직 안 적었어요</string>
+    <!-- TalkBack 한 문장: 이름, 날짜, 주소 -->
+    <string name="stay_row_cd">%1$s, %2$s, %3$s</string>
+    <string name="stay_edit_target">%1$s 고치기</string>
+    <string name="stay_open_maps">지도에서 보기</string>
+    <string name="stay_open_maps_cd">%1$s 구글 지도에서 보기</string>
+    <string name="stay_show_driver">기사님께 보여 주기</string>
+    <string name="stay_show_driver_cd">%1$s 주소를 기사님께 보여 주기</string>
+
+    <!-- 부드러운 알림 (막지 않아요) -->
+    <string name="stay_note_missing_dates">날짜를 아직 안 적은 숙소가 있어요. 날짜를 넣으면 어느 날 어디서 묵는지 보여 드려요.</string>
+    <string name="stay_note_gap">%1$s부터 %2$s까지 묵을 곳이 비어 있어요.</string>
+    <string name="stay_note_overlap">숙소 날짜가 겹쳐요. 한 번 봐 주세요.</string>
+    <string name="stay_note_arrival_missing">도착하는 %1$s에 묵을 곳이 아직 없어요.</string>
+    <string name="stay_note_outside">여행 날짜 밖의 숙소가 있어요.</string>
+
+    <!-- 입국·여행 중 단계 -->
+    <string name="stay_arrival_title">도착한 날 묵는 곳</string>
+    <string name="stay_arrival_empty">도착한 날 묵을 곳을 넣어 두면 공항에서 바로 주소를 꺼내 보여 드려요.</string>
+    <string name="stay_today_title">오늘 묵는 곳</string>
+    <string name="stay_today_empty">오늘 묵을 곳이 적혀 있지 않아요.</string>
+
+    <!-- 숙소 넣기·고치기 화면 -->
+    <string name="stay_add_title">숙소 넣기</string>
+    <string name="stay_edit_title">숙소 고치기</string>
+    <string name="stay_form_lead">예약 확인서에 적힌 대로 넣어 주세요.</string>
+    <string name="stay_form_speech">숙소 이름과 주소, 묵는 날짜를 넣는 화면이에요.</string>
+    <string name="stay_field_name">숙소 이름</string>
+    <string name="stay_hint_name">예: 사쿠라 리버사이드 호텔</string>
+    <string name="stay_field_address">숙소 주소</string>
+    <string name="stay_hint_address">예약 확인서 주소를 글자 그대로 적어 주세요. 입국 카드와 기사님께 보여 주기에 이 주소를 써요.</string>
+    <string name="stay_field_address_ko">주소 메모 (한국어)</string>
+    <string name="stay_hint_address_ko">어디인지 기억하기 쉽게 적어 두세요. 입국 카드에는 넣지 않아요.</string>
+    <string name="stay_field_checkin">체크인 날짜</string>
+    <string name="stay_field_checkout">체크아웃 날짜</string>
+    <string name="stay_field_reference">예약번호</string>
+    <string name="stay_field_phone">숙소 전화번호</string>
+    <string name="stay_hint_phone">숙소에 연락할 때 써요. 입국 카드에는 넣지 않아요.</string>
+    <string name="stay_field_memo">메모</string>
+    <string name="stay_dates_title">묵는 날짜</string>
+    <string name="stay_more_title">더 적어 둘 것</string>
+    <string name="stay_type_title">숙소 종류</string>
+    <string name="stay_type_hint">입국 카드의 숙소 종류 칸에 넣어요. 그 나라 사이트에 없는 종류면 비워 두고 사이트에서 고르면 돼요.</string>
+    <string name="stay_type_hotel">호텔</string>
+    <string name="stay_type_guest_house">게스트하우스</string>
+    <string name="stay_type_hostel">유스호스텔</string>
+    <string name="stay_type_apartment">아파트·레지던스</string>
+    <string name="stay_type_friend">친구·친척 집</string>
+    <string name="stay_type_other">그 밖의 숙소</string>
+    <string name="stay_save">저장하기</string>
+    <string name="stay_save_failed">저장하지 못했어요. 휴대폰 잠금을 다시 풀고 해 주세요.</string>
+    <string name="stay_date_invalid">체크아웃이 체크인보다 빨라요. 날짜를 다시 봐 주세요.</string>
+    <string name="stay_local_only">숙소 이름·주소는 이 휴대폰 안에만 암호화해서 둬요. 서버로 보내지 않아요.</string>
+    <string name="stay_delete">이 숙소 지우기</string>
+    <string name="stay_delete_confirm_title">이 숙소를 지울까요?</string>
+    <string name="stay_delete_confirm_body">숙소 이름·주소·날짜가 이 휴대폰에서 지워져요. 기사님께 보여 주던 주소도 함께 지워져요.</string>
+    <string name="stay_delete_confirm">지우기</string>
+
+    <!-- 예약 서류 가져오기에서 숙소를 골랐을 때 -->
+    <string name="stay_import_note">저장하면 예약 서류 목록이 아니라 이 여행의 묵는 곳으로 들어가요.</string>
+
+    <!-- 입국 카드 확인 화면: 주소는 넣어 주고 지역은 사이트에서 고른다 -->
+    <string name="form_stay_region_title">주소는 넣어 드리고, 지역은 사이트에서 골라 주세요</string>
+    <string name="form_stay_region_body">주·구·동·우편번호는 공식 사이트 목록에서 고르는 칸이라 앱이 넣지 않아요. 아래 주소를 보고 사이트에서 골라 주세요.</string>
+    <string name="form_stay_saved_address">저장해 둔 숙소 주소</string>
+
+    <!-- 체크리스트 항목에서 묵는 곳으로 -->
+    <string name="ck_action_stays">묵는 곳 보기</string>
+</resources>

@@ -13,7 +13,9 @@ import com.readyport.doc.mrz.MrzParser
 import com.readyport.doc.ocr.OcrEngine
 import com.readyport.share.SharedPayload
 import com.readyport.share.ShareInbox
+import com.readyport.stay.Stays
 import com.readyport.vault.BookingRecord
+import com.readyport.vault.StayRecord
 import com.readyport.vault.PassportRecord
 import com.readyport.vault.WalletRepository
 import com.readyport.vault.WalletState
@@ -128,11 +130,15 @@ sealed interface ImportState {
 
 @HiltViewModel
 class BookingImportViewModel @Inject constructor(
+    handle: androidx.lifecycle.SavedStateHandle,
     private val repo: WalletRepository,
     private val ocr: OcrEngine,
     private val inbox: ShareInbox,
+    private val places: com.readyport.transport.PlacesRepository,
     private val contentResolver: android.content.ContentResolver,
 ) : ViewModel() {
+    /** 어느 여행의 서류인지 (여행 화면 `묵는 곳`에서 들어오면 있다). 설정 › 내 정보에서 들어오면 null */
+    private val tripId: String? = handle["tripId"]
     private val _state = MutableStateFlow<ImportState>(ImportState.Choose)
     val state: StateFlow<ImportState> = _state.asStateFlow()
 
@@ -171,10 +177,24 @@ class BookingImportViewModel @Inject constructor(
     private fun readTextUri(uri: Uri): String =
         contentResolver.openInputStream(uri)?.use { it.readNBytesCompat(200_000).decodeToString() }.orEmpty()
 
-    suspend fun save(record: BookingRecord): WalletRepository.SaveResult {
+    /**
+     * 확인한 값을 저장한다. **숙소 서류는 묵는 곳으로** 저장하고(주소를 함께 적을 수 있고, 날짜별로 여러 곳이 될 수 있다),
+     * 항공권·그 밖의 서류는 예약 서류로 저장한다. 숙소를 저장하면 '가는 곳'도 같이 맞춘다 — 같은 호텔을 두 번 적지 않게.
+     */
+    suspend fun save(draft: BookingDraft): WalletRepository.SaveResult {
         if (repo.state.value !is WalletState.Unlocked) repo.unlock()
-        val result = repo.update { it.copy(bookings = it.bookings + record) }
-        if (result == WalletRepository.SaveResult.Saved) _state.value = ImportState.Saved
+        if (draft.kind != BookingKind.Lodging) {
+            val record = draft.toRecord()
+            val result = repo.update { it.copy(bookings = it.bookings + record) }
+            if (result == WalletRepository.SaveResult.Saved) _state.value = ImportState.Saved
+            return result
+        }
+        val stay = draft.toStay(tripId)
+        val result = repo.update { it.copy(stays = it.stays + stay) }
+        if (result == WalletRepository.SaveResult.Saved) {
+            places.syncStay(stay.id, com.readyport.stay.Stays.place(stay))
+            _state.value = ImportState.Saved
+        }
         return result
     }
 
@@ -205,6 +225,8 @@ data class BookingDraft(
     val checkIn: String,
     val checkOut: String,
     val dates: List<LocalDate>,
+    /** 숙소 서류일 때만 쓰는 주소(현지 글자 그대로) — 기사님께 보여 주고 입국 카드 주소 칸에 들어간다 */
+    val address: String = "",
 ) {
     /** 날짜 칸이 비었거나 올바른 날짜인지 — 반쯤 적은 날짜를 저장하며 버리지 않게, 아니면 저장 버튼을 막는다 */
     val datesValid: Boolean
@@ -226,17 +248,31 @@ data class BookingDraft(
         savedAt = now.toString(),
     )
 
+    /** 숙소 서류 → 묵는 곳 하나. 주소는 글자 그대로 두고(현지 글자) 날짜는 ISO-8601로 */
+    fun toStay(tripId: String?, now: LocalDateTime = LocalDateTime.now()) = StayRecord(
+        id = Stays.newId(),
+        tripId = tripId,
+        name = title.trim(),
+        addressLocal = address.trim(),
+        checkIn = parseDateDigits(checkIn)?.toString(),
+        checkOut = parseDateDigits(checkOut)?.toString(),
+        reference = reference.trim().ifEmpty { null },
+        savedAt = now.toString(),
+    )
+
     override fun toString() = "BookingDraft(kind=$kind)"
 
     companion object {
         fun from(fields: BookingFields, defaultTitle: String) = BookingDraft(
             kind = fields.kind,
-            title = defaultTitle,
+            // 숙소 서류에서 이름을 찾았으면 그 이름을 먼저 넣는다(사람이 확인 화면에서 고친다)
+            title = fields.stayName?.takeIf { it.isNotBlank() } ?: defaultTitle,
             reference = fields.reference.orEmpty(),
             flights = fields.flightNumbers.joinToString(", "),
             checkIn = digitsOf(fields.checkIn?.toString()),
             checkOut = digitsOf(fields.checkOut?.toString()),
             dates = fields.dates,
+            address = fields.stayAddress.orEmpty(),
         )
     }
 }

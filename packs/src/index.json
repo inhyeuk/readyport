@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "version": "2026.10.03-2",
+  "version": "2026.10.03-3",
   "countries": [
     {
       "code": "TH",
@@ -342,10 +342,11 @@
       "phase": "week",
       "stage": "pack",
       "icon": "address",
-      "kind": "generic",
+      "kind": "auto",
+      "from": "stay_saved",
       "title_ko": "숙소 주소를 현지어로 저장하기",
-      "body_ko": "택시 기사님께 보여 줄 수 있게 숙소 주소를 현지어 그대로 앱에 넣어 두세요.",
-      "action": "open_transport"
+      "body_ko": "택시 기사님께 보여 줄 수 있게 숙소 주소를 현지어 그대로 앱에 넣어 두세요. 묵는 곳에 주소를 적으면 이 항목은 앱이 스스로 체크해요.",
+      "action": "open_stays"
     },
     {
       "id": "consular_call",

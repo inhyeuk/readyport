@@ -229,6 +229,53 @@ class ChecklistTest {
         assertFalse(jpItem.checked)
     }
 
+    /** 숙소 주소 저장하기(`address_local`)는 앱이 스스로 확인하는 항목이다 (2026-10-03 묵는 곳) */
+    @Test
+    fun stayAddressItemChecksItself() {
+        val t = trip("TH")
+        val unknown = build(t).item("address_local")!!
+        assertEquals(ItemKind.Auto, unknown.kind)
+        assertEquals(ChecklistAction.OpenStays, unknown.action)
+        // 지갑을 아직 못 봤으면 모름(체크되지 않는다)
+        assertEquals(AutoState.Unknown, unknown.auto)
+        assertFalse(unknown.checked)
+        // 주소를 적어 둔 숙소가 없으면 안 함
+        val none = build(t, checks = TripChecks(stayAddress = false)).item("address_local")!!
+        assertEquals(AutoState.NotDone, none.auto)
+        assertFalse(none.checked)
+        // 주소가 하나라도 있으면 앱이 스스로 체크한다
+        val done = build(t, checks = TripChecks(stayAddress = true)).item("address_local")!!
+        assertEquals(AutoState.Done, done.auto)
+        assertTrue(done.checked)
+        // 사람이 되돌릴 수 있다(사람이 정한 값이 앱 판단보다 먼저)
+        val overridden = build(t, checks = TripChecks(stayAddress = true, marks = mapOf("address_local" to false))).item("address_local")!!
+        assertFalse(overridden.checked)
+        assertTrue(overridden.overridden)
+    }
+
+    /** 지갑을 열었을 때 적는 신호에 주소 글자가 아니라 '있다/없다'만 들어간다 */
+    @Test
+    fun stayAddressSignalKeepsNoAddressText() {
+        val t = trip("TH")
+        val contents = VaultContents(
+            stays = listOf(
+                com.readyport.vault.StayRecord(
+                    id = "s1", tripId = t.id, name = "리버뷰 방콕 호텔",
+                    addressLocal = "123 Soi Sukhumvit 11, Bangkok 10110",
+                    checkIn = "2026-11-03", checkOut = "2026-11-07", savedAt = "x",
+                ),
+            ),
+        )
+        val (_, perTrip) = TripSignalsRecorder.signals(contents, listOf(t), mapOf("TH" to pack("TH")))
+        assertEquals(true, perTrip[t.id]!!.stayAddress)
+        val stored = Json.encodeToString(TripBook.serializer(), TripBook(checks = mapOf(t.id to TripChecks(stayAddress = true))))
+        assertFalse(stored.contains("Sukhumvit"))
+        assertFalse(stored.contains("리버뷰"))
+        // 주소가 비어 있으면 false
+        val blank = contents.copy(stays = contents.stays.map { it.copy(addressLocal = "  ") })
+        assertEquals(false, TripSignalsRecorder.signals(blank, listOf(t), mapOf("TH" to pack("TH"))).second[t.id]!!.stayAddress)
+    }
+
     @Test
     fun signalsStoreResultsNotDates() {
         val th = trip("TH")
@@ -242,14 +289,14 @@ class ChecklistTest {
         val (saved, perTrip) = TripSignalsRecorder.signals(contents, listOf(th, thLater, jp), packs)
         assertTrue(saved)
         // 11월 여행: 2027-05-03 이상 필요 → 괜찮음, 2월 여행: 2027-08-10 이상 필요 → 모자람 (같은 나라라도 여행마다 다르다)
-        assertEquals(PassportStatus.Ok, perTrip[th.id]!!.first!!.status)
-        assertEquals(PassportStatus.Short, perTrip[thLater.id]!!.first!!.status)
-        assertEquals(PassportStatus.Unknown, perTrip[jp.id]!!.first!!.status)
+        assertEquals(PassportStatus.Ok, perTrip[th.id]!!.passport!!.status)
+        assertEquals(PassportStatus.Short, perTrip[thLater.id]!!.passport!!.status)
+        assertEquals(PassportStatus.Unknown, perTrip[jp.id]!!.passport!!.status)
         // 입국 카드 제출 기록은 그 여행 기간 것만
-        assertEquals(true, perTrip[th.id]!!.second)
-        assertEquals(false, perTrip[thLater.id]!!.second)
+        assertEquals(true, perTrip[th.id]!!.formSubmitted)
+        assertEquals(false, perTrip[thLater.id]!!.formSubmitted)
         // 저장되는 결과에 날짜·여권 번호가 없다
-        val stored = Json.encodeToString(TripBook.serializer(), TripBook(checks = perTrip.mapValues { (_, v) -> TripChecks(passport = v.first, formSubmitted = v.second) }))
+        val stored = Json.encodeToString(TripBook.serializer(), TripBook(checks = perTrip.mapValues { (_, v) -> TripChecks(passport = v.passport, formSubmitted = v.formSubmitted, stayAddress = v.stayAddress) }))
         assertFalse(stored.contains("2027-06-01"))
         assertFalse(stored.contains("M12345678"))
         assertFalse(stored.contains("1990"))

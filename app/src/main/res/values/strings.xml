@@ -41,7 +41,8 @@
     <string name="form_choose_yourself">직접 골라 주세요</string>
     <string name="form_origin_passport">여권에서</string>
     <string name="form_origin_flight">항공권에서</string>
-    <string name="form_origin_lodging">예약 확인서에서</string>
+    <!-- 숙소 값의 출처: 2026-10-03부터 예약 서류 한 줄이 아니라 여행의 `묵는 곳`에서 온다 -->
+    <string name="form_origin_lodging">묵는 곳에서</string>
     <string name="form_origin_user">직접 입력</string>
     <string name="form_empty_value">비어 있어요</string>
     <string name="form_confirm_notice">확인하면 앱이 공식 사이트에 넣어 드려요. 보안 확인과 마지막 \'제출\'은 직접 눌러 주세요.</string>

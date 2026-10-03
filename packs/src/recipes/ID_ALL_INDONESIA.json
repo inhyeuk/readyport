@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "form_id": "ID_ALL_INDONESIA",
-  "version": "2026.09.30-1",
+  "version": "2026.09.30-2",
   "last_verified": "2026-09-30",
   "site_version_seen": "index-C4N2qKCA",
   "sources": [
@@ -70,10 +70,10 @@
         { "key": "trip.flight_digits", "selector": "[id^=\"smta_flight_no_foreigner\"]", "widget": "text",
           "labels": { "ko": "편명 숫자", "en": "Flight No." }, "source": "booking", "confirm": "bulk", "required": true },
         { "key": "stay.hotel", "selector": "[id^=\"smta_hotel_name_foreigner\"]", "widget": "assist",
-          "labels": { "ko": "호텔 이름", "en": "Hotel Name" }, "source": "user_input", "confirm": "individual", "required": false,
+          "labels": { "ko": "호텔 이름", "en": "Hotel Name" }, "source": "booking", "confirm": "bulk", "required": false,
           "hint_ko": "목록에서 찾아 골라 주세요" },
         { "key": "stay.address", "selector": "[id^=\"smta_residential_address_foreigner\"]", "widget": "text", "transform": "upper",
-          "labels": { "ko": "인도네시아 안 주소 (영문)", "en": "Address in Indonesia" }, "source": "user_input", "confirm": "individual", "required": true }
+          "labels": { "ko": "인도네시아 안 주소 (영문)", "en": "Address in Indonesia" }, "source": "booking", "confirm": "bulk", "required": true }
       ]
     },
     {

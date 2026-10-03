@@ -80,6 +80,9 @@ import com.readyport.pack.SourcedText
 import com.readyport.prep.CartKey
 import com.readyport.prep.ImportStatus
 import com.readyport.prep.import
+import com.readyport.stay.StayNote
+import com.readyport.stay.Stays
+import com.readyport.transport.PlacesRepository
 import com.readyport.trip.Checklist
 import com.readyport.trip.ChecklistAlerts
 import com.readyport.trip.ChecklistData
@@ -153,9 +156,13 @@ import com.readyport.ui.components.rememberThumbnail
 import com.readyport.ui.components.resolveSourceName
 import com.readyport.ui.components.scrollToKey
 import com.readyport.ui.components.sectionGap
+import com.readyport.ui.stay.StayActions
+import com.readyport.ui.stay.StayHereCard
+import com.readyport.ui.stay.StaysCard
 import com.readyport.ui.theme.LocalDimens
 import com.readyport.ui.theme.Tokens
 import com.readyport.ui.wallet.rememberDeviceAuth
+import com.readyport.vault.StayRecord
 import com.readyport.vault.WalletRepository
 import com.readyport.vault.WalletState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -216,6 +223,10 @@ data class JourneyUi(
     /** 이 여행에서 산 물건을 담았는지 */
     val essentialsTotal: Int = 0,
     val essentialsDone: Int = 0,
+    /** 이 여행 묵는 곳 — 날짜 순 (2026-10-03). 보관함이 잠겨 있으면 비어 있다 */
+    val stays: List<StayRecord> = emptyList(),
+    /** 빈 날·겹침 같은 부드러운 알림 (막지 않는다) */
+    val stayNotes: List<StayNote> = emptyList(),
 )
 
 @HiltViewModel
@@ -226,6 +237,7 @@ class JourneyViewModel @Inject constructor(
     private val wallet: WalletRepository,
     private val settings: SettingsRepository,
     private val alerts: ChecklistAlerts,
+    private val places: PlacesRepository,
 ) : ViewModel() {
     private val tripId = MutableStateFlow<String?>(null)
 
@@ -271,8 +283,21 @@ class JourneyViewModel @Inject constructor(
             hasShopping = pack?.shopping?.isNotEmpty() == true,
             essentialsTotal = essentials.size,
             essentialsDone = essentials.count { it.checked },
+            stays = contents?.let { Stays.forTrip(it.stays, trip) }.orEmpty(),
+            stayNotes = contents?.let { Stays.notes(it.stays, trip) }.orEmpty(),
         )
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), JourneyUi())
+
+    /**
+     * 기사님께 보여 주기: 그 숙소를 '가는 곳'으로 맞춰 두고 고른다(이동하기 화면이 바로 그 주소를 보여 준다).
+     * 예전 예약 서류에서 옮겨 온 숙소도 여기서 가는 곳이 만들어진다.
+     */
+    fun showStayToDriver(stayId: String) = viewModelScope.launch {
+        val stay = (wallet.state.value as? WalletState.Unlocked)?.contents?.stays?.firstOrNull { it.id == stayId } ?: return@launch
+        val place = Stays.place(stay) ?: return@launch
+        places.syncStay(stay.id, place)
+        places.select(stay.id)
+    }
 
     /** 이 여행만 조용히 두기 (설정이 바뀌면 ChecklistAlerts가 작업을 다시 맞춘다) */
     fun setMuted(muted: Boolean) = viewModelScope.launch {
@@ -358,6 +383,11 @@ fun TripJourneyScreen(
             undoArrived = viewModel::undoArrived,
             arrivalDone = viewModel::dismissArrival,
             postponeDestroy = viewModel::postponeDestroy,
+            // 기사님께 보여 주기: 가는 곳으로 맞춰 둔 뒤 이동하기 화면으로 (같은 호텔을 두 번 적지 않는다)
+            showStayToDriver = { id ->
+                viewModel.showStayToDriver(id)
+                actions.openTransport()
+            },
         ),
     )
 }
@@ -390,6 +420,8 @@ fun TripJourneyContent(ui: JourneyUi, actions: ChecklistActions) {
         shown = s.key
         scope.launch { listState.scrollToKey(keys, stageKey(s)) }
     }
+    // `묵는 곳 보기`는 같은 화면 예약 단계로 내려간다 — 주소를 적는 곳이 한 군데뿐이라(2026-10-03)
+    val acts = actions.copy(openStays = { goToStage(JourneyStage.Book) })
     // 여행 과정은 **언제나 여덟 단계**다 — 그 나라에 항목이 없는 단계(예전 서명 팩 등)도 자리를 비우지 않는다.
     // 단계마다 그 단계에서 하는 일(예약 서류 넣어 두기 등)이 있어서, 항목이 비어도 카드가 할 일을 들고 있다
     val stages = JourneyStage.entries
@@ -424,7 +456,7 @@ fun TripJourneyContent(ui: JourneyUi, actions: ChecklistActions) {
                     now = stage == current,
                     current = current,
                     currentDone = data.stage(current).all { it.checked },
-                    actions = actions,
+                    actions = acts,
                     onDestroy = { confirmDestroy = true },
                 )
             }
@@ -567,7 +599,11 @@ private fun stageHint(stage: JourneyStage, items: List<ChecklistItem>, trip: Tri
 private fun StageExtras(stage: JourneyStage, ui: JourneyUi, actions: ChecklistActions) {
     when (stage) {
         JourneyStage.Plan -> PlanExtras(ui, actions)
-        JourneyStage.Book -> BookingCard(actions)
+        JourneyStage.Book -> {
+            // 묵는 곳이 예약 단계의 집이다 (2026-10-03) — 날짜별로 여러 곳, 지도·기사님께 보여 주기까지 여기서
+            StaysCard(ui.stays, ui.stayNotes, stayActions(actions))
+            BookingCard(actions)
+        }
         JourneyStage.Docs -> Unit
         JourneyStage.Pack -> {
             if (ui.data.stage(stage).any { it.detail is ItemDetail.Essential }) {
@@ -610,6 +646,13 @@ private fun PlanExtras(ui: JourneyUi, actions: ChecklistActions) {
         columns = 1,
     )
 }
+
+/** 숙소 카드가 쓰는 길 — 여행 화면의 동작에서 만든다 */
+private fun stayActions(actions: ChecklistActions) = StayActions(
+    edit = actions.openStayEdit,
+    showToDriver = actions.showStayToDriver,
+    import = actions.openBooking,
+)
 
 /** 예약 단계의 집: 예약 서류 가져오기 (예전에는 설정 › 내 정보 안에만 있어서 여행 흐름에서 보이지 않았다) */
 @Composable
@@ -680,6 +723,13 @@ private fun ArrivalExtras(ui: JourneyUi, actions: ChecklistActions) {
             )
         }
     }
+    // 공항에서 바로 필요한 것: 도착한 날 묵는 곳 주소 + 지도 (2026-10-03)
+    StayHereCard(
+        titleRes = R.string.stay_arrival_title,
+        emptyRes = R.string.stay_arrival_empty,
+        stay = Stays.forArrival(ui.stays, trip),
+        actions = stayActions(actions),
+    )
     val airport = ui.airport
     if (airport != null) {
         AirportCompactCard(
@@ -720,6 +770,13 @@ private fun ArrivalExtras(ui: JourneyUi, actions: ChecklistActions) {
 @Composable
 private fun DuringExtras(ui: JourneyUi, actions: ChecklistActions) {
     val trip = ui.trip ?: return
+    // 오늘 묵는 곳 — 날짜별로 숙소가 다른 여행에서 '오늘 어디로 돌아가는지'
+    StayHereCard(
+        titleRes = R.string.stay_today_title,
+        emptyRes = R.string.stay_today_empty,
+        stay = Stays.on(ui.stays, ui.today),
+        actions = stayActions(actions),
+    )
     InfoTileGrid(
         listOfNotNull(
             TileSpec(stringResource(R.string.today_go_stay), Icons.Outlined.Hotel, actions.openTransport, emphasized = true),

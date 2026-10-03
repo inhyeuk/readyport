@@ -18,6 +18,7 @@ import com.readyport.doc.booking.BookingExtractor
 import com.readyport.doc.mrz.MrzParser
 import com.readyport.pack.EssentialRule
 import com.readyport.prep.Essentials
+import com.readyport.stay.Stays
 import com.readyport.transport.Place
 import com.readyport.trip.Trip
 import com.readyport.ui.components.essentialsSummary
@@ -79,9 +80,12 @@ import com.readyport.ui.wallet.PassportConfirmContent
 import com.readyport.ui.wallet.PassportIntroContent
 import com.readyport.ui.wallet.ScanState
 import com.readyport.ui.wallet.WalletContent
+import com.readyport.ui.stay.StayEditContent
+import com.readyport.ui.stay.StayEditUi
 import com.readyport.vault.BookingRecord
 import com.readyport.vault.EntryDoc
 import com.readyport.vault.PassportRecord
+import com.readyport.vault.StayRecord
 import com.readyport.vault.VaultContents
 import com.readyport.vault.WalletState
 import com.readyport.video.Video
@@ -134,6 +138,25 @@ object Gallery {
             )
         }
 
+    /**
+     * 묵는 곳 두 곳 — **날짜별로 다른 호텔**(11월 3일~5일 방콕, 5일~7일 아유타야).
+     * 이름·주소는 모두 지어낸 가짜다(실제 사람·실제 예약 정보 없음).
+     */
+    private val stays = listOf(
+        StayRecord(
+            id = "stay-1", tripId = "g-th", name = "리버뷰 방콕 호텔",
+            addressLocal = "123 Soi Sukhumvit 11, Khlong Toei Nuea, Watthana, Bangkok 10110",
+            addressKo = "BTS 나나역에서 걸어서 7분", checkIn = "2026-11-03", checkOut = "2026-11-05",
+            reference = "RV-0000-0000", type = "hotel", phone = "+66-2-000-0000", savedAt = "2026-10-02T10:00",
+        ),
+        StayRecord(
+            id = "stay-2", tripId = "g-th", name = "아유타야 리버 게스트하우스",
+            addressLocal = "45 Naresuan Road, Pratu Chai, Phra Nakhon Si Ayutthaya 13000",
+            addressKo = "아유타야 역에서 툭툭으로 10분", checkIn = "2026-11-05", checkOut = "2026-11-07",
+            type = "guest_house", savedAt = "2026-10-02T10:05",
+        ),
+    )
+
     /** 한 여행 화면 값 한 벌 — 운영 JourneyViewModel과 같은 계산(단계·공항·쇼핑·귀국 사실) */
     private fun journeyUi(
         t: Trip,
@@ -167,6 +190,9 @@ object Gallery {
             hasShopping = pack.shopping.isNotEmpty(),
             essentialsTotal = 5,
             essentialsDone = 2,
+            // 묵는 곳 — 운영 JourneyViewModel과 같은 계산(그 여행 숙소를 날짜 순으로 + 부드러운 알림)
+            stays = Stays.forTrip(stays, t),
+            stayNotes = Stays.notes(stays, t),
         )
     }
 
@@ -205,14 +231,14 @@ object Gallery {
         nationality = "KOR", issuingState = "KOR", birthDate = "1974-08-12", sex = "F",
         expiryDate = "2031-04-15", source = "mrz", mrzVerified = true, savedAt = "2026-09-29T10:00",
     )
+    // 숙소는 예약 서류가 아니라 `묵는 곳`으로 둔다 (2026-10-03 — 예전 lodging 예약 서류는 보관함을 열 때 옮겨진다)
     private val contents = VaultContents(
         passport = passport,
         bookings = listOf(
             BookingRecord(id = "1", kind = "flight", title = "방콕 왕복", flightNumbers = listOf("KE651", "KE652"),
                 dates = listOf("2026-11-03", "2026-11-07"), savedAt = "x"),
-            BookingRecord(id = "2", kind = "lodging", title = "방콕 숙소", reference = "0000-0000",
-                checkIn = "2026-11-03", checkOut = "2026-11-07", savedAt = "x"),
         ),
+        stays = stays,
     )
 
     val videos = listOf(
@@ -288,11 +314,23 @@ object Gallery {
             val today = t.start
             TripJourneyContent(journeyUi(t, today, through(t, today, JourneyStage.Departure, ckThChecks)), ChecklistActions())
         },
-        // 입국 단계(도착했어요를 누른 뒤): 보여 주기 + 공항 순서 + 유심·환전·숙소 + 다 했어요
+        // 입국 단계(도착했어요를 누른 뒤): 도착한 날 묵는 곳(주소·지도) + 보여 주기 + 공항 순서 + 유심·환전·숙소 + 다 했어요
         "trip-arrival" to {
             val t = ckTh.copy(arrivalAirport = "BKK", arrivedAt = 1L)
             val today = t.start
             TripJourneyContent(journeyUi(t, today, through(t, today, JourneyStage.Arrival, ckThChecks)), ChecklistActions())
+        },
+        // 여행 중 단계(11월 5일 — 호텔을 옮기는 날): `오늘 묵는 곳`이 두 번째 숙소(아유타야)로 바뀐다
+        "trip-during" to {
+            val t = ckTh.copy(arrivalAirport = "BKK", arrivedAt = 1L)
+            val today = LocalDate.of(2026, 11, 5)
+            TripJourneyContent(journeyUi(t, today, through(t, today, JourneyStage.During, ckThChecks)), ChecklistActions())
+        },
+        // 숙소 고치기: 이름·주소(현지 글자)·한국어 메모 → 묵는 날짜 → 숙소 종류 → 예약번호·전화·메모 → 저장·지우기.
+        // 입력칸 값은 사람이 적은 글자라 앱이 줄바꿈을 보정하지 않는다 — 예약 확인서에 흔한 영문 이름으로 둔다(가짜)
+        "stay-edit" to {
+            val stay = stays.first().copy(name = "Riverview Hotel Bangkok", addressKo = "나나역 근처")
+            StayEditContent(StayEditUi(loaded = true, locked = false, existing = stay), {}, {}, {})
         },
         // 복귀 단계(돌아온 뒤): 담아 둔 물건 + 귀국 전 확인 전체 + 여권 정보 지우기
         "trip-return" to {
@@ -329,9 +367,12 @@ object Gallery {
                 { _, _ -> }, {},
             )
         },
+        // 숙소 주소는 `묵는 곳에서` 묶음으로 들어오고, 사이트에서 골라야 하는 주·구·동·우편번호는 안내 카드가 말한다 (2026-10-03)
         "form-confirm" to {
             val recipe = TestPacks.tdacRecipe
-            val draft = mapOf("trip.purpose" to "tourism", "profile.country_res" to "대한민국")
+            // 운영 FormConfirmViewModel과 같은 초안: 레시피 제안값 + 보관함에서 온 고르는 값(숙소 종류) + 사람이 고친 값
+            val draft = FormValues.defaults(recipe.value) + FormValues.suggest(recipe.value, contents) +
+                mapOf("trip.purpose" to "tourism", "profile.country_res" to "대한민국")
             val ctx = FormContext("TH_TDAC", th.value.forms.first(), recipe.value, recipe.version, false)
             FormConfirmContent(ConfirmUi(ctx, WalletState.Unlocked(contents), FormValues.build(recipe.value, contents, draft), draft),
                 { _, _ -> }, {}, {}, {}, {})

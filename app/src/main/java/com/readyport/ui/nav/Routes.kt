@@ -19,8 +19,17 @@ import kotlinx.serialization.Serializable
 @Serializable data object PassportConfirmRoute
 @Serializable data object PassportManualRoute
 
-/** 지갑 › 예약 서류 추가. 다른 앱의 '공유하기'로도 들어온다 */
-@Serializable data object BookingImportRoute
+/**
+ * 지갑 › 예약 서류 추가. 다른 앱의 '공유하기'로도 들어온다.
+ * [tripId]: 여행의 `묵는 곳`에서 들어왔으면 그 여행 — 숙소 서류를 저장할 때 그 여행 숙소로 붙인다.
+ */
+@Serializable data class BookingImportRoute(val tripId: String? = null)
+
+/**
+ * 내 여행 › 묵는 곳 하나 넣기·고치기 (2026-10-03). [stayId]가 없으면 새 숙소.
+ * 주소가 있어 암호화 보관함에만 저장하고 화면 캡처를 막는다(FLAG_SECURE).
+ */
+@Serializable data class StayEditRoute(val tripId: String, val stayId: String? = null)
 
 /**
  * 둘러보기 › 나라 화면(입국·여행·쇼핑). 인터넷 없이 저장해 둔 팩으로 보여 준다.

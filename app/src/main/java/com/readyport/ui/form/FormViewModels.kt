@@ -84,8 +84,12 @@ class FormConfirmViewModel @Inject constructor(
         val ctx = _ui.value.context ?: return
         val contents = (state as? WalletState.Unlocked)?.contents
         val saved = contents?.forms?.get(formId)?.values.orEmpty()
-        // 처음 열 때만 저장된 값·기본 제안으로 초안을 채운다
-        val draft = _ui.value.draft.ifEmpty { FormValues.defaults(ctx.recipe ?: return@ifEmpty saved) + saved }
+        // 처음 열 때만 저장된 값·기본 제안으로 초안을 채운다.
+        // 제안 = 레시피 기본값 + 보관함에서 온 고르는 값(숙소 종류) — 사람이 전에 고친 값(saved)이 가장 세다
+        val draft = _ui.value.draft.ifEmpty {
+            val recipe = ctx.recipe ?: return@ifEmpty saved
+            FormValues.defaults(recipe) + (contents?.let { FormValues.suggest(recipe, it) }.orEmpty()) + saved
+        }
         val values = if (contents != null && ctx.recipe != null) FormValues.build(ctx.recipe, contents, draft) else emptyMap()
         _ui.update { it.copy(wallet = state, draft = draft, values = values) }
     }

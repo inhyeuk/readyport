@@ -1,6 +1,8 @@
 package com.readyport.autofill
 
+import com.readyport.stay.Stays
 import com.readyport.vault.BookingRecord
+import com.readyport.vault.StayRecord
 import com.readyport.vault.VaultContents
 import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.json.JsonNull
@@ -38,26 +40,19 @@ object FormValues {
         }
         // 사용자가 고르거나 고친 값이 가장 먼저
         saved[f.key]?.takeIf { it.isNotBlank() }?.let { raw ->
-            val opt = f.optionsRef?.let { ref -> recipe.options[ref]?.firstOrNull { it.value == raw } }
-            return if (opt != null) {
-                // 사이트 말풍선에는 "관광 → HOLIDAY"처럼 골라야 할 사이트 글자를 함께
-                val forSite = when {
-                    // 기본 선택 목록은 사이트 글자 그대로여야 엔진이 고를 수 있다
-                    f.widget == "select" && opt.site != null -> opt.site
-                    opt.site != null -> "${opt.ko} → ${opt.site}"
-                    else -> "${opt.ko} (${opt.en})"
-                }
-                FieldValue(f.key, forSite, listOfNotNull(opt.ko, opt.en, opt.local).joinToString(" · "), ValueOrigin.User)
-            } else {
-                val v = f.siteMap[raw] ?: transform(f, raw)
-                FieldValue(f.key, v, raw.takeIf { f.siteMap.containsKey(raw) } ?: v, ValueOrigin.User)
-            }
+            optionValue(recipe, f, raw, ValueOrigin.User)?.let { return it }
+            val v = f.siteMap[raw] ?: transform(f, raw)
+            return FieldValue(f.key, v, raw.takeIf { f.siteMap.containsKey(raw) } ?: v, ValueOrigin.User)
         }
         val p = vault.passport
         val flights = vault.bookings.filter { it.kind == "flight" }.sortedBy { it.dates.firstOrNull() ?: "9999" }
-        val lodging = vault.bookings.filter { it.kind == "lodging" }.sortedBy { it.checkIn ?: "9999" }
+        val stays = Stays.sorted(vault.stays)
+        // 도착한 날 묵는 곳(없으면 첫 숙소) — 날짜별로 숙소가 다른 여행에서 입국 카드에 들어갈 숙소 (2026-10-03)
+        val stay = arrivalStay(vault, flights, stays)
         fun passport(v: String?) = FieldValue(f.key, v?.let { transform(f, it) }, v?.let { transform(f, it) }, if (v == null) ValueOrigin.None else ValueOrigin.Passport)
         fun none() = FieldValue(f.key, null, null, ValueOrigin.None)
+        fun lodging(v: String?) = v?.takeIf { it.isNotBlank() }?.trim()
+            ?.let { FieldValue(f.key, transform(f, it), transform(f, it), ValueOrigin.Lodging) } ?: none()
 
         return when (f.key) {
             "passport.surname" -> passport(p?.surname)
@@ -83,7 +78,7 @@ object FormValues {
                 FieldValue(f.key, f.siteMap[it.sex] ?: d, d, ValueOrigin.Passport)
             } ?: none()
             "trip.arrival_date" -> firstDate(flights.firstOrNull())?.let { FieldValue(f.key, transform(f, it), it, ValueOrigin.Flight) }
-                ?: lodging.firstOrNull()?.checkIn?.let { FieldValue(f.key, transform(f, it), it, ValueOrigin.Lodging) }
+                ?: stays.firstNotNullOfOrNull { it.checkIn }?.let { FieldValue(f.key, transform(f, it), it, ValueOrigin.Lodging) }
                 ?: none()
             "trip.arrival_mode" -> if (flights.isNotEmpty()) f.siteValue?.takeIf { f.widget == "select" }
                 ?.let { FieldValue(f.key, it, "비행기 → $it", ValueOrigin.Flight) } ?: plane(f) else none()
@@ -96,11 +91,53 @@ object FormValues {
             "trip.flight_digits" -> flights.firstOrNull()?.flightNumbers?.firstOrNull()?.let { splitFlight(it) }
                 ?.let { FieldValue(f.key, it.second, it.second, ValueOrigin.Flight) } ?: none()
             "trip.departure_date" -> lastFlightDate(flights)?.let { FieldValue(f.key, transform(f, it), it, ValueOrigin.Flight) }
-                ?: lodging.lastOrNull()?.checkOut?.let { FieldValue(f.key, transform(f, it), it, ValueOrigin.Lodging) }
+                ?: stays.mapNotNull { it.checkOut }.maxOrNull()?.let { FieldValue(f.key, transform(f, it), it, ValueOrigin.Lodging) }
                 ?: none()
             "trip.departure_flight_no" -> departureFlight(flights)?.let { FieldValue(f.key, transform(f, it), transform(f, it), ValueOrigin.Flight) } ?: none()
+            // 묵는 곳 — 저장해 둔 숙소에서 (2026-10-03). 주소·이름은 글자 그대로, 종류는 그 나라 사이트 선택지에 **있을 때만**.
+            // 주·구·동·우편번호는 사이트 목록에서 고르는 칸이라 여기서 만들지 않는다(없는 값을 지어내지 않는다 — 화면이 저장한 주소를 보여 주고 사람이 고른다)
+            "stay.address" -> lodging(stay?.addressLocal)
+            "stay.hotel" -> lodging(stay?.name)
+            "stay.type" -> stay?.type?.let { optionValue(recipe, f, it, ValueOrigin.Lodging) } ?: none()
             else -> none()
         }
+    }
+
+    /** 레시피 선택지에 있는 값인지 보고, 있으면 사이트 글자까지 갖춘 값으로 (없으면 null — 사이트에 없는 선택지를 만들지 않는다) */
+    private fun optionValue(recipe: Recipe, f: RecipeField, raw: String, origin: ValueOrigin): FieldValue? {
+        val opt = f.optionsRef?.let { ref -> recipe.options[ref]?.firstOrNull { it.value == raw } } ?: return null
+        // 사이트 말풍선에는 "관광 → HOLIDAY"처럼 골라야 할 사이트 글자를 함께
+        val forSite = when {
+            // 기본 선택 목록은 사이트 글자 그대로여야 엔진이 고를 수 있다
+            f.widget == "select" && opt.site != null -> opt.site
+            opt.site != null -> "${opt.ko} → ${opt.site}"
+            else -> "${opt.ko} (${opt.en})"
+        }
+        return FieldValue(f.key, forSite, listOfNotNull(opt.ko, opt.en, opt.local).joinToString(" · "), origin)
+    }
+
+    /**
+     * 입국 카드에 넣을 숙소: **도착한 날 묵는 곳**(날짜별로 숙소가 다를 수 있다), 없으면 첫 숙소.
+     * 도착한 날은 항공권 첫 날짜 → 없으면 가장 이른 체크인으로 본다(여행 화면이 아니어서 여행 날짜를 모른다).
+     */
+    private fun arrivalStay(vault: VaultContents, flights: List<BookingRecord>, stays: List<StayRecord>): StayRecord? {
+        if (stays.isEmpty()) return null
+        val arrival = (firstDate(flights.firstOrNull()) ?: stays.firstNotNullOfOrNull { it.checkIn })
+            ?.let { runCatching { java.time.LocalDate.parse(it) }.getOrNull() }
+        return arrival?.let { Stays.on(stays, it) } ?: stays.first()
+    }
+
+    /**
+     * 확인 화면 초안에 미리 넣어 둘 값 — 레시피 제안값([defaults])과 함께 쓴다.
+     * 지금은 **숙소 종류** 하나: 고르는 칸(user_choice)이라 초안에 들어가야 화면에 골라진 모습으로 보인다(사람이 바꿀 수 있다).
+     */
+    fun suggest(recipe: Recipe, vault: VaultContents): Map<String, String> {
+        val stays = Stays.sorted(vault.stays)
+        val stay = arrivalStay(vault, vault.bookings.filter { it.kind == "flight" }.sortedBy { it.dates.firstOrNull() ?: "9999" }, stays)
+        val type = stay?.type ?: return emptyMap()
+        return recipe.fields.filter { it.key == "stay.type" }
+            .filter { f -> f.optionsRef?.let { recipe.options[it]?.any { o -> o.value == type } } == true }
+            .associate { it.key to type }
     }
 
     private fun transform(f: RecipeField, v: String) = when (f.transform) {

@@ -33,6 +33,8 @@ enum class ChecklistAction(val key: String) {
     OpenAirport("open_airport"),
     /** 예약 서류 가져오기 (예약 단계의 집 — 2026-10-03) */
     OpenBooking("open_booking"),
+    /** 묵는 곳 (예약 단계의 `묵는 곳` 카드로 — 2026-10-03) */
+    OpenStays("open_stays"),
     ;
 
     companion object {
@@ -270,6 +272,16 @@ object Checklist {
             "passport_saved" -> ChecklistItem(
                 t.id, axes.stage, axes.due, ItemKind.Auto, t.icon, title, t.bodyKo,
                 auto = when (input.passportSaved) {
+                    true -> AutoState.Done
+                    false -> AutoState.NotDone
+                    null -> AutoState.Unknown
+                },
+                action = ChecklistAction.of(t.action),
+            )
+            // 묵는 곳에 주소를 적어 두었는지 (2026-10-03) — 지갑을 열었을 때 본 결과만 쓴다(주소 글자는 장부에 없다)
+            "stay_saved" -> ChecklistItem(
+                t.id, axes.stage, axes.due, ItemKind.Auto, t.icon, title, t.bodyKo,
+                auto = when (input.checks.stayAddress) {
                     true -> AutoState.Done
                     false -> AutoState.NotDone
                     null -> AutoState.Unknown
