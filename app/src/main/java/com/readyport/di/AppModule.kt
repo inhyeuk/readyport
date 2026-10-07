@@ -5,6 +5,13 @@ import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.readyport.autofill.FieldReporter
 import com.readyport.autofill.QueuedFieldReporter
 import com.readyport.cloud.CloudSync
+import com.readyport.notice.FirestoreNoticeRemote
+import com.readyport.notice.NoticeParser
+import com.readyport.notice.NoticeRepository
+import com.readyport.notice.NoticeStore
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.preferencesDataStore
 import com.readyport.autofill.SafeClipboard
 import com.readyport.pack.AssetBundledPacks
 import com.readyport.pack.HttpPackRemote
@@ -24,6 +31,9 @@ import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.Dispatchers
 import java.io.File
 import javax.inject.Singleton
+
+/** 공지 '다시 보지 않기' 기록 (id@version·날짜만, 백업 제외 규칙 그대로) */
+private val Context.noticeMarksStore: DataStore<Preferences> by preferencesDataStore(name = "notices")
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -54,6 +64,20 @@ object AppModule {
     @Provides
     @Singleton
     fun fieldReporter(queue: QueuedFieldReporter): FieldReporter = queue
+
+    /** 공지사항: Firestore notices/current(서명) → 기기 안 사본 noBackupFilesDir/notices/ (docs/NOTICES_PUSH.md) */
+    @Provides
+    @Singleton
+    fun noticeRepository(@ApplicationContext context: Context): NoticeRepository = NoticeRepository(
+        remote = FirestoreNoticeRemote(),
+        dir = File(context.noBackupFilesDir, "notices"),
+        parser = NoticeParser(PackVerifier(PackKeys.TRUSTED)),
+        io = Dispatchers.IO,
+    )
+
+    @Provides
+    @Singleton
+    fun noticeStore(@ApplicationContext context: Context): NoticeStore = NoticeStore(context.noticeMarksStore)
 
     @Provides
     @Singleton

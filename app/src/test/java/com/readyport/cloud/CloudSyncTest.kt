@@ -33,6 +33,36 @@ class CloudSyncTest {
         assertTrue(CloudSyncPlan.plan(setOf("../x"), null, emptySet(), emptySet()).subscribe.isEmpty())
     }
 
+    @Test fun noticeTopicsFollowSettings() {
+        // 공지 알림 켬(기본) → notice_all, 광고성 소식 동의 → notice_promo. 끄면 구독을 푼다. 토큰은 어디에도 보내지 않는다
+        val on = CloudSyncPlan.plan(emptySet(), null, emptySet(), emptySet(), NoticeTopics(notice = true, promo = false))
+        assertEquals(setOf("notice_all"), on.subscribe)
+        val promo = CloudSyncPlan.plan(emptySet(), null, emptySet(), setOf("notice_all"), NoticeTopics(notice = true, promo = true))
+        assertEquals(setOf("notice_promo"), promo.subscribe)
+        val off = CloudSyncPlan.plan(setOf("TH"), null, emptySet(), setOf("notice_all", "notice_promo", "country_TH"), NoticeTopics(notice = false, promo = false))
+        assertEquals(setOf("notice_all", "notice_promo"), off.unsubscribe)
+        assertTrue(off.subscribe.isEmpty())
+        // 자녀 폰 모드: 공지 토픽은 모두 푼다(공지를 띄우지 않는 모드). 나라 토픽은 그대로
+        val child = CloudSyncPlan.plan(setOf("TH"), null, emptySet(), setOf("notice_all", "country_TH"), NoticeTopics(notice = true, promo = true, childMode = true))
+        assertEquals(setOf("notice_all"), child.unsubscribe)
+        assertTrue(child.subscribe.isEmpty())
+    }
+
+    @Test fun runnerSubscribesNoticeTopics() = runBlocking {
+        val context: Context = ApplicationProvider.getApplicationContext()
+        val queue = QueuedFieldReporter(File(Files.createTempDirectory("q").toFile(), "r.jsonl"))
+        val backend = FakeBackend()
+        val runner = CloudSyncRunner(backend, queue, CloudState(context))
+        assertTrue(runner.run(emptySet(), "JP", NoticeTopics(notice = true, promo = true)))
+        assertTrue(backend.topics.containsAll(setOf("notice_all", "notice_promo", "country_JP")))
+        assertTrue(runner.run(emptySet(), "JP", NoticeTopics(notice = true, promo = false)))
+        assertFalse("notice_promo" in backend.topics)
+        assertTrue("notice_all" in backend.topics)
+        // 다음 테스트가 쓰는 같은 저장소를 깨끗이
+        runner.run(emptySet(), null)
+        Unit
+    }
+
     @Test fun reportsExpireAfterOneYear() {
         // 규칙은 335~395일 사이만 받는다
         val days = (CloudSyncPlan.expiryMillis(0) / 86_400_000L)

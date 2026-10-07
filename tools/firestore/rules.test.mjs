@@ -69,6 +69,14 @@ test('하트비트 등 다른 경로는 앱에서 접근 불가', async () => {
   await assertFails(setDoc(doc(app(), 'ops/heartbeat'), { last_check: 1 }));
 });
 
+test('공지: 문서 하나 읽기만, 쓰기·목록 불가', async () => {
+  await assertSucceeds(getDoc(doc(app(), 'notices/current')));
+  await assertFails(setDoc(doc(app(), 'notices/current'), { payload: 'x', sig: 'y' }));
+  await assertFails(updateDoc(doc(app(), 'notices/current'), { payload: 'x' }));
+  await assertFails(deleteDoc(doc(app(), 'notices/current')));
+  await assertFails(getDocs(collection(app(), 'notices')));
+});
+
 test('영상 목록: 나라 문서 읽기만, 쓰기·목록 불가', async () => {
   await assertSucceeds(getDoc(doc(app(), 'videos/TH')));
   await assertFails(setDoc(doc(app(), 'videos/TH'), { payload: 'x' }));

@@ -49,6 +49,7 @@
 - `favorite_counts/{city_id}`: `count`(increment만 허용).
 - `ops/heartbeat`: ARIA가 Admin SDK로만 기록(`last_check`, `jobs`).
 - `videos/{ISO2}`: 나라별 YouTube 영상 목록(서명 포함). GitHub Actions(`videos.yml`)만 쓰고, 앱은 문서 하나 읽기(get)만(0.3.0 — 아래 기록).
+- `notices/current`: 공지사항 묶음 `{payload, sig, generated_at}`(팩과 같은 키로 서명). GitHub Actions(`notices.yml`)만 쓰고, 앱은 문서 하나 읽기(get)만 — 목록·쓰기 불가(2026-10-08, 아래 기록).
 - App Check 적용.
 
 ### 9.5 Remote Config 키
@@ -56,6 +57,8 @@
 
 ### 9.6 FCM
 - 토픽 `country_{ISO2}`. 사용자가 여행을 만들거나 찜하면 기기에서 구독. 여행 일정 자체는 서버에 올리지 않는다.
+- 토픽 `notice_all`(공지 알림을 켠 기기 — 기본 켬), `notice_promo`(광고성 소식에 동의한 기기 — 기본 끔). 자녀 폰 모드에서는 둘 다 푼다. 나라별 공지는 조건 `'notice_all' in topics && 'country_TH' in topics`. **토픽만** — 등록 토큰은 어디에도 보내거나 저장하지 않는다(2026-10-08).
+- 공지 메시지는 `{type:"notice", id, v, cat}`뿐 — 보이는 글은 서명된 공지에서만 꺼낸다. `country` 키를 넣지 않는다(0.5.0 앱은 `country`가 든 메시지를 '입국 안내가 바뀌었어요'로 읽는다).
 
 ### 9.7 교통 앱 연결
 - 국가 팩에 국가별 교통 앱 목록(패키지명, 연결 방식)을 둔다. 예: 태국 Grab·Bolt / 일본 GO·Uber. 동남아에는 Uber가 없다 `[재확인]`.
@@ -396,3 +399,41 @@
 - **좌표가 있으면 좌표 먼저**: `Stays.searchQuery`·`RideLinker.mapsUrl` 모두 `lat,lng`를 주소 글자보다 먼저 쓴다(`StaysTest.coordinatesWinOverTheAddressText`). 주소가 비면 '가는 곳'은 만들지 않는다 — 기사님께 **보여 줄 글자**가 없기 때문이다.
 - **여행별 숙소 묶음**(`Stays.group`, 순수 함수): 설정 › 내 정보의 묵는 곳 목록이 쓴다. 여행 id가 **같은 숙소만** 그 여행 묶음에 넣고(한 숙소가 두 묶음에 들지 않게 — 여행 화면의 `forTrip`은 날짜로도 찾는다), 여행 id가 없거나 그 여행이 지워진 숙소는 마지막 `여행이 없는 숙소` 묶음이다. 내 정보에서 고칠 때는 `StayEditRoute(tripId = null)`로 열어 **원래 붙어 있던 여행을 그대로 둔다**.
 - **숙소 종류는 비워 둔다**(운영자 결정 S2-4): 그 나라 레시피 선택지에 없는 종류는 앱이 대신 고르지 않는다. 비운 칸은 `missingRequired`가 **빈 필수 칸으로 세고**(주 버튼 막힘), 확인 화면이 왜 비웠는지 한국어로 말한다. 이유: 앱이 짐작한 값은 사람 눈에 안 보이게 제출될 수 있다.
+
+
+## 구현 결정 기록 (공지사항·앱 푸시, 2026-10-08)
+
+운영자 요청: *"D.well App과 같이 App 시작시에 공지사항을 띄우는 기능을 추가해줘. 그리고 App Push를 할 수 있는 기능도 추가해줘."* 운영 안내 `docs/NOTICES_PUSH.md`, 화면 DESIGN_SPEC 부록 K, 보고 `docs/design/NOTICES_PUSH_REPORT.md`.
+
+### 신뢰 모델 — 공지 글도 서명된 데이터만
+- D.well은 Firestore `announcements` 컬렉션을 콘솔에서 고친다. 레디포트는 **그러지 않는다**: 원본은 저장소 `notices/notices.json`(PR로만 고친다, 스키마 `notices/schema/notices.schema.json`) → `tools/notices/build_notices.py`가 검증(스키마 + 주소 허용 목록·대체 글·기간·광고 표시·HTML 금지) → 공백 없는 UTF-8 payload를 **팩과 같은 Ed25519 키(kid `rp-2026-1`, `build_packs.load_key` 재사용)**로 서명 → Firestore `notices/current = {payload, sig, generated_at}`(notices.yml). 콘솔에서 글을 고치면 서명이 맞지 않아 앱이 버린다. 키 교체도 팩과 같다(`PackKeys.TRUSTED`).
+- 앱(`notice/Notices.kt`): 서명 확인 → `schema_version` 1만 → 공지마다 따로 해석(앱이 모르는 `type`은 그 공지만 건너뛴다) → 두 번째 그물 `NoticeRules.sanitize`(제목 40·쪽 500자, 시간대 있는 시각, 광고 표시 규칙, 그림 주소 `https://readyport-app.web.app/notices/`만·대체 글 필수, 링크는 우리 Hosting·`play.google.com`·`github.com/inhyeuk/readyport`만). 어긋난 그림·링크는 빼고, 글·광고 규칙이 틀린 공지는 버린다.
+- **되돌리기 막기**: 기기 안 사본(`noBackupFilesDir/notices/notices.json` + `.sig`, 읽을 때마다 서명 재확인)보다 `generated_at`이 이른 서명본은 받지 않는다 — 예전에 서명된 묶음을 다시 보내 지운 공지를 되살릴 수 없다. 내장 사본은 두지 않았다(공지는 앱 출시와 따로 바뀌고, 첫 실행에 인터넷이 없으면 보여 줄 공지가 없어도 된다).
+- Firestore 규칙: `match /notices/{id} { allow get: if true; allow list, write: if false; }` + 에뮬레이터 테스트 한 개(`tools/firestore/rules.test.mjs`). **배포는 운영자**.
+
+### 띄우기 (`NoticeSelector`, 순수 함수 — `NoticesTest`)
+- 앱을 켤 때 한 번(`MainViewModel.startNotices`): **첫 실행 질문을 마친 뒤**(같은 실행 안에서 마쳐도 그 뒤에), 자녀 폰 모드가 아니고, 위젯·알림·공유로 연 실행이나 화면 다시 만들기가 아닐 때. 서명본을 최대 2.5초 기다리고 못 받으면 사본.
+- 고르기: 기간(`start ≤ 지금 < end`) · 버전(`min/max_version_code`) · 대상(`audience` = all 또는 찜·여행 나라 — **판단은 기기 안**) · 다시 보지 않기(`id@version`) · 오늘 하루 보지 않기(그날만) · 광고는 동의한 사람만.
+- **한 번 켤 때 하나**, 여럿이면 우선순위 차례로 다음에 켤 때 하나씩(돌아가며 — `round` 기록, 한 바퀴 돌면 처음부터). **긴급 공지만 예외로 모두 이어서**(그때는 다른 공지는 띄우지 않는다).
+- 종류별 버튼(`NoticeButtons`, D.well과 같은 뜻): 긴급 = 빨강, 마지막 쪽까지 닫기 없음(뒤로 가기는 앞 쪽으로), 마지막 쪽에 `다시 보지 않기`. 일반·이벤트 = 언제든 닫힘, `확인` + `다시 보지 않기`. 이용 안내 = 언제든 닫힘, 보지 않기 버튼 없음. **결정**: `오늘 하루 보지 않기`를 `다시 보지 않기`가 있는 곳(긴급 마지막 쪽·일반·이벤트)에 함께 둔다(한국 앱의 흔한 짝). **결정**: 이용 안내는 버튼이 없으므로 **한 번 보면 끝**(닫으면 `다시 보지 않기`와 같은 기록) — 그렇지 않으면 끌 방법 없이 매번 뜬다. 일반·이벤트는 `확인`만 누르면 다음 차례에 다시 뜰 수 있다(끝 날짜·보지 않기로 그친다). 목록·알림에서 다시 볼 때(Reader)는 언제든 닫히고 보지 않기 버튼이 없다.
+- 기록은 DataStore `notices`(id@version·날짜 글자만, 백업 제외 규칙 그대로). 지난 날 `오늘 하루` 기록은 다음에 적을 때 지운다.
+
+### 알림 (`NoticePushRules`·`NoticePushHandler` — `NoticePushTest`)
+- `PolicyMessagingService`가 `type == notice`를 **먼저** 가른다(나라 흐름으로 새지 않게). 서명본을 새로 받아(10초, 못 받으면 사본) 그 공지의 **제목·첫 쪽**으로 알린다. 메시지 글은 읽지 않는다(누가 FCM 키를 얻어도 앱 이름으로 아무 글이나 띄울 수 없다). 공지가 없거나 서명본을 못 받으면 앱 문구 `새 소식이 있어요` → 공지사항 목록.
+- 알리지 않는 것: 자녀 폰 모드, 공지 알림 꺼짐(서비스), 광고 동의 없음, 기간 밖·다른 나라·다른 버전, 다시 보지 않기를 누른 공지. 메시지의 `cat`은 **더 엄격하게만** 쓴다(광고라고 하면 광고 규칙).
+- **광고 밤 시간(정보통신망법 제50조 제3항)**: 밤에 온 광고는 **버리지 않고 미룬다**(`NoticeHold` — WorkManager 한 번 작업, 이름 `notice-hold:<id>`). 미뤘다가 그때 동의·기간을 다시 본다(그사이 동의를 끄면 알리지 않는다). 밤은 **한국 시각과 휴대폰 시각 둘 다** — 법의 기준(한국)과 해외에서 자는 시간. 두 낮(13시간씩)은 시차가 얼마든 1시간 이상 겹치고 그 겹침은 어느 한쪽의 아침 8시에 시작하므로, 사흘 안의 두 '아침 8시' 중 가장 이른 것을 고른다(`releaseAt`). 버리지 않은 이유: 서비스에 동의한 사람이 받기로 한 소식을 시간 때문에 잃지 않게 — 법은 '보내지 말 것'이지 '없앨 것'이 아니다.
+- 통로 `notice`(`공지·소식`), 알림 번호 2,000,000 + 공지 id 해시(여행별 1000~900999와 겹치지 않게). 누르면 `MainActivity.EXTRA_OPEN_NOTICE` → 공지사항(그 공지를 연 채로).
+
+### 설정·토픽 (`CloudSyncPlan` — `CloudSyncTest`)
+- 설정 DataStore에 다섯 칸: `notice_push`(기본 켬) · `promo_push`(기본 끔) · `promo_date` · `promo_night`(광고를 켰을 때만) · `promo_night_date`. 동의·철회 날짜는 이 휴대폰에만 — 설정 줄 아래에 보이고, 바꾸면 결과 대화상자(보내는 곳·처리한 날·결과, 제50조 제8항의 처리 결과 통지).
+- `ReadyPortApp`이 찜·여행 나라·공지 설정·자녀 폰 모드가 바뀌면 `CloudSync`를 부르고, `NoticeTopics`가 `notice_all`·`notice_promo`를 구독하거나 푼다.
+
+### 그림
+- 9.3 '사진은 Firebase로 서비스하지 않는다'의 **좁은 예외**: 공지 카드뉴스 그림만 우리 Hosting(`hosting/public/notices/`, 한 장 300KB 이하 — 검증 도구가 막는다, 256색 PNG로 줄이는 `tools/notices/pack_images.py`)에서. 새 이미지 라이브러리 없이 영상 썸네일 로더(`NetworkThumbnails`)의 허용 목록을 넓혔다(`i.ytimg.com` + `readyport-app.web.app/notices/`, 리디렉션은 따라가지 않는다), 메모리에만. 첫 공지 두 장은 약 100KB씩 → 무료 전송 한도(하루 360MB)에서 새 사용자 약 1,700명분.
+- 그림이 오기 전·못 불러오면 대체 글(`alt_ko`)을 그 자리에 보인다. TalkBack은 그림의 대체 글을 읽는다.
+- Hosting 배포는 사이트 전체를 바꾼다 → notices.yml은 그림이 바뀌었을 때 **팩을 다시 서명해 만든 뒤** 배포한다(내장 팩과 같은지도 본다).
+
+### 하지 않은 것
+- 서버에 토큰·열람·클릭 기록을 두지 않는다(분석 SDK 없음). 그래서 '누가 읽었는지'를 모르고, 광고 동의 2년 재확인을 개인별로 보낼 수 없다 → 운영자 할 일로 남김(NOTICES_PUSH.md 5절).
+- Cloud Functions(Spark 불가) 없이 보내기는 GitHub Actions(workflow_dispatch)만. 운영자 PC 도우미 `tools/notices/notice.py push`는 시험이 기본이고 `--send`일 때만 Actions를 부른다.
+- 가로 스와이프 없음(스펙 7장 1번) — `이전`·`다음` 버튼과 쪽 표시(점은 꾸밈, 누를 수 없음: 쉬운 모드 56dp 칸 여섯 개는 360dp에 안 들어간다).

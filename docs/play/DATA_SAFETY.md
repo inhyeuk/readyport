@@ -12,6 +12,9 @@
 | Firestore `field_reports` | 자동 입력 실패 리포트: 양식 id·레시피 버전·단계 id·오류 코드·앱 버전·서버 시각·사이트 버전 | `cloud/CloudSync.kt` | 없음 — 이름·여권·기기 id 없음 |
 | Firestore `favorite_counts/{나라}` | 찜한 나라마다 기기당 한 번 +1 | `cloud/CloudSync.kt` | 없음 — 숫자만 올림 |
 | FCM 토픽 `country_{나라}` | 찜하거나 여행 가는 나라의 알림 구독 | `cloud/CloudSync.kt` | Firebase 설치 ID(SDK) |
+| FCM 토픽 `notice_all` · `notice_promo` (2026-10-08) | 공지 알림을 켠 기기 / 광고성 소식에 동의한 기기의 구독. 토큰을 운영자가 받거나 저장하지 않음 | `cloud/CloudSync.kt` | Firebase 설치 ID(SDK) |
+| Firestore `notices/current` (2026-10-08) | 서명된 공지 문서 **읽기만**(보내는 값 없음) | `notice/NoticeRepository.kt` | 없음(요청만) |
+| Firebase Hosting `notices/*.png` (2026-10-08) | 공지 그림 **내려받기만** | `ui/video/VideosScreen.kt` NetworkThumbnails | 없음(요청만, IP는 Google에) |
 | 각국 정부 공식 사이트 (WebView) | **사용자가 확인한 뒤** 공식 양식에 여권·여행 정보 입력. 제출 버튼은 사용자가 누른다 | `ui/form/AutofillScreen.kt` | 있음 — 사용자 → 정부 사이트 |
 
 **기기 안에만 두는 것**(수집 아님): 여권 정보·예약 서류·입국 QR 사진(Android Keystore AES-256-GCM, 백업 제외), 여행 날짜·나라, 가는 곳 주소, 준비물 체크, 쇼핑 장바구니, 설정. 카메라 이미지는 기기 안에서 글자만 읽고 바로 지운다.
@@ -45,3 +48,9 @@
 ## 4. 권한 (출시 빌드 병합 매니페스트)
 
 CAMERA(여권·서류 촬영), POST_NOTIFICATIONS(입국 카드 기간·정책 알림), USE_BIOMETRIC/USE_FINGERPRINT(지갑 잠금), INTERNET·ACCESS_NETWORK_STATE, RECEIVE_BOOT_COMPLETED·WAKE_LOCK·FOREGROUND_SERVICE(WorkManager), c2dm RECEIVE(FCM). 위치·연락처·저장소·전체 앱 목록 권한 없음(교통 앱은 `<queries>`에 패키지만 선언).
+
+## 5. 공지사항·공지 알림 (2026-10-08 추가) — 설문에 바뀌는 것
+
+- **새로 수집하는 항목 없음**: 공지 알림은 이미 신고한 FCM(기기 또는 기타 ID — Firebase 설치 ID, 목적 '앱 기능')의 토픽이 둘 늘어난 것뿐이다. 운영자 서버에는 토큰·열람 기록·클릭 기록이 없다.
+- 광고성 소식 동의 여부·날짜, '다시 보지 않기' 기록은 기기 안에만 있어 '수집'이 아니다.
+- 설문 '앱 활동 › 기타 작업'·'메시지'에 해당 없음(앱 안 메시지를 주고받지 않는다). Play Console에서 **다시 낼 필요가 있는지 운영자가 확인** — 목적 '앱 기능'에 '알림'이 이미 있으면 그대로.
