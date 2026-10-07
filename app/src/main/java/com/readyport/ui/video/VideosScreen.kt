@@ -115,7 +115,8 @@ import javax.inject.Inject
 // ---------------- 썸네일 ----------------
 
 /**
- * YouTube가 준 썸네일 주소(i.ytimg.com)에서 그대로 불러온다. 파일로 저장하지 않고 메모리에만 잠깐 둔다.
+ * 원격 그림은 허용한 두 곳에서만 불러온다 — YouTube가 준 썸네일 주소(i.ytimg.com)와 서명된 공지의 그림(우리 Hosting
+ * readyport-app.web.app/notices/). 파일로 저장하지 않고 메모리에만 잠깐 둔다. 새 이미지 라이브러리는 쓰지 않는다.
  * 테스트에서는 네트워크 없이 null 을 돌려주는 로더로 바꿔 끼운다.
  */
 val LocalThumbnailLoader = staticCompositionLocalOf<suspend (String) -> ImageBitmap?> { NetworkThumbnails::load }
@@ -123,14 +124,21 @@ val LocalThumbnailLoader = staticCompositionLocalOf<suspend (String) -> ImageBit
 object NetworkThumbnails {
     private val cache = LruCache<String, ImageBitmap>(60)
 
+    /** 불러와도 되는 주소 앞머리 (https만) */
+    val ALLOWED_PREFIXES = listOf("https://i.ytimg.com/", com.readyport.notice.NoticeRules.IMAGE_PREFIX)
+
+    fun allowed(url: String): Boolean = ALLOWED_PREFIXES.any { url.startsWith(it) } && ".." !in url
+
     suspend fun load(url: String): ImageBitmap? {
-        if (!url.startsWith("https://i.ytimg.com/")) return null
+        if (!allowed(url)) return null
         cache.get(url)?.let { return it }
         return withContext(Dispatchers.IO) {
             runCatching {
                 val conn = URL(url).openConnection() as HttpURLConnection
                 conn.connectTimeout = 8_000
                 conn.readTimeout = 8_000
+                // 허용한 주소 밖으로 넘겨 주는 리디렉션은 따라가지 않는다
+                conn.instanceFollowRedirects = false
                 try {
                     conn.inputStream.use { BitmapFactory.decodeStream(it) }?.asImageBitmap()
                 } finally {

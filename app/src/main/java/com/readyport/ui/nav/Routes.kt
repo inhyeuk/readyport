@@ -86,3 +86,9 @@ import kotlinx.serialization.Serializable
 
 /** 나라 화면 › YouTube 여행 영상 (최대 50개) */
 @Serializable data class VideosRoute(val country: String)
+
+/**
+ * 설정 › 공지·소식 › 공지사항 (지금 공지·지난 공지 다시 보기). [openId]: 공지 알림을 눌러 왔을 때 바로 열 공지 id
+ * (없거나 목록에 없으면 목록만 — 서명본을 못 받았을 때의 `새 소식이 있어요` 알림도 여기로 온다)
+ */
+@Serializable data class NoticesRoute(val openId: String? = null)

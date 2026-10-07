@@ -43,6 +43,16 @@ data class AppSettings(
     val alertMutedTrips: Set<String> = emptySet(),
     /** 여행 id → 마지막으로 알린 날 yyyy-MM-dd (한 여행에 하루 한 번만) */
     val alertLastNotified: Map<String, String> = emptyMap(),
+    /** 공지 알림(서비스 안내·긴급 공지, 토픽 notice_all). 기본 켬 (docs/NOTICES_PUSH.md) */
+    val noticePush: Boolean = true,
+    /** 광고성 소식 알림(토픽 notice_promo) — 정보통신망법 제50조: 기본 끔, 사람이 직접 켠다 */
+    val promoPush: Boolean = false,
+    /** 광고성 소식 받기를 켜거나 끈 날 yyyy-MM-dd (이 휴대폰에만 — 설정에 보여 준다) */
+    val promoDate: String? = null,
+    /** 밤(21시~다음 날 8시)에도 광고성 소식 받기 — 따로 동의, 기본 끔 */
+    val promoNight: Boolean = false,
+    /** 밤 광고 알림을 켜거나 끈 날 */
+    val promoNightDate: String? = null,
 )
 
 private val Context.settingsStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
@@ -63,6 +73,11 @@ class SettingsRepository @Inject constructor(
     private val alertHourKey = intPreferencesKey("alert_hour")
     private val alertMutedKey = stringSetPreferencesKey("alert_muted_trips")
     private val alertLastKey = stringSetPreferencesKey("alert_last_notified")
+    private val noticePushKey = booleanPreferencesKey("notice_push")
+    private val promoPushKey = booleanPreferencesKey("promo_push")
+    private val promoDateKey = stringPreferencesKey("promo_date")
+    private val promoNightKey = booleanPreferencesKey("promo_night")
+    private val promoNightDateKey = stringPreferencesKey("promo_night_date")
 
     val settings: Flow<AppSettings> = context.settingsStore.data.map { prefs ->
         AppSettings(
@@ -78,6 +93,12 @@ class SettingsRepository @Inject constructor(
             alertHour = prefs[alertHourKey] ?: 9,
             alertMutedTrips = prefs[alertMutedKey].orEmpty(),
             alertLastNotified = readAlerted(prefs[alertLastKey].orEmpty()),
+            noticePush = prefs[noticePushKey] ?: true,
+            promoPush = prefs[promoPushKey] ?: false,
+            promoDate = prefs[promoDateKey],
+            // 밤 광고 알림은 광고성 소식 받기가 켜져 있을 때만 뜻이 있다
+            promoNight = (prefs[promoPushKey] ?: false) && (prefs[promoNightKey] ?: false),
+            promoNightDate = prefs[promoNightDateKey],
         )
     }
 
@@ -163,6 +184,36 @@ class SettingsRepository @Inject constructor(
                 .filterNot { it.substringBeforeLast('|') in tripIds }
                 .filter { it.substringAfterLast('|', "") >= keepFrom }
             prefs[alertLastKey] = (kept + tripIds.map { "$it|$day" }).toSet()
+        }
+    }
+
+    // ---------------- 공지·소식 알림 (docs/NOTICES_PUSH.md) ----------------
+
+    suspend fun setNoticePush(enabled: Boolean) {
+        context.settingsStore.edit { it[noticePushKey] = enabled }
+    }
+
+    /**
+     * 광고성 소식 받기 켬·끔과 그 날(동의·철회 기록 — 이 휴대폰에만, 설정 화면에 보인다). 끄면 밤 광고 알림도 함께 끈다.
+     * 서버에는 아무것도 적지 않는다: 받는 길은 토픽 notice_promo 구독뿐이고, 끄면 구독을 푼다(CloudSync).
+     */
+    suspend fun setPromoPush(enabled: Boolean, today: LocalDate) {
+        context.settingsStore.edit {
+            it[promoPushKey] = enabled
+            it[promoDateKey] = today.toString()
+            if (!enabled && it[promoNightKey] == true) {
+                it[promoNightKey] = false
+                it[promoNightDateKey] = today.toString()
+            }
+        }
+    }
+
+    /** 밤(21시~8시) 광고 알림 — 광고성 소식 받기가 켜져 있을 때만 켤 수 있다 */
+    suspend fun setPromoNight(enabled: Boolean, today: LocalDate) {
+        context.settingsStore.edit {
+            if (enabled && it[promoPushKey] != true) return@edit
+            it[promoNightKey] = enabled
+            it[promoNightDateKey] = today.toString()
         }
     }
 

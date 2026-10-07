@@ -290,7 +290,7 @@ object Gallery {
     )
 
     /** [thumb]: 영상 썸네일 대역(null 이면 빈 칸) */
-    fun screens(thumb: ImageBitmap? = null): List<Pair<String, @Composable () -> Unit>> = listOf(
+    fun screens(thumb: ImageBitmap? = null): List<Pair<String, @Composable () -> Unit>> = listOf<Pair<String, @Composable () -> Unit>>(
         "first-run" to { FirstRunScreen {} },
         // 준비물 진행 줄(2 / 5)까지 보이게 (BUNDLE_A_NOTES 요청 7)
         // 꼭 챙길 물건 값 칩(기내 반입만 보조배터리)·진행 2 / 5 — 운영 ViewModel과 같은 계산(essentialsSummary)
@@ -544,6 +544,7 @@ object Gallery {
         "settings-alerts-blocked" to {
             SettingsScreen(easyMode = LocalDimens.current.easyMode, onEasyModeChange = {}, alertHour = 20, notifGranted = false)
         },
+    ) + GalleryNotices.screens(thumb) + listOf<Pair<String, @Composable () -> Unit>>(
         // 길잡이 v4: 그림 메뉴가 위로 지나간 뒤의 **접힌 고정 줄**(썸네일 + 라벨 + 밑줄). 실기기 높이 창에서 내용 몇 칸 아래로 내려 둔 상태
         // (다른 캡처는 아주 긴 칸에 한 번에 그려 스크롤이 없어서 고정 줄이 나타나지 않는다). 번호가 밀리지 않게 맨 끝에 둔다.
         "country-compact-bar" to {

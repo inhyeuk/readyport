@@ -39,7 +39,8 @@ import javax.inject.Singleton
  * 서버와 주고받는 것은 이 셋뿐이다 (ARCHITECTURE 9.4·9.6). 개인정보·여행 일정은 보내지 않는다.
  * 1) 익명 실패 리포트 → Firestore field_reports (생성만 허용 규칙)
  * 2) 찜 수 +1 → Firestore favorite_counts/{ISO2} (나라마다 기기당 한 번)
- * 3) FCM 토픽 country_{ISO2} 구독 (찜했거나 여행 가는 나라)
+ * 3) FCM 토픽 구독 — country_{ISO2}(찜했거나 여행 가는 나라), notice_all(공지 알림을 켰을 때), notice_promo(광고성 소식에 동의했을 때)
+ *    토큰은 서버에 저장하지 않는다. 자녀 폰 모드에서는 공지 토픽을 풀어 둔다(공지를 띄우지 않는 모드)
  */
 data class SyncPlan(
     val countFavorites: Set<String>,
@@ -47,14 +48,36 @@ data class SyncPlan(
     val unsubscribe: Set<String>,
 )
 
+/** 공지 토픽을 구독할지 (설정 › 공지·소식). 기본은 아무것도 구독하지 않는 값 — 운영 코드는 설정을 그대로 넘긴다 */
+data class NoticeTopics(val notice: Boolean = false, val promo: Boolean = false, val childMode: Boolean = false) {
+    val wanted: Set<String>
+        get() = if (childMode) {
+            emptySet()
+        } else {
+            setOfNotNull(CloudSyncPlan.NOTICE_ALL.takeIf { notice }, CloudSyncPlan.NOTICE_PROMO.takeIf { promo })
+        }
+}
+
 object CloudSyncPlan {
     private val ISO2 = Regex("^[A-Z]{2}$")
+
+    /** 모든 기기에 보내는 공지 토픽 (공지 알림을 켠 기기만 구독) */
+    const val NOTICE_ALL = "notice_all"
+
+    /** 광고성 소식 토픽 (받기에 동의한 기기만 구독 — 정보통신망법 제50조) */
+    const val NOTICE_PROMO = "notice_promo"
 
     fun topic(country: String) = "country_$country"
 
     /** 순수 함수: 지금 상태와 이미 한 일을 비교해 할 일을 정한다 */
-    fun plan(favorites: Set<String>, tripCountry: String?, counted: Set<String>, subscribed: Set<String>): SyncPlan {
-        val wanted = (favorites + listOfNotNull(tripCountry)).filter { ISO2.matches(it) }.map(::topic).toSet()
+    fun plan(
+        favorites: Set<String>,
+        tripCountry: String?,
+        counted: Set<String>,
+        subscribed: Set<String>,
+        notices: NoticeTopics = NoticeTopics(),
+    ): SyncPlan {
+        val wanted = (favorites + listOfNotNull(tripCountry)).filter { ISO2.matches(it) }.map(::topic).toSet() + notices.wanted
         return SyncPlan(
             countFavorites = favorites.filter { ISO2.matches(it) }.toSet() - counted,
             subscribe = wanted - subscribed,
@@ -147,9 +170,9 @@ class CloudSyncRunner(
     private val queue: QueuedFieldReporter,
     private val state: CloudState,
 ) {
-    suspend fun run(favorites: Set<String>, tripCountry: String?): Boolean {
+    suspend fun run(favorites: Set<String>, tripCountry: String?, notices: NoticeTopics = NoticeTopics()): Boolean {
         var allOk = true
-        val plan = CloudSyncPlan.plan(favorites, tripCountry, state.counted(), state.topics())
+        val plan = CloudSyncPlan.plan(favorites, tripCountry, state.counted(), state.topics(), notices)
         plan.countFavorites.forEach { c ->
             runCatching { backend.incrementFavorite(c) }.onSuccess { state.addCounted(c) }.onFailure { allOk = false }
         }
@@ -185,7 +208,9 @@ class CloudSyncWorker @AssistedInject constructor(
     private val state: CloudState,
 ) : CoroutineWorker(context, params) {
     override suspend fun doWork(): Result {
-        val ok = CloudSyncRunner(FirebaseCloudBackend(), queue, state).run(settings.current().favorites, trips.current()?.country)
+        val s = settings.current()
+        val ok = CloudSyncRunner(FirebaseCloudBackend(), queue, state)
+            .run(s.favorites, trips.current()?.country, NoticeTopics(s.noticePush, s.promoPush, s.childMode))
         return if (ok || runAttemptCount >= 5) Result.success() else Result.retry()
     }
 }
