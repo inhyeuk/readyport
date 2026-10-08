@@ -127,7 +127,19 @@ object NetworkThumbnails {
     /** 불러와도 되는 주소 앞머리 (https만) */
     val ALLOWED_PREFIXES = listOf("https://i.ytimg.com/", com.readyport.notice.NoticeRules.IMAGE_PREFIX)
 
-    fun allowed(url: String): Boolean = ALLOWED_PREFIXES.any { url.startsWith(it) } && ".." !in url
+    /**
+     * 게시판 사진(Storage 내려받기 주소) — 운영자가 사진·동영상 올리기를 켰을 때만 허용한다(기본 꺼짐, docs/BOARD.md 5절).
+     * 경로는 `board/` 아래만.
+     */
+    @Volatile
+    var boardMediaEnabled: Boolean = false
+
+    const val BOARD_MEDIA_PREFIX = "https://firebasestorage.googleapis.com/v0/b/readyport-app"
+
+    private fun boardMedia(url: String): Boolean =
+        boardMediaEnabled && url.startsWith(BOARD_MEDIA_PREFIX) && "/o/board%2F" in url
+
+    fun allowed(url: String): Boolean = (ALLOWED_PREFIXES.any { url.startsWith(it) } || boardMedia(url)) && ".." !in url
 
     suspend fun load(url: String): ImageBitmap? {
         if (!allowed(url)) return null

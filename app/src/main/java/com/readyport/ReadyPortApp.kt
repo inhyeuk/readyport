@@ -31,6 +31,7 @@ class ReadyPortApp : Application(), Configuration.Provider {
     @Inject lateinit var ocr: com.readyport.doc.ocr.OcrEngine
     @Inject lateinit var tripSignals: com.readyport.trip.TripSignalsRecorder
     @Inject lateinit var checklistAlerts: com.readyport.trip.ChecklistAlerts
+    @Inject lateinit var boardReplies: com.readyport.board.BoardReplyCheck
 
     private val appScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
 
@@ -54,6 +55,8 @@ class ReadyPortApp : Application(), Configuration.Provider {
             // 못한 일 알림: 하루 쓸기와 여행별 입국 카드 알림을 여기서 맞춘다(화면을 열지 않아도 알려 준다 — PRD 6.1)
             checklistAlerts.start(appScope)
         }
+        // 게시판 답글: 앱을 켤 때 한 번 확인(로그인한 적이 없거나 알림을 껐으면 아무것도 하지 않는다). 하루 한 번은 쓸기 작업이 본다
+        appScope.launch { runCatching { boardReplies.run() } }
         // 하루 한 번 찜한 나라의 새 안내 확인 (와이파이 설정을 따른다)
         appScope.launch { PackSync.scheduleDaily(this@ReadyPortApp, settings.current().wifiOnly) }
         // 찜한 나라·여행 나라·공지 알림 설정이 바뀌면 토픽 구독과 익명 찜 수를 맞춘다. 밀린 실패 리포트도 이때 보낸다

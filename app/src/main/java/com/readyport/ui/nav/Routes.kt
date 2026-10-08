@@ -92,3 +92,23 @@ import kotlinx.serialization.Serializable
  * (없거나 목록에 없으면 목록만 — 서명본을 못 받았을 때의 `새 소식이 있어요` 알림도 여기로 온다)
  */
 @Serializable data class NoticesRoute(val openId: String? = null)
+
+// ---------------- 게시판 (docs/BOARD.md) ----------------
+
+/** 게시판 탭 첫 화면 — Q&A · 자유 토론 */
+@Serializable data object BoardRoute
+
+/** 게시판 › 글 하나 (댓글·답글) */
+@Serializable data class BoardPostRoute(val postId: String)
+
+/** 게시판 › 글쓰기([postId] 없음) · 글 고치기. [kind] = `qna` / `talk` */
+@Serializable data class BoardWriteRoute(val kind: String, val postId: String? = null)
+
+/**
+ * 게시판 › 처음 쓰기 전: 커뮤니티 규칙 동의 → 게시판 이름. [next] = 끝나면 갈 곳(`write` = 그 게시판 글쓰기, `back` = 돌아가기).
+ * [rulesOnly]: 규칙만 읽기(설정·게시판 아래 링크)
+ */
+@Serializable data class BoardJoinRoute(val kind: String = "qna", val next: String = "back", val rulesOnly: Boolean = false)
+
+/** 설정 › 게시판 › 신고·가림 관리 (운영자만 길이 보인다 — 규칙이 운영자 아닌 사람의 쓰기를 막는다) */
+@Serializable data object BoardAdminRoute

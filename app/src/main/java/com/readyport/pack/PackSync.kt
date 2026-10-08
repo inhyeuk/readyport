@@ -27,9 +27,12 @@ class PackSyncWorker @AssistedInject constructor(
     private val packs: PackRepository,
     private val versions: PackVersionSource,
     private val settings: SettingsRepository,
+    private val boardReplies: com.readyport.board.BoardReplyCheck,
 ) : CoroutineWorker(context, params) {
 
     override suspend fun doWork(): Result {
+        // 게시판 답글 확인 — 챙길 일 알림을 꺼 둔 사람도 하루 한 번(이 작업은 언제나 돈다). 실패해도 팩 받기는 그대로
+        runCatching { boardReplies.run() }
         if (!versions.refresh()) return Result.retry()
         var networkError = false
         versions.indexVersion()?.let { if (packs.updateIndex(it) == UpdateResult.NetworkError) networkError = true }

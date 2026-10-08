@@ -544,7 +544,7 @@ object Gallery {
         "settings-alerts-blocked" to {
             SettingsScreen(easyMode = LocalDimens.current.easyMode, onEasyModeChange = {}, alertHour = 20, notifGranted = false)
         },
-    ) + GalleryNotices.screens(thumb) + listOf<Pair<String, @Composable () -> Unit>>(
+    ) + GalleryNotices.screens(thumb) + GalleryBoard.screens(thumb) + listOf<Pair<String, @Composable () -> Unit>>(
         // 길잡이 v4: 그림 메뉴가 위로 지나간 뒤의 **접힌 고정 줄**(썸네일 + 라벨 + 밑줄). 실기기 높이 창에서 내용 몇 칸 아래로 내려 둔 상태
         // (다른 캡처는 아주 긴 칸에 한 번에 그려 스크롤이 없어서 고정 줄이 나타나지 않는다). 번호가 밀리지 않게 맨 끝에 둔다.
         "country-compact-bar" to {

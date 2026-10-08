@@ -131,7 +131,13 @@ class HomeHeroTest {
         // 날짜·체크리스트 진행 줄은 박스 안에 그대로 있다
         rule.onNodeWithText(s(R.string.ck_now_eyebrow, 12, 28)).assertIsDisplayed()
         val fmt = DateTimeFormatter.ofPattern(s(R.string.home_trip_date_format), Locale.KOREAN)
-        val dates = s(R.string.home_trip_dates, noBreak(th.startDate.format(fmt)), noBreak(th.endDate.format(fmt)))
+        // 같은 달이면 끝 날짜의 달을 뺀다(e569312 — `11월 3일 (화) ~ 7일 (토)`)
+        val endFmt = if (th.startDate.month == th.endDate.month) {
+            DateTimeFormatter.ofPattern(s(R.string.home_trip_date_format_day), Locale.KOREAN)
+        } else {
+            fmt
+        }
+        val dates = s(R.string.home_trip_dates, noBreak(th.startDate.format(fmt)), noBreak(th.endDate.format(endFmt)))
         rule.onNodeWithText(dates).assertIsDisplayed()
         tripBox(1).performClick()
         assertEquals(listOf("trip:g-th"), opened)

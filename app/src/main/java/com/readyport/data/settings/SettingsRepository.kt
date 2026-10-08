@@ -53,6 +53,8 @@ data class AppSettings(
     val promoNight: Boolean = false,
     /** 밤 광고 알림을 켜거나 끈 날 */
     val promoNightDate: String? = null,
+    /** 게시판 답글 알림 — 내 글·댓글에 새 댓글이 오면 이 휴대폰이 스스로 확인해 알린다(서버 토큰 없음). 기본 켬 (docs/BOARD.md) */
+    val boardReplies: Boolean = true,
 )
 
 private val Context.settingsStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
@@ -78,6 +80,7 @@ class SettingsRepository @Inject constructor(
     private val promoDateKey = stringPreferencesKey("promo_date")
     private val promoNightKey = booleanPreferencesKey("promo_night")
     private val promoNightDateKey = stringPreferencesKey("promo_night_date")
+    private val boardRepliesKey = booleanPreferencesKey("board_replies")
 
     val settings: Flow<AppSettings> = context.settingsStore.data.map { prefs ->
         AppSettings(
@@ -99,6 +102,7 @@ class SettingsRepository @Inject constructor(
             // 밤 광고 알림은 광고성 소식 받기가 켜져 있을 때만 뜻이 있다
             promoNight = (prefs[promoPushKey] ?: false) && (prefs[promoNightKey] ?: false),
             promoNightDate = prefs[promoNightDateKey],
+            boardReplies = prefs[boardRepliesKey] ?: true,
         )
     }
 
@@ -215,6 +219,11 @@ class SettingsRepository @Inject constructor(
             it[promoNightKey] = enabled
             it[promoNightDateKey] = today.toString()
         }
+    }
+
+    /** 게시판 답글 알림 켬·끔 */
+    suspend fun setBoardReplies(enabled: Boolean) {
+        context.settingsStore.edit { it[boardRepliesKey] = enabled }
     }
 
     private fun readAlerted(raw: Set<String>): Map<String, String> =
