@@ -28,7 +28,7 @@
    ```
    색인은 만들어지는 데 몇 분 걸린다. 그동안 목록이 비어 보일 수 있다(콘솔 › Firestore › 색인에서 `빌드 중` 확인).
 3. **운영자 ID 등록** (4절).
-4. **데이터 보안 양식·개인정보 처리방침**: `docs/play/DATA_SAFETY.md` 6절대로 Play Console 다시 내기, `hosting/public/privacy/index.html`(게시판 절 추가됨)을 법률 검토(C8) 뒤 Hosting에 배포.
+4. **데이터 보안 양식·개인정보 처리방침**: `docs/play/DATA_SAFETY_0.6.0.md` 순서대로 Play Console 다시 내기(콘텐츠 등급은 `docs/play/CONTENT_RATING_0.6.0.md`), `hosting/public/privacy/index.html`(게시판 절 추가됨)을 법률 검토(C8) 뒤 Hosting에 배포.
 5. (선택) 첫 고정 글: 운영자 계정으로 `게시판 이용 안내` 글을 써서 고정(4절 화면에서 `맨 위에 고정`).
 
 ## 3. 데이터와 공개 범위
