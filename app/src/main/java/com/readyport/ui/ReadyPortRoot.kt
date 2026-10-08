@@ -89,6 +89,14 @@ import com.readyport.ui.nav.TripsRoute
 import com.readyport.ui.trip.ChecklistActions
 import com.readyport.ui.trip.TripJourneyScreen
 import com.readyport.ui.trip.TripListScreen
+import com.readyport.notice.Notice
+import com.readyport.notice.NoticeChoice
+import com.readyport.notice.NoticeMode
+import com.readyport.ui.nav.NoticesRoute
+import com.readyport.ui.notice.NoticeDialog
+import com.readyport.ui.notice.NoticesScreen
+import com.readyport.ui.notice.rememberOpenLink
+import com.readyport.ui.settings.NoticeSettings
 
 /**
  * 앱 최상위 화면. 상태를 직접 들고 있지 않아서 테스트에서 그대로 띄울 수 있다.
@@ -112,6 +120,8 @@ fun ReadyPortRoot(
     onChecklistOpened: () -> Unit = {},
     onSetAlertsOn: (Boolean) -> Unit = {},
     onSetAlertHour: (Int) -> Unit = {},
+    /** 공지·소식 (docs/NOTICES_PUSH.md) — 앱을 켤 때 띄울 공지, 알림에서 열 공지, 설정 켬·끔 */
+    notices: NoticeHooks = NoticeHooks(),
 ) {
     when {
         settings == null -> Box(Modifier.fillMaxSize().background(Tokens.Ground))
@@ -123,7 +133,7 @@ fun ReadyPortRoot(
         else -> ReadyPortTheme(easyMode = settings.easyMode) {
             MainScaffold(
                 settings, onSetEasyMode, onSetChildMode, onSetWifiOnly, onSpeak, hasPendingShare, online, slots, openPresent,
-                openChecklistTripId, onChecklistOpened, onSetAlertsOn, onSetAlertHour,
+                openChecklistTripId, onChecklistOpened, onSetAlertsOn, onSetAlertHour, notices,
             )
         }
     }
@@ -144,6 +154,7 @@ private fun MainScaffold(
     onChecklistOpened: () -> Unit,
     onSetAlertsOn: (Boolean) -> Unit,
     onSetAlertHour: (Int) -> Unit,
+    notices: NoticeHooks,
 ) {
     val easyMode = settings.easyMode == true
     val tabs = if (settings.childMode) Tab.Child else Tab.Main
@@ -182,6 +193,22 @@ private fun MainScaffold(
             navController.navigate(TripChecklistRoute(openChecklistTripId)) { launchSingleTop = true }
             onChecklistOpened()
         }
+    }
+
+    // 공지 알림을 누르면 공지사항(그 공지를 연 채로, 못 찾으면 목록). 열고 나면 비워 둔다 — 같은 알림을 또 눌러도 열리게
+    LaunchedEffect(notices.openNoticeId) {
+        val id = notices.openNoticeId
+        if (id != null && !settings.childMode) {
+            navController.navigate(NoticesRoute(openId = id.ifEmpty { null })) { launchSingleTop = true }
+        }
+        if (id != null) notices.onNoticeOpened()
+    }
+
+    // 앱을 켤 때의 공지 (첫 실행 질문을 마친 뒤, 자녀 폰 모드가 아닐 때만). 긴급 공지는 닫으면 다음 긴급 공지가 이어서 뜬다
+    val openLink = rememberOpenLink()
+    val launch = notices.launchNotice
+    if (launch != null && !settings.childMode) {
+        NoticeDialog(launch, NoticeMode.Launch, onChoice = { notices.onLaunchNoticeDone(launch, it) }, onOpenLink = openLink)
     }
 
     val actions = remember(navController, onSpeak) {
@@ -367,13 +394,39 @@ private fun MainScaffold(
                         onOpenMyInfo = { navController.navigate(WalletRoute) },
                         onOpenFamily = { navController.navigate(CompanionsRoute) },
                         onOpenPhotos = { navController.navigate(PhotoCreditsRoute) },
+                        notices = NoticeSettings(
+                            noticePush = settings.noticePush,
+                            promoPush = settings.promoPush,
+                            promoDate = settings.promoDate,
+                            promoNight = settings.promoNight,
+                            promoNightDate = settings.promoNightDate,
+                        ),
+                        onNoticePushChange = notices.onSetNoticePush,
+                        onPromoPushChange = notices.onSetPromoPush,
+                        onPromoNightChange = notices.onSetPromoNight,
+                        onOpenNotices = { navController.navigate(NoticesRoute()) },
                     )
                 }
                 composable<PhotoCreditsRoute> { PhotoCreditsScreen() }
+                composable<NoticesRoute> { NoticesScreen() }
             }
         }
     }
 }
+
+/**
+ * 공지·소식 연결 (MainActivity ↔ 화면). 기본값은 아무 일도 하지 않는다(테스트·갤러리).
+ * [openNoticeId]: 공지 알림에서 열 때의 공지 id (`""` = 공지사항 목록, null = 없음).
+ */
+data class NoticeHooks(
+    val launchNotice: Notice? = null,
+    val onLaunchNoticeDone: (Notice, NoticeChoice) -> Unit = { _, _ -> },
+    val openNoticeId: String? = null,
+    val onNoticeOpened: () -> Unit = {},
+    val onSetNoticePush: (Boolean) -> Unit = {},
+    val onSetPromoPush: (Boolean) -> Unit = {},
+    val onSetPromoNight: (Boolean) -> Unit = {},
+)
 
 /**
  * Hilt ViewModel을 쓰는 화면 자리. 테스트에서는 상태 없는 Content 화면으로 바꿔 끼운다.

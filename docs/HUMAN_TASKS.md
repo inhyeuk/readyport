@@ -31,6 +31,14 @@
 - C19 카야 잼·솔티드 에그·과자 상자 반입 기준 검역본부 문의(지금 '주의')
 - C5·C18 제휴 프로그램 가입·약관(가입 전까지 '사러 가기' 없음)
 
+## 4-1. 공지사항·앱 푸시 (2026-10-08, `docs/NOTICES_PUSH.md` 7절)
+- Firestore 규칙 배포: `firebase deploy --only firestore:rules`(`notices/{id}` get만 — 머지 전에 해도 된다, 아직 문서가 없으면 앱은 그냥 공지가 없다)
+- 서비스 계정 역할 확인: `Firebase Cloud Messaging API 관리자`(공지 알림) — videos·deploy-packs와 같은 계정
+- 머지하면 notices.yml이 첫 공지(`about-readyport`)와 그림·개인정보 처리방침 갱신본을 올린다. 사람들이 보는 것은 **이 기능이 든 앱 버전을 출시한 뒤**
+- Play Console 데이터 보안 양식 다시 보기(`docs/play/DATA_SAFETY.md` 5절 — 새 수집 항목은 없음)
+- 광고 알림을 처음 보낸 날로부터 **2년 안에** 수신 동의 재확인 공지(정보통신망법 제50조 제8항, NOTICES_PUSH.md 5절) + 법률 검토(C8)
+- 첫 실제 알림 시험: `python tools/notices/notice.py push --id about-readyport --target all --remote-dry-run` → `--send`는 공지 알림을 켠 **모든** 기기에 가므로 시험용 기기만 받게 하는 방법은 없다(토픽뿐). 첫 알림은 실제로 알릴 만한 공지로
+
 ## 5. 선택
 - C15 Visit Japan Web: 운영자가 폰에서 로그인한 상태로 열어 주면 Claude가 구조만 읽어 레시피를 만든다
 - C22 Firestore 위치 nam5 → 서울로 옮기기(비어 있을 때)

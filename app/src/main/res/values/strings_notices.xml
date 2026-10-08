@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+      공지사항·공지 알림 (2026-10-08 운영자 요청: "D.well App과 같이 App 시작시에 공지사항을 띄우는 기능을 추가해줘.
+      그리고 App Push를 할 수 있는 기능도 추가해줘.") — docs/NOTICES_PUSH.md, DESIGN_SPEC 부록 K.
+      공지 글 자체는 서명된 데이터(notices/notices.json → 서명 → Firestore notices/current)에서 온다. 여기 있는 것은 틀 문구뿐.
+      문구 규칙은 PRD 3.4 — 중1이 읽는 쉬운 말(해요체).
+    -->
+
+    <!-- 종류 배지 (색 + 아이콘 + 글자 — 색만으로 전하지 않는다) -->
+    <string name="notice_type_urgent">긴급 공지</string>
+    <string name="notice_type_normal">공지</string>
+    <string name="notice_type_event">이벤트</string>
+    <string name="notice_type_guide">이용 안내</string>
+    <string name="notice_promo_tag">광고</string>
+
+    <!-- 대화상자 -->
+    <string name="notice_pane">공지: %1$s</string>
+    <string name="notice_close_cd">공지 닫기</string>
+    <string name="notice_page">%1$d / %2$d</string>
+    <string name="notice_page_cd">%2$d쪽 중 %1$d쪽</string>
+    <string name="notice_next">다음</string>
+    <string name="notice_prev">이전</string>
+    <string name="notice_confirm">확인</string>
+    <string name="notice_today">오늘 하루 보지 않기</string>
+    <string name="notice_never">다시 보지 않기</string>
+    <string name="notice_urgent_hint">끝까지 읽으면 닫을 수 있어요.</string>
+    <string name="notice_link_cd">%1$s, 브라우저로 열려요</string>
+    <string name="notice_promo_optout">광고성 소식은 설정 › 공지·소식에서 언제든 끌 수 있어요.</string>
+    <string name="notice_date_ymd">%1$d년 %2$d월 %3$d일</string>
+    <string name="notice_date_short">%1$d. %2$d. %3$d.</string>
+
+    <!-- 설정 › 공지·소식 › 공지사항 (지금 공지·지난 공지 다시 보기) -->
+    <string name="notices_title">공지사항</string>
+    <string name="notices_subtitle">레디포트가 알린 소식을 다시 볼 수 있어요.</string>
+    <string name="notices_speech">공지사항. 레디포트가 알린 소식을 다시 볼 수 있어요.</string>
+    <string name="notices_current">지금 공지</string>
+    <string name="notices_past">지난 공지</string>
+    <string name="notices_empty_title">아직 공지가 없어요</string>
+    <string name="notices_empty_body">새 소식이 생기면 여기에 모아 둘게요.</string>
+    <string name="notices_loading">공지를 불러오고 있어요</string>
+    <string name="notices_row_meta">%1$s · %2$s</string>
+    <string name="notices_row_ended">%1$s · %2$s 끝남</string>
+    <string name="notices_signed_note">레디포트가 서명한 공지만 보여 드려요. 인터넷이 없으면 이 휴대폰에 받아 둔 공지를 보여 드려요.</string>
+
+    <!-- 설정 › 공지·소식 -->
+    <string name="settings_group_notices">공지·소식</string>
+    <string name="settings_notices_open_body">지금 공지와 지난 공지를 다시 봐요.</string>
+    <string name="settings_notice_push">공지 알림</string>
+    <string name="settings_notice_push_desc">서비스 안내와 긴급 공지를 알림으로 받아요.</string>
+    <string name="settings_promo_push">광고성 소식 받기</string>
+    <string name="settings_promo_push_desc">이벤트·혜택 같은 광고성 소식을 알림으로 받아요. 처음에는 꺼져 있고, 언제든 끌 수 있어요.</string>
+    <string name="settings_promo_agreed">%1$s에 받기로 했어요.</string>
+    <string name="settings_promo_declined">%1$s에 받지 않기로 했어요.</string>
+    <string name="settings_promo_night">밤에도 광고성 소식 받기</string>
+    <string name="settings_promo_night_desc">밤 9시부터 아침 8시 사이에도 받아요. 꺼 두면 그 시간에 온 소식은 아침 8시에 알려 드려요.</string>
+    <string name="settings_promo_night_agreed">%1$s에 밤에도 받기로 했어요.</string>
+    <string name="settings_notices_local">알림은 주제 구독으로만 받아요. 레디포트는 이 휴대폰을 알아볼 수 있는 알림 정보를 받거나 저장하지 않아요. 받기로 한 날도 이 휴대폰에만 적어 둬요.</string>
+
+    <!-- 광고성 소식 동의·철회 결과 알림 (정보통신망법 제50조 제8항: 보낸 곳·날짜·처리 결과) -->
+    <string name="promo_result_on_title">광고성 소식을 받기로 했어요</string>
+    <string name="promo_result_off_title">광고성 소식을 받지 않기로 했어요</string>
+    <string name="promo_night_result_on_title">밤에도 광고성 소식을 받기로 했어요</string>
+    <string name="promo_night_result_off_title">밤에는 광고성 소식을 받지 않기로 했어요</string>
+    <string name="promo_result_body">보내는 곳: 레디포트\n처리한 날: %1$s\n%2$s</string>
+    <string name="promo_result_on_tail">그만 받으려면 설정 › 공지·소식에서 광고성 소식 받기를 끄면 돼요.</string>
+    <string name="promo_result_off_tail">이제 광고성 소식 알림을 보내지 않아요. 서비스 안내와 긴급 공지는 공지 알림 설정을 따라요.</string>
+    <string name="promo_night_result_on_tail">밤 9시부터 아침 8시 사이에도 광고성 소식을 알려 드려요.</string>
+    <string name="promo_night_result_off_tail">밤 9시부터 아침 8시 사이에 온 광고성 소식은 아침 8시에 알려 드려요.</string>
+
+    <!-- 공지 알림 (FCM) — 서명된 공지를 못 받았을 때만 이 문구를 쓴다 -->
+    <string name="notice_channel">공지·소식</string>
+    <string name="notice_push_generic_title">새 소식이 있어요</string>
+    <string name="notice_push_generic_body">눌러서 공지사항을 확인해 주세요.</string>
+    <string name="notice_push_promo_optout">광고 알림 끄기: 레디포트 › 설정 › 공지·소식</string>
+</resources>

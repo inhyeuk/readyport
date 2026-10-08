@@ -19,6 +19,12 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowForward
 import androidx.compose.material.icons.automirrored.outlined.OpenInNew
 import androidx.compose.material.icons.outlined.Badge
+import androidx.compose.material.icons.outlined.Bedtime
+import androidx.compose.material.icons.outlined.Campaign
+import androidx.compose.material.icons.outlined.EventAvailable
+import androidx.compose.material.icons.outlined.EventBusy
+import androidx.compose.material.icons.outlined.NotificationAdd
+import androidx.compose.material.icons.outlined.Sell
 import androidx.compose.material.icons.outlined.ChildCare
 import androidx.compose.material.icons.outlined.Copyright
 import androidx.compose.material.icons.outlined.ExpandLess
@@ -35,6 +41,8 @@ import androidx.compose.material.icons.outlined.Schedule
 import androidx.compose.material.icons.outlined.TextFields
 import androidx.compose.material.icons.outlined.TextIncrease
 import androidx.compose.material.icons.outlined.Wifi
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -42,6 +50,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.Immutable
@@ -99,6 +110,9 @@ import com.readyport.ui.components.rememberPhotoLift
 import com.readyport.ui.components.rememberThumbnail
 import com.readyport.ui.components.sectionGap
 import com.readyport.ui.components.textIconSize
+import com.readyport.ui.components.firstLineIconOffset
+import com.readyport.ui.notice.longDate
+import java.time.LocalDate
 import com.readyport.ui.theme.LocalDimens
 import com.readyport.ui.theme.Tokens
 import com.readyport.ui.trip.alertHourLabel
@@ -128,6 +142,12 @@ fun SettingsScreen(
     notifGranted: Boolean? = null,
     /** 휴대폰 알림 설정 열기. null이면 시스템 설정을 연다 */
     onOpenNotifSettings: (() -> Unit)? = null,
+    /** 공지·소식 (docs/NOTICES_PUSH.md): 공지 알림(기본 켬) · 광고성 소식(기본 끔, 동의한 날) · 밤 광고 알림(따로 동의) */
+    notices: NoticeSettings = NoticeSettings(),
+    onNoticePushChange: (Boolean) -> Unit = {},
+    onPromoPushChange: (Boolean) -> Unit = {},
+    onPromoNightChange: (Boolean) -> Unit = {},
+    onOpenNotices: () -> Unit = {},
 ) {
     val context = LocalContext.current
     val openPrivacy = onOpenPrivacy ?: { url: String -> runCatching { context.startActivity(Intent(Intent.ACTION_VIEW, url.toUri())) } }
@@ -137,6 +157,9 @@ fun SettingsScreen(
     val linkStart = if (large) LocalDimens.current.listRowPadding - 4.dp else rowTextStart() - 4.dp
     /** 카드 안 행과 같은 가로 여백 (행 아래 세그먼트·버튼이 카드 폭을 그대로 쓰게) */
     val rowPadding = LocalDimens.current.listRowPadding
+    // 광고성 소식 동의·철회 결과 알림 (정보통신망법 제50조 제8항 — 보내는 곳·처리한 날·결과를 바로 보여 준다)
+    var consentResult by rememberSaveable { mutableStateOf<ConsentResult?>(null) }
+    consentResult?.let { r -> ConsentResultDialog(r, LocalDate.now()) { consentResult = null } }
     AppScreen(
         title = stringResource(R.string.settings_title),
         speech = stringResource(R.string.settings_speech),
@@ -228,6 +251,24 @@ fun SettingsScreen(
             }
         }
         item(key = "alerts-local") { IconBullet(stringResource(R.string.settings_alerts_local), Icons.Outlined.Lock) }
+        sectionGap("gap-notices")
+        // 공지·소식: 공지사항 → 공지 알림 → 광고성 소식 받기(동의한 날) → (켰으면) 밤에도 받기 → 토픽만 쓴다는 한 줄
+        item(key = "group-notices") {
+            NoticeSettingsGroup(
+                notices,
+                onOpenNotices = onOpenNotices,
+                onNoticePushChange = onNoticePushChange,
+                onPromoPushChange = { on ->
+                    onPromoPushChange(on)
+                    consentResult = if (on) ConsentResult.PromoOn else ConsentResult.PromoOff
+                },
+                onPromoNightChange = { on ->
+                    onPromoNightChange(on)
+                    consentResult = if (on) ConsentResult.NightOn else ConsentResult.NightOff
+                },
+            )
+        }
+        item(key = "notices-local") { IconBullet(stringResource(R.string.settings_notices_local), Icons.Outlined.Lock) }
         sectionGap("gap-data")
         item(key = "group-data") {
             ListGroup(stringResource(R.string.settings_group_data)) {
@@ -327,6 +368,7 @@ private fun SettingRow(
     trailing: RowTrailing = RowTrailing.Chevron,
     onClick: (() -> Unit)? = null,
     easyPreview: Boolean = false,
+    extra: (@Composable () -> Unit)? = null,
 ) {
     ListRow(
         title = title,
@@ -337,8 +379,133 @@ private fun SettingRow(
         extra = if (easyPreview) {
             { EasyModePreview() }
         } else {
-            null
+            extra
         },
+    )
+}
+
+/** 설정 › 공지·소식 의 값 (AppSettings에서 그대로) */
+@Immutable
+data class NoticeSettings(
+    val noticePush: Boolean = true,
+    val promoPush: Boolean = false,
+    /** 광고성 소식 받기를 켜거나 끈 날 yyyy-MM-dd */
+    val promoDate: String? = null,
+    val promoNight: Boolean = false,
+    val promoNightDate: String? = null,
+)
+
+/**
+ * 공지·소식 묶음. 광고성 소식은 기본 끔이고 사람이 직접 켠다 — 켜거나 끈 날을 그 줄 아래에 보인다(이 휴대폰에만 적어 둔 값).
+ * 밤 광고 알림 줄은 광고성 소식을 켰을 때만 보인다(따로 동의).
+ */
+@Composable
+private fun NoticeSettingsGroup(
+    s: NoticeSettings,
+    onOpenNotices: () -> Unit,
+    onNoticePushChange: (Boolean) -> Unit,
+    onPromoPushChange: (Boolean) -> Unit,
+    onPromoNightChange: (Boolean) -> Unit,
+) {
+    ListGroup(stringResource(R.string.settings_group_notices)) {
+        SettingRow(
+            stringResource(R.string.notices_title),
+            icon = Icons.Outlined.Campaign,
+            body = stringResource(R.string.settings_notices_open_body),
+            onClick = onOpenNotices,
+        )
+        ListDivider()
+        SettingRow(
+            stringResource(R.string.settings_notice_push),
+            icon = Icons.Outlined.NotificationAdd,
+            body = stringResource(R.string.settings_notice_push_desc),
+            trailing = RowTrailing.Switch(s.noticePush, onNoticePushChange),
+        )
+        ListDivider()
+        val promoDay = s.promoDate?.let { runCatching { LocalDate.parse(it) }.getOrNull() }
+        SettingRow(
+            stringResource(R.string.settings_promo_push),
+            icon = Icons.Outlined.Sell,
+            body = stringResource(R.string.settings_promo_push_desc),
+            trailing = RowTrailing.Switch(s.promoPush, onPromoPushChange),
+            extra = promoDay?.let { day ->
+                {
+                    val date = longDate(day)
+                    ConsentLine(
+                        stringResource(if (s.promoPush) R.string.settings_promo_agreed else R.string.settings_promo_declined, date),
+                        agreed = s.promoPush,
+                    )
+                }
+            },
+        )
+        if (s.promoPush) {
+            ListDivider()
+            val nightDay = s.promoNightDate?.let { runCatching { LocalDate.parse(it) }.getOrNull() }
+            SettingRow(
+                stringResource(R.string.settings_promo_night),
+                icon = Icons.Outlined.Bedtime,
+                body = stringResource(R.string.settings_promo_night_desc),
+                trailing = RowTrailing.Switch(s.promoNight, onPromoNightChange),
+                extra = nightDay?.takeIf { s.promoNight }?.let { day ->
+                    { ConsentLine(stringResource(R.string.settings_promo_night_agreed, longDate(day)), agreed = true) }
+                },
+            )
+        }
+    }
+}
+
+/** 동의한 날 한 줄 (달력 아이콘 + 글, 누를 수 없음) */
+@Composable
+private fun ConsentLine(text: String, agreed: Boolean) {
+    val style = MaterialTheme.typography.bodyMedium
+    val size = textIconSize(LocalDimens.current.iconSmall + 4.dp, style)
+    Row(Modifier.padding(top = 6.dp), verticalAlignment = Alignment.Top, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+        Icon(
+            if (agreed) Icons.Outlined.EventAvailable else Icons.Outlined.EventBusy,
+            contentDescription = null,
+            tint = if (agreed) Tokens.SuccessText else Tokens.InkSecondary,
+            modifier = Modifier.padding(top = firstLineIconOffset(style, size)).size(size),
+        )
+        KoText(text, style, color = Tokens.Ink)
+    }
+}
+
+/** 광고성 소식 동의·철회 결과 */
+enum class ConsentResult { PromoOn, PromoOff, NightOn, NightOff }
+
+/** 결과 알림: 보내는 곳·처리한 날·바뀐 것 (확인 하나) */
+@Composable
+private fun ConsentResultDialog(result: ConsentResult, today: LocalDate, onDismiss: () -> Unit) {
+    val title = when (result) {
+        ConsentResult.PromoOn -> R.string.promo_result_on_title
+        ConsentResult.PromoOff -> R.string.promo_result_off_title
+        ConsentResult.NightOn -> R.string.promo_night_result_on_title
+        ConsentResult.NightOff -> R.string.promo_night_result_off_title
+    }
+    val tail = when (result) {
+        ConsentResult.PromoOn -> R.string.promo_result_on_tail
+        ConsentResult.PromoOff -> R.string.promo_result_off_tail
+        ConsentResult.NightOn -> R.string.promo_night_result_on_tail
+        ConsentResult.NightOff -> R.string.promo_night_result_off_tail
+    }
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        confirmButton = {
+            TextButton(onClick = onDismiss, colors = ButtonDefaults.textButtonColors(contentColor = Tokens.Accent), modifier = Modifier.minTouch()) {
+                KoText(stringResource(R.string.notice_confirm), MaterialTheme.typography.labelLarge)
+            }
+        },
+        icon = { Icon(Icons.Outlined.Sell, contentDescription = null, tint = Tokens.Accent) },
+        title = { KoText(stringResource(title), MaterialTheme.typography.titleLarge, glueShort = true) },
+        text = {
+            Column(Modifier.verticalScroll(rememberScrollState())) {
+                KoText(stringResource(R.string.promo_result_body, longDate(today), stringResource(tail)), MaterialTheme.typography.bodyLarge)
+            }
+        },
+        shape = MaterialTheme.shapes.extraLarge,
+        containerColor = Tokens.Surface,
+        titleContentColor = Tokens.Ink,
+        textContentColor = Tokens.Ink,
     )
 }
 

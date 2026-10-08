@@ -56,9 +56,9 @@ class ReadyPortApp : Application(), Configuration.Provider {
         }
         // 하루 한 번 찜한 나라의 새 안내 확인 (와이파이 설정을 따른다)
         appScope.launch { PackSync.scheduleDaily(this@ReadyPortApp, settings.current().wifiOnly) }
-        // 찜한 나라·여행 나라가 바뀌면 토픽 구독과 익명 찜 수를 맞춘다. 밀린 실패 리포트도 이때 보낸다
+        // 찜한 나라·여행 나라·공지 알림 설정이 바뀌면 토픽 구독과 익명 찜 수를 맞춘다. 밀린 실패 리포트도 이때 보낸다
         appScope.launch {
-            combine(settings.settings, trips.trip) { s, t -> s.favorites to t?.country }
+            combine(settings.settings, trips.trip) { s, t -> listOf(s.favorites, t?.country, s.noticePush, s.promoPush, s.childMode) }
                 .distinctUntilChanged()
                 .collect { CloudSync.request(this@ReadyPortApp) }
         }

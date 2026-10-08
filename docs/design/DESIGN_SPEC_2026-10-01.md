@@ -1776,3 +1776,55 @@ TalkBack은 `1 계획`이 아니라 **`1단계 계획`**으로 읽는다. 알림
 
 - 새 색·새 크기 없음. 새 문구는 `res/values/strings_stays2.xml` 한 파일에.
 - 새 아이콘: 날짜 칸 끝 `CalendarMonth`(Accent), 숫자로 적기 `Dialpad`, 좌표 `MyLocation`, 좌표 지우기 `Backspace`, 숙소 종류 안내 `Category`.
+
+
+---
+
+## 부록 K — 공지사항·공지 알림 (2026-10-08)
+
+운영자 요청: *"D.well App과 같이 App 시작시에 공지사항을 띄우는 기능을 추가해줘. 그리고 App Push를 할 수 있는 기능도 추가해줘."* + *"공지에 App에 대한 간략한 설명과 … 개인정보는 모바일에만 … 카드 뉴스 형태로"* (운영 `docs/NOTICES_PUSH.md`, 보고 `docs/design/NOTICES_PUSH_REPORT.md`)
+
+### K.1 공지 대화상자 — `ui/notice/NoticeScreens.kt` `NoticeCard` / `NoticeDialog`
+
+```
+┌──────────────────────────────┐  ← 흰 카드(모서리 28 = 대화상자, D3), 최대 폭 520dp, 화면 양옆 16dp
+│▀▀▀▀▀▀▀▀ 종류 색 띠 6dp ▀▀▀▀▀▀▀▀│  ← tone.onLight (긴급 DangerText · 공지 Accent · 이벤트 Help · 이용 안내 SuccessText)
+│ [🔔 긴급 공지] [광고]  1 / 3  [X] │  ← StatusTag(색+아이콘+글자) · 쪽 수(TalkBack `3쪽 중 1쪽`, liveRegion) · 닫기(minTouchSize)
+│ 제목 (headlineSmall, heading)    │
+│ ┌────── 그림(카드 양 끝까지) ────┐ │  ← fullBleed(cardPadding), 비율은 그림 그대로(0.75~1.8), 대체 글 = TalkBack 이름
+│ └──────────────────────────────┘ │     안 왔거나 못 불러오면 SurfaceSunken 상자 + Image 아이콘 + 대체 글(보이는 글)
+│ 글 (bodyLarge, 길게 눌러 복사)     │  ← SelectionContainer
+│ [↗ 링크 이름] (마지막 쪽)          │  ← SecondaryButton(OpenInNew), TalkBack `…, 브라우저로 열려요`
+│ 🔕 광고성 소식은 … 끌 수 있어요   │  ← 광고(promo)만 IconBullet
+│          ━ • •                  │  ← 쪽 점(꾸밈, 누를 수 없음 — 지금 쪽은 긴 점, LineStrong 점)
+│   끝까지 읽으면 닫을 수 있어요     │  ← 긴급 공지가 아직 닫히지 않을 때만
+│ [‹ 이전]        [다음 ›] / [✓ 확인]│  ← EqualWidthPair(SecondaryButton Neutral, PrimaryButton) — 첫 쪽은 주 버튼만 폭 전체
+│ 오늘 하루 보지 않기 | 다시 보지 않기│  ← QuietButton 둘(EqualWidthPair, 좁으면 위아래)
+└──────────────────────────────┘
+```
+
+| 종류 | 색 | 아이콘 | 닫기(X·뒤로) | 주 버튼 | 보지 않기 줄 | 앱을 켤 때 |
+|---|---|---|---|---|---|---|
+| 긴급 `urgent` | Danger | NotificationImportant | 마지막 쪽에서만(뒤로 = 앞 쪽) | 다음 → 확인 | 마지막 쪽 | 매번(보지 않기 전까지), 여럿이면 이어서 |
+| 일반 `normal` | Accent | Campaign | 언제든 | 다음 → 확인 | 늘 | 차례로 하나 |
+| 이벤트 `event` | Help | Celebration | 언제든 | 다음 → 확인 | 늘 | 차례로 하나 |
+| 이용 안내 `guide` | Success | TipsAndUpdates | 언제든 | 다음 → 확인 | 없음 | 한 번 보면 끝 |
+| 목록·알림에서 다시 보기 | (종류 그대로) | | 언제든 | 다음 → 확인 | 없음 | — |
+
+- 바깥을 눌러도 닫히지 않는다(실수 방지). 카드 전체가 세로 스크롤 — 200%·쉬운 모드에서도 버튼까지 닿는다. 쪽을 넘기면 맨 위로.
+- TalkBack: 대화상자 `paneTitle` = `공지: 제목`, 쪽을 넘기면 `3쪽 중 2쪽`. 가로 스와이프 없음(7장 1번).
+- 새 색·새 크기 없음. 갤러리·접근성 점검은 대화상자 창 없이 어두운 바탕(`NoticeOnScrim`, 검정 45%) 위에 같은 카드를 그린다.
+
+### K.2 공지사항 목록 — `NoticesContent`
+- `AppScreen(공지사항, Campaign)` + 부제 → `지금 공지` ListGroup → (sectionGap) → `지난 공지` ListGroup → `IconBullet(Verified) 레디포트가 서명한 공지만…`.
+- 줄 = `ListRow(종류 아이콘·톤, 제목, 본문 `긴급 공지 · 2026. 10. 8.` / 지난 것은 `공지 · 2026. 10. 1. 끝남`)` + 셰브론. 비면 `EmptyState(Campaign)`, 불러오는 중은 가운데 진행 표시.
+
+### K.3 설정 › 공지·소식 (알림 묶음 다음)
+- `공지사항`(Campaign, 셰브론) → `공지 알림`(NotificationAdd, 스위치, 기본 켬) → `광고성 소식 받기`(Sell, 스위치, 기본 끔 — 켜고 끈 날이 있으면 줄 아래 `EventAvailable`/`EventBusy` + `2026년 10월 8일에 받기로 했어요.`) → (켰을 때만) `밤에도 광고성 소식 받기`(Bedtime) → 묶음 밖 `IconBullet(Lock) 알림은 주제 구독으로만 받아요…`.
+- 광고·밤 스위치를 바꾸면 결과 대화상자(Sell 아이콘, `보내는 곳: 레디포트 / 처리한 날 / …`, `확인` 하나).
+
+### K.4 첫 공지 카드뉴스 두 장 — `NoticeCardArtTest` (1080×1350, 400×500dp 캔버스 @2.7)
+- 공통: Ground 바탕, 머리 = Navy→AccentDeep 그라데이션(아래 모서리 32, White12 원 둘) + 앱 아이콘 30dp + `레디포트`(White85) + 제목 30sp Bold 흰색 두 줄 + 오른쪽 그림(흰 테두리 + Gold 원 + Navy 아이콘). 맨 아래 Info + 15sp InkSecondary 한 줄. 글꼴 Pretendard, 어절 줄바꿈.
+- ① `레디포트는 이런 앱이에요`: 흰 카드 줄 셋(모서리 22, LineSoft 1dp) = 그림 패널 60dp(`Illus.Plan`·`Illus.Entry` 파랑, `Illus.Arrival` 청록) + 굵은 21sp + 보조 16sp — `계획부터 복귀까지 8단계 / 여행을 만들면 할 일을 알려 드려요` · `입국 카드 칸은 앱이 채워요 / 제출은 직접 눌러요` · `9개 나라 · 24개 공항 안내 / 모두 공식 출처와 확인 날짜까지`, 맨 아래 `정부 기관과 제휴하지 않은 앱이에요`. 머리 그림 FlightTakeoff.
+- ② `여권 정보는 이 휴대폰에만`: 가운데 약속 카드(2dp Accent 테두리, Accent 원 + CloudOff) `레디포트 서버에는 / 여러분의 여권 정보가 / 아예 없어요`(마지막 줄 Accent) → 흰 카드에 SuccessBg 원 아이콘 줄 셋(Lock · GppGood · DeleteOutline) `휴대폰 안에서 암호화해 보관해요` · `서버 해킹으로 새어 나갈 일이 없어요` · `여행이 끝나면 버튼 하나로 지울 수 있어요` → 맨 아래 `휴대폰 잠금은 꼭 걸어 두세요`. 머리 그림 = 흰 테두리 휴대폰 + Gold 자물쇠.
+- 대화상자에서는 카드 폭(360dp 폰 약 328dp)으로 줄어 0.82배 — 굵은 줄 약 17sp. 글자 200%에서도 그림은 커지지 않으므로 대체 글(카드 글 전부)과 쪽 글이 함께 있다. 테스트가 줄이 잘리지 않는지(맨 아래 한 줄이 밀려나지 않는지)와 대체 글에 카드 글이 다 들었는지 본다.
