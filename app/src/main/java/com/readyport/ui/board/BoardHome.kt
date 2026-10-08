@@ -120,6 +120,8 @@ data class BoardHomeUi(
     val loadingMore: Boolean = false,
     val canLoadMore: Boolean = false,
     val offline: Boolean = false,
+    /** 인터넷은 되는데 서버가 거절·준비 중(색인 생성 등) — `인터넷이 없어요`로 잘못 안내하지 않게 따로 둔다 */
+    val serverError: Boolean = false,
     val blocked: Set<String> = emptySet(),
     val revealed: Set<String> = emptySet(),
     /** 운영자 게시판 ID (글 카드의 `운영자` 표시) */
@@ -172,7 +174,7 @@ class BoardViewModel @Inject constructor(private val repo: BoardRepository) : Vi
 
     fun reload() {
         loadedAt = System.currentTimeMillis()
-        _ui.update { it.copy(loading = true, offline = false, now = Instant.now()) }
+        _ui.update { it.copy(loading = true, offline = false, serverError = false, now = Instant.now()) }
         cursor = null
         viewModelScope.launch {
             val s = _ui.value
@@ -182,7 +184,10 @@ class BoardViewModel @Inject constructor(private val repo: BoardRepository) : Vi
                 cursor = page.next
                 _ui.update { it.copy(loading = false, pinned = pinned, posts = page.posts, canLoadMore = page.next != null) }
             } catch (e: BoardError) {
-                _ui.update { it.copy(loading = false, offline = true, posts = emptyList(), pinned = emptyList(), canLoadMore = false) }
+                val offline = e is BoardError.Offline
+                _ui.update {
+                    it.copy(loading = false, offline = offline, serverError = !offline, posts = emptyList(), pinned = emptyList(), canLoadMore = false)
+                }
             }
         }
     }
@@ -321,6 +326,15 @@ fun BoardHomeContent(ui: BoardHomeUi, nav: BoardNav = BoardNav(), actions: Board
                     title = stringResource(R.string.board_offline_title),
                     body = stringResource(R.string.board_offline_body),
                     icon = Icons.Outlined.CloudOff,
+                ) {
+                    SecondaryButton(stringResource(R.string.board_retry), onClick = actions.retry, icon = Icons.Outlined.Refresh, fillWidth = false)
+                }
+            }
+            ui.serverError -> item(key = "server-error") {
+                BoardEmpty(
+                    title = stringResource(R.string.board_server_error_title),
+                    body = stringResource(R.string.board_server_error_body),
+                    icon = Icons.Outlined.Refresh,
                 ) {
                     SecondaryButton(stringResource(R.string.board_retry), onClick = actions.retry, icon = Icons.Outlined.Refresh, fillWidth = false)
                 }

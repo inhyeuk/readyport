@@ -132,6 +132,7 @@ data class BoardPostUi(
     val loading: Boolean = true,
     val gone: Boolean = false,
     val offline: Boolean = false,
+    val serverError: Boolean = false,
     val post: BoardPost? = null,
     val comments: List<BoardComment> = emptyList(),
     val liked: Boolean = false,
@@ -218,7 +219,8 @@ class BoardPostViewModel @Inject constructor(handle: SavedStateHandle, private v
                     }
                 }
             } catch (e: BoardError) {
-                _ui.update { it.copy(loading = false, offline = true) }
+                val offline = e is BoardError.Offline
+                _ui.update { it.copy(loading = false, offline = offline, serverError = !offline) }
             }
         }
     }
@@ -441,6 +443,11 @@ fun BoardPostContent(ui: BoardPostUi, actions: BoardPostActions = BoardPostActio
             ui.loading -> item(key = "loading") { BoardEmpty(stringResource(R.string.board_loading), null) }
             ui.offline -> item(key = "offline") {
                 BoardEmpty(stringResource(R.string.board_offline_title), stringResource(R.string.board_offline_body), icon = Icons.Outlined.GppMaybe) {
+                    SecondaryButton(stringResource(R.string.board_retry), onClick = actions.retry, fillWidth = false)
+                }
+            }
+            ui.serverError -> item(key = "server-error") {
+                BoardEmpty(stringResource(R.string.board_server_error_title), stringResource(R.string.board_server_error_body)) {
                     SecondaryButton(stringResource(R.string.board_retry), onClick = actions.retry, fillWidth = false)
                 }
             }
