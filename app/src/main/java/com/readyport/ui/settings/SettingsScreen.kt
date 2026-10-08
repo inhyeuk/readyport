@@ -112,6 +112,9 @@ import com.readyport.ui.components.sectionGap
 import com.readyport.ui.components.textIconSize
 import com.readyport.ui.components.firstLineIconOffset
 import com.readyport.ui.notice.longDate
+import com.readyport.ui.board.BoardSettingsBinding
+import com.readyport.ui.board.BoardSettingsGroup
+import androidx.compose.material.icons.outlined.Public
 import java.time.LocalDate
 import com.readyport.ui.theme.LocalDimens
 import com.readyport.ui.theme.Tokens
@@ -148,6 +151,10 @@ fun SettingsScreen(
     onPromoPushChange: (Boolean) -> Unit = {},
     onPromoNightChange: (Boolean) -> Unit = {},
     onOpenNotices: () -> Unit = {},
+    /** 설정 › 게시판 (docs/BOARD.md) — null이면 묶음을 그리지 않는다(자녀 폰 모드 등) */
+    board: BoardSettingsBinding? = null,
+    boardReplies: Boolean = true,
+    onBoardRepliesChange: (Boolean) -> Unit = {},
 ) {
     val context = LocalContext.current
     val openPrivacy = onOpenPrivacy ?: { url: String -> runCatching { context.startActivity(Intent(Intent.ACTION_VIEW, url.toUri())) } }
@@ -269,6 +276,12 @@ fun SettingsScreen(
             )
         }
         item(key = "notices-local") { IconBullet(stringResource(R.string.settings_notices_local), Icons.Outlined.Lock) }
+        // 게시판: 답글 알림 · 내 게시판 ID · 규칙 · 차단 · (운영자) 사진·동영상 · 신고 관리 · 내 기록 지우기
+        if (board != null && !childMode) {
+            sectionGap("gap-board")
+            item(key = "group-board") { BoardSettingsGroup(board, boardReplies, onBoardRepliesChange) }
+            item(key = "board-local") { IconBullet(stringResource(R.string.settings_board_local), Icons.Outlined.Public) }
+        }
         sectionGap("gap-data")
         item(key = "group-data") {
             ListGroup(stringResource(R.string.settings_group_data)) {

@@ -97,6 +97,20 @@ import com.readyport.ui.notice.NoticeDialog
 import com.readyport.ui.notice.NoticesScreen
 import com.readyport.ui.notice.rememberOpenLink
 import com.readyport.ui.settings.NoticeSettings
+import com.readyport.board.BoardKind
+import com.readyport.ui.board.BoardAdminScreen
+import com.readyport.ui.board.BoardJoinScreen
+import com.readyport.ui.board.BoardNav
+import com.readyport.ui.board.BoardPostScreen
+import com.readyport.ui.board.BoardScreen
+import com.readyport.ui.board.BoardSettingsBinding
+import com.readyport.ui.board.BoardWriteScreen
+import com.readyport.ui.board.rememberBoardSettings
+import com.readyport.ui.nav.BoardAdminRoute
+import com.readyport.ui.nav.BoardJoinRoute
+import com.readyport.ui.nav.BoardPostRoute
+import com.readyport.ui.nav.BoardRoute
+import com.readyport.ui.nav.BoardWriteRoute
 
 /**
  * 앱 최상위 화면. 상태를 직접 들고 있지 않아서 테스트에서 그대로 띄울 수 있다.
@@ -122,6 +136,8 @@ fun ReadyPortRoot(
     onSetAlertHour: (Int) -> Unit = {},
     /** 공지·소식 (docs/NOTICES_PUSH.md) — 앱을 켤 때 띄울 공지, 알림에서 열 공지, 설정 켬·끔 */
     notices: NoticeHooks = NoticeHooks(),
+    /** 게시판 (docs/BOARD.md) — 탭의 새 댓글 수, 답글 알림에서 열 글, 답글 알림 켬·끔 */
+    board: BoardHooks = BoardHooks(),
 ) {
     when {
         settings == null -> Box(Modifier.fillMaxSize().background(Tokens.Ground))
@@ -133,7 +149,7 @@ fun ReadyPortRoot(
         else -> ReadyPortTheme(easyMode = settings.easyMode) {
             MainScaffold(
                 settings, onSetEasyMode, onSetChildMode, onSetWifiOnly, onSpeak, hasPendingShare, online, slots, openPresent,
-                openChecklistTripId, onChecklistOpened, onSetAlertsOn, onSetAlertHour, notices,
+                openChecklistTripId, onChecklistOpened, onSetAlertsOn, onSetAlertHour, notices, board,
             )
         }
     }
@@ -155,6 +171,7 @@ private fun MainScaffold(
     onSetAlertsOn: (Boolean) -> Unit,
     onSetAlertHour: (Int) -> Unit,
     notices: NoticeHooks,
+    board: BoardHooks,
 ) {
     val easyMode = settings.easyMode == true
     val tabs = if (settings.childMode) Tab.Child else Tab.Main
@@ -174,6 +191,8 @@ private fun MainScaffold(
         destination?.hierarchy?.any {
             it.hasRoute(TripRoute::class) || it.hasRoute(TripsRoute::class) || it.hasRoute(TripChecklistRoute::class)
         } == true -> Tab.Trip
+        // 글·글쓰기는 게시판 줄기(답글 알림에서 열어도 게시판 탭)
+        destination?.hierarchy?.any { it.hasRoute(BoardPostRoute::class) || it.hasRoute(BoardWriteRoute::class) } == true -> Tab.Board
         else -> lastTab
     }
     LaunchedEffect(selectedTab) { lastTab = selectedTab }
@@ -204,6 +223,15 @@ private fun MainScaffold(
         if (id != null) notices.onNoticeOpened()
     }
 
+    // 게시판 답글 알림을 누르면 그 글(글 id가 없으면 게시판). 열고 나면 비워 둔다
+    LaunchedEffect(board.openPostId) {
+        val id = board.openPostId
+        if (id != null && !settings.childMode) {
+            if (id.isEmpty()) navController.switchTab(Tab.Board) else navController.navigate(BoardPostRoute(id)) { launchSingleTop = true }
+        }
+        if (id != null) board.onOpened()
+    }
+
     // 앱을 켤 때의 공지 (첫 실행 질문을 마친 뒤, 자녀 폰 모드가 아닐 때만). 긴급 공지는 닫으면 다음 긴급 공지가 이어서 뜬다
     val openLink = rememberOpenLink()
     val launch = notices.launchNotice
@@ -224,7 +252,14 @@ private fun MainScaffold(
         Scaffold(
             containerColor = Tokens.Ground,
             topBar = { if (!online) OfflineBanner() },
-            bottomBar = { BottomTabs(selected = selectedTab, onSelect = { navController.switchTab(it) }, tabs = tabs) },
+            bottomBar = {
+                BottomTabs(
+                    selected = selectedTab,
+                    onSelect = { navController.switchTab(it) },
+                    tabs = tabs,
+                    badges = if (board.unread > 0 && selectedTab != Tab.Board) mapOf(Tab.Board to board.unread) else emptyMap(),
+                )
+            },
         ) { inner ->
             NavHost(
                 navController = navController,
@@ -405,10 +440,57 @@ private fun MainScaffold(
                         onPromoPushChange = notices.onSetPromoPush,
                         onPromoNightChange = notices.onSetPromoNight,
                         onOpenNotices = { navController.navigate(NoticesRoute()) },
+                        board = slots.boardSettings(
+                            { navController.navigate(BoardJoinRoute(rulesOnly = true)) },
+                            { navController.navigate(BoardAdminRoute) },
+                        ),
+                        boardReplies = settings.boardReplies,
+                        onBoardRepliesChange = board.onSetReplies,
                     )
                 }
                 composable<PhotoCreditsRoute> { PhotoCreditsScreen() }
                 composable<NoticesRoute> { NoticesScreen() }
+                // ---------------- 게시판 ----------------
+                composable<BoardRoute> {
+                    slots.board(
+                        BoardNav(
+                            openPost = { id -> navController.navigate(BoardPostRoute(id)) },
+                            write = { kind -> navController.navigate(BoardWriteRoute(kind.id)) },
+                            join = { kind -> navController.navigate(BoardJoinRoute(kind = kind.id, next = JOIN_THEN_WRITE)) },
+                            openRules = { navController.navigate(BoardJoinRoute(rulesOnly = true)) },
+                        ),
+                    )
+                }
+                composable<BoardPostRoute> {
+                    BoardPostScreen(
+                        onEdit = { post -> navController.navigate(BoardWriteRoute(post.kind.id, post.id)) },
+                        onJoin = { navController.navigate(BoardJoinRoute()) },
+                        onClosed = { navController.popBackStack() },
+                    )
+                }
+                composable<BoardWriteRoute> {
+                    BoardWriteScreen(onDone = { id, edited ->
+                        if (edited) {
+                            navController.popBackStack()
+                        } else {
+                            // 새 글: 글쓰기 화면을 닫고 그 글로
+                            navController.navigate(BoardPostRoute(id)) { popUpTo<BoardWriteRoute> { inclusive = true } }
+                        }
+                    })
+                }
+                composable<BoardJoinRoute> { entry ->
+                    val route = entry.toRoute<BoardJoinRoute>()
+                    BoardJoinScreen(onDone = {
+                        if (route.next == JOIN_THEN_WRITE) {
+                            navController.navigate(BoardWriteRoute(BoardKind.of(route.kind)?.id ?: BoardKind.Qna.id)) {
+                                popUpTo<BoardJoinRoute> { inclusive = true }
+                            }
+                        } else {
+                            navController.popBackStack()
+                        }
+                    })
+                }
+                composable<BoardAdminRoute> { BoardAdminScreen(onOpen = { id -> navController.navigate(BoardPostRoute(id)) }) }
             }
         }
     }
@@ -427,6 +509,19 @@ data class NoticeHooks(
     val onSetPromoPush: (Boolean) -> Unit = {},
     val onSetPromoNight: (Boolean) -> Unit = {},
 )
+
+/**
+ * 게시판 연결 (MainActivity ↔ 화면). [unread]: 게시판 탭의 새 댓글 수, [openPostId]: 답글 알림에서 열 글(`""` = 게시판, null = 없음).
+ */
+data class BoardHooks(
+    val unread: Int = 0,
+    val openPostId: String? = null,
+    val onOpened: () -> Unit = {},
+    val onSetReplies: (Boolean) -> Unit = {},
+)
+
+/** 처음 쓰기 전 규칙·이름을 정한 뒤 그 게시판 글쓰기로 */
+private const val JOIN_THEN_WRITE = "write"
 
 /**
  * Hilt ViewModel을 쓰는 화면 자리. 테스트에서는 상태 없는 Content 화면으로 바꿔 끼운다.
@@ -453,6 +548,11 @@ data class ScreenSlots(
     val trips: @Composable (onOpen: (String) -> Unit, onAdd: () -> Unit, openPast: Boolean) -> Unit =
         { onOpen, onAdd, openPast -> TripListScreen(onOpen = onOpen, onAdd = onAdd, openPast = openPast) },
     val present: @Composable () -> Unit = { PresentScreen(defaultFormId = null) },
+    /** 게시판 탭 */
+    val board: @Composable (BoardNav) -> Unit = { BoardScreen(it) },
+    /** 설정 › 게시판 묶음의 값 (규칙 열기, 운영자 화면 열기) */
+    val boardSettings: @Composable (onOpenRules: () -> Unit, onOpenAdmin: () -> Unit) -> BoardSettingsBinding =
+        { rules, admin -> rememberBoardSettings(rules, admin) },
 )
 
 /** 여권 등록 흐름의 화면들이 같은 ViewModel(촬영 결과)을 나눠 쓴다. 흐름을 벗어나면 함께 사라진다 */

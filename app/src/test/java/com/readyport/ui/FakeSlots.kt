@@ -5,6 +5,9 @@ import com.readyport.pack.PackKeys
 import com.readyport.pack.PackRemote
 import com.readyport.pack.PackRepository
 import com.readyport.pack.PackVerifier
+import com.readyport.ui.board.BoardHomeContent
+import com.readyport.ui.board.BoardHomeUi
+import com.readyport.ui.board.BoardSettingsBinding
 import com.readyport.ui.country.CountryContent
 import com.readyport.ui.country.CountryUi
 import com.readyport.ui.home.HomeContent
@@ -104,4 +107,7 @@ val FakeSlots = ScreenSlots(
     // 내 여행 탭 첫 화면 = 여행 목록(빈 목록 — 저장소 없이 띄운다)
     trips = { onOpen, onAdd, openPast -> TripListContent(TripListUi(loaded = true), onOpen, onAdd, openPast) },
     present = { PresentContent(PresentUi(locked = true), {}, {}, {}, {}) },
+    // 게시판: 서버 없이 빈 목록(첫 질문 안내)
+    board = { nav -> BoardHomeContent(BoardHomeUi(loading = false), nav) },
+    boardSettings = { _, _ -> BoardSettingsBinding() },
 )

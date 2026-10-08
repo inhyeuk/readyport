@@ -67,6 +67,9 @@ firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "fir
 firebase-config = { module = "com.google.firebase:firebase-config" }
 firebase-firestore = { module = "com.google.firebase:firebase-firestore" }
 firebase-messaging = { module = "com.google.firebase:firebase-messaging" }
+# 게시판(docs/BOARD.md): 익명 로그인(글쓴이 = 로그인 ID, 개인정보 없음) / 사진·동영상(Storage — 기본 꺼짐, 켜려면 Blaze 요금제)
+firebase-auth = { module = "com.google.firebase:firebase-auth" }
+firebase-storage = { module = "com.google.firebase:firebase-storage" }
 firebase-appcheck-playintegrity = { module = "com.google.firebase:firebase-appcheck-playintegrity" }
 firebase-appcheck-debug = { module = "com.google.firebase:firebase-appcheck-debug" }
 junit = { module = "junit:junit", version.ref = "junit" }

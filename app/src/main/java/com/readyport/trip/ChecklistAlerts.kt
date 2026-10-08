@@ -152,10 +152,13 @@ class ChecklistSweepWorker @AssistedInject constructor(
     @Assisted context: Context,
     @Assisted params: WorkerParameters,
     private val alerts: ChecklistAlerts,
+    private val boardReplies: com.readyport.board.BoardReplyCheck,
 ) : CoroutineWorker(context, params) {
     override suspend fun doWork(): Result {
         alerts.sweep(scheduled = true)
         alerts.refresh()
+        // 게시판 답글도 하루 한 번 (서버 토큰 없이 — docs/BOARD.md)
+        runCatching { boardReplies.run() }
         return Result.success()
     }
 }

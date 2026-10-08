@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.readyport.data.settings.AppSettings
 import com.readyport.data.settings.SettingsRepository
+import com.readyport.board.BoardRepository
 import com.readyport.notice.Notice
 import com.readyport.notice.NoticeChoice
 import com.readyport.notice.NoticeContext
@@ -36,7 +37,17 @@ class MainViewModel @Inject constructor(
     private val notices: NoticeRepository,
     private val noticeStore: NoticeStore,
     private val trips: TripRepository,
+    board: BoardRepository,
 ) : ViewModel() {
+
+    /** 게시판 탭의 새 댓글 수 (이 휴대폰이 확인해 둔 것 — 게시판을 열면 0) */
+    val boardUnread: StateFlow<Int> = board.unread.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), 0)
+
+    /** 게시판 답글 알림 켬·끔 */
+    fun setBoardReplies(enabled: Boolean) {
+        viewModelScope.launch { settingsRepository.setBoardReplies(enabled) }
+    }
+
 
     /** null = 아직 읽는 중 */
     val settings: StateFlow<AppSettings?> = settingsRepository.settings

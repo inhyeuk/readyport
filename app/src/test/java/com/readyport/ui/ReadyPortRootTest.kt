@@ -80,6 +80,7 @@ class ReadyPortRootTest {
 
         val tabs = listOf(
             R.string.tab_trip to R.string.trips_title,
+            R.string.tab_board to R.string.board_title,
             R.string.tab_help to R.string.help_title,
             R.string.tab_settings to R.string.settings_title,
             R.string.tab_explore to R.string.home_title,
@@ -213,7 +214,7 @@ class ReadyPortRootTest {
         RuntimeEnvironment.setFontScale(2.0f)
         launch(AppSettings(easyMode = true))
         heading(R.string.home_title).assertIsDisplayed()
-        for (label in listOf(R.string.tab_trip, R.string.tab_help, R.string.tab_settings, R.string.tab_explore)) {
+        for (label in listOf(R.string.tab_trip, R.string.tab_board, R.string.tab_help, R.string.tab_settings, R.string.tab_explore)) {
             tab(label).assertIsDisplayed().performClick()
             tab(label).assertIsSelected()
         }
@@ -228,8 +229,8 @@ class ReadyPortRootTest {
         // 내 여행 탭은 여행 목록으로 열린다(빈 목록 안내)
         tab(R.string.tab_trip).performClick()
         rule.onNodeWithText(s(R.string.trips_empty_title)).assertIsDisplayed()
-        // 탭 4개 모두 Tab 역할과 이름을 가진다
-        for (label in listOf(R.string.tab_explore, R.string.tab_trip, R.string.tab_help, R.string.tab_settings)) {
+        // 탭 5개 모두 Tab 역할과 이름을 가진다
+        for (label in listOf(R.string.tab_explore, R.string.tab_trip, R.string.tab_board, R.string.tab_help, R.string.tab_settings)) {
             tab(label).assert(SemanticsMatcher.keyIsDefined(SemanticsProperties.Selected))
         }
     }
@@ -244,5 +245,26 @@ class ReadyPortRootTest {
         heading(R.string.wallet_title).assertIsDisplayed()
         rule.onNodeWithContentDescription(s(R.string.action_back)).assertIsDisplayed().performClick()
         heading(R.string.settings_title).assertIsDisplayed()
+    }
+
+    /** 게시판 탭은 내 여행 다음 셋째 자리. 자녀 폰 모드에는 없다(QR·도움만) */
+    @Test
+    fun boardTabIsThereButNotInChildMode() {
+        launch(AppSettings(easyMode = false))
+        tab(R.string.tab_board).performClick()
+        heading(R.string.board_title).assertIsDisplayed()
+        tab(R.string.tab_board).assertIsSelected()
+        settings = AppSettings(easyMode = false, childMode = true)
+        rule.waitForIdle()
+        rule.onAllNodes(hasText(s(R.string.tab_board)) and SemanticsMatcher.expectValue(SemanticsProperties.Role, Role.Tab)).assertCountEquals(0)
+    }
+
+    /** 새 댓글이 오면 게시판 탭에 숫자 + TalkBack 상태 `새 댓글 2개` */
+    @Test
+    fun boardTabShowsUnreadReplies() {
+        rule.setContent {
+            ReadyPortRoot(settings = AppSettings(easyMode = false), onSetEasyMode = {}, onSpeak = {}, slots = FakeSlots, board = BoardHooks(unread = 2))
+        }
+        tab(R.string.tab_board).assert(SemanticsMatcher.expectValue(SemanticsProperties.StateDescription, context.getString(R.string.board_tab_new_cd, 2)))
     }
 }
