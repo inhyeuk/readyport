@@ -29,8 +29,8 @@ android {
         minSdk = 26
         // Play 요구: 2026-08-31부터 신규·업데이트 API 36 이상 (developer.android.com 2026-09-28 확인)
         targetSdk = 36
-        versionCode = 7
-        versionName = "0.5.0"
+        versionCode = 8
+        versionName = "0.6.0"
     }
 
     signingConfigs {
@@ -127,6 +127,9 @@ dependencies {
     implementation(libs.firebase.config)
     implementation(libs.firebase.firestore)
     implementation(libs.firebase.messaging)
+    // 게시판: 익명 로그인 + (운영자가 켰을 때만) 사진·동영상 Storage — 같은 Firebase BoM, 새 네트워크 라이브러리 아님
+    implementation(libs.firebase.auth)
+    implementation(libs.firebase.storage)
     // App Check: 출시 빌드는 Play Integrity, 디버그 빌드는 디버그 공급자 (src/release, src/debug)
     releaseImplementation(libs.firebase.appcheck.playintegrity)
     debugImplementation(libs.firebase.appcheck.debug)

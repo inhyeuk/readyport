@@ -27,4 +27,7 @@
 
     <!-- 지금 할 일 카드의 버튼: 그 단계를 그 자리에서 펼친다 -->
     <string name="journey_open_stage_step">%1$d단계 %2$s 열기</string>
+
+    <!-- 둘러보기 여행 박스: 같은 달이면 끝 날짜에서 달을 뺀다(예: 10월 8일 (목) ~ 14일 (수)) — 한 줄에 들어가게 -->
+    <string name="home_trip_date_format_day" translatable="false">d일 (E)</string>
 </resources>

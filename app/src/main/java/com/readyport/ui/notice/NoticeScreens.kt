@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.selection.SelectionContainer
@@ -158,6 +159,12 @@ fun NoticeCard(
     onChoice: (NoticeChoice) -> Unit,
     onOpenLink: (String) -> Unit,
     modifier: Modifier = Modifier,
+    /**
+     * 대화상자에서는 가운데 내용(제목·그림·글·링크·쪽 점)만 스크롤하고 머리(종류·닫기)와 버튼은 고정한다 —
+     * 화면 확대·큰 글자로 카드가 화면보다 길어져도 `다음`·`확인`이 창 밖으로 밀려 잘리지 않게(실기기 S10 화면 확대+글자 110%에서 발견).
+     * null이면 전체를 그대로 그린다(캡처·스토어 그림처럼 높이 제한이 없는 곳).
+     */
+    bodyScroll: ScrollState? = null,
 ) {
     val dimens = LocalDimens.current
     val look = noticeLook(notice.type)
@@ -180,32 +187,40 @@ fun NoticeCard(
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
             NoticeHeader(notice, look, current, pages.size, buttons.closable) { onChoice(NoticeChoice.Close) }
-            KoText(notice.titleKo, MaterialTheme.typography.headlineSmall, color = Tokens.Ink, heading = true, glueShort = true)
-            val p = pages[current]
-            p.image?.let { NoticeImageBox(it) }
-            p.text?.let { text ->
-                // 글은 길게 눌러 복사할 수 있다(주소·날짜를 옮겨 적지 않게)
-                SelectionContainer { KoText(text, MaterialTheme.typography.bodyLarge, color = Tokens.Ink) }
+            // 가운데 내용 — 대화상자에서는 남는 높이만큼만 차지하고 그 안에서 스크롤(fill=false: 짧으면 내용 높이 그대로)
+            val bodyModifier = if (bodyScroll != null) Modifier.weight(1f, fill = false).verticalScroll(bodyScroll) else Modifier
+            Column(bodyModifier, verticalArrangement = Arrangement.spacedBy(16.dp)) {
+                KoText(notice.titleKo, MaterialTheme.typography.headlineSmall, color = Tokens.Ink, heading = true, glueShort = true)
+                val p = pages[current]
+                p.image?.let { NoticeImageBox(it) }
+                p.text?.let { text ->
+                    // 글은 길게 눌러 복사할 수 있다(주소·날짜를 옮겨 적지 않게)
+                    SelectionContainer { KoText(text, MaterialTheme.typography.bodyLarge, color = Tokens.Ink) }
+                }
+                if (last) notice.link?.let { link ->
+                    val cd = stringResource(R.string.notice_link_cd, link.labelKo)
+                    SecondaryButton(
+                        link.labelKo,
+                        onClick = { onOpenLink(link.url) },
+                        icon = Icons.AutoMirrored.Outlined.OpenInNew,
+                        modifier = Modifier.semantics { contentDescription = cd },
+                    )
+                }
+                if (notice.promo) IconBullet(stringResource(R.string.notice_promo_optout), Icons.Outlined.NotificationsOff)
+                if (pages.size > 1) PageDots(current, pages.size, look.tone)
+                if (!buttons.closable) {
+                    KoText(
+                        stringResource(R.string.notice_urgent_hint),
+                        MaterialTheme.typography.bodyMedium,
+                        color = Tokens.InkSecondary,
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier.fillMaxWidth(),
+                    )
+                }
             }
-            if (last) notice.link?.let { link ->
-                val cd = stringResource(R.string.notice_link_cd, link.labelKo)
-                SecondaryButton(
-                    link.labelKo,
-                    onClick = { onOpenLink(link.url) },
-                    icon = Icons.AutoMirrored.Outlined.OpenInNew,
-                    modifier = Modifier.semantics { contentDescription = cd },
-                )
-            }
-            if (notice.promo) IconBullet(stringResource(R.string.notice_promo_optout), Icons.Outlined.NotificationsOff)
-            if (pages.size > 1) PageDots(current, pages.size, look.tone)
-            if (!buttons.closable) {
-                KoText(
-                    stringResource(R.string.notice_urgent_hint),
-                    MaterialTheme.typography.bodyMedium,
-                    color = Tokens.InkSecondary,
-                    textAlign = TextAlign.Center,
-                    modifier = Modifier.fillMaxWidth(),
-                )
+            // 내용이 더 있으면(스크롤 가능) 버튼 위에 가는 선 — 아래에 더 있다는 표시이자 고정된 버튼과 내용의 경계
+            if (bodyScroll != null && (bodyScroll.canScrollForward || bodyScroll.canScrollBackward)) {
+                Box(Modifier.fullBleed(dimens.cardPadding).fillMaxWidth().height(1.dp).background(Tokens.LineSoft).clearAndSetSemantics {})
             }
             Column(verticalArrangement = Arrangement.spacedBy(dimens.inner)) {
                 val primaryText = stringResource(if (buttons.primary == NoticePrimary.Next) R.string.notice_next else R.string.notice_confirm)
@@ -334,7 +349,7 @@ private fun NoticeImageBox(image: NoticeImage) {
 /**
  * 공지 대화상자. [mode] Launch = 앱을 켤 때(종류별 버튼 규칙), Reader = 목록·알림에서 다시 보기(언제든 닫힘).
  * 바깥을 눌러도 닫히지 않는다(실수로 닫지 않게). 뒤로 가기: 닫을 수 있으면 닫고, 긴급 공지 중간 쪽이면 앞 쪽으로.
- * 카드 전체가 세로로 스크롤된다 — 글자 200%·쉬운 모드에서도 버튼까지 닿는다.
+ * 머리(종류·닫기)와 버튼은 고정하고 가운데 내용만 스크롤한다 — 화면 확대·글자 200%·쉬운 모드에서도 `다음`·`확인`이 늘 보인다.
  */
 @Composable
 fun NoticeDialog(notice: Notice, mode: NoticeMode, onChoice: (NoticeChoice) -> Unit, onOpenLink: (String) -> Unit) {
@@ -353,16 +368,20 @@ fun NoticeDialog(notice: Notice, mode: NoticeMode, onChoice: (NoticeChoice) -> U
     ) {
         val scroll = rememberScrollState()
         LaunchedEffect(page) { scroll.scrollTo(0) }
-        Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-            Box(
-                Modifier
-                    .fillMaxWidth()
-                    .verticalScroll(scroll)
-                    .padding(horizontal = 16.dp, vertical = 24.dp),
-                contentAlignment = Alignment.Center,
-            ) {
-                NoticeCard(notice, mode, page, onPage = { page = it.coerceIn(0, count - 1) }, onChoice = onChoice, onOpenLink = onOpenLink)
-            }
+        // 바깥은 스크롤하지 않는다: 카드 높이는 창 높이(여백 제외)까지로 묶이고, 그 안에서 가운데 내용만 스크롤된다
+        Box(
+            Modifier.fillMaxSize().padding(horizontal = 16.dp, vertical = 24.dp),
+            contentAlignment = Alignment.Center,
+        ) {
+            NoticeCard(
+                notice,
+                mode,
+                page,
+                onPage = { page = it.coerceIn(0, count - 1) },
+                onChoice = onChoice,
+                onOpenLink = onOpenLink,
+                bodyScroll = scroll,
+            )
         }
     }
 }

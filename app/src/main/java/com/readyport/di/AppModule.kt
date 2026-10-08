@@ -5,6 +5,11 @@ import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.readyport.autofill.FieldReporter
 import com.readyport.autofill.QueuedFieldReporter
 import com.readyport.cloud.CloudSync
+import com.readyport.board.BoardBackend
+import com.readyport.board.BoardRepository
+import com.readyport.board.DataStoreBoardLocalStore
+import com.readyport.board.FirestoreBoardBackend
+import com.readyport.ui.video.NetworkThumbnails
 import com.readyport.notice.FirestoreNoticeRemote
 import com.readyport.notice.NoticeParser
 import com.readyport.notice.NoticeRepository
@@ -31,6 +36,9 @@ import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.Dispatchers
 import java.io.File
 import javax.inject.Singleton
+
+/** 게시판 기록 (규칙 동의·닉네임 사본·차단 목록·답글 확인 시각 — 이 휴대폰에만) */
+private val Context.boardStore: DataStore<Preferences> by preferencesDataStore(name = "board")
 
 /** 공지 '다시 보지 않기' 기록 (id@version·날짜만, 백업 제외 규칙 그대로) */
 private val Context.noticeMarksStore: DataStore<Preferences> by preferencesDataStore(name = "notices")
@@ -78,6 +86,20 @@ object AppModule {
     @Provides
     @Singleton
     fun noticeStore(@ApplicationContext context: Context): NoticeStore = NoticeStore(context.noticeMarksStore)
+
+    /** 게시판 (docs/BOARD.md): Firestore + 익명 로그인 + (켰을 때만) Storage */
+    @Provides
+    @Singleton
+    fun boardBackend(): BoardBackend = FirestoreBoardBackend()
+
+    @Provides
+    @Singleton
+    fun boardRepository(@ApplicationContext context: Context, backend: BoardBackend): BoardRepository = BoardRepository(
+        backend = backend,
+        local = DataStoreBoardLocalStore(context.boardStore),
+        // 사진·동영상 올리기가 켜졌을 때만 Storage 그림 주소를 불러오기 허용 목록에 넣는다
+        onMediaEnabled = { NetworkThumbnails.boardMediaEnabled = it },
+    )
 
     @Provides
     @Singleton

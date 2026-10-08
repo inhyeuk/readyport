@@ -39,6 +39,15 @@
 - 광고 알림을 처음 보낸 날로부터 **2년 안에** 수신 동의 재확인 공지(정보통신망법 제50조 제8항, NOTICES_PUSH.md 5절) + 법률 검토(C8)
 - 첫 실제 알림 시험: `python tools/notices/notice.py push --id about-readyport --target all --remote-dry-run` → `--send`는 공지 알림을 켠 **모든** 기기에 가므로 시험용 기기만 받게 하는 방법은 없다(토픽뿐). 첫 알림은 실제로 알릴 만한 공지로
 
+## 4-2. 게시판 (2026-10-08, `docs/BOARD.md` 2절)
+- **Firebase 콘솔 › Authentication › 익명 로그인 켜기** (꺼져 있으면 글쓰기가 `준비하고 있어요`로 막힌다). App Check를 강제하면 Authentication에도 등록
+- **규칙·색인 배포**: `firebase deploy --only firestore:rules,firestore:indexes --project readyport-app` (색인 빌드 몇 분)
+- **운영자 ID 등록**: 운영자 폰에서 글 하나 → 설정 › 게시판 › ID 복사 → 콘솔 `config/admins { uids: [...] }`
+- **Play Console 데이터 보안 다시 내기** — 0.6.0 입력 순서표 `docs/play/DATA_SAFETY_0.6.0.md`(사용자 ID·이름(닉네임)·기타 사용자 제작 콘텐츠, 계정 삭제 URL) + 콘텐츠 등급 `docs/play/CONTENT_RATING_0.6.0.md`('사용자 상호작용' 예)
+- **개인정보 처리방침 게시**: `hosting/public/privacy/index.html` 3-2절(게시판, 시행 2026-10-09) — 법률 검토(C8, 임시조치 통지 방법·만 14세 미만 게시판 이용 포함) 뒤 Hosting 배포
+- **Hosting을 손으로 배포할 때**: 배포는 사이트 전체를 바꾼다. `hosting/public/packs/`는 커밋하지 않는 폴더라 먼저 `python tools/packs/build_packs.py --kid rp-2026-1 --key ~/.readyport/keys/pack_signing_rp-2026-1.pem`으로 다시 만든다(아홉 나라 + 양식 다섯 — 서명이 결정적이라 앱 내장본과 같다). 그다음 `firebase deploy --only hosting --project readyport-app`
+- 사진·동영상은 **켜지 않은 채 출시**. 켜려면 Blaze 요금제 + 예산 알림 + `firebase deploy --only storage` + 앱 설정 스위치(`docs/BOARD.md` 5절)
+
 ## 5. 선택
 - C15 Visit Japan Web: 운영자가 폰에서 로그인한 상태로 열어 주면 Claude가 구조만 읽어 레시피를 만든다
 - C22 Firestore 위치 nam5 → 서울로 옮기기(비어 있을 때)

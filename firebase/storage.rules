@@ -1,0 +1,35 @@
+rules_version = '2';
+
+// 레디포트 Cloud Storage 규칙 — 게시판 사진·동영상만 (docs/BOARD.md 5절).
+// ※ Cloud Storage for Firebase는 2026-02-03부터 **Blaze(종량제) 요금제**가 필요하다. 지금 프로젝트(Spark)에는 버킷이 없고,
+//   이 규칙은 운영자가 사진·동영상 올리기를 켜기로 하고 요금제를 바꾼 뒤에만 배포한다(`firebase deploy --only storage`).
+// - 경로: board/{게시판 ID}/{글 id}/{n}.jpg|mp4 — 자기 경로에만 쓴다(익명 로그인 ID = 경로의 uid)
+// - 사진: image/jpeg 2MB 이하(앱이 긴 변 1600px로 줄이고 EXIF·위치 정보를 지운 뒤 올린다)
+// - 동영상: video/mp4 20MB 이하(앱이 30초 이하만 고르고 위치 정보를 지운다)
+// - 운영 스위치 config/board.mediaEnabled 가 꺼져 있으면 아무도 못 올린다(Firestore 규칙 교차 확인)
+// - 읽기는 공개(게시판 글이 공개이므로). 지우기는 올린 사람만
+service firebase.storage {
+  match /b/{bucket}/o {
+    function mediaOn() {
+      return firestore.exists(/databases/(default)/documents/config/board)
+        && firestore.get(/databases/(default)/documents/config/board).data.mediaEnabled == true;
+    }
+
+    match /board/{uid}/{postId}/{file} {
+      allow read: if true;
+      allow create, update: if request.auth != null && request.auth.uid == uid
+        && mediaOn()
+        && file.matches('^[0-9]+[.](jpg|mp4)$')
+        && ((file.matches('.*[.]jpg$') && request.resource.contentType == 'image/jpeg'
+              && request.resource.size <= 2 * 1024 * 1024)
+          || (file.matches('.*[.]mp4$') && request.resource.contentType == 'video/mp4'
+              && request.resource.size <= 20 * 1024 * 1024));
+      allow delete: if request.auth != null && request.auth.uid == uid;
+    }
+
+    // 그 밖의 모든 경로는 막는다
+    match /{path=**} {
+      allow read, write: if false;
+    }
+  }
+}

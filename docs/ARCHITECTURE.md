@@ -36,7 +36,7 @@
 | Remote Config | 무료 | 스위치, 버전 포인터, 최소 버전, 배너 |
 | FCM | 무료 | 국가별 정책 변경 알림(토픽) |
 | Analytics·Crashlytics·App Check | 무료 | 오류 감지, 남용 방지 |
-| Cloud Storage | 2026-02-03부터 Blaze 필요 → **사용 안 함** | — |
+| Cloud Storage | 2026-02-03부터 Blaze 필요 → **사용 안 함** | 게시판 사진·동영상 코드는 있으나 **꺼 둠**(`config/board.mediaEnabled`, 2026-10-08) — 켜려면 Blaze + 예산 알림(docs/BOARD.md 5절) |
 | Cloud Functions | Spark 불가 → **사용 안 함** | 서버 로직은 ARIA가 대신 |
 
 - 한도를 넘으면 과금 대신 서비스가 제한된다 → 기본 팩 + 로컬 캐시로 버틴다.
@@ -50,6 +50,7 @@
 - `ops/heartbeat`: ARIA가 Admin SDK로만 기록(`last_check`, `jobs`).
 - `videos/{ISO2}`: 나라별 YouTube 영상 목록(서명 포함). GitHub Actions(`videos.yml`)만 쓰고, 앱은 문서 하나 읽기(get)만(0.3.0 — 아래 기록).
 - `notices/current`: 공지사항 묶음 `{payload, sig, generated_at}`(팩과 같은 키로 서명). GitHub Actions(`notices.yml`)만 쓰고, 앱은 문서 하나 읽기(get)만 — 목록·쓰기 불가(2026-10-08, 아래 기록).
+- **게시판(2026-10-08, 아래 '게시판' 기록)**: `board_posts/{id}`(+ `comments`·`likes`·`reports` 하위), `board_users/{uid}`, `config/board`, `config/admins`. **공개 글**(로그인 없이 읽기) — 쓰기는 익명 로그인, 글쓴이 = 로그인 ID. 여권·여행 정보는 들어가지 않는다(게시판 코드는 지갑·여행 장부를 읽지 않는다).
 - App Check 적용.
 
 ### 9.5 Remote Config 키
@@ -433,7 +434,53 @@
 - 그림이 오기 전·못 불러오면 대체 글(`alt_ko`)을 그 자리에 보인다. TalkBack은 그림의 대체 글을 읽는다.
 - Hosting 배포는 사이트 전체를 바꾼다 → notices.yml은 그림이 바뀌었을 때 **팩을 다시 서명해 만든 뒤** 배포한다(내장 팩과 같은지도 본다).
 
-### 하지 않은 것
+### 하지 않은 것 (공지)
 - 서버에 토큰·열람·클릭 기록을 두지 않는다(분석 SDK 없음). 그래서 '누가 읽었는지'를 모르고, 광고 동의 2년 재확인을 개인별로 보낼 수 없다 → 운영자 할 일로 남김(NOTICES_PUSH.md 5절).
 - Cloud Functions(Spark 불가) 없이 보내기는 GitHub Actions(workflow_dispatch)만. 운영자 PC 도우미 `tools/notices/notice.py push`는 시험이 기본이고 `--send`일 때만 Actions를 부른다.
 - 가로 스와이프 없음(스펙 7장 1번) — `이전`·`다음` 버튼과 쪽 표시(점은 꾸밈, 누를 수 없음: 쉬운 모드 56dp 칸 여섯 개는 360dp에 안 들어간다).
+
+
+## 구현 결정 기록 (게시판, 2026-10-08)
+
+운영자 요청: *"게시판의 기능을 넣어줘. 게시판은 하단 고정 메뉴에 추가해 주고, Q&A와 자유로운 토론을 할 수 있도록 … 이미지/ 동영상 등록은 가능하도록 하되, 설정에서 off로 … 우수 게시판의 사례를 참고 … 최대한 아이콘, 이미지 등을 활용해서 예쁘게"*. 운영 안내 `docs/BOARD.md`, 화면 DESIGN_SPEC 부록 L, 보고 `docs/design/BOARD_REPORT.md`.
+
+### 새 신뢰 경계 — 공개 글(서버) vs 여권 정보(휴대폰)
+- 레디포트에서 **처음으로 사람이 쓴 글이 운영자 서버(Firestore)에 올라가 누구나 보는** 기능이다. 지금까지의 약속(9.4 'PII 없음', PRD 7.1)은 그대로다 — **앱이 모은 개인정보는 여전히 휴대폰 밖으로 나가지 않는다.** 게시판에 올라가는 것은 **사람이 공개하려고 직접 쓴 글**과 그 사람이 고른 별명, 이름 없는 익명 게시판 ID뿐이다.
+- 경계를 코드로 지킨다: `board/` 패키지는 지갑(`vault/`)·여행 장부(`trip/`)를 참조하지 않는다(의존 없음). 이름·이메일·전화번호를 받지 않는다(Firebase **익명** 로그인). 글에 섞인 개인정보는 올리기 전에 `PiiGuard`가 살핀다 — 여권 번호·MRZ·주민등록번호는 막고, 전화·이메일은 경고(공개된 대사관 번호일 수 있다).
+- 화면에서 경계를 말한다: 이름 정하기 화면의 세 줄(`게시판 글·닉네임은 서버에 올라가 누구나 볼 수 있어요` / `여권 정보는 여전히 이 휴대폰에만 있어요` / `앱을 지우면 내 글을 고칠 수 없게 돼요(익명 계정이라서요)`), 게시판 맨 아래·글쓰기 아래·설정 › 게시판 아래 한 줄.
+
+### 서버 없이 숫자 지키기 (Cloud Functions 없음)
+- 댓글·추천·신고 수는 앱이 **한 번에 묶어** 쓰고(WriteBatch), 규칙이 `getAfter`/`existsAfter`로 짝을 확인한다: 추천 문서 `likes/{내 ID}`가 생기면서 `likeCount`·`score`가 1 오른다(없어지면 1 내린다) / 신고 문서가 새로 생기면서 `reportCount`가 1 오른다 / 같은 묶음에서 새 댓글(`lastCommentId`)이 생기면서 `commentCount`가 1 오른다. 자기 글·댓글은 추천·신고할 수 없다.
+- 인기 정렬은 `score = likeCount + commentCount`(규칙이 둘과 함께만 움직이게 한다).
+- **간격**: `board_users/{uid}.lastPostAt`(글 30초)·`lastCommentAt`(댓글 10초)을 같은 묶음에서 `request.time`으로 바꿔야 글·댓글이 생기고, 그 전 값이 간격보다 오래돼야 한다. 그 값을 마음대로 바꾸거나 옛날로 돌릴 수 없다(`existsAfter`로 그 글이 새로 생길 때만).
+- 운영자 = `config/admins.uids`(콘솔에서만 쓴다). 운영자만 고정·가림·신고 수 0·문서째 지우기·`config/board` 쓰기.
+- 답글은 한 단계: `parentId`는 맨 위 댓글이어야 하고, 답글의 답글은 같은 묶음 + `replyToId`(그 묶음의 댓글)·`@닉네임`. 알림 대상 `notify`는 글쓴이·답글 대상 중에서만(아무에게나 알림을 보낼 수 없다).
+- 규칙 테스트 16개(`tools/firestore/rules.test.mjs` '게시판') + 기존 7개.
+
+### 목록·검색
+- 목록 질의는 언제나 `kind == … && hidden == false`(규칙이 가린 글을 목록에서 빼게 강제 — 이 조건 없는 목록 질의는 거절). 최신 `createdAt desc`, 인기 `score desc, createdAt desc`, 답변 기다려요 `solved == false`. 나라 필터 `country ==`. 쪽은 20개, 다음 쪽은 마지막 문서부터(`startAfter`). 색인 `firebase/firestore.indexes.json`.
+- 검색: 전문 검색이 없어 글을 올릴 때 `keywords`(제목 먼저, 한글 두 글자씩 겹친 조각 + 영문·숫자 낱말, 최대 40개)를 저장하고 가장 긴 낱말의 첫 조각 하나로 `array-contains`, 나머지 조각은 앱이 거른다(`BoardKeywords` — `BoardTextTest`). 한계는 docs/BOARD.md 9절.
+- 목록은 **내가 쓰거나 지울 때**(`BoardRepository.revision`)와 게시판을 다시 볼 때 1분이 지났을 때만(`refreshIfStale`) 다시 불러온다 — 무료 읽기 한도(5만/일).
+
+### 신원·차단·신고
+- 로그인은 **처음 쓰기·추천·신고를 누를 때만**(읽기는 로그인 없이). 글쓰기 전에 커뮤니티 규칙 동의 → 닉네임(2~12자, 운영자처럼 보이는 이름·욕설 금지, 추천 `여행자 4821`) → `board_users/{uid}`.
+- 차단은 **이 휴대폰에만**(DataStore `board` — 서버로 보내지 않는다). 신고 3번이면 모든 휴대폰에서 글·댓글을 접어 두고 `그래도 보기`. 가림(임시조치)은 운영자.
+- 내 게시판 기록 모두 지우기: 내 추천(수 함께 내림) → 내 댓글(비우기 — 묶음 자리는 남김) → 내 글(댓글이 없으면 문서째, 있으면 비우기) → 이용자 문서 → 로그아웃 → 이 휴대폰 기록 처음으로(차단 목록은 남김). 모두 클라이언트 묶음 쓰기(규칙이 짝을 본다).
+
+### 답글 알림 — 서버 토큰 없이
+- 앱이 켤 때 한 번 + 하루 한 번(챙길 일 쓸기 `ChecklistSweepWorker`, 팩 받기 `PackSyncWorker` — 챙길 일 알림을 꺼 둔 사람도 팩 받기는 돈다) `BoardReplyCheck`가 묶음 질의 `comments where hidden == false && notify array-contains 내 ID && createdAt > 마지막 확인`을 한다. 처음에는 기준 시각만 적는다(옛 댓글로 알림이 쏟아지지 않게). 로그인한 적이 없으면 묻지 않는다.
+- 알림 `내 글에 새 댓글 n개` + 미리보기 한 줄(40자, 욕설이면 없음, 잠금 화면에서는 숨김), 통로 `게시판 답글`, 누르면 그 글. 게시판 탭에 빨간 숫자(TalkBack `새 댓글 n개`). 설정 `게시판 답글 알림`(기본 켬, AppSettings `boardReplies`).
+
+### 사진·동영상 — 만들어 두고 꺼 둠
+- 스위치 `config/board.mediaEnabled`(기본 없음 = 꺼짐, 운영자만). 꺼져 있으면 쓰기 화면에 버튼이 없고 규칙이 사진 주소가 든 글을 거절한다. 켜면 그림 불러오기 허용 목록(`NetworkThumbnails`)에 Storage `board/` 경로가 들어간다.
+- 사진: Photo Picker(권한 없음) → `BoardMediaPrep.prepareImage`(긴 변 1600px, EXIF 방향대로 돌린 뒤 JPEG로 다시 그림 = **EXIF·GPS 전부 없음** — `BoardMediaTest`가 가짜 GPS 사진으로 확인) 최대 4장. 동영상 30초·20MB, MediaExtractor→MediaMuxer로 트랙만 옮겨 위치 정보 제거(기기에서 확인 필요 — Robolectric로는 못 돌린다). 재생은 휴대폰 기본 앱(새 플레이어 라이브러리 없음).
+- Storage 경로 `board/{uid}/{postId}/{n}.jpg|mp4`, 규칙 `firebase/storage.rules`(내 경로만·크기·형식·스위치 교차 확인). **Blaze 요금제가 필요** — Storage가 없으면 `지금은 사진·동영상을 올릴 수 없어요`로 실패하고 글만 올린다.
+
+### 새 의존성 (작업 규칙 9)
+- `firebase-auth`(익명 로그인 — 수집: Firebase 설치·사용자 ID, 이름·이메일 없음), `firebase-storage`(꺼 둔 사진·동영상). 둘 다 이미 쓰는 Firebase BoM 안 — 새 네트워크 회사·이미지 로더·플레이어 없음. 데이터 보안 기재는 `docs/play/DATA_SAFETY.md` 6절.
+
+### 하지 않은 것 (게시판)
+- 서버 함수·서버 토큰·푸시 서버 없음. 실시간 갱신(스냅샷 리스너) 없음 — 열 때·내가 쓸 때만 읽는다(무료 한도).
+- 이미지 로더 라이브러리·동영상 플레이어 라이브러리 없음. 가로 스와이프 없음(게시판 고르기는 그림 카드 탭, 사진은 2열 격자).
+- 딥 링크·웹 공유 주소 없음(공유는 휴대폰 공유 창에 글만).
+

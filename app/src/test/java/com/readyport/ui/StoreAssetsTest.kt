@@ -52,6 +52,8 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.readyport.R
 import com.readyport.autofill.FormValues
+import com.readyport.board.BoardKind
+import com.readyport.board.BoardPost
 import com.readyport.stay.Stays
 import com.readyport.trip.Checklist
 import com.readyport.trip.ChecklistData
@@ -59,6 +61,8 @@ import com.readyport.trip.CustomItem
 import com.readyport.trip.PassportValidity
 import com.readyport.trip.Trip
 import com.readyport.trip.TripChecks
+import com.readyport.ui.board.BoardHomeContent
+import com.readyport.ui.board.BoardHomeUi
 import com.readyport.ui.components.KoText
 import com.readyport.ui.components.Photos
 import com.readyport.ui.components.keepWords
@@ -74,13 +78,11 @@ import com.readyport.ui.home.HomeUi
 import com.readyport.ui.pack.HelpContent
 import com.readyport.ui.theme.ReadyPortTheme
 import com.readyport.ui.theme.Tokens
-import com.readyport.trip.JourneyStage
 import com.readyport.trip.TripStages
 import com.readyport.ui.trip.ChecklistActions
 import com.readyport.ui.trip.JOURNEY_ALL_FOLDED
 import com.readyport.ui.trip.JourneyUi
 import com.readyport.ui.trip.TripJourneyContent
-import com.readyport.ui.trip.stageKey
 import com.readyport.ui.wallet.WalletContent
 import com.readyport.vault.BookingRecord
 import com.readyport.vault.PassportRecord
@@ -96,15 +98,18 @@ import org.junit.runner.RunWith
 import org.robolectric.annotation.Config
 import org.robolectric.annotation.GraphicsMode
 import java.io.File
+import java.time.Instant
 import java.time.LocalDate
 import kotlin.math.roundToInt
 
 /**
  * Play 스토어 등록 이미지 (M10, 재검토 R20, 운영자 결정 '+' — 나라 섞기). 결과: app/build/store/ (커밋은 docs/play/store/ 로 **같은 이름** 복사)
  * - 스크린숏: 1215×2160 = 정확히 9:16 (Play 콘솔 규칙: 16:9 또는 9:16, 320~3840px)
- * - 0.5.0 순서: 둘러보기(내 여행 흰 박스 ①②·아홉 나라 타일) → 한 여행 화면(**태국** — 번호 붙은 여행 과정 8단계)
- *   → 입국 카드 확인(**태국** TDAC) → 공항에 도착하면(**싱가포르** 창이 — 자동 심사대 ✅) → 묵는 곳(**말레이시아** 여행의 숙소 두 곳)
+ * - 0.6.0 순서: 둘러보기(내 여행 흰 박스 ①②·아홉 나라 타일) → 한 여행 화면(**태국** — 번호 붙은 여행 과정 8단계)
+ *   → 입국 카드 확인(**태국** TDAC) → 공항에 도착하면(**싱가포르** 창이 — 자동 심사대 ✅) → 여행자 게시판 Q&A(**말레이시아**·**베트남** 태그 질문)
  *   → 나라 화면(**인도네시아** — 그림 메뉴·도착비자 타일) → 내 정보(여권, 가림) → 도움(**일본** 긴급 번호).
+ * - 0.6.0에서 바뀐 것: 05 묵는 곳(말레이시아 숙소 두 곳) → 05 게시판 Q&A. 묵는 곳 장은 주소·링크 글자뿐이라 여덟 장 중 가장 약했고
+ *   (숙소 주소를 입국 카드에 채워 주는 가치는 03 입국 카드 장이 이미 보여 준다), 말레이시아는 게시판 질문의 나라 태그가 이어받는다.
  * - 0.4.0에서 바뀐 것: 02 체크리스트 → 여행 과정 8단계(01도 히어로가 바뀌었다), 공항·묵는 곳 두 장을 넣고
  *   이동하기(말레이시아 기사님 카드)·쉬운 모드(싱가포르 여행 중) 두 장을 뺐다 — 말레이시아는 묵는 곳 장이,
  *   싱가포르는 공항 장이 이어받아 나라는 그대로 다섯이다(재검토2 ⑤#1). 일본은 자동 입력이 없어 입국 카드 장에 쓰지 않는다.
@@ -129,7 +134,7 @@ internal object StoreFixture {
     /** 태국 여행(02 여행 과정·03 입국 카드) */
     val trip = Trip("TH", "2026-11-03", "2026-11-07", id = "store-th")
 
-    /** 말레이시아 여행(05 묵는 곳) — 날짜가 이어지는 숙소 두 곳이 있는 다음 여행 */
+    /** 말레이시아 여행(01 둘러보기의 둘째 여행 박스) — 날짜가 이어지는 숙소 두 곳이 있는 다음 여행 */
     val tripMy = Trip("MY", "2026-11-20", "2026-11-24", id = "store-my")
 
     val passport = PassportRecord(
@@ -139,7 +144,7 @@ internal object StoreFixture {
     )
 
     /**
-     * 묵는 곳 두 곳(05) — 말레이시아 여행 11월 20일~24일을 **날짜별로 나눈** 견본 숙소.
+     * 묵는 곳 두 곳(0.5.0의 05 장 — 0.6.0에서 게시판 장으로 바꿨고, 내 정보 보관함 견본에는 그대로 둔다) — 말레이시아 여행 11월 20일~24일을 **날짜별로 나눈** 견본 숙소.
      * 이름은 누가 봐도 견본이고 주소는 거리·도시 이름만이다(실제 숙소 주소·예약 정보가 아니다).
      */
     val stays = listOf(
@@ -186,11 +191,44 @@ internal object StoreFixture {
     )
 
     /**
-     * 한 일(02·05): 비자·예약은 체크, 여권 남은 기간·여권 등록은 앱이 확인(견본 만료일로 실제 계산),
+     * 한 일(01·02): 비자·예약은 체크, 여권 남은 기간·여권 등록은 앱이 확인(견본 만료일로 실제 계산),
      * 여행자 보험·여행경보·데이터는 아직 — 늦은 항목·오류 없이 한 일과 남은 일이 섞인 모습. 내 항목 하나(견본).
      */
     val marks = listOf("visa", "booking").associateWith { true }
     val custom = listOf(CustomItem("custom.s1", "우산 챙기기"))
+
+    /**
+     * 게시판 Q&A(05) — **모두 지어낸 글·닉네임**(실제 이용자·실제 글이 아니다). 고정 글은 운영자가 실제로 올린 이용 안내의
+     * 제목·첫 문단(tools/board/guide_posts.py)이고 운영자 게시판 ID는 견본이다. 질문은 묻는 말뿐 — 정책을 단정하는 문장이 없다.
+     */
+    val boardNow: Instant = Instant.parse("2026-10-31T03:00:00Z")
+    private const val BOARD_OPERATOR = "store-operator"
+    val boardUi: BoardHomeUi
+        get() {
+            fun ago(minutes: Long) = boardNow.minusSeconds(minutes * 60)
+            val guide = BoardPost(
+                id = "store-guide", kind = BoardKind.Qna, title = "Q&A 이용 안내 · 좋은 질문 쓰는 법",
+                body = "레디포트 Q&A는 입국 서류·비자·공항이 궁금할 때 먼저 다녀온 여행자에게 묻는 곳이에요.",
+                country = null, authorUid = BOARD_OPERATOR, nickname = "레디포트 운영자",
+                createdAt = Instant.parse("2026-10-09T00:00:00Z"), likeCount = 14, pinned = true,
+            )
+            val solved = BoardPost(
+                id = "store-q1", kind = BoardKind.Qna, title = "MDAC, 아이 것도 따로 내야 하나요?",
+                body = "다음 달에 아이와 쿠알라룸푸르에 가요. 먼저 다녀오신 분들은 어떻게 내셨어요?",
+                country = "MY", authorUid = "store-uid-1", nickname = "말라카 가는 길",
+                createdAt = ago(60 * 5), commentCount = 4, likeCount = 6, solved = true, acceptedId = "store-c1",
+            )
+            val waiting = BoardPost(
+                id = "store-q2", kind = BoardKind.Qna, title = "다낭 공항에서 시내까지 밤에 어떻게 가셨어요?",
+                body = "밤 11시 도착이라 차편이 걱정돼요.",
+                country = "VN", authorUid = "store-uid-2", nickname = "느긋한 여행자",
+                createdAt = ago(40), commentCount = 0, likeCount = 1,
+            )
+            return BoardHomeUi(
+                loading = false, pinned = listOf(guide), posts = listOf(solved, waiting),
+                admins = setOf(BOARD_OPERATOR), now = boardNow, ready = true,
+            )
+        }
 
     /** 그 여행의 체크리스트 — 둘러보기 흰 박스의 진행과 여행 화면 머리가 **같은 값**을 쓰도록 한 번만 센다 */
     fun checklist(t: Trip): ChecklistData {
@@ -220,7 +258,7 @@ internal object StoreFixture {
         )
     }
 
-    /** 한 여행 화면의 값 — 02(태국)·05(말레이시아)가 같은 틀을 쓴다 */
+    /** 한 여행 화면의 값 — 02(태국) */
     fun journeyUi(t: Trip): JourneyUi {
         val pack = runBlocking { TestPacks.repo.pack(t.country)!! }.value
         return JourneyUi(
@@ -229,6 +267,8 @@ internal object StoreFixture {
             countryName = pack.names.ko,
             data = checklist(t),
             today = today,
+            // 찍는 시각에 따라 `오늘·내일 아침 9시`가 바뀌지 않게 — 모든 장이 10월 31일 낮 12시(게시판 장의 boardNow와 같은 때)에 본 화면
+            nowHour = 12,
             stage = TripStages.compute(t, today, 0L, pack.requiredForms.firstOrNull()?.windowDaysIncludingArrival),
             form = pack.requiredForms.firstOrNull(),
             indexSources = TestPacks.index.value.sources.associate { it.id to it.name },
@@ -259,6 +299,9 @@ private class StoreShot(
 
 /** 모든 장 아래 줄 (스토어 등록 정보·그래픽 이미지와 같은 뜻의 비제휴 문구) */
 private const val NOT_AFFILIATED = "정부 기관과 제휴하지 않은 앱이에요"
+
+/** 게시판 장(05): 고정 글로 내린 뒤 조금 더 — 찾기 칸 테두리가 위 모서리에 걸리지 않게 */
+private const val BOARD_SCROLL = 4
 
 /** 실제 화면을 그리는 폭 — 휴대폰 화면 폭(405dp) 그대로 재고 그린 뒤 캡션 아래 칸에 맞춰 줄인다 */
 private val PhoneWidth = 405.dp
@@ -299,17 +342,10 @@ class StoreScreenshotsTest {
         StoreShot("04_airport", "공항에 도착하면\n어디서 무엇을 할지", scrollKey = "airports", scrollMoreDp = -55) {
             CountryContent(TestPacks.countryUi("SG"), CountryActions())
         },
-        // 말레이시아 여행의 예약 단계(0.5.0 신규): `묵는 곳` 카드 — 날짜가 이어지는 숙소 두 곳(날짜·몇 박·종류·주소)과
-        // 지도에서 보기·기사님께 보여 주기. 예약 단계를 펼친 채로 찍고 카드가 보일 만큼 더 내린다
-        StoreShot(
-            "05_stays", "날짜별로 묵는 곳을 모아\n지도로 바로 열어요",
-            scrollKey = stageKey(JourneyStage.Book), scrollMoreDp = 660,
-        ) {
-            TripJourneyContent(
-                StoreFixture.journeyUi(StoreFixture.tripMy),
-                ChecklistActions(),
-                openAtFirst = JourneyStage.Book.key,
-            )
+        // 여행자 게시판 Q&A(0.6.0 신규): 운영자 고정 이용 안내 → `해결됨` 질문(말레이시아) → `답변 기다려요` 질문(베트남).
+        // 글·닉네임은 모두 지어낸 견본(StoreFixture.boardUi). 고정 글까지 내려 글 세 장(고정·해결됨·답변 기다려요)이 한 화면에 들어오게 한다
+        StoreShot("05_board", "먼저 다녀온 여행자에게\n묻고 답해요", scrollKey = "pin-store-guide", scrollMoreDp = BOARD_SCROLL) {
+            BoardHomeContent(StoreFixture.boardUi)
         },
         // 인도네시아: 발리 사원 히어로(나라 이름·최종 확인 날짜) → 그림 메뉴 세 장(입국·비자·여행 정보·쇼핑) → 안심 카드 → 도착비자 카드.
         // 30일·IDR 500,000 타일이 캡션의 '비자·비용'을 그대로 보여 준다(재검토2 ①#11·⑤#7)

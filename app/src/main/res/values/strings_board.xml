@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 게시판 (2026-10-08 운영자 요청 — docs/BOARD.md, DESIGN_SPEC 부록 L). 새 문구는 이 파일에만. -->
+<resources>
+    <!-- 탭 -->
+    <string name="tab_board">게시판</string>
+    <string name="board_tab_new_cd">새 댓글 %d개</string>
+
+    <!-- 게시판 두 개 -->
+    <string name="board_title">게시판</string>
+    <string name="board_speech">게시판이에요. 질문과 답변, 자유 토론 두 게시판이 있어요. 게시판 글은 누구나 볼 수 있어요.</string>
+    <string name="board_kind_qna">Q&amp;A</string>
+    <string name="board_kind_qna_long">질문과 답변</string>
+    <string name="board_kind_talk">자유 토론</string>
+    <string name="board_kind_talk_long">여행 이야기</string>
+    <string name="board_qna_purpose">입국 서류·비자·공항이 궁금하면 물어보세요. 먼저 다녀온 여행자가 답해 줘요.</string>
+    <string name="board_talk_purpose">여행 이야기와 알뜰 정보를 편하게 나눠요.</string>
+    <string name="board_write_qna">질문하기</string>
+    <string name="board_write_talk">글쓰기</string>
+    <string name="board_qna_not_official">답은 다른 여행자의 경험이에요. 레디포트는 정부 기관이 아니니 꼭 공식 안내로 한 번 더 확인하세요.</string>
+    <string name="board_public_note">게시판 글과 닉네임은 누구나 볼 수 있어요. 여권 정보는 여전히 이 휴대폰에만 있어요.</string>
+
+    <!-- 정렬·거르기·찾기 -->
+    <string name="board_sort_latest">최신</string>
+    <string name="board_sort_popular">인기</string>
+    <string name="board_sort_waiting">답변 기다려요</string>
+    <string name="board_country_all">모든 나라</string>
+    <string name="board_country_filter">나라: %s</string>
+    <string name="board_country_pick">어느 나라 글을 볼까요?</string>
+    <string name="board_country_none">나라 없음</string>
+    <string name="board_country_optional">나라 (고르지 않아도 돼요)</string>
+    <string name="board_search_hint">제목·내용에서 찾기</string>
+    <string name="board_search_clear">찾기 지우기</string>
+    <string name="board_search_result">‘%s’ 찾은 글</string>
+    <string name="board_search_note">낱말 두 글자 이상으로 찾아요. 찾을 때는 최신 글 차례로 보여요.</string>
+    <string name="board_load_more">글 더 보기</string>
+    <string name="board_loading">글을 불러오는 중이에요</string>
+    <string name="board_pinned">고정</string>
+    <string name="board_operator">운영자</string>
+    <string name="board_author_tag">글쓴이</string>
+
+    <!-- 빈 상태·오류 -->
+    <string name="board_empty_qna_title">아직 질문이 없어요</string>
+    <string name="board_empty_qna_body">궁금한 것을 처음으로 물어보세요.</string>
+    <string name="board_empty_talk_title">아직 글이 없어요</string>
+    <string name="board_empty_talk_body">여행 이야기를 처음으로 남겨 보세요.</string>
+    <string name="board_empty_search_title">찾은 글이 없어요</string>
+    <string name="board_empty_search_body">다른 낱말로 찾아보세요.</string>
+    <string name="board_empty_waiting_title">답을 기다리는 질문이 없어요</string>
+    <string name="board_empty_waiting_body">모든 질문에 답이 달렸어요.</string>
+    <string name="board_offline_title">게시판은 인터넷이 있어야 보여요</string>
+    <!-- 인터넷은 되는데 서버가 응답을 못 할 때(준비 중·잠시 오류) -->
+    <string name="board_server_error_title">게시판을 잠시 불러오지 못했어요</string>
+    <string name="board_server_error_body">잠시 뒤에 다시 불러와 주세요. 계속 안 되면 아래 `운영자에게 알리기`로 알려 주세요.</string>
+    <string name="board_offline_body">인터넷에 연결하면 다시 불러올게요. 입국 안내와 도움은 인터넷 없이도 돼요.</string>
+    <string name="board_retry">다시 불러오기</string>
+
+    <!-- 글 카드 -->
+    <string name="board_status_solved">해결됨</string>
+    <string name="board_status_waiting">답변 기다려요</string>
+    <string name="board_counts_cd">댓글 %1$d개, 추천 %2$d개</string>
+    <string name="board_edited">고침</string>
+    <string name="board_deleted_post">글쓴이가 지운 글이에요</string>
+    <string name="board_reported_post">신고가 쌓여 가려진 글이에요</string>
+    <string name="board_reported_comment">신고가 쌓여 가려진 댓글이에요</string>
+    <string name="board_reveal">그래도 보기</string>
+    <string name="board_hidden_post">운영자가 가린 글이에요</string>
+    <string name="board_hidden_comment">운영자가 가린 댓글이에요</string>
+    <string name="board_deleted_comment">삭제된 댓글이에요</string>
+    <string name="board_blocked_comment">차단한 사람의 댓글이에요</string>
+    <string name="board_open_post_cd">%s 글 열기</string>
+    <string name="board_time_now">방금</string>
+    <string name="board_time_minutes">%d분 전</string>
+    <string name="board_time_hours">%d시간 전</string>
+    <string name="board_time_days">%d일 전</string>
+
+    <!-- 글 화면 -->
+    <string name="board_post_speech">게시판 글이에요. 글쓴이와 댓글이 보여요.</string>
+    <string name="board_like_count">추천 %d</string>
+    <string name="board_like_on_cd">추천했어요. 누르면 추천을 거둬요</string>
+    <string name="board_share">공유</string>
+    <string name="board_share_footer">레디포트 게시판에서</string>
+    <string name="board_share_title">게시판 글 공유</string>
+    <string name="board_more_cd">이 글에서 할 수 있는 일</string>
+    <string name="board_comment_more_cd">이 댓글에서 할 수 있는 일</string>
+    <string name="board_report">신고하기</string>
+    <string name="board_block">이 사람 차단하기</string>
+    <string name="board_edit">고치기</string>
+    <string name="board_delete">지우기</string>
+    <string name="board_answers">답변 %d</string>
+    <string name="board_comments">댓글 %d</string>
+    <string name="board_no_answers">아직 답변이 없어요. 아는 것이 있으면 처음으로 답해 주세요.</string>
+    <string name="board_no_comments">아직 댓글이 없어요.</string>
+    <string name="board_reply">답글</string>
+    <string name="board_reply_cd">%s 님에게 답글</string>
+    <string name="board_accept">채택하기</string>
+    <string name="board_accept_cd">%s 님의 답을 채택하기</string>
+    <string name="board_unaccept">채택 풀기</string>
+    <string name="board_accepted">채택된 답</string>
+    <string name="board_accept_hint">도움이 된 답을 채택하면 질문이 ‘해결됨’이 돼요.</string>
+    <string name="board_post_gone">이 글은 지워졌거나 가려졌어요</string>
+
+    <!-- 댓글 쓰기 -->
+    <string name="board_write_answer">답변 쓰기</string>
+    <string name="board_write_comment">댓글 쓰기</string>
+    <string name="board_comment_hint">고운 말로 써 주세요</string>
+    <string name="board_replying_to">@%s 님에게 답글</string>
+    <string name="board_reply_cancel">답글 그만두기</string>
+    <string name="board_send">올리기</string>
+    <string name="board_count">%1$d / %2$d</string>
+    <string name="board_join_to_comment">댓글을 쓰려면 먼저 게시판 이름을 정해요</string>
+    <string name="board_join_start">게시판 이름 정하기</string>
+
+    <!-- 글쓰기 -->
+    <string name="board_write_title_new_qna">질문하기</string>
+    <string name="board_write_title_new_talk">글쓰기</string>
+    <string name="board_write_title_edit">글 고치기</string>
+    <string name="board_write_speech">게시판에 글을 써요. 올린 글은 누구나 볼 수 있어요. 여권 번호나 전화번호는 쓰지 마세요.</string>
+    <string name="board_write_board">어느 게시판에 쓸까요?</string>
+    <string name="board_field_title">제목</string>
+    <string name="board_field_title_hint">예) 태국 입국 카드는 언제부터 내요?</string>
+    <string name="board_field_body">내용</string>
+    <string name="board_field_body_hint_qna">언제, 어느 나라에 가는지와 무엇이 궁금한지 적어 주세요.</string>
+    <string name="board_field_body_hint_talk">여행 이야기를 편하게 적어 주세요.</string>
+    <string name="board_title_short">제목은 4글자 이상 써 주세요</string>
+    <string name="board_title_long">제목은 60글자까지 쓸 수 있어요</string>
+    <string name="board_body_short">내용은 10글자 이상 써 주세요</string>
+    <string name="board_body_long">내용은 3000글자까지 쓸 수 있어요</string>
+    <string name="board_comment_long">댓글은 1000글자까지 쓸 수 있어요</string>
+    <string name="board_tips_title">좋은 질문을 쓰는 법</string>
+    <string name="board_tip_when">언제, 어느 나라에 가는지 적어요</string>
+    <string name="board_tip_tried">무엇을 해 봤는지 적으면 답이 빨라요</string>
+    <string name="board_tip_private">여권 번호·전화번호·예약 번호는 쓰지 않아요</string>
+    <string name="board_submit">올리기</string>
+    <string name="board_save_edit">고친 글 올리기</string>
+
+    <!-- 개인정보·욕설 -->
+    <string name="board_pii_title">개인정보가 들어 있는 것 같아요</string>
+    <string name="board_pii_block">여권 번호·여권 아래 두 줄·주민등록번호처럼 보이는 글자는 지워야 올릴 수 있어요. 빨갛게 표시한 곳을 고쳐 주세요.</string>
+    <string name="board_pii_warn">전화번호나 이메일은 누구나 볼 수 있게 돼요. 대사관 번호처럼 공개된 번호가 아니면 지워 주세요.</string>
+    <string name="board_pii_post_anyway">공개된 번호예요. 이대로 올리기</string>
+    <string name="board_pii_passport">여권 번호</string>
+    <string name="board_pii_mrz">여권 아래 두 줄</string>
+    <string name="board_pii_resident">주민등록번호</string>
+    <string name="board_pii_phone">전화번호</string>
+    <string name="board_pii_email">이메일</string>
+    <string name="board_pii_found">찾은 것: %s</string>
+    <string name="board_profanity">고운 말로 바꿔 주세요. 이대로 올리면 거친 말은 ＊로 가려져요.</string>
+
+    <!-- 사진·동영상 (운영자가 켰을 때만 보인다) -->
+    <string name="board_attach_title">사진·동영상 (넣지 않아도 돼요)</string>
+    <string name="board_attach_photo">사진 넣기 (%1$d/%2$d)</string>
+    <string name="board_attach_video">동영상 넣기 (30초까지)</string>
+    <string name="board_attach_note">사진은 크기를 줄이고 찍은 곳(위치) 정보를 지운 뒤 올려요.</string>
+    <string name="board_attach_remove_cd">%d번째 첨부 빼기</string>
+    <string name="board_video_open">동영상 보기</string>
+    <string name="board_photo_cd">글에 넣은 사진 %d</string>
+    <string name="board_media_unavailable">지금은 사진·동영상을 올릴 수 없어요. 글만 올려 주세요.</string>
+    <string name="board_video_too_long">동영상은 30초까지 올릴 수 있어요.</string>
+    <string name="board_video_too_big">동영상이 너무 커요(20MB까지).</string>
+    <string name="board_media_unreadable">이 파일은 열 수 없어요.</string>
+
+    <!-- 결과 문구 -->
+    <string name="board_err_offline">인터넷에 연결되지 않았어요. 연결한 뒤 다시 해 주세요.</string>
+    <string name="board_err_auth">게시판 글쓰기를 아직 준비하고 있어요. 조금 뒤에 다시 해 주세요.</string>
+    <string name="board_err_denied">지금은 할 수 없어요. 잠시 뒤에 다시 해 주세요.</string>
+    <string name="board_err_too_fast_post">글은 30초에 한 번 올릴 수 있어요. %d초 뒤에 다시 눌러 주세요.</string>
+    <string name="board_err_too_fast_comment">댓글은 10초에 한 번 쓸 수 있어요. %d초 뒤에 다시 눌러 주세요.</string>
+    <string name="board_err_not_found">이 글은 지워졌거나 가려졌어요.</string>
+    <string name="board_done_reported">신고했어요. 운영자가 확인할게요.</string>
+    <string name="board_done_blocked">차단했어요. 이 휴대폰에서 그 사람의 글이 가려져요.</string>
+    <string name="board_done_deleted">지웠어요</string>
+    <string name="board_dismiss">닫기</string>
+
+    <!-- 신고 -->
+    <string name="board_report_title">무엇이 문제인가요?</string>
+    <string name="board_report_body">운영자가 확인하고 규칙에 어긋나면 가리거나 지워요. 신고가 3번 쌓이면 이 글은 먼저 접혀요. 누가 신고했는지는 공개하지 않아요.</string>
+    <string name="board_reason_spam">광고·도배</string>
+    <string name="board_reason_abuse">욕설·차별·괴롭힘</string>
+    <string name="board_reason_personal">개인정보가 드러나요</string>
+    <string name="board_reason_illegal">불법 정보</string>
+    <string name="board_reason_misinfo">틀린 안내</string>
+    <string name="board_reason_other">그 밖의 문제</string>
+    <string name="board_report_send">신고하기</string>
+    <string name="board_report_contact">급하면 운영자에게 바로 알려 주세요</string>
+
+    <!-- 차단·지우기 확인 -->
+    <string name="board_block_confirm_title">이 사람을 차단할까요?</string>
+    <string name="board_block_confirm_body">이 휴대폰에서 이 사람의 글과 댓글이 가려져요. 상대는 차단된 것을 몰라요. 설정 › 게시판에서 모두 풀 수 있어요.</string>
+    <string name="board_block_confirm">차단하기</string>
+    <string name="board_delete_post_title">이 글을 지울까요?</string>
+    <string name="board_delete_post_body">지우면 되돌릴 수 없어요. 댓글이 달린 글은 내용만 지워지고 댓글은 남아요.</string>
+    <string name="board_delete_comment_title">이 댓글을 지울까요?</string>
+    <string name="board_delete_comment_body">지우면 되돌릴 수 없어요. 답글이 있으면 ‘삭제된 댓글이에요’로 자리만 남아요.</string>
+
+    <!-- 규칙 -->
+    <string name="board_rules_title">커뮤니티 규칙</string>
+    <string name="board_rules_speech">게시판 규칙이에요. 개인정보를 쓰지 않고, 광고를 올리지 않고, 서로 존중해요.</string>
+    <string name="board_rules_head">함께 지켜요</string>
+    <string name="board_rules_lead">여행을 앞둔 사람들이 서로 돕는 곳이에요. 처음 글을 쓰기 전에 한 번만 읽어 주세요.</string>
+    <string name="board_rule_private_title">개인정보는 쓰지 않아요</string>
+    <string name="board_rule_private_body">여권 번호·전화번호·예약 번호·얼굴 사진은 누구나 보게 돼요. 앱이 올리기 전에 한 번 더 살펴봐요.</string>
+    <string name="board_rule_ads_title">광고·홍보는 안 돼요</string>
+    <string name="board_rule_ads_body">대리 신청·환전·가게 홍보 글과 같은 글을 여러 번 올리는 것은 지워요.</string>
+    <string name="board_rule_respect_title">서로 존중해요</string>
+    <string name="board_rule_respect_body">욕설·차별·혐오·괴롭힘은 안 돼요. 거친 말은 ＊로 가려져요.</string>
+    <string name="board_rule_illegal_title">불법 정보는 안 돼요</string>
+    <string name="board_rule_illegal_body">서류 위조, 반입 금지 물건을 숨기는 방법 같은 글은 바로 지워요.</string>
+    <string name="board_rule_official_title">답은 경험담이에요</string>
+    <string name="board_rule_official_body">레디포트는 정부 기관이 아니고, 게시판 답은 공식 안내가 아니에요. 중요한 것은 공식 사이트로 확인해요.</string>
+    <string name="board_rules_enforce">규칙에 어긋난 글은 신고로 먼저 접히고, 운영자가 가리거나 지울 수 있어요. 권리를 침해한 글은 요청을 받으면 바로 가려요(임시조치).</string>
+    <string name="board_rules_agree">규칙을 지킬게요</string>
+    <string name="board_contact">운영자에게 알리기</string>
+    <string name="board_contact_subject">레디포트 게시판 문의</string>
+
+    <!-- 닉네임 -->
+    <string name="board_nick_title">게시판 이름 정하기</string>
+    <string name="board_nick_speech">게시판에서 쓸 이름을 정해요. 이 이름은 누구나 볼 수 있어요.</string>
+    <string name="board_nick_head">게시판에서 쓸 이름</string>
+    <string name="board_nick_lead">진짜 이름 대신 별명을 써요. 나중에 설정에서 바꿀 수 있어요.</string>
+    <string name="board_nick_field">이름</string>
+    <string name="board_nick_rule">2~12글자, 한글·영문·숫자</string>
+    <string name="board_nick_another">다른 이름 추천받기</string>
+    <string name="board_nick_short">2글자 이상 써 주세요</string>
+    <string name="board_nick_long">12글자까지 쓸 수 있어요</string>
+    <string name="board_nick_chars">한글·영문·숫자·밑줄만 쓸 수 있어요</string>
+    <string name="board_nick_reserved">운영자로 보이는 이름은 쓸 수 없어요</string>
+    <string name="board_nick_profanity">다른 이름을 골라 주세요</string>
+    <string name="board_nick_start">이 이름으로 시작하기</string>
+    <string name="board_privacy_public">게시판 글·닉네임은 서버에 올라가 누구나 볼 수 있어요</string>
+    <string name="board_privacy_local">여권 정보는 여전히 이 휴대폰에만 있어요</string>
+    <string name="board_privacy_anon">앱을 지우면 내 글을 고칠 수 없게 돼요(이름 없는 익명 계정이라서요)</string>
+
+    <!-- 운영자 -->
+    <string name="board_admin_title">신고·가림 관리</string>
+    <string name="board_admin_speech">운영자 화면이에요. 신고된 글과 가린 글을 확인해요.</string>
+    <string name="board_admin_empty">확인할 신고가 없어요</string>
+    <string name="board_admin_reports">신고 %d</string>
+    <string name="board_admin_hidden_tag">가림</string>
+    <string name="board_admin_comment_of">댓글 · %s</string>
+    <string name="board_admin_hide">가리기</string>
+    <string name="board_admin_unhide">다시 보이기</string>
+    <string name="board_admin_pin">맨 위에 고정</string>
+    <string name="board_admin_unpin">고정 풀기</string>
+    <string name="board_admin_clear">신고 지우기</string>
+    <string name="board_admin_delete">문서째 지우기</string>
+    <string name="board_admin_note">가리기는 임시조치예요 — 글쓴이와 운영자만 볼 수 있게 돼요. 지우기는 되돌릴 수 없어요.</string>
+
+    <!-- 설정 › 게시판 -->
+    <string name="settings_group_board">게시판</string>
+    <string name="settings_board_replies">게시판 답글 알림</string>
+    <string name="settings_board_replies_desc">내 글·댓글에 새 댓글이 오면 알려 드려요. 이 휴대폰이 하루 한 번 직접 확인해요.</string>
+    <string name="settings_board_id">내 게시판 ID</string>
+    <string name="settings_board_id_none">글이나 댓글을 처음 쓰면 만들어져요</string>
+    <string name="settings_board_id_copy">ID 복사</string>
+    <string name="settings_board_id_copied">게시판 ID를 복사했어요</string>
+    <string name="settings_board_nick">게시판 이름: %s</string>
+    <string name="settings_board_rules_body">개인정보·광고·욕설 금지와 신고 방법</string>
+    <string name="settings_board_blocked">차단한 사람 %d명</string>
+    <string name="settings_board_blocked_desc">이 휴대폰에서만 가려요</string>
+    <string name="settings_board_unblock">차단 모두 풀기</string>
+    <string name="settings_board_delete">내 게시판 기록 모두 지우기</string>
+    <string name="settings_board_delete_desc">내 글·댓글·추천·게시판 이름을 서버에서 지워요. 댓글이 달린 글은 내용만 지워져요.</string>
+    <string name="settings_board_delete_confirm_title">게시판 기록을 모두 지울까요?</string>
+    <string name="settings_board_delete_confirm_body">내가 쓴 글과 댓글, 추천, 게시판 이름이 지워지고 되돌릴 수 없어요. 익명 계정이라 지운 뒤에는 예전 글을 다시 내 것으로 찾을 수 없어요.</string>
+    <string name="settings_board_delete_done">게시판 기록을 지웠어요</string>
+    <string name="settings_board_media">게시판 사진·동영상 올리기</string>
+    <string name="settings_board_media_desc">운영자만 보여요. 켜기 전에 Firebase 요금제를 Blaze로 바꾸고 예산 알림을 걸어 주세요. 꺼 두면 아무도 사진·동영상을 올릴 수 없어요.</string>
+    <string name="settings_board_admin">신고·가림 관리</string>
+    <string name="settings_board_admin_desc">운영자만 보여요</string>
+    <string name="settings_board_local">게시판 글·닉네임·게시판 ID는 서버에 올라가요. 여권·여행 정보는 이 휴대폰 밖으로 나가지 않아요.</string>
+
+    <!-- 답글 알림 -->
+    <string name="board_channel">게시판 답글</string>
+    <string name="board_reply_title">내 글에 새 댓글 %d개</string>
+    <string name="board_reply_body_generic">게시판에서 확인해 보세요.</string>
+    <!-- 나라 태그 (앱이 안내하는 9개 나라) -->
+    <string name="board_cc_TH">태국</string>
+    <string name="board_cc_JP">일본</string>
+    <string name="board_cc_VN">베트남</string>
+    <string name="board_cc_PH">필리핀</string>
+    <string name="board_cc_TW">대만</string>
+    <string name="board_cc_SG">싱가포르</string>
+    <string name="board_cc_MY">말레이시아</string>
+    <string name="board_cc_ID">인도네시아</string>
+    <string name="board_cc_CN">중국</string>
+</resources>

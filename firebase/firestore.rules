@@ -7,6 +7,7 @@ rules_version = '2';
 // - videos/{ISO2}: 나라별 YouTube 여행 영상 목록(서명된 공개 데이터). 앱은 읽기만, 쓰기는 GitHub Actions(서비스 계정)만
 // - notices/current: 공지사항(서명된 공개 데이터, docs/NOTICES_PUSH.md). 앱은 문서 하나 읽기(get)만, 목록·쓰기 불가 — 쓰기는 GitHub Actions(notices.yml)만
 // - ops/heartbeat: ARIA가 Admin SDK로만 기록. 앱은 접근하지 않는다
+// - board_posts·board_users·config/board·config/admins: 게시판(아래 '게시판' 절, docs/BOARD.md) — 공개 글, 익명 로그인 쓰기
 // App Check 강제는 Firebase 콘솔에서 켠다 (사람 작업)
 service cloud.firestore {
   match /databases/{database}/documents {
@@ -53,6 +54,364 @@ service cloud.firestore {
     match /notices/{id} {
       allow get: if true;
       allow list, write: if false;
+    }
+
+    // ======================= 게시판 (docs/BOARD.md, 2026-10-08) =======================
+    // 레디포트에서 처음으로 **사람이 쓴 글이 서버에 올라가는** 곳 — 누구나 읽는다(로그인 없이). 여권·여행 정보와는 무관하다.
+    // 쓰기는 익명 로그인한 사람만, 글쓴이 = 로그인 ID(남을 흉내 낼 수 없다). Cloud Functions가 없으므로 숫자(댓글·추천·신고 수)는
+    // 앱이 한 번에 묶어 쓰고, 여기서 getAfter/existsAfter로 '추천 문서가 생기면서 추천 수가 1 오른다' 같은 짝을 확인한다.
+    // 글 간격 30초·댓글 간격 10초는 board_users 의 마지막 시각(request.time)으로 막는다.
+    // 운영자 = config/admins.uids 에 든 게시판 ID(콘솔에서만 고친다 — 앱은 config/admins 를 쓸 수 없다).
+
+    function signedIn() { return request.auth != null; }
+    function me() { return request.auth.uid; }
+    function isAdmin() {
+      return signedIn()
+        && exists(/databases/$(database)/documents/config/admins)
+        && me() in get(/databases/$(database)/documents/config/admins).data.uids;
+    }
+    function text(v, lo, hi) { return v is string && v.size() >= lo && v.size() <= hi; }
+    function boardCountry(v) { return v in ['', 'TH', 'JP', 'VN', 'PH', 'TW', 'SG', 'MY', 'ID', 'CN']; }
+    function postDoc(p) { return /databases/$(database)/documents/board_posts/$(p); }
+    function commentDoc(p, c) { return /databases/$(database)/documents/board_posts/$(p)/comments/$(c); }
+    function userDoc(u) { return /databases/$(database)/documents/board_users/$(u); }
+    function changed() { return request.resource.data.diff(resource.data).affectedKeys(); }
+    function reportReason(v) { return v in ['spam', 'abuse', 'personal', 'illegal', 'misinfo', 'other']; }
+
+    // 사진·동영상: config/board.mediaEnabled 가 켜졌을 때만, 내 Storage 경로(board/{내 ID}/{글 id}/n.jpg|mp4)만, 최대 5개
+    function mediaOn() {
+      return exists(/databases/$(database)/documents/config/board)
+        && get(/databases/$(database)/documents/config/board).data.mediaEnabled == true;
+    }
+    function mediaUrl(u, postId) {
+      return u is string && u.size() < 500
+        && u.matches('^https://firebasestorage[.]googleapis[.]com/v0/b/[a-z0-9.-]+/o/board%2F' + me() + '%2F' + postId
+                     + '%2F[0-9]+[.](jpg|mp4)[?]alt=media&token=[A-Za-z0-9-]+$');
+    }
+    function validMedia(m, postId) {
+      return m is list && (m.size() == 0 || (mediaOn() && m.size() <= 5
+        && mediaUrl(m[0], postId)
+        && (m.size() < 2 || mediaUrl(m[1], postId))
+        && (m.size() < 3 || mediaUrl(m[2], postId))
+        && (m.size() < 4 || mediaUrl(m[3], postId))
+        && (m.size() < 5 || mediaUrl(m[4], postId))));
+    }
+
+    // 닉네임 2~12자: 한글·영문·숫자·밑줄·가운데 띄어쓰기. 운영자로 보이는 이름은 못 쓴다
+    function nickOk(n) {
+      return text(n, 2, 12) && n.matches('^[가-힣A-Za-z0-9_ ]+$') && !n.matches('^ .*|.* $|.*  .*')
+        && !n.lower().replace(' ', '').matches('.*(운영자|관리자|admin|레디포트|readyport|운영팀|official).*');
+    }
+
+    // ---------------- 게시판 이용자 board_users/{uid} — 닉네임·간격 확인용 시각만 ----------------
+    function userKeys() {
+      return ['nickname', 'createdAt', 'postCount', 'lastPostAt', 'lastPostId', 'lastCommentAt', 'lastCommentPost', 'lastCommentId'];
+    }
+    // 마지막 글 시각은 '그대로'이거나 '지금 + 같은 묶음에서 그 글이 새로 생김'만
+    function userPostFieldsOk() {
+      let a = request.resource.data;
+      let b = resource.data;
+      return (a.get('lastPostAt', null) == b.get('lastPostAt', null)
+              && a.get('lastPostId', null) == b.get('lastPostId', null) && a.postCount == b.postCount)
+        || (a.lastPostAt == request.time && a.postCount == b.postCount + 1 && a.lastPostId is string
+            && !exists(postDoc(a.lastPostId)) && existsAfter(postDoc(a.lastPostId)));
+    }
+    function userCommentFieldsOk() {
+      let a = request.resource.data;
+      let b = resource.data;
+      return (a.get('lastCommentAt', null) == b.get('lastCommentAt', null)
+              && a.get('lastCommentPost', null) == b.get('lastCommentPost', null)
+              && a.get('lastCommentId', null) == b.get('lastCommentId', null))
+        || (a.lastCommentAt == request.time && a.lastCommentPost is string && a.lastCommentId is string
+            && !exists(commentDoc(a.lastCommentPost, a.lastCommentId))
+            && existsAfter(commentDoc(a.lastCommentPost, a.lastCommentId)));
+    }
+
+    match /board_users/{uid} {
+      allow get: if true;
+      allow list: if false;
+      allow create: if signedIn() && uid == me()
+        && request.resource.data.keys().hasOnly(['nickname', 'createdAt', 'postCount'])
+        && request.resource.data.keys().hasAll(['nickname', 'createdAt', 'postCount'])
+        && nickOk(request.resource.data.nickname)
+        && request.resource.data.createdAt == request.time
+        && request.resource.data.postCount == 0;
+      allow update: if signedIn() && uid == me()
+        && request.resource.data.keys().hasOnly(userKeys())
+        && request.resource.data.createdAt == resource.data.createdAt
+        && nickOk(request.resource.data.nickname)
+        && userPostFieldsOk() && userCommentFieldsOk();
+      allow delete: if signedIn() && uid == me();
+    }
+
+    // ---------------- 게시글 board_posts/{postId} ----------------
+    function postKeys() {
+      return ['kind', 'title', 'body', 'country', 'keywords', 'media', 'authorUid', 'nickname', 'createdAt', 'updatedAt',
+              'lastCommentAt', 'lastCommentId', 'commentCount', 'likeCount', 'reportCount', 'score', 'solved', 'acceptedId',
+              'pinned', 'hidden', 'deleted'];
+    }
+    // 30초 간격: 내 이용자 문서의 lastPostAt 이 같은 묶음에서 지금으로 바뀌고, 그 전 값은 30초보다 오래됐다
+    function postRateOk(postId) {
+      let before = get(userDoc(me())).data;
+      let after = getAfter(userDoc(me())).data;
+      return after.lastPostAt == request.time && after.lastPostId == postId
+        && (!('lastPostAt' in before) || request.time > before.lastPostAt + duration.value(30, 's'));
+    }
+    function newPostOk(postId) {
+      let d = request.resource.data;
+      return signedIn() && d.keys().hasOnly(postKeys()) && d.keys().hasAll(postKeys())
+        && d.kind in ['qna', 'talk'] && d.authorUid == me()
+        && text(d.title, 4, 60) && text(d.body, 10, 3000) && boardCountry(d.country)
+        && d.keywords is list && d.keywords.size() <= 40 && validMedia(d.media, postId)
+        && d.createdAt == request.time && d.updatedAt == request.time && d.lastCommentAt == request.time
+        && d.lastCommentId == ''
+        && d.commentCount == 0 && d.likeCount == 0 && d.reportCount == 0 && d.score == 0
+        && d.solved == false && d.acceptedId == '' && d.pinned == false && d.hidden == false && d.deleted == false
+        && exists(userDoc(me())) && d.nickname == getAfter(userDoc(me())).data.nickname
+        && postRateOk(postId);
+    }
+    function authorEditOk(postId) {
+      let d = request.resource.data;
+      return resource.data.authorUid == me() && resource.data.deleted == false
+        && changed().hasOnly(['title', 'body', 'country', 'keywords', 'media', 'updatedAt'])
+        && text(d.title, 4, 60) && text(d.body, 10, 3000) && boardCountry(d.country)
+        && d.keywords is list && d.keywords.size() <= 40
+        && (d.media == resource.data.media || validMedia(d.media, postId))
+        && d.updatedAt == request.time;
+    }
+    // 글쓴이가 지우기(댓글이 있을 때): 글만 비우고 댓글 묶음은 남긴다
+    function authorSoftDeleteOk() {
+      let d = request.resource.data;
+      return resource.data.authorUid == me() && resource.data.deleted == false
+        && changed().hasOnly(['deleted', 'title', 'body', 'country', 'keywords', 'media', 'nickname', 'updatedAt'])
+        && d.deleted == true && d.title == '' && d.body == '' && d.country == '' && d.keywords.size() == 0
+        && d.media.size() == 0 && d.nickname == '' && d.updatedAt == request.time;
+    }
+    // 추천 수·인기 점수는 내 추천 문서가 생길 때 +1, 없어질 때 -1 (자기 글은 추천할 수 없다)
+    function postLikeOk(postId) {
+      let d = request.resource.data;
+      let like = /databases/$(database)/documents/board_posts/$(postId)/likes/$(me());
+      return changed().hasOnly(['likeCount', 'score'])
+        && ((d.likeCount == resource.data.likeCount + 1 && d.score == resource.data.score + 1
+              && resource.data.authorUid != me() && resource.data.deleted == false
+              && !exists(like) && existsAfter(like))
+          || (d.likeCount == resource.data.likeCount - 1 && d.score == resource.data.score - 1
+              && exists(like) && !existsAfter(like)));
+    }
+    // 신고 수는 내 신고 문서가 새로 생길 때만 +1 (한 사람 한 번)
+    function postReportOk(postId) {
+      let r = /databases/$(database)/documents/board_posts/$(postId)/reports/$(me());
+      return changed().hasOnly(['reportCount'])
+        && request.resource.data.reportCount == resource.data.reportCount + 1
+        && resource.data.authorUid != me()
+        && !exists(r) && existsAfter(r);
+    }
+    // 댓글 수·인기 점수는 같은 묶음에서 새 댓글(lastCommentId)이 생길 때만 +1
+    function commentAddedOk(postId) {
+      let d = request.resource.data;
+      return resource.data.deleted == false && resource.data.hidden == false
+        && changed().hasOnly(['commentCount', 'score', 'lastCommentAt', 'lastCommentId'])
+        && d.commentCount == resource.data.commentCount + 1 && d.score == resource.data.score + 1
+        && d.lastCommentAt == request.time && d.lastCommentId is string && d.lastCommentId.size() > 0
+        && !exists(commentDoc(postId, d.lastCommentId)) && existsAfter(commentDoc(postId, d.lastCommentId));
+    }
+    // Q&A 채택: 질문한 사람만, 남이 쓴 맨 위 답(답글이 아닌) 하나. 풀기도 된다
+    function acceptOk(postId) {
+      let d = request.resource.data;
+      return resource.data.authorUid == me() && resource.data.kind == 'qna' && resource.data.deleted == false
+        && changed().hasOnly(['solved', 'acceptedId'])
+        && ((d.solved == false && d.acceptedId == '')
+          || (d.solved == true && d.acceptedId is string && d.acceptedId.size() > 0
+              && exists(commentDoc(postId, d.acceptedId))
+              && get(commentDoc(postId, d.acceptedId)).data.parentId == ''
+              && get(commentDoc(postId, d.acceptedId)).data.authorUid != me()
+              && get(commentDoc(postId, d.acceptedId)).data.deleted == false));
+    }
+    // 운영자: 고정·가림(임시조치)·신고 수 0으로(검토 끝)
+    function adminPostOk() {
+      let d = request.resource.data;
+      return isAdmin() && changed().hasOnly(['pinned', 'hidden', 'reportCount'])
+        && d.pinned is bool && d.hidden is bool
+        && (d.reportCount == resource.data.reportCount || d.reportCount == 0);
+    }
+
+    match /board_posts/{postId} {
+      // 가린 글은 운영자와 글쓴이만 (목록 질의는 hidden == false 를 걸어야 통과한다)
+      allow get: if resource == null || resource.data.hidden == false || isAdmin()
+        || (signedIn() && resource.data.authorUid == me());
+      allow list: if resource.data.hidden == false || isAdmin()
+        || (signedIn() && resource.data.authorUid == me());
+      allow create: if newPostOk(postId);
+      allow update: if signedIn() && (authorEditOk(postId) || authorSoftDeleteOk() || postLikeOk(postId)
+        || postReportOk(postId) || commentAddedOk(postId) || acceptOk(postId) || adminPostOk());
+      // 글쓴이는 댓글이 없을 때만 문서째 지운다(있으면 비우기). 운영자는 언제나
+      allow delete: if isAdmin()
+        || (signedIn() && resource.data.authorUid == me() && resource.data.commentCount == 0);
+
+      match /likes/{uid} {
+        allow get: if signedIn() && uid == me();
+        allow list, update: if false;
+        allow create: if signedIn() && uid == me()
+          && request.resource.data.keys().hasOnly(['uid', 'postId', 'at'])
+          && request.resource.data.keys().hasAll(['uid', 'postId', 'at'])
+          && request.resource.data.uid == me() && request.resource.data.postId == postId
+          && request.resource.data.at == request.time
+          && getAfter(postDoc(postId)).data.likeCount == get(postDoc(postId)).data.likeCount + 1;
+        allow delete: if signedIn() && uid == me()
+          && getAfter(postDoc(postId)).data.likeCount == get(postDoc(postId)).data.likeCount - 1;
+      }
+
+      // 신고 문서는 운영자만 읽는다(누가 신고했는지 공개하지 않는다). 본인은 '이미 신고했어요'를 알 수 있게 자기 것만
+      match /reports/{uid} {
+        allow get: if signedIn() && (uid == me() || isAdmin());
+        allow list: if isAdmin();
+        allow update: if false;
+        allow delete: if isAdmin();
+        allow create: if signedIn() && uid == me()
+          && request.resource.data.keys().hasOnly(['uid', 'reason', 'at'])
+          && request.resource.data.keys().hasAll(['uid', 'reason', 'at'])
+          && request.resource.data.uid == me() && reportReason(request.resource.data.reason)
+          && request.resource.data.at == request.time
+          && getAfter(postDoc(postId)).data.reportCount == get(postDoc(postId)).data.reportCount + 1;
+      }
+
+      // ---------------- 댓글 board_posts/{postId}/comments/{commentId} ----------------
+      match /comments/{commentId} {
+        allow get: if resource == null || resource.data.hidden == false || isAdmin()
+          || (signedIn() && resource.data.authorUid == me());
+        allow list: if resource.data.hidden == false || isAdmin()
+          || (signedIn() && resource.data.authorUid == me());
+        allow create: if newCommentOk(postId, commentId);
+        allow update: if signedIn() && (commentEditOk() || commentSoftDeleteOk() || commentLikeOk(postId, commentId)
+          || commentReportOk(postId, commentId) || adminCommentOk());
+        allow delete: if isAdmin();
+
+        match /likes/{uid} {
+          allow get: if signedIn() && uid == me();
+          allow list, update: if false;
+          allow create: if signedIn() && uid == me()
+            && request.resource.data.keys().hasOnly(['uid', 'postId', 'at'])
+            && request.resource.data.keys().hasAll(['uid', 'postId', 'at'])
+            && request.resource.data.uid == me() && request.resource.data.postId == postId
+            && request.resource.data.at == request.time
+            && getAfter(commentDoc(postId, commentId)).data.likeCount == get(commentDoc(postId, commentId)).data.likeCount + 1;
+          allow delete: if signedIn() && uid == me()
+            && getAfter(commentDoc(postId, commentId)).data.likeCount == get(commentDoc(postId, commentId)).data.likeCount - 1;
+        }
+
+        match /reports/{uid} {
+          allow get: if signedIn() && (uid == me() || isAdmin());
+          allow list: if isAdmin();
+          allow update: if false;
+          allow delete: if isAdmin();
+          allow create: if signedIn() && uid == me()
+            && request.resource.data.keys().hasOnly(['uid', 'reason', 'at'])
+            && request.resource.data.keys().hasAll(['uid', 'reason', 'at'])
+            && request.resource.data.uid == me() && reportReason(request.resource.data.reason)
+            && request.resource.data.at == request.time
+            && getAfter(commentDoc(postId, commentId)).data.reportCount == get(commentDoc(postId, commentId)).data.reportCount + 1;
+        }
+      }
+    }
+
+    function commentKeys() {
+      return ['postId', 'postAuthorUid', 'authorUid', 'nickname', 'body', 'parentId', 'replyToId', 'replyToUid', 'replyToNick',
+              'notify', 'createdAt', 'updatedAt', 'edited', 'likeCount', 'reportCount', 'deleted', 'hidden'];
+    }
+    // 10초 간격: 내 이용자 문서의 lastCommentAt 이 같은 묶음에서 지금으로 바뀌고, 그 전 값은 10초보다 오래됐다
+    function commentRateOk(postId, commentId) {
+      let before = get(userDoc(me())).data;
+      let after = getAfter(userDoc(me())).data;
+      return after.lastCommentAt == request.time && after.lastCommentPost == postId && after.lastCommentId == commentId
+        && (!('lastCommentAt' in before) || request.time > before.lastCommentAt + duration.value(10, 's'));
+    }
+    // 답글은 한 단계: parentId 는 맨 위 댓글. replyToId 는 그 묶음의 댓글(맨 위 또는 답글)이고 알림 대상·닉네임이 그 댓글과 같다
+    function replyOk(postId, d) {
+      return (d.parentId == '' && d.replyToId == '' && d.replyToUid == '' && d.replyToNick == '')
+        || (d.parentId is string && d.parentId.size() > 0
+            && exists(commentDoc(postId, d.parentId))
+            && get(commentDoc(postId, d.parentId)).data.parentId == ''
+            && d.replyToId is string && d.replyToId.size() > 0
+            && exists(commentDoc(postId, d.replyToId))
+            && (d.replyToId == d.parentId || get(commentDoc(postId, d.replyToId)).data.parentId == d.parentId)
+            && d.replyToUid == get(commentDoc(postId, d.replyToId)).data.authorUid
+            && d.replyToNick == get(commentDoc(postId, d.replyToId)).data.nickname);
+    }
+    function newCommentOk(postId, commentId) {
+      let d = request.resource.data;
+      let post = get(postDoc(postId)).data;
+      return signedIn() && d.keys().hasOnly(commentKeys()) && d.keys().hasAll(commentKeys())
+        && d.authorUid == me() && d.postId == postId && d.postAuthorUid == post.authorUid
+        && post.hidden == false && post.deleted == false
+        && text(d.body, 1, 1000)
+        && d.createdAt == request.time && d.updatedAt == request.time && d.edited == false
+        && d.likeCount == 0 && d.reportCount == 0 && d.deleted == false && d.hidden == false
+        && replyOk(postId, d)
+        // 알림 받을 사람은 글쓴이·답글 대상 중에서만(아무에게나 알림을 보낼 수 없다), 자기 자신은 빼고
+        && d.notify is list && d.notify.size() <= 2 && !(me() in d.notify)
+        && d.notify.toSet().difference([d.postAuthorUid, d.replyToUid].toSet()).size() == 0
+        && exists(userDoc(me())) && d.nickname == getAfter(userDoc(me())).data.nickname
+        && getAfter(postDoc(postId)).data.commentCount == post.commentCount + 1
+        && getAfter(postDoc(postId)).data.lastCommentId == commentId
+        && commentRateOk(postId, commentId);
+    }
+    function commentEditOk() {
+      return resource.data.authorUid == me() && resource.data.deleted == false
+        && changed().hasOnly(['body', 'edited', 'updatedAt'])
+        && text(request.resource.data.body, 1, 1000) && request.resource.data.edited == true
+        && request.resource.data.updatedAt == request.time;
+    }
+    function commentSoftDeleteOk() {
+      let d = request.resource.data;
+      return resource.data.authorUid == me() && resource.data.deleted == false
+        && changed().hasOnly(['deleted', 'body', 'nickname', 'updatedAt'])
+        && d.deleted == true && d.body == '' && d.nickname == '' && d.updatedAt == request.time;
+    }
+    function commentLikeOk(postId, commentId) {
+      let d = request.resource.data;
+      let like = /databases/$(database)/documents/board_posts/$(postId)/comments/$(commentId)/likes/$(me());
+      return changed().hasOnly(['likeCount'])
+        && ((d.likeCount == resource.data.likeCount + 1 && resource.data.authorUid != me() && resource.data.deleted == false
+              && !exists(like) && existsAfter(like))
+          || (d.likeCount == resource.data.likeCount - 1 && exists(like) && !existsAfter(like)));
+    }
+    function commentReportOk(postId, commentId) {
+      let r = /databases/$(database)/documents/board_posts/$(postId)/comments/$(commentId)/reports/$(me());
+      return changed().hasOnly(['reportCount'])
+        && request.resource.data.reportCount == resource.data.reportCount + 1
+        && resource.data.authorUid != me()
+        && !exists(r) && existsAfter(r);
+    }
+    function adminCommentOk() {
+      return isAdmin() && changed().hasOnly(['hidden', 'reportCount'])
+        && request.resource.data.hidden is bool
+        && (request.resource.data.reportCount == resource.data.reportCount || request.resource.data.reportCount == 0);
+    }
+
+    // 묶음 질의(collection group): 답글 알림(내게 온 댓글)·내 기록 지우기(내 댓글·내 추천)·운영자 신고 목록
+    match /{path=**}/comments/{commentId} {
+      allow list: if resource.data.hidden == false || isAdmin()
+        || (signedIn() && resource.data.authorUid == me());
+    }
+    match /{path=**}/likes/{likeId} {
+      allow list: if signedIn() && resource.data.uid == me();
+    }
+
+    // ---------------- 운영 설정 ----------------
+    // 운영자 목록: 앱은 읽기만(내가 운영자인지 보려고). 고치기는 Firebase 콘솔에서만 — 앱의 어떤 요청도 못 쓴다
+    match /config/admins {
+      allow get: if true;
+      allow list, write: if false;
+    }
+    // 사진·동영상 올리기 스위치: 운영자만 바꾼다(기본 꺼짐 — 문서가 없으면 꺼짐)
+    match /config/board {
+      allow get: if true;
+      allow list, delete: if false;
+      allow create, update: if isAdmin()
+        && request.resource.data.keys().hasOnly(['mediaEnabled', 'updatedAt'])
+        && request.resource.data.keys().hasAll(['mediaEnabled', 'updatedAt'])
+        && request.resource.data.mediaEnabled is bool
+        && request.resource.data.updatedAt == request.time;
     }
 
     // 그 밖의 모든 경로(ops/heartbeat 포함)는 앱에서 막는다

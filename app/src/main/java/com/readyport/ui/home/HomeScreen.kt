@@ -395,7 +395,10 @@ private fun HeroTripBox(number: Int, trip: HomeTrip, today: LocalDate, onOpen: (
         else -> stringResource(R.string.home_trip_after)
     }
     val format = DateTimeFormatter.ofPattern(stringResource(R.string.home_trip_date_format), Locale.KOREAN)
-    val dates = stringResource(R.string.home_trip_dates, noBreak(trip.startDate.format(format)), noBreak(trip.endDate.format(format)))
+    // 같은 해·같은 달이면 끝 날짜의 달을 뺀다(`10월 8일 (목) ~ 14일 (수)`) — 큰 글자에서도 날짜가 한 줄에 들어가게
+    val sameMonth = trip.startDate.year == trip.endDate.year && trip.startDate.month == trip.endDate.month
+    val endFormat = if (sameMonth) DateTimeFormatter.ofPattern(stringResource(R.string.home_trip_date_format_day), Locale.KOREAN) else format
+    val dates = stringResource(R.string.home_trip_dates, noBreak(trip.startDate.format(format)), noBreak(trip.endDate.format(endFormat)))
     val numberName = stringResource(R.string.explore_trip_number_cd, number)
     val meta = MaterialTheme.typography.labelMedium
     Surface(
@@ -411,16 +414,20 @@ private fun HeroTripBox(number: Int, trip: HomeTrip, today: LocalDate, onOpen: (
             Modifier.fillMaxWidth().padding(dimens.cardPadding),
             verticalArrangement = Arrangement.spacedBy(dimens.inner),
         ) {
-            BadgeTitleLayout(
-                title = { KoText(trip.countryKo, MaterialTheme.typography.titleLarge, color = Tokens.Ink, glueShort = true) },
-                // 둥근 번호(몇 번째 여행) — 단계 번호는 네모다(부록 H.7). TalkBack은 `여행 1`
-                badge = { TextCircle(number.toString(), modifier = Modifier.clearAndSetSemantics { contentDescription = numberName }) },
-                // 출발까지는 나라 이름 **옆** 태그로 — 이름이 가장 큰 글자로 남고 박스 한 줄이 줄어든다.
-                // 큰 글자 배치에서는 BadgeTitleLayout이 번호·태그를 윗줄로 올리고 이름에 폭 전체를 준다
-                trailing = { StatusTag(status, StatusKind.Info, icon = Icons.Outlined.FlightTakeoff) },
-                stack = isStackedLayout(),
-                gap = 12.dp,
-            )
+            // 둥근 번호 + 나라 이름을 한 줄에 — 이름이 번호 옆 남는 폭 전체를 쓴다.
+            // `출발 3일 전` 태그는 이름 **옆**에 두면 큰 글자에서 이름이 `인도/네시/아`처럼 세 줄로 쪼개져(운영자 실기기 지적)
+            // 이름 아래 줄로 내렸다. 단계 번호는 네모, 여행 번호는 둥근 원(부록 H.7). TalkBack은 `여행 1`
+            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                TextCircle(number.toString(), modifier = Modifier.clearAndSetSemantics { contentDescription = numberName })
+                KoText(
+                    trip.countryKo,
+                    MaterialTheme.typography.titleLarge,
+                    color = Tokens.Ink,
+                    glueShort = true,
+                    modifier = Modifier.weight(1f),
+                )
+            }
+            StatusTag(status, StatusKind.Info, icon = Icons.Outlined.FlightTakeoff)
             InfoChip(dates, Icons.Outlined.DateRange, textStyle = meta)
             // 이 여행 체크리스트 진행 — 앱 안 값(누를 수 없는 칩 + 막대)
             if (trip.checklistTotal > 0) {
