@@ -139,6 +139,13 @@ import com.readyport.ui.components.ReturnCheckCard
 import com.readyport.ui.components.ReturnCheckMode
 import com.readyport.ui.components.SecondaryButton
 import com.readyport.ui.components.SectionArt
+import com.readyport.ui.components.SectionHeader
+import com.readyport.attractions.AttractionsRepository
+import com.readyport.attractions.SavedAttractionsRepository
+import com.readyport.ui.attractions.AttractionsComingSoon
+import com.readyport.ui.attractions.AttractionsEntry
+import com.readyport.ui.attractions.AttractionsEntryUi
+import com.readyport.ui.attractions.OpenAttractions
 import com.readyport.ui.components.SectionCards
 import com.readyport.ui.components.SectionTabs
 import com.readyport.ui.components.SourceList
@@ -203,6 +210,8 @@ data class CountryUi(
     val focusAirports: Boolean = false,
     /** 처음 고를 공항(IATA). 없으면 이 나라 여행의 도착 공항([upcomingTrip]) → 팩 첫 공항 */
     val focusAirport: String? = null,
+    /** 여행 정보의 한 카드로 바로 — `safety`(관광지 '안전 정보 보기', SPEC_v5 §6.4)만. 한 번만 쓴다 */
+    val focusSection: String? = null,
 )
 
 /** 나라 화면에서 다른 곳으로 가는 길 */
@@ -250,6 +259,8 @@ data class CountryActions(
     val openMove: () -> Unit = {},
     val openShopping: (String) -> Unit = {},
     val openVideos: (String) -> Unit = {},
+    /** 여행 정보 › 관광지 목록 (종류·검색·찜) */
+    val openAttractions: OpenAttractions = OpenAttractions { _, _, _ -> },
     val openLink: (String) -> Unit = {},
     val toggleFavorite: () -> Unit = {},
     /**
@@ -266,6 +277,8 @@ class CountryViewModel @Inject constructor(
     private val packs: PackRepository,
     private val settings: SettingsRepository,
     trips: TripRepository,
+    attractions: AttractionsRepository,
+    savedAttractions: SavedAttractionsRepository,
 ) : ViewModel() {
     private val route = handle.toRoute<CountryRoute>()
     val country = route.country
@@ -288,8 +301,20 @@ class CountryViewModel @Inject constructor(
             upcomingTrip = TripSelection.upcomingFor(book.trips, country, LocalDate.now()),
             focusAirports = route.focusAirports,
             focusAirport = route.airport,
+            focusSection = route.focusSection,
         )
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), CountryUi())
+
+    /**
+     * 여행 정보 맨 위 '관광지' 묶음 (SPEC_v5 §6.1). 나라 안내([ui])와 따로 계산해 관광지가 바뀌어도 [ui]를 다시 만들지 않는다.
+     * 화면에 들어올 때 정한 '있음/곧 추가돼요'는 이 진입 안에서 바꾸지 않는다(레이아웃 점프 금지) — 찜 수만 따라간다.
+     */
+    private var attractionsFixed: Boolean? = null
+    val attractions: StateFlow<AttractionsEntryUi?> = combine(attractions.revisionOf(country), savedAttractions.saved) { _, saved ->
+        val entry = AttractionsEntryUi.of(attractions.catalog(country), saved.count { it.country == country })
+        val available = attractionsFixed ?: (entry is AttractionsEntryUi.Available).also { attractionsFixed = it }
+        if (available == (entry is AttractionsEntryUi.Available)) entry else if (available) null else AttractionsEntryUi.NotYet
+    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), null)
 
     fun toggleFavorite() = viewModelScope.launch {
         val now = settings.current()
@@ -304,9 +329,11 @@ class CountryViewModel @Inject constructor(
 @Composable
 fun CountryScreen(actions: CountryActions, viewModel: CountryViewModel = hiltViewModel()) {
     val ui by viewModel.ui.collectAsStateWithLifecycle()
+    val attractions by viewModel.attractions.collectAsStateWithLifecycle()
     val context = LocalContext.current
     CountryContent(
         ui = ui,
+        attractions = attractions,
         actions = actions.copy(
             openLink = { url -> runCatching { context.startActivity(Intent(Intent.ACTION_VIEW, url.toUri())) } },
             openHelp = { code -> viewModel.chooseForHelp(); actions.openHelp(code) },
@@ -338,6 +365,9 @@ private fun CountrySection.art(): SectionArt = when (this) {
 /** 접힌 고정 줄 높이를 아직 재지 못했을 때의 어림(최소 터치 높이 + 위아래 여유) */
 private val CompactBarGuessExtra = 8.dp
 
+/** CountryRoute.focusSection 값: 여행 정보의 안전 카드 */
+private const val SAFETY = "safety"
+
 /** 그림 메뉴 아래 덧붙이는 여백 (gap에 더해진다, 340dp 미만 창에서는 0) */
 private val SectionMenuBottom = 8.dp
 
@@ -353,10 +383,13 @@ fun CountryContent(
     actions: CountryActions,
     initialSection: CountrySection = CountrySection.Entry,
     listState: LazyListState = rememberLazyListState(),
+    /** 여행 정보 맨 위 '관광지' 묶음(null = 그리지 않음 — 읽는 중이거나 테스트) */
+    attractions: AttractionsEntryUi? = null,
 ) {
     val loaded = ui.loaded ?: return
     val pack = loaded.value
-    var section by rememberSaveable(pack.country) { mutableIntStateOf(initialSection.ordinal) }
+    val firstSection = if (ui.focusSection == SAFETY) CountrySection.Travel else initialSection
+    var section by rememberSaveable(pack.country) { mutableIntStateOf(firstSection.ordinal) }
     val fallback = stringResource(R.string.source_official_fallback)
     val names = remember(pack, ui.indexSources) { ui.indexSources + pack.sources.associate { it.id to it.name } }
     val sourceOf: SourceOf = { id, date -> SourceRef(resolveSourceName(id, names, fallback), displayDate(date)) }
@@ -423,6 +456,16 @@ fun CountryContent(
         airportsFocused = true
         withFrameNanos { }
         val target = keys.indexOf("airports") ?: return@LaunchedEffect
+        listState.scrollToItem(target, -(barHeight() + gapPx))
+    }
+
+    // 관광지 '안전 정보 보기'로 왔으면 한 번만 안전 카드로 (첫 카드 윗변 = 고정 줄 아래 + gap — 공항 묶음과 같은 약속)
+    var safetyFocused by rememberSaveable(pack.country) { mutableStateOf(false) }
+    LaunchedEffect(ui.focusSection, pack.country) {
+        if (ui.focusSection != SAFETY || safetyFocused || section != CountrySection.Travel.ordinal) return@LaunchedEffect
+        safetyFocused = true
+        withFrameNanos { }
+        val target = keys.indexOf("section-$SAFETY") ?: return@LaunchedEffect
         listState.scrollToItem(target, -(barHeight() + gapPx))
     }
 
@@ -587,6 +630,12 @@ fun CountryContent(
                 if (safety != null && advisories.isNotEmpty()) {
                     item(key = "advisory") { AdvisoryBanner(safety, advisories, sourceOf) }
                 }
+                // 관광지 (⟦결정 D2⟧ A): 갈래 맨 위 묶음 → '알아 둘 것' 머리 → 기존 카드
+                if (attractions is AttractionsEntryUi.Available) {
+                    item(key = "attractions") { AttractionsEntry(attractions, actions.openAttractions) }
+                    sectionGap("gap-attractions")
+                    item(key = "know-head") { SectionHeader(stringResource(R.string.attractions_know_country), icon = Icons.Outlined.Info) }
+                }
                 pack.power?.let { power -> item(key = "power") { PowerCard(power, sourceOf) } }
                 pack.sections.filter { it.id != "entry" && it.id != "rules" }.forEach { s ->
                     // 위험 배너로 올린 문장은 안전 카드에서 되풀이하지 않는다(한 사실은 한 번). 남는 문장이 없으면 카드도 없다(출처는 배너 아래에)
@@ -616,6 +665,10 @@ fun CountryContent(
                             ),
                         ),
                     )
+                }
+                // 아직 관광지를 싣지 않은 나라: 갈래 맨 끝 '곧 추가돼요' (§6.1 NotYet)
+                if (attractions == AttractionsEntryUi.NotYet) {
+                    item(key = "attractions-soon") { AttractionsComingSoon() }
                 }
             }
 
@@ -1095,9 +1148,7 @@ private fun SectionCard(s: Section, sourceOf: SourceOf, exclude: List<String> = 
  * 외교부 여행경보 중 '가지 말라'는 단계(3단계 출국권고·4단계 여행금지·특별여행주의보)를 말하는 팩 문장인지 —
  * 문장 안의 단계 이름 그대로 찾는다(앱이 문장 뜻을 지어내지 않는다, D11). 1·2단계만 말하는 문장은 아니다.
  */
-internal fun isHighAdvisory(sentence: String): Boolean = HighAdvisoryWords.any { it in sentence }
-
-private val HighAdvisoryWords = listOf("3단계", "4단계", "출국권고", "여행금지", "특별여행주의보", "가지 마세요")
+internal fun isHighAdvisory(sentence: String): Boolean = com.readyport.pack.Advisory.isHighAdvisory(sentence)
 
 /**
  * 여행 정보 맨 위 위험 배너: 안전 섹션 제목(팩) + 3단계 이상 문장(팩 원문 그대로, 줄마다 한 문장) + 그 출처.

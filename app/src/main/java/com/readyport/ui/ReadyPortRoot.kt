@@ -3,6 +3,7 @@ package com.readyport.ui
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -25,6 +26,11 @@ import com.readyport.ui.components.OfflineBanner
 import com.readyport.ui.nav.BottomTabs
 import com.readyport.ui.nav.HomeRoute
 import com.readyport.ui.nav.CountryRoute
+import com.readyport.ui.nav.AttractionDetailRoute
+import com.readyport.ui.nav.AttractionsRoute
+import com.readyport.ui.attractions.AttractionDetailScreen
+import com.readyport.ui.attractions.AttractionsListScreen
+import com.readyport.ui.attractions.OpenAttractions
 import com.readyport.ui.nav.PhotoCreditsRoute
 import com.readyport.ui.nav.VideosRoute
 import com.readyport.ui.video.VideosScreen
@@ -264,7 +270,8 @@ private fun MainScaffold(
             NavHost(
                 navController = navController,
                 startDestination = if (settings.childMode) PresentRoute else HomeRoute,
-                modifier = Modifier.padding(inner),
+                // 하단 탭 여백을 쓴 것으로 표시 — 관광지 목록의 imePadding이 '키보드 − 탭 높이'만 더한다(SPEC_v5 §6.3)
+                modifier = Modifier.padding(inner).consumeWindowInsets(inner),
             ) {
                 composable<HomeRoute> {
                     slots.home(
@@ -296,9 +303,35 @@ private fun MainScaffold(
                             openMove = { navController.navigate(TransportRoute) },
                             openShopping = { code -> navController.navigate(ShoppingRoute(code)) },
                             openVideos = { code -> navController.navigate(VideosRoute(code)) },
+                            openAttractions = OpenAttractions { category, focusSearch, savedOnly ->
+                                navController.navigate(
+                                    AttractionsRoute(route.country, category = category?.key, savedOnly = savedOnly, focusSearch = focusSearch),
+                                )
+                            },
                             // 이 여행에서 열었으면 머리 띠에 여행으로 돌아가는 길
                             backToTrip = route.tripId?.let { popToTrip },
                         ),
+                    )
+                }
+                // 관광지 (docs/design/attractions/SPEC_v5.md §6.2)
+                composable<AttractionsRoute> {
+                    AttractionsListScreen(
+                        openDetail = { id -> navController.navigate(AttractionDetailRoute(it.toRoute<AttractionsRoute>().country, id)) },
+                        openSafety = { code -> navController.navigate(CountryRoute(code, focusSection = "safety")) },
+                        openBoard = { navController.switchTab(Tab.Board) },
+                    )
+                }
+                composable<AttractionDetailRoute> { entry ->
+                    val route = entry.toRoute<AttractionDetailRoute>()
+                    AttractionDetailScreen(
+                        // 상세 → 상세는 바꿔 끼운다(같은 지역의 다른 곳을 눌러도 뒤로 한 번이면 목록)
+                        openOther = { id ->
+                            navController.navigate(AttractionDetailRoute(route.country, id)) {
+                                popUpTo<AttractionDetailRoute> { inclusive = true }
+                            }
+                        },
+                        openRegion = { regionId -> navController.navigate(AttractionsRoute(route.country, scrollToRegion = regionId)) },
+                        openSafety = { code -> navController.navigate(CountryRoute(code, focusSection = "safety")) },
                     )
                 }
                 composable<TripRoute> { entry ->

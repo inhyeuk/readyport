@@ -30,6 +30,7 @@ class HttpPackRemote(private val baseUrl: String = BASE_URL) : PackRemote {
             conn.readTimeout = 20_000
             conn.instanceFollowRedirects = false
             conn.setRequestProperty("Accept", "application/json")
+            if (conn.responseCode == HttpURLConnection.HTTP_NOT_FOUND) throw PackNotFoundException("HTTP 404")
             if (conn.responseCode != HttpURLConnection.HTTP_OK) throw IOException("HTTP ${conn.responseCode}")
             conn.inputStream.use { input ->
                 val out = ByteArrayOutputStream()
@@ -60,6 +61,8 @@ interface PackVersionSource {
     fun indexVersion(): String?
     fun packVersion(country: String): String?
     fun recipeVersion(formId: String): String?
+    /** 관광지 파일 버전 (RC `attractions_version_<CC>`, SPEC_v5 §4.1). 없으면 null — 그 나라 관광지는 받지 않는다 */
+    fun attractionsVersion(country: String): String? = null
     /** 안전 스위치: true면 이 양식은 자동 입력 없이 수동 모드로만 (ARCHITECTURE 9.5) */
     fun autofillKilled(formId: String): Boolean
 }
@@ -76,6 +79,8 @@ class RemoteConfigVersions(private val rc: FirebaseRemoteConfig) : PackVersionSo
     override fun packVersion(country: String): String? = rc.getString("pack_version_$country").ifBlank { null }
 
     override fun recipeVersion(formId: String): String? = rc.getString("recipe_version_$formId").ifBlank { null }
+
+    override fun attractionsVersion(country: String): String? = rc.getString("attractions_version_$country").ifBlank { null }
 
     override fun autofillKilled(formId: String): Boolean = rc.getBoolean("kill_autofill_$formId")
 }

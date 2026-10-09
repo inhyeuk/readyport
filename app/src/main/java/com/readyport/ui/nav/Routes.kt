@@ -43,7 +43,26 @@ import kotlinx.serialization.Serializable
     val focusAirports: Boolean = false,
     val airport: String? = null,
     val tripId: String? = null,
+    /** 여행 정보 갈래의 한 카드로 바로 — 지금은 `safety`(관광지 '안전 정보 보기')만. 한 번만 쓴다 */
+    val focusSection: String? = null,
 )
+
+/**
+ * 나라 화면 › 여행 정보 › 관광지 목록 (종류·검색·찜 공용, SPEC_v5 §6.2). 지역별 묶음으로 보여 준다.
+ * [category]: 종류 값(enums, null = 모든 종류). [query]: 처음 검색어. [savedOnly]: 찜한 곳만.
+ * [focusSearch]·[scrollToRegion]: 한 번만 쓰는 인자 — ViewModel이 소비 표시를 남겨 뒤로 돌아와도 되풀이하지 않는다.
+ */
+@Serializable data class AttractionsRoute(
+    val country: String,
+    val category: String? = null,
+    val query: String? = null,
+    val savedOnly: Boolean = false,
+    val focusSearch: Boolean = false,
+    val scrollToRegion: String? = null,
+)
+
+/** 관광지 하나 (상세). 위치 권한·네트워크 없이 기기 안 파일로만 그린다 */
+@Serializable data class AttractionDetailRoute(val country: String, val id: String)
 
 /** 준비 › 입국 카드 3개 국어 확인 (PRD 5.2) */
 @Serializable data class FormConfirmRoute(val formId: String)

@@ -28,6 +28,8 @@ class PackSyncWorker @AssistedInject constructor(
     private val versions: PackVersionSource,
     private val settings: SettingsRepository,
     private val boardReplies: com.readyport.board.BoardReplyCheck,
+    private val attractions: com.readyport.attractions.AttractionsRepository,
+    private val savedAttractions: com.readyport.attractions.SavedAttractionsRepository,
 ) : CoroutineWorker(context, params) {
 
     override suspend fun doWork(): Result {
@@ -45,6 +47,13 @@ class PackSyncWorker @AssistedInject constructor(
                 val rv = versions.recipeVersion(form.id) ?: continue
                 if (packs.updateRecipe(form.id, rv) == UpdateResult.NetworkError) networkError = true
             }
+        }
+        // 관광지 (SPEC_v5 §4.1): 찜한 나라 + 관광지 찜이 있는 나라. RC에 버전이 있는 나라만, 바뀐 것만 받는다.
+        // 서명·스키마가 틀리거나 서버에 없으면(NotFound) 다음 주기를 기다린다. 국가 팩과 따로 서명·저장한다
+        val attractionCountries = settings.current().favorites + savedAttractions.current().map { it.country }
+        for (country in attractionCountries) {
+            val v = versions.attractionsVersion(country) ?: continue
+            if (attractions.update(country, v) == UpdateResult.NetworkError) networkError = true
         }
         return if (networkError) Result.retry() else Result.success()
     }
