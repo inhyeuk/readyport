@@ -1,0 +1,16 @@
+{
+  "_comment": "관광지 출시 게이트 (SPEC_v5 §1, 사장님 결정 D1-A·D15-B 2026-10-09). promote·sign 때 하나라도 어기면 서명하지 않는다. --check 에서는 경고만. 나라별로 countries 아래에서 덮어쓴다. 이 파일은 PR 리뷰 대상이다.",
+  "default": {
+    "min_places": 12,
+    "min_base_regions": 2,
+    "min_per_base_region": 3,
+    "min_per_daytrip_region": 1,
+    "min_categories": 4,
+    "min_per_category": 2,
+    "category_share_warn": 0.5,
+    "max_thin_detail_ratio": 0.10,
+    "max_bytes_per_place": 4608,
+    "max_bytes_per_file": 256000
+  },
+  "countries": {}
+}

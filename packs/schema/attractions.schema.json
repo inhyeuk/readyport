@@ -1,0 +1,306 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://readyport-app.web.app/schema/attractions.schema.json",
+  "title": "ReadyPort 관광지 (나라별, 따로 서명) — SPEC_v5 §4",
+  "description": "모양만 본다. 허용 값(enum)은 attractions.enums.json 이 단일 출처이고 build_attractions.py 가 따로 검사한다. wave 는 작업본(release=draft)에서만 허용(도구가 검사).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["doc_type", "schema_version", "country", "version", "release", "regions", "attractions", "sources"],
+  "properties": {
+    "doc_type": {"const": "attractions"},
+    "schema_version": {"type": "integer", "minimum": 1},
+    "country": {"type": "string", "pattern": "^[A-Z]{2}$"},
+    "version": {"type": "string", "pattern": "^\\d{4}\\.\\d{2}\\.\\d{2}-\\d+$"},
+    "release": {"enum": ["draft", "published"]},
+    "sample": {"type": "boolean"},
+    "editorial_rules": {"type": "string"},
+    "compact_country": {"type": "boolean"},
+    "advisory_basis": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["pack_version", "safety_last_verified", "advisory_sha256"],
+      "properties": {
+        "pack_version": {"type": "string"},
+        "safety_last_verified": {"type": "string"},
+        "advisory_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+      }
+    },
+    "unmapped_airports": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["code", "reason", "reason_ko"],
+        "properties": {
+          "code": {"type": "string", "pattern": "^[A-Z]{3}$"},
+          "reason": {"type": "string"},
+          "reason_ko": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "upcoming_regions": {"type": "array", "items": {"$ref": "#/$defs/namedArea"}},
+    "excluded_areas": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name_ko", "aliases_ko", "level"],
+        "properties": {
+          "name_ko": {"type": "string", "minLength": 1},
+          "aliases_ko": {"type": "array", "items": {"type": "string", "minLength": 1}},
+          "level": {"type": "string"}
+        }
+      }
+    },
+    "regions": {"type": "array", "items": {"$ref": "#/$defs/region"}},
+    "attractions": {"type": "array", "items": {"$ref": "#/$defs/attraction"}},
+    "retired": {"type": "array", "items": {"$ref": "#/$defs/retired"}},
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "name", "url", "use"],
+        "properties": {
+          "id": {"type": "string", "pattern": "^[a-z0-9_]+$"},
+          "name": {"type": "string", "minLength": 1},
+          "url": {"type": "string", "pattern": "^https://"},
+          "use": {"type": "string"},
+          "license": {"type": "string"},
+          "attribution_required": {"type": "boolean"}
+        }
+      }
+    }
+  },
+  "$defs": {
+    "date": {"type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$"},
+    "namedArea": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name_ko", "aliases_ko"],
+      "properties": {
+        "name_ko": {"type": "string", "minLength": 1},
+        "aliases_ko": {"type": "array", "items": {"type": "string", "minLength": 1}}
+      }
+    },
+    "advisory": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["level", "source", "last_verified"],
+      "properties": {
+        "level": {"type": "string"},
+        "source": {"type": "string"},
+        "last_verified": {"$ref": "#/$defs/date"}
+      }
+    },
+    "sourcedText": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["text", "source", "last_verified"],
+      "properties": {
+        "text": {"type": "string", "minLength": 1},
+        "source": {"type": "string"},
+        "last_verified": {"$ref": "#/$defs/date"}
+      }
+    },
+    "region": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "order", "name_ko", "name_en", "aliases_ko", "group_ko", "kind", "hub", "airports", "advisory"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^[a-z]{2}_[a-z0-9_]+$"},
+        "order": {"type": "integer"},
+        "name_ko": {"type": "string", "minLength": 1},
+        "name_en": {"type": "string", "minLength": 1},
+        "aliases_ko": {"type": "array", "items": {"type": "string", "minLength": 1}},
+        "group_ko": {"type": "string"},
+        "kind": {"type": "string"},
+        "base_regions": {"type": "array", "items": {"type": "string"}},
+        "note_ko": {"type": ["string", "null"]},
+        "water_crossing": {"type": "boolean"},
+        "hub": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["name_ko", "lat", "lng", "qid"],
+          "properties": {
+            "name_ko": {"type": "string", "minLength": 1},
+            "lat": {"type": "number", "minimum": -90, "maximum": 90},
+            "lng": {"type": "number", "minimum": -180, "maximum": 180},
+            "qid": {"type": "string", "pattern": "^Q[0-9]+$"}
+          }
+        },
+        "airports": {"type": "array", "items": {"type": "string", "pattern": "^[A-Z]{3}$"}},
+        "advisory": {"$ref": "#/$defs/advisory"},
+        "advisory_watch_ko": {"type": "array", "items": {"type": "string", "minLength": 1}},
+        "wave": {"type": "integer", "minimum": 1}
+      }
+    },
+    "attraction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "names", "aliases_ko", "region", "category", "geo", "summary_ko", "body_ko", "claims", "facts", "status", "advisory", "rank", "source", "last_verified"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"},
+        "qid": {"type": ["string", "null"], "pattern": "^Q[0-9]+$"},
+        "names": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["ko", "en", "source"],
+          "properties": {
+            "ko": {"type": "string", "minLength": 1},
+            "ko_basis": {"type": "string"},
+            "ko_paren": {"type": ["string", "null"]},
+            "en": {"type": "string", "minLength": 1},
+            "local": {"type": ["string", "null"]},
+            "local_short": {"type": ["string", "null"]},
+            "local_lang": {"type": ["string", "null"]},
+            "source": {"type": "string"}
+          }
+        },
+        "aliases_ko": {"type": "array", "items": {"type": "string", "minLength": 1}},
+        "aliases_en": {"type": "array", "items": {"type": "string", "minLength": 1}},
+        "mentions_ko": {"type": "array", "items": {"type": "string", "minLength": 1}},
+        "region": {"type": "string"},
+        "area_ko": {"type": ["string", "null"]},
+        "category": {"type": "string"},
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["id", "source", "last_verified"],
+            "properties": {"id": {"type": "string"}, "source": {"type": "string"}, "last_verified": {"$ref": "#/$defs/date"}}
+          }
+        },
+        "geo": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["kind", "lat", "lng", "source", "last_verified"],
+          "properties": {
+            "kind": {"type": "string"},
+            "lat": {"type": "number", "minimum": -90, "maximum": 90},
+            "lng": {"type": "number", "minimum": -180, "maximum": 180},
+            "source": {"type": "string"},
+            "qid": {"type": ["string", "null"], "pattern": "^Q[0-9]+$"},
+            "osm": {"type": ["string", "null"], "pattern": "^(node|way|relation)/[0-9]+$"},
+            "last_verified": {"$ref": "#/$defs/date"}
+          }
+        },
+        "wd_geo": {
+          "type": ["object", "null"],
+          "additionalProperties": false,
+          "properties": {"lat": {"type": "number"}, "lng": {"type": "number"}}
+        },
+        "address_local": {"oneOf": [{"type": "null"}, {"$ref": "#/$defs/sourcedText"}]},
+        "access": {
+          "type": ["object", "null"],
+          "additionalProperties": false,
+          "required": ["modes", "source", "last_verified"],
+          "properties": {
+            "modes": {"type": "array", "items": {"type": "string"}},
+            "nearest_ko": {"type": ["string", "null"]},
+            "nearest_local": {
+              "type": ["object", "null"],
+              "additionalProperties": false,
+              "required": ["text", "qid", "source"],
+              "properties": {"text": {"type": "string"}, "qid": {"type": "string", "pattern": "^Q[0-9]+$"}, "source": {"type": "string"}}
+            },
+            "source": {"type": "string"},
+            "last_verified": {"$ref": "#/$defs/date"}
+          }
+        },
+        "official_url": {"type": ["string", "null"], "pattern": "^https://"},
+        "summary_ko": {"type": "string", "minLength": 1},
+        "body_ko": {"type": "array", "items": {"type": "string", "minLength": 1}},
+        "claims": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["id", "text_ko", "source", "last_verified"],
+            "properties": {
+              "id": {"type": "string", "pattern": "^c[0-9]+$"},
+              "text_ko": {"type": "string", "minLength": 1},
+              "source": {"type": "string"},
+              "last_verified": {"$ref": "#/$defs/date"}
+            }
+          }
+        },
+        "tips_ko": {"type": "array", "items": {"$ref": "#/$defs/sourcedText"}},
+        "facts": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["kind"],
+          "properties": {
+            "kind": {"type": "string"},
+            "entry": {"type": "string"},
+            "booking": {"type": "string"},
+            "booking_note_ko": {"type": ["string", "null"]},
+            "regular_closed": {"type": "array", "items": {"type": "string"}},
+            "closed_note_ko": {"type": ["string", "null"]},
+            "visit_note_ko": {"type": ["string", "null"]},
+            "source": {"type": "string"},
+            "last_verified": {"$ref": "#/$defs/date"}
+          }
+        },
+        "volatile": {"type": "null"},
+        "seasonal": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["kind", "text_ko", "source", "last_verified"],
+            "properties": {"kind": {"type": "string"}, "text_ko": {"type": "string"}, "source": {"type": "string"}, "last_verified": {"$ref": "#/$defs/date"}}
+          }
+        },
+        "risk": {"type": "array", "items": {"type": "string"}},
+        "status": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["value", "source", "last_verified"],
+          "properties": {
+            "value": {"type": "string"},
+            "note_ko": {"type": ["string", "null"]},
+            "source": {"type": "string"},
+            "last_verified": {"$ref": "#/$defs/date"}
+          }
+        },
+        "advisory": {"$ref": "#/$defs/advisory"},
+        "rank": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["order"],
+          "properties": {
+            "order": {"type": "integer", "minimum": 1},
+            "designations": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["kind", "name_ko", "source"],
+                "properties": {"kind": {"type": "string"}, "name_ko": {"type": "string"}, "source": {"type": "string"}}
+              }
+            }
+          }
+        },
+        "photo": {"type": "null"},
+        "photo_link": {"type": ["string", "null"], "pattern": "^https://commons\\.wikimedia\\.org/"},
+        "source": {"type": "string"},
+        "last_verified": {"$ref": "#/$defs/date"}
+      }
+    },
+    "retired": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "reason", "source", "date"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"},
+        "reason": {"type": "string"},
+        "replaced_by": {"type": ["string", "null"]},
+        "note_ko": {"type": ["string", "null"]},
+        "source": {"type": "string"},
+        "date": {"$ref": "#/$defs/date"}
+      }
+    }
+  }
+}
