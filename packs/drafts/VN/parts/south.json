@@ -1,0 +1,1197 @@
+{
+  "regions": [
+    {
+      "id": "vn_hcmc",
+      "order": 100,
+      "name_ko": "호찌민",
+      "name_en": "Ho Chi Minh City",
+      "aliases_ko": [
+        "사이공",
+        "호치민"
+      ],
+      "group_ko": "남부",
+      "kind": "base",
+      "water_crossing": false,
+      "hub": {
+        "name_ko": "벤탄역(지하철 1호선)",
+        "lat": 10.7707435,
+        "lng": 106.6977464,
+        "qid": "Q60313402"
+      },
+      "airports": [
+        "SGN"
+      ],
+      "advisory": {
+        "level": "1",
+        "source": "mofa_vn",
+        "last_verified": "2026-10-02"
+      },
+      "advisory_watch_ko": [],
+      "wave": 1
+    },
+    {
+      "id": "vn_phuquoc",
+      "order": 120,
+      "name_ko": "푸꾸옥",
+      "name_en": "Phu Quoc",
+      "aliases_ko": [
+        "푸꾸옥섬",
+        "푸국"
+      ],
+      "group_ko": "남부",
+      "kind": "base",
+      "water_crossing": false,
+      "hub": {
+        "name_ko": "푸꾸옥 국제공항",
+        "lat": 10.171666666667,
+        "lng": 103.99111111111,
+        "qid": "Q1423325"
+      },
+      "airports": [],
+      "advisory": {
+        "level": "1",
+        "source": "mofa_vn",
+        "last_verified": "2026-10-02"
+      },
+      "advisory_watch_ko": [],
+      "wave": 1
+    }
+  ],
+  "attractions": [
+    {
+      "id": "independence-palace",
+      "qid": "Q933384",
+      "names": {
+        "ko": "통일궁",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Independence Palace",
+        "local": "Dinh Độc Lập",
+        "local_short": "Dinh Độc Lập",
+        "local_lang": "vi",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "독립궁",
+        "통일회당"
+      ],
+      "aliases_en": [
+        "Reunification Hall",
+        "Dinh Doc Lap"
+      ],
+      "mentions_ko": [
+        "노로돔 궁"
+      ],
+      "region": "vn_hcmc",
+      "area_ko": "호찌민 벤탄동",
+      "category": "heritage",
+      "tags": [
+        {
+          "id": "dress_code",
+          "source": "dinhdoclap_en_faq",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 10.77705,
+        "lng": 106.69537,
+        "source": "wd",
+        "qid": "Q933384",
+        "osm": null,
+        "last_verified": "2026-10-09"
+      },
+      "address_local": {
+        "text": "135 Nam Kỳ Khởi Nghĩa, Phường Bến Thành, TP Hồ Chí Minh",
+        "source": "dinhdoclap_vi",
+        "last_verified": "2026-10-09"
+      },
+      "access": null,
+      "official_url": "https://dinhdoclap.gov.vn/en/",
+      "wiki": {
+        "ko": "독립궁",
+        "en": "Independence Palace"
+      },
+      "summary_ko": "남베트남 대통령궁이었던 호찌민 시내의 궁이에요.",
+      "body_ko": [
+        "통일궁은 건축가 응오 비엣 투가 설계해 1962년에 짓기 시작하고 1966년에 문을 연 건물이에요.",
+        "이 자리에는 1868년부터 지은 프랑스 총독 관저 노로돔 궁이 있었고, 1962년 폭격으로 크게 부서진 뒤 헐고 새로 지었어요.",
+        "1975년 4월 30일 전차가 문을 밀고 들어온 곳이고, 2009년 첫 국가특별유적 10곳 가운데 하나로 지정됐어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "건축가 응오 비엣 투가 설계했고, 1962년 7월 1일 공사를 시작해 1966년 10월 31일 문을 열었어요.",
+          "source": "dinhdoclap_en_arch",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c2",
+          "text_ko": "이 자리에는 1868년 2월 23일 첫 돌을 놓은 프랑스 총독 관저 노로돔 궁이 있었어요.",
+          "source": "dinhdoclap_en_site",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c3",
+          "text_ko": "1962년 2월 27일 폭격으로 크게 부서져 옛 건물을 헐고 같은 자리에 새로 지었어요.",
+          "source": "dinhdoclap_en_history",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c4",
+          "text_ko": "1975년 4월 30일 전차 843호가 옆문을, 390호가 정문을 밀고 들어왔어요.",
+          "source": "dinhdoclap_en_history",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c5",
+          "text_ko": "1976년 국가 역사문화유적으로 인정됐고, 2009년 첫 국가특별유적 10곳 가운데 하나로 지정됐어요.",
+          "source": "dinhdoclap_en",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "반바지·민소매 옷은 입지 말아 달라고 해요. 큰 짐이나 반려동물은 가지고 들어갈 수 없어요.",
+          "source": "dinhdoclap_en_faq",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "한국어를 포함한 10개 언어 음성 안내기를 돈을 내고 빌릴 수 있어요.",
+          "source": "dinhdoclap_en_audio",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "방마다 안내판과 표지판이 있어서 혼자 둘러볼 수 있어요.",
+          "source": "dinhdoclap_en_free",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "none"
+        ],
+        "closed_note_ko": "특별한 경우에는 따로 알리고 쉬어요.",
+        "visit_note_ko": null,
+        "source": "dinhdoclap_en_faq",
+        "last_verified": "2026-10-09"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "dinhdoclap_en",
+        "last_verified": "2026-10-09"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_vn",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 201,
+        "designations": [
+          {
+            "kind": "vn_special_national_relic",
+            "name_ko": "국가특별유적(2009)",
+            "source": "dinhdoclap_en"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:20190923_Independence_Palace-10.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-09"
+    },
+    {
+      "id": "war-remnants-museum",
+      "qid": "Q703871",
+      "names": {
+        "ko": "전쟁증적박물관",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "War Remnants Museum",
+        "local": "Bảo tàng Chứng tích chiến tranh",
+        "local_short": "Bảo tàng Chứng tích chiến tranh",
+        "local_lang": "vi",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "전쟁 박물관",
+        "전쟁증거박물관"
+      ],
+      "aliases_en": [],
+      "mentions_ko": [],
+      "region": "vn_hcmc",
+      "area_ko": "호찌민 쑤언호아동",
+      "category": "museum",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 10.7795,
+        "lng": 106.692,
+        "source": "wd",
+        "qid": "Q703871",
+        "osm": null,
+        "last_verified": "2026-10-09"
+      },
+      "address_local": {
+        "text": "28 Võ Văn Tần, Phường Xuân Hòa, Thành phố Hồ Chí Minh",
+        "source": "wrm_vi",
+        "last_verified": "2026-10-09"
+      },
+      "access": null,
+      "official_url": "https://baotangchungtichchientranh.vn/en",
+      "wiki": {
+        "ko": "전쟁증거박물관",
+        "en": "War Remnants Museum"
+      },
+      "summary_ko": "베트남 전쟁 관련 사진·문서·유물을 전시하는 박물관이에요.",
+      "body_ko": [
+        "전쟁증적박물관은 1975년 9월 4일에 문을 열었고, 베트남 박물관 체계와 국제박물관협의회(ICOM)에 속해 있어요.",
+        "상설 전시 주제가 9개이고, 문서·유물·사진·기록 영상을 20,000점 넘게 가지고 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "1975년 9월 4일에 세워졌고, 베트남 박물관 체계·INMP·ICOM 회원이에요.",
+          "source": "wrm_en",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c2",
+          "text_ko": "상설 전시 주제가 9개이고, 해마다 100만 명 가까이 찾아와요.",
+          "source": "wrm_en",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c3",
+          "text_ko": "문서·유물·사진·기록 영상을 20,000점 넘게 가지고 있어요.",
+          "source": "wrm_vi",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "단체 가이드 투어와 무선 헤드셋으로 듣는 안내 투어가 있어요.",
+          "source": "wrm_en",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "안내판에 영어 번역이 있고, 영어 가이드도 있어요.",
+          "source": "wrm_en",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "매표소는 박물관보다 먼저 닫아요.",
+          "source": "wrm_en",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "안에 카페와 자판기가 있어요.",
+          "source": "wrm_en",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "none"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "wrm_en",
+        "last_verified": "2026-10-09"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "wrm_en",
+        "last_verified": "2026-10-09"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_vn",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 205,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:War_Remnants_Museum%2C_HCMC%2C_front.JPG",
+      "source": "wd",
+      "last_verified": "2026-10-09"
+    },
+    {
+      "id": "ben-thanh-market",
+      "qid": "Q3232879",
+      "names": {
+        "ko": "벤탄 시장",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Bến Thành Market",
+        "local": "Chợ Bến Thành",
+        "local_short": "Chợ Bến Thành",
+        "local_lang": "vi",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "벤타인 시장",
+        "벤탄 마켓"
+      ],
+      "aliases_en": [
+        "Ben Thanh Market"
+      ],
+      "mentions_ko": [],
+      "region": "vn_hcmc",
+      "area_ko": "호찌민 벤탄동",
+      "category": "market_street",
+      "tags": [
+        {
+          "id": "free_entry",
+          "source": "benthanh_rules",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 10.772521,
+        "lng": 106.698019,
+        "source": "wd",
+        "qid": "Q3232879",
+        "osm": null,
+        "last_verified": "2026-10-09"
+      },
+      "address_local": null,
+      "access": null,
+      "official_url": "https://benthanhmarket.vn/",
+      "wiki": {
+        "ko": "벤타인 시장",
+        "en": "Bến Thành Market"
+      },
+      "summary_ko": "1914년에 문을 연 호찌민 한가운데의 시장 건물이에요.",
+      "body_ko": [
+        "벤탄 시장은 1913년 초에 짓기 시작해 1914년 3월 29일에 문을 연 시장 건물로, 사방에 큰 문이 있어요.",
+        "이름은 옛 성으로 들어가기 전 나루라는 뜻의 '벤탄' 옆에 있던 시장에서 왔어요.",
+        "2024년 호찌민시 지정 건축예술유적이 됐어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "1913년 초에 공사를 시작해 1914년 3월 29일에 문을 열었어요.",
+          "source": "benthanh_year",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c2",
+          "text_ko": "시장 건물에는 동서남북 네 곳에 큰 문이 있어요.",
+          "source": "benthanh_about",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c3",
+          "text_ko": "이름은 성에 들어가기 전 나루(벤탄)와 그 곁의 시장에서 왔어요.",
+          "source": "benthanh_about",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c4",
+          "text_ko": "2024년 호찌민시 지정 건축예술유적이 됐어요.",
+          "source": "benthanh_relic",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "구경하거나 물건을 사러 들어갈 때 입장료는 없어요. 사지 않을 수 있고, 억지로 사게 하면 거절할 수 있어요.",
+          "source": "benthanh_rules",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "상표·가격·품질과 무게를 확인하고, 필요하면 판매자에게 정식 영수증을 달라고 할 수 있어요.",
+          "source": "benthanh_rules",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "free",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": "명절·공휴일에는 따로 알린 대로 열어요.",
+        "visit_note_ko": "신선식품·먹을거리 가게는 이른 새벽부터 열어요.",
+        "source": "benthanh_rules",
+        "last_verified": "2026-10-09"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "benthanh_rules",
+        "last_verified": "2026-10-09"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_vn",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 204,
+        "designations": [
+          {
+            "kind": "vn_city_relic",
+            "name_ko": "호찌민시 건축예술유적(2024)",
+            "source": "benthanh_relic"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Ben_Thanh_Market_%2837214722264%29.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-09"
+    },
+    {
+      "id": "saigon-zoo",
+      "qid": "Q3162430",
+      "names": {
+        "ko": "사이공 동식물원",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Saigon Zoo and Botanical Gardens",
+        "local": "Thảo Cầm Viên Sài Gòn",
+        "local_short": "Thảo Cầm Viên Sài Gòn",
+        "local_lang": "vi",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "타오껌비엔",
+        "사이공 동물원"
+      ],
+      "aliases_en": [
+        "Saigon Zoo"
+      ],
+      "mentions_ko": [],
+      "region": "vn_hcmc",
+      "area_ko": "호찌민 사이공동",
+      "category": "theme_park",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 10.78805556,
+        "lng": 106.70472222,
+        "source": "wd",
+        "qid": "Q3162430",
+        "osm": null,
+        "last_verified": "2026-10-09"
+      },
+      "address_local": {
+        "text": "Số 2 Nguyễn Bỉnh Khiêm, phường Sài Gòn, TP.HCM",
+        "source": "saigonzoo_visit",
+        "last_verified": "2026-10-09"
+      },
+      "access": {
+        "modes": [
+          "metro",
+          "bus"
+        ],
+        "nearest_ko": "지하철 1호선 바손역에서 걸어가요 (응우옌티민카이 거리 쪽 문 앞에 버스 정류장이 있어요)",
+        "nearest_local": {
+          "text": "Ga Ba Son",
+          "qid": "Q60314200",
+          "source": "wd"
+        },
+        "source": "saigonzoo_visit",
+        "last_verified": "2026-10-09"
+      },
+      "official_url": "https://saigonzoo.vn/",
+      "wiki": {
+        "ko": "사이공 동식물원",
+        "en": "Saigon Zoo and Botanical Gardens"
+      },
+      "summary_ko": "1864년에 문을 연 호찌민 시내의 동물원 겸 식물원이에요.",
+      "body_ko": [
+        "사이공 동식물원은 1864년 3월 23일에 세워진 동물원 겸 식물원이에요.",
+        "1865년에 식물원의 기본 공사를 마쳤고, 지금은 동물 120종 넘게, 식물 320종 넘게 볼 수 있어요.",
+        "동남아시아동물원협회(SEAZA) 회원이에요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "1864년 3월 23일에 세워졌어요.",
+          "source": "saigonzoo_home",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c2",
+          "text_ko": "1865년에 식물원의 기본 공사를 마쳤어요.",
+          "source": "saigonzoo_history",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c3",
+          "text_ko": "동물 120종 넘게, 식물 320종 넘게 있어요.",
+          "source": "saigonzoo_home",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c4",
+          "text_ko": "동남아시아동물원협회(SEAZA) 회원이에요.",
+          "source": "saigonzoo_history",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "반려동물은 관람 구역에 데려갈 수 없어요. 경내 Zoo Home Pet에 맡길 수 있어요.",
+          "source": "saigonzoo_visit",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "온라인으로 산 표는 나누거나 환불할 수 없어요.",
+          "source": "saigonzoo_visit",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "문 닫기 전에 표 판매를 먼저 멈춰요.",
+          "source": "saigonzoo_visit",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "정문(A문)은 응우옌빈키엠 거리에 있어요.",
+          "source": "saigonzoo_visit",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "none"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "saigonzoo_visit",
+        "last_verified": "2026-10-09"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "saigonzoo_visit",
+        "last_verified": "2026-10-09"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_vn",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 206,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:H%E1%BB%93_n%C6%B0%E1%BB%9Bc_%E1%BB%9F_Th%E1%BA%A3o_C%E1%BA%A7m_Vi%C3%AAn.JPG",
+      "source": "wd",
+      "last_verified": "2026-10-09"
+    },
+    {
+      "id": "phu-quoc-prison",
+      "qid": "Q10800918",
+      "names": {
+        "ko": "푸꾸옥 감옥",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Phu Quoc Prison",
+        "local": "Nhà tù Phú Quốc",
+        "local_short": "Nhà tù Phú Quốc",
+        "local_lang": "vi",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "코코넛 감옥",
+        "푸꾸옥 포로수용소"
+      ],
+      "aliases_en": [
+        "Coconut Tree Prison"
+      ],
+      "mentions_ko": [],
+      "region": "vn_phuquoc",
+      "area_ko": "푸꾸옥 안터이",
+      "category": "heritage",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 10.044333,
+        "lng": 104.017833,
+        "source": "wd",
+        "qid": "Q10800918",
+        "osm": null,
+        "last_verified": "2026-10-09"
+      },
+      "address_local": null,
+      "access": null,
+      "official_url": "https://dulich.angiang.gov.vn/destination/detail/1298",
+      "wiki": {
+        "en": "Phú Quốc Prison"
+      },
+      "summary_ko": "푸꾸옥 안터이에 있는 옛 포로수용소 유적이에요.",
+      "body_ko": [
+        "푸꾸옥 감옥은 안터이에 있는 옛 포로수용소 자리로, 국가특별유적으로 지정돼 있어요.",
+        "수용소는 1967년 6월부터 1973년 3월까지 쓰였어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "안터이에 있는 국가특별유적이에요.",
+          "source": "angiang_dl_prison",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c2",
+          "text_ko": "포로수용소로 1967년 6월부터 1973년 3월까지 쓰였어요.",
+          "source": "angiang_dl_prison",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "tips_ko": [],
+      "facts": {
+        "kind": "facility",
+        "entry": "unknown",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "angiang_dl_prison",
+        "last_verified": "2026-10-09"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "angiang_dl_prison",
+        "last_verified": "2026-10-09"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_vn",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 202,
+        "designations": [
+          {
+            "kind": "vn_special_national_relic",
+            "name_ko": "국가특별유적",
+            "source": "angiang_dl_prison"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Gef%C3%A4ngnisanlage_auf_Phu_Quoc_%22Coconut_Tree_Prison%22.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-09"
+    },
+    {
+      "id": "phu-quoc-national-park",
+      "qid": "Q1749599",
+      "names": {
+        "ko": "푸꾸옥 국립공원",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Phu Quoc National Park",
+        "local": "Vườn quốc gia Phú Quốc",
+        "local_short": "Vườn quốc gia Phú Quốc",
+        "local_lang": "vi",
+        "source": "wd"
+      },
+      "aliases_ko": [],
+      "aliases_en": [
+        "Phú Quốc National Park"
+      ],
+      "mentions_ko": [],
+      "region": "vn_phuquoc",
+      "area_ko": "푸꾸옥 북동부",
+      "category": "nature",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 10.325,
+        "lng": 103.95,
+        "source": "wd",
+        "qid": "Q1749599",
+        "osm": null,
+        "last_verified": "2026-10-09"
+      },
+      "address_local": null,
+      "access": null,
+      "official_url": "https://vqgpq.angiang.gov.vn/",
+      "wiki": {
+        "en": "Phú Quốc National Park"
+      },
+      "summary_ko": "푸꾸옥섬 북동쪽의 숲과 산을 지키는 국립공원이에요.",
+      "body_ko": [
+        "푸꾸옥 국립공원은 섬 북동쪽에 있고, 넓이가 섬의 70%를 차지해요.",
+        "가장 높은 산은 해발 603m인 쭈아산이에요.",
+        "2001년 국립공원으로 높여 지정됐고, 키엔장 생물권보전지역에 속해요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "섬 북동쪽에 있고 넓이는 31,422ha로 섬의 70%를 차지해요.",
+          "source": "angiang_dl_vqgpq",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c2",
+          "text_ko": "가장 높은 산은 해발 603m인 쭈아산(누이쭈아)이에요.",
+          "source": "angiang_dl_vqgpq",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c3",
+          "text_ko": "2001년 정부 결정으로 국립공원으로 높여 지정됐어요.",
+          "source": "angiang_dl_vqgpq",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c4",
+          "text_ko": "유네스코가 인정한 키엔장 생물권보전지역의 일부예요.",
+          "source": "angiang_dl_vqgpq",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "tips_ko": [],
+      "facts": {
+        "kind": "facility",
+        "entry": "unknown",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "angiang_dl_vqgpq",
+        "last_verified": "2026-10-09"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "angiang_dl_vqgpq",
+        "last_verified": "2026-10-09"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_vn",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 203,
+        "designations": [
+          {
+            "kind": "vn_national_park",
+            "name_ko": "국립공원(2001)",
+            "source": "angiang_dl_vqgpq"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-09"
+    },
+    {
+      "id": "sao-beach",
+      "qid": "Q32199900",
+      "names": {
+        "ko": "사오 해변",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Sao Beach",
+        "local": "Bãi Sao",
+        "local_short": "Bãi Sao",
+        "local_lang": "vi",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "바이사오",
+        "사오 비치"
+      ],
+      "aliases_en": [
+        "Bai Sao"
+      ],
+      "mentions_ko": [],
+      "region": "vn_phuquoc",
+      "area_ko": "푸꾸옥 남부",
+      "category": "sea_island",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 10.057298,
+        "lng": 104.036392,
+        "source": "wd",
+        "qid": "Q32199900",
+        "osm": null,
+        "last_verified": "2026-10-09"
+      },
+      "address_local": null,
+      "access": null,
+      "official_url": "https://dulich.angiang.gov.vn/destination/detail/1309",
+      "summary_ko": "푸꾸옥섬 남쪽에 있는 모래 해변이에요.",
+      "body_ko": [
+        "사오 해변은 푸꾸옥섬 남쪽에 있는 해변으로, 해안선이 7km쯤 이어져요.",
+        "이름은 해 질 녘 불가사리가 바다에서 해변으로 올라온다는 옛이야기에서 왔다고 해요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "푸꾸옥섬 남쪽에 있어요.",
+          "source": "angiang_dl_baisao",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c2",
+          "text_ko": "해안선이 7km쯤 이어지고, 모래사장과 야자수가 있어요.",
+          "source": "angiang_dl_baisao",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c3",
+          "text_ko": "이름은 해 질 녘 불가사리(사오비엔)가 해변으로 올라온다는 옛이야기에서 왔다고 해요.",
+          "source": "angiang_dl_baisao",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "남서풍을 피하는 자리라 바다가 얕은 편이에요.",
+          "source": "angiang_dl_baisao",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "facts": {
+        "kind": "public_space"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "angiang_dl_baisao",
+        "last_verified": "2026-10-09"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_vn",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 207,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Phu_quoc_plage_sao.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-09"
+    },
+    {
+      "id": "sun-world-hon-thom",
+      "qid": "Q48078466",
+      "names": {
+        "ko": "선월드 혼텀",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Sun World Hon Thom",
+        "local": "Cáp treo Hòn Thơm",
+        "local_short": "Cáp treo Hòn Thơm",
+        "local_lang": "vi",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "혼텀 케이블카",
+        "혼똠 케이블카",
+        "선월드 혼똠"
+      ],
+      "aliases_en": [
+        "Hon Thom cable car",
+        "Hon Thom Nature Park"
+      ],
+      "mentions_ko": [],
+      "region": "vn_phuquoc",
+      "area_ko": "푸꾸옥 안터이·혼텀섬",
+      "category": "theme_park",
+      "tags": [
+        {
+          "id": "cable_car",
+          "source": "sunworld_honthom",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "geo": {
+        "kind": "station",
+        "lat": 10.027054,
+        "lng": 104.007388,
+        "source": "wd",
+        "qid": "Q48078466",
+        "osm": null,
+        "last_verified": "2026-10-09"
+      },
+      "address_local": null,
+      "access": null,
+      "official_url": "https://sunworld.vn/en/hon-thom",
+      "summary_ko": "케이블카로 바다를 건너 들어가는 섬의 놀이·휴양 단지예요.",
+      "body_ko": [
+        "선월드 혼텀은 푸꾸옥 남쪽 안터이 군도의 혼텀섬에 있는 놀이·휴양 단지예요.",
+        "섬까지는 바다를 건너는 케이블카를 타고 가요.",
+        "섬에는 놀이기구가 20개 넘게 있는 물놀이 공원 아쿠아토피아가 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "푸꾸옥 남쪽 안터이 군도의 혼텀섬에 있는 놀이·휴양 단지예요.",
+          "source": "sunworld_honthom",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c2",
+          "text_ko": "바다를 건너는 케이블카로 손님을 섬까지 실어 날라요.",
+          "source": "sunworld_honthom",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c3",
+          "text_ko": "물놀이 공원 아쿠아토피아에 놀이기구가 20개 넘게 있어요.",
+          "source": "sunworld_honthom",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c4",
+          "text_ko": "선월드가 운영하는 혼텀 자연공원(놀이 단지)이에요.",
+          "source": "angiang_dl_honthom",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "음식·음료·반려동물은 가지고 들어갈 수 없어요.",
+          "source": "sunworld_honthom",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "수영복은 안에서 살 수 있지만 빌려주지는 않아요.",
+          "source": "sunworld_honthom",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "한 번 산 표는 환불하거나 바꿀 수 없어요.",
+          "source": "sunworld_honthom",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "물품 보관함이 있어요. 자세한 건 직원에게 물어보면 돼요.",
+          "source": "sunworld_honthom",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "sunworld_honthom",
+        "last_verified": "2026-10-09"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "sunworld_honthom",
+        "last_verified": "2026-10-09"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_vn",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 208,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:H%C3%B2n_Th%C6%A1m_cable_car_station.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-09"
+    }
+  ],
+  "sources": [
+    {
+      "id": "wd",
+      "name": "Wikidata",
+      "url": "https://www.wikidata.org/",
+      "use": "skeleton",
+      "license": "CC0"
+    },
+    {
+      "id": "mofa_vn",
+      "name": "외교부 해외안전여행(레디포트 VN 팩 safety 섹션, 2026-10-02 확인)",
+      "url": "https://www.0404.go.kr/",
+      "use": "advisory"
+    },
+    {
+      "id": "dinhdoclap_en",
+      "name": "Independence Palace Historic Site (Reunification Hall, official, English)",
+      "url": "https://dinhdoclap.gov.vn/en/",
+      "use": "facts"
+    },
+    {
+      "id": "dinhdoclap_en_history",
+      "name": "Independence Palace — History (official, English)",
+      "url": "https://dinhdoclap.gov.vn/en/history-of-the-independent-palace/",
+      "use": "facts"
+    },
+    {
+      "id": "dinhdoclap_en_arch",
+      "name": "Independence Palace — Architecture (official, English)",
+      "url": "https://dinhdoclap.gov.vn/en/independence-palace-architecture/",
+      "use": "facts"
+    },
+    {
+      "id": "dinhdoclap_en_site",
+      "name": "Independence Palace — National Historic Site (official, English)",
+      "url": "https://dinhdoclap.gov.vn/en/the-independence-palace-national-historic-site/",
+      "use": "facts"
+    },
+    {
+      "id": "dinhdoclap_en_faq",
+      "name": "Independence Palace — Contact & FAQs (official, English)",
+      "url": "https://dinhdoclap.gov.vn/en/contact/",
+      "use": "facts"
+    },
+    {
+      "id": "dinhdoclap_en_audio",
+      "name": "Independence Palace — Audio guide (official, English)",
+      "url": "https://dinhdoclap.gov.vn/en/using-the-automatic-audio-guide-device/",
+      "use": "facts"
+    },
+    {
+      "id": "dinhdoclap_en_free",
+      "name": "Independence Palace — Free exploration (official, English)",
+      "url": "https://dinhdoclap.gov.vn/en/free-exploration/",
+      "use": "facts"
+    },
+    {
+      "id": "dinhdoclap_vi",
+      "name": "Di tích lịch sử Dinh Độc Lập (official, Vietnamese)",
+      "url": "https://dinhdoclap.gov.vn/",
+      "use": "facts"
+    },
+    {
+      "id": "wrm_en",
+      "name": "War Remnants Museum (official, English)",
+      "url": "https://baotangchungtichchientranh.vn/en",
+      "use": "facts"
+    },
+    {
+      "id": "wrm_vi",
+      "name": "Bảo tàng Chứng tích Chiến tranh (official, Vietnamese)",
+      "url": "https://baotangchungtichchientranh.vn/vi",
+      "use": "facts"
+    },
+    {
+      "id": "benthanh_about",
+      "name": "Ban Quản lý chợ Bến Thành — Giới thiệu (official)",
+      "url": "https://benthanhmarket.vn/about/gioi-thieu-ve-cho-ben-thanh.html",
+      "use": "facts"
+    },
+    {
+      "id": "benthanh_rules",
+      "name": "Ban Quản lý chợ Bến Thành — Nội quy chợ (official)",
+      "url": "https://benthanhmarket.vn/about/noi-quy-cho.html",
+      "use": "facts"
+    },
+    {
+      "id": "benthanh_relic",
+      "name": "Ban Quản lý chợ Bến Thành — Chợ Bến Thành được xếp hạng di tích cấp thành phố (official)",
+      "url": "https://benthanhmarket.vn/tin-cho-ben-thanh/cho-ben-thanh-duoc-xep-hang-di-tich-cap-thanh-pho-139.html",
+      "use": "facts"
+    },
+    {
+      "id": "benthanh_year",
+      "name": "Ban Quản lý chợ Bến Thành — Chợ Bến Thành được xây dựng năm nào? (official)",
+      "url": "https://benthanhmarket.vn/tin-cho-ben-thanh/cho-ben-thanh-duoc-xay-dung-nam-nao-150.html",
+      "use": "facts"
+    },
+    {
+      "id": "saigonzoo_home",
+      "name": "Thảo Cầm Viên Sài Gòn — Saigon Zoo & Botanical Gardens (official)",
+      "url": "https://saigonzoo.vn/",
+      "use": "facts"
+    },
+    {
+      "id": "saigonzoo_visit",
+      "name": "Thảo Cầm Viên Sài Gòn — Một ngày tại Thảo Cầm Viên (official visitor guide)",
+      "url": "https://saigonzoo.vn/mot-ngay-tai-thao-cam-vien-56.html",
+      "use": "facts"
+    },
+    {
+      "id": "saigonzoo_history",
+      "name": "Thảo Cầm Viên Sài Gòn — Quá trình hình thành và phát triển (official)",
+      "url": "https://saigonzoo.vn/thao-cam-vien-sai-gon-qua-trinh-hinh-thanh-va-phat-trien-57.html",
+      "use": "facts"
+    },
+    {
+      "id": "angiang_dl_prison",
+      "name": "Du lịch An Giang (Sở Du lịch tỉnh An Giang, official portal) — Khu Di tích Quốc gia đặc biệt Trại giam Phú Quốc",
+      "url": "https://dulich.angiang.gov.vn/destination/detail/1298",
+      "use": "facts"
+    },
+    {
+      "id": "angiang_dl_vqgpq",
+      "name": "Du lịch An Giang (Sở Du lịch tỉnh An Giang, official portal) — Khu du lịch Vườn Quốc gia Phú Quốc",
+      "url": "https://dulich.angiang.gov.vn/destination/detail/1297",
+      "use": "facts"
+    },
+    {
+      "id": "angiang_dl_baisao",
+      "name": "Du lịch An Giang (Sở Du lịch tỉnh An Giang, official portal) — Điểm du lịch Bãi Sao",
+      "url": "https://dulich.angiang.gov.vn/destination/detail/1309",
+      "use": "facts"
+    },
+    {
+      "id": "angiang_dl_honthom",
+      "name": "Du lịch An Giang (Sở Du lịch tỉnh An Giang, official portal) — Khu du lịch Cáp treo Hòn Thơm",
+      "url": "https://dulich.angiang.gov.vn/destination/detail/1299",
+      "use": "facts"
+    },
+    {
+      "id": "sunworld_honthom",
+      "name": "Sun World Hon Thom (Sun World Group, operator, English)",
+      "url": "https://sunworld.vn/en/hon-thom",
+      "use": "facts"
+    }
+  ]
+}
