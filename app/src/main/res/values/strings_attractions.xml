@@ -171,6 +171,8 @@
     <string name="attractions_not_found">이 관광지를 찾지 못했어요</string>
     <!-- 관광지 데이터 출처 표시(출처가 표시를 조건으로 할 때 — build_attractions.py 가 settings_credit_<출처 id> 를 확인한다) -->
     <string name="credits_data_title">관광지 정보 출처</string>
+    <string name="credits_data_body">관광지 안내 가운데 출처 표시를 조건으로 하는 기관의 자료예요. 각 관광지 화면에도 출처를 적어 두었어요.</string>
+    <string name="credits_data_expand">출처 %1$d곳 보기</string>
     <string name="settings_credit_bunka_osakajo">문화청 국가지정문화재 데이터베이스 — 오사카성 터(특별사적)</string>
     <string name="settings_credit_bunka_narapark">문화청 국가지정문화재 데이터베이스 — 나라 공원(명승)</string>
     <string name="settings_credit_unesco_688">UNESCO World Heritage Centre — Historic Monuments of Ancient Kyoto (component parts) — 금각사·기요미즈데라·니조성</string>
@@ -192,6 +194,39 @@
     <string name="settings_credit_bunka_takegawara">文化庁 国指定文化財等データベース — 다케가와라 온천</string>
     <string name="settings_credit_bunka_tokeidai">文化庁 国指定文化財等データベース — 삿포로 시계탑</string>
     <string name="settings_credit_bunka_moiwa">文化庁 国指定文化財等データベース — 모이와산</string>
+    <string name="settings_credit_unesco_948">UNESCO 세계유산센터 — 호이안 고대 도시</string>
+    <string name="settings_credit_unesco_949">UNESCO 세계유산센터 — 미선 유적</string>
+    <string name="settings_credit_dsvh_special">베트남 문화유산국(Cục Di sản văn hóa) 특별 국가유적 목록 — 탕롱 황성·문묘·하롱베이·짱안·땀꼭</string>
+    <string name="settings_credit_unesco_1328">UNESCO 세계유산센터 — 탕롱-하노이 황성 중심 구역</string>
+    <string name="settings_credit_unesco_672">UNESCO 세계유산센터 — 하롱베이-깟바 군도</string>
+    <string name="settings_credit_unesco_1438">UNESCO 세계유산센터 — 짱안 경관 단지</string>
+    <string name="settings_credit_unesco_mow_watpho">UNESCO Memory of the World — Epigraphic Archives of Wat Pho — 왓 포</string>
+    <string name="settings_credit_unesco_576">UNESCO World Heritage Centre — Historic City of Ayutthaya — 아유타야 역사공원</string>
+    <string name="settings_credit_cnx_unesco_tl">UNESCO World Heritage Centre — Tentative Lists: Monuments, Sites and Cultural Landscape of Chiang Mai, Capital of Lanna (official) — 왓 체디루앙·왓 프라싱·왓 프라탓 도이수텝·타패문</string>
+    <string name="settings_credit_unesco_1483">UNESCO World Heritage Centre — Singapore Botanic Gardens — 싱가포르 보태닉 가든</string>
+    <string name="settings_credit_unesco_1223">UNESCO World Heritage Centre — Melaka and George Town, Historic Cities of the Straits of Malacca — 네덜란드 광장·세인트폴 언덕·조지타운 역사 도시</string>
+    <string name="settings_credit_unesco_592">UNESCO World Heritage Centre — Borobudur Temple Compounds — 보로부두르 사원</string>
+    <string name="settings_credit_unesco_642">UNESCO World Heritage Centre — Prambanan Temple Compounds — 프람바난 사원</string>
+    <string name="settings_credit_unesco_1671">UNESCO World Heritage Centre — The Cosmological Axis of Yogyakarta and its Historic Landmarks — 족자카르타 왕궁</string>
+    <string name="settings_credit_boch_npm">文化部文化資產局 國家文化資產網 開放資料 — 國立故宮博物院(歷史建築) — 국립고궁박물원</string>
+    <string name="settings_credit_boch_cksmh">文化部文化資產局 國家文化資產網 開放資料 — 臺灣民主紀念園區(國定古蹟) — 중정기념당</string>
+    <string name="settings_credit_boch_longshan">文化部文化資產局 國家文化資產網 開放資料 — 艋舺龍山寺(國定古蹟) — 룽산사</string>
+    <string name="settings_credit_boch_ximending_redhouse">文化部文化資產局 國家文化資產網 開放資料 — 西門紅樓（原新起街市場）(直轄市定古蹟) — 시먼딩</string>
+    <string name="settings_credit_boch_fort_san_domingo">文化部文化資產局 國家文化資產網 開放資料 — 淡水紅毛城(國定古蹟) — 단수이 홍마오청</string>
+    <string name="settings_credit_boch_beitou_bathhouse">文化部文化資產局 國家文化資產網 開放資料 — 北投公共浴場(直轄市定古蹟) — 베이터우 온천박물관</string>
+    <string name="settings_credit_boch_gold_taizi">文化部文化資產局 國家文化資產網 開放資料 — 金瓜石太子賓館(直轄市定古蹟) — 진과스 황금박물관</string>
+    <string name="settings_credit_boch_chihkan">文化部文化資產局 國家文化資產網 開放資料 — 赤嵌樓(國定古蹟) — 적감루</string>
+    <string name="settings_credit_boch_anping">文化部文化資產局 國家文化資產網 開放資料 — 熱蘭遮堡遺構(國定古蹟) — 안평고보</string>
+    <string name="settings_credit_boch_tainan_confucius">文化部文化資產局 國家文化資產網 開放資料 — 臺南孔子廟(國定古蹟) — 타이난 공자묘</string>
+    <string name="settings_credit_boch_eternal_golden_castle">文化部文化資產局 國家文化資產網 開放資料 — 二鯤鯓礮臺(億載金城)(國定古蹟) — 억재금성</string>
+    <string name="settings_credit_boch_cihou_fort">文化部文化資產局 國家文化資產網 開放資料 — 旗後礮臺(國定古蹟) — 치허우 포대</string>
+    <string name="settings_credit_unesco_439">UNESCO World Heritage Centre — Imperial Palaces of the Ming and Qing Dynasties in Beijing and Shenyang — 구궁 박물원</string>
+    <string name="settings_credit_unesco_881">UNESCO World Heritage Centre — Temple of Heaven: an Imperial Sacrificial Altar in Beijing — 톈탄</string>
+    <string name="settings_credit_unesco_880">UNESCO World Heritage Centre — Summer Palace, an Imperial Garden in Beijing — 이허위안</string>
+    <string name="settings_credit_unesco_438">UNESCO World Heritage Centre — The Great Wall — 바다링 만리장성</string>
+    <string name="settings_credit_unesco_813">UNESCO World Heritage Centre — Classical Gardens of Suzhou — 류위안·줘정위안</string>
+    <string name="settings_credit_unesco_677">UNESCO World Heritage Centre — Baroque Churches of the Philippines — 산 아구스틴 성당</string>
+    <string name="settings_credit_unesco_bohol_geopark">UNESCO — Bohol Island UNESCO Global Geopark — 초콜릿 힐</string>
     <string name="settings_credit_unesco_870">UNESCO 세계유산센터 — 고대 나라의 역사기념물</string>
 
     <!-- 관광지 지도 (Google 지도 SDK, 사장님 결정 2026-10-09). 키가 없거나 중국이면 지도 없이 '구글 지도에서 열기'만 -->

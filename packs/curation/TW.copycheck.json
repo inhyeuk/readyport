@@ -1,0 +1,117 @@
+{
+  "anping-old-fort": {
+    "cache_set_sha256": "abc7386dbbe6a8edc82e79d9721b3217dca1104f4324b6a8c0918e473f53a26c",
+    "checked_at": "2026-10-10",
+    "text_sha256": "7b577bfaffe2d83621f3a1e8c1cf0f1fde3d935d22a7338be6f683416cebe109"
+  },
+  "beitou-hot-spring-museum": {
+    "cache_set_sha256": "24ca1e25bf735380a5fe013bf6393018231ba33ecf767fc337a26c3a1f03a334",
+    "checked_at": "2026-10-10",
+    "text_sha256": "8d31fbcefe0d713675d919526ffcbf87cc43d57a8f154dea75629a846330e66c"
+  },
+  "beitou-thermal-valley": {
+    "cache_set_sha256": "dfd965758dc62a04b72ee98ae0311082baa5b83c3f4144c134b19ad5bfc55738",
+    "checked_at": "2026-10-10",
+    "text_sha256": "a7113cd6b9a78bd6667de311cd602ab350000b371fed95887e3c4681672df158"
+  },
+  "chiang-kai-shek-memorial-hall": {
+    "cache_set_sha256": "cee09fdae217bc64ccb02a4e951d24efed5f326429e43a7685b667d750fc7c06",
+    "checked_at": "2026-10-10",
+    "text_sha256": "7b01cb62f0dd8f7a49929e0aa267a950dfb3a41839f01722e3da498945b97630"
+  },
+  "chihkan-tower": {
+    "cache_set_sha256": "feb6818d673097f6a6b678de72761db0ddeb1bb653a30b49513d2074cf8f8089",
+    "checked_at": "2026-10-10",
+    "text_sha256": "3af9c6b14271be42b6926512cb6a518c3f8eec197c2be1d29488afe5369f2a8a"
+  },
+  "cihou-fort": {
+    "cache_set_sha256": "ea9fb787477c36380d1c9cbef771bba419249431363376f718a31ed8e6e40a65",
+    "checked_at": "2026-10-10",
+    "text_sha256": "f77fe43be71d929b551b079f38eee2fabe3f0e6c336fab47a3843841d316c770"
+  },
+  "eternal-golden-castle": {
+    "cache_set_sha256": "faf4d846cdb5162bc6232f17c39252b5fbfe5d466354eea39cfb4fa4dce58fcd",
+    "checked_at": "2026-10-10",
+    "text_sha256": "d3f1fbc15497c7c123168c4e61e2c512a46bfb8245555af907cb4cfa52caf003"
+  },
+  "fo-guang-shan": {
+    "cache_set_sha256": "bcd30fad72d9d73a50e9284144f89073ab91e4e4c0bd14ffce60e422bbc3accb",
+    "checked_at": "2026-10-10",
+    "text_sha256": "c6d27962d193e4daeac726c7d1fd5993636d625043023808f423842df23c1438"
+  },
+  "fort-san-domingo": {
+    "cache_set_sha256": "218a626bf5d5bd68b5ebb3056cc5c15a60948e3457c48bc40e273e58dfb6d286",
+    "checked_at": "2026-10-10",
+    "text_sha256": "9966a79d59c1c98e832edfaad2f539d25ace962c0ad2d098fdea6b149294c70a"
+  },
+  "garden-night-market": {
+    "cache_set_sha256": "ffcc01ac5a6a7b835c770b19ccf21e29edef8d9e2f171c97b09b88093494c893",
+    "checked_at": "2026-10-10",
+    "text_sha256": "6268441b8856e753bc9003626caed4f9594eda5e9947a19e1446a1796dad7da8"
+  },
+  "gold-museum": {
+    "cache_set_sha256": "73df3a8d59a7db8bb54a2abf9a9f6629add1eac53500a30a88e9db1141753d6e",
+    "checked_at": "2026-10-10",
+    "text_sha256": "2fe97f26f9819d0ec68522f9f7471851b5086215eb1c05e0aea6b986469930e8"
+  },
+  "jiufen-old-street": {
+    "cache_set_sha256": "d54c60bfb494696c628c298a4170f5328651701dcd98d0107c8eb914e582bf33",
+    "checked_at": "2026-10-10",
+    "text_sha256": "bee27bd497bd762d9e912bda20dab4b66db370a8999b23151b67676500e40df8"
+  },
+  "liuhe-night-market": {
+    "cache_set_sha256": "3308d1fe4e2ecd33b3f9b42bcd81626e057266426e5fc96889e923920869ed1b",
+    "checked_at": "2026-10-10",
+    "text_sha256": "6da5b44cdb2488372ce4301972eada77c82f73188719e562f31212ba0cc6b0cc"
+  },
+  "longshan-temple": {
+    "cache_set_sha256": "aa853fb8d80dd70c58a7254157132e32c226ead9070aeec14c98720a8836e5d6",
+    "checked_at": "2026-10-10",
+    "text_sha256": "7bd3913eb5629f62827f16b1fc1c4ff7a1353bb380ca84d27e55c71082d4a8e9"
+  },
+  "lotus-pond": {
+    "cache_set_sha256": "dc6f1ebace13768ccd9c8117fa530e0e667c89ce993e5fe5292979c22eb75d33",
+    "checked_at": "2026-10-10",
+    "text_sha256": "0e219b327879b124537062e60bd29f0cef2d29aaca31d0518a0965b742889400"
+  },
+  "national-palace-museum": {
+    "cache_set_sha256": "44055c8c888cca9868fbcacaee0c4bec3186bb56542c7894d8f55eecb38a1489",
+    "checked_at": "2026-10-10",
+    "text_sha256": "9c4dd25f5599c95e9145ba5573b7a39ef4714ec143dcd36f32fbbb649ada4451"
+  },
+  "pier-2-art-center": {
+    "cache_set_sha256": "37870311691a802ad959d2b8c942e3bc69f4e6c2684e6cfb613770c9493afe9f",
+    "checked_at": "2026-10-10",
+    "text_sha256": "ce88533ccf43284af9d1478bb3dd2bd9b508c56f9d4675cc1cece973e0db2648"
+  },
+  "shifen-old-street": {
+    "cache_set_sha256": "d6b474631882fa02a974263bcaa7e750ef60e2838204a39ca9caa773b91eed4f",
+    "checked_at": "2026-10-10",
+    "text_sha256": "2a96395c6e03b3ad39d5d2e6dcb41b0249c4dc7c069012fa749ce01a8ba53772"
+  },
+  "shilin-night-market": {
+    "cache_set_sha256": "45c00c7728c128ba99a0893cfaba74d6873940fc0e18ab63887dedbe6dc72a1d",
+    "checked_at": "2026-10-10",
+    "text_sha256": "1eb8125702ef1d53139068c248c6e5d9df7fe02c7fb0de6ff0a4430094939a2a"
+  },
+  "tainan-confucius-temple": {
+    "cache_set_sha256": "815f5abf14ef5c6c54e3954f89896add8232b990e1d71ca908ba86189583a559",
+    "checked_at": "2026-10-10",
+    "text_sha256": "8acfa69887de6f360844f7cbb7540c2d551ef95899b42ccc6b3474b67ca6e0bd"
+  },
+  "taipei-101-observatory": {
+    "cache_set_sha256": "d0ca4ef2d8639e2e78a87ba19a013b1d93e162b80860ca2de0563f0dae1a335f",
+    "checked_at": "2026-10-10",
+    "text_sha256": "fd5e786d88b30c0e8391f5ff51222965a52fdd69c9897941768f3d94363ee45d"
+  },
+  "ximending": {
+    "cache_set_sha256": "0e15b26369e2ab896b0d5d8a2c91a1884a116c47588a1f071101e410c6063626",
+    "checked_at": "2026-10-10",
+    "text_sha256": "cff66279f4b74102e7d4fa0f1ea84f2802614f61719bedba56b53cc879e52efb"
+  },
+  "yehliu-geopark": {
+    "cache_set_sha256": "e09939c95b657c92bf7fcfb7d8e06f5805bf549a2eceae4cd0c247bea47d29d5",
+    "checked_at": "2026-10-10",
+    "text_sha256": "f0e4fd7a018397010ca60dd92818a493f5864a45b662650a748b7fd31bd64203"
+  }
+}

@@ -1,0 +1,82 @@
+{
+  "798-art-zone": {
+    "cache_set_sha256": "878dc37818acaa588babf0582dad410c2eab64d46bb07f99ec3400407a45c464",
+    "checked_at": "2026-10-10",
+    "text_sha256": "69702573284fa7c222c78e3ed17679437dd3eb509bdf74126531fb53446b3ea9"
+  },
+  "badaling-great-wall": {
+    "cache_set_sha256": "5dc909769ee4c4e5a9aafe374613dacde0790baecf18e4e27e0c926001cf9424",
+    "checked_at": "2026-10-10",
+    "text_sha256": "92af7bfda450cc7d96192421ed634346e9346b6f07ab834ee972f14c37844f47"
+  },
+  "forbidden-city": {
+    "cache_set_sha256": "ec43918d48d0bdc9413eaf9265ce61f2340a71008e75da9fe76b05a9e1890fdd",
+    "checked_at": "2026-10-10",
+    "text_sha256": "dc1b494e3b0a5c4cc19a37f33ab7127a85215d2304a2d60816524db16d7345c4"
+  },
+  "humble-administrators-garden": {
+    "cache_set_sha256": "0596df050b5f45927371697a5a50f08b450b5fd55504221f50abcc48bcce348c",
+    "checked_at": "2026-10-10",
+    "text_sha256": "9150270d676801d83480284b286b5fd80712a41ed1ae8b970763d9cd5c159834"
+  },
+  "lingering-garden": {
+    "cache_set_sha256": "8d9186b67f1129fe7c93680d871057c75356e28fca9f9fec71eca5ca519d69e9",
+    "checked_at": "2026-10-10",
+    "text_sha256": "4fff4151f3973fc23e60966ba3992368cfc60b26c04890773c04681f062f943a"
+  },
+  "mutianyu-great-wall": {
+    "cache_set_sha256": "df101832b8ee245d6e62ce3b01a961d6b63c8bc7d61ba857433af75e2ec7ee8b",
+    "checked_at": "2026-10-10",
+    "text_sha256": "a9d33b94b4f70894bb2a4f233ccf328d946748d9706c6155d63df88a65309112"
+  },
+  "nanjing-road": {
+    "cache_set_sha256": "cb581a7cb93dc6e5b2c807768054dac5cada7dfc6438ed023d003c2d04fac368",
+    "checked_at": "2026-10-10",
+    "text_sha256": "7267852ddc532a4d1a2ab4d1a5552d2f5f15d43192bd6b7b0b46ece4d8cf8bf3"
+  },
+  "national-museum-of-china": {
+    "cache_set_sha256": "35d6067ce713c34f20e7eeddc45ef4f6da502cc959924aca8194dc299351dfb3",
+    "checked_at": "2026-10-10",
+    "text_sha256": "f52caeefaf737c3e6b54de3d38534b0c9ed64aa0fd52c473a7565a36d8a20bbd"
+  },
+  "oriental-pearl-tower": {
+    "cache_set_sha256": "558c59af7d212c1b88a22049eb03b77f57b31c6aa846857aefb066626fc69018",
+    "checked_at": "2026-10-10",
+    "text_sha256": "c02242bcbc6a1a0043341c6e1ac2986a4b09b0995cdeb9918a535a23f75924c2"
+  },
+  "shanghai-museum": {
+    "cache_set_sha256": "d84fae9f9918aaaf028440676be61cd95f5884c79a6cf3f81b5e368db6b68a71",
+    "checked_at": "2026-10-10",
+    "text_sha256": "3931ae83c5a9aec32d85021128fea6fa19818e511094cc02a1c83a8c8252181b"
+  },
+  "summer-palace": {
+    "cache_set_sha256": "90f2b6a641cbefe3bb12359a3eb6ce58a24f263efe333bb769d8c0f99ddec5c3",
+    "checked_at": "2026-10-10",
+    "text_sha256": "d9d9a60a84c794004af7c6fb6ef4716428f81dfc8fb037998d9691ee827eaccc"
+  },
+  "temple-of-heaven": {
+    "cache_set_sha256": "29ee2e9f4674960567eec46be2b145766c5870ebda5ba15baa0e90f87c8e5523",
+    "checked_at": "2026-10-10",
+    "text_sha256": "d262ce44dd1190c2908b9d48f7bb65428472b23d93ce8da752b1a7945ad25a6d"
+  },
+  "the-bund": {
+    "cache_set_sha256": "9986f4ffb586a2d796b2fb868f36450fa68a9cde516f2a8b3d18f16c31efb258",
+    "checked_at": "2026-10-10",
+    "text_sha256": "8de19e711d8496e6b8e26b0eaacb7b8d0b94336afa32736d16c50084fdef9ac3"
+  },
+  "wangfujing": {
+    "cache_set_sha256": "8b7d9cb346fb8ec8fae60700efc8d2a3c2df8122ba5b2259603cc7b9a7f0824a",
+    "checked_at": "2026-10-10",
+    "text_sha256": "de929e594a8b72b2f29bbd4ac56167e04956ffc5104b5b12cdfb30bf12867d03"
+  },
+  "xintiandi": {
+    "cache_set_sha256": "bef548bfcd68d2ec351858619f4a48b8bea134f6f165d9aabeb707584852effe",
+    "checked_at": "2026-10-10",
+    "text_sha256": "0400646fa7a7cb8780e006a0419a044e408457f631b53123dd46a4e9195184c9"
+  },
+  "yu-garden": {
+    "cache_set_sha256": "803966aabf767dc17186b521f4e53e4bbbd683e55f575be3d132254d7f117650",
+    "checked_at": "2026-10-10",
+    "text_sha256": "4819cbfa6008755b45b7599828bb14298f20b3ab7cc17abb5388fafc2c62669a"
+  }
+}

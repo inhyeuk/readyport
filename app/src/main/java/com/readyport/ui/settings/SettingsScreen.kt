@@ -88,6 +88,7 @@ import com.readyport.ui.components.AppScreen
 import com.readyport.ui.components.ChoiceSegments
 import com.readyport.ui.components.IconBullet
 import com.readyport.ui.components.InfoChip
+import com.readyport.ui.components.ExpandableDetail
 import com.readyport.ui.components.KoText
 import com.readyport.ui.components.LinkRow
 import com.readyport.ui.components.ListDivider
@@ -613,8 +614,15 @@ fun PhotoCreditsContent(credits: List<PhotoCredit>, onOpenLink: (String) -> Unit
             SectionHeader(stringResource(R.string.credits_data_title), icon = Icons.Outlined.PhotoLibrary)
         }
         item(key = "data-credits") {
+            // 출처가 30곳 넘어 접어 둔다(쉬운 모드에서 화면이 지나치게 길어지지 않게). 펼치면 전부 보인다
             CreditCard {
-                AttractionDataCredits.forEach { id -> KoText(stringResource(id), MaterialTheme.typography.bodyMedium, color = Tokens.Ink) }
+                KoText(stringResource(R.string.credits_data_body), MaterialTheme.typography.bodyMedium, color = Tokens.InkSecondary)
+                ExpandableDetail(
+                    label = stringResource(R.string.credits_data_expand, AttractionDataCredits.size),
+                    target = stringResource(R.string.credits_data_title),
+                ) {
+                    AttractionDataCredits.forEach { id -> KoText(stringResource(id), MaterialTheme.typography.bodyMedium, color = Tokens.Ink) }
+                }
             }
         }
     }
@@ -625,6 +633,39 @@ private val AttractionDataCredits = listOf(
     R.string.settings_credit_bunka_osakajo,
     R.string.settings_credit_bunka_narapark,
     R.string.settings_credit_unesco_870,
+    R.string.settings_credit_unesco_mow_watpho,
+    R.string.settings_credit_unesco_576,
+    R.string.settings_credit_cnx_unesco_tl,
+    R.string.settings_credit_unesco_1483,
+    R.string.settings_credit_unesco_1223,
+    R.string.settings_credit_unesco_592,
+    R.string.settings_credit_unesco_642,
+    R.string.settings_credit_unesco_1671,
+    R.string.settings_credit_boch_npm,
+    R.string.settings_credit_boch_cksmh,
+    R.string.settings_credit_boch_longshan,
+    R.string.settings_credit_boch_ximending_redhouse,
+    R.string.settings_credit_boch_fort_san_domingo,
+    R.string.settings_credit_boch_beitou_bathhouse,
+    R.string.settings_credit_boch_gold_taizi,
+    R.string.settings_credit_boch_chihkan,
+    R.string.settings_credit_boch_anping,
+    R.string.settings_credit_boch_tainan_confucius,
+    R.string.settings_credit_boch_eternal_golden_castle,
+    R.string.settings_credit_boch_cihou_fort,
+    R.string.settings_credit_unesco_439,
+    R.string.settings_credit_unesco_881,
+    R.string.settings_credit_unesco_880,
+    R.string.settings_credit_unesco_438,
+    R.string.settings_credit_unesco_813,
+    R.string.settings_credit_unesco_677,
+    R.string.settings_credit_unesco_bohol_geopark,
+    R.string.settings_credit_unesco_948,
+    R.string.settings_credit_unesco_949,
+    R.string.settings_credit_dsvh_special,
+    R.string.settings_credit_unesco_1328,
+    R.string.settings_credit_unesco_672,
+    R.string.settings_credit_unesco_1438,
     R.string.settings_credit_unesco_688,
     R.string.settings_credit_bunka_arashiyama,
     R.string.settings_credit_bunka_tsutenkaku,

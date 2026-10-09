@@ -1,0 +1,112 @@
+{
+  "ba-na-hills": {
+    "cache_set_sha256": "eeb96183053e7ff1cd2a8d16e3ae8337c50046a12b9144463833e40b29600746",
+    "checked_at": "2026-10-10",
+    "text_sha256": "4b6b94e6e7c4d0098dedd2eb4f4a02f19c450b5400f2a22a122a8c6a7e03b671"
+  },
+  "ben-thanh-market": {
+    "cache_set_sha256": "3710e5b283db7123135309b7a2d8236d55f3080941c2ac639905681ad24e08b8",
+    "checked_at": "2026-10-10",
+    "text_sha256": "3e366217bf148ab83ae9be05aab3a32f95f1a55253f1a802a6594a0b6cdf4e9e"
+  },
+  "cham-museum": {
+    "cache_set_sha256": "8d270a58b92a9ec40b9bb7ec44aab5ca69cd9b1600f97bbb633c53035d464c79",
+    "checked_at": "2026-10-10",
+    "text_sha256": "4a9404029f49b1a719388766542600a6194cf8fe365277b35ff902e743b3ad41"
+  },
+  "cu-chi-tunnels": {
+    "cache_set_sha256": "b900d1c91cfc86a5936f8f6d27188f39291bc9933bd2d5b95efdd1322b6755dc",
+    "checked_at": "2026-10-10",
+    "text_sha256": "c10c8046d9f51aaebae1fe21c6bfc8b507b865cd4a11d6d00052ae8345497b5d"
+  },
+  "dragon-bridge": {
+    "cache_set_sha256": "cfc5c1fb084f924c29c44ebb07dadb6a1b7835174c325f6eb24c9db8384d7400",
+    "checked_at": "2026-10-10",
+    "text_sha256": "e58f9116322d903afe6e259e9c414292e488c280d374cb6c15b41d8186960ba6"
+  },
+  "ha-long-bay": {
+    "cache_set_sha256": "37506c611e0a2d676347aaee64b731f78aa6e0a0557c278e22e9e14d01a00544",
+    "checked_at": "2026-10-10",
+    "text_sha256": "047b128f854db6cb7dcde6389d76f61930a2e85f02d58b42119b5f0a48a92135"
+  },
+  "hoa-lo-prison": {
+    "cache_set_sha256": "48de65bccd83fe5d0a403afc203ab84abe6262ecb5a29404a212cdacec8269f5",
+    "checked_at": "2026-10-10",
+    "text_sha256": "33e25ed6a99de03384473a6575d068700eb9a2b94551500c223adca24b843145"
+  },
+  "hoi-an-ancient-town": {
+    "cache_set_sha256": "09d5945f19a5e392e21ba5b86c4a3c203a71d16e5be71313ffdb225b8a496c59",
+    "checked_at": "2026-10-10",
+    "text_sha256": "d9f9ad3c8deac091e472006606d22d2ba82e088846f034918e9e6a326bfee08d"
+  },
+  "independence-palace": {
+    "cache_set_sha256": "9f544c37bea77c853d50d89a1d7546c62923d09a0d3c7eeb2640c56efde5dd24",
+    "checked_at": "2026-10-10",
+    "text_sha256": "0487bd69da2f3e3626064e33cb6d72dfccc0ad390581c502157c505fee7ce44c"
+  },
+  "japanese-bridge": {
+    "cache_set_sha256": "1dd55c905bea4dccbded7e9aa25b54c11df84123ff2da182ec09aecc043a4ac5",
+    "checked_at": "2026-10-10",
+    "text_sha256": "335e80e7e3738703bad9092edb1f9a90597b23d3e923cfb9cf7bfc58bd967939"
+  },
+  "long-son-pagoda": {
+    "cache_set_sha256": "dfe0905dd3748dc89bb2293bae7b0bb83fe3d310a2fdf6b50540e2021a32a616",
+    "checked_at": "2026-10-10",
+    "text_sha256": "6404653781a35e1563ef4444d61aa81e5c49e17152a1c08eb0dd4c8c2330e2e3"
+  },
+  "marble-mountains": {
+    "cache_set_sha256": "5c1a4000af25928ee85eb8d0745abcfa97106f0071c25e2a4df76d6b8a7f3b60",
+    "checked_at": "2026-10-10",
+    "text_sha256": "cdafcf564f39da9def1fbb91ea9a9e0bd11a46493565f758695d3f2e54fc79e6"
+  },
+  "my-khe-beach": {
+    "cache_set_sha256": "d6df3234948994d0b3693dbec1b0be49c8028e4198d31bb0d1fed95901b6c32c",
+    "checked_at": "2026-10-10",
+    "text_sha256": "9349f6075736fce5c8ba2fb44edc0229fd6f2e15ac5e27eed6d06646057637a1"
+  },
+  "my-son-sanctuary": {
+    "cache_set_sha256": "b76de7936d4f858275c6a43a2e7c1810e48ecf9c715a9e30448b7d019221f449",
+    "checked_at": "2026-10-10",
+    "text_sha256": "10dedab5f902bbf8b1e51339745c1a6b96c8462089bfa37ba54d7f1b35da3355"
+  },
+  "nha-trang-beach": {
+    "cache_set_sha256": "f22cbb246a158c960d6788cb6b348fdae57bef8314a9054c7e58ceb4b452fc08",
+    "checked_at": "2026-10-10",
+    "text_sha256": "0317c0212b398a4295a59a79c1e4f8bf7fe33547349902033a55535a6c87d5ea"
+  },
+  "po-nagar": {
+    "cache_set_sha256": "9ffdf6e98671ab2df8032b5c0c12297c0fc70b19f11dcec95db8c438ba687adb",
+    "checked_at": "2026-10-10",
+    "text_sha256": "c591f10247454dfc6a76232fcef1fcc039e7bc364479ffb91e458896ad3f7590"
+  },
+  "saigon-zoo": {
+    "cache_set_sha256": "7faf237dc6b55adaed2aad671659e95b522514809cb7ecdfe991771de5dcfdc0",
+    "checked_at": "2026-10-10",
+    "text_sha256": "8f9ab4909dead99a5e3e5e04d4fa66607af780c67b002579f8fd5f3dc7b82eff"
+  },
+  "tam-coc-bich-dong": {
+    "cache_set_sha256": "1d269730cf5ad0b41791866b31692c8b3501d93ed2b36959c784a0138172b7ba",
+    "checked_at": "2026-10-10",
+    "text_sha256": "baa7080e1da4455ff93479931b24aeebb435a3b0ec6d29503fa37398690fb805"
+  },
+  "thang-long-citadel": {
+    "cache_set_sha256": "0c30967675b45d1b71fb13d7d561a5c6fc156519ff083413f5170b18004fdc86",
+    "checked_at": "2026-10-10",
+    "text_sha256": "8f2934b379d21cfc02fa93a706092cf5d29cf980c958265607ac8c323c2e0d72"
+  },
+  "trang-an": {
+    "cache_set_sha256": "f3bc5242faf63fc0cb1f4d07385e5fffc63f679428da8834629ba969bdc238f6",
+    "checked_at": "2026-10-10",
+    "text_sha256": "67e64be2481caa6cc5b9b82ae73bd7ed7404d1333161846b8a8dfb15d6f62ffa"
+  },
+  "van-mieu": {
+    "cache_set_sha256": "175253943eefb52754eb830a287ac8b8228b408288c09dff3f219ec0b1e64e83",
+    "checked_at": "2026-10-10",
+    "text_sha256": "6bad7227567a6e663042cd08ecde7786aa4b179fa3176bd5e4aa30d0cb232e04"
+  },
+  "vinwonders-nha-trang": {
+    "cache_set_sha256": "88e655e161650c37cb3f2c931c9555101923263412a250a8871069feba1375f9",
+    "checked_at": "2026-10-10",
+    "text_sha256": "c1bbadbb0702b7542b14a0b7a438ce7a4f37229e8c0102324b295534ddb4b160"
+  }
+}

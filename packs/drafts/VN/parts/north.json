@@ -1,0 +1,1235 @@
+{
+  "regions": [
+    {
+      "id": "vn_hanoi",
+      "order": 10,
+      "name_ko": "하노이",
+      "name_en": "Hanoi",
+      "aliases_ko": [],
+      "group_ko": "북부",
+      "kind": "base",
+      "water_crossing": false,
+      "hub": {
+        "name_ko": "하노이역",
+        "lat": 21.02417,
+        "lng": 105.84083,
+        "qid": "Q1207323"
+      },
+      "airports": [
+        "HAN"
+      ],
+      "advisory": {
+        "level": "1",
+        "source": "mofa_vn",
+        "last_verified": "2026-10-02"
+      },
+      "advisory_watch_ko": [],
+      "wave": 1
+    },
+    {
+      "id": "vn_halong",
+      "order": 20,
+      "name_ko": "하롱베이",
+      "name_en": "Ha Long Bay",
+      "aliases_ko": [
+        "하롱"
+      ],
+      "group_ko": "북부",
+      "kind": "daytrip",
+      "base_regions": [
+        "vn_hanoi"
+      ],
+      "note_ko": "하노이에서 하루 다녀오기도 해요",
+      "water_crossing": false,
+      "hub": {
+        "name_ko": "뚜언쩌우(국제여객항)",
+        "lat": 20.931077777778,
+        "lng": 106.98658055556,
+        "qid": "Q7857335"
+      },
+      "airports": [],
+      "advisory": {
+        "level": "1",
+        "source": "mofa_vn",
+        "last_verified": "2026-10-02"
+      },
+      "advisory_watch_ko": [],
+      "wave": 1
+    },
+    {
+      "id": "vn_ninhbinh",
+      "order": 30,
+      "name_ko": "닌빈",
+      "name_en": "Ninh Binh",
+      "aliases_ko": [],
+      "group_ko": "북부",
+      "kind": "daytrip",
+      "base_regions": [
+        "vn_hanoi"
+      ],
+      "note_ko": "하노이에서 하루 다녀오기도 해요",
+      "water_crossing": false,
+      "hub": {
+        "name_ko": "닌빈역",
+        "lat": 20.241999,
+        "lng": 105.974856,
+        "qid": "Q16877130"
+      },
+      "airports": [],
+      "advisory": {
+        "level": "1",
+        "source": "mofa_vn",
+        "last_verified": "2026-10-02"
+      },
+      "advisory_watch_ko": [],
+      "wave": 1
+    }
+  ],
+  "attractions": [
+    {
+      "id": "ha-long-bay",
+      "qid": "Q190128",
+      "names": {
+        "ko": "하롱베이",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Ha Long Bay",
+        "local": "Vịnh Hạ Long",
+        "local_short": "Vịnh Hạ Long",
+        "local_lang": "vi",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "하롱만",
+        "할롱만",
+        "할롱베이"
+      ],
+      "aliases_en": [
+        "Hạ Long Bay"
+      ],
+      "mentions_ko": [
+        "띠똡섬",
+        "승솟 동굴"
+      ],
+      "region": "vn_halong",
+      "area_ko": "꽝닌성",
+      "category": "sea_island",
+      "tags": [
+        {
+          "id": "unesco",
+          "source": "unesco_672",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "geo": {
+        "kind": "pier",
+        "lat": 20.931077777778,
+        "lng": 106.98658055556,
+        "source": "wd",
+        "qid": "Q7857335",
+        "osm": null,
+        "last_verified": "2026-10-09"
+      },
+      "wd_geo": {
+        "lat": 20.9,
+        "lng": 107.2
+      },
+      "address_local": null,
+      "access": {
+        "modes": [
+          "boat"
+        ],
+        "nearest_ko": "뚜언쩌우 국제여객항(또는 하롱 국제여객항)에서 관광선을 타요",
+        "nearest_local": {
+          "text": "Tuần Châu",
+          "qid": "Q7857335",
+          "source": "wd"
+        },
+        "source": "halong_route2",
+        "last_verified": "2026-10-09"
+      },
+      "official_url": "https://halongbay.com.vn/",
+      "wiki": {
+        "ko": "할롱만",
+        "en": "Hạ Long Bay"
+      },
+      "summary_ko": "석회암 섬 1,133개가 바다 위에 솟은 만이에요.",
+      "body_ko": [
+        "하롱베이는 베트남 북동부 꽝닌성의 만으로, 바다가 들어와 잠긴 탑 모양 석회암 카르스트 지형이에요.",
+        "1994년 세계유산에 올랐고, 2023년 경계가 바뀌어 지금은 하이퐁시의 깟바 군도와 함께 등재돼 있어요.",
+        "관리기관이 정한 관광 노선은 8개이고, VHL2 노선에는 띠똡섬과 승솟 동굴이 들어 있어요.",
+        "2009년에는 베트남 특별 국가유적으로도 지정됐어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "1994년 세계유산에 등재됐고, 2000년과 2023년에 경계가 바뀌었어요. 지금 등재 이름은 '하롱베이-깟바 군도'예요.",
+          "source": "unesco_672",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c2",
+          "text_ko": "하롱베이-깟바 군도는 면적 65,650ha에 섬 1,133개가 있고, 베트남 북동부 꽝닌성과 하이퐁시에 걸쳐 있어요.",
+          "source": "unesco_672",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c3",
+          "text_ko": "바다가 들어와 잠긴 탑 모양 카르스트 지형이에요.",
+          "source": "unesco_672",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c4",
+          "text_ko": "관리기관(하롱베이-옌뜨 세계유산 관리위원회)이 정한 관광 노선은 8개예요.",
+          "source": "halong_fee",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c5",
+          "text_ko": "VHL2 노선에는 띠똡섬과 승솟 동굴이 들어 있어요.",
+          "source": "halong_route2",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c6",
+          "text_ko": "꽝닌성의 하롱베이는 2009년 베트남 특별 국가유적으로 지정됐어요.",
+          "source": "dsvh_special",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "관광선은 뚜언쩌우 국제여객항이나 하롱 국제여객항에서 출발해요.",
+          "source": "halong_route2",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "관람료는 노선마다 따로 정해져 있어요.",
+          "source": "halong_fee",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "배가 항구를 떠나고 돌아오는 시간은 여름과 겨울에 달라요.",
+          "source": "halong_hours",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "승솟 동굴로 올라가는 길은 경사가 있어요.",
+          "source": "halong_route2",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "halong_fee",
+        "last_verified": "2026-10-09"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "halong_hours",
+        "last_verified": "2026-10-09"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_vn",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 201,
+        "designations": [
+          {
+            "kind": "unesco",
+            "name_ko": "세계유산 하롱베이-깟바 군도",
+            "source": "unesco_672"
+          },
+          {
+            "kind": "vn_special_national_relic",
+            "name_ko": "특별 국가유적 하롱베이(2009)",
+            "source": "dsvh_special"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Halong_Bay_in_Vietnam.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-09"
+    },
+    {
+      "id": "thang-long-citadel",
+      "qid": "Q206219",
+      "names": {
+        "ko": "탕롱 황성",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Imperial Citadel of Thăng Long",
+        "local": "Hoàng thành Thăng Long",
+        "local_short": "Hoàng thành Thăng Long",
+        "local_lang": "vi",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "탕롱 왕궁",
+        "하노이 황성"
+      ],
+      "aliases_en": [
+        "Thang Long Imperial Citadel"
+      ],
+      "mentions_ko": [
+        "낀티엔전",
+        "호앙지에우 18번지 유적"
+      ],
+      "region": "vn_hanoi",
+      "area_ko": "하노이 바딘",
+      "category": "heritage",
+      "tags": [
+        {
+          "id": "unesco",
+          "source": "unesco_1328",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "dress_code",
+          "source": "hoangthanh_rules",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 21.0325,
+        "lng": 105.83972,
+        "source": "wd",
+        "qid": "Q206219",
+        "osm": null,
+        "last_verified": "2026-10-09"
+      },
+      "address_local": {
+        "text": "Số 19C đường Hoàng Diệu, Phường Ba Đình, Thành phố Hà Nội",
+        "source": "hoangthanh_ticket",
+        "last_verified": "2026-10-09"
+      },
+      "access": {
+        "modes": [
+          "walk_from_center"
+        ],
+        "nearest_ko": "하노이 도심 한가운데에 있어요 — 호앙지에우 거리 19C",
+        "nearest_local": null,
+        "source": "unesco_1328",
+        "last_verified": "2026-10-09"
+      },
+      "official_url": "https://hoangthanhthanglong.vn/",
+      "wiki": {
+        "ko": "탕롱 황성",
+        "en": "Imperial Citadel of Thăng Long"
+      },
+      "summary_ko": "11세기부터 궁궐이 있던 하노이 한가운데의 성터예요.",
+      "body_ko": [
+        "탕롱 황성은 11세기 리 왕조가 세운 성으로, 다이비엣(대월)의 독립을 상징해요.",
+        "7세기 중국 요새 터 위에 지어졌고, 거의 13세기 동안 이 지역 정치 권력의 중심이었어요.",
+        "황성 중심 구역과 호앙지에우 18번지 고고학 유적이 2010년 세계유산에 올랐어요.",
+        "2026년 9월에는 옛 정전 자리인 낀티엔전(경천전) 복원 공사를 시작했어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "11세기 리 왕조가 세운 성으로, 다이비엣의 독립을 상징해요.",
+          "source": "unesco_1328",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c2",
+          "text_ko": "7세기 중국 요새 터 위에 지었고, 거의 13세기 동안 끊김 없이 지역 정치 권력의 중심이었어요.",
+          "source": "unesco_1328",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c3",
+          "text_ko": "황성 중심 구역과 호앙지에우 18번지 고고학 유적이 2010년 세계유산에 등재됐어요.",
+          "source": "unesco_1328",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c4",
+          "text_ko": "2009년 베트남 특별 국가유적으로 지정됐어요.",
+          "source": "dsvh_special",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c5",
+          "text_ko": "2026년 9월 29일 낀티엔전(경천전) 유적의 보존·복원 공사 착공식이 열렸어요.",
+          "source": "hoangthanh_kinhthien",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c6",
+          "text_ko": "16세 미만 어린이는 출생증명서·학생증 같은 증빙이 있으면 관람료를 내지 않아요.",
+          "source": "hoangthanh_ticket",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "단정하고 예의 바른 옷차림으로 와 달라고 안내해요.",
+          "source": "hoangthanh_rules",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "드론(플라이캠)은 날릴 수 없어요.",
+          "source": "hoangthanh_rules",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "나무에 오르거나 잔디를 밟지 말아 달라고 해요.",
+          "source": "hoangthanh_rules",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "16세 미만은 나이를 증명할 서류가 있으면 관람료가 무료예요.",
+          "source": "hoangthanh_ticket",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "hoangthanh_ticket",
+        "last_verified": "2026-10-09"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "hoangthanh_ticket",
+        "last_verified": "2026-10-09"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_vn",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 202,
+        "designations": [
+          {
+            "kind": "unesco",
+            "name_ko": "세계유산 탕롱-하노이 황성 중심 구역",
+            "source": "unesco_1328"
+          },
+          {
+            "kind": "vn_special_national_relic",
+            "name_ko": "특별 국가유적 탕롱 황성 중심 구역(2009)",
+            "source": "dsvh_special"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Main_Gate_-_Citadel_of_Hanoi.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-09"
+    },
+    {
+      "id": "van-mieu",
+      "qid": "Q1202019",
+      "names": {
+        "ko": "하노이 문묘",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Temple of Literature",
+        "local": "Văn Miếu – Quốc Tử Giám",
+        "local_short": "Văn Miếu",
+        "local_lang": "vi",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "문묘",
+        "반미에우",
+        "국자감",
+        "문묘 국자감"
+      ],
+      "aliases_en": [
+        "Van Mieu",
+        "Văn Miếu"
+      ],
+      "mentions_ko": [
+        "진사 비석"
+      ],
+      "region": "vn_hanoi",
+      "area_ko": "하노이 반미에우-꾸옥뜨잠",
+      "category": "heritage",
+      "tags": [
+        {
+          "id": "dress_code",
+          "source": "vanmieu_visitor_en",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "night",
+          "source": "vanmieu_visitor_en",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 21.028611,
+        "lng": 105.835556,
+        "source": "wd",
+        "qid": "Q1202019",
+        "osm": null,
+        "last_verified": "2026-10-09"
+      },
+      "address_local": {
+        "text": "Số 58 phố Quốc Tử Giám, phường Văn Miếu - Quốc Tử Giám, Hà Nội",
+        "source": "vanmieu_visitor_vi",
+        "last_verified": "2026-10-09"
+      },
+      "access": {
+        "modes": [
+          "bus"
+        ],
+        "nearest_ko": "꾸옥뜨잠 거리 58번지 앞 정류장(38번 버스), 똔득탕 거리 40번지 맞은편 정류장(02·41·E08·E09번 버스)",
+        "nearest_local": null,
+        "source": "vanmieu_visitor_vi",
+        "last_verified": "2026-10-09"
+      },
+      "official_url": "https://vanmieu.gov.vn/en/introduction/visitor-information",
+      "wiki": {
+        "ko": "문묘 (하노이)",
+        "en": "Temple of Literature, Hanoi"
+      },
+      "summary_ko": "1070년에 세운 문묘와 옛 국자감이 이어진 유적이에요.",
+      "body_ko": [
+        "문묘(반미에우)는 1070년 리 타인똥 왕의 명으로 세워졌고, 1076년에는 국자감(꾸옥뜨잠)이 세워졌어요.",
+        "1075년 첫 유교 과거 시험이 열렸고, 1484년 레 타인똥 왕이 진사 비석을 세우게 했어요.",
+        "진사 비석은 2011년 유네스코 세계기록유산이 됐고, 2015년 비석 82개가 국보로 지정됐어요.",
+        "문묘·국자감은 2012년 베트남 특별 국가유적으로 지정됐어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "1070년 리 타인똥 왕이 문묘 건립을 명했어요.",
+          "source": "vanmieu_history_en",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c2",
+          "text_ko": "1075년 첫 유교 과거 시험이 열렸어요.",
+          "source": "vanmieu_history_en",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c3",
+          "text_ko": "1076년 리 년똥 왕이 국자감을 세웠어요.",
+          "source": "vanmieu_history_en",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c4",
+          "text_ko": "1484년 레 타인똥 왕이 진사 비석을 세우게 했어요.",
+          "source": "vanmieu_history_en",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c5",
+          "text_ko": "2011년 진사 비석이 유네스코 세계기록유산이 됐고, 2015년 진사 비석 82개가 국보로 지정됐어요.",
+          "source": "vanmieu_history_en",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c6",
+          "text_ko": "2012년 문묘·국자감이 베트남 특별 국가유적으로 지정됐어요.",
+          "source": "vanmieu_history_en",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "사당에 들어갈 때는 단정한 옷을 입고, 신성한 구역에서는 조용히 해 달라고 안내해요.",
+          "source": "vanmieu_visitor_en",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "경내는 금연이에요.",
+          "source": "vanmieu_visitor_en",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "비석·유물·건물을 만지거나 낙서하면 안 되고, 잔디에도 들어가지 말아 달라고 해요.",
+          "source": "vanmieu_visitor_en",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "수·토·일요일 밤에는 야간 관람 프로그램을 따로 운영해요.",
+          "source": "vanmieu_visitor_en",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "none"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "vanmieu_visitor_en",
+        "last_verified": "2026-10-09"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "vanmieu_visitor_en",
+        "last_verified": "2026-10-09"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_vn",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 203,
+        "designations": [
+          {
+            "kind": "vn_special_national_relic",
+            "name_ko": "특별 국가유적 문묘-국자감(2012)",
+            "source": "dsvh_special"
+          },
+          {
+            "kind": "unesco_memory_of_the_world",
+            "name_ko": "세계기록유산 진사 비석(2011)",
+            "source": "vanmieu_history_en"
+          },
+          {
+            "kind": "vn_national_treasure_partial",
+            "name_ko": "국보 진사 비석 82개(2015)",
+            "source": "vanmieu_history_en"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Hanoi_Temple_of_Literature.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-09"
+    },
+    {
+      "id": "hoa-lo-prison",
+      "qid": "Q1359941",
+      "names": {
+        "ko": "호아로 수용소",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Hỏa Lò Prison",
+        "local": "Nhà tù Hỏa Lò",
+        "local_short": "Nhà tù Hỏa Lò",
+        "local_lang": "vi",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "호아로 감옥",
+        "하노이 힐튼"
+      ],
+      "aliases_en": [
+        "Hoa Lo Prison",
+        "Hanoi Hilton"
+      ],
+      "mentions_ko": [],
+      "region": "vn_hanoi",
+      "area_ko": "하노이 끄어남",
+      "category": "heritage",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 21.025277777778,
+        "lng": 105.84638888889,
+        "source": "wd",
+        "qid": "Q1359941",
+        "osm": null,
+        "last_verified": "2026-10-09"
+      },
+      "address_local": {
+        "text": "Số 1 phố Hỏa Lò, phường Cửa Nam, thành phố Hà Nội",
+        "source": "hoalo_home",
+        "last_verified": "2026-10-09"
+      },
+      "access": {
+        "modes": [
+          "walk_from_center"
+        ],
+        "nearest_ko": "하노이 도심 한가운데에 있어요 — 호아로 거리 1번지",
+        "nearest_local": null,
+        "source": "hoalo_home",
+        "last_verified": "2026-10-09"
+      },
+      "official_url": "https://hoalo.vn/",
+      "wiki": {
+        "ko": "호아로 수용소",
+        "en": "Hỏa Lò Prison"
+      },
+      "summary_ko": "1896년 프랑스가 지은 감옥의 일부를 남긴 유적이에요.",
+      "body_ko": [
+        "호아로 수용소는 1896년 프랑스 식민 당국이 하노이에 지은 감옥이에요.",
+        "식민지 시기에는 수많은 베트남 애국·혁명 운동가가 이곳에 갇혔어요.",
+        "1964년부터 1973년까지는 격추된 미군 조종사를 가뒀고, 조종사들은 이곳을 '하노이 힐튼'이라 불렀어요.",
+        "1993년 감옥 터의 쓰임새가 바뀌었고, 남동쪽에 남은 부분을 보수해 역사 유적으로 지정했어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "1896년 프랑스 식민 당국이 호아로 감옥을 지었어요.",
+          "source": "hoalo_intro",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c2",
+          "text_ko": "식민지 시기 수많은 베트남 애국·혁명 운동가가 갇혔어요.",
+          "source": "hoalo_intro",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c3",
+          "text_ko": "1964년 8월 5일부터 1973년 3월 31일까지 격추된 미군 조종사를 가뒀고, 조종사들은 '하노이 힐튼'이라는 별명을 붙였어요.",
+          "source": "hoalo_intro",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c4",
+          "text_ko": "1993년 베트남 정부가 감옥 터의 쓰임새를 바꾸기로 했고, 남동쪽에 남은 부분을 보수해 하노이의 역사 유적으로 지정했어요.",
+          "source": "hoalo_intro",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "명절(뗏)과 공휴일을 포함해 매일 문을 열어요.",
+          "source": "hoalo_home",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "내국인·외국인 모두 관람료를 내요.",
+          "source": "hoalo_fee",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "none"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "hoalo_fee",
+        "last_verified": "2026-10-09"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "hoalo_home",
+        "last_verified": "2026-10-09"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_vn",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 204,
+        "designations": [
+          {
+            "kind": "vn_relic_ranked",
+            "name_ko": "하노이 역사 유적(감옥 남동쪽 남은 부분)",
+            "source": "hoalo_intro"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:HanoiHilton.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-09"
+    },
+    {
+      "id": "trang-an",
+      "qid": "Q10810559",
+      "names": {
+        "ko": "짱안",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Tràng An",
+        "local": "Quần thể danh thắng Tràng An",
+        "local_short": "Tràng An",
+        "local_lang": "vi",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "짱안 경관 단지"
+      ],
+      "aliases_en": [
+        "Trang An Landscape Complex",
+        "Trang An"
+      ],
+      "mentions_ko": [
+        "호아르"
+      ],
+      "region": "vn_ninhbinh",
+      "area_ko": "닌빈성",
+      "category": "nature",
+      "tags": [
+        {
+          "id": "unesco",
+          "source": "unesco_1438",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 20.2557,
+        "lng": 105.9156,
+        "source": "wd",
+        "qid": "Q10810559",
+        "osm": null,
+        "last_verified": "2026-10-09"
+      },
+      "address_local": {
+        "text": "Khu du lịch sinh thái Tràng An, phường Tây Hoa Lư, tỉnh Ninh Bình",
+        "source": "nbtourism_trangan_station",
+        "last_verified": "2026-10-09"
+      },
+      "access": {
+        "modes": [
+          "boat"
+        ],
+        "nearest_ko": "짱안 선착장(생태관광지 안, 관광객 지원소가 있어요)에서 배를 타요",
+        "nearest_local": null,
+        "source": "nbtourism_trangan_station",
+        "last_verified": "2026-10-09"
+      },
+      "official_url": "https://trangandanhthang.vn/",
+      "wiki": {
+        "ko": "짱안 경관 단지",
+        "en": "Tràng An Scenic Landscape Complex"
+      },
+      "summary_ko": "석회암 봉우리 사이 물길과 동굴을 배로 지나는 곳이에요.",
+      "body_ko": [
+        "짱안은 홍강 삼각주 남쪽 끝의 석회암 카르스트 지대로, 2014년 베트남의 첫 복합 세계유산(문화·자연)이 됐어요.",
+        "봉우리 사이 물길과 동굴 일부는 작은 배로 지날 수 있고, 현지 뱃사공이 노를 젓는 삼판배를 타고 둘러봐요.",
+        "동굴에서는 3만 년 넘게 이어진 사람 활동의 흔적이 나왔어요.",
+        "10~11세기에는 베트남의 옛 수도 호아르가 이곳에 세워졌어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "2014년 세계유산에 등재된 문화·자연 복합유산이에요.",
+          "source": "unesco_1438",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c2",
+          "text_ko": "베트남의 첫 복합 세계유산이에요.",
+          "source": "trangan_kdl",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c3",
+          "text_ko": "홍강 삼각주 남쪽 끝의 석회암 카르스트 지대이고, 지하 물길 일부는 작은 배로 지날 수 있어요.",
+          "source": "unesco_1438",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c4",
+          "text_ko": "관광객은 현지 뱃사공이 노를 젓는 전통 삼판배를 타고 둘러봐요.",
+          "source": "unesco_1438",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c5",
+          "text_ko": "동굴에서 3만 년 넘게 이어진 사람 활동의 흔적이 나왔어요.",
+          "source": "unesco_1438",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c6",
+          "text_ko": "10~11세기 베트남의 옛 수도 호아르가 이곳에 세워졌어요.",
+          "source": "unesco_1438",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c7",
+          "text_ko": "짱안-땀꼭-빅동 경관 지구는 2012년 베트남 특별 국가유적으로 지정됐어요.",
+          "source": "dsvh_special",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "관람료의 어른·어린이 구분은 나이가 아니라 키로 해요.",
+          "source": "trangan_prices",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "trangan_prices",
+        "last_verified": "2026-10-09"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "trangan_prices",
+        "last_verified": "2026-10-09"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_vn",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 205,
+        "designations": [
+          {
+            "kind": "unesco",
+            "name_ko": "세계유산 짱안 경관 단지(복합유산)",
+            "source": "unesco_1438"
+          },
+          {
+            "kind": "vn_special_national_relic",
+            "name_ko": "특별 국가유적 짱안-땀꼭-빅동 경관 지구(2012)",
+            "source": "dsvh_special"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Trang_An_Scenic_Landscape_Complex,_northern_Vietnam_(354)_(38540830421).jpg",
+      "source": "wd",
+      "last_verified": "2026-10-09"
+    },
+    {
+      "id": "tam-coc-bich-dong",
+      "qid": "Q1406000",
+      "names": {
+        "ko": "땀꼭",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Tam Cốc – Bích Động",
+        "local": "Tam Cốc - Bích Động",
+        "local_short": "Tam Cốc",
+        "local_lang": "vi",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "땀꼭 빅동",
+        "탐꼭"
+      ],
+      "aliases_en": [
+        "Tam Coc",
+        "Tam Coc - Bich Dong"
+      ],
+      "mentions_ko": [
+        "빅동 사원",
+        "항무아"
+      ],
+      "region": "vn_ninhbinh",
+      "area_ko": "닌빈성",
+      "category": "nature",
+      "tags": [
+        {
+          "id": "unesco",
+          "source": "unesco_1438",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 20.2185,
+        "lng": 105.916,
+        "source": "wd",
+        "qid": "Q1406000",
+        "osm": null,
+        "last_verified": "2026-10-09"
+      },
+      "address_local": null,
+      "access": {
+        "modes": [
+          "boat"
+        ],
+        "nearest_ko": "반럼 선착장에서 응오동강을 따라 가는 배를 타요",
+        "nearest_local": null,
+        "source": "trangan_tamcoc",
+        "last_verified": "2026-10-09"
+      },
+      "official_url": "https://trangandanhthang.vn/tam-coc-bich-dong/",
+      "wiki": {
+        "ko": "땀꼭-빅동",
+        "en": "Tam Cốc – Bích Động"
+      },
+      "summary_ko": "석회암 동굴 사이 강을 배로 지나는 닌빈의 경승지예요.",
+      "body_ko": [
+        "땀꼭-빅동은 닌빈의 석회암 동굴 지대로, 쩐 왕조의 부럼 행궁과 관련된 유적이 함께 있어요.",
+        "'육지의 하롱베이'라는 별명으로도 불려요.",
+        "주요 뱃길은 반럼 선착장에서 응오동강을 따라 땀꼭으로 가는 길과, 빅동 아래 동굴을 지나는 길 등이에요.",
+        "짱안 세계유산의 일부이고, 2012년 베트남 특별 국가유적으로 지정됐어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "석회암 동굴과 쩐 왕조 부럼 행궁 관련 유적이 있는 지역이에요.",
+          "source": "trangan_tamcoc",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c2",
+          "text_ko": "'육지의 하롱베이'라는 별명으로 알려져 있어요.",
+          "source": "trangan_tamcoc",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c3",
+          "text_ko": "뱃길은 반럼 선착장-응오동강-땀꼭 길, 빅동 아래를 지나는 동굴 뱃길, 탁빅-퉁낭 길이 있어요.",
+          "source": "trangan_tamcoc",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c4",
+          "text_ko": "짱안 경관 단지 세계유산은 호아르 고도, 짱안-땀꼭-빅동 경관 지구, 호아르 특별용도림으로 이뤄져 있어요.",
+          "source": "unesco_1438",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c5",
+          "text_ko": "짱안-땀꼭-빅동 경관 지구는 2012년 베트남 특별 국가유적으로 지정됐어요.",
+          "source": "dsvh_special",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "입장권은 단지 안 전동차가 포함된 것과 포함되지 않은 것 두 가지예요.",
+          "source": "trangan_prices",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "빅동 사원·띠엔 동굴·항무아 등은 걸어서나 자전거로 둘러볼 수 있어요.",
+          "source": "trangan_tamcoc",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "trangan_prices",
+        "last_verified": "2026-10-09"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "trangan_prices",
+        "last_verified": "2026-10-09"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_vn",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 206,
+        "designations": [
+          {
+            "kind": "unesco",
+            "name_ko": "세계유산 짱안 경관 단지(구성 지구)",
+            "source": "unesco_1438"
+          },
+          {
+            "kind": "vn_special_national_relic",
+            "name_ko": "특별 국가유적 짱안-땀꼭-빅동 경관 지구(2012)",
+            "source": "dsvh_special"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-09"
+    }
+  ],
+  "sources": [
+    {
+      "id": "wd",
+      "name": "Wikidata",
+      "url": "https://www.wikidata.org/",
+      "use": "skeleton",
+      "license": "CC0"
+    },
+    {
+      "id": "mofa_vn",
+      "name": "외교부 해외안전여행(레디포트 VN 팩 safety 섹션, 2026-10-02 확인)",
+      "url": "https://www.0404.go.kr/",
+      "use": "advisory"
+    },
+    {
+      "id": "dsvh_special",
+      "name": "Cục Di sản văn hóa — Danh mục Di tích quốc gia đặc biệt (베트남 문화유산국 특별 국가유적 목록)",
+      "url": "https://dsvh.gov.vn/danh-muc-di-tich-quoc-gia-dac-biet-1752",
+      "use": "heritage_registry",
+      "license": "Cục Di sản văn hóa website (재사용 시 출처 'Cục Di sản văn hóa' 표기 조건, 사실만 사용)",
+      "attribution_required": true
+    },
+    {
+      "id": "unesco_1328",
+      "name": "UNESCO World Heritage Centre — Central Sector of the Imperial Citadel of Thang Long - Hanoi",
+      "url": "https://whc.unesco.org/en/list/1328/",
+      "use": "heritage_registry",
+      "license": "UNESCO WHC (사실만 사용, 설명문 CC-BY-SA IGO 3.0)",
+      "attribution_required": true
+    },
+    {
+      "id": "unesco_672",
+      "name": "UNESCO World Heritage Centre — Ha Long Bay - Cat Ba Archipelago",
+      "url": "https://whc.unesco.org/en/list/672/",
+      "use": "heritage_registry",
+      "license": "UNESCO WHC (사실만 사용, 설명문 CC-BY-SA IGO 3.0)",
+      "attribution_required": true
+    },
+    {
+      "id": "unesco_1438",
+      "name": "UNESCO World Heritage Centre — Trang An Landscape Complex",
+      "url": "https://whc.unesco.org/en/list/1438/",
+      "use": "heritage_registry",
+      "license": "UNESCO WHC (사실만 사용, 설명문 CC-BY-SA IGO 3.0)",
+      "attribution_required": true
+    },
+    {
+      "id": "hoangthanh_ticket",
+      "name": "Trung tâm Bảo tồn Di sản Thăng Long – Hà Nội — Giá vé tham quan (official)",
+      "url": "https://hoangthanhthanglong.vn/gia-ve-tham-quan-hoang-thanh-thang-long/",
+      "use": "facts"
+    },
+    {
+      "id": "hoangthanh_rules",
+      "name": "Trung tâm Bảo tồn Di sản Thăng Long – Hà Nội — Nội quy tham quan (official)",
+      "url": "https://hoangthanhthanglong.vn/mot-so-quy-dinh-danh-cho-khach-tham-quan-di-san-the-gioi-hoang-thanh-thang-long/",
+      "use": "facts"
+    },
+    {
+      "id": "hoangthanh_kinhthien",
+      "name": "Trung tâm Bảo tồn Di sản Thăng Long – Hà Nội — Khởi công phục dựng Điện Kính Thiên (official)",
+      "url": "https://hoangthanhthanglong.vn/khoi-cong-phuc-dung-dien-kinh-thien-trung-tam-hoang-thanh-thang-long/",
+      "use": "facts"
+    },
+    {
+      "id": "vanmieu_visitor_en",
+      "name": "Văn Miếu – Quốc Tử Giám — Visitor Information (official, English)",
+      "url": "https://vanmieu.gov.vn/en/introduction/visitor-information",
+      "use": "facts"
+    },
+    {
+      "id": "vanmieu_visitor_vi",
+      "name": "Văn Miếu – Quốc Tử Giám — Thông tin cho du khách (official, Vietnamese)",
+      "url": "https://vanmieu.gov.vn/vi/introduction/visitor-information",
+      "use": "facts"
+    },
+    {
+      "id": "vanmieu_history_en",
+      "name": "Văn Miếu – Quốc Tử Giám — Site History (official, English)",
+      "url": "https://vanmieu.gov.vn/en/introduction/site-history",
+      "use": "facts"
+    },
+    {
+      "id": "hoalo_intro",
+      "name": "Ban Quản lý Di tích Nhà tù Hỏa Lò — Giới thiệu Di tích (official)",
+      "url": "https://hoalo.vn/Articles/14/34/gioi-thieu-di-tich-lich-su-nha-tu-hoa-lo.html",
+      "use": "facts"
+    },
+    {
+      "id": "hoalo_home",
+      "name": "Ban Quản lý Di tích Nhà tù Hỏa Lò (official)",
+      "url": "https://hoalo.vn/",
+      "use": "facts"
+    },
+    {
+      "id": "hoalo_fee",
+      "name": "Ban Quản lý Di tích Nhà tù Hỏa Lò — Thông báo phí tham quan (official)",
+      "url": "https://hoalo.vn/Articles/12/26017/thong-bao-thay-%C4%91oi-phi-tham-quan-ban-ngay.html",
+      "use": "facts"
+    },
+    {
+      "id": "halong_fee",
+      "name": "Ban Quản lý di sản thế giới vịnh Hạ Long - Yên Tử — Mức phí tham quan (official)",
+      "url": "https://halongbay.com.vn/p/58-muc-phi-tham-quan-vinh-ha-long",
+      "use": "facts"
+    },
+    {
+      "id": "halong_route2",
+      "name": "Ban Quản lý di sản thế giới vịnh Hạ Long - Yên Tử — Hành trình VHL2 (official)",
+      "url": "https://halongbay.com.vn/tours/2-hanh-trinh-vhl-2-cang-tau-bai-tam-soi-sim-dao-ti-top-hang-sung-sot-vung-tung-sau-dong-me-cung-hang-bo-nau-hang-luon-hang-trong-hang-trinh-nu-hang-ho-dong-tien",
+      "use": "facts"
+    },
+    {
+      "id": "halong_hours",
+      "name": "Ban Quản lý di sản thế giới vịnh Hạ Long - Yên Tử — Thời gian đón khách tham quan (official)",
+      "url": "https://halongbay.com.vn/c/thoi-gian-on-khach-tham-quan",
+      "use": "facts"
+    },
+    {
+      "id": "trangan_kdl",
+      "name": "Ban Quản lý Quần thể danh thắng Tràng An — Khu du lịch Tràng An (official)",
+      "url": "https://trangandanhthang.vn/khu-du-lich-trang-an/",
+      "use": "facts"
+    },
+    {
+      "id": "trangan_tamcoc",
+      "name": "Ban Quản lý Quần thể danh thắng Tràng An — Tam Cốc – Bích Động (official)",
+      "url": "https://trangandanhthang.vn/tam-coc-bich-dong/",
+      "use": "facts"
+    },
+    {
+      "id": "trangan_prices",
+      "name": "Ban Quản lý Quần thể danh thắng Tràng An — Giá vé tham quan các khu, điểm du lịch (official)",
+      "url": "https://trangandanhthang.vn/gia-ve-tham-quan-cac-khu-diem-du-lich/",
+      "use": "facts"
+    },
+    {
+      "id": "nbtourism_trangan_station",
+      "name": "Trung tâm Thông tin Xúc tiến du lịch — Sở Du lịch Ninh Bình: Trạm hỗ trợ du khách tại bến thuyền Tràng An (official)",
+      "url": "https://dulichninhbinh.com.vn/item/1180",
+      "use": "facts"
+    }
+  ]
+}
