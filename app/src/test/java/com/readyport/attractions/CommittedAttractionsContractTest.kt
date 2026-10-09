@@ -36,7 +36,8 @@ class CommittedAttractionsContractTest {
         committed.forEach { f ->
             val sig = File(f.path + ".sig")
             assertTrue("${f.path}: .sig 없음", sig.isFile)
-            assertTrue(f.path, sig.readText().contains("\"kid\":\"rp-att-"))
+            // 서명 파일은 json.dumps 기본 모양({"kid": "rp-att-…"} — 국가 팩 .sig 와 같다). 띄어쓰기와 상관없이 kid 를 본다
+            assertTrue(f.path, Regex(""""kid"\s*:\s*"rp-att-""").containsMatchIn(sig.readText()))
             assertEquals(f.path, PackVerifier.Result.Valid, verifier.verify(f.readBytes(), sig.readBytes()))
         }
     }

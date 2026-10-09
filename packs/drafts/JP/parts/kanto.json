@@ -1,0 +1,2646 @@
+{
+  "regions": [
+    {
+      "id": "jp_hakone",
+      "order": 20,
+      "name_ko": "하코네",
+      "name_en": "Hakone",
+      "aliases_ko": [],
+      "group_ko": "도쿄권",
+      "kind": "daytrip",
+      "base_regions": [
+        "jp_tokyo"
+      ],
+      "note_ko": "도쿄에서 하루 다녀오는 곳",
+      "water_crossing": false,
+      "hub": {
+        "name_ko": "하코네유모토역",
+        "lat": 35.23352778,
+        "lng": 139.10390833,
+        "qid": "Q2593075"
+      },
+      "airports": [],
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "advisory_watch_ko": [],
+      "wave": 1
+    },
+    {
+      "id": "jp_kamakura",
+      "order": 30,
+      "name_ko": "가마쿠라",
+      "name_en": "Kamakura",
+      "aliases_ko": [],
+      "group_ko": "도쿄권",
+      "kind": "daytrip",
+      "base_regions": [
+        "jp_tokyo"
+      ],
+      "note_ko": "도쿄에서 하루 다녀오는 곳",
+      "water_crossing": false,
+      "hub": {
+        "name_ko": "가마쿠라역",
+        "lat": 35.319072,
+        "lng": 139.550436,
+        "qid": "Q932895"
+      },
+      "airports": [],
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "advisory_watch_ko": [],
+      "wave": 1
+    },
+    {
+      "id": "jp_fuji",
+      "order": 50,
+      "name_ko": "후지산·가와구치코",
+      "name_en": "Mt. Fuji & Kawaguchiko",
+      "aliases_ko": [
+        "가와구치호",
+        "후지 5호"
+      ],
+      "group_ko": "도쿄권",
+      "kind": "daytrip",
+      "base_regions": [
+        "jp_tokyo"
+      ],
+      "note_ko": "도쿄에서 하루 다녀오는 곳",
+      "water_crossing": false,
+      "hub": {
+        "name_ko": "가와구치코역",
+        "lat": 35.49833333,
+        "lng": 138.76861111,
+        "qid": "Q6379504"
+      },
+      "airports": [],
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "advisory_watch_ko": [],
+      "wave": 1
+    }
+  ],
+  "attractions": [
+    {
+      "id": "tokyo-skytree",
+      "qid": "Q57965",
+      "names": {
+        "ko": "도쿄 스카이트리",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Tokyo Skytree",
+        "local": "東京スカイツリー",
+        "local_short": "スカイツリー",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "스카이트리"
+      ],
+      "aliases_en": [
+        "Skytree"
+      ],
+      "mentions_ko": [
+        "덴보 데크",
+        "덴보 갤러리아"
+      ],
+      "region": "jp_tokyo",
+      "area_ko": "도쿄 스미다구 오시아게",
+      "category": "city_view",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 35.710055555555556,
+        "lng": 139.8107222222222,
+        "source": "wd",
+        "qid": "Q57965",
+        "osm": null,
+        "last_verified": "2026-10-09"
+      },
+      "wd_geo": {
+        "lat": 35.710055555555556,
+        "lng": 139.8107222222222
+      },
+      "address_local": {
+        "text": "東京都墨田区押上1丁目1-2",
+        "source": "skytree_official_access_ja",
+        "last_verified": "2026-10-09"
+      },
+      "access": {
+        "modes": [
+          "train",
+          "metro"
+        ],
+        "nearest_ko": "도쿄스카이트리역(도부 스카이트리 라인)·오시아게(스카이트리마에)역(한조몬선)",
+        "nearest_local": {
+          "text": "とうきょうスカイツリー駅",
+          "qid": "Q900250",
+          "source": "wd"
+        },
+        "source": "skytree_official_access",
+        "last_verified": "2026-10-09"
+      },
+      "official_url": "https://www.tokyo-skytree.jp/",
+      "wiki": {
+        "ko": "도쿄 스카이트리",
+        "en": "Tokyo Skytree"
+      },
+      "summary_ko": "도쿄 스미다구에 있는 높이 634m의 전파탑이에요.",
+      "body_ko": [
+        "도쿄 스카이트리는 2012년에 문을 연 높이 634m의 자립식 전파탑이에요.",
+        "2011년 기네스 세계기록에서 세계에서 가장 높은 탑으로 인정받았어요.",
+        "634라는 숫자는 일본어로 '무사시'로 읽혀, 이 일대의 옛 지역 이름인 무사시국을 떠올리게 해요.",
+        "전망대는 덴보 데크(플로어 350)와 덴보 갤러리아(플로어 450) 두 곳이에요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "도쿄 스카이트리의 높이는 634m예요.",
+          "source": "skytree_official_outline",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c2",
+          "text_ko": "2012년에 세계에서 가장 높은 자립식 전파탑으로 지어졌어요.",
+          "source": "skytree_official_outline",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c3",
+          "text_ko": "2011년 11월 17일 기네스 세계기록에서 세계에서 가장 높은 탑으로 인정받았어요.",
+          "source": "skytree_official_spec",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c4",
+          "text_ko": "높이 634는 '무사시'로 읽히는 숫자로, 옛 지역 이름인 무사시국을 떠올리게 해요.",
+          "source": "skytree_official_spec",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c5",
+          "text_ko": "전망대는 덴보 데크(플로어 350)와 덴보 갤러리아(플로어 450)예요.",
+          "source": "skytree_official_outline",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c6",
+          "text_ko": "도쿄 스카이트리 타운은 2012년 5월 22일에 전면 개업했어요.",
+          "source": "skytree_official_timeline",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "덴보 갤러리아로 바로 가는 엘리베이터는 없어서 덴보 데크를 거쳐 올라가요.",
+          "source": "skytree_official_faq",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "전망대에 한번 들어갔다가 나오면 다시 들어갈 수 없어요.",
+          "source": "skytree_official_faq",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "입장할 때 손짐 검사를 해요. 너무 큰 짐은 들고 들어갈 수 없어 유료 코인 로커나 짐 보관소를 쓰라고 안내해요.",
+          "source": "skytree_official_requests",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "붐비는 날에는 현장 매표소 판매를 멈출 수 있어요. 입장권은 날짜와 시간을 정해서 사요.",
+          "source": "skytree_official_admission",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "booking": "recommended",
+        "booking_note_ko": "4층 매표소에서 당일에도 살 수 있지만, 공식 사이트는 온라인 구매를 권해요.",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "skytree_official_ticket",
+        "last_verified": "2026-10-09"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "skytree_official_ticket",
+        "last_verified": "2026-10-09"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 14,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Tokyo_Skytree_2023.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-09"
+    },
+    {
+      "id": "tokyo-tower",
+      "qid": "Q183536",
+      "names": {
+        "ko": "도쿄 타워",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Tokyo Tower",
+        "local": "東京タワー",
+        "local_short": "東京タワー",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [],
+      "aliases_en": [],
+      "mentions_ko": [
+        "메인 데크",
+        "톱 데크"
+      ],
+      "region": "jp_tokyo",
+      "area_ko": "도쿄 미나토구 시바코엔",
+      "category": "city_view",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 35.658611111111114,
+        "lng": 139.74555555555557,
+        "source": "wd",
+        "qid": "Q183536",
+        "osm": null,
+        "last_verified": "2026-10-09"
+      },
+      "wd_geo": {
+        "lat": 35.658611111111114,
+        "lng": 139.74555555555557
+      },
+      "address_local": null,
+      "access": {
+        "modes": [
+          "metro",
+          "bus"
+        ],
+        "nearest_ko": "아카바네바시역(도에이 오에도선)·가미야초역(도쿄 메트로 히비야선)",
+        "nearest_local": {
+          "text": "赤羽橋駅",
+          "qid": "Q246176",
+          "source": "wd"
+        },
+        "source": "tokyotower_official_access",
+        "last_verified": "2026-10-09"
+      },
+      "official_url": "https://www.tokyotower.co.jp/",
+      "wiki": {
+        "ko": "도쿄 타워",
+        "en": "Tokyo Tower"
+      },
+      "summary_ko": "도쿄 미나토구에 있는 높이 333m의 전파탑이에요.",
+      "body_ko": [
+        "도쿄 타워는 1958년에 영업을 시작한 높이 333m의 전파탑이에요.",
+        "333m는 간토 지방 전체에 텔레비전 전파를 보내는 데 필요한 높이로 정했고, 당시 자립식 철탑으로는 에펠탑보다 높았어요.",
+        "전망대는 150m의 메인 데크와 250m의 톱 데크가 있어요.",
+        "2013년 일본의 등록유형문화재가 됐어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "도쿄 타워의 높이는 333m예요.",
+          "source": "tokyotower_official_pedia",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c2",
+          "text_ko": "1958년에 영업을 시작했어요.",
+          "source": "tokyotower_official_company",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c3",
+          "text_ko": "333m는 간토 지방 전체에 텔레비전 전파를 보내는 데 필요한 높이로 정했어요.",
+          "source": "tokyotower_official_pedia",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c4",
+          "text_ko": "자립식 철탑으로는 에펠탑보다 높아 당시 세계 최고 높이였어요.",
+          "source": "bunka_tokyotower",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c5",
+          "text_ko": "전망대는 150m의 메인 데크와 250m의 톱 데크예요.",
+          "source": "tokyotower_official_maindeck",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c6",
+          "text_ko": "2013년 6월 21일 일본의 등록유형문화재로 등록됐어요.",
+          "source": "bunka_tokyotower",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c7",
+          "text_ko": "메인 데크(150m)까지 약 600계단의 바깥 계단이 있어요.",
+          "source": "tokyotower_official_stair",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c8",
+          "text_ko": "빨강과 흰색으로 보이는 색은 정확히는 항공법에 따른 '인터내셔널 오렌지'와 흰색이에요.",
+          "source": "tokyotower_official_pedia",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "메인 데크까지 약 600계단의 바깥 계단으로 걸어 올라갈 수 있어요. 올라가는 계단은 토·일요일과 공휴일에만 열고, 비·악천후·열사병 경보 때는 닫아요.",
+          "source": "tokyotower_official_stair",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "톱 데크는 날씨가 나쁘면 닫을 수 있어요.",
+          "source": "tokyotower_official_fee",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "전망대에서 나가면 다시 들어올 수 없어요. 톱 데크에서는 삼각대를 쓸 수 없어요.",
+          "source": "tokyotower_official_faq",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "중간에 계단을 써야 해서 유모차는 풋타운 1층 운영 센터에 맡기기를 권해요.",
+          "source": "tokyotower_official_faq",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "tokyotower_official_fee",
+        "last_verified": "2026-10-09"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "tokyotower_official_fee",
+        "last_verified": "2026-10-09"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 13,
+        "designations": [
+          {
+            "kind": "jp_registered_tangible_cultural_property",
+            "name_ko": "등록유형문화재(건조물)",
+            "source": "bunka_tokyotower"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Tokyo_Tower_2023.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-09"
+    },
+    {
+      "id": "meiji-jingu",
+      "qid": "Q287165",
+      "names": {
+        "ko": "메이지 신궁",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Meiji Jingu",
+        "local": "明治神宮",
+        "local_short": "明治神宮",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "메이지 진구"
+      ],
+      "aliases_en": [
+        "Meiji Shrine"
+      ],
+      "mentions_ko": [
+        "메이지 신궁 뮤지엄",
+        "보물전"
+      ],
+      "region": "jp_tokyo",
+      "area_ko": "도쿄 시부야구 요요기",
+      "category": "heritage",
+      "tags": [
+        {
+          "id": "free_entry",
+          "source": "meiji_official_visit",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 35.676111111111,
+        "lng": 139.69916666667,
+        "source": "wd",
+        "qid": "Q287165",
+        "osm": null,
+        "last_verified": "2026-10-09"
+      },
+      "wd_geo": {
+        "lat": 35.676111111111,
+        "lng": 139.69916666667
+      },
+      "address_local": {
+        "text": "東京都渋谷区代々木神園町1-1",
+        "source": "meiji_official_about_ja",
+        "last_verified": "2026-10-09"
+      },
+      "access": {
+        "modes": [
+          "train"
+        ],
+        "nearest_ko": "JR 하라주쿠역(걸어서 바로)",
+        "nearest_local": {
+          "text": "原宿駅",
+          "qid": "Q800894",
+          "source": "wd"
+        },
+        "source": "gotokyo_meiji",
+        "last_verified": "2026-10-09"
+      },
+      "official_url": "https://www.meijijingu.or.jp/",
+      "wiki": {
+        "ko": "메이지 신궁",
+        "en": "Meiji Shrine"
+      },
+      "summary_ko": "메이지 천황과 쇼켄 황후를 모신 도쿄의 신사예요.",
+      "body_ko": [
+        "메이지 신궁은 메이지 천황과 쇼켄 황후를 모시려고 1920년에 세운 신사예요.",
+        "약 70만 제곱미터의 숲은 창건 때 전국에서 바친 나무 약 10만 그루를 심어 만든 인공림이에요.",
+        "경내에는 중요문화재인 보물전과, 2019년에 문을 연 메이지 신궁 뮤지엄이 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "메이지 신궁은 1920년에 세워졌어요.",
+          "source": "meiji_official_about_en",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c2",
+          "text_ko": "메이지 천황과 쇼켄 황후를 모셔요.",
+          "source": "meiji_official_about_ja",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c3",
+          "text_ko": "약 70만 제곱미터의 숲은 창건 때 전국에서 바친 나무 약 10만 그루를 심어 만든 인공림이에요.",
+          "source": "meiji_official_about_ja",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c4",
+          "text_ko": "경내의 보물전은 중요문화재예요.",
+          "source": "meiji_official_about_ja",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c5",
+          "text_ko": "메이지 신궁 뮤지엄은 2019년에 문을 열었어요.",
+          "source": "meiji_official_museum",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "해 뜰 때 문을 열고 해 질 때 닫아요. 시간은 달마다 달라요.",
+          "source": "meiji_official_visit",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "본전 앞에서 사람들이 참배하는 곳은 사진을 찍을 수 없어요. 부적을 주는 곳도 찍지 말아 달라고 해요.",
+          "source": "meiji_official_qa",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "먹고 마시는 건 정해진 곳에서만 할 수 있어요.",
+          "source": "meiji_official_qa",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "경내에는 여행 가방을 맡길 곳이 없어요.",
+          "source": "meiji_official_qa",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "free",
+        "regular_closed": [
+          "none"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "meiji_official_visit",
+        "last_verified": "2026-10-09"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "meiji_official_visit",
+        "last_verified": "2026-10-09"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 7,
+        "designations": [
+          {
+            "kind": "jp_important_cultural_property_partial",
+            "name_ko": "경내 보물전 중요문화재",
+            "source": "meiji_official_about_ja"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Courtyard_of_Meiji_Shrine_20190717.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-09"
+    },
+    {
+      "id": "imperial-palace-east-gardens",
+      "qid": "Q6631907",
+      "names": {
+        "ko": "고쿄 히가시교엔",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "East Gardens of the Imperial Palace",
+        "local": "皇居東御苑",
+        "local_short": "皇居東御苑",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "황거 동어원",
+        "고쿄 동어원"
+      ],
+      "aliases_en": [
+        "Imperial Palace East Gardens"
+      ],
+      "mentions_ko": [
+        "에도성",
+        "산노마루쇼조칸",
+        "오테몬"
+      ],
+      "region": "jp_tokyo",
+      "area_ko": "도쿄 지요다구",
+      "category": "heritage",
+      "tags": [
+        {
+          "id": "free_entry",
+          "source": "kunaicho_higashigyoen_ja",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 35.6875,
+        "lng": 139.7575,
+        "source": "wd",
+        "qid": "Q6631907",
+        "osm": null,
+        "last_verified": "2026-10-09"
+      },
+      "wd_geo": {
+        "lat": 35.6875,
+        "lng": 139.7575
+      },
+      "address_local": {
+        "text": "東京都千代田区千代田1",
+        "source": "kunaicho_higashigyoen_ja",
+        "last_verified": "2026-10-09"
+      },
+      "access": {
+        "modes": [
+          "metro",
+          "train"
+        ],
+        "nearest_ko": "오테마치역(지하철 각 선) 쪽 오테몬, JR 도쿄역 마루노우치 북쪽 출구에서도 걸어서 가요",
+        "nearest_local": {
+          "text": "大手町駅",
+          "qid": "Q1326767",
+          "source": "wd"
+        },
+        "source": "kunaicho_higashigyoen_ja",
+        "last_verified": "2026-10-09"
+      },
+      "official_url": "https://www.kunaicho.go.jp/event/higashigyoen/higashigyoen.html",
+      "wiki": {
+        "ko": "고쿄 히가시 교엔",
+        "en": "East Gardens of the Imperial Palace"
+      },
+      "summary_ko": "옛 에도성 자리에 꾸민 황거의 부속 정원이에요.",
+      "body_ko": [
+        "고쿄 히가시교엔은 옛 에도성의 혼마루·니노마루·산노마루 일부를 황거 부속 정원으로 꾸민 곳으로, 1968년 10월 1일부터 공개하고 있어요.",
+        "에도성은 오타 도칸이 처음 쌓았고 뒤에 도쿠가와 이에야스가 거성으로 삼았으며, 그 터는 일본의 특별사적이에요.",
+        "정원 안에는 황실 소장품을 보여 주는 산노마루쇼조칸도 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "옛 에도성의 혼마루·니노마루·산노마루 일부를 궁전을 지을 때 황거 부속 정원으로 꾸몄어요.",
+          "source": "kunaicho_higashigyoen_ja",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c2",
+          "text_ko": "정원은 1961년에 짓기 시작해 1968년 9월에 완성했고, 같은 해 10월 1일부터 공개하고 있어요.",
+          "source": "kunaicho_higashigyoen_en",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c3",
+          "text_ko": "에도성은 오타 도칸이 처음 쌓았고, 뒤에 도쿠가와 이에야스가 거성으로 삼았어요.",
+          "source": "bunka_edojo",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c4",
+          "text_ko": "에도성 터는 1963년에 특별사적으로 지정됐어요.",
+          "source": "bunka_edojo",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c5",
+          "text_ko": "황실 소장품 미술관인 산노마루쇼조칸이 정원 안에 있어요.",
+          "source": "kunaicho_higashigyoen_en",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "들어갈 때 입장료와 사전 예약이 필요 없어요.",
+          "source": "kunaicho_higashigyoen_ja",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "공휴일에는 열지만 천황 탄생일은 쉬어요. 월요일이 공휴일이라 열면 그다음 화요일에 쉬어요.",
+          "source": "kunaicho_higashigyoen_ja",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "드나드는 문은 오테몬·히라카와몬·기타하네바시몬이 있어요.",
+          "source": "kunaicho_higashigyoen_ja",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "궁내청 음성 안내 앱으로 정원 시설 설명을 들을 수 있어요. 금지 사항과 촬영 주의 사항은 궁내청의 공개 요령에 정리돼 있어요.",
+          "source": "kunaicho_higashigyoen_ja",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "free",
+        "booking": "none",
+        "booking_note_ko": null,
+        "regular_closed": [
+          "mon",
+          "fri"
+        ],
+        "closed_note_ko": "12월 28일부터 1월 3일까지, 행사 등으로 공개하기 어려운 날에도 쉬어요.",
+        "visit_note_ko": null,
+        "source": "kunaicho_higashigyoen_ja",
+        "last_verified": "2026-10-09"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "kunaicho_higashigyoen_ja",
+        "last_verified": "2026-10-09"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 12,
+        "designations": [
+          {
+            "kind": "jp_special_historic_site",
+            "name_ko": "특별사적 에도성 터",
+            "source": "bunka_edojo"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-09"
+    },
+    {
+      "id": "tokyo-national-museum",
+      "qid": "Q653433",
+      "names": {
+        "ko": "도쿄 국립박물관",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Tokyo National Museum",
+        "local": "東京国立博物館",
+        "local_short": "東京国立博物館",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [],
+      "aliases_en": [
+        "TNM"
+      ],
+      "mentions_ko": [
+        "본관",
+        "표경관",
+        "동양관"
+      ],
+      "region": "jp_tokyo",
+      "area_ko": "도쿄 다이토구 우에노",
+      "category": "museum",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 35.71888888888889,
+        "lng": 139.7763888888889,
+        "source": "wd",
+        "qid": "Q653433",
+        "osm": null,
+        "last_verified": "2026-10-09"
+      },
+      "wd_geo": {
+        "lat": 35.71888888888889,
+        "lng": 139.7763888888889
+      },
+      "address_local": {
+        "text": "東京都台東区上野公園13番9号",
+        "source": "bunka_tnm_honkan",
+        "last_verified": "2026-10-09"
+      },
+      "access": {
+        "modes": [
+          "train",
+          "metro"
+        ],
+        "nearest_ko": "JR 우에노역·우구이스다니역(도쿄 메트로 긴자선·히비야선 우에노역에서도 걸어서 가요)",
+        "nearest_local": {
+          "text": "上野駅",
+          "qid": "Q801551",
+          "source": "wd"
+        },
+        "source": "tnm_official_visit",
+        "last_verified": "2026-10-09"
+      },
+      "official_url": "https://www.tnm.jp/",
+      "wiki": {
+        "ko": "도쿄 국립박물관",
+        "en": "Tokyo National Museum"
+      },
+      "summary_ko": "도쿄 우에노에 있는 일본의 국립 박물관이에요.",
+      "body_ko": [
+        "도쿄 국립박물관은 스스로를 일본에서 가장 오래되고 가장 큰 박물관이라고 소개해요.",
+        "중심 건물인 본관은 관동대지진 피해 뒤 다시 지어 1937년에 완공했고, 2001년에 중요문화재가 됐어요.",
+        "본관 1층은 조각·도검·도자기처럼 장르별로, 2층은 선사 시대부터 19세기까지 흐름을 따라 일본 미술을 보여 줘요.",
+        "다이쇼 천황의 결혼을 기념해 1908년에 지은 표경관도 중요문화재예요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "박물관은 스스로를 일본에서 가장 오래되고 가장 큰 박물관이라고 소개해요.",
+          "source": "tnm_official_photo",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c2",
+          "text_ko": "본관(옛 도쿄제실박물관 본관)은 관동대지진으로 앞의 본관이 피해를 입어 다시 지은 건물로, 1937년에 완공했어요.",
+          "source": "bunka_tnm_honkan",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c3",
+          "text_ko": "본관은 2001년 6월 15일 중요문화재로 지정됐어요.",
+          "source": "bunka_tnm_honkan",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c4",
+          "text_ko": "본관 1층은 조각·도검·도자기 등 장르별, 2층은 선사 시대부터 19세기까지 흐름으로 전시해요.",
+          "source": "tnm_official_honkan",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c5",
+          "text_ko": "표경관은 다이쇼 천황의 결혼을 기념해 지은 1908년 건물로, 중요문화재예요.",
+          "source": "bunka_hyokeikan",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "헤이세이관 2층은 사진을 찍을 수 없어요. 플래시·조명·삼각대·셀카봉은 어디서든 쓸 수 없어요.",
+          "source": "tnm_official_photo",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "표경관은 특별전이나 행사가 있을 때만 열어요.",
+          "source": "tnm_official_hyokeikan",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "특별전 표는 각 전시 공식 사이트에서 안내하고, 그 표로 같은 날 소장품 전시도 볼 수 있어요.",
+          "source": "tnm_official_visit",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "휠체어로 오면 총무과와 미리 상담하라고 안내해요.",
+          "source": "tnm_official_visit",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "booking": "recommended",
+        "booking_note_ko": "붐빌 때는 정문 매표소에서 오래 기다릴 수 있어 온라인 구매를 권해요.",
+        "regular_closed": [
+          "mon"
+        ],
+        "closed_note_ko": "월요일이 공휴일이면 열고 다음 날 쉬어요. 연말에도 쉬어요.",
+        "visit_note_ko": null,
+        "source": "tnm_official_visit",
+        "last_verified": "2026-10-09"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "tnm_official_visit",
+        "last_verified": "2026-10-09"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 9,
+        "designations": [
+          {
+            "kind": "jp_important_cultural_property_partial",
+            "name_ko": "본관·표경관 중요문화재",
+            "source": "bunka_tnm_honkan"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Tokyo_National_Museum,_Honkan_2010.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-09"
+    },
+    {
+      "id": "tsukiji-outer-market",
+      "qid": "Q859471",
+      "names": {
+        "ko": "쓰키지 장외시장",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Tsukiji Outer Market",
+        "local": "築地場外市場",
+        "local_short": "築地場外市場",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "쓰키지 시장",
+        "츠키지 시장",
+        "츠키지 장외시장"
+      ],
+      "aliases_en": [
+        "Tsukiji Market"
+      ],
+      "mentions_ko": [
+        "나미요케 이나리 신사"
+      ],
+      "region": "jp_tokyo",
+      "area_ko": "도쿄 주오구 쓰키지",
+      "category": "market_street",
+      "tags": [],
+      "geo": {
+        "kind": "station",
+        "lat": 35.6681,
+        "lng": 139.7725,
+        "source": "wd",
+        "qid": "Q1072938",
+        "osm": null,
+        "last_verified": "2026-10-09"
+      },
+      "wd_geo": {
+        "lat": 35.661388888889,
+        "lng": 139.76972222222
+      },
+      "address_local": null,
+      "access": {
+        "modes": [
+          "metro",
+          "bus"
+        ],
+        "nearest_ko": "쓰키지시조역(도에이 오에도선)·쓰키지역(도쿄 메트로 히비야선)",
+        "nearest_local": {
+          "text": "築地駅",
+          "qid": "Q1072938",
+          "source": "wd"
+        },
+        "source": "tsukiji_official_access",
+        "last_verified": "2026-10-09"
+      },
+      "official_url": "https://www.tsukiji.or.jp/",
+      "wiki": {
+        "ko": "쓰키지 시장",
+        "en": "Tsukiji fish market"
+      },
+      "summary_ko": "도매·소매 가게와 식당이 좁은 골목에 모인 먹거리 시장이에요.",
+      "body_ko": [
+        "쓰키지 장외시장은 도매·소매 가게와 식당이 골목마다 늘어선 먹거리 시장이에요.",
+        "쓰키지라는 이름은 1657년 메이레키 대화재 뒤 바다를 메워 만든 '지은 땅'이라는 뜻에서 왔어요.",
+        "1923년 관동대지진 뒤 니혼바시 어시장이 이곳으로 옮겨 와 1935년부터 영업했어요.",
+        "경매가 열리던 중앙도매시장은 다른 곳으로 옮겼고, 둘레의 가게들이 남아 장외시장이 됐어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "도매·소매 가게와 여러 식당이 거리에 늘어서 있어요.",
+          "source": "tsukiji_official_en",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c2",
+          "text_ko": "1657년 메이레키 대화재 뒤 바다를 메워 만든 땅이라 '지은 땅'이라는 뜻의 쓰키지라는 이름이 붙었어요.",
+          "source": "tsukiji_official_en",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c3",
+          "text_ko": "1923년 관동대지진으로 니혼바시 어시장이 무너진 뒤 어시장이 쓰키지로 옮겨 와 1935년에 영업을 시작했어요.",
+          "source": "tsukiji_official_en",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c4",
+          "text_ko": "경매가 열리던 도쿄도 중앙도매시장은 다른 곳으로 옮겼고, 둘레의 가게들이 쓰키지에 남아 쓰키지 장외시장으로 불려요.",
+          "source": "tsukiji_official_en",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "걸으면서 먹지 말고 가게 안이나 정해진 곳에서 먹어 달라고 해요.",
+          "source": "tsukiji_official_guide",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "길이 좁아 여행 가방 같은 큰 짐은 코인 로커에 맡기고 오라고 해요.",
+          "source": "tsukiji_official_guide",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "가게 사진은 주인에게 먼저 물어보고 찍어요. 촬영 금지 표시가 있는 가게도 있어요.",
+          "source": "tsukiji_official_guide",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "주오구는 길에서 담배를 피울 수 없어요. 정해진 흡연 장소만 써요.",
+          "source": "tsukiji_official_shopping",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "facts": {
+        "kind": "public_space",
+        "regular_closed": [
+          "sun",
+          "irregular"
+        ],
+        "closed_note_ko": "일요일과 일부 수요일에는 많은 가게가 쉬어요. 공식 달력을 확인하세요.",
+        "visit_note_ko": null,
+        "source": "tsukiji_official_shopping",
+        "last_verified": "2026-10-09"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "tsukiji_official_shopping",
+        "last_verified": "2026-10-09"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 17,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-09"
+    },
+    {
+      "id": "ghibli-museum",
+      "qid": "Q947907",
+      "names": {
+        "ko": "지브리 미술관",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Ghibli Museum, Mitaka",
+        "local": "三鷹の森ジブリ美術館",
+        "local_short": "ジブリ美術館",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "미타카의 숲 지브리 미술관",
+        "지브리 박물관"
+      ],
+      "aliases_en": [
+        "Ghibli Museum"
+      ],
+      "mentions_ko": [
+        "토성좌",
+        "고양이 버스",
+        "로봇 병사"
+      ],
+      "region": "jp_tokyo",
+      "area_ko": "도쿄 미타카시",
+      "category": "museum",
+      "tags": [
+        {
+          "id": "booking_required",
+          "source": "ghibli_official_tickets",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 35.696233,
+        "lng": 139.570431,
+        "source": "wd",
+        "qid": "Q947907",
+        "osm": null,
+        "last_verified": "2026-10-09"
+      },
+      "wd_geo": {
+        "lat": 35.696233,
+        "lng": 139.570431
+      },
+      "address_local": null,
+      "access": {
+        "modes": [
+          "train",
+          "bus"
+        ],
+        "nearest_ko": "JR 미타카역(주오선) 남쪽 출구에서 걷거나 커뮤니티 버스",
+        "nearest_local": {
+          "text": "三鷹駅",
+          "qid": "Q546655",
+          "source": "wd"
+        },
+        "source": "ghibli_official_hours",
+        "last_verified": "2026-10-09"
+      },
+      "official_url": "https://www.ghibli-museum.jp/",
+      "wiki": {
+        "ko": "미타카의 숲 지브리 미술관",
+        "en": "Ghibli Museum"
+      },
+      "summary_ko": "도쿄 미타카의 이노카시라 공원 옆에 있는 지브리 미술관이에요.",
+      "body_ko": [
+        "지브리 미술관은 미타카 이노카시라 공원의 나무 그늘 옆에 있는 스튜디오 지브리의 미술관이에요.",
+        "건물 안은 미야자키 하야오 감독 영화에 나오는 건물처럼 나선 계단과 다리, 테라스가 얽혀 있어요.",
+        "지하의 작은 극장 토성좌(약 80석)에서는 이 미술관에서만 볼 수 있는 단편 애니메이션을 틀어요.",
+        "옥상 정원에는 '천공의 성 라퓨타'에 나오는 높이 5m의 로봇 병사가 서 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "미타카 이노카시라 공원의 큰 나무 그늘 옆에 있어요.",
+          "source": "ghibli_official_welcome",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c2",
+          "text_ko": "건물 안은 미야자키 하야오 영화 속 건물처럼 나선 계단·다리·테라스가 얽힌 공간이에요.",
+          "source": "ghibli_official_welcome",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c3",
+          "text_ko": "지하의 토성좌는 약 80석의 작은 극장으로, 이 미술관에서만 볼 수 있는 지브리 단편을 상영해요.",
+          "source": "ghibli_official_welcome",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c4",
+          "text_ko": "옥상 정원에는 '천공의 성 라퓨타'의 높이 5m 로봇 병사가 있어요.",
+          "source": "ghibli_official_welcome",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c5",
+          "text_ko": "고양이 버스 방은 초등학생 이하(12세 이하)만 쓸 수 있어요.",
+          "source": "ghibli_official_welcome",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "미술관 현장에서는 표를 팔지 않아요. 입장 날짜와 시간이 정해진 표를 미리 사야 해요.",
+          "source": "ghibli_official_tickets",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "미술관 안에서는 사진·영상을 찍을 수 없어요.",
+          "source": "ghibli_official_info",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "방문객 주차장이 없어 대중교통으로 오라고 안내해요.",
+          "source": "ghibli_official_info",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "옥상 정원으로는 좁은 나선 계단으로만 올라가고 엘리베이터가 없어요. 날씨가 나쁘면 옥상 정원을 닫을 수 있어요.",
+          "source": "ghibli_official_info",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "booking": "required",
+        "booking_note_ko": "모든 입장은 사전 예약제예요. 미술관에서는 예약이나 표 구매를 받지 않아요.",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "ghibli_official_tickets",
+        "last_verified": "2026-10-09"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "ghibli_official_tickets",
+        "last_verified": "2026-10-09"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 15,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Ghibli-museum-mitaka.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-09"
+    },
+    {
+      "id": "owakudani",
+      "qid": "Q1134429",
+      "names": {
+        "ko": "오와쿠다니",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Ōwakudani",
+        "local": "大涌谷",
+        "local_short": "大涌谷",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [],
+      "aliases_en": [
+        "Owakudani"
+      ],
+      "mentions_ko": [
+        "하코네 로프웨이",
+        "자연연구로"
+      ],
+      "region": "jp_hakone",
+      "area_ko": "가나가와현 하코네정",
+      "category": "nature",
+      "tags": [
+        {
+          "id": "cable_car",
+          "source": "hakonenavi_ropeway",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "mountain_view",
+          "source": "hakonenavi_ropeway",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "geo": {
+        "kind": "station",
+        "lat": 35.24430556,
+        "lng": 139.0199444,
+        "source": "wd",
+        "qid": "Q11437480",
+        "osm": null,
+        "last_verified": "2026-10-09"
+      },
+      "wd_geo": {
+        "lat": 35.241916,
+        "lng": 139.020667
+      },
+      "address_local": null,
+      "access": {
+        "modes": [
+          "bus"
+        ],
+        "nearest_ko": "하코네 로프웨이 오와쿠다니역(소운잔역·도겐다이역에서 타요), 하코네유모토역에서 이즈하코네 버스",
+        "nearest_local": {
+          "text": "大涌谷駅",
+          "qid": "Q11437480",
+          "source": "wd"
+        },
+        "source": "kanagawa_owakudani",
+        "last_verified": "2026-10-09"
+      },
+      "official_url": "https://www.pref.kanagawa.jp/docs/f4y/hakone/fujihakoneizu/oowakudani.html",
+      "wiki": {
+        "ko": "오와쿠다니",
+        "en": "Ōwakudani"
+      },
+      "summary_ko": "활화산인 하코네산에서 연기가 뿜어 나오는 골짜기예요.",
+      "body_ko": [
+        "오와쿠다니는 활화산인 하코네산에서 연기가 뿜어 나오는 분연지예요.",
+        "길이 약 700m의 자연연구로를 따라 분연지 가까이 걸을 수 있고, 2015년 화산 활동 뒤 막았다가 2022년에 다시 열었어요.",
+        "하코네 로프웨이가 골짜기 위를 지나고, 맑은 날에는 후지산이 보여요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "오와쿠다니는 활화산인 하코네산의 분연지예요.",
+          "source": "kanagawa_owakudani",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c2",
+          "text_ko": "자연연구로는 길이 약 700m의 산책로로, 분연지 가까이를 걸어요.",
+          "source": "kanagawa_owakudani",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c3",
+          "text_ko": "자연연구로는 헤이세이 27년(2015년) 화산 활동 뒤 출입을 막았다가 레이와 4년(2022년) 3월 28일에 다시 열었어요.",
+          "source": "kanagawa_owakudani",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c4",
+          "text_ko": "맑은 날에는 후지산이 보여요.",
+          "source": "kanagawa_owakudani",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c5",
+          "text_ko": "하코네 로프웨이가 오와쿠다니 골짜기 위를 지나요.",
+          "source": "hakonenavi_ropeway",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "기상청이 늘 지켜보는 활화산(하코네산) 지역이에요. 기상청 사이트에서 하코네산의 분화 경계 레벨과 지금의 분화 경보 발표 상황을 알려 줘요.",
+          "source": "jma_hakoneyama",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "몸에 해로운 화산가스가 나와요. 천식·기관지·호흡기·심장 질환이 있거나 심장 박동기를 단 사람은 방문을 삼가 달라고 해요.",
+          "source": "kanagawa_owakudani",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "자연연구로는 웹 사전 예약과 협력금이 필요하고, 감시원이 이끄는 단체로만 걸어요. 초등학생 이상만 들어갈 수 있고, 비·강풍·안개 때는 취소돼요.",
+          "source": "kanagawa_owakudani",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "가스 농도가 기준을 넘으면 경고 방송이 나오고 실내로 피하라고 할 수 있어요.",
+          "source": "kanagawa_owakudani",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "facts": {
+        "kind": "public_space",
+        "visit_note_ko": null
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [
+        "volcano"
+      ],
+      "status": {
+        "value": "partial",
+        "note_ko": "둘레가 경계 구역이에요. 자연연구로는 사전 예약 인솔 입장만 되고, 주변 하이킹 코스 일부는 통행금지예요.",
+        "source": "kanagawa_hakone_info",
+        "last_verified": "2026-10-09"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 18,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-09"
+    },
+    {
+      "id": "lake-ashi",
+      "qid": "Q187053",
+      "names": {
+        "ko": "아시노호",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Lake Ashi",
+        "local": "芦ノ湖",
+        "local_short": "芦ノ湖",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "아시노코"
+      ],
+      "aliases_en": [
+        "Lake Ashinoko"
+      ],
+      "mentions_ko": [
+        "하코네 관광선",
+        "모토하코네항",
+        "하코네마치항",
+        "도겐다이항",
+        "하코네 신사"
+      ],
+      "region": "jp_hakone",
+      "area_ko": "가나가와현 하코네정",
+      "category": "nature",
+      "tags": [],
+      "geo": {
+        "kind": "pier",
+        "lat": 35.20097222,
+        "lng": 139.03,
+        "source": "wd",
+        "qid": "Q11388029",
+        "osm": null,
+        "last_verified": "2026-10-09"
+      },
+      "wd_geo": {
+        "lat": 35.21167,
+        "lng": 139.00389
+      },
+      "address_local": null,
+      "access": {
+        "modes": [
+          "bus",
+          "boat"
+        ],
+        "nearest_ko": "모토하코네항(하코네유모토역에서 하코네 등산버스, 하코네 관광선)",
+        "nearest_local": {
+          "text": "元箱根港",
+          "qid": "Q11388029",
+          "source": "wd"
+        },
+        "source": "hakonenavi_kankosen",
+        "last_verified": "2026-10-09"
+      },
+      "official_url": "https://www.hakonenavi.jp/international/en/transportation/hakone-kankosen",
+      "wiki": {
+        "ko": "아시노호",
+        "en": "Lake Ashi"
+      },
+      "summary_ko": "하코네산의 옛 분화가 만든 호수예요.",
+      "body_ko": [
+        "아시노호는 하코네에 있는 호수예요.",
+        "약 3200년 전 가미야마의 마지막 마그마 분화 때 산이 무너지며 쏟아진 흙과 바위가 하야카와강을 막아 지금 모양이 됐어요.",
+        "관광선이 도겐다이항과 하코네마치항·모토하코네항 사이를 오가고, 배에서 후지산과 하코네 신사의 물 위 도리이를 함께 볼 수 있는 곳도 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "약 3200년 전 가미야마의 마지막 마그마 분화 때 산체 붕괴로 생긴 암설 사태 퇴적물이 하야카와강을 막아 아시노호가 지금 모양이 됐어요.",
+          "source": "jma_hakoneyama",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c2",
+          "text_ko": "하코네 관광선은 도겐다이항에서 하코네마치항·모토하코네항까지 호수를 오가요.",
+          "source": "hakonenavi_kankosen",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c3",
+          "text_ko": "배에서 후지산과 하코네 신사의 호수 위 도리이를 한 화면에 볼 수 있는 곳이 있어요.",
+          "source": "hakonenavi_kankosen",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c4",
+          "text_ko": "관광선 3척은 모두 배리어프리예요.",
+          "source": "hakonenavi_kankosen",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "관광선 3척은 모두 배리어프리이고, 항구마다 휠체어를 무료로 빌려줘요.",
+          "source": "hakonenavi_kankosen",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "하코네유모토역에서 하코네 등산버스를 타면 모토하코네항·하코네마치항·도겐다이항으로 바로 가요.",
+          "source": "hakonenavi_kankosen",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "facts": {
+        "kind": "public_space",
+        "visit_note_ko": null
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "hakonenavi_kankosen",
+        "last_verified": "2026-10-09"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 16,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Lake_Ashi_%26_Mt_Fuji_%26_Hakone_Shrine.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-09"
+    },
+    {
+      "id": "tsurugaoka-hachimangu",
+      "qid": "Q701403",
+      "names": {
+        "ko": "쓰루가오카 하치만구",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Tsurugaoka Hachimangū",
+        "local": "鶴岡八幡宮",
+        "local_short": "鶴岡八幡宮",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "쓰루가오카하치만궁",
+        "츠루가오카 하치만구"
+      ],
+      "aliases_en": [
+        "Tsurugaoka Hachimangu"
+      ],
+      "mentions_ko": [
+        "와카미야오지",
+        "와카미야",
+        "야부사메"
+      ],
+      "region": "jp_kamakura",
+      "area_ko": "가나가와현 가마쿠라시 유키노시타",
+      "category": "heritage",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 35.32608056,
+        "lng": 139.55641667,
+        "source": "wd",
+        "qid": "Q701403",
+        "osm": null,
+        "last_verified": "2026-10-09"
+      },
+      "wd_geo": {
+        "lat": 35.32608056,
+        "lng": 139.55641667
+      },
+      "address_local": {
+        "text": "神奈川県鎌倉市雪ノ下2-1-31",
+        "source": "hachimangu_official_access",
+        "last_verified": "2026-10-09"
+      },
+      "access": {
+        "modes": [
+          "train"
+        ],
+        "nearest_ko": "JR 가마쿠라역 동쪽 출구·에노덴 가마쿠라역에서 걸어서 가요",
+        "nearest_local": {
+          "text": "鎌倉駅",
+          "qid": "Q932895",
+          "source": "wd"
+        },
+        "source": "hachimangu_official_access",
+        "last_verified": "2026-10-09"
+      },
+      "official_url": "https://www.hachimangu.or.jp/",
+      "wiki": {
+        "ko": "쓰루가오카하치만궁",
+        "en": "Tsurugaoka Hachimangū"
+      },
+      "summary_ko": "미나모토노 요리토모가 지금 자리로 옮겨 모신 가마쿠라의 신사예요.",
+      "body_ko": [
+        "쓰루가오카 하치만구는 미나모토노 요리토모의 선조가 유이가하마 바닷가에 모신 하치만 신에서 시작한 신사예요.",
+        "1180년 요리토모가 가마쿠라에 막부의 거점을 두면서 신사를 지금 자리로 옮겼어요.",
+        "바닷가에서 신사까지 약 2km 곧게 뻗은 참배길 와카미야오지도 요리토모가 만들었다고 전해요.",
+        "본궁과 와카미야는 중요문화재이고, 경내는 일본의 사적이에요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "요리토모의 선조 미나모토노 요리요시가 교토 이와시미즈 하치만구의 신을 모셔 와 유이가하마 바닷가에 모신 것이 시작이에요.",
+          "source": "hachimangu_official_knowledge",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c2",
+          "text_ko": "1180년 미나모토노 요리토모가 가마쿠라에 막부의 거점을 두고, 같은 해 하치만구를 지금 자리로 옮겼어요.",
+          "source": "hachimangu_official_knowledge",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c3",
+          "text_ko": "유이가하마 해안에서 하치만구까지 약 2km 곧게 뻗은 참배길 와카미야오지는 요리토모의 지휘로 만들었다고 전해요.",
+          "source": "hachimangu_official_knowledge",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c4",
+          "text_ko": "본궁은 와카미야(하궁)와 함께 일본의 중요문화재예요.",
+          "source": "hachimangu_official_keidai",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c5",
+          "text_ko": "쓰루가오카 하치만구 경내는 1967년 일본의 사적으로 지정됐어요.",
+          "source": "bunka_tsurugaoka",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c6",
+          "text_ko": "야부사메(말 위에서 활쏘기) 신사는 요리토모가 가마쿠라 시대에 연 것이 시작이고, 해마다 한 번 열리는 큰 행사예요.",
+          "source": "hachimangu_official_knowledge",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "야부사메(말 위에서 활쏘기) 신사는 해마다 한 번 열리는 큰 행사예요.",
+          "source": "hachimangu_official_knowledge",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "경내의 가마쿠라 문화관 쓰루가오카 뮤지엄은 월요일(공휴일이면 개관)·전시 교체 기간·연말연시에 쉬어요.",
+          "source": "hachimangu_official_access",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "참배자 전용 주차장이 있어요(유료). 일반 승용차는 예약을 받지 않아요.",
+          "source": "hachimangu_official_access",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "unknown",
+        "regular_closed": [
+          "none"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "hachimangu_official_access",
+        "last_verified": "2026-10-09"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "hachimangu_official_access",
+        "last_verified": "2026-10-09"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 8,
+        "designations": [
+          {
+            "kind": "jp_historic_site",
+            "name_ko": "사적 쓰루가오카 하치만구 경내(본궁·와카미야 중요문화재)",
+            "source": "bunka_tsurugaoka"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Tsurugaoka_Hachimangu_001.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-09"
+    },
+    {
+      "id": "kotoku-in",
+      "qid": "Q672056",
+      "names": {
+        "ko": "가마쿠라 대불(고토쿠인)",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Kōtoku-in (Great Buddha of Kamakura)",
+        "local": "高徳院",
+        "local_short": "鎌倉大仏",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "가마쿠라 대불",
+        "고토쿠인",
+        "가마쿠라 다이부쓰"
+      ],
+      "aliases_en": [
+        "Kamakura Daibutsu",
+        "Great Buddha of Kamakura",
+        "Kotoku-in"
+      ],
+      "mentions_ko": [
+        "대불전 터"
+      ],
+      "region": "jp_kamakura",
+      "area_ko": "가나가와현 가마쿠라시 하세",
+      "category": "heritage",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 35.31686111111111,
+        "lng": 139.53572222222223,
+        "source": "wd",
+        "qid": "Q672056",
+        "osm": null,
+        "last_verified": "2026-10-09"
+      },
+      "wd_geo": {
+        "lat": 35.31686111111111,
+        "lng": 139.53572222222223
+      },
+      "address_local": {
+        "text": "神奈川県鎌倉市長谷４丁目２番28号",
+        "source": "kotokuin_official_ja",
+        "last_verified": "2026-10-09"
+      },
+      "access": {
+        "modes": [
+          "train",
+          "bus"
+        ],
+        "nearest_ko": "에노덴 하세역(가마쿠라역에서 세 번째 역), 가마쿠라역 동쪽 출구에서 버스로 '다이부쓰마에'",
+        "nearest_local": {
+          "text": "長谷駅 (神奈川県)",
+          "qid": "Q858830",
+          "source": "wd"
+        },
+        "source": "kotokuin_official_en",
+        "last_verified": "2026-10-09"
+      },
+      "official_url": "https://www.kotoku-in.jp/",
+      "wiki": {
+        "ko": "고토쿠인",
+        "en": "Kōtoku-in"
+      },
+      "summary_ko": "고토쿠인의 본존인 바깥에 앉은 구리 대불이에요.",
+      "body_ko": [
+        "가마쿠라 대불은 고토쿠인의 본존인 구리 아미타불 좌상으로, 높이 약 11.3m·무게 약 121톤인 국보예요.",
+        "기록에 따르면 1252년에 만들기 시작했어요.",
+        "처음에는 대불전 안에 있었지만, 건물이 1334년·1369년 태풍과 1498년 지진으로 무너진 뒤로 바깥에 앉아 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "가마쿠라 대불은 고토쿠인의 본존인 거대한 구리 아미타불이에요.",
+          "source": "kotokuin_official_about",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c2",
+          "text_ko": "바깥에 앉아 있는 점이 일본의 대불 가운데 드물어요.",
+          "source": "kotokuin_official_about",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c3",
+          "text_ko": "국보로 지정됐고, 높이 약 11.3m·무게 약 121톤이에요.",
+          "source": "kotokuin_official_about",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c4",
+          "text_ko": "아즈마카가미에 따르면 1252년에 만들기 시작했어요.",
+          "source": "kotokuin_official_about",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c5",
+          "text_ko": "처음에는 대불전 안에 모셨지만, 건물이 1334년·1369년 태풍과 1498년 큰 지진으로 무너졌어요.",
+          "source": "kotokuin_official_about",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c6",
+          "text_ko": "대불전 터는 2004년 일본의 사적으로 지정됐어요.",
+          "source": "bunka_daibutsuden",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "대불 안(태내)에도 들어가 볼 수 있어요. 따로 요금을 내요.",
+          "source": "kotokuin_official_en",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "고토쿠인에는 주차장이 없어요. 근처 공영 주차장을 쓰라고 안내해요.",
+          "source": "kotokuin_official_en",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "경내에서 드론을 날리거나 대불 안에서 셀카봉을 쓰지 말아 달라고 해요.",
+          "source": "kotokuin_official_en",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "경내 일부는 휠체어로 혼자 다니기 어려워 도우미와 함께 오기를 권해요.",
+          "source": "kotokuin_official_en",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "booking": "none",
+        "booking_note_ko": null,
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "kotokuin_official_en",
+        "last_verified": "2026-10-09"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "kotokuin_official_en",
+        "last_verified": "2026-10-09"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 11,
+        "designations": [
+          {
+            "kind": "jp_national_treasure_partial",
+            "name_ko": "국보 대불(구리 아미타여래 좌상)·사적 대불전 터",
+            "source": "bunka_daibutsuden"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:230128_Kamakura_Daibutsu_Japan01s3.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-09"
+    },
+    {
+      "id": "mount-fuji",
+      "qid": "Q39231",
+      "names": {
+        "ko": "후지산",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Mount Fuji",
+        "local": "富士山",
+        "local_short": "富士山",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "후지산 5합목",
+        "후지스바루라인 5합목"
+      ],
+      "aliases_en": [
+        "Mt. Fuji",
+        "Fujisan"
+      ],
+      "mentions_ko": [
+        "고미타케 신사",
+        "요시다 등산로"
+      ],
+      "region": "jp_fuji",
+      "area_ko": "야마나시현 후지요시다시(후지스바루라인 5합목)",
+      "category": "nature",
+      "tags": [
+        {
+          "id": "unesco",
+          "source": "unesco_1418",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "mountain_view",
+          "source": "yamanashi_kanko_5gome",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "geo": {
+        "kind": "entrance",
+        "lat": 35.39505555555556,
+        "lng": 138.73366666666666,
+        "source": "wd",
+        "qid": "Q141163727",
+        "osm": null,
+        "last_verified": "2026-10-09"
+      },
+      "wd_geo": {
+        "lat": 35.36055555555556,
+        "lng": 138.7275
+      },
+      "address_local": {
+        "text": "富士吉田市上吉田小御岳下5617",
+        "source": "yamanashi_kanko_5gome",
+        "last_verified": "2026-10-09"
+      },
+      "access": {
+        "modes": [
+          "bus"
+        ],
+        "nearest_ko": "후지큐 가와구치코역에서 버스로 '후지산 5합목' 정류장",
+        "nearest_local": null,
+        "source": "yamanashi_kanko_5gome",
+        "last_verified": "2026-10-09"
+      },
+      "official_url": "https://www.fujisan-climb.jp/",
+      "wiki": {
+        "ko": "후지산",
+        "en": "Mount Fuji"
+      },
+      "summary_ko": "높이 3,776m의 성층화산으로, 5합목까지 버스로 가요.",
+      "body_ko": [
+        "후지산은 높이 3,776m의 성층화산으로, 2013년 '후지산 - 신앙의 대상이자 예술의 원천'이라는 이름으로 유네스코 세계유산에 올랐어요.",
+        "여기서는 야마나시현 쪽 후지스바루라인 5합목을 방문 지점으로 안내해요.",
+        "5합목에는 고미타케 신사가 있고, 그 안쪽에 야마나시현이 만든 전망 광장에서 산꼭대기 쪽을 올려다볼 수 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "후지산은 높이 3,776m의 성층화산이에요.",
+          "source": "unesco_1418",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c2",
+          "text_ko": "2013년 '후지산 - 신앙의 대상이자 예술의 원천'으로 유네스코 세계유산에 올랐어요.",
+          "source": "unesco_1418",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c3",
+          "text_ko": "후지산은 2011년 일본의 사적으로 지정됐어요.",
+          "source": "bunka_fujisan",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c4",
+          "text_ko": "야마나시현이 후지스바루라인 5합목에 전망 광장을 만들었고, 광장은 고미타케 신사 안쪽에 있어요.",
+          "source": "yamanashi_kanko_5gome",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c5",
+          "text_ko": "전망 광장에서는 후지산 정상 쪽이 크게 보여요.",
+          "source": "yamanashi_kanko_5gome",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "기상청이 늘 지켜보는 활화산이에요. 기상청 사이트에서 후지산의 분화 경계 레벨과 지금의 분화 경보 발표 상황을 알려 줘요.",
+          "source": "jma_fujisan",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "공식 등산 시즌이 아닐 때 오르는 것은 구호소·산장이 문을 닫고 휴대전화가 잘 안 되며 날씨가 험해 매우 위험하다고 안내해요.",
+          "source": "fujisan_climb_official",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "후지스바루라인은 전 구간이 열린 뒤에도 날씨에 따라 통행을 막을 수 있어요.",
+          "source": "yamanashi_subaruline_2026",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "전망 광장은 후지스바루라인을 지날 수 있는 시간에만 열어요.",
+          "source": "yamanashi_kanko_5gome",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "facts": {
+        "kind": "public_space",
+        "visit_note_ko": null
+      },
+      "volatile": null,
+      "seasonal": [
+        {
+          "kind": "closed",
+          "text_ko": "겨울에는 쌓인 눈 때문에 후지스바루라인을 5합목까지 운영하지 않고 아래쪽 주차장까지만 운영하기도 해요.",
+          "source": "yamanashi_subaruline_2026",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "kind": "closed",
+          "text_ko": "요시다 등산로 등은 겨울에 5합목부터 정상까지 닫혀요.",
+          "source": "fujisan_climb_official",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "risk": [
+        "volcano",
+        "seasonal"
+      ],
+      "status": {
+        "value": "partial",
+        "note_ko": "2026년 등산 시즌이 끝나 등산로는 닫혀 있어요.",
+        "source": "fujisan_climb_official",
+        "last_verified": "2026-10-09"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 6,
+        "designations": [
+          {
+            "kind": "unesco",
+            "name_ko": "세계유산 '후지산 - 신앙의 대상이자 예술의 원천'",
+            "source": "unesco_1418"
+          },
+          {
+            "kind": "jp_historic_site",
+            "name_ko": "사적 후지산",
+            "source": "bunka_fujisan"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-09"
+    },
+    {
+      "id": "lake-kawaguchi",
+      "qid": "Q577372",
+      "names": {
+        "ko": "가와구치호",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Lake Kawaguchi",
+        "local": "河口湖",
+        "local_short": "河口湖",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "가와구치코",
+        "카와구치코"
+      ],
+      "aliases_en": [
+        "Lake Kawaguchiko",
+        "Kawaguchiko"
+      ],
+      "mentions_ko": [
+        "후지 5호"
+      ],
+      "region": "jp_fuji",
+      "area_ko": "야마나시현 후지카와구치코정",
+      "category": "nature",
+      "tags": [
+        {
+          "id": "unesco",
+          "source": "bunka_fujisan_wh",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "geo": {
+        "kind": "station",
+        "lat": 35.49833333,
+        "lng": 138.76861111,
+        "source": "wd",
+        "qid": "Q6379504",
+        "osm": null,
+        "last_verified": "2026-10-09"
+      },
+      "wd_geo": {
+        "lat": 35.515,
+        "lng": 138.75666666667
+      },
+      "address_local": null,
+      "access": {
+        "modes": [
+          "train",
+          "bus"
+        ],
+        "nearest_ko": "후지큐 가와구치코역(도쿄에서 JR 직통 열차가 다녀요)",
+        "nearest_local": {
+          "text": "河口湖駅",
+          "qid": "Q6379504",
+          "source": "wd"
+        },
+        "source": "fujikyu_kawaguchiko",
+        "last_verified": "2026-10-09"
+      },
+      "official_url": "https://fujisan.ne.jp/",
+      "wiki": {
+        "ko": "가와구치호",
+        "en": "Lake Kawaguchi"
+      },
+      "summary_ko": "후지산 북쪽 기슭의 후지 5호 가운데 하나인 호수예요.",
+      "body_ko": [
+        "가와구치호는 후지산 북쪽 기슭의 후지 5호 가운데 하나로, 세계유산 후지산의 구성 자산이에요.",
+        "가와구치호·사이호·쇼지호·모토스호 자리는 원래 하나의 큰 호수였는데, 1200년 전 분화로 지금 모습이 됐어요.",
+        "예로부터 후지산 참배객을 맞던 오시의 집들이 있었고, 가쓰시카 호쿠사이·우타가와 히로시게의 우키요에에도 그려졌어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "가와구치호는 후지산 북쪽 기슭에 있는 후지 5호의 하나예요.",
+          "source": "fujikawaguchiko_kanko_lakes",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c2",
+          "text_ko": "가와구치호는 세계유산 '후지산 - 신앙의 대상이자 예술의 원천'의 구성 자산이에요.",
+          "source": "bunka_fujisan_wh",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c3",
+          "text_ko": "후지 5호(가와구치호 포함)는 2011년 일본의 명승으로 지정됐어요.",
+          "source": "bunka_fujigoko",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c4",
+          "text_ko": "가와구치호·사이호·쇼지호·모토스호 자리는 원래 하나의 큰 호수였고, 1200년 전 분화로 모습이 바뀌었어요.",
+          "source": "fujikawaguchiko_kanko_lakes",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c5",
+          "text_ko": "예로부터 후지 등산의 입구로 오시의 집들이 늘어서 참배객을 맞았고, 가쓰시카 호쿠사이·우타가와 히로시게 우키요에의 소재가 됐어요.",
+          "source": "fujikawaguchiko_kanko_lakes",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "호숫가에 미술관·허브관·로프웨이 같은 시설이 모여 있어요.",
+          "source": "fujikawaguchiko_kanko_lakes",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "가와구치호·사이호·쇼지호·모토스호는 주유 버스로 돌아볼 수 있어요.",
+          "source": "fujikawaguchiko_kanko_lakes",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "facts": {
+        "kind": "public_space",
+        "visit_note_ko": null
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "fujikawaguchiko_kanko_lakes",
+        "last_verified": "2026-10-09"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 10,
+        "designations": [
+          {
+            "kind": "unesco_component",
+            "name_ko": "세계유산 후지산 구성 자산",
+            "source": "bunka_fujisan_wh"
+          },
+          {
+            "kind": "jp_place_of_scenic_beauty",
+            "name_ko": "명승 후지 5호",
+            "source": "bunka_fujigoko"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:170505_Lake_Kawaguchi_Japan15s3.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-09"
+    }
+  ],
+  "sources": [
+    {
+      "id": "skytree_official_outline",
+      "name": "TOKYO SKYTREE (official, Tobu Tower Skytree) About",
+      "url": "https://en.tokyo-skytree.jp/about/outline/",
+      "use": "facts"
+    },
+    {
+      "id": "skytree_official_spec",
+      "name": "TOKYO SKYTREE Specifications (official)",
+      "url": "https://en.tokyo-skytree.jp/about/spec/",
+      "use": "facts"
+    },
+    {
+      "id": "skytree_official_timeline",
+      "name": "TOKYO SKYTREE History timeline (official)",
+      "url": "https://en.tokyo-skytree.jp/about/timeline/",
+      "use": "facts"
+    },
+    {
+      "id": "skytree_official_access",
+      "name": "TOKYO SKYTREE Getting Here by Public Transport (official)",
+      "url": "https://en.tokyo-skytree.jp/access/public-transport/",
+      "use": "facts"
+    },
+    {
+      "id": "skytree_official_access_ja",
+      "name": "東京スカイツリー アクセス (official)",
+      "url": "https://www.tokyo-skytree.jp/access/",
+      "use": "facts"
+    },
+    {
+      "id": "skytree_official_faq",
+      "name": "TOKYO SKYTREE FAQ (official)",
+      "url": "https://en.tokyo-skytree.jp/inquiry/faq/",
+      "use": "facts"
+    },
+    {
+      "id": "skytree_official_ticket",
+      "name": "TOKYO SKYTREE Tickets & Prices (official)",
+      "url": "https://en.tokyo-skytree.jp/ticket/",
+      "use": "facts"
+    },
+    {
+      "id": "skytree_official_admission",
+      "name": "TOKYO SKYTREE Admission Information (official)",
+      "url": "https://en.tokyo-skytree.jp/ticket/admission/",
+      "use": "facts"
+    },
+    {
+      "id": "skytree_official_requests",
+      "name": "TOKYO SKYTREE Requests for Visitors (official)",
+      "url": "https://en.tokyo-skytree.jp/ticket/to_guest/",
+      "use": "facts"
+    },
+    {
+      "id": "tokyotower_official_pedia",
+      "name": "TOKYO TOWER Towerpedia (official)",
+      "url": "https://en.tokyotower.co.jp/plan/towerpedia/",
+      "use": "facts"
+    },
+    {
+      "id": "tokyotower_official_company",
+      "name": "TOKYO TOWER Company Profile (official)",
+      "url": "https://en.tokyotower.co.jp/company/",
+      "use": "facts"
+    },
+    {
+      "id": "tokyotower_official_maindeck",
+      "name": "TOKYO TOWER Main Deck (official)",
+      "url": "https://en.tokyotower.co.jp/maindeck/",
+      "use": "facts"
+    },
+    {
+      "id": "tokyotower_official_fee",
+      "name": "TOKYO TOWER Fees / Business Hours (official)",
+      "url": "https://en.tokyotower.co.jp/fee/",
+      "use": "facts"
+    },
+    {
+      "id": "tokyotower_official_access",
+      "name": "TOKYO TOWER Access (official)",
+      "url": "https://en.tokyotower.co.jp/access/",
+      "use": "facts"
+    },
+    {
+      "id": "tokyotower_official_faq",
+      "name": "TOKYO TOWER FAQ (official)",
+      "url": "https://en.tokyotower.co.jp/access/faq/",
+      "use": "facts"
+    },
+    {
+      "id": "tokyotower_official_stair",
+      "name": "TOKYO TOWER Open-air Stair (official)",
+      "url": "https://en.tokyotower.co.jp/plan/open_air_stair/",
+      "use": "facts"
+    },
+    {
+      "id": "bunka_tokyotower",
+      "name": "文化庁 国指定文化財等データベース",
+      "url": "https://kunishitei.bunka.go.jp/heritage/detail/101/00009591",
+      "use": "heritage_registry",
+      "license": "MEXT-website-terms (出典記載で自由利用)",
+      "attribution_required": true
+    },
+    {
+      "id": "meiji_official_about_en",
+      "name": "Meiji Jingu About (official)",
+      "url": "https://www.meijijingu.or.jp/en/about/",
+      "use": "facts"
+    },
+    {
+      "id": "meiji_official_about_ja",
+      "name": "明治神宮とは (official)",
+      "url": "https://www.meijijingu.or.jp/about/",
+      "use": "facts"
+    },
+    {
+      "id": "meiji_official_visit",
+      "name": "Meiji Jingu How to visit (official)",
+      "url": "https://www.meijijingu.or.jp/en/visit/",
+      "use": "facts"
+    },
+    {
+      "id": "meiji_official_qa",
+      "name": "Meiji Jingu Q&A (official)",
+      "url": "https://www.meijijingu.or.jp/en/qa/",
+      "use": "facts"
+    },
+    {
+      "id": "meiji_official_museum",
+      "name": "Meiji Jingu Museum (official)",
+      "url": "https://www.meijijingu.or.jp/en/whattosee/museum/",
+      "use": "facts"
+    },
+    {
+      "id": "gotokyo_meiji",
+      "name": "GO TOKYO (Tokyo Convention & Visitors Bureau, official)",
+      "url": "https://www.gotokyo.org/en/spot/76/index.html",
+      "use": "facts"
+    },
+    {
+      "id": "kunaicho_higashigyoen_ja",
+      "name": "宮内庁 皇居東御苑 (Imperial Household Agency, official)",
+      "url": "https://www.kunaicho.go.jp/event/higashigyoen/higashigyoen.html",
+      "use": "facts"
+    },
+    {
+      "id": "kunaicho_higashigyoen_en",
+      "name": "Imperial Household Agency, The East Gardens of the Imperial Palace (official)",
+      "url": "https://www.kunaicho.go.jp/e-about/shisetsu/higashigyoen01.html",
+      "use": "facts"
+    },
+    {
+      "id": "bunka_edojo",
+      "name": "文化庁 国指定文化財等データベース",
+      "url": "https://kunishitei.bunka.go.jp/heritage/detail/401/723",
+      "use": "heritage_registry",
+      "license": "MEXT-website-terms (出典記載で自由利用)",
+      "attribution_required": true
+    },
+    {
+      "id": "tnm_official_visit",
+      "name": "Tokyo National Museum Visitor Information (official)",
+      "url": "https://www.tnm.jp/modules/r_free_page/index.php?id=113&lang=en",
+      "use": "facts"
+    },
+    {
+      "id": "tnm_official_honkan",
+      "name": "Tokyo National Museum Honkan (official)",
+      "url": "https://www.tnm.jp/modules/r_free_page/index.php?id=115&lang=en",
+      "use": "facts"
+    },
+    {
+      "id": "tnm_official_hyokeikan",
+      "name": "Tokyo National Museum Hyokeikan (official)",
+      "url": "https://www.tnm.jp/modules/r_free_page/index.php?id=117&lang=en",
+      "use": "facts"
+    },
+    {
+      "id": "tnm_official_photo",
+      "name": "Tokyo National Museum Photograph and Other Guidelines (official)",
+      "url": "https://www.tnm.jp/modules/r_free_page/index.php?id=127&lang=en",
+      "use": "facts"
+    },
+    {
+      "id": "bunka_tnm_honkan",
+      "name": "文化庁 国指定文化財等データベース",
+      "url": "https://kunishitei.bunka.go.jp/heritage/detail/102/3699",
+      "use": "heritage_registry",
+      "license": "MEXT-website-terms (出典記載で自由利用)",
+      "attribution_required": true
+    },
+    {
+      "id": "bunka_hyokeikan",
+      "name": "文化庁 国指定文化財等データベース",
+      "url": "https://kunishitei.bunka.go.jp/heritage/detail/102/552",
+      "use": "heritage_registry",
+      "license": "MEXT-website-terms (出典記載で自由利用)",
+      "attribution_required": true
+    },
+    {
+      "id": "tsukiji_official_en",
+      "name": "Tsukiji Outer Market (official website)",
+      "url": "https://www.tsukiji.or.jp/english/",
+      "use": "facts"
+    },
+    {
+      "id": "tsukiji_official_guide",
+      "name": "Tsukiji Outer Market Guide (official)",
+      "url": "https://www.tsukiji.or.jp/english/guide/",
+      "use": "facts"
+    },
+    {
+      "id": "tsukiji_official_shopping",
+      "name": "Tsukiji Outer Market Hints for Shopping (official)",
+      "url": "https://www.tsukiji.or.jp/english/shopping/",
+      "use": "facts"
+    },
+    {
+      "id": "tsukiji_official_access",
+      "name": "Tsukiji Outer Market Access Map (official)",
+      "url": "https://www.tsukiji.or.jp/english/access/",
+      "use": "facts"
+    },
+    {
+      "id": "ghibli_official_tickets",
+      "name": "Ghibli Museum, Mitaka Tickets (official)",
+      "url": "https://www.ghibli-museum.jp/en/tickets/",
+      "use": "facts"
+    },
+    {
+      "id": "ghibli_official_hours",
+      "name": "Ghibli Museum, Mitaka Hours and Directions (official)",
+      "url": "https://www.ghibli-museum.jp/en/hours-and-directions/",
+      "use": "facts"
+    },
+    {
+      "id": "ghibli_official_info",
+      "name": "Ghibli Museum, Mitaka Accessibility & Visitor Policies (official)",
+      "url": "https://www.ghibli-museum.jp/en/accessibility/",
+      "use": "facts"
+    },
+    {
+      "id": "ghibli_official_welcome",
+      "name": "Ghibli Museum, Mitaka Welcome! (official)",
+      "url": "https://www.ghibli-museum.jp/en/welcome/",
+      "use": "facts"
+    },
+    {
+      "id": "kanagawa_owakudani",
+      "name": "神奈川県 自然環境保全センター 大涌谷園地 (Kanagawa Prefecture, official)",
+      "url": "https://www.pref.kanagawa.jp/docs/f4y/hakone/fujihakoneizu/oowakudani.html",
+      "use": "facts"
+    },
+    {
+      "id": "kanagawa_hakone_info",
+      "name": "神奈川県 危機管理防災課 箱根・大涌谷情報 (Kanagawa Prefecture, official)",
+      "url": "https://www.pref.kanagawa.jp/docs/j8g/cnt/f532566/index.html",
+      "use": "facts"
+    },
+    {
+      "id": "jma_hakoneyama",
+      "name": "気象庁 箱根山 (Japan Meteorological Agency)",
+      "url": "https://www.data.jma.go.jp/vois/data/tokyo/315_Hakoneyama/315_index.html",
+      "use": "hazard"
+    },
+    {
+      "id": "hakonenavi_ropeway",
+      "name": "Hakone Ropeway (Odakyu Hakone, operator guide)",
+      "url": "https://www.hakonenavi.jp/international/en/transportation/hakone-ropeway",
+      "use": "facts"
+    },
+    {
+      "id": "hakonenavi_kankosen",
+      "name": "Hakone Sightseeing Cruise (Odakyu Hakone, operator guide)",
+      "url": "https://www.hakonenavi.jp/international/en/transportation/hakone-kankosen",
+      "use": "facts"
+    },
+    {
+      "id": "odakyu_romancecar",
+      "name": "Odakyu Electric Railway Romancecar (operator)",
+      "url": "https://www.odakyu.jp/english/romancecar/",
+      "use": "facts"
+    },
+    {
+      "id": "hachimangu_official_knowledge",
+      "name": "鶴岡八幡宮 知る (official)",
+      "url": "https://www.hachimangu.or.jp/knowledge/",
+      "use": "facts"
+    },
+    {
+      "id": "hachimangu_official_access",
+      "name": "鶴岡八幡宮 アクセス (official)",
+      "url": "https://www.hachimangu.or.jp/access/",
+      "use": "facts"
+    },
+    {
+      "id": "hachimangu_official_keidai",
+      "name": "鶴岡八幡宮 境内巡り (official)",
+      "url": "https://www.hachimangu.or.jp/sightseeing/keidai/",
+      "use": "facts"
+    },
+    {
+      "id": "bunka_tsurugaoka",
+      "name": "文化庁 国指定文化財等データベース",
+      "url": "https://kunishitei.bunka.go.jp/heritage/detail/401/807",
+      "use": "heritage_registry",
+      "license": "MEXT-website-terms (出典記載で自由利用)",
+      "attribution_required": true
+    },
+    {
+      "id": "kotokuin_official_en",
+      "name": "Kotoku-in (Great Buddha of Kamakura) Guide to Visiting (official)",
+      "url": "https://www.kotoku-in.jp/en/",
+      "use": "facts"
+    },
+    {
+      "id": "kotokuin_official_about",
+      "name": "Kotoku-in The Great Buddha and the Teachings of Kotoku-in (official)",
+      "url": "https://www.kotoku-in.jp/en/about.html",
+      "use": "facts"
+    },
+    {
+      "id": "kotokuin_official_ja",
+      "name": "高徳院 拝観のご案内 (official)",
+      "url": "https://www.kotoku-in.jp/",
+      "use": "facts"
+    },
+    {
+      "id": "bunka_daibutsuden",
+      "name": "文化庁 国指定文化財等データベース",
+      "url": "https://kunishitei.bunka.go.jp/heritage/detail/401/3385",
+      "use": "heritage_registry",
+      "license": "MEXT-website-terms (出典記載で自由利用)",
+      "attribution_required": true
+    },
+    {
+      "id": "odakyu_enoshima_kamakura",
+      "name": "Odakyu Electric Railway Enoshima-Kamakura Freepass (operator)",
+      "url": "https://odakyu-global.com/passes/enoshima-kamakura-freepass/",
+      "use": "facts"
+    },
+    {
+      "id": "unesco_1418",
+      "name": "UNESCO World Heritage Centre",
+      "url": "https://whc.unesco.org/en/list/1418/",
+      "use": "heritage_registry",
+      "license": "UNESCO WHC (사실만 사용, 설명문 CC-BY-SA IGO 3.0)",
+      "attribution_required": true
+    },
+    {
+      "id": "bunka_fujisan",
+      "name": "文化庁 国指定文化財等データベース",
+      "url": "https://kunishitei.bunka.go.jp/heritage/detail/401/00003700",
+      "use": "heritage_registry",
+      "license": "MEXT-website-terms (出典記載で自由利用)",
+      "attribution_required": true
+    },
+    {
+      "id": "bunka_fujisan_wh",
+      "name": "文化庁 国指定文化財等データベース(世界遺産)",
+      "url": "https://kunishitei.bunka.go.jp/heritage/detail/901/19",
+      "use": "heritage_registry",
+      "license": "MEXT-website-terms (出典記載で自由利用)",
+      "attribution_required": true
+    },
+    {
+      "id": "bunka_fujigoko",
+      "name": "文化庁 国指定文化財等データベース",
+      "url": "https://kunishitei.bunka.go.jp/heritage/detail/401/00003723",
+      "use": "heritage_registry",
+      "license": "MEXT-website-terms (出典記載で自由利用)",
+      "attribution_required": true
+    },
+    {
+      "id": "yamanashi_kanko_5gome",
+      "name": "富士の国やまなし観光ネット 富士山五合目展望広場 (Yamanashi Tourism Organization, official)",
+      "url": "https://www.yamanashi-kankou.jp/fujisan/tenbouhiroba.html",
+      "use": "facts"
+    },
+    {
+      "id": "yamanashi_subaruline_2026",
+      "name": "山梨県 県土整備部・山梨県道路公社 富士スバルライン全線通行 (Press Release 2026-04-15)",
+      "url": "https://www.pref.yamanashi.jp/documents/125471/0415_douroseibi_subaru.pdf",
+      "use": "facts"
+    },
+    {
+      "id": "fujisan_climb_official",
+      "name": "Official Website for Mt. Fuji Climbing",
+      "url": "https://www.fujisan-climb.jp/",
+      "use": "facts"
+    },
+    {
+      "id": "jma_fujisan",
+      "name": "気象庁 富士山 (Japan Meteorological Agency)",
+      "url": "https://www.data.jma.go.jp/vois/data/tokyo/314_Fujisan/314_index.html",
+      "use": "hazard"
+    },
+    {
+      "id": "fujikawaguchiko_kanko_lakes",
+      "name": "富士河口湖町観光連盟 FUJIKAWAGUCHIKO (official)",
+      "url": "https://fujisan.ne.jp/feature/806/",
+      "use": "facts"
+    },
+    {
+      "id": "fujikyu_kawaguchiko",
+      "name": "富士山麓電気鉄道 河口湖駅 時刻表 (operator)",
+      "url": "https://www.fujikyu-railway.jp/station/timetable.php?no=18",
+      "use": "facts"
+    }
+  ]
+}

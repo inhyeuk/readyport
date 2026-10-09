@@ -95,7 +95,7 @@
 |---|---|---|---|
 | `attraction_flags/{CC}` | `{ids: [관광지 id…], kind: "check_in_progress", at: timestamp}` | ARIA 서비스 계정만 | 누구나(get) |
 
-앱(나중 작업): 상세 화면에서 `ids` 에 든 관광지면 '공식 안내가 바뀌었어요 — 확인 중' 띠. 받은 관광지 파일의 그 곳 `status.last_verified` 가 `at` 날짜 이후면 띠를 숨긴다(이미 반영됨).
+앱(`attractions/rating/Ratings.kt` AttractionFlags.shows — 2026-10-09 구현): 상세 화면에서 `ids` 에 든 관광지면 '공식 안내가 바뀌었어요 — 확인 중' 띠. 받은 관광지 파일의 그 곳 `status.last_verified` 가 `at` 날짜(UTC) **다음 날 이후**면 띠를 숨긴다(이미 반영됨 — 같은 날이면 띠를 남기는 안전한 쪽).
 문서가 없거나 못 읽으면 띠 없음(오프라인 우선).
 
 ### 12.10 관광지 평점 (구글 별점 실시간 + 레디포트 자체 평점)
@@ -116,16 +116,21 @@
 
 | 문서 | 모양 | 규칙 |
 |---|---|---|
-| `plan_requests/{id}` | `uid`, `country`(9개국), `purposes`(1~5개: sightseeing·food·shopping·nature·history_culture·relaxation·kids_family·activity·other), `purpose_note`(선택 ≤200자), `travelers`{adults·seniors·teens·children 0~20(합 1~20), genders?{female·male}}, `mobility`(선택: long_walk_hard·wheelchair·stairs_hard·with_infant·other_none), `sensitive_consent: true`(mobility 를 고르면 필수, 안 고르면 없음), `days`(1~30) **또는** `start_date`·`end_date`('YYYY-MM-DD'), `budget_band`(budget·standard·comfort·premium), `currency: "KRW"`, `status: "queued"`, `createdAt` = 서버 시각 | 만들기: 로그인 본인 + 같은 묶음에서 `plan_quota/{uid}` 갱신. 읽기: 본인·운영자. 이용자 수정은 취소만(queued·processing → `cancelled`, `finishedAt` = 서버 시각). 삭제 불가 |
+| `plan_requests/{id}` | `uid`, `country`(9개국), `purposes`(1~5개: sightseeing·food·shopping·nature·history_culture·relaxation·kids_family·activity·other), `purpose_note`(선택 ≤200자), `travelers`{adults·seniors·teens·children 0~20(합 1~20), genders?{female·male}}, `mobility`(선택: long_walk_hard·wheelchair·stairs_hard·with_infant·other_none), `sensitive_consent: true`(mobility 를 고르면 필수, 안 고르면 없음), `days`(1~30) **또는** `start_date`·`end_date`('YYYY-MM-DD'), `budget_band`(budget·standard·comfort·premium), `currency: "KRW"`, `status: "queued"`, `createdAt` = 서버 시각 | 만들기: 로그인 본인 + 같은 묶음에서 `plan_quota/{uid}` 갱신. 읽기: 본인·운영자. 이용자 수정은 취소만(queued·processing → `cancelled`, `finishedAt` = 서버 시각). 삭제는 취소한 내 요청만(앱 '내 계획 요청' › 삭제) |
 | `plan_quota/{uid}` | `{last, prev, lastRequestId}` | 새 요청과 같은 묶음에서만. `prev` 는 직전 `last`, 직전 `prev` 가 7일 안이면 거절(= 7일에 2번). 본인만 읽음, 지우기 불가 |
 | `plan_results/{id}` | `{uid, request_id, country, plan: {days[{day, title, items[{time_hint, place_id?, title, note}]}], tips[], budget_notes[], caveats[]}, ai_generated: true, notice_ko, engine, pack_version, attractions_version, createdAt}` | 본인·운영자 읽기(없으면 '없음'), 쓰기는 서비스 계정만 |
+| `plan_flags/{id}` (AI 계획 신고) | `{uid, reason, note?, at}` — `reason`: inaccurate·inappropriate·unsafe·other, `note` 선택 1~200자, `at` = 서버 시각. 문서 id = 요청 id | 만들기만: 로그인 본인 + `plan_results/{id}.uid == 나`, 계획 하나에 한 번(두 번째는 update 라 거절). 읽기·목록은 운영자만(신고한 사람도 못 읽음). 이용자 수정·삭제 불가 |
 
 - ARIA 가 쓰는 칸: 요청 `status`(processing·done·failed), `processingAt`, `finishedAt`, `error_code`(invalid_request·quota_exceeded·country_unavailable·engine_error·engine_timeout·invalid_output), `updatedAt`.
 - `run_hourly`: queued 요청 → 모양 재확인 + 7일 2회 이중 확인 → processing → 지시문(요청은 '자료'로만 + 그 나라 **서명된** 앱 내장 팩·관광지) → 엔진
   → 결과 검사(일수·모양·길이, `place_id` 는 실제 관광지만, 시각·금액 숫자 금지) → `plan_results` + done. 처리 중 취소되면 결과를 쓰지 않는다.
 - 엔진: `ops/aria/runners/plan_engine.py` 의 `generate()` 하나(지금 Claude Code 헤드리스 — 사장님 결정. 약관 검토 메모는 결정 표 참고). 빈 임시 폴더, 도구 모두 막음, 지시문은 표준 입력.
 - 상한: `PLAN_DAILY_CAP`(하루), `PLAN_MAX_PER_RUN`, `--budget-sec`. 요청 내용은 로그·출력·텔레그램 어디에도 남기지 않는다(id·상태·코드만).
-- 정리(하루 한 번, `plan_cleanup`): 끝난 지 30일(`PLAN_RETENTION_DAYS`) 지난 요청·결과 삭제, 끝나지 않은 채 30일 넘은 요청 삭제, 6시간 넘게 멈춘 processing → failed, 오래된 `plan_quota` 삭제.
+- 정리(하루 한 번, `plan_cleanup`): 끝난 지 30일(`PLAN_RETENTION_DAYS`) 지난 요청·결과(+그 계획의 `plan_flags`) 삭제, 끝나지 않은 채 30일 넘은 요청 삭제, 6시간 넘게 멈춘 processing → failed, 오래된 `plan_quota` 삭제,
+  **요청이 없어진 `plan_flags` 삭제**(이용자가 앱에서 요청을 지운 경우 — 규칙상 이용자는 신고를 지울 수 없어서 앱 삭제(`PlanBackend.delete`)는 신고를 남기고, 다음 정리가 지운다. 개인정보처리방침 3-3 '요청과 함께 삭제').
+- AI 계획 신고(Play 'AI 생성 콘텐츠' 정책 — 앱 안 신고): 계획 화면 '이 계획 신고하기' → 이유 4가지 + 메모(선택, 여권·주민번호 모양은 앱이 막음) → `plan_flags/{id}`.
+  `run_hourly` 가 매시 지난 확인 뒤(`at` > FingerprintStore `plan_flags:last_at`) 새 신고를 세어 요약 `"flags": {"new": n, "ids": [...]}` 에 넣고, `--live` 이고 n>0 이면
+  표준 출력 알림 줄 `[레디포트] AI 계획 신고 n건: id…`(id 만 — 이유·메모·계획 내용 없음) → ARIA 스킬이 텔레그램으로 보낸다. 내용 확인은 운영자가 Firebase 콘솔에서.
 - 만 19세 이상·게시판 계정 조건은 앱이 확인한다(규칙으로 강제 불가 — 12.10 과 같음). 익명 계정이라 앱을 다시 깔면 새 ID 가 되는 한계는 남는다.
 
 ### 12.12 ARIA 스케줄 (ARIA 본체에 운영자가 등록)

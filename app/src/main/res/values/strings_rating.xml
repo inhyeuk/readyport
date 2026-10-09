@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 관광지 평점(레디포트 이용자 + Google)·확인 중 표시 (사장님 결정 2026-10-09 ① — docs/ARIA_OPS.md 12.9·12.10). 새 문구는 이 파일에만. -->
+<resources>
+    <string name="rating_title">평점</string>
+    <string name="rating_google">★ %1$s · 리뷰 %2$s · Google 제공</string>
+    <string name="rating_google_cd">Google 별점 %1$s점, 리뷰 %2$s개, Google 제공</string>
+    <string name="rating_google_open">Google 지도에서 리뷰 보기</string>
+    <string name="rating_own_stats">레디포트 이용자 평점 %1$s (%2$d명)</string>
+    <string name="rating_prompt">다녀왔어요? 별점 남기기</string>
+    <string name="rating_pick_title">다녀온 곳은 어땠어요?</string>
+    <string name="rating_star_cd">별 %1$d개</string>
+    <string name="rating_mine">내 별점 %1$d점</string>
+    <string name="rating_change">바꾸기</string>
+    <string name="rating_remove">지우기</string>
+    <string name="rating_cancel">그만두기</string>
+    <string name="rating_saved">별점을 남겼어요. 고마워요!</string>
+    <string name="rating_removed">내 별점을 지웠어요.</string>
+    <string name="rating_note">별점은 만 19세부터, 한 사람 한 번 남길 수 있어요. 5명 이상 모이면 평균과 인원만 보여 줘요.</string>
+    <string name="rating_minor">별점은 만 19세부터 남길 수 있어요.</string>
+    <string name="rating_age_check">별점을 남기기 전에 나이를 한 번 확인해요. 내 정보에 저장한 여권의 생년월일로 이 휴대폰 안에서만 확인해요.</string>
+    <string name="rating_err_offline">인터넷에 연결되지 않았어요. 연결한 뒤 다시 해 주세요.</string>
+    <string name="rating_err_denied">지금은 별점을 남길 수 없어요. 잠시 뒤에 다시 해 주세요.</string>
+
+    <!-- 확인 중 표시 (attraction_flags) -->
+    <string name="attraction_flag_title">공식 안내가 바뀌었어요 — 확인 중이에요</string>
+    <string name="attraction_flag_body">휴관·공사 같은 안내가 새로 올라온 것 같아요. 가기 전에 공식 사이트에서 꼭 확인해 주세요.</string>
+</resources>

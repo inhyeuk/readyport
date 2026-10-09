@@ -550,7 +550,7 @@ test('계획 요청: 이용자는 취소·취소한 요청 삭제만, 결과는 
   await assertFails(updateDoc(doc(alice, 'plan_requests/r2'), { status: 'cancelled', finishedAt: serverTimestamp() }));
   // 취소한 요청은 본인만 지울 수 있다(2026-10-09). 끝난 요청(r2)·남의 요청은 못 지운다
   await assertFails(deleteDoc(doc(anon('bob'), 'plan_requests/r1')));
-  await assertFails(deleteDoc(doc(alice, 'plan_requests/r2')));
+  await assertFails(deleteDoc(doc(anon('bob'), 'plan_requests/r2')));
   await assertSucceeds(getDoc(doc(alice, 'plan_results/r1')));
   await assertSucceeds(getDoc(doc(anon('admin1'), 'plan_results/r1')));
   await assertSucceeds(getDoc(doc(alice, 'plan_results/not-yet')));                           // 아직 없으면 '없음'
@@ -559,7 +559,53 @@ test('계획 요청: 이용자는 취소·취소한 요청 삭제만, 결과는 
   await assertFails(getDocs(collection(anon('bob'), 'plan_results')));
   await assertFails(setDoc(doc(alice, 'plan_results/r9'), { uid: 'alice', plan: {} }));
   await assertFails(updateDoc(doc(alice, 'plan_results/r1'), { plan: { days: [1] } }));
-  await assertFails(deleteDoc(doc(alice, 'plan_results/r1')));
+  await assertFails(deleteDoc(doc(anon('bob'), 'plan_results/r1')));
+  // 2026-10-09: 끝난 요청(취소·완료)과 내 결과는 본인이 지울 수 있다
+  await assertSucceeds(deleteDoc(doc(alice, 'plan_results/r1')));
   await assertSucceeds(deleteDoc(doc(alice, 'plan_requests/r1')));
+  await assertSucceeds(deleteDoc(doc(alice, 'plan_requests/r2')));
   await assertFails(setDoc(doc(anon('admin1'), 'plan_results/r9'), { uid: 'alice', plan: {} }));
+});
+
+// ---------------- AI 계획 신고 plan_flags/{requestId} ----------------
+const flag = (uid, extra = {}) => ({ uid, reason: 'inaccurate', at: serverTimestamp(), ...extra });
+
+test('계획 신고: 내 계획에만 한 번, 이유 4가지·메모 200자, 읽기는 운영자만, 고치기·지우기 불가', async () => {
+  await seed(async (db) => {
+    await setDoc(doc(db, 'config/admins'), { uids: ['admin1'] });
+    for (const id of ['r1', 'r2', 'r3']) {
+      await setDoc(doc(db, `plan_results/${id}`), { uid: 'alice', request_id: id, plan: { days: [] }, ai_generated: true });
+    }
+    await setDoc(doc(db, 'plan_results/b1'), { uid: 'bob', request_id: 'b1', plan: { days: [] }, ai_generated: true });
+  });
+  const alice = anon('alice');
+  await assertSucceeds(setDoc(doc(alice, 'plan_flags/r1'), flag('alice')));                       // 메모 없이
+  await assertSucceeds(setDoc(doc(alice, 'plan_flags/r2'), flag('alice', { reason: 'unsafe', note: '가짜 메모' })));
+  await assertSucceeds(setDoc(doc(alice, 'plan_flags/r3'), flag('alice', { reason: 'other', note: '가'.repeat(200) })));
+  // 같은 계획 두 번(= 고치기) · 지우기 불가
+  await assertFails(setDoc(doc(alice, 'plan_flags/r1'), flag('alice', { reason: 'other' })));
+  await assertFails(updateDoc(doc(alice, 'plan_flags/r1'), { reason: 'other' }));
+  await assertFails(deleteDoc(doc(alice, 'plan_flags/r1')));
+  await assertFails(deleteDoc(doc(anon('admin1'), 'plan_flags/r1')));
+  // 이용자는 자기 신고도 읽지 못한다(운영자만)
+  await assertFails(getDoc(doc(alice, 'plan_flags/r1')));
+  await assertFails(getDocs(query(collection(alice, 'plan_flags'), where('uid', '==', 'alice'))));
+  await assertFails(getDoc(doc(app(), 'plan_flags/r1')));
+  await assertSucceeds(getDoc(doc(anon('admin1'), 'plan_flags/r1')));
+  await assertSucceeds(getDocs(collection(anon('admin1'), 'plan_flags')));
+  // 남의 계획·없는 계획·로그인 없이·남의 이름으로는 안 된다
+  await assertFails(setDoc(doc(alice, 'plan_flags/b1'), flag('alice')));
+  await assertFails(setDoc(doc(alice, 'plan_flags/none'), flag('alice')));
+  await assertFails(setDoc(doc(app(), 'plan_flags/b1'), flag('bob')));
+  await assertFails(setDoc(doc(anon('bob'), 'plan_flags/r2'), flag('alice')));
+  // 모양이 틀리면 거절
+  const bad = [
+    { reason: 'spam' }, { reason: '' }, { note: '' }, { note: '가'.repeat(201) }, { note: 5 },
+    { at: Timestamp.now() }, { passport_no: 'M00000000' }, { content: '계획 글' },
+  ];
+  for (const extra of bad) {
+    await assertFails(setDoc(doc(anon('bob'), 'plan_flags/b1'), flag('bob', extra)));
+  }
+  await assertFails(setDoc(doc(anon('bob'), 'plan_flags/b1'), { uid: 'bob', at: serverTimestamp() }));   // 이유 없음
+  await assertSucceeds(setDoc(doc(anon('bob'), 'plan_flags/b1'), flag('bob', { reason: 'inappropriate' })));
 });

@@ -508,8 +508,9 @@ service cloud.firestore {
         && resource.data.status in ['queued', 'processing']
         && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status', 'finishedAt'])
         && request.resource.data.status == 'cancelled' && request.resource.data.finishedAt == request.time;
-      // 취소한 내 요청만 지울 수 있다(횟수 기록 plan_quota 는 그대로 — 지워도 주 2회 제한은 풀리지 않는다)
-      allow delete: if signedIn() && resource.data.uid == me() && resource.data.status == 'cancelled';
+      // 끝난 내 요청(취소·완료·실패)은 지울 수 있다 — 2026-10-09 사장님 결정. 처리 중인 것은 먼저 취소.
+      // 횟수 기록 plan_quota 는 그대로(지워도 주 2회 제한은 풀리지 않는다)
+      allow delete: if signedIn() && resource.data.uid == me() && resource.data.status in ['cancelled', 'done', 'failed'];
     }
     match /plan_quota/{uid} {
       allow get: if signedIn() && uid == me();
@@ -535,7 +536,28 @@ service cloud.firestore {
     match /plan_results/{id} {
       allow get: if resource == null || (signedIn() && resource.data.uid == me()) || isAdmin();
       allow list: if (signedIn() && resource.data.uid == me()) || isAdmin();
-      allow write: if false;
+      allow create, update: if false;
+      // 내 계획 결과는 내가 지울 수 있다(요청을 지울 때 함께)
+      allow delete: if signedIn() && resource.data.uid == me();
+    }
+
+    // ---------------- AI 계획 신고 plan_flags/{requestId} (Play 'AI 생성 콘텐츠' 정책: 앱 안에서 신고) ----------------
+    // 내 계획 결과(plan_results/{id}.uid == 나)에만, 계획 하나에 한 번(문서 id = 요청 id — 두 번째 쓰기는 update 라 거절).
+    // 칸: uid·reason(4가지)·note(선택, 1~200자)·at(서버 시각). 이용자는 고치거나 지울 수 없고 읽지도 못한다(운영자만).
+    // 지우기는 ARIA 정리 작업(서비스 계정, 규칙 밖)만: 요청·결과가 30일 정리로 지워질 때 함께, 이용자가 요청을 지우면 다음 정리 때.
+    function flagReason(v) { return v in ['inaccurate', 'inappropriate', 'unsafe', 'other']; }
+    function resultDoc(id) { return /databases/$(database)/documents/plan_results/$(id); }
+    match /plan_flags/{id} {
+      allow get, list: if isAdmin();
+      allow update, delete: if false;
+      allow create: if signedIn() && isId(id, 40)
+        && exists(resultDoc(id)) && get(resultDoc(id)).data.uid == me()
+        && request.resource.data.keys().hasOnly(['uid', 'reason', 'note', 'at'])
+        && request.resource.data.keys().hasAll(['uid', 'reason', 'at'])
+        && request.resource.data.uid == me()
+        && flagReason(request.resource.data.reason)
+        && (!('note' in request.resource.data) || text(request.resource.data.note, 1, 200))
+        && request.resource.data.at == request.time;
     }
 
     // 그 밖의 모든 경로(ops/heartbeat 포함)는 앱에서 막는다

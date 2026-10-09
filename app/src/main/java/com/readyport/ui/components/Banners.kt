@@ -39,11 +39,11 @@ import com.readyport.ui.theme.Tokens
  * 누를 수 없는 폭 전체 띠의 색. D21: Notice는 AccentSoft 채움을 쓰지 않는다 — 흰 바탕 + 4dp Accent 막대
  * (누를 수 있는 tonal 버튼과 헷갈리지 않게).
  */
-enum class BannerTone(val bg: Color, val bar: Color, val icon: Color, val text: Color) {
-    Notice(Tokens.Surface, Tokens.Accent, Tokens.Accent, Tokens.Ink),
-    Caution(Tokens.CautionBg, Tokens.CautionBorder, Tokens.CautionText, Tokens.CautionText),
-    Danger(Tokens.DangerBg, Tokens.DangerText, Tokens.DangerText, Tokens.DangerText),
-    Success(Tokens.SuccessBg, Tokens.SuccessText, Tokens.SuccessText, Tokens.SuccessText),
+enum class BannerTone(val bg: Color, val bar: Color, val icon: Color, val text: Color, val edge: Color) {
+    Notice(Tokens.Surface, Tokens.Accent, Tokens.Accent, Tokens.Ink, Tokens.CardEdge),
+    Caution(Tokens.CautionBg, Tokens.CautionBorder, Tokens.CautionText, Tokens.CautionText, Tokens.CautionBorder.copy(alpha = 0.6f)),
+    Danger(Tokens.DangerBg, Tokens.DangerText, Tokens.DangerText, Tokens.DangerText, Tokens.DangerText.copy(alpha = 0.25f)),
+    Success(Tokens.SuccessBg, Tokens.SuccessText, Tokens.SuccessText, Tokens.SuccessText, Tokens.SuccessText.copy(alpha = 0.25f)),
 }
 
 /**
@@ -62,7 +62,11 @@ fun NoticeBanner(
     secondIcon: ImageVector? = null,
 ) {
     val dimens = LocalDimens.current
-    Surface(color = tone.bg, contentColor = tone.text, shape = MaterialTheme.shapes.small, modifier = modifier.fillMaxWidth()) {
+    // 항목 테두리(2026-10-09): 띠도 옆 항목과 섞이지 않게 갈래 색의 옅은 1dp 테두리
+    Surface(
+        color = tone.bg, contentColor = tone.text, shape = MaterialTheme.shapes.small,
+        border = androidx.compose.foundation.BorderStroke(1.dp, tone.edge), modifier = modifier.fillMaxWidth(),
+    ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()

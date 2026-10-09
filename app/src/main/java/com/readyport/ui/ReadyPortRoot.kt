@@ -119,6 +119,12 @@ import com.readyport.ui.nav.BoardJoinRoute
 import com.readyport.ui.nav.BoardPostRoute
 import com.readyport.ui.nav.BoardRoute
 import com.readyport.ui.nav.BoardWriteRoute
+import com.readyport.ui.nav.PlanRequestRoute
+import com.readyport.ui.nav.PlanRequestsRoute
+import com.readyport.ui.nav.PlanViewRoute
+import com.readyport.ui.plan.PlanFormScreen
+import com.readyport.ui.plan.PlanListScreen
+import com.readyport.ui.plan.PlanViewScreen
 
 /**
  * 앱 최상위 화면. 상태를 직접 들고 있지 않아서 테스트에서 그대로 띄울 수 있다.
@@ -238,6 +244,15 @@ private fun MainScaffold(
             if (id.isEmpty()) navController.switchTab(Tab.Board) else navController.navigate(BoardPostRoute(id)) { launchSingleTop = true }
         }
         if (id != null) board.onOpened()
+    }
+
+    // 여행 계획 도착 알림을 누르면 그 계획(요청 id가 없으면 내 계획 요청). 열고 나면 비워 둔다
+    LaunchedEffect(board.openPlanId) {
+        val id = board.openPlanId
+        if (id != null && !settings.childMode) {
+            navController.navigate(if (id.isEmpty()) PlanRequestsRoute else PlanViewRoute(id)) { launchSingleTop = true }
+        }
+        if (id != null) board.onPlanOpened()
     }
 
     // 앱을 켤 때의 공지 (첫 실행 질문을 마친 뒤, 자녀 폰 모드가 아닐 때만). 긴급 공지는 닫으면 다음 긴급 공지가 이어서 뜬다
@@ -385,6 +400,8 @@ private fun MainScaffold(
                             // 관광 일정(계획 단계 타일·여행 중 오늘 갈 곳, 2026-10-09)
                             openItinerary = { id -> navController.navigate(TripItineraryRoute(id)) },
                             openAttraction = { code, id -> navController.navigate(AttractionDetailRoute(code, id)) },
+                            // 여행 계획 요청(계획 단계 타일, 2026-10-09): 이 여행의 나라·날짜를 미리 채운다
+                            openPlanRequest = { id -> navController.navigate(PlanRequestRoute(tripId = id)) },
                         ),
                         onDeleted = { navController.popBackStack() },
                     )
@@ -507,6 +524,8 @@ private fun MainScaffold(
                             write = { kind -> navController.navigate(BoardWriteRoute(kind.id)) },
                             join = { kind -> navController.navigate(BoardJoinRoute(kind = kind.id, next = JOIN_THEN_WRITE)) },
                             openRules = { navController.navigate(BoardJoinRoute(rulesOnly = true)) },
+                            openPlanRequest = { navController.navigate(PlanRequestRoute()) },
+                            openMyPlans = { navController.navigate(PlanRequestsRoute) { launchSingleTop = true } },
                         ),
                     )
                 }
@@ -540,6 +559,28 @@ private fun MainScaffold(
                     })
                 }
                 composable<BoardAdminRoute> { BoardAdminScreen(onOpen = { id -> navController.navigate(BoardPostRoute(id)) }) }
+                // ---------------- 여행 계획 요청 (비공개, docs/ARIA_OPS.md 12.11) ----------------
+                composable<PlanRequestRoute> {
+                    PlanFormScreen(onSent = {
+                        // 보낸 뒤: 양식을 닫고 내 계획 요청으로
+                        navController.navigate(PlanRequestsRoute) {
+                            popUpTo<PlanRequestRoute> { inclusive = true }
+                            launchSingleTop = true
+                        }
+                    })
+                }
+                composable<PlanRequestsRoute> {
+                    PlanListScreen(
+                        openPlan = { id -> navController.navigate(PlanViewRoute(id)) },
+                        newRequest = { navController.navigate(PlanRequestRoute()) },
+                    )
+                }
+                composable<PlanViewRoute> {
+                    PlanViewScreen(
+                        openPlace = { code, id -> navController.navigate(AttractionDetailRoute(code, id)) },
+                        openMine = { navController.navigate(PlanRequestsRoute) { launchSingleTop = true } },
+                    )
+                }
             }
         }
     }
@@ -567,6 +608,9 @@ data class BoardHooks(
     val openPostId: String? = null,
     val onOpened: () -> Unit = {},
     val onSetReplies: (Boolean) -> Unit = {},
+    /** 여행 계획 도착 알림에서 열 요청 id (`""` = 내 계획 요청, null = 없음) */
+    val openPlanId: String? = null,
+    val onPlanOpened: () -> Unit = {},
 )
 
 /** 처음 쓰기 전 규칙·이름을 정한 뒤 그 게시판 글쓰기로 */

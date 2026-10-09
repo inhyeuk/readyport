@@ -82,11 +82,12 @@ class AttractionsMapperTest {
     @Test fun debugSampleMapsWithoutUnknownValues() {
         val c = AttTestData.catalog(AttTestData.debugSample())
         assertTrue(c.sample)
-        assertEquals(5, c.attractions.size)
+        assertEquals(37, c.attractions.size) // 일본 1차(간토·간사이·규슈·홋카이도) 시범 자료
         assertTrue(c.hidden.isEmpty())
         assertNotNull(c.attraction("sensoji")!!.photoLink)
-        // wiki-fill이 채운 위키백과 제목(일본 5곳 모두 한국어·영어판이 있다)
-        c.attractions.forEach { a -> assertNotNull(a.id, a.wiki?.ko) }
+        // wiki-fill이 채운 위키백과 제목 — 위키백과 문서가 없는 곳(다케가와라 온천)은 버튼 없이
+        c.attractions.filter { it.id != "takegawara-onsen" }.forEach { a -> assertNotNull(a.id, a.wiki?.ko ?: a.wiki?.en) }
+        assertNull(c.attraction("takegawara-onsen")!!.wiki)
         assertEquals(WikiPage("ko", "센소지"), c.attraction("sensoji")!!.wiki!!.preferred)
     }
 

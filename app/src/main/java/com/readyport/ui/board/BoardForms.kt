@@ -236,7 +236,16 @@ fun piiExcerpt(text: String, hits: List<PiiHit>): AnnotatedString = buildAnnotat
  * 바뀌면 TalkBack이 알린다(liveRegion).
  */
 @Composable
-fun PiiWarningCard(text: String, hits: List<PiiHit>, onAllow: (() -> Unit)?, modifier: Modifier = Modifier) {
+fun PiiWarningCard(
+    text: String,
+    hits: List<PiiHit>,
+    onAllow: (() -> Unit)?,
+    modifier: Modifier = Modifier,
+    /** 막는 경우·경고만인 경우 문구와 `이대로` 버튼 글 (여행 계획 요청 메모는 '보내기' 문구를 쓴다) */
+    @StringRes blockText: Int = R.string.board_pii_block,
+    @StringRes warnText: Int = R.string.board_pii_warn,
+    @StringRes allowText: Int = R.string.board_pii_post_anyway,
+) {
     if (hits.isEmpty()) return
     val blocking = PiiGuard.blocking(hits)
     val kinds = hits.map { it.kind }.distinct().map { stringResource(it.label()) }.joinToString(", ")
@@ -270,11 +279,11 @@ fun PiiWarningCard(text: String, hits: List<PiiHit>, onAllow: (() -> Unit)?, mod
                 .semantics { this.text = AnnotatedString(plain) },
         )
         KoText(
-            stringResource(if (blocking) R.string.board_pii_block else R.string.board_pii_warn),
+            stringResource(if (blocking) blockText else warnText),
             MaterialTheme.typography.bodyMedium,
             color = Tokens.Ink,
         )
-        if (!blocking && onAllow != null) QuietButton(stringResource(R.string.board_pii_post_anyway), onClick = onAllow)
+        if (!blocking && onAllow != null) QuietButton(stringResource(allowText), onClick = onAllow)
     }
 }
 

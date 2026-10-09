@@ -1,0 +1,2020 @@
+{
+  "regions": [],
+  "attractions": [
+    {
+      "id": "kiyomizu-dera",
+      "qid": "Q221716",
+      "names": {
+        "ko": "기요미즈데라",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Kiyomizu-dera",
+        "local": "清水寺",
+        "local_short": "清水寺",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "청수사",
+        "기요미즈 절"
+      ],
+      "aliases_en": [
+        "Kiyomizu Temple"
+      ],
+      "mentions_ko": [
+        "오토와 폭포",
+        "기요미즈 무대"
+      ],
+      "region": "jp_kyoto",
+      "area_ko": "교토 히가시야마구",
+      "category": "heritage",
+      "tags": [
+        {
+          "id": "unesco",
+          "source": "unesco_688",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "step_free",
+          "source": "kiyomizu_official_faq",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 34.994830555556,
+        "lng": 135.78500277778,
+        "source": "wd",
+        "qid": "Q221716",
+        "osm": null,
+        "last_verified": "2026-10-09"
+      },
+      "wd_geo": {
+        "lat": 34.994830555556,
+        "lng": 135.78500277778
+      },
+      "address_local": {
+        "text": "京都市東山区清水1丁目294",
+        "source": "kiyomizu_official_access_ja",
+        "last_verified": "2026-10-09"
+      },
+      "access": {
+        "modes": [
+          "bus",
+          "train"
+        ],
+        "nearest_ko": "시버스 고조자카 정류장에서 동쪽으로 걸어가요 (게이한 기요미즈고조역에서도 걸어갈 수 있어요)",
+        "nearest_local": {
+          "text": "清水五条駅",
+          "qid": "Q1111248",
+          "source": "wd"
+        },
+        "source": "kiyomizu_official_location",
+        "last_verified": "2026-10-09"
+      },
+      "official_url": "https://www.kiyomizudera.or.jp/",
+      "wiki": {
+        "ko": "기요미즈데라",
+        "en": "Kiyomizu-dera"
+      },
+      "summary_ko": "절벽 위 나무 무대에서 교토 시내가 보이는 절이에요.",
+      "body_ko": [
+        "기요미즈데라는 778년에 세워진 절로, 교토 동쪽 히가시야마의 오토와산 중턱에 있어요.",
+        "절 이름 '기요미즈(맑은 물)'는 경내 오토와 폭포의 맑은 물에서 왔어요.",
+        "본당 앞으로 내민 무대는 높이가 13m 가까이 되고, 못을 쓰지 않고 짜 맞춘 느티나무 기둥 18개가 받치고 있어요.",
+        "국보인 본당을 비롯해 지금 건물 대부분은 1633년에 다시 지은 것이고, 절은 세계유산 '고대 교토의 역사기념물'의 하나예요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "778년에 세워졌고, 교토 히가시야마의 오토와산 중턱에 있어요.",
+          "source": "kiyomizu_official_learn",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c2",
+          "text_ko": "절 이름은 오토와 폭포의 맑은 물에서 왔어요.",
+          "source": "kiyomizu_official_visit",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c3",
+          "text_ko": "본당 무대는 높이가 13m 가까이 되고, 느티나무 기둥 18개가 받치며, 못을 하나도 쓰지 않고 짜 맞췄어요.",
+          "source": "kiyomizu_official_learn",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c4",
+          "text_ko": "경내에는 국보인 본당과 여러 중요문화재가 있고, 지금 건물 대부분은 1633년에 다시 지었어요.",
+          "source": "kiyomizu_official_learn",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c5",
+          "text_ko": "기요미즈데라는 세계유산 '고대 교토의 역사기념물'의 구성 자산이에요.",
+          "source": "unesco_688",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "경내로 들어가는 길은 기요미즈자카 위 니오몬 쪽과 차완자카 위 비상 도로 입구, 두 곳뿐이에요. 지도 앱이 들어갈 수 없는 길을 안내할 수 있다고 해요.",
+          "source": "kiyomizu_official_location",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "경내 전체가 금연이고, 카페·찻집 밖에서는 걸으면서 먹거나 마시지 말아 달라고 해요.",
+          "source": "kiyomizu_official_faq",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "드론·셀카봉(모노포드)·삼각대를 쓴 촬영은 금지예요.",
+          "source": "kiyomizu_official_faq",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "절에 주차장이 없어서 대중교통이나 택시로 오라고 권해요.",
+          "source": "kiyomizu_official_faq",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "kiyomizu_official_faq_ja",
+        "last_verified": "2026-10-09"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "kiyomizu_official_access_ja",
+        "last_verified": "2026-10-09"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 101,
+        "designations": [
+          {
+            "kind": "unesco",
+            "name_ko": "세계유산 고대 교토의 역사기념물(구성 자산)",
+            "source": "unesco_688"
+          },
+          {
+            "kind": "jp_national_treasure_partial",
+            "name_ko": "본당 국보",
+            "source": "kiyomizu_official_learn"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Kiyomizu-dera,_Kyoto,_November_2016_-02.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-09"
+    },
+    {
+      "id": "todaiji",
+      "qid": "Q460367",
+      "names": {
+        "ko": "도다이지",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Tōdai-ji",
+        "local": "東大寺",
+        "local_short": "東大寺",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "동대사",
+        "도다이지 대불전"
+      ],
+      "aliases_en": [
+        "Todaiji Temple",
+        "Daibutsu-den"
+      ],
+      "mentions_ko": [],
+      "region": "jp_nara",
+      "area_ko": "나라시",
+      "category": "heritage",
+      "tags": [
+        {
+          "id": "unesco",
+          "source": "unesco_870",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 34.689,
+        "lng": 135.8399,
+        "source": "wd",
+        "qid": "Q3012032",
+        "osm": null,
+        "last_verified": "2026-10-09"
+      },
+      "wd_geo": {
+        "lat": 34.689166666667,
+        "lng": 135.83972222222
+      },
+      "address_local": {
+        "text": "奈良市雑司町406-1",
+        "source": "todaiji_official_ja",
+        "last_verified": "2026-10-09"
+      },
+      "access": {
+        "modes": [
+          "train",
+          "bus"
+        ],
+        "nearest_ko": "긴테쓰나라역에서 동쪽으로 걸어가요 (JR 나라역·긴테쓰나라역에서 시내 순환버스도 다녀요)",
+        "nearest_local": {
+          "text": "近鉄奈良駅",
+          "qid": "Q6414371",
+          "source": "wd"
+        },
+        "source": "todaiji_official_access",
+        "last_verified": "2026-10-09"
+      },
+      "official_url": "https://www.todaiji.or.jp/",
+      "wiki": {
+        "ko": "도다이지",
+        "en": "Tōdai-ji"
+      },
+      "summary_ko": "나라의 큰 청동 불상, 대불을 모신 절이에요.",
+      "body_ko": [
+        "도다이지는 쇼무 천황이 743년 큰 비로자나불상을 만들겠다는 조칙을 내리면서 시작된 절이에요.",
+        "청동 대불은 749년에 완성됐고, 대불을 모신 대불전은 751년에 다 지어졌어요.",
+        "대불전은 1180년과 1567년 두 번 불탔고, 지금 건물은 에도 시대에 다시 지으면서 정면 폭이 처음보다 좁아졌어요.",
+        "대불과 대불전은 일본 국보이고, 도다이지는 1998년 세계유산 '고대 나라의 역사기념물'에 들어갔어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "쇼무 천황은 743년 거대한 비로자나불상을 만들겠다는 조칙을 내렸어요.",
+          "source": "todaiji_official_history",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c2",
+          "text_ko": "청동 대불은 749년에 완성됐고, 대불전은 751년에 완공됐어요.",
+          "source": "todaiji_official_history",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c3",
+          "text_ko": "대불전은 1180년과 1567년 화재로 불탔고, 지금 건물은 에도 시대에 다시 지었어요. 처음엔 정면 11칸이었지만 지금은 7칸으로 줄었어요.",
+          "source": "todaiji_official_daibutsuden",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c4",
+          "text_ko": "대불전과 대불(비로자나불)은 일본 국보예요.",
+          "source": "todaiji_official_daibutsuden",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c5",
+          "text_ko": "도다이지는 1998년 세계유산 '고대 나라의 역사기념물'에 구성 자산으로 들어갔어요.",
+          "source": "unesco_870",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "대불전 말고 다른 건물 안에서는 사진을 찍을 수 없어요. 참배길에서는 기념사진을 찍어도 돼요.",
+          "source": "todaiji_official_tourist",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "대불전 안에서는 스케치·손전등·삼각대 사용과 단체 사진 촬영이 금지예요.",
+          "source": "todaiji_official_daibutsuden",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "대불전 매표소를 지나면 음성 안내기를 빌릴 수 있고, 한국어도 있어요(유료).",
+          "source": "todaiji_official_haikan",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "도다이지에는 주차장이 없어요. 근처 주차장을 써야 해요.",
+          "source": "todaiji_official_access",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "todaiji_official_haikan",
+        "last_verified": "2026-10-09"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "todaiji_official_haikan",
+        "last_verified": "2026-10-09"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 102,
+        "designations": [
+          {
+            "kind": "unesco",
+            "name_ko": "세계유산 고대 나라의 역사기념물(구성 자산)",
+            "source": "unesco_870"
+          },
+          {
+            "kind": "jp_national_treasure_partial",
+            "name_ko": "대불전·대불 국보",
+            "source": "todaiji_official_daibutsuden"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Daibutsu-den_in_Todaiji_Nara02bs3200.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-09"
+    },
+    {
+      "id": "nijo-castle",
+      "qid": "Q1013399",
+      "names": {
+        "ko": "니조성",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Nijō Castle",
+        "local": "元離宮二条城",
+        "local_short": "二条城",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "니조조"
+      ],
+      "aliases_en": [
+        "Nijo-jo Castle"
+      ],
+      "mentions_ko": [
+        "혼마루 궁전"
+      ],
+      "region": "jp_kyoto",
+      "area_ko": "교토 나카교구",
+      "category": "heritage",
+      "tags": [
+        {
+          "id": "unesco",
+          "source": "unesco_688",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 35.014166666667,
+        "lng": 135.7475,
+        "source": "wd",
+        "qid": "Q1013399",
+        "osm": null,
+        "last_verified": "2026-10-09"
+      },
+      "wd_geo": {
+        "lat": 35.014166666667,
+        "lng": 135.7475
+      },
+      "address_local": {
+        "text": "京都市中京区二条通堀川西入二条城町541",
+        "source": "nijo_official_top_ja",
+        "last_verified": "2026-10-09"
+      },
+      "access": {
+        "modes": [
+          "metro",
+          "bus"
+        ],
+        "nearest_ko": "지하철 도자이선 니조조마에역 (교토역에서는 가라스마오이케역에서 갈아타요)",
+        "nearest_local": {
+          "text": "二条城前駅",
+          "qid": "Q2477213",
+          "source": "wd"
+        },
+        "source": "jnto_nijo",
+        "last_verified": "2026-10-09"
+      },
+      "official_url": "https://nijo-jocastle.city.kyoto.lg.jp/",
+      "wiki": {
+        "ko": "니조성",
+        "en": "Nijō Castle"
+      },
+      "summary_ko": "도쿠가와 쇼군이 교토에 머물던 성과 궁전이에요.",
+      "body_ko": [
+        "니조성은 도쿠가와 이에야스의 명으로 1603년에 완성됐고, 쇼군이 교토에서 머물던 성이에요.",
+        "1867년 15대 쇼군 도쿠가와 요시노부는 니노마루 궁전에서 도쿠가와 정권을 끝낸다고 밝혔어요.",
+        "니노마루 궁전의 건물 6동은 국보이고, 궁전 안에는 벽화가 3,600점 넘게 있어요.",
+        "성 전체가 일본 사적이고, 세계유산 '고대 교토의 역사기념물'의 하나예요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "도쿠가와 이에야스의 명으로 1603년에 완성됐고, 쇼군의 교토 거처였어요.",
+          "source": "nijo_official_overview",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c2",
+          "text_ko": "1867년 15대 쇼군 도쿠가와 요시노부가 니노마루 궁전 오히로마에서 도쿠가와 정권의 끝을 알렸어요.",
+          "source": "nijo_official_overview",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c3",
+          "text_ko": "니노마루 궁전 6동은 국보, 히가시오테몬 등 22동은 중요문화재, 니노마루 정원은 특별명승이고, 성 전체가 국가 사적이에요.",
+          "source": "nijo_official_overview",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c4",
+          "text_ko": "니노마루 궁전 안에는 벽화가 3,600점 넘게 있어요.",
+          "source": "nijo_official_ninomaru",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c5",
+          "text_ko": "니조성은 세계유산 '고대 교토의 역사기념물'의 구성 자산이에요.",
+          "source": "unesco_688",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "니노마루·혼마루 궁전 안에서는 사진·영상을 찍을 수 없고, 성 안에서 셀카봉·삼각대도 쓰지 말아 달라고 해요.",
+          "source": "nijo_official_caution",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "성 안에서는 정해진 곳에서만 먹고 마실 수 있어요. 걸으면서 마시면 안 돼요.",
+          "source": "nijo_official_caution",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "성과 궁전은 한 번 나가면 다시 들어갈 수 없어요.",
+          "source": "nijo_official_caution",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "전동 보조 휠체어를 무료로 빌려줘요(수량 한정, 예약 불가).",
+          "source": "nijo_official_faq",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "booking": "none",
+        "booking_note_ko": "성·니노마루 궁전은 예약이 필요 없어요. 혼마루 궁전은 웹 티켓으로 미리 예약해야 해요.",
+        "regular_closed": [
+          "none"
+        ],
+        "closed_note_ko": "성은 12월 29~31일 쉬어요. 니노마루 궁전은 1·7·8·12월 화요일(공휴일이면 다음 날)과 12월 26~28일, 1월 1~3일에 닫아요.",
+        "visit_note_ko": null,
+        "source": "nijo_official_annai",
+        "last_verified": "2026-10-09"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "nijo_official_annai",
+        "last_verified": "2026-10-09"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 103,
+        "designations": [
+          {
+            "kind": "unesco",
+            "name_ko": "세계유산 고대 교토의 역사기념물(구성 자산)",
+            "source": "unesco_688"
+          },
+          {
+            "kind": "jp_historic_site",
+            "name_ko": "사적 구 니조 이궁(니조성)",
+            "source": "nijo_official_overview"
+          },
+          {
+            "kind": "jp_national_treasure_partial",
+            "name_ko": "니노마루 궁전 국보",
+            "source": "nijo_official_overview"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Nijo_Castle.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-09"
+    },
+    {
+      "id": "arashiyama",
+      "qid": "Q2859566",
+      "names": {
+        "ko": "아라시야마",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Arashiyama",
+        "local": "嵐山",
+        "local_short": "嵐山",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "아라시야마 협곡"
+      ],
+      "aliases_en": [
+        "Mount Arashi"
+      ],
+      "mentions_ko": [
+        "도게쓰교",
+        "가쓰라강"
+      ],
+      "region": "jp_kyoto",
+      "area_ko": "교토 우쿄구·니시쿄구",
+      "category": "nature",
+      "tags": [],
+      "geo": {
+        "kind": "station",
+        "lat": 35.01521389,
+        "lng": 135.6776944,
+        "source": "wd",
+        "qid": "Q11477257",
+        "osm": null,
+        "last_verified": "2026-10-09"
+      },
+      "wd_geo": {
+        "lat": 35.00958333333333,
+        "lng": 135.6663888888889
+      },
+      "address_local": null,
+      "access": {
+        "modes": [
+          "train"
+        ],
+        "nearest_ko": "게이후쿠 전철(란덴) 아라시야마역에서 걸어서 가요 (JR 사가아라시야마역·한큐 아라시야마역에서도 걸어가요)",
+        "nearest_local": {
+          "text": "嵐山駅",
+          "qid": "Q11477257",
+          "source": "wd"
+        },
+        "source": "kyototravel_access_arashiyama",
+        "last_verified": "2026-10-09"
+      },
+      "official_url": "https://kyoto.travel/en/destinations/togetsukyo-bridge/",
+      "wiki": {
+        "ko": "아라시야마",
+        "en": "Arashiyama"
+      },
+      "summary_ko": "교토 서쪽 강가의 산과 협곡, 도게쓰교 일대예요.",
+      "body_ko": [
+        "아라시야마는 교토 서쪽 오이강(가쓰라강) 가에 솟은 산과 그 협곡 일대로, 1927년 일본 사적·명승으로 지정됐어요.",
+        "봄에는 벚꽃, 가을에는 단풍을 보는 곳으로 지정 해설에 적혀 있어요.",
+        "산 앞으로 가쓰라강을 건너는 도게쓰교는 400년 넘게 이 지역을 대표해 온 다리예요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "아라시야마는 1927년 일본 국가 사적·명승으로 지정됐어요.",
+          "source": "bunka_arashiyama",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c2",
+          "text_ko": "지정 해설은 오이강 협곡 일대를 범위로 하고, 봄 벚꽃과 가을 단풍을 보는 곳이며 도게쓰교도 이름난 곳이라고 적고 있어요.",
+          "source": "bunka_arashiyama",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c3",
+          "text_ko": "도게쓰교는 아라시야마 산 앞에서 가쓰라강을 건너는 다리로, 400년 넘게 이 지역의 상징이었어요.",
+          "source": "kyototravel_togetsukyo",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "교토역에서는 JR 사가노선이 빠르지만 붐벼요. 지하철 도자이선과 란덴(게이후쿠 전철)을 갈아타는 길도 안내해요.",
+          "source": "kyototravel_access_arashiyama",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "교토역에서 버스로 가면 붐비고 시간도 오래 걸린다고 해요.",
+          "source": "kyototravel_access_arashiyama",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "JR 사가아라시야마역에서 도게쓰교로 가는 큰길은 차가 많아요. 보도를 벗어나지 말라고 해요.",
+          "source": "kyototravel_access_arashiyama",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "봄 벚꽃과 가을 단풍 때는 사람이 많이 몰려요.",
+          "source": "kyototravel_togetsukyo",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "facts": {
+        "kind": "public_space"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "kyototravel_togetsukyo",
+        "last_verified": "2026-10-09"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 104,
+        "designations": [
+          {
+            "kind": "jp_historic_site",
+            "name_ko": "사적 아라시야마(嵐山)",
+            "source": "bunka_arashiyama"
+          },
+          {
+            "kind": "jp_place_of_scenic_beauty",
+            "name_ko": "명승 아라시야마(嵐山)",
+            "source": "bunka_arashiyama"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Arashiyama_(8741759830).jpg",
+      "source": "wd",
+      "last_verified": "2026-10-09"
+    },
+    {
+      "id": "kinkaku-ji",
+      "qid": "Q270983",
+      "names": {
+        "ko": "금각사",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Kinkaku-ji",
+        "local": "鹿苑寺",
+        "local_short": "金閣寺",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "긴카쿠지",
+        "킨카쿠지",
+        "로쿠온지",
+        "녹원사"
+      ],
+      "aliases_en": [
+        "Rokuon-ji",
+        "Temple of the Golden Pavilion"
+      ],
+      "mentions_ko": [
+        "쇼코쿠지"
+      ],
+      "region": "jp_kyoto",
+      "area_ko": "교토 기타구",
+      "category": "heritage",
+      "tags": [
+        {
+          "id": "unesco",
+          "source": "unesco_688",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 35.0395,
+        "lng": 135.7285,
+        "source": "wd",
+        "qid": "Q270983",
+        "osm": null,
+        "last_verified": "2026-10-09"
+      },
+      "wd_geo": {
+        "lat": 35.0395,
+        "lng": 135.7285
+      },
+      "address_local": {
+        "text": "京都府京都市北区金閣寺町１",
+        "source": "kinkakuji_official_access",
+        "last_verified": "2026-10-09"
+      },
+      "access": {
+        "modes": [
+          "bus"
+        ],
+        "nearest_ko": "교토 시버스 긴카쿠지미치(金閣寺道) 정류장",
+        "nearest_local": null,
+        "source": "kinkakuji_official_access",
+        "last_verified": "2026-10-09"
+      },
+      "official_url": "https://www.shokoku-ji.jp/kinkakuji/",
+      "wiki": {
+        "ko": "로쿠온지",
+        "en": "Kinkaku-ji"
+      },
+      "summary_ko": "금박을 입힌 누각 '금각'이 연못가에 선 절이에요.",
+      "body_ko": [
+        "금각사의 정식 이름은 로쿠온지로, 쇼코쿠지에 딸린 선종 절이에요.",
+        "무로마치 막부 3대 쇼군 아시카가 요시미쓰가 1397년 이곳에 산장을 짓기 시작했고, 그가 죽은 뒤 유언에 따라 절이 됐어요.",
+        "누각 금각의 2층과 3층은 옻칠 위에 순금박을 입혔고, 1987년에 옻칠과 금박을 새로 했어요.",
+        "금각을 둘러싼 정원은 특별사적·특별명승이고, 절은 세계유산 '고대 교토의 역사기념물'의 하나예요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "정식 이름은 로쿠온지이고, 쇼코쿠지의 탑두(딸린 절) 가운데 하나예요.",
+          "source": "kinkakuji_official_about",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c2",
+          "text_ko": "무로마치 막부 3대 쇼군 아시카가 요시미쓰가 1397년 산장 기타야마도노 공사를 시작했고, 그가 죽은 뒤 유언에 따라 절이 됐어요.",
+          "source": "kinkakuji_official_about",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c3",
+          "text_ko": "금각(사리전)의 2층과 3층은 옻칠 위에 순금박을 붙였고, 1987년 가을 옻칠과 금박을 새로 했어요.",
+          "source": "kinkakuji_official_guide",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c4",
+          "text_ko": "로쿠온지 정원은 특별사적이자 특별명승으로 지정돼 있어요.",
+          "source": "kinkakuji_official_guide",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c5",
+          "text_ko": "로쿠온지는 세계유산 '고대 교토의 역사기념물'의 구성 자산이에요.",
+          "source": "unesco_688",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "사진·영상은 개인이 즐기는 범위의 스냅 촬영만 할 수 있어요. SNS 등에 공개하려는 촬영, 단체 사진, 드론은 금지예요.",
+          "source": "kinkakuji_official_faq",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "금각 옆까지는 큰 턱 없이 갈 수 있지만, 그 뒤로 계단이 있어 휠체어·유모차는 계단 앞에서 되돌아 나와야 해요. 휠체어는 예약 없이 남는 것이 있으면 빌릴 수 있어요.",
+          "source": "kinkakuji_official_faq",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "짐을 맡길 곳이나 사물함이 없어요.",
+          "source": "kinkakuji_official_faq",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "경내 정원에는 도시락을 먹을 만한 곳이 없어요.",
+          "source": "kinkakuji_official_faq",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "none"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "kinkakuji_official_access",
+        "last_verified": "2026-10-09"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "kinkakuji_official_access",
+        "last_verified": "2026-10-09"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 105,
+        "designations": [
+          {
+            "kind": "unesco",
+            "name_ko": "세계유산 고대 교토의 역사기념물(구성 자산)",
+            "source": "unesco_688"
+          },
+          {
+            "kind": "jp_special_historic_site_partial",
+            "name_ko": "로쿠온지 정원 특별사적·특별명승",
+            "source": "kinkakuji_official_guide"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Water_reflection_of_Kinkaku-ji_Temple_a_sunny_day,_Kyoto,_Japan.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-09"
+    },
+    {
+      "id": "tsutenkaku",
+      "qid": "Q1148463",
+      "names": {
+        "ko": "쓰텐카쿠",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Tsūtenkaku",
+        "local": "通天閣",
+        "local_short": "通天閣",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "통천각",
+        "츠텐카쿠",
+        "쓰텐카쿠 타워"
+      ],
+      "aliases_en": [
+        "Tsutenkaku Tower"
+      ],
+      "mentions_ko": [
+        "신세카이",
+        "빌리켄"
+      ],
+      "region": "jp_osaka",
+      "area_ko": "오사카 나니와구 신세카이",
+      "category": "city_view",
+      "tags": [
+        {
+          "id": "night",
+          "source": "tsutenkaku_official_annai",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 34.65222222222222,
+        "lng": 135.50611111111112,
+        "source": "wd",
+        "qid": "Q1148463",
+        "osm": null,
+        "last_verified": "2026-10-09"
+      },
+      "wd_geo": {
+        "lat": 34.65222222222222,
+        "lng": 135.50611111111112
+      },
+      "address_local": {
+        "text": "大阪市浪速区恵美須東1-18-6",
+        "source": "tsutenkaku_official_shiryo",
+        "last_verified": "2026-10-09"
+      },
+      "access": {
+        "modes": [
+          "metro",
+          "train"
+        ],
+        "nearest_ko": "오사카 메트로 사카이스지선 에비스초역에서 걸어가요 (미도스지선 도부쓰엔마에역·JR 신이마미야역에서도 걸어가요)",
+        "nearest_local": {
+          "text": "恵美須町駅",
+          "qid": "Q2066656",
+          "source": "wd"
+        },
+        "source": "tsutenkaku_official_access",
+        "last_verified": "2026-10-09"
+      },
+      "official_url": "https://www.tsutenkaku.co.jp/",
+      "wiki": {
+        "ko": "쓰텐카쿠",
+        "en": "Tsūtenkaku"
+      },
+      "summary_ko": "오사카 신세카이에 선 높이 100m 전망 탑이에요.",
+      "body_ko": [
+        "처음 쓰텐카쿠는 1912년 내국권업박람회 터에 개선문 위에 에펠탑 윗부분을 얹은 듯한 모습으로 세워졌어요.",
+        "이 탑은 1943년 아래 영화관 화재로 해체됐고, 지금 탑은 신세카이를 되살리자는 지역 주민들의 출자로 1956년에 다시 지었어요.",
+        "탑 높이는 100m이고, 도쿄 타워도 설계한 나이토 다추가 설계했어요.",
+        "지금 탑은 2007년 일본 등록유형문화재가 됐어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "첫 쓰텐카쿠는 1912년 제5회 내국권업박람회(1903) 터에 루나파크와 함께 세워졌고, 개선문 위에 에펠탑 윗부분을 얹은 듯한 모양이었어요.",
+          "source": "tsutenkaku_official_shiryo",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c2",
+          "text_ko": "첫 탑은 1943년 아래 영화관 화재로 해체됐어요.",
+          "source": "tsutenkaku_official_shiryo",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c3",
+          "text_ko": "지금의 2대 쓰텐카쿠는 신세카이를 되살리자는 지역의 뜻과 주민 출자로 1956년에 다시 세웠어요.",
+          "source": "tsutenkaku_official_shiryo",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c4",
+          "text_ko": "탑 높이는 지상 100m이고, 설계자 나이토 다추는 도쿄 타워도 설계했어요.",
+          "source": "tsutenkaku_official_shiryo",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c5",
+          "text_ko": "쓰텐카쿠(1956년 건립)는 2007년 일본 등록유형문화재(건조물)로 등록됐어요.",
+          "source": "bunka_tsutenkaku",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "탑에는 버스·승용차 주차장이 없어요. 근처 유료 주차장을 써야 해요.",
+          "source": "tsutenkaku_official_access",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "삼각대 촬영처럼 한자리를 오래 차지하는 행동은 금지예요.",
+          "source": "tsutenkaku_official_annai",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "산 입장권은 환불·재발행이 안 되고, 나간 뒤에는 다시 들어갈 수 없어요.",
+          "source": "tsutenkaku_official_annai",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "특별 옥외 전망대는 날씨가 나쁘면 예고 없이 닫을 수 있어요.",
+          "source": "tsutenkaku_official_annai",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "booking": "recommended",
+        "booking_note_ko": "표를 살 때 입장 시간을 정해야 해요. 온라인 사전 구매를 권하고, 저녁에는 표가 다 팔릴 수 있다고 해요.",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "tsutenkaku_official_annai",
+        "last_verified": "2026-10-09"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "tsutenkaku_official_annai",
+        "last_verified": "2026-10-09"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 106,
+        "designations": [
+          {
+            "kind": "jp_registered_tangible_cultural_property",
+            "name_ko": "등록유형문화재 쓰텐카쿠(通天閣)",
+            "source": "bunka_tsutenkaku"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:New_Tsutenkaku_in_201409_003.JPG",
+      "source": "wd",
+      "last_verified": "2026-10-09"
+    },
+    {
+      "id": "kyoto-national-museum",
+      "qid": "Q147286",
+      "names": {
+        "ko": "교토 국립박물관",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Kyoto National Museum",
+        "local": "京都国立博物館",
+        "local_short": "京都国立博物館",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [],
+      "aliases_en": [
+        "KNM"
+      ],
+      "mentions_ko": [
+        "메이지 고토칸",
+        "헤이세이 지신칸"
+      ],
+      "region": "jp_kyoto",
+      "area_ko": "교토 히가시야마구",
+      "category": "museum",
+      "tags": [
+        {
+          "id": "step_free",
+          "source": "kyohaku_official_faq",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 34.989993,
+        "lng": 135.773121,
+        "source": "wd",
+        "qid": "Q147286",
+        "osm": null,
+        "last_verified": "2026-10-09"
+      },
+      "wd_geo": {
+        "lat": 34.989993,
+        "lng": 135.773121
+      },
+      "address_local": {
+        "text": "京都市東山区茶屋町527",
+        "source": "kyohaku_official_access_ja",
+        "last_verified": "2026-10-09"
+      },
+      "access": {
+        "modes": [
+          "train",
+          "bus"
+        ],
+        "nearest_ko": "게이한 시치조역에서 시치조 거리를 따라 동쪽으로 걸어가요 (교토역 앞에서 시버스도 다녀요)",
+        "nearest_local": {
+          "text": "七条駅",
+          "qid": "Q2153254",
+          "source": "wd"
+        },
+        "source": "kyohaku_official_access",
+        "last_verified": "2026-10-09"
+      },
+      "official_url": "https://www.kyohaku.go.jp/eng/",
+      "wiki": {
+        "ko": "교토 국립박물관",
+        "en": "Kyoto National Museum"
+      },
+      "summary_ko": "교토 히가시야마 기슭에 있는 일본 국립 박물관이에요.",
+      "body_ko": [
+        "교토 국립박물관은 1897년 교토 히가시야마 기슭에 문을 연 박물관이에요.",
+        "고고 유물·도자기·불상·회화·서예·직물·칠기 같은 문화재를 모으고 전시해요.",
+        "붉은 벽돌 건물인 메이지 고토칸은 1895년에 완공됐고, 정문과 함께 일본 중요문화재예요.",
+        "소장품 전시와 특별전은 2014년에 문을 연 헤이세이 지신칸에서 열려요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "1897년 지금 자리인 교토 히가시야마 기슭에 문을 열었어요.",
+          "source": "kyohaku_official_faq",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c2",
+          "text_ko": "소장품에는 고고 유물·도자기·불상·회화·서예·직물·칠기·금속공예 등이 있어요.",
+          "source": "kyohaku_official_faq",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c3",
+          "text_ko": "메이지 고토칸은 가타야마 도쿠마가 설계해 1895년에 완공됐고, 1969년 정문 등과 함께 중요문화재로 지정됐어요. 2015년부터 내진 공사 준비로 닫혀 있어요.",
+          "source": "kyohaku_official_facilities",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c4",
+          "text_ko": "헤이세이 지신칸은 2014년 9월에 문을 열었어요.",
+          "source": "kyohaku_official_facilities",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c5",
+          "text_ko": "소장품 전시는 헤이세이 지신칸 전시실에서 열리고, 특별전 때는 소장품 전시가 일부 또는 전부 내려가요.",
+          "source": "kyohaku_official_faq",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "메이지 고토칸은 2015년부터 내진 공사 준비로 닫혀 있어 안에 들어갈 수 없어요.",
+          "source": "kyohaku_official_facilities",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "특별전 기간에는 소장품 전시를 따로 볼 수 없고, 정원만 여는 기간에는 전시실이 닫혀요. 가기 전에 일정을 확인하세요.",
+          "source": "kyohaku_official_info",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "전시실 안에서는 사진을 찍을 수 없어요(특별전의 지정 촬영 장소는 예외). 큰 짐은 코인 로커에 맡겨야 해요.",
+          "source": "kyohaku_official_requests",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "휠체어와 유모차를 무료로 빌려줘요(수량 한정). 남문 입구에 휠체어용 경사로가 있어요.",
+          "source": "kyohaku_official_accessibility",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "mon"
+        ],
+        "closed_note_ko": "월요일이 공휴일이면 그다음 날 쉬어요. 연말연시에도 쉬고, 전시 교체 등으로 임시 휴관하는 날이 있어요.",
+        "visit_note_ko": null,
+        "source": "kyohaku_official_info",
+        "last_verified": "2026-10-09"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "kyohaku_official_info",
+        "last_verified": "2026-10-09"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 107,
+        "designations": [
+          {
+            "kind": "jp_important_cultural_property_partial",
+            "name_ko": "메이지 고토칸·정문 중요문화재",
+            "source": "kyohaku_official_facilities"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:260214_Kyoto_National_Museum_Kyoto_Japan04bs4.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-09"
+    },
+    {
+      "id": "sumiyoshi-taisha",
+      "qid": "Q705949",
+      "names": {
+        "ko": "스미요시 타이샤",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Sumiyoshi Taisha",
+        "local": "住吉大社",
+        "local_short": "住吉大社",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "스미요시 대사",
+        "스미요시 신사",
+        "스미욧상"
+      ],
+      "aliases_en": [
+        "Sumiyoshi Grand Shrine"
+      ],
+      "mentions_ko": [
+        "소리하시",
+        "다이코바시"
+      ],
+      "region": "jp_osaka",
+      "area_ko": "오사카 스미요시구",
+      "category": "heritage",
+      "tags": [
+        {
+          "id": "free_entry",
+          "source": "sumiyoshi_official_faq_en",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 34.612513,
+        "lng": 135.492934,
+        "source": "wd",
+        "qid": "Q705949",
+        "osm": null,
+        "last_verified": "2026-10-09"
+      },
+      "wd_geo": {
+        "lat": 34.612513,
+        "lng": 135.492934
+      },
+      "address_local": {
+        "text": "大阪府大阪市住吉区住吉2丁目9-89",
+        "source": "sumiyoshi_official_ja",
+        "last_verified": "2026-10-09"
+      },
+      "access": {
+        "modes": [
+          "train"
+        ],
+        "nearest_ko": "난카이 본선 스미요시타이샤역에서 동쪽으로 걸어가요 (한카이 전차 스미요시토리이마에역에서도 바로 가요)",
+        "nearest_local": {
+          "text": "住吉大社駅",
+          "qid": "Q7637174",
+          "source": "wd"
+        },
+        "source": "sumiyoshi_official_access",
+        "last_verified": "2026-10-09"
+      },
+      "official_url": "https://www.sumiyoshitaisha.net/",
+      "wiki": {
+        "ko": "스미요시 대사",
+        "en": "Sumiyoshi-taisha"
+      },
+      "summary_ko": "바다의 신을 모신 오사카 남쪽의 오래된 신사예요.",
+      "body_ko": [
+        "스미요시 타이샤는 바다의 신 셋(스미요시 삼신)과 진구 황후를 모신 신사예요.",
+        "신사에 전하는 역사로는 211년 진구 황후가 세웠다고 하고, 지금도 뱃일을 하는 사람들이 항해의 안전을 빌러 와요.",
+        "본전 4채는 1810년에 지은 일본 국보로, 대륙 건축의 영향을 받기 전 양식인 '스미요시즈쿠리'를 보여 줘요.",
+        "서쪽 입구의 가파른 아치형 다리 소리하시는 1600년 무렵 요도도노의 기부로 지금 모습이 됐어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "바다의 신 셋(스미요시 삼신)과 진구 황후, 네 신을 모셔요.",
+          "source": "sumiyoshi_official_en",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c2",
+          "text_ko": "신사의 전승에 따르면 211년 진구 황후가 세웠고, 어업·해운 등 바다 일을 하는 사람들이 지금도 항해 안전을 빌러 와요.",
+          "source": "sumiyoshi_official_en",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c3",
+          "text_ko": "지금의 본전 4채는 1810년에 지었고 국보예요. 본전은 대륙 건축의 영향 이전 양식인 스미요시즈쿠리예요.",
+          "source": "sumiyoshi_official_en",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c4",
+          "text_ko": "서쪽 입구의 소리하시 다리는 1600년 무렵 요도도노의 기부로 지금 모습이 됐고, 경사가 40도 넘는 곳이 있어요.",
+          "source": "sumiyoshi_official_en",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c5",
+          "text_ko": "해마다 1월 첫 참배(하쓰모데) 때 200만 명이 찾아와요.",
+          "source": "sumiyoshi_official_en",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "경내에서 먹고 마시거나 담배를 피우지 말아 달라고 해요. 드론도 금지예요.",
+          "source": "sumiyoshi_official_faq_en",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "기념품 판매소와 난쿤샤에서는 현금(엔)만 받고 신용카드는 안 돼요.",
+          "source": "sumiyoshi_official_faq_en",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "1월 첫 참배(하쓰모데) 때는 200만 명이 찾아와 아주 붐벼요.",
+          "source": "sumiyoshi_official_en",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "소리하시 다리는 경사가 40도 넘는 곳이 있어요.",
+          "source": "sumiyoshi_official_en",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "free",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "sumiyoshi_official_faq_en",
+        "last_verified": "2026-10-09"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "sumiyoshi_official_faq_en",
+        "last_verified": "2026-10-09"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 108,
+        "designations": [
+          {
+            "kind": "jp_national_treasure_partial",
+            "name_ko": "본전 4채 국보",
+            "source": "sumiyoshi_official_en"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Sumiyoshi-taisha,_keidai.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-09"
+    },
+    {
+      "id": "nishiki-market",
+      "qid": "Q11650434",
+      "names": {
+        "ko": "니시키 시장",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Nishiki Market",
+        "local": "錦市場",
+        "local_short": "錦市場",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "니시키 시장 상점가",
+        "교토의 부엌"
+      ],
+      "aliases_en": [
+        "Nishiki Ichiba"
+      ],
+      "mentions_ko": [
+        "니시키코지",
+        "이토 자쿠추"
+      ],
+      "region": "jp_kyoto",
+      "area_ko": "교토 나카교구",
+      "category": "market_street",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 35.00502778,
+        "lng": 135.76613889,
+        "source": "wd",
+        "qid": "Q11650434",
+        "osm": null,
+        "last_verified": "2026-10-09"
+      },
+      "wd_geo": {
+        "lat": 35.00502778,
+        "lng": 135.76613889
+      },
+      "address_local": {
+        "text": "京都府京都市中京区西大文字町609番地",
+        "source": "nishiki_official_access",
+        "last_verified": "2026-10-09"
+      },
+      "access": {
+        "modes": [
+          "metro",
+          "train",
+          "bus"
+        ],
+        "nearest_ko": "지하철 가라스마선 시조역·한큐 가라스마역에서 걸어서 가요 (교토역에서 시버스도 다녀요)",
+        "nearest_local": {
+          "text": "四条駅",
+          "qid": "Q2328455",
+          "source": "wd"
+        },
+        "source": "nishiki_official_access",
+        "last_verified": "2026-10-09"
+      },
+      "official_url": "https://www.kyoto-nishiki.or.jp/",
+      "wiki": {
+        "ko": "니시키 시장",
+        "en": "Nishiki Market"
+      },
+      "summary_ko": "교토 시내 한가운데 식재료 가게가 늘어선 시장 거리예요.",
+      "body_ko": [
+        "니시키 시장은 교토 시내 중심의 니시키코지 거리를 따라 동서로 약 390m 이어진 시장 거리예요.",
+        "1615년 에도 막부가 교토에 공인한 생선 도매상 세 곳 가운데 하나가 되면서 본격적인 생선 시장으로 자리 잡았어요.",
+        "'교토의 부엌'이라고 불리고, 교토 채소·민물고기·유바·나마후 같은 식재료를 파는 가게가 모여 있어요.",
+        "에도 시대 화가 이토 자쿠추가 이 시장의 채소 도매상 집에서 태어났어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "니시키코지 거리는 동서로 약 390m이고, 양쪽에 여러 가게가 늘어서 있어요.",
+          "source": "nishiki_official_about",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c2",
+          "text_ko": "1615년 에도 막부가 교토에 공인한 생선 도매상 세 곳 가운데 하나가 니시키 시장이었고, 이것이 본격적인 생선 시장의 시작이에요.",
+          "source": "nishiki_official_about",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c3",
+          "text_ko": "'교토의 부엌'이라고 불리고, 교토 채소·비와호 민물고기·유바·나마후 같은 제철 식재료가 모여요.",
+          "source": "nishiki_official_about",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c4",
+          "text_ko": "화가 이토 자쿠추는 니시키 시장의 채소 도매상 집에서 태어났어요.",
+          "source": "nishiki_official_about",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "시장 안에서 먹으면서 걷지 말고, 산 가게 앞이나 가게 안에서 먹어 달라고 해요.",
+          "source": "nishiki_official_manner",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "시장 전체가 쉬는 날은 없고 가게마다 달라요. 수요일에 쉬는 가게가 많고, 1월 1~3일에는 닫는 가게가 많아요.",
+          "source": "nishiki_official_faq",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "길이 공도라 휠체어로 다닐 수 있지만, 턱 없는 길로 정비된 곳은 아니고 늘 붐빈다고 해요.",
+          "source": "nishiki_official_faq",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "지붕(아케이드)이 있어 비 오는 날에도 둘러볼 수 있어요.",
+          "source": "nishiki_official_about",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "facts": {
+        "kind": "public_space",
+        "source": "nishiki_official_faq",
+        "last_verified": "2026-10-09"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "nishiki_official_faq",
+        "last_verified": "2026-10-09"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 109,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Nishiki_ichiba_kyoto.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-09"
+    },
+    {
+      "id": "kaiyukan",
+      "qid": "Q1191885",
+      "names": {
+        "ko": "가이유칸",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Osaka Aquarium Kaiyukan",
+        "local": "海遊館",
+        "local_short": "海遊館",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "오사카 해유관",
+        "해유관",
+        "카이유칸",
+        "오사카 수족관"
+      ],
+      "aliases_en": [
+        "Kaiyukan"
+      ],
+      "mentions_ko": [
+        "덴포잔",
+        "고래상어"
+      ],
+      "region": "jp_osaka",
+      "area_ko": "오사카 미나토구 덴포잔",
+      "category": "theme_park",
+      "tags": [
+        {
+          "id": "step_free",
+          "source": "kaiyukan_official_barrierfree",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 34.654472222222,
+        "lng": 135.42888888889,
+        "source": "wd",
+        "qid": "Q1191885",
+        "osm": null,
+        "last_verified": "2026-10-09"
+      },
+      "wd_geo": {
+        "lat": 34.654472222222,
+        "lng": 135.42888888889
+      },
+      "address_local": {
+        "text": "大阪府大阪市港区海岸通1－1－10",
+        "source": "kaiyukan_official_access",
+        "last_verified": "2026-10-09"
+      },
+      "access": {
+        "modes": [
+          "metro",
+          "bus",
+          "boat"
+        ],
+        "nearest_ko": "오사카 메트로 주오선 오사카코역(가이유칸마에)에서 걸어가요 (버스·셔틀선도 다녀요)",
+        "nearest_local": {
+          "text": "大阪港駅",
+          "qid": "Q1132628",
+          "source": "wd"
+        },
+        "source": "kaiyukan_official_access",
+        "last_verified": "2026-10-09"
+      },
+      "official_url": "https://www.kaiyukan.com/",
+      "wiki": {
+        "ko": "가이유칸",
+        "en": "Osaka Aquarium Kaiyukan"
+      },
+      "summary_ko": "태평양 둘레의 바다 생물을 보여 주는 오사카 수족관이에요.",
+      "body_ko": [
+        "가이유칸은 태평양을 중심으로 그 둘레 바다의 생물과 자연환경을 보여 주는 수족관이에요.",
+        "관람은 '일본의 숲'에서 시작해 바닷속, 바다 밑으로 태평양 둘레를 도는 순서로 이어져요.",
+        "가운데 '태평양' 수조에는 고래상어와 쥐가오리 등 여러 생물이 함께 살아요.",
+        "환태평양 화산대가 만든 다양한 환경과 그곳의 생명을 전시 주제로 삼고 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "가이유칸은 태평양을 중심으로 생물과 자연환경을 소개해요.",
+          "source": "kaiyukan_official_exhibition",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c2",
+          "text_ko": "관람 동선은 '일본의 숲'에서 시작해 바닷속, 바다 밑으로 태평양 둘레를 따라 이어져요.",
+          "source": "kaiyukan_official_exhibition",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c3",
+          "text_ko": "'태평양' 수조에는 고래상어, 쥐가오리(이토마키에이), 무리 지어 다니는 물고기 등이 살아요.",
+          "source": "kaiyukan_official_exhibition",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c4",
+          "text_ko": "전시는 환태평양 화산대(링 오브 파이어)가 만든 여러 환경과 그곳의 생명(링 오브 라이프)을 주제로 해요.",
+          "source": "kaiyukan_official_exhibition",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "캐리어 같은 큰 짐과 카트는 들고 들어갈 수 없어요. 숙소나 코인 로커에 먼저 맡겨야 해요.",
+          "source": "kaiyukan_official_rules",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "관내에서는 카페(cafe R.O.F) 말고는 음식을 먹을 수 없고, 음료는 뚜껑이 있어 쏟아지지 않는 것만 마실 수 있어요.",
+          "source": "kaiyukan_official_rules",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "수조 앞을 오래 차지하는 촬영과 삼각대·셀카봉 사용은 삼가 달라고 해요. 생물이 눈부신 플래시 촬영도 안 돼요.",
+          "source": "kaiyukan_official_rules",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "관내 대부분이 경사로라 휠체어로 돌아볼 수 있고, 휠체어도 빌려줘요(수량 한정).",
+          "source": "kaiyukan_official_barrierfree",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "booking": "recommended",
+        "booking_note_ko": "날짜·시간을 정하는 e티켓을 미리 사 두기를 권해요. 당일권은 원하는 시간에 못 들어가고 기다릴 수 있어요.",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "kaiyukan_official_ticket",
+        "last_verified": "2026-10-09"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [
+        "renovation"
+      ],
+      "status": {
+        "value": "partial",
+        "note_ko": "'알류샨 열도' 수조는 리뉴얼 공사로 닫혀 있어요.",
+        "source": "kaiyukan_official_exhibition",
+        "last_verified": "2026-10-09"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 110,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Osaka_Kaiyukan01s3872.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-09"
+    }
+  ],
+  "sources": [
+    {
+      "id": "todaiji_official_daibutsuden",
+      "name": "東大寺 Daibutsu-den (official, English)",
+      "url": "https://www.todaiji.or.jp/en/information/daibutsuden/",
+      "use": "facts"
+    },
+    {
+      "id": "todaiji_official_haikan",
+      "name": "東大寺 Opening Hours / Admission Fees (official, English)",
+      "url": "https://www.todaiji.or.jp/en/information/haikan/",
+      "use": "facts"
+    },
+    {
+      "id": "todaiji_official_access",
+      "name": "東大寺 Access (official, English)",
+      "url": "https://www.todaiji.or.jp/en/access/",
+      "use": "facts"
+    },
+    {
+      "id": "todaiji_official_history",
+      "name": "東大寺 History: 8th century (official, English)",
+      "url": "https://www.todaiji.or.jp/en/history/narajidai/",
+      "use": "facts"
+    },
+    {
+      "id": "todaiji_official_tourist",
+      "name": "東大寺 Tourist Information (official, English)",
+      "url": "https://www.todaiji.or.jp/en/tourist-information/",
+      "use": "facts"
+    },
+    {
+      "id": "todaiji_official_ja",
+      "name": "東大寺 (official, Japanese)",
+      "url": "https://www.todaiji.or.jp/",
+      "use": "facts"
+    },
+    {
+      "id": "unesco_688",
+      "name": "UNESCO World Heritage Centre — Historic Monuments of Ancient Kyoto (component parts)",
+      "url": "https://whc.unesco.org/en/list/688/maps/",
+      "use": "heritage_registry",
+      "license": "UNESCO WHC (사실만 사용, 설명문 CC-BY-SA IGO 3.0)",
+      "attribution_required": true
+    },
+    {
+      "id": "kiyomizu_official_learn",
+      "name": "清水寺 Learn (official, English)",
+      "url": "https://www.kiyomizudera.or.jp/en/learn/",
+      "use": "facts"
+    },
+    {
+      "id": "kiyomizu_official_visit",
+      "name": "清水寺 Visit (official, English)",
+      "url": "https://www.kiyomizudera.or.jp/en/visit/",
+      "use": "facts"
+    },
+    {
+      "id": "kiyomizu_official_location",
+      "name": "清水寺 Location (official, English)",
+      "url": "https://www.kiyomizudera.or.jp/en/location/",
+      "use": "facts"
+    },
+    {
+      "id": "kiyomizu_official_faq",
+      "name": "清水寺 FAQ (official, English)",
+      "url": "https://www.kiyomizudera.or.jp/en/faq/",
+      "use": "facts"
+    },
+    {
+      "id": "kiyomizu_official_access_ja",
+      "name": "清水寺 拝観・交通案内 (official, Japanese)",
+      "url": "https://www.kiyomizudera.or.jp/access.php",
+      "use": "facts"
+    },
+    {
+      "id": "kiyomizu_official_faq_ja",
+      "name": "清水寺 よくあるご質問 (official, Japanese)",
+      "url": "https://www.kiyomizudera.or.jp/faq.php",
+      "use": "facts"
+    },
+    {
+      "id": "nijo_official_overview",
+      "name": "元離宮二条城 Summary (Kyoto City, official, English)",
+      "url": "https://nijo-jocastle.city.kyoto.lg.jp/introduction/highlights/overview/?lang=en",
+      "use": "facts"
+    },
+    {
+      "id": "nijo_official_annai",
+      "name": "元離宮二条城 Opening Hours, Days Closed (official, English)",
+      "url": "https://nijo-jocastle.city.kyoto.lg.jp/guide/annai/?lang=en",
+      "use": "facts"
+    },
+    {
+      "id": "nijo_official_fee",
+      "name": "元離宮二条城 Fees (official, English)",
+      "url": "https://nijo-jocastle.city.kyoto.lg.jp/admission/fee/?lang=en",
+      "use": "facts"
+    },
+    {
+      "id": "nijo_official_caution",
+      "name": "元離宮二条城 Precautions When Entering the Castle (official, English)",
+      "url": "https://nijo-jocastle.city.kyoto.lg.jp/guide/caution/?lang=en",
+      "use": "facts"
+    },
+    {
+      "id": "nijo_official_faq",
+      "name": "元離宮二条城 FAQ (official, English)",
+      "url": "https://nijo-jocastle.city.kyoto.lg.jp/guide/faq/?lang=en",
+      "use": "facts"
+    },
+    {
+      "id": "nijo_official_ninomaru",
+      "name": "元離宮二条城 Ninomaru-goten Palace (official, English)",
+      "url": "https://nijo-jocastle.city.kyoto.lg.jp/introduction/highlights/ninomaru/?lang=en",
+      "use": "facts"
+    },
+    {
+      "id": "nijo_official_access",
+      "name": "元離宮二条城 Access (official, English)",
+      "url": "https://nijo-jocastle.city.kyoto.lg.jp/access/?lang=en",
+      "use": "facts"
+    },
+    {
+      "id": "nijo_official_top_ja",
+      "name": "元離宮二条城 (Kyoto City, official, Japanese)",
+      "url": "https://nijo-jocastle.city.kyoto.lg.jp/",
+      "use": "facts"
+    },
+    {
+      "id": "kinkakuji_official_about",
+      "name": "金閣寺について (臨済宗相国寺派, official)",
+      "url": "https://www.shokoku-ji.jp/kinkakuji/about/",
+      "use": "facts"
+    },
+    {
+      "id": "kinkakuji_official_guide",
+      "name": "金閣寺 境内案内 (official)",
+      "url": "https://www.shokoku-ji.jp/kinkakuji/guide/",
+      "use": "facts"
+    },
+    {
+      "id": "kinkakuji_official_access",
+      "name": "金閣寺 アクセス・ご参拝について (official)",
+      "url": "https://www.shokoku-ji.jp/kinkakuji/access/",
+      "use": "facts"
+    },
+    {
+      "id": "kinkakuji_official_faq",
+      "name": "金閣寺 よくある質問 (official)",
+      "url": "https://www.shokoku-ji.jp/kinkakuji/faq/",
+      "use": "facts"
+    },
+    {
+      "id": "bunka_arashiyama",
+      "name": "文化庁 国指定文化財等データベース",
+      "url": "https://kunishitei.bunka.go.jp/heritage/detail/401/1659",
+      "use": "heritage_registry",
+      "license": "MEXT-website-terms (出典記載で自由利用)",
+      "attribution_required": true
+    },
+    {
+      "id": "kyototravel_togetsukyo",
+      "name": "Kyoto City Official Travel Guide (Kyoto City Tourism Association) — Togetsu-kyo Bridge",
+      "url": "https://kyoto.travel/en/destinations/togetsukyo-bridge/",
+      "use": "facts"
+    },
+    {
+      "id": "kyototravel_access_arashiyama",
+      "name": "Kyoto City Official Travel Guide (Kyoto City Tourism Association) — Comfortable access to Saga/Arashiyama",
+      "url": "https://kyoto.travel/en/getting-around/comfortable-access-to-saga-arashiyama/",
+      "use": "facts"
+    },
+    {
+      "id": "nishiki_official_about",
+      "name": "京都錦市場商店街振興組合 錦市場の魅力 (official)",
+      "url": "https://www.kyoto-nishiki.or.jp/about/",
+      "use": "facts"
+    },
+    {
+      "id": "nishiki_official_access",
+      "name": "京都錦市場商店街 アクセス (official)",
+      "url": "https://www.kyoto-nishiki.or.jp/access/",
+      "use": "facts"
+    },
+    {
+      "id": "nishiki_official_manner",
+      "name": "京都錦市場商店街 お願いとご案内 (official)",
+      "url": "https://www.kyoto-nishiki.or.jp/manner/",
+      "use": "facts"
+    },
+    {
+      "id": "nishiki_official_faq",
+      "name": "京都錦市場商店街 よくある質問 (official)",
+      "url": "https://www.kyoto-nishiki.or.jp/contact/",
+      "use": "facts"
+    },
+    {
+      "id": "kyohaku_official_info",
+      "name": "Kyoto National Museum — Hours and Admission (official)",
+      "url": "https://www.kyohaku.go.jp/eng/visit/info/",
+      "use": "facts"
+    },
+    {
+      "id": "kyohaku_official_access",
+      "name": "Kyoto National Museum — Getting Here (official)",
+      "url": "https://www.kyohaku.go.jp/eng/visit/access/",
+      "use": "facts"
+    },
+    {
+      "id": "kyohaku_official_access_ja",
+      "name": "京都国立博物館 アクセス (official, Japanese)",
+      "url": "https://www.kyohaku.go.jp/jp/visit/access/",
+      "use": "facts"
+    },
+    {
+      "id": "kyohaku_official_requests",
+      "name": "Kyoto National Museum — A Message to Museum Visitors (official)",
+      "url": "https://www.kyohaku.go.jp/eng/visit/requests/",
+      "use": "facts"
+    },
+    {
+      "id": "kyohaku_official_facilities",
+      "name": "Kyoto National Museum — Facilities (official)",
+      "url": "https://www.kyohaku.go.jp/eng/about/facilities/",
+      "use": "facts"
+    },
+    {
+      "id": "kyohaku_official_accessibility",
+      "name": "Kyoto National Museum — Accessibility (official)",
+      "url": "https://www.kyohaku.go.jp/eng/visit/accessibility/",
+      "use": "facts"
+    },
+    {
+      "id": "kyohaku_official_faq",
+      "name": "Kyoto National Museum — FAQ (official)",
+      "url": "https://www.kyohaku.go.jp/eng/visit/faq/",
+      "use": "facts"
+    },
+    {
+      "id": "tsutenkaku_official_annai",
+      "name": "通天閣 営業案内 (通天閣観光, official)",
+      "url": "https://www.tsutenkaku.co.jp/annai/index.html",
+      "use": "facts"
+    },
+    {
+      "id": "tsutenkaku_official_access",
+      "name": "通天閣 交通アクセス (official)",
+      "url": "https://www.tsutenkaku.co.jp/access/index.html",
+      "use": "facts"
+    },
+    {
+      "id": "tsutenkaku_official_shiryo",
+      "name": "通天閣 資料館 (official)",
+      "url": "https://www.tsutenkaku.co.jp/other/shiryo.html",
+      "use": "facts"
+    },
+    {
+      "id": "bunka_tsutenkaku",
+      "name": "文化庁 国指定文化財等データベース",
+      "url": "https://kunishitei.bunka.go.jp/heritage/detail/101/00005702",
+      "use": "heritage_registry",
+      "license": "MEXT-website-terms (出典記載で自由利用)",
+      "attribution_required": true
+    },
+    {
+      "id": "sumiyoshi_official_en",
+      "name": "Sumiyoshi Taisha (official, English)",
+      "url": "https://www.sumiyoshitaisha.net/en/",
+      "use": "facts"
+    },
+    {
+      "id": "sumiyoshi_official_faq_en",
+      "name": "Sumiyoshi Taisha FAQ (official, English)",
+      "url": "https://www.sumiyoshitaisha.net/en/faq.html",
+      "use": "facts"
+    },
+    {
+      "id": "sumiyoshi_official_ja",
+      "name": "住吉大社 (official, Japanese)",
+      "url": "https://www.sumiyoshitaisha.net/",
+      "use": "facts"
+    },
+    {
+      "id": "sumiyoshi_official_access",
+      "name": "住吉大社 アクセス (official, Japanese)",
+      "url": "https://sumiyoshitaisha.net/access/",
+      "use": "facts"
+    },
+    {
+      "id": "kaiyukan_official_exhibition",
+      "name": "海遊館 展示紹介 (official)",
+      "url": "https://www.kaiyukan.com/about/exhibition/",
+      "use": "facts"
+    },
+    {
+      "id": "kaiyukan_official_ticket",
+      "name": "海遊館 入館料・その他チケット (official)",
+      "url": "https://www.kaiyukan.com/info/ticket/kaiyukan/",
+      "use": "facts"
+    },
+    {
+      "id": "kaiyukan_official_access",
+      "name": "海遊館 交通アクセス・駐車場 (official)",
+      "url": "https://www.kaiyukan.com/info/access/",
+      "use": "facts"
+    },
+    {
+      "id": "kaiyukan_official_rules",
+      "name": "海遊館 ルールとマナー (official)",
+      "url": "https://www.kaiyukan.com/info/area/prohibition/",
+      "use": "facts"
+    },
+    {
+      "id": "kaiyukan_official_barrierfree",
+      "name": "海遊館 バリアフリー＆救護室 (official)",
+      "url": "https://www.kaiyukan.com/info/area/barrierfree/",
+      "use": "facts"
+    },
+    {
+      "id": "jnto_nijo",
+      "name": "Japan National Tourism Organization (JNTO, official) — Nijo Castle",
+      "url": "https://www.japan.travel/en/spot/1165/",
+      "use": "facts"
+    }
+  ]
+}

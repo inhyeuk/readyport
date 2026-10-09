@@ -97,7 +97,7 @@ class TempDirCase:
 
 
 class MemFirestore:
-    """FirestoreRest 흉내(메모리). 이 모듈들이 쓰는 질의만: collectionId(+parent), fieldFilter EQUAL/LESS_THAN,
+    """FirestoreRest 흉내(메모리). 이 모듈들이 쓰는 질의만: collectionId(+parent), fieldFilter EQUAL/LESS_THAN/GREATER_THAN,
     orderBy 한 칸, startAt(before=False), limit. select 는 무시(전체 필드)."""
 
     PREFIX = "projects/p/databases/(default)/documents/"
@@ -138,6 +138,8 @@ class MemFirestore:
                 rows = [(p, d) for p, d in rows if d.get(field) == val]
             elif op == "LESS_THAN":
                 rows = [(p, d) for p, d in rows if d.get(field) is not None and d[field] < val]
+            elif op == "GREATER_THAN":
+                rows = [(p, d) for p, d in rows if d.get(field) is not None and d[field] > val]
             else:
                 raise AssertionError(op)
         order = q.get("orderBy")

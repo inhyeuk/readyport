@@ -103,6 +103,10 @@ data class AttractionDetailActions(
     val openRegion: (regionId: String) -> Unit = {},
     val openSafety: () -> Unit = {},
     val openLink: (String) -> Unit = {},
+    /** 내 별점 남기기·바꾸기(1~5) · 지우기 · 나이 확인 */
+    val vote: (Int) -> Unit = {},
+    val removeVote: () -> Unit = {},
+    val checkAge: () -> Unit = {},
 )
 
 @Composable
@@ -114,6 +118,8 @@ fun AttractionDetailScreen(
 ) {
     val ui by viewModel.ui.collectAsStateWithLifecycle()
     val context = LocalContext.current
+    val auth = com.readyport.ui.wallet.rememberDeviceAuth()
+    androidx.lifecycle.compose.LifecycleEventEffect(androidx.lifecycle.Lifecycle.Event.ON_RESUME) { viewModel.refreshMine() }
     AttractionDetailContent(
         ui = ui,
         actions = AttractionDetailActions(
@@ -123,6 +129,9 @@ fun AttractionDetailScreen(
             openRegion = openRegion,
             openSafety = { openSafety(ui.country) },
             openLink = { url -> runCatching { context.startActivity(Intent(Intent.ACTION_VIEW, url.toUri())) } },
+            vote = viewModel::vote,
+            removeVote = viewModel::removeVote,
+            checkAge = { auth { viewModel.checkAge() } },
         ),
     )
 }
@@ -139,8 +148,8 @@ fun mapsUrl(a: Attraction): String? {
 
 /**
  * 관광지 상세 (SPEC_v5 §6.4, D3-A 사진 없음 · D4-A 숫자 없음). 순서 고정:
- * 제목 → (경보 변경 안내) → 2단계 띠 → 운영 상태 → 위험 → 그림(사진 칸) → 칩 → 위치 지도 → 하루 다녀오는 곳 → 어떤 곳이에요 → 위키백과에서 보기 → 가기 전에 알아 둘 것 →
- * 가는 법 → 찜 버튼(+처음 안내) → 같은 지역의 다른 곳 → 공식 사이트·사진 링크 → 최종 확인·출처.
+ * 제목 → (경보 변경 안내) → 2단계 띠 → 운영 상태 → (확인 중 띠) → 위험 → 그림(사진 칸) → 칩 → 위치 지도 → 하루 다녀오는 곳 → 어떤 곳이에요 → 위키백과에서 보기 → 가기 전에 알아 둘 것 →
+ * 가는 법 → 평점(Google · 레디포트 이용자 · 내 별점) → 찜 버튼(+처음 안내) → 같은 지역의 다른 곳 → 공식 사이트·사진 링크 → 최종 확인·출처.
  */
 @Composable
 fun AttractionDetailContent(ui: AttractionDetailUi, actions: AttractionDetailActions) {
@@ -197,6 +206,8 @@ fun AttractionDetailContent(ui: AttractionDetailUi, actions: AttractionDetailAct
                 )
             }
         }
+        // 공식 출처에 휴관·공사 같은 안내가 새로 보임(ARIA 감지, 사람 확인 전) — 안전한 쪽으로 먼저 알린다
+        if (ui.flagged) item(key = "flag") { AttractionFlagBand() }
         a.risks.forEach { risk ->
             item(key = "risk-${risk.key}") {
                 NoticeBanner(
@@ -273,6 +284,9 @@ fun AttractionDetailContent(ui: AttractionDetailUi, actions: AttractionDetailAct
         }
         item(key = "know") { KnowCard(a, sourceOf, actions.openLink) }
         item(key = "go") { HowToGoCard(a, sourceOf, actions.openLink) }
+        ui.rating?.let { r ->
+            item(key = "rating") { RatingSection(r, actions.vote, actions.removeVote, actions.checkAge, actions.openLink) }
+        }
         item(key = "save") {
             Column(verticalArrangement = Arrangement.spacedBy(dimens.inner)) {
                 SaveButton(ui.saved, actions.setSaved)

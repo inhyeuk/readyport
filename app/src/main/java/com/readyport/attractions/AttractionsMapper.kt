@@ -174,6 +174,8 @@ data class Attraction(
     val oldestVerified: String,
     /** 상세 출처 목록에 보일 출처 id (중복 없이, 나온 순서) */
     val sourceIds: List<String>,
+    /** Google Places place ID (없거나 모양이 틀리면 null) — 상세의 Google 별점 조회에만 */
+    val googlePlaceId: String? = null,
 ) {
     /** 전역 키 "<CC>/<id>" — 찜·가는 곳이 쓴다 */
     val key: String get() = "$country/$id"
@@ -385,10 +387,14 @@ object AttractionsMapper {
             wiki = wikiTitles(wiki),
             oldestVerified = dates.minOrNull() ?: lastVerified,
             sourceIds = sourceIds,
+            googlePlaceId = googlePlaceId?.takeIf { PlaceIdPattern.matches(it) },
         )
     }
 
     private val IsoDate = Regex("""\d{4}-\d{2}-\d{2}""")
+
+    /** enums google_place_id.pattern 과 같은 모양 — 틀리면 버린다(Google 별점 칸 없음) */
+    private val PlaceIdPattern = Regex("^[A-Za-z0-9_-]{10,300}$")
 
     /** MediaWiki 제목에 쓸 수 없는 글자(# < > [ ] | { } 와 제어 문자) — build_attractions.py WIKI_TITLE_RE와 같은 규칙 */
     private val BadTitleChars = Regex("""[#<>\[\]|{}\u0000-\u001f\u007f]""")

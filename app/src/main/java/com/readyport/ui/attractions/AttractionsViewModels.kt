@@ -16,6 +16,12 @@ import com.readyport.attractions.RegionGrouping
 import com.readyport.attractions.SavedAttraction
 import com.readyport.attractions.SavedAttractionsRepository
 import com.readyport.attractions.TripContext
+import com.readyport.attractions.rating.AttractionFlags
+import com.readyport.attractions.rating.GoogleRatingClient
+import com.readyport.attractions.rating.MyVote
+import com.readyport.attractions.rating.RatingRepository
+import com.readyport.attractions.rating.RatingRules
+import com.readyport.R
 import com.readyport.attractions.search.AttractionSearchIndex
 import com.readyport.pack.CountryPack
 import com.readyport.pack.PackRepository
@@ -39,6 +45,7 @@ import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 import javax.inject.Inject
@@ -242,25 +249,38 @@ data class AttractionDetailUi(
     val showFirstNotice: Boolean = false,
     /** 출처 id → 이름 (팩 안전 출처 포함) */
     val sourceNames: Map<String, String> = emptyMap(),
+    /** '공식 안내가 바뀌었어요 — 확인 중이에요' 띠 (attraction_flags) */
+    val flagged: Boolean = false,
+    /** 평점 칸 (null = 칸 없음) */
+    val rating: RatingUi? = null,
 )
 
 @HiltViewModel
 class AttractionDetailViewModel @Inject constructor(
     handle: SavedStateHandle,
-    repo: AttractionsRepository,
+    private val repo: AttractionsRepository,
     private val saved: SavedAttractionsRepository,
     packs: PackRepository,
     trips: TripRepository,
-    wallet: WalletRepository,
+    private val wallet: WalletRepository,
+    private val ratings: RatingRepository,
+    private val google: GoogleRatingClient,
+    private val board: com.readyport.board.BoardRepository,
 ) : ViewModel() {
     private val route = handle.toRoute<AttractionDetailRoute>()
     private val justSavedFirst = MutableStateFlow(false)
+    private val flags = MutableStateFlow<AttractionFlags?>(null)
+
+    /** 평점 칸 — 이 나라·id 로 별점 키를 만들 수 있을 때만 */
+    private val rating = MutableStateFlow(if (RatingRules.key(route.country, route.id) != null) RatingUi() else null)
 
     val ui: StateFlow<AttractionDetailUi> = combine(
         attractionsBase(route.country, repo, saved, packs, trips, wallet),
         saved.saved,
         justSavedFirst,
-    ) { b, items, first ->
+        flags,
+        rating,
+    ) { b, items, first, flagDoc, ratingUi ->
         val catalog = b.catalog
         val a = catalog?.attraction(route.id)
         AttractionDetailUi(
@@ -276,8 +296,78 @@ class AttractionDetailViewModel @Inject constructor(
             showFirstNotice = first,
             sourceNames = catalog?.sources.orEmpty().mapValues { it.value.name } +
                 b.pack?.sources.orEmpty().associate { it.id to it.name },
+            flagged = a != null && flagDoc?.shows(a) == true,
+            rating = ratingUi,
         )
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), AttractionDetailUi(country = route.country))
+
+    init {
+        // 확인 중 표시·평점: 상세를 열 때 한 번(나라 문서는 앱 실행 동안 10분 메모리 캐시). 못 읽으면 조용히 숨긴다
+        viewModelScope.launch { flags.value = runCatching { ratings.flags(route.country) }.getOrNull() }
+        if (rating.value != null) {
+            viewModelScope.launch {
+                val stats = runCatching { ratings.stats(route.country, route.id) }.getOrNull()
+                rating.update { it?.copy(stats = stats) }
+            }
+            viewModelScope.launch {
+                // Google 별점: 지도 키가 있는 빌드 + 관광지 파일에 place ID 가 있을 때만(디스크에 남기지 않는다)
+                val placeId = runCatching { repo.catalog(route.country)?.attraction(route.id)?.googlePlaceId }.getOrNull()
+                val g = if (com.readyport.BuildConfig.MAPS_ENABLED) runCatching { google.rating(placeId) }.getOrNull() else null
+                rating.update { it?.copy(google = g) }
+            }
+            refreshMine()
+        }
+    }
+
+    /** 내 별점·나이 확인 상태 다시 읽기 */
+    fun refreshMine() {
+        if (rating.value == null) return
+        viewModelScope.launch {
+            val age = runCatching { ratings.ageStatus() }.getOrDefault(com.readyport.board.BoardAge.Status.Allowed)
+            val mine = ratings.myVote(route.country, route.id)
+            rating.update { it?.copy(age = age, mine = mine) }
+        }
+    }
+
+    fun vote(stars: Int) {
+        rating.update { it?.copy(busy = true, message = null) }
+        viewModelScope.launch {
+            val result = runCatching { ratings.vote(route.country, route.id, stars) }
+            rating.update {
+                it?.copy(
+                    busy = false,
+                    mine = if (result.isSuccess) MyVote.Given(stars) else it.mine,
+                    message = if (result.isSuccess) R.string.rating_saved else ratingErrorRes(result.exceptionOrNull()),
+                    messageError = result.isFailure,
+                )
+            }
+            if (result.isFailure) refreshMine()
+        }
+    }
+
+    fun removeVote() {
+        rating.update { it?.copy(busy = true, message = null) }
+        viewModelScope.launch {
+            val result = runCatching { ratings.removeVote(route.country, route.id) }
+            rating.update {
+                it?.copy(
+                    busy = false,
+                    mine = if (result.isSuccess) MyVote.None else it.mine,
+                    message = if (result.isSuccess) R.string.rating_removed else ratingErrorRes(result.exceptionOrNull()),
+                    messageError = result.isFailure,
+                )
+            }
+        }
+    }
+
+    /** 기기 인증 뒤 보관함을 열어 여권 생년월일로 나이를 판정(게시판과 같은 값) */
+    fun checkAge() {
+        viewModelScope.launch {
+            val s = wallet.unlock()
+            if (s is WalletState.Unlocked) board.recordAge(s.contents.passport?.birthDate)
+            refreshMine()
+        }
+    }
 
     fun setSaved(on: Boolean) = viewModelScope.launch {
         val a = ui.value.attraction ?: return@launch
@@ -294,3 +384,11 @@ class AttractionDetailViewModel @Inject constructor(
 
 /** 찜 목록 한 줄 (찜 화면·나라 화면 줄의 수 세기) */
 internal fun List<SavedAttraction>.countFor(country: String): Int = count { it.country == country }
+
+/** 별점 실패 → 쉬운 문구 */
+internal fun ratingErrorRes(e: Throwable?): Int = when (e) {
+    com.readyport.board.BoardError.Offline -> R.string.rating_err_offline
+    is com.readyport.board.BoardError.AgeRestricted -> R.string.rating_minor
+    com.readyport.board.BoardError.AgeCheckNeeded -> R.string.rating_age_check
+    else -> R.string.rating_err_denied
+}

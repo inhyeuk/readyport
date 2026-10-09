@@ -33,9 +33,10 @@ class MainActivity : FragmentActivity() {
         openChecklist = intent?.getStringExtra(EXTRA_OPEN_CHECKLIST)
         openNotice = intent?.getStringExtra(EXTRA_OPEN_NOTICE)
         openBoard = intent?.getStringExtra(EXTRA_OPEN_BOARD)
+        openPlan = intent?.getStringExtra(EXTRA_OPEN_PLAN)
         // 앱을 켤 때의 공지: 다시 만들어진 화면(회전 등)이나 위젯·알림·공유로 연 실행에서는 띄우지 않는다(할 일이 따로 있다)
         viewModel.startNotices(
-            skip = savedInstanceState != null || openPresent || openChecklist != null || openNotice != null || openBoard != null ||
+            skip = savedInstanceState != null || openPresent || openChecklist != null || openNotice != null || openBoard != null || openPlan != null ||
                 intent?.action == Intent.ACTION_SEND,
         )
         setContent {
@@ -71,6 +72,8 @@ class MainActivity : FragmentActivity() {
                     openPostId = openBoard,
                     onOpened = { openBoard = null },
                     onSetReplies = viewModel::setBoardReplies,
+                    openPlanId = openPlan,
+                    onPlanOpened = { openPlan = null },
                 ),
             )
         }
@@ -83,6 +86,7 @@ class MainActivity : FragmentActivity() {
         intent.getStringExtra(EXTRA_OPEN_CHECKLIST)?.let { openChecklist = it }
         intent.getStringExtra(EXTRA_OPEN_NOTICE)?.let { openNotice = it }
         intent.getStringExtra(EXTRA_OPEN_BOARD)?.let { openBoard = it }
+        intent.getStringExtra(EXTRA_OPEN_PLAN)?.let { openPlan = it }
     }
 
     private var openPresent by androidx.compose.runtime.mutableStateOf(false)
@@ -96,6 +100,9 @@ class MainActivity : FragmentActivity() {
     /** 게시판 답글 알림에서 열 때의 글 id (`""` = 게시판) */
     private var openBoard by androidx.compose.runtime.mutableStateOf<String?>(null)
 
+    /** 계획 도착 알림에서 열 때의 요청 id (`""` = 내 계획 요청 목록) */
+    private var openPlan by androidx.compose.runtime.mutableStateOf<String?>(null)
+
     companion object {
         /** 홈 화면 위젯에서 열 때 */
         const val EXTRA_OPEN_PRESENT = "readyport.open_present"
@@ -108,5 +115,8 @@ class MainActivity : FragmentActivity() {
 
         /** 게시판 답글 알림에서 열 때 — 그 글(글 id만, `""`면 게시판) */
         const val EXTRA_OPEN_BOARD = "readyport.open_board"
+
+        /** 여행 계획 도착 알림에서 열 때 — 그 계획(요청 id만, `""`면 내 계획 요청 목록) */
+        const val EXTRA_OPEN_PLAN = "readyport.open_plan"
     }
 }

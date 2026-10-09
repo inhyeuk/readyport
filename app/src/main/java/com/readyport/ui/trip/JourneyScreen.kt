@@ -684,7 +684,7 @@ private fun StageExtras(stage: JourneyStage, ui: JourneyUi, actions: ChecklistAc
 }
 
 /**
- * 계획: 날짜·내리는 공항 고치기 + 이 나라 안내 + **관광 일정**(2026-10-09, 이 나라 관광지가 있거나 담은 곳이 있을 때)
+ * 계획: 날짜·내리는 공항 고치기 + 이 나라 안내 + **관광 일정**(2026-10-09, 이 나라 관광지가 있거나 담은 곳이 있을 때) + **여행 계획 요청**(비공개)
  * (그림 모자이크 — 나라 화면 길 안내와 같은 모양)
  */
 @Composable
@@ -709,6 +709,8 @@ private fun PlanExtras(ui: JourneyUi, actions: ChecklistActions) {
                 illustration = com.readyport.ui.components.Illus.Plan,
             ),
             plan?.let { itineraryTile(it) { actions.openItinerary(trip.id) } },
+            // 여행 계획 요청(비공개, AI 일정 초안 — 2026-10-09). 나라가 계획을 받을 수 있는 9개국일 때만
+            if (trip.country in com.readyport.plan.PlanRules.COUNTRIES) com.readyport.ui.plan.planTile { actions.openPlanRequest(trip.id) } else null,
         ),
         // 타일이 둘·셋뿐이라 2열 그리드에 한 칸만 차는 모양이 된다 — 폭 전체 행으로
         columns = 1,
