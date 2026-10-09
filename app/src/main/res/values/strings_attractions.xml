@@ -192,6 +192,12 @@
     <string name="settings_credit_bunka_takegawara">文化庁 国指定文化財等データベース — 다케가와라 온천</string>
     <string name="settings_credit_bunka_tokeidai">文化庁 国指定文化財等データベース — 삿포로 시계탑</string>
     <string name="settings_credit_bunka_moiwa">文化庁 国指定文化財等データベース — 모이와산</string>
+    <string name="settings_credit_unesco_948">UNESCO 세계유산센터 — 호이안 고대 도시</string>
+    <string name="settings_credit_unesco_949">UNESCO 세계유산센터 — 미선 유적</string>
+    <string name="settings_credit_dsvh_special">베트남 문화유산국(Cục Di sản văn hóa) 특별 국가유적 목록 — 탕롱 황성·문묘·하롱베이·짱안·땀꼭</string>
+    <string name="settings_credit_unesco_1328">UNESCO 세계유산센터 — 탕롱-하노이 황성 중심 구역</string>
+    <string name="settings_credit_unesco_672">UNESCO 세계유산센터 — 하롱베이-깟바 군도</string>
+    <string name="settings_credit_unesco_1438">UNESCO 세계유산센터 — 짱안 경관 단지</string>
     <string name="settings_credit_unesco_870">UNESCO 세계유산센터 — 고대 나라의 역사기념물</string>
 
     <!-- 관광지 지도 (Google 지도 SDK, 사장님 결정 2026-10-09). 키가 없거나 중국이면 지도 없이 '구글 지도에서 열기'만 -->
