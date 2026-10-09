@@ -326,10 +326,6 @@
         "osm": null,
         "last_verified": "2026-10-09"
       },
-      "wd_geo": {
-        "lat": 35.36055555555556,
-        "lng": 138.7275
-      },
       "address_local": {
         "text": "富士吉田市上吉田小御岳下5617",
         "source": "yamanashi_kanko_5gome",
@@ -499,10 +495,6 @@
         "qid": "Q96338884",
         "osm": null,
         "last_verified": "2026-10-09"
-      },
-      "wd_geo": {
-        "lat": 34.687222222222,
-        "lng": 135.52583333333
       },
       "address_local": {
         "text": "大阪市中央区大阪城1-1",
@@ -674,10 +666,6 @@
         "qid": "Q221716",
         "osm": null,
         "last_verified": "2026-10-09"
-      },
-      "wd_geo": {
-        "lat": 34.994830555556,
-        "lng": 135.78500277778
       },
       "address_local": {
         "text": "京都市東山区清水1丁目294",
@@ -852,10 +840,6 @@
         "osm": null,
         "last_verified": "2026-10-09"
       },
-      "wd_geo": {
-        "lat": 35.676111111111,
-        "lng": 139.69916666667
-      },
       "address_local": {
         "text": "東京都渋谷区代々木神園町1-1",
         "source": "meiji_official_about_ja",
@@ -1021,10 +1005,6 @@
         "osm": null,
         "last_verified": "2026-10-09"
       },
-      "wd_geo": {
-        "lat": 34.689166666667,
-        "lng": 135.83972222222
-      },
       "address_local": {
         "text": "奈良市雑司町406-1",
         "source": "todaiji_official_ja",
@@ -1187,10 +1167,6 @@
         "qid": "Q183536",
         "osm": null,
         "last_verified": "2026-10-09"
-      },
-      "wd_geo": {
-        "lat": 35.658611111111114,
-        "lng": 139.74555555555557
       },
       "address_local": null,
       "access": {
@@ -1372,10 +1348,6 @@
         "osm": null,
         "last_verified": "2026-10-09"
       },
-      "wd_geo": {
-        "lat": 35.714555555556,
-        "lng": 139.79663888889
-      },
       "address_local": {
         "text": "東京都台東区浅草2-3-1",
         "source": "sensoji_official_access",
@@ -1472,11 +1444,6 @@
           "text": "7월 9~10일에는 꽈리(호오즈키) 시장, 12월 17~19일에는 하고이타 시장이 절 안팎에서 열려요.",
           "source": "sensoji_official_en",
           "last_verified": "2026-10-09"
-        },
-        {
-          "text": "센소지에는 주차장이 없어요.",
-          "source": "sensoji_official_access",
-          "last_verified": "2026-10-09"
         }
       ],
       "facts": {
@@ -1565,10 +1532,6 @@
         "qid": "Q710786",
         "osm": null,
         "last_verified": "2026-10-09"
-      },
-      "wd_geo": {
-        "lat": 33.521433,
-        "lng": 130.535002
       },
       "address_local": {
         "text": "福岡県太宰府市宰府4丁目7-1",
@@ -1737,10 +1700,6 @@
         "qid": "Q1013399",
         "osm": null,
         "last_verified": "2026-10-09"
-      },
-      "wd_geo": {
-        "lat": 35.014166666667,
-        "lng": 135.7475
       },
       "address_local": {
         "text": "京都市中京区二条通堀川西入二条城町541",
@@ -1916,10 +1875,6 @@
         "osm": null,
         "last_verified": "2026-10-09"
       },
-      "wd_geo": {
-        "lat": 35.00958333333333,
-        "lng": 135.6663888888889
-      },
       "address_local": null,
       "access": {
         "modes": [
@@ -2074,10 +2029,6 @@
         "qid": "Q714828",
         "osm": null,
         "last_verified": "2026-10-09"
-      },
-      "wd_geo": {
-        "lat": 34.967202,
-        "lng": 135.773386
       },
       "address_local": {
         "text": "京都市伏見区深草薮之内町68番地",
@@ -2250,10 +2201,6 @@
         "osm": null,
         "last_verified": "2026-10-09"
       },
-      "wd_geo": {
-        "lat": 35.0395,
-        "lng": 135.7285
-      },
       "address_local": {
         "text": "京都府京都市北区金閣寺町１",
         "source": "kinkakuji_official_access",
@@ -2418,10 +2365,6 @@
         "osm": null,
         "last_verified": "2026-10-09"
       },
-      "wd_geo": {
-        "lat": 35.32608056,
-        "lng": 139.55641667
-      },
       "address_local": {
         "text": "神奈川県鎌倉市雪ノ下2-1-31",
         "source": "hachimangu_official_access",
@@ -2581,10 +2524,6 @@
         "qid": "Q4357451",
         "osm": null,
         "last_verified": "2026-10-09"
-      },
-      "wd_geo": {
-        "lat": 33.585861,
-        "lng": 130.37625
       },
       "address_local": {
         "text": "福岡市中央区大濠公園1番2号",
@@ -2751,10 +2690,6 @@
         "qid": "Q6414371",
         "osm": null,
         "last_verified": "2026-10-09"
-      },
-      "wd_geo": {
-        "lat": 34.68545278,
-        "lng": 135.84341111
       },
       "address_local": {
         "text": "奈良県奈良市春日野町ほか",
@@ -2924,10 +2859,6 @@
         "qid": "Q653433",
         "osm": null,
         "last_verified": "2026-10-09"
-      },
-      "wd_geo": {
-        "lat": 35.71888888888889,
-        "lng": 139.7763888888889
       },
       "address_local": {
         "text": "東京都台東区上野公園13番9号",
@@ -3100,10 +3031,6 @@
         "osm": null,
         "last_verified": "2026-10-09"
       },
-      "wd_geo": {
-        "lat": 35.515,
-        "lng": 138.75666666667
-      },
       "address_local": null,
       "access": {
         "modes": [
@@ -3256,10 +3183,6 @@
         "qid": "Q1148463",
         "osm": null,
         "last_verified": "2026-10-09"
-      },
-      "wd_geo": {
-        "lat": 34.65222222222222,
-        "lng": 135.50611111111112
       },
       "address_local": {
         "text": "大阪市浪速区恵美須東1-18-6",
@@ -3427,10 +3350,6 @@
         "qid": "Q672056",
         "osm": null,
         "last_verified": "2026-10-09"
-      },
-      "wd_geo": {
-        "lat": 35.31686111111111,
-        "lng": 139.53572222222223
       },
       "address_local": {
         "text": "神奈川県鎌倉市長谷４丁目２番28号",
@@ -3609,10 +3528,6 @@
         "osm": null,
         "last_verified": "2026-10-09"
       },
-      "wd_geo": {
-        "lat": 35.6875,
-        "lng": 139.7575
-      },
       "address_local": {
         "text": "東京都千代田区千代田1",
         "source": "kunaicho_higashigyoen_ja",
@@ -3777,10 +3692,6 @@
         "osm": null,
         "last_verified": "2026-10-09"
       },
-      "wd_geo": {
-        "lat": 43.062602,
-        "lng": 141.353681
-      },
       "address_local": {
         "text": "札幌市中央区北1条西2丁目",
         "source": "tokeidai_guide",
@@ -3940,10 +3851,6 @@
         "qid": "Q147286",
         "osm": null,
         "last_verified": "2026-10-09"
-      },
-      "wd_geo": {
-        "lat": 34.989993,
-        "lng": 135.773121
       },
       "address_local": {
         "text": "京都市東山区茶屋町527",
@@ -4114,10 +4021,6 @@
         "qid": "Q705949",
         "osm": null,
         "last_verified": "2026-10-09"
-      },
-      "wd_geo": {
-        "lat": 34.612513,
-        "lng": 135.492934
       },
       "address_local": {
         "text": "大阪府大阪市住吉区住吉2丁目9-89",
@@ -4292,10 +4195,6 @@
         "osm": null,
         "last_verified": "2026-10-09"
       },
-      "wd_geo": {
-        "lat": 33.316111,
-        "lng": 131.468889
-      },
       "address_local": {
         "text": "大分県別府市鉄輪559-1",
         "source": "jigoku_top",
@@ -4466,10 +4365,6 @@
         "osm": null,
         "last_verified": "2026-10-09"
       },
-      "wd_geo": {
-        "lat": 43.0225,
-        "lng": 141.322222
-      },
       "address_local": {
         "text": "札幌市中央区伏見5丁目3-7",
         "source": "moiwa_faq",
@@ -4636,10 +4531,6 @@
         "osm": null,
         "last_verified": "2026-10-09"
       },
-      "wd_geo": {
-        "lat": 33.27745,
-        "lng": 131.505983
-      },
       "address_local": {
         "text": "別府市元町16番23号",
         "source": "takegawara_official",
@@ -4792,10 +4683,6 @@
         "osm": null,
         "last_verified": "2026-10-09"
       },
-      "wd_geo": {
-        "lat": 34.66861111,
-        "lng": 135.50138889
-      },
       "access": {
         "modes": [
           "metro",
@@ -4929,10 +4816,6 @@
         "qid": "Q57965",
         "osm": null,
         "last_verified": "2026-10-09"
-      },
-      "wd_geo": {
-        "lat": 35.710055555555556,
-        "lng": 139.8107222222222
       },
       "address_local": {
         "text": "東京都墨田区押上1丁目1-2",
@@ -5102,10 +4985,6 @@
         "osm": null,
         "last_verified": "2026-10-09"
       },
-      "wd_geo": {
-        "lat": 43.199722,
-        "lng": 141.001667
-      },
       "address_local": {
         "text": "小樽市港町5",
         "source": "otaru_kanko_canal",
@@ -5251,10 +5130,6 @@
         "qid": "Q947907",
         "osm": null,
         "last_verified": "2026-10-09"
-      },
-      "wd_geo": {
-        "lat": 35.696233,
-        "lng": 139.570431
       },
       "address_local": null,
       "access": {
@@ -5413,10 +5288,6 @@
         "osm": null,
         "last_verified": "2026-10-09"
       },
-      "wd_geo": {
-        "lat": 35.21167,
-        "lng": 139.00389
-      },
       "address_local": null,
       "access": {
         "modes": [
@@ -5545,10 +5416,6 @@
         "qid": "Q1072938",
         "osm": null,
         "last_verified": "2026-10-09"
-      },
-      "wd_geo": {
-        "lat": 35.661388888889,
-        "lng": 139.76972222222
       },
       "address_local": null,
       "access": {
@@ -5696,10 +5563,6 @@
         "qid": "Q11650434",
         "osm": null,
         "last_verified": "2026-10-09"
-      },
-      "wd_geo": {
-        "lat": 35.00502778,
-        "lng": 135.76613889
       },
       "address_local": {
         "text": "京都府京都市中京区西大文字町609番地",
@@ -5854,10 +5717,6 @@
         "qid": "Q1191885",
         "osm": null,
         "last_verified": "2026-10-09"
-      },
-      "wd_geo": {
-        "lat": 34.654472222222,
-        "lng": 135.42888888889
       },
       "address_local": {
         "text": "大阪府大阪市港区海岸通1－1－10",
@@ -6023,10 +5882,6 @@
         "osm": null,
         "last_verified": "2026-10-09"
       },
-      "wd_geo": {
-        "lat": 35.241916,
-        "lng": 139.020667
-      },
       "address_local": null,
       "access": {
         "modes": [
@@ -6175,10 +6030,6 @@
         "osm": null,
         "last_verified": "2026-10-09"
       },
-      "wd_geo": {
-        "lat": 33.591361,
-        "lng": 130.398917
-      },
       "access": {
         "modes": [
           "metro",
@@ -6326,10 +6177,6 @@
         "qid": "Q11648024",
         "osm": null,
         "last_verified": "2026-10-09"
-      },
-      "wd_geo": {
-        "lat": 33.266667,
-        "lng": 131.369139
       },
       "address_local": {
         "text": "大分県由布市湯布院町川上1561-1",

@@ -1,0 +1,187 @@
+{
+  "arashiyama": {
+    "cache_set_sha256": "7308d0d13ad56185e83c0287e27f5224a3a7131783325ee650caa5f8b75ddc40",
+    "checked_at": "2026-10-09",
+    "text_sha256": "3c1682f583ce7e2b297818a8c2935b1946b40c4df810fdb29761a5ffa0d410a5"
+  },
+  "beppu-jigoku": {
+    "cache_set_sha256": "27d54dda7d49bb2057fd4724358d83b29a913dc7d6f338600cc147e79c363367",
+    "checked_at": "2026-10-09",
+    "text_sha256": "385369e44294acf3cedbd640a8b30d24c5849ddb823d9ce3fd7c0a02ac4a7067"
+  },
+  "dazaifu-tenmangu": {
+    "cache_set_sha256": "28d434df7eb1e38b0b7ffcdf542e43b046ddbd9fbcdbfec697707e510d03acc2",
+    "checked_at": "2026-10-09",
+    "text_sha256": "0ed7cf038839cbd877ca9bdb4860b303c1f86eac73220c2f58dedcba67f126fb"
+  },
+  "dotonbori": {
+    "cache_set_sha256": "2c35f8275c3a3979e48369acc3689d0d0d0d95743ea1f52c5430b6f07f1875b2",
+    "checked_at": "2026-10-09",
+    "text_sha256": "4953e6c877518865404e1b07dc7b9726fc292a80e2419110dd0e785b6b02ffb8"
+  },
+  "fushimi-inari-taisha": {
+    "cache_set_sha256": "6cb8650544b0b9c81936ce330ede5a3cbe19a2d1a806f748aed11d505583a1e8",
+    "checked_at": "2026-10-09",
+    "text_sha256": "fddf41e12d02bae315b29ce484ecc2679b7096c7ad3119c2e51a4c0ce3441692"
+  },
+  "ghibli-museum": {
+    "cache_set_sha256": "3a0513fa027ca5c71bae247e86dd73bf22fe39afa8f506098d790c63af482518",
+    "checked_at": "2026-10-09",
+    "text_sha256": "5fdbacdf72bd57e7bcb6b1cfca97adbf99abed14c714e23c3befc67471f76b94"
+  },
+  "imperial-palace-east-gardens": {
+    "cache_set_sha256": "dab41892f063b92c3fd57528cfd1a8c9e377a7a66442ae7469cfa6d38e381fe2",
+    "checked_at": "2026-10-09",
+    "text_sha256": "df274c30bc79a4e279acb2b2b50e1a70c90b75b7aa6081fba84a98439f8623be"
+  },
+  "kaiyukan": {
+    "cache_set_sha256": "dd56dfc14df2e8132746ae66aec69828cdfc08393b4925ac7c574c4a2e0de27e",
+    "checked_at": "2026-10-09",
+    "text_sha256": "4ee92f3bb59fdf39a4f190be35ceada7901bd7a325eb8de96d532d46400a298e"
+  },
+  "kinkaku-ji": {
+    "cache_set_sha256": "dc567564ae20401669cc4474ad543e0bb682539f6266f7710121ea6c3f181af9",
+    "checked_at": "2026-10-09",
+    "text_sha256": "941f289aa59766e26ddee8de46d2cc1d88f117aa4438e34f7bc07c8f10d8bfb2"
+  },
+  "kinrinko": {
+    "cache_set_sha256": "c70f0116e4260a8b1fd1746f4ecdfc257dc69661550e230c4bd314754b57244a",
+    "checked_at": "2026-10-09",
+    "text_sha256": "11d93f7f023925c30442ee389d8df644f4cb7c25f4805830b2325254d9ea7fb8"
+  },
+  "kiyomizu-dera": {
+    "cache_set_sha256": "a67c58785624040c24e380782a8a9121c261aee49949c08f62529929ba7f2284",
+    "checked_at": "2026-10-09",
+    "text_sha256": "e8a4f81f08d924f4f24252769757f473bfd1b9dfc2a3ea62357519a488634765"
+  },
+  "kotoku-in": {
+    "cache_set_sha256": "d91fc2f43b7efa5fcfd06a71e6cd7534fa2ffd50540260023173ff5ee1ad8607",
+    "checked_at": "2026-10-09",
+    "text_sha256": "9398cea2680a05b725152aa8449d791ca71923f22ca219db9d2e1e34ad303095"
+  },
+  "kyoto-national-museum": {
+    "cache_set_sha256": "6c9e131469f18e495a954e575264be5b2c2409f411a1f07a3c3e1323a8c1dd84",
+    "checked_at": "2026-10-09",
+    "text_sha256": "5aa2dbb244b2e281564fa0b3d25f6a7843c2e2549f130c52e57ca368e3183161"
+  },
+  "lake-ashi": {
+    "cache_set_sha256": "67b84276346b35a28564feb2dbd2c49bbe33ca8e114fa5fcda3b5e1722c6cb00",
+    "checked_at": "2026-10-09",
+    "text_sha256": "2f6b31dbf69f20334fd78fff056177cbb4db0ea6e01909c22580bca982955c11"
+  },
+  "lake-kawaguchi": {
+    "cache_set_sha256": "fc2c71e832bc5afa56b0e0e57c1ff8f47ce33fa529c13d15938c9f5140326046",
+    "checked_at": "2026-10-09",
+    "text_sha256": "e86e1b35af19775dc04da9e67415c2e8461d468037dc378d5dd094d95de3852d"
+  },
+  "meiji-jingu": {
+    "cache_set_sha256": "517110c2159eeb24180e3110e104959e056df20417c370fe40e8386ce963960f",
+    "checked_at": "2026-10-09",
+    "text_sha256": "037705508699deec356f1acbb0fa141783c7dc14f30e2878826f69b81812de94"
+  },
+  "mount-fuji": {
+    "cache_set_sha256": "2fa397ae2b0080fb7fbf8fd0bc1b735e4d44162478edc094e22701d6343ab9a6",
+    "checked_at": "2026-10-09",
+    "text_sha256": "6ec13889113bcd77b91874d668df040e7c739b7f5aca7d643c098f58de263da8"
+  },
+  "mount-moiwa": {
+    "cache_set_sha256": "d54e95d9a770cb0a4bd951441c333444c35349c5991c5e16144b65e33c499356",
+    "checked_at": "2026-10-09",
+    "text_sha256": "a1d5d72a6c5108f54d8322ffc3ce231dbcf001f08b720bf25593af81165d987e"
+  },
+  "nara-park": {
+    "cache_set_sha256": "b04df04bdad51a191b0790fd23dab758209b79acef1bb29494d79c07a56b55d3",
+    "checked_at": "2026-10-09",
+    "text_sha256": "1d76ec283654e4d57e579e01f2b85e03dfb5d0092e5e28cc3ed72ec32f8288bd"
+  },
+  "nijo-castle": {
+    "cache_set_sha256": "ab98022d09490194f2cc49ac162e91e1af4ed4273bc1f3a9bd156a059ade8d52",
+    "checked_at": "2026-10-09",
+    "text_sha256": "1292bd1aecb0f51feb024708428814fe73ce3cbefce11ea484913033cbb9198f"
+  },
+  "nishiki-market": {
+    "cache_set_sha256": "8768237800dd0594766078c9624db368ec0f03cb7ab7e78c3d3c75e153d53b78",
+    "checked_at": "2026-10-09",
+    "text_sha256": "d422ec5a0666fffa0e3e7999869970213203ff4d1b04d0103373d8df10e8184b"
+  },
+  "ohori-park": {
+    "cache_set_sha256": "ac97c59b11f5c433e0d441ff8d0926318c60d803dc2d03b88db65f81ebd8d03e",
+    "checked_at": "2026-10-09",
+    "text_sha256": "102d6dfcf9afa6e06eb9faf60fd66a1c98f4913450e9fdb7dfa469ce9ab889f4"
+  },
+  "osaka-castle": {
+    "cache_set_sha256": "842ee4d99acb1c59dae914a8902dfa50acf183c9fc4c0b046220c6c27f9e2b67",
+    "checked_at": "2026-10-09",
+    "text_sha256": "ea7139a8b2794b51d0e24523be1d93658738ad1a275e8cc40098dc9cbd13bdc7"
+  },
+  "otaru-canal": {
+    "cache_set_sha256": "807892a27042a477fa92abcb8a35189a2c6ed9bd957a3b1fbc71dddd4ad97c7e",
+    "checked_at": "2026-10-09",
+    "text_sha256": "a0409c0e5c63ec601e3ecc64df645d3f0eae1a8971c8ab49f6f32081a2807551"
+  },
+  "owakudani": {
+    "cache_set_sha256": "35aab7007bd3848f7f4b3ac3f167f7228b0acf7385b5cc2174703cc49241f8f2",
+    "checked_at": "2026-10-09",
+    "text_sha256": "d32218af0990aba5263cfa9c78cc6b6dc88eca1245d5447dbf0cb32ccb43d471"
+  },
+  "sapporo-clock-tower": {
+    "cache_set_sha256": "e5447300930e959e086d77cddb66a4ec76a4b55e3bda9686978b9fb42a793a29",
+    "checked_at": "2026-10-09",
+    "text_sha256": "cac95d1a2e29c5b41d85169aa95523b26d980d55285ec3c09cbf4e8d0c6b3c23"
+  },
+  "sensoji": {
+    "cache_set_sha256": "c4ec886fb14b10bf2bfa0912217c0f1661d4519091d4d7a9dcebfddb7bb7fa8f",
+    "checked_at": "2026-10-09",
+    "text_sha256": "f3fc35e556bcc56467596c245a5a42e596c1670e41ecfccb22f9898c0e75a28f"
+  },
+  "sumiyoshi-taisha": {
+    "cache_set_sha256": "1b52bb327e151debb1e9ae6af0da72f7b8d45d0dfb6ed33c3d225daee246c85f",
+    "checked_at": "2026-10-09",
+    "text_sha256": "536da41ab473214041d9deaafdb67071ff4701029a0d3fe7520c31231b8f3f47"
+  },
+  "takegawara-onsen": {
+    "cache_set_sha256": "c8018eb392bc95401cbd227fdb5d6c6860d081bf63cada7758c85298cc61a96c",
+    "checked_at": "2026-10-09",
+    "text_sha256": "1766bcc0e6412e4e387daafabf4aad7d8a53a65e1be260f2647795b799722e62"
+  },
+  "tenjin": {
+    "cache_set_sha256": "343dcde66027b6e9a2e72a17c492cce669f7749c479d4dd742555dffed4bcabf",
+    "checked_at": "2026-10-09",
+    "text_sha256": "8e18ded4f91e7863cd7a3a304e6c4bb674c0aa1d0d009e02c67de36085cdc582"
+  },
+  "todaiji": {
+    "cache_set_sha256": "f33646240766aba682e464c8249184f47b5e493c2c3cde3d37d1425defdabd24",
+    "checked_at": "2026-10-09",
+    "text_sha256": "3ec42a9dcb5b70754502b751b8eb2dc0a20ad9df7d36abb52f477ddd32c86290"
+  },
+  "tokyo-national-museum": {
+    "cache_set_sha256": "3b6ac54ec8e144ced1a8f2ad9545d7095d415d4bde0c127d490774f4956d3814",
+    "checked_at": "2026-10-09",
+    "text_sha256": "4a7f29a8a73df49d7ecc4fdefb3dc16412a48d74518d4c36679b79d64eff89b1"
+  },
+  "tokyo-skytree": {
+    "cache_set_sha256": "17d2b547c33102154c4b21332dd39eed6c68ea9cc5f6a1f1af72e173a7c512f6",
+    "checked_at": "2026-10-09",
+    "text_sha256": "c872d9cd192a6b3e50a215508b183418669c69b92166d6eb7c77fc7db0c50c28"
+  },
+  "tokyo-tower": {
+    "cache_set_sha256": "cfd71d8bc4d246ac619f9b1e6b1851d95fc9815ab52fbf260a6d2c575b46ecf3",
+    "checked_at": "2026-10-09",
+    "text_sha256": "6d9f85ccd7efd30bf493cea1e4d0b9c60baa4fb74a7cf302b57da2b5341a4dfe"
+  },
+  "tsukiji-outer-market": {
+    "cache_set_sha256": "be2d460a3c1d466a11994e6c546b3dfbc1297c22b035c307b2eb1621bf178910",
+    "checked_at": "2026-10-09",
+    "text_sha256": "bb001f9973fba295bd17066c26b782a49aa9f291cc84ef201503026809355b6b"
+  },
+  "tsurugaoka-hachimangu": {
+    "cache_set_sha256": "7849371e6c08ce945989f8c0862a3f66a433070b0d54f1cb47ddd65fa0afba55",
+    "checked_at": "2026-10-09",
+    "text_sha256": "bfb2f432bbddc4b4742c3f8ad7c4b015a0389f5104f8c9973cf0a2a782f057b0"
+  },
+  "tsutenkaku": {
+    "cache_set_sha256": "62e4a760e0c7a7a077f775870dceb16dff745c3abe90d7cfcaa063090a43ed82",
+    "checked_at": "2026-10-09",
+    "text_sha256": "056e962328eb169af475f3ee4c7c2564fc59a68cb1b7d2c49522862eae12589b"
+  }
+}

@@ -3,7 +3,7 @@
   "schema_version": 1,
   "country": "JP",
   "version": "2026.10.09-1",
-  "release": "draft",
+  "release": "published",
   "editorial_rules": "2026-10",
   "compact_country": false,
   "unmapped_airports": [],
@@ -32,8 +32,7 @@
         "source": "mofa_jp",
         "last_verified": "2026-09-28"
       },
-      "advisory_watch_ko": [],
-      "wave": 1
+      "advisory_watch_ko": []
     },
     {
       "id": "jp_osaka",
@@ -58,8 +57,7 @@
         "source": "mofa_jp",
         "last_verified": "2026-09-28"
       },
-      "advisory_watch_ko": [],
-      "wave": 1
+      "advisory_watch_ko": []
     },
     {
       "id": "jp_kyoto",
@@ -82,8 +80,7 @@
         "source": "mofa_jp",
         "last_verified": "2026-09-28"
       },
-      "advisory_watch_ko": [],
-      "wave": 1
+      "advisory_watch_ko": []
     },
     {
       "id": "jp_nara",
@@ -111,8 +108,7 @@
         "source": "mofa_jp",
         "last_verified": "2026-09-28"
       },
-      "advisory_watch_ko": [],
-      "wave": 1
+      "advisory_watch_ko": []
     },
     {
       "id": "jp_hakone",
@@ -139,8 +135,7 @@
         "source": "mofa_jp",
         "last_verified": "2026-09-28"
       },
-      "advisory_watch_ko": [],
-      "wave": 1
+      "advisory_watch_ko": []
     },
     {
       "id": "jp_kamakura",
@@ -167,8 +162,7 @@
         "source": "mofa_jp",
         "last_verified": "2026-09-28"
       },
-      "advisory_watch_ko": [],
-      "wave": 1
+      "advisory_watch_ko": []
     },
     {
       "id": "jp_fuji",
@@ -198,8 +192,7 @@
         "source": "mofa_jp",
         "last_verified": "2026-09-28"
       },
-      "advisory_watch_ko": [],
-      "wave": 1
+      "advisory_watch_ko": []
     },
     {
       "id": "jp_fukuoka",
@@ -226,8 +219,7 @@
         "source": "mofa_jp",
         "last_verified": "2026-09-28"
       },
-      "advisory_watch_ko": [],
-      "wave": 1
+      "advisory_watch_ko": []
     },
     {
       "id": "jp_yufuin_beppu",
@@ -255,8 +247,7 @@
         "source": "mofa_jp",
         "last_verified": "2026-09-28"
       },
-      "advisory_watch_ko": [],
-      "wave": 1
+      "advisory_watch_ko": []
     },
     {
       "id": "jp_sapporo",
@@ -282,8 +273,7 @@
         "source": "mofa_jp",
         "last_verified": "2026-09-28"
       },
-      "advisory_watch_ko": [],
-      "wave": 1
+      "advisory_watch_ko": []
     }
   ],
   "attractions": [
@@ -7489,5 +7479,11 @@
       "url": "https://www.ohorikouen.jp/en/",
       "use": "facts"
     }
-  ]
+  ],
+  "upcoming_regions": [],
+  "advisory_basis": {
+    "pack_version": "2026.10.03-2",
+    "safety_last_verified": "2026-09-28",
+    "advisory_sha256": "aff3b9fd93cb61d38360593df6dff9e7748740d6ee090c8f8dffa5580ef14d42"
+  }
 }
