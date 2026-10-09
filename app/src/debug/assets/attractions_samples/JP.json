@@ -1,0 +1,149 @@
+{
+  "doc_type": "attractions",
+  "schema_version": 1,
+  "country": "JP",
+  "version": "2026.10.09-1",
+  "release": "draft",
+  "sample": true,
+  "editorial_rules": "2026-10",
+  "compact_country": false,
+  "unmapped_airports": [
+    { "code": "FUK", "reason": "upcoming", "reason_ko": "준비 중인 지역" }
+  ],
+  "upcoming_regions": [
+    { "name_ko": "후쿠오카", "aliases_ko": ["하카타"] }
+  ],
+  "excluded_areas": [
+    { "name_ko": "후쿠시마 원전 주변", "aliases_ko": ["후쿠시마"], "level": "3" }
+  ],
+  "regions": [
+    {
+      "id": "jp_tokyo", "order": 10, "name_ko": "도쿄", "name_en": "Tokyo", "aliases_ko": [], "group_ko": "도쿄권",
+      "kind": "base", "hub": { "name_ko": "도쿄역", "lat": 35.6812, "lng": 139.7671, "qid": "Q0" },
+      "airports": ["NRT", "HND"], "advisory": { "level": "none", "source": "mofa_jp", "last_verified": "2026-09-28" }
+    },
+    {
+      "id": "jp_osaka", "order": 20, "name_ko": "오사카", "name_en": "Osaka", "aliases_ko": [], "group_ko": "간사이",
+      "kind": "base", "hub": { "name_ko": "오사카역", "lat": 34.7025, "lng": 135.4959, "qid": "Q0" },
+      "airports": ["KIX"], "advisory": { "level": "none", "source": "mofa_jp", "last_verified": "2026-09-28" }
+    },
+    {
+      "id": "jp_kyoto", "order": 30, "name_ko": "교토", "name_en": "Kyoto", "aliases_ko": [], "group_ko": "간사이",
+      "kind": "base", "hub": { "name_ko": "교토역", "lat": 34.9858, "lng": 135.7588, "qid": "Q0" },
+      "airports": [], "advisory": { "level": "none", "source": "mofa_jp", "last_verified": "2026-09-28" }
+    },
+    {
+      "id": "jp_nara", "order": 40, "name_ko": "나라", "name_en": "Nara", "aliases_ko": [], "group_ko": "간사이",
+      "kind": "daytrip", "base_regions": ["jp_osaka", "jp_kyoto"], "note_ko": "오사카·교토에서 하루 다녀오는 곳",
+      "hub": { "name_ko": "긴테쓰나라역", "lat": 34.6843, "lng": 135.8279, "qid": "Q0" },
+      "airports": [], "advisory": { "level": "none", "source": "mofa_jp", "last_verified": "2026-09-28" }
+    }
+  ],
+  "attractions": [
+    {
+      "id": "senso-ji",
+      "names": { "ko": "센소지", "ko_basis": "editorial", "en": "Sensō-ji", "local": "浅草寺", "local_short": "浅草寺", "local_lang": "ja", "source": "sample" },
+      "aliases_ko": ["아사쿠사 센소지"], "aliases_en": [], "mentions_ko": [],
+      "region": "jp_tokyo", "area_ko": "아사쿠사", "category": "heritage", "tags": [],
+      "geo": { "kind": "entrance", "lat": 35.7148, "lng": 139.7967, "source": "sample", "last_verified": "2026-10-09" },
+      "access": { "modes": ["metro"], "nearest_ko": "아사쿠사역", "source": "sample", "last_verified": "2026-10-09" },
+      "official_url": "https://www.senso-ji.jp/",
+      "summary_ko": "[샘플] 화면을 확인하려고 넣은 글이에요.",
+      "body_ko": ["[샘플] 실제 안내가 아니에요. 화면 모양을 보려고 넣은 글이에요.", "[샘플] 서명된 관광지 파일이 생기면 이 글은 보이지 않아요."],
+      "claims": [],
+      "tips_ko": [{ "text": "[샘플] 알아 둘 것 자리예요.", "source": "sample", "last_verified": "2026-10-09" }],
+      "facts": { "kind": "facility", "entry": "free", "booking": "none", "regular_closed": ["none"], "source": "sample", "last_verified": "2026-10-09" },
+      "seasonal": [], "risk": [],
+      "status": { "value": "open", "source": "sample", "last_verified": "2026-10-09" },
+      "advisory": { "level": "none", "source": "mofa_jp", "last_verified": "2026-09-28" },
+      "rank": { "order": 1, "designations": [] },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/Category:Sens%C5%8D-ji",
+      "source": "sample", "last_verified": "2026-10-09"
+    },
+    {
+      "id": "fushimi-inari",
+      "names": { "ko": "후시미 이나리 신사", "ko_basis": "editorial", "en": "Fushimi Inari Taisha", "local": "伏見稲荷大社", "local_short": "伏見稲荷大社", "local_lang": "ja", "source": "sample" },
+      "aliases_ko": ["후시미 이나리"], "aliases_en": ["Fushimi Inari"], "mentions_ko": [],
+      "region": "jp_kyoto", "area_ko": "후시미", "category": "heritage", "tags": [],
+      "geo": { "kind": "entrance", "lat": 34.9671, "lng": 135.7727, "source": "sample", "last_verified": "2026-10-09" },
+      "access": { "modes": ["train"], "nearest_ko": "이나리역", "source": "sample", "last_verified": "2026-10-09" },
+      "official_url": "https://inari.jp/",
+      "summary_ko": "[샘플] 화면을 확인하려고 넣은 글이에요.",
+      "body_ko": ["[샘플] 실제 안내가 아니에요. 화면 모양을 보려고 넣은 글이에요.", "[샘플] 서명된 관광지 파일이 생기면 이 글은 보이지 않아요."],
+      "claims": [],
+      "tips_ko": [{ "text": "[샘플] 알아 둘 것 자리예요.", "source": "sample", "last_verified": "2026-10-09" }],
+      "facts": { "kind": "facility", "entry": "free", "booking": "none", "regular_closed": ["none"], "source": "sample", "last_verified": "2026-10-09" },
+      "seasonal": [], "risk": [],
+      "status": { "value": "open", "source": "sample", "last_verified": "2026-10-09" },
+      "advisory": { "level": "none", "source": "mofa_jp", "last_verified": "2026-09-28" },
+      "rank": { "order": 1, "designations": [] },
+      "photo": null, "photo_link": null,
+      "source": "sample", "last_verified": "2026-10-09"
+    },
+    {
+      "id": "dotonbori",
+      "names": { "ko": "도톤보리", "ko_basis": "editorial", "en": "Dōtonbori", "local": "道頓堀", "local_short": "道頓堀", "local_lang": "ja", "source": "sample" },
+      "aliases_ko": [], "aliases_en": [], "mentions_ko": [],
+      "region": "jp_osaka", "area_ko": "난바", "category": "market_street", "tags": [],
+      "geo": { "kind": "site", "lat": 34.6687, "lng": 135.5013, "source": "sample", "last_verified": "2026-10-09" },
+      "access": { "modes": ["metro", "walk_from_center"], "nearest_ko": "난바역", "source": "sample", "last_verified": "2026-10-09" },
+      "official_url": null,
+      "summary_ko": "[샘플] 화면을 확인하려고 넣은 글이에요.",
+      "body_ko": ["[샘플] 실제 안내가 아니에요. 화면 모양을 보려고 넣은 글이에요.", "[샘플] 서명된 관광지 파일이 생기면 이 글은 보이지 않아요."],
+      "claims": [], "tips_ko": [],
+      "facts": { "kind": "public_space" },
+      "seasonal": [], "risk": [],
+      "status": { "value": "open", "source": "sample", "last_verified": "2026-10-09" },
+      "advisory": { "level": "none", "source": "mofa_jp", "last_verified": "2026-09-28" },
+      "rank": { "order": 1, "designations": [] },
+      "photo": null, "photo_link": null,
+      "source": "sample", "last_verified": "2026-10-09"
+    },
+    {
+      "id": "osaka-castle",
+      "names": { "ko": "오사카성", "ko_basis": "editorial", "en": "Osaka Castle", "local": "大阪城", "local_short": "大阪城", "local_lang": "ja", "source": "sample" },
+      "aliases_ko": [], "aliases_en": [], "mentions_ko": [],
+      "region": "jp_osaka", "area_ko": "주오구", "category": "heritage", "tags": [],
+      "geo": { "kind": "entrance", "lat": 34.6873, "lng": 135.5262, "source": "sample", "last_verified": "2026-10-09" },
+      "access": { "modes": ["train", "metro"], "nearest_ko": "오사카조코엔역", "source": "sample", "last_verified": "2026-10-09" },
+      "official_url": "https://www.osakacastle.net/",
+      "summary_ko": "[샘플] 화면을 확인하려고 넣은 글이에요.",
+      "body_ko": ["[샘플] 실제 안내가 아니에요. 화면 모양을 보려고 넣은 글이에요.", "[샘플] 서명된 관광지 파일이 생기면 이 글은 보이지 않아요."],
+      "claims": [],
+      "tips_ko": [{ "text": "[샘플] 알아 둘 것 자리예요.", "source": "sample", "last_verified": "2026-10-09" }],
+      "facts": { "kind": "facility", "entry": "paid", "booking": "none", "regular_closed": ["unknown"], "source": "sample", "last_verified": "2026-10-09" },
+      "seasonal": [], "risk": [],
+      "status": { "value": "open", "source": "sample", "last_verified": "2026-10-09" },
+      "advisory": { "level": "none", "source": "mofa_jp", "last_verified": "2026-09-28" },
+      "rank": { "order": 2, "designations": [] },
+      "photo": null, "photo_link": null,
+      "source": "sample", "last_verified": "2026-10-09"
+    },
+    {
+      "id": "nara-park",
+      "names": { "ko": "나라 공원", "ko_basis": "editorial", "en": "Nara Park", "local": "奈良公園", "local_short": "奈良公園", "local_lang": "ja", "source": "sample" },
+      "aliases_ko": ["나라 사슴공원"], "aliases_en": [], "mentions_ko": [],
+      "region": "jp_nara", "area_ko": null, "category": "nature", "tags": [],
+      "geo": { "kind": "entrance", "lat": 34.6851, "lng": 135.8430, "source": "sample", "last_verified": "2026-10-09" },
+      "access": { "modes": ["train", "walk_from_center"], "nearest_ko": "긴테쓰나라역", "source": "sample", "last_verified": "2026-10-09" },
+      "official_url": null,
+      "summary_ko": "[샘플] 화면을 확인하려고 넣은 글이에요.",
+      "body_ko": ["[샘플] 실제 안내가 아니에요. 화면 모양을 보려고 넣은 글이에요.", "[샘플] 서명된 관광지 파일이 생기면 이 글은 보이지 않아요."],
+      "claims": [],
+      "tips_ko": [{ "text": "[샘플] 알아 둘 것 자리예요.", "source": "sample", "last_verified": "2026-10-09" }],
+      "facts": { "kind": "public_space" },
+      "seasonal": [], "risk": [],
+      "status": { "value": "open", "source": "sample", "last_verified": "2026-10-09" },
+      "advisory": { "level": "none", "source": "mofa_jp", "last_verified": "2026-09-28" },
+      "rank": { "order": 1, "designations": [] },
+      "photo": null, "photo_link": null,
+      "source": "sample", "last_verified": "2026-10-09"
+    }
+  ],
+  "retired": [],
+  "sources": [
+    { "id": "sample", "name": "샘플 출처(화면 확인용)", "url": "https://example.org/", "use": "sample" },
+    { "id": "mofa_jp", "name": "외교부 해외안전여행", "url": "https://www.0404.go.kr/", "use": "advisory" }
+  ]
+}

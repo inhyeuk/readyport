@@ -31,7 +31,14 @@ enum class PackOrigin { Bundled, Downloaded }
 
 data class Loaded<T>(val value: T, val version: String, val origin: PackOrigin, val sizeBytes: Int)
 
-enum class UpdateResult { Updated, UpToDate, NetworkError, SignatureInvalid, UnsupportedSchema, Malformed }
+/**
+ * 받기 결과. [NotFound] = 서버에 그 파일이 없음(HTTP 404 — 다시 해도 같다), [Stale] = 받은 버전이 Remote Config가 가리키는 버전보다 낮음
+ * (Hosting 캐시 — 나중에 다시 받는다). 두 값은 관광지(SPEC_v5 §4.1)에서 더했다.
+ */
+enum class UpdateResult { Updated, UpToDate, NetworkError, SignatureInvalid, UnsupportedSchema, Malformed, NotFound, Stale }
+
+/** 서버에 파일이 없다(HTTP 404). 네트워크 오류([IOException])의 한 종류라 기존 코드는 그대로 NetworkError로 다룬다 */
+class PackNotFoundException(message: String) : IOException(message)
 
 /**
  * 국가 팩 저장소 — "앱은 엔진, 정책·콘텐츠는 데이터" (ARCHITECTURE 9.2).

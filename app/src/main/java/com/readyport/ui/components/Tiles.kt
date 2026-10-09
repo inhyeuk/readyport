@@ -219,7 +219,7 @@ fun NavMosaic(
  * a11y: Role.Button, 이름 = 라벨(+보조 글).
  */
 @Composable
-private fun NavTile(spec: TileSpec, modifier: Modifier = Modifier, large: Boolean = false, row: Boolean = false) {
+internal fun NavTile(spec: TileSpec, modifier: Modifier = Modifier, large: Boolean = false, row: Boolean = false) {
     val dimens = LocalDimens.current
     val c = navTileColors(spec.tone)
     val shape = MaterialTheme.shapes.medium

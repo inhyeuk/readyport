@@ -1,0 +1,5 @@
+{
+  "_comment": "여행경보 문단 판정의 단일 출처 (SPEC_v5 §5.6·§5.7). Python(build_attractions.advisory_hash)과 앱(com.readyport.pack.Advisory)이 같은 값을 쓴다 — 앱 테스트가 상수와 이 파일을 대조한다.",
+  "advisory_paragraph_regex": "[1-4]단계|특별여행|여행경보는 없|내려진 여행경보|여행금지|출국권고|여행자제|여행유의",
+  "high_words": ["3단계", "4단계", "출국권고", "여행금지", "특별여행주의보", "가지 마세요"]
+}

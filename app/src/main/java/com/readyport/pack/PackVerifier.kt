@@ -37,10 +37,28 @@ class PackVerifier(private val trustedKeys: Map<String, ByteArray>) {
     }
 }
 
+/** 서명 문서의 종류 — 종류마다 믿는 키가 다르다 (관광지 SPEC_v5 §4.1) */
+enum class DocKind { Pack, Attractions }
+
 /** 앱에 내장한 신뢰 공개키. 키를 바꿀 때는 새 kid를 추가하고, 옛 키는 모든 팩을 다시 서명한 뒤 지운다 */
 object PackKeys {
+    /** 국가 팩·색인·레시피·공지·영상 목록 */
     val TRUSTED: Map<String, ByteArray> = mapOf(
         // 2026-09-28 생성. 비밀키는 운영자 PC ~/.readyport/keys/ 와 (예정) GitHub Actions secret 에만 있다
         "rp-2026-1" to Base64.getDecoder().decode("53StIn9TRFnSws+oKOfqq9D0Qazxxyw0mqlID1xhZpg="),
+    )
+
+    /**
+     * 관광지(attractions.json) 전용 키 — kid는 늘 `rp-att-*`. 관광지는 이 키로만, 국가 팩은 [TRUSTED]로만 검증한다
+     * (한쪽 키가 새도 다른 쪽 문서를 위조할 수 없게). 2026-10-09 생성, 비밀키는 운영자 PC ~/.readyport/keys/ 에만 있고
+     * GitHub 시크릿·워크플로에는 넣지 않는다. tools/attractions/build_attractions.py 가 이 줄을 읽어 서명본을 검증한다.
+     */
+    val ATTRACTIONS: Map<String, ByteArray> = mapOf(
+        "rp-att-2026-1" to Base64.getDecoder().decode("v8HyuXBllr9mb/thEBDuZSOAItAqU+xemS37qJj4+6M="),
+    )
+
+    val TRUSTED_FOR: Map<DocKind, Map<String, ByteArray>> = mapOf(
+        DocKind.Pack to TRUSTED,
+        DocKind.Attractions to ATTRACTIONS,
     )
 }
