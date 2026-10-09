@@ -166,6 +166,13 @@
     <string name="board_err_too_fast_post">글은 30초에 한 번 올릴 수 있어요. %d초 뒤에 다시 눌러 주세요.</string>
     <string name="board_err_too_fast_comment">댓글은 10초에 한 번 쓸 수 있어요. %d초 뒤에 다시 눌러 주세요.</string>
     <string name="board_err_not_found">이 글은 지워졌거나 가려졌어요.</string>
+    <string name="board_err_age">게시판 글쓰기는 만 19세부터 할 수 있어요. 글 읽기는 계속할 수 있어요.</string>
+    <string name="board_err_age_check">글을 쓰기 전에 나이를 한 번 확인해요. 게시판 첫 화면에서 \'나이 확인하기\'를 눌러 주세요.</string>
+    <string name="board_age_minor_title">글쓰기는 만 19세부터예요</string>
+    <string name="board_age_minor_body">내 정보에 저장한 여권으로 보면 아직 만 19세가 안 됐어요. 글·댓글·추천·신고는 만 19세부터 할 수 있고, 글 읽기는 계속할 수 있어요.</string>
+    <string name="board_age_check_title">글을 쓰기 전에 나이를 확인해요</string>
+    <string name="board_age_check_body">게시판 글쓰기는 만 19세부터 할 수 있어요. 내 정보에 저장한 여권의 생년월일로 이 휴대폰 안에서만 확인하고, 생년월일은 어디에도 보내지 않아요.</string>
+    <string name="board_age_check_button">나이 확인하기</string>
     <string name="board_done_reported">신고했어요. 운영자가 확인할게요.</string>
     <string name="board_done_blocked">차단했어요. 이 휴대폰에서 그 사람의 글이 가려져요.</string>
     <string name="board_done_deleted">지웠어요</string>
@@ -179,6 +186,7 @@
     <string name="board_reason_personal">개인정보가 드러나요</string>
     <string name="board_reason_illegal">불법 정보</string>
     <string name="board_reason_misinfo">틀린 안내</string>
+    <string name="board_reason_minor">미성년자가 쓴 글 같아요</string>
     <string name="board_reason_other">그 밖의 문제</string>
     <string name="board_report_send">신고하기</string>
     <string name="board_report_contact">급하면 운영자에게 바로 알려 주세요</string>

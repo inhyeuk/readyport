@@ -50,6 +50,55 @@ class CiDeployTest(unittest.TestCase):
             cd.fcm_message("th/../x")
 
 
+class BoardReportPurgeTest(unittest.TestCase):
+    BASE = "projects/p/databases/(default)/documents/"
+
+    def test_target_path(self):
+        self.assertEqual(cd.report_target_path(self.BASE + "board_posts/a/reports/u1"), "board_posts/a")
+        self.assertEqual(cd.report_target_path(self.BASE + "board_posts/a/comments/c/reports/u1"), "board_posts/a/comments/c")
+        self.assertIsNone(cd.report_target_path(self.BASE + "field_reports/r1"))
+
+    def test_settled(self):
+        self.assertTrue(cd.report_settled(None))
+        self.assertTrue(cd.report_settled({"hidden": True, "reportCount": 3}))
+        self.assertTrue(cd.report_settled({"deleted": True, "reportCount": 2}))
+        self.assertTrue(cd.report_settled({"reportCount": 0}))
+        self.assertFalse(cd.report_settled({"reportCount": 1, "hidden": False}))
+
+    def test_keeps_pending_and_pages_forward(self):
+        base = self.BASE
+        reports = [
+            {"_name": base + "board_posts/done/reports/u1", "at": "2025-01-01T00:00:00Z"},
+            {"_name": base + "board_posts/pending/reports/u2", "at": "2025-02-01T00:00:00Z"},
+            {"_name": base + "board_posts/gone/comments/c/reports/u3", "at": "2025-03-01T00:00:00Z"},
+        ]
+        items = {"board_posts/done": {"reportCount": 0}, "board_posts/pending": {"reportCount": 2, "hidden": False}}
+
+        class FakeFs:
+            def __init__(self):
+                self.deleted = []
+                self.queries = []
+
+            def run_query(self, q):
+                self.queries.append(q)
+                after = (q.get("startAt") or {}).get("values", [{}])[0].get("timestampValue")
+                rows = [r for r in reports if r["_name"] not in self.deleted and (after is None or r["at"] > after)]
+                return rows[: q["limit"]]
+
+            def get_document(self, path):
+                return items.get(path)
+
+            def delete_document(self, name):
+                self.deleted.append(name)
+
+        fs = FakeFs()
+        q = cd.board_reports_query("2025-10-01T00:00:00Z", limit=1)
+        self.assertEqual(q["from"], [{"collectionId": "reports", "allDescendants": True}])
+        n = cd.purge_board_reports(fs, "2025-10-01T00:00:00Z")
+        self.assertEqual(n, 2)
+        self.assertNotIn(base + "board_posts/pending/reports/u2", fs.deleted)
+
+
 class PurgeTest(unittest.TestCase):
     def test_purge_deletes_only_what_query_returns(self):
         class FakeFs:

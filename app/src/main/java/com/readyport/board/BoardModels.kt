@@ -100,6 +100,8 @@ enum class ReportReason(val id: String) {
     Personal("personal"),
     Illegal("illegal"),
     Misinfo("misinfo"),
+    /** 미성년자가 쓴 글 같아요 — 운영자가 확인하면 지운다(개인정보처리방침) */
+    Minor("minor"),
     Other("other"),
 }
 
@@ -171,4 +173,10 @@ sealed class BoardError(message: String) : Exception(message) {
 
     /** 글이 없어졌거나 가려짐 */
     data object NotFound : BoardError("not_found")
+
+    /** 만 19세 미만 — [from] 달부터 쓸 수 있다(읽기는 그대로). BoardAge */
+    data class AgeRestricted(val from: java.time.YearMonth) : BoardError("age")
+
+    /** 나이를 아직 모름 — 보관함(내 정보)을 한 번 열면 정해진다 */
+    data object AgeCheckNeeded : BoardError("age_check")
 }

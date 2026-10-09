@@ -28,6 +28,10 @@ interface BoardLocalStore {
     suspend fun setLastReplyCheck(at: Instant)
     suspend fun setUnread(count: Int)
 
+    /** 게시판 쓰기 나이 확인 값([BoardAge.stamp]). 생년월일은 남기지 않는다. 기록 지우기로도 지우지 않는다 */
+    suspend fun ageStamp(): String?
+    suspend fun setAgeStamp(stamp: String)
+
     /** 내 게시판 기록 모두 지우기 뒤: 이 휴대폰의 게시판 기록도 처음으로(차단 목록은 남긴다 — 내 안전 설정) */
     suspend fun clearAccount()
 }
@@ -43,6 +47,7 @@ class MemoryBoardLocalStore(
     private val blockedFlow = MutableStateFlow(blocked)
     private val unreadFlow = MutableStateFlow(0)
     private var lastCheck: Instant? = null
+    private var age: String? = null
     override val blocked: Flow<Set<String>> = blockedFlow
     override val unread: Flow<Int> = unreadFlow
     override suspend fun rulesAgreed() = rulesFlow.value
@@ -54,6 +59,8 @@ class MemoryBoardLocalStore(
     override suspend fun lastReplyCheck() = lastCheck
     override suspend fun setLastReplyCheck(at: Instant) { lastCheck = at }
     override suspend fun setUnread(count: Int) { unreadFlow.value = count }
+    override suspend fun ageStamp() = age
+    override suspend fun setAgeStamp(stamp: String) { age = stamp }
     override suspend fun clearAccount() {
         rulesFlow.value = false
         nick.value = null
@@ -100,6 +107,8 @@ class BoardRepository(
     private val clock: Clock = Clock.systemUTC(),
     /** 사진·동영상 스위치가 바뀌면(운영 설정을 읽을 때마다) 알린다 — 그림 불러오기 허용 목록을 맞춘다 */
     private val onMediaEnabled: (Boolean) -> Unit = {},
+    /** 여권 보관함 파일이 있는지 — 나이를 아직 모를 때 '확인 필요'인지 '성인으로 봄'인지 가른다 */
+    private val walletHasData: () -> Boolean = { false },
 ) {
     private val lock = Mutex()
     private val _config = MutableStateFlow(BoardConfig())
@@ -146,11 +155,43 @@ class BoardRepository(
 
     suspend fun ensureSignedIn(): String = backend.currentUid() ?: backend.signIn()
 
+    // ---------------- 나이 확인 (만 19세, 여권 생년월일 — BoardAge) ----------------
+
+    /** 지금 쓸 수 있는지 */
+    suspend fun ageStatus(): BoardAge.Status =
+        BoardAge.status(local.ageStamp(), walletHasData(), java.time.LocalDate.now(clock.withZone(java.time.ZoneId.systemDefault())))
+
+    /**
+     * 보관함을 열 때마다 부른다(앱이 보관함 상태를 지켜본다). [birthDate] = 본인 여권 생년월일, 없으면 null.
+     * 여권을 지워도(여행 뒤 자동 삭제 포함) 이미 남긴 미성년 값은 풀리는 달까지 그대로 둔다.
+     */
+    suspend fun recordAge(birthDate: String?) {
+        val today = java.time.LocalDate.now(clock.withZone(java.time.ZoneId.systemDefault()))
+        val next = BoardAge.stamp(birthDate, today)
+        if (birthDate == null && local.ageStamp() != null) return
+        if (local.ageStamp() != next) local.setAgeStamp(next)
+    }
+
+    /** 쓰기·추천·신고·채택 전에: 나이를 확인하고 로그인한다. 미성년이면 [BoardError.AgeRestricted] */
+    private suspend fun writer(): String {
+        requireWriter()
+        return ensureSignedIn()
+    }
+
+    private suspend fun requireWriter() {
+        when (val s = ageStatus()) {
+            BoardAge.Status.Allowed -> Unit
+            is BoardAge.Status.Minor -> throw BoardError.AgeRestricted(s.from)
+            BoardAge.Status.NeedsCheck -> throw BoardError.AgeCheckNeeded
+        }
+    }
+
     /** 닉네임 정하기(처음이면 익명 로그인 + 이용자 문서). 규칙에 동의한 뒤에만 */
     suspend fun join(nickname: String): Result<Unit> = runCatching {
         val n = nickname.trim()
         NicknameRules.validate(n)?.let { throw IllegalArgumentException(it.name) }
-        val uid = ensureSignedIn()
+        // 미성년이면 익명 계정도 만들지 않는다(서버에 기록이 생기지 않게)
+        val uid = writer()
         backend.saveNickname(uid, n)
         local.setNickname(n)
         local.setRulesAgreed(true)
@@ -229,7 +270,7 @@ class BoardRepository(
         require(!check.blocking) { "draft_blocked" }
         require(!check.warnOnly || allowWarnings) { "draft_warnings" }
         require(BoardCountries.valid(country)) { "country" }
-        val uid = ensureSignedIn()
+        val uid = writer()
         val nickname = backend.user(uid)?.nickname ?: throw BoardError.Denied
         val wait = postWait(uid)
         if (wait > 0) throw BoardError.TooFast(wait)
@@ -253,6 +294,7 @@ class BoardRepository(
         val check = check(title, body)
         require(!check.blocking) { "draft_blocked" }
         require(!check.warnOnly || allowWarnings) { "draft_warnings" }
+        requireWriter()
         val t = Profanity.mask(title.trim())
         val b = Profanity.mask(body.trim())
         backend.editPost(post.id, t, b, country, BoardKeywords.forPost(t, b))
@@ -264,13 +306,13 @@ class BoardRepository(
         bump()
     }
 
-    suspend fun setLike(post: BoardPost, on: Boolean) = backend.setPostLike(post.id, ensureSignedIn(), on)
+    suspend fun setLike(post: BoardPost, on: Boolean) = backend.setPostLike(post.id, writer(), on)
 
     suspend fun setCommentLike(comment: BoardComment, on: Boolean) =
-        backend.setCommentLike(comment.postId, comment.id, ensureSignedIn(), on)
+        backend.setCommentLike(comment.postId, comment.id, writer(), on)
 
     suspend fun report(postId: String, commentId: String?, reason: ReportReason) =
-        backend.report(postId, commentId, ensureSignedIn(), reason)
+        backend.report(postId, commentId, writer(), reason)
 
     /**
      * 댓글·답글. [target]: 답글이면 누른 댓글(답글의 답글은 같은 묶음 + `@닉네임`).
@@ -280,7 +322,7 @@ class BoardRepository(
         val check = checkComment(body)
         require(!check.blocking) { "draft_blocked" }
         require(!check.warnOnly || allowWarnings) { "draft_warnings" }
-        val uid = ensureSignedIn()
+        val uid = writer()
         val nickname = backend.user(uid)?.nickname ?: throw BoardError.Denied
         val wait = commentWait(uid)
         if (wait > 0) throw BoardError.TooFast(wait)
@@ -297,6 +339,7 @@ class BoardRepository(
 
     suspend fun editComment(comment: BoardComment, body: String) {
         require(checkComment(body).body == null) { "draft_blocked" }
+        requireWriter()
         backend.editComment(comment.postId, comment.id, Profanity.mask(body.trim()))
         bump()
     }
@@ -308,6 +351,7 @@ class BoardRepository(
 
     /** 채택(질문한 사람만 — 화면도 질문한 사람에게만 버튼을 보인다). 이미 채택한 답을 다시 누르면 풀기 */
     suspend fun accept(post: BoardPost, comment: BoardComment?) {
+        requireWriter()
         backend.accept(post.id, comment?.id)
         bump()
     }

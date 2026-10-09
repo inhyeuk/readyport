@@ -27,3 +27,6 @@ tools/autofill/node_modules/
 tools/firestore/node_modules/
 firestore-debug.log
 firebase-debug.log
+
+# Claude Code 작업 공간
+.claude/worktrees/

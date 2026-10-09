@@ -32,6 +32,7 @@ class ReadyPortApp : Application(), Configuration.Provider {
     @Inject lateinit var tripSignals: com.readyport.trip.TripSignalsRecorder
     @Inject lateinit var checklistAlerts: com.readyport.trip.ChecklistAlerts
     @Inject lateinit var boardReplies: com.readyport.board.BoardReplyCheck
+    @Inject lateinit var board: com.readyport.board.BoardRepository
 
     private val appScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
 
@@ -54,6 +55,12 @@ class ReadyPortApp : Application(), Configuration.Provider {
             tripSignals.start(appScope)
             // 못한 일 알림: 하루 쓸기와 여행별 입국 카드 알림을 여기서 맞춘다(화면을 열지 않아도 알려 준다 — PRD 6.1)
             checklistAlerts.start(appScope)
+        }
+        // 게시판 나이 확인(만 19세): 보관함이 열릴 때마다 본인 여권 생년월일로 판정해 결과 값만 남긴다(생년월일은 남기지 않는다)
+        appScope.launch {
+            wallet.state.collect { s ->
+                if (s is com.readyport.vault.WalletState.Unlocked) runCatching { board.recordAge(s.contents.passport?.birthDate) }
+            }
         }
         // 게시판 답글: 앱을 켤 때 한 번 확인(로그인한 적이 없거나 알림을 껐으면 아무것도 하지 않는다). 하루 한 번은 쓸기 작업이 본다
         appScope.launch { runCatching { boardReplies.run() } }

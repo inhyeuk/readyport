@@ -76,7 +76,7 @@ service cloud.firestore {
     function commentDoc(p, c) { return /databases/$(database)/documents/board_posts/$(p)/comments/$(c); }
     function userDoc(u) { return /databases/$(database)/documents/board_users/$(u); }
     function changed() { return request.resource.data.diff(resource.data).affectedKeys(); }
-    function reportReason(v) { return v in ['spam', 'abuse', 'personal', 'illegal', 'misinfo', 'other']; }
+    function reportReason(v) { return v in ['spam', 'abuse', 'personal', 'illegal', 'misinfo', 'minor', 'other']; }
 
     // 사진·동영상: config/board.mediaEnabled 가 켜졌을 때만, 내 Storage 경로(board/{내 ID}/{글 id}/n.jpg|mp4)만, 최대 5개
     function mediaOn() {

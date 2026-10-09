@@ -99,6 +99,8 @@ object AppModule {
         local = DataStoreBoardLocalStore(context.boardStore),
         // 사진·동영상 올리기가 켜졌을 때만 Storage 그림 주소를 불러오기 허용 목록에 넣는다
         onMediaEnabled = { NetworkThumbnails.boardMediaEnabled = it },
+        // 여권 보관함 파일(WalletRepository와 같은 자리) — 있으면 나이를 알기 전까지 '확인 필요'
+        walletHasData = { File(context.noBackupFilesDir, "vault/vault.bin").exists() },
     )
 
     @Provides
