@@ -1310,17 +1310,19 @@ PLACE_BOX_DEG = 0.01                    # 좌표 둘레 약 1km 사각형 안에
 
 
 def read_maps_key(path: pathlib.Path = MAPS_PROPERTIES) -> str | None:
-    """~/.readyport/keys/maps.properties 의 MAPS_API_KEY. 없으면 None. 키는 화면·파일 어디에도 다시 쓰지 않는다."""
+    """~/.readyport/keys/maps.properties 의 PC 도구용 PLACES_TOOL_KEY(없으면 MAPS_API_KEY). 없으면 None.
+    앱 키(MAPS_API_KEY)는 Android 앱 잠금이라 PC에서는 거절된다 — 도구 전용 키를 먼저 쓴다. 키는 화면·파일 어디에도 다시 쓰지 않는다."""
     if not path.is_file():
         return None
+    found: dict[str, str] = {}
     for line in path.read_text(encoding="utf-8-sig").splitlines():
         line = line.strip()
         if line.startswith("#") or "=" not in line:
             continue
         k, v = line.split("=", 1)
-        if k.strip() == "MAPS_API_KEY" and v.strip():
-            return v.strip()
-    return None
+        if v.strip():
+            found[k.strip()] = v.strip()
+    return found.get("PLACES_TOOL_KEY") or found.get("MAPS_API_KEY")
 
 
 def place_query(att: dict) -> dict:

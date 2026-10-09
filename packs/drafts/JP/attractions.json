@@ -307,7 +307,8 @@
       "photo": null,
       "photo_link": "https://commons.wikimedia.org/wiki/File:Sensoji_2023.jpg",
       "source": "wd",
-      "last_verified": "2026-10-09"
+      "last_verified": "2026-10-09",
+      "google_place_id": "ChIJ8T1GpMGOGGARDYGSgpooDWw"
     },
     {
       "id": "fushimi-inari-taisha",
@@ -486,7 +487,8 @@
       "photo": null,
       "photo_link": "https://commons.wikimedia.org/wiki/File:Fushimiinari-taisha,_naihaiden-1.jpg",
       "source": "wd",
-      "last_verified": "2026-10-09"
+      "last_verified": "2026-10-09",
+      "google_place_id": "ChIJIW0uPRUPAWAR6eI6dRzKGns"
     },
     {
       "id": "dotonbori",
@@ -624,7 +626,8 @@
       "photo": null,
       "photo_link": "https://commons.wikimedia.org/wiki/File:%E5%8A%9B%E3%82%92%E5%90%88%E3%82%8F%E3%81%9B%E3%82%88%E3%81%86%E6%97%A5%E6%9C%AC_2014_%E5%A4%A7%E9%98%AA_(12206068196).jpg",
       "source": "wd",
-      "last_verified": "2026-10-09"
+      "last_verified": "2026-10-09",
+      "google_place_id": "ChIJ_fmKgRPnAGARkKWLtCYTu7g"
     },
     {
       "id": "osaka-castle",
@@ -786,7 +789,8 @@
       "photo": null,
       "photo_link": "https://commons.wikimedia.org/wiki/File:Osaka_Castle_02bs3200.jpg",
       "source": "wd",
-      "last_verified": "2026-10-09"
+      "last_verified": "2026-10-09",
+      "google_place_id": "ChIJ_TooXM3gAGARQR6hXH3QAQ8"
     },
     {
       "id": "nara-park",
@@ -969,7 +973,8 @@
       "photo": null,
       "photo_link": "https://commons.wikimedia.org/wiki/File:Nara_Park,_November_2016.jpg",
       "source": "wd",
-      "last_verified": "2026-10-09"
+      "last_verified": "2026-10-09",
+      "google_place_id": "ChIJNSHAOLQ5AWARURJ-2WWJbUk"
     }
   ],
   "retired": [],
