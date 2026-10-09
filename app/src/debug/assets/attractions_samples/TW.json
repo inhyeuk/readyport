@@ -1,0 +1,4280 @@
+{
+  "doc_type": "attractions",
+  "schema_version": 1,
+  "country": "TW",
+  "version": "2026.10.09-1",
+  "release": "draft",
+  "editorial_rules": "2026-10",
+  "compact_country": false,
+  "advisory_basis": {
+    "pack_version": "2026.10.03-2",
+    "safety_last_verified": "2026-10-02",
+    "advisory_sha256": "a79e70ac7aca3e6878e132193b59765cb2baab3446756c9d1651057de70c3ae0"
+  },
+  "unmapped_airports": [],
+  "retired": [],
+  "upcoming_regions": [
+    {
+      "name_ko": "타이중",
+      "aliases_ko": []
+    },
+    {
+      "name_ko": "일월담",
+      "aliases_ko": [
+        "르웨탄"
+      ]
+    },
+    {
+      "name_ko": "컨딩",
+      "aliases_ko": []
+    },
+    {
+      "name_ko": "화롄·타이루거",
+      "aliases_ko": [
+        "화련"
+      ]
+    }
+  ],
+  "regions": [
+    {
+      "id": "tw_taipei",
+      "order": 10,
+      "name_ko": "타이베이",
+      "name_en": "Taipei",
+      "aliases_ko": [
+        "단수이",
+        "베이터우"
+      ],
+      "group_ko": "북부",
+      "kind": "base",
+      "water_crossing": false,
+      "hub": {
+        "name_ko": "타이베이역",
+        "lat": 25.047777777778,
+        "lng": 121.51722222222,
+        "qid": "Q700588"
+      },
+      "airports": [
+        "TPE",
+        "TSA"
+      ],
+      "advisory": {
+        "level": "none",
+        "source": "mofa_tw",
+        "last_verified": "2026-10-02"
+      },
+      "advisory_watch_ko": []
+    },
+    {
+      "id": "tw_north_coast",
+      "order": 20,
+      "name_ko": "지우펀·진과스·스펀·예류",
+      "name_en": "Jiufen, Jinguashi, Shifen & Yehliu",
+      "aliases_ko": [
+        "예스진지"
+      ],
+      "group_ko": "북부",
+      "kind": "daytrip",
+      "base_regions": [
+        "tw_taipei"
+      ],
+      "note_ko": "타이베이에서 하루 다녀오기도 해요",
+      "water_crossing": false,
+      "hub": {
+        "name_ko": "루이팡역",
+        "lat": 25.10875,
+        "lng": 121.80636111111,
+        "qid": "Q6140992"
+      },
+      "airports": [],
+      "advisory": {
+        "level": "none",
+        "source": "mofa_tw",
+        "last_verified": "2026-10-02"
+      },
+      "advisory_watch_ko": []
+    },
+    {
+      "id": "tw_tainan",
+      "order": 50,
+      "name_ko": "타이난",
+      "name_en": "Tainan",
+      "aliases_ko": [],
+      "group_ko": "남부",
+      "kind": "base",
+      "water_crossing": false,
+      "hub": {
+        "name_ko": "타이난역",
+        "lat": 22.9969,
+        "lng": 120.213,
+        "qid": "Q699212"
+      },
+      "airports": [],
+      "advisory": {
+        "level": "none",
+        "source": "mofa_tw",
+        "last_verified": "2026-10-02"
+      },
+      "advisory_watch_ko": []
+    },
+    {
+      "id": "tw_kaohsiung",
+      "order": 60,
+      "name_ko": "가오슝",
+      "name_en": "Kaohsiung",
+      "aliases_ko": [],
+      "group_ko": "남부",
+      "kind": "base",
+      "water_crossing": false,
+      "hub": {
+        "name_ko": "가오슝역",
+        "lat": 22.64,
+        "lng": 120.30277778,
+        "qid": "Q709900"
+      },
+      "airports": [
+        "KHH"
+      ],
+      "advisory": {
+        "level": "none",
+        "source": "mofa_tw",
+        "last_verified": "2026-10-02"
+      },
+      "advisory_watch_ko": []
+    }
+  ],
+  "attractions": [
+    {
+      "id": "national-palace-museum",
+      "qid": "Q540668",
+      "names": {
+        "ko": "국립고궁박물원",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "National Palace Museum",
+        "local": "國立故宮博物院",
+        "local_short": "故宮",
+        "local_lang": "zh-Hant",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "타이베이 고궁박물원",
+        "고궁박물관"
+      ],
+      "aliases_en": [
+        "National Palace Museum Taipei"
+      ],
+      "mentions_ko": [],
+      "region": "tw_taipei",
+      "area_ko": "타이베이 스린구",
+      "category": "museum",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 25.102222222222224,
+        "lng": 121.54861111111111,
+        "source": "wd",
+        "qid": "Q540668",
+        "osm": null,
+        "last_verified": "2026-10-09"
+      },
+      "wd_geo": {
+        "lat": 25.102222222222224,
+        "lng": 121.54861111111111
+      },
+      "address_local": {
+        "text": "臺北市士林區至善路二段221號",
+        "source": "tta_npm",
+        "last_verified": "2026-10-09"
+      },
+      "access": {
+        "modes": [
+          "bus"
+        ],
+        "nearest_ko": "시내버스 '故宮博物院(正館)'(고궁박물원 본관) 정류장에서 내려요",
+        "nearest_local": null,
+        "source": "tta_npm",
+        "last_verified": "2026-10-09"
+      },
+      "official_url": "https://www.npm.gov.tw/",
+      "wiki": {
+        "ko": "국립고궁박물원",
+        "en": "National Palace Museum"
+      },
+      "summary_ko": "옛 중국 황실 소장품을 중심으로 한 타이베이의 박물관이에요.",
+      "body_ko": [
+        "국립고궁박물원은 소장품이 60만 점이 넘고, 대부분 옛 중국 황실이 모은 것이에요.",
+        "황실의 수집은 1000여 년 전 송나라 때부터 이어졌어요.",
+        "지금 본관은 건축가 황바오위의 설계로 1965년 와이솽시에 완공됐고, 2020년 타이베이시 역사건축으로 등록됐어요.",
+        "2007년 2월 본관 개축을 마치면서 디지털 안내 홀과 어린이 학습 공간 등이 생겼어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "지금 본관은 건축가 황바오위(黃寶瑜)의 작품으로, 1965년 타이베이 와이솽시에 완공됐어요.",
+          "source": "boch_npm",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c2",
+          "text_ko": "소장품 60만여 점 가운데 대부분은 옛 중국 황실이 모은 것이고, 황실 수집은 1000여 년 전 송나라 때 시작됐어요.",
+          "source": "tta_npm",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c3",
+          "text_ko": "본관 개축 공사는 2007년 2월에 끝났고, 디지털 안내 홀·멀티미디어 상영실·어린이 학습 공간이 생겼어요.",
+          "source": "tta_npm",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c4",
+          "text_ko": "국립고궁박물원 건물은 2020년 타이베이시 역사건축으로 등록됐어요.",
+          "source": "boch_npm",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "휠체어를 빌릴 수 있고, 장애인 화장실과 장애인 주차 칸이 있어요.",
+          "source": "tta_npm",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "전시 관람 말고도 식당·영화관·문화 상품점을 이용할 수 있어요.",
+          "source": "tta_npm",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "unknown",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "tta_npm",
+        "last_verified": "2026-10-09"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "tta_npm",
+        "last_verified": "2026-10-09"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_tw",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 1,
+        "designations": [
+          {
+            "kind": "tw_historical_building",
+            "name_ko": "타이베이시 역사건축 국립고궁박물원(2020)",
+            "source": "boch_npm"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:NationalPalace_MuseumFrontView.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-09",
+      "google_place_id": "ChIJfUpAzTqsQjQRwQl6ORhwbV0"
+    },
+    {
+      "id": "taipei-101-observatory",
+      "qid": "Q83101",
+      "names": {
+        "ko": "타이베이 101 전망대",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Taipei 101 Observatory",
+        "local": "台北101",
+        "local_short": "台北101觀景台",
+        "local_lang": "zh-Hant",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "타이베이 101",
+        "타이페이 101"
+      ],
+      "aliases_en": [
+        "Taipei 101"
+      ],
+      "mentions_ko": [
+        "Skyline 460",
+        "윈드 댐퍼"
+      ],
+      "region": "tw_taipei",
+      "area_ko": "타이베이 신이구",
+      "category": "city_view",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 25.03361111111111,
+        "lng": 121.56472222222222,
+        "source": "wd",
+        "qid": "Q83101",
+        "osm": null,
+        "last_verified": "2026-10-09"
+      },
+      "wd_geo": {
+        "lat": 25.03361111111111,
+        "lng": 121.56472222222222
+      },
+      "address_local": {
+        "text": "台北市信義區信義路五段7號89樓",
+        "source": "t101_observatory",
+        "last_verified": "2026-10-09"
+      },
+      "access": {
+        "modes": [
+          "metro",
+          "bus"
+        ],
+        "nearest_ko": "메트로 단수이신이선 타이베이101/세계무역센터역 4번 출구 (같은 이름 버스 정류장도 있어요)",
+        "nearest_local": {
+          "text": "台北101/世貿站",
+          "qid": "Q7676267",
+          "source": "wd"
+        },
+        "source": "t101_access",
+        "last_verified": "2026-10-09"
+      },
+      "official_url": "https://www.taipei-101.com.tw/",
+      "wiki": {
+        "ko": "타이베이 101",
+        "en": "Taipei 101"
+      },
+      "summary_ko": "타이베이 101 빌딩 89층에 있는 전망대예요.",
+      "body_ko": [
+        "타이베이 101 전망대는 높이 382m인 89층에 있고, 일반 입장권으로 88층과 89층을 둘러봐요.",
+        "87층부터 92층 사이 가운데에 무게 660톤의 윈드 댐퍼가 있어 강풍에 건물이 흔들리는 것을 줄이고, 전망대에서 그 모습을 볼 수 있어요.",
+        "건물은 8층을 한 단위로 삼아 겹겹이 쌓아 올린 모양이에요.",
+        "101층 야외 전망대 'Skyline 460'은 예약해야 하고, 키 145cm 이상만 참여할 수 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "89층 전망대는 높이 382m에 있어요.",
+          "source": "t101_home",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c2",
+          "text_ko": "일반 입장권으로는 88층과 89층을 둘러봐요.",
+          "source": "t101_ticket",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c3",
+          "text_ko": "101층 야외 전망대 'Skyline 460'은 예약제이고, 키 145cm 이상만 참여할 수 있어요.",
+          "source": "t101_ticket",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c4",
+          "text_ko": "87~92층 가운데에 강풍에 따른 흔들림을 줄이는 윈드 댐퍼가 있고, 무게는 660톤이에요. 전망대에서 볼 수 있어요.",
+          "source": "t101_feature",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c5",
+          "text_ko": "건물은 8층을 한 구조 단위로 삼아 층층이 이어 쌓았어요.",
+          "source": "t101_concept",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c6",
+          "text_ko": "기초 말뚝 380개가 지하 80m 깊이까지 박혀 있어요.",
+          "source": "t101_concept",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "전망대 표는 오피스 타워 1층의 전망대 매표소에서 사요.",
+          "source": "t101_observatory",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "바닥이 거울로 된 공간이 있어서, 짧은 치마를 입었다면 주의하라고 안내해요.",
+          "source": "t101_feature",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "Skyline 460에 참여하는 날에는 하이힐과 치마를 피해 달라고 해요.",
+          "source": "t101_ticket",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "메트로 단수이신이선 타이베이101/세계무역센터역 4번 출구로 나오면 돼요.",
+          "source": "t101_access",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "none"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "t101_ticket",
+        "last_verified": "2026-10-09"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "t101_observatory",
+        "last_verified": "2026-10-09"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_tw",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 12,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Taipei_101_from_Xiangshan_20250731.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-09",
+      "google_place_id": "ChIJraeA2rarQjQRPBBjyR3RxKw"
+    },
+    {
+      "id": "chiang-kai-shek-memorial-hall",
+      "qid": "Q540794",
+      "names": {
+        "ko": "중정기념당",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Chiang Kai-shek Memorial Hall",
+        "local": "中正紀念堂",
+        "local_short": "中正紀念堂",
+        "local_lang": "zh-Hant",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "장제스 기념관"
+      ],
+      "aliases_en": [
+        "National Chiang Kai-shek Memorial Hall"
+      ],
+      "mentions_ko": [
+        "자유광장"
+      ],
+      "region": "tw_taipei",
+      "area_ko": "타이베이 중정구",
+      "category": "museum",
+      "tags": [
+        {
+          "id": "step_free",
+          "source": "cksmh_barrierfree",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 25.034444444444443,
+        "lng": 121.52166666666666,
+        "source": "wd",
+        "qid": "Q540794",
+        "osm": null,
+        "last_verified": "2026-10-09"
+      },
+      "wd_geo": {
+        "lat": 25.034444444444443,
+        "lng": 121.52166666666666
+      },
+      "address_local": {
+        "text": "臺北市中正區中山南路21號",
+        "source": "cksmh_access",
+        "last_verified": "2026-10-09"
+      },
+      "access": {
+        "modes": [
+          "metro",
+          "bus"
+        ],
+        "nearest_ko": "메트로 중정기념당역(단수이신이선·쑹산신뎬선)에서 걸어가요. 메트로 둥먼역에서도 걸어갈 수 있어요",
+        "nearest_local": {
+          "text": "中正紀念堂站",
+          "qid": "Q698013",
+          "source": "wd"
+        },
+        "source": "cksmh_access",
+        "last_verified": "2026-10-09"
+      },
+      "official_url": "https://www.cksmh.gov.tw/",
+      "wiki": {
+        "ko": "중정기념당",
+        "en": "Chiang Kai-shek Memorial Hall"
+      },
+      "summary_ko": "타이베이 중정구에 있는 국립 기념관과 공원이에요.",
+      "body_ko": [
+        "중정기념당은 장제스 전 총통을 기리려고 세운 기념관으로, 1980년에 완공됐어요.",
+        "타이베이 도심의 25ha 단지 안에 있고, 본당은 전체 높이가 70m, 청동 정문은 높이가 16m예요.",
+        "본당 안에는 전시실 6개와 공연장 1개가 있어요.",
+        "2007년 국가 지정 고적이 됐어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "1980년에 완공됐고, 장제스 전 총통을 기리려고 세웠어요. 타이베이 도심에 있는 25ha 규모의 단지예요.",
+          "source": "cksmh_visit_en",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c2",
+          "text_ko": "본당은 전체 높이가 70m이고, 청동으로 만든 정문은 높이 16m예요.",
+          "source": "cksmh_env",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c3",
+          "text_ko": "본당 안에는 전시실 6개와 공연장 1개, 교육실이 있어요.",
+          "source": "cksmh_env",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c4",
+          "text_ko": "중산난루 쪽 정면 패루는 높이 30m예요.",
+          "source": "cksmh_env",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c5",
+          "text_ko": "2007년 국가 지정 고적(國定古蹟)이 됐어요. 문화자산 등록 이름은 '臺灣民主紀念園區'예요.",
+          "source": "boch_cksmh",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "국군 의장대 순찰·훈련 시연은 본당 정면 계단 아래에서 하고, 비가 오면 하지 않아요.",
+          "source": "cksmh_hours",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "짐은 서비스 데스크에 맡길 수 있어요.",
+          "source": "cksmh_faq",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "휠체어는 서비스 데스크나 간호실에서 빌릴 수 있어요.",
+          "source": "cksmh_barrierfree",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "반려동물은 알맞은 보호 장구를 갖추고 배설물을 치운다는 조건으로 데려올 수 있어요.",
+          "source": "cksmh_faq",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "unknown",
+        "regular_closed": [
+          "none"
+        ],
+        "closed_note_ko": "음력 섣달그믐·설날, 2·28 평화기념일, 연간 설비 점검일, 자연재해로 시가 업무를 멈춘 날에는 쉬어요(따로 공지).",
+        "visit_note_ko": null,
+        "source": "cksmh_hours",
+        "last_verified": "2026-10-09"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "cksmh_hours",
+        "last_verified": "2026-10-09"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_tw",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 2,
+        "designations": [
+          {
+            "kind": "tw_national_monument",
+            "name_ko": "국가 지정 고적(2007, 등록 이름 臺灣民主紀念園區)",
+            "source": "boch_cksmh"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Chiang_Kai-shek_memorial_amk.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-09",
+      "google_place_id": "ChIJTamiuZ2pQjQRsmnfkkID6UM"
+    },
+    {
+      "id": "longshan-temple",
+      "qid": "Q706761",
+      "names": {
+        "ko": "룽산사",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Bangka Lungshan Temple",
+        "local": "艋舺龍山寺",
+        "local_short": "龍山寺",
+        "local_lang": "zh-Hant",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "용산사",
+        "방카 룽산사"
+      ],
+      "aliases_en": [
+        "Longshan Temple",
+        "Mengjia Longshan Temple"
+      ],
+      "mentions_ko": [],
+      "region": "tw_taipei",
+      "area_ko": "타이베이 완화구",
+      "category": "heritage",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 25.03722252062258,
+        "lng": 121.49989784938106,
+        "source": "wd",
+        "qid": "Q706761",
+        "osm": null,
+        "last_verified": "2026-10-09"
+      },
+      "wd_geo": {
+        "lat": 25.03722252062258,
+        "lng": 121.49989784938106
+      },
+      "address_local": {
+        "text": "臺北市萬華區廣州街211號",
+        "source": "tta_longshan",
+        "last_verified": "2026-10-09"
+      },
+      "access": {
+        "modes": [
+          "metro",
+          "bus"
+        ],
+        "nearest_ko": "메트로 룽산쓰역에서 걸어가요. 버스는 '龍山寺(西園)' 정류장이 가까워요",
+        "nearest_local": {
+          "text": "龍山寺站",
+          "qid": "Q698620",
+          "source": "wd"
+        },
+        "source": "tta_longshan",
+        "last_verified": "2026-10-09"
+      },
+      "official_url": "https://www.lungshan.org.tw/",
+      "wiki": {
+        "ko": "방카 룽산사",
+        "en": "Longshan Temple (Taipei)"
+      },
+      "summary_ko": "1738년에 세운 타이베이 완화구의 관음 사원이에요.",
+      "body_ko": [
+        "룽산사는 1738년 푸젠 취안저우의 세 고을에서 건너온 이주민들이 함께 세운 절로, 안하이 룽산사에서 모셔 온 관세음보살이 본존이에요.",
+        "앞·가운데·뒤 전각과 좌우 건물이 회(回) 자 모양으로 둘러싸고, 앞 전각 앞에는 구리로 만든 반룡 기둥 한 쌍이 서 있어요.",
+        "1945년 공습으로 정전이 불타 1955년부터 1959년까지 다시 지었고, 나머지 건물은 대부분 1920년대에 고친 모습이에요.",
+        "2018년 국가 지정 고적이 됐어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "1738년 푸젠 취안저우의 진장·난안·후이안 세 고을 이주민들이 돈을 모아 세웠어요.",
+          "source": "lungshan_intro",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c2",
+          "text_ko": "본존 관세음보살은 푸젠 안하이 룽산사에서 분령해 모셔 왔어요.",
+          "source": "lungshan_intro",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c3",
+          "text_ko": "앞 전각·정전·뒤 전각과 좌우 건물이 회(回) 자 모양으로 배치돼 있고, 앞 전각(삼천전) 앞에 구리로 주조한 반룡 기둥 한 쌍이 있어요.",
+          "source": "lungshan_intro",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c4",
+          "text_ko": "1945년 소이탄 공습으로 정전이 불탔고, 1955년 재건을 시작해 1959년에 마쳤어요.",
+          "source": "lungshan_build",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c5",
+          "text_ko": "정전을 뺀 지금 건물 대부분은 1920년대에 고쳐 지은 거예요.",
+          "source": "lungshan_build",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c6",
+          "text_ko": "2018년 국가 지정 고적(國定古蹟)이 됐어요.",
+          "source": "boch_longshan",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "참배하러 갈 때는 오른쪽 용문(龍門)으로 들어가서 호문(虎門)으로 나와요.",
+          "source": "lungshan_pray",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "월하노인(月老)에게 붉은 실을 구하려면 다른 신들께 먼저 차례로 참배하라고 안내해요.",
+          "source": "lungshan_pray",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "공물은 용문 앞 세척대에서 씻을 수 있고, 공물 쟁반도 그곳에서 가져가요.",
+          "source": "lungshan_pray",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "제비뽑기 글귀(籤詩)가 이해되지 않으면 해첨처(解籤處)에 물어볼 수 있어요.",
+          "source": "lungshan_pray",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "unknown",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "lungshan_intro",
+        "last_verified": "2026-10-09"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "lungshan_intro",
+        "last_verified": "2026-10-09"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_tw",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 3,
+        "designations": [
+          {
+            "kind": "tw_national_monument",
+            "name_ko": "국가 지정 고적 艋舺龍山寺(2018)",
+            "source": "boch_longshan"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:台北市艋舺龍山寺.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-09",
+      "google_place_id": "ChIJCd7n16ipQjQRihzEWF4z6Pg"
+    },
+    {
+      "id": "ximending",
+      "qid": "Q63227",
+      "names": {
+        "ko": "시먼딩",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Ximending",
+        "local": "西門町",
+        "local_short": "西門町",
+        "local_lang": "zh-Hant",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "시먼띵",
+        "서문정"
+      ],
+      "aliases_en": [
+        "Ximen"
+      ],
+      "mentions_ko": [
+        "시먼훙러우",
+        "시먼홍러우"
+      ],
+      "region": "tw_taipei",
+      "area_ko": "타이베이 완화구",
+      "category": "market_street",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 25.0426,
+        "lng": 121.508,
+        "source": "wd",
+        "qid": "Q63227",
+        "osm": null,
+        "last_verified": "2026-10-09"
+      },
+      "wd_geo": {
+        "lat": 25.0426,
+        "lng": 121.508
+      },
+      "address_local": null,
+      "access": {
+        "modes": [
+          "metro"
+        ],
+        "nearest_ko": "메트로 시먼역(반난선·쑹산신뎬선)",
+        "nearest_local": {
+          "text": "西門站",
+          "qid": "Q698004",
+          "source": "wd"
+        },
+        "source": "tcooc_ximending",
+        "last_verified": "2026-10-09"
+      },
+      "official_url": "https://www.tcooc.gov.taipei/cp.aspx?n=D6636C188A8ADC8E&s=73CBE562C2DE564B",
+      "wiki": {
+        "ko": "시먼딩",
+        "en": "Ximending"
+      },
+      "summary_ko": "타이베이 완화구의 보행자 쇼핑·먹거리 상권이에요.",
+      "body_ko": [
+        "시먼딩은 동쪽 중화루와 서쪽 캉딩루, 남쪽 청두루와 북쪽 한커우제 사이에 있는 보행자 상권이에요.",
+        "1896년 첫 극장이 들어섰고 1922년 지금 이름이 붙었으며, 초기에는 영화관이 거리의 중심이었어요.",
+        "메트로 반난선 개통 뒤 중화루가 정비되면서 다시 사람이 모이는 곳이 됐어요.",
+        "상권 남쪽 청두루에는 1997년 타이베이시 지정 고적이 된 시먼훙러우가 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "1896년 이곳에 첫 극장 '도쿄테이(東京亭)'가 생겼고, 1922년 '시먼딩'이라는 이름이 정식으로 붙었어요.",
+          "source": "tta_ximending",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c2",
+          "text_ko": "초기에는 영화관이 주된 상업 활동이었고, 극장은 어메이제·청두루·시닝난루 둘레에 몰려 있었어요.",
+          "source": "tta_ximending",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c3",
+          "text_ko": "메트로 반난선 개통 뒤 타이베이시가 중화루를 정비했고, 사람과 상권이 서쪽 지역으로 다시 돌아왔어요.",
+          "source": "tta_ximending",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c4",
+          "text_ko": "상권 범위는 동쪽 중화루 1단, 서쪽 캉딩루, 남쪽 청두루, 북쪽 한커우제 2단 사이이고, 걸어서 다니는 보행자 상권이에요.",
+          "source": "tcooc_ximending",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c5",
+          "text_ko": "청소년 의류·외국 의류·미용실·먹거리·음반 영상 가게가 중심이에요.",
+          "source": "tcooc_ximending",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c6",
+          "text_ko": "청두루에 있는 시먼훙러우(옛 신치제 시장)는 1997년 타이베이시 지정 고적(直轄市定古蹟)이 됐어요.",
+          "source": "boch_ximending_redhouse",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "주말과 공휴일에는 문예·운동·음악 공연 같은 활동을 하러 사람들이 모여요.",
+          "source": "tta_ximending",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "궁금한 점은 메트로 시먼역 여행 서비스센터에 물어보라고 안내해요.",
+          "source": "tta_ximending",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "facts": {
+        "kind": "public_space",
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "last_verified": "2026-10-09"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "tta_ximending",
+        "last_verified": "2026-10-09"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_tw",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 13,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Ximending_rainbow_crossing_201910.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-09",
+      "google_place_id": "ChIJKyaoGAmpQjQR99RS3zrx9Ms"
+    },
+    {
+      "id": "shilin-night-market",
+      "qid": "Q697118",
+      "names": {
+        "ko": "스린 야시장",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Shilin Night Market",
+        "local": "士林夜市",
+        "local_short": "士林夜市",
+        "local_lang": "zh-Hant",
+        "source": "wd"
+      },
+      "aliases_ko": [],
+      "aliases_en": [],
+      "mentions_ko": [
+        "스린 시장",
+        "츠셴궁"
+      ],
+      "region": "tw_taipei",
+      "area_ko": "타이베이 스린구",
+      "category": "market_street",
+      "tags": [
+        {
+          "id": "night",
+          "source": "tcma_shilin_nm",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 25.0866,
+        "lng": 121.5254,
+        "source": "wd",
+        "qid": "Q697118",
+        "osm": null,
+        "last_verified": "2026-10-09"
+      },
+      "wd_geo": {
+        "lat": 25.0866,
+        "lng": 121.5254
+      },
+      "address_local": {
+        "text": "臺北市士林區大東路、大南路、文林路、基河路",
+        "source": "tta_shilin",
+        "last_verified": "2026-10-09"
+      },
+      "access": {
+        "modes": [
+          "metro",
+          "bus"
+        ],
+        "nearest_ko": "메트로 젠탄역에서 걸어가요 (시내버스도 여러 노선이 다녀요)",
+        "nearest_local": {
+          "text": "劍潭站",
+          "qid": "Q698433",
+          "source": "wd"
+        },
+        "source": "tcma_shilin_market",
+        "last_verified": "2026-10-09"
+      },
+      "official_url": "https://www.tcma.gov.taipei/News_Content.aspx?n=9B6A9939FFA87091&s=DC5787F870F8AB1E&sms=635C98D675173C4C",
+      "wiki": {
+        "ko": "스린 야시장",
+        "en": "Shilin Night Market"
+      },
+      "summary_ko": "메트로 젠탄역 가까이 여러 거리에 걸친 야시장이에요.",
+      "body_ko": [
+        "스린 야시장은 양밍 극장과 츠셴궁을 중심으로 원린루·다둥루·다난루 일대 거리에 펼쳐진 야시장이에요.",
+        "일제강점기에 먹거리 노점이 모이며 시작됐고, 2023년 경제부 평가에서 별 4개 우수 시장으로 뽑혔어요.",
+        "츠셴궁 맞은편 스린 시장의 지하 먹거리 거리는 2025년 4월 새로 단장해 다시 문을 열었어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "양밍 극장과 츠셴궁을 중심으로 원린루·다둥루·다난루 등 거리가 모여 이룬 야시장이에요.",
+          "source": "tta_shilin",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c2",
+          "text_ko": "일제강점기부터 먹거리 노점이 조금씩 모이기 시작했어요.",
+          "source": "tcma_shilin_nm",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c3",
+          "text_ko": "2023년 경제부 중부사무소 평가에서 별 4개 우수 시장으로 뽑혔어요.",
+          "source": "tcma_shilin_nm",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c4",
+          "text_ko": "츠셴궁 맞은편 스린 시장은 1913년 처음 세워졌고, 지하 먹거리 거리는 2025년 4월 25일 새로 단장해 다시 열었어요.",
+          "source": "tcma_shilin_market",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c5",
+          "text_ko": "다빙바오샤오빙, 돌솥 훠궈, 스린 큰 소시지 같은 먹거리로 알려져 있어요.",
+          "source": "tta_shilin",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "주말과 공휴일에는 사람이 아주 많아 붐벼요.",
+          "source": "tta_shilin",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "스린 시장 지하 먹거리 거리의 가게들은 쉬는 날을 각자 정해요.",
+          "source": "tcma_shilin_market",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "불편한 일이 있으면 야시장 자치 조직의 소비자 신고 전화로 알릴 수 있어요.",
+          "source": "tcma_shilin_nm",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "facts": {
+        "kind": "public_space",
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "last_verified": "2026-10-09"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "tcma_shilin_nm",
+        "last_verified": "2026-10-09"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_tw",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 16,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:ShiLin.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-09",
+      "google_place_id": "ChIJBa_9xLGuQjQRKfnnhr5twuc"
+    },
+    {
+      "id": "fort-san-domingo",
+      "qid": "Q713077",
+      "names": {
+        "ko": "단수이 홍마오청",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Fort Santo Domingo",
+        "local": "紅毛城",
+        "local_short": "淡水紅毛城",
+        "local_lang": "zh-Hant",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "홍마오청",
+        "훙마오청",
+        "홍모성",
+        "산토도밍고 요새"
+      ],
+      "aliases_en": [
+        "Fort San Domingo",
+        "Fort Antonio"
+      ],
+      "mentions_ko": [
+        "영국 영사 관저",
+        "샤오바이궁",
+        "후웨이 포대"
+      ],
+      "region": "tw_taipei",
+      "area_ko": "신베이 단수이구",
+      "category": "heritage",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 25.175,
+        "lng": 121.433,
+        "source": "wd",
+        "qid": "Q713077",
+        "osm": null,
+        "last_verified": "2026-10-09"
+      },
+      "wd_geo": {
+        "lat": 25.175,
+        "lng": 121.433
+      },
+      "address_local": {
+        "text": "新北市淡水區中正路28巷1號",
+        "source": "tshs_fort_access",
+        "last_verified": "2026-10-09"
+      },
+      "access": {
+        "modes": [
+          "metro",
+          "bus"
+        ],
+        "nearest_ko": "MRT 단수이역에서 버스 홍26·836번을 타고 '紅毛城(真理大學)' 정류장에서 내려요",
+        "nearest_local": {
+          "text": "淡水站",
+          "qid": "Q698442",
+          "source": "wd"
+        },
+        "source": "tshs_fort_access",
+        "last_verified": "2026-10-09"
+      },
+      "official_url": "https://www.tshs.ntpc.gov.tw/",
+      "wiki": {
+        "ko": "훙마오성",
+        "en": "Fort Santo Domingo"
+      },
+      "summary_ko": "단수이강 어귀 언덕 위에 남은 옛 네덜란드 성채예요.",
+      "body_ko": [
+        "홍마오청은 단수이강 어귀 북쪽 언덕에 있는 성채로, 1983년 국가 지정 고적이 됐어요.",
+        "1629년 스페인이 처음 성을 세웠고, 지금 남은 네모난 성채는 1644년 네덜란드가 지은 거예요.",
+        "1860년대부터는 영국이 빌려 영사관으로 썼고, 동쪽에 영사가 살 양옥을 더 지었어요.",
+        "성채의 붉은 외벽은 영국이 칠한 것으로, 원래는 회백색이었어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "1983년 국가 지정 고적(國定古蹟)으로 지정됐어요.",
+          "source": "boch_fort_san_domingo",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c2",
+          "text_ko": "1629년 스페인이 단수이강 어귀 북쪽 언덕에 산토도밍고 성을 세웠고, 1642년 물러나면서 허물었어요.",
+          "source": "boch_fort_san_domingo",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c3",
+          "text_ko": "1644년 네덜란드가 네모난 성채를 지어 '안토니오 요새'라 불렀고, 당시 네덜란드 사람을 '붉은 머리(紅毛)'라 부른 데서 홍마오청이라는 이름이 왔어요.",
+          "source": "tshs_fort_intro",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c4",
+          "text_ko": "1860년대 영국이 빌려 영사관으로 썼고, 성채 동쪽에 영사가 살 양옥을 더 지었어요.",
+          "source": "tshs_fort_intro",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c5",
+          "text_ko": "지금의 붉은 외벽은 영국이 칠한 것이고 원래는 회백색이었어요. 영국은 아래층에 감옥 4칸을 두었어요.",
+          "source": "boch_fort_san_domingo",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "그날 산 표 한 장으로 홍마오청, 샤오바이궁(옛 세관장 관저), 후웨이 포대 세 곳에 들어갈 수 있어요.",
+          "source": "tshs_fort_fee",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "신용카드·전자결제는 홍마오청 정문과 샤오바이궁 매표소에서만 받아요.",
+          "source": "tshs_fort_fee",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "고적 위로 드론을 띄우거나 드론으로 촬영할 수 없어요.",
+          "source": "tshs_fort_drone",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "홍마오청 안내실(방문객 센터)에서 휠체어를 빌릴 수 있어요.",
+          "source": "tshs_fort_wheelchair",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "irregular"
+        ],
+        "closed_note_ko": "매달 첫째 월요일에 쉬어요(공휴일이면 다음 날). 음력 섣달그믐과 설날에도 쉬어요.",
+        "visit_note_ko": null,
+        "source": "tshs_fort_hours",
+        "last_verified": "2026-10-09"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "tshs_fort_hours",
+        "last_verified": "2026-10-09"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_tw",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 4,
+        "designations": [
+          {
+            "kind": "tw_national_monument",
+            "name_ko": "국가 지정 고적 단수이 홍마오청(1983)",
+            "source": "boch_fort_san_domingo"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Official_consulate_fort_santo_domingo.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-09",
+      "google_place_id": "ChIJqZ4mwE-lQjQR3d6CJEWh2O8"
+    },
+    {
+      "id": "beitou-thermal-valley",
+      "qid": "Q10928336",
+      "names": {
+        "ko": "베이터우 지열곡",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Beitou Hell Valley",
+        "local": "地熱谷",
+        "local_short": "地熱谷",
+        "local_lang": "zh-Hant",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "지열곡",
+        "지옥곡"
+      ],
+      "aliases_en": [
+        "Thermal Valley",
+        "Beitou Thermal Valley"
+      ],
+      "mentions_ko": [],
+      "region": "tw_taipei",
+      "area_ko": "타이베이 베이터우구",
+      "category": "nature",
+      "tags": [
+        {
+          "id": "free_entry",
+          "source": "twd_thermal_faq",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "hot_spring",
+          "source": "taipei_thermal_2022",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 25.137861111111,
+        "lng": 121.511888888889,
+        "source": "wd",
+        "qid": "Q10928336",
+        "osm": null,
+        "last_verified": "2026-10-09"
+      },
+      "wd_geo": {
+        "lat": 25.137861111111,
+        "lng": 121.511888888889
+      },
+      "address_local": {
+        "text": "臺北市北投區中山路30號之10",
+        "source": "twd_thermal_faq",
+        "last_verified": "2026-10-09"
+      },
+      "access": {
+        "modes": [
+          "metro"
+        ],
+        "nearest_ko": "MRT 신베이터우역에서 내려 신베이터우 공원 왼쪽 길로 걸어가요",
+        "nearest_local": {
+          "text": "新北投站",
+          "qid": "Q698837",
+          "source": "wd"
+        },
+        "source": "twd_thermal_faq",
+        "last_verified": "2026-10-09"
+      },
+      "official_url": "https://www.water.gov.taipei/News_Content.aspx?n=30E4EDA27F6D9953&sms=87415A8B9CE81B16&s=CA22DFCC722E6905",
+      "wiki": {
+        "en": "Thermal Valley"
+      },
+      "summary_ko": "온천이 솟아 김이 피어오르는 베이터우의 골짜기예요.",
+      "body_ko": [
+        "지열곡은 다툰 화산군 지열대의 남서쪽 끝, 베이터우 공원 옆 골짜기에 있어요.",
+        "바닥 여러 곳에서 온천이 솟고, 솟는 곳의 물 온도는 98℃에 이르러요.",
+        "물은 '칭황'이라 부르는 산성 온천이고, 일제강점기에는 대만 8경 12승의 하나로 꼽혔어요.",
+        "2022년 타이베이 수도사업처가 정비하면서 연못을 도는 산책로를 새로 놓았어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "다툰 화산군 지열대의 남서쪽 끝, 베이터우 공원 옆 골짜기에 있고 베이터우천이 시작되는 곳이에요.",
+          "source": "btdo_thermal",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c2",
+          "text_ko": "분지 모양 웅덩이로 증기 폭발구의 흔적일 수 있고, 바닥 여러 곳에서 온천이 솟아요. 솟는 곳의 물 온도는 98℃에 이르러요.",
+          "source": "btdo_thermal",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c3",
+          "text_ko": "물은 '칭황(青磺)'이라 부르는 산성 온천으로, 부식성이 아주 강해요.",
+          "source": "btdo_thermal",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c4",
+          "text_ko": "일제강점기에 '대만 8경 12승'의 하나로 꼽혔고, '磺泉玉霧'라는 별칭이 있어요.",
+          "source": "btdo_thermal",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c5",
+          "text_ko": "면적은 약 3500㎡이고, 타이베이 수도사업처가 1년 넘게 정비해 연못을 도는 산책로를 새로 놓은 뒤 2022년 7월 20일부터 전체를 무료로 열었어요.",
+          "source": "taipei_thermal_2022",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "연못을 도는 산책로와 손을 담그는 온천(手湯)이 있어요.",
+          "source": "hotspringmuseum_thermal",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "공사 같은 사정이 있으면 공고를 내고 문을 닫아요.",
+          "source": "twd_thermal_faq",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "온천물은 산성이고 부식성이 아주 강해요.",
+          "source": "btdo_thermal",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "여름철에는 문 닫는 시간이 늦어져요.",
+          "source": "twd_thermal_faq",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "free",
+        "regular_closed": [
+          "mon"
+        ],
+        "closed_note_ko": "음력 섣달그믐과 설날에도 쉬어요. 월요일이 공휴일이면 열어요.",
+        "visit_note_ko": null,
+        "source": "twd_thermal_faq",
+        "last_verified": "2026-10-09"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "twd_thermal_faq",
+        "last_verified": "2026-10-09"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_tw",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 22,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Beitou_Thermal_Valley_warning_sign_20050814.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-09",
+      "google_place_id": "ChIJq73cSEKuQjQRF6Pddi_UFeg"
+    },
+    {
+      "id": "beitou-hot-spring-museum",
+      "qid": "Q10902996",
+      "names": {
+        "ko": "베이터우 온천박물관",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Beitou Hot Spring Museum",
+        "local": "北投溫泉博物館",
+        "local_short": "北投溫泉博物館",
+        "local_lang": "zh-Hant",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "베이터우 공공욕장"
+      ],
+      "aliases_en": [
+        "Hokutō Public Bathhouse"
+      ],
+      "mentions_ko": [],
+      "region": "tw_taipei",
+      "area_ko": "타이베이 베이터우구",
+      "category": "museum",
+      "tags": [
+        {
+          "id": "free_entry",
+          "source": "dca_hotspring_venue",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 25.13666667,
+        "lng": 121.50722222,
+        "source": "wd",
+        "qid": "Q10902996",
+        "osm": null,
+        "last_verified": "2026-10-09"
+      },
+      "wd_geo": {
+        "lat": 25.13666667,
+        "lng": 121.50722222
+      },
+      "address_local": {
+        "text": "臺北市北投區中山路二號",
+        "source": "dca_hotspring_faq",
+        "last_verified": "2026-10-09"
+      },
+      "access": {
+        "modes": [
+          "metro"
+        ],
+        "nearest_ko": "MRT 단수이선 베이터우역에서 신베이터우 지선으로 갈아타고 신베이터우역에서 내려 중산루 쪽으로 걸어가요",
+        "nearest_local": {
+          "text": "新北投站",
+          "qid": "Q698837",
+          "source": "wd"
+        },
+        "source": "dca_hotspring_faq",
+        "last_verified": "2026-10-09"
+      },
+      "official_url": "https://hotspringmuseum.taipei/",
+      "wiki": {
+        "ko": "베이터우 온천 박물관",
+        "en": "Beitou Hot Spring Museum"
+      },
+      "summary_ko": "1913년에 지은 공공 목욕탕 건물을 쓰는 박물관이에요.",
+      "body_ko": [
+        "베이터우 온천박물관은 1913년 타이베이주청이 지은 공공 목욕탕 건물을 그대로 쓰는 박물관이에요.",
+        "1층 큰 욕조는 아치 기둥과 스테인드글라스로 둘러싸여 있고, 2층에는 다다미를 깐 큰 방이 있어요.",
+        "1994년 근처 초등학교 교사와 학생들이 버려진 목욕탕을 찾아내 보존을 청원했고, 1998년 박물관으로 다시 열었어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "1913년 6월 타이베이주청이 일본 시즈오카현 이즈산 온천을 본떠 베이터우 온천 공공 목욕탕을 지었어요.",
+          "source": "dca_hotspring_venue",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c2",
+          "text_ko": "입구는 2층에 있고 1층에 남녀 탈의실과 큰 욕조가 있으며, 욕조를 아치 기둥과 벽의 스테인드글라스가 둘러싸요.",
+          "source": "dca_hotspring_venue",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c3",
+          "text_ko": "1994년 베이터우초등학교 교사와 학생들이 버려진 목욕탕을 찾아내 보존을 청원했어요.",
+          "source": "hotspringmuseum_home",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c4",
+          "text_ko": "타이베이시가 고쳐서 1998년 10월 31일 '베이터우 온천박물관'으로 다시 열었어요.",
+          "source": "dca_hotspring_venue",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c5",
+          "text_ko": "직할시 지정 고적으로, 1997년 처음 지정됐고 2024년 '北投公共浴場'이라는 이름으로 다시 지정 고시됐어요.",
+          "source": "boch_beitou_bathhouse",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c6",
+          "text_ko": "2층에는 다다미를 깐 큰 방과 쉼터가 있고, 일본식과 서양식이 섞인 건물이에요.",
+          "source": "boch_beitou_bathhouse",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "시각장애인을 위한 음성 안내 서비스가 있어요.",
+          "source": "dca_hotspring_venue",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "수유실, 유모차 두는 곳, 쉬어 갈 의자가 있어요.",
+          "source": "dca_hotspring_venue",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "free",
+        "regular_closed": [
+          "mon"
+        ],
+        "closed_note_ko": "국정 공휴일에도 쉬어요(토·일이면 열어요).",
+        "visit_note_ko": null,
+        "source": "dca_hotspring_venue",
+        "last_verified": "2026-10-09"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "dca_hotspring_venue",
+        "last_verified": "2026-10-09"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_tw",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 7,
+        "designations": [
+          {
+            "kind": "tw_municipal_monument",
+            "name_ko": "직할시 지정 고적 베이터우 공공욕장(1997)",
+            "source": "boch_beitou_bathhouse"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Beitou_Hotspring_Museum_2015.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-09",
+      "google_place_id": "ChIJ6fE69FCuQjQRPAp8aSmP8a0"
+    },
+    {
+      "id": "yehliu-geopark",
+      "qid": "Q716932",
+      "names": {
+        "ko": "예류 지질공원",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Yehliu Geopark",
+        "local": "野柳風景特定區",
+        "local_short": "野柳地質公園",
+        "local_lang": "zh-Hant",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "예류 지오파크",
+        "야류 지질공원"
+      ],
+      "aliases_en": [
+        "Yeliu Geopark"
+      ],
+      "mentions_ko": [
+        "여왕머리 바위",
+        "여왕의 비밀 정원"
+      ],
+      "region": "tw_north_coast",
+      "area_ko": "신베이시 완리구",
+      "category": "nature",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 25.20425,
+        "lng": 121.69111111111111,
+        "source": "wd",
+        "qid": "Q716932",
+        "osm": null,
+        "last_verified": "2026-10-09"
+      },
+      "wd_geo": {
+        "lat": 25.20425,
+        "lng": 121.69111111111111
+      },
+      "address_local": {
+        "text": "新北市萬里區野柳里港東路167-1號",
+        "source": "nsa_yehliu",
+        "last_verified": "2026-10-09"
+      },
+      "access": {
+        "modes": [
+          "bus"
+        ],
+        "nearest_ko": "타이완 하오싱 황관 북해안선(淡水 MRT역 출발) '野柳地質公園(野柳海洋世界)' 정류장에서 내려요. 타이베이에서 궈광커윈 1815번을 타고 '野柳' 정류장에서 내려 걸어갈 수도 있어요",
+        "nearest_local": null,
+        "source": "nsa_yehliu",
+        "last_verified": "2026-10-09"
+      },
+      "official_url": "https://www.ylgeopark.org.tw/",
+      "wiki": {
+        "ko": "예류지질공원",
+        "en": "Yehliu Geopark"
+      },
+      "summary_ko": "파도와 바람에 깎인 기암이 늘어선 북해안의 곶이에요.",
+      "body_ko": [
+        "예류 지질공원은 신베이시 완리구에서 바다로 길게 튀어나온 곶이에요.",
+        "입구에서 곶 끝까지 약 1.7km이고, 사암 지층이 파도와 바람에 깎여 여왕머리 바위나 버섯 바위 같은 모양이 생겼어요.",
+        "공원 면적의 80%인 제3구역은 생태 보전·보호 구역이에요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "입구에서 곶 끝까지 약 1.7km이고, 폭이 넓은 곳도 300m가 안 돼요.",
+          "source": "nsa_yehliu",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c2",
+          "text_ko": "신베이시 완리구 예류리에서 바다로 튀어나온 곶으로, '예류 거북'이라고도 불려요. 땅은 주로 사암이에요.",
+          "source": "nsa_yehliu",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c3",
+          "text_ko": "파도 침식, 풍화, 지각 운동이 겹쳐 독특한 지형과 지질 경관이 생겼어요.",
+          "source": "nsa_yehliu",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c4",
+          "text_ko": "여왕머리 바위, 선녀 신발, 버섯 바위, 벌집 바위, 두부 바위 같은 기암이 있어요.",
+          "source": "nsa_yehliu",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c5",
+          "text_ko": "제3구역이 공원 면적의 80%를 차지하고, 생태 보전·보호 구역이에요.",
+          "source": "nsa_yehliu",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c6",
+          "text_ko": "'여왕의 비밀 정원'은 해마다 4~6월과 9월에만 열고, 미리 예약해 20명이 모이면 들어가요.",
+          "source": "nsa_yehliu",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "산책로는 무장애 환경으로 설계됐고, 휠체어를 빌릴 수 있어요.",
+          "source": "nsa_yehliu",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "먼저 전망대에 올라 전체를 둘러본 뒤 산책로와 안내판을 따라 다니라고 권해요.",
+          "source": "nsa_yehliu",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "제3구역 '여왕의 비밀 정원'은 4~6월과 9월에만, 20명 이상 사전 예약으로 들어가요.",
+          "source": "nsa_yehliu",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "nsa_yehliu",
+        "last_verified": "2026-10-09"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "nsa_yehliu",
+        "last_verified": "2026-10-09"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_tw",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 15,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Yehliu,_northern_part.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-09",
+      "google_place_id": "ChIJ1ZrmCnZMXTQRV2jCWjAX0eQ"
+    },
+    {
+      "id": "shifen-old-street",
+      "qid": "Q124540096",
+      "names": {
+        "ko": "스펀 옛 거리",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Shifen Old Street",
+        "local": "十分老街",
+        "local_short": "十分老街",
+        "local_lang": "zh-Hant",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "스펀 라오제"
+      ],
+      "aliases_en": [],
+      "mentions_ko": [
+        "징안 다리"
+      ],
+      "region": "tw_north_coast",
+      "area_ko": "신베이시 핑시구",
+      "category": "city_view",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 25.042805555555557,
+        "lng": 121.77677777777778,
+        "source": "wd",
+        "qid": "Q124540096",
+        "osm": null,
+        "last_verified": "2026-10-09"
+      },
+      "wd_geo": {
+        "lat": 25.042805555555557,
+        "lng": 121.77677777777778
+      },
+      "address_local": null,
+      "access": {
+        "modes": [
+          "train"
+        ],
+        "nearest_ko": "타이완 철도 핑시선 스펀역 바로 옆이에요",
+        "nearest_local": {
+          "text": "十分車站",
+          "qid": "Q10904536",
+          "source": "wd"
+        },
+        "source": "nt_shifen_station",
+        "last_verified": "2026-10-09"
+      },
+      "official_url": "https://newtaipei.travel/en/attractions/detail/111989",
+      "summary_ko": "가게 문 앞 선로로 기차가 지나가는 옛 거리예요.",
+      "body_ko": [
+        "스펀 옛 거리는 신베이시 핑시구의 스펀역 옆에 있는 거리로, 선로를 따라 가게가 늘어서 있어요.",
+        "철길이 거리 한가운데를 지나서 가게 문 앞으로 기차가 오가요.",
+        "핑시선은 1921년 석탄을 나르려고 연 철도인데, 1992년에 관광 노선으로 바뀌었어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "철길과 이어지게 지은 옛 거리라서, 가게 문 앞으로 기차가 지나가요.",
+          "source": "nt_shifen",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c2",
+          "text_ko": "스펀 옛 거리와 징안 다리는 타이완 철도 스펀역 바로 옆에 있어요.",
+          "source": "nt_shifen_station",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c3",
+          "text_ko": "핑시선은 탄광 사업가 옌윈녠이 석탄을 나르려고 놓은 철도로, 1921년에 처음 열렸어요.",
+          "source": "nt_shifen_station",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c4",
+          "text_ko": "핑시선은 산댜오링역에서 징퉁역까지 12.9km이고, 지금 역은 7개예요.",
+          "source": "nt_shifen_station",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c5",
+          "text_ko": "핑시선은 1992년에 관광 노선으로 바뀌었어요.",
+          "source": "nt_shifen_station",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "선로를 아무 데서나 건너지 말고 교통 표지를 따르라고 안내해요.",
+          "source": "nt_shifen",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "거리 가게에서 천등을 사서 소원을 적어 날릴 수 있어요. 천등 가게는 평일과 공휴일 모두 문을 열어요.",
+          "source": "nt_shifen",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "타이베이 지하철 동물원역에서 출발하는 타이완 하오싱 무자·핑시선 버스도 스펀 방문자센터까지 가요.",
+          "source": "tt_795",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "facts": {
+        "kind": "public_space",
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "last_verified": "2026-10-09"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "nt_shifen",
+        "last_verified": "2026-10-09"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_tw",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 23,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-09",
+      "google_place_id": "ChIJ_____y9RXTQRvnNyOkDE3vY"
+    },
+    {
+      "id": "gold-museum",
+      "qid": "Q11081514",
+      "names": {
+        "ko": "진과스 황금박물관",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "New Taipei City Gold Museum",
+        "local": "新北市立黃金博物館",
+        "local_short": "黃金博物館",
+        "local_lang": "zh-Hant",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "황금박물관",
+        "신베이시립 황금박물관"
+      ],
+      "aliases_en": [
+        "Gold Museum"
+      ],
+      "mentions_ko": [
+        "본산 5갱",
+        "태자빈관"
+      ],
+      "region": "tw_north_coast",
+      "area_ko": "신베이시 루이팡구 진과스",
+      "category": "museum",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 25.108349,
+        "lng": 121.85625,
+        "source": "wd",
+        "qid": "Q11081514",
+        "osm": null,
+        "last_verified": "2026-10-09"
+      },
+      "wd_geo": {
+        "lat": 25.108349,
+        "lng": 121.85625
+      },
+      "address_local": {
+        "text": "新北市瑞芳區金光路8號",
+        "source": "gep_ticket",
+        "last_verified": "2026-10-09"
+      },
+      "access": {
+        "modes": [
+          "bus"
+        ],
+        "nearest_ko": "타이베이 MRT 중샤오푸싱역에서 기룽커윈 1062번, 또는 루이팡역 근처에서 788번 버스를 타고 '진과스(金瓜石)' 정류장에서 내려요",
+        "nearest_local": null,
+        "source": "gep_traffic",
+        "last_verified": "2026-10-09"
+      },
+      "official_url": "https://www.gep.ntpc.gov.tw/",
+      "wiki": {
+        "en": "New Taipei City Gold Museum"
+      },
+      "summary_ko": "옛 금광 마을 진과스에 있는 신베이시립 광업 박물관이에요.",
+      "body_ko": [
+        "진과스 황금박물관은 신베이시립 박물관으로, 2004년 옛 금광 마을 진과스에 문을 열었어요.",
+        "진과스 광산은 1897년부터 1987년까지 100년 가까이 금과 구리를 캤고, 1938년에는 한 해 2.6톤을 생산했어요.",
+        "본산 5갱 갱도의 앞쪽 70m를 안전모를 쓰고 걸어 볼 수 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "신베이시립 박물관으로 2004년 11월 문을 열었고, 생태박물관 이념에 따라 진과스·수이난둥의 자연과 광업 유적을 보존해요.",
+          "source": "gep_vision",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c2",
+          "text_ko": "화산 작용으로 금·구리 광물이 생긴 곳으로, 1897년 광산을 연 뒤 1987년 타이진 공사가 채굴을 멈출 때까지 100년 가까이 캤어요.",
+          "source": "gep_vision",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c3",
+          "text_ko": "1938년 진과스 광산은 한 해 2.6톤을 생산하는 기록을 세웠어요.",
+          "source": "gep_history",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c4",
+          "text_ko": "2002년 당시 타이베이현(지금의 신베이시) 정부가 폐갱도와 사무실 일대를 정비해 박물관 단지를 준비했어요.",
+          "source": "gep_history",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c5",
+          "text_ko": "'본산 5갱(本山五坑)' 갱도의 앞쪽 70m를 체험 구간으로 열었고, 들어가기 전 준비실에서 안전모를 써야 해요.",
+          "source": "gep_wukeng",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c6",
+          "text_ko": "진과스 태자빈관(金瓜石太子賓館)은 2007년 신베이시 지정 고적(直轄市定古蹟)이 됐어요.",
+          "source": "boch_gold_taizi",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "전시관 안에서는 담배·음식·껌을 삼가고, 플래시와 삼각대도 쓰지 말아 달라고 해요.",
+          "source": "gep_ticket",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "박물관 주변 주차장이 좁아서 대중교통으로 오라고 권해요.",
+          "source": "gep_traffic",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "공휴일과 행사 기간에는 차량 통제가 있어, 지정 주차장에 차를 두고 셔틀버스로 갈아타야 해요.",
+          "source": "gep_traffic",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "태자빈관은 타이완전력이 수리 중이라 지금은 안에 들어갈 수 없어요.",
+          "source": "boch_gold_taizi",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "irregular"
+        ],
+        "closed_note_ko": "매달 첫째 월요일(공휴일이면 다음 날), 음력 섣달그믐날, 설날에 쉬어요.",
+        "visit_note_ko": null,
+        "source": "gep_ticket",
+        "last_verified": "2026-10-09"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "gep_ticket",
+        "last_verified": "2026-10-09"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_tw",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 11,
+        "designations": [
+          {
+            "kind": "tw_municipal_monument",
+            "name_ko": "신베이시 지정 고적 진과스 태자빈관(2007, 박물관 안내 시설 일부)",
+            "source": "boch_gold_taizi"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Gold_Museum_at_Jiufen_Taiwan_01.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-09",
+      "google_place_id": "ChIJ9653Kh5FXTQR1VWNys_RefA"
+    },
+    {
+      "id": "jiufen-old-street",
+      "qid": "Q10878674",
+      "names": {
+        "ko": "지우펀 옛 거리",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Jiufen Old Street",
+        "local": "九份老街",
+        "local_short": "九份老街",
+        "local_lang": "zh-Hant",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "지우펀 라오지에",
+        "지우펀"
+      ],
+      "aliases_en": [
+        "Jioufen Old Street"
+      ],
+      "mentions_ko": [
+        "승평극장"
+      ],
+      "region": "tw_north_coast",
+      "area_ko": "신베이시 루이팡구 지우펀",
+      "category": "city_view",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 25.11045,
+        "lng": 121.84599,
+        "source": "wd",
+        "qid": "Q10878674",
+        "osm": null,
+        "last_verified": "2026-10-09"
+      },
+      "wd_geo": {
+        "lat": 25.11045,
+        "lng": 121.84599
+      },
+      "address_local": null,
+      "access": {
+        "modes": [
+          "bus"
+        ],
+        "nearest_ko": "루이팡역에서 타이완 하오싱 황금푸룽선 버스를 타고 '지우펀 옛 거리(九份老街)' 정류장에서 내려요",
+        "nearest_local": null,
+        "source": "tt_856",
+        "last_verified": "2026-10-09"
+      },
+      "official_url": "https://newtaipei.travel/en/attractions/detail/112939",
+      "wiki": {
+        "en": "Jiufen Old Street"
+      },
+      "summary_ko": "옛 금광 마을 산비탈에 골목 가게가 모인 거리예요.",
+      "body_ko": [
+        "지우펀 옛 거리는 신베이시 루이팡구의 산비탈을 따라 좁은 골목에 가게가 모인 거리예요.",
+        "금광 덕분에 번성해 '황금 산성'이라 불렸고, 1971년 금 채굴이 끝났어요.",
+        "1980년대 영화 '비정성시'를 이곳에서 찍었고, 승평극장에서는 1960년대 극장 모습을 볼 수 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "옛날 금광이 풍부해 '황금 산성'으로 불렸고, 금광 노동자가 몰려 번성했다가 채굴이 줄며 조용해졌어요.",
+          "source": "nt_jiufen",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c2",
+          "text_ko": "1971년 타이양 광업이 지우펀의 금 채굴을 끝냈어요.",
+          "source": "gep_history",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c3",
+          "text_ko": "1980년대 영화 '비정성시(悲情城市)'를 지우펀에서 찍었어요.",
+          "source": "nt_jiufen",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c4",
+          "text_ko": "산비탈을 따라 난 좁은 옛 거리에 가게가 모여 있고, 토란볼·고기완자 같은 간식을 팔아요.",
+          "source": "nt_jiufen",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c5",
+          "text_ko": "승평극장(昇平戲院)은 옛 매표소와 영화 포스터로 1960년대 극장 모습을 보여 줘요.",
+          "source": "nt_jiufen",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "공휴일이나 행사 때는 차량을 통제해서, 지정 주차장에 차를 두고 셔틀버스로 지우펀에 들어가요.",
+          "source": "gep_traffic",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "타이베이 MRT 중샤오푸싱역에서 타는 기룽커윈 타이베이–진과스 노선 버스도 루이팡과 지우펀을 거쳐요.",
+          "source": "gep_traffic",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "facts": {
+        "kind": "public_space",
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "last_verified": "2026-10-09"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "nt_jiufen",
+        "last_verified": "2026-10-09"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_tw",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 20,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Jiufen_04.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-09",
+      "google_place_id": "ChIJcZT7-hdFXTQR0qekplqCFV8"
+    },
+    {
+      "id": "chihkan-tower",
+      "qid": "Q714431",
+      "names": {
+        "ko": "적감루",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Chihkan Tower",
+        "local": "赤崁樓",
+        "local_short": "赤崁樓",
+        "local_lang": "zh-Hant",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "츠칸러우",
+        "프로방시아 요새"
+      ],
+      "aliases_en": [
+        "Fort Provintia",
+        "Chikan Tower"
+      ],
+      "mentions_ko": [
+        "문창각",
+        "해신묘"
+      ],
+      "region": "tw_tainan",
+      "area_ko": "타이난 중시구",
+      "category": "heritage",
+      "tags": [
+        {
+          "id": "night",
+          "source": "tnhistoric_chihkan",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 22.9975,
+        "lng": 120.20281111,
+        "source": "wd",
+        "qid": "Q714431",
+        "osm": null,
+        "last_verified": "2026-10-09"
+      },
+      "wd_geo": {
+        "lat": 22.9975,
+        "lng": 120.20281111
+      },
+      "address_local": {
+        "text": "臺南市中西區民族路二段212號",
+        "source": "tnhistoric_chihkan",
+        "last_verified": "2026-10-09"
+      },
+      "access": {
+        "modes": [
+          "bus"
+        ],
+        "nearest_ko": "타이난 시내버스 '赤崁樓(츠칸러우)' 정류장에서 내려요",
+        "nearest_local": null,
+        "source": "tnbus_chihkan_stop",
+        "last_verified": "2026-10-09"
+      },
+      "official_url": "https://historic.tainan.gov.tw/index.php?option=module&lang=cht&task=pageinfo&id=46&index=3",
+      "wiki": {
+        "ko": "츠칸러우",
+        "en": "Fort Provintia"
+      },
+      "summary_ko": "네덜란드 성터 위에 청나라 때 누각이 선 고적이에요.",
+      "body_ko": [
+        "적감루는 1653년 네덜란드인이 '프로빈티아 성(普羅民遮城)'으로 지은 곳이에요.",
+        "안핑의 질란디아 요새가 통치 중심이었고, 이곳은 행정과 상업을 맡았어요.",
+        "지금 보이는 문창각과 해신묘는 1886년 옛 성터를 메운 단 위에 세운 건물이에요.",
+        "설탕물과 찹쌀즙을 섞어 쌓은 붉은 벽돌 성벽의 두꺼운 벽과 아치 흔적이 남아 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "1653년 네덜란드인이 지었고, 처음 이름은 '프로빈티아 성(普羅民遮城)'이었어요.",
+          "source": "tnhistoric_chihkan",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c2",
+          "text_ko": "네덜란드 시대에 안핑의 질란디아 요새는 통치 중심, 이곳은 행정·상업 중심이었어요.",
+          "source": "tnhistoric_chihkan",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c3",
+          "text_ko": "성벽은 설탕물·찹쌀즙·굴 껍데기 석회를 섞은 접합재로 붉은 벽돌을 쌓았고, 두꺼운 벽과 아치 흔적이 지금도 보여요.",
+          "source": "tnhistoric_chihkan",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c4",
+          "text_ko": "1886년 옛 성터를 메운 단 위에 문창각·오자사·해신묘를 지었고, 지금도 그때 모습을 유지해요.",
+          "source": "boch_chihkan",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c5",
+          "text_ko": "1983년 고적으로 지정됐고, 지금 등급은 국정고적(국가 지정 고적)이에요.",
+          "source": "boch_chihkan",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "외국인도 재학 중인 학생이면 증빙을 보여 주고 반값 할인을 받을 수 있어요.",
+          "source": "tnhistoric_visit_info",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "none"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "tnhistoric_visit_info",
+        "last_verified": "2026-10-09"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "partial",
+        "note_ko": "해신묘와 어비희비(비석) 수리 공사로 경내 일부 구역이 불편할 수 있어요.",
+        "source": "tnhistoric_chihkan",
+        "last_verified": "2026-10-09"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_tw",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 6,
+        "designations": [
+          {
+            "kind": "tw_national_monument",
+            "name_ko": "국가 지정 고적 적감루(1983)",
+            "source": "boch_chihkan"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Chihkan_Tower_night.JPG",
+      "source": "wd",
+      "last_verified": "2026-10-09",
+      "google_place_id": "ChIJbYl7d2F2bjQRnFdvyMBuZfI"
+    },
+    {
+      "id": "anping-old-fort",
+      "qid": "Q20706255",
+      "names": {
+        "ko": "안평고보",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Anping Old Fort",
+        "local": "安平古堡",
+        "local_short": "安平古堡",
+        "local_lang": "zh-Hant",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "안핑구바오",
+        "질란디아 요새"
+      ],
+      "aliases_en": [
+        "Fort Zeelandia"
+      ],
+      "mentions_ko": [],
+      "region": "tw_tainan",
+      "area_ko": "타이난 안핑구",
+      "category": "heritage",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 23.001747,
+        "lng": 120.160919,
+        "source": "wd",
+        "qid": "Q20706255",
+        "osm": null,
+        "last_verified": "2026-10-09"
+      },
+      "wd_geo": {
+        "lat": 23.001747,
+        "lng": 120.160919
+      },
+      "address_local": {
+        "text": "臺南市安平區國勝路82號",
+        "source": "tnhistoric_anping",
+        "last_verified": "2026-10-09"
+      },
+      "access": {
+        "modes": [
+          "bus"
+        ],
+        "nearest_ko": "타이난 시내버스 '安平古堡(安北路)' 정류장에서 내려요",
+        "nearest_local": null,
+        "source": "tnbus_anping_stop",
+        "last_verified": "2026-10-09"
+      },
+      "official_url": "https://historic.tainan.gov.tw/index.php?option=module&lang=cht&task=pageinfo&id=58&index=2",
+      "wiki": {
+        "ko": "질란디아 요새 (타이완)",
+        "en": "Fort Zeelandia (Taiwan)"
+      },
+      "summary_ko": "네덜란드 질란디아 요새 터에 선 안핑의 고적이에요.",
+      "body_ko": [
+        "안평고보는 네덜란드인이 1624년 안핑을 차지하고 짓기 시작해 1634년에 완공한 질란디아 요새 자리예요.",
+        "1662년 정성공이 성을 차지한 뒤 사람들은 이곳을 '왕성(王城)'이라고 불렀어요.",
+        "1897년 일본이 옛 성터 위에 단을 쌓고 양옥을 지었고, 흰 벽에 뾰족 지붕을 얹은 지금 전망대는 1975년에 정비한 모습이에요.",
+        "고보 앞쪽에는 네덜란드 시대 외성 남쪽 성벽의 벽돌담이 남아 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "네덜란드인이 1624년 안핑을 차지하고 방어 요새인 질란디아 요새를 짓기 시작해 1634년에 공사를 마쳤어요.",
+          "source": "tnhistoric_anping",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c2",
+          "text_ko": "1662년 정성공이 성을 차지한 뒤 사람들은 이곳을 '왕성(王城)'이라고 불렀어요.",
+          "source": "tnhistoric_anping",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c3",
+          "text_ko": "1897년 일본이 해관 숙소를 지으려고 옛 성터 위에 단을 쌓고 그 위에 양옥을 지었어요.",
+          "source": "boch_anping",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c4",
+          "text_ko": "고보 앞쪽 외성 남쪽 성벽의 벽돌담이 네덜란드 시대 유적으로 남아 있어요.",
+          "source": "tnhistoric_anping",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c5",
+          "text_ko": "1975년 타이난시가 전망대에 뾰족 지붕을 얹고 벽을 흰색으로 칠한 것이 지금 모습이에요.",
+          "source": "tnhistoric_anping",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c6",
+          "text_ko": "1983년 '대만성 잔적(안평고보 잔적)'이 1급 고적으로 지정됐고, 2023년 국정고적 '질란디아 요새 유구(熱蘭遮堡遺構)'로 합쳐졌어요.",
+          "source": "boch_anping",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "외국인도 재학 중인 학생이면 증빙을 보여 주고 반값 할인을 받을 수 있어요.",
+          "source": "tnhistoric_visit_info",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "none"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "tnhistoric_visit_info",
+        "last_verified": "2026-10-09"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "tnhistoric_anping",
+        "last_verified": "2026-10-09"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_tw",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 5,
+        "designations": [
+          {
+            "kind": "tw_national_monument",
+            "name_ko": "국가 지정 고적 질란디아 요새 유구(1983 지정, 2023 통합)",
+            "source": "boch_anping"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Tainan_Taiwan_Fort-Zeelandia-01.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-09",
+      "google_place_id": "ChIJZ-TjeHN2bjQR8a3Jat0VHps"
+    },
+    {
+      "id": "tainan-confucius-temple",
+      "qid": "Q697776",
+      "names": {
+        "ko": "타이난 공자묘",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Tainan Confucian Temple",
+        "local": "臺南孔子廟",
+        "local_short": "臺南孔廟",
+        "local_lang": "zh-Hant",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "타이난 공묘",
+        "전대수학"
+      ],
+      "aliases_en": [
+        "Confucius Temple Cultural Park"
+      ],
+      "mentions_ko": [
+        "대성전",
+        "명륜당",
+        "반궁방"
+      ],
+      "region": "tw_tainan",
+      "area_ko": "타이난 중시구",
+      "category": "heritage",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 22.9903,
+        "lng": 120.204,
+        "source": "wd",
+        "qid": "Q697776",
+        "osm": null,
+        "last_verified": "2026-10-09"
+      },
+      "wd_geo": {
+        "lat": 22.9903,
+        "lng": 120.204
+      },
+      "address_local": {
+        "text": "臺南市中西區永慶里南門路2號",
+        "source": "boch_tainan_confucius",
+        "last_verified": "2026-10-09"
+      },
+      "access": {
+        "modes": [
+          "bus"
+        ],
+        "nearest_ko": "타이난 시내버스 '孔廟(臺灣文學館、臺南市美術館1館)' 정류장에서 내려요",
+        "nearest_local": null,
+        "source": "tnbus_confucius_stop",
+        "last_verified": "2026-10-09"
+      },
+      "official_url": "https://www.twtainan.net/en/attractions/detail/4407",
+      "wiki": {
+        "en": "Tainan Confucian Temple"
+      },
+      "summary_ko": "1665년 사당에서 시작한 타이난의 공자 사당이에요.",
+      "body_ko": [
+        "타이난 공자묘는 1665년 진영화(陳永華)가 세운 사당에서 시작했고, 옆에 학당인 명륜당을 두었어요.",
+        "학교를 왼쪽, 사당을 오른쪽에 둔 배치이고, '전대수학(全臺首學)'이라는 별칭이 있어요.",
+        "대성전 안에는 청나라 강희제 이후 황제와 국가원수가 내린 편액이 걸려 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "1665년 진영화(陳永華)가 세운 선사성묘가 시작이고, 옆에 명륜당을 두었어요.",
+          "source": "boch_tainan_confucius",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c2",
+          "text_ko": "'전대수학(全臺首學)'이라는 별칭이 있어요.",
+          "source": "boch_tainan_confucius",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c3",
+          "text_ko": "학교를 왼쪽, 사당을 오른쪽에 두는 '좌학우묘(左學右廟)' 전통 규범에 따라 지었어요.",
+          "source": "boch_tainan_confucius",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c4",
+          "text_ko": "대성전에는 청나라 강희제 이후 역대 황제와 국가원수가 내린 편액이 걸려 있어요.",
+          "source": "boch_tainan_confucius",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c5",
+          "text_ko": "1983년 고적으로 지정됐고, 지금 등급은 국정고적(국가 지정 고적)이에요.",
+          "source": "boch_tainan_confucius",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c6",
+          "text_ko": "매년 9월 28일 동트기 전 새벽에 공자 탄신을 기리는 제례가 열려요.",
+          "source": "twtainan_confucius",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "매년 9월 28일 새벽에 공자 탄신 제례가 열려 대성전에 사람이 많이 모여요.",
+          "source": "twtainan_confucius",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "반궁방(泮宮坊)은 난먼로(南門路) 건너편에 따로 떨어져 서 있어요.",
+          "source": "boch_tainan_confucius",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "unknown",
+        "regular_closed": [
+          "none"
+        ],
+        "closed_note_ko": "새해 전날(New Year’s Eve)에는 문을 닫아요.",
+        "visit_note_ko": null,
+        "source": "twtainan_confucius",
+        "last_verified": "2026-10-09"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "twtainan_confucius",
+        "last_verified": "2026-10-09"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_tw",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 9,
+        "designations": [
+          {
+            "kind": "tw_national_monument",
+            "name_ko": "국가 지정 고적 타이난 공자묘(1983)",
+            "source": "boch_tainan_confucius"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Confucius_Temple_Tainan_-_Ta_Cheng_Hall_臺南孔廟大成殿_(2026)_-_img_06.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-09",
+      "google_place_id": "ChIJFbzVrGJ2bjQRkZC9jslaIgs"
+    },
+    {
+      "id": "garden-night-market",
+      "qid": "Q5360584",
+      "names": {
+        "ko": "화원야시장",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Garden Night Market",
+        "local": "花園夜市",
+        "local_short": "花園夜市",
+        "local_lang": "zh-Hant",
+        "source": "wd"
+      },
+      "aliases_ko": [],
+      "aliases_en": [
+        "Tainan Flower Night Market"
+      ],
+      "mentions_ko": [],
+      "region": "tw_tainan",
+      "area_ko": "타이난 베이구",
+      "category": "market_street",
+      "tags": [
+        {
+          "id": "night",
+          "source": "twtainan_garden",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 23.0107,
+        "lng": 120.2,
+        "source": "wd",
+        "qid": "Q5360584",
+        "osm": null,
+        "last_verified": "2026-10-09"
+      },
+      "wd_geo": {
+        "lat": 23.0107,
+        "lng": 120.2
+      },
+      "address_local": {
+        "text": "臺南市北區海安路三段533號",
+        "source": "twtainan_garden",
+        "last_verified": "2026-10-09"
+      },
+      "access": {
+        "modes": [
+          "bus"
+        ],
+        "nearest_ko": "타이난 시내버스 '花園夜市(海安路)' 정류장에서 내려요",
+        "nearest_local": null,
+        "source": "tnbus_garden_stop",
+        "last_verified": "2026-10-09"
+      },
+      "official_url": "https://www.twtainan.net/en/attractions/detail/5573",
+      "wiki": {
+        "ko": "화원 야시장",
+        "en": "Tainan Flower Night Market"
+      },
+      "summary_ko": "노점이 400개 가까이 모이는 타이난 북구 야시장이에요.",
+      "body_ko": [
+        "화원야시장은 타이난 북구 하이안로 3단에 열리는 야시장이에요.",
+        "노점이 400개 가까이 되고, 먹거리·패션·잡화·놀이 네 구역으로 나뉘어요.",
+        "노점마다 손님 눈에 띄도록 머리 위로 큰 깃발을 내걸어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "노점이 400개 가까이 될 만큼 커진 야시장이에요.",
+          "source": "twtainan_garden",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c2",
+          "text_ko": "먹거리·패션·잡화·놀이 네 구역으로 나뉘어요.",
+          "source": "twtainan_garden",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c3",
+          "text_ko": "노점들이 손님 눈길을 끌려고 머리 위로 큰 깃발을 내걸어요.",
+          "source": "twtainan_garden",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c4",
+          "text_ko": "타이난 북구 하이안로 3단(海安路三段)에 있어요.",
+          "source": "twtainan_garden",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "타이난역 앞(成功路)에서 출발해 도는 순환선 버스가 '花園夜市(海安路)' 정류장에 서요.",
+          "source": "tnbus_garden_stop",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "facts": {
+        "kind": "public_space",
+        "regular_closed": [
+          "mon",
+          "tue",
+          "wed"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "twtainan_garden",
+        "last_verified": "2026-10-09"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "twtainan_garden",
+        "last_verified": "2026-10-09"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_tw",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 18,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:台南花園夜市_路景.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-09",
+      "google_place_id": "ChIJx7B27Vl2bjQRXNQQFasKOKI"
+    },
+    {
+      "id": "eternal-golden-castle",
+      "qid": "Q697518",
+      "names": {
+        "ko": "억재금성",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Eternal Golden Castle",
+        "local": "二鯤鯓砲臺",
+        "local_short": "億載金城",
+        "local_lang": "zh-Hant",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "이자이 금성"
+      ],
+      "aliases_en": [
+        "Erkunshen Fort"
+      ],
+      "mentions_ko": [],
+      "region": "tw_tainan",
+      "area_ko": "타이난 안핑구",
+      "category": "heritage",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 22.98861111,
+        "lng": 120.16027778,
+        "source": "wd",
+        "qid": "Q697518",
+        "osm": null,
+        "last_verified": "2026-10-09"
+      },
+      "wd_geo": {
+        "lat": 22.98861111,
+        "lng": 120.16027778
+      },
+      "address_local": {
+        "text": "臺南市安平區光州路3號",
+        "source": "tnhistoric_eternal_golden_castle",
+        "last_verified": "2026-10-09"
+      },
+      "access": {
+        "modes": [
+          "bus"
+        ],
+        "nearest_ko": "타이난 시내버스 '億載金城' 정류장에서 내려요",
+        "nearest_local": null,
+        "source": "tnbus_eternal_golden_castle_stop",
+        "last_verified": "2026-10-09"
+      },
+      "official_url": "https://historic.tainan.gov.tw/index.php?option=module&lang=cht&task=pageinfo&id=59&index=5",
+      "wiki": {
+        "ko": "이자이 금성",
+        "en": "Eternal Golden Castle"
+      },
+      "summary_ko": "청나라가 1876년에 완공한 안핑의 서양식 포대예요.",
+      "body_ko": [
+        "억재금성은 1874년 모란사 사건 뒤 청나라가 안핑 해안과 부성을 지키려고 짓기 시작해 1876년에 완공한 포대예요.",
+        "프랑스 기술자가 설계한 사각형에 네 모서리 능보를 둔 요새로, 둘레 해자에 바닷물을 끌어들였어요.",
+        "질란디아 요새의 벽돌과 서양식 붉은 벽돌을 함께 썼어요.",
+        "지금 모습은 완공 100주년에 타이난시가 정비하며 대포를 본떠 만들어 둔 것이에요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "1874년 모란사 사건 뒤 청나라 흠차대신 선바오전(沈葆楨)이 안핑 해안 방어와 부성 보호를 위해 짓기 시작했어요.",
+          "source": "tnhistoric_eternal_golden_castle",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c2",
+          "text_ko": "1876년에 완공했고, 대문 위에 '億載金城' 네 글자를 걸었어요.",
+          "source": "tnhistoric_eternal_golden_castle",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c3",
+          "text_ko": "프랑스 기술자가 설계했고, 사각형 평면에 네 모서리 능보를 둔 형태예요.",
+          "source": "boch_eternal_golden_castle",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c4",
+          "text_ko": "질란디아 요새의 벽돌과 서양식 붉은 벽돌로 지었고, 둘레 해자에 바닷물을 끌어들였어요.",
+          "source": "tnhistoric_eternal_golden_castle",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c5",
+          "text_ko": "포대 완공 100주년 때 타이난시가 크게 정비하고 대포를 본떠 만들어 지금 모습이 됐어요.",
+          "source": "tnhistoric_eternal_golden_castle",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c6",
+          "text_ko": "1983년 고적으로 지정됐고, 지금 등급은 국정고적(국가 지정 고적)이에요.",
+          "source": "boch_eternal_golden_castle",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "외국인도 재학 중인 학생이면 증빙을 보여 주고 반값 할인을 받을 수 있어요.",
+          "source": "tnhistoric_visit_info",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "마지막 보수 때 땅속에서 나온 옛 유구 일부를 유리 덮개 아래로 볼 수 있어요.",
+          "source": "tnhistoric_eternal_golden_castle",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "none"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "tnhistoric_visit_info",
+        "last_verified": "2026-10-09"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "tnhistoric_eternal_golden_castle",
+        "last_verified": "2026-10-09"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_tw",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 8,
+        "designations": [
+          {
+            "kind": "tw_national_monument",
+            "name_ko": "국가 지정 고적 이곤신 포대(억재금성)(1983)",
+            "source": "boch_eternal_golden_castle"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:1_aerial_pano_eternal_golden_castle_tainan_2017.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-09",
+      "google_place_id": "ChIJk_qk9P91bjQRTolgNlHUSrc"
+    },
+    {
+      "id": "pier-2-art-center",
+      "qid": "Q10566573",
+      "names": {
+        "ko": "보얼 예술특구",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Pier-2 Art Center",
+        "local": "駁二藝術特區",
+        "local_short": "駁二",
+        "local_lang": "zh-Hant",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "피어2 아트센터"
+      ],
+      "aliases_en": [],
+      "mentions_ko": [
+        "보얼 당대관",
+        "하마싱 철도 공원"
+      ],
+      "region": "tw_kaohsiung",
+      "area_ko": "가오슝 옌청구",
+      "category": "city_view",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 22.6199,
+        "lng": 120.282,
+        "source": "wd",
+        "qid": "Q10566573",
+        "osm": null,
+        "last_verified": "2026-10-09"
+      },
+      "wd_geo": {
+        "lat": 22.6199,
+        "lng": 120.282
+      },
+      "address_local": {
+        "text": "高雄市鹽埕區大勇路1號",
+        "source": "pier2_about",
+        "last_verified": "2026-10-09"
+      },
+      "access": {
+        "modes": [
+          "metro"
+        ],
+        "nearest_ko": "가오슝 MRT 오렌지선 옌청푸역(O2) 1번 출구에서 다융루를 따라 남쪽으로 걸어가요. 경전철 보얼다이역(C12)·보얼펑라이역(C13)에서 내려도 돼요.",
+        "nearest_local": {
+          "text": "鹽埕埔站",
+          "qid": "Q6125625",
+          "source": "wd"
+        },
+        "source": "pier2_transport",
+        "last_verified": "2026-10-09"
+      },
+      "official_url": "https://pier2.org/",
+      "wiki": {
+        "en": "Pier-2 Art Center"
+      },
+      "summary_ko": "항구 옆 옛 창고들을 예술 공간으로 바꾼 지구예요.",
+      "body_ko": [
+        "보얼 예술특구는 가오슝 부두 옆 창고 무리를 예술 공간으로 쓰는 지구예요.",
+        "2000년 국경일 불꽃놀이 장소를 찾다가 이 창고들이 알려졌고, 2001년 예술계 사람들이 협회를 만들어 특구를 추진했어요.",
+        "2006년부터는 가오슝시 문화국이 운영해요.",
+        "어분과 설탕을 쌓던 창고 사이로, 옛 항구 화물 철길 자리를 따라 경전철이 지나가요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "가오슝 부두 옆 창고 무리로 이뤄진 예술 지구예요.",
+          "source": "pier2_about",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c2",
+          "text_ko": "2000년 국경일(쌍십절) 불꽃놀이 장소를 찾다가 항구 옆 보얼 창고가 알려졌고, 2001년 예술계 인사들이 협회를 세워 특구를 추진했어요.",
+          "source": "pier2_about",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c3",
+          "text_ko": "2006년부터 가오슝시 문화국이 운영을 맡았어요.",
+          "source": "pier2_about",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c4",
+          "text_ko": "창고들은 예전에 어분과 설탕을 보관했어요.",
+          "source": "pier2_about",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c5",
+          "text_ko": "예전 항구 화물 철길(시린강선)이 지금은 경전철 노선이 되어 특구를 가로질러요.",
+          "source": "pier2_about",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "실내 전시관 보얼 당대관(駁二當代館)은 표를 사서 들어가요. 표는 다융 구역과 다이 구역 안내 데스크에서 팔아요.",
+          "source": "pier2_ticket",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "음력 섣달그믐날(除夕)에는 쉬어요.",
+          "source": "pier2_about",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "다융·펑라이·다이 구역 공중화장실에 장애인 화장실이 있고, 전시장 앞마다 경사로가 있어요.",
+          "source": "pier2_accessibility",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "전시장에서는 뛰기, 떠들기, 흡연, 플래시 촬영, 음식물 반입, 작품 만지기를 하지 말아 달라고 해요.",
+          "source": "pier2_ticket",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "facts": {
+        "kind": "public_space",
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "last_verified": "2026-10-09"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "pier2_about",
+        "last_verified": "2026-10-09"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_tw",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 21,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Pier-2_Art_Center.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-09",
+      "google_place_id": "ChIJW8ThIHYEbjQR8k12HL3R1uY"
+    },
+    {
+      "id": "lotus-pond",
+      "qid": "Q698996",
+      "names": {
+        "ko": "연지담",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Lotus Pond",
+        "local": "蓮池潭",
+        "local_short": "蓮池潭",
+        "local_lang": "zh-Hant",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "롄츠탄",
+        "렌츠탄"
+      ],
+      "aliases_en": [
+        "Lianchitan"
+      ],
+      "mentions_ko": [
+        "용호탑",
+        "춘추각"
+      ],
+      "region": "tw_kaohsiung",
+      "area_ko": "가오슝 쭤잉구",
+      "category": "city_view",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 22.6806,
+        "lng": 120.293,
+        "source": "wd",
+        "qid": "Q3847247",
+        "osm": null,
+        "last_verified": "2026-10-09"
+      },
+      "wd_geo": {
+        "lat": 22.685061111111,
+        "lng": 120.29739722222
+      },
+      "address_local": {
+        "text": "高雄市左營區蓮潭路",
+        "source": "tta_lotus_pond",
+        "last_verified": "2026-10-09"
+      },
+      "access": {
+        "modes": [
+          "train",
+          "bus"
+        ],
+        "nearest_ko": "타이완철도(臺鐵) 쭤잉역(左營, 옛 이름 舊城)이 가까워요. 버스는 蓮池潭(翠華路) 정류장에서 내려요.",
+        "nearest_local": {
+          "text": "左營（舊城）車站",
+          "qid": "Q8075326",
+          "source": "wd"
+        },
+        "source": "tta_lotus_pond",
+        "last_verified": "2026-10-09"
+      },
+      "official_url": "https://www.taiwan.net.tw/m1.aspx?sNo=0001016&id=2149",
+      "wiki": {
+        "en": "Lotus Pond, Kaohsiung"
+      },
+      "summary_ko": "용호탑과 누각들이 물 위에 선 쭤잉의 호수예요.",
+      "body_ko": [
+        "연지담(롄츠탄)은 가오슝 쭤잉구 동쪽에 있는 약 42헥타르 넓이의 호수예요.",
+        "청나라 때 연꽃이 많아 펑산 8경의 하나로 꼽혔어요.",
+        "물 위에 선 7층짜리 용호탑은 1976년 츠지궁이 세웠고, 용의 입으로 들어가 호랑이 입으로 나와요.",
+        "1953년에 지은 춘추각을 비롯해 호수 둘레에 절과 사당이 20곳 가까이 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "가오슝 쭤잉구 동쪽에 있는 호수로, 넓이는 약 42헥타르예요. 옛 이름은 롄화탄(蓮花潭)이에요.",
+          "source": "tta_lotus_pond",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c2",
+          "text_ko": "연꽃이 많이 심겨 있어 청나라 때 펑산 8경(鳳山八景)의 하나로 꼽혔어요.",
+          "source": "tta_lotus_pond",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c3",
+          "text_ko": "용호탑은 츠지궁(慈濟宮)이 1976년(민국 65년)에 세웠고, 호수 둘레에는 크고 작은 절과 사당이 20곳 가까이 있어요.",
+          "source": "takao_lotus_pond_2009",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c4",
+          "text_ko": "용호탑은 7층이고, 용의 입으로 들어가 호랑이 입으로 나오는 구조예요. 탑과 물가는 구곡교로 이어져 있어요.",
+          "source": "tta_lotus_pond",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c5",
+          "text_ko": "춘추각은 1953년에 지은 누각 두 채로, 관우를 기리려 세웠어요.",
+          "source": "tta_lotus_pond",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "호숫가에 공공 자전거 YouBike 대여소가 여러 곳 있어요.",
+          "source": "tta_lotus_pond",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "용호탑은 용의 입으로 들어가 호랑이 입으로 나오는 순서로 걸어요.",
+          "source": "tta_lotus_pond",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "호수 북동쪽 반핑산(半屏山)에 오르면 호수와 용호탑이 내려다보여요.",
+          "source": "takao_lotus_pond_2025",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "facts": {
+        "kind": "public_space",
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "last_verified": "2026-10-09"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "tta_lotus_pond",
+        "last_verified": "2026-10-09"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_tw",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 19,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Kaohsiung_Lianchitan_(_WEI,_WAN-CHEN_).jpg",
+      "source": "wd",
+      "last_verified": "2026-10-09",
+      "google_place_id": "ChIJGfBXL54FbjQRLB_sHv5peWI"
+    },
+    {
+      "id": "cihou-fort",
+      "qid": "Q57397",
+      "names": {
+        "ko": "치허우 포대",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Cihou Fort",
+        "local": "旗後砲臺",
+        "local_short": "旗後砲臺",
+        "local_lang": "zh-Hant",
+        "source": "wd"
+      },
+      "aliases_ko": [],
+      "aliases_en": [
+        "Qihou Battery"
+      ],
+      "mentions_ko": [
+        "치허우산",
+        "치진 페리"
+      ],
+      "region": "tw_kaohsiung",
+      "area_ko": "가오슝 치진구",
+      "category": "heritage",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 22.61305556,
+        "lng": 120.26416667,
+        "source": "wd",
+        "qid": "Q57397",
+        "osm": null,
+        "last_verified": "2026-10-09"
+      },
+      "wd_geo": {
+        "lat": 22.61305556,
+        "lng": 120.26416667
+      },
+      "address_local": null,
+      "access": {
+        "modes": [
+          "boat",
+          "metro"
+        ],
+        "nearest_ko": "경전철 하마싱역 근처 구산 페리 터미널(鼓山輪渡站)에서 치진행 배를 타요. 포대는 치진 서쪽 치허우산 꼭대기에 있어요.",
+        "nearest_local": {
+          "text": "鼓山輪渡站",
+          "qid": "Q11179997",
+          "source": "wd"
+        },
+        "source": "kcs_cihou_gushan",
+        "last_verified": "2026-10-09"
+      },
+      "official_url": "https://nchdb.boch.gov.tw/assets/advanceSearch/monument/20190223000002",
+      "wiki": {
+        "en": "Cihou Fort"
+      },
+      "summary_ko": "가오슝항 입구 언덕 위에 남은 청나라 말기 포대예요.",
+      "body_ko": [
+        "치허우 포대는 1874년 모란사 사건 뒤 바다 방어를 위해 짓기 시작해 1876년에 완공됐어요.",
+        "치진 서쪽 치허우산 꼭대기에서 항구 입구 건너편 구산과 마주 보고 있어요.",
+        "중국식과 서양식을 섞어 설계했고, 벽돌 조각과 여러 무늬로 쌓은 벽이 볼거리예요.",
+        "1895년 일본 군함의 포격으로 문 위 '威震天南' 글자 일부가 부서졌고, 2019년 국가 지정 고적이 됐어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "1874년 모란사 사건 뒤 해안 방어를 강화하려고 1875년 짓기 시작해 1876년 완공했어요.",
+          "source": "boch_cihou_fort",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c2",
+          "text_ko": "치진 서쪽 치허우산 꼭대기에 있고, 가오슝항 입구를 사이에 두고 구산(서우산 남쪽 끝)과 마주 봐요.",
+          "source": "boch_cihou_fort",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c3",
+          "text_ko": "1895년 을미 전쟁 때 일본 군함 요시노의 포격을 받아 문 위 '威震天南' 글자 중 앞 두 자가 부서졌어요.",
+          "source": "boch_cihou_fort",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c4",
+          "text_ko": "중국식과 서양식을 섞은 설계이고, 벽돌 조각과 여러 무늬의 벽돌 쌓기가 남아 있어요.",
+          "source": "boch_cihou_fort",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c5",
+          "text_ko": "가오슝시가 1991년부터 정비해 1995년에 복원을 마쳤어요.",
+          "source": "boch_cihou_fort",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c6",
+          "text_ko": "2019년 2월 22일 문화부가 국가 지정 고적(國定古蹟)으로 지정했어요.",
+          "source": "boch_cihou_fort",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "구산–치진 배삯은 동전이나 교통카드(一卡通·悠遊卡·愛金卡)로 내요. 교통카드는 한 장에 한 사람만 찍을 수 있어요.",
+          "source": "kcs_cihou_faq",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "주말·공휴일에는 잔얼쿠(棧貳庫)를 거쳐 치진으로 가는 배도 다녀요.",
+          "source": "kcs_cihou_faq",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "팔(八)자 모양 문과 담, 문 위 '威震天南' 글씨, 벽돌로 쌓은 囍 자와 박쥐 무늬를 찾아보세요.",
+          "source": "tta_cijin",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "unknown",
+        "regular_closed": [
+          "none"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": "언제든 자유롭게 둘러볼 수 있다고 안내해요.",
+        "source": "boch_cihou_fort",
+        "last_verified": "2026-10-09"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "boch_cihou_fort",
+        "last_verified": "2026-10-09"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_tw",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 10,
+        "designations": [
+          {
+            "kind": "tw_national_monument",
+            "name_ko": "국가 지정 고적 치허우 포대(2019)",
+            "source": "boch_cihou_fort"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Fort_Qihou_Gaoxiong_barracks.JPG",
+      "source": "wd",
+      "last_verified": "2026-10-09",
+      "google_place_id": "ChIJWWyazq8DbjQRHO8p1aIBZ-E"
+    },
+    {
+      "id": "liuhe-night-market",
+      "qid": "Q701113",
+      "names": {
+        "ko": "리우허 야시장",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Liuhe Night Market",
+        "local": "六合夜市",
+        "local_short": "六合夜市",
+        "local_lang": "zh-Hant",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "류허 야시장",
+        "육합 야시장"
+      ],
+      "aliases_en": [
+        "Liouhe Night Market",
+        "Liouho Night Market"
+      ],
+      "mentions_ko": [],
+      "region": "tw_kaohsiung",
+      "area_ko": "가오슝 신싱구",
+      "category": "market_street",
+      "tags": [
+        {
+          "id": "night",
+          "source": "tta_liuhe",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 22.633,
+        "lng": 120.30219444,
+        "source": "wd",
+        "qid": "Q701113",
+        "osm": null,
+        "last_verified": "2026-10-09"
+      },
+      "wd_geo": {
+        "lat": 22.633,
+        "lng": 120.30219444
+      },
+      "address_local": {
+        "text": "高雄市新興區六合二路與中山一路口",
+        "source": "tta_liuhe",
+        "last_verified": "2026-10-09"
+      },
+      "access": {
+        "modes": [
+          "metro"
+        ],
+        "nearest_ko": "가오슝 MRT 레드라인 메이리다오역(美麗島) 11번 출구 바로 앞이에요.",
+        "nearest_local": {
+          "text": "美麗島站",
+          "qid": "Q5470226",
+          "source": "wd"
+        },
+        "source": "hsingsin_liuhe",
+        "last_verified": "2026-10-09"
+      },
+      "official_url": "https://hsingsin.kcg.gov.tw/cp.aspx?n=F3E17B7B60CAF2C1",
+      "wiki": {
+        "ko": "리우허 야시장",
+        "en": "Liouhe Night Market"
+      },
+      "summary_ko": "낮엔 큰길, 밤엔 먹거리 노점이 들어서는 야시장이에요.",
+      "body_ko": [
+        "리우허 야시장은 가오슝 신싱구의 야시장으로, 낮에는 큰길이었다가 밤이 되면 노점이 들어서요.",
+        "1950년 무렵 다강푸 근처 공터에 먹거리 노점이 모인 것이 시작이에요.",
+        "스테이크 집과 해산물 가게 간판이 줄지어 있고, 파파야 우유와 소금에 찐 새우가 이름났어요.",
+        "20~30년 된 노점과 40년 넘은 청초차 가게도 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "1950년 무렵 다강푸 근처 공터에 먹거리 노점이 모여 '다강푸 야시장'이 되었고, 이것이 커져 지금의 리우허 야시장이 됐어요.",
+          "source": "tta_liuhe",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c2",
+          "text_ko": "낮에는 곧은 큰길이고, 밤이 되면 사람들이 오가는 시장이 돼요.",
+          "source": "tta_liuhe",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c3",
+          "text_ko": "스테이크 집과 해산물 가게가 10여 곳 있고, 간판이 줄지어 있는 풍경이 특징이에요.",
+          "source": "tta_liuhe",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c4",
+          "text_ko": "가오슝 특색 먹거리로 파파야 우유와 소금에 찐 새우를 꼽아요.",
+          "source": "tta_liuhe",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c5",
+          "text_ko": "20~30년 된 노점이 적지 않고, 통자가오·단자이몐·생선 국 같은 먹거리를 팔아요.",
+          "source": "hsingsin_liuhe",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c6",
+          "text_ko": "40년 넘은 청초차(青草茶) 가게가 있어요.",
+          "source": "hsingsin_liuhe",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "버스를 타면 六合夜市(大港埔) 정류장에서 내려요.",
+          "source": "hsingsin_liuhe",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "가오슝역에서도 멀지 않아요. 중산로를 따라가다 리우허로로 꺾으면 돼요.",
+          "source": "tta_liuhe",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "facts": {
+        "kind": "public_space",
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "last_verified": "2026-10-09"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "hsingsin_liuhe",
+        "last_verified": "2026-10-09"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_tw",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 17,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Liouho-Night-Market-Kaohsiung.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-09",
+      "google_place_id": "ChIJxznXwIsEbjQR_eygv0Lo5tM"
+    },
+    {
+      "id": "fo-guang-shan",
+      "qid": "Q4984158",
+      "names": {
+        "ko": "불광산 불타기념관",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Fo Guang Shan Buddha Museum",
+        "local": "佛光山佛陀紀念館",
+        "local_short": "佛陀紀念館",
+        "local_lang": "zh-Hant",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "불타기념관"
+      ],
+      "aliases_en": [
+        "Fo Guang Shan Buddha Memorial Center"
+      ],
+      "mentions_ko": [
+        "불광산사",
+        "불광 대불"
+      ],
+      "region": "tw_kaohsiung",
+      "area_ko": "가오슝 다수구",
+      "category": "museum",
+      "tags": [
+        {
+          "id": "free_entry",
+          "source": "fgsbm_visit_info",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "dress_code",
+          "source": "fgsbm_visit_info",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 22.75708,
+        "lng": 120.44135,
+        "source": "wd",
+        "qid": "Q4984158",
+        "osm": null,
+        "last_verified": "2026-10-09"
+      },
+      "wd_geo": {
+        "lat": 22.75708,
+        "lng": 120.44135
+      },
+      "address_local": {
+        "text": "高雄市大樹區統嶺里統嶺路1號",
+        "source": "fgsbm_visit_notice",
+        "last_verified": "2026-10-09"
+      },
+      "access": {
+        "modes": [
+          "bus"
+        ],
+        "nearest_ko": "고속철도 쭤잉역(高鐵左營站)에서 가오슝커윈 '哈佛快線' 버스를 타요. 가오슝역에서는 가오슝커윈 8009·8010번 버스도 지나가요.",
+        "nearest_local": {
+          "text": "高鐵左營站",
+          "qid": "Q46606019",
+          "source": "wd"
+        },
+        "source": "fgsbm_public_service",
+        "last_verified": "2026-10-09"
+      },
+      "official_url": "https://www.fgsbmc.org.tw/",
+      "wiki": {
+        "ko": "불광산불타기념관",
+        "en": "Fo Guang Shan Buddha Museum"
+      },
+      "summary_ko": "부처 치아 사리를 모시려고 지은 불교 기념관이에요.",
+      "body_ko": [
+        "불광산 불타기념관은 싱윈(星雲) 대사가 1998년에 기증받은 부처 치아 사리를 모시려고 지었어요.",
+        "2003년 공사를 시작해 2011년에 완공했어요.",
+        "입구 쪽 리징 대청(禮敬大廳)부터 8탑, 보리 광장, 본관, 불광 대불이 동쪽에서 서쪽으로 한 줄로 이어져요.",
+        "본관 뒤 불광 대불은 전체 높이가 108m예요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "1998년 싱윈 대사가 인도에서 계를 전할 때 티베트 라마가 부처 치아 사리를 기증했고, 이를 대만에서 모시려고 기념관을 지었어요.",
+          "source": "fgsbm_origin",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c2",
+          "text_ko": "2003년 기공식을 하고 9년에 걸쳐 지어 2011년 12월 25일 완공했어요.",
+          "source": "fgsbm_origin",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c3",
+          "text_ko": "부지는 100여 헥타르이고, 동쪽에서 서쪽으로 리징 대청, 8탑, 보리 광장, 본관, 불광 대불이 한 축에 놓여 있어요.",
+          "source": "fgsbm_origin",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c4",
+          "text_ko": "본관은 높이가 50m 가까이 되고, 본관 뒤 불광 대불은 전체 높이가 108m예요.",
+          "source": "fgsbm_origin",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c5",
+          "text_ko": "광장 앞 8탑은 팔정도를 뜻하고, 모두 높이 38m의 7층 누각식 탑이에요.",
+          "source": "fgsbm_origin",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "입장은 무료이고, 무료 주차장도 있어요.",
+          "source": "fgsbm_visit_info",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "화요일에 특별히 문을 여는 날은 기념관 공지로 알려요.",
+          "source": "fgsbm_visit_info",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "단정하지 않은 옷차림, 노출이 심한 옷, 슬리퍼 차림으로는 들어갈 수 없어요.",
+          "source": "fgsbm_visit_info",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "전각 안에서는 사진·영상 촬영과 생중계를 할 수 없고, 경내에서 고기·술·빈랑은 먹을 수 없어요.",
+          "source": "fgsbm_visit_info",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "free",
+        "regular_closed": [
+          "tue"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "fgsbm_visit_info",
+        "last_verified": "2026-10-09"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "fgsbm_visit_info",
+        "last_verified": "2026-10-09"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_tw",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 14,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Fo_Guang_Shan_Buddha_Museum_佛光山佛陀紀念館_.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-09",
+      "google_place_id": "ChIJK3DeNq8WbjQRPFlnj_pTDKc"
+    }
+  ],
+  "sources": [
+    {
+      "id": "wd",
+      "name": "Wikidata",
+      "url": "https://www.wikidata.org/",
+      "use": "skeleton",
+      "license": "CC0"
+    },
+    {
+      "id": "mofa_tw",
+      "name": "외교부 해외안전여행(레디포트 TW 팩 safety 섹션, 2026-10-02 확인)",
+      "url": "https://www.0404.go.kr/",
+      "use": "advisory"
+    },
+    {
+      "id": "tta_npm",
+      "name": "交通部觀光署 臺灣觀光資訊網 — 國立故宮博物院 (zh-TW)",
+      "url": "https://www.taiwan.net.tw/m1.aspx?sNo=0001090&id=74",
+      "use": "facts"
+    },
+    {
+      "id": "boch_npm",
+      "name": "文化部文化資產局 國家文化資產網 開放資料 — 國立故宮博物院(歷史建築)",
+      "url": "https://nchdb.boch.gov.tw/assets/advanceSearch/historicalBuilding/20201109000001",
+      "use": "heritage_registry",
+      "license": "TW-OGDL-1.0 (政府資料開放授權條款-第1版, 출처 표기)",
+      "attribution_required": true
+    },
+    {
+      "id": "t101_home",
+      "name": "台北金融大樓股份有限公司 TAIPEI 101 — 官方網站 首頁 (zh-TW)",
+      "url": "https://www.taipei-101.com.tw/tw/",
+      "use": "facts"
+    },
+    {
+      "id": "t101_observatory",
+      "name": "台北金融大樓股份有限公司 TAIPEI 101 — 觀景台 (zh-TW)",
+      "url": "https://www.taipei-101.com.tw/tw/observatory",
+      "use": "facts"
+    },
+    {
+      "id": "t101_feature",
+      "name": "台北金融大樓股份有限公司 TAIPEI 101 — 觀景台 特點介紹 (zh-TW)",
+      "url": "https://www.taipei-101.com.tw/tw/observatory/feature",
+      "use": "facts"
+    },
+    {
+      "id": "t101_ticket",
+      "name": "台北金融大樓股份有限公司 TAIPEI 101 — 觀景台 購票資訊 (zh-TW)",
+      "url": "https://www.taipei-101.com.tw/tw/observatory/ticket",
+      "use": "facts"
+    },
+    {
+      "id": "t101_access",
+      "name": "台北金融大樓股份有限公司 TAIPEI 101 — 交通資訊 (zh-TW)",
+      "url": "https://www.taipei-101.com.tw/tw/access",
+      "use": "facts"
+    },
+    {
+      "id": "t101_concept",
+      "name": "台北金融大樓股份有限公司 TAIPEI 101 — 101設計概念 (zh-TW)",
+      "url": "https://www.taipei-101.com.tw/tw/concept",
+      "use": "facts"
+    },
+    {
+      "id": "cksmh_visit_en",
+      "name": "國立中正紀念堂管理處 — Visit Info (English)",
+      "url": "https://www.cksmh.gov.tw/en/cp.aspx?n=6369",
+      "use": "facts"
+    },
+    {
+      "id": "cksmh_env",
+      "name": "國立中正紀念堂管理處 — 環境介紹 (zh-TW)",
+      "url": "https://www.cksmh.gov.tw/cp.aspx?n=6022",
+      "use": "facts"
+    },
+    {
+      "id": "cksmh_hours",
+      "name": "國立中正紀念堂管理處 — 開放時間 (zh-TW)",
+      "url": "https://www.cksmh.gov.tw/cp.aspx?n=6026",
+      "use": "facts"
+    },
+    {
+      "id": "cksmh_access",
+      "name": "國立中正紀念堂管理處 — 地理及交通資訊 (zh-TW)",
+      "url": "https://www.cksmh.gov.tw/cp.aspx?n=6027",
+      "use": "facts"
+    },
+    {
+      "id": "cksmh_faq",
+      "name": "國立中正紀念堂管理處 — 常見問答 (zh-TW)",
+      "url": "https://www.cksmh.gov.tw/News_Toggle.aspx?n=6042&sms=14473",
+      "use": "facts"
+    },
+    {
+      "id": "cksmh_barrierfree",
+      "name": "國立中正紀念堂管理處 — 無障礙服務設施 (zh-TW)",
+      "url": "https://www.cksmh.gov.tw/cp.aspx?n=6039",
+      "use": "facts"
+    },
+    {
+      "id": "boch_cksmh",
+      "name": "文化部文化資產局 國家文化資產網 開放資料 — 臺灣民主紀念園區(國定古蹟)",
+      "url": "https://nchdb.boch.gov.tw/assets/advanceSearch/monument/20071109000001",
+      "use": "heritage_registry",
+      "license": "TW-OGDL-1.0 (政府資料開放授權條款-第1版, 출처 표기)",
+      "attribution_required": true
+    },
+    {
+      "id": "lungshan_intro",
+      "name": "財團法人臺北市艋舺龍山寺 — 龍山寺簡介 (zh-TW)",
+      "url": "https://www.lungshan.org.tw/tw/index.php",
+      "use": "facts"
+    },
+    {
+      "id": "lungshan_build",
+      "name": "財團法人臺北市艋舺龍山寺 — 修築史略 (zh-TW)",
+      "url": "https://www.lungshan.org.tw/tw/01_2_build.php",
+      "use": "facts"
+    },
+    {
+      "id": "lungshan_pray",
+      "name": "財團法人臺北市艋舺龍山寺 — 語音導覽 如何參拜 (zh-TW)",
+      "url": "https://www.lungshan.org.tw/Tour_Guide/how_to_prays",
+      "use": "facts"
+    },
+    {
+      "id": "tta_longshan",
+      "name": "交通部觀光署 臺灣觀光資訊網 — 臺北龍山寺 (zh-TW)",
+      "url": "https://www.taiwan.net.tw/m1.aspx?sNo=0001090&id=93",
+      "use": "facts"
+    },
+    {
+      "id": "boch_longshan",
+      "name": "文化部文化資產局 國家文化資產網 開放資料 — 艋舺龍山寺(國定古蹟)",
+      "url": "https://nchdb.boch.gov.tw/assets/advanceSearch/monument/20181206000001",
+      "use": "heritage_registry",
+      "license": "TW-OGDL-1.0 (政府資料開放授權條款-第1版, 출처 표기)",
+      "attribution_required": true
+    },
+    {
+      "id": "tta_ximending",
+      "name": "交通部觀光署 臺灣觀光資訊網 — 西門町商圈 (zh-TW)",
+      "url": "https://www.taiwan.net.tw/m1.aspx?sNo=0001090&id=2254",
+      "use": "facts"
+    },
+    {
+      "id": "tcooc_ximending",
+      "name": "臺北市商業處 — 商圈介紹 萬華區 西門町(商圈) (zh-TW)",
+      "url": "https://www.tcooc.gov.taipei/cp.aspx?n=D6636C188A8ADC8E&s=73CBE562C2DE564B",
+      "use": "facts"
+    },
+    {
+      "id": "boch_ximending_redhouse",
+      "name": "文化部文化資產局 國家文化資產網 開放資料 — 西門紅樓（原新起街市場）(直轄市定古蹟)",
+      "url": "https://nchdb.boch.gov.tw/assets/advanceSearch/monument/19970220000003",
+      "use": "heritage_registry",
+      "license": "TW-OGDL-1.0 (政府資料開放授權條款-第1版, 출처 표기)",
+      "attribution_required": true
+    },
+    {
+      "id": "tta_shilin",
+      "name": "交通部觀光署 臺灣觀光資訊網 — 士林夜市 (zh-TW)",
+      "url": "https://www.taiwan.net.tw/m1.aspx?sNo=0001090&id=154",
+      "use": "facts"
+    },
+    {
+      "id": "tcma_shilin_nm",
+      "name": "臺北市市場處 — 攤販集中場 士林夜市 (zh-TW)",
+      "url": "https://www.tcma.gov.taipei/News_Content.aspx?n=9B6A9939FFA87091&s=DC5787F870F8AB1E&sms=635C98D675173C4C",
+      "use": "facts"
+    },
+    {
+      "id": "tcma_shilin_market",
+      "name": "臺北市市場處 — 傳統市(商)場 臺北市公有士林市場 (zh-TW)",
+      "url": "https://www.tcma.gov.taipei/News_Content.aspx?n=1A4C7120ABFD0F9F&sms=26C5BF03E7963F4E&s=80903C918A9F93E3",
+      "use": "facts"
+    },
+    {
+      "id": "tshs_fort_intro",
+      "name": "新北市立淡水古蹟博物館 — 館舍介紹: 淡水紅毛城 (중국어)",
+      "url": "https://www.tshs.ntpc.gov.tw/xmdoc/cont?xsmsid=0L271515544528923536&sid=0L271521471889545285",
+      "use": "facts"
+    },
+    {
+      "id": "tshs_fort_hours",
+      "name": "新北市立淡水古蹟博物館 — 開放時間 (중국어)",
+      "url": "https://www.tshs.ntpc.gov.tw/xmdoc/cont?xsmsid=0G245643771715011728",
+      "use": "facts"
+    },
+    {
+      "id": "tshs_fort_fee",
+      "name": "新北市立淡水古蹟博物館 — 票價與免票對象 (중국어)",
+      "url": "https://www.tshs.ntpc.gov.tw/xmdoc/cont?xsmsid=0G245643868344101231",
+      "use": "facts"
+    },
+    {
+      "id": "tshs_fort_access",
+      "name": "新北市立淡水古蹟博物館 — 交通指南 (중국어)",
+      "url": "https://www.tshs.ntpc.gov.tw/xmdoc/cont?xsmsid=0G245644014894433790",
+      "use": "facts"
+    },
+    {
+      "id": "tshs_fort_drone",
+      "name": "新北市立淡水古蹟博物館 — 常見問題: 空拍機 (중국어)",
+      "url": "https://www.tshs.ntpc.gov.tw/xmdoc/cont?xsmsid=0G245654577722450956&sid=0M291593904553517166",
+      "use": "facts"
+    },
+    {
+      "id": "tshs_fort_wheelchair",
+      "name": "新北市立淡水古蹟博物館 — 常見問題: 輪椅租借 (중국어)",
+      "url": "https://www.tshs.ntpc.gov.tw/xmdoc/cont?xsmsid=0G245654577722450956&sid=0G256556615491907814",
+      "use": "facts"
+    },
+    {
+      "id": "boch_fort_san_domingo",
+      "name": "文化部文化資產局 國家文化資產網 開放資料 — 淡水紅毛城(國定古蹟)",
+      "url": "https://nchdb.boch.gov.tw/assets/advanceSearch/monument/19831228000002",
+      "use": "heritage_registry",
+      "license": "TW-OGDL-1.0 (政府資料開放授權條款-第1版, 출처 표기)",
+      "attribution_required": true
+    },
+    {
+      "id": "boch_beitou_bathhouse",
+      "name": "文化部文化資產局 國家文化資產網 開放資料 — 北投公共浴場(直轄市定古蹟)",
+      "url": "https://nchdb.boch.gov.tw/assets/advanceSearch/monument/19970220000004",
+      "use": "heritage_registry",
+      "license": "TW-OGDL-1.0 (政府資料開放授權條款-第1版, 출처 표기)",
+      "attribution_required": true
+    },
+    {
+      "id": "dca_hotspring_venue",
+      "name": "臺北市政府文化局 — 臺北藝文空間: 北投溫泉博物館 (중국어)",
+      "url": "https://culture.gov.taipei/cp.aspx?n=680DE22A4F00B25F",
+      "use": "facts"
+    },
+    {
+      "id": "dca_hotspring_faq",
+      "name": "臺北市政府文化局 — 常見問答: 如何去「北投溫泉博物館」及其開放時間 (중국어)",
+      "url": "https://culture.gov.taipei/News_Content.aspx?n=0EF5CBADD488A29A&sms=87415A8B9CE81B16&s=5990AA2BA88BBF44",
+      "use": "facts"
+    },
+    {
+      "id": "hotspringmuseum_home",
+      "name": "北投溫泉博物館 — 首頁 館所介紹 (중국어)",
+      "url": "https://hotspringmuseum.taipei/index.aspx",
+      "use": "facts"
+    },
+    {
+      "id": "twd_thermal_faq",
+      "name": "臺北自來水事業處 — 常見問答: 地熱谷的地址及相關訊息 (중국어)",
+      "url": "https://www.water.gov.taipei/News_Content.aspx?n=30E4EDA27F6D9953&sms=87415A8B9CE81B16&s=CA22DFCC722E6905",
+      "use": "facts"
+    },
+    {
+      "id": "btdo_thermal",
+      "name": "臺北市北投區公所 — 自然生態特色: 地熱谷 (중국어)",
+      "url": "https://btdo.gov.taipei/News_Content.aspx?n=B154724D802DC488&sms=759A651A8E9BFAC0&s=83422AB5F005D50D",
+      "use": "facts"
+    },
+    {
+      "id": "taipei_thermal_2022",
+      "name": "臺北市政府 市府新聞稿(臺北自來水事業處 발표) — 地熱谷公園改造 全區免費開放 (중국어, 2022-07-19)",
+      "url": "https://www.gov.taipei/News_Content.aspx?n=F0DDAF49B89E9413&sms=72544237BBE4C5F6&s=00C3BFBA19F5AEAD",
+      "use": "facts"
+    },
+    {
+      "id": "hotspringmuseum_thermal",
+      "name": "北投溫泉博物館 — 首頁 溫泉小鎮地圖: 地熱谷 (중국어)",
+      "url": "https://hotspringmuseum.taipei/index.aspx",
+      "use": "facts"
+    },
+    {
+      "id": "nsa_yehliu",
+      "name": "交通部觀光署 北海岸及觀音山國家風景區管理處 — 野柳地質公園 (중문)",
+      "url": "https://www.northguan-nsa.gov.tw/user/Article.aspx?Lang=1&SNo=04002756",
+      "use": "facts"
+    },
+    {
+      "id": "nt_shifen",
+      "name": "新北市政府觀光旅遊局 新北市觀光旅遊網 — Shifen Old Street (English)",
+      "url": "https://newtaipei.travel/en/attractions/detail/111989",
+      "use": "facts"
+    },
+    {
+      "id": "nt_shifen_station",
+      "name": "新北市政府觀光旅遊局 新北市觀光旅遊網 — Shifen Station (English)",
+      "url": "https://newtaipei.travel/en/attractions/detail/111590",
+      "use": "facts"
+    },
+    {
+      "id": "tt_795",
+      "name": "交通部觀光署 台灣好行 官方網站 — 795 木柵平溪線(往十分) (중문)",
+      "url": "https://www.taiwantrip.com.tw/Frontend/Route/Select_p?RouteID=R0020",
+      "use": "facts"
+    },
+    {
+      "id": "gep_ticket",
+      "name": "新北市立黃金博物館(新北市政府文化局) — 票價與開放時間 (중문)",
+      "url": "https://www.gep.ntpc.gov.tw/xmdoc/cont?xsmsid=0G246368552167800609",
+      "use": "facts"
+    },
+    {
+      "id": "gep_traffic",
+      "name": "新北市立黃金博物館(新北市政府文化局) — 交通資訊 (중문)",
+      "url": "https://www.gep.ntpc.gov.tw/xmdoc/cont?xsmsid=0G246368749796990112",
+      "use": "facts"
+    },
+    {
+      "id": "gep_history",
+      "name": "新北市立黃金博物館(新北市政府文化局) — 歷史沿革 (중문)",
+      "url": "https://www.gep.ntpc.gov.tw/xmdoc/cont?xsmsid=0Q018377887368898201",
+      "use": "facts"
+    },
+    {
+      "id": "gep_vision",
+      "name": "新北市立黃金博物館(新北市政府文化局) — 本館願景 (중문)",
+      "url": "https://www.gep.ntpc.gov.tw/xmdoc/cont?xsmsid=0G246367171270649160",
+      "use": "facts"
+    },
+    {
+      "id": "gep_wukeng",
+      "name": "新北市立黃金博物館(新北市政府文化局) — 本山五坑 (중문)",
+      "url": "https://www.gep.ntpc.gov.tw/xmdoc/cont?xsmsid=0G246370798582080200",
+      "use": "facts"
+    },
+    {
+      "id": "boch_gold_taizi",
+      "name": "文化部文化資產局 國家文化資產網 開放資料 — 金瓜石太子賓館(直轄市定古蹟)",
+      "url": "https://nchdb.boch.gov.tw/assets/advanceSearch/monument/20070314000001",
+      "use": "heritage_registry",
+      "license": "TW-OGDL-1.0 (政府資料開放授權條款-第1版, 출처 표기)",
+      "attribution_required": true
+    },
+    {
+      "id": "nt_jiufen",
+      "name": "新北市政府觀光旅遊局 新北市觀光旅遊網 — Jiufen Old Street (English)",
+      "url": "https://newtaipei.travel/en/attractions/detail/112939",
+      "use": "facts"
+    },
+    {
+      "id": "tt_856",
+      "name": "交通部觀光署 台灣好行 官方網站 — 856 黃金福隆線 (중문)",
+      "url": "https://www.taiwantrip.com.tw/Frontend/Route/Select_p?RouteID=R0014",
+      "use": "facts"
+    },
+    {
+      "id": "boch_chihkan",
+      "name": "文化部文化資產局 國家文化資產網 開放資料 — 赤嵌樓(國定古蹟)",
+      "url": "https://nchdb.boch.gov.tw/assets/advanceSearch/monument/19831228000008",
+      "use": "heritage_registry",
+      "license": "TW-OGDL-1.0 (政府資料開放授權條款-第1版, 출처 표기)",
+      "attribution_required": true
+    },
+    {
+      "id": "boch_anping",
+      "name": "文化部文化資產局 國家文化資產網 開放資料 — 熱蘭遮堡遺構(國定古蹟)",
+      "url": "https://nchdb.boch.gov.tw/assets/advanceSearch/monument/20230901000001",
+      "use": "heritage_registry",
+      "license": "TW-OGDL-1.0 (政府資料開放授權條款-第1版, 출처 표기)",
+      "attribution_required": true
+    },
+    {
+      "id": "boch_tainan_confucius",
+      "name": "文化部文化資產局 國家文化資產網 開放資料 — 臺南孔子廟(國定古蹟)",
+      "url": "https://nchdb.boch.gov.tw/assets/advanceSearch/monument/19831228000007",
+      "use": "heritage_registry",
+      "license": "TW-OGDL-1.0 (政府資料開放授權條款-第1版, 출처 표기)",
+      "attribution_required": true
+    },
+    {
+      "id": "boch_eternal_golden_castle",
+      "name": "文化部文化資產局 國家文化資產網 開放資料 — 二鯤鯓礮臺(億載金城)(國定古蹟)",
+      "url": "https://nchdb.boch.gov.tw/assets/advanceSearch/monument/19831228000011",
+      "use": "heritage_registry",
+      "license": "TW-OGDL-1.0 (政府資料開放授權條款-第1版, 출처 표기)",
+      "attribution_required": true
+    },
+    {
+      "id": "tnhistoric_chihkan",
+      "name": "臺南市政府文化局古蹟營運科 — 赤嵌樓 (중문)",
+      "url": "https://historic.tainan.gov.tw/index.php?option=module&lang=cht&task=pageinfo&id=46&index=3",
+      "use": "facts"
+    },
+    {
+      "id": "tnhistoric_anping",
+      "name": "臺南市政府文化局古蹟營運科 — 安平古堡 (중문)",
+      "url": "https://historic.tainan.gov.tw/index.php?option=module&lang=cht&task=pageinfo&id=58&index=2",
+      "use": "facts"
+    },
+    {
+      "id": "tnhistoric_eternal_golden_castle",
+      "name": "臺南市政府文化局古蹟營運科 — 億載金城 (중문)",
+      "url": "https://historic.tainan.gov.tw/index.php?option=module&lang=cht&task=pageinfo&id=59&index=5",
+      "use": "facts"
+    },
+    {
+      "id": "tnhistoric_visit_info",
+      "name": "臺南市政府文化局古蹟營運科 — 古蹟參觀資訊(公有古蹟參觀收費標準·參觀時間一覽表) (중문)",
+      "url": "https://historic.tainan.gov.tw/index.php?option=module&lang=cht&task=pageinfo&id=64&index=5",
+      "use": "facts"
+    },
+    {
+      "id": "twtainan_confucius",
+      "name": "臺南市政府觀光旅遊局 台南旅遊網 — Confucius Temple Cultural Park (영문)",
+      "url": "https://www.twtainan.net/en/attractions/detail/4407",
+      "use": "facts"
+    },
+    {
+      "id": "twtainan_garden",
+      "name": "臺南市政府觀光旅遊局 台南旅遊網 — Garden Night Market(花園夜市) (영문)",
+      "url": "https://www.twtainan.net/en/attractions/detail/5573",
+      "use": "facts"
+    },
+    {
+      "id": "tnbus_chihkan_stop",
+      "name": "臺南市政府交通局 大台南公車 — 站位路線查詢 赤崁樓 (중문)",
+      "url": "https://2384.tainan.gov.tw/NewTNBusAPI_V2/API/CrossRoutesV2.ashx?Lang=cht&stopnamecht=%E8%B5%A4%E5%B4%81%E6%A8%93",
+      "use": "facts"
+    },
+    {
+      "id": "tnbus_anping_stop",
+      "name": "臺南市政府交通局 大台南公車 — 站位路線查詢 安平古堡(安北路) (중문)",
+      "url": "https://2384.tainan.gov.tw/NewTNBusAPI_V2/API/CrossRoutesV2.ashx?Lang=cht&stopnamecht=%E5%AE%89%E5%B9%B3%E5%8F%A4%E5%A0%A1%28%E5%AE%89%E5%8C%97%E8%B7%AF%29",
+      "use": "facts"
+    },
+    {
+      "id": "tnbus_confucius_stop",
+      "name": "臺南市政府交通局 大台南公車 — 站位路線查詢 孔廟(臺灣文學館、臺南市美術館1館) (중문)",
+      "url": "https://2384.tainan.gov.tw/NewTNBusAPI_V2/API/CrossRoutesV2.ashx?Lang=cht&stopnamecht=%E5%AD%94%E5%BB%9F%28%E8%87%BA%E7%81%A3%E6%96%87%E5%AD%B8%E9%A4%A8%E3%80%81%E8%87%BA%E5%8D%97%E5%B8%82%E7%BE%8E%E8%A1%93%E9%A4%A81%E9%A4%A8%29",
+      "use": "facts"
+    },
+    {
+      "id": "tnbus_garden_stop",
+      "name": "臺南市政府交通局 大台南公車 — 站位路線查詢 花園夜市(海安路) (중문)",
+      "url": "https://2384.tainan.gov.tw/NewTNBusAPI_V2/API/CrossRoutesV2.ashx?stopnamecht=%E8%8A%B1%E5%9C%92%E5%A4%9C%E5%B8%82(%E6%B5%B7%E5%AE%89%E8%B7%AF)&Lang=cht",
+      "use": "facts"
+    },
+    {
+      "id": "tnbus_eternal_golden_castle_stop",
+      "name": "臺南市政府交通局 大台南公車 — 站位路線查詢 億載金城 (중문)",
+      "url": "https://2384.tainan.gov.tw/NewTNBusAPI_V2/API/CrossRoutesV2.ashx?Lang=cht&stopnamecht=%E5%84%84%E8%BC%89%E9%87%91%E5%9F%8E",
+      "use": "facts"
+    },
+    {
+      "id": "pier2_about",
+      "name": "高雄市政府文化局 駁二藝術特區 — 認識駁二 (중국어)",
+      "url": "https://pier2.org/about/",
+      "use": "facts"
+    },
+    {
+      "id": "pier2_transport",
+      "name": "高雄市政府文化局 駁二藝術特區 — 交通資訊 (중국어)",
+      "url": "https://pier2.org/transport/",
+      "use": "facts"
+    },
+    {
+      "id": "pier2_ticket",
+      "name": "高雄市政府文化局 駁二藝術特區 — 售票資訊 (중국어)",
+      "url": "https://pier2.org/ticket/",
+      "use": "facts"
+    },
+    {
+      "id": "pier2_accessibility",
+      "name": "高雄市政府文化局 駁二藝術特區 — 無障礙專區 (중국어)",
+      "url": "https://pier2.org/accessibility/",
+      "use": "facts"
+    },
+    {
+      "id": "tta_lotus_pond",
+      "name": "交通部觀光署 臺灣觀光資訊網 — 蓮池潭 (중국어)",
+      "url": "https://www.taiwan.net.tw/m1.aspx?sNo=0001016&id=2149",
+      "use": "facts"
+    },
+    {
+      "id": "takao_lotus_pond_2009",
+      "name": "高雄市政府新聞局 高雄畫刊 — 蓮池潭風光再現 聚落巷弄探古風 (중국어)",
+      "url": "https://takao.kcg.gov.tw/article/1709",
+      "use": "facts"
+    },
+    {
+      "id": "takao_lotus_pond_2025",
+      "name": "高雄市政府新聞局 高雄畫刊 — 尋訪春天 蓮池潭半日輕旅行 (중국어)",
+      "url": "https://takao.kcg.gov.tw/article/3523",
+      "use": "facts"
+    },
+    {
+      "id": "tta_liuhe",
+      "name": "交通部觀光署 臺灣觀光資訊網 — 六合觀光夜市 (중국어)",
+      "url": "https://www.taiwan.net.tw/m1.aspx?sNo=0001016&id=2245",
+      "use": "facts"
+    },
+    {
+      "id": "hsingsin_liuhe",
+      "name": "高雄市新興區公所 — 六合夜市 (중국어)",
+      "url": "https://hsingsin.kcg.gov.tw/cp.aspx?n=F3E17B7B60CAF2C1",
+      "use": "facts"
+    },
+    {
+      "id": "boch_cihou_fort",
+      "name": "文化部文化資產局 國家文化資產網 開放資料 — 旗後礮臺(國定古蹟)",
+      "url": "https://nchdb.boch.gov.tw/assets/advanceSearch/monument/20190223000002",
+      "use": "heritage_registry",
+      "license": "TW-OGDL-1.0 (政府資料開放授權條款-第1版, 출처 표기)",
+      "attribution_required": true
+    },
+    {
+      "id": "kcs_cihou_faq",
+      "name": "高雄市輪船股份有限公司 — 常見問題 (중국어)",
+      "url": "https://kcs.kcg.gov.tw/Content_List.aspx?n=7AC24C6E4E87CF92",
+      "use": "facts"
+    },
+    {
+      "id": "kcs_cihou_gushan",
+      "name": "高雄市輪船股份有限公司 — 鼓山輪渡站【西子灣】 (중국어)",
+      "url": "https://kcs.kcg.gov.tw/Content_List.aspx?n=539EE52615393A8C",
+      "use": "facts"
+    },
+    {
+      "id": "tta_cijin",
+      "name": "交通部觀光署 臺灣觀光資訊網 — 旗津 (중국어)",
+      "url": "https://www.taiwan.net.tw/m1.aspx?sNo=0001016&id=A12-00075",
+      "use": "facts"
+    },
+    {
+      "id": "fgsbm_visit_info",
+      "name": "佛光山佛陀紀念館 — 參觀資訊 (중국어)",
+      "url": "https://www.fgsbmc.org.tw/tw/visit-info.aspx",
+      "use": "facts"
+    },
+    {
+      "id": "fgsbm_origin",
+      "name": "佛光山佛陀紀念館 — 緣起 (중국어)",
+      "url": "https://www.fgsbmc.org.tw/tw/about-origin.aspx",
+      "use": "facts"
+    },
+    {
+      "id": "fgsbm_public_service",
+      "name": "佛光山佛陀紀念館 — 公共服務·交通 (중국어)",
+      "url": "https://www.fgsbmc.org.tw/tw/public-service.aspx",
+      "use": "facts"
+    },
+    {
+      "id": "fgsbm_visit_notice",
+      "name": "佛光山佛陀紀念館 — 參訪須知 (중국어)",
+      "url": "https://www.fgsbmc.org.tw/tw/visit-notice.aspx",
+      "use": "facts"
+    }
+  ],
+  "sample": true,
+  "excluded_areas": []
+}
