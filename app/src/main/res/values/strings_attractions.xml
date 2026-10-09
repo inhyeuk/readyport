@@ -147,7 +147,7 @@
     <string name="attractions_hours_official">여는 시간·입장료는 공식 사이트에서 확인하세요</string>
     <string name="attractions_official_site">공식 사이트 열기</string>
     <string name="attractions_wikimedia_photos">Wikimedia에서 사진 보기</string>
-    <string name="attractions_open_map">지도에서 보기</string>
+    <string name="attractions_open_map">구글 지도에서 열기</string>
     <string name="attractions_cn_map_note">중국에서는 지도 위치가 조금 어긋날 수 있어요. 기사님께는 현지 이름을 보여 주세요.</string>
     <string name="attractions_offline_map">인터넷이 없으면 저장해 둔 지도 앱에서 이름으로 찾아 보세요.</string>
     <string name="attractions_nearest">가까운 곳: %1$s</string>
@@ -174,4 +174,34 @@
     <string name="settings_credit_bunka_osakajo">문화청 국가지정문화재 데이터베이스 — 오사카성 터(특별사적)</string>
     <string name="settings_credit_bunka_narapark">문화청 국가지정문화재 데이터베이스 — 나라 공원(명승)</string>
     <string name="settings_credit_unesco_870">UNESCO 세계유산센터 — 고대 나라의 역사기념물</string>
+
+    <!-- 관광지 지도 (Google 지도 SDK, 사장님 결정 2026-10-09). 키가 없거나 중국이면 지도 없이 '구글 지도에서 열기'만 -->
+    <string name="attractions_map_title">위치</string>
+    <string name="attractions_map_cd">%1$s 위치 지도</string>
+    <string name="attractions_map_expand">지도 크게 보기</string>
+    <string name="attractions_map_expand_cd">%1$s 지도 크게 보기</string>
+    <string name="attractions_map_offline">인터넷이 연결되면 지도가 보여요.</string>
+    <string name="attractions_map_directions">구글 지도 앱에서 길찾기</string>
+    <string name="attractions_map_close">지도 닫기</string>
+    <string name="attractions_map_show">지도로 보기</string>
+    <string name="attractions_map_list_title">%1$s 관광지 지도</string>
+    <string name="attractions_map_saved_title">찜한 곳 지도</string>
+    <string name="attractions_map_saved_hint">숫자는 찜 목록 순서예요.</string>
+    <string name="attractions_map_tap_hint">지도의 표시를 누르면 어떤 곳인지 보여요.</string>
+    <string name="attractions_map_open_detail">자세히 보기</string>
+    <string name="attractions_map_pin_numbered_cd">%1$d번 %2$s</string>
+    <string name="attractions_map_selected_number">%1$d번</string>
+
+    <!-- 위키백과 요약 팝업 (사장님 결정 2026-10-09: 요약 + 전체 보기). 글은 위키백과에서 그때 받아 보여 주기만 한다 -->
+    <string name="attractions_wiki_open">위키백과에서 보기</string>
+    <string name="attractions_wiki_header">위키백과 내용이에요 · 레디포트가 확인한 정보가 아니에요</string>
+    <string name="attractions_wiki_english">영어 위키백과</string>
+    <string name="attractions_wiki_loading">위키백과에서 불러오고 있어요</string>
+    <string name="attractions_wiki_offline">인터넷이 연결되면 볼 수 있어요.</string>
+    <string name="attractions_wiki_not_found">위키백과에서 이곳의 요약을 찾지 못했어요.</string>
+    <string name="attractions_wiki_failed">지금은 불러오지 못했어요. 잠시 뒤에 다시 해 보세요.</string>
+    <string name="attractions_wiki_retry">다시 해 보기</string>
+    <string name="attractions_wiki_full">위키백과에서 전체 보기</string>
+    <string name="attractions_wiki_attribution">출처: 위키백과 «%1$s» · CC BY-SA 4.0</string>
+    <string name="attractions_wiki_close">닫기</string>
 </resources>

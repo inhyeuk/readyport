@@ -25,6 +25,8 @@
   python tools/attractions/build_attractions.py verify-quotes JP               # 인용 대조만
   python tools/attractions/build_attractions.py keygen --kid rp-att-2026-1     # 관광지 전용 키 만들기(공개키만 출력)
   python tools/attractions/build_attractions.py protect-key --key …            # 비밀키 PEM 에 암호 걸기
+  python tools/attractions/build_attractions.py wiki-fill JP [--file app/src/debug/assets/attractions_samples/JP.json] [--dry-run]
+                                                                               # Wikidata sitelinks → wiki {ko, en} 제목(네트워크)
 """
 from __future__ import annotations
 

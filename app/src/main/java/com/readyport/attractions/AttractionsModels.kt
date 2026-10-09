@@ -149,6 +149,10 @@ data class DesignationDto(val kind: String = "", @SerialName("name_ko") val name
 @Serializable
 data class RankDto(val order: Int = Int.MAX_VALUE, val designations: List<DesignationDto> = emptyList())
 
+/** 위키백과 문서 제목 — 한국어·영어판. 글은 싣지 않는다(⟦결정 D12⟧) */
+@Serializable
+data class WikiDto(val ko: String? = null, val en: String? = null)
+
 /** 사진(⟦결정 D3⟧ B·C 대비 — 첫 판은 없음). 있으면 상세 머리에 그리고 TASL을 사진 바로 아래에 둔다 */
 @Serializable
 data class PhotoDto(
@@ -176,6 +180,8 @@ data class AttractionDto(
     @SerialName("address_local") val addressLocal: SourcedTextDto? = null,
     val access: AccessDto? = null,
     @SerialName("official_url") val officialUrl: String? = null,
+    /** 위키백과 문서 제목(선택, wiki-fill이 Wikidata sitelinks로 채움). 상세 '위키백과에서 보기'에만 쓴다 */
+    val wiki: WikiDto? = null,
     @SerialName("summary_ko") val summaryKo: String = "",
     @SerialName("body_ko") val bodyKo: List<String> = emptyList(),
     val claims: List<ClaimDto> = emptyList(),

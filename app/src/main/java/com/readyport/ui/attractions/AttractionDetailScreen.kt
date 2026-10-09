@@ -139,7 +139,7 @@ fun mapsUrl(a: Attraction): String? {
 
 /**
  * 관광지 상세 (SPEC_v5 §6.4, D3-A 사진 없음 · D4-A 숫자 없음). 순서 고정:
- * 제목 → (경보 변경 안내) → 2단계 띠 → 운영 상태 → 위험 → 그림(사진 칸) → 칩 → 하루 다녀오는 곳 → 어떤 곳이에요 → 가기 전에 알아 둘 것 →
+ * 제목 → (경보 변경 안내) → 2단계 띠 → 운영 상태 → 위험 → 그림(사진 칸) → 칩 → 위치 지도 → 하루 다녀오는 곳 → 어떤 곳이에요 → 위키백과에서 보기 → 가기 전에 알아 둘 것 →
  * 가는 법 → 찜 버튼(+처음 안내) → 같은 지역의 다른 곳 → 공식 사이트·사진 링크 → 최종 확인·출처.
  */
 @Composable
@@ -160,6 +160,7 @@ fun AttractionDetailContent(ui: AttractionDetailUi, actions: AttractionDetailAct
     val sourceOf = { id: String, date: String -> SourceRef(resolveSourceName(id, ui.sourceNames, fallback), displayDate(date)) }
     val speech = stringResource(R.string.attractions_detail_speech, a.title, (listOf(a.summaryKo) + a.bodyKo).joinToString(" "))
     val levelHidden = ui.advisory.changed
+    val mapMode = rememberAttractionMapMode(a)
     AppScreen(
         title = a.title,
         subtitle = a.nameEn.takeIf { it.isNotBlank() && it != a.nameKo },
@@ -238,6 +239,12 @@ fun AttractionDetailContent(ui: AttractionDetailUi, actions: AttractionDetailAct
             }
         }
         if (single) item(key = "save-top") { SaveButton(ui.saved, actions.setSaved) }
+        // 위치 지도 (Google 지도 SDK) — 키 없음·중국·좌표 없음이면 칸 자체가 없고 가는 법의 '구글 지도에서 열기'만 남는다
+        if (mapMode != MapMode.Hidden) {
+            item(key = "map") {
+                AttractionMapSection(a, region?.nameKo.orEmpty(), stringResource(a.category.labelRes()), actions.openLink)
+            }
+        }
         if (region != null && region.kind == RegionKind.Daytrip) {
             item(key = "daytrip") {
                 IconBullet(
@@ -259,6 +266,10 @@ fun AttractionDetailContent(ui: AttractionDetailUi, actions: AttractionDetailAct
                     a.bodyKo.forEach { DotBullet(it) }
                 }
             }
+        }
+        // 위키백과 요약 팝업 (제목이 있을 때만, 누를 때만 받아 온다)
+        a.wiki?.let { wiki ->
+            item(key = "wiki") { AttractionWikiEntry(wiki.preferred, actions.openLink) }
         }
         item(key = "know") { KnowCard(a, sourceOf, actions.openLink) }
         item(key = "go") { HowToGoCard(a, sourceOf, actions.openLink) }
