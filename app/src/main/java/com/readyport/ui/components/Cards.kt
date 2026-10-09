@@ -53,9 +53,9 @@ fun Modifier.cardShadow(shape: Shape, border: Boolean = true): Modifier = shadow
     clip = false,
     ambientColor = Tokens.ShadowAmbient,
     spotColor = Tokens.ShadowSpot,
-).then(if (border) Modifier.border(CardBorderWidth, Tokens.LineSoft, shape) else Modifier)
+).then(if (border) Modifier.border(CardBorderWidth, Tokens.CardEdge, shape) else Modifier)
 
-/** 흰 카드 테두리 두께 (운영자 결정 6) */
+/** 흰 카드 테두리 두께 (운영자 결정 6) — 색은 Tokens.CardEdge(2026-10-09 진하게: 항목 구분) */
 val CardBorderWidth = 1.dp
 
 /** 상태 카드·배너 왼쪽(RTL이면 오른쪽) 색 막대. 바깥 모양(clip)이 모서리를 둥글게 자른다 */

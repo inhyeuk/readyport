@@ -82,6 +82,8 @@ class FirestorePlanBackend(private val db: FirebaseFirestore = FirebaseFirestore
     }
 
     override suspend fun delete(id: String) = guard {
+        // 결과(있으면)부터 지운다 — 결과는 내 것만 지울 수 있다(규칙). 없으면 그냥 지나간다
+        db.collection(RESULTS).document(id).delete().await()
         requests.document(id).delete().await()
         Unit
     }

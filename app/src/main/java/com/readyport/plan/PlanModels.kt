@@ -69,8 +69,8 @@ enum class PlanStatus(val id: String) {
     /** 취소할 수 있는지 (규칙: queued·processing → cancelled) */
     val cancellable: Boolean get() = this == Queued || this == Processing
 
-    /** 지울 수 있는지 (규칙: 취소한 내 요청만 — 사장님 결정: 취소한 요청은 이용자가 지울 때까지 남는다) */
-    val deletable: Boolean get() = this == Cancelled
+    /** 지울 수 있는지 (규칙: 끝난 내 요청 — 취소·완료·실패. 사장님 결정 2026-10-09) */
+    val deletable: Boolean get() = this == Cancelled || this == Done || this == Failed
 
     /** 끝났는지 (끝난 날부터 30일 뒤 ARIA 정리 작업이 지운다 — 취소는 빼고) */
     val autoDeleted: Boolean get() = this == Done || this == Failed

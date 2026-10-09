@@ -216,9 +216,12 @@ private fun PlanRequestCard(r: PlanRequest, actions: PlanListActions) {
                 PlanStatus.Cancelled -> IconBullet(stringResource(R.string.plan_row_cancelled), Icons.Outlined.Block)
                 else -> Unit
             }
+            if (r.status == PlanStatus.Done) {
+                PrimaryButton(stringResource(R.string.plan_open), onClick = { actions.open(r) }, icon = Icons.AutoMirrored.Outlined.EventNote)
+            }
             when {
-                r.status == PlanStatus.Done -> PrimaryButton(stringResource(R.string.plan_open), onClick = { actions.open(r) }, icon = Icons.AutoMirrored.Outlined.EventNote)
                 r.status.cancellable -> SecondaryButton(stringResource(R.string.plan_cancel), onClick = { actions.askCancel(r) }, icon = Icons.Outlined.Block, tone = BadgeTone.Neutral)
+                // 끝난 요청(취소·도착·실패)은 언제든 지울 수 있다 — 2026-10-09 사장님 결정
                 r.status.deletable -> DangerButton(stringResource(R.string.plan_delete), onClick = { actions.askDelete(r) }, placement = ButtonPlacement.ItemAction)
                 else -> Unit
             }

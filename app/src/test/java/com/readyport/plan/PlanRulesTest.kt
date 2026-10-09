@@ -175,7 +175,7 @@ class PlanRulesTest {
         assertEquals(PlanStatus.Unknown, PlanStatus.of(null))
         assertEquals(PlanStatus.Unknown, PlanStatus.of(""))
         assertEquals(setOf(PlanStatus.Queued, PlanStatus.Processing), PlanStatus.entries.filter { it.cancellable }.toSet())
-        assertEquals(setOf(PlanStatus.Cancelled), PlanStatus.entries.filter { it.deletable }.toSet())
+        assertEquals(setOf(PlanStatus.Cancelled, PlanStatus.Done, PlanStatus.Failed), PlanStatus.entries.filter { it.deletable }.toSet())
         // 취소한 요청은 자동으로 지우지 않는다(사장님 결정) — 끝난 것만
         assertEquals(setOf(PlanStatus.Done, PlanStatus.Failed), PlanStatus.entries.filter { it.autoDeleted }.toSet())
         assertEquals(PlanFailure.QuotaExceeded, PlanFailure.of("quota_exceeded"))

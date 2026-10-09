@@ -80,7 +80,7 @@
     <string name="plan_consent_title">민감정보 수집·이용 동의 (선택)</string>
     <string name="plan_consent_items">수집 항목: 이동할 때 도움이 필요한 점 가운데 고른 것(오래 걷기 어려움·휠체어·계단 어려움·아기와 함께). 진단명이나 건강 상태는 받지 않아요.</string>
     <string name="plan_consent_purpose">이용 목적: 걷는 거리·계단을 생각한 여행 계획 초안 만들기</string>
-    <string name="plan_consent_retention">보유 기간: 계획이 도착하거나 실패한 날부터 30일 뒤 자동으로 지워요. 요청을 취소하면 내가 \'삭제\'를 누를 때까지 남고, 언제든 지울 수 있어요.</string>
+    <string name="plan_consent_retention">보유 기간: 계획이 도착하거나 실패한 날부터 30일 뒤 자동으로 지워요. 요청을 취소하면 내가 \'삭제\'를 누를 때까지 남아요. 끝난 요청은 언제든 직접 지울 수 있어요.</string>
     <string name="plan_consent_transfer">처리: 운영자의 시스템이 Anthropic(미국)의 AI Claude로 계획을 만들어요. 이때 이 내용도 함께 미국으로 보내져요(개인정보 처리방침 참고).</string>
     <string name="plan_consent_refuse">동의하지 않을 권리가 있어요. 동의하지 않아도 이동 조건 없이 계획을 요청할 수 있고, 다른 기능도 그대로 쓸 수 있어요.</string>
     <string name="plan_consent_check">위 내용을 읽었고, 민감정보 수집·이용에 따로 동의해요</string>
@@ -107,7 +107,7 @@
     <string name="plan_ai_notice">계획은 AI(Claude)가 만들어요. 레디포트가 확인한 정보가 아니고, 출발 전 공식 안내로 다시 확인하세요.</string>
     <string name="plan_processing_notice">요청은 운영자의 시스템이 1시간 안팎으로 처리해요. 도착하면 알림으로 알려 드려요.</string>
     <string name="plan_send_items">보내는 것: 나라·날짜(또는 일수)·목적·메모·인원·예산, 동의한 경우 이동 조건. 여권·이름은 보내지 않아요.</string>
-    <string name="plan_retention_note">도착하거나 실패한 요청은 끝난 날부터 30일 뒤 자동으로 지워져요.</string>
+    <string name="plan_retention_note">도착하거나 실패한 요청은 끝난 날부터 30일 뒤 자동으로 지워지고, 그 전에 직접 지울 수도 있어요.</string>
     <string name="plan_privacy_link">개인정보 처리방침 보기</string>
     <string name="plan_submit">계획 요청 보내기</string>
     <string name="plan_confirm_title">이대로 요청할까요?</string>
@@ -154,7 +154,7 @@
     <string name="plan_fail_invalid">요청 내용을 읽지 못했어요. 다시 요청해 주세요.</string>
     <string name="plan_fail_country">이 나라는 아직 계획을 만들 수 없어요.</string>
     <string name="plan_fail_engine">계획을 만들다 문제가 생겼어요. 다시 요청해 주세요.</string>
-    <string name="plan_list_retention">도착하거나 실패한 요청은 끝난 날부터 30일 뒤 자동으로 지워져요. 취소한 요청은 직접 지울 때까지 남아요.</string>
+    <string name="plan_list_retention">끝난 요청은 언제든 \'삭제\'로 지울 수 있어요. 도착하거나 실패한 요청은 30일 뒤 자동으로 지워지고, 취소한 요청은 직접 지울 때까지 남아요.</string>
     <string name="plan_list_quota_note">취소하거나 지워도 7일 2번 횟수는 그대로예요.</string>
 
     <!-- 계획 보기 -->

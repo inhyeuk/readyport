@@ -146,11 +146,11 @@ class PlanRepositoryTest {
         assertEquals(1, repo.remaining().count)
     }
 
-    @Test fun doneRequestsCannotBeCancelledOrDeleted() = runBlocking {
+    @Test fun doneRequestsCanBeDeletedButNotCancelled() = runBlocking {
         val id = repo.submit(draft, false)
         backend.statuses[id] = PlanStatus.Done
         val done = repo.myRequests().single()
-        assertTrue(!done.status.cancellable && !done.status.deletable)
+        assertTrue(!done.status.cancellable && done.status.deletable)
     }
 
     @Test fun arrivalsReportNewlyDoneOnlyOnce() = runBlocking {

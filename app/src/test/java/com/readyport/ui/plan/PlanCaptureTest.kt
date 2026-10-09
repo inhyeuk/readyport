@@ -43,6 +43,7 @@ import com.readyport.ui.board.BoardNav
 import com.readyport.ui.theme.ReadyPortTheme
 import com.readyport.ui.theme.Tokens
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -213,12 +214,15 @@ class PlanCaptureTest {
             .forEach { rule.onNodeWithText(s(it)).assertExists() }
         rule.onAllNodesWithText(s(R.string.plan_open)).assertCountEquals(1)
         rule.onAllNodesWithText(s(R.string.plan_cancel)).assertCountEquals(2)
-        rule.onAllNodesWithText(s(R.string.plan_delete)).assertCountEquals(1)
+        // 끝난 요청(도착·실패·취소)은 모두 지울 수 있다 — 2026-10-09 사장님 결정
+        rule.onAllNodesWithText(s(R.string.plan_delete)).assertCountEquals(3)
         rule.onNodeWithText(s(R.string.plan_fail_engine)).assertExists()
         rule.onNodeWithText(s(R.string.plan_list_retention)).assertExists()
         capture("plan_07_list_all")
-        rule.onNodeWithText(s(R.string.plan_delete)).performClick()
-        assertEquals(listOf("del:r5"), asked)
+        val deletes = rule.onAllNodesWithText(s(R.string.plan_delete))
+        for (i in 0 until 3) deletes[i].performClick()
+        assertTrue("del:r5" in asked)
+        assertEquals(3, asked.count { it.startsWith("del:") })
     }
 
     @Test fun listCancelConfirmation() {
