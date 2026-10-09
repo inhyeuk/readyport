@@ -1,6 +1,6 @@
 # 베트남 남부(호찌민·푸꾸옥) 관광지 8곳 보고 — 2026-10-09
 
-- 데이터: `packs/drafts/VN/parts/south.json` (지역 2개 `vn_hcmc`·`vn_phuquoc`(둘 다 wave 1), 관광지 8곳, 출처 25개)
+- 데이터: `packs/drafts/VN/parts/south.json` (지역 2개 `vn_hcmc`·`vn_phuquoc`(둘 다 wave 1), 관광지 8곳, 출처 24개)
 - 근거: 저장소 밖 `~/.readyport/evidence/VN/<id>/` — 페이지 글 스냅샷(`N.txt`, URL·수집일·수집 방법 머리말) + `extract.json`(JP 예시와 같은 형식, 인용 78개). 원문은 커밋하지 않았다.
 - 모든 사실 칸(claims·tips·tags·facts·access·address_local)은 시설 공식 사이트·지자체(성) 관광 포털 인용으로 뒷받침했고 확인일은 모두 2026-10-09. robots.txt를 확인했고, Google 지도·리뷰·여행사·블로그는 쓰지 않았다. 좌표는 모두 Wikidata(QID) P625.
 - D4-A: 여는 시간·요금 숫자 없음(인용 원문에만 있음). D12: 위키 문장을 옮기지 않고 공식 사실만 보고 새로 썼다(해요체). D13: 혼텀의 스노클링·패러세일링 등 업체 활동은 쓰지 않았다.
@@ -15,7 +15,7 @@
 - `verify-quotes VN`: **통과** (8곳 모두, 필드별 출처 일치)
 - copycheck: `~/.readyport/copycheck_cache/VN/<id>/`에 한·영 위키백과 본문(MediaWiki API)을 받아 두고(위키 문서가 없는 사오 해변·선월드 혼텀은 `none.txt`), `build_attractions.copycheck()`로 evidence 스냅샷까지 비교 → **8곳 모두 통과**. 기록 파일(`packs/curation/VN.copycheck.json`)은 쓰지 않았다.
 - 지역 lint: 8곳 모두 hub에서 40km 안(호찌민: 0.2~2.1km / 푸꾸옥: 13.6~17.6km). 지역 안 두 곳 거리도 60km 안. 곳당 크기 1,947~3,642B(4,608B 이하).
-- **settings_credit 문자열: 필요 없음.** 이번 출처 25개 가운데 `attribution_required: true`(문화재 DB·오픈데이터 라이선스)는 없다. strings_attractions.xml은 건드리지 않았다.
+- **settings_credit 문자열: 필요 없음.** 이번 출처 24개 가운데 `attribution_required: true`(문화재 DB·오픈데이터 라이선스)는 없다. strings_attractions.xml은 건드리지 않았다.
 
 ## 지역
 
