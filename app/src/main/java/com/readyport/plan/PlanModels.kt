@@ -95,6 +95,22 @@ enum class PlanFailure(val id: String) {
     }
 }
 
+/**
+ * AI 계획 신고 이유 (Play 'AI 생성 콘텐츠' 정책 — 앱 안에서 신고). 규칙 flagReason 과 같은 값·순서.
+ * 신고는 plan_flags/{요청 id} 에 계획 하나당 한 번, 운영자만 읽는다.
+ */
+enum class PlanFlagReason(val id: String) {
+    Inaccurate("inaccurate"),
+    Inappropriate("inappropriate"),
+    Unsafe("unsafe"),
+    Other("other"),
+    ;
+
+    companion object {
+        fun of(id: String?): PlanFlagReason? = entries.firstOrNull { it.id == id }
+    }
+}
+
 /** 여행 기간: 여행 날짜 그대로 또는 며칠인지만 (규칙 datesOk — 둘 중 하나만) */
 sealed interface PlanDates {
     data class Range(val start: String, val end: String) : PlanDates
@@ -156,4 +172,7 @@ sealed class PlanError(message: String) : Exception(message) {
 
     /** 양식이 아직 덜 됨(화면이 보내기 버튼을 막으므로 보통은 오지 않는다) */
     data object Invalid : PlanError("invalid")
+
+    /** 이 계획은 이미 신고함(서버에 신고 문서가 있다) — 화면은 '신고함'으로 본다 */
+    data object AlreadyFlagged : PlanError("already_flagged")
 }

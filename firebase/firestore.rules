@@ -541,6 +541,25 @@ service cloud.firestore {
       allow delete: if signedIn() && resource.data.uid == me();
     }
 
+    // ---------------- AI 계획 신고 plan_flags/{requestId} (Play 'AI 생성 콘텐츠' 정책: 앱 안에서 신고) ----------------
+    // 내 계획 결과(plan_results/{id}.uid == 나)에만, 계획 하나에 한 번(문서 id = 요청 id — 두 번째 쓰기는 update 라 거절).
+    // 칸: uid·reason(4가지)·note(선택, 1~200자)·at(서버 시각). 이용자는 고치거나 지울 수 없고 읽지도 못한다(운영자만).
+    // 지우기는 ARIA 정리 작업(서비스 계정, 규칙 밖)만: 요청·결과가 30일 정리로 지워질 때 함께, 이용자가 요청을 지우면 다음 정리 때.
+    function flagReason(v) { return v in ['inaccurate', 'inappropriate', 'unsafe', 'other']; }
+    function resultDoc(id) { return /databases/$(database)/documents/plan_results/$(id); }
+    match /plan_flags/{id} {
+      allow get, list: if isAdmin();
+      allow update, delete: if false;
+      allow create: if signedIn() && isId(id, 40)
+        && exists(resultDoc(id)) && get(resultDoc(id)).data.uid == me()
+        && request.resource.data.keys().hasOnly(['uid', 'reason', 'note', 'at'])
+        && request.resource.data.keys().hasAll(['uid', 'reason', 'at'])
+        && request.resource.data.uid == me()
+        && flagReason(request.resource.data.reason)
+        && (!('note' in request.resource.data) || text(request.resource.data.note, 1, 200))
+        && request.resource.data.at == request.time;
+    }
+
     // 그 밖의 모든 경로(ops/heartbeat 포함)는 앱에서 막는다
     match /{document=**} {
       allow read, write: if false;

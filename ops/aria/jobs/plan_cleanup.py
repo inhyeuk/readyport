@@ -1,11 +1,13 @@
 """여행 계획 요청·결과 정리 (하루 한 번, 사장님 결정 2026-10-09: 결과 전달 후 30일 자동 삭제).
 
 1. 끝난 요청(done·failed — finishedAt 이 있다)이 보관 기간(PLAN_RETENTION_DAYS, 기본 30일)을 넘으면
-   결과 plan_results/{id} 와 요청 plan_requests/{id} 를 지운다.
+   결과 plan_results/{id} 와 요청 plan_requests/{id}, 그 계획의 신고 plan_flags/{id}(있으면)를 함께 지운다.
    **취소한 요청(cancelled)은 지우지 않는다** — 이용자가 앱에서 '삭제'를 누를 때까지 취소 상태로 남긴다(2026-10-09 사장님 결정).
 2. 끝나지 않은 채(queued·processing) 보관 기간을 넘긴 요청도 지운다(처리되지 않은 민감정보를 오래 두지 않는다).
 3. processing 이 6시간 넘게 멈춘 요청은 failed(engine_timeout) 로 닫는다(이용자 화면이 '만드는 중'에 머물지 않게).
 4. 요청 없이 남은 결과(createdAt 이 보관 기간 넘음)와, 마지막 요청이 보관 기간보다 오래된 plan_quota/{uid} 도 지운다.
+5. 요청이 없어진 신고 plan_flags/{id} 를 지운다 — 이용자가 앱에서 요청을 지우면(규칙상 신고는 이용자가 못 지운다)
+   다음 정리 때 여기서 함께 지워진다(개인정보처리방침 3-3: 신고 기록은 요청과 함께 삭제).
 쿼리는 단일 필드 조건만 쓴다(복합 색인 없이). 지운 개수만 돌려준다 — 내용은 읽어도 남기지 않는다.
 """
 from __future__ import annotations
@@ -14,6 +16,7 @@ import datetime as _dt
 from typing import Optional
 
 from ..gcp import doc_id
+from .plan_flags import FLAGS
 from .plan_requests import REQUESTS, RESULTS
 
 QUOTA = "plan_quota"
@@ -69,10 +72,11 @@ def run(cfg, firestore, *, dry_run: bool = True, now: Optional[_dt.datetime] = N
     now = now or _dt.datetime.now(_dt.timezone.utc)
     cutoff = now - _dt.timedelta(days=int(cfg.plan_retention_days))
     counts = {"finished_deleted": 0, "stale_deleted": 0, "stuck_failed": 0, "orphan_results_deleted": 0,
-              "quota_deleted": 0}
+              "quota_deleted": 0, "flags_deleted": 0}
 
     def delete_pair(rid: str):
         if not dry_run:
+            firestore.delete_document(f"{FLAGS}/{rid}")      # 없으면 404 — 그냥 지나간다
             firestore.delete_document(f"{RESULTS}/{rid}")
             firestore.delete_document(f"{REQUESTS}/{rid}")
 
@@ -106,4 +110,28 @@ def run(cfg, firestore, *, dry_run: bool = True, now: Optional[_dt.datetime] = N
         if not dry_run:
             firestore.delete_document(r["_name"])
         counts["quota_deleted"] += 1
+    # 5. 요청이 없어진 신고 (이용자가 요청을 지운 경우 · 위에서 짝으로 지운 것은 이미 없다)
+    for r in _all_flags(firestore):
+        rid = doc_id(r["_name"])
+        if firestore.get_document(f"{REQUESTS}/{rid}") is None:
+            if not dry_run:
+                firestore.delete_document(r["_name"])
+            counts["flags_deleted"] += 1
     return {"status": "ok", "dry_run": dry_run, **counts}
+
+
+def _all_flags(firestore, max_rounds: int = 50):
+    """신고 전부(id 순, 페이지로). 신고는 드물어서 전부 훑는다 — 내용 칸은 고르지 않는다."""
+    after = None
+    for _ in range(max_rounds):
+        q = {"from": [{"collectionId": FLAGS}], "select": {"fields": [{"fieldPath": "at"}]},
+             "orderBy": [{"field": {"fieldPath": "__name__"}, "direction": "ASCENDING"}], "limit": PAGE}
+        if after is not None:
+            q["startAt"] = {"values": [{"referenceValue": after}], "before": False}
+        rows = firestore.run_query(q)
+        if not rows:
+            return
+        yield from rows
+        if len(rows) < PAGE:
+            return
+        after = rows[-1]["_name"]

@@ -6,18 +6,25 @@ import android.graphics.Bitmap
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.asAndroidBitmap
 import androidx.compose.ui.test.assertCountEquals
+import androidx.compose.ui.test.assertIsEnabled
 import androidx.compose.ui.test.assertIsNotEnabled
 import androidx.compose.ui.test.captureToImage
 import androidx.compose.ui.test.hasScrollAction
+import androidx.compose.ui.test.hasSetTextAction
+import androidx.compose.ui.test.isDialog
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.v2.createComposeRule
 import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.onRoot
 import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performTextInput
 import androidx.compose.ui.test.performScrollToNode
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -28,6 +35,7 @@ import com.readyport.plan.PlanDates
 import com.readyport.plan.PlanDay
 import com.readyport.plan.PlanDraft
 import com.readyport.plan.PlanFailure
+import com.readyport.plan.PlanFlagReason
 import com.readyport.plan.PlanItem
 import com.readyport.plan.PlanMobility
 import com.readyport.plan.PlanPurpose
@@ -293,4 +301,94 @@ class PlanCaptureTest {
         scrollTo(s(R.string.plan_place_open, "센소지"))
         capture("plan_11_view_easy200_day2")
     }
+
+    // ---------------- AI 계획 신고 (Play AI 생성 콘텐츠 정책) ----------------
+
+    private fun captureDialog(name: String) {
+        rule.mainClock.advanceTimeBy(1_000)
+        rule.waitForIdle()
+        val bitmap = rule.onNode(isDialog()).captureToImage().asAndroidBitmap()
+        File(outDir, "$name.png").outputStream().use { bitmap.compress(Bitmap.CompressFormat.PNG, 100, it) }
+    }
+
+    @Test fun planViewShowsFlagActionAndNoticeMentionsIt() {
+        var opened = 0
+        show { PlanViewContent(PlanViewUi(loading = false, result = result), PlanViewActions(openFlag = { opened++ })) }
+        rule.onNodeWithText(s(R.string.plan_view_not_verified_flag)).assertExists()
+        scrollTo(s(R.string.plan_flag_open))
+        capture("plan_12_view_flag_button")
+        rule.onNodeWithText(s(R.string.plan_flag_open)).performClick()
+        assertEquals(1, opened)
+        rule.onAllNodesWithText(s(R.string.plan_flag_flagged)).assertCountEquals(0)
+    }
+
+    @Test fun flagDialogSendsChosenReasonAndNoteOnlyAfterPicking() {
+        val sent = mutableListOf<Pair<PlanFlagReason, String>>()
+        var closed = 0
+        show {
+            PlanViewContent(
+                PlanViewUi(loading = false, result = result, flagDialog = true),
+                PlanViewActions(sendFlag = { r, n -> sent += r to n }, closeFlag = { closed++ }),
+            )
+        }
+        rule.onNodeWithText(s(R.string.plan_flag_title)).assertExists()
+        PlanFlagReason.entries.forEach { rule.onNodeWithText(s(it.labelRes())).assertExists() }
+        rule.onNodeWithText(s(R.string.plan_flag_send)).assertIsNotEnabled()
+        captureDialog("plan_13_flag_dialog")
+        rule.onNodeWithText(s(R.string.plan_flag_reason_unsafe)).performClick()
+        rule.onNode(hasSetTextAction()).performTextInput("밤늦게 걷는 길이에요")
+        rule.onNodeWithText(s(R.string.plan_flag_send)).assertIsEnabled()
+        captureDialog("plan_14_flag_dialog_filled")
+        rule.onNodeWithText(s(R.string.plan_flag_send)).performClick()
+        assertEquals(listOf(PlanFlagReason.Unsafe to "밤늦게 걷는 길이에요"), sent)
+        rule.onNodeWithText(s(R.string.action_cancel_keep)).performClick()
+        assertEquals(1, closed)
+    }
+
+    @Test
+    @Config(qualifiers = "w393dp-h1400dp-xxhdpi")
+    fun flagNoteWithPassportLikeTextCannotBeSent() {
+        // 가짜 여권 번호 모양 — 지워야 보낼 수 있다
+        show { PlanFlagOnScrim(reason = PlanFlagReason.Inaccurate, note = "여권 M00000000 적어요") }
+        rule.onNodeWithText(s(R.string.plan_flag_pii_block)).assertExists()
+        rule.onNodeWithText(s(R.string.plan_flag_send)).assertIsNotEnabled()
+        capture("plan_15_flag_pii_blocked")
+    }
+
+    @Test
+    @Config(qualifiers = "w393dp-h1400dp-xxhdpi")
+    fun flagErrorStaysInsideTheCard() {
+        show { PlanFlagOnScrim(error = R.string.plan_err_offline) }
+        rule.onNodeWithText(s(R.string.plan_err_offline)).assertExists()
+        rule.onNodeWithText(s(R.string.plan_flag_send)).assertIsEnabled()
+    }
+
+    @Test
+    @Config(qualifiers = "w393dp-h2600dp-xxhdpi")
+    fun flaggedPlanShowsDoneMessageThenFlaggedState() {
+        var ui by mutableStateOf(PlanViewUi(loading = false, result = result, flagged = true, flagJustSent = true))
+        show { PlanViewContent(ui) }
+        rule.onNodeWithText(s(R.string.plan_flag_done)).assertExists()
+        rule.onNodeWithText(s(R.string.plan_flag_flagged)).assertExists()
+        rule.onAllNodesWithText(s(R.string.plan_flag_open)).assertCountEquals(0)
+        capture("plan_16_flagged_just_sent")
+        ui = ui.copy(flagJustSent = false)
+        rule.waitForIdle()
+        rule.onNodeWithText(s(R.string.plan_flag_flagged_body)).assertExists()
+        rule.onAllNodesWithText(s(R.string.plan_flag_done)).assertCountEquals(0)
+        // 이미 신고했으면 대화상자도 열리지 않는다
+        ui = ui.copy(flagDialog = true)
+        rule.waitForIdle()
+        rule.onAllNodes(isDialog()).assertCountEquals(0)
+    }
+
+    @Test
+    @Config(qualifiers = "w360dp-h1600dp-xxhdpi")
+    fun flagCardEasy200() {
+        RuntimeEnvironment.setFontScale(2.0f)
+        show(easy = true) { PlanFlagOnScrim(reason = PlanFlagReason.Other) }
+        rule.onNodeWithText(s(R.string.plan_flag_reason_other)).assertExists()
+        capture("plan_17_flag_card_easy200")
+    }
 }
+

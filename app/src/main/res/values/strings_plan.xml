@@ -188,6 +188,26 @@
     <string name="plan_view_missing_body">지워졌거나 아직 만드는 중이에요. 내 계획 요청에서 상태를 확인해 주세요.</string>
     <string name="plan_view_mine">내 계획 요청으로</string>
 
+    <!-- AI 계획 신고 (Play AI 생성 콘텐츠 정책: 앱 안에서 신고) -->
+    <string name="plan_view_not_verified_flag">레디포트가 확인한 정보가 아니에요. 출발 전 공식 안내로 다시 확인하세요. 이상한 내용이 있으면 신고해 주세요.</string>
+    <string name="plan_flag_open">이 계획 신고하기</string>
+    <string name="plan_flag_title">이 계획의 무엇이 문제인가요?</string>
+    <string name="plan_flag_reason_inaccurate">틀린 정보예요</string>
+    <string name="plan_flag_reason_inappropriate">부적절한 내용이에요</string>
+    <string name="plan_flag_reason_unsafe">안전하지 않은 안내예요</string>
+    <string name="plan_flag_reason_other">그 밖의 문제</string>
+    <string name="plan_flag_note_label">더 알려 줄 것 (선택)</string>
+    <string name="plan_flag_note_hint">예) 둘째 날 장소가 문을 닫았어요</string>
+    <string name="plan_flag_note_privacy">이름·연락처·여권 번호 같은 개인정보는 쓰지 마세요.</string>
+    <string name="plan_flag_pii_block">여권 번호·여권 아래 두 줄·주민등록번호처럼 보이는 글자는 지워야 신고할 수 있어요. 빨갛게 표시한 곳을 고쳐 주세요.</string>
+    <string name="plan_flag_pii_warn">신고에는 전화번호·이메일이 필요 없어요. 되도록 지우고 보내 주세요.</string>
+    <string name="plan_flag_body">신고는 운영자만 봐요. 계획 요청이 지워질 때 신고 기록도 함께 지워져요.</string>
+    <string name="plan_flag_send">신고하기</string>
+    <string name="plan_flag_sending">보내는 중이에요</string>
+    <string name="plan_flag_done">신고했어요. 운영자가 확인할게요.</string>
+    <string name="plan_flag_flagged">신고함</string>
+    <string name="plan_flag_flagged_body">이 계획은 신고했어요. 운영자가 확인할게요.</string>
+
     <!-- 알림 -->
     <string name="plan_channel">여행 계획 도착</string>
     <string name="plan_arrived_title">여행 계획이 도착했어요</string>

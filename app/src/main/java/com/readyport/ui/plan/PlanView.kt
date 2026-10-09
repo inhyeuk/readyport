@@ -12,6 +12,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.EventNote
 import androidx.compose.material.icons.outlined.AutoAwesome
 import androidx.compose.material.icons.outlined.CalendarMonth
+import androidx.compose.material.icons.outlined.Flag
 import androidx.compose.material.icons.outlined.Lightbulb
 import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material.icons.outlined.Payments
@@ -27,6 +28,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.LiveRegionMode
+import androidx.compose.ui.semantics.liveRegion
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import androidx.core.content.FileProvider
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
@@ -38,6 +42,7 @@ import androidx.navigation.toRoute
 import com.readyport.R
 import com.readyport.attractions.AttractionsRepository
 import com.readyport.plan.PlanError
+import com.readyport.plan.PlanFlagReason
 import com.readyport.plan.PlanItem
 import com.readyport.plan.PlanPdfRenderer
 import com.readyport.plan.PlanPdfText
@@ -88,6 +93,14 @@ data class PlanViewUi(
     val places: Map<String, String> = emptyMap(),
     val message: Int? = null,
     val messageIsError: Boolean = false,
+    /** 이 휴대폰에서 이 계획을 신고했는지 ('신고함' — 신고는 서버에서 다시 읽을 수 없다) */
+    val flagged: Boolean = false,
+    /** 방금 신고를 보냄 — `신고했어요. 운영자가 확인할게요.` */
+    val flagJustSent: Boolean = false,
+    val flagDialog: Boolean = false,
+    val flagSending: Boolean = false,
+    /** 신고 대화상자 안에 보일 오류 문구 */
+    val flagError: Int? = null,
 )
 
 data class PlanViewActions(
@@ -95,6 +108,9 @@ data class PlanViewActions(
     val savePdf: () -> Unit = {},
     val sharePdf: () -> Unit = {},
     val openMine: () -> Unit = {},
+    val openFlag: () -> Unit = {},
+    val closeFlag: () -> Unit = {},
+    val sendFlag: (PlanFlagReason, String) -> Unit = { _, _ -> },
 )
 
 @HiltViewModel
@@ -121,9 +137,28 @@ class PlanViewViewModel @Inject constructor(
                     r.days.flatMap { it.items }.mapNotNull { it.placeId }.distinct()
                         .mapNotNull { pid -> catalog?.attraction(pid)?.let { pid to it.title } }.toMap()
                 }.orEmpty()
-                _ui.update { it.copy(loading = false, offline = false, result = result, places = places) }
+                val flagged = result != null && runCatching { plans.isFlagged(id) }.getOrDefault(false)
+                _ui.update { it.copy(loading = false, offline = false, result = result, places = places, flagged = flagged) }
             } catch (e: Exception) {
                 _ui.update { it.copy(loading = false, offline = e is PlanError.Offline) }
+            }
+        }
+    }
+
+    fun openFlag() = _ui.update { it.copy(flagDialog = true, flagError = null) }
+
+    fun closeFlag() = _ui.update { if (it.flagSending) it else it.copy(flagDialog = false, flagError = null) }
+
+    /** 신고 보내기 — 성공(또는 이미 신고됨)이면 대화상자를 닫고 '신고함'. 실패하면 대화상자 안에 쉬운 문구 */
+    fun sendFlag(reason: PlanFlagReason, note: String) {
+        if (_ui.value.flagSending) return
+        _ui.update { it.copy(flagSending = true, flagError = null) }
+        viewModelScope.launch {
+            try {
+                plans.flag(id, reason, note)
+                _ui.update { it.copy(flagSending = false, flagDialog = false, flagged = true, flagJustSent = true) }
+            } catch (e: Exception) {
+                _ui.update { it.copy(flagSending = false, flagError = e.planErrorRes()) }
             }
         }
     }
@@ -207,6 +242,9 @@ fun PlanViewScreen(openPlace: (String, String) -> Unit, openMine: () -> Unit, vi
             savePdf = { if (text != null) runCatching { create.launch(fileName) } },
             sharePdf = { if (text != null) viewModel.sharePdf(text, fileName) { runCatching { context.startActivity(it) } } },
             openMine = openMine,
+            openFlag = viewModel::openFlag,
+            closeFlag = viewModel::closeFlag,
+            sendFlag = viewModel::sendFlag,
         ),
     )
 }
@@ -216,7 +254,8 @@ private fun boardCountryNameOrCode(code: String): String = if (code in PlanRules
 
 /**
  * 받은 계획 (상태 없는 Content): 머리(나라 · n일 일정) → AI가 만든 계획 표시 + 고지 → 날마다 카드(때 · 할 일 · 설명 · 관광지 안내 링크) →
- * 알아 두면 좋아요 · 예산 · 꼭 확인할 것 → PDF로 저장(주 버튼) · PDF 보내기 → 휴대폰 안에서 만든다는 한 줄.
+ * 알아 두면 좋아요 · 예산 · 꼭 확인할 것 → PDF로 저장(주 버튼) · PDF 보내기 → 휴대폰 안에서 만든다는 한 줄
+ * → `이 계획 신고하기`(보조 버튼 — Play 'AI 생성 콘텐츠' 정책, 대화상자로 앱 안에서 신고; 보낸 뒤 '신고함').
  */
 @Composable
 fun PlanViewContent(ui: PlanViewUi, actions: PlanViewActions = PlanViewActions()) {
@@ -253,7 +292,7 @@ fun PlanViewContent(ui: PlanViewUi, actions: PlanViewActions = PlanViewActions()
                     r.noticeKo ?: stringResource(R.string.plan_view_notice_default),
                     icon = Icons.Outlined.ReportProblem,
                     tone = BannerTone.Caution,
-                    secondLine = stringResource(R.string.plan_view_not_verified),
+                    secondLine = stringResource(R.string.plan_view_not_verified_flag),
                     secondIcon = Icons.Outlined.Policy,
                 )
             }
@@ -296,6 +335,25 @@ fun PlanViewContent(ui: PlanViewUi, actions: PlanViewActions = PlanViewActions()
                 IconBullet(stringResource(R.string.plan_pdf_note), Icons.Outlined.Lock)
             }
         }
+        // AI 계획 신고 (Play 정책): 눈에 띄지만 PDF 저장보다 낮은 무게(Neutral 보조 버튼). 보낸 뒤에는 '신고함'
+        item(key = "flag") {
+            Column(verticalArrangement = Arrangement.spacedBy(dimens.inner)) {
+                if (ui.flagged) {
+                    StatusTag(stringResource(R.string.plan_flag_flagged), StatusKind.Info, icon = Icons.Outlined.Flag)
+                    KoText(
+                        stringResource(if (ui.flagJustSent) R.string.plan_flag_done else R.string.plan_flag_flagged_body),
+                        MaterialTheme.typography.bodyMedium,
+                        Modifier.semantics { liveRegion = LiveRegionMode.Polite },
+                        color = if (ui.flagJustSent) Tokens.SuccessText else Tokens.InkSecondary,
+                    )
+                } else {
+                    SecondaryButton(stringResource(R.string.plan_flag_open), onClick = actions.openFlag, icon = Icons.Outlined.Flag, tone = BadgeTone.Neutral)
+                }
+            }
+        }
+    }
+    if (ui.flagDialog && !ui.flagged) {
+        PlanFlagDialog(sending = ui.flagSending, error = ui.flagError, onSend = actions.sendFlag, onDismiss = actions.closeFlag)
     }
 }
 

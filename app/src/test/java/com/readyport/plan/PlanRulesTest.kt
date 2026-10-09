@@ -181,4 +181,38 @@ class PlanRulesTest {
         assertEquals(PlanFailure.QuotaExceeded, PlanFailure.of("quota_exceeded"))
         assertNull(PlanFailure.of("unknown_code"))
     }
+
+    // ---------------- AI 계획 신고 (plan_flags) ----------------
+
+    @Test fun flagPayloadMatchesRules() {
+        assertEquals(mapOf("uid" to "u1", "reason" to "inaccurate", "at" to server), PlanRules.flagPayload(PlanFlagReason.Inaccurate, "   ", "u1", server))
+        val withNote = PlanRules.flagPayload(PlanFlagReason.Unsafe, " 밤길 안내가 걱정돼요 ", "u1", server)
+        assertEquals("밤길 안내가 걱정돼요", withNote["note"])
+        assertEquals("unsafe", withNote["reason"])
+        // 200자까지 (다듬은 뒤 길이)
+        assertEquals(200, (PlanRules.flagPayload(PlanFlagReason.Other, "가".repeat(200) + "  ", "u1", server)["note"] as String).length)
+        assertEquals(listOf("inaccurate", "inappropriate", "unsafe", "other"), PlanFlagReason.entries.map { it.id })
+        assertEquals(PlanFlagReason.Unsafe, PlanFlagReason.of("unsafe"))
+        assertNull(PlanFlagReason.of("spam"))
+    }
+
+    @Test fun flagNoteBlocksPassportLikeTextAndLongNotesButOnlyWarnsForContacts() {
+        assertFalse(PlanRules.checkFlagNote("").blocked)
+        assertTrue(PlanRules.checkFlagNote("가".repeat(201)).tooLong)
+        // 가짜 값: 여권 번호 모양 · 주민번호 모양 · 여권 아래 두 줄 모양
+        for (bad in listOf("M00000000", "번호 900101-1000000", "P<UTOERIKSSON<<ANNA<MARIA<<<<<<<<<<<<<<<<<<<")) {
+            val c = PlanRules.checkFlagNote(bad)
+            assertTrue(bad, c.blocked)
+            try {
+                PlanRules.flagPayload(PlanFlagReason.Other, bad, "u1", server)
+                fail("막혀야 한다: $bad")
+            } catch (e: PlanError.Invalid) {
+                // 기대한 대로
+            }
+        }
+        // 전화·이메일은 경고만(공개된 번호일 수 있다) — 보낼 수는 있다
+        val warn = PlanRules.checkFlagNote("대사관 02-0000-0000 이 맞나요")
+        assertTrue(warn.pii.isNotEmpty())
+        assertFalse(warn.blocked)
+    }
 }

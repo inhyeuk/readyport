@@ -27,21 +27,29 @@ interface PlanLocalStore {
     suspend fun setPending(ids: Set<String>)
     suspend fun lastCheck(): Instant?
     suspend fun setLastCheck(at: Instant)
+
+    /** 이 휴대폰에서 신고한 계획(요청 id) — 신고는 서버에서 다시 읽을 수 없어서(운영자만) '신고함' 표시는 여기로 */
+    suspend fun flagged(): Set<String>
+    suspend fun setFlagged(ids: Set<String>)
 }
 
 class MemoryPlanLocalStore(pending: Set<String> = emptySet()) : PlanLocalStore {
     private var ids = pending
     private var last: Instant? = null
+    private var flags = emptySet<String>()
     override suspend fun pending() = ids
     override suspend fun setPending(ids: Set<String>) { this.ids = ids }
     override suspend fun lastCheck() = last
     override suspend fun setLastCheck(at: Instant) { last = at }
+    override suspend fun flagged() = flags
+    override suspend fun setFlagged(ids: Set<String>) { flags = ids }
 }
 
 /** 운영 판 — DataStore `plan` (백업 제외 규칙이 앱 데이터 전체를 뺀다) */
 class DataStorePlanLocalStore(private val store: DataStore<Preferences>) : PlanLocalStore {
     private val pendingKey = stringSetPreferencesKey("pending")
     private val lastKey = longPreferencesKey("last_check")
+    private val flaggedKey = stringSetPreferencesKey("flagged")
     override suspend fun pending(): Set<String> = store.data.first()[pendingKey].orEmpty()
     override suspend fun setPending(ids: Set<String>) {
         store.edit { if (ids.isEmpty()) it.remove(pendingKey) else it[pendingKey] = ids }
@@ -49,6 +57,10 @@ class DataStorePlanLocalStore(private val store: DataStore<Preferences>) : PlanL
     override suspend fun lastCheck(): Instant? = store.data.first()[lastKey]?.let(Instant::ofEpochMilli)
     override suspend fun setLastCheck(at: Instant) {
         store.edit { it[lastKey] = at.toEpochMilli() }
+    }
+    override suspend fun flagged(): Set<String> = store.data.first()[flaggedKey].orEmpty()
+    override suspend fun setFlagged(ids: Set<String>) {
+        store.edit { if (ids.isEmpty()) it.remove(flaggedKey) else it[flaggedKey] = ids }
     }
 }
 
@@ -115,10 +127,31 @@ class PlanRepository(
     suspend fun delete(req: PlanRequest) {
         if (!req.status.deletable) throw PlanError.Denied
         mapped { backend.delete(req.id) }
+        // 신고 기록(서버)은 이용자가 지울 수 없다 — 다음 ARIA 정리 때 요청과 함께 지워진다. 이 휴대폰 표시만 뺀다
+        if (req.id in local.flagged()) local.setFlagged(local.flagged() - req.id)
         bump()
     }
 
     suspend fun result(id: String): PlanResult? = if (board.uid() == null) null else mapped { backend.result(id) }
+
+    /** 이 휴대폰에서 이 계획을 신고했는지 */
+    suspend fun isFlagged(id: String): Boolean = id in local.flagged()
+
+    /**
+     * AI 계획 신고 (Play 'AI 생성 콘텐츠' 정책 — 앱 안에서). 계획 하나에 한 번, 운영자만 본다.
+     * 메모 검사(200자·여권/주민번호 같은 글자) → plan_flags/{id} 만들기 → 이 휴대폰에 '신고함' 기억.
+     * 서버에 이미 있으면([PlanError.AlreadyFlagged]) 신고한 것으로 본다(앱을 지웠다 깔았거나 다른 화면에서 이미 보냄).
+     */
+    suspend fun flag(id: String, reason: PlanFlagReason, note: String) {
+        val uid = board.uid() ?: throw PlanError.Denied
+        if (PlanRules.checkFlagNote(note).blocked) throw PlanError.Invalid
+        try {
+            mapped { backend.flag(uid, id, reason, note) }
+        } catch (e: PlanError.AlreadyFlagged) {
+            // 이미 신고됨 — 아래에서 '신고함'으로 기억한다
+        }
+        local.setFlagged(local.flagged() + id)
+    }
 
     /**
      * 끝나지 않은 내 요청 가운데 **새로 도착한(done) 것** (앱을 켤·돌아올 때와 하루 한 번). 끝나지 않은 요청이 없으면 서버를 읽지 않는다.

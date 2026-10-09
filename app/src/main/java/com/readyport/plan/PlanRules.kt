@@ -32,6 +32,11 @@ data class PlanCheck(val problems: Set<PlanProblem>, val pii: List<PiiHit>) {
     fun ready(allowWarnings: Boolean): Boolean = problems.isEmpty() && (!warnOnly || allowWarnings)
 }
 
+/** 신고 메모 검사 결과: [blocked]면 보낼 수 없다(200자 넘음 또는 여권·주민번호 같은 글자). 전화·이메일은 경고만 */
+data class FlagNoteCheck(val tooLong: Boolean, val pii: List<PiiHit>) {
+    val blocked: Boolean get() = tooLong || PiiGuard.blocking(pii)
+}
+
 /**
  * 규칙(firebase/firestore.rules newPlanOk·plan_quota)과 **같은 모양**의 요청을 만든다 (순수 함수 — PlanRulesTest).
  * - 앱이 먼저 같은 기준으로 막고, 규칙·ARIA가 한 번 더 본다.
@@ -133,6 +138,32 @@ object PlanRules {
      */
     fun quotaPayload(previousLast: Any?, requestId: String, serverTime: Any): Map<String, Any?> =
         mapOf("last" to serverTime, "prev" to previousLast, "lastRequestId" to requestId)
+
+    /** 신고 메모 최대 글자 수 (규칙 plan_flags: note 1~200자) */
+    const val FLAG_NOTE_MAX = 200
+
+    /**
+     * 신고 메모 검사: 200자 넘음 · 개인정보처럼 보이는 글자(게시판과 같은 [PiiGuard]).
+     * 여권 번호·MRZ·주민번호는 막고([FlagNoteCheck.blocked]), 전화·이메일은 경고만.
+     */
+    fun checkFlagNote(note: String): FlagNoteCheck {
+        val n = note.trim()
+        return FlagNoteCheck(tooLong = n.length > FLAG_NOTE_MAX, pii = if (n.isEmpty()) emptyList() else PiiGuard.scan(n))
+    }
+
+    /**
+     * plan_flags/{요청 id} 문서 (규칙의 칸 그대로): uid · reason · note(있을 때만, 다듬어서) · at(서버 시각 자리 [serverTime]).
+     * 메모가 막히는 경우(200자 넘음·여권/주민번호 같은 글자)면 [PlanError.Invalid].
+     */
+    fun flagPayload(reason: PlanFlagReason, note: String, uid: String, serverTime: Any): Map<String, Any> {
+        if (checkFlagNote(note).blocked) throw PlanError.Invalid
+        return buildMap {
+            put("uid", uid)
+            put("reason", reason.id)
+            note.trim().takeIf { it.isNotEmpty() }?.let { put("note", it) }
+            put("at", serverTime)
+        }
+    }
 
     /** 이번 7일 안에 더 보낼 수 있는 횟수와, 0이면 다시 보낼 수 있는 때 */
     data class Remaining(val count: Int, val nextAt: Instant?)

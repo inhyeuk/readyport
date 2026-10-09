@@ -82,4 +82,14 @@ class PlanContractTest {
         assertEquals(setOf("stars", "at", "visited"), RatingRules.votePayload(3, Any()).keys)
         assertTrue(rules.contains("^(TH|JP|VN|PH|TW|SG|MY|ID|CN)_[a-z0-9]+(-[a-z0-9]+)*$"))
     }
+
+    @Test fun flagReasonsAndKeysMatchRules() {
+        assertEquals(PlanFlagReason.entries.map { it.id }, quoted(rulesBlock("function flagReason", "\n")))
+        val block = rulesBlock("match /plan_flags/", "match /{document=**}")
+        val allowed = quoted(block.substringAfter("keys().hasOnly([").substringBefore("])")).toSet()
+        val required = quoted(block.substringAfter("keys().hasAll([").substringBefore("])")).toSet()
+        assertEquals(allowed, PlanRules.flagPayload(PlanFlagReason.Other, "메모", "u", Any()).keys)
+        assertEquals(required, PlanRules.flagPayload(PlanFlagReason.Other, "", "u", Any()).keys)
+        assertTrue(block.contains("text(request.resource.data.note, 1, ${PlanRules.FLAG_NOTE_MAX})"))
+    }
 }
