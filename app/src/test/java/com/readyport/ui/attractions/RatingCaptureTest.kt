@@ -150,7 +150,8 @@ class RatingCaptureTest {
     @Test fun ageCheckButtonWhenUnknown() {
         var asked = 0
         show { AttractionDetailContent(detail(RatingUi(age = BoardAge.Status.NeedsCheck)), AttractionDetailActions(checkAge = { asked++ })) }
-        scrollTo(s(R.string.rating_age_check))
+        // 버튼 자체가 화면 안에 오도록(안내 글만 보이고 버튼이 아래로 잘리면 누름이 닿지 않는다)
+        scrollTo(s(R.string.board_age_check_button))
         rule.onNodeWithText(s(R.string.board_age_check_button)).performClick()
         assertEquals(1, asked)
     }
