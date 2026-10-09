@@ -107,6 +107,8 @@ jobs:
         run: |
           python tools/packs/build_packs.py --kid "$PACK_KID" --key "$RUNNER_TEMP/pack_key.pem"
           git diff --exit-code -- app/src/main/assets/packs
+          # 관광지 서명본(커밋된 것)도 같이 올린다 — 빠지면 Hosting 에서 사라진다(SPEC_v5 §10.1)
+          python tools/deploy/stage_hosting.py
       - uses: actions/setup-node@v4
         if: steps.images.outputs.changed == 'true' && steps.secrets.outputs.ok == 'true'
         with:

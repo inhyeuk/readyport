@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  찜 순서 + 관광 일정 (사장님 요청 2026-10-09: 찜 순서를 관광 순서로, 찜을 여행 일정에 '날짜별로 나눠 담기').
+  규칙: 해요체·쉬운 말 / `%s` 바로 뒤에 조사를 붙이지 않는다(조사 없는 틀) / 찜 동사는 '찜하기'·'찜 취소'만 /
+  거리·이동 시간 숫자는 쓰지 않는다(결정 D7).
+-->
+<resources>
+    <!-- 찜 목록: 순서 바꾸기 -->
+    <string name="saved_order_hint">위·아래 버튼으로 가는 순서를 바꿔요. 꾹 눌러 끌어도 돼요.</string>
+    <string name="saved_order_hint_filtered">순서는 모든 종류를 볼 때 바꿀 수 있어요.</string>
+    <string name="saved_order_place_cd">%1$d번째, %2$s, %3$s</string>
+    <string name="saved_order_dragging">옮기는 중</string>
+
+    <!-- 위·아래·다른 날 (찜 목록·관광 일정 공용) -->
+    <string name="order_move_up">위로</string>
+    <string name="order_move_down">아래로</string>
+    <string name="order_move_up_cd">%1$s 한 칸 위로</string>
+    <string name="order_move_down_cd">%1$s 한 칸 아래로</string>
+
+    <!-- 찜 목록 → 여행 일정에 담기 -->
+    <string name="saved_add_to_trip">여행 일정에 담기</string>
+    <string name="saved_pick_trip_title">어느 여행에 담을까요?</string>
+    <string name="saved_pick_trip_row">%1$s 여행</string>
+    <string name="saved_no_trip_title">%1$s 여행이 아직 없어요</string>
+    <string name="saved_no_trip_body">여행을 만들면 찜한 곳을 날짜별로 나눠 담을 수 있어요.</string>
+    <string name="saved_no_trip_make">여행 만들기</string>
+    <string name="saved_no_trip_later">나중에 할게요</string>
+
+    <!-- 관광 일정 화면 -->
+    <string name="itinerary_title">관광 일정</string>
+    <string name="itinerary_subtitle">%1$s · %2$s</string>
+    <string name="itinerary_speech">%1$s 관광 일정이에요. %2$d곳을 담았어요.</string>
+    <string name="itinerary_day">%1$d일차 · %2$s (%3$s)</string>
+    <string name="itinerary_day_undated">날짜 미정</string>
+    <string name="itinerary_today">오늘</string>
+    <string name="itinerary_day_empty">아직 갈 곳이 없어요</string>
+    <string name="itinerary_mixed_far">지역이 다르면 이동이 길어질 수 있어요</string>
+    <string name="itinerary_hint">위·아래 버튼으로 그날 순서를 바꾸고, \'다른 날로\'를 누르면 날짜를 옮겨요.</string>
+    <string name="itinerary_move_day">다른 날로</string>
+    <string name="itinerary_move_day_cd">%1$s 다른 날로 옮기기</string>
+    <string name="itinerary_pick_day_title">%1$s — 어느 날에 갈까요?</string>
+    <string name="itinerary_remove">일정에서 빼기</string>
+    <string name="itinerary_remove_cd">%1$s 일정에서 빼기</string>
+    <string name="itinerary_close">닫기</string>
+    <string name="itinerary_new_row">새로 찜한 곳 %1$d곳 담기</string>
+    <string name="itinerary_new_row_body">같은 지역은 같은 날로 모아 드려요</string>
+    <string name="itinerary_saved_local">관광 일정은 이 휴대폰에만 저장돼요. 여행을 지우면 같이 지워져요.</string>
+    <string name="itinerary_open_saved">찜한 관광지 보기</string>
+    <string name="itinerary_open_attractions">관광지 보기</string>
+    <string name="itinerary_empty_title">담을 관광지가 없어요</string>
+    <string name="itinerary_empty_body">관광지에서 하트를 눌러 찜하면 여기에 날짜별로 담을 수 있어요.</string>
+    <string name="itinerary_empty_not_yet">이 나라 관광지는 곧 추가돼요.</string>
+
+    <!-- 옮겨 담기 제안 -->
+    <string name="itinerary_proposal_title">이렇게 나눠 담을까요?</string>
+    <string name="itinerary_proposal_edges">도착하는 날과 돌아오는 날은 비워 뒀어요.</string>
+    <string name="itinerary_proposal_body">찜한 곳 %1$d곳을 날짜별로 나눠 봤어요. 같은 지역은 같은 날에 모았어요.</string>
+    <string name="itinerary_proposal_stays">묵는 곳과 가까운 날을 골랐어요.</string>
+    <string name="itinerary_proposal_after">담은 뒤에도 순서와 날짜를 바꿀 수 있어요.</string>
+    <string name="itinerary_proposal_confirm">이대로 담기</string>
+    <string name="itinerary_proposal_cancel">담지 않기</string>
+    <string name="itinerary_proposal_new">새로 담아요</string>
+    <string name="itinerary_proposal_skipped">정보가 없는 찜 %1$d곳은 담지 않았어요.</string>
+    <string name="itinerary_all_in">찜한 곳이 모두 일정에 들어 있어요.</string>
+
+    <!-- 내 여행 화면: 계획 단계 타일 · 여행 중 '오늘 갈 곳' -->
+    <string name="itinerary_tile">관광 일정</string>
+    <string name="itinerary_tile_count">%1$d곳 담았어요</string>
+    <string name="itinerary_tile_count_new">%1$d곳 담았어요 · 새로 찜한 곳 %2$d곳</string>
+    <string name="itinerary_tile_new">찜한 곳 %1$d곳을 날짜별로 담아요</string>
+    <string name="itinerary_tile_empty">찜한 관광지를 날짜별로 담아요</string>
+    <string name="itinerary_today_title">오늘 갈 곳</string>
+    <string name="itinerary_today_none">오늘은 담아 둔 곳이 없어요.</string>
+    <string name="itinerary_open_all">관광 일정 전체 보기</string>
+    <string name="itinerary_open_map">구글 지도에서 열기</string>
+    <string name="itinerary_open_map_cd">%1$s 구글 지도에서 열기</string>
+</resources>

@@ -18,6 +18,21 @@ val uploadProps = Properties().apply {
     if (f.isFile) f.inputStream().use { load(it) }
 }
 
+// Google 지도 SDK 키 (사장님이 발급, 사장님 결정 2026-10-09). 저장소에 넣지 않는다 — 아래 순서로 처음 찾은 값을 쓴다.
+//   1) gradle 속성 MAPS_API_KEY (-PMAPS_API_KEY=… 또는 ~/.gradle/gradle.properties)
+//   2) ~/.readyport/keys/maps.properties 의 MAPS_API_KEY=
+//   3) 프로젝트 local.properties 의 MAPS_API_KEY= (git에 안 올라감)
+// 비어 있으면 BuildConfig.MAPS_ENABLED=false — 앱이 지도를 그리지 않고 '구글 지도에서 열기' 링크만 보인다.
+val mapsApiKey: String = (findProperty("MAPS_API_KEY") as String?)?.trim()?.takeIf { it.isNotEmpty() }
+    ?: listOf(
+        file("${System.getProperty("user.home")}/.readyport/keys/maps.properties"),
+        rootProject.file("local.properties"),
+    ).firstNotNullOfOrNull { f ->
+        if (!f.isFile) return@firstNotNullOfOrNull null
+        Properties().apply { f.inputStream().use { load(it) } }.getProperty("MAPS_API_KEY")?.trim()?.takeIf { it.isNotEmpty() }
+    }
+    ?: ""
+
 android {
     // 패키지명은 Play 출시 후 바꿀 수 없다 (2026-09-28 운영자 확정)
     namespace = "com.readyport"
@@ -31,6 +46,9 @@ android {
         targetSdk = 36
         versionCode = 9
         versionName = "0.6.1"
+        // 지도 키는 매니페스트 com.google.android.geo.API_KEY 로만 들어간다(소스·저장소에 남지 않음)
+        manifestPlaceholders["MAPS_API_KEY"] = mapsApiKey
+        buildConfigField("boolean", "MAPS_ENABLED", mapsApiKey.isNotEmpty().toString())
     }
 
     signingConfigs {
@@ -95,6 +113,8 @@ android {
 
 dependencies {
     implementation(libs.androidx.core.ktx)
+    // 위키백과 전체 보기를 앱 안 탭(Custom Tab)으로 — 2026-10-09 사장님 결정
+    implementation(libs.androidx.browser)
     implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.lifecycle.process)
@@ -133,6 +153,9 @@ dependencies {
     // App Check: 출시 빌드는 Play Integrity, 디버그 빌드는 디버그 공급자 (src/release, src/debug)
     releaseImplementation(libs.firebase.appcheck.playintegrity)
     debugImplementation(libs.firebase.appcheck.debug)
+
+    // 관광지 지도 (Google 지도 SDK). 키가 없으면 그리지 않는다 — 위 mapsApiKey
+    implementation(libs.maps.compose)
 
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)

@@ -81,14 +81,75 @@ def build_prompt(change: dict, scope: str, branch: str) -> str:
     )
 
 
-def build_argv(claude_bin: str, prompt: str, allowed_tools: list[str]) -> list[str]:
-    if any(t.strip().startswith("-") or "," in t for t in allowed_tools):
+def _check_tools(tools: list[str]) -> None:
+    if any(t.strip().startswith("-") or "," in t for t in tools):
         raise ValueError("도구 목록에 옵션·쉼표를 넣을 수 없다")
-    argv = [claude_bin, "-p", prompt, "--allowedTools", ",".join(allowed_tools), "--output-format", "json"]
+
+
+def build_argv(claude_bin: str, prompt: Optional[str], allowed_tools: list[str], *,
+               disallowed_tools: Optional[list[str]] = None, add_dirs: Optional[list[str]] = None) -> list[str]:
+    """prompt=None 이면 지시문을 표준 입력으로 넘긴다(긴 지시문: 윈도 명령줄 길이 제한 회피) [재확인: claude -p 가 stdin 을 읽음]."""
+    _check_tools(allowed_tools)
+    _check_tools(disallowed_tools or [])
+    argv = [claude_bin, "-p"] + ([prompt] if prompt is not None else [])
+    if allowed_tools:
+        argv += ["--allowedTools", ",".join(allowed_tools)]
+    if disallowed_tools:
+        argv += ["--disallowedTools", ",".join(disallowed_tools)]
+    for d in add_dirs or []:
+        if str(d).startswith("-"):
+            raise ValueError("폴더 이름이 옵션처럼 보인다")
+        argv += ["--add-dir", str(d)]
+    argv += ["--output-format", "json"]
     bad = FORBIDDEN_ARGS & set(argv)
     if bad:
         raise ValueError(f"금지 인자: {bad}")
     return argv
+
+
+def resolve_bin(claude_bin: str) -> tuple[Optional[str], str]:
+    """(실행 파일, 거절 이유). .cmd/.bat 은 cmd.exe 를 거쳐 여러 줄 지시문이 깨지므로 거절한다."""
+    exe = shutil.which(claude_bin) or claude_bin
+    if exe.lower().endswith((".cmd", ".bat")):
+        return None, f"{exe}: .cmd/.bat 은 쓰지 않음 — CLAUDE_BIN 을 claude.exe 경로로"
+    return exe, ""
+
+
+@dataclass
+class PromptResult:
+    status: str                 # ok / error / timeout / refused
+    text: str = ""              # Claude 의 마지막 응답 글(result)
+    reason: str = ""
+    data: Any = None
+    argv: list[str] = field(default_factory=list)
+
+
+def run_prompt(prompt: str, *, cwd, claude_bin: str = "claude", timeout_sec: int = 1800,
+               allowed_tools: Optional[list[str]] = None, disallowed_tools: Optional[list[str]] = None,
+               add_dirs: Optional[list[str]] = None, via_stdin: bool = True,
+               runner: Callable[..., Any] = subprocess.run) -> PromptResult:
+    """Claude Code 헤드리스 한 번 실행(상한 확인은 부르는 쪽). 지시문·결과 글은 로그에 남기지 않는다."""
+    exe, why = resolve_bin(claude_bin)
+    if exe is None:
+        return PromptResult("refused", reason=why)
+    argv = build_argv(exe, None if via_stdin else prompt, allowed_tools or [],
+                      disallowed_tools=disallowed_tools, add_dirs=add_dirs)
+    kw = dict(cwd=str(cwd), capture_output=True, text=True, encoding="utf-8", timeout=timeout_sec, shell=False)
+    if via_stdin:
+        kw["input"] = prompt
+    try:
+        proc = runner(argv, **kw)
+    except subprocess.TimeoutExpired:
+        return PromptResult("timeout", reason=f"{timeout_sec}초 초과", argv=argv)
+    except OSError as e:
+        return PromptResult("error", reason=f"실행 실패: {type(e).__name__}", argv=argv)
+    try:
+        data = parse_output(proc.stdout)
+    except ValueError as e:
+        return PromptResult("error", reason=f"{e}; 종료코드 {proc.returncode}", argv=argv)
+    text = str(data.get("result", ""))
+    is_error = bool(data.get("is_error")) or proc.returncode != 0
+    return PromptResult("error" if is_error else "ok", text, "" if not is_error else "Claude 오류 응답", data, argv)
 
 
 def parse_output(stdout: str) -> dict:
@@ -116,10 +177,10 @@ def run_for_change(change: dict, store, repo_root, scope: str, *, claude_bin: st
     fp = change["fingerprint"]
     branch = branch_name(change.get("unit", "change"), fp)
     prompt = build_prompt(change, scope, branch)
-    exe = shutil.which(claude_bin) or claude_bin
-    if exe.lower().endswith((".cmd", ".bat")):
+    exe, why = resolve_bin(claude_bin)
+    if exe is None:
         # cmd.exe 를 거치면 여러 줄 지시문이 깨진다. CLAUDE_BIN 에 claude.exe 경로를 준다. (상한은 쓰지 않음)
-        return ClaudeRunResult("refused", f"{exe}: .cmd/.bat 은 쓰지 않음 — CLAUDE_BIN 을 claude.exe 경로로", branch=branch)
+        return ClaudeRunResult("refused", why, branch=branch)
     argv = build_argv(exe, prompt, allowed_tools or DEFAULT_ALLOWED_TOOLS)
     ok, why = store.claim_claude_run(fp, daily_cap, today=today)
     if not ok:

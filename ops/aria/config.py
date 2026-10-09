@@ -12,6 +12,7 @@ from typing import Mapping
 
 ARIA_DIR = pathlib.Path(__file__).resolve().parent
 REPO_ROOT = ARIA_DIR.parents[1]
+HOME_READYPORT = pathlib.Path(os.path.expanduser("~")) / ".readyport"
 DEFAULT_ENV_FILE = ARIA_DIR / ".env"
 
 # [재확인] 공공데이터포털 '외교부_국가·지역별 입국허가요건' 조회 주소.
@@ -83,6 +84,18 @@ class Config:
     # 네이버 데이터랩 (쇼핑 리스트 검색 추이)
     naver_client_id: str = ""
     naver_client_secret: str = ""
+    # 관광지 주간 갱신 (사장님 결정 2026-10-09: 검사 통과하면 자동 반영, 서명은 GitHub Actions)
+    attractions_weekly_cap: int = 3          # 한 주(ISO 주)에 관광지 갱신으로 Claude 를 부르는 상한(CLAUDE_DAILY_CAP 과 함께 본다)
+    attractions_evidence_dir: pathlib.Path = HOME_READYPORT / "evidence"   # 저장소 밖 증거 폴더(build_attractions 와 같은 곳)
+    github_repo: str = "inhyeuk/readyport"
+    # 이용자 평점 주간 집계
+    ratings_min_n: int = 5                   # 평가가 이 수보다 적으면 숨김(통계 문서에 싣지 않음)
+    # 여행 계획 요청 (1시간마다)
+    plan_daily_cap: int = 5                  # 하루 계획 생성(Claude) 상한 — CLAUDE_DAILY_CAP 과 따로 센다
+    plan_timeout_sec: int = 600              # 계획 하나 생성 시간 제한
+    plan_max_per_run: int = 3                # 한 번 실행에서 처리할 요청 수
+    plan_weekly_limit: int = 2               # 이용자 한 명이 7일 동안 요청할 수 있는 수(규칙과 같은 값)
+    plan_retention_days: int = 30            # 끝난(완료·실패·취소) 요청·결과 보관 일수
 
     @property
     def db_path(self) -> pathlib.Path:
@@ -141,4 +154,14 @@ def load_config(env_file: pathlib.Path | str | None = None,
     cfg.field_fail_rate = float(get("FIELD_FAIL_RATE", "0.5"))
     cfg.naver_client_id = get("NAVER_CLIENT_ID")
     cfg.naver_client_secret = get("NAVER_CLIENT_SECRET")
+    cfg.attractions_weekly_cap = int(get("ATTRACTIONS_WEEKLY_CAP", "3"))
+    if get("ATTRACTIONS_EVIDENCE_DIR"):
+        cfg.attractions_evidence_dir = pathlib.Path(os.path.expanduser(get("ATTRACTIONS_EVIDENCE_DIR")))
+    cfg.github_repo = get("GITHUB_REPO", "inhyeuk/readyport")
+    cfg.ratings_min_n = int(get("RATINGS_MIN_N", "5"))
+    cfg.plan_daily_cap = int(get("PLAN_DAILY_CAP", "5"))
+    cfg.plan_timeout_sec = int(get("PLAN_TIMEOUT_SEC", "600"))
+    cfg.plan_max_per_run = int(get("PLAN_MAX_PER_RUN", "3"))
+    cfg.plan_weekly_limit = int(get("PLAN_WEEKLY_LIMIT", "2"))
+    cfg.plan_retention_days = int(get("PLAN_RETENTION_DAYS", "30"))
     return cfg

@@ -47,6 +47,12 @@
         <meta-data android:name="google_analytics_adid_collection_enabled" android:value="false" />
         <meta-data android:name="google_analytics_default_allow_ad_personalization_signals" android:value="false" />
 
+        <!-- Google 지도 SDK 키: 빌드 때 저장소 밖(~/.readyport/keys/maps.properties 등, app/build.gradle.kts)에서 넣는다.
+             비어 있으면 앱이 지도를 그리지 않는다(BuildConfig.MAPS_ENABLED) -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="${MAPS_API_KEY}" />
+
         <!-- WorkManager는 Hilt 워커 팩토리로 직접 초기화한다 (ReadyPortApp.workManagerConfiguration) -->
         <provider
             android:name="androidx.startup.InitializationProvider"
@@ -55,6 +61,16 @@
             tools:node="merge">
             <meta-data
                 android:name="androidx.work.WorkManagerInitializer"
+                android:value="androidx.startup"
+                tools:node="remove" />
+            <!-- 지도 라이브러리의 앱 시작 때 초기화(사용 통계용 attribution ID 등록)를 끈다 —
+                 지도 SDK는 사용자가 관광지 지도를 열 때만 깨운다 -->
+            <meta-data
+                android:name="com.google.maps.android.compose.utils.attribution.AttributionIdInitializer"
+                android:value="androidx.startup"
+                tools:node="remove" />
+            <meta-data
+                android:name="com.google.maps.android.ktx.utils.attribution.AttributionIdInitializer"
                 android:value="androidx.startup"
                 tools:node="remove" />
         </provider>

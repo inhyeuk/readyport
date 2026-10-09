@@ -94,6 +94,8 @@ import com.readyport.ui.nav.TripChecklistRoute
 import com.readyport.ui.nav.TripsRoute
 import com.readyport.ui.trip.ChecklistActions
 import com.readyport.ui.trip.TripJourneyScreen
+import com.readyport.ui.itinerary.TripItineraryScreen
+import com.readyport.ui.nav.TripItineraryRoute
 import com.readyport.ui.trip.TripListScreen
 import com.readyport.notice.Notice
 import com.readyport.notice.NoticeChoice
@@ -319,6 +321,9 @@ private fun MainScaffold(
                         openDetail = { id -> navController.navigate(AttractionDetailRoute(it.toRoute<AttractionsRoute>().country, id)) },
                         openSafety = { code -> navController.navigate(CountryRoute(code, focusSection = "safety")) },
                         openBoard = { navController.switchTab(Tab.Board) },
+                        // 찜 목록 › 여행 일정에 담기 (2026-10-09): 고른 여행의 관광 일정으로, 여행이 없으면 만들기
+                        openItinerary = { id -> navController.navigate(TripItineraryRoute(id, transplant = true)) },
+                        makeTrip = { code -> navController.navigate(TripRoute(code)) },
                     )
                 }
                 composable<AttractionDetailRoute> { entry ->
@@ -377,8 +382,19 @@ private fun MainScaffold(
                             // 이 여행에서 들어가면 숙소 서류는 이 여행 `묵는 곳`으로 저장된다
                             openBooking = { navController.navigate(BookingImportRoute(tripId = tripId)) },
                             openStayEdit = { stayId -> navController.navigate(StayEditRoute(tripId = tripId, stayId = stayId)) },
+                            // 관광 일정(계획 단계 타일·여행 중 오늘 갈 곳, 2026-10-09)
+                            openItinerary = { id -> navController.navigate(TripItineraryRoute(id)) },
+                            openAttraction = { code, id -> navController.navigate(AttractionDetailRoute(code, id)) },
                         ),
                         onDeleted = { navController.popBackStack() },
+                    )
+                }
+                composable<TripItineraryRoute> {
+                    TripItineraryScreen(
+                        openDetail = { code, id -> navController.navigate(AttractionDetailRoute(code, id)) },
+                        openSaved = { code -> navController.navigate(AttractionsRoute(code, savedOnly = true)) },
+                        openAttractions = { code -> navController.navigate(AttractionsRoute(code)) },
+                        onGone = { navController.popBackStack() },
                     )
                 }
                 composable<StayEditRoute> { StayEditScreen(onDone = { navController.popBackStack() }) }

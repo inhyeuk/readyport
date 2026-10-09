@@ -8,6 +8,7 @@ import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.core.stringSetPreferencesKey
 import com.readyport.pack.PackVersion
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.serialization.Serializable
@@ -43,11 +44,35 @@ class SavedAttractionsRepository(private val store: DataStore<Preferences>) {
 
     suspend fun current(): List<SavedAttraction> = saved.first()
 
+    /**
+     * 이 나라 찜의 id를 **사람이 정한 순서**로 (2026-10-09 사장님 요청 — 찜 순서를 관광 순서로).
+     * 찜 목록 자체가 순서다(저장된 JSON 배열 순서 = 찜한 순서 = 예전 화면 순서). 그래서 예전 저장본은 옮길 것 없이 그 순서 그대로다.
+     * 지도 핀 번호처럼 다른 화면도 이 Flow로 같은 번호를 매긴다.
+     */
+    fun orderOf(country: String): Flow<List<String>> =
+        saved.map { items -> items.filter { it.country == country }.map { it.id } }.distinctUntilChanged()
+
+    /** 찜하기·찜 취소. 이미 찜한 곳을 다시 찜하면 **자리와 찜한 날을 그대로** 둔다(맨 뒤로 밀리지 않게). 새 찜은 맨 뒤 */
     suspend fun setSaved(key: String, saved: Boolean, today: String) {
         store.edit { prefs ->
-            val items = decode(prefs[itemsKey]).filterNot { it.key == key }
-            prefs[itemsKey] = encode(if (saved) items + SavedAttraction(key, today) else items)
+            val items = decode(prefs[itemsKey])
+            val next = when {
+                saved && items.any { it.key == key } -> return@edit
+                saved -> items + SavedAttraction(key, today)
+                else -> items.filterNot { it.key == key }
+            }
+            prefs[itemsKey] = encode(next)
         }
+    }
+
+    /** 같은 나라 찜 안에서 [by]칸 옮긴다(-1 = 한 칸 위로). 다른 나라 찜의 자리는 그대로 */
+    suspend fun move(key: String, by: Int) {
+        store.edit { prefs -> prefs[itemsKey] = encode(SavedOrder.move(decode(prefs[itemsKey]), key, by)) }
+    }
+
+    /** 같은 나라 찜 안에서 [index]번째(0부터) 자리로 옮긴다 — 꾹 눌러 끌기 */
+    suspend fun moveTo(key: String, index: Int) {
+        store.edit { prefs -> prefs[itemsKey] = encode(SavedOrder.moveTo(decode(prefs[itemsKey]), key, index)) }
     }
 
     suspend fun markFirstNoticeDone() {
@@ -108,5 +133,31 @@ object SavedMigration {
             out[item.key] = if (prev == null || item.savedAt < prev.savedAt) item else prev
         }
         return Result(out.values.toList(), moved)
+    }
+}
+
+/**
+ * 찜 순서 바꾸기(순수 함수). 찜 목록은 여러 나라가 섞인 한 줄이라 **같은 나라 찜끼리만** 자리를 바꾸고,
+ * 다른 나라 찜이 있던 칸은 그대로 둔다 — 그 나라 목록에서 본 순서와 저장된 순서가 늘 같다.
+ */
+object SavedOrder {
+    fun move(items: List<SavedAttraction>, key: String, by: Int): List<SavedAttraction> {
+        val country = key.substringBefore('/')
+        val mine = items.filter { it.country == country }
+        val at = mine.indexOfFirst { it.key == key }
+        if (at < 0) return items
+        val target = (at + by).coerceIn(0, mine.lastIndex)
+        return if (target == at) items else moveTo(items, key, target)
+    }
+
+    fun moveTo(items: List<SavedAttraction>, key: String, index: Int): List<SavedAttraction> {
+        val country = key.substringBefore('/')
+        val mine = items.filter { it.country == country }.toMutableList()
+        val at = mine.indexOfFirst { it.key == key }
+        if (at < 0) return items
+        val item = mine.removeAt(at)
+        mine.add(index.coerceIn(0, mine.size), item)
+        val next = mine.iterator()
+        return items.map { if (it.country == country) next.next() else it }
     }
 }

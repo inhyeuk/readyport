@@ -405,3 +405,161 @@ test('게시판: 내 기록 지우기 — 내 댓글·추천 묶음 질의, 이�
   await assertFails(deleteDoc(doc(alice, 'board_users/bob')));
   await assertSucceeds(deleteDoc(doc(alice, 'board_users/alice')));
 });
+
+// ======================= 관광지 평점·확인 중 표시 (docs/ARIA_OPS.md 12.10) =======================
+
+const vote = (stars = 5, extra = {}) => ({ stars, at: serverTimestamp(), visited: true, ...extra });
+
+test('평점: 로그인한 사람이 내 표 하나만 만들고 고치고 지운다', async () => {
+  const alice = anon('alice');
+  const mine = doc(alice, 'attraction_ratings/JP_sample-place/votes/alice');
+  await assertSucceeds(setDoc(mine, vote(5)));
+  await assertSucceeds(setDoc(mine, vote(3)));
+  await assertSucceeds(getDoc(mine));
+  await assertSucceeds(deleteDoc(mine));
+  // 남의 표·로그인 없이·목록은 안 된다
+  await assertFails(setDoc(doc(alice, 'attraction_ratings/JP_sample-place/votes/bob'), vote(5)));
+  await assertFails(setDoc(doc(app(), 'attraction_ratings/JP_sample-place/votes/alice'), vote(5)));
+  await assertFails(getDocs(collection(alice, 'attraction_ratings/JP_sample-place/votes')));
+  await assertFails(getDoc(doc(anon('bob'), 'attraction_ratings/JP_sample-place/votes/alice')));
+});
+
+test('평점: 별 1~5 정수, 다녀왔어요=true, 서버 시각, 자유 글 없음, 나라·id 형식', async () => {
+  const alice = anon('alice');
+  const mine = doc(alice, 'attraction_ratings/JP_sample-place/votes/alice');
+  for (const bad of [vote(0), vote(6), vote(4.5), vote('5'), vote(5, { visited: false }), vote(5, { at: Timestamp.now() }),
+    vote(5, { comment: '좋아요' }), { stars: 5, at: serverTimestamp() }]) {
+    await assertFails(setDoc(mine, bad));
+  }
+  await assertFails(setDoc(doc(alice, 'attraction_ratings/KR_sample-place/votes/alice'), vote(5)));
+  await assertFails(setDoc(doc(alice, 'attraction_ratings/JP_Sample_Place/votes/alice'), vote(5)));
+  await assertFails(setDoc(doc(alice, 'attraction_ratings/JP_sample-place'), { n: 1 }));
+});
+
+test('평점 집계·확인 중 표시: 누구나 나라 문서 읽기, 앱은 쓰기 불가', async () => {
+  await seed(async (db) => {
+    await setDoc(doc(db, 'attraction_rating_stats/JP'), { 'sample-place': { avg: 4.2, n: 7 } });
+    await setDoc(doc(db, 'attraction_flags/JP'), { ids: ['sample-place'], kind: 'check_in_progress', at: Timestamp.now() });
+  });
+  for (const db of [app(), anon('alice')]) {
+    await assertSucceeds(getDoc(doc(db, 'attraction_rating_stats/JP')));
+    await assertSucceeds(getDoc(doc(db, 'attraction_flags/JP')));
+    await assertFails(setDoc(doc(db, 'attraction_rating_stats/JP'), { 'sample-place': { avg: 5, n: 99 } }));
+    await assertFails(setDoc(doc(db, 'attraction_flags/JP'), { ids: [], kind: 'check_in_progress', at: serverTimestamp() }));
+    await assertFails(deleteDoc(doc(db, 'attraction_flags/JP')));
+    await assertFails(getDocs(collection(db, 'attraction_rating_stats')));
+  }
+  await assertFails(getDoc(doc(app(), 'attraction_flags/jp')));
+});
+
+// ======================= 여행 계획 요청 (docs/ARIA_OPS.md 12.11) =======================
+// 요청 값은 모두 지어낸 것(실제 사람·건강 정보 아님)
+
+const planData = (uid, extra = {}) => ({
+  uid, country: 'JP', purposes: ['sightseeing', 'food'], purpose_note: '가짜 메모',
+  travelers: { adults: 2, seniors: 1, teens: 0, children: 1, genders: { female: 2, male: 2 } },
+  mobility: ['long_walk_hard'], sensitive_consent: true, days: 3, budget_band: 'standard', currency: 'KRW',
+  status: 'queued', createdAt: serverTimestamp(), ...extra,
+});
+const without = (o, ...keys) => { const c = { ...o }; for (const k of keys) delete c[k]; return c; };
+
+/** 요청 = 요청 문서 + 내 횟수 기록(한 묶음) */
+const requestPlan = (db, uid, id, extra = {}, first = true, quota = {}, drop = []) => {
+  const b = writeBatch(db);
+  b.set(doc(db, 'plan_requests', id), without(planData(uid, extra), ...drop));
+  const q = doc(db, 'plan_quota', uid);
+  if (first) b.set(q, { last: serverTimestamp(), prev: null, lastRequestId: id, ...quota });
+  else b.update(q, { last: serverTimestamp(), prev: quota.prev, lastRequestId: id });
+  return b.commit();
+};
+const daysAgo = (n) => Timestamp.fromMillis(Date.now() - n * 86400000);
+
+test('계획 요청: 올바른 요청과 횟수 기록을 한 묶음으로, 본인·운영자만 읽는다', async () => {
+  await seed(async (db) => setDoc(doc(db, 'config/admins'), { uids: ['admin1'] }));
+  const alice = anon('alice');
+  await assertSucceeds(requestPlan(alice, 'alice', 'req1'));
+  await assertSucceeds(getDoc(doc(alice, 'plan_requests/req1')));
+  await assertSucceeds(getDocs(query(collection(alice, 'plan_requests'), where('uid', '==', 'alice'))));
+  await assertSucceeds(getDoc(doc(alice, 'plan_quota/alice')));
+  await assertSucceeds(getDoc(doc(anon('admin1'), 'plan_requests/req1')));
+  await assertFails(getDoc(doc(anon('bob'), 'plan_requests/req1')));
+  await assertFails(getDoc(doc(app(), 'plan_requests/req1')));
+  await assertFails(getDocs(collection(anon('bob'), 'plan_requests')));
+  await assertFails(getDoc(doc(anon('bob'), 'plan_quota/alice')));
+  // 날짜로 요청, 이동 조건 없으면 동의 칸도 없어야
+  await assertSucceeds(requestPlan(anon('carol'), 'carol', 'req2',
+    { start_date: '2026-11-01', end_date: '2026-11-03', mobility: [] }, true, {}, ['days', 'sensitive_consent']));
+  // 이동 조건을 안 고르면 동의 칸도 없어야 하고, 날짜는 끝이 시작보다 앞일 수 없다
+  await assertFails(requestPlan(anon('dave'), 'dave', 'req3', { mobility: [] }));
+  await assertFails(requestPlan(anon('erin'), 'erin', 'req4',
+    { start_date: '2026-11-05', end_date: '2026-11-01' }, true, {}, ['days']));
+});
+
+test('계획 요청: 횟수 기록 없이·남의 이름으로·모양이 틀리면 거절', async () => {
+  const alice = anon('alice');
+  await assertFails(setDoc(doc(alice, 'plan_requests/solo'), planData('alice')));             // 횟수 기록 없이
+  await assertFails(requestPlan(alice, 'bob', 'r0'));                                          // 남의 ID
+  const bad = [
+    { country: 'KR' }, { purposes: [] }, { purposes: ['gambling'] }, { purposes: ['food', 'food'] },
+    { purpose_note: '가'.repeat(201) }, { travelers: { adults: 0, seniors: 0, teens: 0, children: 0 } },
+    { travelers: { adults: 2, seniors: 0, teens: 0 } }, { travelers: { adults: 2, seniors: 0, teens: 0, children: 0, genders: { other: 1 } } },
+    { travelers: { adults: 21, seniors: 0, teens: 0, children: 0 } },
+    { mobility: ['diagnosis_text'] }, { sensitive_consent: false }, { mobility: [], sensitive_consent: true },
+    { days: 31 }, { days: 0 }, { start_date: '2026-11-01', end_date: '2026-11-03' },
+    { budget_band: 'unlimited' }, { currency: 'USD' }, { status: 'done' }, { createdAt: Timestamp.now() },
+    { passport_no: 'M00000000' }, { health_note: '가짜' },
+  ];
+  for (const [i, extra] of bad.entries()) {
+    await assertFails(requestPlan(alice, 'alice', `bad${i}`, extra));
+  }
+  await assertFails(requestPlan(alice, 'alice', 'nc', {}, true, {}, ['sensitive_consent']));   // 이동 조건 있는데 동의 없음
+});
+
+test('계획 요청: 7일에 2번까지 (세 번째는 거절, 7일 지나면 다시)', async () => {
+  const alice = anon('alice');
+  await assertSucceeds(requestPlan(alice, 'alice', 'r1'));
+  const q1 = (await getDoc(doc(alice, 'plan_quota/alice'))).data();
+  await assertSucceeds(requestPlan(alice, 'alice', 'r2', {}, false, { prev: q1.last }));
+  const q2 = (await getDoc(doc(alice, 'plan_quota/alice'))).data();
+  await assertFails(requestPlan(alice, 'alice', 'r3', {}, false, { prev: q2.last }));
+  // prev 를 속이거나 기록을 지우거나 새로 만들 수 없다
+  await assertFails(requestPlan(alice, 'alice', 'r3', {}, false, { prev: null }));
+  await assertFails(deleteDoc(doc(alice, 'plan_quota/alice')));
+  await assertFails(requestPlan(alice, 'alice', 'r3', {}, true));
+  // 요청 없이 횟수 기록만 고치기 불가
+  await assertFails(updateDoc(doc(alice, 'plan_quota/alice'), { last: serverTimestamp(), prev: q2.last, lastRequestId: 'ghost' }));
+  // 8일 전·3일 전 요청이 있던 사람은 다시 된다
+  await seed(async (db) => setDoc(doc(db, 'plan_quota/bob'), { last: daysAgo(3), prev: daysAgo(8), lastRequestId: 'old' }));
+  const bob = anon('bob');
+  const qb = (await getDoc(doc(bob, 'plan_quota/bob'))).data();
+  await assertSucceeds(requestPlan(bob, 'bob', 'b3', {}, false, { prev: qb.last }));
+});
+
+test('계획 요청: 이용자는 취소·취소한 요청 삭제만, 결과는 본인만 읽고 아무도 쓰지 못한다', async () => {
+  await seed(async (db) => {
+    await setDoc(doc(db, 'config/admins'), { uids: ['admin1'] });
+    await setDoc(doc(db, 'plan_requests/r1'), { ...planData('alice'), createdAt: Timestamp.now() });
+    await setDoc(doc(db, 'plan_requests/r2'), { ...planData('alice'), status: 'done', createdAt: Timestamp.now() });
+    await setDoc(doc(db, 'plan_results/r1'), { uid: 'alice', request_id: 'r1', plan: { days: [] }, ai_generated: true });
+  });
+  const alice = anon('alice');
+  await assertFails(updateDoc(doc(alice, 'plan_requests/r1'), { days: 5 }));
+  await assertFails(updateDoc(doc(alice, 'plan_requests/r1'), { status: 'done', finishedAt: serverTimestamp() }));
+  await assertFails(updateDoc(doc(anon('bob'), 'plan_requests/r1'), { status: 'cancelled', finishedAt: serverTimestamp() }));
+  await assertSucceeds(updateDoc(doc(alice, 'plan_requests/r1'), { status: 'cancelled', finishedAt: serverTimestamp() }));
+  await assertFails(updateDoc(doc(alice, 'plan_requests/r2'), { status: 'cancelled', finishedAt: serverTimestamp() }));
+  // 취소한 요청은 본인만 지울 수 있다(2026-10-09). 끝난 요청(r2)·남의 요청은 못 지운다
+  await assertFails(deleteDoc(doc(anon('bob'), 'plan_requests/r1')));
+  await assertFails(deleteDoc(doc(alice, 'plan_requests/r2')));
+  await assertSucceeds(getDoc(doc(alice, 'plan_results/r1')));
+  await assertSucceeds(getDoc(doc(anon('admin1'), 'plan_results/r1')));
+  await assertSucceeds(getDoc(doc(alice, 'plan_results/not-yet')));                           // 아직 없으면 '없음'
+  await assertFails(getDoc(doc(anon('bob'), 'plan_results/r1')));
+  await assertSucceeds(getDocs(query(collection(alice, 'plan_results'), where('uid', '==', 'alice'))));
+  await assertFails(getDocs(collection(anon('bob'), 'plan_results')));
+  await assertFails(setDoc(doc(alice, 'plan_results/r9'), { uid: 'alice', plan: {} }));
+  await assertFails(updateDoc(doc(alice, 'plan_results/r1'), { plan: { days: [1] } }));
+  await assertFails(deleteDoc(doc(alice, 'plan_results/r1')));
+  await assertSucceeds(deleteDoc(doc(alice, 'plan_requests/r1')));
+  await assertFails(setDoc(doc(anon('admin1'), 'plan_results/r9'), { uid: 'alice', plan: {} }));
+});

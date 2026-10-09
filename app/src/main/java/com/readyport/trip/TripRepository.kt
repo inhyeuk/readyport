@@ -7,6 +7,7 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
+import com.readyport.itinerary.TripItinerary
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -32,6 +33,11 @@ data class TripBook(
     val checks: Map<String, TripChecks> = emptyMap(),
     /** 여권이 저장돼 있는지 — 지갑을 마지막으로 열었을 때 본 값(지갑이 잠겨 있으면 이 값을 쓴다). 모르면 null */
     val passportSaved: Boolean? = null,
+    /**
+     * 여행 id → 관광 일정(관광지 키 + 며칠째 + 순서만, 2026-10-09). 여행을 지우면 함께 지운다.
+     * 예전 저장본에는 없어서 빈 값으로 읽힌다(encodeDefaults=false).
+     */
+    val itineraries: Map<String, TripItinerary> = emptyMap(),
 )
 
 /**
@@ -91,7 +97,9 @@ class TripRepository @Inject constructor(
         val saved = if (trip.id.isBlank()) trip.copy(id = UUID.randomUUID().toString()) else trip
         editBook { b ->
             val list = if (b.trips.any { it.id == saved.id }) b.trips.map { if (it.id == saved.id) saved else it } else b.trips + saved
-            b.copy(trips = list)
+            // 나라를 바꾸면 그 여행의 관광 일정(다른 나라 관광지)은 뜻이 없어 지운다
+            val countryChanged = b.trips.any { it.id == saved.id && it.country != saved.country }
+            b.copy(trips = list, itineraries = if (countryChanged) b.itineraries - saved.id else b.itineraries)
         }
         return saved
     }
@@ -107,14 +115,25 @@ class TripRepository @Inject constructor(
         update(id, transform)
     }
 
-    /** 여행 하나와 그 체크 상태를 지운다 */
+    /** 여행 하나와 그 체크 상태·관광 일정을 지운다 */
     suspend fun delete(id: String) {
-        editBook { b -> b.copy(trips = b.trips.filterNot { it.id == id }, checks = b.checks - id) }
+        editBook { b -> b.copy(trips = b.trips.filterNot { it.id == id }, checks = b.checks - id, itineraries = b.itineraries - id) }
     }
 
     /** 모든 여행·체크를 지운다 (테스트·초기화용) */
     suspend fun clear() {
         context.tripStore.edit { it.remove(bookKey); it.remove(legacyKey) }
+    }
+
+    // ---------------- 관광 일정 (2026-10-09) ----------------
+
+    fun itinerary(id: String): Flow<TripItinerary> = book.map { it.itineraries[id] ?: TripItinerary() }.distinctUntilChanged()
+
+    /** 관광 일정을 고친다. 없는 여행이면 아무 일도 하지 않는다. 빈 일정은 장부에서 뺀다 */
+    suspend fun editItinerary(tripId: String, transform: (TripItinerary) -> TripItinerary) = editBook { b ->
+        if (b.trips.none { it.id == tripId }) return@editBook b
+        val next = transform(b.itineraries[tripId] ?: TripItinerary())
+        b.copy(itineraries = if (next.stops.isEmpty()) b.itineraries - tripId else b.itineraries + (tripId to next))
     }
 
     // ---------------- 체크 상태 ----------------

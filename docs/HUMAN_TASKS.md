@@ -48,6 +48,16 @@
 - **Hosting을 손으로 배포할 때**: 배포는 사이트 전체를 바꾼다. `hosting/public/packs/`는 커밋하지 않는 폴더라 먼저 `python tools/packs/build_packs.py --kid rp-2026-1 --key ~/.readyport/keys/pack_signing_rp-2026-1.pem`으로 다시 만든다(아홉 나라 + 양식 다섯 — 서명이 결정적이라 앱 내장본과 같다). 그다음 `firebase deploy --only hosting --project readyport-app`
 - 사진·동영상은 **켜지 않은 채 출시**. 켜려면 Blaze 요금제 + 예산 알림 + `firebase deploy --only storage` + 앱 설정 스위치(`docs/BOARD.md` 5절)
 
+## 4-3. 관광지 지도·위키백과 요약 (2026-10-09, 사장님 결정)
+- **Google 지도 API 키 발급**: Google Cloud 콘솔(프로젝트 readyport-app 또는 별도) › API 및 서비스 › **Maps SDK for Android** 사용 설정 → 사용자 인증 정보 › API 키 만들기 →
+  - 애플리케이션 제한: **Android 앱** — 패키지 `com.readyport`(Play 앱 서명 키 SHA-1, Play Console › 앱 무결성에서 복사) + `com.readyport.debug`(디버그 키 SHA-1, `gradlew signingReport`)
+  - API 제한: **Maps SDK for Android만**
+  - 할당량·예산 알림(모바일 지도 로드는 현재 무료지만 결제 계정 연결이 필요할 수 있음 — 콘솔 안내 확인)
+- **키 넣기**: `~/.readyport/keys/maps.properties` 파일에 한 줄 `MAPS_API_KEY=발급받은키` (저장소 밖, 커밋 금지). 또는 `local.properties`·`-PMAPS_API_KEY=`. 다시 빌드하면 `BuildConfig.MAPS_ENABLED=true`가 되어 지도가 보인다(키가 없으면 지도 칸 없이 '구글 지도에서 열기'만)
+- CI(`android-ci.yml`)는 키 없이 debug만 빌드·테스트한다(지도 없는 경로가 검사된다). 출시 AAB는 이 PC에서 만들므로 이 PC의 `maps.properties`만 있으면 된다
+- **개인정보 처리방침 4절**(Google 지도 SDK·위키백과) 갱신본을 이 기능이 든 앱보다 먼저 Hosting에 배포, Play 데이터 보안은 `docs/play/DATA_SAFETY.md` 7절
+- 실기기 확인: 상세 '위치' 카드 → 큰 지도 → '구글 지도 앱에서 길찾기', 목록 '지도로 보기'(찜한 곳만 보기 번호), 비행기 모드에서 안내 카드, '위키백과에서 보기' 팝업
+
 ## 5. 선택
 - C15 Visit Japan Web: 운영자가 폰에서 로그인한 상태로 열어 주면 Claude가 구조만 읽어 레시피를 만든다
 - C22 Firestore 위치 nam5 → 서울로 옮기기(비어 있을 때)

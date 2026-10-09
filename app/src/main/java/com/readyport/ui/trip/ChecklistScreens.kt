@@ -421,6 +421,10 @@ data class ChecklistActions(
     val arrivalDone: () -> Unit = {},
     /** 여권 정보 지우기를 7일 미루기 (복귀 단계) */
     val postponeDestroy: () -> Unit = {},
+    /** 이 여행의 관광 일정 (계획 단계 타일·여행 중 오늘 갈 곳, 2026-10-09) */
+    val openItinerary: (tripId: String) -> Unit = {},
+    /** 관광지 상세 (오늘 갈 곳에서) */
+    val openAttraction: (country: String, id: String) -> Unit = { _, _ -> },
 )
 
 /**

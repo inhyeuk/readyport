@@ -136,6 +136,14 @@ class FingerprintStore:
         return [dict(r) for r in rows]
 
     @_locked
+    def list_pending(self, detector: str, unit_prefix: str = "", limit: int = 500) -> list[dict[str, Any]]:
+        """자동 경로(관광지 주간 갱신)가 아직 손대지 않은 변경: claude_status 가 비어 있는 것."""
+        rows = self._db.execute(
+            "SELECT * FROM changes WHERE detector=? AND unit LIKE ? AND claude_status IS NULL ORDER BY created_at LIMIT ?",
+            (detector, unit_prefix.replace("%", "") + "%", limit))
+        return [dict(r) for r in rows]
+
+    @_locked
     def list_recent(self, limit: int = 20) -> list[dict[str, Any]]:
         rows = self._db.execute("SELECT * FROM changes ORDER BY created_at DESC LIMIT ?", (limit,))
         return [dict(r) for r in rows]
@@ -232,6 +240,71 @@ class FingerprintStore:
                        (_now_iso(), _now_iso(), fp))
             db.execute("COMMIT")
             return True, "ok"
+        except Exception:
+            db.execute("ROLLBACK")
+            raise
+
+    @_locked
+    def claim_auto_run(self, fp: str, daily_cap: int, counters: Optional[list[tuple[str, int]]] = None,
+                       today: Optional[_dt.date] = None) -> tuple[bool, str]:
+        """사람 승인 없이 자동으로 도는 경로(사장님이 '검사 통과하면 자동 반영'으로 정한 관광지 주간 갱신)의 실행 자격.
+
+        claim_claude_run 과 같지만 review=accepted 를 요구하지 않는다. 대신 하루 Claude 상한(claude_calls)과
+        추가 상한 목록 counters=[(kv 키, 상한)] 을 모두 확인하고, 통과하면 한 번에 모두 1씩 올린다.
+        """
+        check_fp(fp)
+        day = (today or _local_today()).isoformat()
+        db = self._db
+        db.execute("BEGIN IMMEDIATE")
+        try:
+            row = db.execute("SELECT claude_run_at FROM changes WHERE fingerprint=?", (fp,)).fetchone()
+            if row is None:
+                db.execute("ROLLBACK")
+                return False, "unknown_fingerprint"
+            if row["claude_run_at"]:
+                db.execute("ROLLBACK")
+                return False, "already_ran"
+            c = db.execute("SELECT count FROM claude_calls WHERE day=?", (day,)).fetchone()
+            if (int(c["count"]) if c else 0) >= daily_cap:
+                db.execute("ROLLBACK")
+                return False, "daily_cap_reached"
+            for key, cap in counters or []:
+                v = db.execute("SELECT value FROM kv WHERE key=?", (key,)).fetchone()
+                if (int(json.loads(v["value"])) if v else 0) >= cap:
+                    db.execute("ROLLBACK")
+                    return False, f"cap_reached:{key}"
+            db.execute("INSERT INTO claude_calls(day, count) VALUES(?, 1)"
+                       " ON CONFLICT(day) DO UPDATE SET count=count+1", (day,))
+            for key, _ in counters or []:
+                v = db.execute("SELECT value FROM kv WHERE key=?", (key,)).fetchone()
+                n = (int(json.loads(v["value"])) if v else 0) + 1
+                db.execute("INSERT INTO kv(key, value, updated_at) VALUES(?,?,?)"
+                           " ON CONFLICT(key) DO UPDATE SET value=excluded.value, updated_at=excluded.updated_at",
+                           (key, json.dumps(n), _now_iso()))
+            db.execute("UPDATE changes SET claude_run_at=?, claude_status='running', updated_at=? WHERE fingerprint=?",
+                       (_now_iso(), _now_iso(), fp))
+            db.execute("COMMIT")
+            return True, "ok"
+        except Exception:
+            db.execute("ROLLBACK")
+            raise
+
+    @_locked
+    def claim_counter(self, key: str, cap: int) -> bool:
+        """작은 상한 하나(예: 하루 계획 생성 수)를 확인하고 1 올린다. 넘으면 False(아무것도 안 바꿈)."""
+        db = self._db
+        db.execute("BEGIN IMMEDIATE")
+        try:
+            v = db.execute("SELECT value FROM kv WHERE key=?", (key,)).fetchone()
+            n = int(json.loads(v["value"])) if v else 0
+            if n >= cap:
+                db.execute("ROLLBACK")
+                return False
+            db.execute("INSERT INTO kv(key, value, updated_at) VALUES(?,?,?)"
+                       " ON CONFLICT(key) DO UPDATE SET value=excluded.value, updated_at=excluded.updated_at",
+                       (key, json.dumps(n + 1), _now_iso()))
+            db.execute("COMMIT")
+            return True
         except Exception:
             db.execute("ROLLBACK")
             raise

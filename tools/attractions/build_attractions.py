@@ -25,6 +25,12 @@
   python tools/attractions/build_attractions.py verify-quotes JP               # 인용 대조만
   python tools/attractions/build_attractions.py keygen --kid rp-att-2026-1     # 관광지 전용 키 만들기(공개키만 출력)
   python tools/attractions/build_attractions.py protect-key --key …            # 비밀키 PEM 에 암호 걸기
+  python tools/attractions/build_attractions.py wiki-fill JP [--file app/src/debug/assets/attractions_samples/JP.json] [--dry-run]
+                                                                               # Wikidata sitelinks → wiki {ko, en} 제목(네트워크)
+  python tools/attractions/build_attractions.py record JP --ids a,b            # ARIA 주간 갱신: 바뀐 곳만 인용 대조·copycheck 하고 기록(packs/curation)만 갱신
+  python tools/attractions/build_attractions.py verify-quotes JP --ids a,b --use-record   # CI: 기록(facts 해시)으로 대조를 마쳤는지 확인(증거 폴더 없이)
+  python tools/attractions/build_attractions.py apply-drafts JP --ids a,b --kid rp-att-2026-1 --key …   # CI: 작업본의 그 곳만 원본에 옮겨 다시 서명
+  python tools/attractions/build_attractions.py place-ids JP [--ids a,b] [--write]   # Google place ID 채우기(Places API Text Search, 필드 places.id 만)
 """
 from __future__ import annotations
 
@@ -908,11 +914,13 @@ def read_cache_file(path: pathlib.Path) -> tuple[dict | None, str]:
 
 
 def copycheck(doc: dict, cc: str, cache_dir: pathlib.Path, evidence_dir: pathlib.Path, report: Report,
-              record: dict | None, today: dt.date) -> dict:
+              record: dict | None, today: dt.date, ids: set[str] | None = None) -> dict:
     record = record or {}
     out = {}
     for att in doc.get("attractions", []):
         aid = att.get("id")
+        if ids is not None and aid not in ids:
+            continue
         text = copy_text(att)
         text_sha = sha256_hex(text)
         prev = record.get(aid)
@@ -1201,6 +1209,208 @@ def retire(paths: Paths, cc: str, ids: list[str], reason: str, note_ko: str | No
     return report
 
 
+def split_ids(text: str | None) -> list[str]:
+    return [i.strip() for i in (text or "").split(",") if i.strip()]
+
+
+def working_doc_path(paths: Paths, cc: str) -> pathlib.Path:
+    """작업본이 있으면 작업본, 없으면 원본"""
+    p = paths.drafts / cc / FILE_NAME
+    return p if p.is_file() else paths.src / cc / FILE_NAME
+
+
+def write_record(paths: Paths, cc: str, kind: str, rec: dict):
+    paths.curation.mkdir(parents=True, exist_ok=True)
+    (paths.curation / f"{cc}.{kind}.json").write_text(
+        json.dumps(rec, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8", newline="\n")
+
+
+def record_checks(paths: Paths, cc: str, ids: list[str], today: dt.date) -> Report:
+    """ARIA 주간 갱신(사장님 결정 2026-10-09): 바뀐 곳(ids)만 인용 대조·copycheck 를 하고, 통과하면 기록
+    (packs/curation/<CC>.quotes·copycheck.json)의 그 곳 줄만 갱신한다. 인용 원문·증거는 저장소 밖(~/.readyport)에만 있다.
+    CI 는 이 기록(facts·글 해시)으로 '대조를 마쳤다'를 확인하고 서명한다. 하나라도 실패하면 기록을 쓰지 않는다."""
+    report = Report(cc)
+    path = working_doc_path(paths, cc)
+    if not path.is_file():
+        report.error(f"{cc} 관광지 파일이 없음")
+        return report
+    doc = load_json(path)
+    present = {a.get("id") for a in doc.get("attractions", [])}
+    missing = [i for i in ids if i not in present]
+    if missing or not ids:
+        report.error(f"attractions 에 없는 id: {', '.join(missing) or '(비어 있음)'}")
+        return report
+    want = set(ids)
+    old_q, old_c = paths.record(cc, "quotes"), paths.record(cc, "copycheck")
+    quotes = verify_quotes(doc, cc, paths.evidence, report, record=old_q, ids=want)
+    copy_rec = copycheck(doc, cc, paths.cache, paths.evidence, report, old_c, today, ids=want)
+    if not report.ok:
+        return report
+    new_q, new_c = dict(old_q), dict(old_c)
+    new_q.update({k: v for k, v in quotes.items() if k in want})
+    new_c.update({k: v for k, v in copy_rec.items() if k in want})
+    write_record(paths, cc, "quotes", new_q)
+    write_record(paths, cc, "copycheck", new_c)
+    return report
+
+
+def apply_drafts(paths: Paths, cc: str, ids: list[str], key, kid: str, today: dt.date, reviewed: bool = False,
+                 gates: dict | None = None) -> Report:
+    """주간 자동 갱신(CI): 작업본의 ids 관광지만 원본으로 옮기고 다시 서명한다(지역·순서·다른 곳은 원본 그대로).
+    원본에 없는 곳(새 관광지)이나 지역이 바뀐 곳은 사람 절차(promote)로만 — 여기서는 실패."""
+    report = Report(cc)
+    src_path, draft_path = paths.src / cc / FILE_NAME, paths.drafts / cc / FILE_NAME
+    if not src_path.is_file():
+        report.error(f"원본 {src_path} 가 없음 — 아직 공개 전인 나라는 서명하지 않는다(작업본만 갱신)")
+        return report
+    if not draft_path.is_file():
+        report.error(f"작업본 {draft_path} 가 없음")
+        return report
+    if not ids:
+        report.error("--ids 가 비어 있음")
+        return report
+    src, draft = load_json(src_path), load_json(draft_path)
+    src_index = {a.get("id"): i for i, a in enumerate(src.get("attractions", []))}
+    draft_by = {a.get("id"): a for a in draft.get("attractions", [])}
+    doc = copy.deepcopy(src)
+    have_sources = {x.get("id") for x in doc.get("sources", [])}
+    draft_sources = {x.get("id"): x for x in draft.get("sources", [])}
+    for aid in ids:
+        if aid not in src_index:
+            report.error(f"{aid}: 원본(공개본)에 없는 곳 — 새 관광지는 promote 로만")
+            continue
+        if aid not in draft_by:
+            report.error(f"{aid}: 작업본에 없음")
+            continue
+        new = copy.deepcopy(draft_by[aid])
+        if new.get("region") != doc["attractions"][src_index[aid]].get("region"):
+            report.error(f"{aid}: 지역이 바뀜 — 사람 절차(promote)로만")
+            continue
+        doc["attractions"][src_index[aid]] = new
+        for p, v in walk_strings(new):
+            if p.endswith(".source") and v not in have_sources and v in draft_sources:
+                doc.setdefault("sources", []).append(copy.deepcopy(draft_sources[v]))
+                have_sources.add(v)
+    if not report.ok:
+        return report
+    previous = copy.deepcopy(src)
+    doc["version"] = next_version(src.get("version"), today)
+    return finalize_and_sign(paths, cc, doc, key, kid, today, previous=previous, reviewed=reviewed, gates=gates)
+
+
+# ======================= Google place ID (사장님 결정 2026-10-09) =======================
+# 구글 별점은 앱 상세에서 그때그때 조회('Google 제공' 표시, 저장 안 함). 파일에는 place ID 만 둔다 —
+# Google Maps Platform 약관상 place ID 는 기간 제한 없이 저장해도 되는 값이다 [재확인].
+
+PLACES_TEXT_SEARCH = "https://places.googleapis.com/v1/places:searchText"
+PLACES_FIELD_MASK = "places.id"          # IDs Only — 이름·별점 등 다른 필드는 받지 않는다 [재확인: SKU·요금]
+MAPS_PROPERTIES = KEYS_DIR / "maps.properties"
+PLACE_ID_RE = re.compile(r"^[A-Za-z0-9_-]{10,300}$")
+PLACE_BOX_DEG = 0.01                    # 좌표 둘레 약 1km 사각형 안에서만 찾는다(엉뚱한 곳 방지)
+
+
+def read_maps_key(path: pathlib.Path = MAPS_PROPERTIES) -> str | None:
+    """~/.readyport/keys/maps.properties 의 PC 도구용 PLACES_TOOL_KEY(없으면 MAPS_API_KEY). 없으면 None.
+    앱 키(MAPS_API_KEY)는 Android 앱 잠금이라 PC에서는 거절된다 — 도구 전용 키를 먼저 쓴다. 키는 화면·파일 어디에도 다시 쓰지 않는다."""
+    if not path.is_file():
+        return None
+    found: dict[str, str] = {}
+    for line in path.read_text(encoding="utf-8-sig").splitlines():
+        line = line.strip()
+        if line.startswith("#") or "=" not in line:
+            continue
+        k, v = line.split("=", 1)
+        if v.strip():
+            found[k.strip()] = v.strip()
+    return found.get("PLACES_TOOL_KEY") or found.get("MAPS_API_KEY")
+
+
+def place_query(att: dict) -> dict:
+    """Text Search 요청 본문: 현지 이름(없으면 영어·한국어 이름) + 좌표 둘레 사각형 제한"""
+    names = att.get("names") or {}
+    geo = att.get("geo") or {}
+    lat, lng = geo["lat"], geo["lng"]
+    return {
+        "textQuery": names.get("local") or names.get("en") or names.get("ko"),
+        "pageSize": 1,
+        "locationRestriction": {"rectangle": {
+            "low": {"latitude": round(lat - PLACE_BOX_DEG, 6), "longitude": round(lng - PLACE_BOX_DEG, 6)},
+            "high": {"latitude": round(lat + PLACE_BOX_DEG, 6), "longitude": round(lng + PLACE_BOX_DEG, 6)},
+        }},
+    }
+
+
+def find_place_ids(doc: dict, api_key: str, fetch, ids: set[str] | None = None,
+                   overwrite: bool = False) -> tuple[dict, list[str]]:
+    """({id: place_id}, 문제 목록). fetch(method, url, headers, data, timeout) -> (status, body bytes). 테스트는 가짜 fetch."""
+    found, problems = {}, []
+    for att in doc.get("attractions", []):
+        aid = att.get("id")
+        if ids is not None and aid not in ids:
+            continue
+        if att.get("google_place_id") and not overwrite:
+            continue
+        if "lat" not in (att.get("geo") or {}):
+            problems.append(f"{aid}: 좌표 없음")
+            continue
+        body = json.dumps(place_query(att), ensure_ascii=False).encode("utf-8")
+        headers = {"Content-Type": "application/json", "X-Goog-Api-Key": api_key, "X-Goog-FieldMask": PLACES_FIELD_MASK}
+        status, data = fetch("POST", PLACES_TEXT_SEARCH, headers, body, 20)
+        if status != 200:
+            problems.append(f"{aid}: Places API HTTP {status}")
+            continue
+        try:
+            places = json.loads((data or b"{}").decode("utf-8") or "{}").get("places") or []
+        except ValueError:
+            problems.append(f"{aid}: 응답 형식 오류")
+            continue
+        pid = (places[0] or {}).get("id") if places else None
+        if not pid or not PLACE_ID_RE.match(pid):
+            problems.append(f"{aid}: 후보 없음(좌표 1km 안)")
+            continue
+        found[aid] = pid
+    return found, problems
+
+
+def _urllib_fetch(method, url, headers, data, timeout):  # pragma: no cover - 실제 네트워크
+    import urllib.error
+    import urllib.request
+    req = urllib.request.Request(url, data=data, method=method, headers=headers)
+    try:
+        with urllib.request.urlopen(req, timeout=timeout) as r:
+            return r.status, r.read()
+    except urllib.error.HTTPError as e:
+        return e.code, b""
+
+
+def place_ids_command(paths: Paths, cc: str, ids: set[str] | None, write: bool, key_file: pathlib.Path,
+                      fetch=None, out=print) -> int:
+    api_key = read_maps_key(key_file)
+    if not api_key:
+        out(f"MAPS_API_KEY 가 없어요: {key_file} 에 'MAPS_API_KEY=…' 한 줄을 넣어 주세요"
+            "(Places API (New) 를 켠 키). 아무것도 하지 않았어요.")
+        return 2
+    path = working_doc_path(paths, cc)
+    if not path.is_file():
+        out(f"{cc} 관광지 파일이 없어요")
+        return 1
+    doc = load_json(path)
+    found, problems = find_place_ids(doc, api_key, fetch or _urllib_fetch, ids)
+    for aid, pid in sorted(found.items()):
+        out(f"{aid}: {pid}")
+    for pr in problems:
+        out("확인 필요: " + pr)
+    if write and found:
+        for att in doc.get("attractions", []):
+            if att.get("id") in found:
+                att["google_place_id"] = found[att["id"]]
+        path.write_text(pretty_text(doc), encoding="utf-8", newline="\n")
+        out(f"{path.name} 에 {len(found)}곳 썼어요 — 앱 상세의 구글 별점이 맞는 곳인지 확인하세요")
+    elif found:
+        out("시험 실행이라 파일은 그대로예요. 쓰려면 --write")
+    return 0 if not problems else 1
+
+
 def check_all(paths: Paths, countries: list[str] | None, today: dt.date) -> list[Report]:
     reports = []
     for cc in countries or paths.countries():
@@ -1310,6 +1520,133 @@ def protect_key(path: str) -> int:
     return 0
 
 
+# ======================= 위키백과 제목 채우기 (wiki-fill) =======================
+# 상세 화면 '위키백과에서 보기'(요약 팝업 + 전체 보기, 사장님 결정 2026-10-09)가 쓰는 문서 제목.
+# Wikidata sitelinks(kowiki·enwiki)에서 **제목만** 가져온다. 위키백과 글은 저장소·팩에 넣지 않는다(⟦결정 D12⟧, 앱이 열 때 받는다).
+
+WIKIDATA_API = "https://www.wikidata.org/w/api.php"
+# Wikimedia User-Agent 정책: 도구 이름/버전 + 연락처(사이트 주소)
+WIKI_USER_AGENT = "ReadyPortBuild/1.0 (https://readyport-app.web.app)"
+WIKI_SITES = {"ko": "kowiki", "en": "enwiki"}
+WIKI_BATCH = 50
+# MediaWiki 제목에 쓸 수 없는 글자(# < > [ ] | { } 와 제어 문자). 앱 AttractionsMapper.wikiTitle 과 같은 규칙
+WIKI_TITLE_RE = re.compile(r"^[^#<>\[\]|{}\x00-\x1f\x7f]{1,255}$")
+
+
+def valid_wiki_title(title) -> bool:
+    return isinstance(title, str) and title == title.strip() and bool(WIKI_TITLE_RE.match(title))
+
+
+def wikidata_sitelinks_url(qids: list[str]) -> str:
+    import urllib.parse
+    query = {
+        "action": "wbgetentities",
+        "ids": "|".join(qids),
+        "props": "sitelinks",
+        "sitefilter": "|".join(WIKI_SITES.values()),
+        "format": "json",
+        "formatversion": "2",
+    }
+    return WIKIDATA_API + "?" + urllib.parse.urlencode(query)
+
+
+def http_get_json(url: str) -> dict:
+    """Wikidata API 한 번 부르기 (설명이 든 User-Agent, 30초 제한)"""
+    import urllib.request
+    req = urllib.request.Request(url, headers={"User-Agent": WIKI_USER_AGENT, "Accept": "application/json"})
+    with urllib.request.urlopen(req, timeout=30) as resp:  # noqa: S310 — 고정된 https 주소만
+        return json.loads(resp.read().decode("utf-8"))
+
+
+def fetch_sitelinks(qids: list[str], get_json=http_get_json) -> dict[str, dict[str, str]]:
+    """QID → {"ko": 제목, "en": 제목} (있는 것만). 없는 항목(missing)은 결과에서 빠진다. 합쳐진 항목은 요청한 QID로 돌려준다"""
+    out: dict[str, dict[str, str]] = {}
+    unique = list(dict.fromkeys(q for q in qids if isinstance(q, str) and re.match(r"^Q[0-9]+$", q)))
+    for i in range(0, len(unique), WIKI_BATCH):
+        data = get_json(wikidata_sitelinks_url(unique[i:i + WIKI_BATCH]))
+        if "error" in data:
+            raise RuntimeError(f"Wikidata API 오류: {data['error'].get('code', '?')}")
+        for key, ent in (data.get("entities") or {}).items():
+            if not isinstance(ent, dict) or "missing" in ent:
+                continue
+            qid = (ent.get("redirects") or {}).get("from") or key
+            links = ent.get("sitelinks") or {}
+            titles = {}
+            for lang, site in WIKI_SITES.items():
+                t = (links.get(site) or {}).get("title")
+                if valid_wiki_title(t):
+                    titles[lang] = unicodedata.normalize("NFC", t)
+            out[qid] = titles
+    return out
+
+
+def with_key_after(obj: dict, key: str, value, after: str) -> dict:
+    """키 순서를 지키며 key 를 넣거나 바꾼다(없으면 after 바로 뒤, after 도 없으면 맨 끝)"""
+    if key in obj:
+        return {k: (value if k == key else v) for k, v in obj.items()}
+    out = {}
+    for k, v in obj.items():
+        out[k] = v
+        if k == after:
+            out[key] = value
+    if key not in out:
+        out[key] = value
+    return out
+
+
+def apply_wiki(doc: dict, sitelinks: dict[str, dict[str, str]], report: Report) -> int:
+    """관광지마다 wiki 를 채운다. 바뀐 관광지 수를 돌려준다. 조회하지 못한 QID 는 그대로 두고 경고한다"""
+    changed = 0
+    atts = doc.get("attractions", [])
+    for i, a in enumerate(atts):
+        qid = a.get("qid")
+        where = a.get("id", f"#{i}")
+        if not qid:
+            report.warn(f"{where}: qid 없음 — wiki 를 채우지 않음")
+            continue
+        if qid not in sitelinks:
+            report.warn(f"{where}: Wikidata {qid} 를 찾지 못함 — wiki 를 그대로 둠")
+            continue
+        titles = {lang: sitelinks[qid][lang] for lang in WIKI_SITES if lang in sitelinks[qid]}
+        if not titles:
+            if "wiki" in a:
+                atts[i] = {k: v for k, v in a.items() if k != "wiki"}
+                changed += 1
+            report.warn(f"{where}: 한국어·영어 위키백과 문서 없음")
+            continue
+        if a.get("wiki") != titles:
+            atts[i] = with_key_after(a, "wiki", titles, "official_url")
+            changed += 1
+    return changed
+
+
+def wiki_fill(path: pathlib.Path, cc: str, get_json=http_get_json, dry_run: bool = False) -> Report:
+    report = Report(f"{cc} wiki-fill ({path.name})")
+    if not path.is_file():
+        report.error(f"파일 없음: {path}")
+        return report
+    doc = load_json(path)
+    if doc.get("country") != cc:
+        report.error(f"country 가 {cc} 가 아님: {doc.get('country')}")
+        return report
+    qids = [a.get("qid") for a in doc.get("attractions", []) if a.get("qid")]
+    try:
+        links = fetch_sitelinks(qids, get_json)
+    except Exception as e:  # 네트워크·API 오류 — 파일은 건드리지 않는다
+        report.error(f"Wikidata 조회 실패: {e}")
+        return report
+    changed = apply_wiki(doc, links, report)
+    errs = schema_errors(doc)
+    if errs:
+        for e in errs[:10]:
+            report.error("스키마: " + e)
+        return report
+    if changed and not dry_run:
+        path.write_bytes(pretty_text(doc).encode("utf-8"))  # 줄끝 LF 그대로(Windows에서도)
+    report.changed = changed
+    return report
+
+
 def print_reports(reports: list[Report]) -> bool:
     ok = True
     for r in reports:
@@ -1352,14 +1689,43 @@ def main(argv: list[str] | None = None) -> int:
     vq = sub.add_parser("verify-quotes")
     vq.add_argument("country")
     vq.add_argument("--evidence-dir", default=str(EVIDENCE_DIR))
+    vq.add_argument("--ids", help="쉼표 목록 — 이 곳만 확인")
+    vq.add_argument("--use-record", action="store_true",
+                    help="packs/curation/<CC>.quotes.json 의 facts 해시가 같으면 증거 없이 통과(CI — 증거는 운영자 PC 에만 있다)")
+    rc = sub.add_parser("record")
+    rc.add_argument("country")
+    rc.add_argument("--ids", required=True)
+    rc.add_argument("--evidence-dir", default=str(EVIDENCE_DIR))
+    rc.add_argument("--copycheck-dir", default=str(COPYCHECK_DIR))
+    ad = sub.add_parser("apply-drafts")
+    ad.add_argument("country")
+    ad.add_argument("--ids", required=True)
+    ad.add_argument("--kid", required=True)
+    ad.add_argument("--key", required=True)
+    ad.add_argument("--advisory-reviewed", action="store_true")
+    pi = sub.add_parser("place-ids")
+    pi.add_argument("country")
+    pi.add_argument("--ids")
+    pi.add_argument("--write", action="store_true")
+    pi.add_argument("--key-file", default=str(MAPS_PROPERTIES))
     kg = sub.add_parser("keygen")
     kg.add_argument("--kid", required=True)
     kg.add_argument("--out-dir", default=str(KEYS_DIR))
     pk = sub.add_parser("protect-key")
     pk.add_argument("--key", required=True)
+    wf = sub.add_parser("wiki-fill", help="Wikidata sitelinks(kowiki·enwiki)로 관광지 wiki 제목 채우기 (작업본)")
+    wf.add_argument("country")
+    wf.add_argument("--file", help="채울 파일(기본: packs/drafts/<CC>/attractions.json). debug 샘플도 이것으로")
+    wf.add_argument("--dry-run", action="store_true")
     args = ap.parse_args(argv)
     today = dt.date.today()
 
+    if args.cmd == "wiki-fill":
+        target = pathlib.Path(args.file) if args.file else DRAFTS / args.country / FILE_NAME
+        r = wiki_fill(target, args.country, dry_run=args.dry_run)
+        if r.ok:
+            print(f"{args.country}: wiki 제목 {getattr(r, 'changed', 0)}곳 {'바뀜(쓰지 않음)' if args.dry_run else '갱신'}")
+        return 0 if print_reports([r]) else 1
     if args.cmd == "keygen":
         return keygen(args.kid, pathlib.Path(args.out_dir))
     if args.cmd == "protect-key":
@@ -1372,13 +1738,21 @@ def main(argv: list[str] | None = None) -> int:
         return 0 if print_reports(verify_committed(paths)) else 1
     if args.cmd == "verify-quotes":
         cc = args.country
-        doc_path = paths.drafts / cc / FILE_NAME
-        if not doc_path.is_file():
-            doc_path = paths.src / cc / FILE_NAME
         r = Report(cc)
-        verify_quotes(load_json(doc_path), cc, paths.evidence, r)
+        ids = split_ids(args.ids) if args.ids else None
+        verify_quotes(load_json(working_doc_path(paths, cc)), cc, paths.evidence, r,
+                      record=paths.record(cc, "quotes") if args.use_record else None,
+                      ids=set(ids) if ids is not None else None)
         return 0 if print_reports([r]) else 1
+    if args.cmd == "record":
+        return 0 if print_reports([record_checks(paths, args.country, split_ids(args.ids), today)]) else 1
+    if args.cmd == "place-ids":
+        ids = set(split_ids(args.ids)) if args.ids else None
+        return place_ids_command(paths, args.country, ids, args.write, pathlib.Path(os.path.expanduser(args.key_file)))
     key = load_key(args.key)
+    if args.cmd == "apply-drafts":
+        r = apply_drafts(paths, args.country, split_ids(args.ids), key, args.kid, today, args.advisory_reviewed)
+        return 0 if print_reports([r]) else 1
     if args.cmd == "promote":
         r = promote(paths, args.country, args.wave, key, args.kid, today, args.version, args.advisory_reviewed)
         return 0 if print_reports([r]) else 1

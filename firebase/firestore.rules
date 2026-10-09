@@ -414,6 +414,130 @@ service cloud.firestore {
         && request.resource.data.updatedAt == request.time;
     }
 
+    // ======================= 관광지 평점·확인 중 표시 (사장님 결정 2026-10-09 ①, docs/ARIA_OPS.md 12.10) =======================
+    // 별점 한 표 = attraction_ratings/{CC}_{관광지 id}/votes/{uid}. 한 사람 한 표(문서 id = 내 ID), 자유 글 없음.
+    // 만 19세 확인은 서버가 할 수 없다 — 앱이 게시판과 같은 기준(여권 생년월일, 기기 안 판정)으로 쓰기 화면을 막는다.
+    // 집계(attraction_rating_stats)·확인 중 표시(attraction_flags)는 ARIA 서비스 계정만 쓴다(서비스 계정은 규칙을 거치지 않는다).
+    function ratingKey(k) {
+      return k is string && k.size() <= 90
+        && k.matches('^(TH|JP|VN|PH|TW|SG|MY|ID|CN)_[a-z0-9]+(-[a-z0-9]+)*$');
+    }
+    function voteOk() {
+      let d = request.resource.data;
+      return d.keys().hasOnly(['stars', 'at', 'visited']) && d.keys().hasAll(['stars', 'at', 'visited'])
+        && d.stars is int && d.stars >= 1 && d.stars <= 5
+        && d.visited == true && d.at == request.time;
+    }
+    match /attraction_ratings/{key} {
+      allow read, write: if false;
+      match /votes/{uid} {
+        allow get: if signedIn() && uid == me();
+        allow list: if false;
+        allow create, update: if signedIn() && uid == me() && ratingKey(key) && voteOk();
+        allow delete: if signedIn() && uid == me();
+      }
+    }
+    match /attraction_rating_stats/{country} {
+      allow get: if country.matches('^(TH|JP|VN|PH|TW|SG|MY|ID|CN)$');
+      allow list, write: if false;
+    }
+    match /attraction_flags/{country} {
+      allow get: if country.matches('^(TH|JP|VN|PH|TW|SG|MY|ID|CN)$');
+      allow list, write: if false;
+    }
+
+    // ======================= 여행 계획 요청 (사장님 결정 2026-10-09 ②, docs/ARIA_OPS.md 12.11) =======================
+    // 비공개: 요청·결과는 본인과 운영자(config/admins)만 읽는다. 처리·결과 쓰기는 ARIA 서비스 계정(규칙 밖)만.
+    // 이동 조건(mobility)은 민감정보(개인정보 보호법 제23조) — 선택형만, 고르면 sensitive_consent == true 필수(별도 동의).
+    // 1인 7일 2회: plan_quota/{uid} {last, prev, lastRequestId} 를 요청과 같은 묶음(batch)에서 고쳐야 한다.
+    //   새 요청 시각 = last, 직전 last = prev. 직전 prev 가 7일 안이면(= 이미 7일에 2번) 막는다.
+    //   익명 계정이라 앱을 지우고 다시 깔면 새 ID 가 되는 한계는 남는다(ARIA 가 다시 세지만 같은 ID 기준).
+    // 이용자는 고칠 수 없고 취소(status → cancelled)만 된다. 취소한 요청은 이용자가 '삭제'를 누를 때까지 그대로 남고
+    // (2026-10-09 사장님 결정 — 자동 삭제하지 않음), 본인이 지울 수 있다. 끝난(done·failed) 요청은 ARIA 정리 작업이 30일 뒤 지운다.
+    function planCountry(v) { return v in ['TH', 'JP', 'VN', 'PH', 'TW', 'SG', 'MY', 'ID', 'CN']; }
+    function planDoc(id) { return /databases/$(database)/documents/plan_requests/$(id); }
+    function quotaDoc(u) { return /databases/$(database)/documents/plan_quota/$(u); }
+    function smallCount(v) { return v is int && v >= 0 && v <= 20; }
+    function travelersOk(t) {
+      return t is map && t.keys().hasOnly(['adults', 'seniors', 'teens', 'children', 'genders'])
+        && t.keys().hasAll(['adults', 'seniors', 'teens', 'children'])
+        && smallCount(t.adults) && smallCount(t.seniors) && smallCount(t.teens) && smallCount(t.children)
+        && t.adults + t.seniors + t.teens + t.children >= 1 && t.adults + t.seniors + t.teens + t.children <= 20
+        && (!('genders' in t) || (t.genders is map && t.genders.keys().hasOnly(['female', 'male'])
+             && (!('female' in t.genders) || smallCount(t.genders.female))
+             && (!('male' in t.genders) || smallCount(t.genders.male))));
+    }
+    function purposesOk(p) {
+      return p is list && p.size() >= 1 && p.size() <= 5 && p.toSet().size() == p.size()
+        && p.toSet().difference(['sightseeing', 'food', 'shopping', 'nature', 'history_culture', 'relaxation',
+                                 'kids_family', 'activity', 'other'].toSet()).size() == 0;
+    }
+    function mobilityOk(d) {
+      let m = d.get('mobility', []);
+      return m is list && m.size() <= 5
+        && m.toSet().difference(['long_walk_hard', 'wheelchair', 'stairs_hard', 'with_infant', 'other_none'].toSet()).size() == 0
+        && (m.size() == 0 ? !('sensitive_consent' in d) : d.get('sensitive_consent', false) == true);
+    }
+    function datesOk(d) {
+      return ('days' in d && !('start_date' in d) && !('end_date' in d) && d.days is int && d.days >= 1 && d.days <= 30)
+        || (!('days' in d) && d.start_date is string && d.end_date is string
+            && d.start_date.matches('^[0-9]{4}-[0-9]{2}-[0-9]{2}$') && d.end_date.matches('^[0-9]{4}-[0-9]{2}-[0-9]{2}$')
+            && d.end_date >= d.start_date);
+    }
+    function newPlanOk(id) {
+      let d = request.resource.data;
+      let q = getAfter(quotaDoc(me())).data;
+      return signedIn() && isId(id, 40)
+        && d.keys().hasOnly(['uid', 'country', 'purposes', 'purpose_note', 'travelers', 'mobility', 'sensitive_consent',
+                             'start_date', 'end_date', 'days', 'budget_band', 'currency', 'status', 'createdAt'])
+        && d.keys().hasAll(['uid', 'country', 'purposes', 'travelers', 'budget_band', 'currency', 'status', 'createdAt'])
+        && d.uid == me() && planCountry(d.country) && purposesOk(d.purposes)
+        && (!('purpose_note' in d) || text(d.purpose_note, 1, 200))
+        && travelersOk(d.travelers) && mobilityOk(d) && datesOk(d)
+        && d.budget_band in ['budget', 'standard', 'comfort', 'premium'] && d.currency == 'KRW'
+        && d.status == 'queued' && d.createdAt == request.time
+        // 같은 묶음에서 내 횟수 기록이 이 요청으로 바뀌어야 한다
+        && q.last == request.time && q.lastRequestId == id;
+    }
+    match /plan_requests/{id} {
+      allow get: if (signedIn() && resource.data.uid == me()) || isAdmin();
+      allow list: if (signedIn() && resource.data.uid == me()) || isAdmin();
+      allow create: if newPlanOk(id);
+      // 이용자는 취소만: queued·processing 일 때 status → cancelled, finishedAt = 지금
+      allow update: if signedIn() && resource.data.uid == me()
+        && resource.data.status in ['queued', 'processing']
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status', 'finishedAt'])
+        && request.resource.data.status == 'cancelled' && request.resource.data.finishedAt == request.time;
+      // 취소한 내 요청만 지울 수 있다(횟수 기록 plan_quota 는 그대로 — 지워도 주 2회 제한은 풀리지 않는다)
+      allow delete: if signedIn() && resource.data.uid == me() && resource.data.status == 'cancelled';
+    }
+    match /plan_quota/{uid} {
+      allow get: if signedIn() && uid == me();
+      allow list, delete: if false;
+      // 첫 요청
+      allow create: if signedIn() && uid == me()
+        && request.resource.data.keys().hasOnly(['last', 'prev', 'lastRequestId'])
+        && request.resource.data.keys().hasAll(['last', 'prev', 'lastRequestId'])
+        && request.resource.data.last == request.time && request.resource.data.prev == null
+        && isId(request.resource.data.lastRequestId, 40)
+        && !exists(planDoc(request.resource.data.lastRequestId))
+        && existsAfter(planDoc(request.resource.data.lastRequestId));
+      // 다음 요청: 직전 prev 가 7일보다 오래됐을 때만(7일에 2번까지)
+      allow update: if signedIn() && uid == me()
+        && request.resource.data.keys().hasOnly(['last', 'prev', 'lastRequestId'])
+        && request.resource.data.last == request.time
+        && request.resource.data.prev == resource.data.last
+        && (resource.data.prev == null || resource.data.prev < request.time - duration.value(7, 'd'))
+        && isId(request.resource.data.lastRequestId, 40)
+        && !exists(planDoc(request.resource.data.lastRequestId))
+        && existsAfter(planDoc(request.resource.data.lastRequestId));
+    }
+    match /plan_results/{id} {
+      allow get: if resource == null || (signedIn() && resource.data.uid == me()) || isAdmin();
+      allow list: if (signedIn() && resource.data.uid == me()) || isAdmin();
+      allow write: if false;
+    }
+
     // 그 밖의 모든 경로(ops/heartbeat 포함)는 앱에서 막는다
     match /{document=**} {
       allow read, write: if false;

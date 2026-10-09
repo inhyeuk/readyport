@@ -168,6 +168,8 @@ data class Attraction(
     val rankOrder: Int,
     val photo: PhotoDto?,
     val photoLink: String?,
+    /** 위키백과 문서 제목(없으면 null) — 상세 '위키백과에서 보기' */
+    val wiki: WikiTitles?,
     /** 이 관광지 필드 가운데 가장 오래된 확인일(§5.5) — 상세 '최종 확인' */
     val oldestVerified: String,
     /** 상세 출처 목록에 보일 출처 id (중복 없이, 나온 순서) */
@@ -179,6 +181,16 @@ data class Attraction(
     /** 화면 제목: 이름(+ 괄호 한자음, ⟦결정 D20⟧) */
     val title: String get() = if (koParen.isNullOrBlank()) nameKo else "$nameKo($koParen)"
 }
+
+/** 위키백과 문서 제목. 적어도 하나는 있다([AttractionsMapper]가 둘 다 없으면 null로 만든다) */
+data class WikiTitles(val ko: String?, val en: String?) {
+    /** 보여 줄 판: 한국어가 있으면 한국어, 없으면 영어 */
+    val preferred: WikiPage
+        get() = if (ko != null) WikiPage("ko", ko) else WikiPage("en", en!!)
+}
+
+/** 위키백과 한 판의 문서 — [lang]은 ko·en만 */
+data class WikiPage(val lang: String, val title: String)
 
 data class Retired(val id: String, val reason: String, val replacedBy: String?, val noteKo: String?)
 
@@ -370,10 +382,24 @@ object AttractionsMapper {
             rankOrder = rank?.order ?: Int.MAX_VALUE,
             photo = photo?.takeIf { it.file.isNotBlank() },
             photoLink = photoLink?.takeIf { it.startsWith("https://commons.wikimedia.org/") },
+            wiki = wikiTitles(wiki),
             oldestVerified = dates.minOrNull() ?: lastVerified,
             sourceIds = sourceIds,
         )
     }
 
     private val IsoDate = Regex("""\d{4}-\d{2}-\d{2}""")
+
+    /** MediaWiki 제목에 쓸 수 없는 글자(# < > [ ] | { } 와 제어 문자) — build_attractions.py WIKI_TITLE_RE와 같은 규칙 */
+    private val BadTitleChars = Regex("""[#<>\[\]|{}\u0000-\u001f\u007f]""")
+
+    /** 관대하게: 앞뒤 공백·쓸 수 없는 글자·255자 넘는 제목은 버린다. 둘 다 없으면 null */
+    fun wikiTitle(raw: String?): String? =
+        raw?.takeIf { it.isNotEmpty() && it == it.trim() && it.length <= 255 && !BadTitleChars.containsMatchIn(it) }
+
+    private fun wikiTitles(dto: WikiDto?): WikiTitles? {
+        val ko = wikiTitle(dto?.ko)
+        val en = wikiTitle(dto?.en)
+        return if (ko == null && en == null) null else WikiTitles(ko, en)
+    }
 }

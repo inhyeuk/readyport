@@ -164,6 +164,39 @@ def format_news_alert(change: Any) -> str:
     ])
 
 
+def format_attractions_changes(rows: list[dict]) -> str:
+    """관광지 공식 페이지 변경 알림(참고용 — 자동 갱신 경로라 승인 명령은 없다). 공개 페이지 주소·관광지 id 만."""
+    lines = [f"[레디포트] 관광지 공식 페이지 변경 {len(rows)}건 — 검사 통과하면 자동 반영(사장님 결정 2026-10-09)"]
+    for r in rows[:15]:
+        lines.append("· " + _clip(str(r.get("summary", "")), 220))
+    if len(rows) > 15:
+        lines.append(f"… 그 밖 {len(rows) - 15}건")
+    return "\n".join(lines)
+
+
+def format_attractions_pr(cc: str, ids: list[str], pr_url: str, published: bool) -> str:
+    after = ("GitHub Actions 가 검사 → 서명 → 머지 → 배포까지 합니다." if published
+             else "아직 공개 전인 나라라 작업본만 바뀝니다(서명·배포 없음).")
+    return "\n".join([f"[레디포트] 관광지 자동 갱신 PR: {cc} ({', '.join(ids)})", pr_url, after])
+
+
+def format_attractions_failed(cc: str, ids: list[str], step: str, detail: str = "", evidence: str = "") -> str:
+    """검사 실패 → PR 없이 알림만(사장님 결정: 검사 통과할 때만 자동 반영)."""
+    lines = [f"[레디포트] 관광지 자동 갱신 멈춤: {cc} ({', '.join(ids) or '-'})", f"단계: {step}"]
+    if detail:
+        lines.append("내용: " + _clip(detail, 1500))
+    if evidence:
+        lines.append(f"증거: {evidence}")
+    lines.append("PR 은 만들지 않았어요. 필요하면 직접 확인해 주세요.")
+    return "\n".join(lines)
+
+
+def format_attraction_flags(cc: str, ids: list[str], changed: bool) -> str:
+    if ids:
+        return f"[레디포트] {cc} 관광지 '공식 안내가 바뀌었어요 — 확인 중' 표시: {', '.join(ids)}" + ("" if changed else " (그대로)")
+    return f"[레디포트] {cc} 관광지 '확인 중' 표시를 모두 뗐어요"
+
+
 def format_status(row: Optional[dict]) -> str:
     if not row:
         return "그 지문은 없어요."

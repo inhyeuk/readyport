@@ -88,6 +88,12 @@ import kotlinx.serialization.Serializable
  */
 @Serializable data class TripChecklistRoute(val tripId: String)
 
+/**
+ * 내 여행 › 한 여행 › **관광 일정** (2026-10-09) — 찜한 관광지를 날짜별로 나눠 담은 일정.
+ * [transplant]: 찜 목록의 `여행 일정에 담기`로 왔으면 true — 처음 열 때 옮겨 담기 제안을 보인다(한 번만, ViewModel이 소비한다).
+ */
+@Serializable data class TripItineraryRoute(val tripId: String, val transplant: Boolean = false)
+
 /** 입국 때 보여 주기 (PRD 5.4). 자녀 폰 모드의 첫 화면 */
 @Serializable data object PresentRoute
 
