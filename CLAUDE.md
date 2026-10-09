@@ -55,7 +55,9 @@ $env:ANDROID_HOME='E:\_PROGRAM_Installed\Android_SDK'
 
 - 설계: `docs/design/attractions/SPEC_v5.md` + 사장님 결정 `DECISIONS_2026-10-09.md`(다르면 결정 문서 우선. D15-B: 여행경보 2단계 지역도 싣고 주의 띠).
 - 파일: 작업본 `packs/drafts/<CC>/attractions.json`(release=draft, 지역마다 wave) → 원본 `packs/src/<CC>/attractions.json` → 서명본 `app/src/main/assets/packs/<CC>/attractions.json(+.sig)`(커밋). 스키마·허용 값 `packs/schema/attractions.*.json`, 게이트 `packs/curation/gates.json`, 근거 기록 `packs/curation/<CC>.curation.json`.
-- 서명 키는 **관광지 전용** `rp-att-2026-1`(`~/.readyport/keys/attractions_signing_rp-att-2026-1.pem`, 저장소·GitHub 시크릿 금지). 앱 공개키는 `PackKeys.ATTRACTIONS`.
+- 서명 키는 **관광지 전용** `rp-att-2026-1`(`~/.readyport/keys/attractions_signing_rp-att-2026-1.pem`, 저장소 금지). 앱 공개키는 `PackKeys.ATTRACTIONS`.
+  예외(사장님 결정 2026-10-09): 주간 자동 갱신 서명용으로 GitHub secrets `ATTRACTIONS_SIGNING_KEY_PEM` 에만 둔다(`attractions-auto.yml`). ARIA 에는 주지 않는다.
+- 주간 자동 갱신·평점·여행 계획 요청(ARIA): `docs/ARIA_OPS.md` 12.9~12.12. 자동 PR 은 `aria/attractions-*` 브랜치 + 라벨 `attractions-auto`, 사실 칸만(`tools/attractions/auto_update_guard.py`).
 - 사실마다 인용: `~/.readyport/evidence/<CC>/<id>/extract.json`(+스냅샷 .txt), 글 대조 캐시 `~/.readyport/copycheck_cache/<CC>/<id>/*.txt`(첫 줄 JSON 메타). 둘 다 저장소 밖.
 - 명령: `python tools/attractions/build_attractions.py check` → `promote <CC> --wave 1 --kid rp-att-2026-1 --key ~/.readyport/keys/attractions_signing_rp-att-2026-1.pem` → 커밋·PR → 배포 직전 `python tools/deploy/stage_hosting.py`. 긴급 제외는 `retire <CC> --ids … --reason safety`. 도구 테스트 `python -m unittest tools/attractions/test_build_attractions.py tools/deploy/test_stage_hosting.py`.
 - debug 빌드는 서명본이 없는 나라에 `app/src/debug/assets/attractions_samples/<CC>.json`(샘플, 서명 없음)을 보인다. release는 '곧 추가돼요'.

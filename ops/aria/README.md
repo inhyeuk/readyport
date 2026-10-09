@@ -41,6 +41,17 @@ ARIA(운영자 PC의 24시간 에이전트)가 불러 쓰는 **독립 모듈**�
 | `jobs/shopping_trend.py` | 네이버 데이터랩 검색 추이(키 없으면 `not_configured`) |
 | `heartbeat.py` | `ops/heartbeat` 기록, `check_stale()`(watchdog 용) |
 | `run_daily.py` | 매일 감지 실행기(단위별 시간 제한·예산·실패만 재시도) |
+| `robots.py` | robots.txt 확인(사이트마다 한 번, 봇 차단이면 판단 안 함) |
+| `jobs/attractions_watch.py` | 관광지 사실 출처·공식 주소 주간 GET → 글 해시 비교 → 바뀌면 증거 스냅샷(`~/.readyport/evidence/<CC>/<id>/aria_*.txt`)·Change, 휴관·공사 표현 증가 감지 (LLM 없음) |
+| `jobs/attractions_update.py` | 바뀐 곳만 Claude 헤드리스로 작업본 사실 갱신(별도 git worktree) → 범위·check·인용 대조 기록 → PR(라벨 `attractions-auto`) / 실패면 텔레그램만 |
+| `actions/attraction_flags.py` | Firestore `attraction_flags/{CC}` 만 쓰는 허용 목록 쓰기('공식 안내가 바뀌었어요 — 확인 중') |
+| `actions/github_pr.py` | GitHub REST PR·라벨(토큰은 `credential.namespace=readyport` 에서 그때그때) |
+| `jobs/ratings_weekly.py` | 이용자 평점 `attraction_ratings/*/votes` → `attraction_rating_stats/{CC}` (n < `RATINGS_MIN_N` 숨김) |
+| `jobs/plan_requests.py` | 여행 계획 요청 처리(모양·주 2회 이중 확인 → 엔진 → 결과 검사 → `plan_results`) |
+| `jobs/plan_cleanup.py` | 끝난 지 30일 지난 요청·결과, 멈춘 처리, 오래된 횟수 기록 정리 |
+| `runners/plan_engine.py` | 계획 엔진 — **바꿔 끼우는 곳은 `generate()` 하나**(지금 Claude Code 헤드리스, 빈 폴더·도구 없음·표준 입력) |
+| `run_weekly.py` | 주간 실행기(`--step watch/update/ratings`) |
+| `run_hourly.py` | 1시간 실행기(계획 요청 + 하루 한 번 정리) |
 
 ## 설정 (`ops/aria/.env`, 커밋 금지)
 
@@ -57,6 +68,12 @@ ARIA(운영자 PC의 24시간 에이전트)가 불러 쓰는 **독립 모듈**�
 | `CLAUDE_TIMEOUT_SEC` | Claude 한 번 실행 시간 제한(기본 1800) |
 | `NOTICE_URLS` | 공지 페이지 `ID|https://...` 쉼표 목록 |
 | `REQUEST_INTERVAL_SEC`, `HTTP_TIMEOUT_SEC` | 요청 간격(기본 3초), 요청 시간 제한 |
+| `ATTRACTIONS_WEEKLY_CAP` | 관광지 자동 갱신 Claude 실행 주간 상한(기본 3, `CLAUDE_DAILY_CAP` 과 함께 센다) |
+| `ATTRACTIONS_EVIDENCE_DIR` | 관광지 증거 폴더(기본 `~/.readyport/evidence`, 저장소 밖) |
+| `GITHUB_REPO` | PR 을 여는 저장소(기본 `inhyeuk/readyport`) |
+| `RATINGS_MIN_N` | 평점 표시 최소 인원(기본 5) |
+| `PLAN_DAILY_CAP`, `PLAN_TIMEOUT_SEC`, `PLAN_MAX_PER_RUN` | 계획 생성 하루 상한(기본 5, Claude 상한과 따로)·한 건 시간 제한(600초)·한 번 처리 수(3) |
+| `PLAN_WEEKLY_LIMIT`, `PLAN_RETENTION_DAYS` | 1인 7일 요청 수(2, 규칙과 같게)·끝난 요청 보관 일수(30) |
 | `FIELD_WINDOW_HOURS`, `FIELD_MIN_SAMPLES`, `FIELD_MIN_FAILURES`, `FIELD_FAIL_RATE` | 현장 신호 임계치 **[확인 필요]** 운영하며 조정 |
 | `NAVER_CLIENT_ID`, `NAVER_CLIENT_SECRET` | 네이버 데이터랩 |
 | `ARIA_DATA_DIR` | 스냅샷·증거·SQLite 폴더(기본 `ops/aria/data`, 커밋 안 함) |
@@ -124,6 +141,28 @@ if check_stale(doc["last_check"], now, days=3):
     kill_switch.set_stale_banner(rc_client, True)       # 켜기는 자동
 # 회복 뒤 끄기: set_stale_banner(rc_client, False, heartbeat_recovered=True)
 ```
+
+## 주간·1시간 작업 (사장님 결정 2026-10-09)
+
+자세한 흐름·Firestore 문서 모양·스케줄은 `docs/ARIA_OPS.md` 12.9~12.12.
+
+```powershell
+python -m ops.aria.run_weekly --list-units                      # 관광지 공식 주소 단위 목록(네트워크 없음)
+python -m ops.aria.run_weekly                                   # 시험: 조회만
+python -m ops.aria.run_weekly --live --step watch               # 월 06:00 (240초 예산)
+python -m ops.aria.run_weekly --live --step watch --retry-failed   # rerun_later 가 빌 때까지 10분마다
+python -m ops.aria.run_weekly --live --step update              # watchdog 밖 백그라운드(Claude 최대 CLAUDE_TIMEOUT_SEC)
+python -m ops.aria.run_weekly --live --step ratings
+python -m ops.aria.run_hourly                                   # 시험: 대기 요청 수만
+python -m ops.aria.run_hourly --live                            # 매시 정각, watchdog 밖 백그라운드(--budget-sec 1500)
+```
+
+- **관광지 자동 갱신은 사람 승인 없이 PR 까지 간다**(검사 통과할 때만). 서명·머지·배포는 `.github/workflows/attractions-auto.yml` 만.
+  ARIA 는 서명 키도 Hosting 권한도 없다. 실패하면 PR 없이 텔레그램 알림만 간다.
+- update 단계는 **저장소 작업 폴더를 건드리지 않는다** — `ARIA_DATA_DIR/worktrees/` 에 origin/main 기준 git worktree 를 만들고 끝나면 지운다.
+  ARIA PC 의 파이썬에 `pip install -r tools/packs/requirements.txt`(jsonschema·cryptography)가 있어야 `build_attractions.py` 가 돈다.
+- 계획 요청: 요청 내용(목적 글·동행·이동 조건)은 출력·로그·텔레그램 어디에도 남기지 않는다. 요약에는 요청 id·상태·오류 코드만.
+- 엔진 교체(API 키 방식 등)는 `runners/plan_engine.py` 의 `generate()` 만 바꾼다.
 
 ## 알아 둘 한계
 
