@@ -284,10 +284,11 @@ class CleanupTest(unittest.TestCase, TempDirCase):
         self.assertEqual(fs.writes, [])
         out = pc.run(cfg, fs, dry_run=False, now=NOW)
         self.assertEqual(dry["finished_deleted"], out["finished_deleted"])
-        for gone in ("plan_requests/done_old", "plan_results/done_old", "plan_requests/cancel_old",
+        for gone in ("plan_requests/done_old", "plan_results/done_old",
                      "plan_requests/queued_old", "plan_results/orphan", "plan_quota/u_old"):
             self.assertNotIn(gone, fs.docs)
-        for kept in ("plan_requests/done_new", "plan_results/done_new", "plan_requests/finished_late",
+        # 취소한 요청은 오래돼도 이용자가 지울 때까지 남는다(2026-10-09)
+        for kept in ("plan_requests/cancel_old", "plan_requests/done_new", "plan_results/done_new", "plan_requests/finished_late",
                      "plan_requests/working", "plan_quota/u_new"):
             self.assertIn(kept, fs.docs)
         self.assertEqual(fs.docs["plan_requests/stuck"]["status"], "failed")

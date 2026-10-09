@@ -53,6 +53,7 @@
 
     <!-- 옮겨 담기 제안 -->
     <string name="itinerary_proposal_title">이렇게 나눠 담을까요?</string>
+    <string name="itinerary_proposal_edges">도착하는 날과 돌아오는 날은 비워 뒀어요.</string>
     <string name="itinerary_proposal_body">찜한 곳 %1$d곳을 날짜별로 나눠 봤어요. 같은 지역은 같은 날에 모았어요.</string>
     <string name="itinerary_proposal_stays">묵는 곳과 가까운 날을 골랐어요.</string>
     <string name="itinerary_proposal_after">담은 뒤에도 순서와 날짜를 바꿀 수 있어요.</string>

@@ -230,6 +230,7 @@ fun ItineraryContent(ui: ItineraryUi, actions: ItineraryActions) {
                 val body = listOfNotNull(
                     stringResource(R.string.itinerary_proposal_body, proposal.stops.size),
                     stringResource(R.string.itinerary_proposal_stays).takeIf { proposal.usedStays },
+                    stringResource(R.string.itinerary_proposal_edges).takeIf { proposal.days.size >= 3 },
                     stringResource(R.string.itinerary_proposal_after),
                 ).joinToString(" ")
                 CardNewsCard(title = stringResource(R.string.itinerary_proposal_title), icon = Icons.Outlined.Route, body = body, tone = BadgeTone.Teal) {

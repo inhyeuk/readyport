@@ -535,7 +535,7 @@ test('계획 요청: 7일에 2번까지 (세 번째는 거절, 7일 지나면 �
   await assertSucceeds(requestPlan(bob, 'bob', 'b3', {}, false, { prev: qb.last }));
 });
 
-test('계획 요청: 이용자는 취소만, 결과는 본인만 읽고 아무도 쓰지 못한다', async () => {
+test('계획 요청: 이용자는 취소·취소한 요청 삭제만, 결과는 본인만 읽고 아무도 쓰지 못한다', async () => {
   await seed(async (db) => {
     await setDoc(doc(db, 'config/admins'), { uids: ['admin1'] });
     await setDoc(doc(db, 'plan_requests/r1'), { ...planData('alice'), createdAt: Timestamp.now() });
@@ -548,7 +548,9 @@ test('계획 요청: 이용자는 취소만, 결과는 본인만 읽고 아무�
   await assertFails(updateDoc(doc(anon('bob'), 'plan_requests/r1'), { status: 'cancelled', finishedAt: serverTimestamp() }));
   await assertSucceeds(updateDoc(doc(alice, 'plan_requests/r1'), { status: 'cancelled', finishedAt: serverTimestamp() }));
   await assertFails(updateDoc(doc(alice, 'plan_requests/r2'), { status: 'cancelled', finishedAt: serverTimestamp() }));
-  await assertFails(deleteDoc(doc(alice, 'plan_requests/r1')));
+  // 취소한 요청은 본인만 지울 수 있다(2026-10-09). 끝난 요청(r2)·남의 요청은 못 지운다
+  await assertFails(deleteDoc(doc(anon('bob'), 'plan_requests/r1')));
+  await assertFails(deleteDoc(doc(alice, 'plan_requests/r2')));
   await assertSucceeds(getDoc(doc(alice, 'plan_results/r1')));
   await assertSucceeds(getDoc(doc(anon('admin1'), 'plan_results/r1')));
   await assertSucceeds(getDoc(doc(alice, 'plan_results/not-yet')));                           // 아직 없으면 '없음'
@@ -558,5 +560,6 @@ test('계획 요청: 이용자는 취소만, 결과는 본인만 읽고 아무�
   await assertFails(setDoc(doc(alice, 'plan_results/r9'), { uid: 'alice', plan: {} }));
   await assertFails(updateDoc(doc(alice, 'plan_results/r1'), { plan: { days: [1] } }));
   await assertFails(deleteDoc(doc(alice, 'plan_results/r1')));
+  await assertSucceeds(deleteDoc(doc(alice, 'plan_requests/r1')));
   await assertFails(setDoc(doc(anon('admin1'), 'plan_results/r9'), { uid: 'alice', plan: {} }));
 });

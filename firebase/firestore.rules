@@ -452,7 +452,8 @@ service cloud.firestore {
     // 1인 7일 2회: plan_quota/{uid} {last, prev, lastRequestId} 를 요청과 같은 묶음(batch)에서 고쳐야 한다.
     //   새 요청 시각 = last, 직전 last = prev. 직전 prev 가 7일 안이면(= 이미 7일에 2번) 막는다.
     //   익명 계정이라 앱을 지우고 다시 깔면 새 ID 가 되는 한계는 남는다(ARIA 가 다시 세지만 같은 ID 기준).
-    // 이용자는 고칠 수 없고 취소(status → cancelled)만 된다. 지우기는 ARIA 정리 작업(30일 뒤)만.
+    // 이용자는 고칠 수 없고 취소(status → cancelled)만 된다. 취소한 요청은 이용자가 '삭제'를 누를 때까지 그대로 남고
+    // (2026-10-09 사장님 결정 — 자동 삭제하지 않음), 본인이 지울 수 있다. 끝난(done·failed) 요청은 ARIA 정리 작업이 30일 뒤 지운다.
     function planCountry(v) { return v in ['TH', 'JP', 'VN', 'PH', 'TW', 'SG', 'MY', 'ID', 'CN']; }
     function planDoc(id) { return /databases/$(database)/documents/plan_requests/$(id); }
     function quotaDoc(u) { return /databases/$(database)/documents/plan_quota/$(u); }
@@ -507,7 +508,8 @@ service cloud.firestore {
         && resource.data.status in ['queued', 'processing']
         && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status', 'finishedAt'])
         && request.resource.data.status == 'cancelled' && request.resource.data.finishedAt == request.time;
-      allow delete: if false;
+      // 취소한 내 요청만 지울 수 있다(횟수 기록 plan_quota 는 그대로 — 지워도 주 2회 제한은 풀리지 않는다)
+      allow delete: if signedIn() && resource.data.uid == me() && resource.data.status == 'cancelled';
     }
     match /plan_quota/{uid} {
       allow get: if signedIn() && uid == me();

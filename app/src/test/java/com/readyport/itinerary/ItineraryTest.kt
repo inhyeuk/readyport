@@ -96,7 +96,8 @@ class ItineraryTest {
 
     @Test fun sameRegionSameDayInSavedOrder() {
         val r = ItineraryPlanner.propose(listOf(ga("a"), ma("m1"), ga("b"), ma("m2")), dayCount = 4)
-        assertEquals(listOf(ItineraryStop("a", 0), ItineraryStop("b", 0), ItineraryStop("m1", 1), ItineraryStop("m2", 1)), r.stops)
+        // 4일 여행: 도착일(0)·귀국일(3)은 비워 두고 1·2일차에만 담는다
+        assertEquals(listOf(ItineraryStop("a", 1), ItineraryStop("b", 1), ItineraryStop("m1", 2), ItineraryStop("m2", 2)), r.stops)
         assertFalse(r.usedStays)
     }
 
@@ -113,16 +114,16 @@ class ItineraryTest {
         val nights = listOf(NightStay(35.0, 136.49), NightStay(35.0, 136.49), NightStay(35.0, 135.01), NightStay(35.0, 135.01))
         val r = ItineraryPlanner.propose(listOf(ga("a"), ma("m"), ga("b")), dayCount = 4, nights = nights)
         assertTrue(r.usedStays)
-        assertEquals(mapOf("a" to 2, "b" to 2, "m" to 0), r.stops.associate { it.key to it.day })
-        // 같은 숙소 며칠: 두 번째 가나 근처 지역(사아)은 덜 찬 다음 날로
+        assertEquals(mapOf("a" to 2, "b" to 2, "m" to 1), r.stops.associate { it.key to it.day })
+        // 가나 숙소 밤 가운데 열린 날은 2일차뿐(3일차=귀국일) → 가까운 사아도 같은 날
         val r2 = ItineraryPlanner.propose(listOf(ga("a"), sa("s")), dayCount = 4, nights = nights)
-        assertEquals(mapOf("a" to 2, "s" to 3), r2.stops.associate { it.key to it.day })
+        assertEquals(mapOf("a" to 2, "s" to 2), r2.stops.associate { it.key to it.day })
     }
 
     @Test fun farFromEveryStayGoesToADayWithoutStay() {
-        // 숙소는 가나뿐(1·2일), 3일은 숙소 모름 → 먼 마바는 3일차(다녀오는 날)
-        val nights = listOf(NightStay(35.0, 135.0), NightStay(35.0, 135.0), null)
-        val r = ItineraryPlanner.propose(listOf(ma("m")), dayCount = 3, nights = nights)
+        // 숙소는 가나뿐(1·2일), 3·4일은 숙소 모름 → 먼 마바는 열린 날 가운데 숙소 모르는 3일차(다녀오는 날)
+        val nights = listOf(NightStay(35.0, 135.0), NightStay(35.0, 135.0), null, null)
+        val r = ItineraryPlanner.propose(listOf(ma("m")), dayCount = 4, nights = nights)
         assertEquals(2, r.stops.single().day)
     }
 
@@ -137,6 +138,15 @@ class ItineraryTest {
         // 한 번 더 해도 바뀌지 않는다
         val again = ItineraryPlanner.propose(listOf(ga("a"), ga("b"), ma("m"), sa("s")), 4, existing = merged.stops.map { it to null })
         assertTrue(again.stops.isEmpty())
+    }
+
+    @Test fun arrivalAndDepartureDaysStayEmpty() {
+        // 사장님 결정(2026-10-09): 3일 이상이면 첫날·마지막 날에는 제안하지 않는다. 지역이 많아도 가운데 날에 모은다
+        val r = ItineraryPlanner.propose(listOf(ga("a"), ma("m"), sa("s")), dayCount = 3)
+        assertTrue(r.stops.all { it.day == 1 })
+        assertEquals(listOf(1, 2, 3), ItineraryPlanner.openDays(5))
+        assertEquals(listOf(0, 1), ItineraryPlanner.openDays(2))
+        assertEquals(listOf(0), ItineraryPlanner.openDays(1))
     }
 
     @Test fun mixedFarOnlyWhenRegionsAreFarApart() {

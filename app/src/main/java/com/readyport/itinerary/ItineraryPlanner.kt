@@ -68,7 +68,9 @@ object ItineraryPlanner {
             groupDay.putIfAbsent(g, d)
         }
 
-        val nightAt = List(days) { nights.getOrNull(it) }
+        // 도착일(첫날)·귀국일(마지막 날)은 비워 둔다 — 2026-10-09 사장님 결정. 3일 미만 여행은 그 두 날뿐이라 모든 날을 쓴다
+        val open = openDays(days)
+        val nightAt = List(days) { d -> if (d in open) nights.getOrNull(d) else null }
         val anyNight = nightAt.any { it != null }
         var usedStays = false
         val out = mutableListOf<ItineraryStop>()
@@ -80,12 +82,12 @@ object ItineraryPlanner {
         groups.forEach { (g, members) ->
             val center = members.firstOrNull { it.lat != null && it.lng != null }
             val day = groupDay[g] ?: run {
-                val byStay = if (anyNight && center != null) chooseByStay(center, nightAt, dayGroups) else null
+                val byStay = if (anyNight && center != null) chooseByStay(center, nightAt, dayGroups, open) else null
                 if (byStay != null) {
                     usedStays = true
                     byStay
                 } else {
-                    chooseInOrder(center, dayGroups, (0 until days).toList())
+                    chooseInOrder(center, dayGroups, open)
                 }
             }
             groupDay[g] = day
@@ -110,13 +112,16 @@ object ItineraryPlanner {
 
     private fun groupKey(spot: Spot): String = spot.group ?: "key:${spot.key}"
 
-    private fun chooseByStay(center: Spot, nights: List<NightStay?>, dayGroups: List<List<Spot>>): Int? {
+    /** 제안이 곳을 넣을 수 있는 날: 3일 이상이면 첫날·마지막 날을 뺀다 */
+    fun openDays(days: Int): List<Int> = if (days >= 3) (1 until days - 1).toList() else (0 until days).toList()
+
+    private fun chooseByStay(center: Spot, nights: List<NightStay?>, dayGroups: List<List<Spot>>, open: List<Int>): Int? {
         val dist = nights.mapIndexedNotNull { d, n -> n?.let { d to RegionGrouping.haversineKm(center.lat!!, center.lng!!, it.lat, it.lng) } }
         if (dist.isEmpty()) return null
         val best = dist.minOf { it.second }
         if (best > FAR_STAY_KM) {
             // 어느 숙소에서도 먼 곳 — 숙소를 모르는 날이 있으면 그 날(다녀오는 날)
-            val unknown = nights.indices.filter { nights[it] == null }
+            val unknown = open.filter { nights[it] == null }
             if (unknown.isNotEmpty()) return chooseInOrder(center, dayGroups, unknown)
         }
         val near = dist.filter { it.second <= best + NEAR_SLACK_KM }.map { it.first }

@@ -49,11 +49,11 @@ class ItineraryModelTest {
         assertEquals(4, ui.fresh)
         assertEquals(1, p.skipped) // 정보가 없는 찜은 담지 않는다
         assertFalse(p.usedStays)
-        // 찜 순서에서 처음 나온 지역 순서대로 하루씩, 같은 지역(오사카 둘)은 같은 날
-        assertEquals(mapOf("sensoji" to 0, "dotonbori" to 1, "osaka-castle" to 1, "fushimi-inari-taisha" to 2), dayOf(p.stops))
-        assertEquals(listOf("JP/dotonbori", "JP/osaka-castle"), p.stops.filter { it.day == 1 }.map { it.key })
+        // 도착일(0)·귀국일(4)은 비우고, 찜 순서에서 처음 나온 지역 순서대로 하루씩, 같은 지역(오사카 둘)은 같은 날
+        assertEquals(mapOf("sensoji" to 1, "dotonbori" to 2, "osaka-castle" to 2, "fushimi-inari-taisha" to 3), dayOf(p.stops))
+        assertEquals(listOf("JP/dotonbori", "JP/osaka-castle"), p.stops.filter { it.day == 2 }.map { it.key })
         // 미리보기는 곳이 있는 날만, 새 곳 표시
-        assertEquals(listOf(0, 1, 2), p.days.map { it.slot.index })
+        assertEquals(listOf(1, 2, 3), p.days.map { it.slot.index })
         assertTrue(p.days.flatMap { it.stops }.all { it.isNew })
     }
 
@@ -66,10 +66,11 @@ class ItineraryModelTest {
         val p = build(stays = stays).proposal!!
         assertTrue(p.usedStays)
         val days = dayOf(p.stops)
+        // 도착일(8일)·귀국일(12일)은 비운다 → 오사카 숙소 밤 가운데 열린 날은 9일(1)뿐, 도쿄는 10·11일(2·3)
         assertEquals(2, days["sensoji"]) // 도쿄 숙소 첫날
-        assertEquals(0, days["dotonbori"])
-        assertEquals(0, days["osaka-castle"])
-        assertEquals(1, days["fushimi-inari-taisha"]) // 오사카 숙소 근처 다음 날
+        assertEquals(1, days["dotonbori"])
+        assertEquals(1, days["osaka-castle"])
+        assertEquals(1, days["fushimi-inari-taisha"]) // 오사카 숙소 근처(같은 날)
         // 저장되는 값에는 좌표가 없다(키·날만)
         assertTrue(p.stops.all { it.key.startsWith("JP/") })
     }

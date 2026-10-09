@@ -1,7 +1,8 @@
 """여행 계획 요청·결과 정리 (하루 한 번, 사장님 결정 2026-10-09: 결과 전달 후 30일 자동 삭제).
 
-1. 끝난 요청(done·failed·cancelled — 모두 finishedAt 이 있다)이 보관 기간(PLAN_RETENTION_DAYS, 기본 30일)을 넘으면
+1. 끝난 요청(done·failed — finishedAt 이 있다)이 보관 기간(PLAN_RETENTION_DAYS, 기본 30일)을 넘으면
    결과 plan_results/{id} 와 요청 plan_requests/{id} 를 지운다.
+   **취소한 요청(cancelled)은 지우지 않는다** — 이용자가 앱에서 '삭제'를 누를 때까지 취소 상태로 남긴다(2026-10-09 사장님 결정).
 2. 끝나지 않은 채(queued·processing) 보관 기간을 넘긴 요청도 지운다(처리되지 않은 민감정보를 오래 두지 않는다).
 3. processing 이 6시간 넘게 멈춘 요청은 failed(engine_timeout) 로 닫는다(이용자 화면이 '만드는 중'에 머물지 않게).
 4. 요청 없이 남은 결과(createdAt 이 보관 기간 넘음)와, 마지막 요청이 보관 기간보다 오래된 plan_quota/{uid} 도 지운다.
@@ -77,6 +78,8 @@ def run(cfg, firestore, *, dry_run: bool = True, now: Optional[_dt.datetime] = N
 
     # 1. 끝난 지 보관 기간이 지난 요청
     for r in _paged(firestore, REQUESTS, "finishedAt", cutoff):
+        if r.get("status") == "cancelled":
+            continue           # 이용자가 직접 지울 때까지 남긴다
         delete_pair(doc_id(r["_name"]))
         counts["finished_deleted"] += 1
     # 2. 끝나지 않은 채 오래된 요청
