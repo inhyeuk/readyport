@@ -190,4 +190,76 @@ class PlanRepositoryTest {
         assertTrue(local.pending().isEmpty())
         assertTrue(repo.arrivals().isEmpty())
     }
+
+    // ---------------- AI 계획 신고 ----------------
+
+    @Test fun flagWritesOnceAndRemembersFlaggedState() = runBlocking {
+        val id = repo.submit(draft, false)
+        val uid = boardBackend.uid!!
+        backend.resultOwners[id] = uid
+        assertTrue(!repo.isFlagged(id))
+        repo.flag(id, PlanFlagReason.Unsafe, "  둘째 날 길 안내가 이상해요  ")
+        assertEquals(
+            mapOf("uid" to uid, "reason" to "unsafe", "note" to "둘째 날 길 안내가 이상해요", "at" to FakePlanBackend.SERVER_TIME),
+            backend.flags.getValue(id),
+        )
+        assertTrue(repo.isFlagged(id))
+        // 이미 서버에 있으면(다른 기기·다시 설치) 신고한 것으로 본다 — 오류 없이 '신고함'
+        local.setFlagged(emptySet())
+        repo.flag(id, PlanFlagReason.Other, "")
+        assertTrue(repo.isFlagged(id))
+        assertEquals("unsafe", backend.flags.getValue(id)["reason"])
+    }
+
+    @Test fun flagNoteIsCheckedBeforeSendingAndFailuresAreNotRemembered() = runBlocking {
+        val id = repo.submit(draft, false)
+        backend.resultOwners[id] = boardBackend.uid!!
+        // 여권 번호처럼 보이는 글자(가짜)·200자 넘는 메모는 보내지 않는다
+        for (bad in listOf("여권 M00000000 이에요", "가".repeat(PlanRules.FLAG_NOTE_MAX + 1))) {
+            try {
+                repo.flag(id, PlanFlagReason.Inaccurate, bad)
+                fail("막혀야 한다: $bad")
+            } catch (e: PlanError.Invalid) {
+                // 기대한 대로
+            }
+        }
+        backend.offline = true
+        try {
+            repo.flag(id, PlanFlagReason.Inaccurate, "")
+            fail("인터넷 없으면 실패")
+        } catch (e: PlanError.Offline) {
+            // 기대한 대로
+        }
+        assertTrue(backend.flags.isEmpty())
+        assertTrue(!repo.isFlagged(id))
+        // 남의 계획은 신고할 수 없다(규칙)
+        backend.offline = false
+        backend.resultOwners[id] = "someone-else"
+        try {
+            repo.flag(id, PlanFlagReason.Inaccurate, "")
+            fail("남의 계획")
+        } catch (e: PlanError.Denied) {
+            // 기대한 대로
+        }
+        assertTrue(!repo.isFlagged(id))
+    }
+
+    @Test fun flagNeedsSignInAndDeleteForgetsLocalMarkOnly() = runBlocking {
+        try {
+            repo.flag("r-none", PlanFlagReason.Other, "")
+            fail("로그인한 적이 없으면 신고할 계획도 없다")
+        } catch (e: PlanError.Denied) {
+            // 기대한 대로
+        }
+        assertNull(boardBackend.uid)
+        val id = repo.submit(draft, false)
+        backend.resultOwners[id] = boardBackend.uid!!
+        repo.flag(id, PlanFlagReason.Inappropriate, "")
+        val req = repo.myRequests().single()
+        repo.cancel(req)
+        repo.delete(repo.myRequests().single())
+        assertTrue(!repo.isFlagged(id))
+        // 서버의 신고 기록은 앱이 지우지 않는다(규칙이 막는다) — ARIA 정리 작업이 요청과 함께 지운다
+        assertTrue(id in backend.flags)
+    }
 }

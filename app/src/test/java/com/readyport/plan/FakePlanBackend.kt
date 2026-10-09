@@ -5,7 +5,8 @@ import java.time.Instant
 
 /**
  * 메모리 안 가짜 계획 서버 (네트워크 없음). 규칙(firebase/firestore.rules newPlanOk·plan_quota)이 막는 것 중 앱이 기대는 것을 같은 뜻으로 흉내 낸다:
- * 요청 모양은 [PlanRules.payload]로 만든 것만 받고, 7일 2회는 직전 prev 로 막고, 취소는 queued·processing 만, 삭제는 cancelled 만.
+ * 요청 모양은 [PlanRules.payload]로 만든 것만 받고, 7일 2회는 직전 prev 로 막고, 취소는 queued·processing 만, 삭제는 cancelled 만,
+ * 신고는 내 결과에 한 번만(두 번째는 [PlanError.AlreadyFlagged]).
  * 규칙 자체는 tools/firestore/rules.test.mjs 가 에뮬레이터로 따로 검사한다.
  */
 class FakePlanBackend(private val clock: TestClock = TestClock()) : PlanBackend {
@@ -88,6 +89,20 @@ class FakePlanBackend(private val clock: TestClock = TestClock()) : PlanBackend 
     override suspend fun result(id: String): PlanResult? {
         online()
         return results[id]
+    }
+
+    /** plan_flags/{id} (규칙: 내 결과에만, 한 번 — 고치기·지우기 불가). 값은 [PlanRules.flagPayload] 모양 그대로 */
+    val flags = linkedMapOf<String, Map<String, Any>>()
+
+    /** 결과 주인 (규칙이 plan_results/{id}.uid 를 본다) — 테스트가 정한다 */
+    val resultOwners = mutableMapOf<String, String>()
+
+    override suspend fun flag(uid: String, id: String, reason: PlanFlagReason, note: String) {
+        online()
+        val payload = PlanRules.flagPayload(reason, note, uid, SERVER_TIME)
+        if (resultOwners[id] != uid) throw PlanError.Denied
+        if (id in flags) throw PlanError.AlreadyFlagged
+        flags[id] = payload
     }
 
     companion object {

@@ -9,6 +9,7 @@ from types import SimpleNamespace
 from ops.aria import run_hourly as rh
 from ops.aria.fingerprint_store import FingerprintStore
 from ops.aria.jobs import plan_cleanup as pc
+from ops.aria.jobs import plan_flags as pf
 from ops.aria.jobs import plan_requests as pr
 from ops.aria.jobs import ratings_weekly as rt
 from ops.aria.runners import plan_engine
@@ -291,9 +292,78 @@ class CleanupTest(unittest.TestCase, TempDirCase):
         for kept in ("plan_requests/cancel_old", "plan_requests/done_new", "plan_results/done_new", "plan_requests/finished_late",
                      "plan_requests/working", "plan_quota/u_new"):
             self.assertIn(kept, fs.docs)
+        # 신고 칸이 없던 정리에서도 신고 0건
+        self.assertEqual(out["flags_deleted"], 0)
         self.assertEqual(fs.docs["plan_requests/stuck"]["status"], "failed")
         self.assertEqual(fs.docs["plan_requests/stuck"]["error_code"], "engine_timeout")
         self.assertEqual(out["stuck_failed"], 1)
+
+
+    def test_flags_go_with_their_request(self):
+        cfg = self.make_cfg(self.make_tmp(), plan_retention_days=30)
+        old, recent = NOW - dt.timedelta(days=31), NOW - dt.timedelta(days=3)
+        flag = {"uid": "u", "reason": "unsafe", "note": "가짜 메모", "at": recent}
+        fs = MemFirestore({
+            # 30일 정리로 요청·결과가 지워지면 신고도 함께
+            "plan_requests/done_old": req(status="done", createdAt=old, finishedAt=old),
+            "plan_results/done_old": {"uid": "u", "createdAt": old},
+            "plan_flags/done_old": dict(flag),
+            # 아직 보관 중인 계획의 신고는 남는다
+            "plan_requests/done_new": req(status="done", createdAt=recent, finishedAt=recent),
+            "plan_results/done_new": {"uid": "u", "createdAt": recent},
+            "plan_flags/done_new": dict(flag),
+            # 이용자가 앱에서 요청·결과를 지운 뒤 남은 신고 → 다음 정리 때 지운다
+            "plan_flags/user_deleted": dict(flag),
+        })
+        dry = pc.run(cfg, fs, dry_run=True, now=NOW)
+        self.assertEqual(fs.writes, [])
+        self.assertEqual(dry["flags_deleted"], 1)
+        out = pc.run(cfg, fs, dry_run=False, now=NOW)
+        for gone in ("plan_flags/done_old", "plan_requests/done_old", "plan_results/done_old", "plan_flags/user_deleted"):
+            self.assertNotIn(gone, fs.docs)
+        self.assertIn("plan_flags/done_new", fs.docs)
+        self.assertEqual(out["flags_deleted"], 1)          # 짝으로 지운 것은 1번에서, 남은 신고만 여기서 센다
+        self.assertEqual(out["finished_deleted"], 1)
+
+
+class PlanFlagsTest(unittest.TestCase):
+    def setUp(self):
+        self.store = FingerprintStore(":memory:")
+        self.addCleanup(self.store.close)
+
+    @staticmethod
+    def flag(minutes_ago, **kw):
+        return {"uid": "u", "reason": "inappropriate", "note": "가짜 메모 내용", "at": NOW - dt.timedelta(minutes=minutes_ago), **kw}
+
+    def test_counts_only_new_flags_since_last_check_with_ids_only(self):
+        fs = MemFirestore({"plan_flags/a1": self.flag(90), "plan_flags/b2": self.flag(30)})
+        # 시험: 세기만, 마지막 시각은 옮기지 않는다
+        self.assertEqual(pf.check(fs, self.store, dry_run=True), {"new": 2, "ids": ["a1", "b2"]})
+        self.assertIsNone(self.store.get_value(pf.LAST_KEY))
+        out = pf.check(fs, self.store, dry_run=False)
+        self.assertEqual(out, {"new": 2, "ids": ["a1", "b2"]})
+        self.assertNotIn("가짜 메모", json.dumps(out, ensure_ascii=False))     # 내용은 담지 않는다
+        self.assertEqual(pf.check(fs, self.store, dry_run=False), {"new": 0, "ids": []})
+        fs.docs["plan_flags/c3"] = self.flag(5)
+        self.assertEqual(pf.check(fs, self.store, dry_run=False), {"new": 1, "ids": ["c3"]})
+        self.assertEqual(pf.check(fs, self.store, dry_run=False)["new"], 0)
+        # 질의는 at 만 고른다
+        q, _ = fs.queries[-1]
+        self.assertEqual(q["select"], {"fields": [{"fieldPath": "at"}]})
+        self.assertEqual(fs.writes, [])                     # Firestore 에는 쓰지 않는다
+
+    def test_paging_and_notice(self):
+        fs = MemFirestore({f"plan_flags/f{i:03d}": self.flag(600 - i) for i in range(pf.PAGE + 30)})
+        out = pf.check(fs, self.store, dry_run=False)
+        self.assertEqual(out["new"], pf.PAGE + 30)
+        self.assertEqual(len(out["ids"]), pf.MAX_IDS)
+        self.assertEqual(out["more"], pf.PAGE + 30 - pf.MAX_IDS)
+        self.assertIsNone(pf.notice({"new": 0, "ids": []}))
+        self.assertEqual(pf.notice({"new": 2, "ids": ["a1", "b2"]}), "[레디포트] AI 계획 신고 2건: a1, b2")
+        line = pf.notice({"new": 12, "ids": [f"r{i}" for i in range(12)]})
+        self.assertTrue(line.startswith("[레디포트] AI 계획 신고 12건: r0, r1"))
+        self.assertTrue(line.endswith(" 외 2건"))
+        self.assertEqual(pf.check(None, self.store)["status"], "not_configured")
 
 
 class RunHourlyTest(unittest.TestCase, TempDirCase):
@@ -319,6 +389,55 @@ class RunHourlyTest(unittest.TestCase, TempDirCase):
         out3 = rh.run_hourly(cfg, firestore=fs, dry_run=False, store=store, engine=FakeEngine(), cleanup="force", now=NOW, today=TODAY)
         self.assertIn("cleanup", out3)
         self.assertEqual(n.sent, [])           # 실패·상한 없으면 알리지 않음
+        self.assertEqual(out["flags"], {"new": 0, "ids": []})
+
+    def test_new_flags_are_in_summary_and_notified_only_when_live(self):
+        tmp = self.make_tmp()
+        write_attractions(tmp)
+        cfg = self.make_cfg(tmp)
+        store = FingerprintStore(":memory:")
+        self.addCleanup(store.close)
+        fs = MemFirestore({
+            "plan_flags/r7": {"uid": "u", "reason": "unsafe", "note": "가짜 메모", "at": NOW - dt.timedelta(minutes=20)},
+        })
+
+        class N:
+            def __init__(self):
+                self.sent = []
+
+            def send(self, t):
+                self.sent.append(t)
+        dry_n = N()
+        dry = rh.run_hourly(cfg, firestore=fs, dry_run=True, store=store, engine=FakeEngine(), notifier=dry_n,
+                            cleanup="skip", now=NOW, today=TODAY)
+        self.assertEqual(dry["flags"], {"new": 1, "ids": ["r7"]})
+        self.assertEqual(dry_n.sent, [])
+        n = N()
+        out = rh.run_hourly(cfg, firestore=fs, dry_run=False, store=store, engine=FakeEngine(), notifier=n,
+                            cleanup="skip", now=NOW, today=TODAY)
+        self.assertEqual(out["flags"], {"new": 1, "ids": ["r7"]})
+        self.assertEqual(n.sent, ["[레디포트] AI 계획 신고 1건: r7"])
+        again = rh.run_hourly(cfg, firestore=fs, dry_run=False, store=store, engine=FakeEngine(), notifier=n,
+                              cleanup="skip", now=NOW, today=TODAY)
+        self.assertEqual(again["flags"]["new"], 0)
+        self.assertEqual(len(n.sent), 1)
+
+    def test_flag_check_failure_does_not_break_the_run(self):
+        tmp = self.make_tmp()
+        write_attractions(tmp)
+        cfg = self.make_cfg(tmp)
+        store = FingerprintStore(":memory:")
+        self.addCleanup(store.close)
+
+        class Broken(MemFirestore):
+            def run_query(self, q, parent=""):
+                if q["from"][0]["collectionId"] == "plan_flags":
+                    raise RuntimeError("boom")
+                return super().run_query(q, parent)
+        out = rh.run_hourly(cfg, firestore=Broken({"plan_requests/r1": req()}), dry_run=False, store=store,
+                            engine=FakeEngine(), cleanup="skip", now=NOW, today=TODAY)
+        self.assertEqual(out["plans"]["processed"][0]["status"], "done")
+        self.assertEqual(out["flags"]["status"], "error")
 
 
 if __name__ == "__main__":

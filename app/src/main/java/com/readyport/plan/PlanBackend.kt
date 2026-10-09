@@ -36,6 +36,13 @@ interface PlanBackend {
 
     /** 결과 (아직 없으면 null) */
     suspend fun result(id: String): PlanResult?
+
+    /**
+     * AI 계획 신고: plan_flags/{id} 를 **만들기만**(규칙: 내 결과에만, 한 번, 운영자만 읽음).
+     * 이미 신고한 계획이면 [PlanError.AlreadyFlagged]. 이용자는 신고를 지울 수 없다 — [delete] 도 건드리지 않고,
+     * 요청·결과가 지워지면 ARIA 정리 작업(ops/aria/jobs/plan_cleanup.py)이 함께 지운다.
+     */
+    suspend fun flag(uid: String, id: String, reason: PlanFlagReason, note: String)
 }
 
 /** 운영 백엔드 — 칸 이름·모양은 firebase/firestore.rules 와 짝이다(PlanRules.payload·quotaPayload) */
@@ -99,6 +106,24 @@ class FirestorePlanBackend(private val db: FirebaseFirestore = FirebaseFirestore
         }
     }
 
+    override suspend fun flag(uid: String, id: String, reason: PlanFlagReason, note: String) = guard {
+        val payload = PlanRules.flagPayload(reason, note, uid, FieldValue.serverTimestamp())
+        try {
+            db.collection(FLAGS).document(id).set(payload).await()
+        } catch (e: FirebaseFirestoreException) {
+            // 신고는 읽을 수 없어서(운영자만) 미리 확인하지 못한다. 이미 있으면 set 이 '고치기'가 되어 거절된다 —
+            // 내 결과가 그대로 있는데 거절됐다면 이미 신고한 것으로 본다
+            if (e.code == FirebaseFirestoreException.Code.PERMISSION_DENIED && mineResultExists(uid, id)) throw PlanError.AlreadyFlagged
+            throw e
+        }
+        Unit
+    }
+
+    private suspend fun mineResultExists(uid: String, id: String): Boolean = runCatching {
+        val d = db.collection(RESULTS).document(id).get().await()
+        d.exists() && d.getString("uid") == uid
+    }.getOrDefault(false)
+
     private fun DocumentSnapshot.instant(field: String): Instant? =
         runCatching { getTimestamp(field, DocumentSnapshot.ServerTimestampBehavior.ESTIMATE)?.toDate()?.toInstant() }.getOrNull()
 
@@ -135,6 +160,7 @@ class FirestorePlanBackend(private val db: FirebaseFirestore = FirebaseFirestore
         const val REQUESTS = "plan_requests"
         const val QUOTA = "plan_quota"
         const val RESULTS = "plan_results"
+        const val FLAGS = "plan_flags"
         private const val LIST_MAX = 50L
     }
 }
