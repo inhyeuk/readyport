@@ -117,3 +117,101 @@
 2. **브사키 화산 정보**: MAGMA는 robots 전체 금지라 현재 경보 단계를 싣지 못하고 'MAGMA에서 확인하세요' 안내(정부 발표 인용)만 실었다. 이 수준으로 공개해도 되는지.
 3. **우붓 왕궁**: 한국어 조회수 996으로 높지만 공식 근거가 없어 뺐다. 공식 안내 출처를 알면 다음 차수 1순위로 넣는다.
 4. 지역 hub 3곳(부킷·우붓·동부)은 교통 거점 Wikidata 항목이 없어 지역 1순위 관광지 지점으로 두었다(스펙 §3.1 대체 규칙).
+
+## 2차 (2026-10-10)
+
+- 데이터: `packs/drafts/ID/attractions.json` version **2026.10.10-1** — 지역 9개(1차 6 + 2차 3, 2차 지역은 모두 `wave: 2`) / 관광지 **34곳**(1차 19 + 2차 15) / 출처 82개(OSM 좌표 출처 `osm` 포함). 1차 지역·관광지 본문은 손대지 않았다(rank.order 와 wiki 제목만 나라 전체 재계산).
+- 근거: `~/.readyport/evidence/ID/<id>/` 에 곳마다 스냅샷 + `extract.json`(2차 15곳 인용 176개). 확인일 모두 2026-10-10. 좌표는 Wikidata P625가 1순위, 항목·좌표가 없는 곳은 OpenStreetMap(`geo.source: osm`, node·way·relation id 기록, 6곳) — 앱의 `settings_credit_osm` 문자열은 이미 있다.
+- 막혔던 공식 사이트는 **실제 브라우저로 사람처럼 읽어 저장**했다(`manual_browser_save`): MAGMA Indonesia 화산 활동 단계 목록 + 바투르·린자니 활동 보고(2026-10-08자). CAPTCHA·로그인 없이 그냥 열렸다. 나머지는 robots.txt 확인 뒤 HTTP GET.
+- 새로 쓴 공식 출처: 인도네시아 관광부 공식 포털 Wonderful Indonesia(indonesia.travel, 국가 관광청 — 이번에는 `/gb/en/destination/…` 경로가 정상 응답), Love Bali(발리주 정부 관광 포털 lovebali.baliprov.go.id — 1차에 쓴 disparda 와 같은 발리주), 끌룽꿍 군 관광청·군청(누사페니다), 코모도 국립공원 관리청 공식 사이트(tnkomodo.ksdae.kehutanan.go.id), 산림부 KSDAE 공원 프로필, ITDC(만달리카 운영사), 국립박물관 공식, UNESCO WHC·세계지질공원, MAGMA(PVMBG).
+
+### 검증
+
+- `check ID`: **통과**(설정 › 출처 문자열 2개를 임시로 넣고 확인한 뒤 되돌림). 남은 경고: hub 40km 초과 4곳(아래, `packs/curation/ID.curation.json` 에 유지 근거를 적어 경고로 내려감), 롬복 안 두 곳 60km 초과(꾸따 만달리카–길리 트라왕안) 경고, booking 없음·sea_island/nature 방문 지점 권장은 1차와 같은 종류.
+- `verify-quotes ID`: **통과**(34곳). `wiki-fill ID`: 2차 15곳 중 9곳 채움(쩨낑·켈링킹·브로큰 비치·앙겔스 빌라봉·꾸따 만달리카·핑크 비치는 위키 문서 없음). `place-ids ID --write`: 14곳 채움, **파다르섬은 좌표 1km 안 후보 없음**(비워 둠).
+- copycheck: 캐시 생성(`~/.readyport/copycheck_cache/ID/<id>/` ko·en 위키 본문, 없으면 none.txt) → promote 시뮬레이션 안에서 **34곳 모두 통과**.
+- promote 시뮬레이션(`--wave 2`, 임시 키 `rp-att-sim`, 저장소 밖 복사본에서만): **게이트 실패 0, 실패 0**, 34곳 · base 7지역 모두 3곳 이상 · daytrip 2지역(발리 동부 3, 누사페니다 3) · 종류 heritage 11 / sea_island 9 / nature 7 / museum 3 / city_view 2(최다 11/34=32%) · 충실도 미달 0. 서명 산출물은 커밋하지 않았다.
+- 곳당 크기 2,836~4,434B(한도 4,608B), 파일 176KB. 큰 곳(린자니·코모도·바투르)은 화산 권고·공원 규칙 tips 때문이다.
+
+### 지역(2차)
+
+| id | 이름 | kind | hub | 공항 | 곳 수 | 비고 |
+|---|---|---|---|---|---|---|
+| id_nusa_penida | 누사페니다 | daytrip [id_bali_south], water_crossing | 누사페니다섬 Q1520301(1차 그대로) | — | 3 | 당일 왕복 근거: 끌룽꿍 군청 '누사페니다 개요'(세 명소가 붕아 므까르 마을), Love Bali 켈링킹 페이지 "using passable vessel from harbor" (`_regions/2.txt`). **선사 시간표 근거는 없다**(아래 결정 1) |
+| id_lombok | 롬복 | base | 롬복 국제공항 Q1395514 | — (팩에 LOP 없음) | 3 | 길리 트라왕안 52km·린자니 46km 초과 → curation 유지 근거 |
+| id_labuanbajo | 라부안바조(코모도) | base | 코모도 국제공항 Q1927261 | — (팩에 LBJ 없음) | 3 | 코모도 NP 43km·핑크 비치 42km 초과 → curation 유지 근거 |
+
+- **LOP(롬복)·LBJ(라부안바조) 공항은 pack.json 에 없어** `airports` 를 비웠다. 팩에 공항을 넣으면 두 지역에 매핑하면 된다.
+
+### 관광지(2차 15곳) — rank 는 나라 전체 D11 재계산(지정 → ko 조회수 → en 조회수, Wikimedia REST 2025-10~2026-09)
+
+| rank | 곳 | 지역 | 종류 | 지정 | ko / en | claims/tips/tags/인용 | facts | 가는 법 | 출처(핵심) |
+|---|---|---|---|---|---|---|---|---|---|
+| 3 | 바투르산(킨타마니 전망) `kintamani-batur` | id_bali_ubud | nature, **risk volcano** | 유네스코 세계지질공원(2015) | 477 / 54,082 | 6/3/1/12 | 누구나 | 차로만 | Love Bali, UNESCO 지질공원, MAGMA(1단계 정상) |
+| 4 | 코모도 국립공원 `komodo-national-park` | id_labuanbajo | nature | 세계유산(1991) | 420 / 55,920 | 6/4/1/16 | 시설·유료 | 배(라부안바조 항구) | 관리청 공식(규칙·티켓), UNESCO 609 |
+| 6 | 파다르섬 `padar-island` | id_labuanbajo | nature | 세계유산 일부 | — / 13,553 | 5/3/2/14 | 시설·유료 | 배 | WI 파다르, 관리청 공식 |
+| 7 | 핑크 비치(코모도) `pink-beach-komodo` | id_labuanbajo | sea_island | 세계유산 일부 | 위키 없음 | 4/3/2/16 | 시설·유료 | 배 | WI 핑크비치, 관리청 공식 |
+| 8 | 우붓 왕궁 `ubud-palace` | id_bali_ubud | heritage | — | **996** / 19,896 | 4/2/0/8 | 시설(입장·휴무 미상) | 시내 걸어서 | WI Istana Ubud(인도네시아어 2문단) |
+| 10 | 길리 트라왕안 `gili-trawangan` | id_lombok | sea_island | — | 493 / 1,377 | 4/3/0/11 | 누구나 | 배(승기기 항구) | WI 길리 |
+| 12 | 누사두아 해변 `nusa-dua-beach` | id_bali_bukit | sea_island | — | 283 / 19,391(누사두아 문서) | 4/2/0/8 | 누구나 | 차로만 | Love Bali, WI |
+| 13 | 인도네시아 국립박물관 `museum-nasional` | id_jakarta | museum | — | 220 / 12,460 | 5/3/1/15 | 시설·유료·**월요일 휴관**(국경일도) | 버스(트랜스자카르타 모누멘 나시오날) | 박물관 공식 프로필·요금/시간 페이지 |
+| 18 | 띠르따 엠풀 사원 `tirta-empul` | id_bali_ubud | heritage | — | — / 25,480 | 5/3/1/13 | 시설(입장·휴무 미상) | 차로만 | WI(상세), Love Bali |
+| 26 | 린자니 국립공원 `rinjani` | id_lombok | nature, **risk volcano** | — | — / 1,562(국립공원 문서) | 6/4/1/18 | 시설 | 차로만(슴발룬 라왕 기점) | KSDAE 프로필(41,330ha), WI, MAGMA(**2단계 주의**) |
+| 28 | 앙겔스 빌라봉 `angels-billabong` | id_nusa_penida | nature | — | 위키 없음 | 4/2/0/7 | 누구나 | 차로만(섬 안) | 끌룽꿍 군 관광청(기사 전재)·군청 |
+| 29 | 브로큰 비치 `broken-beach` | id_nusa_penida | sea_island | — | 위키 없음 | 4/2/0/7 | 누구나 | 차로만(섬 안) | 끌룽꿍 군 관광청 Broken Beach 페이지 |
+| 30 | 뜨갈랄랑 계단식 논(쩨낑) `ceking-rice-terrace` | id_bali_ubud | nature | — | 위키 없음 | 4/3/0/9 | 누구나 | 차로만 | Love Bali 'Ceking (Panorama)', WI Tegallalang |
+| 32 | 켈링킹 해변 `kelingking-beach` | id_nusa_penida | sea_island | — | 위키 없음 | 4/2/1/9 | 누구나 | 차로만(섬 안) | Love Bali, WI |
+| 34 | 꾸따 해변(만달리카) `kuta-mandalika` | id_lombok | sea_island | — | 위키 없음 | 4/3/1/10 | 누구나 | 차로만 | ITDC(지구·비치 파크·발라위스타), WI |
+
+**한 줄 미리보기(summary_ko)**
+- 우붓 왕궁: 우붓 왕가가 지금도 사는 우붓 시내의 왕궁이에요. / 띠르따 엠풀: 성스러운 샘물에서 정화 의식을 하는 발리 힌두 사원이에요. / 국립박물관: 1778년 협회에서 비롯한 인도네시아의 국립박물관이에요. / 누사두아: 리조트 단지 앞에 있는 발리 남동쪽 끝의 흰 모래 해변이에요. / 쩨낑: 우붓 북쪽 뜨갈랄랑의 계단식 논 전망 지점이에요. / 바투르산: 칼데라 호수를 내려다보는 발리 북동부의 활화산이에요.
+- 켈링킹: 새끼손가락 모양 곶 아래에 숨은 누사페니다의 흰 모래 해변이에요. / 브로큰 비치: 절벽 가운데 둥근 구멍으로 바닷물이 드나드는 누사페니다의 해안이에요. / 앙겔스 빌라봉: 바다로 이어지는 물길 끝에 생긴 누사페니다의 맑은 자연 못이에요.
+- 꾸따 만달리카: 만달리카 관광지구에 있는 롬복 남부의 흰 모래 해변이에요. / 길리 트라왕안: 자동차가 없는 롬복 북서쪽 바다의 작은 섬이에요. / 린자니: 인도네시아에서 두 번째로 높은 화산을 품은 롬복의 국립공원이에요.
+- 코모도: 코모도왕도마뱀이 사는 섬들로 이뤄진 세계유산 국립공원이에요. / 파다르섬: 언덕 위에서 세 개의 만을 내려다보는 코모도 국립공원의 섬이에요. / 핑크 비치: 코모도섬에 있는 분홍빛 모래 해변이에요.
+
+**곳별 메모·빈칸**
+- 바투르산: 방문 지점은 **페넬로칸 전망 길가**(OSM node/13258153820, Wikidata 'Penelokan Batur' Q116266091 에는 좌표 없음). qid 는 바투르산 Q43876(위키 조회수·요약용), `wd_geo` 는 산 정상 좌표. hazard = MAGMA 바투르 보고(2026-10-08, **1단계 정상**, "분화구 활동 구역에 오래 머물거나 밤을 보내지 말고 가스 분출구에 가까이 가지 말 것")를 tips·status.note 에 실었다. 지정 = `unesco_geopark`(PH 초콜릿 힐의 보홀 지오파크 선례). 우붓 hub 에서 29km 라 id_bali_ubud 에 뒀다(SPEC §3.3 메모대로).
+- 린자니: 방문 지점 = 슴발룬 라왕 마을(등산 기점, Q12513392, `geo.kind: entrance`), qid 는 국립공원 Q1381840. MAGMA 기준 **2단계(Waspada)** — 바루자리 분화구 반경 1.5km 안 활동·야영 금지 권고, 등산은 허용(마스크·눈 보호구 준비)을 claims·tips·status.note 에 실었다. 공식 사이트 rinjaninationalpark.id 는 503 이라 KSDAE 프로필 페이지를 official_url 로 썼고, eRinjani 예약 의무는 공식 근거를 못 찾아 booking 을 비웠다.
+- 코모도: 방문 지점 = 로 리앙 관리소(OSM node/6865781785). D19 판정 (가): 야생 서식지에서 레인저와 함께 관찰하는 곳이고 먹이 주기·쇼가 없다(관리청: "먹이를 주지 않는다"). 공식 규칙 페이지에서 '혼자 다닐 수 없음·timed entry·동물 접근 금지·PNBP 티켓'을 tips·facts 로. 요금표는 이미지라 숫자 없음(D4-A 와 무관). SiOra 예약 앱은 공식 문장이 '다운로드' 링크뿐이라 booking 비움.
+- 파다르섬·핑크 비치: 세계유산 코모도 국립공원 **안**에 있어 '부분 지정 = 지정' 규칙으로 `unesco` 태그·designation 을 달았다(UNESCO 본문이 파다르를 3대 섬으로 명시; 핑크 비치는 코모도섬 안). 핑크 비치는 Wikidata 항목이 없어 OSM way/762003934. 파다르 좌표는 Wikidata '파다르 브사르섬' Q1134717.
+- 우붓 왕궁(한국어 조회수 996, 1차 보류 1순위): 기안야르 군 사이트는 Cloudflare 차단, 왕궁 자체 사이트 없음 → **인도네시아 관광부 공식 포털 페이지**(인도네시아어 2문단)로 채웠다. 입장 유무·휴무 미상, 공연은 D21대로 '저녁에 열려요' 사실만.
+- 띠르따 엠풀: WI 상세 페이지(926년 창건·마누까야 마을·물구멍 30개·사롱 규정) + Love Bali. 복장 규정 → `dress_code`. 입장료는 공식 문구가 없어 `entry: unknown`.
+- 국립박물관: 공식 요금·시간 페이지에 '월요일·국경일 휴관', 외국인 요금 → `foreigner_price`. 가는 법은 트랜스자카르타 노선 목록의 '모누멘 나시오날' 종점(1차 모나스와 같은 출처, 스냅샷 재수집).
+- 누사두아 해변: Wikidata 는 리조트 지구 항목 Q277598(좌표가 지구 중심) → 해변 좌표는 OSM relation/3498598. '아시아태평양 최초 그린 글로브' 문장은 최상급 근거 규칙 때문에 쓰지 않았다.
+- 쩨낑(뜨갈랄랑): Love Bali 에 공식 장소 페이지가 있어 넣었다(Wikidata 'Ceking Terrace' Q134730557 에 좌표 없음 → OSM 전망 지점 node/13313259901). WI 페이지의 '유네스코 세계유산 등재' 문장은 1차 메모대로(발리 수박 경관 구성 요소에 들지 않음) **쓰지 않았다**.
+- 누사페니다 3곳: 켈링킹은 Love Bali+WI(70~80도 절벽 계단 → `stairs`). 브로큰 비치는 군 관광청 공식 페이지. **앙겔스 빌라봉은 군 관광청 사이트에 실린 글이 Liputan6 기사 전재**라 출처 성격이 약하다(아래 결정 2). 끌룽꿍 군수 공문(SE 556/028/Dispar/2023, 수영 금지)은 원문을 찾지 못해 싣지 않았다.
+- 꾸따 만달리카: Wikidata 좌표(-8.9167,116.2833)가 해변에서 약 2km 바다 쪽이라 OSM 해변 relation/3899716 을 geo 로, Wikidata 좌표는 wd_geo 로 남겼다. 별칭에 '꾸따'·'꾸따 해변'은 발리 꾸따와 겹쳐 넣지 않았다.
+- 길리 트라왕안: access 는 WI 의 '승기기에서 스피드보트·정기 여객선' 문장으로 `boat` + nearest_local 승기기(Q12513615). 방살 항구 문장은 공식 페이지에 없어 쓰지 않았다. 해양보전구역(TWP Gili Matra, KKP) 데이터베이스는 접속 불가(연결 거부·타임아웃).
+
+### 보류분 처리 결과
+
+| 곳 | 결과 |
+|---|---|
+| 우붓 왕궁 | **해결**(rank 8) |
+| 띠르따 엠풀 | **해결**(rank 18) |
+| 인도네시아 국립박물관 | **해결**(rank 13) |
+| 누사두아 해변 | **해결**(rank 12) |
+| 스미냑 해변 | **계속 보류** — 공식 장소 페이지 없음. Love Bali 는 인접 쁘띠뜽엣·르기안 해변만 있고, 바둥 군 관광청(sita.badungkab.go.id)은 자동 요청·실제 브라우저 모두 연결 안 됨(dispar.badungkab.go.id 는 열리나 장소 안내 없음). 바둥 군 공식 안내가 생기면 Wikidata Q12502896 으로 넣는다 |
+| 뜨갈랄랑 | **해결**(쩨낑 공식 페이지 확인, rank 30) |
+| 킨타마니·바투르 | **해결**(MAGMA 실제 브라우저 읽기 성공, 현재 단계까지 실음) |
+| 꼬따 뚜아(파타힐라 광장) | 그대로(역사박물관 mentions) |
+| 누사페니다·롬복·라부안바조 | **지역 채움**(각 3곳) |
+
+### 아직 막힌 출처 (우회하지 않음)
+- gianyarkab.go.id(Cloudflare 403), dispar.gianyarkab.go.id·sita.badungkab.go.id·disbudpar.ntbprov.go.id·lombokutarakab.go.id(연결 실패/타임아웃), lomboktengahkab.go.id(봇 확인), rinjaninationalpark.id(503), bpolbf.id(DNS 없음), komodo-park.com(폐쇄, KSDAE 가 아직 링크), kkji.kp3k.kkp.go.id·sidako.kkp.go.id(연결 실패), disparda.baliprov.go.id 의 켈링킹 페이지(404, 홈만 열림).
+
+### 설정 › 출처 문자열 (필요, 앱 담당이 추가)
+
+```xml
+<string name="settings_credit_unesco_609">UNESCO World Heritage Centre — Komodo National Park — 코모도 국립공원·파다르섬·핑크 비치</string>
+<string name="settings_credit_unesco_geopark_batur">UNESCO International Geoscience and Geoparks Programme — Batur UNESCO Global Geopark — 바투르산(킨타마니)</string>
+```
+(`settings_credit_osm` 은 이미 있음. 검사할 때 위 2개를 임시로 넣고 되돌렸다.)
+
+### 사장님 결정이 필요한 것
+
+1. **누사페니다 당일 왕복 근거**: 선사 시간표 대신 발리주·끌룽꿍 군 공식 문구(항구에서 배)만 있다. 이대로 daytrip 으로 둘지.
+2. **앙겔스 빌라봉 출처**: 끌룽꿍 군 관광청 사이트에 실린 글이지만 Liputan6 기사 전재다. 군 관광청이 게시한 안내로 보고 둘지, 뺄지(빼도 누사페니다는 2곳이라 daytrip 최소 1곳은 넘는다).
+3. **린자니 2단계(주의)**: MAGMA 권고(바루자리 반경 1.5km 금지, 등산 허용)를 그대로 실었다. risk volcano 라 status 확인 주기 30일. 이 수준으로 공개할지.
+4. **LOP·LBJ 공항**: pack.json 에 두 공항을 넣을지(넣으면 지역에 매핑).
+5. 40km 초과 4곳(길리 트라왕안·린자니·코모도·핑크 비치)의 유지 근거(`packs/curation/ID.curation.json`)가 적절한지.
