@@ -116,6 +116,8 @@ data class AttractionsListActions(
     /** 찾는 곳이 없을 때 게시판 */
     val openBoard: () -> Unit = {},
     val dismissFirstNotice: () -> Unit = {},
+    /** 찜 목록 순서 바꾸기·여행 일정에 담기 (2026-10-09, SavedOrderList.kt) */
+    val savedOrder: SavedOrderActions = SavedOrderActions(),
 )
 
 @Composable
@@ -123,6 +125,8 @@ fun AttractionsListScreen(
     openDetail: (String) -> Unit,
     openSafety: (String) -> Unit,
     openBoard: () -> Unit,
+    openItinerary: (tripId: String) -> Unit = {},
+    makeTrip: (country: String) -> Unit = {},
     viewModel: AttractionsListViewModel = hiltViewModel(),
 ) {
     val ui by viewModel.ui.collectAsStateWithLifecycle()
@@ -139,6 +143,13 @@ fun AttractionsListScreen(
             openSafety = { openSafety(viewModel.country) },
             openBoard = openBoard,
             dismissFirstNotice = { viewModel.dismissFirstNotice() },
+            savedOrder = SavedOrderActions(
+                openDetail = openDetail,
+                move = { key, by -> viewModel.moveSaved(key, by) },
+                moveTo = { key, index -> viewModel.moveSavedTo(key, index) },
+                openItinerary = openItinerary,
+                makeTrip = { makeTrip(viewModel.country) },
+            ),
         ),
         focusSearchOnStart = focusOnStart,
         scrollToRegion = scrollTo,
@@ -198,6 +209,11 @@ fun AttractionsListContent(
     }
     val categories = content?.categories.orEmpty()
     val collapsible = categories.size >= AttractionsListModel.COLLAPSE_FILTER_AT
+    // 찜 목록(검색어 없음)은 지역 묶음 대신 사람이 정한 찜 순서 한 줄 (2026-10-09, SavedOrderList.kt)
+    val ordered = ui.savedOnly && ui.query.isBlank()
+    val savedRows = remember(ordered, ui.catalog, ui.savedItems, ui.category, ui.advisory, ui.country) {
+        if (ordered) SavedOrderModel.rows(ui.catalog, ui.savedItems, ui.country, ui.category, ui.advisory) else emptyList()
+    }
     val speech = stringResource(R.string.attractions_list_speech, title, content?.total ?: 0, content?.regionCount ?: 0) +
         content?.groups.orEmpty().joinToString(" ") { g -> g.region.nameKo + ": " + g.places.take(5).joinToString(", ") { it.nameKo } + "." }
 
@@ -292,7 +308,17 @@ fun AttractionsListContent(
                 }
             }
         }
-        if (content.regionCount > AttractionsListModel.JUMP_REGIONS || content.total > AttractionsListModel.JUMP_PLACES) {
+        if (ordered) {
+            savedOrderItems(
+                rows = savedRows,
+                reorderable = ui.category == null,
+                countryName = ui.countryName,
+                trips = ui.trips,
+                merged = ui.merged,
+                actions = actions.savedOrder.copy(onGone = { confirmUnsave = it }),
+            )
+        }
+        if (!ordered && (content.regionCount > AttractionsListModel.JUMP_REGIONS || content.total > AttractionsListModel.JUMP_PLACES)) {
             item(key = "jump") {
                 ListGroup(stringResource(R.string.attractions_jump_title)) {
                     content.groups.forEachIndexed { i, g ->
@@ -308,7 +334,7 @@ fun AttractionsListContent(
                 }
             }
         }
-        content.groups.forEach { g ->
+        if (!ordered) content.groups.forEach { g ->
             item(key = "region-${g.region.id}") {
                 RegionHeader(g, ui.savedKeys, levelHidden = ui.advisory.changed)
             }
@@ -401,7 +427,7 @@ fun AttractionsListContent(
         if (focused && ui.query.isBlank()) {
             item(key = "suggest") { Suggestions(ui, actions) }
         }
-        if (content.savedExtras.isNotEmpty()) {
+        if (!ordered && content.savedExtras.isNotEmpty()) {
             item(key = "saved-extras") {
                 ListGroup {
                     content.savedExtras.forEachIndexed { i, extra ->

@@ -98,7 +98,7 @@ class AttractionsCaptureTest {
         return AttractionsListUi(
             loading = false, country = "JP", countryName = "일본", catalog = catalog, content = content, query = query,
             category = category, savedOnly = savedOnly, savedKeys = items.map { it.key }.toSet(), anchor = anchor,
-            upcomingAirportName = upcomingAirport, showFirstNotice = firstNotice,
+            upcomingAirportName = upcomingAirport, showFirstNotice = firstNotice, savedItems = items,
         )
     }
 

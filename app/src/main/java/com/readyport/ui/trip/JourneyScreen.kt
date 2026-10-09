@@ -70,7 +70,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewModelScope
 import com.readyport.R
+import com.readyport.attractions.AdvisoryState
+import com.readyport.attractions.AttractionsRepository
+import com.readyport.attractions.SavedAttractionsRepository
 import com.readyport.data.settings.SettingsRepository
+import com.readyport.itinerary.TripItinerary
 import com.readyport.pack.Airport
 import com.readyport.pack.FormInfo
 import com.readyport.pack.OfficialLink
@@ -155,6 +159,10 @@ import com.readyport.ui.components.rememberPhotoLift
 import com.readyport.ui.components.rememberThumbnail
 import com.readyport.ui.components.resolveSourceName
 import com.readyport.ui.components.sectionGap
+import com.readyport.ui.itinerary.ItineraryModel
+import com.readyport.ui.itinerary.ItineraryUi
+import com.readyport.ui.itinerary.TodayPlacesCard
+import com.readyport.ui.itinerary.itineraryTile
 import com.readyport.ui.stay.StayActions
 import com.readyport.ui.stay.StayHereCard
 import com.readyport.ui.stay.StaysCard
@@ -165,7 +173,12 @@ import com.readyport.vault.StayRecord
 import com.readyport.vault.WalletRepository
 import com.readyport.vault.WalletState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
@@ -226,6 +239,11 @@ data class JourneyUi(
     val stays: List<StayRecord> = emptyList(),
     /** 빈 날·겹침 같은 부드러운 알림 (막지 않는다) */
     val stayNotes: List<StayNote> = emptyList(),
+    /**
+     * 이 여행의 관광 일정(2026-10-09) — 계획 단계 `관광 일정` 타일과 여행 중 `오늘 갈 곳`.
+     * null이면 아직 모름(타일·카드 없음). 이 나라 관광지가 없고 담은 곳도 없으면 타일을 그리지 않는다.
+     */
+    val itinerary: ItineraryUi? = null,
 )
 
 @HiltViewModel
@@ -237,6 +255,8 @@ class JourneyViewModel @Inject constructor(
     private val settings: SettingsRepository,
     private val alerts: ChecklistAlerts,
     private val places: PlacesRepository,
+    private val attractions: AttractionsRepository,
+    private val savedAttractions: SavedAttractionsRepository,
 ) : ViewModel() {
     private val tripId = MutableStateFlow<String?>(null)
 
@@ -246,6 +266,26 @@ class JourneyViewModel @Inject constructor(
 
     /** 날짜·도착 모드 시간이 바뀌므로 1분마다 다시 계산 (예전 오늘 화면과 같은 박자) */
     private val ticker = flow { while (true) { emit(System.currentTimeMillis()); delay(60_000) } }
+
+    /**
+     * 관광 일정 요약(타일·오늘 갈 곳). 관광지 파일은 여행 나라 것만 읽고, 일정·찜은 기기 안 저장소에서.
+     * 묵는 곳 좌표는 여기서 쓰지 않는다(제안은 관광 일정 화면에서만).
+     */
+    @OptIn(ExperimentalCoroutinesApi::class)
+    private val itinerary: Flow<ItineraryUi?> = combine(trips.book, tripId) { b, id -> b.trips.firstOrNull { it.id == id }?.country }
+        .distinctUntilChanged()
+        .flatMapLatest { cc ->
+            if (cc == null) {
+                flowOf(null)
+            } else {
+                combine(attractions.revisionOf(cc), packs.revision, trips.book, savedAttractions.saved, ticker) { _, _, book, items, _ ->
+                    val trip = book.trips.firstOrNull { it.id == tripId.value && it.country == cc } ?: return@combine null
+                    val catalog = attractions.catalog(cc)
+                    val advisory = catalog?.let { AdvisoryState.evaluate(it, packs.pack(cc)?.value) } ?: AdvisoryState.Normal
+                    ItineraryModel.build(trip, book.itineraries[trip.id] ?: TripItinerary(), catalog, advisory, items, LocalDate.now())
+                }
+            }
+        }
 
     val ui: StateFlow<JourneyUi> = combine(
         trips.book, tripId, settings.settings, wallet.state, combine(ticker, packs.revision) { now, _ -> now },
@@ -285,7 +325,8 @@ class JourneyViewModel @Inject constructor(
             stays = contents?.let { Stays.forTrip(it.stays, trip) }.orEmpty(),
             stayNotes = contents?.let { Stays.notes(it.stays, trip) }.orEmpty(),
         )
-    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), JourneyUi())
+    }.combine(itinerary) { u, plan -> if (u.trip != null) u.copy(itinerary = plan) else u }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), JourneyUi())
 
     /**
      * 기사님께 보여 주기: 그 숙소를 '가는 곳'으로 맞춰 두고 고른다(이동하기 화면이 바로 그 주소를 보여 준다).
@@ -642,13 +683,17 @@ private fun StageExtras(stage: JourneyStage, ui: JourneyUi, actions: ChecklistAc
     }
 }
 
-/** 계획: 날짜·내리는 공항 고치기 + 이 나라 안내 (그림 모자이크 — 나라 화면 길 안내와 같은 모양) */
+/**
+ * 계획: 날짜·내리는 공항 고치기 + 이 나라 안내 + **관광 일정**(2026-10-09, 이 나라 관광지가 있거나 담은 곳이 있을 때)
+ * (그림 모자이크 — 나라 화면 길 안내와 같은 모양)
+ */
 @Composable
 private fun PlanExtras(ui: JourneyUi, actions: ChecklistActions) {
     val trip = ui.trip ?: return
     val country = ui.countryName ?: trip.country
+    val plan = ui.itinerary?.takeIf { it.available || it.total > 0 }
     NavMosaic(
-        listOf(
+        listOfNotNull(
             TileSpec(
                 stringResource(R.string.journey_plan_country, country),
                 Icons.Outlined.TravelExplore,
@@ -663,8 +708,9 @@ private fun PlanExtras(ui: JourneyUi, actions: ChecklistActions) {
                 tone = BadgeTone.Accent,
                 illustration = com.readyport.ui.components.Illus.Plan,
             ),
+            plan?.let { itineraryTile(it) { actions.openItinerary(trip.id) } },
         ),
-        // 타일이 둘뿐이라 2열 그리드에 한 칸만 차는 모양이 된다 — 폭 전체 행 둘로
+        // 타일이 둘·셋뿐이라 2열 그리드에 한 칸만 차는 모양이 된다 — 폭 전체 행으로
         columns = 1,
     )
 }
@@ -799,6 +845,10 @@ private fun DuringExtras(ui: JourneyUi, actions: ChecklistActions) {
         stay = Stays.on(ui.stays, ui.today),
         actions = stayActions(actions),
     )
+    // 오늘 갈 곳 — 관광 일정에 담은 곳이 있을 때만(2026-10-09)
+    ui.itinerary?.takeIf { it.total > 0 }?.let { plan ->
+        TodayPlacesCard(plan, actions.openAttraction, actions.openLink) { actions.openItinerary(trip.id) }
+    }
     InfoTileGrid(
         listOfNotNull(
             TileSpec(stringResource(R.string.today_go_stay), Icons.Outlined.Hotel, actions.openTransport, emphasized = true),

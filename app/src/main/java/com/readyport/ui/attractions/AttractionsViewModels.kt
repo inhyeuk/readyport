@@ -20,6 +20,7 @@ import com.readyport.attractions.search.AttractionSearchIndex
 import com.readyport.pack.CountryPack
 import com.readyport.pack.PackRepository
 import com.readyport.stay.Stays
+import com.readyport.trip.Trip
 import com.readyport.trip.TripRepository
 import com.readyport.trip.TripSelection
 import com.readyport.trip.TripTiming
@@ -114,6 +115,10 @@ data class AttractionsListUi(
     /** 찜 화면 첫 진입 안내 (한 번만) */
     val showFirstNotice: Boolean = false,
     val merged: Set<String> = emptySet(),
+    /** 찜 전체(여러 나라, **사람이 정한 순서** — 2026-10-09). 찜 목록이 이 순서로 줄을 세운다 */
+    val savedItems: List<SavedAttraction> = emptyList(),
+    /** 이 나라로 가는 여행(지난 여행 제외, 목록 순서) — 찜 목록 `여행 일정에 담기`가 고른다 */
+    val trips: List<Trip> = emptyList(),
 )
 
 @OptIn(FlowPreview::class)
@@ -139,7 +144,9 @@ class AttractionsListViewModel @Inject constructor(
 
     private val filters = combine(query.debounce(SEARCH_DEBOUNCE_MS), category, savedOnly) { q, c, s -> Filters(q, c, s) }
 
-    val ui: StateFlow<AttractionsListUi> = combine(base, saved.saved, saved.firstNoticeDone, filters, query) { b, items, noticeDone, f, typed ->
+    private val savedAndTrips = combine(saved.saved, trips.trips) { items, all -> items to all }
+
+    val ui: StateFlow<AttractionsListUi> = combine(base, savedAndTrips, saved.firstNoticeDone, filters, query) { b, (items, allTrips), noticeDone, f, typed ->
         val catalog = b.catalog
         val cat = Category.of(f.category)
         val content = if (catalog != null && b.index != null) {
@@ -162,6 +169,10 @@ class AttractionsListViewModel @Inject constructor(
             advisory = b.advisory,
             showFirstNotice = f.savedOnly && !noticeDone && items.any { it.country == country },
             merged = b.merged,
+            savedItems = items,
+            trips = TripSelection.ordered(allTrips, LocalDate.now())
+                .filter { (timing, t) -> t.country == country && timing != TripTiming.Past }
+                .map { it.second } + allTrips.filter { it.country == country && !it.datesValid },
         )
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), AttractionsListUi(country = country, query = route.query.orEmpty()))
 
@@ -185,6 +196,12 @@ class AttractionsListViewModel @Inject constructor(
         saved.markFirstNoticeDone()
         saved.clearMergedNotice()
     }
+
+    /** 찜 순서: 같은 나라 찜 안에서 [by]칸 (2026-10-09) */
+    fun moveSaved(key: String, by: Int) = viewModelScope.launch { saved.move(key, by) }
+
+    /** 찜 순서: 끌어서 놓은 자리(이 나라 찜 안에서 0부터) */
+    fun moveSavedTo(key: String, index: Int) = viewModelScope.launch { saved.moveTo(key, index) }
 
     /** focusSearch는 한 번만 — 상세에서 돌아와도 키보드가 다시 뜨지 않게 (§6.2 소비 플래그) */
     fun consumeFocusSearch(): Boolean {
