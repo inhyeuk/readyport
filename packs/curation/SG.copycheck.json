@@ -1,0 +1,82 @@
+{
+  "bird-paradise": {
+    "cache_set_sha256": "110eb9e15a5d220e65f42adae2650e4fb080276d00b358778c6c961f6615d940",
+    "checked_at": "2026-10-10",
+    "text_sha256": "90a4cdc9870dac4492afa5f4be78ccb24976030345a5c199037fbcc7bb268586"
+  },
+  "buddha-tooth-relic-temple": {
+    "cache_set_sha256": "167dd869d8aa6661457c771a649cd3bbacbf0300b3acc3de66fe1dc81d1845b5",
+    "checked_at": "2026-10-10",
+    "text_sha256": "1b0258654277d97c52dab8c98b1a62cbd38d8fd90fcd144303c657e319dbb646"
+  },
+  "chinatown": {
+    "cache_set_sha256": "d13af2bb8b6941f24048814261998feec6146eb3493b8e20665af79ad72d7444",
+    "checked_at": "2026-10-10",
+    "text_sha256": "9ecd90f3ab11a17898ead3dedf858da167a1199d531b66043c5a1f3ebcec5b16"
+  },
+  "fort-siloso": {
+    "cache_set_sha256": "8e3afe9c3cc635a5e2da47c4b0a1d2fab5e819d80a457bb4273f96b8be54a43d",
+    "checked_at": "2026-10-10",
+    "text_sha256": "dfdb051faf9654fddb52ecd26ea01975ddf0c2fcf33bd1ad7c2da77cfca65101"
+  },
+  "gardens-by-the-bay": {
+    "cache_set_sha256": "3549bc6ed4f606e36b4e5ea3b41bb11d4f0da8fc8ab4ba8169a48b53e4771a97",
+    "checked_at": "2026-10-10",
+    "text_sha256": "adad3a60ab191cffb1b458aa3e86ca76a66e9d36810cebe16fb320712c0f927e"
+  },
+  "little-india": {
+    "cache_set_sha256": "23faf0517ca849bc37650a2ea7440cb4a66dbb21f512402a9c6af68388e122f9",
+    "checked_at": "2026-10-10",
+    "text_sha256": "00bc1ef280040296de8a54ef6e044dab598492f82668b73e2539679588cf3c9c"
+  },
+  "merlion-park": {
+    "cache_set_sha256": "a529b561b10624f65185aa9fd39ec3c2d6ec6a7a6022fbd5e6f764801c09c1bc",
+    "checked_at": "2026-10-10",
+    "text_sha256": "332151b81ad693ce419bea763b35e3304255a375641049a54900e9082943cfe0"
+  },
+  "national-gallery-singapore": {
+    "cache_set_sha256": "d59f15f8ca6b64c1050f5eb9248c7aa236617f17fc808e3ab3dbe2e1d6e1ce96",
+    "checked_at": "2026-10-10",
+    "text_sha256": "584a14960c899f44e94bd41f22ea5d1adad201b1f3b9940f4507193aa8e4192d"
+  },
+  "national-museum-of-singapore": {
+    "cache_set_sha256": "00e1fb7a5ca75ed4f0f012fbd7b58f59666f73d803c227bf6a85bb5791b3ab72",
+    "checked_at": "2026-10-10",
+    "text_sha256": "f9448fde8a9a1aa36786868e9131227383075bca7bab48bba4f765b6cf5442c1"
+  },
+  "orchard-road": {
+    "cache_set_sha256": "4e7b7a65211bd7d871e4c03fd82252b3054a388aa4f6a44c6679b93bcce2cf18",
+    "checked_at": "2026-10-10",
+    "text_sha256": "86ae87b7a54caef7f1ca8d64db0bdc08c8ace1639e0ff7103cb8c8e88109591a"
+  },
+  "river-wonders": {
+    "cache_set_sha256": "4169ba2bd189eb12267f195c2d8b7947fd31af8065c4639d64bb4e7ce13fe5f9",
+    "checked_at": "2026-10-10",
+    "text_sha256": "5493e0b531542da6a400d0b03927e9b6550b6686f3ccd8bc6085e551d7eda2e8"
+  },
+  "siloso-beach": {
+    "cache_set_sha256": "c375341d80538a8c91035c043f31bf5218182403bd46a626c233e2ea962c10e9",
+    "checked_at": "2026-10-10",
+    "text_sha256": "6ca95a542099794f2692b59d83d3748f5cd8f6e9ffa0e3e11a598db8a698b0bc"
+  },
+  "singapore-botanic-gardens": {
+    "cache_set_sha256": "7fe43d2fd6a724fada79206183e8987c737c610c49010d7fea74dc764903573f",
+    "checked_at": "2026-10-10",
+    "text_sha256": "7c44757ea3866d47ddfa73c32f2d12313cc0dfa9334da1fce61166d26a27d26a"
+  },
+  "singapore-oceanarium": {
+    "cache_set_sha256": "6e7943a44e4f0633a7c9a2243a1f6d3582f1eb98855017b9f4f99f1dddb83103",
+    "checked_at": "2026-10-10",
+    "text_sha256": "d6c1352c63221399dc4094e412f20b4c9a9aee9ae71918dc2f97243e3b8cb515"
+  },
+  "singapore-zoo": {
+    "cache_set_sha256": "39da3050505c841d5b844e75d3554f09e5c3c0156a6e74f5ac0d3fd8370bf1f1",
+    "checked_at": "2026-10-10",
+    "text_sha256": "2351fea7249589ba0873e755b06425dd721d0280c377534f62304d77c01ef085"
+  },
+  "universal-studios-singapore": {
+    "cache_set_sha256": "c1207154a0245bac417bf99c459f5285f4f0c4059b8414c919fe06341ca43b22",
+    "checked_at": "2026-10-10",
+    "text_sha256": "d62fc5648f9c876dfcfba33ba80c6f74cd1d97a367d51e01a3b134e0c3857ef8"
+  }
+}

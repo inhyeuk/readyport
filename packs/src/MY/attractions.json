@@ -2,8 +2,8 @@
   "doc_type": "attractions",
   "schema_version": 1,
   "country": "MY",
-  "version": "2026.10.09-1",
-  "release": "draft",
+  "version": "2026.10.10-1",
+  "release": "published",
   "editorial_rules": "2026-10",
   "compact_country": false,
   "unmapped_airports": [],
@@ -2946,6 +2946,9 @@
       "use": "facts"
     }
   ],
-  "sample": true,
-  "excluded_areas": []
+  "advisory_basis": {
+    "pack_version": "2026.10.03-2",
+    "safety_last_verified": "2026-09-28",
+    "advisory_sha256": "04fd8b154d985b72c1c57d3d11903c7e21131ec2f72eab80338d22296ade65a8"
+  }
 }

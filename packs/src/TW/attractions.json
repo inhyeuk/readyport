@@ -2,8 +2,8 @@
   "doc_type": "attractions",
   "schema_version": 1,
   "country": "TW",
-  "version": "2026.10.09-1",
-  "release": "draft",
+  "version": "2026.10.10-1",
+  "release": "published",
   "editorial_rules": "2026-10",
   "compact_country": false,
   "advisory_basis": {
@@ -4274,7 +4274,5 @@
       "url": "https://www.fgsbmc.org.tw/tw/visit-notice.aspx",
       "use": "facts"
     }
-  ],
-  "sample": true,
-  "excluded_areas": []
+  ]
 }

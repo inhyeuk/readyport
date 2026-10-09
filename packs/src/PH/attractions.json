@@ -2,8 +2,8 @@
   "doc_type": "attractions",
   "schema_version": 1,
   "country": "PH",
-  "version": "2026.10.09-1",
-  "release": "draft",
+  "version": "2026.10.10-1",
+  "release": "published",
   "editorial_rules": "2026-10",
   "compact_country": false,
   "unmapped_airports": [],
@@ -2718,6 +2718,9 @@
       ]
     }
   ],
-  "sample": true,
-  "excluded_areas": []
+  "advisory_basis": {
+    "pack_version": "2026.10.03-2",
+    "safety_last_verified": "2026-10-02",
+    "advisory_sha256": "70df8729405ee709dd5ce25039dd6cf9e678546fb42e986495cb82021af54a0c"
+  }
 }

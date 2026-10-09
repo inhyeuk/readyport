@@ -2,8 +2,8 @@
   "doc_type": "attractions",
   "schema_version": 1,
   "country": "SG",
-  "version": "2026.10.09-1",
-  "release": "draft",
+  "version": "2026.10.10-1",
+  "release": "published",
   "editorial_rules": "2026-10",
   "compact_country": true,
   "unmapped_airports": [
@@ -2700,6 +2700,9 @@
       "google_place_id": "ChIJSygvr8wb2jER8PDpIfEg8P8"
     }
   ],
-  "sample": true,
-  "excluded_areas": []
+  "advisory_basis": {
+    "pack_version": "2026.10.03-2",
+    "safety_last_verified": "2026-09-28",
+    "advisory_sha256": "2bb88b41077bc14bce69643ae93c8d378c0df79e4791afbb03dccbe88a547b36"
+  }
 }

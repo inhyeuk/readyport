@@ -1,0 +1,87 @@
+{
+  "batu-caves": {
+    "cache_set_sha256": "6e5eea654887ba3de0512728fb09ecc93d479ca1a55b8fc1406f7eb4d2681ed0",
+    "checked_at": "2026-10-10",
+    "text_sha256": "cbdd51391cd83849328d78b9599a87860185ce9fc0c123b8716e6724c286e035"
+  },
+  "bukit-bintang": {
+    "cache_set_sha256": "483915abeef7168c265fab6c0473384143fbe73a05520f4149e6013f7d43b1a4",
+    "checked_at": "2026-10-10",
+    "text_sha256": "e7f9c818999c0b4c097e3c439d726fbb1c7b6f6b9c574568e6cd0df2d8e3df81"
+  },
+  "central-market": {
+    "cache_set_sha256": "3325a79d244c60faa961aa815066a74c94645e8ab91bf8b621e73cb82cf44060",
+    "checked_at": "2026-10-10",
+    "text_sha256": "ade770803ed0b3351e8f225a734810afb89706095600f4c6db948d2f1b154550"
+  },
+  "dutch-square": {
+    "cache_set_sha256": "f37b1eb42a4ebb37f96e9ac3082a8a0fac51bd5e41a1c6cca46a50bed8fd8dcd",
+    "checked_at": "2026-10-10",
+    "text_sha256": "7f7c0fffb4bd56db28d3dd8335b7926765b107ba2e5f84dcaf8d83b5439ff52e"
+  },
+  "gaya-street-sunday-market": {
+    "cache_set_sha256": "23fc6025012a63d311317090fc63477b82d3db6d59e890674e15c8f0becb86c4",
+    "checked_at": "2026-10-10",
+    "text_sha256": "dd5aad9f9b39acfc72e3cd5393fb6b133019731dba1fae717d3a95b4abfc0adb"
+  },
+  "genting-skyworlds": {
+    "cache_set_sha256": "f11576963d8e82cd8aa4cfb2528164f07a8761e62859ed41d289556e5ff2c693",
+    "checked_at": "2026-10-10",
+    "text_sha256": "e079a46e92817b58be8833d2899ae0cbb6428f35b00898dfeddf1061a4ab4d9b"
+  },
+  "george-town": {
+    "cache_set_sha256": "793117cf7aa63e6febac882f36e11bea477f36e9ddfeff768dae931d9b53460d",
+    "checked_at": "2026-10-10",
+    "text_sha256": "b2826fb7aa25154ba94cc9fae24bcf7f6f56fe61691d1a0e14487ba39b8a0e51"
+  },
+  "islamic-arts-museum": {
+    "cache_set_sha256": "bd0a45d4d93da194666f72dcdb7925a54eba5f184cdd1b16b5c103429ec2acfb",
+    "checked_at": "2026-10-10",
+    "text_sha256": "3dc49663f9eca02623772ece090f5691424066167b72700a0854665db341fe3d"
+  },
+  "jonker-street": {
+    "cache_set_sha256": "790f352ea5195f49f7c86ead8dec6ef5d22fe08b999cb6bc45ad74ade7f4dda0",
+    "checked_at": "2026-10-10",
+    "text_sha256": "a7bc46d506bbcea0e9da0112d7388998898cc145f20891535134ac0aefd4db13"
+  },
+  "kek-lok-si": {
+    "cache_set_sha256": "31a4eec2dea7609e36cf31d70b9834b49ab67cfa930f0206d3b7ee2971e232c5",
+    "checked_at": "2026-10-10",
+    "text_sha256": "a016c367168d6048af5ab98e84cf1b0cfd1f3ba448ec85b4c9b9bcfd39af8d93"
+  },
+  "kota-kinabalu-city-mosque": {
+    "cache_set_sha256": "781d5819eca2934d1560620271baa4f4b98ce9a6d0c92d499c6446dff9948768",
+    "checked_at": "2026-10-10",
+    "text_sha256": "284d96c066a15d5237cf0b11c6c9377adcd832ff05cbbcab7e8fcd5b4e44776f"
+  },
+  "national-museum": {
+    "cache_set_sha256": "671162a882a4ba57d9f1a838b1d4afffe92f371fca232aa4e36b22add665d92f",
+    "checked_at": "2026-10-10",
+    "text_sha256": "f4df68e2bb37e5265e9c94f75fa85cede3057c424580925f7ef5f0bda99eff98"
+  },
+  "penang-hill": {
+    "cache_set_sha256": "0cf0195425380b67e66f50fac5d8279d1de796d248e32b7e536818a13b9cad2d",
+    "checked_at": "2026-10-10",
+    "text_sha256": "42d0a7930cea10010fb22ced3dae6ba59a330c2f8e8c5be14ba520a24674282c"
+  },
+  "petronas-twin-towers": {
+    "cache_set_sha256": "f06eb218a8d93f2f6b337b2c06f46cb0b1496b7bf59d3f9b7a853d942f23dbb7",
+    "checked_at": "2026-10-10",
+    "text_sha256": "96ab3556fc598396b9dad3d487e89fce6be57c9500eb6c2fb23c0c85ff9533d4"
+  },
+  "st-pauls-hill": {
+    "cache_set_sha256": "8a18c838aeb92eb6d87bc5119a503e169ff5918aba08693e946ca6ad9ad7b55e",
+    "checked_at": "2026-10-10",
+    "text_sha256": "92de7435e77081d3f147416f527fab166b7d54df866111b9a47e99899da83bc6"
+  },
+  "sultan-abdul-samad-building": {
+    "cache_set_sha256": "c8c4b990cd7aeb347629dfc5575127ab037693a99db103be6fd7c9dd8798f791",
+    "checked_at": "2026-10-10",
+    "text_sha256": "d9d9345a326de740230dc98a656d25eac64240ff032215d764610fce8e18a276"
+  },
+  "tunku-abdul-rahman-park": {
+    "cache_set_sha256": "7fa98adf7ac5378f667bcb0f5f99fd5d91876d9e44f32466428cbc5060aa05d2",
+    "checked_at": "2026-10-10",
+    "text_sha256": "dddd10af936b9afcc23d3fc11c5f9fd4ec8e6f28f5db48f7fb919e82ec431139"
+  }
+}

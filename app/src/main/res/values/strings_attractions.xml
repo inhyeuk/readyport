@@ -171,6 +171,8 @@
     <string name="attractions_not_found">이 관광지를 찾지 못했어요</string>
     <!-- 관광지 데이터 출처 표시(출처가 표시를 조건으로 할 때 — build_attractions.py 가 settings_credit_<출처 id> 를 확인한다) -->
     <string name="credits_data_title">관광지 정보 출처</string>
+    <string name="credits_data_body">관광지 안내 가운데 출처 표시를 조건으로 하는 기관의 자료예요. 각 관광지 화면에도 출처를 적어 두었어요.</string>
+    <string name="credits_data_expand">출처 %1$d곳 보기</string>
     <string name="settings_credit_bunka_osakajo">문화청 국가지정문화재 데이터베이스 — 오사카성 터(특별사적)</string>
     <string name="settings_credit_bunka_narapark">문화청 국가지정문화재 데이터베이스 — 나라 공원(명승)</string>
     <string name="settings_credit_unesco_688">UNESCO World Heritage Centre — Historic Monuments of Ancient Kyoto (component parts) — 금각사·기요미즈데라·니조성</string>

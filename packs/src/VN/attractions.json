@@ -2,8 +2,8 @@
   "doc_type": "attractions",
   "schema_version": 1,
   "country": "VN",
-  "version": "2026.10.09-1",
-  "release": "draft",
+  "version": "2026.10.10-1",
+  "release": "published",
   "editorial_rules": "2026-10",
   "compact_country": false,
   "unmapped_airports": [],
@@ -12,25 +12,8 @@
     {
       "name_ko": "푸꾸옥",
       "aliases_ko": [
-        "혼텀"
-      ]
-    },
-    {
-      "name_ko": "사파",
-      "aliases_ko": []
-    },
-    {
-      "name_ko": "후에",
-      "aliases_ko": []
-    },
-    {
-      "name_ko": "달랏",
-      "aliases_ko": []
-    },
-    {
-      "name_ko": "메콩 델타",
-      "aliases_ko": [
-        "메콩"
+        "푸꾸옥섬",
+        "푸국"
       ]
     }
   ],
@@ -4089,6 +4072,9 @@
       "google_place_id": "ChIJ7ZwDewBncDERPujfkPO8yoA"
     }
   ],
-  "sample": true,
-  "excluded_areas": []
+  "advisory_basis": {
+    "pack_version": "2026.10.03-2",
+    "safety_last_verified": "2026-10-02",
+    "advisory_sha256": "883fbe4f828e1fd5131da597baf9de7bb45c0073529166c0b0d105c94956ae58"
+  }
 }

@@ -88,6 +88,7 @@ import com.readyport.ui.components.AppScreen
 import com.readyport.ui.components.ChoiceSegments
 import com.readyport.ui.components.IconBullet
 import com.readyport.ui.components.InfoChip
+import com.readyport.ui.components.ExpandableDetail
 import com.readyport.ui.components.KoText
 import com.readyport.ui.components.LinkRow
 import com.readyport.ui.components.ListDivider
@@ -613,8 +614,15 @@ fun PhotoCreditsContent(credits: List<PhotoCredit>, onOpenLink: (String) -> Unit
             SectionHeader(stringResource(R.string.credits_data_title), icon = Icons.Outlined.PhotoLibrary)
         }
         item(key = "data-credits") {
+            // 출처가 30곳 넘어 접어 둔다(쉬운 모드에서 화면이 지나치게 길어지지 않게). 펼치면 전부 보인다
             CreditCard {
-                AttractionDataCredits.forEach { id -> KoText(stringResource(id), MaterialTheme.typography.bodyMedium, color = Tokens.Ink) }
+                KoText(stringResource(R.string.credits_data_body), MaterialTheme.typography.bodyMedium, color = Tokens.InkSecondary)
+                ExpandableDetail(
+                    label = stringResource(R.string.credits_data_expand, AttractionDataCredits.size),
+                    target = stringResource(R.string.credits_data_title),
+                ) {
+                    AttractionDataCredits.forEach { id -> KoText(stringResource(id), MaterialTheme.typography.bodyMedium, color = Tokens.Ink) }
+                }
             }
         }
     }

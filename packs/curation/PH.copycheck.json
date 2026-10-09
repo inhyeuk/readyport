@@ -1,0 +1,87 @@
+{
+  "alona-beach": {
+    "cache_set_sha256": "b5d6cba3f1491d505576707478d3d9b86f0fad4fdedb58ee9f6d4a6e7c239fdc",
+    "checked_at": "2026-10-10",
+    "text_sha256": "669728bc8b250c77a91ab417726e8123005d31e53987f5fd921e2643b06e216d"
+  },
+  "baclayon-church": {
+    "cache_set_sha256": "07865b849383802f78c596d0351909c24502ef7d861afc825f4ad73328b75a82",
+    "checked_at": "2026-10-10",
+    "text_sha256": "fd4b79f6ff72c06d34d672e03d3e9bdf1b7d1fa92014bbfd2a8bb85d69e9bc22"
+  },
+  "basilica-santo-nino": {
+    "cache_set_sha256": "7b6d36b3e4bbe1ff0194ccec72f84c609594ff299e68d63e172d9ffc8020366b",
+    "checked_at": "2026-10-10",
+    "text_sha256": "e676f0c2b0d5f4ea7a5d5376d2611615b2120f82fa2b0e3eed784795efa92508"
+  },
+  "casa-manila": {
+    "cache_set_sha256": "e02026aab8cb7b3dd98663011afd3e956fb900e655ec77f883f74ef05eaeaa9e",
+    "checked_at": "2026-10-10",
+    "text_sha256": "13cdd0fcb02066861da096ab8745a21cec3e1c971c748e91e4617eb8cb56d355"
+  },
+  "chocolate-hills": {
+    "cache_set_sha256": "68b488b15dba47fd7cce1c896224c6afe2adf059470e64ca67938d89593b31b9",
+    "checked_at": "2026-10-10",
+    "text_sha256": "98f0ee35057cc6d0776c08ceee47a5fc367aa3d73c660ed9de0098f984e8d0b2"
+  },
+  "fort-santiago": {
+    "cache_set_sha256": "f69baab6b4798c0ff103c17b25e43c2867bf466368f34f5d458539cdbf5aaba9",
+    "checked_at": "2026-10-10",
+    "text_sha256": "33ef957b172a7f840c0ded687d7fb9181dedb2915a69cf1d6ea31e8a19c3117c"
+  },
+  "heritage-of-cebu-monument": {
+    "cache_set_sha256": "7d6b9af9aabba3a9ec47e34b1406a79cd271d5584d1adda28374fb95a56b6fe4",
+    "checked_at": "2026-10-10",
+    "text_sha256": "3fca5bccc15e02bfac7d2dd8a556a30a399bd5cdd7cab1e1102364f7a1db9020"
+  },
+  "magellans-cross": {
+    "cache_set_sha256": "acf5ce863880933e14675ac4e99722999b1a9fa8a4bf5c11a38d5f846891cbac",
+    "checked_at": "2026-10-10",
+    "text_sha256": "b75ba2d4b8a4d3f203a31cd1cd402d1628c9b6752821531805f8e60a8c5215a9"
+  },
+  "national-museum-bohol": {
+    "cache_set_sha256": "79bb4d78c51561aeffbc48701573c1b6c3f40d32cbdcdbec803d2afb0e88059d",
+    "checked_at": "2026-10-10",
+    "text_sha256": "8e86e661a60ba6f55240d4b96c18646eea0183863b8d36b9bf5ead6e4c160d19"
+  },
+  "national-museum-cebu": {
+    "cache_set_sha256": "4a73563fb9e4bbd8780ecb57b1ff4538a86f9a937b6a7f861a9a2074570f63df",
+    "checked_at": "2026-10-10",
+    "text_sha256": "1792d7b54106cc8f0bb5dfbd715bcf0fa042c78bb5cd6abb385ae247401ed1bb"
+  },
+  "national-museum-of-fine-arts": {
+    "cache_set_sha256": "901dc70e971611a0fe2938aa4b59f6bb5031e9ba8864d2e2409a97b16722b186",
+    "checked_at": "2026-10-10",
+    "text_sha256": "34315c0bd665f12de2a09942ac9554440a700eac694473925b4b172eaf16aabd"
+  },
+  "national-museum-of-natural-history": {
+    "cache_set_sha256": "10823be22de19f8b046bf38dfb8b1a309cae39a186e6acb577102fb2ba769d3a",
+    "checked_at": "2026-10-10",
+    "text_sha256": "4be445dfc588d01642d7c7f05c61c1c8bef80724ad3bbf418411947c432c8ad3"
+  },
+  "puka-shell-beach": {
+    "cache_set_sha256": "8c46a4d8856ea72eb38e83b062037f5e56aefc3aaa639ff34e864468e033e9bf",
+    "checked_at": "2026-10-10",
+    "text_sha256": "7930cc5f33149084792024d150a6b8e3f9c1a9b62ee810ea7b917e2463ff03fa"
+  },
+  "rizal-park": {
+    "cache_set_sha256": "6495b1ccc7dac247f2bfe43aa187532021e9eb0b4cf6339e9497636e585e2115",
+    "checked_at": "2026-10-10",
+    "text_sha256": "d8b2647a4a6bd7d5ea5b5b457b1574fe69120b8a20fa5feb11e183814d4fd943"
+  },
+  "san-agustin-church": {
+    "cache_set_sha256": "6dc57e82f7e6c0fb2e19adbdc9cab4680795afc7a99b29b460f73bc534c5d2d4",
+    "checked_at": "2026-10-10",
+    "text_sha256": "e214af27b0bd2518326ba57a075bb67363a948aff9a36eb1b564f873c544fe33"
+  },
+  "white-beach-boracay": {
+    "cache_set_sha256": "acf90b373ff92cf6844668d7589a27a7b11ae8533bdb599f0a88a4e75a98f7bf",
+    "checked_at": "2026-10-10",
+    "text_sha256": "347275c368ac360a850cd2913a6091dc7ddf68ae333c2494692db2a353ce288a"
+  },
+  "willys-rock": {
+    "cache_set_sha256": "3381ec9cc0cf402bae7d1f4af6b00df63415406f27ef07e3d95319d326a712b4",
+    "checked_at": "2026-10-10",
+    "text_sha256": "3071da9f1ae64690f53e436c1f0f88102b16ae923c586ccac8b654245fe80614"
+  }
+}
