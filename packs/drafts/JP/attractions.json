@@ -2,7 +2,7 @@
   "doc_type": "attractions",
   "schema_version": 1,
   "country": "JP",
-  "version": "2026.10.09-2",
+  "version": "2026.10.09-1",
   "release": "draft",
   "editorial_rules": "2026-10",
   "compact_country": false,
@@ -38,7 +38,8 @@
         "source": "mofa_jp",
         "last_verified": "2026-09-28"
       },
-      "advisory_watch_ko": []
+      "advisory_watch_ko": [],
+      "wave": 1
     },
     {
       "id": "jp_osaka",
@@ -63,7 +64,8 @@
         "source": "mofa_jp",
         "last_verified": "2026-09-28"
       },
-      "advisory_watch_ko": []
+      "advisory_watch_ko": [],
+      "wave": 1
     },
     {
       "id": "jp_kyoto",
@@ -86,7 +88,8 @@
         "source": "mofa_jp",
         "last_verified": "2026-09-28"
       },
-      "advisory_watch_ko": []
+      "advisory_watch_ko": [],
+      "wave": 1
     },
     {
       "id": "jp_nara",
@@ -114,7 +117,8 @@
         "source": "mofa_jp",
         "last_verified": "2026-09-28"
       },
-      "advisory_watch_ko": []
+      "advisory_watch_ko": [],
+      "wave": 1
     }
   ],
   "attractions": [
@@ -1129,24 +1133,6 @@
       "name": "Kintetsu Railway AONIYOSHI timetable (operator)",
       "url": "https://www.kintetsu.co.jp/foreign/english/aoniyoshi/",
       "use": "facts"
-    }
-  ],
-  "sample": true,
-  "upcoming_regions": [
-    {
-      "name_ko": "후쿠오카",
-      "aliases_ko": [
-        "하카타"
-      ]
-    }
-  ],
-  "excluded_areas": [
-    {
-      "name_ko": "후쿠시마 원전 주변",
-      "aliases_ko": [
-        "후쿠시마"
-      ],
-      "level": "3"
     }
   ]
 }

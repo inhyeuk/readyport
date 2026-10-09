@@ -608,8 +608,24 @@ fun PhotoCreditsContent(credits: List<PhotoCredit>, onOpenLink: (String) -> Unit
             }
             fonts.forEach { f -> item(key = "font-${f.id}") { FontCreditCard(f, onOpenLink) } }
         }
+        sectionGap("data-gap")
+        item(key = "data-title") {
+            SectionHeader(stringResource(R.string.credits_data_title), icon = Icons.Outlined.PhotoLibrary)
+        }
+        item(key = "data-credits") {
+            CreditCard {
+                AttractionDataCredits.forEach { id -> KoText(stringResource(id), MaterialTheme.typography.bodyMedium, color = Tokens.Ink) }
+            }
+        }
     }
 }
+
+/** 관광지 데이터 가운데 출처 표시가 조건인 것 (packs 의 sources[].attribution_required — settings_credit_<출처 id>) */
+private val AttractionDataCredits = listOf(
+    R.string.settings_credit_bunka_osakajo,
+    R.string.settings_credit_bunka_narapark,
+    R.string.settings_credit_unesco_870,
+)
 
 @Composable
 private fun CreditCard(content: @Composable () -> Unit) {

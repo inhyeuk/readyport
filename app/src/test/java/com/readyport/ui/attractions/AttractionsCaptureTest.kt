@@ -102,7 +102,7 @@ class AttractionsCaptureTest {
         )
     }
 
-    private fun detailUi(doc: AttractionsDoc = sample, id: String = "senso-ji", saved: Boolean = false, firstNotice: Boolean = false): AttractionDetailUi {
+    private fun detailUi(doc: AttractionsDoc = sample, id: String = "sensoji", saved: Boolean = false, firstNotice: Boolean = false): AttractionDetailUi {
         val catalog = AttTestData.catalog(doc)
         val a = catalog.attraction(id)!!
         return AttractionDetailUi(
@@ -188,7 +188,7 @@ class AttractionsCaptureTest {
 
     @Test fun savedList() {
         show {
-            AttractionsListContent(listUi(savedOnly = true, saved = listOf("senso-ji", "dotonbori", "vanished-place"), firstNotice = true), AttractionsListActions())
+            AttractionsListContent(listUi(savedOnly = true, saved = listOf("sensoji", "dotonbori", "vanished-place"), firstNotice = true), AttractionsListActions())
         }
         capture("att_20_saved")
         scrollToText(context.getString(R.string.attractions_saved_missing))
@@ -216,7 +216,7 @@ class AttractionsCaptureTest {
     @Config(qualifiers = "w360dp-h640dp-xxhdpi")
     fun listEasy200() {
         RuntimeEnvironment.setFontScale(2.0f)
-        show(easy = true) { AttractionsListContent(listUi(saved = listOf("senso-ji")), AttractionsListActions()) }
+        show(easy = true) { AttractionsListContent(listUi(saved = listOf("sensoji")), AttractionsListActions()) }
         capture("att_23_list_easy200")
     }
 
@@ -234,7 +234,7 @@ class AttractionsCaptureTest {
     }
 
     @Test fun detailSavedFirstNotice() {
-        show { AttractionDetailContent(detailUi(id = "fushimi-inari", saved = true, firstNotice = true), AttractionDetailActions()) }
+        show { AttractionDetailContent(detailUi(id = "fushimi-inari-taisha", saved = true, firstNotice = true), AttractionDetailActions()) }
         scrollToText(context.getString(R.string.attractions_first_save_notice))
         capture("att_31_detail_first_save")
         rule.onAllNodesWithText(context.getString(R.string.attractions_saved_button_on)).assertCountEquals(1)

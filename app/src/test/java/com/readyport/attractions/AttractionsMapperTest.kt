@@ -84,6 +84,6 @@ class AttractionsMapperTest {
         assertTrue(c.sample)
         assertEquals(5, c.attractions.size)
         assertTrue(c.hidden.isEmpty())
-        assertNotNull(c.attraction("senso-ji")!!.photoLink)
+        assertNotNull(c.attraction("sensoji")!!.photoLink)
     }
 }

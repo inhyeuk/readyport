@@ -119,7 +119,7 @@ class AttractionSearchIndexTest {
 
     @Test fun debugSampleSearch() {
         val idx = AttractionSearchIndex(AttTestData.catalog(AttTestData.debugSample()))
-        assertEquals("fushimi-inari", idx.search("이나리").hits.first().attraction.id)
+        assertEquals("fushimi-inari-taisha", idx.search("이나리").hits.first().attraction.id)
         assertEquals("dotonbori", idx.search("ㄷㅌㅂㄹ").hits.first().attraction.id)
         assertNotNull(idx.search("후쿠오카").upcoming)
     }

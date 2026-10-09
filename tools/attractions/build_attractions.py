@@ -457,9 +457,12 @@ def check_doc(doc: dict, cc: str, pack: dict | None, *, mode: str, strict: bool,
             if "free_entry" in {t.get("id") for t in a.get("tags", [])}:
                 report.error(f"{where}: public_space 에는 free_entry 태그를 붙이지 않는다")
         else:
-            for k in ("entry", "booking", "regular_closed", "source", "last_verified"):
+            for k in ("entry", "regular_closed", "source", "last_verified"):
                 if k not in facts:
                     report.error(f"{where}: 시설(facility)은 facts.{k} 필수")
+            # 예약 안내는 공식 문구가 있을 때만 싣는다 — 없다고 'none'을 지어 넣지 않는다(2026-10-09 일본 시범: 센소지·후시미)
+            if "booking" not in facts:
+                report.warn(f"{where}: facts.booking 없음 — 공식 예약 안내를 못 찾았으면 비워 둔다(화면에 안 보임)")
         if facts.get("source"):
             need_source(facts["source"], f"{where}.facts")
         if "entry" in facts and facts["entry"] not in e["entry"]:
