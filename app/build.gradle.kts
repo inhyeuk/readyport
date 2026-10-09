@@ -46,9 +46,11 @@ android {
         targetSdk = 36
         versionCode = 9
         versionName = "0.6.1"
-        // 지도 키는 매니페스트 com.google.android.geo.API_KEY 로만 들어간다(소스·저장소에 남지 않음)
+        // 지도 키는 매니페스트 com.google.android.geo.API_KEY 와 BuildConfig(빌드 산출물)에만 들어간다 — 소스·저장소에 남지 않는다.
+        // BuildConfig.MAPS_API_KEY: 관광지 상세의 Google 별점(Places API (New) Place Details, 같은 키 — 사장님 결정 2026-10-09)
         manifestPlaceholders["MAPS_API_KEY"] = mapsApiKey
         buildConfigField("boolean", "MAPS_ENABLED", mapsApiKey.isNotEmpty().toString())
+        buildConfigField("String", "MAPS_API_KEY", "\"" + mapsApiKey.replace("\\", "\\\\").replace("\"", "\\\"") + "\"")
     }
 
     signingConfigs {

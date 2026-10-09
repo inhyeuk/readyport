@@ -137,3 +137,17 @@ import kotlinx.serialization.Serializable
 
 /** 설정 › 게시판 › 신고·가림 관리 (운영자만 길이 보인다 — 규칙이 운영자 아닌 사람의 쓰기를 막는다) */
 @Serializable data object BoardAdminRoute
+
+// ---------------- 여행 계획 요청 (비공개, docs/ARIA_OPS.md 12.11) ----------------
+
+/**
+ * 여행 계획 요청 양식. [tripId]: 여행 계획 단계 타일에서 왔으면 그 여행(나라·날짜를 미리 채운다), [country]: 처음 고를 나라.
+ * 게시판 탭 맨 위 카드에서 오면 둘 다 없다.
+ */
+@Serializable data class PlanRequestRoute(val tripId: String? = null, val country: String? = null)
+
+/** 내 계획 요청 (상태·취소·삭제) */
+@Serializable data object PlanRequestsRoute
+
+/** 받은 계획 하나 (AI 생성 표시 · PDF로 저장) */
+@Serializable data class PlanViewRoute(val requestId: String)

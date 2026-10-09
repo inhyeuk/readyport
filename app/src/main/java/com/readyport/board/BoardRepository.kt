@@ -178,6 +178,12 @@ class BoardRepository(
         return ensureSignedIn()
     }
 
+    /**
+     * 게시판 밖에서 같은 기준을 쓰는 기능(여행 계획 요청·관광지 별점, 사장님 결정 2026-10-09): 만 19세 확인 → 익명 로그인.
+     * 닉네임·규칙 동의는 필요 없다(공개 글이 아니다). 미성년이면 [BoardError.AgeRestricted] — 익명 계정도 만들지 않는다.
+     */
+    suspend fun adultUid(): String = writer()
+
     private suspend fun requireWriter() {
         when (val s = ageStatus()) {
             BoardAge.Status.Allowed -> Unit

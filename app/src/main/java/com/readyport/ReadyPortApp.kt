@@ -33,6 +33,7 @@ class ReadyPortApp : Application(), Configuration.Provider {
     @Inject lateinit var checklistAlerts: com.readyport.trip.ChecklistAlerts
     @Inject lateinit var boardReplies: com.readyport.board.BoardReplyCheck
     @Inject lateinit var board: com.readyport.board.BoardRepository
+    @Inject lateinit var planArrivals: com.readyport.plan.PlanArrivalCheck
 
     private val appScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
 
@@ -48,6 +49,11 @@ class ReadyPortApp : Application(), Configuration.Provider {
         // 앱이 화면에서 사라지면 지갑을 잠가 복호화한 내용을 메모리에서 지운다 (PRD 7.3)
         ProcessLifecycleOwner.get().lifecycle.addObserver(object : DefaultLifecycleObserver {
             override fun onStop(owner: LifecycleOwner) = wallet.lock()
+
+            // 여행 계획 요청이 도착했는지: 앱을 켤·돌아올 때(10분에 한 번까지). 끝나지 않은 요청이 없으면 서버를 읽지 않는다
+            override fun onStart(owner: LifecycleOwner) {
+                appScope.launch { runCatching { planArrivals.run(com.readyport.plan.PlanArrivalCheck.RESUME_GAP_SECONDS) } }
+            }
         })
         // 예전 한 여행 저장본을 여행 목록으로 옮긴다(예전 꼭 챙길 물건 체크는 그 여행 체크리스트로). 그다음 지갑을 열 때마다 여행별 결과만 적는다
         appScope.launch {

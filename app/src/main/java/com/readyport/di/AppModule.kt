@@ -43,6 +43,9 @@ import javax.inject.Singleton
 /** 게시판 기록 (규칙 동의·닉네임 사본·차단 목록·답글 확인 시각 — 이 휴대폰에만) */
 private val Context.boardStore: DataStore<Preferences> by preferencesDataStore(name = "board")
 
+/** 여행 계획 요청 — 끝나지 않은 내 요청 id·마지막 확인 시각만(도착 알림용, 이 휴대폰에만) */
+private val Context.planStore: DataStore<Preferences> by preferencesDataStore(name = "plan")
+
 /** 공지 '다시 보지 않기' 기록 (id@version·날짜만, 백업 제외 규칙 그대로) */
 private val Context.noticeMarksStore: DataStore<Preferences> by preferencesDataStore(name = "notices")
 
@@ -128,6 +131,32 @@ object AppModule {
         // 여권 보관함 파일(WalletRepository와 같은 자리) — 있으면 나이를 알기 전까지 '확인 필요'
         walletHasData = { File(context.noBackupFilesDir, "vault/vault.bin").exists() },
     )
+
+    /** 여행 계획 요청 (비공개, docs/ARIA_OPS.md 12.11): Firestore plan_requests·plan_quota·plan_results + 게시판과 같은 나이 확인·익명 로그인 */
+    @Provides
+    @Singleton
+    fun planRepository(@ApplicationContext context: Context, board: BoardRepository): com.readyport.plan.PlanRepository =
+        com.readyport.plan.PlanRepository(
+            backend = com.readyport.plan.FirestorePlanBackend(),
+            board = board,
+            local = com.readyport.plan.DataStorePlanLocalStore(context.planStore),
+        )
+
+    /** 관광지 레디포트 평점·확인 중 표시 (docs/ARIA_OPS.md 12.9·12.10) */
+    @Provides
+    @Singleton
+    fun ratingRepository(board: BoardRepository): com.readyport.attractions.rating.RatingRepository =
+        com.readyport.attractions.rating.RatingRepository(com.readyport.attractions.rating.FirestoreRatingBackend(), board)
+
+    /** 관광지 Google 별점 (지도와 같은 키 — 키가 없는 빌드는 꺼진다) */
+    @Provides
+    @Singleton
+    fun googleRatingClient(@ApplicationContext context: Context): com.readyport.attractions.rating.GoogleRatingClient =
+        com.readyport.attractions.rating.GoogleRatingClient(
+            apiKey = if (com.readyport.BuildConfig.MAPS_ENABLED) com.readyport.BuildConfig.MAPS_API_KEY else "",
+            packageName = context.packageName,
+            certSha1 = { com.readyport.attractions.rating.AppSigning.sha1(context) },
+        )
 
     @Provides
     @Singleton
