@@ -21,5 +21,6 @@
   "unmapped_reasons": ["compact", "upcoming", "advisory", "safety_retired"],
   "public_space_categories": ["market_street", "city_view", "sea_island", "nature"],
   "ko_basis": ["editorial", "nikl", "official"],
+  "wiki_langs": ["ko", "en"],
   "local_lang": {"TH": "th", "JP": "ja", "VN": "vi", "CN": "zh-Hans", "TW": "zh-Hant", "ID": "id", "MY": ["ms", "en"], "PH": "en", "SG": "en"}
 }

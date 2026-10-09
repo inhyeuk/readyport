@@ -210,6 +210,15 @@
           }
         },
         "official_url": {"type": ["string", "null"], "pattern": "^https://"},
+        "wiki": {
+          "description": "위키백과 문서 제목(선택). wiki-fill 이 Wikidata sitelinks(kowiki·enwiki)에서 채운다. 앱은 '위키백과에서 보기' 요약 팝업에만 쓴다. 글은 싣지 않는다(D12).",
+          "type": ["object", "null"],
+          "additionalProperties": false,
+          "properties": {
+            "ko": {"type": "string", "pattern": "^[^\\s#<>\\[\\]|{}\\u0000-\\u001f\\u007f]([^#<>\\[\\]|{}\\u0000-\\u001f\\u007f]{0,253}[^\\s#<>\\[\\]|{}\\u0000-\\u001f\\u007f])?$"},
+            "en": {"type": "string", "pattern": "^[^\\s#<>\\[\\]|{}\\u0000-\\u001f\\u007f]([^#<>\\[\\]|{}\\u0000-\\u001f\\u007f]{0,253}[^\\s#<>\\[\\]|{}\\u0000-\\u001f\\u007f])?$"}
+          }
+        },
         "summary_ko": {"type": "string", "minLength": 1},
         "body_ko": {"type": "array", "items": {"type": "string", "minLength": 1}},
         "claims": {
