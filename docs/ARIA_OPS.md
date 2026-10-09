@@ -63,6 +63,82 @@
 - Claude Code 클라우드 루틴은 PC 장기 부재 시 백업으로만 고려한다. 리서치 프리뷰 단계이며, 하루 실행 한도가 있다(Pro 5회, Max 15회, Team·Enterprise 25회) `[재확인]`.
 
 ### 12.8 GitHub Actions
-- `deploy-packs.yml`: main 머지 시 팩 스키마 검증 → 서명 → Hosting 배포 → Remote Config 버전 → FCM
+- `deploy-packs.yml`: main 머지 시 팩 스키마 검증 → 서명 → 관광지 서명본 스테이징(`stage_hosting.py`) → Hosting 배포 → Remote Config 버전(`attractions_version_<CC>` 포함, 한 번에 3개까지) → FCM
+- `attractions-auto.yml`: 관광지 주간 자동 갱신 PR 검사 → (공개된 나라) 서명 → 머지 → `deploy-packs` 실행 (12.9)
 - `aria-watchdog.yml`: 하트비트 점검(하루 1회)
 - `android-ci.yml`: 빌드·단위 테스트·린트
+
+---
+
+> 12.9~12.12: 사장님 결정 2026-10-09 (`docs/design/ARIA_AUTOMATION_REVIEW_2026-10-09.md` 끝 표)에 따른 서버·ARIA 쪽 구현.
+> 앱 화면은 따로 만든다(아래 문서 모양이 앱과의 약속).
+
+### 12.9 관광지 주간 갱신 (검사 통과하면 자동 반영)
+1. **감지** `run_weekly --step watch` (LLM 없음): `packs/src`·`packs/drafts` 의 `attractions.json` 에서 관광지가 쓰는 사실 출처
+   (`sources.use` = facts·hazard·heritage_registry)와 `official_url` 을 모아 주소마다 한 번 GET. robots.txt 준수, 요청 간격 `REQUEST_INTERVAL_SEC`,
+   봇 차단·robots 막음이면 `manual_check_needed`(재시도·우회 없음). 보이는 글만 공백 정리 → sha256 비교.
+   바뀌면 그 주소를 쓰는 관광지마다 `~/.readyport/evidence/<CC>/<id>/aria_<출처>_<해시12>.txt`(+ `.json` 메타) 스냅샷과 Change(지문 1회).
+2. **갱신** `run_weekly --step update`: 그 주 확인이 끝난 나라만, 나라마다 한 묶음. 상한 `CLAUDE_DAILY_CAP`(하루) + `ATTRACTIONS_WEEKLY_CAP`(주).
+   `ARIA_DATA_DIR/worktrees/` 에 origin/main 기준 git worktree + 브랜치 `aria/attractions-<cc>-<yyyymmdd>-<지문8>` →
+   Claude 헤드리스(도구: 읽기·편집·`build_attractions.py check` 만, 웹·git 금지)가 **새 스냅샷만 근거로** 작업본 사실 칸을 고치고 `extract.json` 에 글자 그대로 인용.
+   → 범위 검사(`tools/attractions/auto_update_guard.py`: 작업본만, 이미 있는 관광지의 사실 칸만) → `build_attractions.py check <CC>`
+   → `build_attractions.py record <CC> --ids …`(인용 대조·copycheck, 통과 기록만 `packs/curation`) → 커밋·푸시 → PR + 라벨 `attractions-auto`.
+   어느 단계든 실패하면 **PR 없이 텔레그램 알림만**.
+3. **서명·배포** `attractions-auto.yml`: 범위 검사·check·`verify-quotes --use-record`(증거는 운영자 PC 에만 있으므로 ARIA 가 남긴 facts 해시 기록으로 확인)·도구 테스트
+   → 공개된 나라면 `apply-drafts <CC> --ids …`(그 곳만 원본으로 옮겨 서명, secrets `ATTRACTIONS_SIGNING_KEY_PEM`) → 서명본을 PR 브랜치에 커밋
+   → squash 머지 → `deploy-packs.yml` 실행(Hosting + `attractions_version_<CC>`). 공개 전 나라는 작업본만 머지(새 나라 공개는 D22 사람 승인).
+   - 신뢰 경계: ARIA 는 서명 키가 없다. 대신 CI 가 확인하는 '인용 대조 완료'는 ARIA PC 의 기록을 믿는다(증거 원문을 공개 저장소에 올리지 않기 위해).
+4. **안전한 방향 예외 — '공식 안내가 바뀌었어요 — 확인 중'**: 스냅샷에 휴관·공사·폐쇄 표현(임시 휴관·休館·工事·closed·闭馆 …)의 **개수가 늘면**
+   사람 승인 전에도 Firestore `attraction_flags/{CC}` 를 쓴다(허용 목록: 이 컬렉션·아래 모양만). 그 주소의 표현 수가 기준선 이하로 돌아오면 뗀다.
+
+| 문서 | 모양 | 쓰는 쪽 | 읽는 쪽 |
+|---|---|---|---|
+| `attraction_flags/{CC}` | `{ids: [관광지 id…], kind: "check_in_progress", at: timestamp}` | ARIA 서비스 계정만 | 누구나(get) |
+
+앱(나중 작업): 상세 화면에서 `ids` 에 든 관광지면 '공식 안내가 바뀌었어요 — 확인 중' 띠. 받은 관광지 파일의 그 곳 `status.last_verified` 가 `at` 날짜 이후면 띠를 숨긴다(이미 반영됨).
+문서가 없거나 못 읽으면 띠 없음(오프라인 우선).
+
+### 12.10 관광지 평점 (구글 별점 실시간 + 레디포트 자체 평점)
+- **구글 별점**: 저장하지 않는다. 관광지 파일에는 `google_place_id`(선택, 스키마·enums 에 추가)만 둔다 — 약관상 place ID 는 기간 제한 없이 저장 가능 `[재확인]`.
+  채우기: `python tools/attractions/build_attractions.py place-ids <CC> [--ids …] [--write]` — Places API (New) Text Search, 필드 마스크 `places.id` 만(IDs Only),
+  좌표 둘레 약 1km 사각형 안에서만. 키는 `~/.readyport/keys/maps.properties` 의 `MAPS_API_KEY`(없으면 분명한 안내 후 종료). 앱이 상세를 열 때 조회·'Google 제공' 표시.
+- **자체 평점**:
+
+| 문서 | 모양 | 규칙 |
+|---|---|---|
+| `attraction_ratings/{CC}_{관광지 id}/votes/{uid}` | `{stars: 1–5 정수, at: 서버 시각, visited: true}` | 로그인한 본인만 만들기·고치기·지우기·읽기(한 사람 한 표), 목록 불가, 자유 글 없음 |
+| `attraction_rating_stats/{CC}` | `{<관광지 id>: {avg: 소수 1자리, n}, …, _meta: {updated_at, min_n}}` | 누구나 get, 쓰기는 서비스 계정만 |
+
+  - 만 19세 이상만 평가: **서버(규칙)로는 확인할 수 없다.** 앱이 게시판과 같은 기준(휴대폰의 여권 생년월일, 기기 안 판정)으로 평가 화면을 막는다.
+  - `run_weekly --step ratings` 가 주 1회 집계. 평가가 `RATINGS_MIN_N`(기본 5)명보다 적은 관광지는 통계 문서에 넣지 않는다(앱은 '평가가 아직 적어요').
+
+### 12.11 여행 계획 요청 (비공개, 1인 7일 2회)
+
+| 문서 | 모양 | 규칙 |
+|---|---|---|
+| `plan_requests/{id}` | `uid`, `country`(9개국), `purposes`(1~5개: sightseeing·food·shopping·nature·history_culture·relaxation·kids_family·activity·other), `purpose_note`(선택 ≤200자), `travelers`{adults·seniors·teens·children 0~20(합 1~20), genders?{female·male}}, `mobility`(선택: long_walk_hard·wheelchair·stairs_hard·with_infant·other_none), `sensitive_consent: true`(mobility 를 고르면 필수, 안 고르면 없음), `days`(1~30) **또는** `start_date`·`end_date`('YYYY-MM-DD'), `budget_band`(budget·standard·comfort·premium), `currency: "KRW"`, `status: "queued"`, `createdAt` = 서버 시각 | 만들기: 로그인 본인 + 같은 묶음에서 `plan_quota/{uid}` 갱신. 읽기: 본인·운영자. 이용자 수정은 취소만(queued·processing → `cancelled`, `finishedAt` = 서버 시각). 삭제 불가 |
+| `plan_quota/{uid}` | `{last, prev, lastRequestId}` | 새 요청과 같은 묶음에서만. `prev` 는 직전 `last`, 직전 `prev` 가 7일 안이면 거절(= 7일에 2번). 본인만 읽음, 지우기 불가 |
+| `plan_results/{id}` | `{uid, request_id, country, plan: {days[{day, title, items[{time_hint, place_id?, title, note}]}], tips[], budget_notes[], caveats[]}, ai_generated: true, notice_ko, engine, pack_version, attractions_version, createdAt}` | 본인·운영자 읽기(없으면 '없음'), 쓰기는 서비스 계정만 |
+
+- ARIA 가 쓰는 칸: 요청 `status`(processing·done·failed), `processingAt`, `finishedAt`, `error_code`(invalid_request·quota_exceeded·country_unavailable·engine_error·engine_timeout·invalid_output), `updatedAt`.
+- `run_hourly`: queued 요청 → 모양 재확인 + 7일 2회 이중 확인 → processing → 지시문(요청은 '자료'로만 + 그 나라 **서명된** 앱 내장 팩·관광지) → 엔진
+  → 결과 검사(일수·모양·길이, `place_id` 는 실제 관광지만, 시각·금액 숫자 금지) → `plan_results` + done. 처리 중 취소되면 결과를 쓰지 않는다.
+- 엔진: `ops/aria/runners/plan_engine.py` 의 `generate()` 하나(지금 Claude Code 헤드리스 — 사장님 결정. 약관 검토 메모는 결정 표 참고). 빈 임시 폴더, 도구 모두 막음, 지시문은 표준 입력.
+- 상한: `PLAN_DAILY_CAP`(하루), `PLAN_MAX_PER_RUN`, `--budget-sec`. 요청 내용은 로그·출력·텔레그램 어디에도 남기지 않는다(id·상태·코드만).
+- 정리(하루 한 번, `plan_cleanup`): 끝난 지 30일(`PLAN_RETENTION_DAYS`) 지난 요청·결과 삭제, 끝나지 않은 채 30일 넘은 요청 삭제, 6시간 넘게 멈춘 processing → failed, 오래된 `plan_quota` 삭제.
+- 만 19세 이상·게시판 계정 조건은 앱이 확인한다(규칙으로 강제 불가 — 12.10 과 같음). 익명 계정이라 앱을 다시 깔면 새 ID 가 되는 한계는 남는다.
+
+### 12.12 ARIA 스케줄 (ARIA 본체에 운영자가 등록)
+| 언제 | 명령 (저장소 루트) | 비고 |
+|---|---|---|
+| 월 06:00 | `python -m ops.aria.run_weekly --live --step watch` | 240초 예산(watchdog 300초 안) |
+| 월 06:10~09:00, 10분마다 | `python -m ops.aria.run_weekly --live --step watch --retry-failed` | 출력 `watch.rerun_later` 가 비면 멈춤 |
+| 월 watch 끝난 뒤 1번 | `python -m ops.aria.run_weekly --live --step update` | **백그라운드 작업**(watchdog 밖, Claude 최대 `CLAUDE_TIMEOUT_SEC`) |
+| 월 09:30 | `python -m ops.aria.run_weekly --live --step ratings` | Firestore 필요 |
+| 매시 정각 | `python -m ops.aria.run_hourly --live` | **백그라운드 작업**(계획 하나에 몇 분), 하루 한 번 정리 포함 |
+
+텔레그램으로 보내려면 run_daily 처럼 파이썬에서 `run_weekly(..., notifier=TelegramNotifier())`·`run_hourly(..., notifier=...)` 로 부른다.
+
+**사람이 할 일**: ① GitHub secrets `ATTRACTIONS_SIGNING_KEY_PEM`(+암호 걸었으면 `ATTRACTIONS_SIGNING_KEY_PASS`) ② main 보호에 '승인 필요'가 있으면 vars `ATTRACTIONS_AUTO_APPROVE=true` + 'Allow GitHub Actions to create and approve pull requests'
+③ 서비스 계정 `aria-ops`(Cloud Datastore User 역할) 키를 저장소 밖에 두고 `GOOGLE_APPLICATION_CREDENTIALS` ④ Places API (New) 사용 설정 + `maps.properties` 의 키에 Places API 허용
+⑤ Firestore 규칙 배포(`firebase deploy --only firestore:rules`) ⑥ ARIA 스케줄 등록(위 표).

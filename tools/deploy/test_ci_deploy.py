@@ -50,6 +50,44 @@ class CiDeployTest(unittest.TestCase):
             cd.fcm_message("th/../x")
 
 
+class AttractionsVersionTest(unittest.TestCase):
+    def test_attractions_keys_are_version_keys_and_switches_untouched(self):
+        t, changed = cd.apply_versions(CiDeployTest.TEMPLATE, {"attractions_version_JP": "2026.10.12-1"})
+        self.assertEqual(changed, ["attractions_version_JP"])
+        self.assertEqual(t["parameters"]["kill_autofill_TH_TDAC"]["defaultValue"]["value"], "true")
+        with self.assertRaises(ValueError):
+            cd.apply_versions(CiDeployTest.TEMPLATE, {"attractions_version_jp": "x"})
+
+    def test_reads_published_signed_copies_only(self):
+        import json as _json
+        import tempfile
+        tmp = pathlib.Path(tempfile.mkdtemp())
+        for cc, doc in {"JP": {"doc_type": "attractions", "release": "published", "version": "2026.10.12-1"},
+                        "VN": {"doc_type": "attractions", "release": "draft", "version": "2026.10.12-1"},
+                        "TH": {"doc_type": "attractions", "release": "published", "sample": True, "version": "2026.10.12-1"}}.items():
+            (tmp / cc).mkdir(parents=True)
+            (tmp / cc / "attractions.json").write_text(_json.dumps(doc), encoding="utf-8")
+        v = cd.pack_versions(cd.ROOT / "packs/src", tmp)
+        self.assertEqual(v["attractions_version_JP"], "2026.10.12-1")
+        self.assertNotIn("attractions_version_VN", v)
+        self.assertNotIn("attractions_version_TH", v)
+        self.assertIn("pack_version_TH", v)
+
+    def test_at_most_three_attraction_keys_per_run_and_seven_day_warning(self):
+        template = {"parameters": {"attractions_version_JP": {"defaultValue": {"value": "2026.10.08-1"}},
+                                   "attractions_version_VN": {"defaultValue": {"value": "2026.10.12-1"}}}}
+        versions = {"index_version": "i", "attractions_version_JP": "2026.10.12-1", "attractions_version_VN": "2026.10.12-1",
+                    "attractions_version_TH": "2026.10.12-1", "attractions_version_TW": "2026.10.12-1",
+                    "attractions_version_SG": "2026.10.12-1"}
+        kept, warnings = cd.limit_attraction_keys(template, versions)
+        self.assertIn("index_version", kept)
+        self.assertIn("attractions_version_VN", kept)          # 같은 값은 상한에 세지 않는다
+        changing = [k for k in kept if k.startswith("attractions_") and k != "attractions_version_VN"]
+        self.assertEqual(changing, ["attractions_version_JP", "attractions_version_SG", "attractions_version_TH"])
+        self.assertTrue(any("attractions_version_TW" in w and "상한" in w for w in warnings))
+        self.assertTrue(any("attractions_version_JP" in w and "7일" in w for w in warnings))
+
+
 class BoardReportPurgeTest(unittest.TestCase):
     BASE = "projects/p/databases/(default)/documents/"
 

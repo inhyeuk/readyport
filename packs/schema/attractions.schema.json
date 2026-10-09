@@ -219,6 +219,7 @@
             "en": {"type": "string", "pattern": "^[^\\s#<>\\[\\]|{}\\u0000-\\u001f\\u007f]([^#<>\\[\\]|{}\\u0000-\\u001f\\u007f]{0,253}[^\\s#<>\\[\\]|{}\\u0000-\\u001f\\u007f])?$"}
           }
         },
+        "google_place_id": {"type": ["string", "null"], "pattern": "^[A-Za-z0-9_-]{10,300}$"},
         "summary_ko": {"type": "string", "minLength": 1},
         "body_ko": {"type": "array", "items": {"type": "string", "minLength": 1}},
         "claims": {

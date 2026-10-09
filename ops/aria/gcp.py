@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import datetime as _dt
 import json
+import re
 import urllib.parse
 from typing import Any, Optional, Protocol
 
@@ -125,6 +126,21 @@ def from_fs_value(v: dict) -> Any:
     return None
 
 
+_SIMPLE_FIELD = re.compile(r"^[A-Za-z_][A-Za-z0-9_]*$")
+
+
+def field_path(key: str) -> str:
+    """updateMask 필드 경로. 하이픈 같은 글자가 든 키(관광지 id 등)는 백틱으로 감싼다."""
+    if _SIMPLE_FIELD.match(key):
+        return key
+    return "`" + key.replace("\\", "\\\\").replace("`", "\\`") + "`"
+
+
+def doc_id(name: str) -> str:
+    """runQuery 결과 _name(전체 이름)의 마지막 조각 = 문서 id."""
+    return name.rsplit("/", 1)[-1]
+
+
 class FirestoreRest:
     """Firestore REST (v1) 의 필요한 부분만."""
 
@@ -139,10 +155,11 @@ class FirestoreRest:
     def _headers(self) -> dict:
         return {"Authorization": f"Bearer {self.tokens.get_token()}", "Content-Type": "application/json"}
 
-    def run_query(self, structured_query: dict) -> list[dict]:
-        """문서 목록(필드는 파이썬 값으로 바꿔서)."""
+    def run_query(self, structured_query: dict, parent: str = "") -> list[dict]:
+        """문서 목록(필드는 파이썬 값으로 바꿔서). parent='컬렉션/문서' 면 그 아래 하위 컬렉션에서 찾는다."""
         body = json.dumps({"structuredQuery": structured_query}).encode("utf-8")
-        resp = self.fetch("POST", self.base + ":runQuery", headers=self._headers(), data=body, timeout=self.timeout)
+        url = (f"{self.base}/{parent}" if parent else self.base) + ":runQuery"
+        resp = self.fetch("POST", url, headers=self._headers(), data=body, timeout=self.timeout)
         rows = _json_or_error(resp) or []
         out = []
         for r in rows:
@@ -155,11 +172,17 @@ class FirestoreRest:
         return out
 
     def set_document(self, path: str, data: dict) -> dict:
-        """문서 전체 쓰기(PATCH, 없으면 만든다). 필드 목록을 updateMask 로 준다."""
-        mask = "&".join("updateMask.fieldPaths=" + urllib.parse.quote(k) for k in data)
+        """주어진 필드만 쓰기(PATCH, 없으면 만든다). 필드 목록을 updateMask 로 준다 — 문서의 다른 필드는 그대로."""
+        mask = "&".join("updateMask.fieldPaths=" + urllib.parse.quote(field_path(k)) for k in data)
         url = f"{self.base}/{path}" + (f"?{mask}" if mask else "")
         body = json.dumps({"fields": {k: to_fs_value(v) for k, v in data.items()}}).encode("utf-8")
         resp = self.fetch("PATCH", url, headers=self._headers(), data=body, timeout=self.timeout)
+        return _json_or_error(resp)
+
+    def replace_document(self, path: str, data: dict) -> dict:
+        """문서 통째로 바꾸기(PATCH, updateMask 없음) — 없어진 필드는 지워진다(집계 문서처럼 키 목록이 바뀌는 문서용)."""
+        body = json.dumps({"fields": {k: to_fs_value(v) for k, v in data.items()}}).encode("utf-8")
+        resp = self.fetch("PATCH", f"{self.base}/{path}", headers=self._headers(), data=body, timeout=self.timeout)
         return _json_or_error(resp)
 
     def delete_document(self, name_or_path: str) -> None:
@@ -180,6 +203,6 @@ class FirestoreRest:
         return {k: from_fs_value(v) for k, v in doc.get("fields", {}).items()}
 
 
-__all__ = ["TokenProvider", "StaticTokenProvider", "ServiceAccountTokenProvider", "FirestoreRest",
+__all__ = ["field_path", "doc_id", "TokenProvider", "StaticTokenProvider", "ServiceAccountTokenProvider", "FirestoreRest",
            "GcpApiError", "NetworkError", "to_fs_value", "from_fs_value", "parse_timestamp",
            "SCOPE_DATASTORE", "SCOPE_REMOTE_CONFIG"]
