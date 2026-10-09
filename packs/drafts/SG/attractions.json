@@ -1,0 +1,2706 @@
+{
+  "doc_type": "attractions",
+  "schema_version": 1,
+  "country": "SG",
+  "version": "2026.10.09-1",
+  "release": "draft",
+  "editorial_rules": "2026-10",
+  "compact_country": true,
+  "unmapped_airports": [
+    {
+      "code": "SIN",
+      "reason": "compact",
+      "reason_ko": "나라 전체가 가까워요"
+    }
+  ],
+  "retired": [],
+  "upcoming_regions": [],
+  "regions": [
+    {
+      "id": "sg_central",
+      "order": 10,
+      "name_ko": "시내 중심",
+      "name_en": "Central Singapore",
+      "aliases_ko": [
+        "마리나베이",
+        "시빅 디스트릭트",
+        "오차드"
+      ],
+      "group_ko": "",
+      "kind": "base",
+      "water_crossing": false,
+      "hub": {
+        "name_ko": "시티 홀역",
+        "lat": 1.2932388888889,
+        "lng": 103.85221944444,
+        "qid": "Q1901870"
+      },
+      "airports": [],
+      "advisory": {
+        "level": "none",
+        "source": "mofa_sg",
+        "last_verified": "2026-09-28"
+      },
+      "advisory_watch_ko": [],
+      "wave": 1
+    },
+    {
+      "id": "sg_sentosa",
+      "order": 20,
+      "name_ko": "센토사",
+      "name_en": "Sentosa",
+      "aliases_ko": [
+        "센토사섬",
+        "리조트 월드 센토사"
+      ],
+      "group_ko": "",
+      "kind": "base",
+      "water_crossing": false,
+      "hub": {
+        "name_ko": "하버프런트역",
+        "lat": 1.2652777777777777,
+        "lng": 103.82222222222222,
+        "qid": "Q3272355"
+      },
+      "airports": [],
+      "advisory": {
+        "level": "none",
+        "source": "mofa_sg",
+        "last_verified": "2026-09-28"
+      },
+      "advisory_watch_ko": [],
+      "wave": 1
+    },
+    {
+      "id": "sg_north",
+      "order": 30,
+      "name_ko": "만다이(북부)",
+      "name_en": "Mandai",
+      "aliases_ko": [
+        "만다이",
+        "만다이 야생동물 보호구역"
+      ],
+      "group_ko": "",
+      "kind": "base",
+      "water_crossing": false,
+      "hub": {
+        "name_ko": "카팁역",
+        "lat": 1.417167,
+        "lng": 103.8329,
+        "qid": "Q2152805"
+      },
+      "airports": [],
+      "advisory": {
+        "level": "none",
+        "source": "mofa_sg",
+        "last_verified": "2026-09-28"
+      },
+      "advisory_watch_ko": [],
+      "wave": 1
+    }
+  ],
+  "sources": [
+    {
+      "id": "wd",
+      "name": "Wikidata",
+      "url": "https://www.wikidata.org/",
+      "use": "skeleton",
+      "license": "CC0"
+    },
+    {
+      "id": "mofa_sg",
+      "name": "외교부 해외안전여행(레디포트 SG 팩 safety 섹션, 2026-09-28 확인)",
+      "url": "https://www.0404.go.kr/",
+      "use": "advisory"
+    },
+    {
+      "id": "unesco_1483",
+      "name": "UNESCO World Heritage Centre — Singapore Botanic Gardens",
+      "url": "https://whc.unesco.org/en/list/1483/",
+      "use": "heritage_registry",
+      "license": "UNESCO WHC (사실만 사용, 설명문 CC-BY-SA IGO 3.0)",
+      "attribution_required": true
+    },
+    {
+      "id": "sbg_visitor",
+      "name": "Singapore Botanic Gardens (National Parks Board, official) — Visitor Information",
+      "url": "https://sbg.nparks.gov.sg/visit/general-info/",
+      "use": "facts"
+    },
+    {
+      "id": "gbtb_getting_here",
+      "name": "Gardens by the Bay (official) — Getting here & Parking",
+      "url": "https://www.gardensbythebay.com.sg/en/plan-your-visit/getting-here.html",
+      "use": "facts"
+    },
+    {
+      "id": "gbtb_story",
+      "name": "Gardens by the Bay (official) — Our Story",
+      "url": "https://www.gardensbythebay.com.sg/en/about-us/our-gardens-story/our-story.html",
+      "use": "facts"
+    },
+    {
+      "id": "gbtb_hours",
+      "name": "Gardens by the Bay (official) — Opening Hours & Closures",
+      "url": "https://www.gardensbythebay.com.sg/en/plan-your-visit/opening-hours.html",
+      "use": "facts"
+    },
+    {
+      "id": "gbtb_guidelines",
+      "name": "Gardens by the Bay (official) — Visiting Guidelines",
+      "url": "https://www.gardensbythebay.com.sg/en/plan-your-visit/visiting-guidelines.html",
+      "use": "facts"
+    },
+    {
+      "id": "gbtb_attractions",
+      "name": "Gardens by the Bay (official) — Attractions",
+      "url": "https://www.gardensbythebay.com.sg/en/things-to-do/attractions.html",
+      "use": "facts"
+    },
+    {
+      "id": "stb_merlion",
+      "name": "Singapore Tourism Board, VisitSingapore (official) — Merlion Park",
+      "url": "https://www.visitsingapore.com/see-do-singapore/recreation-leisure/viewpoints/merlion-park/",
+      "use": "facts"
+    },
+    {
+      "id": "stb_chinatown",
+      "name": "Singapore Tourism Board, VisitSingapore (official) — Chinatown",
+      "url": "https://www.visitsingapore.com/neighbourhood/featured-neighbourhood/chinatown/",
+      "use": "facts"
+    },
+    {
+      "id": "stb_chinatown_market",
+      "name": "Singapore Tourism Board, VisitSingapore (official) — Chinatown Street Market",
+      "url": "https://www.visitsingapore.com/neighbourhood/featured-neighbourhood/chinatown/chinatown-street-market/",
+      "use": "facts"
+    },
+    {
+      "id": "ura_programme",
+      "name": "Urban Redevelopment Authority (URA, official) — URA Conservation Programme",
+      "url": "https://www.ura.gov.sg/conservation/about-conservation/ura-conservation-programme/",
+      "use": "facts"
+    },
+    {
+      "id": "btrts_home",
+      "name": "Buddha Tooth Relic Temple and Museum (official)",
+      "url": "https://www.btrts.org.sg/",
+      "use": "facts"
+    },
+    {
+      "id": "stb_btrt",
+      "name": "Singapore Tourism Board, VisitSingapore (official) — Buddha Tooth Relic Temple",
+      "url": "https://www.visitsingapore.com/neighbourhood/featured-neighbourhood/chinatown/buddha-tooth-relic-temple/",
+      "use": "facts"
+    },
+    {
+      "id": "stb_littleindia",
+      "name": "Singapore Tourism Board, VisitSingapore (official) — Little India",
+      "url": "https://www.visitsingapore.com/neighbourhood/featured-neighbourhood/little-india/",
+      "use": "facts"
+    },
+    {
+      "id": "stb_ihc",
+      "name": "Singapore Tourism Board, VisitSingapore (official) — Indian Heritage Centre (Little India)",
+      "url": "https://www.visitsingapore.com/neighbourhood/featured-neighbourhood/little-india/indian-heritage-centre/",
+      "use": "facts"
+    },
+    {
+      "id": "stb_veeramakaliamman",
+      "name": "Singapore Tourism Board, VisitSingapore (official) — Sri Veeramakaliamman Temple (Little India)",
+      "url": "https://www.visitsingapore.com/neighbourhood/featured-neighbourhood/little-india/sri-veeramakaliamman-temple/",
+      "use": "facts"
+    },
+    {
+      "id": "ura_ltin",
+      "name": "Urban Redevelopment Authority (URA, official) — Little India Conservation Area",
+      "url": "https://www.ura.gov.sg/conservation/find-a-building/conservation-portal/ltin/",
+      "use": "facts"
+    },
+    {
+      "id": "stb_orchard",
+      "name": "Singapore Tourism Board, VisitSingapore (official) — Orchard Road",
+      "url": "https://www.visitsingapore.com/neighbourhood/featured-neighbourhood/orchard-road/",
+      "use": "facts"
+    },
+    {
+      "id": "stb_orchard_heritage",
+      "name": "Singapore Tourism Board, VisitSingapore (official) — A Heritage Walk Through Orchard Road",
+      "url": "https://www.visitsingapore.com/neighbourhood/featured-neighbourhood/orchard-road/heritage-walk-itinerary/",
+      "use": "facts"
+    },
+    {
+      "id": "stb_design_orchard",
+      "name": "Singapore Tourism Board, VisitSingapore (official) — Design Orchard (Orchard Road)",
+      "url": "https://www.visitsingapore.com/neighbourhood/featured-neighbourhood/orchard-road/heritage-walk-itinerary/design-orchard/",
+      "use": "facts"
+    },
+    {
+      "id": "roots_city_hall_supreme_court",
+      "name": "Roots.gov.sg (National Heritage Board, official) — Former City Hall and Supreme Court",
+      "url": "https://www.roots.gov.sg/places/places-landing/Places/landmarks/Civic-District-Heritage-Trail/Former-City-Hall-and-Supreme-Court",
+      "use": "facts"
+    },
+    {
+      "id": "stb_ngs",
+      "name": "Singapore Tourism Board, VisitSingapore (official) — National Gallery Singapore",
+      "url": "https://www.visitsingapore.com/neighbourhood/featured-neighbourhood/civic-district/national-gallery-singapore/",
+      "use": "facts"
+    },
+    {
+      "id": "ngs_visit",
+      "name": "National Gallery Singapore (official) — Visit: Opening Hours, Getting Here, Admission & Etiquette",
+      "url": "https://www.nationalgallery.sg/sg/en/visit.html",
+      "use": "facts"
+    },
+    {
+      "id": "roots_nms",
+      "name": "Roots.gov.sg (National Heritage Board, official) — National Museum of Singapore (National Monuments)",
+      "url": "https://www.roots.gov.sg/places/places-landing/Places/national-monuments/national-museum-of-singapore",
+      "use": "facts"
+    },
+    {
+      "id": "roots_nms_trail",
+      "name": "Roots.gov.sg (National Heritage Board, official) — Civic District Heritage Trail: National Museum of Singapore",
+      "url": "https://www.roots.gov.sg/places/places-landing/Places/landmarks/Civic-District-Heritage-Trail/National-Museum-of-Singapore",
+      "use": "facts"
+    },
+    {
+      "id": "stb_nms",
+      "name": "Singapore Tourism Board, VisitSingapore (official) — National Museum of Singapore",
+      "url": "https://www.visitsingapore.com/neighbourhood/featured-neighbourhood/civic-district/national-museum-of-singapore/",
+      "use": "facts"
+    },
+    {
+      "id": "nms_visitor_info",
+      "name": "National Museum of Singapore (National Heritage Board, official) — Visitor Information",
+      "url": "https://www.nhb.gov.sg/nationalmuseum/plan-your-visit/visitor-information",
+      "use": "facts"
+    },
+    {
+      "id": "nms_getting_here",
+      "name": "National Museum of Singapore (National Heritage Board, official) — Getting Here",
+      "url": "https://www.nhb.gov.sg/nationalmuseum/plan-your-visit/visitor-information/getting-here",
+      "use": "facts"
+    },
+    {
+      "id": "nms_accessibility",
+      "name": "National Museum of Singapore (National Heritage Board, official) — Accessibility",
+      "url": "https://www.nhb.gov.sg/nationalmuseum/plan-your-visit/accessibility",
+      "use": "facts"
+    },
+    {
+      "id": "rws_uss",
+      "name": "Resorts World Sentosa (operator, official) — Universal Studios Singapore",
+      "url": "https://www.rwsentosa.com/en/play/universal-studios-singapore",
+      "use": "facts"
+    },
+    {
+      "id": "stb_rws",
+      "name": "Singapore Tourism Board, VisitSingapore (official) — Resorts World Sentosa",
+      "url": "https://www.visitsingapore.com/neighbourhood/featured-neighbourhood/sentosa-island/resorts-world-sentosa/",
+      "use": "facts"
+    },
+    {
+      "id": "rws_getting_here",
+      "name": "Resorts World Sentosa (operator, official) — Getting Here",
+      "url": "https://www.rwsentosa.com/en/about/getting-here",
+      "use": "facts"
+    },
+    {
+      "id": "rws_faqs",
+      "name": "Resorts World Sentosa (operator, official) — FAQs",
+      "url": "https://www.rwsentosa.com/en/about/faqs",
+      "use": "facts"
+    },
+    {
+      "id": "rws_oceanarium",
+      "name": "Resorts World Sentosa (operator, official) — Singapore Oceanarium",
+      "url": "https://www.rwsentosa.com/en/play/singapore-oceanarium",
+      "use": "facts"
+    },
+    {
+      "id": "sentosa_siloso",
+      "name": "Sentosa Development Corporation (official) — Siloso Beach",
+      "url": "https://www.sentosa.com.sg/en/things-to-do/attractions/siloso-beach/",
+      "use": "facts"
+    },
+    {
+      "id": "sentosa_getting_around",
+      "name": "Sentosa Development Corporation (official) — Getting around Sentosa",
+      "url": "https://www.sentosa.com.sg/en/getting-around/",
+      "use": "facts"
+    },
+    {
+      "id": "sentosa_fort_siloso",
+      "name": "Sentosa Development Corporation (official) — Fort Siloso",
+      "url": "https://www.sentosa.com.sg/en/things-to-do/attractions/fort-siloso/",
+      "use": "facts"
+    },
+    {
+      "id": "mandai_getting_there",
+      "name": "Mandai Wildlife Reserve (official) — Getting to the Mandai Wildlife Reserve",
+      "url": "https://www.mandai.com/en/plan-your-visit/getting-to-and-around/getting-to-mandai-wildlife-reserve.html",
+      "use": "facts"
+    },
+    {
+      "id": "mandai_zoo",
+      "name": "Mandai Wildlife Reserve (official) — Singapore Zoo",
+      "url": "https://www.mandai.com/en/singapore-zoo.html",
+      "use": "facts"
+    },
+    {
+      "id": "mandai_zoo_kbyg",
+      "name": "Mandai Wildlife Reserve (official) — Know Before You Go: Singapore Zoo",
+      "url": "https://www.mandai.com/en/plan-your-visit/know-before-you-go/singapore-zoo.html",
+      "use": "facts"
+    },
+    {
+      "id": "mandai_river_wonders",
+      "name": "Mandai Wildlife Reserve (official) — River Wonders",
+      "url": "https://www.mandai.com/en/river-wonders.html",
+      "use": "facts"
+    },
+    {
+      "id": "mandai_rw_kbyg",
+      "name": "Mandai Wildlife Reserve (official) — Know Before You Go: River Wonders",
+      "url": "https://www.mandai.com/en/plan-your-visit/know-before-you-go/river-wonders.html",
+      "use": "facts"
+    },
+    {
+      "id": "mandai_bird_paradise",
+      "name": "Mandai Wildlife Reserve (official) — Bird Paradise",
+      "url": "https://www.mandai.com/en/bird-paradise.html",
+      "use": "facts"
+    },
+    {
+      "id": "mandai_bp_kbyg",
+      "name": "Mandai Wildlife Reserve (official) — Know Before You Go: Bird Paradise",
+      "url": "https://www.mandai.com/en/plan-your-visit/know-before-you-go/bird-paradise.html",
+      "use": "facts"
+    }
+  ],
+  "attractions": [
+    {
+      "id": "national-gallery-singapore",
+      "qid": "Q6970475",
+      "names": {
+        "ko": "내셔널 갤러리 싱가포르",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "National Gallery Singapore",
+        "local": "National Gallery Singapore",
+        "local_short": "National Gallery Singapore",
+        "local_lang": "en",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "싱가포르 국립미술관"
+      ],
+      "aliases_en": [
+        "National Gallery SG"
+      ],
+      "mentions_ko": [
+        "옛 시청",
+        "옛 대법원"
+      ],
+      "region": "sg_central",
+      "area_ko": "시빅 디스트릭트",
+      "category": "museum",
+      "tags": [
+        {
+          "id": "foreigner_price",
+          "source": "ngs_visit",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 1.29049,
+        "lng": 103.85186,
+        "source": "wd",
+        "qid": "Q6970475",
+        "osm": null,
+        "last_verified": "2026-10-09"
+      },
+      "wd_geo": {
+        "lat": 1.29049,
+        "lng": 103.85186
+      },
+      "address_local": {
+        "text": "1 St Andrew’s Road, Singapore 178957",
+        "source": "ngs_visit",
+        "last_verified": "2026-10-09"
+      },
+      "access": {
+        "modes": [
+          "metro"
+        ],
+        "nearest_ko": "MRT 시티 홀역 B 출구에서 걸어가요",
+        "nearest_local": {
+          "text": "City Hall MRT station",
+          "qid": "Q1901870",
+          "source": "wd"
+        },
+        "source": "ngs_visit",
+        "last_verified": "2026-10-09"
+      },
+      "official_url": "https://www.nationalgallery.sg/",
+      "wiki": {
+        "ko": "내셔널 갤러리 싱가포르",
+        "en": "National Gallery Singapore"
+      },
+      "summary_ko": "옛 시청과 옛 대법원 건물을 이어 만든 미술관이에요.",
+      "body_ko": [
+        "내셔널 갤러리 싱가포르는 1929년에 완공된 옛 시청과 1939년에 완공된 옛 대법원, 두 건물을 이어 만든 미술관이에요.",
+        "두 건물은 1992년 국가기념물로 지정됐고, 복원 공사를 거쳐 2015년 미술관으로 다시 문을 열었어요.",
+        "19세기부터 지금까지의 동남아시아 미술 작품 8,000점 이상을 갖추고 있어요.",
+        "옛 시청은 1945년 일본군 항복이 이뤄진 곳이에요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "옛 시청은 1929년, 옛 대법원은 1939년에 완공됐어요.",
+          "source": "roots_city_hall_supreme_court",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c2",
+          "text_ko": "두 건물은 1992년 국가기념물로 지정됐고, 2011년부터 복원·개조 공사를 거쳐 두 건물을 이은 뒤 2015년 내셔널 갤러리 싱가포르로 다시 문을 열었어요.",
+          "source": "roots_city_hall_supreme_court",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c3",
+          "text_ko": "19세기부터 지금까지의 동남아시아 미술 작품 8,000점 이상이 있어요.",
+          "source": "stb_ngs",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c4",
+          "text_ko": "옛 시청 건물은 1945년 제2차 세계대전이 끝난 뒤 일본군 항복이 이뤄진 곳이에요.",
+          "source": "roots_city_hall_supreme_court",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "전시실에서는 플래시 사진·동영상 촬영을 할 수 없고, 셀카봉과 삼각대도 쓸 수 없어요.",
+          "source": "ngs_visit",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "전시실에는 생수를 포함한 음식과 음료를 가지고 들어갈 수 없어요.",
+          "source": "ngs_visit",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "큰 가방과 우산은 지하 1층 사물함에 맡겨 달라고 해요.",
+          "source": "ngs_visit",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "입장권 없이 무료로 볼 수 있는 구역과 행사도 있어요.",
+          "source": "ngs_visit",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "none"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "ngs_visit",
+        "last_verified": "2026-10-09"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "partial",
+        "note_ko": "UOB 동남아시아 갤러리가 임시로 닫혀 있어요(다른 전시실은 열려 있어요).",
+        "source": "ngs_visit",
+        "last_verified": "2026-10-09"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_sg",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 1,
+        "designations": [
+          {
+            "kind": "sg_national_monument",
+            "name_ko": "국가기념물 옛 시청·옛 대법원(1992)",
+            "source": "roots_city_hall_supreme_court"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Padang_Atrium,_National_Gallery_Singapore_-_20151127-03.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-09",
+      "google_place_id": "ChIJFQzeR6cZ2jERgM6--iWeY-U"
+    },
+    {
+      "id": "national-museum-of-singapore",
+      "qid": "Q632689",
+      "names": {
+        "ko": "싱가포르 국립박물관",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "National Museum of Singapore",
+        "local": "National Museum of Singapore",
+        "local_short": "National Museum of Singapore",
+        "local_lang": "en",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "내셔널 뮤지엄 오브 싱가포르"
+      ],
+      "aliases_en": [
+        "Raffles Library and Museum"
+      ],
+      "mentions_ko": [
+        "싱가포르 역사 갤러리"
+      ],
+      "region": "sg_central",
+      "area_ko": "시빅 디스트릭트",
+      "category": "museum",
+      "tags": [
+        {
+          "id": "foreigner_price",
+          "source": "nms_visitor_info",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "step_free",
+          "source": "nms_accessibility",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 1.29672,
+        "lng": 103.84864,
+        "source": "wd",
+        "qid": "Q632689",
+        "osm": null,
+        "last_verified": "2026-10-09"
+      },
+      "wd_geo": {
+        "lat": 1.29672,
+        "lng": 103.84864
+      },
+      "address_local": {
+        "text": "93 Stamford Road, Singapore 178897",
+        "source": "nms_getting_here",
+        "last_verified": "2026-10-09"
+      },
+      "access": {
+        "modes": [
+          "metro"
+        ],
+        "nearest_ko": "MRT 브라스 바사역(서클 선)이나 벤쿨렌역(다운타운 선)에서 걸어가요",
+        "nearest_local": {
+          "text": "Bras Basah MRT station",
+          "qid": "Q1089384",
+          "source": "wd"
+        },
+        "source": "nms_getting_here",
+        "last_verified": "2026-10-09"
+      },
+      "official_url": "https://www.nhb.gov.sg/nationalmuseum/",
+      "wiki": {
+        "ko": "싱가포르 국립박물관",
+        "en": "National Museum of Singapore"
+      },
+      "summary_ko": "1887년에 문을 연 건물에서 싱가포르 역사를 보여 주는 박물관이에요.",
+      "body_ko": [
+        "싱가포르 국립박물관은 1887년 래플스 도서관·박물관으로 문을 연 스탬퍼드 로드의 건물에 있어요.",
+        "1960년 도서관과 나뉘면서 국립박물관이 됐고, 건물은 1992년 국가기념물로 지정됐어요.",
+        "물고기 비늘 모양 타일로 덮은 돔을 얹은 원형 홀(로툰다)이 건물의 특징이에요.",
+        "싱가포르 역사 갤러리에서는 영국 식민지, 제2차 세계대전, 현대 도시로 이어지는 역사를 다뤄요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "스탬퍼드 로드의 건물은 1884년에 짓기 시작해 1887년 10월 12일 문을 열었고, 래플스 도서관·박물관으로 쓰였어요.",
+          "source": "roots_nms_trail",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c2",
+          "text_ko": "1960년 박물관이 도서관과 분리되면서 이름이 래플스 박물관에서 국립박물관으로 바뀌었어요.",
+          "source": "roots_nms",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c3",
+          "text_ko": "1992년 국가기념물로 지정됐어요.",
+          "source": "roots_nms_trail",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c4",
+          "text_ko": "건물의 특징은 물고기 비늘 모양 타일로 덮은 돔을 얹은 원형 홀(로툰다)이에요.",
+          "source": "roots_nms",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c5",
+          "text_ko": "싱가포르 역사 갤러리는 영국 식민지, 제2차 세계대전 때의 포위된 도시, 현대 대도시로 이어지는 역사를 다뤄요.",
+          "source": "stb_nms",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "입장권은 현금 없이 카드 등으로만 살 수 있어요.",
+          "source": "nms_visitor_info",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "건물 보존을 위한 복원·개선 공사가 진행 중이에요.",
+          "source": "nms_visitor_info",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "6세 이하 어린이는 무료로 들어가요.",
+          "source": "nms_visitor_info",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "none"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "nms_visitor_info",
+        "last_verified": "2026-10-09"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "nms_visitor_info",
+        "last_verified": "2026-10-09"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_sg",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 2,
+        "designations": [
+          {
+            "kind": "sg_national_monument",
+            "name_ko": "국가기념물(1992)",
+            "source": "roots_nms_trail"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:National_Museum_of_Singapore_2,_Aug_06.JPG",
+      "source": "wd",
+      "last_verified": "2026-10-09",
+      "google_place_id": "ChIJD1u-EaMZ2jERaLhNfFkR45I"
+    },
+    {
+      "id": "chinatown",
+      "qid": "Q1318670",
+      "names": {
+        "ko": "차이나타운",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Chinatown",
+        "local": "Chinatown",
+        "local_short": "Chinatown",
+        "local_lang": "en",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "싱가포르 차이나타운"
+      ],
+      "aliases_en": [
+        "Chinatown Singapore",
+        "Kreta Ayer"
+      ],
+      "mentions_ko": [
+        "맥스웰 푸드센터",
+        "차이나타운 콤플렉스",
+        "차이나타운 스트리트 마켓"
+      ],
+      "region": "sg_central",
+      "area_ko": "아웃트램",
+      "category": "market_street",
+      "tags": [],
+      "geo": {
+        "kind": "station",
+        "lat": 1.28485,
+        "lng": 103.844006,
+        "source": "wd",
+        "qid": "Q3234439",
+        "osm": null,
+        "last_verified": "2026-10-09"
+      },
+      "wd_geo": {
+        "lat": 1.2836111111111,
+        "lng": 103.84416666667
+      },
+      "address_local": null,
+      "access": {
+        "modes": [
+          "metro"
+        ],
+        "nearest_ko": "MRT 차이나타운역에서 내려요",
+        "nearest_local": {
+          "text": "Chinatown MRT station",
+          "qid": "Q3234439",
+          "source": "wd"
+        },
+        "source": "stb_chinatown_market",
+        "last_verified": "2026-10-09"
+      },
+      "official_url": "https://www.visitsingapore.com/neighbourhood/featured-neighbourhood/chinatown/",
+      "wiki": {
+        "ko": "차이나타운 (싱가포르)",
+        "en": "Chinatown, Singapore"
+      },
+      "summary_ko": "숍하우스 거리에 사원·호커센터·시장이 모인 동네예요.",
+      "body_ko": [
+        "차이나타운은 1989년 7월 7일 보존지구로 지정된 옛 시가지로, 텔록 아이어·크레타 아이어·탄종 파가·부킷 파소 지구로 이뤄져 있어요.",
+        "한약재 가게와 중국 미술품·골동품 가게가 있고, 맥스웰 푸드센터와 차이나타운 콤플렉스 같은 호커센터에서 여러 음식을 맛볼 수 있어요.",
+        "차이나타운 스트리트 마켓은 설날과 중추절 같은 명절에 더 북적여요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "1989년 7월 7일 차이나타운(텔록 아이어·크레타 아이어·탄종 파가·부킷 파소)이 보존지구로 지정됐어요.",
+          "source": "ura_programme",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c2",
+          "text_ko": "한약재 가게와 중국 미술품·골동품 가게가 있고, 맥스웰 푸드센터와 차이나타운 콤플렉스에서 여러 음식을 팔아요.",
+          "source": "stb_chinatown",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c3",
+          "text_ko": "차이나타운 스트리트 마켓은 설날과 중추절 같은 전통 명절에 더 북적여요.",
+          "source": "stb_chinatown_market",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "차이나타운 콤플렉스에는 미쉐린 빕 구르망을 받은 호커 노점이 있어요.",
+          "source": "stb_chinatown",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "차이나타운 스트리트 마켓에서는 부채와 서예 작품 같은 기념품을 팔아요.",
+          "source": "stb_chinatown_market",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "facts": {
+        "kind": "public_space"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "stb_chinatown",
+        "last_verified": "2026-10-09"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_sg",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 3,
+        "designations": [
+          {
+            "kind": "sg_conservation_area",
+            "name_ko": "보존지구(URA, 1989)",
+            "source": "ura_programme"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Pagoda_Street_Chinatown_Singapore.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-09",
+      "google_place_id": "ChIJQ37YS3MZ2jEReqrALU2hEew"
+    },
+    {
+      "id": "singapore-botanic-gardens",
+      "qid": "Q3046409",
+      "names": {
+        "ko": "싱가포르 보태닉 가든",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Singapore Botanic Gardens",
+        "local": "Singapore Botanic Gardens",
+        "local_short": "Singapore Botanic Gardens",
+        "local_lang": "en",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "싱가포르 식물원",
+        "보타닉 가든"
+      ],
+      "aliases_en": [
+        "Singapore Botanical Gardens"
+      ],
+      "mentions_ko": [
+        "국립 난초원"
+      ],
+      "region": "sg_central",
+      "area_ko": "탕글린",
+      "category": "heritage",
+      "tags": [
+        {
+          "id": "unesco",
+          "source": "unesco_1483",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "free_entry",
+          "source": "sbg_visitor",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "step_free",
+          "source": "sbg_visitor",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 1.3151,
+        "lng": 103.8162,
+        "source": "wd",
+        "qid": "Q3046409",
+        "osm": null,
+        "last_verified": "2026-10-09"
+      },
+      "wd_geo": {
+        "lat": 1.3151,
+        "lng": 103.8162
+      },
+      "address_local": null,
+      "access": {
+        "modes": [
+          "metro",
+          "bus"
+        ],
+        "nearest_ko": "MRT 보태닉 가든역(부킷 티마 입구)이나 네이피어역(탕글린 입구)에서 내려요",
+        "nearest_local": {
+          "text": "Botanic Gardens MRT station",
+          "qid": "Q11117393",
+          "source": "wd"
+        },
+        "source": "sbg_visitor",
+        "last_verified": "2026-10-09"
+      },
+      "official_url": "https://www.nparks.gov.sg/sbg",
+      "wiki": {
+        "ko": "싱가포르 식물원",
+        "en": "Singapore Botanic Gardens"
+      },
+      "summary_ko": "1859년에 문을 연 열대 식물원이에요.",
+      "body_ko": [
+        "싱가포르 보태닉 가든은 1859년에 문을 연 식물원으로, 영국 식민지 시대의 열대 식물원이 지금의 연구·보전·교육 기관으로 바뀌어 온 과정을 보여 줘요.",
+        "1875년부터 동남아시아의 식물 연구와 보전, 특히 고무 재배 연구의 중심이었어요.",
+        "2015년 세계유산에 올랐고, 등재 구역은 49ha예요.",
+        "정원 입장은 무료이고, 안쪽의 국립 난초원만 입장료를 받아요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "1859년에 문을 열었고, 영국 식민지 시대 열대 식물원이 현대의 연구·보전·교육 기관으로 바뀐 과정을 보여 줘요.",
+          "source": "unesco_1483",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c2",
+          "text_ko": "1875년부터 동남아시아의 과학·연구·식물 보전 중심지였고, 특히 고무 재배와 관련이 깊어요.",
+          "source": "unesco_1483",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c3",
+          "text_ko": "2015년 세계유산에 등재됐고, 등재 구역 면적은 49ha예요.",
+          "source": "unesco_1483",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c4",
+          "text_ko": "정원은 누구나 매일 무료로 들어갈 수 있고, 입장료는 국립 난초원에만 있어요.",
+          "source": "sbg_visitor",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "정원 안에서는 담배를 피울 수 없어요.",
+          "source": "sbg_visitor",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "야생동물에게 먹이를 주지 말아 달라고 해요.",
+          "source": "sbg_visitor",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "정원 안에서는 자전거를 탈 수 없어요. 입구마다 자전거 거치대가 있어요.",
+          "source": "sbg_visitor",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "방문객 안내 데스크에서 휠체어를 무료로 빌려줘요.",
+          "source": "sbg_visitor",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "free",
+        "regular_closed": [
+          "none"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "sbg_visitor",
+        "last_verified": "2026-10-09"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "sbg_visitor",
+        "last_verified": "2026-10-09"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_sg",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 4,
+        "designations": [
+          {
+            "kind": "unesco",
+            "name_ko": "세계유산 싱가포르 보태닉 가든(2015)",
+            "source": "unesco_1483"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Singapore_Botanic_Gardens_Palm_Valley.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-09",
+      "google_place_id": "ChIJvWDbfRwa2jERgNnTOpAU3-o"
+    },
+    {
+      "id": "little-india",
+      "qid": "Q2392844",
+      "names": {
+        "ko": "리틀 인디아",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Little India",
+        "local": "Little India",
+        "local_short": "Little India",
+        "local_lang": "en",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "테카"
+      ],
+      "aliases_en": [
+        "Tekka"
+      ],
+      "mentions_ko": [
+        "테카 센터",
+        "스리 비라마칼리암만 사원",
+        "인디언 헤리티지 센터"
+      ],
+      "region": "sg_central",
+      "area_ko": "세랑군 로드",
+      "category": "market_street",
+      "tags": [],
+      "geo": {
+        "kind": "station",
+        "lat": 1.306725,
+        "lng": 103.849175,
+        "source": "wd",
+        "qid": "Q3194232",
+        "osm": null,
+        "last_verified": "2026-10-09"
+      },
+      "wd_geo": {
+        "lat": 1.3077777777778,
+        "lng": 103.8525
+      },
+      "address_local": null,
+      "access": {
+        "modes": [
+          "metro"
+        ],
+        "nearest_ko": "MRT 리틀 인디아역에서 내려요",
+        "nearest_local": {
+          "text": "Little India MRT station",
+          "qid": "Q3194232",
+          "source": "wd"
+        },
+        "source": "stb_ihc",
+        "last_verified": "2026-10-09"
+      },
+      "official_url": "https://www.visitsingapore.com/neighbourhood/featured-neighbourhood/little-india/",
+      "wiki": {
+        "ko": "리틀인디아 (싱가포르)",
+        "en": "Little India, Singapore"
+      },
+      "summary_ko": "인도계 공동체의 중심으로, 사원과 시장이 모인 동네예요.",
+      "body_ko": [
+        "리틀 인디아는 세랑군 로드·숭게이 로드·잘란 베사르로 둘러싸인 동네로, 1800년대 중반부터 싱가포르 인도계 공동체의 중심이 됐어요.",
+        "1989년 7월 7일 보존지구로 지정됐어요.",
+        "디파발리와 퐁갈 같은 힌두·인도 명절의 공공 행사가 주로 이곳에서 열려요.",
+        "중심 도로인 세랑군 로드는 싱가포르에서 일찍 만들어진 길 가운데 하나예요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "세랑군 로드·숭게이 로드·잘란 베사르로 둘러싸인 지역으로, 1800년대 중반부터 싱가포르 인도계 공동체의 중심으로 발전했어요. '테카'라고도 불려요.",
+          "source": "ura_ltin",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c2",
+          "text_ko": "1989년 7월 7일 보존지구로 지정됐어요.",
+          "source": "ura_ltin",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c3",
+          "text_ko": "디파발리와 퐁갈 같은 힌두·인도 명절의 공공 행사가 주로 열리는 곳이에요.",
+          "source": "ura_ltin",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c4",
+          "text_ko": "중심 도로인 세랑군 로드는 싱가포르에서 일찍 만들어진 도로 가운데 하나예요.",
+          "source": "ura_ltin",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "사원에 들어갈 때는 신발을 벗어요.",
+          "source": "stb_veeramakaliamman",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "사원에서는 등·어깨가 드러나는 옷이나 반바지·짧은 치마를 피해요. 입구에서 가릴 옷을 빌려줘요.",
+          "source": "stb_veeramakaliamman",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "테카 센터의 실내 재래시장에서는 신선식품과 향신료, 건어물을 팔아요.",
+          "source": "stb_littleindia",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "facts": {
+        "kind": "public_space"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "stb_littleindia",
+        "last_verified": "2026-10-09"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_sg",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 5,
+        "designations": [
+          {
+            "kind": "sg_conservation_area",
+            "name_ko": "보존지구(URA, 1989)",
+            "source": "ura_ltin"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Singapore_Little_India.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-09",
+      "google_place_id": "ChIJo3WI6o0Z2jERpTdJzN1gGyI"
+    },
+    {
+      "id": "fort-siloso",
+      "qid": "Q4419293",
+      "names": {
+        "ko": "포트 실로소",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Fort Siloso",
+        "local": "Fort Siloso",
+        "local_short": "Fort Siloso",
+        "local_lang": "en",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "실로소 요새"
+      ],
+      "aliases_en": [],
+      "mentions_ko": [
+        "포트 실로소 스카이워크"
+      ],
+      "region": "sg_sentosa",
+      "area_ko": "센토사섬 실로소 포인트",
+      "category": "heritage",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 1.25888889,
+        "lng": 103.80805556,
+        "source": "wd",
+        "qid": "Q4419293",
+        "osm": null,
+        "last_verified": "2026-10-09"
+      },
+      "wd_geo": {
+        "lat": 1.25888889,
+        "lng": 103.80805556
+      },
+      "address_local": null,
+      "access": {
+        "modes": [
+          "train",
+          "bus"
+        ],
+        "nearest_ko": "센토사 익스프레스 비치역에서 센토사 버스 A나 비치 셔틀을 타고 실로소 포인트에서 내려요",
+        "nearest_local": {
+          "text": "Sentosa Express",
+          "qid": "Q955618",
+          "source": "wd"
+        },
+        "source": "sentosa_fort_siloso",
+        "last_verified": "2026-10-09"
+      },
+      "official_url": "https://www.sentosa.com.sg/en/things-to-do/attractions/fort-siloso/",
+      "wiki": {
+        "en": "Fort Siloso"
+      },
+      "summary_ko": "영국이 1880년대에 지은 센토사섬의 해안 요새예요.",
+      "body_ko": [
+        "포트 실로소는 영국이 1880년대에 항구로 들어오는 바닷길을 지키려고 싱가포르 남쪽 해안에 지은 해안 포대 가운데 하나예요.",
+        "2022년 싱가포르의 74번째 국가기념물로 지정됐어요.",
+        "요새 안 군사 박물관에서 원래 자리에 있는 해안포와 제2차 세계대전 때의 터널을 볼 수 있어요.",
+        "나무 위로 길이 181m의 산책로 '포트 실로소 스카이워크'가 나 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "1880년대 영국이 항구 접근로를 바다 쪽 공격에서 지키려고 싱가포르 남쪽 해안에 지은 해안 포대 가운데 하나예요.",
+          "source": "sentosa_fort_siloso",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c2",
+          "text_ko": "2022년 싱가포르의 74번째 국가기념물로 지정됐어요.",
+          "source": "sentosa_fort_siloso",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c3",
+          "text_ko": "요새에는 원래의 해안포, 제2차 세계대전 때 터널, 항복 기념실이 있는 군사 박물관과 길이 181m의 '포트 실로소 스카이워크'가 있어요.",
+          "source": "sentosa_fort_siloso",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c4",
+          "text_ko": "항복 기념실(서렌더 체임버)은 1942년 2월 싱가포르 함락 때의 장면을 밀랍 인형으로 재현해요.",
+          "source": "sentosa_fort_siloso",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "항복 기념실에서는 1942년 2월 싱가포르 함락 장면을 밀랍 인형으로 재현해 보여 줘요.",
+          "source": "sentosa_fort_siloso",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "스카이워크는 리프트를 타고 올라가요.",
+          "source": "sentosa_fort_siloso",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "주말에는 군사 건축을 둘러보는 안내 산책이 있어요.",
+          "source": "sentosa_fort_siloso",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "unknown",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "sentosa_fort_siloso",
+        "last_verified": "2026-10-09"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "sentosa_fort_siloso",
+        "last_verified": "2026-10-09"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_sg",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 6,
+        "designations": [
+          {
+            "kind": "sg_national_monument",
+            "name_ko": "국가기념물(2022)",
+            "source": "sentosa_fort_siloso"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Fort_Siloso_sign,_Sentosa,_Singapore_-_20071208.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-09",
+      "google_place_id": "ChIJWbbHWvAb2jERpIJ56UdMj_E"
+    },
+    {
+      "id": "merlion-park",
+      "qid": "Q6819812",
+      "names": {
+        "ko": "멀라이언 공원",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Merlion Park",
+        "local": "Merlion Park",
+        "local_short": "Merlion Park",
+        "local_lang": "en",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "머라이언 공원",
+        "머라이언 파크",
+        "멀라이언 파크"
+      ],
+      "aliases_en": [],
+      "mentions_ko": [
+        "멀라이언 상"
+      ],
+      "region": "sg_central",
+      "area_ko": "마리나베이",
+      "category": "city_view",
+      "tags": [
+        {
+          "id": "night",
+          "source": "stb_merlion",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 1.2868055555555555,
+        "lng": 103.8545,
+        "source": "wd",
+        "qid": "Q208760",
+        "osm": null,
+        "last_verified": "2026-10-09"
+      },
+      "wd_geo": {
+        "lat": 1.28683,
+        "lng": 103.855
+      },
+      "address_local": {
+        "text": "1 Fullerton Road, Singapore 049213",
+        "source": "stb_merlion",
+        "last_verified": "2026-10-09"
+      },
+      "access": {
+        "modes": [
+          "metro"
+        ],
+        "nearest_ko": "MRT 래플스 플레이스역에서 걸어가요",
+        "nearest_local": {
+          "text": "Raffles Place MRT station",
+          "qid": "Q3234430",
+          "source": "wd"
+        },
+        "source": "stb_merlion",
+        "last_verified": "2026-10-09"
+      },
+      "official_url": "https://www.visitsingapore.com/see-do-singapore/recreation-leisure/viewpoints/merlion-park/",
+      "wiki": {
+        "ko": "멀라이언 공원",
+        "en": "Merlion Park"
+      },
+      "summary_ko": "사자 머리에 물고기 몸을 한 멀라이언 상이 있는 공원이에요.",
+      "body_ko": [
+        "멀라이언은 사자 머리에 물고기 몸을 한 상이에요. 물고기 몸은 옛 어촌 테마섹을, 사자 머리는 '사자의 도시'라는 뜻의 옛 이름 싱가푸라를 나타내요.",
+        "높이 8.6m, 무게 70톤이고, 1972년 싱가포르강 어귀에서 처음 공개됐어요.",
+        "1997년 에스플러네이드 다리가 완공돼 물가에서 잘 보이지 않게 되자, 마리나베이를 마주한 지금 자리로 옮겼어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "물고기 몸은 어촌 테마섹이라는 싱가포르의 기원을, 사자 머리는 '사자의 도시'라는 뜻의 옛 이름 싱가푸라를 나타내요.",
+          "source": "stb_merlion",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c2",
+          "text_ko": "멀라이언 상은 높이 8.6m, 무게 70톤이고, 처음에는 싱가포르강 어귀에 있었어요. 1972년 9월 15일 공개됐어요.",
+          "source": "stb_merlion",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c3",
+          "text_ko": "1997년 에스플러네이드 다리가 완공되면서 물가에서 잘 보이지 않게 되어, 풀러턴 호텔 앞 마리나베이를 바라보는 멀라이언 공원으로 옮겼어요.",
+          "source": "stb_merlion",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "공원은 풀러턴 호텔 앞, 마리나베이를 바라보는 자리에 있어요.",
+          "source": "stb_merlion",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "facts": {
+        "kind": "public_space"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "stb_merlion",
+        "last_verified": "2026-10-09"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_sg",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 7,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Singapore_Merlion_BCT.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-09",
+      "google_place_id": "ChIJBTYg1g4Z2jERp_MBbu5erWY"
+    },
+    {
+      "id": "universal-studios-singapore",
+      "qid": "Q1186714",
+      "names": {
+        "ko": "유니버설 스튜디오 싱가포르",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Universal Studios Singapore",
+        "local": "Universal Studios Singapore",
+        "local_short": "Universal Studios Singapore",
+        "local_lang": "en",
+        "source": "wd"
+      },
+      "aliases_ko": [],
+      "aliases_en": [
+        "USS"
+      ],
+      "mentions_ko": [],
+      "region": "sg_sentosa",
+      "area_ko": "리조트 월드 센토사",
+      "category": "theme_park",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 1.255,
+        "lng": 103.82166666667,
+        "source": "wd",
+        "qid": "Q1186714",
+        "osm": null,
+        "last_verified": "2026-10-09"
+      },
+      "wd_geo": {
+        "lat": 1.255,
+        "lng": 103.82166666667
+      },
+      "address_local": {
+        "text": "8 Sentosa Gateway, Sentosa Island, Singapore 098269",
+        "source": "rws_getting_here",
+        "last_verified": "2026-10-09"
+      },
+      "access": {
+        "modes": [
+          "metro",
+          "train"
+        ],
+        "nearest_ko": "MRT 하버프런트역에서 비보시티 3층으로 가 센토사 익스프레스를 타고 리조트 월드역에서 내려요",
+        "nearest_local": {
+          "text": "Sentosa Express",
+          "qid": "Q955618",
+          "source": "wd"
+        },
+        "source": "rws_getting_here",
+        "last_verified": "2026-10-09"
+      },
+      "official_url": "https://www.rwsentosa.com/en/play/universal-studios-singapore",
+      "wiki": {
+        "ko": "유니버설 스튜디오 싱가포르",
+        "en": "Universal Studios Singapore"
+      },
+      "summary_ko": "리조트 월드 센토사 안에 있는 영화 테마파크예요.",
+      "body_ko": [
+        "유니버설 스튜디오 싱가포르는 센토사섬의 리조트 월드 센토사 안에 있는 테마파크예요.",
+        "영화를 주제로 한 구역 7곳에 놀이기구와 야외 쇼가 있어요.",
+        "쥬라기 공원의 공룡을 만나는 구역, 슈렉의 '머나먼 왕국' 구역처럼 영화 속 세계를 꾸며 놓았어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "유니버설 스튜디오 싱가포르는 센토사섬 리조트 월드 센토사 안에 있어요.",
+          "source": "rws_uss",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c2",
+          "text_ko": "영화를 주제로 한 구역 7곳에 놀이기구와 야외 쇼가 있어요.",
+          "source": "stb_rws",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c3",
+          "text_ko": "쥬라기 공원의 공룡과 함께 걷는 구역, 성과 초록 괴물이 있는 '머나먼 왕국' 구역이 있어요.",
+          "source": "rws_uss",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "번개 위험이 있으면 야외 놀이기구가 잠시 멈출 수 있어요.",
+          "source": "rws_uss",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "입장할 때 실물 표나 전자 표를 스캔해야 해요.",
+          "source": "rws_uss",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "공원 안에는 전동 편의 차량만 들어갈 수 있고 킥보드는 가져갈 수 없어요.",
+          "source": "rws_uss",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "많이 걸으니 가벼운 옷과 편한 신발을 권해요.",
+          "source": "rws_faqs",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "booking": "none",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "rws_uss",
+        "last_verified": "2026-10-09"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "rws_uss",
+        "last_verified": "2026-10-09"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_sg",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 8,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Universal_Studios_lake_(6952709373).jpg",
+      "source": "wd",
+      "last_verified": "2026-10-09",
+      "google_place_id": "ChIJQ6MVplUZ2jERn1LmNH0DlDA"
+    },
+    {
+      "id": "gardens-by-the-bay",
+      "qid": "Q630135",
+      "names": {
+        "ko": "가든스 바이 더 베이",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Gardens by the Bay",
+        "local": "Gardens by the Bay",
+        "local_short": "Gardens by the Bay",
+        "local_lang": "en",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "가든 바이 더 베이"
+      ],
+      "aliases_en": [
+        "Garden by the Bay"
+      ],
+      "mentions_ko": [
+        "슈퍼트리 그로브",
+        "플라워 돔",
+        "클라우드 포레스트",
+        "OCBC 스카이웨이"
+      ],
+      "region": "sg_central",
+      "area_ko": "마리나베이",
+      "category": "city_view",
+      "tags": [
+        {
+          "id": "night",
+          "source": "gbtb_attractions",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 1.283319,
+        "lng": 103.86527,
+        "source": "wd",
+        "qid": "Q630135",
+        "osm": null,
+        "last_verified": "2026-10-09"
+      },
+      "wd_geo": {
+        "lat": 1.283319,
+        "lng": 103.86527
+      },
+      "address_local": {
+        "text": "18 Marina Gardens Drive, Singapore 018953",
+        "source": "gbtb_story",
+        "last_verified": "2026-10-09"
+      },
+      "access": {
+        "modes": [
+          "metro"
+        ],
+        "nearest_ko": "MRT 베이프런트역 B 출구에서 지하 연결 통로를 따라가요(가든스 바이 더 베이역 1번 출구로도 들어가요)",
+        "nearest_local": {
+          "text": "Bayfront MRT station",
+          "qid": "Q1106644",
+          "source": "wd"
+        },
+        "source": "gbtb_getting_here",
+        "last_verified": "2026-10-09"
+      },
+      "official_url": "https://www.gardensbythebay.com.sg/",
+      "wiki": {
+        "ko": "가든스 바이 더 베이",
+        "en": "Gardens by the Bay"
+      },
+      "summary_ko": "슈퍼트리와 냉방 온실이 있는 마리나베이의 정원이에요.",
+      "body_ko": [
+        "가든스 바이 더 베이는 베이 사우스·베이 이스트·베이 센트럴, 세 개의 물가 정원으로 이뤄져 있어요.",
+        "그 가운데 가장 큰 베이 사우스는 2012년에 문을 열었고, 냉방 온실과 슈퍼트리가 여기에 있어요.",
+        "슈퍼트리 그로브에는 슈퍼트리 18그루 가운데 12그루와 길이 128m의 OCBC 스카이웨이가 있어요.",
+        "매일 밤 이곳에서 빛과 소리 공연 '가든 랩소디'가 무료로 열려요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "가든스 바이 더 베이는 베이 사우스·베이 이스트·베이 센트럴, 세 개의 물가 정원으로 이뤄져 있어요.",
+          "source": "gbtb_story",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c2",
+          "text_ko": "세 정원 가운데 가장 큰 베이 사우스는 2012년에 문을 열었고, 냉방 온실과 슈퍼트리가 있어요.",
+          "source": "gbtb_story",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c3",
+          "text_ko": "슈퍼트리 그로브에는 정원의 슈퍼트리 18그루 가운데 12그루와 길이 128m의 OCBC 스카이웨이가 있어요.",
+          "source": "gbtb_attractions",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c4",
+          "text_ko": "슈퍼트리 그로브에서는 매일 밤 무료 빛과 소리 공연 '가든 랩소디'가 열려요.",
+          "source": "gbtb_attractions",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "냉방 온실과 OCBC 스카이웨이 같은 시설은 한 달에 한 번 정비로 문을 닫아요. 공식 사이트에서 휴무일을 확인하세요.",
+          "source": "gbtb_hours",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "플라워 돔과 클라우드 포레스트 안에서는 음식을 먹거나 마실 수 없어요.",
+          "source": "gbtb_guidelines",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "주말과 공휴일에는 정원에서 삼각대를 쓸 수 없어요.",
+          "source": "gbtb_guidelines",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "정원 안에서는 자전거·킥보드·스케이트보드를 탈 수 없어요.",
+          "source": "gbtb_guidelines",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "unknown",
+        "regular_closed": [
+          "irregular"
+        ],
+        "closed_note_ko": "야외 정원은 매일 열어요.",
+        "visit_note_ko": null,
+        "source": "gbtb_hours",
+        "last_verified": "2026-10-09"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "gbtb_hours",
+        "last_verified": "2026-10-09"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_sg",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 9,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Supertree_Grove,_Gardens_by_the_Bay,_Singapore_-_20120712-02.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-09",
+      "google_place_id": "ChIJMxZ-kwQZ2jERdsqftXeWCWI"
+    },
+    {
+      "id": "singapore-zoo",
+      "qid": "Q2709506",
+      "names": {
+        "ko": "싱가포르 동물원",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Singapore Zoo",
+        "local": "Singapore Zoo",
+        "local_short": "Singapore Zoo",
+        "local_lang": "en",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "만다이 동물원"
+      ],
+      "aliases_en": [
+        "Mandai Zoo",
+        "Singapore Zoological Gardens"
+      ],
+      "mentions_ko": [],
+      "region": "sg_north",
+      "area_ko": "만다이",
+      "category": "theme_park",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 1.404709,
+        "lng": 103.79105,
+        "source": "wd",
+        "qid": "Q2709506",
+        "osm": null,
+        "last_verified": "2026-10-09"
+      },
+      "wd_geo": {
+        "lat": 1.404709,
+        "lng": 103.79105
+      },
+      "address_local": null,
+      "access": {
+        "modes": [
+          "metro",
+          "bus"
+        ],
+        "nearest_ko": "MRT 카팁역 A 출구에서 만다이 카팁 버스(M2)를 타요",
+        "nearest_local": {
+          "text": "Khatib MRT station",
+          "qid": "Q2152805",
+          "source": "wd"
+        },
+        "source": "mandai_getting_there",
+        "last_verified": "2026-10-09"
+      },
+      "official_url": "https://www.mandai.com/en/singapore-zoo.html",
+      "wiki": {
+        "ko": "싱가포르 동물원",
+        "en": "Singapore Zoo"
+      },
+      "summary_ko": "동물 4,200마리 이상이 사는 열대우림 속 동물원이에요.",
+      "body_ko": [
+        "싱가포르 동물원은 만다이 야생동물 보호구역 안의 동물원으로, 동물 4,200마리 이상이 살아요.",
+        "'열린 전시' 방식이라 나무 사이를 오가며 지내는 오랑우탄 등을 가까이에서 볼 수 있어요.",
+        "트램을 타고 천천히 둘러볼 수도 있고, 일부 트램에는 휠체어 자리가 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "싱가포르 동물원에는 동물 4,200마리 이상이 살아요.",
+          "source": "mandai_zoo",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c2",
+          "text_ko": "'열린 전시(open concept)' 방식으로, 나무 사이를 자유롭게 오가는 오랑우탄을 만날 수 있어요.",
+          "source": "mandai_zoo",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c3",
+          "text_ko": "트램을 타고 둘러볼 수 있고, 일부 트램에는 휠체어 전용 자리가 있어요.",
+          "source": "mandai_zoo_kbyg",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "동물원 동물이 아닌 야생 원숭이(마카크)가 음식을 노릴 수 있어요. 음식은 보이지 않게 넣어 두세요.",
+          "source": "mandai_zoo_kbyg",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "동물 먹이 주기는 공식 먹이 주기 프로그램에서만 할 수 있어요.",
+          "source": "mandai_zoo_kbyg",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "동물이 놀랄 수 있어 플래시는 꺼 달라고 해요.",
+          "source": "mandai_zoo_kbyg",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "입구 안내 데스크에서 휠체어를 무료로 빌릴 수 있어요.",
+          "source": "mandai_zoo_kbyg",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "none"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "mandai_zoo",
+        "last_verified": "2026-10-09"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "mandai_zoo",
+        "last_verified": "2026-10-09"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_sg",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 10,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Singapore_Zoo.JPG",
+      "source": "wd",
+      "last_verified": "2026-10-09",
+      "google_place_id": "ChIJr9wqENkT2jERkRs7pMj6FLQ"
+    },
+    {
+      "id": "orchard-road",
+      "qid": "Q2735712",
+      "names": {
+        "ko": "오차드 로드",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Orchard Road",
+        "local": "Orchard Road",
+        "local_short": "Orchard Road",
+        "local_lang": "en",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "오처드 로드",
+        "아이온 오차드",
+        "다카시마야",
+        "탕글린 몰"
+      ],
+      "aliases_en": [
+        "ION Orchard",
+        "Takashimaya",
+        "Tanglin Mall"
+      ],
+      "mentions_ko": [
+        "에메랄드 힐",
+        "디자인 오차드"
+      ],
+      "region": "sg_central",
+      "area_ko": "오차드",
+      "category": "market_street",
+      "tags": [],
+      "geo": {
+        "kind": "station",
+        "lat": 1.300514,
+        "lng": 103.839028,
+        "source": "wd",
+        "qid": "Q2208305",
+        "osm": null,
+        "last_verified": "2026-10-09"
+      },
+      "wd_geo": {
+        "lat": 1.3050833333333,
+        "lng": 103.83190833333
+      },
+      "address_local": null,
+      "access": {
+        "modes": [
+          "metro"
+        ],
+        "nearest_ko": "MRT 서머셋역에서 내려요",
+        "nearest_local": {
+          "text": "Somerset MRT station",
+          "qid": "Q2208305",
+          "source": "wd"
+        },
+        "source": "stb_design_orchard",
+        "last_verified": "2026-10-09"
+      },
+      "official_url": "https://www.visitsingapore.com/neighbourhood/featured-neighbourhood/orchard-road/",
+      "wiki": {
+        "ko": "오차드로드",
+        "en": "Orchard Road"
+      },
+      "summary_ko": "쇼핑몰과 상점이 이어진 시내 쇼핑 거리예요.",
+      "body_ko": [
+        "오차드 로드는 고급 쇼핑부터 젊은 문화 공간까지 모인 싱가포르 시내 중심의 쇼핑 거리예요.",
+        "탕글린 쪽 끝은 미술·웰니스·라이프스타일 구역으로 꾸며져 있어요.",
+        "근처 에메랄드 힐에는 보존된 페라나칸 숍하우스가 늘어서 있어요.",
+        "디자인 오차드에서는 싱가포르 디자이너와 브랜드 90곳 넘게 소개해요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "오차드 로드는 고급 쇼핑부터 서브컬처 공간까지 모인 싱가포르 시내 중심 거리예요.",
+          "source": "stb_orchard",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c2",
+          "text_ko": "오차드 로드의 탕글린 쪽은 미술·웰니스·라이프스타일 구역이에요.",
+          "source": "stb_orchard",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c3",
+          "text_ko": "에메랄드 힐에는 보존된 페라나칸 숍하우스가 늘어선 유산 산책길이 있어요.",
+          "source": "stb_orchard_heritage",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c4",
+          "text_ko": "디자인 오차드에서는 싱가포르 디자이너와 브랜드 90곳 넘게 소개해요.",
+          "source": "stb_design_orchard",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "디자인 오차드 옥상에는 정원으로 둘러싸인 원형 극장이 있어요.",
+          "source": "stb_design_orchard",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "facts": {
+        "kind": "public_space"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "stb_orchard",
+        "last_verified": "2026-10-09"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_sg",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 11,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:New_Orchard_Road_Flower_Zone.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-09",
+      "google_place_id": "ChIJQfAL2JYZ2jER9v06BxkNw1k"
+    },
+    {
+      "id": "river-wonders",
+      "qid": "Q7337785",
+      "names": {
+        "ko": "리버 원더스",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "River Wonders",
+        "local": "River Wonders",
+        "local_short": "River Wonders",
+        "local_lang": "en",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "리버 사파리"
+      ],
+      "aliases_en": [
+        "River Safari",
+        "River Safari Singapore"
+      ],
+      "mentions_ko": [],
+      "region": "sg_north",
+      "area_ko": "만다이",
+      "category": "theme_park",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 1.403873,
+        "lng": 103.790744,
+        "source": "wd",
+        "qid": "Q7337785",
+        "osm": null,
+        "last_verified": "2026-10-09"
+      },
+      "wd_geo": {
+        "lat": 1.403873,
+        "lng": 103.790744
+      },
+      "address_local": null,
+      "access": {
+        "modes": [
+          "metro",
+          "bus"
+        ],
+        "nearest_ko": "MRT 카팁역 A 출구에서 만다이 카팁 버스(M2)를 타요",
+        "nearest_local": {
+          "text": "Khatib MRT station",
+          "qid": "Q2152805",
+          "source": "wd"
+        },
+        "source": "mandai_getting_there",
+        "last_verified": "2026-10-09"
+      },
+      "official_url": "https://www.mandai.com/en/river-wonders.html",
+      "wiki": {
+        "ko": "리버 원더스",
+        "en": "River Wonders"
+      },
+      "summary_ko": "강과 물가에 사는 동물을 주제로 한 야생동물 공원이에요.",
+      "body_ko": [
+        "리버 원더스는 강을 주제로 한 야생동물 공원으로, 260종 11,000마리 이상의 육지·물속 동물이 살아요.",
+        "인도가비알, 메콩 자이언트 캣피시, 자이언트 판다 같은 동물을 볼 수 있어요.",
+        "대부분 지붕이 있어 소나기가 와도 둘러볼 수 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "리버 원더스는 강을 주제로 한 야생동물 공원이에요.",
+          "source": "mandai_river_wonders",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c2",
+          "text_ko": "260종, 11,000마리 이상의 육지·물속 동물이 살아요.",
+          "source": "mandai_river_wonders",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c3",
+          "text_ko": "인도가비알, 메콩 자이언트 캣피시, 자이언트 판다가 있어요.",
+          "source": "mandai_river_wonders",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c4",
+          "text_ko": "대부분 지붕이 있어 소나기가 와도 둘러볼 수 있어요.",
+          "source": "mandai_rw_kbyg",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "번개가 치면 바로 실내로 들어가라고 안내해요.",
+          "source": "mandai_rw_kbyg",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "일부 동물 설명회는 좌석을 온라인으로 미리 예약해야 해요.",
+          "source": "mandai_rw_kbyg",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "만다이 카팁 버스(M2)는 현금을 받지 않아요.",
+          "source": "mandai_getting_there",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "none"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "mandai_river_wonders",
+        "last_verified": "2026-10-09"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "mandai_river_wonders",
+        "last_verified": "2026-10-09"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_sg",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 12,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Kai_Kai.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-09",
+      "google_place_id": "ChIJxZfX_9gT2jERknwK8es7IHU"
+    },
+    {
+      "id": "buddha-tooth-relic-temple",
+      "qid": "Q839965",
+      "names": {
+        "ko": "불아사",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Buddha Tooth Relic Temple and Museum",
+        "local": "Buddha Tooth Relic Temple and Museum",
+        "local_short": "Buddha Tooth Relic Temple and Museum",
+        "local_lang": "en",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "불아사 용화원",
+        "부처 치아 사원"
+      ],
+      "aliases_en": [
+        "Buddha Tooth Relic Temple"
+      ],
+      "mentions_ko": [],
+      "region": "sg_central",
+      "area_ko": "차이나타운",
+      "category": "heritage",
+      "tags": [
+        {
+          "id": "dress_code",
+          "source": "btrts_home",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 1.28155,
+        "lng": 103.844,
+        "source": "wd",
+        "qid": "Q839965",
+        "osm": null,
+        "last_verified": "2026-10-09"
+      },
+      "wd_geo": {
+        "lat": 1.28155,
+        "lng": 103.844
+      },
+      "address_local": {
+        "text": "288 South Bridge Road Singapore 058840",
+        "source": "btrts_home",
+        "last_verified": "2026-10-09"
+      },
+      "access": {
+        "modes": [
+          "metro"
+        ],
+        "nearest_ko": "MRT 맥스웰역에서 내려요",
+        "nearest_local": {
+          "text": "Maxwell MRT station",
+          "qid": "Q6796128",
+          "source": "wd"
+        },
+        "source": "stb_btrt",
+        "last_verified": "2026-10-09"
+      },
+      "official_url": "https://www.btrts.org.sg/",
+      "wiki": {
+        "en": "Buddha Tooth Relic Temple and Museum"
+      },
+      "summary_ko": "부처의 치아 사리를 모신 당나라 양식의 불교 사원이에요.",
+      "body_ko": [
+        "불아사는 2007년 5월 31일 베삭 데이에 문을 연 사원으로, 차이나타운 사우스 브리지 로드에 있어요.",
+        "부처의 치아 사리를 모시려고 지었고, 설계는 불교 만다라와 당나라 건축 양식을 함께 따랐어요.",
+        "치아 사리는 금 320kg으로 만든 큰 사리탑 안에 모셔져 있고, 사원 안에는 박물관 두 곳이 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "2007년 5월 31일 베삭 데이에 공식 개관했고, 차이나타운 사우스 브리지 로드에 있어요.",
+          "source": "btrts_home",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c2",
+          "text_ko": "부처의 치아 사리를 모시려고 지었고, 설계에 불교 만다라와 당나라 건축 양식을 함께 썼어요.",
+          "source": "btrts_home",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c3",
+          "text_ko": "치아 사리는 금 320kg으로 만든 큰 사리탑 안에 있어요.",
+          "source": "stb_btrt",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c4",
+          "text_ko": "사원 안에 박물관 두 곳이 있어요.",
+          "source": "stb_btrt",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "짧은 치마·반바지·깊이 파인 옷·등이나 어깨가 드러나는 옷을 입으면 들어가지 못할 수 있어요.",
+          "source": "btrts_home",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "반려동물과 채식이 아닌 음식은 가지고 들어갈 수 없어요.",
+          "source": "btrts_home",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "옥상 정원은 배치 개선 공사로 잠시 닫혀 있어요.",
+          "source": "btrts_home",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "unknown",
+        "regular_closed": [
+          "none"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "stb_btrt",
+        "last_verified": "2026-10-09"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "partial",
+        "note_ko": "옥상 정원이 공사로 닫혀 있어요(2026년 12월 15일까지).",
+        "source": "btrts_home",
+        "last_verified": "2026-10-09"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_sg",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 13,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:BTRTM_as_seen_from_Maxwell_MRT_entrance_(2025)_-_img_03.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-09",
+      "google_place_id": "ChIJ0bwmznIZ2jEREOCMNggtIBk"
+    },
+    {
+      "id": "singapore-oceanarium",
+      "qid": "Q55756195",
+      "names": {
+        "ko": "싱가포르 오셔내리엄",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Singapore Oceanarium",
+        "local": "Singapore Oceanarium",
+        "local_short": "Singapore Oceanarium",
+        "local_lang": "en",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "S.E.A. 아쿠아리움",
+        "씨 아쿠아리움"
+      ],
+      "aliases_en": [
+        "S.E.A. Aquarium",
+        "SEA Aquarium Singapore"
+      ],
+      "mentions_ko": [],
+      "region": "sg_sentosa",
+      "area_ko": "리조트 월드 센토사",
+      "category": "theme_park",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 1.258611,
+        "lng": 103.818611,
+        "source": "wd",
+        "qid": "Q55756195",
+        "osm": null,
+        "last_verified": "2026-10-09"
+      },
+      "wd_geo": {
+        "lat": 1.258611,
+        "lng": 103.818611
+      },
+      "address_local": null,
+      "access": {
+        "modes": [
+          "metro",
+          "train"
+        ],
+        "nearest_ko": "MRT 하버프런트역에서 비보시티 3층으로 가 센토사 익스프레스를 타고 리조트 월드역에서 내려요",
+        "nearest_local": {
+          "text": "Sentosa Express",
+          "qid": "Q955618",
+          "source": "wd"
+        },
+        "source": "rws_getting_here",
+        "last_verified": "2026-10-09"
+      },
+      "official_url": "https://www.rwsentosa.com/en/play/singapore-oceanarium",
+      "wiki": {
+        "en": "Singapore Oceanarium"
+      },
+      "summary_ko": "리조트 월드 센토사 안의 해양 생물 전시관이에요.",
+      "body_ko": [
+        "싱가포르 오셔내리엄은 리조트 월드 센토사 안에 있는 해양 전시관으로, 120종 40,000마리 이상의 해양 동물이 살아요.",
+        "생명이 처음 생겨난 바다부터 얕은 바다, 깊은 바다까지 주제별 구역을 따라 둘러봐요.",
+        "옆에는 연구·교육 센터가 있는데, 그린 마크 플래티넘 제로 에너지 인증을 받은 건물이에요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "리조트 월드 센토사의 싱가포르 오셔내리엄에는 120종, 40,000마리 이상의 해양 동물이 살아요.",
+          "source": "stb_rws",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c2",
+          "text_ko": "생명이 시작된 때의 바다, 상어와 쥐가오리가 사는 얕은 바다, 깊은 바다 등 주제별 구역이 있어요.",
+          "source": "rws_oceanarium",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c3",
+          "text_ko": "연구·교육 센터는 그린 마크 플래티넘 제로 에너지 건물이에요.",
+          "source": "rws_oceanarium",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "붐비는 시기에는 입장 시간을 정한 표가 필요해요.",
+          "source": "rws_oceanarium",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "깊은 바다 구역 '라이프 인 더 딥'은 정비로 닫혀 있어요.",
+          "source": "rws_oceanarium",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "rws_oceanarium",
+        "last_verified": "2026-10-09"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "partial",
+        "note_ko": "깊은 바다 구역(Life in the Deep)이 정비로 닫혀 있어요.",
+        "source": "rws_oceanarium",
+        "last_verified": "2026-10-09"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_sg",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 14,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Entrance_of_S.E.A._Aquarium,_Resorts_World_Sentosa,_Singapore_-_20180220.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-09",
+      "google_place_id": "ChIJj-3Cq_0b2jERJv2MBkSVsPQ"
+    },
+    {
+      "id": "bird-paradise",
+      "qid": "Q113800717",
+      "names": {
+        "ko": "버드 파라다이스",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Bird Paradise",
+        "local": "Bird Paradise",
+        "local_short": "Bird Paradise",
+        "local_lang": "en",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "버드 파라다이스 싱가포르"
+      ],
+      "aliases_en": [],
+      "mentions_ko": [],
+      "region": "sg_north",
+      "area_ko": "만다이",
+      "category": "theme_park",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 1.407471,
+        "lng": 103.781823,
+        "source": "wd",
+        "qid": "Q113800717",
+        "osm": null,
+        "last_verified": "2026-10-09"
+      },
+      "wd_geo": {
+        "lat": 1.407471,
+        "lng": 103.781823
+      },
+      "address_local": null,
+      "access": {
+        "modes": [
+          "metro",
+          "bus"
+        ],
+        "nearest_ko": "MRT 카팁역 A 출구에서 만다이 카팁 버스(M2)를 타요(버드 파라다이스는 만다이 와일드라이프 웨스트 쪽)",
+        "nearest_local": {
+          "text": "Khatib MRT station",
+          "qid": "Q2152805",
+          "source": "wd"
+        },
+        "source": "mandai_getting_there",
+        "last_verified": "2026-10-09"
+      },
+      "official_url": "https://www.mandai.com/en/bird-paradise.html",
+      "wiki": {
+        "en": "Bird Paradise"
+      },
+      "summary_ko": "새 3,500마리 이상이 사는 넓은 새 공원이에요.",
+      "body_ko": [
+        "버드 파라다이스는 면적 17ha의 새 공원으로, 400종이 넘는 새 3,500마리 이상이 살아요.",
+        "세계 여러 기후대를 꾸민 대형 워크스루 새장 8곳을 걸어서 둘러봐요.",
+        "입구와 중앙 광장 사이에는 셔틀이 다니고, 휠체어 이용객도 탈 수 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "면적 17ha에 400종이 넘는 새 3,500마리 이상이 살고, 대형 주제 워크스루 새장이 8곳 있어요.",
+          "source": "mandai_bird_paradise",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c2",
+          "text_ko": "새장마다 세계 여러 생물군계의 특징·식물·새를 보여 줘요.",
+          "source": "mandai_bird_paradise",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c3",
+          "text_ko": "입구와 중앙 광장 사이를 셔틀이 오가고, 휠체어 이용객도 탈 수 있어요.",
+          "source": "mandai_bp_kbyg",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "새장 안에서는 음식을 먹거나 쓰레기를 두지 말아 달라고 해요.",
+          "source": "mandai_bp_kbyg",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "다가오는 새도 있지만 부리와 발톱이 날카로우니 만지지 마세요.",
+          "source": "mandai_bp_kbyg",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "정해진 길로만 다니고 울타리를 넘지 말아 달라고 해요.",
+          "source": "mandai_bp_kbyg",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "7세 미만 어린이는 만다이 카팁 버스를 무료로 타요.",
+          "source": "mandai_getting_there",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "none"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "mandai_bird_paradise",
+        "last_verified": "2026-10-09"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "mandai_bird_paradise",
+        "last_verified": "2026-10-09"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_sg",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 15,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Bird_Paradise_entrance.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-09",
+      "google_place_id": "ChIJkyCpkWcT2jER1Nsl0ZvOI4Q"
+    },
+    {
+      "id": "siloso-beach",
+      "qid": "Q49324767",
+      "names": {
+        "ko": "실로소 비치",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Siloso Beach",
+        "local": "Siloso Beach",
+        "local_short": "Siloso Beach",
+        "local_lang": "en",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "실로소 해변"
+      ],
+      "aliases_en": [
+        "Sentosa Siloso Beach"
+      ],
+      "mentions_ko": [],
+      "region": "sg_sentosa",
+      "area_ko": "센토사섬",
+      "category": "sea_island",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 1.2533333333333,
+        "lng": 103.81333333333,
+        "source": "wd",
+        "qid": "Q49324767",
+        "osm": null,
+        "last_verified": "2026-10-09"
+      },
+      "wd_geo": {
+        "lat": 1.2533333333333,
+        "lng": 103.81333333333
+      },
+      "address_local": null,
+      "access": {
+        "modes": [
+          "train",
+          "bus"
+        ],
+        "nearest_ko": "센토사 익스프레스 비치역에서 내려 비치 셔틀을 타요",
+        "nearest_local": {
+          "text": "Sentosa Express",
+          "qid": "Q955618",
+          "source": "wd"
+        },
+        "source": "sentosa_siloso",
+        "last_verified": "2026-10-09"
+      },
+      "official_url": "https://www.sentosa.com.sg/en/things-to-do/attractions/siloso-beach/",
+      "summary_ko": "바와 식당이 늘어선 센토사섬의 해변이에요.",
+      "body_ko": [
+        "실로소 비치는 센토사섬의 해변으로, 해변을 따라 바와 식당이 있어요.",
+        "스킴보드·카약·자전거·롤러블레이드 같은 해변 활동을 즐길 수 있어요.",
+        "해가 진 뒤에도 음악과 바로 북적여요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "실로소는 바와 식당이 모인 센토사의 해변이에요.",
+          "source": "sentosa_siloso",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c2",
+          "text_ko": "스킴보드·카약·자전거·롤러블레이드 같은 해변 활동을 할 수 있어요.",
+          "source": "sentosa_siloso",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c3",
+          "text_ko": "해가 진 뒤에도 파티와 음악, 바와 식당으로 북적여요.",
+          "source": "sentosa_siloso",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "빨간색과 노란색 깃발 사이, 해변 순찰대가 지켜보는 구역에서만 수영하세요.",
+          "source": "sentosa_siloso",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "해파리가 보였다는 보고가 있어 수영할 때 주의하라고 안내해요.",
+          "source": "sentosa_siloso",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "바위 둑에는 날카로운 따개비와 조개가 붙어 있어 미끄러지거나 다칠 수 있으니 올라가지 마세요.",
+          "source": "sentosa_siloso",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "섬 안에서는 센토사 익스프레스·센토사 버스·비치 셔틀을 무료로 탈 수 있어요.",
+          "source": "sentosa_getting_around",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "facts": {
+        "kind": "public_space"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "sentosa_siloso",
+        "last_verified": "2026-10-09"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_sg",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 16,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Siloso_Beach,_Sentosa.JPG",
+      "source": "wd",
+      "last_verified": "2026-10-09",
+      "google_place_id": "ChIJSygvr8wb2jER8PDpIfEg8P8"
+    }
+  ]
+}
