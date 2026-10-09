@@ -318,7 +318,15 @@
         "source": "hoangthanh_ticket",
         "last_verified": "2026-10-09"
       },
-      "access": null,
+      "access": {
+        "modes": [
+          "walk_from_center"
+        ],
+        "nearest_ko": "하노이 도심 한가운데에 있어요 — 호앙지에우 거리 19C",
+        "nearest_local": null,
+        "source": "unesco_1328",
+        "last_verified": "2026-10-09"
+      },
       "official_url": "https://hoangthanhthanglong.vn/",
       "wiki": {
         "ko": "탕롱 황성",
@@ -662,7 +670,15 @@
         "source": "hoalo_home",
         "last_verified": "2026-10-09"
       },
-      "access": null,
+      "access": {
+        "modes": [
+          "walk_from_center"
+        ],
+        "nearest_ko": "하노이 도심 한가운데에 있어요 — 호아로 거리 1번지",
+        "nearest_local": null,
+        "source": "hoalo_home",
+        "last_verified": "2026-10-09"
+      },
       "official_url": "https://hoalo.vn/",
       "wiki": {
         "ko": "호아로 수용소",
@@ -795,8 +811,20 @@
         "osm": null,
         "last_verified": "2026-10-09"
       },
-      "address_local": null,
-      "access": null,
+      "address_local": {
+        "text": "Khu du lịch sinh thái Tràng An, phường Tây Hoa Lư, tỉnh Ninh Bình",
+        "source": "nbtourism_trangan_station",
+        "last_verified": "2026-10-09"
+      },
+      "access": {
+        "modes": [
+          "boat"
+        ],
+        "nearest_ko": "짱안 선착장(생태관광지 안, 관광객 지원소가 있어요)에서 배를 타요",
+        "nearest_local": null,
+        "source": "nbtourism_trangan_station",
+        "last_verified": "2026-10-09"
+      },
       "official_url": "https://trangandanhthang.vn/",
       "wiki": {
         "ko": "짱안 경관 단지",
@@ -1059,272 +1087,6 @@
       "photo_link": null,
       "source": "wd",
       "last_verified": "2026-10-09"
-    },
-    {
-      "id": "hanoi-st-joseph-cathedral",
-      "qid": "Q1923783",
-      "names": {
-        "ko": "성 요셉 대성당",
-        "ko_basis": "editorial",
-        "ko_paren": null,
-        "en": "St. Joseph's Cathedral",
-        "local": "Nhà thờ Lớn Hà Nội",
-        "local_short": "Nhà thờ Lớn",
-        "local_lang": "vi",
-        "source": "wd"
-      },
-      "aliases_ko": [
-        "하노이 대성당",
-        "성요셉 성당"
-      ],
-      "aliases_en": [
-        "Hanoi Cathedral",
-        "St. Joseph's Cathedral, Hanoi"
-      ],
-      "mentions_ko": [],
-      "region": "vn_hanoi",
-      "area_ko": "하노이 호안끼엠",
-      "category": "heritage",
-      "tags": [],
-      "geo": {
-        "kind": "site",
-        "lat": 21.0286,
-        "lng": 105.849,
-        "source": "wd",
-        "qid": "Q1923783",
-        "osm": null,
-        "last_verified": "2026-10-09"
-      },
-      "address_local": {
-        "text": "Số 40, Nhà Chung, P. Hoàn Kiếm, TP. Hà Nội",
-        "source": "tgphn_chinhtoa",
-        "last_verified": "2026-10-09"
-      },
-      "access": null,
-      "official_url": "https://www.tonggiaophanhanoi.org/giao-xu-chinh-toa-ha-noi/",
-      "wiki": {
-        "ko": "성요셉 성당 (하노이)",
-        "en": "St. Joseph's Cathedral, Hanoi"
-      },
-      "summary_ko": "1887년에 문을 연 하노이 대교구의 주교좌성당이에요.",
-      "body_ko": [
-        "성 요셉 대성당(냐터런)은 1887년 12월 23일 정식으로 문을 열었어요.",
-        "1924년 교구 이름이 하노이 교구로 바뀌면서 주교좌성당이 됐어요.",
-        "건물은 길이 55m, 너비 33m이고, 두 종탑의 높이는 31m예요.",
-        "안쪽 색유리화는 1908년 프랑스에서 만들었어요."
-      ],
-      "claims": [
-        {
-          "id": "c1",
-          "text_ko": "1887년 12월 23일 정식으로 문을 열었어요.",
-          "source": "tgphn_chinhtoa",
-          "last_verified": "2026-10-09"
-        },
-        {
-          "id": "c2",
-          "text_ko": "1924년 교구 이름이 하노이 교구로 바뀌면서 주교좌성당이 됐어요.",
-          "source": "tgphn_chinhtoa",
-          "last_verified": "2026-10-09"
-        },
-        {
-          "id": "c3",
-          "text_ko": "길이 55m, 너비 33m, 지붕 높이 17m, 두 종탑 높이 31m예요.",
-          "source": "tgphn_chinhtoa",
-          "last_verified": "2026-10-09"
-        },
-        {
-          "id": "c4",
-          "text_ko": "색유리화는 1908년 프랑스에서 만들었어요.",
-          "source": "tgphn_chinhtoa",
-          "last_verified": "2026-10-09"
-        },
-        {
-          "id": "c5",
-          "text_ko": "성당은 미사 말고도 순례·기도하러 오거나 역사·건축을 알아보러 온 방문객을 맞이해요.",
-          "source": "tgphn_chinhtoa",
-          "last_verified": "2026-10-09"
-        }
-      ],
-      "tips_ko": [
-        {
-          "text": "미사를 드리는 성당이라, 일요일에는 하루에 여러 번 미사가 있어요.",
-          "source": "tgphn_chinhtoa",
-          "last_verified": "2026-10-09"
-        },
-        {
-          "text": "성당 측은 기도하러 온 사람뿐 아니라 역사·건축을 보러 온 방문객도 맞이한다고 안내해요.",
-          "source": "tgphn_chinhtoa",
-          "last_verified": "2026-10-09"
-        }
-      ],
-      "facts": {
-        "kind": "facility",
-        "entry": "unknown",
-        "regular_closed": [
-          "unknown"
-        ],
-        "closed_note_ko": null,
-        "visit_note_ko": null,
-        "source": "tgphn_chinhtoa",
-        "last_verified": "2026-10-09"
-      },
-      "volatile": null,
-      "seasonal": [],
-      "risk": [],
-      "status": {
-        "value": "open",
-        "note_ko": null,
-        "source": "tgphn_chinhtoa",
-        "last_verified": "2026-10-09"
-      },
-      "advisory": {
-        "level": "1",
-        "source": "mofa_vn",
-        "last_verified": "2026-10-02"
-      },
-      "rank": {
-        "order": 207,
-        "designations": []
-      },
-      "photo": null,
-      "photo_link": "https://commons.wikimedia.org/wiki/File:St._Joseph's_Cathedral_-_50129345872.jpg",
-      "source": "wd",
-      "last_verified": "2026-10-09"
-    },
-    {
-      "id": "ho-chi-minh-museum",
-      "qid": "Q1055897",
-      "names": {
-        "ko": "호찌민 박물관",
-        "ko_basis": "editorial",
-        "ko_paren": null,
-        "en": "Ho Chi Minh Museum",
-        "local": "Bảo tàng Hồ Chí Minh",
-        "local_short": "Bảo tàng Hồ Chí Minh",
-        "local_lang": "vi",
-        "source": "wd"
-      },
-      "aliases_ko": [
-        "호치민 박물관"
-      ],
-      "aliases_en": [],
-      "mentions_ko": [],
-      "region": "vn_hanoi",
-      "area_ko": "하노이 바딘",
-      "category": "museum",
-      "tags": [
-        {
-          "id": "foreigner_price",
-          "source": "hcmm_ticket",
-          "last_verified": "2026-10-09"
-        },
-        {
-          "id": "dress_code",
-          "source": "hcmm_rules",
-          "last_verified": "2026-10-09"
-        }
-      ],
-      "geo": {
-        "kind": "site",
-        "lat": 21.035693,
-        "lng": 105.832624,
-        "source": "wd",
-        "qid": "Q1055897",
-        "osm": null,
-        "last_verified": "2026-10-09"
-      },
-      "address_local": {
-        "text": "19 Ngọc Hà, Ba Đình, Hà Nội",
-        "source": "hcmm_contact",
-        "last_verified": "2026-10-09"
-      },
-      "access": null,
-      "official_url": "https://baotanghochiminh.vn/",
-      "wiki": {
-        "ko": "호찌민 박물관",
-        "en": "Ho Chi Minh Museum"
-      },
-      "summary_ko": "호찌민 탄생 100주년인 1990년에 문을 연 박물관이에요.",
-      "body_ko": [
-        "호찌민 박물관은 1985년 8월 31일 공사를 시작해, 호찌민 탄생 100주년인 1990년 5월 19일 문을 열었어요.",
-        "하노이 바딘 지역에 있고, 박물관은 건물을 흰 연꽃에 빗대어 소개해요."
-      ],
-      "claims": [
-        {
-          "id": "c1",
-          "text_ko": "1985년 8월 31일 착공해 1990년 5월 19일 개관했어요.",
-          "source": "hcmm_history",
-          "last_verified": "2026-10-09"
-        },
-        {
-          "id": "c2",
-          "text_ko": "개관은 호찌민 탄생 100주년에 맞췄어요.",
-          "source": "hcmm_history",
-          "last_verified": "2026-10-09"
-        },
-        {
-          "id": "c3",
-          "text_ko": "박물관은 바딘에 있는 건물을 흰 연꽃에 빗대어 소개해요.",
-          "source": "hcmm_history",
-          "last_verified": "2026-10-09"
-        }
-      ],
-      "tips_ko": [
-        {
-          "text": "단정한 옷차림으로 관람하고, 모자는 벗어서 손에 들어요.",
-          "source": "hcmm_rules",
-          "last_verified": "2026-10-09"
-        },
-        {
-          "text": "큰 짐·배낭·가방은 보관소에 맡겨야 해요.",
-          "source": "hcmm_rules",
-          "last_verified": "2026-10-09"
-        },
-        {
-          "text": "베트남 국민은 무료이고, 외국인은 관람료를 내요.",
-          "source": "hcmm_ticket",
-          "last_verified": "2026-10-09"
-        },
-        {
-          "text": "전시물과 장비는 만지면 안 돼요.",
-          "source": "hcmm_rules",
-          "last_verified": "2026-10-09"
-        }
-      ],
-      "facts": {
-        "kind": "facility",
-        "entry": "paid",
-        "regular_closed": [
-          "mon",
-          "fri"
-        ],
-        "closed_note_ko": null,
-        "visit_note_ko": null,
-        "source": "hcmm_hours",
-        "last_verified": "2026-10-09"
-      },
-      "volatile": null,
-      "seasonal": [],
-      "risk": [],
-      "status": {
-        "value": "open",
-        "note_ko": null,
-        "source": "hcmm_hours",
-        "last_verified": "2026-10-09"
-      },
-      "advisory": {
-        "level": "1",
-        "source": "mofa_vn",
-        "last_verified": "2026-10-02"
-      },
-      "rank": {
-        "order": 208,
-        "designations": []
-      },
-      "photo": null,
-      "photo_link": "https://commons.wikimedia.org/wiki/File:Ho_Chi_Minh_museum,_Hanoi_2.jpg",
-      "source": "wd",
-      "last_verified": "2026-10-09"
     }
   ],
   "sources": [
@@ -1410,12 +1172,6 @@
       "use": "facts"
     },
     {
-      "id": "tgphn_chinhtoa",
-      "name": "Tổng Giáo phận Hà Nội — Giáo xứ Chính Tòa Hà Nội (official)",
-      "url": "https://www.tonggiaophanhanoi.org/giao-xu-chinh-toa-ha-noi/",
-      "use": "facts"
-    },
-    {
       "id": "hoalo_intro",
       "name": "Ban Quản lý Di tích Nhà tù Hỏa Lò — Giới thiệu Di tích (official)",
       "url": "https://hoalo.vn/Articles/14/34/gioi-thieu-di-tich-lich-su-nha-tu-hoa-lo.html",
@@ -1431,36 +1187,6 @@
       "id": "hoalo_fee",
       "name": "Ban Quản lý Di tích Nhà tù Hỏa Lò — Thông báo phí tham quan (official)",
       "url": "https://hoalo.vn/Articles/12/26017/thong-bao-thay-%C4%91oi-phi-tham-quan-ban-ngay.html",
-      "use": "facts"
-    },
-    {
-      "id": "hcmm_hours",
-      "name": "Bảo tàng Hồ Chí Minh — Giờ mở cửa (official)",
-      "url": "https://baotanghochiminh.vn/gio-mo-cua.htm",
-      "use": "facts"
-    },
-    {
-      "id": "hcmm_ticket",
-      "name": "Bảo tàng Hồ Chí Minh — Thông tin vé tham quan (official)",
-      "url": "https://baotanghochiminh.vn/thong-tin-ve-tham-quan.htm",
-      "use": "facts"
-    },
-    {
-      "id": "hcmm_rules",
-      "name": "Bảo tàng Hồ Chí Minh — Nội quy tham quan (official)",
-      "url": "https://baotanghochiminh.vn/noi-quy-tham-quan.htm",
-      "use": "facts"
-    },
-    {
-      "id": "hcmm_history",
-      "name": "Bảo tàng Hồ Chí Minh — Lịch sử phát triển (official)",
-      "url": "https://baotanghochiminh.vn/lich-su-phat-trien-new.htm",
-      "use": "facts"
-    },
-    {
-      "id": "hcmm_contact",
-      "name": "Bảo tàng Hồ Chí Minh — Liên hệ (official)",
-      "url": "https://baotanghochiminh.vn/lien-he.htm",
       "use": "facts"
     },
     {
@@ -1497,6 +1223,12 @@
       "id": "trangan_prices",
       "name": "Ban Quản lý Quần thể danh thắng Tràng An — Giá vé tham quan các khu, điểm du lịch (official)",
       "url": "https://trangandanhthang.vn/gia-ve-tham-quan-cac-khu-diem-du-lich/",
+      "use": "facts"
+    },
+    {
+      "id": "nbtourism_trangan_station",
+      "name": "Trung tâm Thông tin Xúc tiến du lịch — Sở Du lịch Ninh Bình: Trạm hỗ trợ du khách tại bến thuyền Tràng An (official)",
+      "url": "https://dulichninhbinh.com.vn/item/1180",
       "use": "facts"
     }
   ]
