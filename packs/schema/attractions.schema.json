@@ -210,6 +210,7 @@
           }
         },
         "official_url": {"type": ["string", "null"], "pattern": "^https://"},
+        "google_place_id": {"type": ["string", "null"], "pattern": "^[A-Za-z0-9_-]{10,300}$"},
         "summary_ko": {"type": "string", "minLength": 1},
         "body_ko": {"type": "array", "items": {"type": "string", "minLength": 1}},
         "claims": {

@@ -11,6 +11,8 @@ on:
     branches: [main]
     paths:
       - "packs/src/**"
+      - "app/src/main/assets/packs/**"
+  # attractions-auto.yml 이 관광지 자동 갱신 PR 을 머지한 뒤 GITHUB_TOKEN 으로 부른다(GITHUB_TOKEN 머지는 push 를 띄우지 않는다)
   workflow_dispatch:
 
 permissions:
@@ -52,6 +54,9 @@ jobs:
       - name: Bundled packs in the app must match what we deploy
         # Ed25519 서명은 결정적이라 커밋된 앱 내장 팩과 똑같아야 한다 (다르면 앱 내장본을 다시 만들어 커밋해야 함)
         run: git diff --exit-code -- app/src/main/assets/packs
+      - name: Stage signed attractions (Hosting deploy replaces the whole site)
+        # 관광지 서명본은 커밋된 assets 것을 그대로 복사하고 서명을 다시 확인한다(SPEC_v5 §10.1). 빠뜨리면 Hosting 에서 사라진다
+        run: python tools/deploy/stage_hosting.py
       - name: Service account
         env:
           FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
@@ -64,7 +69,7 @@ jobs:
           node-version: "22"
       - name: Deploy Hosting (packs only)
         run: npx --yes firebase-tools@15 deploy --only hosting --project "$FIREBASE_PROJECT_ID" --non-interactive
-      - name: Remote Config version pointers (switch keys untouched)
+      - name: Remote Config version pointers (switch keys untouched; attractions_version_* max 3 per run)
         run: python tools/deploy/ci_deploy.py rc-versions
       - name: Notify country topics
         # 알림은 부가 기능이다(앱은 매일 Remote Config로도 새 안내를 확인한다). 실패해도 배포는 성공으로 두고 경고만 남긴다

@@ -1,7 +1,8 @@
 """GitHub Actions 배포·감시 도우미 (ARIA_OPS 12.8).
 
 하위 명령
-  rc-versions      packs/src 의 버전으로 Remote Config '버전 포인터'만 바꾼다.
+  rc-versions      packs/src 의 버전(+ 커밋된 관광지 서명본의 attractions_version_<CC>)으로 Remote Config '버전 포인터'만 바꾼다.
+                   관광지 키는 한 번에 3개까지(Hosting 하루 한도), 7일 안 재공개는 경고.
                    kill_autofill_* · stale_banner · min_app_version 등 다른 키는 절대 건드리지 않는다
                    (템플릿 전체 배포는 ARIA가 켠 스위치를 되돌리므로 CI에서 쓰지 않는다).
   fcm-notify       바뀐 나라 팩의 토픽 country_{ISO2} 로 알림. 메시지에는 나라 코드만 담는다.
@@ -24,14 +25,20 @@ import sys
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
 
-VERSION_KEY_RE = re.compile(r"^(index_version|pack_version_[A-Z]{2}|recipe_version_[A-Z]{2}_[A-Z0-9_]+)$")
+VERSION_KEY_RE = re.compile(
+    r"^(index_version|pack_version_[A-Z]{2}|recipe_version_[A-Z]{2}_[A-Z0-9_]+|attractions_version_[A-Z]{2})$")
+ATTRACTIONS_KEY_RE = re.compile(r"^attractions_version_[A-Z]{2}$")
+ASSETS = ROOT / "app" / "src" / "main" / "assets" / "packs"
+# 한 번 실행에서 올리는 관광지 버전 키 상한 (SPEC_v5 리뷰: Spark Hosting 하루 360MB — 여러 나라가 같은 날 받으면 넘칠 수 있다)
+ATTRACTIONS_MAX_PER_RUN = 3
+ATTRACTIONS_MIN_DAYS = 7
 SCOPE_FCM = "https://www.googleapis.com/auth/firebase.messaging"
 
 
 # ---------------- 순수 함수 (테스트 대상) ----------------
 
-def pack_versions(src: pathlib.Path) -> dict[str, str]:
-    """packs/src 에서 {RC 키: 버전}."""
+def pack_versions(src: pathlib.Path, assets: pathlib.Path | None = ASSETS) -> dict[str, str]:
+    """packs/src 에서 {RC 키: 버전}. 관광지는 커밋된 서명본(assets = Hosting 에 실제로 올라가는 것)의 버전 (SPEC_v5 §4.1)."""
     out = {"index_version": json.loads((src / "index.json").read_text(encoding="utf-8"))["version"]}
     for p in sorted(src.glob("[A-Z][A-Z]/pack.json")):
         d = json.loads(p.read_text(encoding="utf-8"))
@@ -39,7 +46,47 @@ def pack_versions(src: pathlib.Path) -> dict[str, str]:
     for p in sorted((src / "recipes").glob("*.json")):
         d = json.loads(p.read_text(encoding="utf-8"))
         out[f"recipe_version_{p.stem}"] = d["version"]
+    if assets is not None and assets.is_dir():
+        for p in sorted(assets.glob("[A-Z][A-Z]/attractions.json")):
+            d = json.loads(p.read_text(encoding="utf-8"))
+            if d.get("doc_type") == "attractions" and d.get("release") == "published" and not d.get("sample"):
+                out[f"attractions_version_{p.parent.name}"] = d["version"]
     return out
+
+
+def _current_value(template: dict, key: str) -> str | None:
+    p = (template.get("parameters") or {}).get(key)
+    if p is None:
+        for g in (template.get("parameterGroups") or {}).values():
+            p = (g.get("parameters") or {}).get(key, p)
+    return ((p or {}).get("defaultValue") or {}).get("value")
+
+
+def _version_date(v: str | None):
+    import datetime as dt
+    m = re.match(r"^(\d{4})\.(\d{2})\.(\d{2})-\d+$", v or "")
+    return dt.date(int(m.group(1)), int(m.group(2)), int(m.group(3))) if m else None
+
+
+def limit_attraction_keys(template: dict, versions: dict[str, str],
+                          max_changes: int = ATTRACTIONS_MAX_PER_RUN) -> tuple[dict[str, str], list[str]]:
+    """관광지 버전 키는 한 번에 max_changes 개까지만 올린다(나머지는 이번에는 그대로 두고 다음 실행으로).
+    같은 나라를 7일 안에 다시 올리면 경고만(버전 문자열의 날짜로 계산). (남길 versions, 경고 목록)."""
+    out, warnings, changing = {}, [], []
+    for k, v in versions.items():
+        if ATTRACTIONS_KEY_RE.match(k) and _current_value(template, k) != v:
+            changing.append(k)
+            continue
+        out[k] = v
+    for i, k in enumerate(sorted(changing)):
+        if i >= max_changes:
+            warnings.append(f"{k}: 이번 실행 상한({max_changes}개) 초과 — 다음 실행(workflow_dispatch)에서 올린다")
+            continue
+        old, new = _version_date(_current_value(template, k)), _version_date(versions[k])
+        if old and new and (new - old).days < ATTRACTIONS_MIN_DAYS:
+            warnings.append(f"{k}: 지난 버전과 {(new - old).days}일 차이(7일 미만) — 받는 양이 늘 수 있음")
+        out[k] = versions[k]
+    return out, warnings
 
 
 def _without(template: dict, keys: set[str]) -> dict:
@@ -200,6 +247,9 @@ def cmd_rc_versions(args) -> int:  # pragma: no cover
     versions = pack_versions(ROOT / "packs/src")
     _, rc, _, _, _ = _clients()
     template, etag = rc.get()
+    versions, warnings = limit_attraction_keys(template, versions)
+    for w in warnings:
+        print(f"::warning title=관광지 버전::{w}")
     new_t, changed = apply_versions(template, versions)
     print("바뀔 키:", changed or "없음")
     if changed and not args.dry_run:

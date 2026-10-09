@@ -90,6 +90,70 @@ class TempDirCase:
         cfg.request_interval_sec = 0
         cfg.mofa_service_key = "TESTKEY"
         cfg.mofa_api_url = "https://mofa.example.test/api"
+        cfg.attractions_evidence_dir = tmp / "evidence"
         for k, v in kw.items():
             setattr(cfg, k, v)
         return cfg
+
+
+class MemFirestore:
+    """FirestoreRest 흉내(메모리). 이 모듈들이 쓰는 질의만: collectionId(+parent), fieldFilter EQUAL/LESS_THAN,
+    orderBy 한 칸, startAt(before=False), limit. select 는 무시(전체 필드)."""
+
+    PREFIX = "projects/p/databases/(default)/documents/"
+
+    def __init__(self, docs=None):
+        self.docs = {k: dict(v) for k, v in (docs or {}).items()}
+        self.writes: list[tuple] = []
+        self.queries: list[tuple] = []
+
+    def get_document(self, path):
+        d = self.docs.get(path)
+        return dict(d) if d is not None else None
+
+    def set_document(self, path, data):
+        self.writes.append(("set", path, dict(data)))
+        self.docs.setdefault(path, {}).update(data)
+
+    def replace_document(self, path, data):
+        self.writes.append(("replace", path, dict(data)))
+        self.docs[path] = dict(data)
+
+    def delete_document(self, name_or_path):
+        path = name_or_path[len(self.PREFIX):] if name_or_path.startswith(self.PREFIX) else name_or_path
+        self.writes.append(("delete", path))
+        self.docs.pop(path, None)
+
+    def run_query(self, q, parent=""):
+        from ops.aria.gcp import from_fs_value
+
+        self.queries.append((q, parent))
+        coll = q["from"][0]["collectionId"]
+        prefix = (parent + "/" if parent else "") + coll + "/"
+        rows = [(p, d) for p, d in self.docs.items() if p.startswith(prefix) and "/" not in p[len(prefix):]]
+        f = (q.get("where") or {}).get("fieldFilter")
+        if f:
+            field, op, val = f["field"]["fieldPath"], f["op"], from_fs_value(f["value"])
+            if op == "EQUAL":
+                rows = [(p, d) for p, d in rows if d.get(field) == val]
+            elif op == "LESS_THAN":
+                rows = [(p, d) for p, d in rows if d.get(field) is not None and d[field] < val]
+            else:
+                raise AssertionError(op)
+        order = q.get("orderBy")
+        if order:
+            field = order[0]["field"]["fieldPath"]
+            if field == "__name__":
+                rows.sort(key=lambda pd: pd[0])
+            else:
+                rows = sorted(((p, d) for p, d in rows if field in d), key=lambda pd: pd[1][field])
+            start = q.get("startAt")
+            if start:
+                sv = start["values"][0]
+                if "referenceValue" in sv:
+                    rows = [(p, d) for p, d in rows if self.PREFIX + p > sv["referenceValue"]]
+                else:
+                    v = from_fs_value(sv)
+                    rows = [(p, d) for p, d in rows if d[field] > v]
+        rows = rows[: q.get("limit", 1000)]
+        return [{**d, "_name": self.PREFIX + p} for p, d in rows]

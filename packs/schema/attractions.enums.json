@@ -21,5 +21,6 @@
   "unmapped_reasons": ["compact", "upcoming", "advisory", "safety_retired"],
   "public_space_categories": ["market_street", "city_view", "sea_island", "nature"],
   "ko_basis": ["editorial", "nikl", "official"],
+  "google_place_id": {"pattern": "^[A-Za-z0-9_-]{10,300}$", "fetch_field_mask": "places.id", "note": "선택 필드. Google Places place ID 만 저장한다(약관상 무기한 저장 가능한 유일한 값). 별점·리뷰는 저장하지 않고 앱 상세에서 그때그때 조회('Google 제공' 표시). 채우기: build_attractions.py place-ids <CC>"},
   "local_lang": {"TH": "th", "JP": "ja", "VN": "vi", "CN": "zh-Hans", "TW": "zh-Hant", "ID": "id", "MY": ["ms", "en"], "PH": "en", "SG": "en"}
 }

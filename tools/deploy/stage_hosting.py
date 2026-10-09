@@ -1,7 +1,8 @@
 """커밋된 관광지 서명본을 Hosting 배포 폴더로 옮긴다 (SPEC_v5 §10.1).
 
-hosting/public/packs/ 는 커밋하지 않고 build_packs.py 가 배포 직전에 만든다. 관광지 서명본은 운영자 PC에서만 서명하므로
-(키가 CI에 없다) 커밋된 app/src/main/assets/packs/<CC>/attractions.json(+.sig)을 그대로 복사하고, 복사본의 서명·kid·doc_type 을 다시 확인한다.
+hosting/public/packs/ 는 커밋하지 않고 build_packs.py 가 배포 직전에 만든다. 관광지 서명본은 서명할 때 커밋되므로
+(운영자 PC promote·retire, 또는 주간 자동 갱신의 attractions-auto.yml apply-drafts) 커밋된 app/src/main/assets/packs/<CC>/attractions.json(+.sig)을
+그대로 복사하고, 복사본의 서명·kid·doc_type 을 다시 확인한다. 배포 워크플로(deploy-packs·notices)는 Hosting 배포 직전에 이것을 부른다.
 
 사용:
   python tools/deploy/stage_hosting.py                 # 복사 + 검증 (firebase deploy --only hosting 직전에)

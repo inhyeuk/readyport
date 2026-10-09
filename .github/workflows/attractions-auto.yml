@@ -1,0 +1,144 @@
+name: attractions-auto
+
+# 관광지 주간 자동 갱신 PR (ARIA ops/aria/jobs/attractions_update.py 가 연다). 사장님 결정 2026-10-09:
+#   검사를 통과하면 자동 반영. 서명은 ARIA 가 아니라 여기(GitHub Actions secrets)에서만.
+#
+# 도는 조건: 라벨 attractions-auto + 브랜치 aria/attractions-* + 같은 저장소 + main 대상.
+# 순서: 범위 검사(auto_update_guard) → check → 인용 기록 확인(verify-quotes --use-record) → 도구 테스트
+#       → [공개된 나라] apply-drafts 로 그 곳만 서명 → verify-committed·stage 확인 → 서명본을 PR 브랜치에 커밋
+#       → 머지(squash) → [공개된 나라] deploy-packs.yml 실행(Hosting + Remote Config attractions_version_<CC>)
+#   공개 전 나라는 작업본만 머지한다(서명·배포 없음 — 새 나라 공개는 D22 사람 승인 절차).
+#
+# 사람이 등록할 것
+#   secrets.ATTRACTIONS_SIGNING_KEY_PEM   관광지 전용 서명 키(kid rp-att-2026-1) PEM 내용. 없으면 공개된 나라 PR 은 분명한 오류로 멈춘다
+#   secrets.ATTRACTIONS_SIGNING_KEY_PASS  (선택) PEM 에 암호를 걸었으면 그 암호
+#   vars.ATTRACTIONS_AUTO_APPROVE = true  (선택) main 보호에 '승인 필요'가 켜져 있으면 — GITHUB_TOKEN 이 승인 리뷰를 남긴다.
+#                                         저장소 설정 Actions > General > 'Allow GitHub Actions to create and approve pull requests' 도 켜야 한다
+# Remote Config 템플릿 전체 배포는 하지 않는다(rc-versions 만, deploy-packs.yml).
+
+on:
+  pull_request:
+    types: [labeled, opened, synchronize, reopened]
+
+permissions:
+  contents: write
+  pull-requests: write
+  actions: write
+
+concurrency:
+  group: attractions-auto-${{ github.event.pull_request.number }}
+  cancel-in-progress: false
+
+jobs:
+  auto:
+    if: >-
+      contains(github.event.pull_request.labels.*.name, 'attractions-auto') &&
+      startsWith(github.event.pull_request.head.ref, 'aria/attractions-') &&
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      github.event.pull_request.base.ref == 'main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      ATT_KID: rp-att-2026-1
+      PR_NUMBER: ${{ github.event.pull_request.number }}
+      HEAD_REF: ${{ github.event.pull_request.head.ref }}
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Install tools
+        run: pip install -r tools/packs/requirements.txt
+
+      - name: Scope guard (only fact fields of existing places, one country)
+        id: guard
+        run: |
+          git fetch origin main
+          python tools/attractions/auto_update_guard.py --base origin/main --head HEAD --branch "$HEAD_REF" > "$RUNNER_TEMP/guard.json"
+          cat "$RUNNER_TEMP/guard.json"
+          python - "$RUNNER_TEMP/guard.json" >> "$GITHUB_OUTPUT" <<'PY'
+          import json, re, sys
+          d = json.load(open(sys.argv[1], encoding="utf-8"))
+          assert re.fullmatch(r"[A-Z]{2}", d["cc"]) and d["ids"]
+          assert all(re.fullmatch(r"[a-z0-9]+(-[a-z0-9]+)*", i) for i in d["ids"])
+          print(f"cc={d['cc']}")
+          print(f"ids={','.join(d['ids'])}")
+          print(f"published={'true' if d['published'] else 'false'}")
+          PY
+
+      - name: Attractions check (schema, lint)
+        run: python tools/attractions/build_attractions.py check "${{ steps.guard.outputs.cc }}"
+      - name: Quotes verified on the operator PC (record covers the changed places)
+        # 증거(공식 페이지 스냅샷)는 저장소 밖에만 있다 — CI 는 ARIA 가 대조를 마친 기록(facts 해시)으로 확인한다
+        run: python tools/attractions/build_attractions.py verify-quotes "${{ steps.guard.outputs.cc }}" --ids "${{ steps.guard.outputs.ids }}" --use-record
+      - name: Tool tests (no network)
+        run: |
+          python -m unittest tools/attractions/test_build_attractions.py tools/attractions/test_auto_update.py tools/deploy/test_stage_hosting.py tools/deploy/test_ci_deploy.py
+          python -m unittest discover -s ops/aria/tests -t .
+
+      - name: Signing key present?
+        if: steps.guard.outputs.published == 'true'
+        env:
+          KEY: ${{ secrets.ATTRACTIONS_SIGNING_KEY_PEM }}
+        run: |
+          if [ -z "$KEY" ]; then
+            echo "::error title=관광지 서명 키 없음::secrets.ATTRACTIONS_SIGNING_KEY_PEM 을 등록해야 공개된 나라의 주간 갱신을 서명·머지할 수 있어요. PR 은 그대로 두었어요."
+            exit 1
+          fi
+      - name: Sign only the changed places (apply-drafts)
+        if: steps.guard.outputs.published == 'true'
+        env:
+          KEY: ${{ secrets.ATTRACTIONS_SIGNING_KEY_PEM }}
+          RP_ATT_KEY_PASS: ${{ secrets.ATTRACTIONS_SIGNING_KEY_PASS }}
+        run: |
+          umask 077
+          key="$RUNNER_TEMP/att_key.pem"
+          printf '%s\n' "$KEY" > "$key"
+          python tools/attractions/build_attractions.py apply-drafts "${{ steps.guard.outputs.cc }}" \
+            --ids "${{ steps.guard.outputs.ids }}" --kid "$ATT_KID" --key "$key" < /dev/null
+          rm -f "$key"
+      - name: Verify signed copies and Hosting staging
+        if: steps.guard.outputs.published == 'true'
+        run: |
+          python tools/attractions/build_attractions.py verify-committed
+          python tools/deploy/stage_hosting.py
+      - name: Commit signed outputs to the PR branch
+        if: steps.guard.outputs.published == 'true'
+        env:
+          CC: ${{ steps.guard.outputs.cc }}
+          IDS: ${{ steps.guard.outputs.ids }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "packs/src/$CC/attractions.json" "app/src/main/assets/packs/$CC/attractions.json" \
+                  "app/src/main/assets/packs/$CC/attractions.json.sig" "packs/curation/$CC.quotes.json" "packs/curation/$CC.copycheck.json"
+          extra=$(git status --porcelain | grep -v '^M  \|^A  ' || true)
+          if [ -n "$extra" ]; then echo "::error::서명 뒤 예상 밖 변경: $extra"; exit 1; fi
+          git commit -m "관광지 서명(CI): $CC ($IDS)"
+          git push origin "HEAD:$HEAD_REF"
+
+      - name: Approve (only if the owner enabled it for branch protection)
+        if: vars.ATTRACTIONS_AUTO_APPROVE == 'true'
+        run: |
+          gh pr review "$PR_NUMBER" --approve --body "관광지 주간 자동 갱신 — 검사·서명 통과 (attractions-auto)"
+      - name: Merge (squash)
+        run: |
+          sha=$(git rev-parse HEAD)
+          if gh pr merge "$PR_NUMBER" --squash --match-head-commit "$sha" --delete-branch; then
+            echo "머지 완료"
+          else
+            echo "::error title=머지 안 됨::main 보호 규칙(승인 필요 등) 때문일 수 있어요. 승인이 필요하면 vars.ATTRACTIONS_AUTO_APPROVE=true 와 'Allow GitHub Actions to create and approve pull requests' 를 켜거나 사람이 머지하세요. 머지하면 deploy-packs 가 push 로 돌아요."
+            exit 1
+          fi
+      - name: Deploy (Hosting + Remote Config attractions_version) via deploy-packs
+        # GITHUB_TOKEN 머지는 push 워크플로를 띄우지 않으므로 직접 부른다(workflow_dispatch 는 예외적으로 된다)
+        if: steps.guard.outputs.published == 'true'
+        run: gh workflow run deploy-packs.yml --ref main
+      - name: Clean up
+        if: always()
+        run: rm -f "$RUNNER_TEMP/att_key.pem"
