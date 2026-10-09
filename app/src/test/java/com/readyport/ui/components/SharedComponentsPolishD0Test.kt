@@ -219,6 +219,7 @@ class SharedComponentsPolishD0Test {
         assertEquals(listOf("IDR 500,000"), tokens("비용은 IDR 500,000이에요."))
         assertEquals(listOf("1억 루피아"), tokens("1억 루피아 넘는 현금은 신고해요."))
         assertEquals(listOf("220 V", "60 Hz"), tokens("220 V, 60 Hz예요."))
+        assertEquals(listOf("7월", "9", "10일", "12월", "17", "19일"), tokens("7월 9~10일과 12월 17~19일에 열려요."))
         assertEquals(listOf("3단계"), tokens("3단계(출국권고)예요."))
         // 다음 낱말 첫 글자를 단위로 읽지 않고, 단위 없는 맨 숫자(번지·우편번호·날짜)는 굵게 하지 않는다
         assertEquals(emptyList<String>(), tokens("3 인도네시아"))

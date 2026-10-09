@@ -1,0 +1,1138 @@
+{
+  "doc_type": "attractions",
+  "schema_version": 1,
+  "country": "JP",
+  "version": "2026.10.09-1",
+  "release": "draft",
+  "editorial_rules": "2026-10",
+  "compact_country": false,
+  "unmapped_airports": [
+    {
+      "code": "FUK",
+      "reason": "upcoming",
+      "reason_ko": "준비 중인 지역"
+    }
+  ],
+  "regions": [
+    {
+      "id": "jp_tokyo",
+      "order": 10,
+      "name_ko": "도쿄·요코하마",
+      "name_en": "Tokyo & Yokohama",
+      "aliases_ko": [],
+      "group_ko": "도쿄권",
+      "kind": "base",
+      "water_crossing": false,
+      "hub": {
+        "name_ko": "도쿄역",
+        "lat": 35.680833333333,
+        "lng": 139.76694444444,
+        "qid": "Q283196"
+      },
+      "airports": [
+        "NRT",
+        "HND"
+      ],
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "advisory_watch_ko": [],
+      "wave": 1
+    },
+    {
+      "id": "jp_osaka",
+      "order": 60,
+      "name_ko": "오사카",
+      "name_en": "Osaka",
+      "aliases_ko": [],
+      "group_ko": "간사이",
+      "kind": "base",
+      "water_crossing": false,
+      "hub": {
+        "name_ko": "난바역",
+        "lat": 34.6633,
+        "lng": 135.502,
+        "qid": "Q511303"
+      },
+      "airports": [
+        "KIX"
+      ],
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "advisory_watch_ko": [],
+      "wave": 1
+    },
+    {
+      "id": "jp_kyoto",
+      "order": 70,
+      "name_ko": "교토",
+      "name_en": "Kyoto",
+      "aliases_ko": [],
+      "group_ko": "간사이",
+      "kind": "base",
+      "water_crossing": false,
+      "hub": {
+        "name_ko": "교토역",
+        "lat": 34.98555555555556,
+        "lng": 135.75861111111112,
+        "qid": "Q801046"
+      },
+      "airports": [],
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "advisory_watch_ko": [],
+      "wave": 1
+    },
+    {
+      "id": "jp_nara",
+      "order": 80,
+      "name_ko": "나라",
+      "name_en": "Nara",
+      "aliases_ko": [],
+      "group_ko": "간사이",
+      "kind": "daytrip",
+      "base_regions": [
+        "jp_osaka",
+        "jp_kyoto"
+      ],
+      "note_ko": "오사카·교토에서 하루 다녀오는 곳",
+      "water_crossing": false,
+      "hub": {
+        "name_ko": "긴테쓰나라역",
+        "lat": 34.68443611,
+        "lng": 135.82741944,
+        "qid": "Q6414371"
+      },
+      "airports": [],
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "advisory_watch_ko": [],
+      "wave": 1
+    }
+  ],
+  "attractions": [
+    {
+      "id": "sensoji",
+      "qid": "Q615183",
+      "names": {
+        "ko": "센소지",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Sensō-ji",
+        "local": "浅草寺",
+        "local_short": "浅草寺",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "센소사",
+        "센소우지",
+        "아사쿠사 관음",
+        "가미나리몬"
+      ],
+      "aliases_en": [
+        "Asakusa Kannon",
+        "Sensoji Temple",
+        "Kaminarimon"
+      ],
+      "mentions_ko": [
+        "나카미세"
+      ],
+      "region": "jp_tokyo",
+      "area_ko": "도쿄 다이토구 아사쿠사",
+      "category": "heritage",
+      "tags": [
+        {
+          "id": "free_entry",
+          "source": "gotokyo_sensoji",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "geo": {
+        "kind": "entrance",
+        "lat": 35.71113333,
+        "lng": 139.796325,
+        "source": "wd",
+        "qid": "Q2378708",
+        "osm": null,
+        "last_verified": "2026-10-09"
+      },
+      "wd_geo": {
+        "lat": 35.714555555556,
+        "lng": 139.79663888889
+      },
+      "address_local": {
+        "text": "東京都台東区浅草2-3-1",
+        "source": "sensoji_official_access",
+        "last_verified": "2026-10-09"
+      },
+      "access": {
+        "modes": [
+          "metro",
+          "train",
+          "bus"
+        ],
+        "nearest_ko": "아사쿠사역 (도쿄 메트로 긴자선·도에이 아사쿠사선·도부 스카이트리 라인·쓰쿠바 익스프레스)",
+        "nearest_local": {
+          "text": "浅草駅",
+          "qid": "Q800405",
+          "source": "wd"
+        },
+        "source": "sensoji_official_access",
+        "last_verified": "2026-10-09"
+      },
+      "official_url": "https://www.senso-ji.jp/",
+      "summary_ko": "도쿄 아사쿠사에 있는, 관음보살을 모신 절이에요.",
+      "body_ko": [
+        "절의 기록에는 628년 스미다강에서 고기를 잡던 형제의 그물에 관음상이 걸렸고, 645년 쇼카이 스님이 이 관음상을 모실 건물을 지었다고 나와요.",
+        "지금의 본당은 1945년 도쿄 대공습 때 불탄 뒤 1958년에 다시 지은 건물이에요.",
+        "입구인 가미나리몬에서 본당까지 가는 길에는 전통 장난감·과자·기념품을 파는 나카미세 상점가가 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "628년 스미다강에서 고기를 잡던 형제의 그물에 관음상이 걸렸다고 절의 기록에 나와요.",
+          "source": "sensoji_official_en",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c2",
+          "text_ko": "645년 쇼카이 스님이 관음상을 모실 건물을 지었어요.",
+          "source": "sensoji_official_en",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c3",
+          "text_ko": "본당은 1945년 3월 10일 도쿄 대공습으로 불탔고 1958년에 다시 지었어요.",
+          "source": "sensoji_official_en",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c4",
+          "text_ko": "가미나리몬은 센소지의 입구인 총문이고, 여기서 본당까지 참배길이 이어져요.",
+          "source": "sensoji_official_faq",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c5",
+          "text_ko": "센소지로 이어지는 나카미세 상점가에서는 전통 장난감·과자·기념품을 팔아요.",
+          "source": "sensoji_official_en",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c6",
+          "text_ko": "센소지의 본존은 관음보살(성관세음보살)이에요.",
+          "source": "sensoji_official_en",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c7",
+          "text_ko": "본존 관음상은 공개하지 않는 불상이라 볼 수 없어요. 본존 앞에 모신 불상만 1년에 한 번, 12월 13일에 공개해요.",
+          "source": "sensoji_official_faq",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c8",
+          "text_ko": "7월 9~10일에는 꽈리(호오즈키) 시장, 12월 17~19일에는 하고이타 시장이 절 안팎에서 열려요.",
+          "source": "sensoji_official_en",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "본당 왼쪽에 엘리베이터가 있어요. 경내는 평평하고, 턱을 없애는 공사도 하고 있다고 안내해요.",
+          "source": "sensoji_official_faq",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "본존 관음상은 공개하지 않는 불상이라 볼 수 없어요. 본존 앞에 모신 불상만 1년에 한 번, 12월 13일에 공개해요.",
+          "source": "sensoji_official_faq",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "7월 9~10일에는 꽈리(호오즈키) 시장, 12월 17~19일에는 하고이타 시장이 절 안팎에서 열려요.",
+          "source": "sensoji_official_en",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "센소지에는 주차장이 없어요.",
+          "source": "sensoji_official_access",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "free",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "gotokyo_sensoji",
+        "last_verified": "2026-10-09"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "sensoji_official_access",
+        "last_verified": "2026-10-09"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 4,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Sensoji_2023.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-09"
+    },
+    {
+      "id": "fushimi-inari-taisha",
+      "qid": "Q714828",
+      "names": {
+        "ko": "후시미 이나리 타이샤",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Fushimi Inari-taisha",
+        "local": "伏見稲荷大社",
+        "local_short": "伏見稲荷大社",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "후시미 이나리 신사",
+        "후시미 이나리 대사",
+        "센본 도리이",
+        "천 개의 도리이"
+      ],
+      "aliases_en": [
+        "Fushimi Inari Grand Shrine",
+        "Senbon Torii"
+      ],
+      "mentions_ko": [
+        "이나리산"
+      ],
+      "region": "jp_kyoto",
+      "area_ko": "교토 후시미구",
+      "category": "heritage",
+      "tags": [
+        {
+          "id": "free_entry",
+          "source": "kyoto_navi_inari",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "night",
+          "source": "kyoto_navi_inari",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "mountain_view",
+          "source": "inari_official_en",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 34.967202,
+        "lng": 135.773386,
+        "source": "wd",
+        "qid": "Q714828",
+        "osm": null,
+        "last_verified": "2026-10-09"
+      },
+      "wd_geo": {
+        "lat": 34.967202,
+        "lng": 135.773386
+      },
+      "address_local": {
+        "text": "京都市伏見区深草薮之内町68番地",
+        "source": "inari_official_faq_ja",
+        "last_verified": "2026-10-09"
+      },
+      "access": {
+        "modes": [
+          "train",
+          "bus"
+        ],
+        "nearest_ko": "JR 나라선 이나리역 바로 앞 (게이한 본선 후시미이나리역에서도 걸어서 가요)",
+        "nearest_local": {
+          "text": "稲荷駅",
+          "qid": "Q510674",
+          "source": "wd"
+        },
+        "source": "inari_official_access_en",
+        "last_verified": "2026-10-09"
+      },
+      "official_url": "https://inari.jp/",
+      "summary_ko": "주홍색 도리이가 산길을 따라 이어지는 교토의 신사예요.",
+      "body_ko": [
+        "후시미 이나리 타이샤는 일본에 약 3만 곳 있다는 이나리 신사의 총본궁이에요.",
+        "신사에서는 711년에 이나리 신을 모신 것을 시작으로 꼽아요.",
+        "뒤쪽의 이나리산(233m) 전체가 신사 경내이고, 산길을 따라 크고 작은 도리이 약 1만 기가 서 있어요.",
+        "도리이는 소원이 이루어지길 빌거나 이루어진 데 감사하는 뜻으로 바치는 것으로, 에도 시대 이후 널리 퍼졌어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "일본에는 이나리 신사가 약 3만 곳 있다고 하고, 후시미 이나리 타이샤가 그 총본궁이에요.",
+          "source": "inari_official_faq_en",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c2",
+          "text_ko": "이나리 신은 711년에 이곳에 모셔졌어요.",
+          "source": "inari_official_en",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c3",
+          "text_ko": "높이 233m인 이나리산 전체가 신사 경내예요.",
+          "source": "inari_official_en",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c4",
+          "text_ko": "산길을 따라 크고 작은 도리이가 약 1만 기 서 있어요.",
+          "source": "inari_official_faq_en",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c5",
+          "text_ko": "소원과 감사의 뜻으로 도리이를 바치는 풍습은 에도 시대 이후 널리 퍼졌어요.",
+          "source": "inari_official_faq_ja",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "정해진 휴게 장소 밖에서 먹거나 마시면 안 되고, 걸으면서 먹는 것도 금지예요.",
+          "source": "inari_official_request_en",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "좁은 길에서 사진·영상을 찍느라 길을 막지 말아 달라고 해요. 드론도 날릴 수 없어요.",
+          "source": "inari_official_request_en",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "신사 주변 주차장이 매우 붐벼서 대중교통으로 오라고 권해요.",
+          "source": "inari_official_access_en",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "게이한선 특급은 후시미이나리역에 서지 않아요. JR 나라선은 쾌속 열차도 이나리역에 서요.",
+          "source": "kyoto_travel_fushimi_access",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "free",
+        "regular_closed": [
+          "none"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": "이나리산을 한 바퀴 도는 길까지 둘러보면 2시간쯤 걸린다고 교토시 공식 관광 안내에 나와요.",
+        "source": "kyoto_navi_inari",
+        "last_verified": "2026-10-09"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "kyoto_navi_inari",
+        "last_verified": "2026-10-09"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 3,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Fushimiinari-taisha,_naihaiden-1.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-09"
+    },
+    {
+      "id": "dotonbori",
+      "qid": "Q964876",
+      "names": {
+        "ko": "도톤보리",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Dōtonbori",
+        "local": "道頓堀",
+        "local_short": "道頓堀",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [],
+      "aliases_en": [
+        "Dotonbori",
+        "Dōtombori"
+      ],
+      "mentions_ko": [
+        "에비스바시",
+        "글리코 간판",
+        "톤보리 리버워크",
+        "쇼치쿠자"
+      ],
+      "region": "jp_osaka",
+      "area_ko": "오사카 주오구 난바",
+      "category": "market_street",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 34.66861111,
+        "lng": 135.50138889,
+        "source": "wd",
+        "qid": "Q964876",
+        "osm": null,
+        "last_verified": "2026-10-09"
+      },
+      "wd_geo": {
+        "lat": 34.66861111,
+        "lng": 135.50138889
+      },
+      "access": {
+        "modes": [
+          "metro",
+          "train"
+        ],
+        "nearest_ko": "난바역 바로 앞 (오사카 메트로 미도스지선·센니치마에선·요쓰바시선, 난카이, 긴테쓰)",
+        "nearest_local": {
+          "text": "難波駅",
+          "qid": "Q511303",
+          "source": "wd"
+        },
+        "source": "octb_dotonbori",
+        "last_verified": "2026-10-09"
+      },
+      "official_url": "https://osaka-info.jp/en/spot/dotonbori/",
+      "summary_ko": "강을 따라 식당과 큰 간판이 늘어선 오사카 번화가예요.",
+      "body_ko": [
+        "도톤보리는 오사카 미나미에서 강을 따라 거리 양쪽에 식당이 늘어선 번화가예요.",
+        "이름은 1612년 자기 재산을 들여 이 강을 판 야스이 도톤이라는 사람에게서 왔어요.",
+        "극장과 가부키, 찻집이 모이면서 먹을거리와 공연의 거리가 됐고, 지금도 에비스바시 근처에 쇼치쿠자 극장이 있어요.",
+        "거리에는 게 요리집·글리코 같은 커다란 입체 간판이 줄지어 있고, 강가에는 톤보리 리버워크 산책로가 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "도톤보리 거리 양쪽에는 여러 종류의 식당이 늘어서 있어요.",
+          "source": "octb_dotonbori",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c2",
+          "text_ko": "이름은 1612년 사재를 들여 강을 판 야스이 도톤에게서 왔어요.",
+          "source": "octb_dotonbori",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c3",
+          "text_ko": "극장·가부키·찻집으로 번성해 먹을거리와 공연의 거리가 됐고, 에비스바시 근처에 쇼치쿠자가 있어요.",
+          "source": "octb_dotonbori",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c4",
+          "text_ko": "쇼치쿠자·게 요리집·글리코 등의 커다란 입체 간판이 있고, 강가에 톤보리 리버워크가 있어요.",
+          "source": "octb_dotonbori",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "가게마다 쉬는 날과 여는 시간이 달라요.",
+          "source": "octb_dotonbori",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "톤보리 리버워크는 돈을 내지 않고 걸을 수 있고, 배리어 프리 길로 안내돼요.",
+          "source": "octb_tombori",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "오사카시는 시가 관리하는 길·광장·공원 같은 곳에서 담배를 피우지 못하게 해요. 가열식 담배도 포함되고, 어기면 과태료를 내요.",
+          "source": "osaka_city_smoking",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "facts": {
+        "kind": "public_space",
+        "source": "octb_dotonbori",
+        "last_verified": "2026-10-09"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "octb_dotonbori",
+        "last_verified": "2026-10-09"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 5,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:%E5%8A%9B%E3%82%92%E5%90%88%E3%82%8F%E3%81%9B%E3%82%88%E3%81%86%E6%97%A5%E6%9C%AC_2014_%E5%A4%A7%E9%98%AA_(12206068196).jpg",
+      "source": "wd",
+      "last_verified": "2026-10-09"
+    },
+    {
+      "id": "osaka-castle",
+      "qid": "Q321242",
+      "names": {
+        "ko": "오사카성",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Osaka Castle",
+        "local": "大坂城",
+        "local_short": "大阪城天守閣",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "오사카성 천수각"
+      ],
+      "aliases_en": [
+        "Osaka Castle Museum",
+        "Osaka Castle Keep Tower"
+      ],
+      "mentions_ko": [
+        "오사카성 공원"
+      ],
+      "region": "jp_osaka",
+      "area_ko": "오사카 주오구",
+      "category": "heritage",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 34.68728686328685,
+        "lng": 135.5258696401472,
+        "source": "wd",
+        "qid": "Q96338884",
+        "osm": null,
+        "last_verified": "2026-10-09"
+      },
+      "wd_geo": {
+        "lat": 34.687222222222,
+        "lng": 135.52583333333
+      },
+      "address_local": {
+        "text": "大阪市中央区大阪城1-1",
+        "source": "osakacastle_official_access",
+        "last_verified": "2026-10-09"
+      },
+      "access": {
+        "modes": [
+          "metro",
+          "train",
+          "bus"
+        ],
+        "nearest_ko": "오사카 메트로 다니마치욘초메역, JR 오사카 순환선 모리노미야역·오사카조코엔역",
+        "nearest_local": {
+          "text": "谷町四丁目駅",
+          "qid": "Q1131709",
+          "source": "wd"
+        },
+        "source": "osakacastle_official_access",
+        "last_verified": "2026-10-09"
+      },
+      "official_url": "https://www.osakacastle.net/",
+      "summary_ko": "히데요시가 쌓기 시작한 성터에 박물관 천수각이 있는 곳이에요.",
+      "body_ko": [
+        "오사카성은 1583년 도요토미 히데요시가 혼간지 절터에 쌓기 시작한 성이에요.",
+        "처음 세운 천수각은 1615년 전쟁 때 불탔고, 도쿠가와 시대에 다시 지은 천수각도 1665년 벼락을 맞아 타 버렸어요.",
+        "지금 천수각은 1931년 시민 기부금으로 다시 세운 것으로, 안은 박물관이고 8층은 전망대예요.",
+        "성터 일대는 일본의 특별사적이고, 남아 있는 옛 건물 대부분은 중요문화재예요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "1583년 도요토미 히데요시가 혼간지 터에 성을 쌓기 시작했어요.",
+          "source": "octb_osakacastle_keep",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c2",
+          "text_ko": "첫 천수각은 1615년 오사카 여름 전투 때 불탔고, 다시 지은 천수각은 1665년 벼락으로 탔어요.",
+          "source": "octb_osakacastle_keep",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c3",
+          "text_ko": "지금 천수각은 1931년 시민 기부금으로 복원했고, 복원 때부터 박물관이에요. 8층에 전망대가 있어요.",
+          "source": "osakacastle_official_top",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c4",
+          "text_ko": "성터 일대는 국가 특별사적이고, 옛 건물 대부분은 중요문화재로 지정돼 있어요.",
+          "source": "osakacastle_official_top",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "둘레의 오사카성 공원은 늘 열려 있고 들어가는 데 돈이 들지 않아요. 천수각 안에 들어갈 때 입장료를 내요.",
+          "source": "octb_osakacastle_park",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "중학생 이하는 입장료가 없어요. 나이를 확인할 수 있는 것이 필요하고, 해외에서 온 15세 이하는 여권 등을 보여 주면 돼요.",
+          "source": "octb_osakacastle_keep",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "엘리베이터는 5층까지 올라가고, 5층에서 8층까지와 내려올 때는 계단을 써요. 휠체어 이용자나 걷기 힘든 사람은 모든 층에서 엘리베이터를 쓸 수 있어요.",
+          "source": "osakacastle_official_guide",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "한국어 음성 안내기를 무료로 빌려줘요.",
+          "source": "osakacastle_official_guide",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "booking": "none",
+        "booking_note_ko": "입장 예약은 받지 않아요. 입장권은 예약 사이트에서 미리 살 수도 있어요.",
+        "regular_closed": [
+          "none"
+        ],
+        "closed_note_ko": "12월 28일부터 1월 1일까지 쉬어요.",
+        "visit_note_ko": "천수각을 보는 데 1시간쯤 걸린다고 오사카관광국이 안내해요.",
+        "source": "osakacastle_official_guide",
+        "last_verified": "2026-10-09"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "osakacastle_official_guide",
+        "last_verified": "2026-10-09"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 1,
+        "designations": [
+          {
+            "kind": "jp_special_historic_site",
+            "name_ko": "특별사적 오사카성 터(大坂城跡)",
+            "source": "bunka_osakajo"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Osaka_Castle_02bs3200.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-09"
+    },
+    {
+      "id": "nara-park",
+      "qid": "Q1186358",
+      "names": {
+        "ko": "나라 공원",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Nara Park",
+        "local": "奈良公園",
+        "local_short": "奈良公園",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [],
+      "aliases_en": [],
+      "mentions_ko": [
+        "도다이지",
+        "고후쿠지",
+        "가스가타이샤",
+        "나라 국립박물관",
+        "와카쿠사야마"
+      ],
+      "region": "jp_nara",
+      "area_ko": "나라시",
+      "category": "heritage",
+      "tags": [
+        {
+          "id": "free_entry",
+          "source": "narapark_pref_about",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "night",
+          "source": "narapark_pref_about",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "geo": {
+        "kind": "station",
+        "lat": 34.68443611,
+        "lng": 135.82741944,
+        "source": "wd",
+        "qid": "Q6414371",
+        "osm": null,
+        "last_verified": "2026-10-09"
+      },
+      "wd_geo": {
+        "lat": 34.68545278,
+        "lng": 135.84341111
+      },
+      "address_local": {
+        "text": "奈良県奈良市春日野町ほか",
+        "source": "narashikanko_narapark",
+        "last_verified": "2026-10-09"
+      },
+      "access": {
+        "modes": [
+          "train",
+          "bus"
+        ],
+        "nearest_ko": "긴테쓰나라역에서 걸어서 가요 (JR 나라역에서는 버스도 다녀요)",
+        "nearest_local": {
+          "text": "近鉄奈良駅",
+          "qid": "Q6414371",
+          "source": "wd"
+        },
+        "source": "narapark_pref_top",
+        "last_verified": "2026-10-09"
+      },
+      "official_url": "https://www.pref.nara.lg.jp/site/park/index.html",
+      "summary_ko": "사슴이 사는 넓은 공원으로, 옛 절과 신사가 맞닿아 있어요.",
+      "body_ko": [
+        "나라 공원은 나라 시가지 동쪽에 넓게 펼쳐진 나라현의 공원으로, 1880년에 문을 열었어요.",
+        "도다이지·고후쿠지·가스가타이샤와 나라 국립박물관이 공원과 맞닿아 있어요.",
+        "공원의 사슴은 사람에게 익숙하지만 일본의 천연기념물인 야생동물이에요.",
+        "공원은 1922년 일본의 명승으로 지정됐어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "나라 공원은 나라 시가지 동쪽에 펼쳐진 나라현립 도시공원이고, 1880년(메이지 13년)에 개설됐어요.",
+          "source": "narapark_pref_about",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c2",
+          "text_ko": "도다이지·고후쿠지·가스가타이샤·나라 국립박물관 등이 공원과 맞닿아 있어요.",
+          "source": "narapark_pref_about",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c3",
+          "text_ko": "도다이지·고후쿠지·가스가타이샤는 1998년 세계유산 '고대 나라의 역사기념물'의 구성 요소예요.",
+          "source": "unesco_870",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c4",
+          "text_ko": "나라 공원의 사슴은 사람에 익숙하지만 야생동물이고, 국가 천연기념물이에요.",
+          "source": "narapark_pref_deer",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c5",
+          "text_ko": "나라 공원은 1922년 3월 8일 국가 명승으로 지정됐어요.",
+          "source": "bunka_narapark",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "사슴은 야생동물이라 들이받거나 물 수 있어요. 봄에는 새끼를 낳은 암사슴, 가을에는 수사슴이 예민해져서 특히 조심하라고 안내해요.",
+          "source": "narapark_pref_deer",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "공원 관리 기관은 사슴에게 먹이를 주는 것을 금지하고, 사슴 센베이만 예외로 두고 있어요.",
+          "source": "narapark_pref_deer",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "공원 안에는 쓰레기통이 없어요. 쓰레기는 꼭 가지고 가야 해요.",
+          "source": "narapark_pref_deer",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "사슴이 비닐봉지나 지도·팸플릿을 먹어 버리기도 해서, 손에 든 짐을 잘 챙기라고 안내해요.",
+          "source": "narapark_pref_deer",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "free",
+        "booking": "none",
+        "regular_closed": [
+          "none"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "narapark_pref_about",
+        "last_verified": "2026-10-09"
+      },
+      "volatile": null,
+      "seasonal": [
+        {
+          "kind": "open_only",
+          "text_ko": "공원 안의 와카쿠사야마(산)는 3월 셋째 토요일부터 12월 둘째 일요일까지만 올라갈 수 있어요.",
+          "source": "narapark_pref_about",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "narapark_pref_about",
+        "last_verified": "2026-10-09"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 2,
+        "designations": [
+          {
+            "kind": "jp_place_of_scenic_beauty",
+            "name_ko": "명승 나라 공원(奈良公園)",
+            "source": "bunka_narapark"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Nara_Park,_November_2016.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-09"
+    }
+  ],
+  "retired": [],
+  "sources": [
+    {
+      "id": "wd",
+      "name": "Wikidata",
+      "url": "https://www.wikidata.org/",
+      "use": "skeleton",
+      "license": "CC0"
+    },
+    {
+      "id": "mofa_jp",
+      "name": "외교부 해외안전여행(레디포트 JP 팩 safety 섹션, 2026-09-28 확인)",
+      "url": "https://www.0404.go.kr/",
+      "use": "advisory"
+    },
+    {
+      "id": "sensoji_official_en",
+      "name": "浅草寺 Senso-ji (official, English)",
+      "url": "https://www.senso-ji.jp/english/",
+      "use": "facts"
+    },
+    {
+      "id": "sensoji_official_access",
+      "name": "浅草寺 交通案内 (official)",
+      "url": "https://www.senso-ji.jp/access/",
+      "use": "facts"
+    },
+    {
+      "id": "sensoji_official_faq",
+      "name": "浅草寺 よくあるご質問 (official)",
+      "url": "https://www.senso-ji.jp/faq/",
+      "use": "facts"
+    },
+    {
+      "id": "gotokyo_sensoji",
+      "name": "GO TOKYO (Tokyo Convention & Visitors Bureau, official)",
+      "url": "https://www.gotokyo.org/en/spot/15/index.html",
+      "use": "facts"
+    },
+    {
+      "id": "inari_official_en",
+      "name": "Fushimi Inari Taisha (official, English)",
+      "url": "https://inari.jp/en/",
+      "use": "facts"
+    },
+    {
+      "id": "inari_official_access_en",
+      "name": "Fushimi Inari Taisha Access (official)",
+      "url": "https://inari.jp/en/access/",
+      "use": "facts"
+    },
+    {
+      "id": "inari_official_faq_en",
+      "name": "Fushimi Inari Taisha FAQ (official)",
+      "url": "https://inari.jp/en/faq/",
+      "use": "facts"
+    },
+    {
+      "id": "inari_official_faq_ja",
+      "name": "伏見稲荷大社 よくあるご質問 (official)",
+      "url": "https://inari.jp/about/faq/",
+      "use": "facts"
+    },
+    {
+      "id": "inari_official_request_en",
+      "name": "Fushimi Inari Taisha Requests for All Visitors (official)",
+      "url": "https://inari.jp/en/request/",
+      "use": "facts"
+    },
+    {
+      "id": "kyoto_navi_inari",
+      "name": "京都観光Navi (京都市公式)",
+      "url": "https://ja.kyoto.travel/tourism/single01.php?category_id=7&tourism_id=448",
+      "use": "facts"
+    },
+    {
+      "id": "kyoto_travel_fushimi_access",
+      "name": "Kyoto City Official Travel Guide (Kyoto City Tourism Association)",
+      "url": "https://kyoto.travel/en/getting-around/comfortable-access-to-fushimi-fushimi-inari-taisha-shrine/",
+      "use": "facts"
+    },
+    {
+      "id": "octb_dotonbori",
+      "name": "OSAKA-INFO (Osaka Convention & Tourism Bureau, official)",
+      "url": "https://osaka-info.jp/en/spot/dotonbori/",
+      "use": "facts"
+    },
+    {
+      "id": "octb_tombori",
+      "name": "OSAKA-INFO (Osaka Convention & Tourism Bureau, official)",
+      "url": "https://osaka-info.jp/en/spot/tombori-riverwalk/",
+      "use": "facts"
+    },
+    {
+      "id": "osaka_city_smoking",
+      "name": "大阪市 環境局 (Osaka City, official)",
+      "url": "https://www.city.osaka.lg.jp/kankyo/page/0000630108.html",
+      "use": "facts"
+    },
+    {
+      "id": "osakacastle_official_top",
+      "name": "大阪城天守閣 (Osaka Castle Museum, official)",
+      "url": "https://www.osakacastle.net/",
+      "use": "facts"
+    },
+    {
+      "id": "osakacastle_official_guide",
+      "name": "大阪城天守閣 ご利用案内 (official)",
+      "url": "https://www.osakacastle.net/guide/",
+      "use": "facts"
+    },
+    {
+      "id": "osakacastle_official_access",
+      "name": "大阪城天守閣 アクセス (official)",
+      "url": "https://www.osakacastle.net/access/",
+      "use": "facts"
+    },
+    {
+      "id": "octb_osakacastle_keep",
+      "name": "OSAKA-INFO (Osaka Convention & Tourism Bureau, official)",
+      "url": "https://osaka-info.jp/en/spot/osaka-castle-main-keep/",
+      "use": "facts"
+    },
+    {
+      "id": "octb_osakacastle_park",
+      "name": "OSAKA-INFO (Osaka Convention & Tourism Bureau, official)",
+      "url": "https://osaka-info.jp/en/spot/osaka-castle-park/",
+      "use": "facts"
+    },
+    {
+      "id": "bunka_osakajo",
+      "name": "文化庁 国指定文化財等データベース",
+      "url": "https://kunishitei.bunka.go.jp/heritage/detail/401/1792",
+      "use": "heritage_registry",
+      "license": "MEXT-website-terms (出典記載で自由利用)",
+      "attribution_required": true
+    },
+    {
+      "id": "narapark_pref_about",
+      "name": "奈良県 奈良公園事務所 (Nara Prefecture, official)",
+      "url": "https://www.pref.nara.lg.jp/n113/56577.html",
+      "use": "facts"
+    },
+    {
+      "id": "narapark_pref_deer",
+      "name": "奈良県 奈良公園 シカとの接し方 (Nara Prefecture, official)",
+      "url": "https://www.pref.nara.lg.jp/site/park/1232.html",
+      "use": "facts"
+    },
+    {
+      "id": "narapark_pref_top",
+      "name": "奈良県 奈良公園クイックガイド (Nara Prefecture, official)",
+      "url": "https://www.pref.nara.lg.jp/site/park/index.html",
+      "use": "facts"
+    },
+    {
+      "id": "narashikanko_narapark",
+      "name": "奈良市観光協会 (Nara City Tourism Association, official)",
+      "url": "https://narashikanko.or.jp/spot/detail_10089.html",
+      "use": "facts"
+    },
+    {
+      "id": "bunka_narapark",
+      "name": "文化庁 国指定文化財等データベース",
+      "url": "https://kunishitei.bunka.go.jp/heritage/detail/401/1940",
+      "use": "heritage_registry",
+      "license": "MEXT-website-terms (出典記載で自由利用)",
+      "attribution_required": true
+    },
+    {
+      "id": "unesco_870",
+      "name": "UNESCO World Heritage Centre",
+      "url": "https://whc.unesco.org/en/list/870/",
+      "use": "heritage_registry",
+      "license": "UNESCO WHC (사실만 사용, 설명문 CC-BY-SA IGO 3.0)",
+      "attribution_required": true
+    },
+    {
+      "id": "kintetsu_aoniyoshi",
+      "name": "Kintetsu Railway AONIYOSHI timetable (operator)",
+      "url": "https://www.kintetsu.co.jp/foreign/english/aoniyoshi/",
+      "use": "facts"
+    }
+  ]
+}

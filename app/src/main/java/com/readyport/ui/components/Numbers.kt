@@ -51,11 +51,15 @@ private val BareNumber = Regex(NUM)
 
 /**
  * [text]에서 숫자 토큰이 차지하는 자리. 단위 없는 맨 숫자(주소 번지 `23`, 우편번호 `10310`, 날짜 `2026.09.29`, 전화번호)는 굵게 하지 않는다 —
- * 값의 뜻이 단위에 있기 때문이다. 다만 `20·50·100·500·1,000밧`처럼 가운뎃점으로 이어진 숫자 목록의 앞 숫자들은 함께 굵게.
+ * 값의 뜻이 단위에 있기 때문이다. 다만 `20·50·100·500·1,000밧`처럼 가운뎃점으로 이어진 숫자 목록과 `9~10일` 같은 범위의 앞 숫자는 함께 굵게.
  */
 fun numberRanges(text: String): List<IntRange> = NumberToken.findAll(text).filter { m ->
-    !BareNumber.matches(m.value) || text.getOrNull(m.range.last + 1) == '·' && text.getOrNull(m.range.last + 2)?.isDigit() == true
+    val next = text.getOrNull(m.range.last + 1)
+    // `20·50·100밧`처럼 이어진 목록, `9~10일`·`17–19일`처럼 범위의 앞 숫자도 함께 굵게
+    !BareNumber.matches(m.value) || next in RangeJoiners && text.getOrNull(m.range.last + 2)?.isDigit() == true
 }.map { it.range }.toList()
+
+private val RangeJoiners = setOf('·', '~', '～', '–')
 
 /**
  * 보이는 글자([shown] = koDisplay 보정본 — 원문에 보이지 않는 줄바꿈 문자만 끼워 넣고 띄어쓰기를 NBSP로 바꾼 것)에

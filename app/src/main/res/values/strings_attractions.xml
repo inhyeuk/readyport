@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  관광지 (docs/design/attractions/SPEC_v5.md §6.9, 사장님 결정 2026-10-09: 이름 '관광지'(D17-A)).
+  규칙: 해요체·쉬운 말 / `%s` 바로 뒤에 조사를 붙이지 않는다(조사 없는 틀) / 종류 라벨 7자 이내 / 찜 동사는 '찜하기'·'찜 취소'만.
+  종류·태그 라벨은 com.readyport.attractions.CategorySynonyms 와 같은 글자 — EnumsContractTest가 대조한다.
+-->
+<resources>
+    <!-- 들어가는 길: 나라 화면 › 여행 정보 맨 위 (D2-A) -->
+    <string name="attractions_title">관광지</string>
+    <string name="attractions_entry_desc">종류를 고르면 유명한 곳을 지역별로 보여 줘요</string>
+    <string name="attractions_search">관광지 찾기</string>
+    <string name="attractions_search_clear">찾는 글자 지우기</string>
+    <string name="attractions_saved_row">찜한 관광지 %1$d곳</string>
+    <string name="attractions_category_count">%1$d곳</string>
+    <string name="attractions_all_categories">모든 종류</string>
+    <string name="attractions_all_categories_row">모든 종류 보기 (%1$d종류 · %2$d곳)</string>
+    <string name="attractions_coming_soon_item">관광지 — 유명한 곳을 지역별로 묶어 보여 줘요</string>
+
+    <!-- 종류 (SPEC §2.2) -->
+    <string name="attractions_cat_heritage">역사·유적</string>
+    <string name="attractions_cat_nature">산·자연</string>
+    <string name="attractions_cat_sea_island">바다·섬</string>
+    <string name="attractions_cat_city_view">도시·전망</string>
+    <string name="attractions_cat_market_street">시장·쇼핑거리</string>
+    <string name="attractions_cat_museum">박물관·미술관</string>
+    <string name="attractions_cat_theme_park">테마파크·체험</string>
+
+    <!-- 태그 (SPEC §2.4) -->
+    <string name="attractions_tag_unesco">세계유산</string>
+    <string name="attractions_tag_indoor">실내(비 와도 좋아요)</string>
+    <string name="attractions_tag_free_entry">입장 무료</string>
+    <string name="attractions_tag_booking_required">예약 필수</string>
+    <string name="attractions_tag_dress_code">복장 규정 있음</string>
+    <string name="attractions_tag_night">밤에 열어요</string>
+    <string name="attractions_tag_stairs">계단·오르막 많음</string>
+    <string name="attractions_tag_step_free">휠체어로 다닐 수 있어요</string>
+    <string name="attractions_tag_cable_car">케이블카 있음</string>
+    <string name="attractions_tag_mountain_view">산 위·전망</string>
+    <string name="attractions_tag_seafront">바다 앞</string>
+    <string name="attractions_tag_foreigner_price">외국인 요금 따로</string>
+    <string name="attractions_tag_hot_spring">온천</string>
+
+    <!-- 목록 (종류·검색·찜 공용) -->
+    <string name="attractions_screen_title">%1$s 관광지</string>
+    <string name="attractions_saved_title">%1$s 찜한 관광지</string>
+    <string name="attractions_count_line">%1$d곳 · 지역 %2$d곳</string>
+    <string name="attractions_region_hint">지역이 다르면 이동이 길어질 수 있어요. 하루는 같은 지역 안에서 다니면 편해요.</string>
+    <string name="attractions_region_count">%1$d곳</string>
+    <string name="attractions_region_count_saved">%1$d곳 · 찜 %2$d곳</string>
+    <string name="attractions_daytrip">하루 다녀오는 곳</string>
+    <string name="attractions_lift_stay">오늘 묵는 곳 지역</string>
+    <string name="attractions_lift_airport">내 도착 공항 지역</string>
+    <string name="attractions_airport_upcoming">도착 공항(%1$s) 근처 지역은 준비 중이에요</string>
+    <string name="attractions_water_crossing">배를 타요</string>
+    <string name="attractions_car_only">차로만 가요</string>
+    <string name="attractions_filter_button">걸러 보기: %1$s</string>
+    <string name="attractions_filter_saved_only">찜한 곳만</string>
+    <string name="attractions_filter_saved_only_row">찜한 곳만 보기</string>
+    <string name="attractions_filter_close">걸러 보기 닫기</string>
+    <string name="attractions_filter_selected">골랐어요</string>
+    <string name="attractions_know_country">알아 둘 것</string>
+    <string name="attractions_widen_category">모든 종류에서 %1$d곳 더 있어요</string>
+    <string name="attractions_widen_saved">찜 말고도 %1$d곳 더 있어요</string>
+    <string name="attractions_chosung">초성으로 찾았어요</string>
+    <string name="attractions_category_hint">%1$s 종류만 보기</string>
+    <string name="attractions_excluded_topic">%1$s 같은 업체·상품은 싣지 않아요. %2$s 종류에서 장소를 찾아 보세요.</string>
+    <string name="attractions_excluded_topic_plain">%1$s 같은 업체·상품은 싣지 않아요. 장소만 보여 줘요.</string>
+    <string name="attractions_upcoming">%1$s · 아직 준비 중이에요. 다음 업데이트에서 추가돼요</string>
+    <string name="attractions_excluded_area">%1$s · 여행경보 %2$s 지역이라 싣지 않았어요</string>
+    <string name="attractions_level_step">%1$s단계</string>
+    <string name="attractions_level_special">특별여행주의보</string>
+    <string name="attractions_empty_search_title">다른 말로 찾아 보세요</string>
+    <string name="attractions_empty_search_body">영어 이름이나 지역 이름도 돼요</string>
+    <string name="attractions_empty_board">찾는 곳이 없으면 게시판에서 알려 주세요</string>
+    <string name="attractions_saved_empty_title">하트를 누르면 여기에 모여요</string>
+    <string name="attractions_saved_empty_body">찜은 이 휴대폰에만 저장돼요</string>
+    <string name="attractions_suggest_title">이렇게 찾아 보세요</string>
+    <string name="attractions_scroll_top">맨 위로</string>
+    <string name="attractions_jump_title">지역으로 건너뛰기</string>
+    <string name="attractions_jump_row">%1$s · %2$d곳</string>
+    <string name="attractions_jump_cd">%1$s 지역으로 건너뛰기</string>
+    <string name="attractions_sample_banner">시범 자료예요. 일본 5곳만 들어 있고, 공개 전에 확인하는 용도예요.</string>
+    <string name="attractions_list_speech">%1$s. 모두 %2$d곳, 지역 %3$d곳.</string>
+
+    <!-- 이유 줄 (조사 없는 틀) -->
+    <string name="attractions_reason_alias">다른 이름: %1$s</string>
+    <string name="attractions_reason_english">영어 이름: %1$s</string>
+    <string name="attractions_reason_local">현지 이름: %1$s</string>
+    <string name="attractions_reason_region">지역: %1$s</string>
+    <string name="attractions_reason_station">가까운 역: %1$s</string>
+    <string name="attractions_reason_category">종류: %1$s</string>
+    <string name="attractions_reason_mention">설명에 나와요: %1$s</string>
+
+    <!-- 찜 (앱 전체에서 '찜하기'·'찜 취소' 두 말만) -->
+    <string name="attractions_save_cd">관광지 찜하기: %1$s</string>
+    <string name="attractions_saved_state">찜함</string>
+    <string name="attractions_unsaved_state">찜 안 함</string>
+    <string name="attractions_save">찜하기</string>
+    <string name="attractions_unsave">찜 취소</string>
+    <string name="attractions_saved_tag">찜했어요</string>
+    <string name="attractions_saved_button_on">찜했어요 · 누르면 취소돼요</string>
+    <string name="attractions_open_detail">자세히 보기</string>
+    <string name="attractions_first_save_notice">찜은 이 휴대폰에만 저장돼요. 나라 찜과 달리 알림은 오지 않아요.</string>
+    <string name="attractions_first_save_ok">알겠어요</string>
+    <string name="attractions_saved_need_update">앱을 업데이트하면 볼 수 있어요</string>
+    <string name="attractions_saved_safety">안전 문제로 확인 중이에요</string>
+    <string name="attractions_saved_missing">정보가 빠졌어요</string>
+    <string name="attractions_saved_load_failed">정보를 불러오지 못했어요(앱을 업데이트해 주세요)</string>
+    <string name="attractions_merged">다른 항목으로 합쳤어요</string>
+    <string name="attractions_retired_closed">문을 닫았어요</string>
+    <string name="attractions_retired_long_closure">오래 쉬어요</string>
+    <string name="attractions_retired_safety">안전 문제로 뺐어요</string>
+    <string name="attractions_retired_editorial">목록에서 뺐어요</string>
+    <string name="attractions_unsave_title">찜을 취소할까요?</string>
+    <string name="attractions_unsave_body">이 곳을 찜 목록에서 빼요.</string>
+    <string name="attractions_keep">그대로 두기</string>
+
+    <!-- 여행경보 (D15-B: 2단계 지역도 싣고 주의 띠를 늘 보인다, 3단계 이상은 싣지 않는다) -->
+    <string name="attractions_advisory_level2">이 지역은 여행경보 2단계(여행자제)예요</string>
+    <string name="attractions_advisory_level2_tag">여행경보 2단계</string>
+    <string name="attractions_advisory_unknown">여행경보를 꼭 확인하세요 — 외교부 0404</string>
+    <string name="attractions_advisory_changed">여행경보가 바뀌었을 수 있어요 — 나라 안내의 안전 정보를 확인하세요 (확인일 %1$s)</string>
+    <string name="attractions_safety_open">안전 정보 보기</string>
+    <string name="attractions_advisory_source">외교부 해외안전여행</string>
+
+    <!-- 상세 -->
+    <string name="attractions_about">어떤 곳이에요</string>
+    <string name="attractions_know">가기 전에 알아 둘 것</string>
+    <string name="attractions_how_to_go">가는 법</string>
+    <string name="attractions_same_region">같은 지역의 다른 곳</string>
+    <string name="attractions_same_region_all">%1$s의 다른 곳 모두 보기</string>
+    <string name="attractions_public_space">누구나 다닐 수 있는 곳이에요</string>
+    <string name="attractions_closed_days">쉬는 요일: %1$s</string>
+    <string name="attractions_closed_none">쉬는 날 없이 열어요</string>
+    <string name="attractions_closed_irregular">쉬는 날이 정해져 있지 않아요 — 공식 사이트에서 확인하세요</string>
+    <string name="attractions_day_mon">월</string>
+    <string name="attractions_day_tue">화</string>
+    <string name="attractions_day_wed">수</string>
+    <string name="attractions_day_thu">목</string>
+    <string name="attractions_day_fri">금</string>
+    <string name="attractions_day_sat">토</string>
+    <string name="attractions_day_sun">일</string>
+    <string name="attractions_entry_free">입장료가 없어요</string>
+    <string name="attractions_entry_paid">입장료를 내요 — 금액은 공식 사이트에서 확인하세요</string>
+    <string name="attractions_booking_required">예약해야 들어갈 수 있어요</string>
+    <string name="attractions_booking_recommended">예약하면 좋아요</string>
+    <string name="attractions_hours_official">여는 시간·입장료는 공식 사이트에서 확인하세요</string>
+    <string name="attractions_official_site">공식 사이트 열기</string>
+    <string name="attractions_wikimedia_photos">Wikimedia에서 사진 보기</string>
+    <string name="attractions_open_map">지도에서 보기</string>
+    <string name="attractions_cn_map_note">중국에서는 지도 위치가 조금 어긋날 수 있어요. 기사님께는 현지 이름을 보여 주세요.</string>
+    <string name="attractions_offline_map">인터넷이 없으면 저장해 둔 지도 앱에서 이름으로 찾아 보세요.</string>
+    <string name="attractions_nearest">가까운 곳: %1$s</string>
+    <string name="attractions_local_name">현지어: %1$s</string>
+    <string name="attractions_mode_train">기차</string>
+    <string name="attractions_mode_metro">지하철</string>
+    <string name="attractions_mode_bus">버스</string>
+    <string name="attractions_mode_boat">배</string>
+    <string name="attractions_mode_car_only">차로만</string>
+    <string name="attractions_mode_walk_from_center">시내에서 걸어서</string>
+    <string name="attractions_status_partial">일부만 열려 있어요</string>
+    <string name="attractions_status_temp_closed">지금은 문을 닫았어요</string>
+    <string name="attractions_status_unknown">운영 상태는 공식 사이트에서 확인하세요</string>
+    <string name="attractions_status_verified">%1$s (확인일 %2$s)</string>
+    <string name="attractions_risk_volcano">화산 활동에 따라 들어갈 수 있는 곳이 바뀔 수 있어요</string>
+    <string name="attractions_risk_post_disaster">재해 뒤 복구 중인 곳이 있어요</string>
+    <string name="attractions_risk_seasonal">철에 따라 들어갈 수 없는 때가 있어요</string>
+    <string name="attractions_risk_renovation">공사 중인 곳이 있을 수 있어요</string>
+    <string name="attractions_photo_credit">사진: %1$s · %2$s · %3$s</string>
+    <string name="attractions_detail_speech">%1$s. %2$s. 출처는 화면 아래에 있어요.</string>
+    <string name="attractions_not_found">이 관광지를 찾지 못했어요</string>
+    <!-- 관광지 데이터 출처 표시(출처가 표시를 조건으로 할 때 — build_attractions.py 가 settings_credit_<출처 id> 를 확인한다) -->
+    <string name="credits_data_title">관광지 정보 출처</string>
+    <string name="settings_credit_bunka_osakajo">문화청 국가지정문화재 데이터베이스 — 오사카성 터(특별사적)</string>
+    <string name="settings_credit_bunka_narapark">문화청 국가지정문화재 데이터베이스 — 나라 공원(명승)</string>
+    <string name="settings_credit_unesco_870">UNESCO 세계유산센터 — 고대 나라의 역사기념물</string>
+</resources>

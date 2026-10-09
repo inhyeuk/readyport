@@ -18,6 +18,9 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import com.readyport.autofill.SafeClipboard
+import com.readyport.attractions.AttractionsFallback
+import com.readyport.attractions.AttractionsRepository
+import com.readyport.attractions.SavedAttractionsRepository
 import com.readyport.pack.AssetBundledPacks
 import com.readyport.pack.HttpPackRemote
 import com.readyport.pack.PackKeys
@@ -43,6 +46,9 @@ private val Context.boardStore: DataStore<Preferences> by preferencesDataStore(n
 /** 공지 '다시 보지 않기' 기록 (id@version·날짜만, 백업 제외 규칙 그대로) */
 private val Context.noticeMarksStore: DataStore<Preferences> by preferencesDataStore(name = "notices")
 
+/** 관광지 찜 (키 "<CC>/<id>"·찜한 날만 — 이 휴대폰에만, 백업 규칙이 전체 제외. SPEC_v5 §6.5) */
+private val Context.savedAttractionsStore: DataStore<Preferences> by preferencesDataStore(name = "saved_attractions")
+
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
@@ -63,6 +69,26 @@ object AppModule {
     @Provides
     @Singleton
     fun packVersions(): PackVersionSource = RemoteConfigVersions(FirebaseRemoteConfig.getInstance())
+
+    /**
+     * 관광지 (SPEC_v5 §4.1): 국가 팩과 같은 내장본·받은 본 폴더를 쓰되 **관광지 전용 키로만** 검증한다.
+     * 서명본이 없는 나라는 debug 빌드에서만 샘플(AttractionsFallback), release는 '곧 추가돼요'.
+     */
+    @Provides
+    @Singleton
+    fun attractionsRepository(@ApplicationContext context: Context): AttractionsRepository = AttractionsRepository(
+        bundled = AssetBundledPacks(context.assets),
+        localDir = File(context.noBackupFilesDir, "packs"),
+        remote = HttpPackRemote(),
+        verifier = PackVerifier(PackKeys.ATTRACTIONS),
+        fallback = { country -> AttractionsFallback.read(context, country) },
+        io = Dispatchers.IO,
+    )
+
+    @Provides
+    @Singleton
+    fun savedAttractions(@ApplicationContext context: Context): SavedAttractionsRepository =
+        SavedAttractionsRepository(context.savedAttractionsStore)
 
     @Provides
     @Singleton
