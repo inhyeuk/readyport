@@ -73,6 +73,8 @@ fun BoardError.toUiText(comment: Boolean = false): UiText = when (this) {
     is BoardError.TooFast -> UiText(if (comment) R.string.board_err_too_fast_comment else R.string.board_err_too_fast_post, waitSeconds)
     BoardError.MediaUnavailable -> UiText(R.string.board_media_unavailable)
     BoardError.NotFound -> UiText(R.string.board_err_not_found)
+    is BoardError.AgeRestricted -> UiText(R.string.board_err_age)
+    BoardError.AgeCheckNeeded -> UiText(R.string.board_err_age_check)
 }
 
 /** 아무 예외 → 쉬운 문구 */

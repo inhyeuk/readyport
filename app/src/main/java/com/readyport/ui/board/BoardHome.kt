@@ -16,6 +16,10 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import com.readyport.ui.components.NoticeBanner
+import com.readyport.board.BoardAge
+import androidx.compose.material.icons.outlined.VerifiedUser
+import androidx.compose.material.icons.outlined.ChildCare
 import androidx.compose.material.icons.outlined.Close
 import androidx.compose.material.icons.outlined.CloudOff
 import androidx.compose.material.icons.outlined.Edit
@@ -129,6 +133,8 @@ data class BoardHomeUi(
     val now: Instant = Instant.now(),
     /** 규칙에 동의하고 게시판 이름을 정했는지 — 아니면 쓰기 버튼이 규칙·이름 화면으로 */
     val ready: Boolean = false,
+    /** 쓰기 나이 확인(만 19세, 여권 생년월일) — 미성년이면 읽기만, 모르면 `나이 확인하기` */
+    val age: BoardAge.Status = BoardAge.Status.Allowed,
 )
 
 /** 게시판 첫 화면에서 나가는 길 */
@@ -141,7 +147,10 @@ data class BoardNav(
 )
 
 @HiltViewModel
-class BoardViewModel @Inject constructor(private val repo: BoardRepository) : ViewModel() {
+class BoardViewModel @Inject constructor(
+    private val repo: BoardRepository,
+    private val wallet: com.readyport.vault.WalletRepository,
+) : ViewModel() {
     private val _ui = MutableStateFlow(BoardHomeUi())
     val ui: StateFlow<BoardHomeUi> = _ui.asStateFlow()
     private var cursor: Any? = null
@@ -157,10 +166,25 @@ class BoardViewModel @Inject constructor(private val repo: BoardRepository) : Vi
             // 처음 한 번 + 내가 쓰거나 지울 때마다(글 올리기·댓글·지우기) — 그때만 목록을 다시 불러온다
             repo.revision.collect { rev ->
                 _ui.update { it.copy(ready = runCatching { repo.ready() }.getOrDefault(false)) }
+                refreshAge()
                 if (rev > 0) reload()
             }
         }
         reload()
+    }
+
+    /** 나이 확인 상태를 다시 본다(화면으로 돌아올 때 — 그사이 내 정보를 열었을 수 있다) */
+    fun refreshAge() {
+        viewModelScope.launch { _ui.update { it.copy(age = runCatching { repo.ageStatus() }.getOrDefault(it.age)) } }
+    }
+
+    /** 기기 인증을 마친 뒤: 보관함을 열면 앱이 여권 생년월일로 판정해 둔다(ReadyPortApp) → 결과만 다시 읽는다 */
+    fun checkAge() {
+        viewModelScope.launch {
+            val s = wallet.unlock()
+            if (s is com.readyport.vault.WalletState.Unlocked) repo.recordAge(s.contents.passport?.birthDate)
+            _ui.update { it.copy(age = runCatching { repo.ageStatus() }.getOrDefault(it.age)) }
+        }
     }
 
     private fun query(s: BoardHomeUi) = BoardQuery(s.kind, s.sort, s.country, s.search)
@@ -245,7 +269,11 @@ class BoardViewModel @Inject constructor(private val repo: BoardRepository) : Vi
 fun BoardScreen(nav: BoardNav, viewModel: BoardViewModel = hiltViewModel()) {
     val ui by viewModel.ui.collectAsStateWithLifecycle()
     val context = LocalContext.current
-    LifecycleEventEffect(Lifecycle.Event.ON_RESUME) { viewModel.refreshIfStale() }
+    LifecycleEventEffect(Lifecycle.Event.ON_RESUME) {
+        viewModel.refreshIfStale()
+        viewModel.refreshAge()
+    }
+    val auth = com.readyport.ui.wallet.rememberDeviceAuth()
     BoardHomeContent(
         ui = ui,
         nav = nav.copy(write = { kind -> if (ui.ready) nav.write(kind) else nav.join(kind) }),
@@ -258,6 +286,7 @@ fun BoardScreen(nav: BoardNav, viewModel: BoardViewModel = hiltViewModel()) {
             retry = viewModel::reload,
             reveal = viewModel::reveal,
             contact = { contactOperator(context) },
+            checkAge = { auth { viewModel.checkAge() } },
         ),
     )
 }
@@ -282,6 +311,8 @@ data class BoardHomeActions(
     val retry: () -> Unit = {},
     val reveal: (String) -> Unit = {},
     val contact: () -> Unit = {},
+    /** 기기 인증 → 보관함 열기 → 여권 생년월일로 나이 확인 */
+    val checkAge: () -> Unit = {},
 )
 
 /**
@@ -307,7 +338,30 @@ fun BoardHomeContent(ui: BoardHomeUi, nav: BoardNav = BoardNav(), actions: Board
                 modifier = Modifier.padding(bottom = 8.dp),
             )
         }
-        item(key = "hero-${ui.kind.id}") { BoardHero(ui.kind, onWrite = { nav.write(ui.kind) }) }
+        item(key = "hero-${ui.kind.id}") {
+            // 미성년이면 쓰기 버튼 대신 안내만(읽기는 그대로)
+            BoardHero(ui.kind, onWrite = if (ui.age is BoardAge.Status.Minor) null else ({ nav.write(ui.kind) }))
+        }
+        when (ui.age) {
+            is BoardAge.Status.Minor -> item(key = "age-minor") {
+                NoticeBanner(
+                    text = stringResource(R.string.board_age_minor_body),
+                    title = stringResource(R.string.board_age_minor_title),
+                    icon = Icons.Outlined.ChildCare,
+                )
+            }
+            BoardAge.Status.NeedsCheck -> item(key = "age-check") {
+                Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                    NoticeBanner(
+                        text = stringResource(R.string.board_age_check_body),
+                        title = stringResource(R.string.board_age_check_title),
+                        icon = Icons.Outlined.VerifiedUser,
+                    )
+                    SecondaryButton(stringResource(R.string.board_age_check_button), onClick = actions.checkAge, icon = Icons.Outlined.VerifiedUser)
+                }
+            }
+            BoardAge.Status.Allowed -> Unit
+        }
         item(key = "filters") {
             BoardFilters(ui, actions, onPickCountry = { pickCountry = true })
         }
@@ -392,7 +446,7 @@ fun BoardHomeContent(ui: BoardHomeUi, nav: BoardNav = BoardNav(), actions: Board
 
 /** 게시판 머리: 그림 패널 + 게시판 이름 + 한 줄 목적 + 쓰기(주 버튼) — Q&A는 `공식 안내 아님` 한 줄 */
 @Composable
-private fun BoardHero(kind: BoardKind, onWrite: () -> Unit) {
+private fun BoardHero(kind: BoardKind, onWrite: (() -> Unit)?) {
     val dimens = LocalDimens.current
     BoardCard {
         Column(verticalArrangement = Arrangement.spacedBy(dimens.inner + 4.dp)) {
@@ -414,11 +468,14 @@ private fun BoardHero(kind: BoardKind, onWrite: () -> Unit) {
                     Box(Modifier.weight(1f)) { texts() }
                 }
             }
-            PrimaryButton(
-                stringResource(if (kind == BoardKind.Qna) R.string.board_write_qna else R.string.board_write_talk),
-                onClick = onWrite,
-                icon = Icons.Outlined.Edit,
-            )
+            // null = 미성년(읽기만) — 쓰기 버튼을 그리지 않는다
+            if (onWrite != null) {
+                PrimaryButton(
+                    stringResource(if (kind == BoardKind.Qna) R.string.board_write_qna else R.string.board_write_talk),
+                    onClick = onWrite,
+                    icon = Icons.Outlined.Edit,
+                )
+            }
             if (kind == BoardKind.Qna) {
                 IconBullet(stringResource(R.string.board_qna_not_official), Icons.Outlined.Policy, tone = BadgeTone.Neutral)
             }

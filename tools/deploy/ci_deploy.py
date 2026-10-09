@@ -6,6 +6,7 @@
                    (템플릿 전체 배포는 ARIA가 켠 스위치를 되돌리므로 CI에서 쓰지 않는다).
   fcm-notify       바뀐 나라 팩의 토픽 country_{ISO2} 로 알림. 메시지에는 나라 코드만 담는다.
   purge-reports    보관 기간(expire_at)이 지난 익명 실패 리포트를 지운다 (개인정보처리방침: 1년 보관).
+                   게시판 신고 기록도 신고한 날부터 1년이 지나고 처리가 끝났으면 지운다 (개인정보처리방침 3-2절).
   heartbeat-watch  ops/heartbeat 가 3일 넘게 멈추면 stale_banner 를 켜고 실패로 끝낸다(운영자에게 메일).
                    다시 살아나면 stale_banner 를 끈다.
 
@@ -117,6 +118,67 @@ def purge_expired(firestore, now_iso: str, max_rounds: int = 20) -> int:
     return total
 
 
+BOARD_REPORT_DAYS = 365
+
+
+def board_reports_query(cutoff_iso: str, after_iso: str | None = None, limit: int = 300) -> dict:
+    """게시판 신고(board_posts/{p}/reports, …/comments/{c}/reports) 가운데 at < cutoff, 오래된 순.
+    field_reports 와는 컬렉션 이름이 달라 섞이지 않는다. 색인: firestore.indexes.json fieldOverrides(reports.at, COLLECTION_GROUP)."""
+    q = {
+        "from": [{"collectionId": "reports", "allDescendants": True}],
+        "where": {"fieldFilter": {"field": {"fieldPath": "at"}, "op": "LESS_THAN", "value": {"timestampValue": cutoff_iso}}},
+        "orderBy": [{"field": {"fieldPath": "at"}, "direction": "ASCENDING"}],
+        "limit": limit,
+    }
+    if after_iso:
+        q["startAt"] = {"values": [{"timestampValue": after_iso}], "before": False}
+    return q
+
+
+def report_target_path(report_name: str) -> str | None:
+    """신고 문서 이름 → 신고한 글·댓글 문서 경로(documents/ 뒤). 게시판 신고가 아니면 None."""
+    tail = report_name.split("/documents/", 1)[-1]
+    if not tail.startswith("board_posts/") or "/reports/" not in tail:
+        return None
+    return tail.rsplit("/reports/", 1)[0]
+
+
+def report_settled(target: dict | None) -> bool:
+    """처리가 끝났는지: 글·댓글이 없어졌거나, 운영자가 가렸거나, 지웠거나, 신고 수를 0으로 정리했다(운영자 대기열에 없음)."""
+    if target is None:
+        return True
+    if target.get("hidden") is True or target.get("deleted") is True:
+        return True
+    return int(target.get("reportCount") or 0) == 0
+
+
+def purge_board_reports(firestore, cutoff_iso: str, max_rounds: int = 20) -> int:
+    """신고한 날부터 1년이 지났고 처리가 끝난 게시판 신고를 지운다. 아직 대기 중인 신고는 남긴다."""
+    total = 0
+    after = None
+    seen: set[str] = set()
+    targets: dict[str, dict | None] = {}
+    for _ in range(max_rounds):
+        docs = [d for d in firestore.run_query(board_reports_query(cutoff_iso, after)) if d["_name"] not in seen]
+        if not docs:
+            break
+        for d in docs:
+            seen.add(d["_name"])
+            path = report_target_path(d["_name"])
+            if path is None:
+                continue
+            if path not in targets:
+                targets[path] = firestore.get_document(path)
+            if report_settled(targets[path]):
+                firestore.delete_document(d["_name"])
+                total += 1
+        last = docs[-1].get("at")
+        after = last if isinstance(last, str) else (last.strftime("%Y-%m-%dT%H:%M:%S.%fZ") if last is not None else None)
+        if after is None:
+            break
+    return total
+
+
 # ---------------- 실행 ----------------
 
 def _clients():  # pragma: no cover - 실제 네트워크
@@ -171,11 +233,15 @@ def cmd_fcm_notify(args) -> int:  # pragma: no cover
 def cmd_purge_reports(args) -> int:  # pragma: no cover
     import datetime as dt
     _, _, fs, _, _ = _clients()
-    now_iso = dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    now = dt.datetime.now(dt.timezone.utc)
+    now_iso = now.strftime("%Y-%m-%dT%H:%M:%SZ")
+    cutoff_iso = (now - dt.timedelta(days=BOARD_REPORT_DAYS)).strftime("%Y-%m-%dT%H:%M:%SZ")
     if args.dry_run:
         print("지울 대상:", len(fs.run_query(expired_reports_query(now_iso))), "개 (시험 실행)")
+        print("1년 지난 게시판 신고(처리 여부 확인 전):", len(fs.run_query(board_reports_query(cutoff_iso))), "개 (시험 실행)")
         return 0
     print("지움:", purge_expired(fs, now_iso), "개")
+    print("게시판 신고 지움:", purge_board_reports(fs, cutoff_iso), "개")
     return 0
 
 

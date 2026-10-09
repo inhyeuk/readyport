@@ -16,6 +16,7 @@ import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Campaign
+import androidx.compose.material.icons.outlined.ChildCare
 import androidx.compose.material.icons.outlined.Flag
 import androidx.compose.material.icons.outlined.Gavel
 import androidx.compose.material.icons.automirrored.outlined.HelpOutline
@@ -67,6 +68,7 @@ fun ReportReason.label(): Int = when (this) {
     ReportReason.Personal -> R.string.board_reason_personal
     ReportReason.Illegal -> R.string.board_reason_illegal
     ReportReason.Misinfo -> R.string.board_reason_misinfo
+    ReportReason.Minor -> R.string.board_reason_minor
     ReportReason.Other -> R.string.board_reason_other
 }
 
@@ -76,6 +78,7 @@ private fun ReportReason.icon(): ImageVector = when (this) {
     ReportReason.Personal -> Icons.Outlined.PersonSearch
     ReportReason.Illegal -> Icons.Outlined.Gavel
     ReportReason.Misinfo -> Icons.Outlined.ReportGmailerrorred
+    ReportReason.Minor -> Icons.Outlined.ChildCare
     ReportReason.Other -> Icons.AutoMirrored.Outlined.HelpOutline
 }
 

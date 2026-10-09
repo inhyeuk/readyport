@@ -20,6 +20,7 @@ class DataStoreBoardLocalStore(private val store: DataStore<Preferences>) : Boar
     private val blockedKey = stringSetPreferencesKey("blocked")
     private val lastCheckKey = longPreferencesKey("last_reply_check")
     private val unreadKey = intPreferencesKey("unread_replies")
+    private val ageKey = stringPreferencesKey("age_stamp")
 
     override val blocked: Flow<Set<String>> = store.data.map { it[blockedKey].orEmpty() }
     override val unread: Flow<Int> = store.data.map { it[unreadKey] ?: 0 }
@@ -49,6 +50,11 @@ class DataStoreBoardLocalStore(private val store: DataStore<Preferences>) : Boar
 
     override suspend fun setUnread(count: Int) {
         store.edit { it[unreadKey] = count.coerceAtLeast(0) }
+    }
+
+    override suspend fun ageStamp(): String? = store.data.first()[ageKey]
+    override suspend fun setAgeStamp(stamp: String) {
+        store.edit { it[ageKey] = stamp }
     }
 
     override suspend fun clearAccount() {
