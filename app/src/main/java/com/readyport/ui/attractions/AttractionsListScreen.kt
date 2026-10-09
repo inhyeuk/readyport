@@ -180,6 +180,9 @@ fun AttractionsListContent(
     var focused by remember { mutableStateOf(false) }
     var filterOpen by rememberSaveable { mutableStateOf(initialFilterOpen) }
     var confirmUnsave by remember { mutableStateOf<String?>(null) }
+    // 지도로 보기(화면 가득 지도). 상세에 다녀와도 다시 열린 채로
+    var mapOpen by rememberSaveable { mutableStateOf(false) }
+    val mapMode = rememberListMapMode(ui)
     val title = if (ui.savedOnly) {
         stringResource(R.string.attractions_saved_title, ui.countryName)
     } else {
@@ -307,6 +310,9 @@ fun AttractionsListContent(
                     }
                 }
             }
+        }
+        if (content.total > 0 && mapMode == MapMode.InApp) {
+            item(key = "map") { AttractionsMapButton(onClick = { mapOpen = true }) }
         }
         if (ordered) {
             savedOrderItems(
@@ -454,6 +460,9 @@ fun AttractionsListContent(
                 )
             }
         }
+    }
+    if (mapOpen && mapMode == MapMode.InApp) {
+        AttractionsListMapDialog(ui, onDismiss = { mapOpen = false }, openDetail = actions.openDetail)
     }
     confirmUnsave?.let { key ->
         DestructiveConfirm(

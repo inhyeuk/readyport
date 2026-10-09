@@ -85,5 +85,45 @@ class AttractionsMapperTest {
         assertEquals(5, c.attractions.size)
         assertTrue(c.hidden.isEmpty())
         assertNotNull(c.attraction("sensoji")!!.photoLink)
+        // wiki-fill이 채운 위키백과 제목(일본 5곳 모두 한국어·영어판이 있다)
+        c.attractions.forEach { a -> assertNotNull(a.id, a.wiki?.ko) }
+        assertEquals(WikiPage("ko", "센소지"), c.attraction("sensoji")!!.wiki!!.preferred)
+    }
+
+    // ---------------- 위키백과 제목 (선택 필드, 관대하게) ----------------
+
+    private fun wikiOf(json: String): WikiTitles? {
+        val doc = decode(
+            """{"doc_type":"attractions","country":"XX","regions":[{"id":"xx_a","name_ko":"가","advisory":{"level":"1"}}],
+               "attractions":[{"id":"p","names":{"ko":"가짜"},"region":"xx_a","category":"heritage","advisory":{"level":"1"}$json}]}""",
+        )
+        return AttractionsMapper.map(doc)!!.attraction("p")!!.wiki
+    }
+
+    @Test fun wikiMissingOrNullIsNull() {
+        assertNull(wikiOf(""))
+        assertNull(wikiOf(""","wiki":null"""))
+        assertNull(wikiOf(""","wiki":{}"""))
+    }
+
+    @Test fun wikiPrefersKoreanThenEnglish() {
+        assertEquals(WikiPage("ko", "가짜 절"), wikiOf(""","wiki":{"ko":"가짜 절","en":"Fake Temple"}""")!!.preferred)
+        assertEquals(WikiPage("en", "Fake Temple"), wikiOf(""","wiki":{"en":"Fake Temple"}""")!!.preferred)
+    }
+
+    @Test fun wikiBadTitlesAreDropped() {
+        // 쓸 수 없는 글자·앞뒤 공백·빈 글자·너무 긴 제목은 버린다 → 영어만 남거나 통째로 null
+        assertEquals(WikiTitles(null, "Ok"), wikiOf(""","wiki":{"ko":"나쁜|제목","en":"Ok"}"""))
+        assertNull(wikiOf(""","wiki":{"ko":" 앞공백","en":""}"""))
+        assertNull(wikiOf(""","wiki":{"en":"${"x".repeat(256)}"}"""))
+        assertNull(wikiOf(""","wiki":{"ko":"a#b"}"""))
+        // 모르는 언어 키·잘못된 모양은 무시(깨지지 않음)
+        assertNull(wikiOf(""","wiki":{"fr":"Faux"}"""))
+    }
+
+    @Test fun wikiTitleRule() {
+        assertEquals("Sensō-ji", AttractionsMapper.wikiTitle("Sensō-ji"))
+        assertEquals("오사카성 (가짜)", AttractionsMapper.wikiTitle("오사카성 (가짜)"))
+        listOf("", " a", "a ", "a[b]", "a{b}", "a<b>", "a\nb", "a\u007fb").forEach { assertNull(it, AttractionsMapper.wikiTitle(it)) }
     }
 }

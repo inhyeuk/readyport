@@ -840,6 +840,120 @@ class PipelineTest(unittest.TestCase):
         self.assertEqual("2026.10.09-1", b.next_version("2026.10.01-5", TODAY))
 
 
+class WikiFillTest(unittest.TestCase):
+    """wiki-fill: Wikidata sitelinks → 관광지 wiki 제목. 네트워크 없이 가짜 응답으로만"""
+
+    def fake_api(self, entities, calls=None):
+        def get_json(url):
+            if calls is not None:
+                calls.append(url)
+            return {"entities": entities}
+        return get_json
+
+    def test_url_asks_only_kowiki_enwiki_sitelinks(self):
+        url = b.wikidata_sitelinks_url(["Q1", "Q2"])
+        self.assertTrue(url.startswith("https://www.wikidata.org/w/api.php?"))
+        self.assertIn("action=wbgetentities", url)
+        self.assertIn("ids=Q1%7CQ2", url)
+        self.assertIn("props=sitelinks", url)
+        self.assertIn("sitefilter=kowiki%7Cenwiki", url)
+
+    def test_langs_match_enums(self):
+        self.assertEqual(b.enums()["wiki_langs"], list(b.WIKI_SITES))
+
+    def test_user_agent_is_descriptive(self):
+        self.assertRegex(b.WIKI_USER_AGENT, r"^ReadyPortBuild/\d+\.\d+ \(https://readyport-app\.web\.app\)$")
+
+    def test_fetch_sitelinks_maps_titles_and_skips_missing_and_bad(self):
+        entities = {
+            "Q10": {"id": "Q10", "sitelinks": {"kowiki": {"site": "kowiki", "title": "가짜 절"}, "enwiki": {"site": "enwiki", "title": "Fake Temple"}}},
+            "Q11": {"id": "Q11", "sitelinks": {"enwiki": {"site": "enwiki", "title": "Only English"}}},
+            "Q12": {"id": "Q12", "missing": ""},
+            "Q13": {"id": "Q13", "sitelinks": {"kowiki": {"title": "나쁜[제목]"}}},
+            "Q99": {"id": "Q99", "redirects": {"from": "Q14", "to": "Q99"}, "sitelinks": {"kowiki": {"title": "합쳐진 곳"}}},
+        }
+        links = b.fetch_sitelinks(["Q10", "Q11", "Q12", "Q13", "Q14", "bad"], self.fake_api(entities))
+        self.assertEqual({"ko": "가짜 절", "en": "Fake Temple"}, links["Q10"])
+        self.assertEqual({"en": "Only English"}, links["Q11"])
+        self.assertNotIn("Q12", links)
+        self.assertEqual({}, links["Q13"])
+        self.assertEqual({"ko": "합쳐진 곳"}, links["Q14"])
+
+    def test_fetch_sitelinks_batches_by_50(self):
+        calls = []
+        b.fetch_sitelinks([f"Q{i}" for i in range(1, 121)], self.fake_api({}, calls))
+        self.assertEqual(3, len(calls))
+
+    def test_fetch_sitelinks_raises_on_api_error(self):
+        with self.assertRaises(RuntimeError):
+            b.fetch_sitelinks(["Q1"], lambda url: {"error": {"code": "maxlag"}})
+
+    def test_valid_wiki_title(self):
+        self.assertTrue(b.valid_wiki_title("Sensō-ji"))
+        self.assertTrue(b.valid_wiki_title("오사카성 (가짜)"))
+        for bad in ["", " lead", "a#b", "a|b", "a\nb", "x" * 256, None, 3]:
+            self.assertFalse(b.valid_wiki_title(bad), bad)
+
+    def test_apply_wiki_inserts_after_official_url_and_reports(self):
+        doc = {"attractions": [
+            {"id": "a", "qid": "Q10", "official_url": "https://example.org/", "summary_ko": "가짜"},
+            {"id": "b", "qid": "Q11", "wiki": {"ko": "옛 제목"}, "summary_ko": "가짜"},
+            {"id": "c", "qid": "Q12", "wiki": {"ko": "사라진 문서"}},
+            {"id": "d", "qid": "Q13"},
+            {"id": "e"},
+        ]}
+        r = b.Report("XX")
+        changed = b.apply_wiki(doc, {"Q10": {"en": "Fake", "ko": "가짜"}, "Q11": {"ko": "옛 제목"}, "Q12": {}}, r)
+        atts = doc["attractions"]
+        self.assertEqual(["id", "qid", "official_url", "wiki", "summary_ko"], list(atts[0]))
+        self.assertEqual(["ko", "en"], list(atts[0]["wiki"]))  # 순서 고정: ko → en
+        self.assertEqual({"ko": "옛 제목"}, atts[1]["wiki"])  # 같으면 그대로
+        self.assertNotIn("wiki", atts[2])  # 문서가 없어지면 뺀다
+        self.assertNotIn("wiki", atts[3])  # 조회 못 함 → 건드리지 않음
+        self.assertEqual(2, changed)
+        self.assertTrue(any("d: Wikidata Q13" in w for w in r.warnings))
+        self.assertTrue(any("e: qid 없음" in w for w in r.warnings))
+
+    def test_wiki_fill_writes_file_and_keeps_schema(self):
+        tmp = pathlib.Path(tempfile.mkdtemp())
+        self.addCleanup(shutil.rmtree, tmp)
+        src = pathlib.Path(b.ROOT / "app" / "src" / "debug" / "assets" / "attractions_samples" / "JP.json")
+        doc = json.loads(src.read_text(encoding="utf-8"))
+        for a in doc["attractions"]:
+            a.pop("wiki", None)
+        target = tmp / "attractions.json"
+        target.write_text(b.pretty_text(doc), encoding="utf-8")
+        entities = {a["qid"]: {"id": a["qid"], "sitelinks": {"enwiki": {"title": f"Fake {i}"}}} for i, a in enumerate(doc["attractions"])}
+        r = b.wiki_fill(target, "JP", self.fake_api(entities))
+        self.assertEqual([], r.errors)
+        out = json.loads(target.read_text(encoding="utf-8"))
+        self.assertEqual({"en": "Fake 0"}, out["attractions"][0]["wiki"])
+        self.assertEqual([], b.schema_errors(out))
+
+    def test_wiki_fill_leaves_file_on_network_error(self):
+        tmp = pathlib.Path(tempfile.mkdtemp())
+        self.addCleanup(shutil.rmtree, tmp)
+        target = tmp / "attractions.json"
+        target.write_text('{"country": "JP", "attractions": [{"id": "a", "qid": "Q1"}]}\n', encoding="utf-8")
+        before = target.read_bytes()
+
+        def boom(url):
+            raise OSError("offline")
+        r = b.wiki_fill(target, "JP", boom)
+        self.assertTrue(r.errors)
+        self.assertEqual(before, target.read_bytes())
+
+    def test_schema_rejects_bad_wiki(self):
+        src = pathlib.Path(b.ROOT / "app" / "src" / "debug" / "assets" / "attractions_samples" / "JP.json")
+        doc = json.loads(src.read_text(encoding="utf-8"))
+        doc["attractions"][0]["wiki"] = {"ko": "a|b"}
+        self.assertTrue(b.schema_errors(doc))
+        doc["attractions"][0]["wiki"] = {"fr": "Sensō-ji"}
+        self.assertTrue(b.schema_errors(doc))
+        doc["attractions"][0]["wiki"] = {"en": "Sensō-ji"}
+        self.assertEqual([], b.schema_errors(doc))
+
+
 class AppContractTest(unittest.TestCase):
     def test_app_has_att_key(self):
         keys = b.trusted_attraction_keys()

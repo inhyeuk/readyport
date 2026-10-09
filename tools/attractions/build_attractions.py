@@ -25,6 +25,8 @@
   python tools/attractions/build_attractions.py verify-quotes JP               # 인용 대조만
   python tools/attractions/build_attractions.py keygen --kid rp-att-2026-1     # 관광지 전용 키 만들기(공개키만 출력)
   python tools/attractions/build_attractions.py protect-key --key …            # 비밀키 PEM 에 암호 걸기
+  python tools/attractions/build_attractions.py wiki-fill JP [--file app/src/debug/assets/attractions_samples/JP.json] [--dry-run]
+                                                                               # Wikidata sitelinks → wiki {ko, en} 제목(네트워크)
 """
 from __future__ import annotations
 
@@ -1310,6 +1312,133 @@ def protect_key(path: str) -> int:
     return 0
 
 
+# ======================= 위키백과 제목 채우기 (wiki-fill) =======================
+# 상세 화면 '위키백과에서 보기'(요약 팝업 + 전체 보기, 사장님 결정 2026-10-09)가 쓰는 문서 제목.
+# Wikidata sitelinks(kowiki·enwiki)에서 **제목만** 가져온다. 위키백과 글은 저장소·팩에 넣지 않는다(⟦결정 D12⟧, 앱이 열 때 받는다).
+
+WIKIDATA_API = "https://www.wikidata.org/w/api.php"
+# Wikimedia User-Agent 정책: 도구 이름/버전 + 연락처(사이트 주소)
+WIKI_USER_AGENT = "ReadyPortBuild/1.0 (https://readyport-app.web.app)"
+WIKI_SITES = {"ko": "kowiki", "en": "enwiki"}
+WIKI_BATCH = 50
+# MediaWiki 제목에 쓸 수 없는 글자(# < > [ ] | { } 와 제어 문자). 앱 AttractionsMapper.wikiTitle 과 같은 규칙
+WIKI_TITLE_RE = re.compile(r"^[^#<>\[\]|{}\x00-\x1f\x7f]{1,255}$")
+
+
+def valid_wiki_title(title) -> bool:
+    return isinstance(title, str) and title == title.strip() and bool(WIKI_TITLE_RE.match(title))
+
+
+def wikidata_sitelinks_url(qids: list[str]) -> str:
+    import urllib.parse
+    query = {
+        "action": "wbgetentities",
+        "ids": "|".join(qids),
+        "props": "sitelinks",
+        "sitefilter": "|".join(WIKI_SITES.values()),
+        "format": "json",
+        "formatversion": "2",
+    }
+    return WIKIDATA_API + "?" + urllib.parse.urlencode(query)
+
+
+def http_get_json(url: str) -> dict:
+    """Wikidata API 한 번 부르기 (설명이 든 User-Agent, 30초 제한)"""
+    import urllib.request
+    req = urllib.request.Request(url, headers={"User-Agent": WIKI_USER_AGENT, "Accept": "application/json"})
+    with urllib.request.urlopen(req, timeout=30) as resp:  # noqa: S310 — 고정된 https 주소만
+        return json.loads(resp.read().decode("utf-8"))
+
+
+def fetch_sitelinks(qids: list[str], get_json=http_get_json) -> dict[str, dict[str, str]]:
+    """QID → {"ko": 제목, "en": 제목} (있는 것만). 없는 항목(missing)은 결과에서 빠진다. 합쳐진 항목은 요청한 QID로 돌려준다"""
+    out: dict[str, dict[str, str]] = {}
+    unique = list(dict.fromkeys(q for q in qids if isinstance(q, str) and re.match(r"^Q[0-9]+$", q)))
+    for i in range(0, len(unique), WIKI_BATCH):
+        data = get_json(wikidata_sitelinks_url(unique[i:i + WIKI_BATCH]))
+        if "error" in data:
+            raise RuntimeError(f"Wikidata API 오류: {data['error'].get('code', '?')}")
+        for key, ent in (data.get("entities") or {}).items():
+            if not isinstance(ent, dict) or "missing" in ent:
+                continue
+            qid = (ent.get("redirects") or {}).get("from") or key
+            links = ent.get("sitelinks") or {}
+            titles = {}
+            for lang, site in WIKI_SITES.items():
+                t = (links.get(site) or {}).get("title")
+                if valid_wiki_title(t):
+                    titles[lang] = unicodedata.normalize("NFC", t)
+            out[qid] = titles
+    return out
+
+
+def with_key_after(obj: dict, key: str, value, after: str) -> dict:
+    """키 순서를 지키며 key 를 넣거나 바꾼다(없으면 after 바로 뒤, after 도 없으면 맨 끝)"""
+    if key in obj:
+        return {k: (value if k == key else v) for k, v in obj.items()}
+    out = {}
+    for k, v in obj.items():
+        out[k] = v
+        if k == after:
+            out[key] = value
+    if key not in out:
+        out[key] = value
+    return out
+
+
+def apply_wiki(doc: dict, sitelinks: dict[str, dict[str, str]], report: Report) -> int:
+    """관광지마다 wiki 를 채운다. 바뀐 관광지 수를 돌려준다. 조회하지 못한 QID 는 그대로 두고 경고한다"""
+    changed = 0
+    atts = doc.get("attractions", [])
+    for i, a in enumerate(atts):
+        qid = a.get("qid")
+        where = a.get("id", f"#{i}")
+        if not qid:
+            report.warn(f"{where}: qid 없음 — wiki 를 채우지 않음")
+            continue
+        if qid not in sitelinks:
+            report.warn(f"{where}: Wikidata {qid} 를 찾지 못함 — wiki 를 그대로 둠")
+            continue
+        titles = {lang: sitelinks[qid][lang] for lang in WIKI_SITES if lang in sitelinks[qid]}
+        if not titles:
+            if "wiki" in a:
+                atts[i] = {k: v for k, v in a.items() if k != "wiki"}
+                changed += 1
+            report.warn(f"{where}: 한국어·영어 위키백과 문서 없음")
+            continue
+        if a.get("wiki") != titles:
+            atts[i] = with_key_after(a, "wiki", titles, "official_url")
+            changed += 1
+    return changed
+
+
+def wiki_fill(path: pathlib.Path, cc: str, get_json=http_get_json, dry_run: bool = False) -> Report:
+    report = Report(f"{cc} wiki-fill ({path.name})")
+    if not path.is_file():
+        report.error(f"파일 없음: {path}")
+        return report
+    doc = load_json(path)
+    if doc.get("country") != cc:
+        report.error(f"country 가 {cc} 가 아님: {doc.get('country')}")
+        return report
+    qids = [a.get("qid") for a in doc.get("attractions", []) if a.get("qid")]
+    try:
+        links = fetch_sitelinks(qids, get_json)
+    except Exception as e:  # 네트워크·API 오류 — 파일은 건드리지 않는다
+        report.error(f"Wikidata 조회 실패: {e}")
+        return report
+    changed = apply_wiki(doc, links, report)
+    errs = schema_errors(doc)
+    if errs:
+        for e in errs[:10]:
+            report.error("스키마: " + e)
+        return report
+    if changed and not dry_run:
+        path.write_bytes(pretty_text(doc).encode("utf-8"))  # 줄끝 LF 그대로(Windows에서도)
+    report.changed = changed
+    return report
+
+
 def print_reports(reports: list[Report]) -> bool:
     ok = True
     for r in reports:
@@ -1357,9 +1486,19 @@ def main(argv: list[str] | None = None) -> int:
     kg.add_argument("--out-dir", default=str(KEYS_DIR))
     pk = sub.add_parser("protect-key")
     pk.add_argument("--key", required=True)
+    wf = sub.add_parser("wiki-fill", help="Wikidata sitelinks(kowiki·enwiki)로 관광지 wiki 제목 채우기 (작업본)")
+    wf.add_argument("country")
+    wf.add_argument("--file", help="채울 파일(기본: packs/drafts/<CC>/attractions.json). debug 샘플도 이것으로")
+    wf.add_argument("--dry-run", action="store_true")
     args = ap.parse_args(argv)
     today = dt.date.today()
 
+    if args.cmd == "wiki-fill":
+        target = pathlib.Path(args.file) if args.file else DRAFTS / args.country / FILE_NAME
+        r = wiki_fill(target, args.country, dry_run=args.dry_run)
+        if r.ok:
+            print(f"{args.country}: wiki 제목 {getattr(r, 'changed', 0)}곳 {'바뀜(쓰지 않음)' if args.dry_run else '갱신'}")
+        return 0 if print_reports([r]) else 1
     if args.cmd == "keygen":
         return keygen(args.kid, pathlib.Path(args.out_dir))
     if args.cmd == "protect-key":

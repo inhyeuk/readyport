@@ -42,6 +42,8 @@ class EnumsContractTest {
         list("advisory_hidden_levels").forEach { assertEquals(AdvisoryLevel.Hidden, AdvisoryLevel.of(it)) }
         assertEquals(listOf("open", "partial", "temp_closed"), list("status"))
         assertEquals(setOf("closed", "long_closure", "safety", "editorial", "merged"), list("retired_reasons").toSet())
+        // 위키백과 판: 도구(wiki-fill)가 채우는 언어 = 앱이 여는 언어
+        assertEquals(list("wiki_langs").toSet(), com.readyport.attractions.wiki.WikiHosts.LANGS)
     }
 
     @Test fun everyCategoryHasSynonymsAndExcludedTopicsPointToRealCategories() {
