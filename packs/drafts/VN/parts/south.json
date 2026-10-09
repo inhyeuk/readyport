@@ -54,10 +54,146 @@
         "last_verified": "2026-10-02"
       },
       "advisory_watch_ko": [],
-      "wave": 1
+      "wave": 2
     }
   ],
   "attractions": [
+    {
+      "id": "cu-chi-tunnels",
+      "qid": "Q192721",
+      "names": {
+        "ko": "꾸찌 터널",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Củ Chi tunnels",
+        "local": "Địa đạo Củ Chi",
+        "local_short": "Địa đạo Củ Chi",
+        "local_lang": "vi",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "구찌 터널",
+        "꾸찌 땅굴"
+      ],
+      "aliases_en": [
+        "Cu Chi Tunnels"
+      ],
+      "mentions_ko": [
+        "벤즈억",
+        "벤딘"
+      ],
+      "region": "vn_hcmc",
+      "area_ko": "호찌민 북서부 옛 꾸찌현",
+      "category": "heritage",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 11.061,
+        "lng": 106.526,
+        "source": "wd",
+        "qid": "Q192721",
+        "osm": null,
+        "last_verified": "2026-10-09"
+      },
+      "address_local": null,
+      "access": {
+        "modes": [
+          "car_only"
+        ],
+        "nearest_ko": "시내에서 오토바이를 빌려 가거나 당일 투어로 가요 (호찌민시 관광국 안내)",
+        "nearest_local": null,
+        "source": "sodulich_cuchi",
+        "last_verified": "2026-10-09"
+      },
+      "official_url": "https://dsvh.gov.vn/di-tich-lich-su-dia-dao-cu-chi-1490",
+      "wiki": {
+        "ko": "꾸찌 터널",
+        "en": "Củ Chi tunnels"
+      },
+      "summary_ko": "호찌민 북서쪽 꾸찌에 있는 땅굴 유적이에요.",
+      "body_ko": [
+        "꾸찌 터널은 1948년 무렵 프랑스에 맞선 항전 시기에 만들기 시작한 땅굴로, 여러 층으로 뻗은 길이가 200km가 넘어요.",
+        "유적은 벤즈억 땅굴 구역과 벤딘 땅굴 구역으로 나뉘어 있어요.",
+        "2015년 국가특별유적으로 지정됐어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "1948년 무렵 프랑스에 맞선 항전 시기에 만들기 시작했어요.",
+          "source": "dsvh_cuchi",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c2",
+          "text_ko": "여러 층·여러 갈래로 뻗은 땅굴의 길이가 200km가 넘어요.",
+          "source": "sodulich_cuchi",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c3",
+          "text_ko": "유적은 벤즈억 땅굴(A·B 구역)과 벤딘 땅굴로 이루어져 있어요.",
+          "source": "dsvh_cuchi",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c4",
+          "text_ko": "2015년 12월 23일 총리 결정으로 국가특별유적으로 지정됐어요.",
+          "source": "dsvh_cuchi",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "땅굴에 들어가기 전에 이곳의 역사를 다룬 기록 영화를 보여 줘요.",
+          "source": "sodulich_cuchi",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "호찌민시 관광국은 당일 투어로 다녀오기를 권해요.",
+          "source": "sodulich_cuchi",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "unknown",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "sodulich_cuchi",
+        "last_verified": "2026-10-09"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "sodulich_cuchi",
+        "last_verified": "2026-10-09"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_vn",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 201,
+        "designations": [
+          {
+            "kind": "vn_special_national_relic",
+            "name_ko": "국가특별유적(2015)",
+            "source": "dsvh_cuchi"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:VietnamCuChiTunnels.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-09"
+    },
     {
       "id": "independence-palace",
       "qid": "Q933384",
@@ -106,7 +242,15 @@
         "source": "dinhdoclap_vi",
         "last_verified": "2026-10-09"
       },
-      "access": null,
+      "access": {
+        "modes": [
+          "bus"
+        ],
+        "nearest_ko": "시내버스 1·2·3·4·5번이 통일궁 쪽으로 가요 (1~4번은 벤탄 출발)",
+        "nearest_local": null,
+        "source": "dinhdoclap_vi_directions",
+        "last_verified": "2026-10-09"
+      },
       "official_url": "https://dinhdoclap.gov.vn/en/",
       "wiki": {
         "ko": "독립궁",
@@ -193,7 +337,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 201,
+        "order": 202,
         "designations": [
           {
             "kind": "vn_special_national_relic",
@@ -204,130 +348,6 @@
       },
       "photo": null,
       "photo_link": "https://commons.wikimedia.org/wiki/File:20190923_Independence_Palace-10.jpg",
-      "source": "wd",
-      "last_verified": "2026-10-09"
-    },
-    {
-      "id": "war-remnants-museum",
-      "qid": "Q703871",
-      "names": {
-        "ko": "전쟁증적박물관",
-        "ko_basis": "editorial",
-        "ko_paren": null,
-        "en": "War Remnants Museum",
-        "local": "Bảo tàng Chứng tích chiến tranh",
-        "local_short": "Bảo tàng Chứng tích chiến tranh",
-        "local_lang": "vi",
-        "source": "wd"
-      },
-      "aliases_ko": [
-        "전쟁 박물관",
-        "전쟁증거박물관"
-      ],
-      "aliases_en": [],
-      "mentions_ko": [],
-      "region": "vn_hcmc",
-      "area_ko": "호찌민 쑤언호아동",
-      "category": "museum",
-      "tags": [],
-      "geo": {
-        "kind": "site",
-        "lat": 10.7795,
-        "lng": 106.692,
-        "source": "wd",
-        "qid": "Q703871",
-        "osm": null,
-        "last_verified": "2026-10-09"
-      },
-      "address_local": {
-        "text": "28 Võ Văn Tần, Phường Xuân Hòa, Thành phố Hồ Chí Minh",
-        "source": "wrm_vi",
-        "last_verified": "2026-10-09"
-      },
-      "access": null,
-      "official_url": "https://baotangchungtichchientranh.vn/en",
-      "wiki": {
-        "ko": "전쟁증거박물관",
-        "en": "War Remnants Museum"
-      },
-      "summary_ko": "베트남 전쟁 관련 사진·문서·유물을 전시하는 박물관이에요.",
-      "body_ko": [
-        "전쟁증적박물관은 1975년 9월 4일에 문을 열었고, 베트남 박물관 체계와 국제박물관협의회(ICOM)에 속해 있어요.",
-        "상설 전시 주제가 9개이고, 문서·유물·사진·기록 영상을 20,000점 넘게 가지고 있어요."
-      ],
-      "claims": [
-        {
-          "id": "c1",
-          "text_ko": "1975년 9월 4일에 세워졌고, 베트남 박물관 체계·INMP·ICOM 회원이에요.",
-          "source": "wrm_en",
-          "last_verified": "2026-10-09"
-        },
-        {
-          "id": "c2",
-          "text_ko": "상설 전시 주제가 9개이고, 해마다 100만 명 가까이 찾아와요.",
-          "source": "wrm_en",
-          "last_verified": "2026-10-09"
-        },
-        {
-          "id": "c3",
-          "text_ko": "문서·유물·사진·기록 영상을 20,000점 넘게 가지고 있어요.",
-          "source": "wrm_vi",
-          "last_verified": "2026-10-09"
-        }
-      ],
-      "tips_ko": [
-        {
-          "text": "단체 가이드 투어와 무선 헤드셋으로 듣는 안내 투어가 있어요.",
-          "source": "wrm_en",
-          "last_verified": "2026-10-09"
-        },
-        {
-          "text": "안내판에 영어 번역이 있고, 영어 가이드도 있어요.",
-          "source": "wrm_en",
-          "last_verified": "2026-10-09"
-        },
-        {
-          "text": "매표소는 박물관보다 먼저 닫아요.",
-          "source": "wrm_en",
-          "last_verified": "2026-10-09"
-        },
-        {
-          "text": "안에 카페와 자판기가 있어요.",
-          "source": "wrm_en",
-          "last_verified": "2026-10-09"
-        }
-      ],
-      "facts": {
-        "kind": "facility",
-        "entry": "paid",
-        "regular_closed": [
-          "none"
-        ],
-        "closed_note_ko": null,
-        "visit_note_ko": null,
-        "source": "wrm_en",
-        "last_verified": "2026-10-09"
-      },
-      "volatile": null,
-      "seasonal": [],
-      "risk": [],
-      "status": {
-        "value": "open",
-        "note_ko": null,
-        "source": "wrm_en",
-        "last_verified": "2026-10-09"
-      },
-      "advisory": {
-        "level": "1",
-        "source": "mofa_vn",
-        "last_verified": "2026-10-02"
-      },
-      "rank": {
-        "order": 205,
-        "designations": []
-      },
-      "photo": null,
-      "photo_link": "https://commons.wikimedia.org/wiki/File:War_Remnants_Museum%2C_HCMC%2C_front.JPG",
       "source": "wd",
       "last_verified": "2026-10-09"
     },
@@ -372,7 +392,19 @@
         "last_verified": "2026-10-09"
       },
       "address_local": null,
-      "access": null,
+      "access": {
+        "modes": [
+          "metro"
+        ],
+        "nearest_ko": "지하철 1호선 벤탄역에서 걸어가요",
+        "nearest_local": {
+          "text": "Ga Bến Thành",
+          "qid": "Q60313402",
+          "source": "wd"
+        },
+        "source": "chinhphu_metro_tourism",
+        "last_verified": "2026-10-09"
+      },
       "official_url": "https://benthanhmarket.vn/",
       "wiki": {
         "ko": "벤타인 시장",
@@ -448,7 +480,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 204,
+        "order": 203,
         "designations": [
           {
             "kind": "vn_city_relic",
@@ -600,316 +632,11 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 206,
+        "order": 204,
         "designations": []
       },
       "photo": null,
       "photo_link": "https://commons.wikimedia.org/wiki/File:H%E1%BB%93_n%C6%B0%E1%BB%9Bc_%E1%BB%9F_Th%E1%BA%A3o_C%E1%BA%A7m_Vi%C3%AAn.JPG",
-      "source": "wd",
-      "last_verified": "2026-10-09"
-    },
-    {
-      "id": "phu-quoc-prison",
-      "qid": "Q10800918",
-      "names": {
-        "ko": "푸꾸옥 감옥",
-        "ko_basis": "editorial",
-        "ko_paren": null,
-        "en": "Phu Quoc Prison",
-        "local": "Nhà tù Phú Quốc",
-        "local_short": "Nhà tù Phú Quốc",
-        "local_lang": "vi",
-        "source": "wd"
-      },
-      "aliases_ko": [
-        "코코넛 감옥",
-        "푸꾸옥 포로수용소"
-      ],
-      "aliases_en": [
-        "Coconut Tree Prison"
-      ],
-      "mentions_ko": [],
-      "region": "vn_phuquoc",
-      "area_ko": "푸꾸옥 안터이",
-      "category": "heritage",
-      "tags": [],
-      "geo": {
-        "kind": "site",
-        "lat": 10.044333,
-        "lng": 104.017833,
-        "source": "wd",
-        "qid": "Q10800918",
-        "osm": null,
-        "last_verified": "2026-10-09"
-      },
-      "address_local": null,
-      "access": null,
-      "official_url": "https://dulich.angiang.gov.vn/destination/detail/1298",
-      "wiki": {
-        "en": "Phú Quốc Prison"
-      },
-      "summary_ko": "푸꾸옥 안터이에 있는 옛 포로수용소 유적이에요.",
-      "body_ko": [
-        "푸꾸옥 감옥은 안터이에 있는 옛 포로수용소 자리로, 국가특별유적으로 지정돼 있어요.",
-        "수용소는 1967년 6월부터 1973년 3월까지 쓰였어요."
-      ],
-      "claims": [
-        {
-          "id": "c1",
-          "text_ko": "안터이에 있는 국가특별유적이에요.",
-          "source": "angiang_dl_prison",
-          "last_verified": "2026-10-09"
-        },
-        {
-          "id": "c2",
-          "text_ko": "포로수용소로 1967년 6월부터 1973년 3월까지 쓰였어요.",
-          "source": "angiang_dl_prison",
-          "last_verified": "2026-10-09"
-        }
-      ],
-      "tips_ko": [],
-      "facts": {
-        "kind": "facility",
-        "entry": "unknown",
-        "regular_closed": [
-          "unknown"
-        ],
-        "closed_note_ko": null,
-        "visit_note_ko": null,
-        "source": "angiang_dl_prison",
-        "last_verified": "2026-10-09"
-      },
-      "volatile": null,
-      "seasonal": [],
-      "risk": [],
-      "status": {
-        "value": "open",
-        "note_ko": null,
-        "source": "angiang_dl_prison",
-        "last_verified": "2026-10-09"
-      },
-      "advisory": {
-        "level": "1",
-        "source": "mofa_vn",
-        "last_verified": "2026-10-02"
-      },
-      "rank": {
-        "order": 202,
-        "designations": [
-          {
-            "kind": "vn_special_national_relic",
-            "name_ko": "국가특별유적",
-            "source": "angiang_dl_prison"
-          }
-        ]
-      },
-      "photo": null,
-      "photo_link": "https://commons.wikimedia.org/wiki/File:Gef%C3%A4ngnisanlage_auf_Phu_Quoc_%22Coconut_Tree_Prison%22.jpg",
-      "source": "wd",
-      "last_verified": "2026-10-09"
-    },
-    {
-      "id": "phu-quoc-national-park",
-      "qid": "Q1749599",
-      "names": {
-        "ko": "푸꾸옥 국립공원",
-        "ko_basis": "editorial",
-        "ko_paren": null,
-        "en": "Phu Quoc National Park",
-        "local": "Vườn quốc gia Phú Quốc",
-        "local_short": "Vườn quốc gia Phú Quốc",
-        "local_lang": "vi",
-        "source": "wd"
-      },
-      "aliases_ko": [],
-      "aliases_en": [
-        "Phú Quốc National Park"
-      ],
-      "mentions_ko": [],
-      "region": "vn_phuquoc",
-      "area_ko": "푸꾸옥 북동부",
-      "category": "nature",
-      "tags": [],
-      "geo": {
-        "kind": "site",
-        "lat": 10.325,
-        "lng": 103.95,
-        "source": "wd",
-        "qid": "Q1749599",
-        "osm": null,
-        "last_verified": "2026-10-09"
-      },
-      "address_local": null,
-      "access": null,
-      "official_url": "https://vqgpq.angiang.gov.vn/",
-      "wiki": {
-        "en": "Phú Quốc National Park"
-      },
-      "summary_ko": "푸꾸옥섬 북동쪽의 숲과 산을 지키는 국립공원이에요.",
-      "body_ko": [
-        "푸꾸옥 국립공원은 섬 북동쪽에 있고, 넓이가 섬의 70%를 차지해요.",
-        "가장 높은 산은 해발 603m인 쭈아산이에요.",
-        "2001년 국립공원으로 높여 지정됐고, 키엔장 생물권보전지역에 속해요."
-      ],
-      "claims": [
-        {
-          "id": "c1",
-          "text_ko": "섬 북동쪽에 있고 넓이는 31,422ha로 섬의 70%를 차지해요.",
-          "source": "angiang_dl_vqgpq",
-          "last_verified": "2026-10-09"
-        },
-        {
-          "id": "c2",
-          "text_ko": "가장 높은 산은 해발 603m인 쭈아산(누이쭈아)이에요.",
-          "source": "angiang_dl_vqgpq",
-          "last_verified": "2026-10-09"
-        },
-        {
-          "id": "c3",
-          "text_ko": "2001년 정부 결정으로 국립공원으로 높여 지정됐어요.",
-          "source": "angiang_dl_vqgpq",
-          "last_verified": "2026-10-09"
-        },
-        {
-          "id": "c4",
-          "text_ko": "유네스코가 인정한 키엔장 생물권보전지역의 일부예요.",
-          "source": "angiang_dl_vqgpq",
-          "last_verified": "2026-10-09"
-        }
-      ],
-      "tips_ko": [],
-      "facts": {
-        "kind": "facility",
-        "entry": "unknown",
-        "regular_closed": [
-          "unknown"
-        ],
-        "closed_note_ko": null,
-        "visit_note_ko": null,
-        "source": "angiang_dl_vqgpq",
-        "last_verified": "2026-10-09"
-      },
-      "volatile": null,
-      "seasonal": [],
-      "risk": [],
-      "status": {
-        "value": "open",
-        "note_ko": null,
-        "source": "angiang_dl_vqgpq",
-        "last_verified": "2026-10-09"
-      },
-      "advisory": {
-        "level": "1",
-        "source": "mofa_vn",
-        "last_verified": "2026-10-02"
-      },
-      "rank": {
-        "order": 203,
-        "designations": [
-          {
-            "kind": "vn_national_park",
-            "name_ko": "국립공원(2001)",
-            "source": "angiang_dl_vqgpq"
-          }
-        ]
-      },
-      "photo": null,
-      "photo_link": null,
-      "source": "wd",
-      "last_verified": "2026-10-09"
-    },
-    {
-      "id": "sao-beach",
-      "qid": "Q32199900",
-      "names": {
-        "ko": "사오 해변",
-        "ko_basis": "editorial",
-        "ko_paren": null,
-        "en": "Sao Beach",
-        "local": "Bãi Sao",
-        "local_short": "Bãi Sao",
-        "local_lang": "vi",
-        "source": "wd"
-      },
-      "aliases_ko": [
-        "바이사오",
-        "사오 비치"
-      ],
-      "aliases_en": [
-        "Bai Sao"
-      ],
-      "mentions_ko": [],
-      "region": "vn_phuquoc",
-      "area_ko": "푸꾸옥 남부",
-      "category": "sea_island",
-      "tags": [],
-      "geo": {
-        "kind": "site",
-        "lat": 10.057298,
-        "lng": 104.036392,
-        "source": "wd",
-        "qid": "Q32199900",
-        "osm": null,
-        "last_verified": "2026-10-09"
-      },
-      "address_local": null,
-      "access": null,
-      "official_url": "https://dulich.angiang.gov.vn/destination/detail/1309",
-      "summary_ko": "푸꾸옥섬 남쪽에 있는 모래 해변이에요.",
-      "body_ko": [
-        "사오 해변은 푸꾸옥섬 남쪽에 있는 해변으로, 해안선이 7km쯤 이어져요.",
-        "이름은 해 질 녘 불가사리가 바다에서 해변으로 올라온다는 옛이야기에서 왔다고 해요."
-      ],
-      "claims": [
-        {
-          "id": "c1",
-          "text_ko": "푸꾸옥섬 남쪽에 있어요.",
-          "source": "angiang_dl_baisao",
-          "last_verified": "2026-10-09"
-        },
-        {
-          "id": "c2",
-          "text_ko": "해안선이 7km쯤 이어지고, 모래사장과 야자수가 있어요.",
-          "source": "angiang_dl_baisao",
-          "last_verified": "2026-10-09"
-        },
-        {
-          "id": "c3",
-          "text_ko": "이름은 해 질 녘 불가사리(사오비엔)가 해변으로 올라온다는 옛이야기에서 왔다고 해요.",
-          "source": "angiang_dl_baisao",
-          "last_verified": "2026-10-09"
-        }
-      ],
-      "tips_ko": [
-        {
-          "text": "남서풍을 피하는 자리라 바다가 얕은 편이에요.",
-          "source": "angiang_dl_baisao",
-          "last_verified": "2026-10-09"
-        }
-      ],
-      "facts": {
-        "kind": "public_space"
-      },
-      "volatile": null,
-      "seasonal": [],
-      "risk": [],
-      "status": {
-        "value": "open",
-        "note_ko": null,
-        "source": "angiang_dl_baisao",
-        "last_verified": "2026-10-09"
-      },
-      "advisory": {
-        "level": "1",
-        "source": "mofa_vn",
-        "last_verified": "2026-10-02"
-      },
-      "rank": {
-        "order": 207,
-        "designations": []
-      },
-      "photo": null,
-      "photo_link": "https://commons.wikimedia.org/wiki/File:Phu_quoc_plage_sao.jpg",
       "source": "wd",
       "last_verified": "2026-10-09"
     },
@@ -956,7 +683,15 @@
         "last_verified": "2026-10-09"
       },
       "address_local": null,
-      "access": null,
+      "access": {
+        "modes": [
+          "car_only"
+        ],
+        "nearest_ko": "안터이 케이블카역에서 케이블카를 타고 섬으로 가요 (역까지는 택시나 빌린 오토바이로 가요)",
+        "nearest_local": null,
+        "source": "sunworld_honthom_1day",
+        "last_verified": "2026-10-09"
+      },
       "official_url": "https://sunworld.vn/en/hon-thom",
       "summary_ko": "케이블카로 바다를 건너 들어가는 섬의 놀이·휴양 단지예요.",
       "body_ko": [
@@ -1038,7 +773,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 208,
+        "order": 205,
         "designations": []
       },
       "photo": null,
@@ -1104,21 +839,39 @@
       "use": "facts"
     },
     {
+      "id": "dinhdoclap_vi_directions",
+      "name": "Di tích lịch sử Dinh Độc Lập — Đường đến di tích (official, Vietnamese)",
+      "url": "https://dinhdoclap.gov.vn/duong-den-di-tich/",
+      "use": "facts"
+    },
+    {
+      "id": "chinhphu_metro_tourism",
+      "name": "Báo Điện tử Chính phủ (Cổng TTĐT Chính phủ), chuyên trang TP.HCM — Metro số 1: Đòn bẩy phát triển du lịch TPHCM",
+      "url": "https://tphcm.chinhphu.vn/metro-so-1-don-bay-phat-trien-du-lich-tphcm-101241223173856116.htm",
+      "use": "facts"
+    },
+    {
+      "id": "sodulich_cuchi",
+      "name": "Sở Du lịch TP.HCM (HCMC Department of Tourism, official) — Khu di tích lịch sử địa đạo Củ Chi",
+      "url": "https://sodulich.hochiminhcity.gov.vn/Home/moduleId/564/id/4373/ngonnguid/vi/act/KhamPhaDuLich/ctr/HomeDuKhach/controller/HomeDuKhach/action/ChiTietTinTucByIdWithDiaDiem",
+      "use": "facts"
+    },
+    {
+      "id": "dsvh_cuchi",
+      "name": "Cục Di sản văn hóa, Bộ VHTTDL (official) — Di tích lịch sử Địa đạo Củ Chi",
+      "url": "https://dsvh.gov.vn/di-tich-lich-su-dia-dao-cu-chi-1490",
+      "use": "facts"
+    },
+    {
+      "id": "sunworld_honthom_1day",
+      "name": "Sun World Hon Thom — Optimal 1-day itinerary to explore Southern Phu Quoc (operator, English)",
+      "url": "https://sunworld.vn/en/hon-thom/travel-guide/optimal-1-day-itinerary-to-explore-south-phu-quoc-island-24314",
+      "use": "facts"
+    },
+    {
       "id": "dinhdoclap_vi",
       "name": "Di tích lịch sử Dinh Độc Lập (official, Vietnamese)",
       "url": "https://dinhdoclap.gov.vn/",
-      "use": "facts"
-    },
-    {
-      "id": "wrm_en",
-      "name": "War Remnants Museum (official, English)",
-      "url": "https://baotangchungtichchientranh.vn/en",
-      "use": "facts"
-    },
-    {
-      "id": "wrm_vi",
-      "name": "Bảo tàng Chứng tích Chiến tranh (official, Vietnamese)",
-      "url": "https://baotangchungtichchientranh.vn/vi",
       "use": "facts"
     },
     {
@@ -1161,24 +914,6 @@
       "id": "saigonzoo_history",
       "name": "Thảo Cầm Viên Sài Gòn — Quá trình hình thành và phát triển (official)",
       "url": "https://saigonzoo.vn/thao-cam-vien-sai-gon-qua-trinh-hinh-thanh-va-phat-trien-57.html",
-      "use": "facts"
-    },
-    {
-      "id": "angiang_dl_prison",
-      "name": "Du lịch An Giang (Sở Du lịch tỉnh An Giang, official portal) — Khu Di tích Quốc gia đặc biệt Trại giam Phú Quốc",
-      "url": "https://dulich.angiang.gov.vn/destination/detail/1298",
-      "use": "facts"
-    },
-    {
-      "id": "angiang_dl_vqgpq",
-      "name": "Du lịch An Giang (Sở Du lịch tỉnh An Giang, official portal) — Khu du lịch Vườn Quốc gia Phú Quốc",
-      "url": "https://dulich.angiang.gov.vn/destination/detail/1297",
-      "use": "facts"
-    },
-    {
-      "id": "angiang_dl_baisao",
-      "name": "Du lịch An Giang (Sở Du lịch tỉnh An Giang, official portal) — Điểm du lịch Bãi Sao",
-      "url": "https://dulich.angiang.gov.vn/destination/detail/1309",
       "use": "facts"
     },
     {
