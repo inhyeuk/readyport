@@ -1,6 +1,7 @@
 # 모든 라이브러리 버전은 이 파일에서만 관리한다.
 # 2026-09-28 M1: 최신 안정판으로 일괄 업그레이드 (Google Maven·Maven Central 조회 기준).
 [versions]
+browser = "1.8.0"
 agp = "9.4.1"
 kotlin = "2.4.20"
 ksp = "2.3.12"
@@ -28,6 +29,7 @@ robolectric = "4.17"
 mapsCompose = "8.6.0"
 
 [libraries]
+androidx-browser = { module = "androidx.browser:browser", version.ref = "browser" }
 androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
 androidx-lifecycle-runtime-compose = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "lifecycle" }
 androidx-lifecycle-process = { module = "androidx.lifecycle:lifecycle-process", version.ref = "lifecycle" }

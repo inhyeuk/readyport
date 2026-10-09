@@ -148,13 +148,7 @@
       "region": "jp_tokyo",
       "area_ko": "도쿄 다이토구 아사쿠사",
       "category": "heritage",
-      "tags": [
-        {
-          "id": "free_entry",
-          "source": "gotokyo_sensoji",
-          "last_verified": "2026-10-09"
-        }
-      ],
+      "tags": [],
       "geo": {
         "kind": "entrance",
         "lat": 35.71113333,
@@ -273,7 +267,7 @@
       ],
       "facts": {
         "kind": "facility",
-        "entry": "free",
+        "entry": "unknown",
         "regular_closed": [
           "unknown"
         ],
@@ -298,7 +292,13 @@
       },
       "rank": {
         "order": 4,
-        "designations": []
+        "designations": [
+          {
+            "kind": "jp_important_cultural_property_partial",
+            "name_ko": "경내 일부 중요문화재(니텐몬)·명승(덴포인 정원)",
+            "source": "sensoji_official_en"
+          }
+        ]
       },
       "photo": null,
       "photo_link": "https://commons.wikimedia.org/wiki/File:Sensoji_2023.jpg",
@@ -335,11 +335,6 @@
       "area_ko": "교토 후시미구",
       "category": "heritage",
       "tags": [
-        {
-          "id": "free_entry",
-          "source": "kyoto_navi_inari",
-          "last_verified": "2026-10-09"
-        },
         {
           "id": "night",
           "source": "kyoto_navi_inari",
@@ -451,7 +446,7 @@
       ],
       "facts": {
         "kind": "facility",
-        "entry": "free",
+        "entry": "unknown",
         "regular_closed": [
           "none"
         ],
@@ -476,7 +471,13 @@
       },
       "rank": {
         "order": 3,
-        "designations": []
+        "designations": [
+          {
+            "kind": "jp_important_cultural_property_partial",
+            "name_ko": "본전 중요문화재",
+            "source": "inari_official_en"
+          }
+        ]
       },
       "photo": null,
       "photo_link": "https://commons.wikimedia.org/wiki/File:Fushimiinari-taisha,_naihaiden-1.jpg",
@@ -807,7 +808,7 @@
       ],
       "region": "jp_nara",
       "area_ko": "나라시",
-      "category": "heritage",
+      "category": "nature",
       "tags": [
         {
           "id": "free_entry",

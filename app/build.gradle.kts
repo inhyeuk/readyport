@@ -113,6 +113,8 @@ android {
 
 dependencies {
     implementation(libs.androidx.core.ktx)
+    // 위키백과 전체 보기를 앱 안 탭(Custom Tab)으로 — 2026-10-09 사장님 결정
+    implementation(libs.androidx.browser)
     implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.lifecycle.process)

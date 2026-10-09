@@ -97,7 +97,12 @@ fun AttractionWikiSheet(page: WikiPage, onDismiss: () -> Unit, openLink: (String
         containerColor = Tokens.Surface,
         contentColor = Tokens.Ink,
     ) {
-        WikiSheetContent(page, result, onRetry = { attempt++ }, openLink = openLink, onClose = onDismiss)
+        val context = androidx.compose.ui.platform.LocalContext.current
+        WikiSheetContent(
+            page, result, onRetry = { attempt++ }, openLink = openLink, onClose = onDismiss,
+            // 전체 보기는 앱 안 탭(Custom Tab)으로. 받을 브라우저가 없으면 바깥 브라우저로
+            openFull = { url -> if (!openInAppTab(context, url)) openLink(url) },
+        )
     }
 }
 
@@ -113,6 +118,8 @@ fun WikiSheetContent(
     openLink: (String) -> Unit,
     onClose: () -> Unit,
     modifier: Modifier = Modifier,
+    /** '위키백과에서 전체 보기' — 기본은 [openLink], 실제 화면은 앱 안 탭 */
+    openFull: (String) -> Unit = openLink,
 ) {
     val dimens = LocalDimens.current
     Column(
@@ -130,7 +137,7 @@ fun WikiSheetContent(
                     CircularProgressIndicator(Modifier.size(24.dp), color = Tokens.Accent, strokeWidth = 3.dp)
                     KoText(stringResource(R.string.attractions_wiki_loading), MaterialTheme.typography.bodyLarge, color = Tokens.InkSecondary)
                 }
-                is WikiSummaryResult.Ready -> WikiSummaryBody(result.summary, openLink)
+                is WikiSummaryResult.Ready -> WikiSummaryBody(result.summary, openLink, openFull)
                 WikiSummaryResult.Offline -> {
                     IconBullet(stringResource(R.string.attractions_wiki_offline), Icons.Outlined.CloudOff)
                     SecondaryButton(stringResource(R.string.attractions_wiki_retry), onClick = onRetry, icon = Icons.Outlined.Refresh)
@@ -148,11 +155,15 @@ fun WikiSheetContent(
 
 /** 제목 · 글(이미지 없음) · 출처 줄(문서·라이선스 링크) · '위키백과에서 전체 보기' */
 @Composable
-private fun WikiSummaryBody(summary: WikiSummary, openLink: (String) -> Unit) {
+private fun WikiSummaryBody(summary: WikiSummary, openLink: (String) -> Unit, openFull: (String) -> Unit) {
     KoText(summary.title, MaterialTheme.typography.titleLarge, color = Tokens.Ink, heading = true, glueShort = true)
     KoText(summary.extract, MaterialTheme.typography.bodyLarge, color = Tokens.Ink)
     WikiAttribution(summary, openLink)
-    PrimaryButton(stringResource(R.string.attractions_wiki_full), onClick = { openLink(summary.pageUrl) }, icon = Icons.AutoMirrored.Outlined.OpenInNew)
+    PrimaryButton(
+        stringResource(R.string.attractions_wiki_full),
+        onClick = { openFull(summary.pageUrl) },
+        icon = Icons.AutoMirrored.Outlined.OpenInNew,
+    )
 }
 
 /** '출처: 위키백과 «제목» · CC BY-SA 4.0' — 제목은 문서로, CC BY-SA 4.0은 이용 조건으로 가는 링크 (CLAUDE.md 7: CC BY-SA 출처 표기) */
@@ -177,3 +188,10 @@ private fun WikiAttribution(summary: WikiSummary, openLink: (String) -> Unit) {
 }
 
 private const val LICENSE_LABEL = "CC BY-SA 4.0"
+
+
+/** 위키백과 문서를 앱 안 탭(Custom Tab)으로 연다. 열 수 있는 브라우저가 없으면 false */
+internal fun openInAppTab(context: android.content.Context, url: String): Boolean = runCatching {
+    androidx.browser.customtabs.CustomTabsIntent.Builder().setShowTitle(true).build()
+        .launchUrl(context, android.net.Uri.parse(url))
+}.isSuccess
