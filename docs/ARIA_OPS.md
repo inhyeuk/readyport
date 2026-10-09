@@ -95,7 +95,7 @@
 |---|---|---|---|
 | `attraction_flags/{CC}` | `{ids: [관광지 id…], kind: "check_in_progress", at: timestamp}` | ARIA 서비스 계정만 | 누구나(get) |
 
-앱(나중 작업): 상세 화면에서 `ids` 에 든 관광지면 '공식 안내가 바뀌었어요 — 확인 중' 띠. 받은 관광지 파일의 그 곳 `status.last_verified` 가 `at` 날짜 이후면 띠를 숨긴다(이미 반영됨).
+앱(`attractions/rating/Ratings.kt` AttractionFlags.shows — 2026-10-09 구현): 상세 화면에서 `ids` 에 든 관광지면 '공식 안내가 바뀌었어요 — 확인 중' 띠. 받은 관광지 파일의 그 곳 `status.last_verified` 가 `at` 날짜(UTC) **다음 날 이후**면 띠를 숨긴다(이미 반영됨 — 같은 날이면 띠를 남기는 안전한 쪽).
 문서가 없거나 못 읽으면 띠 없음(오프라인 우선).
 
 ### 12.10 관광지 평점 (구글 별점 실시간 + 레디포트 자체 평점)
@@ -116,7 +116,7 @@
 
 | 문서 | 모양 | 규칙 |
 |---|---|---|
-| `plan_requests/{id}` | `uid`, `country`(9개국), `purposes`(1~5개: sightseeing·food·shopping·nature·history_culture·relaxation·kids_family·activity·other), `purpose_note`(선택 ≤200자), `travelers`{adults·seniors·teens·children 0~20(합 1~20), genders?{female·male}}, `mobility`(선택: long_walk_hard·wheelchair·stairs_hard·with_infant·other_none), `sensitive_consent: true`(mobility 를 고르면 필수, 안 고르면 없음), `days`(1~30) **또는** `start_date`·`end_date`('YYYY-MM-DD'), `budget_band`(budget·standard·comfort·premium), `currency: "KRW"`, `status: "queued"`, `createdAt` = 서버 시각 | 만들기: 로그인 본인 + 같은 묶음에서 `plan_quota/{uid}` 갱신. 읽기: 본인·운영자. 이용자 수정은 취소만(queued·processing → `cancelled`, `finishedAt` = 서버 시각). 삭제 불가 |
+| `plan_requests/{id}` | `uid`, `country`(9개국), `purposes`(1~5개: sightseeing·food·shopping·nature·history_culture·relaxation·kids_family·activity·other), `purpose_note`(선택 ≤200자), `travelers`{adults·seniors·teens·children 0~20(합 1~20), genders?{female·male}}, `mobility`(선택: long_walk_hard·wheelchair·stairs_hard·with_infant·other_none), `sensitive_consent: true`(mobility 를 고르면 필수, 안 고르면 없음), `days`(1~30) **또는** `start_date`·`end_date`('YYYY-MM-DD'), `budget_band`(budget·standard·comfort·premium), `currency: "KRW"`, `status: "queued"`, `createdAt` = 서버 시각 | 만들기: 로그인 본인 + 같은 묶음에서 `plan_quota/{uid}` 갱신. 읽기: 본인·운영자. 이용자 수정은 취소만(queued·processing → `cancelled`, `finishedAt` = 서버 시각). 삭제는 취소한 내 요청만(앱 '내 계획 요청' › 삭제) |
 | `plan_quota/{uid}` | `{last, prev, lastRequestId}` | 새 요청과 같은 묶음에서만. `prev` 는 직전 `last`, 직전 `prev` 가 7일 안이면 거절(= 7일에 2번). 본인만 읽음, 지우기 불가 |
 | `plan_results/{id}` | `{uid, request_id, country, plan: {days[{day, title, items[{time_hint, place_id?, title, note}]}], tips[], budget_notes[], caveats[]}, ai_generated: true, notice_ko, engine, pack_version, attractions_version, createdAt}` | 본인·운영자 읽기(없으면 '없음'), 쓰기는 서비스 계정만 |
 

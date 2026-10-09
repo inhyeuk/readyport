@@ -177,10 +177,11 @@ fun ListRow(
  * [indent] 기본값: 큰 글자 배치(Stacked)면 글이 폭 전체를 쓰므로 들여쓰지 않는다.
  */
 @Composable
-fun ListDivider(indent: Boolean = !isStackedLayout()) {
+fun ListDivider(indent: Boolean = false) {
+    // 2026-10-09 사장님 요청: 항목이 섞여 보이지 않게 — 기본은 폭 전체 구분선, 항목 테두리와 같은 색
     val dimens = LocalDimens.current
     val start = if (indent) dimens.listRowPadding + dimens.iconBadge + 16.dp else 0.dp
-    HorizontalDivider(Modifier.padding(start = start), thickness = 1.dp, color = Tokens.Line)
+    HorizontalDivider(Modifier.padding(start = start), thickness = 1.dp, color = Tokens.CardEdge)
 }
 
 /**

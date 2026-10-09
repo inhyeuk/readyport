@@ -79,7 +79,7 @@
     <string name="attractions_jump_title">지역으로 건너뛰기</string>
     <string name="attractions_jump_row">%1$s · %2$d곳</string>
     <string name="attractions_jump_cd">%1$s 지역으로 건너뛰기</string>
-    <string name="attractions_sample_banner">시범 자료예요. 일본 5곳만 들어 있고, 공개 전에 확인하는 용도예요.</string>
+    <string name="attractions_sample_banner">시범 자료예요. 공개 전에 확인하는 용도라 실제 앱에는 아직 없어요.</string>
     <string name="attractions_list_speech">%1$s. 모두 %2$d곳, 지역 %3$d곳.</string>
 
     <!-- 이유 줄 (조사 없는 틀) -->
@@ -173,6 +173,25 @@
     <string name="credits_data_title">관광지 정보 출처</string>
     <string name="settings_credit_bunka_osakajo">문화청 국가지정문화재 데이터베이스 — 오사카성 터(특별사적)</string>
     <string name="settings_credit_bunka_narapark">문화청 국가지정문화재 데이터베이스 — 나라 공원(명승)</string>
+    <string name="settings_credit_unesco_688">UNESCO World Heritage Centre — Historic Monuments of Ancient Kyoto (component parts) — 금각사·기요미즈데라·니조성</string>
+    <string name="settings_credit_bunka_arashiyama">文化庁 国指定文化財等データベース — 아라시야마</string>
+    <string name="settings_credit_bunka_tsutenkaku">文化庁 国指定文化財等データベース — 쓰텐카쿠</string>
+    <string name="settings_credit_bunka_tokyotower">文化庁 国指定文化財等データベース — 도쿄 타워</string>
+    <string name="settings_credit_bunka_edojo">文化庁 国指定文化財等データベース — 고쿄 히가시교엔</string>
+    <string name="settings_credit_bunka_tnm_honkan">文化庁 国指定文化財等データベース — 도쿄 국립박물관</string>
+    <string name="settings_credit_bunka_hyokeikan">文化庁 国指定文化財等データベース — 도쿄 국립박물관</string>
+    <string name="settings_credit_bunka_tsurugaoka">文化庁 国指定文化財等データベース — 쓰루가오카 하치만구</string>
+    <string name="settings_credit_bunka_daibutsuden">文化庁 国指定文化財等データベース — 가마쿠라 대불(고토쿠인)</string>
+    <string name="settings_credit_unesco_1418">UNESCO World Heritage Centre — 후지산</string>
+    <string name="settings_credit_bunka_fujisan">文化庁 国指定文化財等データベース — 후지산</string>
+    <string name="settings_credit_bunka_fujisan_wh">文化庁 国指定文化財等データベース(世界遺産) — 가와구치호</string>
+    <string name="settings_credit_bunka_fujigoko">文化庁 国指定文化財等データベース — 가와구치호</string>
+    <string name="settings_credit_bunka_dazaifu_honden">文化庁 国指定文化財等データベース — 다자이후 텐만구</string>
+    <string name="settings_credit_bunka_ohori">文化庁 国指定文化財等データベース — 오호리 공원</string>
+    <string name="settings_credit_bunka_beppu_jigoku">文化庁 国指定文化財等データベース — 벳푸 지옥 순례</string>
+    <string name="settings_credit_bunka_takegawara">文化庁 国指定文化財等データベース — 다케가와라 온천</string>
+    <string name="settings_credit_bunka_tokeidai">文化庁 国指定文化財等データベース — 삿포로 시계탑</string>
+    <string name="settings_credit_bunka_moiwa">文化庁 国指定文化財等データベース — 모이와산</string>
     <string name="settings_credit_unesco_870">UNESCO 세계유산센터 — 고대 나라의 역사기념물</string>
 
     <!-- 관광지 지도 (Google 지도 SDK, 사장님 결정 2026-10-09). 키가 없거나 중국이면 지도 없이 '구글 지도에서 열기'만 -->

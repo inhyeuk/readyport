@@ -144,6 +144,9 @@ data class BoardNav(
     /** 처음 쓰기 전: 규칙 동의 → 게시판 이름 → 그 게시판 글쓰기 */
     val join: (BoardKind) -> Unit = {},
     val openRules: () -> Unit = {},
+    /** 맨 위 `여행 계획 요청` 카드 (비공개 요청 — 게시판 글이 아니다) */
+    val openPlanRequest: () -> Unit = {},
+    val openMyPlans: () -> Unit = {},
 )
 
 @HiltViewModel
@@ -328,6 +331,10 @@ fun BoardHomeContent(ui: BoardHomeUi, nav: BoardNav = BoardNav(), actions: Board
         CountryPickerDialog(ui.country, onPick = { actions.selectCountry(it); pickCountry = false }, onDismiss = { pickCountry = false })
     }
     AppScreen(title = stringResource(R.string.board_title), speech = stringResource(R.string.board_speech)) {
+        // 여행 계획 요청(나만 보는 비공개 요청, 2026-10-09) — 공개 게시판 글과 길이 다르다
+        item(key = "plan-entry") {
+            com.readyport.ui.plan.PlanEntryCard(ui.age, onRequest = nav.openPlanRequest, onMine = nav.openMyPlans)
+        }
         item(key = "boards") {
             SectionCards(
                 options = BoardKind.entries,

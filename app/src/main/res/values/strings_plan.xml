@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 여행 계획 요청 (사장님 결정 2026-10-09 ② — docs/ARIA_OPS.md 12.11). 비공개 요청 · AI(Claude) 고지 · 민감정보 별도 동의. 새 문구는 이 파일에만. -->
+<resources>
+    <!-- 게시판 첫 화면 맨 위 카드 -->
+    <string name="plan_entry_title">여행 계획 요청</string>
+    <string name="plan_entry_badge">나만 보는 비공개 요청</string>
+    <string name="plan_entry_body">나라·날짜·목적을 알려 주면 AI가 여행 일정 초안을 만들어 드려요. 1인 7일에 2번까지 요청할 수 있어요.</string>
+    <string name="plan_entry_request">계획 요청하기</string>
+    <string name="plan_entry_mine">내 계획 요청 보기</string>
+    <string name="plan_entry_minor">여행 계획 요청은 만 19세부터 할 수 있어요.</string>
+
+    <!-- 여행 계획 단계 타일 -->
+    <string name="plan_tile">여행 계획 요청</string>
+    <string name="plan_tile_body">AI가 일정 초안을 만들어 드려요</string>
+
+    <!-- 양식 -->
+    <string name="plan_form_title">여행 계획 요청</string>
+    <string name="plan_form_speech">여행 계획 요청 화면이에요. 나라, 날짜, 목적, 함께 가는 사람, 예산을 고르고 요청을 보내요. 나만 보는 비공개 요청이에요.</string>
+    <string name="plan_form_private">나만 보는 비공개 요청이에요. 게시판에 올라가지 않아요.</string>
+    <string name="plan_quota_left">1인 7일에 2번까지 · 지금 %1$d번 더 요청할 수 있어요</string>
+    <string name="plan_quota_used">7일에 2번을 모두 썼어요. %1$s부터 다시 요청할 수 있어요.</string>
+    <string name="plan_quota_used_nodate">7일에 2번을 모두 썼어요. 며칠 뒤에 다시 요청해 주세요.</string>
+    <string name="plan_age_minor_title">여행 계획 요청은 만 19세부터예요</string>
+    <string name="plan_age_minor_body">내 정보에 저장한 여권으로 보면 아직 만 19세가 안 됐어요. 만 19세가 되면 요청할 수 있어요.</string>
+    <string name="plan_age_check_title">요청하기 전에 나이를 확인해요</string>
+    <string name="plan_age_check_body">여행 계획 요청은 만 19세부터 할 수 있어요. 내 정보에 저장한 여권의 생년월일로 이 휴대폰 안에서만 확인하고, 생년월일은 어디에도 보내지 않아요.</string>
+
+    <string name="plan_country">어느 나라에 가요?</string>
+    <string name="plan_dates">며칠 가요?</string>
+    <string name="plan_dates_trip">여행 날짜 그대로 (%1$s, %2$d일)</string>
+    <string name="plan_dates_days">며칠인지만 알려 주기</string>
+    <string name="plan_days_label">여행 일수</string>
+    <string name="plan_days_value">%1$d일</string>
+    <string name="plan_dates_note">날짜 대신 며칠인지만 보내도 계획을 받을 수 있어요.</string>
+    <string name="plan_dates_too_long">30일까지 요청할 수 있어요. 며칠인지만 보내기로 30일 이하를 골라 주세요.</string>
+
+    <string name="plan_purposes">여행 목적 (5개까지)</string>
+    <string name="plan_purpose_sightseeing">구경·명소</string>
+    <string name="plan_purpose_food">맛집·음식</string>
+    <string name="plan_purpose_shopping">쇼핑</string>
+    <string name="plan_purpose_nature">자연·경치</string>
+    <string name="plan_purpose_history_culture">역사·문화</string>
+    <string name="plan_purpose_relaxation">쉬기·휴양</string>
+    <string name="plan_purpose_kids_family">아이와 가족</string>
+    <string name="plan_purpose_activity">체험·활동</string>
+    <string name="plan_purpose_other">그 밖에</string>
+    <string name="plan_purposes_max">목적은 5개까지 고를 수 있어요.</string>
+
+    <string name="plan_note_label">더 알려 줄 것 (선택)</string>
+    <string name="plan_note_hint">예) 매운 음식은 못 먹어요, 둘째 날은 쉬고 싶어요</string>
+    <string name="plan_note_privacy">이름·연락처·여권 번호 같은 개인정보는 쓰지 마세요. 건강 상태도 여기에 쓰지 말고, 아래 \'이동할 때 도움이 필요한 점\'에서 골라 주세요.</string>
+    <string name="plan_note_long">200자까지 쓸 수 있어요.</string>
+    <string name="plan_pii_block">여권 번호·여권 아래 두 줄·주민등록번호처럼 보이는 글자는 지워야 보낼 수 있어요. 빨갛게 표시한 곳을 고쳐 주세요.</string>
+    <string name="plan_pii_warn">계획을 만드는 데 전화번호·이메일은 필요 없어요. 지우고 보내 주세요.</string>
+    <string name="plan_pii_send_anyway">개인 연락처가 아니에요. 이대로 보내기</string>
+
+    <string name="plan_travelers">함께 가는 사람 (나 포함)</string>
+    <string name="plan_adults">어른 (19~64세)</string>
+    <string name="plan_seniors">어르신 (65세 이상)</string>
+    <string name="plan_teens">청소년 (13~18세)</string>
+    <string name="plan_children">어린이 (12세 이하)</string>
+    <string name="plan_count_value">%1$d명</string>
+    <string name="plan_count_minus">%1$s 한 명 빼기</string>
+    <string name="plan_count_plus">%1$s 한 명 더하기</string>
+    <string name="plan_travelers_total">모두 %1$d명</string>
+    <string name="plan_travelers_problem">1명부터 20명까지 요청할 수 있어요.</string>
+    <string name="plan_genders_toggle">성별 인원도 알려 주기 (선택)</string>
+    <string name="plan_female">여성</string>
+    <string name="plan_male">남성</string>
+    <string name="plan_genders_problem">성별 인원을 더하면 모두 인원보다 많아요.</string>
+
+    <string name="plan_mobility">이동할 때 도움이 필요한 점 (선택)</string>
+    <string name="plan_mobility_lead">고르면 걷는 거리·계단을 생각해서 계획을 짜요. 고르지 않아도 계획을 요청할 수 있어요.</string>
+    <string name="plan_mobility_long_walk_hard">오래 걷기 어려워요</string>
+    <string name="plan_mobility_wheelchair">휠체어를 써요</string>
+    <string name="plan_mobility_stairs_hard">계단이 어려워요</string>
+    <string name="plan_mobility_with_infant">아기와 함께 가요</string>
+
+    <!-- 민감정보 별도 동의 (개인정보 보호법 제23조) — 이동 조건을 고를 때만 보인다 -->
+    <string name="plan_consent_title">민감정보 수집·이용 동의 (선택)</string>
+    <string name="plan_consent_items">수집 항목: 이동할 때 도움이 필요한 점 가운데 고른 것(오래 걷기 어려움·휠체어·계단 어려움·아기와 함께). 진단명이나 건강 상태는 받지 않아요.</string>
+    <string name="plan_consent_purpose">이용 목적: 걷는 거리·계단을 생각한 여행 계획 초안 만들기</string>
+    <string name="plan_consent_retention">보유 기간: 계획이 도착하거나 실패한 날부터 30일 뒤 자동으로 지워요. 요청을 취소하면 내가 \'삭제\'를 누를 때까지 남아요. 끝난 요청은 언제든 직접 지울 수 있어요.</string>
+    <string name="plan_consent_transfer">처리: 운영자의 시스템이 Anthropic(미국)의 AI Claude로 계획을 만들어요. 이때 이 내용도 함께 미국으로 보내져요(개인정보 처리방침 참고).</string>
+    <string name="plan_consent_refuse">동의하지 않을 권리가 있어요. 동의하지 않아도 이동 조건 없이 계획을 요청할 수 있고, 다른 기능도 그대로 쓸 수 있어요.</string>
+    <string name="plan_consent_check">위 내용을 읽었고, 민감정보 수집·이용에 따로 동의해요</string>
+    <string name="plan_consent_needed">이동 조건을 보내려면 동의에 체크해 주세요. 동의하지 않으려면 고른 것을 풀어 주세요.</string>
+
+    <string name="plan_budget">예산 (1인 하루, 항공·숙소 빼고 대략)</string>
+    <string name="plan_budget_budget">알뜰하게</string>
+    <string name="plan_budget_budget_desc">하루 5만 원 안팎 · 대중교통·길거리 음식 위주</string>
+    <string name="plan_budget_standard">보통으로</string>
+    <string name="plan_budget_standard_desc">하루 5만~10만 원 · 대중교통과 보통 식당</string>
+    <string name="plan_budget_comfort">여유 있게</string>
+    <string name="plan_budget_comfort_desc">하루 10만~20만 원 · 택시·좋은 식당도</string>
+    <string name="plan_budget_premium">넉넉하게</string>
+    <string name="plan_budget_premium_desc">하루 20만 원 넘게 · 편한 것 먼저</string>
+    <string name="plan_budget_note">금액은 고르기 쉽게 붙인 대략의 기준이에요. 계획에는 금액 대신 말로 적어 드려요.</string>
+
+    <string name="plan_problem_country">나라를 골라 주세요.</string>
+    <string name="plan_problem_purposes">목적을 하나 이상 골라 주세요.</string>
+    <string name="plan_problem_budget">예산을 골라 주세요.</string>
+    <string name="plan_problem_dates">여행은 1일부터 30일까지 요청할 수 있어요.</string>
+
+    <!-- AI 고지 (보내기 전) -->
+    <string name="plan_ai_title">AI가 만드는 계획이에요</string>
+    <string name="plan_ai_notice">계획은 AI(Claude)가 만들어요. 레디포트가 확인한 정보가 아니고, 출발 전 공식 안내로 다시 확인하세요.</string>
+    <string name="plan_processing_notice">요청은 운영자의 시스템이 1시간 안팎으로 처리해요. 도착하면 알림으로 알려 드려요.</string>
+    <string name="plan_send_items">보내는 것: 나라·날짜(또는 일수)·목적·메모·인원·예산, 동의한 경우 이동 조건. 여권·이름은 보내지 않아요.</string>
+    <string name="plan_retention_note">도착하거나 실패한 요청은 끝난 날부터 30일 뒤 자동으로 지워지고, 그 전에 직접 지울 수도 있어요.</string>
+    <string name="plan_privacy_link">개인정보 처리방침 보기</string>
+    <string name="plan_submit">계획 요청 보내기</string>
+    <string name="plan_confirm_title">이대로 요청할까요?</string>
+    <string name="plan_confirm_send">보내기</string>
+    <string name="plan_confirm_back">다시 볼래요</string>
+    <string name="plan_sending">보내는 중이에요</string>
+
+    <string name="plan_err_offline">인터넷에 연결되지 않았어요. 연결한 뒤 다시 해 주세요.</string>
+    <string name="plan_err_auth">계획 요청을 아직 준비하고 있어요. 조금 뒤에 다시 해 주세요.</string>
+    <string name="plan_err_denied">지금은 할 수 없어요. 잠시 뒤에 다시 해 주세요.</string>
+    <string name="plan_err_not_found">이 요청은 지워졌어요.</string>
+    <string name="plan_err_age">여행 계획 요청은 만 19세부터 할 수 있어요.</string>
+    <string name="plan_err_age_check">요청하기 전에 나이를 한 번 확인해요. 위의 \'나이 확인하기\'를 눌러 주세요.</string>
+    <string name="plan_err_invalid">빠진 칸이 있어요. 빨간 글을 확인해 주세요.</string>
+
+    <!-- 내 계획 요청 -->
+    <string name="plan_list_title">내 계획 요청</string>
+    <string name="plan_list_speech">내 계획 요청 화면이에요. 보낸 요청의 상태를 보고, 도착한 계획을 열거나 요청을 취소할 수 있어요.</string>
+    <string name="plan_list_empty_title">아직 보낸 요청이 없어요</string>
+    <string name="plan_list_empty_body">여행 계획을 요청하면 여기에서 볼 수 있어요.</string>
+    <string name="plan_list_new">새 계획 요청하기</string>
+    <string name="plan_list_offline">내 요청은 인터넷이 있어야 보여요.</string>
+    <string name="plan_list_error">요청을 불러오지 못했어요. 잠시 뒤에 다시 해 주세요.</string>
+    <string name="plan_retry">다시 불러오기</string>
+    <string name="plan_loading">불러오는 중이에요</string>
+    <string name="plan_status_queued">대기 중</string>
+    <string name="plan_status_processing">만드는 중</string>
+    <string name="plan_status_done">도착했어요</string>
+    <string name="plan_status_failed">실패</string>
+    <string name="plan_status_cancelled">취소함</string>
+    <string name="plan_status_unknown">확인 중</string>
+    <string name="plan_row_title">%1$s · %2$d일</string>
+    <string name="plan_row_sent">%1$s에 보냄</string>
+    <string name="plan_row_waiting">보통 1시간 안팎이면 도착해요.</string>
+    <string name="plan_row_cancelled">취소한 요청은 \'삭제\'를 누를 때까지 남아요.</string>
+    <string name="plan_open">계획 보기</string>
+    <string name="plan_cancel">요청 취소</string>
+    <string name="plan_delete">삭제</string>
+    <string name="plan_cancel_confirm_title">요청을 취소할까요?</string>
+    <string name="plan_cancel_confirm_body">취소해도 7일 2번 횟수는 돌아오지 않아요. 취소한 요청은 \'삭제\'를 누를 때까지 남아요.</string>
+    <string name="plan_delete_confirm_title">이 요청을 지울까요?</string>
+    <string name="plan_delete_confirm_body">지우면 되살릴 수 없어요. 지워도 7일 2번 횟수는 그대로예요.</string>
+    <string name="plan_fail_quota">7일에 2번을 넘어서 만들지 않았어요.</string>
+    <string name="plan_fail_invalid">요청 내용을 읽지 못했어요. 다시 요청해 주세요.</string>
+    <string name="plan_fail_country">이 나라는 아직 계획을 만들 수 없어요.</string>
+    <string name="plan_fail_engine">계획을 만들다 문제가 생겼어요. 다시 요청해 주세요.</string>
+    <string name="plan_list_retention">끝난 요청은 언제든 \'삭제\'로 지울 수 있어요. 도착하거나 실패한 요청은 30일 뒤 자동으로 지워지고, 취소한 요청은 직접 지울 때까지 남아요.</string>
+    <string name="plan_list_quota_note">취소하거나 지워도 7일 2번 횟수는 그대로예요.</string>
+
+    <!-- 계획 보기 -->
+    <string name="plan_view_title">%1$s 여행 계획</string>
+    <string name="plan_view_speech">AI가 만든 여행 계획이에요. 레디포트가 확인한 정보가 아니에요. 출발 전 공식 안내로 다시 확인하세요.</string>
+    <string name="plan_view_days">%1$d일 일정</string>
+    <string name="plan_ai_label">AI가 만든 계획</string>
+    <string name="plan_view_notice_default">AI가 만든 여행 계획이에요. 영업시간·요금·휴무는 바뀔 수 있으니 출발 전에 공식 안내를 꼭 확인하세요.</string>
+    <string name="plan_view_not_verified">레디포트가 확인한 정보가 아니에요. 출발 전 공식 안내로 다시 확인하세요.</string>
+    <string name="plan_day">%1$d일째</string>
+    <string name="plan_time_morning">아침</string>
+    <string name="plan_time_late_morning">오전</string>
+    <string name="plan_time_lunch">점심</string>
+    <string name="plan_time_afternoon">오후</string>
+    <string name="plan_time_evening">저녁</string>
+    <string name="plan_time_night">밤</string>
+    <string name="plan_place_open">%1$s 안내 보기</string>
+    <string name="plan_tips">알아 두면 좋아요</string>
+    <string name="plan_budget_notes">예산</string>
+    <string name="plan_caveats">꼭 확인할 것</string>
+    <string name="plan_pdf_save">PDF로 저장</string>
+    <string name="plan_pdf_share">PDF 보내기</string>
+    <string name="plan_pdf_note">PDF는 이 휴대폰 안에서 만들어요. 어디에도 올리지 않아요.</string>
+    <string name="plan_pdf_saved">PDF를 저장했어요.</string>
+    <string name="plan_pdf_failed">PDF를 만들지 못했어요. 다시 해 주세요.</string>
+    <string name="plan_pdf_filename">레디포트_여행계획_%1$s_%2$d일.pdf</string>
+    <string name="plan_pdf_title">여행 계획 · %1$s %2$d일</string>
+    <string name="plan_pdf_subtitle">레디포트에서 받은 AI 여행 계획 초안 · %1$s 만듦</string>
+    <string name="plan_pdf_footer">레디포트 · AI가 만든 계획이에요. 출발 전 공식 안내로 다시 확인하세요.</string>
+    <string name="plan_view_missing_title">계획을 찾지 못했어요</string>
+    <string name="plan_view_missing_body">지워졌거나 아직 만드는 중이에요. 내 계획 요청에서 상태를 확인해 주세요.</string>
+    <string name="plan_view_mine">내 계획 요청으로</string>
+
+    <!-- 알림 -->
+    <string name="plan_channel">여행 계획 도착</string>
+    <string name="plan_arrived_title">여행 계획이 도착했어요</string>
+    <string name="plan_arrived_body">눌러서 계획을 보세요. 출발 전 공식 안내로 다시 확인하세요.</string>
+    <string name="plan_arrived_body_many">계획 %1$d개가 도착했어요. 눌러서 보세요.</string>
+</resources>

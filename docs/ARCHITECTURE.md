@@ -484,3 +484,13 @@
 - 이미지 로더 라이브러리·동영상 플레이어 라이브러리 없음. 가로 스와이프 없음(게시판 고르기는 그림 카드 탭, 사진은 2열 격자).
 - 딥 링크·웹 공유 주소 없음(공유는 휴대폰 공유 창에 글만).
 
+## 여행 계획 요청·관광지 평점 (앱, 2026-10-09)
+
+- **여행 계획 요청**(`plan/`, `ui/plan/`): 게시판 탭 맨 위 카드·여행 계획 단계 타일 → 비공개 양식. 만 19세 확인·익명 로그인은 게시판과 같은 `BoardRepository.adultUid()`(닉네임·규칙 동의 불필요).
+  요청 문서와 `plan_quota` 를 **한 묶음**(batch)으로 쓴다 — 칸 모양은 `PlanRules.payload/quotaPayload` 한곳, `PlanContractTest` 가 규칙·ARIA 값 목록과 대조한다.
+  이동 조건(민감정보)은 고를 때만 별도 동의 칸이 나오고, 고르지 않으면 `sensitive_consent` 칸 자체를 보내지 않는다.
+- 도착 알림: FCM 없이 앱이 확인 — 이 기기에 '끝나지 않은 요청 id'만 두고(DataStore `plan`), 있을 때만 앱 시작·복귀(10분 간격)와 하루 한 번(챙길 일 쓸기·팩 받기 작업)에 그 문서를 읽는다.
+- PDF: `PlanPdfLayout`(순수 배치 — 줄·쪽 나누기, A4) + `PdfDocument` 그리기, 앱 내장 Pretendard. 저장은 ACTION_CREATE_DOCUMENT, 보내기는 cache/share(2분 뒤 삭제). 서버 업로드 없음.
+- **관광지 평점**(`attractions/rating/`): 내 별점 = `attraction_ratings/{CC}_{id}/votes/{uid}`, 공개 평점 = `attraction_rating_stats/{CC}`(5명 미만 숨김), 확인 중 띠 = `attraction_flags/{CC}`. 나라 문서는 앱 실행 동안 10분 메모리 캐시.
+- **Google 별점**: Places API (New) Place Details 를 HttpURLConnection 으로(새 라이브러리 없음), 허용 주소는 `PlacesHosts` 한 모양, 필드 마스크 `rating,userRatingCount,googleMapsUri`, Android 제한 키 머리글(패키지·서명 SHA-1). 키는 `BuildConfig.MAPS_API_KEY`(지도와 같은 키, 빌드 산출물에만). 키 없는 빌드(CI)·place ID 없음·실패면 숨김. 결과는 메모리에만.
+

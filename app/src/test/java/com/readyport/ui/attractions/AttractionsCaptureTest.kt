@@ -164,8 +164,8 @@ class AttractionsCaptureTest {
     }
 
     @Test fun searchUpcoming() {
-        show { AttractionsListContent(listUi(query = "후쿠오카"), AttractionsListActions()) }
-        rule.onNodeWithText(context.getString(R.string.attractions_upcoming, "후쿠오카")).assertExists()
+        show { AttractionsListContent(listUi(query = "오키나와"), AttractionsListActions()) }
+        rule.onNodeWithText(context.getString(R.string.attractions_upcoming, "오키나와")).assertExists()
         capture("att_14_search_upcoming")
     }
 
@@ -203,9 +203,12 @@ class AttractionsCaptureTest {
 
     @Test fun liftedAirportAndLevel2Region() {
         // 화면 확인용 변형: 오사카 지역을 2단계로 (D15-B 주의 띠) + 도착 공항 KIX로 끌어올림
-        val doc = sample.copy(
-            regions = sample.regions.map { if (it.id == "jp_osaka") it.copy(advisory = AdvisoryDto("2", "mofa_jp", "2026-09-28")) else it },
-            attractions = sample.attractions.map { if (it.region == "jp_osaka") it.copy(advisory = AdvisoryDto("2", "mofa_jp", "2026-09-28")) else it },
+        // 지역이 많으면 맨 위에 '지역 바로가기'가 생겨 머리가 화면 밖으로 밀린다 — 도쿄·오사카 두 지역만으로 본다
+        val two = setOf("jp_tokyo", "jp_osaka")
+        val base = sample.copy(regions = sample.regions.filter { it.id in two }, attractions = sample.attractions.filter { it.region in two })
+        val doc = base.copy(
+            regions = base.regions.map { if (it.id == "jp_osaka") it.copy(advisory = AdvisoryDto("2", "mofa_jp", "2026-09-28")) else it },
+            attractions = base.attractions.map { if (it.region == "jp_osaka") it.copy(advisory = AdvisoryDto("2", "mofa_jp", "2026-09-28")) else it },
         )
         show { AttractionsListContent(listUi(doc = doc, anchor = LiftAnchor("jp_osaka", LiftReason.Airport)), AttractionsListActions()) }
         rule.onNodeWithText(context.getString(R.string.attractions_lift_airport)).assertExists()

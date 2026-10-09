@@ -113,6 +113,8 @@ fun IconTile(spec: TileSpec, modifier: Modifier = Modifier, layout: TileLayout =
         shape = shape,
         color = c.container,
         contentColor = c.label,
+        // 항목 테두리(2026-10-09 사장님 요청): 연한 채움 타일끼리도 경계가 보이게
+        border = BorderStroke(1.dp, Tokens.CardEdge),
         modifier = modifier
             .fillMaxWidth()
             .then(if (c.shadow) Modifier.cardShadow(shape) else Modifier)

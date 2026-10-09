@@ -1,0 +1,1826 @@
+{
+  "regions": [
+    {
+      "id": "jp_fukuoka",
+      "order": 110,
+      "name_ko": "후쿠오카",
+      "name_en": "Fukuoka",
+      "aliases_ko": [
+        "하카타"
+      ],
+      "group_ko": "규슈",
+      "kind": "base",
+      "water_crossing": false,
+      "hub": {
+        "name_ko": "하카타역",
+        "lat": 33.589803,
+        "lng": 130.420681,
+        "qid": "Q800875"
+      },
+      "airports": [
+        "FUK"
+      ],
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "advisory_watch_ko": [],
+      "wave": 1
+    },
+    {
+      "id": "jp_yufuin_beppu",
+      "order": 120,
+      "name_ko": "유후인·벳푸",
+      "name_en": "Yufuin & Beppu",
+      "aliases_ko": [
+        "유후인",
+        "벳푸",
+        "유후인 온천",
+        "벳푸 온천"
+      ],
+      "group_ko": "규슈",
+      "kind": "base",
+      "water_crossing": false,
+      "hub": {
+        "name_ko": "벳푸역",
+        "lat": 33.279542,
+        "lng": 131.500264,
+        "qid": "Q4890935"
+      },
+      "airports": [],
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "advisory_watch_ko": [],
+      "wave": 1
+    },
+    {
+      "id": "jp_sapporo",
+      "order": 150,
+      "name_ko": "삿포로·오타루",
+      "name_en": "Sapporo & Otaru",
+      "aliases_ko": [
+        "삿포로",
+        "오타루"
+      ],
+      "group_ko": "홋카이도",
+      "kind": "base",
+      "water_crossing": false,
+      "hub": {
+        "name_ko": "삿포로역",
+        "lat": 43.068611,
+        "lng": 141.350778,
+        "qid": "Q801404"
+      },
+      "airports": [],
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "advisory_watch_ko": [],
+      "wave": 1
+    }
+  ],
+  "attractions": [
+    {
+      "id": "dazaifu-tenmangu",
+      "qid": "Q710786",
+      "names": {
+        "ko": "다자이후 텐만구",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Dazaifu Tenmangū",
+        "local": "太宰府天満宮",
+        "local_short": "太宰府天満宮",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "다자이후 천만궁"
+      ],
+      "aliases_en": [
+        "Dazaifu Tenmangu"
+      ],
+      "mentions_ko": [
+        "도비우메"
+      ],
+      "region": "jp_fukuoka",
+      "area_ko": "후쿠오카현 다자이후시",
+      "category": "heritage",
+      "tags": [
+        {
+          "id": "free_entry",
+          "source": "dazaifu_en_faq",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "step_free",
+          "source": "dazaifu_ja_wheelchair",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 33.521433,
+        "lng": 130.535002,
+        "source": "wd",
+        "qid": "Q710786",
+        "osm": null,
+        "last_verified": "2026-10-09"
+      },
+      "wd_geo": {
+        "lat": 33.521433,
+        "lng": 130.535002
+      },
+      "address_local": {
+        "text": "福岡県太宰府市宰府4丁目7-1",
+        "source": "dazaifu_ja_access",
+        "last_verified": "2026-10-09"
+      },
+      "access": {
+        "modes": [
+          "train",
+          "bus"
+        ],
+        "nearest_ko": "니시테쓰 다자이후선 다자이후역에서 걸어서 가요 (하카타 버스터미널·후쿠오카 공항 국제선 터미널에서 다자이후역까지 버스도 다녀요)",
+        "nearest_local": {
+          "text": "太宰府駅",
+          "qid": "Q5243657",
+          "source": "wd"
+        },
+        "source": "dazaifu_en_access",
+        "last_verified": "2026-10-09"
+      },
+      "official_url": "https://www.dazaifutenmangu.or.jp/",
+      "wiki": {
+        "ko": "다자이후텐만구",
+        "en": "Dazaifu Tenmangū"
+      },
+      "summary_ko": "학문의 신 스가와라노 미치자네를 모신 신사예요.",
+      "body_ko": [
+        "다자이후 텐만구는 학문·문화·예술의 신으로 모시는 스가와라노 미치자네의 무덤 위에 세운 신사로, 전국 덴만구의 총본궁이에요.",
+        "미치자네는 901년 다자이후로 좌천돼 903년 이곳에서 세상을 떠났고, 919년 천황의 명으로 처음 사전을 지었어요.",
+        "지금의 본전은 1591년 고바야카와 다카카게가 지은 건물로, 일본의 중요문화재예요.",
+        "경내에는 약 200품종 6,000그루의 매화가 있고, 본전 오른쪽에는 미치자네를 따라 날아왔다고 전하는 신목 '도비우메'가 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "스가와라노 미치자네의 무덤 위에 세운 신사이고, 전국 덴만구의 총본궁이에요. 미치자네는 학문·문화·예술의 신으로 모셔져요.",
+          "source": "dazaifu_en_first",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c2",
+          "text_ko": "미치자네는 901년 다자이후로 좌천됐고, 903년 이곳에서 세상을 떠났어요.",
+          "source": "dazaifu_ja_history",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c3",
+          "text_ko": "919년 천황의 명으로 처음 사전을 지었어요.",
+          "source": "dazaifu_ja_history",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c4",
+          "text_ko": "지금의 본전은 1591년 고바야카와 다카카게가 지었고, 국가 중요문화재예요.",
+          "source": "dazaifu_ja_honden",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c5",
+          "text_ko": "경내 매화는 약 200품종 6,000그루이고, 본전 오른쪽의 신목 '도비우메'는 미치자네를 따라 하룻밤에 날아왔다고 전해져요.",
+          "source": "dazaifu_ja_ume",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c6",
+          "text_ko": "본전 대수리로 2023년 봄부터 막혔던 본전 정면 참배가 2026년 9월 19일에 다시 열렸어요.",
+          "source": "dazaifu_ja_news_honden",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "본전 대수리로 2023년 봄부터 막혔던 본전 정면 참배가 2026년 9월 19일에 다시 열렸어요.",
+          "source": "dazaifu_ja_news_honden",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "부적 판매소 등에서는 현금만 받아요. 보물전과 경내 안내소에서는 신용카드를 쓸 수 있어요.",
+          "source": "dazaifu_en_faq",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "휠체어를 무료로 빌려주고, 경내 지도에 턱이 없는 길을 따로 표시해 두었어요.",
+          "source": "dazaifu_ja_wheelchair",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "free",
+        "regular_closed": [
+          "none"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "dazaifu_en_faq",
+        "last_verified": "2026-10-09"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "dazaifu_ja_news_honden",
+        "last_verified": "2026-10-09"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 101,
+        "designations": [
+          {
+            "kind": "jp_important_cultural_property_partial",
+            "name_ko": "본전 중요문화재(太宰府天満宮本殿)",
+            "source": "bunka_dazaifu_honden"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:20100719_Dazaifu_Tenmangu_Shrine_3328.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-09"
+    },
+    {
+      "id": "ohori-park",
+      "qid": "Q846710",
+      "names": {
+        "ko": "오호리 공원",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Ōhori Park",
+        "local": "大濠公園",
+        "local_short": "大濠公園",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "오호리 코엔"
+      ],
+      "aliases_en": [
+        "Ohori Park",
+        "Ōhori Kōen"
+      ],
+      "mentions_ko": [],
+      "region": "jp_fukuoka",
+      "area_ko": "후쿠오카시 주오구",
+      "category": "nature",
+      "tags": [],
+      "geo": {
+        "kind": "station",
+        "lat": 33.590061,
+        "lng": 130.378846,
+        "source": "wd",
+        "qid": "Q4357451",
+        "osm": null,
+        "last_verified": "2026-10-09"
+      },
+      "wd_geo": {
+        "lat": 33.585861,
+        "lng": 130.37625
+      },
+      "address_local": {
+        "text": "福岡市中央区大濠公園1番2号",
+        "source": "ohori_ja_about",
+        "last_verified": "2026-10-09"
+      },
+      "access": {
+        "modes": [
+          "metro",
+          "bus"
+        ],
+        "nearest_ko": "후쿠오카 시영 지하철 공항선 오호리코엔역·도진마치역에서 걸어서 가요 (니시테쓰 버스 오호리코엔·구로몬 정류장도 가까워요)",
+        "nearest_local": {
+          "text": "大濠公園駅",
+          "qid": "Q4357451",
+          "source": "wd"
+        },
+        "source": "ohori_ja_access",
+        "last_verified": "2026-10-09"
+      },
+      "official_url": "https://www.ohorikouen.jp/",
+      "wiki": {
+        "ko": "오호리 공원",
+        "en": "Ōhori Park"
+      },
+      "summary_ko": "후쿠오카 성의 옛 바깥 해자에 만든 큰 연못 공원이에요.",
+      "body_ko": [
+        "오호리 공원은 후쿠오카 성을 쌓을 때 바깥 해자로 쓰던 하카타만의 옛 물굽이에 만든 공원이에요.",
+        "1927년 이곳에서 열린 동아권업박람회를 계기로 조경 공사를 해 1929년 현립 공원으로 문을 열었어요.",
+        "전체 약 39만 8천㎡ 가운데 약 22만 6천㎡가 연못이고, 연못 둘레에 약 2km의 산책로가 있어요.",
+        "연못 가운데 섬들은 네 개의 다리로 이어져 있고, 공원은 2007년 일본의 등록기념물이 됐어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "하카타만의 물굽이였던 땅을 후쿠오카 성을 쌓을 때 바깥 해자로 썼어요.",
+          "source": "ohori_ja_about",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c2",
+          "text_ko": "1927년 동아권업박람회를 계기로 조경 공사를 했고, 1929년 현립 오호리 공원으로 문을 열었어요.",
+          "source": "ohori_ja_about",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c3",
+          "text_ko": "총면적 약 39만 8천㎡ 중 약 22만 6천㎡가 연못이고, 연못 둘레 산책로는 약 2km예요.",
+          "source": "ohori_ja_about",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c4",
+          "text_ko": "연못 가운데 섬은 네 개의 다리로 이어져 있어요.",
+          "source": "ohori_ja_about",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c5",
+          "text_ko": "2007년 국가 등록기념물(명승지 관계)로 등록됐어요.",
+          "source": "bunka_ohori",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "공원 안에는 쓰레기통이 없어요. 쓰레기는 가지고 돌아가야 해요.",
+          "source": "ohori_ja_guide",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "모닥불·바비큐·불꽃놀이처럼 불을 쓰는 일은 할 수 없어요.",
+          "source": "ohori_ja_guide",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "공원 주차장에서 휠체어와 유모차를 무료로 빌려줘요.",
+          "source": "ohori_ja_guide",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "낚시는 정해진 구역에서만 할 수 있어요.",
+          "source": "ohori_ja_guide",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "facts": {
+        "kind": "public_space",
+        "source": "ohori_ja_about",
+        "last_verified": "2026-10-09"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "ohori_ja_about",
+        "last_verified": "2026-10-09"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 102,
+        "designations": [
+          {
+            "kind": "jp_registered_monument",
+            "name_ko": "등록기념물(명승지) 오호리 공원(大濠公園)",
+            "source": "bunka_ohori"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:%E5%A4%A7%E6%BF%A0%E5%85%AC%E5%9C%92_(3359545709).jpg",
+      "source": "wd",
+      "last_verified": "2026-10-09"
+    },
+    {
+      "id": "tenjin",
+      "qid": "Q603281",
+      "names": {
+        "ko": "텐진",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Tenjin",
+        "local": "天神",
+        "local_short": "天神",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "덴진",
+        "텐진 지하상가",
+        "덴진 지하가",
+        "텐치카"
+      ],
+      "aliases_en": [
+        "Tenjin Chikagai",
+        "Tenjin Underground Shopping Center"
+      ],
+      "mentions_ko": [
+        "와타나베도리"
+      ],
+      "region": "jp_fukuoka",
+      "area_ko": "후쿠오카시 주오구",
+      "category": "market_street",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 33.591361,
+        "lng": 130.398917,
+        "source": "wd",
+        "qid": "Q603281",
+        "osm": null,
+        "last_verified": "2026-10-09"
+      },
+      "wd_geo": {
+        "lat": 33.591361,
+        "lng": 130.398917
+      },
+      "access": {
+        "modes": [
+          "metro",
+          "train",
+          "bus"
+        ],
+        "nearest_ko": "후쿠오카 시영 지하철 공항선 텐진역, 니시테쓰 후쿠오카(텐진)역 (니시테쓰 텐진 고속버스터미널도 있어요)",
+        "nearest_local": {
+          "text": "天神駅",
+          "qid": "Q1039182",
+          "source": "wd"
+        },
+        "source": "tenchika_access",
+        "last_verified": "2026-10-09"
+      },
+      "official_url": "https://yokanavi.com/areaguide/",
+      "wiki": {
+        "ko": "덴진 (후쿠오카시)"
+      },
+      "summary_ko": "백화점과 지하상가가 모인 후쿠오카 시내 중심가예요.",
+      "body_ko": [
+        "텐진은 와타나베도리를 중심으로 백화점과 패션 빌딩이 모인 후쿠오카의 중심가예요.",
+        "거리 아래에는 약 150개 가게가 들어선 텐진 지하상가가 있어요.",
+        "1976년에 문을 연 텐진 지하상가는 길이가 590m이고, 19세기 유럽 거리를 본떠 돌길과 아치형 천장으로 꾸몄어요.",
+        "니시테쓰 후쿠오카역에는 고속버스 터미널이 붙어 있고, 밤에는 와타나베도리에 포장마차(야타이)가 나와요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "와타나베도리를 중심으로 백화점과 패션 빌딩이 모인 후쿠오카의 중심지예요.",
+          "source": "yokanavi_areaguide",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c2",
+          "text_ko": "와타나베도리 아래 텐진 지하상가에는 약 150개 가게가 있어요.",
+          "source": "yokanavi_areaguide",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c3",
+          "text_ko": "텐진 지하상가는 1976년에 문을 열었고, 길이는 590m예요.",
+          "source": "tenchika_service",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c4",
+          "text_ko": "텐진 지하상가는 19세기 유럽 거리를 본떠 만들었고, 돌길과 아치형 천장으로 꾸몄어요.",
+          "source": "tenchika_service",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c5",
+          "text_ko": "니시테쓰 후쿠오카역에 고속버스 터미널이 함께 있어요.",
+          "source": "yokanavi_areaguide",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c6",
+          "text_ko": "밤에는 와타나베도리에 포장마차가 나와요.",
+          "source": "yokanavi_areaguide",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c7",
+          "text_ko": "텐진 지하상가는 1월 1일, 그리고 2월과 8월에 하루씩 쉬어요.",
+          "source": "tenchika_service",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "텐진 지하상가는 1월 1일, 그리고 2월과 8월에 하루씩 쉬어요. 가게마다 여는 시간이 다를 수 있어요.",
+          "source": "tenchika_service",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "텐진·다이묘 지역은 후쿠오카시 조례로 정한 노상 금연 지구예요. 걷거나 자전거를 타면서 담배를 피우면 안 돼요.",
+          "source": "fukuoka_city_nosmoking",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "facts": {
+        "kind": "public_space",
+        "source": "yokanavi_areaguide",
+        "last_verified": "2026-10-09"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "yokanavi_areaguide",
+        "last_verified": "2026-10-09"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 108,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Fukuoka-tenjin.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-09"
+    },
+    {
+      "id": "beppu-jigoku",
+      "qid": "Q5709027",
+      "names": {
+        "ko": "벳푸 지옥 순례",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Hells of Beppu",
+        "local": "別府地獄めぐり",
+        "local_short": "地獄めぐり",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "벳푸 지옥",
+        "지옥 순례",
+        "지옥 온천 순례"
+      ],
+      "aliases_en": [
+        "Beppu Jigoku",
+        "Jigoku Meguri"
+      ],
+      "mentions_ko": [
+        "바다 지옥",
+        "피의 연못 지옥",
+        "회오리 지옥",
+        "하얀 연못 지옥",
+        "간나와"
+      ],
+      "region": "jp_yufuin_beppu",
+      "area_ko": "벳푸시 간나와·가메가와",
+      "category": "nature",
+      "tags": [
+        {
+          "id": "hot_spring",
+          "source": "bunka_beppu_jigoku",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "geo": {
+        "kind": "entrance",
+        "lat": 33.316806,
+        "lng": 131.46875,
+        "source": "wd",
+        "qid": "Q135237471",
+        "osm": null,
+        "last_verified": "2026-10-09"
+      },
+      "wd_geo": {
+        "lat": 33.316111,
+        "lng": 131.468889
+      },
+      "address_local": {
+        "text": "大分県別府市鉄輪559-1",
+        "source": "jigoku_top",
+        "last_verified": "2026-10-09"
+      },
+      "access": {
+        "modes": [
+          "bus"
+        ],
+        "nearest_ko": "JR 벳푸역 서쪽 출구에서 가메노이 버스를 타고 우미지고쿠마에(海地獄前)나 간나와(鉄輪) 정류장에서 내려요",
+        "nearest_local": {
+          "text": "別府駅",
+          "qid": "Q4890935",
+          "source": "wd"
+        },
+        "source": "jigoku_access",
+        "last_verified": "2026-10-09"
+      },
+      "official_url": "https://www.beppu-jigoku.com/",
+      "wiki": {
+        "ko": "벳푸 지옥 순례",
+        "en": "Hells of Beppu"
+      },
+      "summary_ko": "뜨거운 온천 원천 일곱 곳을 둘러보는 벳푸의 관광 시설이에요.",
+      "body_ko": [
+        "벳푸 지옥 순례는 땅속 깊은 곳에서 증기·뜨거운 진흙·열탕이 뿜어 나오는 '지옥' 일곱 곳을 둘러보는 곳이에요.",
+        "코발트빛의 바다 지옥, 증기까지 붉은 피의 연못 지옥, 일정한 간격으로 열탕을 뿜는 회오리 지옥 등이 있어요.",
+        "이 가운데 바다·피의 연못·회오리·하얀 연못 지옥 네 곳은 2009년 일본의 명승으로 지정됐어요.",
+        "간나와 쪽 다섯 곳은 걸어서 돌 수 있고, 피의 연못 지옥과 회오리 지옥까지는 차나 버스로 가라고 안내해요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "땅속 깊은 곳에서 증기·뜨거운 진흙·열탕이 뿜어 나오는 지옥 일곱 곳을 도는 것을 지옥 순례라고 해요.",
+          "source": "jigoku_top",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c2",
+          "text_ko": "바다 지옥은 코발트빛, 피의 연못 지옥은 산화철 성분으로 증기까지 붉고, 회오리 지옥은 일정한 간격으로 열탕과 증기를 뿜어요.",
+          "source": "jigoku_top",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c3",
+          "text_ko": "바다·피의 연못·회오리·하얀 연못 지옥 네 곳은 2009년 국가 명승 '벳푸의 지옥'으로 지정됐어요.",
+          "source": "bunka_beppu_jigoku",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c4",
+          "text_ko": "간나와 지역의 바다 지옥 주변 다섯 곳은 걸어서 볼 수 있는 거리이고, 피의 연못·회오리 지옥까지는 약 3km 떨어져 있어 차나 버스를 권해요.",
+          "source": "jigoku_access",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "어느 지옥에서든 일곱 곳을 모두 볼 수 있는 공통 관람권을 팔아요. 관람권은 산 날과 다음 날까지 쓸 수 있어요.",
+          "source": "jigoku_fee",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "바다·피의 연못·오니이시보즈·가마도 지옥에는 족욕탕이 있어요.",
+          "source": "jigoku_top",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "지옥마다 무료 주차장이 있어요.",
+          "source": "jigoku_access",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "none"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "jigoku_fee",
+        "last_verified": "2026-10-09"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "jigoku_top",
+        "last_verified": "2026-10-09"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 104,
+        "designations": [
+          {
+            "kind": "jp_place_of_scenic_beauty_partial",
+            "name_ko": "명승 '벳푸의 지옥'(別府の地獄, 일곱 곳 중 네 곳)",
+            "source": "bunka_beppu_jigoku"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Beppu_Umi-jigoku04n4272.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-09"
+    },
+    {
+      "id": "takegawara-onsen",
+      "qid": "Q11599290",
+      "names": {
+        "ko": "다케가와라 온천",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Takegawara Onsen",
+        "local": "竹瓦温泉",
+        "local_short": "竹瓦温泉",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "다케가와라"
+      ],
+      "aliases_en": [],
+      "mentions_ko": [
+        "모래찜질"
+      ],
+      "region": "jp_yufuin_beppu",
+      "area_ko": "벳푸시 모토마치",
+      "category": "heritage",
+      "tags": [
+        {
+          "id": "hot_spring",
+          "source": "beppu_city_takegawara",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 33.27745,
+        "lng": 131.505983,
+        "source": "wd",
+        "qid": "Q11599290",
+        "osm": null,
+        "last_verified": "2026-10-09"
+      },
+      "wd_geo": {
+        "lat": 33.27745,
+        "lng": 131.505983
+      },
+      "address_local": {
+        "text": "別府市元町16番23号",
+        "source": "takegawara_official",
+        "last_verified": "2026-10-09"
+      },
+      "access": {
+        "modes": [
+          "train",
+          "bus",
+          "walk_from_center"
+        ],
+        "nearest_ko": "JR 벳푸역에서 역 앞 거리를 따라 걸어서 가요 (벳푸역 동쪽 출구에서 버스로 나가레카와 유메타운마에 정류장까지 갈 수도 있어요)",
+        "nearest_local": {
+          "text": "別府駅",
+          "qid": "Q4890935",
+          "source": "wd"
+        },
+        "source": "takegawara_access",
+        "last_verified": "2026-10-09"
+      },
+      "official_url": "https://www.takegawara-onsen.com/",
+      "summary_ko": "1938년에 지은 건물 그대로 영업하는 벳푸의 온천 목욕탕이에요.",
+      "body_ko": [
+        "다케가와라 온천은 1879년에 문을 연 온천으로, 대나무 지붕이던 건물을 기와지붕으로 고치면서 지금의 이름이 붙었다고 전해요.",
+        "지금 건물은 1938년에 지은 목조 2층 건물로, 정면에 가라하후 양식의 화려한 지붕을 얹었어요.",
+        "이 건물은 2004년 일본의 등록유형문화재가 됐어요.",
+        "유카타를 입고 누우면 온천열로 데운 모래를 덮어 주는 모래찜질도 할 수 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "1879년에 창설됐고, 대나무 지붕을 기와로 고쳐 다케가와라(대나무 기와)라는 이름이 붙었다고 전해요.",
+          "source": "takegawara_fee",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c2",
+          "text_ko": "지금 건물은 1938년에 지은 목조 2층 건물이고, 정면에 가라하후 양식의 화려한 지붕을 얹었어요.",
+          "source": "takegawara_fee",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c3",
+          "text_ko": "2004년 국가 등록유형문화재(건조물)로 등록됐어요.",
+          "source": "bunka_takegawara",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c4",
+          "text_ko": "모래찜질은 유카타를 입고 모래 위에 누우면 온천으로 데운 모래를 덮어 줘요.",
+          "source": "takegawara_fee",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c5",
+          "text_ko": "모래찜질은 최대 8명이 함께 이용하고, 붐비면 마감 접수가 앞당겨질 수 있어요.",
+          "source": "takegawara_fee",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "모래찜질은 한 번에 8명까지 이용할 수 있어서, 붐비면 기다리거나 접수가 일찍 끝날 수 있어요.",
+          "source": "takegawara_fee",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "수술 흉터 등을 가리는 입욕용 덮개를 무료로 빌려줘요. 미리 예약해야 해요.",
+          "source": "beppu_city_takegawara",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "booking": "none",
+        "booking_note_ko": "모래찜질은 전화·이메일 예약을 받지 않아요. 시설 접수처로 가요.",
+        "regular_closed": [
+          "wed"
+        ],
+        "closed_note_ko": "매달 셋째 수요일에만 쉬어요(공휴일이면 다음 날).",
+        "visit_note_ko": null,
+        "source": "takegawara_fee",
+        "last_verified": "2026-10-09"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "takegawara_official",
+        "last_verified": "2026-10-09"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 106,
+        "designations": [
+          {
+            "kind": "jp_registered_tangible_cultural_property",
+            "name_ko": "등록유형문화재 다케가와라 온천(竹瓦温泉)",
+            "source": "bunka_takegawara"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Beppu_Takegawara_Onsen_1.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-09"
+    },
+    {
+      "id": "kinrinko",
+      "qid": "Q11648024",
+      "names": {
+        "ko": "긴린코 호수",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Lake Kinrin",
+        "local": "金鱗湖",
+        "local_short": "金鱗湖",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "긴린코",
+        "긴린호",
+        "금린호"
+      ],
+      "aliases_en": [
+        "Kinrinko"
+      ],
+      "mentions_ko": [
+        "덴소 신사"
+      ],
+      "region": "jp_yufuin_beppu",
+      "area_ko": "유후시 유후인초",
+      "category": "nature",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 33.266667,
+        "lng": 131.369139,
+        "source": "wd",
+        "qid": "Q11648024",
+        "osm": null,
+        "last_verified": "2026-10-09"
+      },
+      "wd_geo": {
+        "lat": 33.266667,
+        "lng": 131.369139
+      },
+      "address_local": {
+        "text": "大分県由布市湯布院町川上1561-1",
+        "source": "yufu_kinrinko_spot",
+        "last_verified": "2026-10-09"
+      },
+      "access": {
+        "modes": [
+          "train"
+        ],
+        "nearest_ko": "JR 유후인역에서 걸어서 가요",
+        "nearest_local": {
+          "text": "由布院駅",
+          "qid": "Q8060317",
+          "source": "wd"
+        },
+        "source": "yufu_kinrinko_feature",
+        "last_verified": "2026-10-09"
+      },
+      "official_url": "https://yufuin.gr.jp/spot/spot-1268/",
+      "wiki": {
+        "ko": "긴린호"
+      },
+      "summary_ko": "유후다케 기슭, 유후인 마을 안에 있는 작은 호수예요.",
+      "body_ko": [
+        "긴린코는 유후다케 아래에 있는 호수로, 둘레 약 400m를 따라 산책로가 나 있어요.",
+        "1884년 유학자 모리 구소가 저녁 해에 빛나는 물고기 비늘을 보고 '금린호(긴린코)'라는 이름을 붙였다고 전해요.",
+        "호수에는 용천수와 온천수가 함께 흘러들어, 쌀쌀한 늦가을부터 겨울 사이 이른 아침에는 수면에서 김이 피어올라요.",
+        "호숫가 덴소 신사의 도리이는 물 위에 서 있는 것처럼 보여요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "유후다케 아래에 있는 호수예요.",
+          "source": "yufu_kinrinko_spot",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c2",
+          "text_ko": "호수 둘레는 약 400m이고, 둘레에 산책로가 있어요.",
+          "source": "yufu_kinrinko_feature",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c3",
+          "text_ko": "1884년 유학자 모리 구소가 물고기 비늘이 저녁 해에 빛나는 것을 보고 이름을 붙였다고 전해요.",
+          "source": "yufu_kinrinko_spot",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c4",
+          "text_ko": "용천수와 온천수가 함께 흘러들어 1년 내내 수온이 높고, 늦가을부터 겨울에는 온도 차로 수면에서 김이 올라와요. 이른 아침에 보기 좋다고 안내해요.",
+          "source": "yufu_kinrinko_feature",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c5",
+          "text_ko": "호수 남동쪽에 호숫가 덴소 신사의 도리이가 있고, 호수에 떠 있는 도리이로 알려져 있어요.",
+          "source": "yufu_kinrinko_feature",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "유후시 전역에서 쓰레기를 함부로 버리면 안 되고, 걸으면서 담배를 피우지 않도록 해요.",
+          "source": "yufu_litter",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "유노쓰보 거리 주변은 중점 지역이라 쓰레기를 버리거나 정해진 곳 밖에서 담배를 피우면 과태료를 낼 수 있어요.",
+          "source": "yufu_litter",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "호수 전용 주차장이 없어 근처 유료 주차장을 써야 해요.",
+          "source": "yufu_kinrinko_spot",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "facts": {
+        "kind": "public_space",
+        "source": "yufu_kinrinko_spot",
+        "last_verified": "2026-10-09"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "yufu_kinrinko_spot",
+        "last_verified": "2026-10-09"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 109,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Lake_Kinrin_with_Morning_fog.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-09"
+    },
+    {
+      "id": "otaru-canal",
+      "qid": "Q10959355",
+      "names": {
+        "ko": "오타루 운하",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Otaru Canal",
+        "local": "小樽運河",
+        "local_short": "小樽運河",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [],
+      "aliases_en": [
+        "Otaru Unga"
+      ],
+      "mentions_ko": [
+        "북운하",
+        "아사쿠사바시"
+      ],
+      "region": "jp_sapporo",
+      "area_ko": "오타루시",
+      "category": "city_view",
+      "tags": [
+        {
+          "id": "night",
+          "source": "otaru_kanko_canal",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 43.199722,
+        "lng": 141.001667,
+        "source": "wd",
+        "qid": "Q10959355",
+        "osm": null,
+        "last_verified": "2026-10-09"
+      },
+      "wd_geo": {
+        "lat": 43.199722,
+        "lng": 141.001667
+      },
+      "address_local": {
+        "text": "小樽市港町5",
+        "source": "otaru_kanko_canal",
+        "last_verified": "2026-10-09"
+      },
+      "access": {
+        "modes": [
+          "train"
+        ],
+        "nearest_ko": "JR 오타루역에서 걸어서 가요",
+        "nearest_local": {
+          "text": "小樽駅",
+          "qid": "Q1152093",
+          "source": "wd"
+        },
+        "source": "otaru_kanko_canal",
+        "last_verified": "2026-10-09"
+      },
+      "official_url": "https://www.city.otaru.lg.jp/docs/2020100900367/",
+      "wiki": {
+        "ko": "오타루 운하"
+      },
+      "summary_ko": "석조 창고와 가스등이 늘어선 오타루 항의 옛 운하예요.",
+      "body_ko": [
+        "오타루 운하는 1923년 바닷가 앞바다를 메워 만든 운하라, 곧게 뻗지 않고 완만하게 굽어 있어요.",
+        "부두가 정비되면서 쓰임을 다했고, 1986년 일부를 메워 폭의 절반은 도로로, 물가는 산책로로 다시 꾸몄어요.",
+        "운하 길이는 1140m이고, 산책로에는 가스등 63개가 서 있으며 옛 석조 창고는 식당 등으로 쓰여요.",
+        "해가 지면 가스등이 켜지고 창고들에 조명이 들어와요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "1923년에 완성됐고, 내륙을 판 것이 아니라 바닷가 앞바다를 메워 만들어서 완만하게 굽어 있어요.",
+          "source": "otaru_city_canal",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c2",
+          "text_ko": "전쟁 뒤 부두가 정비되면서 역할을 다했고, 1986년 논쟁 끝에 일부를 메워 폭의 절반이 도로가 되고 산책로와 가로공원이 생겼어요.",
+          "source": "otaru_city_canal",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c3",
+          "text_ko": "운하 길이는 1140m이고, 폭은 임항선 쪽 20m, 북운하 40m예요.",
+          "source": "otaru_city_canal",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c4",
+          "text_ko": "산책로에 가스등 63개가 있고, 석조 창고들은 옛 모습 그대로 남아 식당 등으로 쓰여요.",
+          "source": "otaru_city_canal",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c5",
+          "text_ko": "해 질 녘 가스등이 켜지고 석조 창고들에 조명이 들어와요.",
+          "source": "otaru_city_canal",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "아사쿠사바시 가로공원은 운하 사진을 많이 찍는 곳이고, 관광안내소도 있어요.",
+          "source": "otaru_kanko_canal",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "운하 북쪽의 북운하는 처음 폭 그대로 넓고, 배와 창고가 늘어선 옛 항구 모습이 남아 있어요.",
+          "source": "otaru_kanko_canal",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "facts": {
+        "kind": "public_space",
+        "source": "otaru_kanko_canal",
+        "last_verified": "2026-10-09"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "otaru_kanko_canal",
+        "last_verified": "2026-10-09"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 107,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Otaru_Hokkaido_Japan.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-09"
+    },
+    {
+      "id": "sapporo-clock-tower",
+      "qid": "Q1140619",
+      "names": {
+        "ko": "삿포로 시계탑",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Sapporo Clock Tower",
+        "local": "札幌市時計台",
+        "local_short": "時計台",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "삿포로시 시계탑",
+        "구 삿포로 농학교 연무장"
+      ],
+      "aliases_en": [
+        "Former Sapporo Agricultural College Drill Hall"
+      ],
+      "mentions_ko": [
+        "클라크 박사"
+      ],
+      "region": "jp_sapporo",
+      "area_ko": "삿포로시 주오구",
+      "category": "heritage",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 43.062602,
+        "lng": 141.353681,
+        "source": "wd",
+        "qid": "Q1140619",
+        "osm": null,
+        "last_verified": "2026-10-09"
+      },
+      "wd_geo": {
+        "lat": 43.062602,
+        "lng": 141.353681
+      },
+      "address_local": {
+        "text": "札幌市中央区北1条西2丁目",
+        "source": "tokeidai_guide",
+        "last_verified": "2026-10-09"
+      },
+      "access": {
+        "modes": [
+          "metro",
+          "train"
+        ],
+        "nearest_ko": "지하철 오도리역 7번 출구에서 걸어서 가요 (JR 삿포로역 남쪽 출구에서도 걸어서 가요)",
+        "nearest_local": {
+          "text": "大通駅",
+          "qid": "Q2365150",
+          "source": "wd"
+        },
+        "source": "tokeidai_en",
+        "last_verified": "2026-10-09"
+      },
+      "official_url": "https://sapporoshi-tokeidai.jp/",
+      "wiki": {
+        "ko": "삿포로시 시계탑",
+        "en": "Sapporo Clock Tower"
+      },
+      "summary_ko": "1878년 삿포로 농학교 연무장으로 지은 시계탑 건물이에요.",
+      "body_ko": [
+        "삿포로 시계탑의 정식 이름은 '구 삿포로 농학교 연무장'으로, 1878년 학생들의 군사 훈련과 입학식·졸업식을 하는 중앙 강당으로 지었어요.",
+        "삿포로 농학교는 홋카이도 대학의 전신이고, 연무장은 클라크 박사의 제안으로 세워졌어요.",
+        "탑시계는 미국 하워드 시계상회에서 들여와 1881년부터 시각을 알렸어요.",
+        "1970년 일본의 중요문화재로 지정됐고, 지금은 자료관으로 문을 열어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "정식 이름은 구 삿포로 농학교 연무장이고, 클라크 박사의 제안으로 1878년 학생들의 군사 훈련과 입학식·졸업식 등을 하는 중앙 강당으로 지었어요.",
+          "source": "tokeidai_history",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c2",
+          "text_ko": "삿포로 농학교는 홋카이도 대학의 전신이에요.",
+          "source": "tokeidai_history",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c3",
+          "text_ko": "탑시계는 미국 하워드 시계상회에 주문했고, 1881년 8월 12일부터 시각을 알리기 시작했어요.",
+          "source": "tokeidai_history",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c4",
+          "text_ko": "1970년 국가 중요문화재로 지정됐고, 지금은 자료관이에요.",
+          "source": "tokeidai_en",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "냉방 시설이 없어 한여름에는 실내가 바깥보다 더울 수 있고, 한겨울에도 실내가 따뜻하지 않아요.",
+          "source": "tokeidai_guide",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "입구에 턱이 조금 있어 휠체어 이용자는 정문 옆 인터폰으로 직원을 부르면 돼요. 위층으로 올라가는 전용 리프트가 있어요.",
+          "source": "tokeidai_guide",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "건물 안에서는 원칙적으로 먹고 마실 수 없어요. 물 마시기는 괜찮아요.",
+          "source": "tokeidai_guide",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "주차장이 없어요. 근처 유료 주차장을 써야 해요.",
+          "source": "tokeidai_guide",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "none"
+        ],
+        "closed_note_ko": "1월 1일부터 3일까지 쉬어요.",
+        "visit_note_ko": null,
+        "source": "tokeidai_guide",
+        "last_verified": "2026-10-09"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "tokeidai_guide",
+        "last_verified": "2026-10-09"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 103,
+        "designations": [
+          {
+            "kind": "jp_important_cultural_property",
+            "name_ko": "중요문화재 구 삿포로 농학교 연무장(시계탑)",
+            "source": "bunka_tokeidai"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:20200119_Sapporo_Clock_Tower.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-09"
+    },
+    {
+      "id": "mount-moiwa",
+      "qid": "Q11625132",
+      "names": {
+        "ko": "모이와산",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Mount Moiwa",
+        "local": "藻岩山",
+        "local_short": "もいわ山",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "모이와야마",
+        "모이와산 로프웨이"
+      ],
+      "aliases_en": [
+        "Mount Moiwa Ropeway",
+        "Moiwayama"
+      ],
+      "mentions_ko": [],
+      "region": "jp_sapporo",
+      "area_ko": "삿포로시 주오구·미나미구",
+      "category": "city_view",
+      "tags": [
+        {
+          "id": "cable_car",
+          "source": "moiwa_guide",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "mountain_view",
+          "source": "moiwa_nightview",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "step_free",
+          "source": "moiwa_faq",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "night",
+          "source": "moiwa_guide",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "geo": {
+        "kind": "station",
+        "lat": 43.0269,
+        "lng": 141.3293,
+        "source": "wd",
+        "qid": "Q6922232",
+        "osm": null,
+        "last_verified": "2026-10-09"
+      },
+      "wd_geo": {
+        "lat": 43.0225,
+        "lng": 141.322222
+      },
+      "address_local": {
+        "text": "札幌市中央区伏見5丁目3-7",
+        "source": "moiwa_faq",
+        "last_verified": "2026-10-09"
+      },
+      "access": {
+        "modes": [
+          "train",
+          "bus"
+        ],
+        "nearest_ko": "삿포로 노면전차(시덴) 로프웨이이리구치 정류장에서 내려 무료 셔틀버스로 로프웨이 산기슭역까지 가요",
+        "nearest_local": {
+          "text": "ロープウェイ入口停留場",
+          "qid": "Q11351039",
+          "source": "wd"
+        },
+        "source": "moiwa_access_tram",
+        "last_verified": "2026-10-09"
+      },
+      "official_url": "https://mt-moiwa.jp/",
+      "wiki": {
+        "ko": "모이와산",
+        "en": "Mount Moiwa"
+      },
+      "summary_ko": "로프웨이로 올라 삿포로 시내를 내려다보는 산이에요.",
+      "body_ko": [
+        "모이와산은 삿포로 시내 가까이에 있는 해발 531m의 산으로, 로프웨이와 미니 케이블카를 갈아타고 꼭대기 전망대까지 올라가요.",
+        "전망대에서는 이시카리 평야와 도시를 360도로 내려다볼 수 있고, 밤에는 시내 불빛이 펼쳐져요.",
+        "산의 원시림은 1921년 홋카이도에서 처음으로 국가 천연기념물로 지정됐어요.",
+        "중턱역과 정상역 사이에는 포장된 자연학습 산책로가 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "산꼭대기는 해발 531m이고, 전망대에서 이시카리 평야와 도시를 360도로 볼 수 있으며 밤에는 시내 불빛이 보여요.",
+          "source": "moiwa_nightview",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c2",
+          "text_ko": "산기슭역에서 중턱역까지 로프웨이, 중턱역에서 정상역까지 미니 케이블카가 다녀요.",
+          "source": "moiwa_guide",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c3",
+          "text_ko": "모이와산 원시림은 1921년 3월 3일 홋카이도 첫 천연기념물로 지정됐어요.",
+          "source": "moiwa_nature",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "id": "c4",
+          "text_ko": "중턱역과 정상역 사이에 약 600m의 포장된 자연학습 산책로가 있고, 밤에는 조명이 없어 다닐 수 없어요.",
+          "source": "moiwa_nature",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "야경 시간대에는 산꼭대기가 추우니 겉옷을 챙기라고 안내해요.",
+          "source": "moiwa_guide",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "날씨가 나쁘면 운행하지 않고, 안개나 구름 때문에 경치가 안 보일 수도 있어요.",
+          "source": "moiwa_guide",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "중턱역·정상역 자동 발매기는 현금만 받아요.",
+          "source": "moiwa_faq",
+          "last_verified": "2026-10-09"
+        },
+        {
+          "text": "자연학습 산책로는 밤에는 조명이 없어 다닐 수 없어요.",
+          "source": "moiwa_nature",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "moiwa_faq",
+        "last_verified": "2026-10-09"
+      },
+      "volatile": null,
+      "seasonal": [
+        {
+          "kind": "closed",
+          "text_ko": "2027년 3월 29일부터 4월 28일까지는 정기 점검으로 로프웨이·미니 케이블카·관광 자동차도로가 쉬어요.",
+          "source": "moiwa_closure_2027",
+          "last_verified": "2026-10-09"
+        }
+      ],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "moiwa_guide",
+        "last_verified": "2026-10-09"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 105,
+        "designations": [
+          {
+            "kind": "jp_natural_monument_partial",
+            "name_ko": "산 일부 천연기념물(모이와 원시림, 藻岩原始林)",
+            "source": "bunka_moiwa"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Moiwayama_Ropeway_(4thgen).JPG",
+      "source": "wd",
+      "last_verified": "2026-10-09"
+    }
+  ],
+  "sources": [
+    {
+      "id": "wd",
+      "name": "Wikidata",
+      "url": "https://www.wikidata.org/",
+      "use": "skeleton",
+      "license": "CC0"
+    },
+    {
+      "id": "mofa_jp",
+      "name": "외교부 해외안전여행(레디포트 JP 팩 safety 섹션, 2026-09-28 확인)",
+      "url": "https://www.0404.go.kr/",
+      "use": "advisory"
+    },
+    {
+      "id": "dazaifu_en_faq",
+      "name": "Dazaifu Tenmangu FAQ (official, English)",
+      "url": "https://www.dazaifutenmangu.or.jp/en/plan/faq/",
+      "use": "facts"
+    },
+    {
+      "id": "dazaifu_en_first",
+      "name": "Dazaifu Tenmangu First-Time Visitors (official, English)",
+      "url": "https://www.dazaifutenmangu.or.jp/en/plan/first-time-visitors/",
+      "use": "facts"
+    },
+    {
+      "id": "dazaifu_en_access",
+      "name": "Dazaifu Tenmangu Getting to Dazaifu (official, English)",
+      "url": "https://www.dazaifutenmangu.or.jp/en/plan/getting-to-dazaifu-tenmangu/",
+      "use": "facts"
+    },
+    {
+      "id": "dazaifu_ja_honden",
+      "name": "太宰府天満宮 境内案内 御本殿 (official)",
+      "url": "https://www.dazaifutenmangu.or.jp/keidaiannai/gohonden",
+      "use": "facts"
+    },
+    {
+      "id": "dazaifu_ja_history",
+      "name": "太宰府天満宮 御由緒 (official)",
+      "url": "https://www.dazaifutenmangu.or.jp/about/goyuisho",
+      "use": "facts"
+    },
+    {
+      "id": "dazaifu_ja_news_honden",
+      "name": "太宰府天満宮 おしらせ 御本殿正面参拝 (official)",
+      "url": "https://www.dazaifutenmangu.or.jp/archives/1980",
+      "use": "facts"
+    },
+    {
+      "id": "dazaifu_ja_access",
+      "name": "太宰府天満宮 アクセス (official)",
+      "url": "https://www.dazaifutenmangu.or.jp/access",
+      "use": "facts"
+    },
+    {
+      "id": "dazaifu_ja_wheelchair",
+      "name": "太宰府天満宮 車椅子の方 (official)",
+      "url": "https://www.dazaifutenmangu.or.jp/keidaiannai/wheelchair",
+      "use": "facts"
+    },
+    {
+      "id": "dazaifu_ja_ume",
+      "name": "太宰府天満宮 天神さまと梅 (official)",
+      "url": "https://www.dazaifutenmangu.or.jp/about/tenjinsama-ume",
+      "use": "facts"
+    },
+    {
+      "id": "bunka_dazaifu_honden",
+      "name": "文化庁 国指定文化財等データベース",
+      "url": "https://kunishitei.bunka.go.jp/heritage/detail/102/3483",
+      "use": "heritage_registry",
+      "license": "MEXT-website-terms (出典記載で自由利用)",
+      "attribution_required": true
+    },
+    {
+      "id": "ohori_ja_about",
+      "name": "大濠公園 公園について (official, 大濠・西公園管理事務所)",
+      "url": "https://www.ohorikouen.jp/about/",
+      "use": "facts"
+    },
+    {
+      "id": "ohori_ja_guide",
+      "name": "大濠公園 ご利用案内 (official)",
+      "url": "https://www.ohorikouen.jp/guide/",
+      "use": "facts"
+    },
+    {
+      "id": "ohori_ja_access",
+      "name": "大濠公園 アクセス (official)",
+      "url": "https://www.ohorikouen.jp/access/",
+      "use": "facts"
+    },
+    {
+      "id": "bunka_ohori",
+      "name": "文化庁 国指定文化財等データベース",
+      "url": "https://kunishitei.bunka.go.jp/heritage/detail/411/00003533",
+      "use": "heritage_registry",
+      "license": "MEXT-website-terms (出典記載で自由利用)",
+      "attribution_required": true
+    },
+    {
+      "id": "yokanavi_areaguide",
+      "name": "よかなび (福岡市公式観光情報サイト) エリアガイド",
+      "url": "https://yokanavi.com/areaguide/",
+      "use": "facts"
+    },
+    {
+      "id": "tenchika_service",
+      "name": "天神地下街 営業時間・施設案内 (official)",
+      "url": "https://www.tenchika.com/service/",
+      "use": "facts"
+    },
+    {
+      "id": "tenchika_access",
+      "name": "天神地下街 アクセス (official)",
+      "url": "https://www.tenchika.com/access/",
+      "use": "facts"
+    },
+    {
+      "id": "fukuoka_city_nosmoking",
+      "name": "福岡市 市政だより 路上禁煙地区 (Fukuoka City, official)",
+      "url": "https://www.city.fukuoka.lg.jp/shicho/koho/fsdweb/reiwa8_dayori/0515/0505.html",
+      "use": "facts"
+    },
+    {
+      "id": "jigoku_top",
+      "name": "別府地獄めぐり公式サイト (別府地獄組合)",
+      "url": "https://www.beppu-jigoku.com/",
+      "use": "facts"
+    },
+    {
+      "id": "jigoku_fee",
+      "name": "別府地獄めぐり 営業案内 (別府地獄組合)",
+      "url": "https://www.beppu-jigoku.com/fee/index.html",
+      "use": "facts"
+    },
+    {
+      "id": "jigoku_access",
+      "name": "別府地獄めぐり アクセス (別府地獄組合)",
+      "url": "https://www.beppu-jigoku.com/access/index.html",
+      "use": "facts"
+    },
+    {
+      "id": "bunka_beppu_jigoku",
+      "name": "文化庁 国指定文化財等データベース",
+      "url": "https://kunishitei.bunka.go.jp/heritage/detail/401/00003651",
+      "use": "heritage_registry",
+      "license": "MEXT-website-terms (出典記載で自由利用)",
+      "attribution_required": true
+    },
+    {
+      "id": "beppu_city_takegawara",
+      "name": "別府市 Takegawara Onsen (Beppu City, official)",
+      "url": "https://www.city.beppu.oita.jp/seikatu/gaikokujinmuke/ei/detail7.html",
+      "use": "facts"
+    },
+    {
+      "id": "takegawara_official",
+      "name": "竹瓦温泉 (official)",
+      "url": "https://www.takegawara-onsen.com/",
+      "use": "facts"
+    },
+    {
+      "id": "takegawara_fee",
+      "name": "竹瓦温泉 施設概要・料金案内 (official)",
+      "url": "https://www.takegawara-onsen.com/fee.html",
+      "use": "facts"
+    },
+    {
+      "id": "takegawara_access",
+      "name": "竹瓦温泉 アクセスマップ (official)",
+      "url": "https://www.takegawara-onsen.com/access.html",
+      "use": "facts"
+    },
+    {
+      "id": "bunka_takegawara",
+      "name": "文化庁 国指定文化財等データベース",
+      "url": "https://kunishitei.bunka.go.jp/heritage/detail/101/00004193",
+      "use": "heritage_registry",
+      "license": "MEXT-website-terms (出典記載で自由利用)",
+      "attribution_required": true
+    },
+    {
+      "id": "yufu_kinrinko_spot",
+      "name": "YUFUINFO (由布市まちづくり観光局, official) 金鱗湖",
+      "url": "https://yufuin.gr.jp/spot/spot-1268/",
+      "use": "facts"
+    },
+    {
+      "id": "yufu_kinrinko_feature",
+      "name": "YUFUINFO (由布市まちづくり観光局, official) 金鱗湖 特集",
+      "url": "https://yufuin.gr.jp/feature/feature-1981/",
+      "use": "facts"
+    },
+    {
+      "id": "yufu_litter",
+      "name": "YUFUINFO 由布市ポイ捨て等の防止に関する条例 (official)",
+      "url": "https://yufuin.gr.jp/news/news-3178/",
+      "use": "facts"
+    },
+    {
+      "id": "otaru_city_canal",
+      "name": "小樽市 小樽運河 (Otaru City, official)",
+      "url": "https://www.city.otaru.lg.jp/docs/2020100900367/",
+      "use": "facts"
+    },
+    {
+      "id": "otaru_kanko_canal",
+      "name": "小樽観光協会 小樽運河 (official)",
+      "url": "https://otaru.gr.jp/shop/otarucanal",
+      "use": "facts"
+    },
+    {
+      "id": "tokeidai_en",
+      "name": "Sapporo Clock Tower (official, English)",
+      "url": "https://sapporoshi-tokeidai.jp/english/",
+      "use": "facts"
+    },
+    {
+      "id": "tokeidai_guide",
+      "name": "札幌市時計台 入館案内 (official)",
+      "url": "https://sapporoshi-tokeidai.jp/inspect/guide.php",
+      "use": "facts"
+    },
+    {
+      "id": "tokeidai_history",
+      "name": "札幌市時計台 時計台のあゆみ (official)",
+      "url": "https://sapporoshi-tokeidai.jp/know/walking.php",
+      "use": "facts"
+    },
+    {
+      "id": "bunka_tokeidai",
+      "name": "文化庁 国指定文化財等データベース",
+      "url": "https://kunishitei.bunka.go.jp/heritage/detail/102/3",
+      "use": "heritage_registry",
+      "license": "MEXT-website-terms (出典記載で自由利用)",
+      "attribution_required": true
+    },
+    {
+      "id": "moiwa_guide",
+      "name": "札幌もいわ山ロープウェイ 営業時間・料金 (operator)",
+      "url": "https://mt-moiwa.jp/guide/",
+      "use": "facts"
+    },
+    {
+      "id": "moiwa_faq",
+      "name": "札幌もいわ山ロープウェイ よくある質問 (operator)",
+      "url": "https://mt-moiwa.jp/faq/",
+      "use": "facts"
+    },
+    {
+      "id": "moiwa_access_tram",
+      "name": "札幌もいわ山ロープウェイ アクセス 市電・無料シャトルバス (operator)",
+      "url": "https://mt-moiwa.jp/access/shuttlebus-tram/",
+      "use": "facts"
+    },
+    {
+      "id": "moiwa_nature",
+      "name": "札幌もいわ山ロープウェイ もいわ山の自然 (operator)",
+      "url": "https://mt-moiwa.jp/feature/nature/",
+      "use": "facts"
+    },
+    {
+      "id": "moiwa_nightview",
+      "name": "札幌もいわ山ロープウェイ もいわ山の夜景・絶景 (operator)",
+      "url": "https://mt-moiwa.jp/feature/nightview/",
+      "use": "facts"
+    },
+    {
+      "id": "moiwa_closure_2027",
+      "name": "札幌もいわ山ロープウェイ 令和9年次整備点検による休業 (operator)",
+      "url": "https://mt-moiwa.jp/2026/10/03/%e3%80%90%e9%87%8d%e8%a6%81%e3%80%91%e4%bb%a4%e5%92%8c%ef%bc%99%e5%b9%b4%e6%ac%a1%e6%95%b4%e5%82%99%e7%82%b9%e6%a4%9c%e3%81%ab%e3%82%88%e3%82%8b%e4%bc%91%e6%a5%ad%e3%81%ae%e3%81%8a%e7%9f%a5%e3%82%89/",
+      "use": "facts"
+    },
+    {
+      "id": "bunka_moiwa",
+      "name": "文化庁 国指定文化財等データベース",
+      "url": "https://kunishitei.bunka.go.jp/heritage/detail/401/6",
+      "use": "heritage_registry",
+      "license": "MEXT-website-terms (出典記載で自由利用)",
+      "attribution_required": true
+    },
+    {
+      "id": "ohori_en",
+      "name": "Ohori Park (official, English, machine-translated)",
+      "url": "https://www.ohorikouen.jp/en/",
+      "use": "facts"
+    }
+  ]
+}

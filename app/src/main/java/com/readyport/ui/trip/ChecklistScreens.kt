@@ -425,6 +425,8 @@ data class ChecklistActions(
     val openItinerary: (tripId: String) -> Unit = {},
     /** 관광지 상세 (오늘 갈 곳에서) */
     val openAttraction: (country: String, id: String) -> Unit = { _, _ -> },
+    /** 여행 계획 요청 (계획 단계 타일, 비공개 — 이 여행의 나라·날짜를 미리 채운다) */
+    val openPlanRequest: (tripId: String) -> Unit = {},
 )
 
 /**

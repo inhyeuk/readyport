@@ -194,6 +194,8 @@ data class AttractionDto(
     val rank: RankDto? = null,
     val photo: PhotoDto? = null,
     @SerialName("photo_link") val photoLink: String? = null,
+    /** Google Places place ID(선택, place-ids 도구가 채움) — 상세의 Google 별점 조회에만 쓴다. 별점은 저장하지 않는다 */
+    @SerialName("google_place_id") val googlePlaceId: String? = null,
     val source: String = "",
     @SerialName("last_verified") val lastVerified: String = "",
 )

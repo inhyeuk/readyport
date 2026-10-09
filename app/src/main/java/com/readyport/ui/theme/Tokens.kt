@@ -13,6 +13,9 @@ object Tokens {
     val Surface = Color(0xFFFFFFFF)
     val Line = Color(0xFFD9DDE4)
     val LineSoft = Color(0xFFE3E6EB)
+    // 항목 테두리(2026-10-09 사장님 요청 — 여러 항목이 섞여 보이지 않게). LineSoft 는 바탕(Ground)과 너무 비슷해 안 보였다.
+    // 옅은 회청색: 흰 카드·연한 채움 위에서 테두리가 보이되 글자보다 훨씬 약하다(장식 — 대비 기준 대상 아님)
+    val CardEdge = Color(0xFFCDD4DE)
 
     val CautionBg = Color(0xFFFFF4DC)
     val CautionText = Color(0xFF7A4100)
