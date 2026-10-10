@@ -347,6 +347,33 @@
       "wave": 1
     },
     {
+      "id": "jp_nagasaki",
+      "order": 115,
+      "name_ko": "나가사키",
+      "name_en": "Nagasaki",
+      "aliases_ko": [
+        "나가사키시",
+        "장기"
+      ],
+      "group_ko": "규슈",
+      "kind": "base",
+      "hub": {
+        "name_ko": "나가사키역",
+        "lat": 32.75275,
+        "lng": 129.86907778,
+        "qid": "Q1076315"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "advisory_watch_ko": [],
+      "water_crossing": false,
+      "airports": [],
+      "wave": 3
+    },
+    {
       "id": "jp_yufuin_beppu",
       "order": 120,
       "name_ko": "유후인·벳푸",
@@ -9842,6 +9869,372 @@
       "photo_link": "https://commons.wikimedia.org/wiki/File:紅葉の華厳の滝.jpg",
       "source": "wd",
       "last_verified": "2026-10-10"
+    },
+    {
+      "id": "glover-garden",
+      "qid": "Q63465",
+      "names": {
+        "ko": "글로버 정원",
+        "ko_basis": "editorial",
+        "en": "Glover Garden",
+        "local": "グラバー園",
+        "local_short": "グラバー園",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "그라바엔",
+        "글로버원",
+        "구 글로버 주택"
+      ],
+      "aliases_en": [
+        "Glover Gardens"
+      ],
+      "mentions_ko": [
+        "글로버 스카이로드"
+      ],
+      "region": "jp_nagasaki",
+      "area_ko": "나가사키시 미나미야마테",
+      "category": "heritage",
+      "tags": [
+        {
+          "id": "unesco",
+          "source": "glover_official_about",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "entrance",
+        "lat": 32.73444444,
+        "lng": 129.86888889,
+        "source": "wd",
+        "last_verified": "2026-10-10",
+        "qid": "Q63465"
+      },
+      "address_local": {
+        "text": "〒850-0931 長崎県長崎市南山手町8番1号",
+        "source": "glover_official_guide",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "train",
+          "bus"
+        ],
+        "nearest_ko": "노면전차 '이시바시' 정류장에서 걸어가요 (나가사키 버스 '오우라텐슈도시타'에서도 가까워요)",
+        "source": "glover_official_destination",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://glover-garden.jp/",
+      "summary_ko": "언덕 위에 옛 서양식 저택들이 모여 있는 정원이에요.",
+      "body_ko": [
+        "글로버 정원에는 전통 건축물 9동이 있고, 그중 구 글로버·오르트·린가 주택 3동이 국가 중요문화재예요.",
+        "나머지는 메이지 중기에 나가사키 시내에 지은 서양식 건물을 옮겨 복원한 것이에요.",
+        "구 글로버 주택은 2015년에 세계유산에 올랐어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "전통 건축물 9동을 볼 수 있고, 구 글로버·오르트·린가 주택 3동은 국가 중요문화재예요.",
+          "source": "glover_official_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "나머지 6동은 메이지 중기에 나가사키 시내에 지은 서양식 건물을 옮겨 복원한 것이에요.",
+          "source": "glover_official_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "구 글로버 주택은 2015년에 세계유산에 등록됐어요.",
+          "source": "glover_official_about",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "돌길과 비탈이 많아서 휠체어로 둘러보려면 도움이 필요해요.",
+          "source": "glover_official_guide",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "무료 전동 휠체어를 빌릴 수 있어요.",
+          "source": "glover_official_guide",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "시기에 따라 야간 개원이 있어요.",
+          "source": "glover_official_guide",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "unknown"
+        ],
+        "source": "glover_official_guide",
+        "last_verified": "2026-10-10"
+      },
+      "risk": [
+        "renovation"
+      ],
+      "status": {
+        "value": "partial",
+        "note_ko": "구 오르트 주택은 보존 수리 공사로 관람할 수 없어요. 재개 일정은 공식 사이트에서 확인하세요.",
+        "source": "glover_official_repair",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 999,
+        "designations": [
+          {
+            "kind": "unesco",
+            "name_ko": "세계유산 메이지 일본의 산업혁명 유산(구 글로버 주택)",
+            "source": "glover_official_about"
+          },
+          {
+            "kind": "jp_important_cultural_property_partial",
+            "name_ko": "구 글로버·오르트·린가 주택(중요문화재)",
+            "source": "glover_official_about"
+          }
+        ]
+      },
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Nagasaki-Glover-Garden-5415.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10"
+    },
+    {
+      "id": "nagasaki-atomic-bomb-museum",
+      "qid": "Q1099077",
+      "names": {
+        "ko": "나가사키 원폭 자료관",
+        "ko_basis": "editorial",
+        "en": "Nagasaki Atomic Bomb Museum",
+        "local": "長崎原爆資料館",
+        "local_short": "長崎原爆資料館",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "원폭 자료관"
+      ],
+      "mentions_ko": [
+        "평화 안내인"
+      ],
+      "region": "jp_nagasaki",
+      "area_ko": "나가사키시 히라노마치",
+      "category": "museum",
+      "geo": {
+        "kind": "entrance",
+        "lat": 32.772652777778,
+        "lng": 129.86451388889,
+        "source": "wd",
+        "last_verified": "2026-10-10",
+        "qid": "Q1099077"
+      },
+      "address_local": {
+        "text": "〒852-8117 長崎市平野町7番8号",
+        "source": "nagasakipeace_official_abm",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "train",
+          "bus"
+        ],
+        "nearest_ko": "나가사키역에서 노면전차 '아카사코' 행을 타고 '원폭자료관' 정류장에서 내려요",
+        "source": "nabmuseum_official_access",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://nabmuseum.jp/",
+      "summary_ko": "나가사키시가 운영하는 원폭 관련 역사 자료관이에요.",
+      "body_ko": [
+        "나가사키 원폭 자료관은 원폭 피해 50주년 기념 사업으로 1996년 4월에 문을 열었어요.",
+        "전시 설명은 일본어·영어·중국어·한국어로 적혀 있어요.",
+        "상설 전시실은 전시 교체 공사로 일부 구역을 단계적으로 닫고 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "원폭 피해 50주년 기념 사업으로 1996년 4월에 문을 열었어요.",
+          "source": "nagasakipeace_official_abm",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "전시 설명을 일본어·영어·중국어·한국어 4개 언어로 적어 놓았어요.",
+          "source": "nagasakipeace_official_abm",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "8월 9일 '나가사키 평화의 날'에는 전시실 입장료를 받지 않아요.",
+          "source": "nabmuseum_official_faq",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "8월 9일 '나가사키 평화의 날'에는 전시실이 무료예요.",
+          "source": "nabmuseum_official_faq",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "전시 교체 공사로 일부 구역은 칸막이로 가리고 있어요. 공사하지 않는 구역은 평소처럼 볼 수 있어요.",
+          "source": "nabmuseum_official_exhibit_pause",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "전시실 안에서 플래시·삼각대·셀카봉은 쓸 수 없어요.",
+          "source": "nabmuseum_official_faq",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "자원봉사 '평화 안내인'이 입구에서 무료로 안내해 줘요.",
+          "source": "nabmuseum_official_faq",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "unknown"
+        ],
+        "source": "nabmuseum_official_faq",
+        "last_verified": "2026-10-10"
+      },
+      "status": {
+        "value": "partial",
+        "note_ko": "상설 전시실 일부 구역이 전시 교체 공사로 닫혀 있어요. 나머지 구역은 평소처럼 볼 수 있어요.",
+        "source": "nabmuseum_official_exhibit_pause",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 999,
+        "designations": []
+      },
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Nagasakigenbaku.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10"
+    },
+    {
+      "id": "dejima",
+      "qid": "Q640267",
+      "names": {
+        "ko": "데지마",
+        "ko_basis": "editorial",
+        "en": "Dejima",
+        "local": "出島",
+        "local_short": "出島",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "데지마 네덜란드 상관",
+        "출도"
+      ],
+      "aliases_en": [
+        "Deshima"
+      ],
+      "mentions_ko": [
+        "네덜란드 상관"
+      ],
+      "region": "jp_nagasaki",
+      "area_ko": "나가사키시 데지마초",
+      "category": "heritage",
+      "geo": {
+        "kind": "entrance",
+        "lat": 32.74352,
+        "lng": 129.87302,
+        "source": "wd",
+        "last_verified": "2026-10-10",
+        "qid": "Q640267"
+      },
+      "address_local": {
+        "text": "〒850-0862 長崎県長崎市出島町6-1",
+        "source": "dejima_official_about",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "bus",
+          "train"
+        ],
+        "nearest_ko": "나가사키역 앞에서 나가사키 버스를 타고 '데지마'에서 내려요 (노면전차 데지마 정류장도 있어요)",
+        "source": "dejima_official_about",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://nagasakidejima.jp/",
+      "summary_ko": "네덜란드 상관이 있던 인공섬을 복원한 시설이에요.",
+      "body_ko": [
+        "데지마는 1636년에 쌓은 인공섬으로, 1859년 네덜란드 상관이 닫힐 때까지 218년 동안 서양에 열린 창구 역할을 했어요.",
+        "지금은 옛 건물을 복원해 공개하고 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "1636년에 쌓았고, 1859년 네덜란드 상관이 닫힐 때까지 218년 동안 서양에 열린 창구 역할을 했어요.",
+          "source": "dejima_official_history",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "한 번 나가면 다시 들어올 수 없어요.",
+          "source": "dejima_official_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "시설 점검으로 일부 건물을 못 볼 수 있어요.",
+          "source": "dejima_official_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "휠체어를 빌릴 수 있어요.",
+          "source": "dejima_official_about",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "none"
+        ],
+        "source": "dejima_official_about",
+        "last_verified": "2026-10-10"
+      },
+      "status": {
+        "value": "open",
+        "source": "dejima_official_about",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 999,
+        "designations": []
+      },
+      "photo_link": "https://commons.wikimedia.org/wiki/File:View_of_Dejima_in_Nagasaki_Bay_Folding_Screen_by_Kawahara_Keiga_c1836.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10"
     }
   ],
   "retired": [],
@@ -11669,6 +12062,66 @@
       "id": "toshogu_official_overview",
       "name": "日光東照宮 社殿の概要",
       "url": "https://www.toshogu.jp/pages/29/",
+      "use": "facts"
+    },
+    {
+      "id": "dejima_official_about",
+      "name": "【公式】出島 出島 ご利用情報",
+      "url": "https://nagasakidejima.jp/about",
+      "use": "facts"
+    },
+    {
+      "id": "dejima_official_history",
+      "name": "【公式】出島 出島の歴史",
+      "url": "https://nagasakidejima.jp/history",
+      "use": "facts"
+    },
+    {
+      "id": "glover_official_about",
+      "name": "グラバー園について",
+      "url": "https://glover-garden.jp/about/",
+      "use": "facts"
+    },
+    {
+      "id": "glover_official_destination",
+      "name": "グラバー園 アクセス",
+      "url": "https://glover-garden.jp/destination",
+      "use": "facts"
+    },
+    {
+      "id": "glover_official_guide",
+      "name": "グラバー園 ご利用案内",
+      "url": "https://glover-garden.jp/guide/",
+      "use": "facts"
+    },
+    {
+      "id": "glover_official_repair",
+      "name": "グラバー園 保存修理工事に伴う一部エリア見学中止",
+      "url": "https://glover-garden.jp/event-and-news/24032/",
+      "use": "facts"
+    },
+    {
+      "id": "nabmuseum_official_access",
+      "name": "長崎原爆資料館 アクセス・駐車場",
+      "url": "https://nabmuseum.jp/access/",
+      "use": "facts"
+    },
+    {
+      "id": "nabmuseum_official_exhibit_pause",
+      "name": "長崎原爆資料館 常設展示室 展示更新に伴う一部公開休止",
+      "url": "https://nabmuseum.jp/oshirase/exhibition/",
+      "use": "facts"
+    },
+    {
+      "id": "nabmuseum_official_faq",
+      "name": "長崎原爆資料館 よくあるご質問",
+      "url": "https://nabmuseum.jp/genbaku/faq/",
+      "use": "facts"
+    },
+    {
+      "id": "nagasakipeace_official_abm",
+      "name": "ながさきの平和 原爆資料館",
+      "url": "https://nagasakipeace.jp/visit/abm/",
       "use": "facts"
     }
   ]
