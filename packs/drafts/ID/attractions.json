@@ -1025,6 +1025,54 @@
       "name": "Visiting Jogja(족자카르타 특별주 관광청 공식 포털) — Candi Ijo",
       "url": "https://visitingjogja.jogjaprov.go.id/12787/candi-ijo/",
       "use": "facts"
+    },
+    {
+      "id": "pasifika_home",
+      "name": "Museum Pasifika 공식 사이트 — Home",
+      "url": "https://www.museum-pasifika.com/",
+      "use": "facts"
+    },
+    {
+      "id": "pasifika_about",
+      "name": "Museum Pasifika 공식 사이트 — About",
+      "url": "https://www.museum-pasifika.com/about",
+      "use": "facts"
+    },
+    {
+      "id": "pasifika_admission",
+      "name": "Museum Pasifika 공식 사이트 — Admission",
+      "url": "https://www.museum-pasifika.com/admision",
+      "use": "facts"
+    },
+    {
+      "id": "pasifika_activities",
+      "name": "Museum Pasifika 공식 사이트 — Activities",
+      "url": "https://www.museum-pasifika.com/activities",
+      "use": "facts"
+    },
+    {
+      "id": "vredeburg_sejarah",
+      "name": "Museum Benteng Vredeburg 공식 사이트 — Sejarah Singkat",
+      "url": "https://vredeburg.id/id/page/sejarah-singkat",
+      "use": "facts"
+    },
+    {
+      "id": "vredeburg_tiket",
+      "name": "Museum Benteng Vredeburg 공식 사이트 — Tiket",
+      "url": "https://vredeburg.id/id/page/tiket",
+      "use": "facts"
+    },
+    {
+      "id": "vredeburg_waktu",
+      "name": "Museum Benteng Vredeburg 공식 사이트 — Waktu Kunjungan",
+      "url": "https://vredeburg.id/id/page/waktu-kunjungan",
+      "use": "facts"
+    },
+    {
+      "id": "vredeburg_profil",
+      "name": "Museum Benteng Vredeburg 공식 사이트 — Profil",
+      "url": "https://vredeburg.id/id/page/profil",
+      "use": "facts"
     }
   ],
   "attractions": [
@@ -1401,7 +1449,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 50,
+        "order": 52,
         "designations": []
       },
       "photo": null,
@@ -1785,7 +1833,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 48,
+        "order": 50,
         "designations": []
       },
       "photo": null,
@@ -2190,7 +2238,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 40,
+        "order": 41,
         "designations": []
       },
       "photo": null,
@@ -4321,7 +4369,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 45,
+        "order": 47,
         "designations": []
       },
       "photo": null,
@@ -4608,7 +4656,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 49,
+        "order": 51,
         "designations": []
       },
       "photo": null,
@@ -4729,7 +4777,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 44,
+        "order": 46,
         "designations": []
       },
       "photo": null,
@@ -4864,7 +4912,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 51,
+        "order": 53,
         "designations": []
       },
       "photo": null,
@@ -5164,7 +5212,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 37,
+        "order": 38,
         "designations": []
       },
       "photo": null,
@@ -5802,7 +5850,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 52,
+        "order": 54,
         "designations": []
       },
       "photo": null,
@@ -6089,7 +6137,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 47,
+        "order": 49,
         "designations": []
       },
       "photo": null,
@@ -6231,7 +6279,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 35,
+        "order": 36,
         "designations": []
       },
       "photo": null,
@@ -6376,7 +6424,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 36,
+        "order": 37,
         "designations": []
       },
       "photo": null,
@@ -6846,7 +6894,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 34,
+        "order": 35,
         "designations": []
       },
       "photo": null,
@@ -7124,7 +7172,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 42,
+        "order": 44,
         "designations": []
       },
       "photo": null,
@@ -7416,7 +7464,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 41,
+        "order": 43,
         "designations": []
       },
       "photo": null,
@@ -7651,7 +7699,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 46,
+        "order": 48,
         "designations": []
       },
       "photo": null,
@@ -7765,7 +7813,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 43,
+        "order": 45,
         "designations": []
       },
       "photo": null,
@@ -8068,7 +8116,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 38,
+        "order": 39,
         "designations": []
       },
       "photo": null,
@@ -8212,7 +8260,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 33,
+        "order": 34,
         "designations": []
       },
       "photo": null,
@@ -8349,7 +8397,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 39,
+        "order": 40,
         "designations": []
       },
       "photo": null,
@@ -8360,6 +8408,299 @@
         "en": "Ijo Temple"
       },
       "google_place_id": "ChIJpXpAMhJbei4R66paHGNQXGQ"
+    },
+    {
+      "id": "museum-pasifika",
+      "qid": "Q6940675",
+      "names": {
+        "ko": "빠시피카 박물관",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Museum Pasifika",
+        "local": "Museum Pasifika",
+        "local_short": "Museum Pasifika",
+        "local_lang": "id",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "파시피카 박물관",
+        "파시피카 미술관"
+      ],
+      "aliases_en": [
+        "Pasifika Museum"
+      ],
+      "mentions_ko": [],
+      "region": "id_bali_bukit",
+      "area_ko": "누사두아 ITDC 단지",
+      "category": "museum",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": -8.8,
+        "lng": 115.2306,
+        "source": "wd",
+        "qid": "Q6940675",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": -8.8,
+        "lng": 115.2306
+      },
+      "address_local": {
+        "text": "Complex Bali Tourism Development Corporation / ITDC Area Block P, Benoa, South Kuta, Badung Regency, Bali 80361",
+        "source": "pasifika_admission",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "car_only"
+        ],
+        "nearest_ko": "누사두아 ITDC 단지 블록 P에 있어요. 차로 가요",
+        "source": "pasifika_admission",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.museum-pasifika.com/",
+      "wiki": {
+        "en": "Museum Pasifika"
+      },
+      "summary_ko": "아시아·태평양 화가들의 그림과 조각을 모은 누사두아의 박물관이에요.",
+      "body_ko": [
+        "빠시피카 박물관은 2006년 8월에 문을 연 누사두아의 박물관이에요.",
+        "전시관 건물 8개와 전시실 11개에 25개국 화가 200명의 작품 600점을 두었어요.",
+        "발리 건축가 포포 다네스가 설계했어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "2006년 8월에 문을 열었어요.",
+          "source": "pasifika_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "전시관 건물 8개와 전시실 11개에 25개국 화가 200명의 작품 600점을 두었어요.",
+          "source": "pasifika_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "발리 건축가 포포 다네스가 설계했어요.",
+          "source": "pasifika_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "아시아·태평양 전역의 회화와 조각을 소장해요.",
+          "source": "pasifika_about",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "등에 메는 가방은 안 되고, 큰 가방과 우산은 맡겨요.",
+          "source": "pasifika_admission",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "작품과 액자, 받침대를 만지면 안 돼요.",
+          "source": "pasifika_admission",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "휠체어는 환영해요. 유모차는 일부 특별전을 빼고 들어갈 수 있어요.",
+          "source": "pasifika_admission",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "그림, 바틱, 발리 춤 같은 체험 수업이 따로 있어요.",
+          "source": "pasifika_activities",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "pasifika_admission",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "pasifika_about",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_id",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 42,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJRbNf4b5B0i0R5xfnGuTcxjY"
+    },
+    {
+      "id": "benteng-vredeburg",
+      "qid": "Q2551916",
+      "names": {
+        "ko": "프레데부르흐 요새 박물관",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Fort Vredeburg Museum",
+        "local": "Museum Benteng Vredeburg",
+        "local_short": "Benteng Vredeburg",
+        "local_lang": "id",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "프레데부르흐 요새",
+        "베뗑 프레데부르흐",
+        "프레데부르크 요새"
+      ],
+      "aliases_en": [
+        "Fort Vredeburg",
+        "Vredeburg Fort Museum"
+      ],
+      "mentions_ko": [],
+      "region": "id_yogyakarta",
+      "area_ko": "족자카르타 시내 말리오보로 길 근처",
+      "category": "museum",
+      "tags": [
+        {
+          "id": "foreigner_price",
+          "source": "vredeburg_tiket",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": -7.800436,
+        "lng": 110.365686,
+        "source": "wd",
+        "qid": "Q2551916",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": -7.800436,
+        "lng": 110.365686
+      },
+      "address_local": null,
+      "access": {
+        "modes": [
+          "bus"
+        ],
+        "nearest_ko": "말리오보로 길 가까이에 있어요. 트랜스 족자 '말리오보로' 정류장이 가까워요",
+        "source": "dishub_diy_transjogja",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://vredeburg.id/",
+      "wiki": {
+        "en": "Fort Vredeburg Museum"
+      },
+      "summary_ko": "옛 네덜란드 요새를 박물관으로 쓰는 족자카르타 시내의 역사 박물관이에요.",
+      "body_ko": [
+        "프레데부르흐 요새 박물관은 네덜란드 동인도회사가 1765년 12월에 공사를 시작한 요새를 쓰는 박물관이에요.",
+        "이 도시에서 가장 오래된 식민 시대 유산이라고 소개하고, 디포네고로 시대부터 신질서 시대까지의 역사를 보여 줘요.",
+        "말리오보로 길 가까이에 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "네덜란드 동인도회사(VOC)의 요청으로 1765년 12월에 요새 공사를 시작했어요.",
+          "source": "vredeburg_sejarah",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "이 도시에서 가장 오래된 식민 시대 유산이라고 소개해요.",
+          "source": "vredeburg_profil",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "소장품이 7,000점이 넘고, 생활 도구와 전쟁 도구, 수카르노와 하타가 쓴 물건이 있어요.",
+          "source": "vredeburg_profil",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "디포네고로 시대부터 신질서 시대까지의 역사를 보여 줘요.",
+          "source": "vredeburg_profil",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "말리오보로 길 가까이에 있어요.",
+          "source": "vredeburg_profil",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "외국인 요금이 따로 있어요.",
+          "source": "vredeburg_tiket",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "표 값은 요일과 시간대에 따라 달라요.",
+          "source": "vredeburg_tiket",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "어린아이는 입장료가 없어요.",
+          "source": "vredeburg_tiket",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "vredeburg_tiket",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "vredeburg_waktu",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_id",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 33,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJz-6zwIhXei4R-J8qI-AcYbk"
     }
   ]
 }

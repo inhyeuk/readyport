@@ -19,6 +19,11 @@
     "checked_at": "2026-10-10",
     "text_sha256": "6f58f588767acfea4e7f6f258b3e74b1a2c6ab48ea4c162667bc01dcc779fe22"
   },
+  "benteng-vredeburg": {
+    "cache_set_sha256": "652c60af70c77a52f89a9877457c03433864cf37c4ccdad99fdc6f85705182d3",
+    "checked_at": "2026-10-10",
+    "text_sha256": "d3c0ab1cd86b8b021ba8fa33a3b076ab8b837f20170516d5a2c909ca29da6bee"
+  },
   "besakih": {
     "cache_set_sha256": "1a722c090f0da1dd8b2d91e8ee52018b5eb9429269eea45a60b6ed8ed2458817",
     "checked_at": "2026-10-10",
@@ -143,6 +148,11 @@
     "cache_set_sha256": "1a2dfe184081cd4ad98f6089ad48e4eac4d0204272d462cb07e4355171b16e13",
     "checked_at": "2026-10-10",
     "text_sha256": "207f585b06ecde6023da3799a5d646ac0d68c96a1ba10714c27a7387dbdf3f01"
+  },
+  "museum-pasifika": {
+    "cache_set_sha256": "855f3137cbd8758251199446a1e23952f9bc53333f9392256b1f76611ad12ade",
+    "checked_at": "2026-10-10",
+    "text_sha256": "bdecf39cfc000895bfecb708ceb6501d0aa7f38d8a82c7f34fccb2ff0e74cdd7"
   },
   "neka-art-museum": {
     "cache_set_sha256": "1e906c004e0d9d2e6ff4bd8d4f42562398a376dcdb8646a8b7b597abe63f3b92",
