@@ -144,6 +144,11 @@
     "checked_at": "2026-10-10",
     "text_sha256": "3a4c669bc919a3621c48081ac54848f27077eedfeea296eec292045e2b0a3e1a"
   },
+  "kobe-port-tower": {
+    "cache_set_sha256": "bb2d49b2d14978617442e71cad43bbb7593e1a074039f54f3838b0d850092ed4",
+    "checked_at": "2026-10-10",
+    "text_sha256": "a1fd78c0722d6e0df5e38b9f6ad0cab4276f9d3ead0b8bafbe526c082b7eb974"
+  },
   "koko-en": {
     "cache_set_sha256": "ce8104a0fb1646278c9e4ea43f81f7b21b21d549137471d219be9a0de06fc413",
     "checked_at": "2026-10-10",
@@ -173,6 +178,11 @@
     "cache_set_sha256": "6c9e131469f18e495a954e575264be5b2c2409f411a1f07a3c3e1323a8c1dd84",
     "checked_at": "2026-10-10",
     "text_sha256": "5aa2dbb244b2e281564fa0b3d25f6a7843c2e2549f130c52e57ca368e3183161"
+  },
+  "kyoto-tower": {
+    "cache_set_sha256": "50d267b6266ad2c661cc0a6824cb73a9a57f23b0e1ca80cfcd7e08651c0d8817",
+    "checked_at": "2026-10-10",
+    "text_sha256": "8f9a5eb2222d0042da8786db45bacfc9de34b2ab3a6168582ffcbc415d89747f"
   },
   "lake-ashi": {
     "cache_set_sha256": "67b84276346b35a28564feb2dbd2c49bbe33ca8e114fa5fcda3b5e1722c6cb00",
@@ -283,6 +293,11 @@
     "cache_set_sha256": "e5447300930e959e086d77cddb66a4ec76a4b55e3bda9686978b9fb42a793a29",
     "checked_at": "2026-10-10",
     "text_sha256": "cac95d1a2e29c5b41d85169aa95523b26d980d55285ec3c09cbf4e8d0c6b3c23"
+  },
+  "sapporo-tv-tower": {
+    "cache_set_sha256": "5d0a1dbd6ccdc9fdcac690356d5807f47af0952a93ef390b45797b384bc10dae",
+    "checked_at": "2026-10-10",
+    "text_sha256": "1785848ef686f35f45997f8ca9cfaf16f77e2b89c8c00f2cfe6d30a937746f22"
   },
   "sensoji": {
     "cache_set_sha256": "c4ec886fb14b10bf2bfa0912217c0f1661d4519091d4d7a9dcebfddb7bb7fa8f",
