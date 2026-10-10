@@ -228,6 +228,14 @@
     <string name="settings_credit_unesco_677">UNESCO World Heritage Centre — Baroque Churches of the Philippines — 산 아구스틴 성당</string>
     <string name="settings_credit_unesco_bohol_geopark">UNESCO — Bohol Island UNESCO Global Geopark — 초콜릿 힐</string>
     <string name="settings_credit_osm">© OpenStreetMap 기여자 (ODbL) — 일부 관광지 좌표</string>
+    <string name="settings_credit_unesco_1012">UNESCO World Heritage Centre — Kinabalu Park — 키나발루 공원</string>
+    <string name="settings_credit_dsvh_hoankiem">Cục Di sản văn hóa — Di tích lịch sử và danh lam thắng cảnh hồ Hoàn Kiếm và đền Ngọc Sơn (베트남 문화유산국, 특별 국가유적 소개) — 호안끼엠 호수</string>
+    <string name="settings_credit_unesco_678">UNESCO World Heritage Centre — Complex of Hué Monuments — 카이딘 황릉·티엔무 사원·후에 황성</string>
+    <string name="settings_credit_unesco_act_322">UNESCO World Heritage Centre — Complex of the Celestial Lady (Thien Mu), activity page of property 678 — 티엔무 사원</string>
+    <string name="settings_credit_dsvh_hue">Cục Di sản văn hóa — Di tích quốc gia đặc biệt Quần thể kiến trúc Cố đô Huế (베트남 문화유산국 특별 국가유적 상세) — 후에 황성</string>
+    <string name="settings_credit_dsvh_phuquoc_prison">Cục Di sản văn hóa, Bộ VHTTDL (official heritage registry) — Di tích lịch sử Trại giam Phú Quốc — 푸꾸옥 감옥</string>
+    <string name="settings_credit_unesco_geopark_batur">UNESCO International Geoscience and Geoparks Programme — Batur UNESCO Global Geopark — 바투르산(킨타마니 전망)</string>
+    <string name="settings_credit_unesco_609">UNESCO World Heritage Centre — Komodo National Park — 코모도 국립공원·파다르섬·핑크 비치(코모도)</string>
     <string name="settings_credit_unesco_870">UNESCO 세계유산센터 — 고대 나라의 역사기념물</string>
 
     <!-- 관광지 지도 (Google 지도 SDK, 사장님 결정 2026-10-09). 키가 없거나 중국이면 지도 없이 '구글 지도에서 열기'만 -->
