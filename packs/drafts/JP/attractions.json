@@ -1940,7 +1940,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 9,
+        "order": 11,
         "designations": [
           {
             "kind": "jp_important_cultural_property_partial",
@@ -2109,7 +2109,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 11,
+        "order": 13,
         "designations": [
           {
             "kind": "unesco",
@@ -2255,7 +2255,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 12,
+        "order": 14,
         "designations": [
           {
             "kind": "jp_historic_site",
@@ -2436,7 +2436,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 13,
+        "order": 15,
         "designations": [
           {
             "kind": "jp_important_cultural_property_partial",
@@ -2602,7 +2602,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 14,
+        "order": 16,
         "designations": [
           {
             "kind": "unesco",
@@ -2771,7 +2771,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 16,
+        "order": 19,
         "designations": [
           {
             "kind": "jp_historic_site",
@@ -2925,7 +2925,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 17,
+        "order": 21,
         "designations": [
           {
             "kind": "jp_registered_monument",
@@ -3105,7 +3105,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 18,
+        "order": 22,
         "designations": [
           {
             "kind": "jp_place_of_scenic_beauty",
@@ -3268,7 +3268,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 20,
+        "order": 25,
         "designations": [
           {
             "kind": "jp_important_cultural_property_partial",
@@ -3415,7 +3415,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 21,
+        "order": 26,
         "designations": [
           {
             "kind": "unesco_component",
@@ -3592,7 +3592,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 23,
+        "order": 28,
         "designations": [
           {
             "kind": "jp_registered_tangible_cultural_property",
@@ -3764,7 +3764,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 24,
+        "order": 30,
         "designations": [
           {
             "kind": "jp_national_treasure_partial",
@@ -3936,7 +3936,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 25,
+        "order": 31,
         "designations": [
           {
             "kind": "jp_special_historic_site",
@@ -4092,7 +4092,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 26,
+        "order": 32,
         "designations": [
           {
             "kind": "jp_important_cultural_property",
@@ -4258,7 +4258,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 27,
+        "order": 33,
         "designations": [
           {
             "kind": "jp_important_cultural_property_partial",
@@ -4427,7 +4427,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 28,
+        "order": 34,
         "designations": [
           {
             "kind": "jp_national_treasure_partial",
@@ -4589,7 +4589,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 29,
+        "order": 35,
         "designations": [
           {
             "kind": "jp_place_of_scenic_beauty_partial",
@@ -4772,7 +4772,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 30,
+        "order": 37,
         "designations": [
           {
             "kind": "jp_natural_monument_partial",
@@ -4926,7 +4926,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 32,
+        "order": 40,
         "designations": [
           {
             "kind": "jp_registered_tangible_cultural_property",
@@ -5067,7 +5067,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 33,
+        "order": 43,
         "designations": []
       },
       "photo": null,
@@ -5231,7 +5231,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 34,
+        "order": 44,
         "designations": []
       },
       "photo": null,
@@ -5373,7 +5373,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 36,
+        "order": 53,
         "designations": []
       },
       "photo": null,
@@ -5535,7 +5535,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 38,
+        "order": 56,
         "designations": []
       },
       "photo": null,
@@ -5666,7 +5666,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 40,
+        "order": 62,
         "designations": []
       },
       "photo": null,
@@ -5813,7 +5813,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 41,
+        "order": 64,
         "designations": []
       },
       "photo": null,
@@ -5959,7 +5959,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 42,
+        "order": 67,
         "designations": []
       },
       "photo": null,
@@ -6123,7 +6123,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 43,
+        "order": 68,
         "designations": []
       },
       "photo": null,
@@ -6277,7 +6277,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 44,
+        "order": 69,
         "designations": []
       },
       "photo": null,
@@ -6427,7 +6427,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 47,
+        "order": 73,
         "designations": []
       },
       "photo": null,
@@ -6571,7 +6571,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 48,
+        "order": 75,
         "designations": []
       },
       "photo": null,
@@ -6736,7 +6736,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 15,
+        "order": 18,
         "designations": [
           {
             "kind": "unesco",
@@ -6865,7 +6865,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 37,
+        "order": 54,
         "designations": []
       },
       "photo_link": "https://commons.wikimedia.org/wiki/File:Kokusai-dori08s3s4440.jpg",
@@ -7002,7 +7002,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 50,
+        "order": 81,
         "designations": []
       },
       "photo_link": "https://commons.wikimedia.org/wiki/File:おきなわワールド_-_panoramio.jpg",
@@ -7151,7 +7151,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 39,
+        "order": 59,
         "designations": []
       },
       "photo_link": "https://commons.wikimedia.org/wiki/File:沖縄美ら海水族館＿大.jpg",
@@ -7264,7 +7264,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 51,
+        "order": 82,
         "designations": []
       },
       "photo_link": "https://commons.wikimedia.org/wiki/File:View_of_Kouri_Ohashi_from_road.JPG",
@@ -7377,7 +7377,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 35,
+        "order": 47,
         "designations": []
       },
       "photo_link": "https://commons.wikimedia.org/wiki/File:Onna_Okinawa_Japan_Cape-Manzamo-01.jpg",
@@ -7531,7 +7531,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 31,
+        "order": 38,
         "designations": [
           {
             "kind": "jp_preservation_district",
@@ -7672,7 +7672,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 46,
+        "order": 72,
         "designations": []
       },
       "photo_link": "https://commons.wikimedia.org/wiki/File:Harborland_district.jpg",
@@ -7797,7 +7797,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 45,
+        "order": 71,
         "designations": []
       },
       "photo_link": "https://commons.wikimedia.org/wiki/File:Kobe-Nankinmachi.JPG",
@@ -8112,7 +8112,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 49,
+        "order": 80,
         "designations": []
       },
       "photo_link": "https://commons.wikimedia.org/wiki/File:Himeji_Koukoen32n4592.jpg",
@@ -8269,7 +8269,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 22,
+        "order": 27,
         "designations": [
           {
             "kind": "unesco",
@@ -8432,7 +8432,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 10,
+        "order": 12,
         "designations": [
           {
             "kind": "unesco",
@@ -8599,7 +8599,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 19,
+        "order": 24,
         "designations": [
           {
             "kind": "jp_historic_site",
@@ -8616,6 +8616,3337 @@
         "en": "Hiroshima Castle"
       },
       "google_place_id": "ChIJw-f36qaYWjURMpYztSzpe_U"
+    },
+    {
+      "id": "universal-studios-japan",
+      "qid": "Q1375103",
+      "names": {
+        "ko": "유니버설 스튜디오 재팬",
+        "ko_basis": "editorial",
+        "en": "Universal Studios Japan",
+        "local": "ユニバーサル・スタジオ・ジャパン",
+        "local_short": "ユニバーサル・スタジオ・ジャパン",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "USJ",
+        "유니버설 스튜디오",
+        "유니버셜 스튜디오 재팬"
+      ],
+      "mentions_ko": [
+        "스튜디오 패스"
+      ],
+      "region": "jp_osaka",
+      "area_ko": "오사카 고노하나구",
+      "category": "theme_park",
+      "geo": {
+        "kind": "entrance",
+        "lat": 34.6647,
+        "lng": 135.433,
+        "source": "wd",
+        "last_verified": "2026-10-10",
+        "qid": "Q1375103"
+      },
+      "address_local": {
+        "text": "大阪府大阪市此花区桜島2丁目1番33号",
+        "source": "usj_official_company_profile",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "train"
+        ],
+        "nearest_ko": "유니버설시티역이 가장 가까운 역이에요",
+        "source": "usj_official_access",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.usj.co.jp/web/ja/jp",
+      "wiki": {
+        "ko": "유니버설 스튜디오 재팬",
+        "en": "Universal Studios Japan"
+      },
+      "summary_ko": "오사카 항구 쪽 고노하나구에 있는 테마파크예요.",
+      "body_ko": [
+        "유니버설 스튜디오 재팬은 2001년 3월에 문을 연 테마파크로, 오사카시 고노하나구에 있어요.",
+        "운영은 합동회사 유에스제이가 맡고 있고, 입장하려면 스튜디오 패스(입장권)가 필요해요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "테마파크 '유니버설 스튜디오 재팬'은 2001년 3월에 개업했어요.",
+          "source": "usj_official_company_history",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "테마파크를 운영·기획하는 곳은 합동회사 유에스제이예요.",
+          "source": "usj_official_company_profile",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "음식은 가져갈 수 없어요. 음료는 물통이나 페트병이면 되고, 술은 안 돼요.",
+          "source": "usj_official_faq_guide",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "안전 때문에 파크 안에서 롤러 슈즈는 신을 수 없어요.",
+          "source": "usj_official_faq_guide",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "unknown"
+        ],
+        "source": "usj_official_access",
+        "last_verified": "2026-10-10"
+      },
+      "status": {
+        "value": "open",
+        "source": "usj_official_access",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 42,
+        "designations": []
+      },
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Harry_Potter_and_the_Forbidden_Journey_USJ.JPG",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJXeLVg9DgAGARqlIyMCX-BTY"
+    },
+    {
+      "id": "tokyo-disneyland",
+      "qid": "Q843997",
+      "names": {
+        "ko": "도쿄 디즈니랜드",
+        "ko_basis": "editorial",
+        "en": "Tokyo Disneyland",
+        "local": "東京ディズニーランド",
+        "local_short": "東京ディズニーランド",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "TDL",
+        "디즈니랜드"
+      ],
+      "mentions_ko": [
+        "디즈니 리조트"
+      ],
+      "region": "jp_tokyo",
+      "area_ko": "지바현 우라야스시 마이하마",
+      "category": "theme_park",
+      "geo": {
+        "kind": "entrance",
+        "lat": 35.632777777778,
+        "lng": 139.88055555556,
+        "source": "wd",
+        "last_verified": "2026-10-10",
+        "qid": "Q843997"
+      },
+      "access": {
+        "modes": [
+          "train",
+          "bus"
+        ],
+        "nearest_ko": "JR 마이하마역이 가장 가까운 역이에요",
+        "nearest_local": {
+          "text": "舞浜駅",
+          "qid": "Q801154",
+          "source": "wd"
+        },
+        "source": "tdr_official_access",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.tokyodisneyresort.jp/tdl/",
+      "wiki": {
+        "ko": "도쿄 디즈니랜드",
+        "en": "Tokyo Disneyland"
+      },
+      "summary_ko": "도쿄 디즈니 리조트에 있는 테마파크예요.",
+      "body_ko": [
+        "도쿄 디즈니랜드는 1983년 4월에 문을 열었어요.",
+        "도쿄 디즈니 리조트의 가까운 역은 JR 마이하마역이고, 공식 앱으로 입장권을 살 수 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "'東京ディズニーランド'는 1983년 4월에 그랜드 오픈했어요.",
+          "source": "olc_official_history",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "주변 도로와 주차장이 붐비니 대중교통을 이용해 달라고 안내해요.",
+          "source": "tdr_official_access",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "휠체어·전동 카트 등을 빌릴 수 있어요.",
+          "source": "tdl_official_guide",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "유모차를 빌릴 수 있어요.",
+          "source": "tdl_official_guide",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "unknown"
+        ],
+        "source": "tdl_official_guide",
+        "last_verified": "2026-10-10"
+      },
+      "status": {
+        "value": "open",
+        "source": "tdl_official_guide",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 46,
+        "designations": []
+      },
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Tokyo_Disneyland_Cinderella_Castle_2023-07-02.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJszdHEQN9GGARy9MJ1TY22eQ"
+    },
+    {
+      "id": "tokyo-disneysea",
+      "qid": "Q1202341",
+      "names": {
+        "ko": "도쿄 디즈니씨",
+        "ko_basis": "editorial",
+        "en": "Tokyo DisneySea",
+        "local": "東京ディズニーシー",
+        "local_short": "東京ディズニーシー",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "TDS",
+        "디즈니씨"
+      ],
+      "mentions_ko": [
+        "디즈니 리조트"
+      ],
+      "region": "jp_tokyo",
+      "area_ko": "지바현 우라야스시 마이하마",
+      "category": "theme_park",
+      "geo": {
+        "kind": "entrance",
+        "lat": 35.626667,
+        "lng": 139.888056,
+        "source": "wd",
+        "last_verified": "2026-10-10",
+        "qid": "Q1202341"
+      },
+      "access": {
+        "modes": [
+          "train",
+          "bus"
+        ],
+        "nearest_ko": "JR 마이하마역이 가장 가까운 역이에요",
+        "nearest_local": {
+          "text": "舞浜駅",
+          "qid": "Q801154",
+          "source": "wd"
+        },
+        "source": "tdr_official_access",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.tokyodisneyresort.jp/tds/",
+      "wiki": {
+        "ko": "도쿄 디즈니씨",
+        "en": "Tokyo DisneySea"
+      },
+      "summary_ko": "도쿄 디즈니 리조트에 있는 테마파크예요.",
+      "body_ko": [
+        "도쿄 디즈니씨는 2001년 9월에 문을 열었어요.",
+        "도쿄 디즈니 리조트의 가까운 역은 JR 마이하마역이고, 공식 앱으로 입장권을 살 수 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "'東京ディズニーシー'는 2001년 9월에 그랜드 오픈했어요.",
+          "source": "olc_official_history",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "주변 도로와 주차장이 붐비니 대중교통을 이용해 달라고 안내해요.",
+          "source": "tdr_official_access",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "휠체어·전동 카트 등을 빌릴 수 있어요.",
+          "source": "tds_official_guide",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "유모차를 빌릴 수 있어요.",
+          "source": "tds_official_guide",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "unknown"
+        ],
+        "source": "tds_official_guide",
+        "last_verified": "2026-10-10"
+      },
+      "status": {
+        "value": "open",
+        "source": "tds_official_guide",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 51,
+        "designations": []
+      },
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Tokyo_Disney_Sea_Mountain.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJszdHEQN9GGARJS23SnAdR0E"
+    },
+    {
+      "id": "ginkaku-ji",
+      "qid": "Q257473",
+      "names": {
+        "ko": "긴카쿠지",
+        "ko_basis": "editorial",
+        "en": "Ginkaku-ji",
+        "local": "銀閣寺",
+        "local_short": "銀閣寺",
+        "local_lang": "ja",
+        "source": "wd",
+        "ko_paren": "은각사"
+      },
+      "aliases_ko": [
+        "은각사",
+        "지쇼지",
+        "자조사"
+      ],
+      "aliases_en": [
+        "Jisho-ji"
+      ],
+      "mentions_ko": [
+        "동구당",
+        "관음전"
+      ],
+      "region": "jp_kyoto",
+      "area_ko": "교토시 사쿄구",
+      "category": "heritage",
+      "geo": {
+        "kind": "site",
+        "lat": 35.026666666667,
+        "lng": 135.79833333333,
+        "source": "wd",
+        "last_verified": "2026-10-10",
+        "qid": "Q257473"
+      },
+      "address_local": {
+        "text": "京都府京都市左京区銀閣寺町2",
+        "source": "ginkakuji_official_access",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "bus"
+        ],
+        "nearest_ko": "교토 시버스 '긴카쿠지미치' 정류장에서 내려요",
+        "source": "ginkakuji_official_access",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.shokoku-ji.jp/ginkakuji/",
+      "wiki": {
+        "ko": "지쇼지",
+        "en": "Ginkaku-ji"
+      },
+      "summary_ko": "히가시야마 기슭에 있는 선종 사찰이에요.",
+      "body_ko": [
+        "긴카쿠지의 정식 이름은 히가시야마 지쇼지이고, 쇼코쿠지의 탑두 사찰 가운데 하나예요.",
+        "무로마치 막부 8대 쇼군 아시카가 요시마사가 지은 산장 '히가시야마전'에서 시작했어요.",
+        "이름은 에도 시대에 금각사와 견주어 불리면서 굳어졌다고 해요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "정식 이름은 히가시야마 지쇼지이고 쇼코쿠지의 탑두 사찰이에요.",
+          "source": "ginkakuji_official_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "무로마치 막부 8대 쇼군 아시카가 요시마사가 지은 산장 히가시야마전이 기원이에요.",
+          "source": "ginkakuji_official_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "긴카쿠지라는 이름은 에도 시대에 금각사에 견주어 부르게 됐다고 해요.",
+          "source": "ginkakuji_official_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "관음전(은각) 안은 공개하지 않고, 동구당·방장 등은 봄가을에만 특별 공개해요.",
+          "source": "ginkakuji_official_faq",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "관음전(은각) 안은 볼 수 없고 보통은 정원만 걸으며 봐요.",
+          "source": "ginkakuji_official_faq",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "전망소 등 계단 있는 곳은 휠체어·유모차로 올라갈 수 없어요.",
+          "source": "ginkakuji_official_access",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "절에는 일반 주차장이 없어서 시영 주차장이나 코인 주차장을 써야 해요.",
+          "source": "ginkakuji_official_faq",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "none"
+        ],
+        "source": "ginkakuji_official_access",
+        "last_verified": "2026-10-10"
+      },
+      "status": {
+        "value": "open",
+        "source": "ginkakuji_official_access",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 50,
+        "designations": []
+      },
+      "photo_link": "https://commons.wikimedia.org/wiki/File:GinkakujiTemple.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJ4W9CCwUJAWARyauI6BzKiiU"
+    },
+    {
+      "id": "byodoin",
+      "qid": "Q61094",
+      "names": {
+        "ko": "뵤도인",
+        "ko_basis": "editorial",
+        "en": "Byōdō-in",
+        "local": "平等院",
+        "local_short": "平等院",
+        "local_lang": "ja",
+        "source": "wd",
+        "ko_paren": "평등원"
+      },
+      "aliases_ko": [
+        "평등원",
+        "보도인"
+      ],
+      "aliases_en": [
+        "Byodoin Temple"
+      ],
+      "mentions_ko": [
+        "호오도",
+        "봉황당"
+      ],
+      "region": "jp_kyoto",
+      "area_ko": "교토부 우지시",
+      "category": "heritage",
+      "tags": [
+        {
+          "id": "unesco",
+          "source": "byodoin_official_history",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 34.889444444444,
+        "lng": 135.80777777778,
+        "source": "wd",
+        "last_verified": "2026-10-10",
+        "qid": "Q61094"
+      },
+      "address_local": {
+        "text": "〒611-0021 京都府宇治市宇治蓮華116",
+        "source": "byodoin_official_access",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "train"
+        ],
+        "nearest_ko": "JR 나라선이나 게이한 우지선을 타고 우지역에서 내려 걸어가요",
+        "source": "byodoin_official_access_train_pdf",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.byodoin.or.jp/",
+      "wiki": {
+        "ko": "뵤도인",
+        "en": "Byōdō-in"
+      },
+      "summary_ko": "봉황당으로 유명한 우지의 세계유산 사찰이에요.",
+      "body_ko": [
+        "뵤도인은 1052년 후지와라노 요리미치가 아버지 미치나가에게서 물려받은 별장을 절로 바꾸며 시작됐어요.",
+        "이듬해인 1053년에 아미타당(봉황당)이 낙성했고, 안에는 국보 아미타여래좌상이 모셔져 있어요.",
+        "약 1000년 전의 건물과 불상이 전해져 세계유산에도 올라 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "1052년 후지와라노 요리미치가 아버지 미치나가에게서 물려받은 별장을 절로 바꿔 뵤도인을 열었어요.",
+          "source": "byodoin_official_history",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "이듬해 1053년에 아미타당(봉황당)이 낙성했어요.",
+          "source": "byodoin_official_history",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "봉황당 안에는 국보 아미타여래좌상이 모셔져 있어요.",
+          "source": "byodoin_official_architecture",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "약 1000년 전에 지은 건물과 불상이 전해져 세계유산에 등록됐어요.",
+          "source": "byodoin_official_history",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "봉황당 안은 정원제 시간권을 정원 안 접수처에서 사야 들어가요.",
+          "source": "byodoin_official_internal",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "경내에는 음식을 가져갈 수 없고, 밀폐되는 물병만 가져갈 수 있어요.",
+          "source": "byodoin_official_nofood",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "한 번 나가면 다시 들어올 수 없어요.",
+          "source": "byodoin_official_faq",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "전용 주차장은 없고 근처 유료 주차장을 써야 해요.",
+          "source": "byodoin_official_access",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "none"
+        ],
+        "closed_note_ko": "봉황당 안은 법요·행사나 날씨로 쉬는 날이 있어요.",
+        "source": "byodoin_official_guide",
+        "last_verified": "2026-10-10"
+      },
+      "status": {
+        "value": "open",
+        "source": "byodoin_official_guide",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 17,
+        "designations": [
+          {
+            "kind": "unesco",
+            "name_ko": "세계유산 고도 교토의 문화재",
+            "source": "unesco_688"
+          },
+          {
+            "kind": "jp_national_treasure_partial",
+            "name_ko": "봉황당 안 아미타여래좌상(국보)",
+            "source": "byodoin_official_architecture"
+          }
+        ]
+      },
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Phoenix_Hall,_Byodo-in,_November_2016_-01.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJqyva4AwRAWARpAf6j5MUhGA"
+    },
+    {
+      "id": "odori-park",
+      "qid": "Q3107971",
+      "names": {
+        "ko": "오도리 공원",
+        "ko_basis": "editorial",
+        "en": "Odori Park",
+        "local": "大通公園",
+        "local_short": "大通公園",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "대통공원",
+        "삿포로 오도리 공원"
+      ],
+      "aliases_en": [
+        "Sapporo Odori Park"
+      ],
+      "mentions_ko": [
+        "눈축제",
+        "화이트 일루미네이션"
+      ],
+      "region": "jp_sapporo",
+      "area_ko": "삿포로시 주오구",
+      "category": "nature",
+      "geo": {
+        "kind": "site",
+        "lat": 43.059722,
+        "lng": 141.346389,
+        "source": "wd",
+        "last_verified": "2026-10-10",
+        "qid": "Q3107971"
+      },
+      "access": {
+        "modes": [
+          "metro"
+        ],
+        "nearest_ko": "지하철 오도리역이나 니시11초메역에서 내려요",
+        "source": "odori_official_access",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://odori-park.jp/",
+      "wiki": {
+        "ko": "오도리 공원",
+        "en": "Odori Park"
+      },
+      "summary_ko": "삿포로 도심을 가로지르는 긴 도심 공원이에요.",
+      "body_ko": [
+        "오도리 공원은 서1초메부터 서12초메까지 이어지는 길이 약 1.5km의 도심 공원이에요.",
+        "조경가 나가오카 야스헤이의 설계로 본격 정비돼 2011년에 100주년을 맞았어요.",
+        "눈축제, 요사코이 소란 축제, 화이트 일루미네이션 같은 행사가 사철 열려요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "서1초메부터 서12초메까지 길이 약 1.5km의 공원이에요.",
+          "source": "odori_official_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "나가오카 야스헤이의 설계로 본격 정비됐고 2011년에 100주년을 맞았어요.",
+          "source": "odori_official_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "눈축제, 요사코이 소란 축제, 화이트 일루미네이션 같은 행사가 열려요.",
+          "source": "odori_official_about",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "공원은 흡연 제한 구역이라 걸으며 피우는 것도 안 돼요. 정해진 흡연소를 써요.",
+          "source": "odori_official_guide",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "공원 안에서는 자전거를 밀고 다녀야 해요.",
+          "source": "odori_official_guide",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "스케이트보드와 캐치볼은 위험해서 금지예요.",
+          "source": "odori_official_guide",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "휠체어를 무료로 빌릴 수 있어요. 겨울에는 안 돼요.",
+          "source": "odori_official_guide",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "public_space"
+      },
+      "status": {
+        "value": "open",
+        "source": "odori_official_about",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 49,
+        "designations": []
+      },
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Odori_Park_(15982613668).jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJKdPFSFEpC18RnuAg7TaybA4"
+    },
+    {
+      "id": "fukuoka-castle",
+      "qid": "Q1143944",
+      "names": {
+        "ko": "후쿠오카성",
+        "ko_basis": "editorial",
+        "en": "Fukuoka Castle",
+        "local": "福岡城",
+        "local_short": "福岡城",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "마이즈루 공원"
+      ],
+      "aliases_en": [
+        "Maizuru Castle"
+      ],
+      "mentions_ko": [
+        "다몬야구라",
+        "고로칸"
+      ],
+      "region": "jp_fukuoka",
+      "area_ko": "후쿠오카시 주오구",
+      "category": "heritage",
+      "tags": [
+        {
+          "id": "free_entry",
+          "source": "fukuokajyo_official_top",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 33.584381,
+        "lng": 130.383103,
+        "source": "wd",
+        "last_verified": "2026-10-10",
+        "qid": "Q1143944"
+      },
+      "address_local": {
+        "text": "〒810-0043 福岡県福岡市中央区城内",
+        "source": "fukuokajyo_official_top",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "metro"
+        ],
+        "nearest_ko": "후쿠오카 시영 지하철 아카사카역 2번 출구에서 걸어가요",
+        "source": "fukuokajyo_official_top",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://fukuokajyo.com/",
+      "wiki": {
+        "ko": "후쿠오카성",
+        "en": "Fukuoka Castle"
+      },
+      "summary_ko": "석벽과 성터가 남은 국가 사적 성터예요.",
+      "body_ko": [
+        "후쿠오카성은 건물은 많이 남지 않았지만, 석벽과 성의 배치가 당시 모습을 거의 그대로 지녀 국가 사적으로 지정됐어요.",
+        "현존하는 건물로 다몬야구라가 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "건물은 많이 남지 않았지만 석벽과 성의 배치가 당시 모습을 거의 그대로 지녀 국가 사적으로 지정됐어요.",
+          "source": "fukuokajyo_official_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "현존하는 건물로 다몬야구라가 있어요.",
+          "source": "fukuokajyo_official_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "천수대는 발굴조사 때문에 2026년 5월 26일부터 12월 말(예정)까지 들어갈 수 없어요.",
+          "source": "fukuokajyo_official_tenshudai",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "천수대는 발굴조사로 2026년 5월 26일부터 12월 말(예정)까지 들어갈 수 없어요.",
+          "source": "fukuokajyo_official_tenshudai",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "행사 기간에는 입장료가 있을 수 있어요.",
+          "source": "fukuokajyo_official_top",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "성 안 주차장은 유료예요.",
+          "source": "fukuokajyo_official_top",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "free",
+        "regular_closed": [
+          "unknown"
+        ],
+        "source": "fukuokajyo_official_top",
+        "last_verified": "2026-10-10"
+      },
+      "status": {
+        "value": "partial",
+        "note_ko": "천수대는 발굴조사로 2026년 12월 말(예정)까지 들어갈 수 없어요. 그 밖의 성터는 걸어볼 수 있어요.",
+        "source": "fukuokajyo_official_tenshudai",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 45,
+        "designations": []
+      },
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Fukuoka_castle_2006_01.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJQ_6JJtOTQTURigJ8dBobe18"
+    },
+    {
+      "id": "nikko-toshogu",
+      "qid": "Q696641",
+      "names": {
+        "ko": "닛코 도쇼구",
+        "ko_basis": "editorial",
+        "en": "Nikkō Tōshō-gū",
+        "local": "日光東照宮",
+        "local_short": "日光東照宮",
+        "local_lang": "ja",
+        "source": "wd",
+        "ko_paren": "일광동조궁"
+      },
+      "aliases_ko": [
+        "닛코 동조궁",
+        "도쇼구",
+        "일광 동조궁"
+      ],
+      "aliases_en": [
+        "Nikko Toshogu"
+      ],
+      "mentions_ko": [
+        "요메이몬",
+        "자는 고양이"
+      ],
+      "region": "jp_nikko",
+      "area_ko": "도치기현 닛코시",
+      "category": "heritage",
+      "tags": [
+        {
+          "id": "unesco",
+          "source": "toshogu_official_overview",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 36.759166666667,
+        "lng": 139.59861111111,
+        "source": "wd",
+        "last_verified": "2026-10-10",
+        "qid": "Q696641"
+      },
+      "address_local": {
+        "text": "〒 321-1431 栃木県日光市山内2301",
+        "source": "toshogu_official_access",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "train",
+          "bus"
+        ],
+        "nearest_ko": "도쿄 아사쿠사에서 도부선 특급으로 도부닛코역까지 가요",
+        "nearest_local": {
+          "text": "東武日光駅",
+          "qid": "Q7862640",
+          "source": "wd"
+        },
+        "source": "toshogu_official_access",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.toshogu.jp/",
+      "wiki": {
+        "ko": "닛코 동조궁",
+        "en": "Nikkō Tōshō-gū"
+      },
+      "summary_ko": "도쿠가와 이에야스를 모신 닛코의 세계유산 신사예요.",
+      "body_ko": [
+        "닛코 도쇼구는 1617년 초대 쇼군 도쿠가와 이에야스를 제신으로 모신 신사예요.",
+        "지금의 주요 사전은 3대 쇼군 이에미쓰가 1636년에 새로 지은 것이고, 요메이몬 같은 건물이 국보예요.",
+        "사전 일대는 세계유산에 올라 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "1617년 초대 쇼군 도쿠가와 이에야스를 제신으로 모신 신사예요.",
+          "source": "toshogu_official_history",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "지금의 주요 사전은 3대 쇼군 이에미쓰가 1636년에 새로 지은 것이에요.",
+          "source": "toshogu_official_history",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "요메이몬·회랑·가라몬·본사·잠자는 고양이 등이 국보예요.",
+          "source": "toshogu_official_overview",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "제전·행사나 수리 공사로 일부 구역은 관람이 제한될 수 있어요.",
+          "source": "toshogu_official_hours",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "접수는 문 닫기 전에 끝나니 서둘러야 해요.",
+          "source": "toshogu_official_hours",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "unknown"
+        ],
+        "source": "toshogu_official_hours",
+        "last_verified": "2026-10-10"
+      },
+      "status": {
+        "value": "open",
+        "source": "toshogu_official_hours",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 20,
+        "designations": [
+          {
+            "kind": "unesco",
+            "name_ko": "세계유산 닛코의 사사",
+            "source": "toshogu_official_overview"
+          },
+          {
+            "kind": "jp_national_treasure_partial",
+            "name_ko": "요메이몬 등 국보",
+            "source": "toshogu_official_overview"
+          }
+        ]
+      },
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Nikko_toshogu_shrine.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJNSAhU8WmH2ARlA7wenFbUKs"
+    },
+    {
+      "id": "nikko-rinnoji",
+      "qid": "Q1348249",
+      "names": {
+        "ko": "닛코 린노지",
+        "ko_basis": "editorial",
+        "en": "Rinnō-ji",
+        "local": "輪王寺",
+        "local_short": "輪王寺",
+        "local_lang": "ja",
+        "source": "wd",
+        "ko_paren": "윤왕사"
+      },
+      "aliases_ko": [
+        "린노지",
+        "윤왕사",
+        "삼불당"
+      ],
+      "aliases_en": [
+        "Rinnoji"
+      ],
+      "mentions_ko": [
+        "다이유인",
+        "산부쓰도"
+      ],
+      "region": "jp_nikko",
+      "area_ko": "도치기현 닛코시",
+      "category": "heritage",
+      "tags": [
+        {
+          "id": "unesco",
+          "source": "rinnoji_official_history",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 36.754161,
+        "lng": 139.602708,
+        "source": "wd",
+        "last_verified": "2026-10-10",
+        "qid": "Q1348249"
+      },
+      "address_local": {
+        "text": "〒321-1494 栃木県日光市山内2300",
+        "source": "rinnoji_official_access",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "bus"
+        ],
+        "nearest_ko": "닛코역·도부닛코역에서 도부 버스 '세계유산 순환' 버스를 타면 편해요",
+        "source": "rinnoji_official_access",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://rinnoji.or.jp/",
+      "wiki": {
+        "ko": "린노지",
+        "en": "Rinnō-ji"
+      },
+      "summary_ko": "삼불당과 다이유인이 있는 닛코산의 천태종 사찰이에요.",
+      "body_ko": [
+        "닛코산은 766년 쇼도 상인이 열었고, 린노지는 그 가르침을 이어 온 사찰이에요.",
+        "본당 삼불당은 동일본에서 가장 큰 목조 건물로 알려져 있어요.",
+        "다이유인은 3대 쇼군 도쿠가와 이에미쓰의 묘소로, 세계유산 경내에 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "닛코산은 766년에 쇼도 상인이 열었어요.",
+          "source": "rinnoji_official_history",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "본당 삼불당은 닛코산에서 으뜸이고 동일본에서 가장 큰 목조 건물이에요.",
+          "source": "rinnoji_official_history",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "다이유인은 도쿠가와 3대 쇼군 이에미쓰의 묘소예요.",
+          "source": "rinnoji_official_history",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "행사나 준비 때문에 관람할 수 없는 날짜와 시간대가 있어요.",
+          "source": "rinnoji_official_information",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "다이유인은 행사 때 배전 안에 들어갈 수 없는 시간대가 있어요.",
+          "source": "rinnoji_official_information",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "unknown"
+        ],
+        "source": "rinnoji_official_information",
+        "last_verified": "2026-10-10"
+      },
+      "status": {
+        "value": "open",
+        "source": "rinnoji_official_information",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 36,
+        "designations": [
+          {
+            "kind": "unesco",
+            "name_ko": "세계유산 닛코의 사사",
+            "source": "rinnoji_official_history"
+          }
+        ]
+      },
+      "photo_link": "https://commons.wikimedia.org/wiki/File:NikkoRinnoji5390.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJWdmAw9amH2ARqD-s8qCx3hU"
+    },
+    {
+      "id": "kegon-falls",
+      "qid": "Q37580",
+      "names": {
+        "ko": "게곤 폭포",
+        "ko_basis": "editorial",
+        "en": "Kegon Falls",
+        "local": "華厳滝",
+        "local_short": "華厳滝",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "게곤노타키",
+        "화엄폭포"
+      ],
+      "aliases_en": [
+        "Kegon Waterfall"
+      ],
+      "mentions_ko": [
+        "주젠지 호수"
+      ],
+      "region": "jp_nikko",
+      "area_ko": "도치기현 닛코시 오쿠닛코",
+      "category": "nature",
+      "geo": {
+        "kind": "site",
+        "lat": 36.73788888888889,
+        "lng": 139.502,
+        "source": "wd",
+        "last_verified": "2026-10-10",
+        "qid": "Q37580"
+      },
+      "access": {
+        "modes": [
+          "bus"
+        ],
+        "nearest_ko": "닛코역·도부닛코역에서 주젠지온센 방면 버스를 타고 '주젠지온센'에서 내려 걸어가요",
+        "source": "nikko_kanko_kegon",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.kegon.jp/",
+      "wiki": {
+        "ko": "게곤 폭포",
+        "en": "Kegon Falls"
+      },
+      "summary_ko": "주젠지 호수의 물이 떨어지는 닛코의 폭포예요.",
+      "body_ko": [
+        "게곤 폭포는 주젠지 호수의 물이 높이 약 97m의 절벽을 한 번에 떨어지는 폭포예요.",
+        "일본 3대 폭포의 하나로 꼽히고, 엘리베이터로 가는 관폭대에서 폭포를 가까이 볼 수 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "주젠지 호수의 물이 높이 약 97m의 절벽을 한 번에 떨어져요.",
+          "source": "nikko_kanko_kegon",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "일본 3대 폭포의 하나로 꼽혀요.",
+          "source": "nikko_kanko_kegon",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "엘리베이터로 가는 관폭대가 있어요.",
+          "source": "nikko_kanko_kegon",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "한겨울에는 곁의 작은 폭포들이 얼어 파랗게 보여요.",
+          "source": "nikko_kanko_kegon",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "물의 양에 따라 야간 등에는 물을 막을 수 있어요.",
+          "source": "nikko_kanko_kegon",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "public_space"
+      },
+      "status": {
+        "value": "open",
+        "source": "nikko_kanko_kegon",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 65,
+        "designations": []
+      },
+      "photo_link": "https://commons.wikimedia.org/wiki/File:紅葉の華厳の滝.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJwb6wwMioH2ARjVZDylifnCc"
+    },
+    {
+      "id": "glover-garden",
+      "qid": "Q63465",
+      "names": {
+        "ko": "글로버 정원",
+        "ko_basis": "editorial",
+        "en": "Glover Garden",
+        "local": "グラバー園",
+        "local_short": "グラバー園",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "그라바엔",
+        "글로버원",
+        "구 글로버 주택"
+      ],
+      "aliases_en": [
+        "Glover Gardens"
+      ],
+      "mentions_ko": [
+        "글로버 스카이로드"
+      ],
+      "region": "jp_nagasaki",
+      "area_ko": "나가사키시 미나미야마테",
+      "category": "heritage",
+      "tags": [
+        {
+          "id": "unesco",
+          "source": "glover_official_about",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "entrance",
+        "lat": 32.73444444,
+        "lng": 129.86888889,
+        "source": "wd",
+        "last_verified": "2026-10-10",
+        "qid": "Q63465"
+      },
+      "address_local": {
+        "text": "〒850-0931 長崎県長崎市南山手町8番1号",
+        "source": "glover_official_guide",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "train",
+          "bus"
+        ],
+        "nearest_ko": "노면전차 '이시바시' 정류장에서 걸어가요 (나가사키 버스 '오우라텐슈도시타'에서도 가까워요)",
+        "source": "glover_official_destination",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://glover-garden.jp/",
+      "wiki": {
+        "ko": "구라바엔",
+        "en": "Glover Garden"
+      },
+      "summary_ko": "언덕 위에 옛 서양식 저택들이 모여 있는 정원이에요.",
+      "body_ko": [
+        "글로버 정원에는 전통 건축물 9동이 있고, 그중 구 글로버·오르트·린가 주택 3동이 국가 중요문화재예요.",
+        "나머지는 메이지 중기에 나가사키 시내에 지은 서양식 건물을 옮겨 복원한 것이에요.",
+        "구 글로버 주택은 2015년에 세계유산에 올랐어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "전통 건축물 9동을 볼 수 있고, 구 글로버·오르트·린가 주택 3동은 국가 중요문화재예요.",
+          "source": "glover_official_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "나머지 6동은 메이지 중기에 나가사키 시내에 지은 서양식 건물을 옮겨 복원한 것이에요.",
+          "source": "glover_official_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "구 글로버 주택은 2015년에 세계유산에 등록됐어요.",
+          "source": "glover_official_about",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "돌길과 비탈이 많아서 휠체어로 둘러보려면 도움이 필요해요.",
+          "source": "glover_official_guide",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "무료 전동 휠체어를 빌릴 수 있어요.",
+          "source": "glover_official_guide",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "시기에 따라 야간 개원이 있어요.",
+          "source": "glover_official_guide",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "unknown"
+        ],
+        "source": "glover_official_guide",
+        "last_verified": "2026-10-10"
+      },
+      "risk": [
+        "renovation"
+      ],
+      "status": {
+        "value": "partial",
+        "note_ko": "구 오르트 주택은 보존 수리 공사로 관람할 수 없어요. 재개 일정은 공식 사이트에서 확인하세요.",
+        "source": "glover_official_repair",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 29,
+        "designations": [
+          {
+            "kind": "unesco",
+            "name_ko": "세계유산 메이지 일본의 산업혁명 유산(구 글로버 주택)",
+            "source": "glover_official_about"
+          },
+          {
+            "kind": "jp_important_cultural_property_partial",
+            "name_ko": "구 글로버·오르트·린가 주택(중요문화재)",
+            "source": "glover_official_about"
+          }
+        ]
+      },
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Nagasaki-Glover-Garden-5415.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJ34BEgoRTFTURm9sPe3FbyOs"
+    },
+    {
+      "id": "nagasaki-atomic-bomb-museum",
+      "qid": "Q1099077",
+      "names": {
+        "ko": "나가사키 원폭 자료관",
+        "ko_basis": "editorial",
+        "en": "Nagasaki Atomic Bomb Museum",
+        "local": "長崎原爆資料館",
+        "local_short": "長崎原爆資料館",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "원폭 자료관"
+      ],
+      "mentions_ko": [
+        "평화 안내인"
+      ],
+      "region": "jp_nagasaki",
+      "area_ko": "나가사키시 히라노마치",
+      "category": "museum",
+      "geo": {
+        "kind": "entrance",
+        "lat": 32.772652777778,
+        "lng": 129.86451388889,
+        "source": "wd",
+        "last_verified": "2026-10-10",
+        "qid": "Q1099077"
+      },
+      "address_local": {
+        "text": "〒852-8117 長崎市平野町7番8号",
+        "source": "nagasakipeace_official_abm",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "train",
+          "bus"
+        ],
+        "nearest_ko": "나가사키역에서 노면전차 '아카사코' 행을 타고 '원폭자료관' 정류장에서 내려요",
+        "source": "nabmuseum_official_access",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://nabmuseum.jp/",
+      "wiki": {
+        "ko": "나가사키 원폭 자료관",
+        "en": "Nagasaki Atomic Bomb Museum"
+      },
+      "summary_ko": "나가사키시가 운영하는 원폭 관련 역사 자료관이에요.",
+      "body_ko": [
+        "나가사키 원폭 자료관은 원폭 피해 50주년 기념 사업으로 1996년 4월에 문을 열었어요.",
+        "전시 설명은 일본어·영어·중국어·한국어로 적혀 있어요.",
+        "상설 전시실은 전시 교체 공사로 일부 구역을 단계적으로 닫고 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "원폭 피해 50주년 기념 사업으로 1996년 4월에 문을 열었어요.",
+          "source": "nagasakipeace_official_abm",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "전시 설명을 일본어·영어·중국어·한국어 4개 언어로 적어 놓았어요.",
+          "source": "nagasakipeace_official_abm",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "8월 9일 '나가사키 평화의 날'에는 전시실 입장료를 받지 않아요.",
+          "source": "nabmuseum_official_faq",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "8월 9일 '나가사키 평화의 날'에는 전시실이 무료예요.",
+          "source": "nabmuseum_official_faq",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "전시 교체 공사로 일부 구역은 칸막이로 가리고 있어요. 공사하지 않는 구역은 평소처럼 볼 수 있어요.",
+          "source": "nabmuseum_official_exhibit_pause",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "전시실 안에서 플래시·삼각대·셀카봉은 쓸 수 없어요.",
+          "source": "nabmuseum_official_faq",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "자원봉사 '평화 안내인'이 입구에서 무료로 안내해 줘요.",
+          "source": "nabmuseum_official_faq",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "unknown"
+        ],
+        "source": "nabmuseum_official_faq",
+        "last_verified": "2026-10-10"
+      },
+      "status": {
+        "value": "partial",
+        "note_ko": "상설 전시실 일부 구역이 전시 교체 공사로 닫혀 있어요. 나머지 구역은 평소처럼 볼 수 있어요.",
+        "source": "nabmuseum_official_exhibit_pause",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 74,
+        "designations": []
+      },
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Nagasakigenbaku.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJCa-tFdGsajUR9eUQucc9fMA"
+    },
+    {
+      "id": "dejima",
+      "qid": "Q640267",
+      "names": {
+        "ko": "데지마",
+        "ko_basis": "editorial",
+        "en": "Dejima",
+        "local": "出島",
+        "local_short": "出島",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "데지마 네덜란드 상관",
+        "출도"
+      ],
+      "aliases_en": [
+        "Deshima"
+      ],
+      "mentions_ko": [
+        "네덜란드 상관"
+      ],
+      "region": "jp_nagasaki",
+      "area_ko": "나가사키시 데지마초",
+      "category": "heritage",
+      "geo": {
+        "kind": "entrance",
+        "lat": 32.74352,
+        "lng": 129.87302,
+        "source": "wd",
+        "last_verified": "2026-10-10",
+        "qid": "Q640267"
+      },
+      "address_local": {
+        "text": "〒850-0862 長崎県長崎市出島町6-1",
+        "source": "dejima_official_about",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "bus",
+          "train"
+        ],
+        "nearest_ko": "나가사키역 앞에서 나가사키 버스를 타고 '데지마'에서 내려요 (노면전차 데지마 정류장도 있어요)",
+        "source": "dejima_official_about",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://nagasakidejima.jp/",
+      "wiki": {
+        "ko": "데지마",
+        "en": "Dejima"
+      },
+      "summary_ko": "네덜란드 상관이 있던 인공섬을 복원한 시설이에요.",
+      "body_ko": [
+        "데지마는 1636년에 쌓은 인공섬으로, 1859년 네덜란드 상관이 닫힐 때까지 218년 동안 서양에 열린 창구 역할을 했어요.",
+        "지금은 옛 건물을 복원해 공개하고 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "1636년에 쌓았고, 1859년 네덜란드 상관이 닫힐 때까지 218년 동안 서양에 열린 창구 역할을 했어요.",
+          "source": "dejima_official_history",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "한 번 나가면 다시 들어올 수 없어요.",
+          "source": "dejima_official_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "시설 점검으로 일부 건물을 못 볼 수 있어요.",
+          "source": "dejima_official_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "휠체어를 빌릴 수 있어요.",
+          "source": "dejima_official_about",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "none"
+        ],
+        "source": "dejima_official_about",
+        "last_verified": "2026-10-10"
+      },
+      "status": {
+        "value": "open",
+        "source": "dejima_official_about",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 48,
+        "designations": []
+      },
+      "photo_link": "https://commons.wikimedia.org/wiki/File:View_of_Dejima_in_Nagasaki_Bay_Folding_Screen_by_Kawahara_Keiga_c1836.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJm-XCeftTFTURoZNmuA1IfSQ"
+    },
+    {
+      "id": "abeno-harukas",
+      "qid": "Q16318627",
+      "names": {
+        "ko": "아베노 하루카스",
+        "ko_basis": "editorial",
+        "en": "Abeno Harukas",
+        "local": "あべのハルカス",
+        "local_short": "あべのハルカス",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "하루카스 300"
+      ],
+      "mentions_ko": [
+        "하루카스 300 전망대"
+      ],
+      "region": "jp_osaka",
+      "area_ko": "오사카시 아베노구",
+      "category": "city_view",
+      "geo": {
+        "kind": "entrance",
+        "lat": 34.645947222222,
+        "lng": 135.51426666667,
+        "source": "wd",
+        "last_verified": "2026-10-10",
+        "qid": "Q16318627"
+      },
+      "address_local": {
+        "text": "〒545-6016 大阪市阿倍野区阿倍野筋1-1-43",
+        "source": "harukas_official_access",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "metro",
+          "train"
+        ],
+        "nearest_ko": "덴노지역(지하철·JR)이나 오사카아베노바시역(긴테쓰)에서 가까워요",
+        "source": "harukas_official_access",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.abenoharukas-300.jp/",
+      "wiki": {
+        "ko": "아베노하루카스",
+        "en": "Abeno Harukas"
+      },
+      "summary_ko": "높이 300m의 초고층 복합 빌딩이에요.",
+      "body_ko": [
+        "아베노 하루카스는 높이 300m의 초고층 복합 빌딩이고, 전망대 '하루카스 300'이 있어요.",
+        "이름은 '맑게 한다'는 뜻의 옛말 '하루카스'에서 따왔어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "높이 300m의 초고층 복합 빌딩이에요.",
+          "source": "harukas_official_top",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "이름은 일본 옛말 '하루카스(晴るかす, 맑게 한다)'에서 따왔어요.",
+          "source": "harukas_official_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "전망대 '하루카스 300'이 있어요.",
+          "source": "harukas_official_service",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "전망대와 아베노 하루카스 미술관에는 전용 주차장이 없어요. 대중교통을 이용하세요.",
+          "source": "harukas_official_access",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "전망대는 영업 시간이 예고 없이 바뀔 수 있어요. 가기 전에 전망대 홈페이지를 확인하세요.",
+          "source": "harukas_official_service",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "unknown",
+        "regular_closed": [
+          "none"
+        ],
+        "source": "harukas_official_service",
+        "last_verified": "2026-10-10"
+      },
+      "status": {
+        "value": "open",
+        "source": "harukas_official_service",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 60,
+        "designations": []
+      },
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Abeno_Harukas_Osaka_Japan01-r.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJed3mI_DdAGARJyFcpACSbwc"
+    },
+    {
+      "id": "umeda-sky-building",
+      "qid": "Q1151808",
+      "names": {
+        "ko": "우메다 스카이 빌딩",
+        "ko_basis": "editorial",
+        "en": "Umeda Sky Building",
+        "local": "梅田スカイビル",
+        "local_short": "梅田スカイビル",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "공중정원 전망대"
+      ],
+      "mentions_ko": [
+        "공중정원"
+      ],
+      "region": "jp_osaka",
+      "area_ko": "오사카시 기타구",
+      "category": "city_view",
+      "geo": {
+        "kind": "entrance",
+        "lat": 34.705277777778,
+        "lng": 135.48972222222,
+        "source": "wd",
+        "last_verified": "2026-10-10",
+        "qid": "Q1151808"
+      },
+      "address_local": {
+        "text": "大阪市北区大淀中1-1-88 梅田スカイビル",
+        "source": "skybldg_official_access",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "train"
+        ],
+        "nearest_ko": "JR 오사카역에서 걸어가요 (한큐 오사카우메다역에서도 걸어갈 수 있어요)",
+        "source": "skybldg_official_access",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.skybldg.co.jp/",
+      "wiki": {
+        "ko": "우메다 스카이 빌딩",
+        "en": "Umeda Sky Building"
+      },
+      "summary_ko": "두 건물을 꼭대기에서 이은 공중정원 전망대가 있는 빌딩이에요.",
+      "body_ko": [
+        "우메다 스카이 빌딩은 두 동의 건물을 옥상부에서 잇는 전망대로 알려진 빌딩이에요.",
+        "벽면이 하프 미러 유리로 덮여 있어 하늘이 비쳐 보여요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "두 동의 건물을 옥상부에서 잇는 전망대가 있어요.",
+          "source": "skybldg_official_discover",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "벽면을 하프 미러 유리로 덮어 하늘이 비쳐 보여요.",
+          "source": "skybldg_official_discover",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "공중정원 전망대는 타워 이스트·웨스트의 엘리베이터로는 들어갈 수 없고, 전용 입구로만 들어가요.",
+          "source": "skybldg_official_observatory",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "전용 입구는 빌딩 안에 없어요.",
+          "source": "skybldg_official_observatory",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "unknown",
+        "regular_closed": [
+          "unknown"
+        ],
+        "source": "skybldg_official_observatory",
+        "last_verified": "2026-10-10"
+      },
+      "status": {
+        "value": "open",
+        "source": "skybldg_official_observatory",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 63,
+        "designations": []
+      },
+      "photo_link": "https://commons.wikimedia.org/wiki/File:2018_Umeda_Sky_Building.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJbyd0kIjmAGAR_crecCbjwlc"
+    },
+    {
+      "id": "shibuya-sky",
+      "qid": "Q116281743",
+      "names": {
+        "ko": "시부야 스카이",
+        "ko_basis": "editorial",
+        "en": "Shibuya Sky",
+        "local": "SHIBUYA SKY",
+        "local_short": "渋谷スカイ",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "시부야 스크램블 스퀘어 전망대"
+      ],
+      "mentions_ko": [
+        "시부야 스크램블 스퀘어"
+      ],
+      "region": "jp_tokyo",
+      "area_ko": "도쿄 시부야구",
+      "category": "city_view",
+      "geo": {
+        "kind": "entrance",
+        "lat": 35.658462,
+        "lng": 139.702264,
+        "source": "wd",
+        "last_verified": "2026-10-10",
+        "qid": "Q116281743"
+      },
+      "address_local": {
+        "text": "東京都渋谷区渋谷二丁目24番12号",
+        "source": "shibuyasky_official_access",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "train",
+          "metro"
+        ],
+        "nearest_ko": "시부야역과 바로 이어져 있어요",
+        "source": "shibuyasky_official_access",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.shibuya-scramble-square.com/sky/",
+      "summary_ko": "시부야역 바로 위 건물에 있는 전망 시설이에요.",
+      "body_ko": [
+        "시부야 스카이는 시부야 스크램블 스퀘어에 있는 전망 시설이에요.",
+        "건물은 시부야역과 바로 이어져 있고, 역 바로 위에 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "전망 시설 'SHIBUYA SKY'가 있어요.",
+          "source": "shibuyasky_official_top",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "건물은 시부야역과 직결돼 있고 바로 위에 있으며, 지하 출입구 번호는 B6이에요.",
+          "source": "shibuyasky_official_access",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "JR은 중앙 개찰이나 남쪽 개찰을 나와 동쪽 출구 방면으로 가요.",
+          "source": "shibuyasky_official_access",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "지하 출입구 번호는 B6이에요.",
+          "source": "shibuyasky_official_access",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "unknown",
+        "regular_closed": [
+          "unknown"
+        ],
+        "source": "shibuyasky_official_access",
+        "last_verified": "2026-10-10"
+      },
+      "status": {
+        "value": "open",
+        "source": "shibuyasky_official_access",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 83,
+        "designations": []
+      },
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Shibuya_Scramble_Square_-_SHIBUYA_SKY_12.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJ4Rr2JWiLGGARcyRSHuZ-9G8"
+    },
+    {
+      "id": "shirakawa-go",
+      "qid": "Q1002193",
+      "names": {
+        "ko": "시라카와고",
+        "ko_basis": "editorial",
+        "en": "Shirakawa-gō",
+        "local": "白川郷",
+        "local_short": "白川郷",
+        "local_lang": "ja",
+        "source": "wd",
+        "ko_paren": "백천향"
+      },
+      "aliases_ko": [
+        "백천향",
+        "오기마치",
+        "시라카와고 합장촌"
+      ],
+      "aliases_en": [
+        "Ogimachi"
+      ],
+      "mentions_ko": [
+        "갓쇼즈쿠리",
+        "합장 마을"
+      ],
+      "region": "jp_takayama",
+      "area_ko": "기후현 시라카와무라 오기마치",
+      "category": "heritage",
+      "tags": [
+        {
+          "id": "unesco",
+          "source": "shirakawago_official_highlights",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 36.2566607,
+        "lng": 136.9050385,
+        "source": "wd",
+        "last_verified": "2026-10-10",
+        "qid": "Q1002193"
+      },
+      "access": {
+        "modes": [
+          "bus"
+        ],
+        "nearest_ko": "근처에 역이 없어서 나고야·가나자와 등 역에서 고속버스를 타요",
+        "source": "shirakawago_official_access",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://shirakawa-go.gr.jp/",
+      "wiki": {
+        "ko": "시라카와고",
+        "en": "Shirakawa Village"
+      },
+      "summary_ko": "합장 지붕 집들이 모여 있는 세계유산 마을이에요.",
+      "body_ko": [
+        "시라카와고의 합장조 집은 나무 들보를 산 모양으로 짜서 지은 일본 고유의 건축 양식이에요.",
+        "이 합장조 마을은 1976년 중요 전통적 건조물군 보존지구가 됐고, 1995년 고카야마와 함께 세계유산에 올랐어요.",
+        "오기마치 마을에서는 '팔지 않고, 빌려주지 않고, 부수지 않는다'는 세 원칙을 정했어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "합장조는 나무 들보를 산 모양으로 짜서 지은 일본 고유의 건축 양식이에요.",
+          "source": "shirakawago_official_highlights",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "1976년 중요 전통적 건조물군 보존지구로 선정됐고, 1995년 고카야마와 함께 세계유산에 등록됐어요.",
+          "source": "shirakawago_official_highlights",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "오기마치 마을은 '팔지 않고, 빌려주지 않고, 부수지 않는다'는 세 원칙을 정했어요.",
+          "source": "shirakawago_official_highlights",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "마을 주변에 기차역이 없어서 역에서 고속버스를 타고 가요.",
+          "source": "shirakawago_official_access",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "차로 간다면 공공 주차장인 '세세라기 공원 주차장'을 써요.",
+          "source": "shirakawago_official_access",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "주차장에서 '데아이 다리'를 건너면 세계유산 마을이에요.",
+          "source": "shirakawago_official_access",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "unknown",
+        "regular_closed": [
+          "unknown"
+        ],
+        "source": "shirakawago_official_access",
+        "last_verified": "2026-10-10"
+      },
+      "status": {
+        "value": "open",
+        "source": "shirakawago_official_access",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 10,
+        "designations": [
+          {
+            "kind": "unesco",
+            "name_ko": "세계유산 시라카와고·고카야마의 합장조 마을",
+            "source": "shirakawago_official_highlights"
+          }
+        ]
+      },
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Ogi_Shirakawa01n3200.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJ5yW_trBx-F8R-AVYnbtRxcw"
+    },
+    {
+      "id": "takayama-jinya",
+      "qid": "Q11669454",
+      "names": {
+        "ko": "다카야마 진야",
+        "ko_basis": "editorial",
+        "en": "Takayama Jin'ya",
+        "local": "高山陣屋",
+        "local_short": "高山陣屋",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "고산 진야",
+        "다카야마 진지"
+      ],
+      "mentions_ko": [
+        "군다이쇼"
+      ],
+      "region": "jp_takayama",
+      "area_ko": "기후현 다카야마시",
+      "category": "heritage",
+      "geo": {
+        "kind": "entrance",
+        "lat": 36.1397,
+        "lng": 137.258,
+        "source": "wd",
+        "last_verified": "2026-10-10",
+        "qid": "Q11669454"
+      },
+      "address_local": {
+        "text": "〒506-0012 岐阜県高山市八軒町1-5 高山陣屋管理事務所",
+        "source": "jinya_official_info",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "train",
+          "bus"
+        ],
+        "nearest_ko": "JR 다카야마역과 노히 버스센터에서 걸어가요",
+        "nearest_local": {
+          "text": "高山駅",
+          "qid": "Q874020",
+          "source": "wd"
+        },
+        "source": "jinya_official_access",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://jinya.gifu.jp/",
+      "wiki": {
+        "en": "Takayama Jin'ya"
+      },
+      "summary_ko": "에도 시대 관청 건물이 남아 있는 국가 사적이에요.",
+      "body_ko": [
+        "다카야마 진야는 에도 막부가 보낸 관리가 정무를 보던 관청이에요.",
+        "막부 말에 전국에 60여 곳 있던 군다이·다이칸쇼 가운데 당시 주요 건물이 남은 곳은 이곳뿐이고, 1929년에 국가 사적이 됐어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "막부 말 전국에 60여 곳 있던 군다이·다이칸쇼 가운데 당시 주요 건물이 남아 있는 곳은 다카야마 진야뿐이에요.",
+          "source": "jinya_official_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "1929년에 국가 사적으로 지정됐어요.",
+          "source": "jinya_official_about",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "건물 안은 신발을 벗고 들어가요. 신발을 넣을 봉지를 가져가거나 받아요.",
+          "source": "jinya_official_info",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "무료로 설명원의 안내를 들을 수 있어요.",
+          "source": "hidatakayama_kanko_jinya",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "안내견 외에 반려동물은 건물 안에 들어갈 수 없어요.",
+          "source": "jinya_official_info",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "none"
+        ],
+        "closed_note_ko": "연말연시에 쉬고, 날씨나 시설 사정으로 임시 휴관할 때도 있어요.",
+        "source": "jinya_official_info",
+        "last_verified": "2026-10-10"
+      },
+      "status": {
+        "value": "open",
+        "source": "jinya_official_info",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 39,
+        "designations": [
+          {
+            "kind": "jp_historic_site",
+            "name_ko": "국가 사적 다카야마 진야",
+            "source": "jinya_official_about"
+          }
+        ]
+      },
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Takayama_Jinya_inside_view_201706.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJj29EXtm6AmAR4ZH1chH39Zg"
+    },
+    {
+      "id": "takayama-old-town",
+      "qid": "Q11356789",
+      "names": {
+        "ko": "다카야마 옛 거리",
+        "ko_basis": "editorial",
+        "en": "Takayama Old Town",
+        "local": "古い町並",
+        "local_short": "古い町並",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "후루이마치나미",
+        "다카야마 구시가지",
+        "산마치"
+      ],
+      "aliases_en": [
+        "Sanmachi Suji"
+      ],
+      "mentions_ko": [
+        "가미산마치"
+      ],
+      "region": "jp_takayama",
+      "area_ko": "기후현 다카야마시 가미산노마치",
+      "category": "market_street",
+      "geo": {
+        "kind": "site",
+        "lat": 36.140175,
+        "lng": 137.25946111,
+        "source": "wd",
+        "last_verified": "2026-10-10",
+        "qid": "Q11356789"
+      },
+      "access": {
+        "modes": [
+          "train"
+        ],
+        "nearest_ko": "JR 다카야마역에서 걸어가요",
+        "nearest_local": {
+          "text": "高山駅",
+          "qid": "Q874020",
+          "source": "wd"
+        },
+        "source": "hidatakayama_kanko_furuimachinami",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.hidatakayama.or.jp/spot/detail_1101.html",
+      "summary_ko": "에도 시대 성하마을 모습이 남은 세 줄의 거리예요.",
+      "body_ko": [
+        "다카야마 옛 거리는 에도 시대에 성하마을이자 상인마을로 발달한 곳이에요.",
+        "위쪽·아래쪽 동네에 걸친 세 줄 거리는 국가 중요 전통적 건조물군 보존지구로 선정돼 있어요.",
+        "옛 양조장 7곳이 늘어서 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "에도 시대 성하마을·상인마을로 발달했고, 세 줄 거리가 국가 중요 전통적 건조물군 보존지구로 선정돼 있어요.",
+          "source": "hidatakayama_kanko_furuimachinami",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "옛 거리에는 양조장 7곳이 늘어서 있어요.",
+          "source": "hidatakayama_kanko_furuimachinami",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "가게마다 쉬는 날이 달라서 화요일이나 수요일에 쉬는 곳이 많아요.",
+          "source": "hidatakayama_kanko_furuimachinami",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "근처 시영 주차장은 유료예요.",
+          "source": "hidatakayama_kanko_furuimachinami",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "public_space"
+      },
+      "status": {
+        "value": "open",
+        "source": "hidatakayama_kanko_furuimachinami",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 41,
+        "designations": [
+          {
+            "kind": "jp_preservation_district",
+            "name_ko": "중요 전통적 건조물군 보존지구",
+            "source": "hidatakayama_kanko_furuimachinami"
+          }
+        ]
+      },
+      "photo_link": "https://commons.wikimedia.org/wiki/File:260923_Sanmachi_Takayama_Japan03s3.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJtTHoaSq7AmARaF-DmjTB2qo"
+    },
+    {
+      "id": "fukuoka-tower",
+      "qid": "Q847033",
+      "names": {
+        "ko": "후쿠오카 타워",
+        "ko_basis": "editorial",
+        "en": "Fukuoka Tower",
+        "local": "福岡タワー",
+        "local_short": "福岡タワー",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "모모치 타워"
+      ],
+      "mentions_ko": [
+        "전망실"
+      ],
+      "region": "jp_fukuoka",
+      "area_ko": "후쿠오카시 사와라구",
+      "category": "city_view",
+      "geo": {
+        "kind": "entrance",
+        "lat": 33.59330555555555,
+        "lng": 130.3515,
+        "source": "wd",
+        "last_verified": "2026-10-10",
+        "qid": "Q847033"
+      },
+      "access": {
+        "modes": [
+          "bus",
+          "metro"
+        ],
+        "nearest_ko": "하카타 버스터미널에서 니시테쓰 버스 306번을 타고 '후쿠오카 타워 남쪽 입구'에서 내려요",
+        "source": "fukuokatower_official_access",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.fukuokatower.co.jp/",
+      "wiki": {
+        "ko": "후쿠오카 타워",
+        "en": "Fukuoka Tower"
+      },
+      "summary_ko": "하카타만 바닷가에 서 있는 전망 타워예요.",
+      "body_ko": [
+        "후쿠오카 타워는 전장 234m의 해변 타워예요.",
+        "지상 123m의 최상층 전망실에서는 후쿠오카 시내와 하카타만을 360도 파노라마로 볼 수 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "전장 234m의 해변 타워예요.",
+          "source": "fukuokatower_official_top",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "지상 123m 최상층 전망실에서 후쿠오카 시내와 하카타만을 360도 파노라마로 볼 수 있어요.",
+          "source": "fukuokatower_official_top",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "버스로 하카타역에서 약 25분, 텐진에서 약 20분 걸려요.",
+          "source": "fukuokatower_official_top",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "혼잡하면 마지막 입장 시간이 앞당겨질 수 있어요.",
+          "source": "fukuokatower_official_charge",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "버스는 '후쿠오카 타워 남쪽 입구'나 'TNC 방송회관 앞'에서 내려요.",
+          "source": "fukuokatower_official_access",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "버스로 하카타역에서 약 25분, 텐진에서 약 20분 걸려요.",
+          "source": "fukuokatower_official_top",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "none"
+        ],
+        "closed_note_ko": "휴관일은 2027년 6월 28·29일이에요.",
+        "source": "fukuokatower_official_charge",
+        "last_verified": "2026-10-10"
+      },
+      "status": {
+        "value": "open",
+        "source": "fukuokatower_official_charge",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 58,
+        "designations": []
+      },
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Fukuoka_Tower_October_2011_01.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJAQAEI6qTQTURLZF6YTY7dPk"
+    },
+    {
+      "id": "shinjuku-gyoen",
+      "qid": "Q776863",
+      "names": {
+        "ko": "신주쿠 교엔",
+        "ko_basis": "editorial",
+        "en": "Shinjuku Gyoen",
+        "local": "新宿御苑",
+        "local_short": "新宿御苑",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "신주쿠 어원",
+        "신주쿠 교엔 국민공원"
+      ],
+      "aliases_en": [
+        "Shinjuku Gyoen National Garden"
+      ],
+      "mentions_ko": [
+        "일본 정원"
+      ],
+      "region": "jp_tokyo",
+      "area_ko": "도쿄 신주쿠구",
+      "category": "nature",
+      "geo": {
+        "kind": "entrance",
+        "lat": 35.68716944444444,
+        "lng": 139.71064444444445,
+        "source": "wd",
+        "last_verified": "2026-10-10",
+        "qid": "Q776863"
+      },
+      "address_local": {
+        "text": "〒160-0014 東京都新宿区内藤町11番地",
+        "source": "shinjukugyoen_official_access",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "train",
+          "metro"
+        ],
+        "nearest_ko": "JR 신주쿠역 남쪽 출구에서 걸어가요 (신주쿠교엔마에역에서는 신주쿠 문·오키도 문이 가까워요)",
+        "source": "shinjukugyoen_official_access",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://fng.or.jp/shinjuku/",
+      "wiki": {
+        "ko": "신주쿠 교엔",
+        "en": "Shinjuku Gyo-en"
+      },
+      "summary_ko": "유럽식 정형 정원과 일본 정원이 어우러진 국민공원이에요.",
+      "body_ko": [
+        "신주쿠 교엔은 에도 시대 도쿠가와 이에야스의 가신 나이토 기요나리가 받은 다이묘 저택이 뿌리라고 해요.",
+        "1949년 국민공원으로 일반에 공개됐어요.",
+        "프랑스 조경가가 설계한 유럽식 정형 정원과 풍경식 정원, 일본 정원을 어우른 근대 서양 정원이에요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "에도 시대 도쿠가와 이에야스의 가신 나이토 기요나리가 받은 다이묘 저택이 뿌리라고 해요.",
+          "source": "shinjukugyoen_official_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "1949년 국민공원으로 일반에 공개됐어요.",
+          "source": "shinjukugyoen_official_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "프랑스 조경가의 설계로 유럽식 정형 정원, 풍경식 정원, 일본 정원을 어우른 메이지 시대 근대 서양 정원이에요.",
+          "source": "shinjukugyoen_official_about",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "월요일은 쉬어요. 월요일이 공휴일이면 다음 평일에 쉬어요.",
+          "source": "shinjukugyoen_official_guide",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "연말연시에도 쉬어요.",
+          "source": "shinjukugyoen_official_guide",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "장애인 보조견은 들어갈 수 있어요.",
+          "source": "shinjukugyoen_official_guide",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "mon"
+        ],
+        "closed_note_ko": "12월 29일~1월 3일에도 쉬어요.",
+        "source": "shinjukugyoen_official_guide",
+        "last_verified": "2026-10-10"
+      },
+      "status": {
+        "value": "open",
+        "source": "shinjukugyoen_official_guide",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 66,
+        "designations": []
+      },
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Shinjuku_Gyoen_National_Garden_-_sakura_3.JPG",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJPyOTG8KMGGARh_IXobWxHmo"
+    },
+    {
+      "id": "ueno-zoo",
+      "qid": "Q162722",
+      "names": {
+        "ko": "우에노 동물원",
+        "ko_basis": "editorial",
+        "en": "Ueno Zoo",
+        "local": "上野動物園",
+        "local_short": "上野動物園",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "우에노 동물원 판다"
+      ],
+      "aliases_en": [
+        "Ueno Zoological Gardens"
+      ],
+      "mentions_ko": [
+        "판다의 숲"
+      ],
+      "region": "jp_tokyo",
+      "area_ko": "도쿄 다이토구 우에노 공원",
+      "category": "theme_park",
+      "geo": {
+        "kind": "entrance",
+        "lat": 35.7175,
+        "lng": 139.77138888889,
+        "source": "wd",
+        "last_verified": "2026-10-10",
+        "qid": "Q162722"
+      },
+      "address_local": {
+        "text": "〒110-8711 台東区上野公園9-83 上野動物園",
+        "source": "uenozoo_official_tickets",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "train",
+          "metro"
+        ],
+        "nearest_ko": "JR 우에노역 공원 출구에서 걸어가요",
+        "source": "uenozoo_official_access",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.tokyo-zoo.net/zoo/ueno/",
+      "wiki": {
+        "ko": "우에노 동물원",
+        "en": "Ueno Zoo"
+      },
+      "summary_ko": "우에노 공원 안에 있는 도쿄의 동물원이에요.",
+      "body_ko": [
+        "우에노 동물원은 1882년 농상무성 소관 박물관 부속 시설로 문을 열었어요.",
+        "2020년 9월에는 새 시설 '판다의 숲'이 문을 열었어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "1882년(메이지 15년) 농상무성 소관 박물관 부속 시설로 개원했어요.",
+          "source": "uenozoo_official_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "2020년 9월에 새 시설 '판다의 숲'이 문을 열었어요.",
+          "source": "uenozoo_official_about",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "반려동물을 데리고 들어갈 수 없어요.",
+          "source": "uenozoo_official_rules",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "입장료가 무료인 사람이나 연간 패스가 있으면 표를 사지 않고 개찰구로 가요.",
+          "source": "uenozoo_official_access",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "mon"
+        ],
+        "closed_note_ko": "월요일이 공휴일·대체 휴일이면 다음 날, 12월 29일~1월 1일에 쉬어요.",
+        "source": "uenozoo_official_tickets",
+        "last_verified": "2026-10-10"
+      },
+      "status": {
+        "value": "open",
+        "source": "uenozoo_official_tickets",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 70,
+        "designations": []
+      },
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Ueno-zoo.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJf2129yiMGGAR9I6Yoe-1uHY"
+    },
+    {
+      "id": "blue-pond",
+      "qid": "Q11661016",
+      "names": {
+        "ko": "푸른 연못",
+        "ko_basis": "editorial",
+        "en": "Blue Pond",
+        "local": "青い池",
+        "local_short": "白金青い池",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "아오이이케",
+        "시로가네 푸른 연못",
+        "청의 연못"
+      ],
+      "aliases_en": [
+        "Shirogane Blue Pond"
+      ],
+      "mentions_ko": [
+        "비에이 블루"
+      ],
+      "region": "jp_biei_furano",
+      "area_ko": "홋카이도 비에이초 시로가네",
+      "category": "nature",
+      "geo": {
+        "kind": "site",
+        "lat": 43.493583,
+        "lng": 142.614028,
+        "source": "wd",
+        "last_verified": "2026-10-10",
+        "qid": "Q11661016"
+      },
+      "access": {
+        "modes": [
+          "bus",
+          "car_only"
+        ],
+        "nearest_ko": "JR 비에이역에서 도호쿠 버스로 가거나 차로 가요",
+        "source": "biei_kanko_bluepond",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.biei-hokkaido.jp/ja/facility/shirogane-blue-pond",
+      "wiki": {
+        "ko": "아오이이케",
+        "en": "Blue Pond (Biei)"
+      },
+      "summary_ko": "푸른빛 물에 마른 낙엽송이 서 있는 연못이에요.",
+      "body_ko": [
+        "푸른 연못은 도카치다케 방재 공사 때 제방에 고인 물이 신비한 푸른색을 띠면서 이름이 붙었어요.",
+        "눈 녹은 물이 흘러드는 봄에는 녹색빛 파랑, 초여름에는 연한 파랑으로 보이는 날이 많고, 한겨울에는 연못이 얼어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "도카치다케 방재 공사 때 제방에 고인 물이 신비한 푸른색을 띠면서 '푸른 연못'으로 불리게 됐어요.",
+          "source": "biei_kanko_bluepond",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "계절과 날씨에 따라 푸른색이 달라요. 눈 녹은 물이 많은 봄에는 녹색빛, 초여름에는 연한 파랑으로 보이는 날이 많아요.",
+          "source": "biei_kanko_bluepond",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "연못 안에는 울타리를 넘어 들어가지 마세요. 목숨이 위험하다고 안내해요.",
+          "source": "biei_kanko_bluepond",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "드론은 허가 신청과 승인이 있어야 날릴 수 있어요.",
+          "source": "biei_kanko_bluepond",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "주차장이 있어요. 요금은 공식 안내를 확인하세요.",
+          "source": "biei_kanko_bluepond",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "public_space"
+      },
+      "status": {
+        "value": "open",
+        "source": "biei_kanko_bluepond",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 57,
+        "designations": []
+      },
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Biei_Blue-pond.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJbyoi3mLMDF8RnndLnx8YzQQ"
+    },
+    {
+      "id": "shirahige-falls",
+      "qid": "Q17228813",
+      "names": {
+        "ko": "시라히게 폭포",
+        "ko_basis": "editorial",
+        "en": "Shirahige Falls",
+        "local": "白ひげの滝",
+        "local_short": "白ひげの滝",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "흰 수염 폭포",
+        "시라히게노타키"
+      ],
+      "mentions_ko": [
+        "블루 리버"
+      ],
+      "region": "jp_biei_furano",
+      "area_ko": "홋카이도 비에이초 시로가네",
+      "category": "nature",
+      "geo": {
+        "kind": "site",
+        "lat": 43.474667,
+        "lng": 142.639194,
+        "source": "wd",
+        "last_verified": "2026-10-10",
+        "qid": "Q17228813"
+      },
+      "access": {
+        "modes": [
+          "bus",
+          "car_only"
+        ],
+        "nearest_ko": "JR 비에이역에서 도호쿠 버스로 '비에이 시로가네 온천' 정류장에서 내려 걸어가요",
+        "source": "biei_kanko_shirahige",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.biei-hokkaido.jp/ja/facility/shirahige-waterfalls",
+      "wiki": {
+        "ko": "흰 수염 폭포"
+      },
+      "summary_ko": "바위틈에서 솟은 물이 쏟아지는 비에이강 가의 폭포예요.",
+      "body_ko": [
+        "시라히게 폭포는 낙차 약 30m로, 바위 사이로 스며 나온 지하수가 계류로 쏟아져요.",
+        "일본에서도 드문 '잠류폭'으로 분류되고, 겨울에는 물보라가 나무에 상고대를 만들어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "낙차는 약 30m이고, 자연 바위 틈에서 스며 나온 지하수가 계류로 흘러 떨어져요.",
+          "source": "biei_kanko_shirahige",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "일본에서도 드문 '잠류폭'으로 분류되는 폭포예요.",
+          "source": "biei_kanko_shirahige",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "주차장이 있고 겨울에도 문을 열어요.",
+          "source": "biei_kanko_shirahige",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "다리 '블루 리버'에서 보는 경치도 안내하고 있어요.",
+          "source": "biei_kanko_shirahige",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "드론 비행·촬영은 원칙적으로 금지예요.",
+          "source": "biei_kanko_shirahige",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "public_space"
+      },
+      "status": {
+        "value": "open",
+        "source": "biei_kanko_shirahige",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 52,
+        "designations": []
+      },
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Shirahige_Falls,_Biei_River,_Hokkaido,_Japan.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJX3VG4K7MDF8RJmYvjz6VBgU"
+    },
+    {
+      "id": "farm-tomita",
+      "qid": "Q10954584",
+      "names": {
+        "ko": "팜 도미타",
+        "ko_basis": "editorial",
+        "en": "Farm Tomita",
+        "local": "ファーム富田",
+        "local_short": "ファーム富田",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "파무토미타",
+        "후라노 라벤더 밭"
+      ],
+      "aliases_en": [
+        "Tomita Farm"
+      ],
+      "mentions_ko": [
+        "라벤더 이스트"
+      ],
+      "region": "jp_biei_furano",
+      "area_ko": "홋카이도 나카후라노초",
+      "category": "nature",
+      "geo": {
+        "kind": "entrance",
+        "lat": 43.418894444444,
+        "lng": 142.42658055556,
+        "source": "wd",
+        "last_verified": "2026-10-10",
+        "qid": "Q10954584"
+      },
+      "access": {
+        "modes": [
+          "train",
+          "bus"
+        ],
+        "nearest_ko": "JR 후라노선 '라벤더밭' 역에서 걸어가요",
+        "source": "farmtomita_official_access",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.farm-tomita.co.jp/",
+      "wiki": {
+        "ko": "팜 토미타",
+        "en": "Farm Tomita"
+      },
+      "summary_ko": "라벤더 밭으로 알려진 나카후라노의 꽃밭이에요.",
+      "body_ko": [
+        "팜 도미타는 1903년 도미타 도쿠마가 나카후라노 들판에 괭이를 댄 데서 시작됐어요.",
+        "라벤더 이스트는 팜 도미타에서 차로 약 4km 떨어진 별도 구역이에요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "1903년(메이지 36년) 도미타 도쿠마가 나카후라노 들판에 괭이를 댄 데서 시작됐어요.",
+          "source": "farmtomita_official_history",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "라벤더 이스트는 팜 도미타에서 차로 약 4km(약 7분) 떨어져 있어요.",
+          "source": "farmtomita_official_access",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "영업 시간 밖에는 들어가지 말라고 안내해요.",
+          "source": "farmtomita_official_top",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "길가나 버스 전용 주차장에는 세우지 말라고 안내해요.",
+          "source": "farmtomita_official_access",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "근처 정류장은 후라노 버스 '나카후라노'예요.",
+          "source": "farmtomita_official_access",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "unknown",
+        "regular_closed": [
+          "unknown"
+        ],
+        "source": "farmtomita_official_top",
+        "last_verified": "2026-10-10"
+      },
+      "status": {
+        "value": "open",
+        "source": "farmtomita_official_top",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 61,
+        "designations": []
+      },
+      "photo_link": "https://commons.wikimedia.org/wiki/File:ファーム富田（Farm_Tomita）_-_panoramio_(4).jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJdzcW1F2zDF8Rkm1ghwLPbbc"
+    },
+    {
+      "id": "kyoto-aquarium",
+      "qid": "Q11375621",
+      "names": {
+        "ko": "교토 수족관",
+        "ko_basis": "editorial",
+        "en": "Kyoto Aquarium",
+        "local": "京都水族館",
+        "local_short": "京都水族館",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "교토 아쿠아리움"
+      ],
+      "mentions_ko": [
+        "우메코지 공원"
+      ],
+      "region": "jp_kyoto",
+      "area_ko": "교토시 시모교구 우메코지 공원",
+      "category": "theme_park",
+      "geo": {
+        "kind": "entrance",
+        "lat": 34.987556,
+        "lng": 135.747611,
+        "source": "wd",
+        "last_verified": "2026-10-10",
+        "qid": "Q11375621"
+      },
+      "address_local": {
+        "text": "〒600-8835 京都市下京区観喜寺町35-1（梅小路公園内）",
+        "source": "kyotoaqua_official_access",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "train"
+        ],
+        "nearest_ko": "JR 산인선 우메코지교토니시역에서 걸어가요 (교토역 중앙 출구에서도 걸어갈 수 있어요)",
+        "nearest_local": {
+          "text": "梅小路京都西駅",
+          "qid": "Q55670097",
+          "source": "wd"
+        },
+        "source": "kyotoaqua_official_access",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.kyoto-aquarium.com/",
+      "wiki": {
+        "ko": "교토 수족관",
+        "en": "Kyoto Aquarium"
+      },
+      "summary_ko": "우메코지 공원 안에 있는 교토의 수족관이에요.",
+      "body_ko": [
+        "교토 수족관은 약 200종 1만 점의 바다·강 생물을 가까이서 볼 수 있어요.",
+        "전시 콘셉트는 '물과 함께 이어지는 생명'으로, 단바 산에 내린 비가 샘물과 강을 거쳐 바다에 이르는 흐름을 재현했어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "약 200종 10,000점의 바다와 강 생물을 가까이서 볼 수 있어요.",
+          "source": "kyotoaqua_official_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "전시 콘셉트는 '물과 함께 이어지는 생명'이고, 단바 산에 내린 비가 샘물·시내·강을 거쳐 바다에 이르는 물의 연결과 생태계를 재현했어요.",
+          "source": "kyotoaqua_official_about",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "다시 들어갈 때는 입구에서 표를 보여 줘요.",
+          "source": "kyotoaqua_official_support",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "도시락은 가져와서 정해진 자리에서 먹을 수 있어요.",
+          "source": "kyotoaqua_official_support",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "경사로와 엘리베이터가 있어서 휠체어·유모차로 다닐 수 있어요.",
+          "source": "kyotoaqua_official_support",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "none"
+        ],
+        "source": "kyotoaqua_official_price",
+        "last_verified": "2026-10-10"
+      },
+      "status": {
+        "value": "open",
+        "source": "kyotoaqua_official_access",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 76,
+        "designations": []
+      },
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Kyoto_Aquarium_in_2013-5-2_No,27.JPG",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJXdx4CxwGAWARWUbHqiTaF1Q"
+    },
+    {
+      "id": "teamlab-planets",
+      "qid": "Q97613610",
+      "names": {
+        "ko": "팀랩 플래닛 도쿄",
+        "ko_basis": "editorial",
+        "en": "teamLab Planets TOKYO",
+        "local": "チームラボプラネッツ",
+        "local_short": "チームラボプラネッツ",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "팀랩 플래닛",
+        "팀랩 플래넷",
+        "도요스 팀랩"
+      ],
+      "aliases_en": [
+        "teamLab Planets"
+      ],
+      "mentions_ko": [
+        "도요스"
+      ],
+      "region": "jp_tokyo",
+      "area_ko": "도쿄 고토구 도요스",
+      "category": "museum",
+      "geo": {
+        "kind": "entrance",
+        "lat": 35.6492,
+        "lng": 139.7897,
+        "source": "wd",
+        "last_verified": "2026-10-10",
+        "qid": "Q97613610"
+      },
+      "address_local": {
+        "text": "東京都江東区豊洲6-1-16 teamLab Planets TOKYO",
+        "source": "teamlab_official_planets",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "metro"
+        ],
+        "nearest_ko": "신도요스역 북쪽 출구에서 걸어가요",
+        "nearest_local": {
+          "text": "新豊洲駅",
+          "qid": "Q766348",
+          "source": "wd"
+        },
+        "source": "teamlab_official_planets",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.teamlab.art/jp/e/planets/",
+      "wiki": {
+        "en": "TeamLab Planets TOKYO DMM.com"
+      },
+      "summary_ko": "물에 들어가 걷는 몸 전체 체험형 디지털 아트 뮤지엄이에요.",
+      "body_ko": [
+        "팀랩 플래닛은 아트 콜렉티브 팀랩이 만든, 물에 들어가는 뮤지엄이에요.",
+        "전시 기간은 2018년 7월 7일부터 2027년 말까지예요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "아트 콜렉티브 팀랩이 만든 물에 들어가는 뮤지엄이에요.",
+          "source": "teamlab_official_planets",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "전시 기간은 2018년 7월 7일부터 2027년 말까지예요.",
+          "source": "teamlab_official_planets",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "마지막 입관은 문 닫기 한 시간 전이에요.",
+          "source": "teamlab_official_planets",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "함께 있는 가게는 티켓에 적힌 입장 시간 전에는 들어갈 수 없어요.",
+          "source": "teamlab_official_planets",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "irregular"
+        ],
+        "closed_note_ko": "쉬는 날은 공식 사이트 안내를 확인하세요.",
+        "source": "teamlab_official_planets",
+        "last_verified": "2026-10-10"
+      },
+      "status": {
+        "value": "open",
+        "source": "teamlab_official_planets",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 78,
+        "designations": []
+      },
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJSeco5wiJGGARItbTS8lQ5G0"
+    },
+    {
+      "id": "tokyo-metropolitan-government-building",
+      "qid": "Q111973",
+      "names": {
+        "ko": "도쿄도청 전망실",
+        "ko_basis": "editorial",
+        "en": "Tokyo Metropolitan Government Building",
+        "local": "東京都庁舎",
+        "local_short": "都庁展望室",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "도쿄 도청",
+        "도청 전망대"
+      ],
+      "aliases_en": [
+        "Tokyo Tocho"
+      ],
+      "mentions_ko": [
+        "남전망실",
+        "북전망실"
+      ],
+      "region": "jp_tokyo",
+      "area_ko": "도쿄 신주쿠구 니시신주쿠",
+      "category": "city_view",
+      "tags": [
+        {
+          "id": "free_entry",
+          "source": "tmg_official_tenbou",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "entrance",
+        "lat": 35.68951,
+        "lng": 139.69171,
+        "source": "wd",
+        "last_verified": "2026-10-10",
+        "qid": "Q111973"
+      },
+      "address_local": {
+        "text": "〒163-8001 東京都新宿区西新宿2-8-1",
+        "source": "tmg_official_shisetsu",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "metro",
+          "train"
+        ],
+        "nearest_ko": "오에도선 도초마에역에서 바로 이어져 있어요 (JR 신주쿠역 서쪽 출구에서도 걸어갈 수 있어요)",
+        "nearest_local": {
+          "text": "都庁前駅",
+          "qid": "Q246186",
+          "source": "wd"
+        },
+        "source": "tmg_official_shisetsu",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.zaimu.metro.tokyo.lg.jp/tochousha/goannai/tenbou",
+      "wiki": {
+        "ko": "도쿄도청사",
+        "en": "Tokyo Metropolitan Government Building"
+      },
+      "summary_ko": "도쿄도청 45층에 있는 무료 전망실이에요.",
+      "body_ko": [
+        "도쿄도청 제1본청사 45층에는 남전망실과 북전망실이 있어요.",
+        "전망실은 입실료가 무료이고, 제1본청사 1층의 전용 엘리베이터로 올라가요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "제1본청사 45층에 남전망실과 북전망실이 있어요.",
+          "source": "tmg_official_tenbou",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "전망실 입실료는 무료예요.",
+          "source": "tmg_official_tenbou",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "북전망실은 매달 둘째·넷째 월요일, 남전망실은 첫째·셋째 화요일에 쉬어요.",
+          "source": "tmg_official_tenbou",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "전망실에 가려면 제1본청사 1층의 전용 엘리베이터를 타요.",
+          "source": "tmg_official_tenbou",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "연말연시와 도청 점검일에는 두 전망실 모두 쉬어요.",
+          "source": "tmg_official_tenbou",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "free",
+        "regular_closed": [
+          "irregular"
+        ],
+        "closed_note_ko": "휴실일은 공식 안내를 확인하세요.",
+        "source": "tmg_official_tenbou",
+        "last_verified": "2026-10-10"
+      },
+      "status": {
+        "value": "open",
+        "source": "tmg_official_tenbou",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 55,
+        "designations": []
+      },
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Tokyo_Metropolitan_Government_Building_2024.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJoTcat9SMGGAR6GGG8zdcZvE"
     },
     {
       "id": "shitennoji",
@@ -8639,8 +11970,8 @@
         "Shitennoji Temple"
       ],
       "mentions_ko": [
-        "중심가람",
-        "극락정토의 정원"
+        "극락정토의 정원",
+        "보물관"
       ],
       "region": "jp_osaka",
       "area_ko": "오사카 덴노지구",
@@ -8728,11 +12059,6 @@
           "text": "경내 문은 늘 열려 있어서 당 밖에서는 언제든 참배할 수 있어요.",
           "source": "shitennoji_official_admission",
           "last_verified": "2026-10-10"
-        },
-        {
-          "text": "매월 대사회·태자회 날은 절의 장날이라 노점이 많이 들어서요.",
-          "source": "shitennoji_official_history",
-          "last_verified": "2026-10-10"
         }
       ],
       "facts": {
@@ -8756,7 +12082,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 999,
+        "order": 23,
         "designations": [
           {
             "kind": "jp_important_cultural_property_partial",
@@ -8767,1558 +12093,12 @@
       },
       "photo_link": "https://commons.wikimedia.org/wiki/File:Shitennoji03s3200.jpg",
       "source": "wd",
-      "last_verified": "2026-10-10"
-    },
-    {
-      "id": "universal-studios-japan",
-      "qid": "Q1375103",
-      "names": {
-        "ko": "유니버설 스튜디오 재팬",
-        "ko_basis": "editorial",
-        "en": "Universal Studios Japan",
-        "local": "ユニバーサル・スタジオ・ジャパン",
-        "local_short": "ユニバーサル・スタジオ・ジャパン",
-        "local_lang": "ja",
-        "source": "wd"
-      },
-      "aliases_ko": [
-        "USJ",
-        "유니버설 스튜디오",
-        "유니버셜 스튜디오 재팬"
-      ],
-      "mentions_ko": [
-        "스튜디오 패스"
-      ],
-      "region": "jp_osaka",
-      "area_ko": "오사카 고노하나구",
-      "category": "theme_park",
-      "geo": {
-        "kind": "entrance",
-        "lat": 34.6647,
-        "lng": 135.433,
-        "source": "wd",
-        "last_verified": "2026-10-10",
-        "qid": "Q1375103"
-      },
-      "address_local": {
-        "text": "大阪府大阪市此花区桜島2丁目1番33号",
-        "source": "usj_official_company_profile",
-        "last_verified": "2026-10-10"
-      },
-      "access": {
-        "modes": [
-          "train"
-        ],
-        "nearest_ko": "유니버설시티역이 가장 가까운 역이에요",
-        "source": "usj_official_access",
-        "last_verified": "2026-10-10"
-      },
-      "official_url": "https://www.usj.co.jp/web/ja/jp",
-      "summary_ko": "오사카 항구 쪽 고노하나구에 있는 테마파크예요.",
-      "body_ko": [
-        "유니버설 스튜디오 재팬은 2001년 3월에 문을 연 테마파크로, 오사카시 고노하나구에 있어요.",
-        "운영은 합동회사 유에스제이가 맡고 있고, 입장하려면 스튜디오 패스(입장권)가 필요해요."
-      ],
-      "claims": [
-        {
-          "id": "c1",
-          "text_ko": "테마파크 '유니버설 스튜디오 재팬'은 2001년 3월에 개업했어요.",
-          "source": "usj_official_company_history",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c2",
-          "text_ko": "테마파크를 운영·기획하는 곳은 합동회사 유에스제이예요.",
-          "source": "usj_official_company_profile",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "tips_ko": [
-        {
-          "text": "음식은 가져갈 수 없어요. 음료는 물통이나 페트병이면 되고, 술은 안 돼요.",
-          "source": "usj_official_faq_guide",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "text": "안전 때문에 파크 안에서 롤러 슈즈는 신을 수 없어요.",
-          "source": "usj_official_faq_guide",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "facts": {
-        "kind": "facility",
-        "entry": "paid",
-        "regular_closed": [
-          "unknown"
-        ],
-        "source": "usj_official_access",
-        "last_verified": "2026-10-10"
-      },
-      "status": {
-        "value": "open",
-        "source": "usj_official_access",
-        "last_verified": "2026-10-10"
-      },
-      "advisory": {
-        "level": "none",
-        "source": "mofa_jp",
-        "last_verified": "2026-09-28"
-      },
-      "rank": {
-        "order": 999,
-        "designations": []
-      },
-      "photo_link": "https://commons.wikimedia.org/wiki/File:Harry_Potter_and_the_Forbidden_Journey_USJ.JPG",
-      "source": "wd",
-      "last_verified": "2026-10-10"
-    },
-    {
-      "id": "tokyo-disneyland",
-      "qid": "Q843997",
-      "names": {
-        "ko": "도쿄 디즈니랜드",
-        "ko_basis": "editorial",
-        "en": "Tokyo Disneyland",
-        "local": "東京ディズニーランド",
-        "local_short": "東京ディズニーランド",
-        "local_lang": "ja",
-        "source": "wd"
-      },
-      "aliases_ko": [
-        "TDL",
-        "디즈니랜드"
-      ],
-      "mentions_ko": [
-        "디즈니 리조트"
-      ],
-      "region": "jp_tokyo",
-      "area_ko": "지바현 우라야스시 마이하마",
-      "category": "theme_park",
-      "geo": {
-        "kind": "entrance",
-        "lat": 35.632777777778,
-        "lng": 139.88055555556,
-        "source": "wd",
-        "last_verified": "2026-10-10",
-        "qid": "Q843997"
-      },
-      "access": {
-        "modes": [
-          "train",
-          "bus"
-        ],
-        "nearest_ko": "JR 마이하마역이 가장 가까운 역이에요",
-        "nearest_local": {
-          "text": "舞浜駅",
-          "qid": "Q801154",
-          "source": "wd"
-        },
-        "source": "tdr_official_access",
-        "last_verified": "2026-10-10"
-      },
-      "official_url": "https://www.tokyodisneyresort.jp/tdl/",
-      "summary_ko": "도쿄 디즈니 리조트에 있는 테마파크예요.",
-      "body_ko": [
-        "도쿄 디즈니랜드는 1983년 4월에 문을 열었어요.",
-        "도쿄 디즈니 리조트의 가까운 역은 JR 마이하마역이고, 공식 앱으로 입장권을 살 수 있어요."
-      ],
-      "claims": [
-        {
-          "id": "c1",
-          "text_ko": "'東京ディズニーランド'는 1983년 4월에 그랜드 오픈했어요.",
-          "source": "olc_official_history",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "tips_ko": [
-        {
-          "text": "주변 도로와 주차장이 붐비니 대중교통을 이용해 달라고 안내해요.",
-          "source": "tdr_official_access",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "text": "휠체어·전동 카트 등을 빌릴 수 있어요.",
-          "source": "tdl_official_guide",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "text": "유모차를 빌릴 수 있어요.",
-          "source": "tdl_official_guide",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "facts": {
-        "kind": "facility",
-        "entry": "paid",
-        "regular_closed": [
-          "unknown"
-        ],
-        "source": "tdl_official_guide",
-        "last_verified": "2026-10-10"
-      },
-      "status": {
-        "value": "open",
-        "source": "tdl_official_guide",
-        "last_verified": "2026-10-10"
-      },
-      "advisory": {
-        "level": "none",
-        "source": "mofa_jp",
-        "last_verified": "2026-09-28"
-      },
-      "rank": {
-        "order": 999,
-        "designations": []
-      },
-      "photo_link": "https://commons.wikimedia.org/wiki/File:Tokyo_Disneyland_Cinderella_Castle_2023-07-02.jpg",
-      "source": "wd",
-      "last_verified": "2026-10-10"
-    },
-    {
-      "id": "tokyo-disneysea",
-      "qid": "Q1202341",
-      "names": {
-        "ko": "도쿄 디즈니씨",
-        "ko_basis": "editorial",
-        "en": "Tokyo DisneySea",
-        "local": "東京ディズニーシー",
-        "local_short": "東京ディズニーシー",
-        "local_lang": "ja",
-        "source": "wd"
-      },
-      "aliases_ko": [
-        "TDS",
-        "디즈니씨"
-      ],
-      "mentions_ko": [
-        "디즈니 리조트"
-      ],
-      "region": "jp_tokyo",
-      "area_ko": "지바현 우라야스시 마이하마",
-      "category": "theme_park",
-      "geo": {
-        "kind": "entrance",
-        "lat": 35.626667,
-        "lng": 139.888056,
-        "source": "wd",
-        "last_verified": "2026-10-10",
-        "qid": "Q1202341"
-      },
-      "access": {
-        "modes": [
-          "train",
-          "bus"
-        ],
-        "nearest_ko": "JR 마이하마역이 가장 가까운 역이에요",
-        "nearest_local": {
-          "text": "舞浜駅",
-          "qid": "Q801154",
-          "source": "wd"
-        },
-        "source": "tdr_official_access",
-        "last_verified": "2026-10-10"
-      },
-      "official_url": "https://www.tokyodisneyresort.jp/tds/",
-      "summary_ko": "도쿄 디즈니 리조트에 있는 테마파크예요.",
-      "body_ko": [
-        "도쿄 디즈니씨는 2001년 9월에 문을 열었어요.",
-        "도쿄 디즈니 리조트의 가까운 역은 JR 마이하마역이고, 공식 앱으로 입장권을 살 수 있어요."
-      ],
-      "claims": [
-        {
-          "id": "c1",
-          "text_ko": "'東京ディズニーシー'는 2001년 9월에 그랜드 오픈했어요.",
-          "source": "olc_official_history",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "tips_ko": [
-        {
-          "text": "주변 도로와 주차장이 붐비니 대중교통을 이용해 달라고 안내해요.",
-          "source": "tdr_official_access",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "text": "휠체어·전동 카트 등을 빌릴 수 있어요.",
-          "source": "tds_official_guide",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "text": "유모차를 빌릴 수 있어요.",
-          "source": "tds_official_guide",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "facts": {
-        "kind": "facility",
-        "entry": "paid",
-        "regular_closed": [
-          "unknown"
-        ],
-        "source": "tds_official_guide",
-        "last_verified": "2026-10-10"
-      },
-      "status": {
-        "value": "open",
-        "source": "tds_official_guide",
-        "last_verified": "2026-10-10"
-      },
-      "advisory": {
-        "level": "none",
-        "source": "mofa_jp",
-        "last_verified": "2026-09-28"
-      },
-      "rank": {
-        "order": 999,
-        "designations": []
-      },
-      "photo_link": "https://commons.wikimedia.org/wiki/File:Tokyo_Disney_Sea_Mountain.jpg",
-      "source": "wd",
-      "last_verified": "2026-10-10"
-    },
-    {
-      "id": "ginkaku-ji",
-      "qid": "Q257473",
-      "names": {
-        "ko": "긴카쿠지",
-        "ko_basis": "editorial",
-        "en": "Ginkaku-ji",
-        "local": "銀閣寺",
-        "local_short": "銀閣寺",
-        "local_lang": "ja",
-        "source": "wd",
-        "ko_paren": "은각사"
-      },
-      "aliases_ko": [
-        "은각사",
-        "지쇼지",
-        "자조사"
-      ],
-      "aliases_en": [
-        "Jisho-ji"
-      ],
-      "mentions_ko": [
-        "동구당",
-        "관음전"
-      ],
-      "region": "jp_kyoto",
-      "area_ko": "교토시 사쿄구",
-      "category": "heritage",
-      "geo": {
-        "kind": "site",
-        "lat": 35.026666666667,
-        "lng": 135.79833333333,
-        "source": "wd",
-        "last_verified": "2026-10-10",
-        "qid": "Q257473"
-      },
-      "address_local": {
-        "text": "京都府京都市左京区銀閣寺町2",
-        "source": "ginkakuji_official_access",
-        "last_verified": "2026-10-10"
-      },
-      "access": {
-        "modes": [
-          "bus"
-        ],
-        "nearest_ko": "교토 시버스 '긴카쿠지미치' 정류장에서 내려요",
-        "source": "ginkakuji_official_access",
-        "last_verified": "2026-10-10"
-      },
-      "official_url": "https://www.shokoku-ji.jp/ginkakuji/",
-      "summary_ko": "히가시야마 기슭에 있는 선종 사찰이에요.",
-      "body_ko": [
-        "긴카쿠지의 정식 이름은 히가시야마 지쇼지이고, 쇼코쿠지의 탑두 사찰 가운데 하나예요.",
-        "무로마치 막부 8대 쇼군 아시카가 요시마사가 지은 산장 '히가시야마전'에서 시작했어요.",
-        "이름은 에도 시대에 금각사와 견주어 불리면서 굳어졌다고 해요."
-      ],
-      "claims": [
-        {
-          "id": "c1",
-          "text_ko": "정식 이름은 히가시야마 지쇼지이고 쇼코쿠지의 탑두 사찰이에요.",
-          "source": "ginkakuji_official_about",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c2",
-          "text_ko": "무로마치 막부 8대 쇼군 아시카가 요시마사가 지은 산장 히가시야마전이 기원이에요.",
-          "source": "ginkakuji_official_about",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c3",
-          "text_ko": "긴카쿠지라는 이름은 에도 시대에 금각사에 견주어 부르게 됐다고 해요.",
-          "source": "ginkakuji_official_about",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c4",
-          "text_ko": "관음전(은각) 안은 공개하지 않고, 동구당·방장 등은 봄가을에만 특별 공개해요.",
-          "source": "ginkakuji_official_faq",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "tips_ko": [
-        {
-          "text": "관음전(은각) 안은 볼 수 없고 보통은 정원만 걸으며 봐요.",
-          "source": "ginkakuji_official_faq",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "text": "전망소 등 계단 있는 곳은 휠체어·유모차로 올라갈 수 없어요.",
-          "source": "ginkakuji_official_access",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "text": "절에는 일반 주차장이 없어서 시영 주차장이나 코인 주차장을 써야 해요.",
-          "source": "ginkakuji_official_faq",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "facts": {
-        "kind": "facility",
-        "entry": "paid",
-        "regular_closed": [
-          "none"
-        ],
-        "source": "ginkakuji_official_access",
-        "last_verified": "2026-10-10"
-      },
-      "status": {
-        "value": "open",
-        "source": "ginkakuji_official_access",
-        "last_verified": "2026-10-10"
-      },
-      "advisory": {
-        "level": "none",
-        "source": "mofa_jp",
-        "last_verified": "2026-09-28"
-      },
-      "rank": {
-        "order": 999,
-        "designations": []
-      },
-      "photo_link": "https://commons.wikimedia.org/wiki/File:GinkakujiTemple.jpg",
-      "source": "wd",
-      "last_verified": "2026-10-10"
-    },
-    {
-      "id": "byodoin",
-      "qid": "Q61094",
-      "names": {
-        "ko": "뵤도인",
-        "ko_basis": "editorial",
-        "en": "Byōdō-in",
-        "local": "平等院",
-        "local_short": "平等院",
-        "local_lang": "ja",
-        "source": "wd",
-        "ko_paren": "평등원"
-      },
-      "aliases_ko": [
-        "평등원",
-        "보도인"
-      ],
-      "aliases_en": [
-        "Byodoin Temple"
-      ],
-      "mentions_ko": [
-        "호오도",
-        "봉황당"
-      ],
-      "region": "jp_kyoto",
-      "area_ko": "교토부 우지시",
-      "category": "heritage",
-      "tags": [
-        {
-          "id": "unesco",
-          "source": "byodoin_official_history",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "geo": {
-        "kind": "site",
-        "lat": 34.889444444444,
-        "lng": 135.80777777778,
-        "source": "wd",
-        "last_verified": "2026-10-10",
-        "qid": "Q61094"
-      },
-      "address_local": {
-        "text": "〒611-0021 京都府宇治市宇治蓮華116",
-        "source": "byodoin_official_access",
-        "last_verified": "2026-10-10"
-      },
-      "access": {
-        "modes": [
-          "train"
-        ],
-        "nearest_ko": "JR 나라선이나 게이한 우지선을 타고 우지역에서 내려 걸어가요",
-        "source": "byodoin_official_access_train_pdf",
-        "last_verified": "2026-10-10"
-      },
-      "official_url": "https://www.byodoin.or.jp/",
-      "summary_ko": "봉황당으로 유명한 우지의 세계유산 사찰이에요.",
-      "body_ko": [
-        "뵤도인은 1052년 후지와라노 요리미치가 아버지 미치나가에게서 물려받은 별장을 절로 바꾸며 시작됐어요.",
-        "이듬해인 1053년에 아미타당(봉황당)이 낙성했고, 안에는 국보 아미타여래좌상이 모셔져 있어요.",
-        "약 1000년 전의 건물과 불상이 전해져 세계유산에도 올라 있어요."
-      ],
-      "claims": [
-        {
-          "id": "c1",
-          "text_ko": "1052년 후지와라노 요리미치가 아버지 미치나가에게서 물려받은 별장을 절로 바꿔 뵤도인을 열었어요.",
-          "source": "byodoin_official_history",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c2",
-          "text_ko": "이듬해 1053년에 아미타당(봉황당)이 낙성했어요.",
-          "source": "byodoin_official_history",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c3",
-          "text_ko": "봉황당 안에는 국보 아미타여래좌상이 모셔져 있어요.",
-          "source": "byodoin_official_architecture",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c4",
-          "text_ko": "약 1000년 전에 지은 건물과 불상이 전해져 세계유산에 등록됐어요.",
-          "source": "byodoin_official_history",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "tips_ko": [
-        {
-          "text": "봉황당 안은 정원제 시간권을 정원 안 접수처에서 사야 들어가요.",
-          "source": "byodoin_official_internal",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "text": "경내에는 음식을 가져갈 수 없고, 밀폐되는 물병만 가져갈 수 있어요.",
-          "source": "byodoin_official_nofood",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "text": "한 번 나가면 다시 들어올 수 없어요.",
-          "source": "byodoin_official_faq",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "text": "전용 주차장은 없고 근처 유료 주차장을 써야 해요.",
-          "source": "byodoin_official_access",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "facts": {
-        "kind": "facility",
-        "entry": "paid",
-        "regular_closed": [
-          "none"
-        ],
-        "closed_note_ko": "봉황당 안은 법요·행사나 날씨로 쉬는 날이 있어요.",
-        "source": "byodoin_official_guide",
-        "last_verified": "2026-10-10"
-      },
-      "status": {
-        "value": "open",
-        "source": "byodoin_official_guide",
-        "last_verified": "2026-10-10"
-      },
-      "advisory": {
-        "level": "none",
-        "source": "mofa_jp",
-        "last_verified": "2026-09-28"
-      },
-      "rank": {
-        "order": 999,
-        "designations": [
-          {
-            "kind": "unesco",
-            "name_ko": "세계유산 고도 교토의 문화재",
-            "source": "unesco_688"
-          },
-          {
-            "kind": "jp_national_treasure_partial",
-            "name_ko": "봉황당 안 아미타여래좌상(국보)",
-            "source": "byodoin_official_architecture"
-          }
-        ]
-      },
-      "photo_link": "https://commons.wikimedia.org/wiki/File:Phoenix_Hall,_Byodo-in,_November_2016_-01.jpg",
-      "source": "wd",
-      "last_verified": "2026-10-10"
-    },
-    {
-      "id": "odori-park",
-      "qid": "Q3107971",
-      "names": {
-        "ko": "오도리 공원",
-        "ko_basis": "editorial",
-        "en": "Odori Park",
-        "local": "大通公園",
-        "local_short": "大通公園",
-        "local_lang": "ja",
-        "source": "wd"
-      },
-      "aliases_ko": [
-        "대통공원",
-        "삿포로 오도리 공원"
-      ],
-      "aliases_en": [
-        "Sapporo Odori Park"
-      ],
-      "mentions_ko": [
-        "눈축제",
-        "화이트 일루미네이션"
-      ],
-      "region": "jp_sapporo",
-      "area_ko": "삿포로시 주오구",
-      "category": "nature",
-      "geo": {
-        "kind": "site",
-        "lat": 43.059722,
-        "lng": 141.346389,
-        "source": "wd",
-        "last_verified": "2026-10-10",
-        "qid": "Q3107971"
-      },
-      "access": {
-        "modes": [
-          "metro"
-        ],
-        "nearest_ko": "지하철 오도리역이나 니시11초메역에서 내려요",
-        "source": "odori_official_access",
-        "last_verified": "2026-10-10"
-      },
-      "official_url": "https://odori-park.jp/",
-      "summary_ko": "삿포로 도심을 가로지르는 긴 도심 공원이에요.",
-      "body_ko": [
-        "오도리 공원은 서1초메부터 서12초메까지 이어지는 길이 약 1.5km의 도심 공원이에요.",
-        "조경가 나가오카 야스헤이의 설계로 본격 정비돼 2011년에 100주년을 맞았어요.",
-        "눈축제, 요사코이 소란 축제, 화이트 일루미네이션 같은 행사가 사철 열려요."
-      ],
-      "claims": [
-        {
-          "id": "c1",
-          "text_ko": "서1초메부터 서12초메까지 길이 약 1.5km의 공원이에요.",
-          "source": "odori_official_about",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c2",
-          "text_ko": "나가오카 야스헤이의 설계로 본격 정비됐고 2011년에 100주년을 맞았어요.",
-          "source": "odori_official_about",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c3",
-          "text_ko": "눈축제, 요사코이 소란 축제, 화이트 일루미네이션 같은 행사가 열려요.",
-          "source": "odori_official_about",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "tips_ko": [
-        {
-          "text": "공원은 흡연 제한 구역이라 걸으며 피우는 것도 안 돼요. 정해진 흡연소를 써요.",
-          "source": "odori_official_guide",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "text": "공원 안에서는 자전거를 밀고 다녀야 해요.",
-          "source": "odori_official_guide",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "text": "스케이트보드와 캐치볼은 위험해서 금지예요.",
-          "source": "odori_official_guide",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "text": "휠체어를 무료로 빌릴 수 있어요. 겨울에는 안 돼요.",
-          "source": "odori_official_guide",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "facts": {
-        "kind": "public_space"
-      },
-      "status": {
-        "value": "open",
-        "source": "odori_official_about",
-        "last_verified": "2026-10-10"
-      },
-      "advisory": {
-        "level": "none",
-        "source": "mofa_jp",
-        "last_verified": "2026-09-28"
-      },
-      "rank": {
-        "order": 999,
-        "designations": []
-      },
-      "photo_link": "https://commons.wikimedia.org/wiki/File:Odori_Park_(15982613668).jpg",
-      "source": "wd",
-      "last_verified": "2026-10-10"
-    },
-    {
-      "id": "fukuoka-castle",
-      "qid": "Q1143944",
-      "names": {
-        "ko": "후쿠오카성",
-        "ko_basis": "editorial",
-        "en": "Fukuoka Castle",
-        "local": "福岡城",
-        "local_short": "福岡城",
-        "local_lang": "ja",
-        "source": "wd"
-      },
-      "aliases_ko": [
-        "마이즈루 공원"
-      ],
-      "aliases_en": [
-        "Maizuru Castle"
-      ],
-      "mentions_ko": [
-        "다몬야구라",
-        "고로칸"
-      ],
-      "region": "jp_fukuoka",
-      "area_ko": "후쿠오카시 주오구",
-      "category": "heritage",
-      "tags": [
-        {
-          "id": "free_entry",
-          "source": "fukuokajyo_official_top",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "geo": {
-        "kind": "site",
-        "lat": 33.584381,
-        "lng": 130.383103,
-        "source": "wd",
-        "last_verified": "2026-10-10",
-        "qid": "Q1143944"
-      },
-      "address_local": {
-        "text": "〒810-0043 福岡県福岡市中央区城内",
-        "source": "fukuokajyo_official_top",
-        "last_verified": "2026-10-10"
-      },
-      "access": {
-        "modes": [
-          "metro"
-        ],
-        "nearest_ko": "후쿠오카 시영 지하철 아카사카역 2번 출구에서 걸어가요",
-        "source": "fukuokajyo_official_top",
-        "last_verified": "2026-10-10"
-      },
-      "official_url": "https://fukuokajyo.com/",
-      "summary_ko": "석벽과 성터가 남은 국가 사적 성터예요.",
-      "body_ko": [
-        "후쿠오카성은 건물은 많이 남지 않았지만, 석벽과 성의 배치가 당시 모습을 거의 그대로 지녀 국가 사적으로 지정됐어요.",
-        "현존하는 건물로 다몬야구라가 있어요."
-      ],
-      "claims": [
-        {
-          "id": "c1",
-          "text_ko": "건물은 많이 남지 않았지만 석벽과 성의 배치가 당시 모습을 거의 그대로 지녀 국가 사적으로 지정됐어요.",
-          "source": "fukuokajyo_official_about",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c2",
-          "text_ko": "현존하는 건물로 다몬야구라가 있어요.",
-          "source": "fukuokajyo_official_about",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c3",
-          "text_ko": "천수대는 발굴조사 때문에 2026년 5월 26일부터 12월 말(예정)까지 들어갈 수 없어요.",
-          "source": "fukuokajyo_official_tenshudai",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "tips_ko": [
-        {
-          "text": "천수대는 발굴조사로 2026년 5월 26일부터 12월 말(예정)까지 들어갈 수 없어요.",
-          "source": "fukuokajyo_official_tenshudai",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "text": "행사 기간에는 입장료가 있을 수 있어요.",
-          "source": "fukuokajyo_official_top",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "text": "성 안 주차장은 유료예요.",
-          "source": "fukuokajyo_official_top",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "facts": {
-        "kind": "facility",
-        "entry": "free",
-        "regular_closed": [
-          "unknown"
-        ],
-        "source": "fukuokajyo_official_top",
-        "last_verified": "2026-10-10"
-      },
-      "status": {
-        "value": "partial",
-        "note_ko": "천수대는 발굴조사로 2026년 12월 말(예정)까지 들어갈 수 없어요. 그 밖의 성터는 걸어볼 수 있어요.",
-        "source": "fukuokajyo_official_tenshudai",
-        "last_verified": "2026-10-10"
-      },
-      "advisory": {
-        "level": "none",
-        "source": "mofa_jp",
-        "last_verified": "2026-09-28"
-      },
-      "rank": {
-        "order": 999,
-        "designations": []
-      },
-      "photo_link": "https://commons.wikimedia.org/wiki/File:Fukuoka_castle_2006_01.jpg",
-      "source": "wd",
-      "last_verified": "2026-10-10"
-    },
-    {
-      "id": "nikko-toshogu",
-      "qid": "Q696641",
-      "names": {
-        "ko": "닛코 도쇼구",
-        "ko_basis": "editorial",
-        "en": "Nikkō Tōshō-gū",
-        "local": "日光東照宮",
-        "local_short": "日光東照宮",
-        "local_lang": "ja",
-        "source": "wd",
-        "ko_paren": "일광동조궁"
-      },
-      "aliases_ko": [
-        "닛코 동조궁",
-        "도쇼구",
-        "일광 동조궁"
-      ],
-      "aliases_en": [
-        "Nikko Toshogu"
-      ],
-      "mentions_ko": [
-        "요메이몬",
-        "자는 고양이"
-      ],
-      "region": "jp_nikko",
-      "area_ko": "도치기현 닛코시",
-      "category": "heritage",
-      "tags": [
-        {
-          "id": "unesco",
-          "source": "toshogu_official_overview",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "geo": {
-        "kind": "site",
-        "lat": 36.759166666667,
-        "lng": 139.59861111111,
-        "source": "wd",
-        "last_verified": "2026-10-10",
-        "qid": "Q696641"
-      },
-      "address_local": {
-        "text": "〒 321-1431 栃木県日光市山内2301",
-        "source": "toshogu_official_access",
-        "last_verified": "2026-10-10"
-      },
-      "access": {
-        "modes": [
-          "train",
-          "bus"
-        ],
-        "nearest_ko": "도쿄 아사쿠사에서 도부선 특급으로 도부닛코역까지 가요",
-        "nearest_local": {
-          "text": "東武日光駅",
-          "qid": "Q7862640",
-          "source": "wd"
-        },
-        "source": "toshogu_official_access",
-        "last_verified": "2026-10-10"
-      },
-      "official_url": "https://www.toshogu.jp/",
-      "summary_ko": "도쿠가와 이에야스를 모신 닛코의 세계유산 신사예요.",
-      "body_ko": [
-        "닛코 도쇼구는 1617년 초대 쇼군 도쿠가와 이에야스를 제신으로 모신 신사예요.",
-        "지금의 주요 사전은 3대 쇼군 이에미쓰가 1636년에 새로 지은 것이고, 요메이몬 같은 건물이 국보예요.",
-        "사전 일대는 세계유산에 올라 있어요."
-      ],
-      "claims": [
-        {
-          "id": "c1",
-          "text_ko": "1617년 초대 쇼군 도쿠가와 이에야스를 제신으로 모신 신사예요.",
-          "source": "toshogu_official_history",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c2",
-          "text_ko": "지금의 주요 사전은 3대 쇼군 이에미쓰가 1636년에 새로 지은 것이에요.",
-          "source": "toshogu_official_history",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c3",
-          "text_ko": "요메이몬·회랑·가라몬·본사·잠자는 고양이 등이 국보예요.",
-          "source": "toshogu_official_overview",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "tips_ko": [
-        {
-          "text": "제전·행사나 수리 공사로 일부 구역은 관람이 제한될 수 있어요.",
-          "source": "toshogu_official_hours",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "text": "접수는 문 닫기 전에 끝나니 서둘러야 해요.",
-          "source": "toshogu_official_hours",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "facts": {
-        "kind": "facility",
-        "entry": "paid",
-        "regular_closed": [
-          "unknown"
-        ],
-        "source": "toshogu_official_hours",
-        "last_verified": "2026-10-10"
-      },
-      "status": {
-        "value": "open",
-        "source": "toshogu_official_hours",
-        "last_verified": "2026-10-10"
-      },
-      "advisory": {
-        "level": "none",
-        "source": "mofa_jp",
-        "last_verified": "2026-09-28"
-      },
-      "rank": {
-        "order": 999,
-        "designations": [
-          {
-            "kind": "unesco",
-            "name_ko": "세계유산 닛코의 사사",
-            "source": "toshogu_official_overview"
-          },
-          {
-            "kind": "jp_national_treasure_partial",
-            "name_ko": "요메이몬 등 국보",
-            "source": "toshogu_official_overview"
-          }
-        ]
-      },
-      "photo_link": "https://commons.wikimedia.org/wiki/File:Nikko_toshogu_shrine.jpg",
-      "source": "wd",
-      "last_verified": "2026-10-10"
-    },
-    {
-      "id": "nikko-rinnoji",
-      "qid": "Q1348249",
-      "names": {
-        "ko": "닛코 린노지",
-        "ko_basis": "editorial",
-        "en": "Rinnō-ji",
-        "local": "輪王寺",
-        "local_short": "輪王寺",
-        "local_lang": "ja",
-        "source": "wd",
-        "ko_paren": "윤왕사"
-      },
-      "aliases_ko": [
-        "린노지",
-        "윤왕사",
-        "삼불당"
-      ],
-      "aliases_en": [
-        "Rinnoji"
-      ],
-      "mentions_ko": [
-        "다이유인",
-        "산부쓰도"
-      ],
-      "region": "jp_nikko",
-      "area_ko": "도치기현 닛코시",
-      "category": "heritage",
-      "tags": [
-        {
-          "id": "unesco",
-          "source": "rinnoji_official_history",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "geo": {
-        "kind": "site",
-        "lat": 36.754161,
-        "lng": 139.602708,
-        "source": "wd",
-        "last_verified": "2026-10-10",
-        "qid": "Q1348249"
-      },
-      "address_local": {
-        "text": "〒321-1494 栃木県日光市山内2300",
-        "source": "rinnoji_official_access",
-        "last_verified": "2026-10-10"
-      },
-      "access": {
-        "modes": [
-          "bus"
-        ],
-        "nearest_ko": "닛코역·도부닛코역에서 도부 버스 '세계유산 순환' 버스를 타면 편해요",
-        "source": "rinnoji_official_access",
-        "last_verified": "2026-10-10"
-      },
-      "official_url": "https://rinnoji.or.jp/",
-      "summary_ko": "삼불당과 다이유인이 있는 닛코산의 천태종 사찰이에요.",
-      "body_ko": [
-        "닛코산은 766년 쇼도 상인이 열었고, 린노지는 그 가르침을 이어 온 사찰이에요.",
-        "본당 삼불당은 동일본에서 가장 큰 목조 건물로 알려져 있어요.",
-        "다이유인은 3대 쇼군 도쿠가와 이에미쓰의 묘소로, 세계유산 경내에 있어요."
-      ],
-      "claims": [
-        {
-          "id": "c1",
-          "text_ko": "닛코산은 766년에 쇼도 상인이 열었어요.",
-          "source": "rinnoji_official_history",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c2",
-          "text_ko": "본당 삼불당은 닛코산에서 으뜸이고 동일본에서 가장 큰 목조 건물이에요.",
-          "source": "rinnoji_official_history",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c3",
-          "text_ko": "다이유인은 도쿠가와 3대 쇼군 이에미쓰의 묘소예요.",
-          "source": "rinnoji_official_history",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "tips_ko": [
-        {
-          "text": "행사나 준비 때문에 관람할 수 없는 날짜와 시간대가 있어요.",
-          "source": "rinnoji_official_information",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "text": "다이유인은 행사 때 배전 안에 들어갈 수 없는 시간대가 있어요.",
-          "source": "rinnoji_official_information",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "facts": {
-        "kind": "facility",
-        "entry": "paid",
-        "regular_closed": [
-          "unknown"
-        ],
-        "source": "rinnoji_official_information",
-        "last_verified": "2026-10-10"
-      },
-      "status": {
-        "value": "open",
-        "source": "rinnoji_official_information",
-        "last_verified": "2026-10-10"
-      },
-      "advisory": {
-        "level": "none",
-        "source": "mofa_jp",
-        "last_verified": "2026-09-28"
-      },
-      "rank": {
-        "order": 999,
-        "designations": [
-          {
-            "kind": "unesco",
-            "name_ko": "세계유산 닛코의 사사",
-            "source": "rinnoji_official_history"
-          }
-        ]
-      },
-      "photo_link": "https://commons.wikimedia.org/wiki/File:NikkoRinnoji5390.jpg",
-      "source": "wd",
-      "last_verified": "2026-10-10"
-    },
-    {
-      "id": "kegon-falls",
-      "qid": "Q37580",
-      "names": {
-        "ko": "게곤 폭포",
-        "ko_basis": "editorial",
-        "en": "Kegon Falls",
-        "local": "華厳滝",
-        "local_short": "華厳滝",
-        "local_lang": "ja",
-        "source": "wd"
-      },
-      "aliases_ko": [
-        "게곤노타키",
-        "화엄폭포"
-      ],
-      "aliases_en": [
-        "Kegon Waterfall"
-      ],
-      "mentions_ko": [
-        "주젠지 호수"
-      ],
-      "region": "jp_nikko",
-      "area_ko": "도치기현 닛코시 오쿠닛코",
-      "category": "nature",
-      "geo": {
-        "kind": "site",
-        "lat": 36.73788888888889,
-        "lng": 139.502,
-        "source": "wd",
-        "last_verified": "2026-10-10",
-        "qid": "Q37580"
-      },
-      "access": {
-        "modes": [
-          "bus"
-        ],
-        "nearest_ko": "닛코역·도부닛코역에서 주젠지온센 방면 버스를 타고 '주젠지온센'에서 내려 걸어가요",
-        "source": "nikko_kanko_kegon",
-        "last_verified": "2026-10-10"
-      },
-      "official_url": "https://www.kegon.jp/",
-      "summary_ko": "주젠지 호수의 물이 떨어지는 닛코의 폭포예요.",
-      "body_ko": [
-        "게곤 폭포는 주젠지 호수의 물이 높이 약 97m의 절벽을 한 번에 떨어지는 폭포예요.",
-        "일본 3대 폭포의 하나로 꼽히고, 엘리베이터로 가는 관폭대에서 폭포를 가까이 볼 수 있어요."
-      ],
-      "claims": [
-        {
-          "id": "c1",
-          "text_ko": "주젠지 호수의 물이 높이 약 97m의 절벽을 한 번에 떨어져요.",
-          "source": "nikko_kanko_kegon",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c2",
-          "text_ko": "일본 3대 폭포의 하나로 꼽혀요.",
-          "source": "nikko_kanko_kegon",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c3",
-          "text_ko": "엘리베이터로 가는 관폭대가 있어요.",
-          "source": "nikko_kanko_kegon",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "tips_ko": [
-        {
-          "text": "한겨울에는 곁의 작은 폭포들이 얼어 파랗게 보여요.",
-          "source": "nikko_kanko_kegon",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "text": "물의 양에 따라 야간 등에는 물을 막을 수 있어요.",
-          "source": "nikko_kanko_kegon",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "facts": {
-        "kind": "public_space"
-      },
-      "status": {
-        "value": "open",
-        "source": "nikko_kanko_kegon",
-        "last_verified": "2026-10-10"
-      },
-      "advisory": {
-        "level": "none",
-        "source": "mofa_jp",
-        "last_verified": "2026-09-28"
-      },
-      "rank": {
-        "order": 999,
-        "designations": []
-      },
-      "photo_link": "https://commons.wikimedia.org/wiki/File:紅葉の華厳の滝.jpg",
-      "source": "wd",
-      "last_verified": "2026-10-10"
-    },
-    {
-      "id": "glover-garden",
-      "qid": "Q63465",
-      "names": {
-        "ko": "글로버 정원",
-        "ko_basis": "editorial",
-        "en": "Glover Garden",
-        "local": "グラバー園",
-        "local_short": "グラバー園",
-        "local_lang": "ja",
-        "source": "wd"
-      },
-      "aliases_ko": [
-        "그라바엔",
-        "글로버원",
-        "구 글로버 주택"
-      ],
-      "aliases_en": [
-        "Glover Gardens"
-      ],
-      "mentions_ko": [
-        "글로버 스카이로드"
-      ],
-      "region": "jp_nagasaki",
-      "area_ko": "나가사키시 미나미야마테",
-      "category": "heritage",
-      "tags": [
-        {
-          "id": "unesco",
-          "source": "glover_official_about",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "geo": {
-        "kind": "entrance",
-        "lat": 32.73444444,
-        "lng": 129.86888889,
-        "source": "wd",
-        "last_verified": "2026-10-10",
-        "qid": "Q63465"
-      },
-      "address_local": {
-        "text": "〒850-0931 長崎県長崎市南山手町8番1号",
-        "source": "glover_official_guide",
-        "last_verified": "2026-10-10"
-      },
-      "access": {
-        "modes": [
-          "train",
-          "bus"
-        ],
-        "nearest_ko": "노면전차 '이시바시' 정류장에서 걸어가요 (나가사키 버스 '오우라텐슈도시타'에서도 가까워요)",
-        "source": "glover_official_destination",
-        "last_verified": "2026-10-10"
-      },
-      "official_url": "https://glover-garden.jp/",
-      "summary_ko": "언덕 위에 옛 서양식 저택들이 모여 있는 정원이에요.",
-      "body_ko": [
-        "글로버 정원에는 전통 건축물 9동이 있고, 그중 구 글로버·오르트·린가 주택 3동이 국가 중요문화재예요.",
-        "나머지는 메이지 중기에 나가사키 시내에 지은 서양식 건물을 옮겨 복원한 것이에요.",
-        "구 글로버 주택은 2015년에 세계유산에 올랐어요."
-      ],
-      "claims": [
-        {
-          "id": "c1",
-          "text_ko": "전통 건축물 9동을 볼 수 있고, 구 글로버·오르트·린가 주택 3동은 국가 중요문화재예요.",
-          "source": "glover_official_about",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c2",
-          "text_ko": "나머지 6동은 메이지 중기에 나가사키 시내에 지은 서양식 건물을 옮겨 복원한 것이에요.",
-          "source": "glover_official_about",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c3",
-          "text_ko": "구 글로버 주택은 2015년에 세계유산에 등록됐어요.",
-          "source": "glover_official_about",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "tips_ko": [
-        {
-          "text": "돌길과 비탈이 많아서 휠체어로 둘러보려면 도움이 필요해요.",
-          "source": "glover_official_guide",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "text": "무료 전동 휠체어를 빌릴 수 있어요.",
-          "source": "glover_official_guide",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "text": "시기에 따라 야간 개원이 있어요.",
-          "source": "glover_official_guide",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "facts": {
-        "kind": "facility",
-        "entry": "paid",
-        "regular_closed": [
-          "unknown"
-        ],
-        "source": "glover_official_guide",
-        "last_verified": "2026-10-10"
-      },
-      "risk": [
-        "renovation"
-      ],
-      "status": {
-        "value": "partial",
-        "note_ko": "구 오르트 주택은 보존 수리 공사로 관람할 수 없어요. 재개 일정은 공식 사이트에서 확인하세요.",
-        "source": "glover_official_repair",
-        "last_verified": "2026-10-10"
-      },
-      "advisory": {
-        "level": "none",
-        "source": "mofa_jp",
-        "last_verified": "2026-09-28"
-      },
-      "rank": {
-        "order": 999,
-        "designations": [
-          {
-            "kind": "unesco",
-            "name_ko": "세계유산 메이지 일본의 산업혁명 유산(구 글로버 주택)",
-            "source": "glover_official_about"
-          },
-          {
-            "kind": "jp_important_cultural_property_partial",
-            "name_ko": "구 글로버·오르트·린가 주택(중요문화재)",
-            "source": "glover_official_about"
-          }
-        ]
-      },
-      "photo_link": "https://commons.wikimedia.org/wiki/File:Nagasaki-Glover-Garden-5415.jpg",
-      "source": "wd",
-      "last_verified": "2026-10-10"
-    },
-    {
-      "id": "nagasaki-atomic-bomb-museum",
-      "qid": "Q1099077",
-      "names": {
-        "ko": "나가사키 원폭 자료관",
-        "ko_basis": "editorial",
-        "en": "Nagasaki Atomic Bomb Museum",
-        "local": "長崎原爆資料館",
-        "local_short": "長崎原爆資料館",
-        "local_lang": "ja",
-        "source": "wd"
-      },
-      "aliases_ko": [
-        "원폭 자료관"
-      ],
-      "mentions_ko": [
-        "평화 안내인"
-      ],
-      "region": "jp_nagasaki",
-      "area_ko": "나가사키시 히라노마치",
-      "category": "museum",
-      "geo": {
-        "kind": "entrance",
-        "lat": 32.772652777778,
-        "lng": 129.86451388889,
-        "source": "wd",
-        "last_verified": "2026-10-10",
-        "qid": "Q1099077"
-      },
-      "address_local": {
-        "text": "〒852-8117 長崎市平野町7番8号",
-        "source": "nagasakipeace_official_abm",
-        "last_verified": "2026-10-10"
-      },
-      "access": {
-        "modes": [
-          "train",
-          "bus"
-        ],
-        "nearest_ko": "나가사키역에서 노면전차 '아카사코' 행을 타고 '원폭자료관' 정류장에서 내려요",
-        "source": "nabmuseum_official_access",
-        "last_verified": "2026-10-10"
-      },
-      "official_url": "https://nabmuseum.jp/",
-      "summary_ko": "나가사키시가 운영하는 원폭 관련 역사 자료관이에요.",
-      "body_ko": [
-        "나가사키 원폭 자료관은 원폭 피해 50주년 기념 사업으로 1996년 4월에 문을 열었어요.",
-        "전시 설명은 일본어·영어·중국어·한국어로 적혀 있어요.",
-        "상설 전시실은 전시 교체 공사로 일부 구역을 단계적으로 닫고 있어요."
-      ],
-      "claims": [
-        {
-          "id": "c1",
-          "text_ko": "원폭 피해 50주년 기념 사업으로 1996년 4월에 문을 열었어요.",
-          "source": "nagasakipeace_official_abm",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c2",
-          "text_ko": "전시 설명을 일본어·영어·중국어·한국어 4개 언어로 적어 놓았어요.",
-          "source": "nagasakipeace_official_abm",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c3",
-          "text_ko": "8월 9일 '나가사키 평화의 날'에는 전시실 입장료를 받지 않아요.",
-          "source": "nabmuseum_official_faq",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "tips_ko": [
-        {
-          "text": "8월 9일 '나가사키 평화의 날'에는 전시실이 무료예요.",
-          "source": "nabmuseum_official_faq",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "text": "전시 교체 공사로 일부 구역은 칸막이로 가리고 있어요. 공사하지 않는 구역은 평소처럼 볼 수 있어요.",
-          "source": "nabmuseum_official_exhibit_pause",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "text": "전시실 안에서 플래시·삼각대·셀카봉은 쓸 수 없어요.",
-          "source": "nabmuseum_official_faq",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "text": "자원봉사 '평화 안내인'이 입구에서 무료로 안내해 줘요.",
-          "source": "nabmuseum_official_faq",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "facts": {
-        "kind": "facility",
-        "entry": "paid",
-        "regular_closed": [
-          "unknown"
-        ],
-        "source": "nabmuseum_official_faq",
-        "last_verified": "2026-10-10"
-      },
-      "status": {
-        "value": "partial",
-        "note_ko": "상설 전시실 일부 구역이 전시 교체 공사로 닫혀 있어요. 나머지 구역은 평소처럼 볼 수 있어요.",
-        "source": "nabmuseum_official_exhibit_pause",
-        "last_verified": "2026-10-10"
-      },
-      "advisory": {
-        "level": "none",
-        "source": "mofa_jp",
-        "last_verified": "2026-09-28"
-      },
-      "rank": {
-        "order": 999,
-        "designations": []
-      },
-      "photo_link": "https://commons.wikimedia.org/wiki/File:Nagasakigenbaku.jpg",
-      "source": "wd",
-      "last_verified": "2026-10-10"
-    },
-    {
-      "id": "dejima",
-      "qid": "Q640267",
-      "names": {
-        "ko": "데지마",
-        "ko_basis": "editorial",
-        "en": "Dejima",
-        "local": "出島",
-        "local_short": "出島",
-        "local_lang": "ja",
-        "source": "wd"
-      },
-      "aliases_ko": [
-        "데지마 네덜란드 상관",
-        "출도"
-      ],
-      "aliases_en": [
-        "Deshima"
-      ],
-      "mentions_ko": [
-        "네덜란드 상관"
-      ],
-      "region": "jp_nagasaki",
-      "area_ko": "나가사키시 데지마초",
-      "category": "heritage",
-      "geo": {
-        "kind": "entrance",
-        "lat": 32.74352,
-        "lng": 129.87302,
-        "source": "wd",
-        "last_verified": "2026-10-10",
-        "qid": "Q640267"
-      },
-      "address_local": {
-        "text": "〒850-0862 長崎県長崎市出島町6-1",
-        "source": "dejima_official_about",
-        "last_verified": "2026-10-10"
-      },
-      "access": {
-        "modes": [
-          "bus",
-          "train"
-        ],
-        "nearest_ko": "나가사키역 앞에서 나가사키 버스를 타고 '데지마'에서 내려요 (노면전차 데지마 정류장도 있어요)",
-        "source": "dejima_official_about",
-        "last_verified": "2026-10-10"
-      },
-      "official_url": "https://nagasakidejima.jp/",
-      "summary_ko": "네덜란드 상관이 있던 인공섬을 복원한 시설이에요.",
-      "body_ko": [
-        "데지마는 1636년에 쌓은 인공섬으로, 1859년 네덜란드 상관이 닫힐 때까지 218년 동안 서양에 열린 창구 역할을 했어요.",
-        "지금은 옛 건물을 복원해 공개하고 있어요."
-      ],
-      "claims": [
-        {
-          "id": "c1",
-          "text_ko": "1636년에 쌓았고, 1859년 네덜란드 상관이 닫힐 때까지 218년 동안 서양에 열린 창구 역할을 했어요.",
-          "source": "dejima_official_history",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "tips_ko": [
-        {
-          "text": "한 번 나가면 다시 들어올 수 없어요.",
-          "source": "dejima_official_about",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "text": "시설 점검으로 일부 건물을 못 볼 수 있어요.",
-          "source": "dejima_official_about",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "text": "휠체어를 빌릴 수 있어요.",
-          "source": "dejima_official_about",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "facts": {
-        "kind": "facility",
-        "entry": "paid",
-        "regular_closed": [
-          "none"
-        ],
-        "source": "dejima_official_about",
-        "last_verified": "2026-10-10"
-      },
-      "status": {
-        "value": "open",
-        "source": "dejima_official_about",
-        "last_verified": "2026-10-10"
-      },
-      "advisory": {
-        "level": "none",
-        "source": "mofa_jp",
-        "last_verified": "2026-09-28"
-      },
-      "rank": {
-        "order": 999,
-        "designations": []
-      },
-      "photo_link": "https://commons.wikimedia.org/wiki/File:View_of_Dejima_in_Nagasaki_Bay_Folding_Screen_by_Kawahara_Keiga_c1836.jpg",
-      "source": "wd",
-      "last_verified": "2026-10-10"
+      "last_verified": "2026-10-10",
+      "wiki": {
+        "ko": "시텐노지",
+        "en": "Shitennō-ji"
+      },
+      "google_place_id": "ChIJIVA6O_jdAGARLWCtv8iBqrY"
     },
     {
       "id": "nagoya-castle",
@@ -10432,7 +12212,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 999,
+        "order": 9,
         "designations": [
           {
             "kind": "jp_special_historic_site",
@@ -10443,7 +12223,12 @@
       },
       "photo_link": "https://commons.wikimedia.org/wiki/File:Nagoya_Castle(Larger).jpg",
       "source": "wd",
-      "last_verified": "2026-10-10"
+      "last_verified": "2026-10-10",
+      "wiki": {
+        "ko": "나고야성",
+        "en": "Nagoya Castle"
+      },
+      "google_place_id": "ChIJse-wx8t2A2ARd6Z1knjp07k"
     },
     {
       "id": "legoland-japan",
@@ -10547,12 +12332,17 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 999,
+        "order": 77,
         "designations": []
       },
       "photo_link": "https://commons.wikimedia.org/wiki/File:Legoland_japan.jpg",
       "source": "wd",
-      "last_verified": "2026-10-10"
+      "last_verified": "2026-10-10",
+      "wiki": {
+        "ko": "레고랜드 재팬 리조트",
+        "en": "Legoland Japan Resort"
+      },
+      "google_place_id": "ChIJzd5Pasd4A2ARRQZrV29qbmc"
     },
     {
       "id": "port-of-nagoya-aquarium",
@@ -10654,1663 +12444,16 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 999,
+        "order": 79,
         "designations": []
       },
       "photo_link": "https://commons.wikimedia.org/wiki/File:Port_of_Nagoya_Public_Aquarium_Exterior_(1),_Minato-machi_Minato_Ward_Nagoya_2022.jpg",
       "source": "wd",
-      "last_verified": "2026-10-10"
-    },
-    {
-      "id": "abeno-harukas",
-      "qid": "Q16318627",
-      "names": {
-        "ko": "아베노 하루카스",
-        "ko_basis": "editorial",
-        "en": "Abeno Harukas",
-        "local": "あべのハルカス",
-        "local_short": "あべのハルカス",
-        "local_lang": "ja",
-        "source": "wd"
-      },
-      "aliases_ko": [
-        "하루카스 300"
-      ],
-      "mentions_ko": [
-        "하루카스 300 전망대"
-      ],
-      "region": "jp_osaka",
-      "area_ko": "오사카시 아베노구",
-      "category": "city_view",
-      "geo": {
-        "kind": "entrance",
-        "lat": 34.645947222222,
-        "lng": 135.51426666667,
-        "source": "wd",
-        "last_verified": "2026-10-10",
-        "qid": "Q16318627"
-      },
-      "address_local": {
-        "text": "〒545-6016 大阪市阿倍野区阿倍野筋1-1-43",
-        "source": "harukas_official_access",
-        "last_verified": "2026-10-10"
-      },
-      "access": {
-        "modes": [
-          "metro",
-          "train"
-        ],
-        "nearest_ko": "덴노지역(지하철·JR)이나 오사카아베노바시역(긴테쓰)에서 가까워요",
-        "source": "harukas_official_access",
-        "last_verified": "2026-10-10"
-      },
-      "official_url": "https://www.abenoharukas-300.jp/",
-      "summary_ko": "높이 300m의 초고층 복합 빌딩이에요.",
-      "body_ko": [
-        "아베노 하루카스는 높이 300m의 초고층 복합 빌딩이고, 전망대 '하루카스 300'이 있어요.",
-        "이름은 '맑게 한다'는 뜻의 옛말 '하루카스'에서 따왔어요."
-      ],
-      "claims": [
-        {
-          "id": "c1",
-          "text_ko": "높이 300m의 초고층 복합 빌딩이에요.",
-          "source": "harukas_official_top",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c2",
-          "text_ko": "이름은 일본 옛말 '하루카스(晴るかす, 맑게 한다)'에서 따왔어요.",
-          "source": "harukas_official_about",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c3",
-          "text_ko": "전망대 '하루카스 300'이 있어요.",
-          "source": "harukas_official_service",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "tips_ko": [
-        {
-          "text": "전망대와 아베노 하루카스 미술관에는 전용 주차장이 없어요. 대중교통을 이용하세요.",
-          "source": "harukas_official_access",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "text": "전망대는 영업 시간이 예고 없이 바뀔 수 있어요. 가기 전에 전망대 홈페이지를 확인하세요.",
-          "source": "harukas_official_service",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "facts": {
-        "kind": "facility",
-        "entry": "unknown",
-        "regular_closed": [
-          "none"
-        ],
-        "source": "harukas_official_service",
-        "last_verified": "2026-10-10"
-      },
-      "status": {
-        "value": "open",
-        "source": "harukas_official_service",
-        "last_verified": "2026-10-10"
-      },
-      "advisory": {
-        "level": "none",
-        "source": "mofa_jp",
-        "last_verified": "2026-09-28"
-      },
-      "rank": {
-        "order": 999,
-        "designations": []
-      },
-      "photo_link": "https://commons.wikimedia.org/wiki/File:Abeno_Harukas_Osaka_Japan01-r.jpg",
-      "source": "wd",
-      "last_verified": "2026-10-10"
-    },
-    {
-      "id": "umeda-sky-building",
-      "qid": "Q1151808",
-      "names": {
-        "ko": "우메다 스카이 빌딩",
-        "ko_basis": "editorial",
-        "en": "Umeda Sky Building",
-        "local": "梅田スカイビル",
-        "local_short": "梅田スカイビル",
-        "local_lang": "ja",
-        "source": "wd"
-      },
-      "aliases_ko": [
-        "공중정원 전망대"
-      ],
-      "mentions_ko": [
-        "공중정원"
-      ],
-      "region": "jp_osaka",
-      "area_ko": "오사카시 기타구",
-      "category": "city_view",
-      "geo": {
-        "kind": "entrance",
-        "lat": 34.705277777778,
-        "lng": 135.48972222222,
-        "source": "wd",
-        "last_verified": "2026-10-10",
-        "qid": "Q1151808"
-      },
-      "address_local": {
-        "text": "大阪市北区大淀中1-1-88 梅田スカイビル",
-        "source": "skybldg_official_access",
-        "last_verified": "2026-10-10"
-      },
-      "access": {
-        "modes": [
-          "train"
-        ],
-        "nearest_ko": "JR 오사카역에서 걸어가요 (한큐 오사카우메다역에서도 걸어갈 수 있어요)",
-        "source": "skybldg_official_access",
-        "last_verified": "2026-10-10"
-      },
-      "official_url": "https://www.skybldg.co.jp/",
-      "summary_ko": "두 건물을 꼭대기에서 이은 공중정원 전망대가 있는 빌딩이에요.",
-      "body_ko": [
-        "우메다 스카이 빌딩은 두 동의 건물을 옥상부에서 잇는 전망대로 알려진 빌딩이에요.",
-        "벽면이 하프 미러 유리로 덮여 있어 하늘이 비쳐 보여요."
-      ],
-      "claims": [
-        {
-          "id": "c1",
-          "text_ko": "두 동의 건물을 옥상부에서 잇는 전망대가 있어요.",
-          "source": "skybldg_official_discover",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c2",
-          "text_ko": "벽면을 하프 미러 유리로 덮어 하늘이 비쳐 보여요.",
-          "source": "skybldg_official_discover",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "tips_ko": [
-        {
-          "text": "공중정원 전망대는 타워 이스트·웨스트의 엘리베이터로는 들어갈 수 없고, 전용 입구로만 들어가요.",
-          "source": "skybldg_official_observatory",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "text": "전용 입구는 빌딩 안에 없어요.",
-          "source": "skybldg_official_observatory",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "facts": {
-        "kind": "facility",
-        "entry": "unknown",
-        "regular_closed": [
-          "unknown"
-        ],
-        "source": "skybldg_official_observatory",
-        "last_verified": "2026-10-10"
-      },
-      "status": {
-        "value": "open",
-        "source": "skybldg_official_observatory",
-        "last_verified": "2026-10-10"
-      },
-      "advisory": {
-        "level": "none",
-        "source": "mofa_jp",
-        "last_verified": "2026-09-28"
-      },
-      "rank": {
-        "order": 999,
-        "designations": []
-      },
-      "photo_link": "https://commons.wikimedia.org/wiki/File:2018_Umeda_Sky_Building.jpg",
-      "source": "wd",
-      "last_verified": "2026-10-10"
-    },
-    {
-      "id": "shibuya-sky",
-      "qid": "Q116281743",
-      "names": {
-        "ko": "시부야 스카이",
-        "ko_basis": "editorial",
-        "en": "Shibuya Sky",
-        "local": "SHIBUYA SKY",
-        "local_short": "渋谷スカイ",
-        "local_lang": "ja",
-        "source": "wd"
-      },
-      "aliases_ko": [
-        "시부야 스크램블 스퀘어 전망대"
-      ],
-      "mentions_ko": [
-        "시부야 스크램블 스퀘어"
-      ],
-      "region": "jp_tokyo",
-      "area_ko": "도쿄 시부야구",
-      "category": "city_view",
-      "geo": {
-        "kind": "entrance",
-        "lat": 35.658462,
-        "lng": 139.702264,
-        "source": "wd",
-        "last_verified": "2026-10-10",
-        "qid": "Q116281743"
-      },
-      "address_local": {
-        "text": "東京都渋谷区渋谷二丁目24番12号",
-        "source": "shibuyasky_official_access",
-        "last_verified": "2026-10-10"
-      },
-      "access": {
-        "modes": [
-          "train",
-          "metro"
-        ],
-        "nearest_ko": "시부야역과 바로 이어져 있어요",
-        "source": "shibuyasky_official_access",
-        "last_verified": "2026-10-10"
-      },
-      "official_url": "https://www.shibuya-scramble-square.com/sky/",
-      "summary_ko": "시부야역 바로 위 건물에 있는 전망 시설이에요.",
-      "body_ko": [
-        "시부야 스카이는 시부야 스크램블 스퀘어에 있는 전망 시설이에요.",
-        "건물은 시부야역과 바로 이어져 있고, 역 바로 위에 있어요."
-      ],
-      "claims": [
-        {
-          "id": "c1",
-          "text_ko": "전망 시설 'SHIBUYA SKY'가 있어요.",
-          "source": "shibuyasky_official_top",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c2",
-          "text_ko": "건물은 시부야역과 직결돼 있고 바로 위에 있으며, 지하 출입구 번호는 B6이에요.",
-          "source": "shibuyasky_official_access",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "tips_ko": [
-        {
-          "text": "JR은 중앙 개찰이나 남쪽 개찰을 나와 동쪽 출구 방면으로 가요.",
-          "source": "shibuyasky_official_access",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "text": "지하 출입구 번호는 B6이에요.",
-          "source": "shibuyasky_official_access",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "facts": {
-        "kind": "facility",
-        "entry": "unknown",
-        "regular_closed": [
-          "unknown"
-        ],
-        "source": "shibuyasky_official_access",
-        "last_verified": "2026-10-10"
-      },
-      "status": {
-        "value": "open",
-        "source": "shibuyasky_official_access",
-        "last_verified": "2026-10-10"
-      },
-      "advisory": {
-        "level": "none",
-        "source": "mofa_jp",
-        "last_verified": "2026-09-28"
-      },
-      "rank": {
-        "order": 999,
-        "designations": []
-      },
-      "photo_link": "https://commons.wikimedia.org/wiki/File:Shibuya_Scramble_Square_-_SHIBUYA_SKY_12.jpg",
-      "source": "wd",
-      "last_verified": "2026-10-10"
-    },
-    {
-      "id": "shirakawa-go",
-      "qid": "Q1002193",
-      "names": {
-        "ko": "시라카와고",
-        "ko_basis": "editorial",
-        "en": "Shirakawa-gō",
-        "local": "白川郷",
-        "local_short": "白川郷",
-        "local_lang": "ja",
-        "source": "wd",
-        "ko_paren": "백천향"
-      },
-      "aliases_ko": [
-        "백천향",
-        "오기마치",
-        "시라카와고 합장촌"
-      ],
-      "aliases_en": [
-        "Ogimachi"
-      ],
-      "mentions_ko": [
-        "갓쇼즈쿠리",
-        "합장 마을"
-      ],
-      "region": "jp_takayama",
-      "area_ko": "기후현 시라카와무라 오기마치",
-      "category": "heritage",
-      "tags": [
-        {
-          "id": "unesco",
-          "source": "shirakawago_official_highlights",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "geo": {
-        "kind": "site",
-        "lat": 36.2566607,
-        "lng": 136.9050385,
-        "source": "wd",
-        "last_verified": "2026-10-10",
-        "qid": "Q1002193"
-      },
-      "access": {
-        "modes": [
-          "bus"
-        ],
-        "nearest_ko": "근처에 역이 없어서 나고야·가나자와 등 역에서 고속버스를 타요",
-        "source": "shirakawago_official_access",
-        "last_verified": "2026-10-10"
-      },
-      "official_url": "https://shirakawa-go.gr.jp/",
-      "summary_ko": "합장 지붕 집들이 모여 있는 세계유산 마을이에요.",
-      "body_ko": [
-        "시라카와고의 합장조 집은 나무 들보를 산 모양으로 짜서 지은 일본 고유의 건축 양식이에요.",
-        "이 합장조 마을은 1976년 중요 전통적 건조물군 보존지구가 됐고, 1995년 고카야마와 함께 세계유산에 올랐어요.",
-        "오기마치 마을에서는 '팔지 않고, 빌려주지 않고, 부수지 않는다'는 세 원칙을 정했어요."
-      ],
-      "claims": [
-        {
-          "id": "c1",
-          "text_ko": "합장조는 나무 들보를 산 모양으로 짜서 지은 일본 고유의 건축 양식이에요.",
-          "source": "shirakawago_official_highlights",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c2",
-          "text_ko": "1976년 중요 전통적 건조물군 보존지구로 선정됐고, 1995년 고카야마와 함께 세계유산에 등록됐어요.",
-          "source": "shirakawago_official_highlights",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c3",
-          "text_ko": "오기마치 마을은 '팔지 않고, 빌려주지 않고, 부수지 않는다'는 세 원칙을 정했어요.",
-          "source": "shirakawago_official_highlights",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "tips_ko": [
-        {
-          "text": "마을 주변에 기차역이 없어서 역에서 고속버스를 타고 가요.",
-          "source": "shirakawago_official_access",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "text": "차로 간다면 공공 주차장인 '세세라기 공원 주차장'을 써요.",
-          "source": "shirakawago_official_access",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "text": "주차장에서 '데아이 다리'를 건너면 세계유산 마을이에요.",
-          "source": "shirakawago_official_access",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "facts": {
-        "kind": "facility",
-        "entry": "unknown",
-        "regular_closed": [
-          "unknown"
-        ],
-        "source": "shirakawago_official_access",
-        "last_verified": "2026-10-10"
-      },
-      "status": {
-        "value": "open",
-        "source": "shirakawago_official_access",
-        "last_verified": "2026-10-10"
-      },
-      "advisory": {
-        "level": "none",
-        "source": "mofa_jp",
-        "last_verified": "2026-09-28"
-      },
-      "rank": {
-        "order": 999,
-        "designations": [
-          {
-            "kind": "unesco",
-            "name_ko": "세계유산 시라카와고·고카야마의 합장조 마을",
-            "source": "shirakawago_official_highlights"
-          }
-        ]
-      },
-      "photo_link": "https://commons.wikimedia.org/wiki/File:Ogi_Shirakawa01n3200.jpg",
-      "source": "wd",
-      "last_verified": "2026-10-10"
-    },
-    {
-      "id": "takayama-jinya",
-      "qid": "Q11669454",
-      "names": {
-        "ko": "다카야마 진야",
-        "ko_basis": "editorial",
-        "en": "Takayama Jin'ya",
-        "local": "高山陣屋",
-        "local_short": "高山陣屋",
-        "local_lang": "ja",
-        "source": "wd"
-      },
-      "aliases_ko": [
-        "고산 진야",
-        "다카야마 진지"
-      ],
-      "mentions_ko": [
-        "군다이쇼"
-      ],
-      "region": "jp_takayama",
-      "area_ko": "기후현 다카야마시",
-      "category": "heritage",
-      "geo": {
-        "kind": "entrance",
-        "lat": 36.1397,
-        "lng": 137.258,
-        "source": "wd",
-        "last_verified": "2026-10-10",
-        "qid": "Q11669454"
-      },
-      "address_local": {
-        "text": "〒506-0012 岐阜県高山市八軒町1-5 高山陣屋管理事務所",
-        "source": "jinya_official_info",
-        "last_verified": "2026-10-10"
-      },
-      "access": {
-        "modes": [
-          "train",
-          "bus"
-        ],
-        "nearest_ko": "JR 다카야마역과 노히 버스센터에서 걸어가요",
-        "nearest_local": {
-          "text": "高山駅",
-          "qid": "Q874020",
-          "source": "wd"
-        },
-        "source": "jinya_official_access",
-        "last_verified": "2026-10-10"
-      },
-      "official_url": "https://jinya.gifu.jp/",
-      "summary_ko": "에도 시대 관청 건물이 남아 있는 국가 사적이에요.",
-      "body_ko": [
-        "다카야마 진야는 에도 막부가 보낸 관리가 정무를 보던 관청이에요.",
-        "막부 말에 전국에 60여 곳 있던 군다이·다이칸쇼 가운데 당시 주요 건물이 남은 곳은 이곳뿐이고, 1929년에 국가 사적이 됐어요."
-      ],
-      "claims": [
-        {
-          "id": "c1",
-          "text_ko": "막부 말 전국에 60여 곳 있던 군다이·다이칸쇼 가운데 당시 주요 건물이 남아 있는 곳은 다카야마 진야뿐이에요.",
-          "source": "jinya_official_about",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c2",
-          "text_ko": "1929년에 국가 사적으로 지정됐어요.",
-          "source": "jinya_official_about",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "tips_ko": [
-        {
-          "text": "건물 안은 신발을 벗고 들어가요. 신발을 넣을 봉지를 가져가거나 받아요.",
-          "source": "jinya_official_info",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "text": "무료로 설명원의 안내를 들을 수 있어요.",
-          "source": "hidatakayama_kanko_jinya",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "text": "안내견 외에 반려동물은 건물 안에 들어갈 수 없어요.",
-          "source": "jinya_official_info",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "facts": {
-        "kind": "facility",
-        "entry": "paid",
-        "regular_closed": [
-          "none"
-        ],
-        "closed_note_ko": "연말연시에 쉬고, 날씨나 시설 사정으로 임시 휴관할 때도 있어요.",
-        "source": "jinya_official_info",
-        "last_verified": "2026-10-10"
-      },
-      "status": {
-        "value": "open",
-        "source": "jinya_official_info",
-        "last_verified": "2026-10-10"
-      },
-      "advisory": {
-        "level": "none",
-        "source": "mofa_jp",
-        "last_verified": "2026-09-28"
-      },
-      "rank": {
-        "order": 999,
-        "designations": [
-          {
-            "kind": "jp_historic_site",
-            "name_ko": "국가 사적 다카야마 진야",
-            "source": "jinya_official_about"
-          }
-        ]
-      },
-      "photo_link": "https://commons.wikimedia.org/wiki/File:Takayama_Jinya_inside_view_201706.jpg",
-      "source": "wd",
-      "last_verified": "2026-10-10"
-    },
-    {
-      "id": "takayama-old-town",
-      "qid": "Q11356789",
-      "names": {
-        "ko": "다카야마 옛 거리",
-        "ko_basis": "editorial",
-        "en": "Takayama Old Town",
-        "local": "古い町並",
-        "local_short": "古い町並",
-        "local_lang": "ja",
-        "source": "wd"
-      },
-      "aliases_ko": [
-        "후루이마치나미",
-        "다카야마 구시가지",
-        "산마치"
-      ],
-      "aliases_en": [
-        "Sanmachi Suji"
-      ],
-      "mentions_ko": [
-        "가미산마치"
-      ],
-      "region": "jp_takayama",
-      "area_ko": "기후현 다카야마시 가미산노마치",
-      "category": "market_street",
-      "geo": {
-        "kind": "site",
-        "lat": 36.140175,
-        "lng": 137.25946111,
-        "source": "wd",
-        "last_verified": "2026-10-10",
-        "qid": "Q11356789"
-      },
-      "access": {
-        "modes": [
-          "train"
-        ],
-        "nearest_ko": "JR 다카야마역에서 걸어가요",
-        "nearest_local": {
-          "text": "高山駅",
-          "qid": "Q874020",
-          "source": "wd"
-        },
-        "source": "hidatakayama_kanko_furuimachinami",
-        "last_verified": "2026-10-10"
-      },
-      "official_url": "https://www.hidatakayama.or.jp/spot/detail_1101.html",
-      "summary_ko": "에도 시대 성하마을 모습이 남은 세 줄의 거리예요.",
-      "body_ko": [
-        "다카야마 옛 거리는 에도 시대에 성하마을이자 상인마을로 발달한 곳이에요.",
-        "위쪽·아래쪽 동네에 걸친 세 줄 거리는 국가 중요 전통적 건조물군 보존지구로 선정돼 있어요.",
-        "옛 양조장 7곳이 늘어서 있어요."
-      ],
-      "claims": [
-        {
-          "id": "c1",
-          "text_ko": "에도 시대 성하마을·상인마을로 발달했고, 세 줄 거리가 국가 중요 전통적 건조물군 보존지구로 선정돼 있어요.",
-          "source": "hidatakayama_kanko_furuimachinami",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c2",
-          "text_ko": "옛 거리에는 양조장 7곳이 늘어서 있어요.",
-          "source": "hidatakayama_kanko_furuimachinami",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "tips_ko": [
-        {
-          "text": "가게마다 쉬는 날이 달라서 화요일이나 수요일에 쉬는 곳이 많아요.",
-          "source": "hidatakayama_kanko_furuimachinami",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "text": "근처 시영 주차장은 유료예요.",
-          "source": "hidatakayama_kanko_furuimachinami",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "facts": {
-        "kind": "public_space"
-      },
-      "status": {
-        "value": "open",
-        "source": "hidatakayama_kanko_furuimachinami",
-        "last_verified": "2026-10-10"
-      },
-      "advisory": {
-        "level": "none",
-        "source": "mofa_jp",
-        "last_verified": "2026-09-28"
-      },
-      "rank": {
-        "order": 999,
-        "designations": [
-          {
-            "kind": "jp_preservation_district",
-            "name_ko": "중요 전통적 건조물군 보존지구",
-            "source": "hidatakayama_kanko_furuimachinami"
-          }
-        ]
-      },
-      "photo_link": "https://commons.wikimedia.org/wiki/File:260923_Sanmachi_Takayama_Japan03s3.jpg",
-      "source": "wd",
-      "last_verified": "2026-10-10"
-    },
-    {
-      "id": "fukuoka-tower",
-      "qid": "Q847033",
-      "names": {
-        "ko": "후쿠오카 타워",
-        "ko_basis": "editorial",
-        "en": "Fukuoka Tower",
-        "local": "福岡タワー",
-        "local_short": "福岡タワー",
-        "local_lang": "ja",
-        "source": "wd"
-      },
-      "aliases_ko": [
-        "모모치 타워"
-      ],
-      "mentions_ko": [
-        "전망실"
-      ],
-      "region": "jp_fukuoka",
-      "area_ko": "후쿠오카시 사와라구",
-      "category": "city_view",
-      "geo": {
-        "kind": "entrance",
-        "lat": 33.59330555555555,
-        "lng": 130.3515,
-        "source": "wd",
-        "last_verified": "2026-10-10",
-        "qid": "Q847033"
-      },
-      "access": {
-        "modes": [
-          "bus",
-          "metro"
-        ],
-        "nearest_ko": "하카타 버스터미널에서 니시테쓰 버스 306번을 타고 '후쿠오카 타워 남쪽 입구'에서 내려요",
-        "source": "fukuokatower_official_access",
-        "last_verified": "2026-10-10"
-      },
-      "official_url": "https://www.fukuokatower.co.jp/",
-      "summary_ko": "하카타만 바닷가에 서 있는 전망 타워예요.",
-      "body_ko": [
-        "후쿠오카 타워는 전장 234m의 해변 타워예요.",
-        "지상 123m의 최상층 전망실에서는 후쿠오카 시내와 하카타만을 360도 파노라마로 볼 수 있어요."
-      ],
-      "claims": [
-        {
-          "id": "c1",
-          "text_ko": "전장 234m의 해변 타워예요.",
-          "source": "fukuokatower_official_top",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c2",
-          "text_ko": "지상 123m 최상층 전망실에서 후쿠오카 시내와 하카타만을 360도 파노라마로 볼 수 있어요.",
-          "source": "fukuokatower_official_top",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c3",
-          "text_ko": "버스로 하카타역에서 약 25분, 텐진에서 약 20분 걸려요.",
-          "source": "fukuokatower_official_top",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "tips_ko": [
-        {
-          "text": "혼잡하면 마지막 입장 시간이 앞당겨질 수 있어요.",
-          "source": "fukuokatower_official_charge",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "text": "버스는 '후쿠오카 타워 남쪽 입구'나 'TNC 방송회관 앞'에서 내려요.",
-          "source": "fukuokatower_official_access",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "text": "버스로 하카타역에서 약 25분, 텐진에서 약 20분 걸려요.",
-          "source": "fukuokatower_official_top",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "facts": {
-        "kind": "facility",
-        "entry": "paid",
-        "regular_closed": [
-          "none"
-        ],
-        "closed_note_ko": "휴관일은 2027년 6월 28·29일이에요.",
-        "source": "fukuokatower_official_charge",
-        "last_verified": "2026-10-10"
-      },
-      "status": {
-        "value": "open",
-        "source": "fukuokatower_official_charge",
-        "last_verified": "2026-10-10"
-      },
-      "advisory": {
-        "level": "none",
-        "source": "mofa_jp",
-        "last_verified": "2026-09-28"
-      },
-      "rank": {
-        "order": 999,
-        "designations": []
-      },
-      "photo_link": "https://commons.wikimedia.org/wiki/File:Fukuoka_Tower_October_2011_01.jpg",
-      "source": "wd",
-      "last_verified": "2026-10-10"
-    },
-    {
-      "id": "shinjuku-gyoen",
-      "qid": "Q776863",
-      "names": {
-        "ko": "신주쿠 교엔",
-        "ko_basis": "editorial",
-        "en": "Shinjuku Gyoen",
-        "local": "新宿御苑",
-        "local_short": "新宿御苑",
-        "local_lang": "ja",
-        "source": "wd"
-      },
-      "aliases_ko": [
-        "신주쿠 어원",
-        "신주쿠 교엔 국민공원"
-      ],
-      "aliases_en": [
-        "Shinjuku Gyoen National Garden"
-      ],
-      "mentions_ko": [
-        "일본 정원"
-      ],
-      "region": "jp_tokyo",
-      "area_ko": "도쿄 신주쿠구",
-      "category": "nature",
-      "geo": {
-        "kind": "entrance",
-        "lat": 35.68716944444444,
-        "lng": 139.71064444444445,
-        "source": "wd",
-        "last_verified": "2026-10-10",
-        "qid": "Q776863"
-      },
-      "address_local": {
-        "text": "〒160-0014 東京都新宿区内藤町11番地",
-        "source": "shinjukugyoen_official_access",
-        "last_verified": "2026-10-10"
-      },
-      "access": {
-        "modes": [
-          "train",
-          "metro"
-        ],
-        "nearest_ko": "JR 신주쿠역 남쪽 출구에서 걸어가요 (신주쿠교엔마에역에서는 신주쿠 문·오키도 문이 가까워요)",
-        "source": "shinjukugyoen_official_access",
-        "last_verified": "2026-10-10"
-      },
-      "official_url": "https://fng.or.jp/shinjuku/",
-      "summary_ko": "유럽식 정형 정원과 일본 정원이 어우러진 국민공원이에요.",
-      "body_ko": [
-        "신주쿠 교엔은 에도 시대 도쿠가와 이에야스의 가신 나이토 기요나리가 받은 다이묘 저택이 뿌리라고 해요.",
-        "1949년 국민공원으로 일반에 공개됐어요.",
-        "프랑스 조경가가 설계한 유럽식 정형 정원과 풍경식 정원, 일본 정원을 어우른 근대 서양 정원이에요."
-      ],
-      "claims": [
-        {
-          "id": "c1",
-          "text_ko": "에도 시대 도쿠가와 이에야스의 가신 나이토 기요나리가 받은 다이묘 저택이 뿌리라고 해요.",
-          "source": "shinjukugyoen_official_about",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c2",
-          "text_ko": "1949년 국민공원으로 일반에 공개됐어요.",
-          "source": "shinjukugyoen_official_about",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c3",
-          "text_ko": "프랑스 조경가의 설계로 유럽식 정형 정원, 풍경식 정원, 일본 정원을 어우른 메이지 시대 근대 서양 정원이에요.",
-          "source": "shinjukugyoen_official_about",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "tips_ko": [
-        {
-          "text": "월요일은 쉬어요. 월요일이 공휴일이면 다음 평일에 쉬어요.",
-          "source": "shinjukugyoen_official_guide",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "text": "연말연시에도 쉬어요.",
-          "source": "shinjukugyoen_official_guide",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "text": "장애인 보조견은 들어갈 수 있어요.",
-          "source": "shinjukugyoen_official_guide",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "facts": {
-        "kind": "facility",
-        "entry": "paid",
-        "regular_closed": [
-          "mon"
-        ],
-        "closed_note_ko": "12월 29일~1월 3일에도 쉬어요.",
-        "source": "shinjukugyoen_official_guide",
-        "last_verified": "2026-10-10"
-      },
-      "status": {
-        "value": "open",
-        "source": "shinjukugyoen_official_guide",
-        "last_verified": "2026-10-10"
-      },
-      "advisory": {
-        "level": "none",
-        "source": "mofa_jp",
-        "last_verified": "2026-09-28"
-      },
-      "rank": {
-        "order": 999,
-        "designations": []
-      },
-      "photo_link": "https://commons.wikimedia.org/wiki/File:Shinjuku_Gyoen_National_Garden_-_sakura_3.JPG",
-      "source": "wd",
-      "last_verified": "2026-10-10"
-    },
-    {
-      "id": "ueno-zoo",
-      "qid": "Q162722",
-      "names": {
-        "ko": "우에노 동물원",
-        "ko_basis": "editorial",
-        "en": "Ueno Zoo",
-        "local": "上野動物園",
-        "local_short": "上野動物園",
-        "local_lang": "ja",
-        "source": "wd"
-      },
-      "aliases_ko": [
-        "우에노 동물원 판다"
-      ],
-      "aliases_en": [
-        "Ueno Zoological Gardens"
-      ],
-      "mentions_ko": [
-        "판다의 숲"
-      ],
-      "region": "jp_tokyo",
-      "area_ko": "도쿄 다이토구 우에노 공원",
-      "category": "theme_park",
-      "geo": {
-        "kind": "entrance",
-        "lat": 35.7175,
-        "lng": 139.77138888889,
-        "source": "wd",
-        "last_verified": "2026-10-10",
-        "qid": "Q162722"
-      },
-      "address_local": {
-        "text": "〒110-8711 台東区上野公園9-83 上野動物園",
-        "source": "uenozoo_official_tickets",
-        "last_verified": "2026-10-10"
-      },
-      "access": {
-        "modes": [
-          "train",
-          "metro"
-        ],
-        "nearest_ko": "JR 우에노역 공원 출구에서 걸어가요",
-        "source": "uenozoo_official_access",
-        "last_verified": "2026-10-10"
-      },
-      "official_url": "https://www.tokyo-zoo.net/zoo/ueno/",
-      "summary_ko": "우에노 공원 안에 있는 도쿄의 동물원이에요.",
-      "body_ko": [
-        "우에노 동물원은 1882년 농상무성 소관 박물관 부속 시설로 문을 열었어요.",
-        "2020년 9월에는 새 시설 '판다의 숲'이 문을 열었어요."
-      ],
-      "claims": [
-        {
-          "id": "c1",
-          "text_ko": "1882년(메이지 15년) 농상무성 소관 박물관 부속 시설로 개원했어요.",
-          "source": "uenozoo_official_about",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c2",
-          "text_ko": "2020년 9월에 새 시설 '판다의 숲'이 문을 열었어요.",
-          "source": "uenozoo_official_about",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "tips_ko": [
-        {
-          "text": "반려동물을 데리고 들어갈 수 없어요.",
-          "source": "uenozoo_official_rules",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "text": "입장료가 무료인 사람이나 연간 패스가 있으면 표를 사지 않고 개찰구로 가요.",
-          "source": "uenozoo_official_access",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "facts": {
-        "kind": "facility",
-        "entry": "paid",
-        "regular_closed": [
-          "mon"
-        ],
-        "closed_note_ko": "월요일이 공휴일·대체 휴일이면 다음 날, 12월 29일~1월 1일에 쉬어요.",
-        "source": "uenozoo_official_tickets",
-        "last_verified": "2026-10-10"
-      },
-      "status": {
-        "value": "open",
-        "source": "uenozoo_official_tickets",
-        "last_verified": "2026-10-10"
-      },
-      "advisory": {
-        "level": "none",
-        "source": "mofa_jp",
-        "last_verified": "2026-09-28"
-      },
-      "rank": {
-        "order": 999,
-        "designations": []
-      },
-      "photo_link": "https://commons.wikimedia.org/wiki/File:Ueno-zoo.jpg",
-      "source": "wd",
-      "last_verified": "2026-10-10"
-    },
-    {
-      "id": "blue-pond",
-      "qid": "Q11661016",
-      "names": {
-        "ko": "푸른 연못",
-        "ko_basis": "editorial",
-        "en": "Blue Pond",
-        "local": "青い池",
-        "local_short": "白金青い池",
-        "local_lang": "ja",
-        "source": "wd"
-      },
-      "aliases_ko": [
-        "아오이이케",
-        "시로가네 푸른 연못",
-        "청의 연못"
-      ],
-      "aliases_en": [
-        "Shirogane Blue Pond"
-      ],
-      "mentions_ko": [
-        "비에이 블루"
-      ],
-      "region": "jp_biei_furano",
-      "area_ko": "홋카이도 비에이초 시로가네",
-      "category": "nature",
-      "geo": {
-        "kind": "site",
-        "lat": 43.493583,
-        "lng": 142.614028,
-        "source": "wd",
-        "last_verified": "2026-10-10",
-        "qid": "Q11661016"
-      },
-      "access": {
-        "modes": [
-          "bus",
-          "car_only"
-        ],
-        "nearest_ko": "JR 비에이역에서 도호쿠 버스로 가거나 차로 가요",
-        "source": "biei_kanko_bluepond",
-        "last_verified": "2026-10-10"
-      },
-      "official_url": "https://www.biei-hokkaido.jp/ja/facility/shirogane-blue-pond",
-      "summary_ko": "푸른빛 물에 마른 낙엽송이 서 있는 연못이에요.",
-      "body_ko": [
-        "푸른 연못은 도카치다케 방재 공사 때 제방에 고인 물이 신비한 푸른색을 띠면서 이름이 붙었어요.",
-        "눈 녹은 물이 흘러드는 봄에는 녹색빛 파랑, 초여름에는 연한 파랑으로 보이는 날이 많고, 한겨울에는 연못이 얼어요."
-      ],
-      "claims": [
-        {
-          "id": "c1",
-          "text_ko": "도카치다케 방재 공사 때 제방에 고인 물이 신비한 푸른색을 띠면서 '푸른 연못'으로 불리게 됐어요.",
-          "source": "biei_kanko_bluepond",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c2",
-          "text_ko": "계절과 날씨에 따라 푸른색이 달라요. 눈 녹은 물이 많은 봄에는 녹색빛, 초여름에는 연한 파랑으로 보이는 날이 많아요.",
-          "source": "biei_kanko_bluepond",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "tips_ko": [
-        {
-          "text": "연못 안에는 울타리를 넘어 들어가지 마세요. 목숨이 위험하다고 안내해요.",
-          "source": "biei_kanko_bluepond",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "text": "드론은 허가 신청과 승인이 있어야 날릴 수 있어요.",
-          "source": "biei_kanko_bluepond",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "text": "주차장이 있어요. 요금은 공식 안내를 확인하세요.",
-          "source": "biei_kanko_bluepond",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "facts": {
-        "kind": "public_space"
-      },
-      "status": {
-        "value": "open",
-        "source": "biei_kanko_bluepond",
-        "last_verified": "2026-10-10"
-      },
-      "advisory": {
-        "level": "none",
-        "source": "mofa_jp",
-        "last_verified": "2026-09-28"
-      },
-      "rank": {
-        "order": 999,
-        "designations": []
-      },
-      "photo_link": "https://commons.wikimedia.org/wiki/File:Biei_Blue-pond.jpg",
-      "source": "wd",
-      "last_verified": "2026-10-10"
-    },
-    {
-      "id": "shirahige-falls",
-      "qid": "Q17228813",
-      "names": {
-        "ko": "시라히게 폭포",
-        "ko_basis": "editorial",
-        "en": "Shirahige Falls",
-        "local": "白ひげの滝",
-        "local_short": "白ひげの滝",
-        "local_lang": "ja",
-        "source": "wd"
-      },
-      "aliases_ko": [
-        "흰 수염 폭포",
-        "시라히게노타키"
-      ],
-      "mentions_ko": [
-        "블루 리버"
-      ],
-      "region": "jp_biei_furano",
-      "area_ko": "홋카이도 비에이초 시로가네",
-      "category": "nature",
-      "geo": {
-        "kind": "site",
-        "lat": 43.474667,
-        "lng": 142.639194,
-        "source": "wd",
-        "last_verified": "2026-10-10",
-        "qid": "Q17228813"
-      },
-      "access": {
-        "modes": [
-          "bus",
-          "car_only"
-        ],
-        "nearest_ko": "JR 비에이역에서 도호쿠 버스로 '비에이 시로가네 온천' 정류장에서 내려 걸어가요",
-        "source": "biei_kanko_shirahige",
-        "last_verified": "2026-10-10"
-      },
-      "official_url": "https://www.biei-hokkaido.jp/ja/facility/shirahige-waterfalls",
-      "summary_ko": "바위틈에서 솟은 물이 쏟아지는 비에이강 가의 폭포예요.",
-      "body_ko": [
-        "시라히게 폭포는 낙차 약 30m로, 바위 사이로 스며 나온 지하수가 계류로 쏟아져요.",
-        "일본에서도 드문 '잠류폭'으로 분류되고, 겨울에는 물보라가 나무에 상고대를 만들어요."
-      ],
-      "claims": [
-        {
-          "id": "c1",
-          "text_ko": "낙차는 약 30m이고, 자연 바위 틈에서 스며 나온 지하수가 계류로 흘러 떨어져요.",
-          "source": "biei_kanko_shirahige",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c2",
-          "text_ko": "일본에서도 드문 '잠류폭'으로 분류되는 폭포예요.",
-          "source": "biei_kanko_shirahige",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "tips_ko": [
-        {
-          "text": "주차장이 있고 겨울에도 문을 열어요.",
-          "source": "biei_kanko_shirahige",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "text": "다리 '블루 리버'에서 보는 경치도 안내하고 있어요.",
-          "source": "biei_kanko_shirahige",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "text": "드론 비행·촬영은 원칙적으로 금지예요.",
-          "source": "biei_kanko_shirahige",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "facts": {
-        "kind": "public_space"
-      },
-      "status": {
-        "value": "open",
-        "source": "biei_kanko_shirahige",
-        "last_verified": "2026-10-10"
-      },
-      "advisory": {
-        "level": "none",
-        "source": "mofa_jp",
-        "last_verified": "2026-09-28"
-      },
-      "rank": {
-        "order": 999,
-        "designations": []
-      },
-      "photo_link": "https://commons.wikimedia.org/wiki/File:Shirahige_Falls,_Biei_River,_Hokkaido,_Japan.jpg",
-      "source": "wd",
-      "last_verified": "2026-10-10"
-    },
-    {
-      "id": "farm-tomita",
-      "qid": "Q10954584",
-      "names": {
-        "ko": "팜 도미타",
-        "ko_basis": "editorial",
-        "en": "Farm Tomita",
-        "local": "ファーム富田",
-        "local_short": "ファーム富田",
-        "local_lang": "ja",
-        "source": "wd"
-      },
-      "aliases_ko": [
-        "파무토미타",
-        "후라노 라벤더 밭"
-      ],
-      "aliases_en": [
-        "Tomita Farm"
-      ],
-      "mentions_ko": [
-        "라벤더 이스트"
-      ],
-      "region": "jp_biei_furano",
-      "area_ko": "홋카이도 나카후라노초",
-      "category": "nature",
-      "geo": {
-        "kind": "entrance",
-        "lat": 43.418894444444,
-        "lng": 142.42658055556,
-        "source": "wd",
-        "last_verified": "2026-10-10",
-        "qid": "Q10954584"
-      },
-      "access": {
-        "modes": [
-          "train",
-          "bus"
-        ],
-        "nearest_ko": "JR 후라노선 '라벤더밭' 역에서 걸어가요",
-        "source": "farmtomita_official_access",
-        "last_verified": "2026-10-10"
-      },
-      "official_url": "https://www.farm-tomita.co.jp/",
-      "summary_ko": "라벤더 밭으로 알려진 나카후라노의 꽃밭이에요.",
-      "body_ko": [
-        "팜 도미타는 1903년 도미타 도쿠마가 나카후라노 들판에 괭이를 댄 데서 시작됐어요.",
-        "라벤더 이스트는 팜 도미타에서 차로 약 4km 떨어진 별도 구역이에요."
-      ],
-      "claims": [
-        {
-          "id": "c1",
-          "text_ko": "1903년(메이지 36년) 도미타 도쿠마가 나카후라노 들판에 괭이를 댄 데서 시작됐어요.",
-          "source": "farmtomita_official_history",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c2",
-          "text_ko": "라벤더 이스트는 팜 도미타에서 차로 약 4km(약 7분) 떨어져 있어요.",
-          "source": "farmtomita_official_access",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "tips_ko": [
-        {
-          "text": "영업 시간 밖에는 들어가지 말라고 안내해요.",
-          "source": "farmtomita_official_top",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "text": "길가나 버스 전용 주차장에는 세우지 말라고 안내해요.",
-          "source": "farmtomita_official_access",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "text": "근처 정류장은 후라노 버스 '나카후라노'예요.",
-          "source": "farmtomita_official_access",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "facts": {
-        "kind": "facility",
-        "entry": "unknown",
-        "regular_closed": [
-          "unknown"
-        ],
-        "source": "farmtomita_official_top",
-        "last_verified": "2026-10-10"
-      },
-      "status": {
-        "value": "open",
-        "source": "farmtomita_official_top",
-        "last_verified": "2026-10-10"
-      },
-      "advisory": {
-        "level": "none",
-        "source": "mofa_jp",
-        "last_verified": "2026-09-28"
-      },
-      "rank": {
-        "order": 999,
-        "designations": []
-      },
-      "photo_link": "https://commons.wikimedia.org/wiki/File:ファーム富田（Farm_Tomita）_-_panoramio_(4).jpg",
-      "source": "wd",
-      "last_verified": "2026-10-10"
-    },
-    {
-      "id": "kyoto-aquarium",
-      "qid": "Q11375621",
-      "names": {
-        "ko": "교토 수족관",
-        "ko_basis": "editorial",
-        "en": "Kyoto Aquarium",
-        "local": "京都水族館",
-        "local_short": "京都水族館",
-        "local_lang": "ja",
-        "source": "wd"
-      },
-      "aliases_ko": [
-        "교토 아쿠아리움"
-      ],
-      "mentions_ko": [
-        "우메코지 공원"
-      ],
-      "region": "jp_kyoto",
-      "area_ko": "교토시 시모교구 우메코지 공원",
-      "category": "theme_park",
-      "geo": {
-        "kind": "entrance",
-        "lat": 34.987556,
-        "lng": 135.747611,
-        "source": "wd",
-        "last_verified": "2026-10-10",
-        "qid": "Q11375621"
-      },
-      "address_local": {
-        "text": "〒600-8835 京都市下京区観喜寺町35-1（梅小路公園内）",
-        "source": "kyotoaqua_official_access",
-        "last_verified": "2026-10-10"
-      },
-      "access": {
-        "modes": [
-          "train"
-        ],
-        "nearest_ko": "JR 산인선 우메코지교토니시역에서 걸어가요 (교토역 중앙 출구에서도 걸어갈 수 있어요)",
-        "nearest_local": {
-          "text": "梅小路京都西駅",
-          "qid": "Q55670097",
-          "source": "wd"
-        },
-        "source": "kyotoaqua_official_access",
-        "last_verified": "2026-10-10"
-      },
-      "official_url": "https://www.kyoto-aquarium.com/",
-      "summary_ko": "우메코지 공원 안에 있는 교토의 수족관이에요.",
-      "body_ko": [
-        "교토 수족관은 약 200종 1만 점의 바다·강 생물을 가까이서 볼 수 있어요.",
-        "전시 콘셉트는 '물과 함께 이어지는 생명'으로, 단바 산에 내린 비가 샘물과 강을 거쳐 바다에 이르는 흐름을 재현했어요."
-      ],
-      "claims": [
-        {
-          "id": "c1",
-          "text_ko": "약 200종 10,000점의 바다와 강 생물을 가까이서 볼 수 있어요.",
-          "source": "kyotoaqua_official_about",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c2",
-          "text_ko": "전시 콘셉트는 '물과 함께 이어지는 생명'이고, 단바 산에 내린 비가 샘물·시내·강을 거쳐 바다에 이르는 물의 연결과 생태계를 재현했어요.",
-          "source": "kyotoaqua_official_about",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "tips_ko": [
-        {
-          "text": "다시 들어갈 때는 입구에서 표를 보여 줘요.",
-          "source": "kyotoaqua_official_support",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "text": "도시락은 가져와서 정해진 자리에서 먹을 수 있어요.",
-          "source": "kyotoaqua_official_support",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "text": "경사로와 엘리베이터가 있어서 휠체어·유모차로 다닐 수 있어요.",
-          "source": "kyotoaqua_official_support",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "facts": {
-        "kind": "facility",
-        "entry": "paid",
-        "regular_closed": [
-          "none"
-        ],
-        "source": "kyotoaqua_official_price",
-        "last_verified": "2026-10-10"
-      },
-      "status": {
-        "value": "open",
-        "source": "kyotoaqua_official_access",
-        "last_verified": "2026-10-10"
-      },
-      "advisory": {
-        "level": "none",
-        "source": "mofa_jp",
-        "last_verified": "2026-09-28"
-      },
-      "rank": {
-        "order": 999,
-        "designations": []
-      },
-      "photo_link": "https://commons.wikimedia.org/wiki/File:Kyoto_Aquarium_in_2013-5-2_No,27.JPG",
-      "source": "wd",
-      "last_verified": "2026-10-10"
-    },
-    {
-      "id": "teamlab-planets",
-      "qid": "Q97613610",
-      "names": {
-        "ko": "팀랩 플래닛 도쿄",
-        "ko_basis": "editorial",
-        "en": "teamLab Planets TOKYO",
-        "local": "チームラボプラネッツ",
-        "local_short": "チームラボプラネッツ",
-        "local_lang": "ja",
-        "source": "wd"
-      },
-      "aliases_ko": [
-        "팀랩 플래닛",
-        "팀랩 플래넷",
-        "도요스 팀랩"
-      ],
-      "aliases_en": [
-        "teamLab Planets"
-      ],
-      "mentions_ko": [
-        "도요스"
-      ],
-      "region": "jp_tokyo",
-      "area_ko": "도쿄 고토구 도요스",
-      "category": "museum",
-      "geo": {
-        "kind": "entrance",
-        "lat": 35.6492,
-        "lng": 139.7897,
-        "source": "wd",
-        "last_verified": "2026-10-10",
-        "qid": "Q97613610"
-      },
-      "address_local": {
-        "text": "東京都江東区豊洲6-1-16 teamLab Planets TOKYO",
-        "source": "teamlab_official_planets",
-        "last_verified": "2026-10-10"
-      },
-      "access": {
-        "modes": [
-          "metro"
-        ],
-        "nearest_ko": "신도요스역 북쪽 출구에서 걸어가요",
-        "nearest_local": {
-          "text": "新豊洲駅",
-          "qid": "Q766348",
-          "source": "wd"
-        },
-        "source": "teamlab_official_planets",
-        "last_verified": "2026-10-10"
-      },
-      "official_url": "https://www.teamlab.art/jp/e/planets/",
-      "summary_ko": "물에 들어가 걷는 몸 전체 체험형 디지털 아트 뮤지엄이에요.",
-      "body_ko": [
-        "팀랩 플래닛은 아트 콜렉티브 팀랩이 만든, 물에 들어가는 뮤지엄이에요.",
-        "전시 기간은 2018년 7월 7일부터 2027년 말까지예요."
-      ],
-      "claims": [
-        {
-          "id": "c1",
-          "text_ko": "아트 콜렉티브 팀랩이 만든 물에 들어가는 뮤지엄이에요.",
-          "source": "teamlab_official_planets",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c2",
-          "text_ko": "전시 기간은 2018년 7월 7일부터 2027년 말까지예요.",
-          "source": "teamlab_official_planets",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "tips_ko": [
-        {
-          "text": "마지막 입관은 문 닫기 한 시간 전이에요.",
-          "source": "teamlab_official_planets",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "text": "함께 있는 가게는 티켓에 적힌 입장 시간 전에는 들어갈 수 없어요.",
-          "source": "teamlab_official_planets",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "facts": {
-        "kind": "facility",
-        "entry": "paid",
-        "regular_closed": [
-          "irregular"
-        ],
-        "closed_note_ko": "쉬는 날은 공식 사이트 안내를 확인하세요.",
-        "source": "teamlab_official_planets",
-        "last_verified": "2026-10-10"
-      },
-      "status": {
-        "value": "open",
-        "source": "teamlab_official_planets",
-        "last_verified": "2026-10-10"
-      },
-      "advisory": {
-        "level": "none",
-        "source": "mofa_jp",
-        "last_verified": "2026-09-28"
-      },
-      "rank": {
-        "order": 999,
-        "designations": []
-      },
-      "source": "wd",
-      "last_verified": "2026-10-10"
-    },
-    {
-      "id": "tokyo-metropolitan-government-building",
-      "qid": "Q111973",
-      "names": {
-        "ko": "도쿄도청 전망실",
-        "ko_basis": "editorial",
-        "en": "Tokyo Metropolitan Government Building",
-        "local": "東京都庁舎",
-        "local_short": "都庁展望室",
-        "local_lang": "ja",
-        "source": "wd"
-      },
-      "aliases_ko": [
-        "도쿄 도청",
-        "도청 전망대"
-      ],
-      "aliases_en": [
-        "Tokyo Tocho"
-      ],
-      "mentions_ko": [
-        "남전망실",
-        "북전망실"
-      ],
-      "region": "jp_tokyo",
-      "area_ko": "도쿄 신주쿠구 니시신주쿠",
-      "category": "city_view",
-      "tags": [
-        {
-          "id": "free_entry",
-          "source": "tmg_official_tenbou",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "geo": {
-        "kind": "entrance",
-        "lat": 35.68951,
-        "lng": 139.69171,
-        "source": "wd",
-        "last_verified": "2026-10-10",
-        "qid": "Q111973"
-      },
-      "address_local": {
-        "text": "〒163-8001 東京都新宿区西新宿2-8-1",
-        "source": "tmg_official_shisetsu",
-        "last_verified": "2026-10-10"
-      },
-      "access": {
-        "modes": [
-          "metro",
-          "train"
-        ],
-        "nearest_ko": "오에도선 도초마에역에서 바로 이어져 있어요 (JR 신주쿠역 서쪽 출구에서도 걸어갈 수 있어요)",
-        "nearest_local": {
-          "text": "都庁前駅",
-          "qid": "Q246186",
-          "source": "wd"
-        },
-        "source": "tmg_official_shisetsu",
-        "last_verified": "2026-10-10"
-      },
-      "official_url": "https://www.zaimu.metro.tokyo.lg.jp/tochousha/goannai/tenbou",
-      "summary_ko": "도쿄도청 45층에 있는 무료 전망실이에요.",
-      "body_ko": [
-        "도쿄도청 제1본청사 45층에는 남전망실과 북전망실이 있어요.",
-        "전망실은 입실료가 무료이고, 제1본청사 1층의 전용 엘리베이터로 올라가요."
-      ],
-      "claims": [
-        {
-          "id": "c1",
-          "text_ko": "제1본청사 45층에 남전망실과 북전망실이 있어요.",
-          "source": "tmg_official_tenbou",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c2",
-          "text_ko": "전망실 입실료는 무료예요.",
-          "source": "tmg_official_tenbou",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "tips_ko": [
-        {
-          "text": "북전망실은 매달 둘째·넷째 월요일, 남전망실은 첫째·셋째 화요일에 쉬어요.",
-          "source": "tmg_official_tenbou",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "text": "전망실에 가려면 제1본청사 1층의 전용 엘리베이터를 타요.",
-          "source": "tmg_official_tenbou",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "text": "연말연시와 도청 점검일에는 두 전망실 모두 쉬어요.",
-          "source": "tmg_official_tenbou",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "facts": {
-        "kind": "facility",
-        "entry": "free",
-        "regular_closed": [
-          "irregular"
-        ],
-        "closed_note_ko": "휴실일은 공식 안내를 확인하세요.",
-        "source": "tmg_official_tenbou",
-        "last_verified": "2026-10-10"
-      },
-      "status": {
-        "value": "open",
-        "source": "tmg_official_tenbou",
-        "last_verified": "2026-10-10"
-      },
-      "advisory": {
-        "level": "none",
-        "source": "mofa_jp",
-        "last_verified": "2026-09-28"
-      },
-      "rank": {
-        "order": 999,
-        "designations": []
-      },
-      "photo_link": "https://commons.wikimedia.org/wiki/File:Tokyo_Metropolitan_Government_Building_2024.jpg",
-      "source": "wd",
-      "last_verified": "2026-10-10"
+      "last_verified": "2026-10-10",
+      "wiki": {
+        "en": "Port of Nagoya Public Aquarium"
+      },
+      "google_place_id": "ChIJsyTJ06B5A2ARvt6FJ9xiqaE"
     }
   ],
   "retired": [],
@@ -14240,12 +14383,6 @@
       "id": "nagoyaaqua_official_top",
       "name": "名古屋港水族館 トップ",
       "url": "https://nagoyaaqua.jp/",
-      "use": "facts"
-    },
-    {
-      "id": "nagoyajo_official_fee",
-      "name": "名古屋城 料金",
-      "url": "https://www.nagoyajo.city.nagoya.jp/info/fee/",
       "use": "facts"
     },
     {
