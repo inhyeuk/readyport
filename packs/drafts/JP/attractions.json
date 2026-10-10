@@ -8933,6 +8933,281 @@
       "photo_link": "https://commons.wikimedia.org/wiki/File:Tokyo_Disney_Sea_Mountain.jpg",
       "source": "wd",
       "last_verified": "2026-10-10"
+    },
+    {
+      "id": "ginkaku-ji",
+      "qid": "Q257473",
+      "names": {
+        "ko": "긴카쿠지",
+        "ko_basis": "editorial",
+        "en": "Ginkaku-ji",
+        "local": "銀閣寺",
+        "local_short": "銀閣寺",
+        "local_lang": "ja",
+        "source": "wd",
+        "ko_paren": "은각사"
+      },
+      "aliases_ko": [
+        "은각사",
+        "지쇼지",
+        "자조사"
+      ],
+      "aliases_en": [
+        "Jisho-ji"
+      ],
+      "mentions_ko": [
+        "동구당",
+        "관음전"
+      ],
+      "region": "jp_kyoto",
+      "area_ko": "교토시 사쿄구",
+      "category": "heritage",
+      "geo": {
+        "kind": "site",
+        "lat": 35.026666666667,
+        "lng": 135.79833333333,
+        "source": "wd",
+        "last_verified": "2026-10-10",
+        "qid": "Q257473"
+      },
+      "address_local": {
+        "text": "京都府京都市左京区銀閣寺町2",
+        "source": "ginkakuji_official_access",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "bus"
+        ],
+        "nearest_ko": "교토 시버스 '긴카쿠지미치' 정류장에서 내려요",
+        "source": "ginkakuji_official_access",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.shokoku-ji.jp/ginkakuji/",
+      "summary_ko": "히가시야마 기슭에 있는 선종 사찰이에요.",
+      "body_ko": [
+        "긴카쿠지의 정식 이름은 히가시야마 지쇼지이고, 쇼코쿠지의 탑두 사찰 가운데 하나예요.",
+        "무로마치 막부 8대 쇼군 아시카가 요시마사가 지은 산장 '히가시야마전'에서 시작했어요.",
+        "이름은 에도 시대에 금각사와 견주어 불리면서 굳어졌다고 해요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "정식 이름은 히가시야마 지쇼지이고 쇼코쿠지의 탑두 사찰이에요.",
+          "source": "ginkakuji_official_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "무로마치 막부 8대 쇼군 아시카가 요시마사가 지은 산장 히가시야마전이 기원이에요.",
+          "source": "ginkakuji_official_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "긴카쿠지라는 이름은 에도 시대에 금각사에 견주어 부르게 됐다고 해요.",
+          "source": "ginkakuji_official_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "관음전(은각) 안은 공개하지 않고, 동구당·방장 등은 봄가을에만 특별 공개해요.",
+          "source": "ginkakuji_official_faq",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "관음전(은각) 안은 볼 수 없고 보통은 정원만 걸으며 봐요.",
+          "source": "ginkakuji_official_faq",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "전망소 등 계단 있는 곳은 휠체어·유모차로 올라갈 수 없어요.",
+          "source": "ginkakuji_official_access",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "절에는 일반 주차장이 없어서 시영 주차장이나 코인 주차장을 써야 해요.",
+          "source": "ginkakuji_official_faq",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "none"
+        ],
+        "source": "ginkakuji_official_access",
+        "last_verified": "2026-10-10"
+      },
+      "status": {
+        "value": "open",
+        "source": "ginkakuji_official_access",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 999,
+        "designations": []
+      },
+      "photo_link": "https://commons.wikimedia.org/wiki/File:GinkakujiTemple.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10"
+    },
+    {
+      "id": "byodoin",
+      "qid": "Q61094",
+      "names": {
+        "ko": "뵤도인",
+        "ko_basis": "editorial",
+        "en": "Byōdō-in",
+        "local": "平等院",
+        "local_short": "平等院",
+        "local_lang": "ja",
+        "source": "wd",
+        "ko_paren": "평등원"
+      },
+      "aliases_ko": [
+        "평등원",
+        "보도인"
+      ],
+      "aliases_en": [
+        "Byodoin Temple"
+      ],
+      "mentions_ko": [
+        "호오도",
+        "봉황당"
+      ],
+      "region": "jp_kyoto",
+      "area_ko": "교토부 우지시",
+      "category": "heritage",
+      "tags": [
+        {
+          "id": "unesco",
+          "source": "byodoin_official_history",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 34.889444444444,
+        "lng": 135.80777777778,
+        "source": "wd",
+        "last_verified": "2026-10-10",
+        "qid": "Q61094"
+      },
+      "address_local": {
+        "text": "〒611-0021 京都府宇治市宇治蓮華116",
+        "source": "byodoin_official_access",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "train"
+        ],
+        "nearest_ko": "JR 나라선이나 게이한 우지선을 타고 우지역에서 내려 걸어가요",
+        "source": "byodoin_official_access_train_pdf",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.byodoin.or.jp/",
+      "summary_ko": "봉황당으로 유명한 우지의 세계유산 사찰이에요.",
+      "body_ko": [
+        "뵤도인은 1052년 후지와라노 요리미치가 아버지 미치나가에게서 물려받은 별장을 절로 바꾸며 시작됐어요.",
+        "이듬해인 1053년에 아미타당(봉황당)이 낙성했고, 안에는 국보 아미타여래좌상이 모셔져 있어요.",
+        "약 1000년 전의 건물과 불상이 전해져 세계유산에도 올라 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "1052년 후지와라노 요리미치가 아버지 미치나가에게서 물려받은 별장을 절로 바꿔 뵤도인을 열었어요.",
+          "source": "byodoin_official_history",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "이듬해 1053년에 아미타당(봉황당)이 낙성했어요.",
+          "source": "byodoin_official_history",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "봉황당 안에는 국보 아미타여래좌상이 모셔져 있어요.",
+          "source": "byodoin_official_architecture",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "약 1000년 전에 지은 건물과 불상이 전해져 세계유산에 등록됐어요.",
+          "source": "byodoin_official_history",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "봉황당 안은 정원제 시간권을 정원 안 접수처에서 사야 들어가요.",
+          "source": "byodoin_official_internal",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "경내에는 음식을 가져갈 수 없고, 밀폐되는 물병만 가져갈 수 있어요.",
+          "source": "byodoin_official_nofood",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "한 번 나가면 다시 들어올 수 없어요.",
+          "source": "byodoin_official_faq",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "전용 주차장은 없고 근처 유료 주차장을 써야 해요.",
+          "source": "byodoin_official_access",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "none"
+        ],
+        "closed_note_ko": "봉황당 안은 법요·행사나 날씨로 쉬는 날이 있어요.",
+        "source": "byodoin_official_guide",
+        "last_verified": "2026-10-10"
+      },
+      "status": {
+        "value": "open",
+        "source": "byodoin_official_guide",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 999,
+        "designations": [
+          {
+            "kind": "unesco",
+            "name_ko": "세계유산 고도 교토의 문화재",
+            "source": "unesco_688"
+          },
+          {
+            "kind": "jp_national_treasure_partial",
+            "name_ko": "봉황당 안 아미타여래좌상(국보)",
+            "source": "byodoin_official_architecture"
+          }
+        ]
+      },
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Phoenix_Hall,_Byodo-in,_November_2016_-01.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10"
     }
   ],
   "retired": [],
@@ -10610,6 +10885,72 @@
       "id": "tds_official_guide",
       "name": "東京ディズニーシー パークのサービス",
       "url": "https://www.tokyodisneyresort.jp/tds/guide.html",
+      "use": "facts"
+    },
+    {
+      "id": "byodoin_official_access",
+      "name": "平等院 アクセス",
+      "url": "https://www.byodoin.or.jp/guide/access/",
+      "use": "facts"
+    },
+    {
+      "id": "byodoin_official_access_train_pdf",
+      "name": "平等院 電車でのアクセス",
+      "url": "https://www.byodoin.or.jp/common/pdf/access-train.pdf",
+      "use": "facts"
+    },
+    {
+      "id": "byodoin_official_architecture",
+      "name": "平等院 建築",
+      "url": "https://www.byodoin.or.jp/learn/architecture/",
+      "use": "facts"
+    },
+    {
+      "id": "byodoin_official_faq",
+      "name": "平等院 Q&A 一般拝観",
+      "url": "https://www.byodoin.or.jp/faq/public/",
+      "use": "facts"
+    },
+    {
+      "id": "byodoin_official_guide",
+      "name": "平等院 拝観案内",
+      "url": "https://www.byodoin.or.jp/guide/",
+      "use": "facts"
+    },
+    {
+      "id": "byodoin_official_history",
+      "name": "平等院 古今平等院",
+      "url": "https://www.byodoin.or.jp/learn/history/",
+      "use": "facts"
+    },
+    {
+      "id": "byodoin_official_internal",
+      "name": "平等院 内部拝観について",
+      "url": "https://www.byodoin.or.jp/guide/internal-view/",
+      "use": "facts"
+    },
+    {
+      "id": "byodoin_official_nofood",
+      "name": "平等院 境内での飲食及び持ち込みの禁止について",
+      "url": "https://www.byodoin.or.jp/news/1/post-83/",
+      "use": "facts"
+    },
+    {
+      "id": "ginkakuji_official_about",
+      "name": "相国寺 銀閣寺について",
+      "url": "https://www.shokoku-ji.jp/ginkakuji/about/",
+      "use": "facts"
+    },
+    {
+      "id": "ginkakuji_official_access",
+      "name": "相国寺 銀閣寺 アクセス",
+      "url": "https://www.shokoku-ji.jp/ginkakuji/access/",
+      "use": "facts"
+    },
+    {
+      "id": "ginkakuji_official_faq",
+      "name": "相国寺 銀閣寺 よくある質問",
+      "url": "https://www.shokoku-ji.jp/ginkakuji/faq/",
       "use": "facts"
     }
   ]
