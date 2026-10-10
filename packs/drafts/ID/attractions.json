@@ -1155,7 +1155,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 33,
+        "order": 32,
         "designations": []
       },
       "photo": null,
@@ -1539,7 +1539,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 31,
+        "order": 30,
         "designations": []
       },
       "photo": null,
@@ -4075,7 +4075,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 30,
+        "order": 29,
         "designations": []
       },
       "photo": null,
@@ -4362,7 +4362,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 32,
+        "order": 31,
         "designations": []
       },
       "photo": null,
@@ -4483,7 +4483,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 29,
+        "order": 28,
         "designations": []
       },
       "photo": null,
@@ -4491,124 +4491,6 @@
       "source": "wd",
       "last_verified": "2026-10-10",
       "google_place_id": "ChIJBQzBlhRu0i0RsbwncJ1LyB4"
-    },
-    {
-      "id": "angels-billabong",
-      "qid": null,
-      "names": {
-        "ko": "앙겔스 빌라봉",
-        "ko_basis": "editorial",
-        "ko_paren": null,
-        "en": "Angel's Billabong",
-        "local": "Angel’s Billabong",
-        "local_short": "Angel’s Billabong",
-        "local_lang": "id",
-        "source": "dispar_klungkung_paket"
-      },
-      "aliases_ko": [
-        "엔젤스 빌라봉",
-        "엔젤 빌라봉",
-        "천사의 못"
-      ],
-      "aliases_en": [
-        "Angels Billabong",
-        "Angel Billabong"
-      ],
-      "mentions_ko": [],
-      "region": "id_nusa_penida",
-      "area_ko": "누사페니다 붕아 므까르 마을",
-      "category": "nature",
-      "tags": [],
-      "geo": {
-        "kind": "site",
-        "lat": -8.7335286,
-        "lng": 115.4489896,
-        "source": "osm",
-        "qid": null,
-        "osm": "way/709619834",
-        "last_verified": "2026-10-10"
-      },
-      "wd_geo": null,
-      "address_local": null,
-      "access": {
-        "modes": [
-          "car_only"
-        ],
-        "nearest_ko": "누사페니다 붕아 므까르 마을, 브로큰 비치 옆이에요. 섬 항구에서 차로 가요",
-        "source": "klungkung_nusapenida_sekilas",
-        "last_verified": "2026-10-10"
-      },
-      "official_url": "https://dispar.klungkungkab.go.id/paket-wisata-nusa-penida-keindahan-pantainya-tiada-tandingannya/",
-      "summary_ko": "바다로 이어지는 물길 끝에 생긴 누사페니다의 맑은 자연 못이에요.",
-      "body_ko": [
-        "앙겔스 빌라봉은 누사페니다 붕아 므까르 마을에 있어요.",
-        "바다로 흘러드는 물길 끝에 생긴 자연 못이에요.",
-        "물이 맑아 바닥까지 보이고, 못 바닥의 바위는 이끼로 초록빛을 띠어요."
-      ],
-      "claims": [
-        {
-          "id": "c1",
-          "text_ko": "바다로 흘러드는 물길 끝에 생긴 자연 못이에요.",
-          "source": "dispar_klungkung_paket",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c2",
-          "text_ko": "못 바닥의 바위는 이끼로 초록빛을 띠어요.",
-          "source": "dispar_klungkung_paket",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c3",
-          "text_ko": "물이 맑아 바닥까지 보여요.",
-          "source": "dispar_klungkung_paket",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c4",
-          "text_ko": "누사페니다 붕아 므까르 마을에 있어요.",
-          "source": "klungkung_nusapenida_sekilas",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "tips_ko": [
-        {
-          "text": "밀물 때는 파도가 갑자기 못 안으로 밀려들 수 있어 조심해야 해요.",
-          "source": "dispar_klungkung_paket",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "text": "브로큰 비치와 가까이 붙어 있어요.",
-          "source": "dispar_klungkung_paket",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "facts": {
-        "kind": "public_space"
-      },
-      "volatile": null,
-      "seasonal": [],
-      "risk": [],
-      "status": {
-        "value": "open",
-        "note_ko": null,
-        "source": "dispar_klungkung_paket",
-        "last_verified": "2026-10-10"
-      },
-      "advisory": {
-        "level": "1",
-        "source": "mofa_id",
-        "last_verified": "2026-09-28"
-      },
-      "rank": {
-        "order": 28,
-        "designations": []
-      },
-      "photo": null,
-      "photo_link": null,
-      "source": "dispar_klungkung_paket",
-      "last_verified": "2026-10-10",
-      "google_place_id": "ChIJC7KcfoFv0i0ReRXz2tOmixY"
     },
     {
       "id": "kuta-mandalika",
@@ -4736,7 +4618,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 34,
+        "order": 33,
         "designations": []
       },
       "photo": null,

@@ -1838,7 +1838,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 30,
+        "order": 29,
         "designations": []
       },
       "photo": null,
@@ -2574,7 +2574,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 31,
+        "order": 30,
         "designations": []
       },
       "photo": null,
@@ -3475,150 +3475,6 @@
       "google_place_id": "ChIJny-BJpLDSjARtmEDgFcyASw"
     },
     {
-      "id": "cheong-fatt-tze-mansion",
-      "qid": "Q5091627",
-      "names": {
-        "ko": "청팟츠 맨션",
-        "ko_basis": "editorial",
-        "ko_paren": null,
-        "en": "Cheong Fatt Tze Mansion",
-        "local": "Rumah Agam Cheong Fatt Tze",
-        "local_short": "Cheong Fatt Tze Mansion",
-        "local_lang": "ms",
-        "source": "wd"
-      },
-      "aliases_ko": [
-        "블루 맨션",
-        "청 팟 쯔 맨션",
-        "장필사 저택"
-      ],
-      "aliases_en": [
-        "The Blue Mansion",
-        "Blue Mansion"
-      ],
-      "mentions_ko": [
-        "리스 스트리트"
-      ],
-      "region": "my_penang",
-      "area_ko": "조지타운 리스 스트리트",
-      "category": "heritage",
-      "tags": [],
-      "geo": {
-        "kind": "site",
-        "lat": 5.42156,
-        "lng": 100.33479,
-        "source": "wd",
-        "qid": "Q5091627",
-        "osm": null,
-        "last_verified": "2026-10-10"
-      },
-      "wd_geo": {
-        "lat": 5.42156,
-        "lng": 100.33479
-      },
-      "address_local": {
-        "text": "14, Leith Street, 10200 Penang",
-        "source": "cft_about",
-        "last_verified": "2026-10-10"
-      },
-      "access": {
-        "modes": [
-          "bus"
-        ],
-        "nearest_ko": "무료 CAT 셔틀버스·래피드 페낭 104·204·502번 청팟츠 맨션 정류장",
-        "source": "pgt_map2026",
-        "last_verified": "2026-10-10"
-      },
-      "official_url": "https://www.cheongfatttzemansion.com/",
-      "wiki": {
-        "en": "Cheong Fatt Tze Mansion"
-      },
-      "summary_ko": "19세기 말 객가 상인 청팟츠가 지은 남색 저택이에요.",
-      "body_ko": [
-        "19세기 말에 지은 청팟츠의 저택으로, 안뜰 5개를 둔 중국식 저택이에요.",
-        "1995년에 복원을 마쳤고, 2000년 유네스코 아시아태평양 문화유산상을 받았어요.",
-        "지금은 부티크 호텔로 쓰이고, 하루 2번 가이드 투어로 일부 공간을 둘러볼 수 있어요."
-      ],
-      "claims": [
-        {
-          "id": "c1",
-          "text_ko": "19세기 말에 지었고, 안뜰 5개가 있어요.",
-          "source": "cft_history",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c2",
-          "text_ko": "1995년 복원을 마쳤고, 2000년 유네스코 아시아태평양 문화유산상을 받았어요.",
-          "source": "cft_history",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c3",
-          "text_ko": "부티크 호텔이자 공개 저택으로, 하루 2번 가이드 투어가 있어요.",
-          "source": "cft_tours",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "tips_ko": [
-        {
-          "text": "투어는 자주 매진되니 온라인으로 미리 표를 사라고 안내해요.",
-          "source": "cft_tours",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "text": "호텔 투숙객 보호를 위해 투어 때는 저택 일부만 볼 수 있어요.",
-          "source": "cft_tours",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "text": "식당과 가이드 투어만 일반에 열려 있어요.",
-          "source": "cft_faq",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "text": "자기 이어폰과 스마트폰으로 듣는 셀프 오디오 투어도 있어요.",
-          "source": "cft_tours",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "facts": {
-        "kind": "facility",
-        "entry": "paid",
-        "booking": "recommended",
-        "booking_note_ko": "가이드 투어는 온라인 예약을 권해요.",
-        "regular_closed": [
-          "none"
-        ],
-        "closed_note_ko": null,
-        "visit_note_ko": null,
-        "source": "cft_tours",
-        "last_verified": "2026-10-10"
-      },
-      "volatile": null,
-      "seasonal": [],
-      "risk": [],
-      "status": {
-        "value": "open",
-        "note_ko": null,
-        "source": "cft_tours",
-        "last_verified": "2026-10-10"
-      },
-      "advisory": {
-        "level": "1",
-        "source": "mofa_my",
-        "last_verified": "2026-09-28"
-      },
-      "rank": {
-        "order": 27,
-        "designations": []
-      },
-      "photo": null,
-      "photo_link": "https://commons.wikimedia.org/wiki/Category:Cheong_Fatt_Tze_Mansion",
-      "source": "wd",
-      "last_verified": "2026-10-10",
-      "google_place_id": "ChIJJZ1Pb5rDSjAR0FgEYqphTw0"
-    },
-    {
       "id": "pinang-peranakan-mansion",
       "qid": "Q28034427",
       "names": {
@@ -3732,7 +3588,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 28,
+        "order": 27,
         "designations": []
       },
       "photo": null,
@@ -4143,7 +3999,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 32,
+        "order": 31,
         "designations": []
       },
       "photo": null,
@@ -4446,7 +4302,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 29,
+        "order": 28,
         "designations": []
       },
       "photo": null,
@@ -4692,7 +4548,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 33,
+        "order": 32,
         "designations": []
       },
       "photo": null,
@@ -5172,7 +5028,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 34,
+        "order": 33,
         "designations": []
       },
       "photo": null,
