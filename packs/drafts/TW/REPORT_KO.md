@@ -142,3 +142,136 @@
 6. **'입장 무료' 근거 수준**: 베이터우 온천박물관은 박물관 자체가 아니라 관할 문화국 안내, 지열곡은 관리 주체(수도사업처) FAQ가 근거. 더 엄격히 하려면 두 곳의 entry를 `unknown`, free_entry 태그 삭제.
 7. **치진 해변 → 치허우 포대 대체**, **타이난 공자묘 휴무 'New Year’s Eve'**(음력·양력 불명이라 영문 병기) 표기, 대표 한국어 이름(적감루·안평고보·억재금성 — 위키 라벨 츠칸러우·질란디아 요새·이자이 금성은 별칭) 확인.
 8. 국립고궁박물원 입장료·휴관일은 robots 차단이라 사장님이 npm.gov.tw를 직접 확인해 주셔야 채울 수 있다.
+
+---
+
+# 2차 (2026-10-10)
+
+- 데이터: `packs/drafts/TW/attractions.json` (release `draft`, version **`2026.10.10-1`**). 지역 8개 그대로, 관광지 **23 → 44곳**(새로 21곳), 출처 87 → **140개**.
+- 새 지역 4곳을 채웠다: **타이중**(base, 3곳) · **일월담**(타이중에서 하루 다녀오는 곳, 4곳) · **컨딩**(base, 4곳) · **화롄·타이루거**(base, 3곳). 모두 `wave: 2`.
+- 1차 보고서 '다음 차수'에 적어 둔 보류분 7곳도 함께 채웠다: 양밍산을 Wikidata 항목이 있는 지점으로 나눈 **칭톈강·샤오유컹**, 단수이의 **후웨이 포대·단수이 세관 세무사 관저(샤오바이궁)**, 가오슝의 **치진 해수욕장·다거우 영국 영사관**, 타이난의 **쓰뎬우먀오**.
+- 근거는 1차에서 이미 모아 둔 `~/.readyport/evidence/TW/<id>/` 스냅샷을 **그대로 다시 썼다**(새로 수집한 페이지 없음). 곳마다 `extract.json`을 새로 만들어 인용을 필드별로 묶었다. 확인일은 모두 2026-10-10.
+- 막힌 사이트는 1차 때 사람과 같은 열람(실제 브라우저)으로 저장해 둔 스냅샷을 썼다: `travel.taipei`(칭톈강), `khh.travel`(치진 해수욕장·다거우 영국 영사관), `travel.taichung.gov.tw`(펑자 야시장·가오메이 습지), `hualien.travel`(타이루거·치싱탄·둥다먼). 머리줄에 `collected_via: manual_browser_save`가 남아 있다. 1차 때 못 뚫은 `ymsnp.gov.tw`·`nps.gov.tw`는 이번에도 쓰지 않고, 양밍산 두 곳은 관광서 `taiwan.net.tw`와 타이베이 관광 포털·공차 동태 시스템으로 채웠다.
+- D4-A: 여는 시간·요금 숫자 없음(계절별 개방 시간·휴관일은 숫자 없이 문장으로만). D12: 위키 문장을 옮기지 않고 공식 사실로 새로 썼다(해요체). D13·D14·D18·D19·D20·D21: 해당 곳 없음. `entry: free`를 새로 붙인 곳은 없다(치진 해수욕장은 '입장료 없음'이 공식 안내에 있지만 `public_space`라 태그를 붙이지 않고 claims로만 남겼다).
+- 연도 표기: 문화자산국 레코드나 관광서 글에 서력이 함께 적힌 사실만 서력으로 썼다. 민국 연호만 있는 사실(컨딩 국가공원 설립 연도, 어롼비 공원 개방 연도, 등대 일반 공개 연도 등)은 **환산하지 않고 아예 넣지 않았다**.
+
+## 좌표
+
+- 19곳은 Wikidata(QID) 좌표. **2곳은 OpenStreetMap 좌표**(2026-10-10 결정, source `osm`, license `ODbL-1.0`):
+  - 르웨탄 케이블카 — Wikidata `Q11086169`에 좌표가 없어 `node/800331755`(日月潭端車站, aerialway=station).
+  - 치진 해수욕장 — Wikidata `Q86731337`에 좌표가 없어 `way/145773967`(旗津海水浴場).
+- 마오비터우 공원은 중국어 위키가 컨딩 국가공원으로 넘겨주지만, OSM 태그에서 별도 항목 `Q49521379`(貓鼻頭公園)를 찾아 그 Wikidata 좌표를 썼다.
+- 타이루거는 공원 항목 `Q707427` 좌표(화롄역에서 약 33km — 40km 안)를 썼다. 방문 지점(타이루거 방문자센터) Wikidata 항목이 없어 `geo.kind`는 `site`이고 '방문 지점 권장' 경고가 남는다.
+
+## 새 장소 (rank.order 순)
+
+| order | id | 한국어 이름 | 지역 | 종류 | 사실 수 | 지정 | ko/en 조회수 | status | 빈 칸 |
+|---|---|---|---|---|---|---|---|---|---|
+| 10 | eluanbi-park | 어롼비 공원 | 컨딩 | 산·자연 | claims 8 · tips 2 | 국가 지정 고적 어롼비 등대(2024) | – / 3,308 | open | regular_closed=unknown, photo_link |
+| 11 | former-british-consulate-takao | 다거우 영국 영사관 | 가오슝 | 역사·유적 | claims 6 · tips 2 | 국가 지정 고적 다거우 영국 영사관 및 관저(2019) | – / 2,780 | **partial** | photo_link |
+| 12 | state-temple-of-the-martial-god | 쓰뎬우먀오 | 타이난 | 역사·유적 | claims 8 · tips 2 | 국가 지정 고적 쓰뎬우먀오(1983) | – / 2,353 | open | entry=unknown, photo_link |
+| 13 | hobe-fort | 후웨이 포대 | 타이베이(단수이) | 역사·유적 | claims 8 · tips 2 | 국가 지정 고적 후웨이 포대(1985) | – / 2,234 | open | photo_link |
+| 16 | hengchun-old-town | 헝춘 옛 성 | 컨딩 | 역사·유적 | claims 8 · tips 2 | 국가 지정 고적 헝춘 옛 성(1985) | – / 1,373 | open | entry=unknown, photo_link |
+| 17 | tamsui-customs-officers-residence | 단수이 세관 세무사 관저 | 타이베이(단수이) | 역사·유적 | claims 6 · tips 2 | 직할시 지정 고적(1997) | – / 473 | open | entry=unknown, photo_link |
+| 22 | taroko-gorge | 타이루거 국가공원 | 화롄 | 산·자연 | claims 6 · tips 3 | 없음 | 372 / 26,550 | **partial** | google_place_id, photo_link |
+| 24 | sun-moon-lake | 르웨탄 | 일월담 | 산·자연 | claims 6 · tips 3 | 없음 | 262 / 35,516 | open | address_local, photo_link |
+| 27 | fengjia-night-market | 펑자 야시장 | 타이중 | 시장·쇼핑거리 | claims 5 · tips 2 | 없음 | 64 / 3,981 | open | photo_link |
+| 28 | qixingtan-beach | 치싱탄 해변 | 화롄 | 바다·섬 | claims 5 · tips 3 | 없음 | 58 / 2,745 | open | photo_link |
+| 29 | kenting-national-park | 컨딩 국가공원 | 컨딩 | 산·자연 | claims 8 · tips 3 | 없음 | – / 11,170 | open | photo_link |
+| 32 | sun-moon-lake-wenwu-temple | 원우먀오 | 일월담 | 역사·유적 | claims 6 · tips 1 | 없음 | – / 6,182 | open | entry=unknown, photo_link |
+| 33 | gaomei-wetlands | 가오메이 습지 | 타이중 | 산·자연 | claims 6 · tips 2 | 없음 | – / 3,821 | open | photo_link |
+| 34 | national-museum-of-natural-science | 국립자연과학박물관 | 타이중 | 박물관·미술관 | claims 6 · tips 2 | 없음 | – / 3,709 | **partial** | photo_link |
+| 37 | dongdamen-night-market | 둥다먼 야시장 | 화롄 | 시장·쇼핑거리 | claims 6 · tips 3 | 없음 | – / 1,759 | open | photo_link |
+| 38 | sun-moon-lake-ropeway | 르웨탄 케이블카 | 일월담 | 산·자연 | claims 6 · tips 3 · tags 2 | 없음 | – / 1,393 | open | photo_link |
+| 39 | cijin-beach | 치진 해수욕장 | 가오슝 | 바다·섬 | claims 5 · tips 2 | 없음 | – / – | **partial** | wiki, photo_link |
+| 40 | maobitou-park | 마오비터우 공원 | 컨딩 | 바다·섬 | claims 5 · tips 2 | 없음 | – / – | open | wiki, entry=unknown, regular_closed=unknown, photo_link |
+| 41 | qingtiangang | 칭톈강 | 타이베이(양밍산) | 산·자연 | claims 4 · tips 2 | 없음 | – / – | open | wiki, address_local, photo_link |
+| 43 | xiaoyoukeng | 샤오유컹 | 타이베이(양밍산) | 산·자연 | claims 4 · tips 2 | 없음 | – / – | open | wiki, photo_link |
+| 44 | xuanguang-temple | 쉬안광쓰 | 일월담 | 역사·유적 | claims 5 · tips 1 | 없음 | – / – | open | wiki, entry=unknown, photo_link |
+
+조회수는 Wikimedia REST pageviews 2025-10 ~ 2026-09 합계다. '–'는 그 언어 위키백과 문서가 없다는 뜻이다.
+
+### 한국어 미리보기(요약 한 줄)
+
+- 펑자 야시장 — 펑자대학 옆 길을 따라 늘어선 타이중의 야시장이에요.
+- 국립자연과학박물관 — 공룡과 미라, 열대우림 온실을 함께 보는 국립 박물관이에요.
+- 가오메이 습지 — 다자시 하구 갯벌에 나무 데크가 놓인 습지예요.
+- 르웨탄 — 라루섬을 사이에 두고 해와 달 모양으로 갈리는 산중 호수예요.
+- 원우먀오 — 호수 북쪽 언덕에 세 전각이 이어진 큰 사당이에요.
+- 쉬안광쓰 — 호수 바로 위 계단 끝에 앉은 작은 절이에요.
+- 르웨탄 케이블카 — 이다사오 옆에서 산을 넘어 호수를 내려다보는 케이블카예요.
+- 컨딩 국가공원 — 헝춘반도 남쪽 삼면이 바다인 타이완 첫 국가공원이에요.
+- 어롼비 공원 — 타이완 남쪽 끝 산호초 바위숲과 흰 등대가 있는 공원이에요.
+- 마오비터우 공원 — 타이완해협과 바시해협이 갈리는 산호초 곶이에요.
+- 헝춘 옛 성 — 사철 봄 같다고 이름 붙은 옛 현성과 네 성문이에요.
+- 타이루거 국가공원 — 리우시가 대리암을 깎아 만든 깊은 협곡 국가공원이에요.
+- 치싱탄 해변 — 둥근 자갈이 깔린 초승달 모양 해만이에요.
+- 둥다먼 야시장 — 흩어져 있던 시장을 한곳에 모은 화롄의 야시장이에요.
+- 칭톈강 — 다툰 화산군 사이에 펼쳐진 넓은 풀밭이에요.
+- 샤오유컹 — 분기공에서 김이 솟는 양밍산의 화산 지형이에요.
+- 후웨이 포대 — 청프 전쟁 뒤 단수이 언덕에 쌓은 서양식 포대예요.
+- 단수이 세관 세무사 관저 — 단수이 언덕에 안팎을 흰색으로 칠한 옛 세관 관저예요.
+- 치진 해수욕장 — 치진섬 서쪽에 길게 뻗은 모래 해변이에요.
+- 다거우 영국 영사관 — 가오슝항이 내려다보이는 언덕의 옛 영국 영사관이에요.
+- 쓰뎬우먀오 — 관성제군을 모시고 관방 제사를 받던 타이난의 관제묘예요.
+
+## status가 open이 아닌 4곳 (모두 공식 공고 근거)
+
+| id | status | 근거 |
+|---|---|---|
+| taroko-gorge | partial + risk `post_disaster` | 화롄현 관광 포털 '受震災影響多處封閉，出發前務必查詢最新開放資訊' |
+| national-museum-of-natural-science | partial + risk `renovation` | 과학센터 일부 층 전시구역 휴관 공고(공식 사이트) |
+| former-british-consulate-takao | partial + risk `renovation` | 가오슝 관광 포털 '山上官邸進行維修工程，室內正常營運，請由古蹟大門進出' |
+| cijin-beach | partial + risk `renovation` | 가오슝 관광 포털의 입구 광장·산책로 공사 구역 울타리 공고(표시 따라 우회) |
+
+## 1차 장소 손댄 것
+
+- **사실 내용은 하나도 고치지 않았다.** `rank.order`만 D11에 따라 나라 전체(44곳) 다시 계산했다(공식 지정 → 한국어 위키 조회수 내림차순 → 영어 조회수 내림차순). 1차 23곳의 order 값이 새 곳들과 섞이며 바뀌었다.
+- 1차 보고서의 '종류 판정'·'지정 인정' 등 미해결 항목은 그대로 둔다(아래 사장님 판단 목록 8번).
+
+## 검증 (2026-10-10, 이 커밋 상태)
+
+출처표기 문자열 7줄(아래)을 `strings_attractions.xml`에 임시로 넣고 돌린 뒤 되돌렸다(앱 파일은 커밋하지 않음).
+
+- `check TW`: **통과**. 남은 경고 — facts.booking 없음(공식 예약 안내 없음), `nature`·`sea_island` 방문 지점 경고 11곳(해당 지점 Wikidata 항목이 없음).
+- `verify-quotes TW`: **통과**(44곳, 필드별 출처 일치).
+- copycheck: 새 21곳 **모두 통과**(`record TW --ids …`). 캐시는 `~/.readyport/copycheck_cache/TW/<id>/`에 새로 받았고, 한·영 위키 문서가 없는 6곳(쉬안광쓰·마오비터우 공원·칭톈강·샤오유컹·치진 해수욕장·스펀 옛 거리)은 evidence 스냅샷 대조만 한다.
+- `promote TW --wave 2` 모의 실행(임시 키 `rp-att-tmp-tw`를 임시 폴더에 만들어 쓰고 끝나고 지웠다. 서명 결과물은 커밋하지 않고 `git checkout`으로 되돌렸다): **게이트 실패 0건**.
+- 지역 lint: 모든 곳이 hub 40km 안(가장 먼 곳은 타이루거, 화롄역에서 약 33km). 곳당 크기 한도(4,608B) 안.
+- `wiki-fill TW`: 21곳 갱신(6곳은 한·영 위키 문서 없음). `place-ids TW --write`: 20곳 채움, 타이루거는 좌표 1km 안에 후보가 없어 비워 뒀다.
+
+## 넣어야 할 출처표기 문자열 (2차에서 새로 필요한 7줄)
+
+1차 12줄에 더해 아래 7줄이 필요하다. 없으면 `check TW`가 실패한다.
+
+```xml
+<string name="settings_credit_osm">OpenStreetMap 기여자 — 일부 방문 지점 좌표 (ODbL 1.0)</string>
+<string name="settings_credit_boch_eluanbi_lighthouse">문화부 문화자산국 국가문화자산망 — 어롼비 등대(국가 지정 고적)</string>
+<string name="settings_credit_boch_hengchun">문화부 문화자산국 국가문화자산망 — 헝춘 옛 성(국가 지정 고적)</string>
+<string name="settings_credit_boch_hobe_fort">문화부 문화자산국 국가문화자산망 — 후웨이 포대(국가 지정 고적)</string>
+<string name="settings_credit_boch_tamsui_customs_residence">문화부 문화자산국 국가문화자산망 — 전 청나라 단수이 세관 세무사 관저(직할시 지정 고적)</string>
+<string name="settings_credit_boch_british_consulate">문화부 문화자산국 국가문화자산망 — 다거우 영국 영사관 및 관저(국가 지정 고적)</string>
+<string name="settings_credit_boch_martial_temple">문화부 문화자산국 국가문화자산망 — 쓰뎬우먀오(국가 지정 고적)</string>
+```
+
+## 아직 보류한 것과 이유
+
+- **미야하라(宮原眼科, 타이중)**: 타이중시 관광 포털에 소개가 있지만 민간 제과 업체가 운영하는 가게이고, 공식 안내에 대중교통 근거가 없어 `access`를 채울 수 없었다. 종류 판정도 애매하다(역사 건물 + 상점). 다음 차수에 교통 근거를 찾으면 넣는다.
+- **타이중 레인보우 빌리지·국립타이완미술관·이중제 상권**: 근거를 모으지 않았다(이번 차수 근거 범위 밖).
+- **일월담 쉬안짱쓰·츠언타·향산 방문자센터**: 관리처 페이지 스냅샷을 모으지 않았다. 일월담은 하루 다녀오는 지역이라 4곳으로도 기준을 넘긴다.
+- **컨딩 국립해양생물박물관·사딩 자연공원·룽롼탄**: 근거 미수집.
+- **화롄 쓰바 고지·치싱 가쓰오 박물관·마타이안**: 근거 미수집. 화롄은 base 지역 최소 3곳을 겨우 채웠으니 다음 차수에 보강하면 좋겠다.
+- **양밍산 국가공원 자체 항목**: 여전히 `ymsnp.gov.tw`·`nps.gov.tw`가 자동 요청에 내용 없는 자바스크립트만 주고 방문 지점 Wikidata 항목도 없어 넣지 않았다. 대신 항목이 있는 칭톈강(Q11078643)·샤오유컹(Q10959487) 두 지점으로 나눠 실었다(1차 보고서에서 검토하자고 한 안을 그대로 적용).
+- **예류·국립고궁박물원**: 1차와 같다. robots.txt가 Claude 계열을 막아 요금·휴관일을 못 채운다(사장님이 직접 확인해 주셔야 한다).
+- **타이루거 google_place_id**: Places Text Search가 좌표 1km 안에서 후보를 못 찾았다. 방문자센터 좌표로 다시 찾거나 비워 두는 안.
+
+## 사장님 판단이 필요한 점
+
+1. **르웨탄 케이블카 종류 판정**: 판정표에 없는 유형이다. 지금은 `nature` + 태그 `cable_car`·`mountain_view`로 두었다(대안: `city_view`). 민간(주족문화촌)이 운영하는 유료 시설이라 `theme_park`로 볼 여지도 있다. 정해지면 `docs/attractions/CATEGORY_RULES.md`에 한 줄 추가가 필요하다.
+2. **마오비터우 공원 입장료**: 관리처 안내에 '시험 삼아 무료 입장'과 요금이 함께 적혀 있다. 지금은 `entry: unknown` + 안내 문장으로 두었다. `free`로 올릴지, 요금 안내가 돌아올 때까지 unknown으로 둘지.
+3. **'매달 첫째 월요일/수요일 휴무' 표기**: 1차의 홍마오청·황금박물관과 같은 문제다. 후웨이 포대·단수이 세관 세무사 관저(매달 첫째 월요일), 르웨탄 케이블카(매달 첫째 수요일)도 enum에 값이 없어 `irregular` + 메모로 두었다. 화면에 '부정기 휴관'으로 보이면 오해 소지가 있어 enum 값 추가를 다시 검토해 주시면 좋겠다.
+4. **어롼비 공원·마오비터우 공원 `regular_closed: unknown`**: 관리처 페이지에 계절별 개방 시간만 있고 정기 휴관일 문구가 없다. '쉬는 날 없음(none)'으로 볼지 unknown으로 둘지.
+5. **타이루거 노출 여부**: 지진 피해로 여러 구간이 막혀 `status: partial` + `risk: post_disaster`로 실었다. 화롄 base 지역 3곳 가운데 하나라 빼면 지역이 기준(3곳)에 못 미친다. 그대로 실을지, 개방 구간이 늘 때까지 화롄 지역을 미룰지.
+6. **대표 한국어 이름 확인**: 쓰뎬우먀오 / 원우먀오 / 쉬안광쓰 / 칭톈강 / 샤오유컹 / 후웨이 포대 / 어롼비 공원 / 마오비터우 공원 / 가오메이 습지 / 둥다먼 야시장 — 모두 중국어 음을 그대로 적었다(`ko_basis: editorial`). 르웨탄은 `ko_paren`에 '일월담'을 함께 넣었다. 한자 독음('일월담 문무묘', '현광사', '호미 포대' 등)을 앞세울지.
+7. **치진 해변 이름**: 1차 보고서에서 '치진 해변 → 치허우 포대 대체'로 적었는데, 이번에 공식 공사 공고 근거가 생겨 **치허우 포대와 함께** `cijin-beach`(旗津海水浴場, '치진 해수욕장')로 실었다. 두 곳을 모두 둘지, 치진 쪽을 하나로 합칠지.
+8. **1차 보고서의 미해결 항목 1~8**(종류 판정 3곳, 지정 인정 3건, 적감루 status, 지우펀 영화 언급, '입장 무료' 근거 수준, 고궁박물원 요금)은 그대로 남아 있다.
