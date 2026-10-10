@@ -2,7 +2,7 @@
   "doc_type": "attractions",
   "schema_version": 1,
   "country": "JP",
-  "version": "2026.10.09-1",
+  "version": "2026.10.10-1",
   "release": "draft",
   "editorial_rules": "2026-10",
   "compact_country": false,
@@ -27,85 +27,6 @@
         "NRT",
         "HND"
       ],
-      "advisory": {
-        "level": "none",
-        "source": "mofa_jp",
-        "last_verified": "2026-09-28"
-      },
-      "advisory_watch_ko": [],
-      "wave": 1
-    },
-    {
-      "id": "jp_osaka",
-      "order": 60,
-      "name_ko": "오사카",
-      "name_en": "Osaka",
-      "aliases_ko": [],
-      "group_ko": "간사이",
-      "kind": "base",
-      "water_crossing": false,
-      "hub": {
-        "name_ko": "난바역",
-        "lat": 34.6633,
-        "lng": 135.502,
-        "qid": "Q511303"
-      },
-      "airports": [
-        "KIX"
-      ],
-      "advisory": {
-        "level": "none",
-        "source": "mofa_jp",
-        "last_verified": "2026-09-28"
-      },
-      "advisory_watch_ko": [],
-      "wave": 1
-    },
-    {
-      "id": "jp_kyoto",
-      "order": 70,
-      "name_ko": "교토",
-      "name_en": "Kyoto",
-      "aliases_ko": [],
-      "group_ko": "간사이",
-      "kind": "base",
-      "water_crossing": false,
-      "hub": {
-        "name_ko": "교토역",
-        "lat": 34.98555555555556,
-        "lng": 135.75861111111112,
-        "qid": "Q801046"
-      },
-      "airports": [],
-      "advisory": {
-        "level": "none",
-        "source": "mofa_jp",
-        "last_verified": "2026-09-28"
-      },
-      "advisory_watch_ko": [],
-      "wave": 1
-    },
-    {
-      "id": "jp_nara",
-      "order": 80,
-      "name_ko": "나라",
-      "name_en": "Nara",
-      "aliases_ko": [],
-      "group_ko": "간사이",
-      "kind": "daytrip",
-      "base_regions": [
-        "jp_osaka",
-        "jp_kyoto"
-      ],
-      "note_ko": "오사카·교토에서 하루 다녀오는 곳",
-      "water_crossing": false,
-      "hub": {
-        "name_ko": "긴테쓰나라역",
-        "lat": 34.68443611,
-        "lng": 135.82741944,
-        "qid": "Q6414371"
-      },
-      "airports": [],
       "advisory": {
         "level": "none",
         "source": "mofa_jp",
@@ -202,6 +123,171 @@
       "wave": 1
     },
     {
+      "id": "jp_osaka",
+      "order": 60,
+      "name_ko": "오사카",
+      "name_en": "Osaka",
+      "aliases_ko": [],
+      "group_ko": "간사이",
+      "kind": "base",
+      "water_crossing": false,
+      "hub": {
+        "name_ko": "난바역",
+        "lat": 34.6633,
+        "lng": 135.502,
+        "qid": "Q511303"
+      },
+      "airports": [
+        "KIX"
+      ],
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "advisory_watch_ko": [],
+      "wave": 1
+    },
+    {
+      "id": "jp_kyoto",
+      "order": 70,
+      "name_ko": "교토",
+      "name_en": "Kyoto",
+      "aliases_ko": [],
+      "group_ko": "간사이",
+      "kind": "base",
+      "water_crossing": false,
+      "hub": {
+        "name_ko": "교토역",
+        "lat": 34.98555555555556,
+        "lng": 135.75861111111112,
+        "qid": "Q801046"
+      },
+      "airports": [],
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "advisory_watch_ko": [],
+      "wave": 1
+    },
+    {
+      "id": "jp_nara",
+      "order": 80,
+      "name_ko": "나라",
+      "name_en": "Nara",
+      "aliases_ko": [],
+      "group_ko": "간사이",
+      "kind": "daytrip",
+      "base_regions": [
+        "jp_osaka",
+        "jp_kyoto"
+      ],
+      "note_ko": "오사카·교토에서 하루 다녀오는 곳",
+      "water_crossing": false,
+      "hub": {
+        "name_ko": "긴테쓰나라역",
+        "lat": 34.68443611,
+        "lng": 135.82741944,
+        "qid": "Q6414371"
+      },
+      "airports": [],
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "advisory_watch_ko": [],
+      "wave": 1
+    },
+    {
+      "id": "jp_kobe",
+      "order": 90,
+      "name_ko": "고베",
+      "name_en": "Kobe",
+      "aliases_ko": [
+        "고베시",
+        "산노미야"
+      ],
+      "group_ko": "간사이",
+      "kind": "base",
+      "water_crossing": false,
+      "hub": {
+        "name_ko": "고베산노미야역",
+        "lat": 34.69444444,
+        "lng": 135.19527778,
+        "qid": "Q377926"
+      },
+      "airports": [],
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "advisory_watch_ko": [],
+      "wave": 2
+    },
+    {
+      "id": "jp_himeji",
+      "order": 95,
+      "name_ko": "히메지",
+      "name_en": "Himeji",
+      "aliases_ko": [
+        "히메지시"
+      ],
+      "group_ko": "간사이",
+      "kind": "daytrip",
+      "base_regions": [
+        "jp_osaka",
+        "jp_kobe"
+      ],
+      "note_ko": "오사카·고베에서 하루 다녀오는 곳",
+      "water_crossing": false,
+      "hub": {
+        "name_ko": "히메지역",
+        "lat": 34.827638888889,
+        "lng": 134.69085,
+        "qid": "Q119301"
+      },
+      "airports": [],
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "advisory_watch_ko": [],
+      "wave": 2
+    },
+    {
+      "id": "jp_hiroshima",
+      "order": 100,
+      "name_ko": "히로시마·미야지마",
+      "name_en": "Hiroshima & Miyajima",
+      "aliases_ko": [
+        "히로시마",
+        "미야지마",
+        "이쓰쿠시마"
+      ],
+      "group_ko": "주고쿠",
+      "kind": "base",
+      "water_crossing": false,
+      "hub": {
+        "name_ko": "히로시마역",
+        "lat": 34.398333333333,
+        "lng": 132.47583333333,
+        "qid": "Q576459"
+      },
+      "airports": [],
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "advisory_watch_ko": [],
+      "wave": 2
+    },
+    {
       "id": "jp_fukuoka",
       "order": 110,
       "name_ko": "후쿠오카",
@@ -284,6 +370,63 @@
       },
       "advisory_watch_ko": [],
       "wave": 1
+    },
+    {
+      "id": "jp_okinawa_naha",
+      "order": 170,
+      "name_ko": "오키나와 나하·남부",
+      "name_en": "Okinawa Naha & South",
+      "aliases_ko": [
+        "나하",
+        "오키나와",
+        "오키나와 남부"
+      ],
+      "group_ko": "오키나와",
+      "kind": "base",
+      "water_crossing": false,
+      "hub": {
+        "name_ko": "아사히바시역(나하 버스터미널)",
+        "lat": 26.2119,
+        "lng": 127.675,
+        "qid": "Q7484306"
+      },
+      "airports": [],
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "advisory_watch_ko": [],
+      "wave": 2
+    },
+    {
+      "id": "jp_okinawa_north",
+      "order": 180,
+      "name_ko": "오키나와 중북부",
+      "name_en": "Okinawa Central & North",
+      "aliases_ko": [
+        "나고",
+        "모토부",
+        "온나",
+        "오키나와 북부"
+      ],
+      "group_ko": "오키나와",
+      "kind": "base",
+      "water_crossing": false,
+      "hub": {
+        "name_ko": "나고 버스터미널",
+        "lat": 26.59655556,
+        "lng": 127.96591667,
+        "qid": "Q11415610"
+      },
+      "airports": [],
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "advisory_watch_ko": [],
+      "wave": 2
     }
   ],
   "attractions": [
@@ -788,7 +931,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 3,
+        "order": 4,
         "designations": [
           {
             "kind": "unesco",
@@ -959,7 +1102,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 4,
+        "order": 5,
         "designations": [
           {
             "kind": "jp_important_cultural_property_partial",
@@ -1126,7 +1269,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 5,
+        "order": 6,
         "designations": [
           {
             "kind": "unesco",
@@ -1303,7 +1446,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 6,
+        "order": 7,
         "designations": [
           {
             "kind": "jp_registered_tangible_cultural_property",
@@ -1482,7 +1625,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 7,
+        "order": 8,
         "designations": [
           {
             "kind": "jp_important_cultural_property_partial",
@@ -1655,7 +1798,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 8,
+        "order": 9,
         "designations": [
           {
             "kind": "jp_important_cultural_property_partial",
@@ -1824,7 +1967,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 9,
+        "order": 11,
         "designations": [
           {
             "kind": "unesco",
@@ -1970,7 +2113,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 10,
+        "order": 12,
         "designations": [
           {
             "kind": "jp_historic_site",
@@ -2151,7 +2294,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 11,
+        "order": 13,
         "designations": [
           {
             "kind": "jp_important_cultural_property_partial",
@@ -2317,7 +2460,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 12,
+        "order": 14,
         "designations": [
           {
             "kind": "unesco",
@@ -2486,7 +2629,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 13,
+        "order": 16,
         "designations": [
           {
             "kind": "jp_historic_site",
@@ -2640,7 +2783,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 14,
+        "order": 17,
         "designations": [
           {
             "kind": "jp_registered_monument",
@@ -2820,7 +2963,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 15,
+        "order": 18,
         "designations": [
           {
             "kind": "jp_place_of_scenic_beauty",
@@ -2983,7 +3126,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 16,
+        "order": 20,
         "designations": [
           {
             "kind": "jp_important_cultural_property_partial",
@@ -3130,7 +3273,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 17,
+        "order": 21,
         "designations": [
           {
             "kind": "unesco_component",
@@ -3307,7 +3450,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 18,
+        "order": 23,
         "designations": [
           {
             "kind": "jp_registered_tangible_cultural_property",
@@ -3479,7 +3622,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 19,
+        "order": 24,
         "designations": [
           {
             "kind": "jp_national_treasure_partial",
@@ -3560,7 +3703,7 @@
       "official_url": "https://www.kunaicho.go.jp/event/higashigyoen/higashigyoen.html",
       "wiki": {
         "ko": "고쿄 히가시 교엔",
-        "en": "East Gardens of the Imperial Palace"
+        "en": "Imperial Palace East Garden"
       },
       "summary_ko": "옛 에도성 자리에 꾸민 황거의 부속 정원이에요.",
       "body_ko": [
@@ -3651,7 +3794,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 20,
+        "order": 25,
         "designations": [
           {
             "kind": "jp_special_historic_site",
@@ -3807,7 +3950,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 21,
+        "order": 26,
         "designations": [
           {
             "kind": "jp_important_cultural_property",
@@ -3973,7 +4116,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 22,
+        "order": 27,
         "designations": [
           {
             "kind": "jp_important_cultural_property_partial",
@@ -4142,7 +4285,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 23,
+        "order": 28,
         "designations": [
           {
             "kind": "jp_national_treasure_partial",
@@ -4304,7 +4447,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 24,
+        "order": 29,
         "designations": [
           {
             "kind": "jp_place_of_scenic_beauty_partial",
@@ -4487,7 +4630,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 25,
+        "order": 30,
         "designations": [
           {
             "kind": "jp_natural_monument_partial",
@@ -4641,7 +4784,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 26,
+        "order": 32,
         "designations": [
           {
             "kind": "jp_registered_tangible_cultural_property",
@@ -4782,7 +4925,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 27,
+        "order": 33,
         "designations": []
       },
       "photo": null,
@@ -4946,7 +5089,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 28,
+        "order": 34,
         "designations": []
       },
       "photo": null,
@@ -5088,7 +5231,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 29,
+        "order": 36,
         "designations": []
       },
       "photo": null,
@@ -5250,7 +5393,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 30,
+        "order": 38,
         "designations": []
       },
       "photo": null,
@@ -5381,7 +5524,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 31,
+        "order": 40,
         "designations": []
       },
       "photo": null,
@@ -5528,7 +5671,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 32,
+        "order": 41,
         "designations": []
       },
       "photo": null,
@@ -5674,7 +5817,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 33,
+        "order": 42,
         "designations": []
       },
       "photo": null,
@@ -5838,7 +5981,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 34,
+        "order": 43,
         "designations": []
       },
       "photo": null,
@@ -5992,7 +6135,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 35,
+        "order": 44,
         "designations": []
       },
       "photo": null,
@@ -6142,7 +6285,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 36,
+        "order": 47,
         "designations": []
       },
       "photo": null,
@@ -6286,7 +6429,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 37,
+        "order": 48,
         "designations": []
       },
       "photo": null,
@@ -6294,6 +6437,2043 @@
       "source": "wd",
       "last_verified": "2026-10-09",
       "google_place_id": "ChIJa7QFnn2uRjUR5ofN82Ctd44"
+    },
+    {
+      "id": "shuri-castle",
+      "qid": "Q907052",
+      "names": {
+        "ko": "슈리성",
+        "ko_basis": "editorial",
+        "en": "Shuri Castle",
+        "local": "首里城",
+        "local_short": "首里城",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "슈리성 공원",
+        "슈리조",
+        "수리성"
+      ],
+      "aliases_en": [
+        "Shurijo Castle Park"
+      ],
+      "mentions_ko": [
+        "세이덴",
+        "슈레이몬"
+      ],
+      "region": "jp_okinawa_naha",
+      "area_ko": "나하시 슈리",
+      "category": "heritage",
+      "tags": [
+        {
+          "id": "unesco",
+          "source": "unesco_972_maps",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 26.217030555556,
+        "lng": 127.719475,
+        "source": "wd",
+        "qid": "Q907052",
+        "last_verified": "2026-10-10"
+      },
+      "address_local": {
+        "text": "沖縄県那覇市首里金城町1-2",
+        "source": "shurijo_official_about",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "train",
+          "bus"
+        ],
+        "nearest_ko": "유이레일 슈리역에서 걸어가요",
+        "nearest_local": {
+          "text": "首里駅",
+          "qid": "Q841561",
+          "source": "wd"
+        },
+        "source": "shurijo_official_access",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://oki-park.jp/shurijo/",
+      "summary_ko": "류큐 왕국의 왕궁이었던 세계유산 성터예요.",
+      "body_ko": [
+        "슈리성은 류큐 왕국의 왕이 살던 왕궁이자 왕부의 본부였던 성이에요.",
+        "안쪽 성곽은 15세기 초, 바깥 성곽은 16세기 중반에 완성됐고, 1945년 전쟁으로 전소한 뒤 18세기 이후 모습으로 복원됐어요.",
+        "성터는 2000년 세계유산 '류큐 왕국의 구스쿠 유적과 관련 유산군'에 들어갔고 국가 사적이기도 해요.",
+        "2019년 10월 화재로 정전(세이덴)이 다시 불탔고, 복원한 정전은 2026년 11월 23일부터 공개돼요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "왕과 가족이 살던 왕궁이자 왕부 본부였어요.",
+          "source": "shurijo_official_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "내곽은 15세기 초, 외곽은 16세기 중반에 완성됐어요.",
+          "source": "shurijo_official_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "1945년 전소했고, 복원은 18세기 이후 모습이 모델이에요.",
+          "source": "shurijo_official_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "성터는 2000년 세계유산에 등재됐고 국가 사적이에요.",
+          "source": "shurijo_official_wh",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "2019년 10월 31일 화재가 났어요.",
+          "source": "shurijo_official_fukkou",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c6",
+          "text_ko": "복원 정전은 2026년 11월 23일 공개돼요.",
+          "source": "shurijo_official_seiden_open",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "주차장이 붐벼서 유이레일·버스를 권해요.",
+          "source": "shurijo_official_access",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "성벽 안은 전면 금연이에요.",
+          "source": "shurijo_official_rules",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "드론은 반입도 비행도 금지예요.",
+          "source": "shurijo_official_rules",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "휠체어·지팡이·유모차 무료 대여(예약 불가)예요.",
+          "source": "shurijo_official_qa",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "booking": "required",
+        "booking_note_ko": "정전 안은 날짜·시간 지정 예약이 필요해요. 바깥 유료 구역은 예약 없이 돼요.",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": "2026년 11월 22일은 공원 전체가 쉬어요.",
+        "source": "shurijo_official_fee",
+        "last_verified": "2026-10-10"
+      },
+      "risk": [
+        "renovation"
+      ],
+      "status": {
+        "value": "partial",
+        "note_ko": "정전 복원 공사 중이라 안은 볼 수 없어요. 2026년 11월 23일부터 공개돼요.",
+        "source": "shurijo_official_seiden_open",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 15,
+        "designations": [
+          {
+            "kind": "unesco",
+            "name_ko": "세계유산 류큐 왕국의 구스쿠 유적과 관련 유산군(구성 자산 슈리성터)",
+            "source": "unesco_972_maps"
+          },
+          {
+            "kind": "jp_historic_site",
+            "name_ko": "슈리성터 사적",
+            "source": "shurijo_official_wh"
+          }
+        ]
+      },
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Naha_Shuri_Castle51s3s4200.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "wiki": {
+        "ko": "슈리성",
+        "en": "Shuri Castle"
+      },
+      "google_place_id": "ChIJZ9v0bP5r5TQRi0-esrqficA"
+    },
+    {
+      "id": "kokusai-dori",
+      "qid": "Q4616917",
+      "names": {
+        "ko": "국제거리",
+        "ko_basis": "editorial",
+        "en": "Kokusai-dori",
+        "local": "国際通り",
+        "local_short": "国際通り",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "고쿠사이도리",
+        "나하 국제거리"
+      ],
+      "aliases_en": [
+        "Kokusai Street"
+      ],
+      "mentions_ko": [
+        "트랜싯 마일"
+      ],
+      "region": "jp_okinawa_naha",
+      "area_ko": "나하시 마키시",
+      "category": "market_street",
+      "geo": {
+        "kind": "site",
+        "lat": 26.215972,
+        "lng": 127.687278,
+        "source": "wd",
+        "qid": "Q4616917",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "train"
+        ],
+        "nearest_ko": "유이레일 마키시역(북쪽 입구)·겐초마에역(남쪽)에서 바로예요",
+        "nearest_local": {
+          "text": "牧志駅",
+          "qid": "Q7571240",
+          "source": "wd"
+        },
+        "source": "yuirail_makishi",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://naha-kokusaidori.okinawa/",
+      "summary_ko": "나하 중심을 지나는 기념품 가게·식당 거리예요.",
+      "body_ko": [
+        "국제거리는 나하 중심을 지나는 약 1.6km 길이의 상점가로, 전후 부흥의 상징이라 '기적의 1마일'이라 불려 왔어요.",
+        "이름은 전후 이곳에 있던 영화관 '어니 파일 국제극장'에서 왔어요.",
+        "백화점·기념품 가게·식당 등 약 460개 가게와 사업소가 늘어서 있어요.",
+        "매주 일요일 낮에는 약 1,300m 구간이 차 없는 보행자 우선 거리 '트랜싯 마일'이 돼요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "이름은 전후 영화관 '어니 파일 국제극장'에서 왔어요.",
+          "source": "kokusaidori_official_roots",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "약 460개 가게·사업소가 있어요.",
+          "source": "kokusaidori_official_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "길이 약 1.6km, '기적의 1마일'이라 불려요.",
+          "source": "yuirail_makishi",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "매주 일요일 낮 약 1,300m 구간이 보행자 우선 거리가 돼요.",
+          "source": "kokusaidori_official_transitmall",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "일요일 보행자 거리는 비가 오면 중지돼요.",
+          "source": "kokusaidori_official_transitmall",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "거리 안에 짐 보관소와 코인 로커가 있어요.",
+          "source": "kokusaidori_official_areainfo",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "public_space"
+      },
+      "status": {
+        "value": "open",
+        "source": "kokusaidori_official_about",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 37,
+        "designations": []
+      },
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Kokusai-dori08s3s4440.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "wiki": {
+        "ko": "국제 거리"
+      },
+      "google_place_id": "ChIJS9NXfV9p5TQR30XYRp9yVVs"
+    },
+    {
+      "id": "okinawa-world",
+      "qid": "Q25113094",
+      "names": {
+        "ko": "오키나와 월드",
+        "ko_basis": "editorial",
+        "en": "Okinawa World",
+        "local": "おきなわワールド",
+        "local_short": "おきなわワールド",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "교쿠센도"
+      ],
+      "aliases_en": [
+        "Gyokusendo Cave"
+      ],
+      "mentions_ko": [
+        "류큐 왕국 성하마을"
+      ],
+      "region": "jp_okinawa_naha",
+      "area_ko": "난조시 다마구스쿠",
+      "category": "theme_park",
+      "geo": {
+        "kind": "entrance",
+        "lat": 26.137336,
+        "lng": 127.751808,
+        "source": "wd",
+        "qid": "Q11572695",
+        "last_verified": "2026-10-10"
+      },
+      "address_local": {
+        "text": "沖縄県南城市玉城字前川1336番地",
+        "source": "okinawaworld_official_access",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "bus"
+        ],
+        "nearest_ko": "나하 버스터미널(유이레일 아사히바시역 옆)에서 류큐버스 54번·83번을 타고 '교쿠센도마에'에서 내려요",
+        "nearest_local": {
+          "text": "旭橋駅",
+          "qid": "Q7484306",
+          "source": "wd"
+        },
+        "source": "okinawaworld_official_access",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.gyokusendo.co.jp/okinawaworld/",
+      "summary_ko": "종유동 교쿠센도와 류큐 고민가 마을이 있는 시설이에요.",
+      "body_ko": [
+        "오키나와 월드는 종유동 교쿠센도를 중심으로 한 관광 시설이에요.",
+        "교쿠센도는 약 30만 년에 걸쳐 만들어진 길이 5,000m의 동굴로, 890m 구간이 공개되고 입장은 여기서부터 시작해요.",
+        "'류큐 왕국 성하마을' 구역에는 지은 지 100년 넘은 국가 등록유형문화재 고민가가 옮겨져 있어요.",
+        "열대 과수원에는 약 50종, 450그루의 열대 과일나무를 키워요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "교쿠센도는 약 30만 년 된 길이 5,000m 종유동으로 890m가 공개돼요.",
+          "source": "okinawaworld_official_7points",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "입장은 교쿠센도부터 시작해요.",
+          "source": "okinawaworld_official_fee",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "성하마을에 100년 넘은 국가 등록유형문화재 고민가가 있어요.",
+          "source": "okinawaworld_official_7points",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "열대 과수원에 약 50종, 450그루가 있어요.",
+          "source": "okinawaworld_official_7points",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "교쿠센도(종유동) 말고는 모두 배리어프리예요.",
+          "source": "okinawaworld_official_fee",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "휠체어는 무료로 빌릴 수 있어요(수량 한정).",
+          "source": "okinawaworld_official_fee",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "드론 반입과 드론 촬영은 금지예요.",
+          "source": "okinawaworld_official_photography",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "공방 체험은 소수는 예약 없이, 단체는 예약이 필요해요.",
+          "source": "okinawaworld_official_fee",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "unknown"
+        ],
+        "source": "okinawaworld_official_fee",
+        "last_verified": "2026-10-10"
+      },
+      "status": {
+        "value": "open",
+        "source": "okinawaworld_official_fee",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 50,
+        "designations": []
+      },
+      "photo_link": "https://commons.wikimedia.org/wiki/File:おきなわワールド_-_panoramio.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "wiki": {
+        "en": "Okinawa World"
+      },
+      "google_place_id": "ChIJza_GaWlv5TQRy52qkW4L2P4"
+    },
+    {
+      "id": "churaumi-aquarium",
+      "qid": "Q1445750",
+      "names": {
+        "ko": "추라우미 수족관",
+        "ko_basis": "editorial",
+        "en": "Okinawa Churaumi Aquarium",
+        "local": "沖縄美ら海水族館",
+        "local_short": "美ら海水族館",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "오키나와 추라우미 수족관",
+        "츄라우미 수족관",
+        "오키나와 츄라우미 수족관"
+      ],
+      "aliases_en": [
+        "Churaumi Aquarium"
+      ],
+      "mentions_ko": [
+        "구로시오 바다",
+        "해양박 공원"
+      ],
+      "region": "jp_okinawa_north",
+      "area_ko": "모토부초 해양박 공원",
+      "category": "theme_park",
+      "tags": [
+        {
+          "id": "step_free",
+          "source": "churaumi_official_accessibility",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 26.69438889,
+        "lng": 127.87794444,
+        "source": "wd",
+        "qid": "Q1445750",
+        "last_verified": "2026-10-10"
+      },
+      "address_local": {
+        "text": "沖縄県国頭郡本部町石川424番地",
+        "source": "churaumi_official_access",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "bus"
+        ],
+        "nearest_ko": "나하 공항에서 고속버스(얀바루 급행 등)를 타고 '기넨코엔마에' 정류장에서 내려 걸어가요",
+        "source": "churaumi_official_access",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://churaumi.okinawa/",
+      "summary_ko": "고래상어가 헤엄치는 대수조로 알려진 수족관이에요.",
+      "body_ko": [
+        "추라우미 수족관은 모토부초 해양박 공원 안에 있는 수족관이에요.",
+        "햇빛이 드는 '산호 바다' 수조의 대규모 산호 전시에서 시작해, 고래상어와 쥐가오리가 함께 헤엄치는 용량 7,500㎥의 '구로시오 바다' 대수조로 이어져요.",
+        "대수조 앞 아크릴 패널은 높이 8.2m, 폭 22.5m, 두께 60cm예요.",
+        "1995년부터 고래상어를 길러 세계에서 가장 오래 기르는 기록을 이어 가고 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "모토부초 해양박 공원 안에 있어요.",
+          "source": "churaumi_official_access",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "'구로시오 바다' 대수조는 7,500㎥, 고래상어·쥐가오리가 헤엄쳐요.",
+          "source": "churaumi_official_kuroshio",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "아크릴 패널은 높이 8.2m·폭 22.5m·두께 60cm예요.",
+          "source": "churaumi_official_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "1995년 3월부터 고래상어를 길러 세계에서 가장 오래 기르는 기록이에요.",
+          "source": "churaumi_official_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "'산호 바다' 수조에 대규모 산호 전시가 있어요.",
+          "source": "churaumi_official_about",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "음식 반입·취식은 안 되고, 뚜껑 있는 병의 물만 마실 수 있어요.",
+          "source": "churaumi_official_caution",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "관내는 전자담배까지 전면 금연이에요.",
+          "source": "churaumi_official_caution",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "셀카봉·모노포드·삼각대는 쓸 수 없어요.",
+          "source": "churaumi_official_caution",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "개인 기념 촬영은 플래시를 써도 돼요.",
+          "source": "churaumi_official_caution",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "none"
+        ],
+        "closed_note_ko": "2027년 3월 31일까지 정기 휴관일이 없어요(태풍 등 임시 휴관은 제외).",
+        "source": "churaumi_official_hours",
+        "last_verified": "2026-10-10"
+      },
+      "status": {
+        "value": "open",
+        "source": "churaumi_official_hours",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 39,
+        "designations": []
+      },
+      "photo_link": "https://commons.wikimedia.org/wiki/File:沖縄美ら海水族館＿大.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "wiki": {
+        "ko": "오키나와 추라우미 수족관",
+        "en": "Okinawa Churaumi Aquarium"
+      },
+      "google_place_id": "ChIJPZ5hUjH65DQR_p_dD3CmCOo"
+    },
+    {
+      "id": "kouri-bridge",
+      "qid": "Q24834962",
+      "names": {
+        "ko": "고우리 대교",
+        "ko_basis": "editorial",
+        "en": "Kouri Bridge",
+        "local": "古宇利大橋",
+        "local_short": "古宇利大橋",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "고우리섬",
+        "코우리 대교",
+        "코우리섬"
+      ],
+      "aliases_en": [
+        "Kouri Island"
+      ],
+      "mentions_ko": [
+        "야가지섬"
+      ],
+      "region": "jp_okinawa_north",
+      "area_ko": "나키진촌 고우리섬",
+      "category": "sea_island",
+      "geo": {
+        "kind": "site",
+        "lat": 26.68705556,
+        "lng": 128.01755556,
+        "source": "wd",
+        "qid": "Q24834962",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "car_only"
+        ],
+        "nearest_ko": "렌터카로 가요. 다리 남쪽 끝(야가지섬 쪽) 전망소 주차장이나 섬 쪽 고우리 후레아이 광장 주차장에 세워요",
+        "source": "nakijin_kanko_kouri_bridge",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.nakijinson.jp/spot.php?id=22&ct=1",
+      "summary_ko": "산호초 바다 위를 건너 고우리섬으로 가는 다리예요.",
+      "body_ko": [
+        "고우리 대교는 나고시 야가지섬과 나키진촌 고우리섬을 잇는 길이 1,960m의 다리로, 2005년에 개통했어요.",
+        "다리 남쪽 끝 야가지섬 쪽에는 무료 주차장이 있는 전망소가 있어서 걸어서 바다를 내려다볼 수 있어요.",
+        "다리를 건너면 바로 고우리 비치가 있는데, 다리를 기준으로 동서로 나뉘고 서쪽 모래사장은 300m쯤 돼요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "나고시 야가지섬과 고우리섬을 잇는 다리로 2005년 개통했어요.",
+          "source": "nakijin_kanko_kouri_bridge",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "길이는 1,960m예요.",
+          "source": "nakijin_kanko_kouri_bridge",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "남쪽 끝(야가지섬)에 무료 주차장 전망소가 있어요.",
+          "source": "nakijin_kanko_kouri_bridge",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "고우리 비치는 다리 기준 동서로 나뉘고 서쪽 모래사장은 300m쯤이에요.",
+          "source": "nakijin_kanko_kouri_beach",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "비치 근처 '고우리 후레아이 광장' 주차장에 화장실과 유료 샤워가 있어요.",
+          "source": "nakijin_kanko_kouri_beach",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "동쪽·서쪽 비치는 다리 아래로 오갈 수 있어요.",
+          "source": "nakijin_kanko_kouri_beach",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "public_space"
+      },
+      "status": {
+        "value": "open",
+        "source": "nakijin_kanko_kouri_bridge",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 51,
+        "designations": []
+      },
+      "photo_link": "https://commons.wikimedia.org/wiki/File:View_of_Kouri_Ohashi_from_road.JPG",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJyy0FRAhZ5DQRIfztLp8vdWc"
+    },
+    {
+      "id": "cape-manzamo",
+      "qid": "Q11353838",
+      "names": {
+        "ko": "만자모",
+        "ko_basis": "editorial",
+        "en": "Cape Manzamo",
+        "local": "万座毛",
+        "local_short": "万座毛",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "만자모 절벽",
+        "만좌모"
+      ],
+      "aliases_en": [
+        "Manzamo"
+      ],
+      "mentions_ko": [
+        "만자모 주변 활성화 시설"
+      ],
+      "region": "jp_okinawa_north",
+      "area_ko": "온나촌",
+      "category": "nature",
+      "geo": {
+        "kind": "site",
+        "lat": 26.505,
+        "lng": 127.85027778,
+        "source": "wd",
+        "qid": "Q11353838",
+        "last_verified": "2026-10-10"
+      },
+      "address_local": {
+        "text": "沖縄県国頭郡恩納村字恩納2767",
+        "source": "manzamo_facility_about",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "car_only"
+        ],
+        "nearest_ko": "렌터카로 가요. 입구 시설의 무료 주차장에 세워요",
+        "source": "manzamo_facility_about",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.manzamo.jp/",
+      "summary_ko": "바다 위 석회암 절벽과 잔디밭이 있는 경승지예요.",
+      "body_ko": [
+        "만자모는 높이 20m의 류큐 석회암 절벽과 그 위에 펼쳐진 잔디밭이에요.",
+        "이름은 류큐 왕 쇼케이가 '만 명이 앉을 만한 들판(모)'이라고 칭찬한 데서 왔다고 해요.",
+        "2020년 10월에는 입구에 전망 데크와 식당·상점이 있는 '만자모 주변 활성화 시설'이 문을 열었어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "높이 20m 류큐 석회암 절벽과 그 위의 잔디 공원이에요.",
+          "source": "onna_kanko_manzamo",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "이름은 류큐 왕 쇼케이가 '만 명이 앉을 만한 들판(모)'이라고 칭찬한 데서 왔다고 해요.",
+          "source": "onna_kanko_manzamo",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "입구의 만자모 주변 활성화 시설은 2020년 10월 2일에 문을 열었고, 전망 데크가 있어요.",
+          "source": "manzamo_facility_about",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "산책로 관람료가 있고(초등학생 미만 무료), 기념품점·식당·전망 데크 이용은 무료예요.",
+          "source": "onna_kanko_manzamo",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "태풍 같은 자연재해 때는 시설이 쉴 수 있어요.",
+          "source": "manzamo_facility_about",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "none"
+        ],
+        "source": "manzamo_facility_about",
+        "last_verified": "2026-10-10"
+      },
+      "status": {
+        "value": "open",
+        "source": "manzamo_facility_about",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 35,
+        "designations": []
+      },
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Onna_Okinawa_Japan_Cape-Manzamo-01.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "wiki": {
+        "ko": "만자모",
+        "en": "Cape Manzamo"
+      },
+      "google_place_id": "ChIJ-adBh3gD5TQRGFnnzG897N8"
+    },
+    {
+      "id": "kitano-ijinkan",
+      "qid": "Q10855753",
+      "names": {
+        "ko": "기타노 이진칸 거리",
+        "ko_basis": "editorial",
+        "en": "Kitano Ijinkan",
+        "local": "北野異人館街",
+        "local_short": "北野異人館",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "기타노 이진칸",
+        "기타노초",
+        "풍향계의 집"
+      ],
+      "aliases_en": [
+        "Kitano-cho"
+      ],
+      "mentions_ko": [
+        "구 토마스 주택"
+      ],
+      "region": "jp_kobe",
+      "area_ko": "고베 주오구 기타노초",
+      "category": "heritage",
+      "tags": [
+        {
+          "id": "stairs",
+          "source": "kazamidori_official_guide",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 34.701278,
+        "lng": 135.189708,
+        "source": "wd",
+        "qid": "Q10855753",
+        "last_verified": "2026-10-10"
+      },
+      "address_local": {
+        "text": "神戸市中央区北野町3-13-3",
+        "source": "kazamidori_official_access",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "train",
+          "walk_from_center"
+        ],
+        "nearest_ko": "산노미야역에서 북쪽으로 걸어 올라가요",
+        "nearest_local": {
+          "text": "神戸三宮駅",
+          "qid": "Q377926",
+          "source": "wd"
+        },
+        "source": "kazamidori_official_access",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.kobeijinkan.com/",
+      "summary_ko": "옛 외국인 저택(이진칸)이 남아 있는 언덕 동네예요.",
+      "body_ko": [
+        "기타노 이진칸 거리는 효고 개항 뒤 메이지 시대에 롯코산 남쪽 비탈에 외국인 주택이 들어서며 생긴 동네예요.",
+        "1960년 무렵까지 200채 가까운 이진칸이 있었지만 많이 헐렸고, 지금은 30여 채가 남아 1980년 국가 전통적 건조물군 보존지구로 지정됐어요.",
+        "그중 독일 무역상 토마스가 자택으로 지은 벽돌 외벽의 '풍향계의 집'(구 토마스 주택)은 1978년 국가 중요문화재가 됐어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "효고 개항 뒤 메이지 20년대부터 롯코산 남쪽 비탈에 외국인 주택지가 생겼어요.",
+          "source": "bunka_kitano_denken",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "1980년 전통적 건조물군 보존지구로 지정됐어요.",
+          "source": "kobeijinkan_official_history",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "1960년 무렵 200채 가까이 있었고 지금은 30여 채가 남았어요.",
+          "source": "kobeijinkan_official_history",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "풍향계의 집은 독일 무역상 토마스의 자택으로 외벽이 벽돌이에요.",
+          "source": "kazamidori_official_history",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "구 토마스 주택은 1978년 중요문화재로 지정됐어요.",
+          "source": "bunka_thomas_house",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "풍향계의 집은 매달 셋째 화요일에 쉬어요(공휴일이면 다음 날).",
+          "source": "kazamidori_official_guide",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "풍향계의 집 안에 화장실이 없어요(앞 관광안내소 이용).",
+          "source": "kazamidori_official_guide",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "집 안팎에 턱과 계단이 있어요.",
+          "source": "kazamidori_official_guide",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "이진칸마다 운영 주체가 달라 입장권·휴관일이 제각각이에요.",
+          "source": "kazamidori_official_guide",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "irregular"
+        ],
+        "closed_note_ko": "풍향계의 집은 매달 셋째 화요일에 쉬어요. 다른 이진칸은 저마다 달라요.",
+        "source": "kazamidori_official_guide",
+        "last_verified": "2026-10-10"
+      },
+      "status": {
+        "value": "open",
+        "source": "kazamidori_official_guide",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 31,
+        "designations": [
+          {
+            "kind": "jp_preservation_district",
+            "name_ko": "중요 전통적 건조물군 보존지구(고베시 기타노초 야마모토도리)",
+            "source": "bunka_kitano_denken"
+          },
+          {
+            "kind": "jp_important_cultural_property_partial",
+            "name_ko": "풍향계의 집(구 토마스 주택) 중요문화재",
+            "source": "bunka_thomas_house"
+          }
+        ]
+      },
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Kitano_Street_Kobe02s3s4272.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "wiki": {
+        "ko": "기타노초 야마모토도오리"
+      },
+      "google_place_id": "ChIJT6cViuCOAGARegX_ORkvbs0"
+    },
+    {
+      "id": "kobe-harborland",
+      "qid": "Q5364704",
+      "names": {
+        "ko": "고베 하버랜드",
+        "ko_basis": "editorial",
+        "en": "Kobe Harborland",
+        "local": "神戸ハーバーランド",
+        "local_short": "ハーバーランド",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "하버랜드",
+        "고베 하바랜드",
+        "우미에"
+      ],
+      "aliases_en": [
+        "Harborland"
+      ],
+      "mentions_ko": [
+        "고베 포트타워",
+        "모자이크 대관람차"
+      ],
+      "region": "jp_kobe",
+      "area_ko": "고베 주오구 히가시카와사키초",
+      "category": "city_view",
+      "geo": {
+        "kind": "site",
+        "lat": 34.67905556,
+        "lng": 135.18180556,
+        "source": "wd",
+        "qid": "Q5364704",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "train",
+          "metro"
+        ],
+        "nearest_ko": "JR 고베역 중앙 출구에서 바로예요",
+        "nearest_local": {
+          "text": "神戸駅",
+          "qid": "Q1072984",
+          "source": "wd"
+        },
+        "source": "harborland_official_access",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://harborland.co.jp/",
+      "summary_ko": "고베항 바닷가의 쇼핑·산책·야경 구역이에요.",
+      "body_ko": [
+        "고베 하버랜드는 옛 국철 미나토가와 화물역 터에 만든 바닷가 상업·산책 구역으로, 1984년 공모로 이름이 정해지고 1992년에 문을 열었어요.",
+        "바닷가의 붉은 벽돌 창고 두 동은 1890년대 후반에 지어진 고베항 화물 창고였어요.",
+        "보행자용 도개교 '하네코'와 바다를 따라 난 나무 산책로가 있고, 모자이크 대관람차에서는 롯코산·고베 포트타워·고베대교와 밤의 야경이 보여요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "옛 국철 미나토가와 화물역 터로, 1984년 이름이 정해지고 1992년 10월 그랜드 오픈했어요.",
+          "source": "harborland_official_history",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "붉은 벽돌 창고 두 동은 1890년대 후반 고베항 화물 창고였어요.",
+          "source": "harborland_official_areaguide",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "'하네코'는 일본 첫 보행자용 평행사변형식 도개교예요.",
+          "source": "harborland_official_areaguide",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "모자이크 대관람차에서 롯코산·포트타워·고베대교와 야경이 보여요.",
+          "source": "harborland_official_areaguide",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "벽돌 창고 옆에서 옛 신호소까지 바다를 따라 나무 산책로가 있어요.",
+          "source": "harborland_official_areaguide",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "'KOBE 어디서나 휠체어'를 무료로 빌릴 수 있어요.",
+          "source": "harborland_official_info",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "안내소는 듀오고베 입구 듀오돔 정면에 있어요.",
+          "source": "harborland_official_info",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "코인로커가 있어요.",
+          "source": "harborland_official_info",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "public_space"
+      },
+      "status": {
+        "value": "open",
+        "source": "harborland_official_info",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 46,
+        "designations": []
+      },
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Harborland_district.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "wiki": {
+        "ko": "고베 하버랜드",
+        "en": "Harborland"
+      },
+      "google_place_id": "ChIJD5fHbgePAGARpXshMiA87rA"
+    },
+    {
+      "id": "nankinmachi",
+      "qid": "Q912392",
+      "names": {
+        "ko": "난킨마치",
+        "ko_basis": "editorial",
+        "en": "Nankin-machi",
+        "local": "南京町",
+        "local_short": "南京町",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "고베 차이나타운",
+        "고베 난킨마치",
+        "난킨마치 중화가"
+      ],
+      "aliases_en": [
+        "Kobe Chinatown"
+      ],
+      "mentions_ko": [
+        "춘절제"
+      ],
+      "region": "jp_kobe",
+      "area_ko": "고베 주오구 모토마치",
+      "category": "market_street",
+      "geo": {
+        "kind": "site",
+        "lat": 34.68805556,
+        "lng": 135.18805556,
+        "source": "wd",
+        "qid": "Q912392",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "train",
+          "metro"
+        ],
+        "nearest_ko": "JR·한신 모토마치역에서 남쪽으로 걸어가요",
+        "nearest_local": {
+          "text": "元町駅",
+          "qid": "Q59520",
+          "source": "wd"
+        },
+        "source": "nankinmachi_official_access",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.nankinmachi.or.jp/",
+      "summary_ko": "모토마치역 남쪽에 있는 작은 중화가예요.",
+      "body_ko": [
+        "난킨마치는 모토마치역 남쪽, 동서 약 270m·남북 약 110m 범위의 중화가예요.",
+        "1867년 고베항 개항 때 외국인 거류지에 살 수 없던 청나라 사람들이 그 서쪽에 모여 살면서 생겼고, 요코하마·나가사키와 함께 일본 3대 중화가로 꼽혀요.",
+        "전쟁 때 공습으로 전소했지만 1977년 상점가 진흥조합이 생기며 중화가로 다시 정비됐고, 1987년부터 음력 설마다 춘절제를 열어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "모토마치역 남쪽, 동서 약 270m·남북 약 110m 범위예요.",
+          "source": "nankinmachi_official_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "1867년 개항 때 거류지에 살 수 없던 청나라 사람들이 서쪽에 모여 생겼어요.",
+          "source": "nankinmachi_official_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "요코하마·나가사키와 함께 일본 3대 중화가로 꼽혀요.",
+          "source": "nankinmachi_official_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "공습으로 전소했고 1977년 진흥조합이 창립해 중화가로 정비했어요.",
+          "source": "nankinmachi_official_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "1987년 첫 춘절제를 열었어요.",
+          "source": "nankinmachi_official_about",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "주변 도로는 주정차 금지예요.",
+          "source": "nankinmachi_official_access",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "'난킨마치'는 상점가 진흥조합이 관리하는 상점가 이름이에요.",
+          "source": "nankinmachi_official_about",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "public_space"
+      },
+      "status": {
+        "value": "open",
+        "source": "nankinmachi_official_about",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 45,
+        "designations": []
+      },
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Kobe-Nankinmachi.JPG",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "wiki": {
+        "ko": "난킨마치",
+        "en": "Nankin-machi"
+      },
+      "google_place_id": "ChIJkaqwvf2OAGARARl_1gEYbx0"
+    },
+    {
+      "id": "himeji-castle",
+      "qid": "Q188754",
+      "names": {
+        "ko": "히메지성",
+        "ko_basis": "editorial",
+        "en": "Himeji Castle",
+        "local": "姫路城",
+        "local_short": "姫路城",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "백로성",
+        "시라사기성",
+        "하쿠로성"
+      ],
+      "aliases_en": [
+        "Himeji-jo"
+      ],
+      "mentions_ko": [
+        "대천수"
+      ],
+      "region": "jp_himeji",
+      "area_ko": "히메지시 혼마치",
+      "category": "heritage",
+      "tags": [
+        {
+          "id": "unesco",
+          "source": "unesco_661",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "stairs",
+          "source": "himeji_faq_wheelchair",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 34.839444444444446,
+        "lng": 134.69361111111112,
+        "source": "wd",
+        "qid": "Q188754",
+        "last_verified": "2026-10-10"
+      },
+      "address_local": {
+        "text": "兵庫県姫路市本町68番地",
+        "source": "himeji_official_guide",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "train",
+          "bus"
+        ],
+        "nearest_ko": "JR 히메지역·산요히메지역에서 북쪽으로 곧장 걸어가요",
+        "nearest_local": {
+          "text": "姫路駅",
+          "qid": "Q119301",
+          "source": "wd"
+        },
+        "source": "himeji_official_guide",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.city.himeji.lg.jp/castle/",
+      "summary_ko": "흰 천수가 솟은 세계유산·국보 성이에요.",
+      "body_ko": [
+        "히메지성은 1346년 아카마쓰 사다노리가 히메야마에 쌓은 성에서 시작해, 1580년 히데요시가 3층 천수를 지었어요.",
+        "1601년 이케다 데루마사가 대개축을 시작해 1609년 지금의 5중 7층 연립식 천수가 완성됐어요.",
+        "천수는 1931년 국보로 지정됐고, 성은 1993년 12월 세계유산에 등재됐어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "1346년 아카마쓰 사다노리가 히메야마에 본격적인 성을 쌓았어요.",
+          "source": "himeji_official_history_article",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "1580년 히데요시가 3층 천수를 지었어요.",
+          "source": "himeji_official_history_article",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "1601년 이케다 데루마사가 대개축해 1609년 5중 7층 연립식 천수가 완성됐어요.",
+          "source": "himeji_official_history_article",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "천수는 1931년 국보로 지정됐어요.",
+          "source": "himeji_official_history_article",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "1993년 12월 11일 세계유산에 등재됐어요.",
+          "source": "himeji_official_wh",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c6",
+          "text_ko": "대천수는 시간당 1,000명으로 제한해요.",
+          "source": "himeji_official_guide",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "대천수는 시간당 1,000명으로 제한해 붐비면 입구에서 기다려요.",
+          "source": "himeji_official_guide",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "짐은 배낭에 넣고, 큰 짐은 개찰구 근처 코인로커(유료)에 맡겨요.",
+          "source": "himeji_official_tebura",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "언덕·계단이 많고 엘리베이터가 없어 휠체어로는 건물 안을 못 봐요.",
+          "source": "himeji_faq_wheelchair",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "대천수 주변 보존 수리 공사로 동선 일부가 좁고 경관·라이트업에 영향이 있어요.",
+          "source": "himeji_official_repair",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "none"
+        ],
+        "closed_note_ko": "12월 29·30일만 쉬어요.",
+        "source": "himeji_official_guide",
+        "last_verified": "2026-10-10"
+      },
+      "risk": [
+        "renovation"
+      ],
+      "status": {
+        "value": "partial",
+        "note_ko": "대천수 주변 야구라·문 보존 수리 공사 중이에요. 공사 기간은 공식 사이트에서 확인하세요.",
+        "source": "himeji_official_repair",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 3,
+        "designations": [
+          {
+            "kind": "unesco",
+            "name_ko": "세계유산 히메지성",
+            "source": "unesco_661"
+          },
+          {
+            "kind": "jp_national_treasure",
+            "name_ko": "천수 등 국보",
+            "source": "himeji_official_history_article"
+          }
+        ]
+      },
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Himeji_Castle,_Hyōgo_Prefecture;_August_2018_(04).jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "wiki": {
+        "ko": "히메지성",
+        "en": "Himeji Castle"
+      },
+      "google_place_id": "ChIJsyQzogPgVDURsYG6bi-MT3o"
+    },
+    {
+      "id": "koko-en",
+      "qid": "Q6426700",
+      "names": {
+        "ko": "고코엔",
+        "ko_basis": "editorial",
+        "en": "Koko-en Garden",
+        "local": "好古園",
+        "local_short": "好古園",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "코코엔",
+        "히메지성 서어전터 정원"
+      ],
+      "aliases_en": [
+        "Kokoen"
+      ],
+      "mentions_ko": [
+        "고코도"
+      ],
+      "region": "jp_himeji",
+      "area_ko": "히메지시 혼마치",
+      "category": "nature",
+      "geo": {
+        "kind": "site",
+        "lat": 34.83805556,
+        "lng": 134.68972222,
+        "source": "wd",
+        "qid": "Q6426700",
+        "last_verified": "2026-10-10"
+      },
+      "address_local": {
+        "text": "兵庫県姫路市本町68",
+        "source": "kokoen_official_guidance",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "train",
+          "bus"
+        ],
+        "nearest_ko": "히메지역에서 걸어가거나, 신키버스 '히메지조 오테몬마에'에서 내려 걸어가요",
+        "nearest_local": {
+          "text": "姫路駅",
+          "qid": "Q119301",
+          "source": "wd"
+        },
+        "source": "kokoen_official_traffic",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.himeji-machishin.jp/ryokka/kokoen/",
+      "summary_ko": "히메지성을 배경으로 삼은 일본 정원이에요.",
+      "body_ko": [
+        "고코엔은 히메지성 서쪽 어전터에 히메지 시제 100주년을 기념해 만든 약 1만 평의 일본 정원으로, 1992년 4월에 문을 열었어요.",
+        "발굴조사에서 확인된 저택 구획과 통로를 살려 크고 작은 정원 9개로 구성했고, 히메지성을 차경으로 삼은 지천회유식 정원이에요.",
+        "이름은 히메지 번교 '고코도'에서 따왔어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "시제 100주년 기념 약 1만 평 일본 정원으로 1992년 4월 29일 개원했어요.",
+          "source": "kokoen_official_origin",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "저택 구획과 통로를 살려 크고 작은 정원 9개로 구성했어요.",
+          "source": "kokoen_official_origin",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "히메지성을 차경으로 삼은 지천회유식 정원이에요.",
+          "source": "kokoen_official_origin",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "이름은 번교 '고코도'에서 따왔어요.",
+          "source": "kokoen_official_origin",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "원내는 전면 금연이고, 음식물을 가져와 먹거나 마실 수 없어요.",
+          "source": "kokoen_official_guidance",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "휠체어를 무료로 빌릴 수 있지만 턱이 조금 있어서 동행자와 함께라면 돌아볼 수 있어요.",
+          "source": "kokoen_official_guidance",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "히메지성과 함께 보는 공통권이 있어요.",
+          "source": "kokoen_official_guidance",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "none"
+        ],
+        "closed_note_ko": "12월 29·30일만 쉬어요.",
+        "source": "kokoen_official_guidance",
+        "last_verified": "2026-10-10"
+      },
+      "status": {
+        "value": "open",
+        "source": "kokoen_official_guidance",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 49,
+        "designations": []
+      },
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Himeji_Koukoen32n4592.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "wiki": {
+        "en": "Kōko-en"
+      },
+      "google_place_id": "ChIJDxT9HRvgVDURt_SPzwe2f_E"
+    },
+    {
+      "id": "hiroshima-peace-park",
+      "qid": "Q1207208",
+      "names": {
+        "ko": "히로시마 평화기념공원",
+        "ko_basis": "editorial",
+        "en": "Hiroshima Peace Memorial Park",
+        "local": "平和記念公園",
+        "local_short": "平和記念公園",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "원폭 돔",
+        "겐바쿠 돔",
+        "평화기념공원"
+      ],
+      "aliases_en": [
+        "Atomic Bomb Dome"
+      ],
+      "mentions_ko": [
+        "히로시마 평화기념자료관"
+      ],
+      "region": "jp_hiroshima",
+      "area_ko": "히로시마 나카구 나카지마초",
+      "category": "heritage",
+      "tags": [
+        {
+          "id": "unesco",
+          "source": "unesco_775",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "free_entry",
+          "source": "hiroshima_city_peace_park_detail",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 34.392728,
+        "lng": 132.452374,
+        "source": "wd",
+        "qid": "Q1207208",
+        "last_verified": "2026-10-10"
+      },
+      "address_local": {
+        "text": "広島市中区中島町1及び大手町1-10",
+        "source": "hiroshima_city_peace_park_detail",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "train",
+          "bus"
+        ],
+        "nearest_ko": "히로덴 노면전차 '겐바쿠도무마에' 정류장에서 걸어가요",
+        "nearest_local": {
+          "text": "原爆ドーム前停留場",
+          "qid": "Q850997",
+          "source": "wd"
+        },
+        "source": "hpmm_official_access",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.city.hiroshima.lg.jp/living/park-green/1005983/1026353/1003127.html",
+      "summary_ko": "원폭 돔과 자료관이 있는 위령·평화 기념 공원이에요.",
+      "body_ko": [
+        "히로시마 평화기념공원은 1945년 8월 6일 원자폭탄으로 파괴된 옛 번화가 자리에 1950년부터 조성해 1955년에 완성한 도시공원이에요.",
+        "면적 122,100㎡의 공원 안에 원폭 돔과 히로시마 평화기념자료관, 위령비·기념비 35기가 있어요.",
+        "원폭 돔은 폭심지 부근에 남은 건물로 1996년 세계유산에 등재됐고, 공원은 단게 겐조의 설계로 2007년 국가 명승이 됐어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "1945년 8월 6일 원폭으로 파괴된 자리에 1950년부터 조성해 1955년 완성했어요.",
+          "source": "hiroshima_city_peace_park_detail",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "면적 122,100㎡, 원폭 돔·자료관과 위령비·기념비 35기가 있어요.",
+          "source": "hiroshima_city_peace_park_detail",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "원폭 돔은 폭심지 부근에 남은 건물로 1996년 세계유산이에요.",
+          "source": "unesco_775",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "2007년 2월 6일 국가 명승으로 지정됐어요.",
+          "source": "hiroshima_city_peace_park_detail",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "설계는 단게 겐조 등의 안이 1등으로 뽑힌 것이에요.",
+          "source": "bunka_peace_park",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "공원 전역이 금연이에요.",
+          "source": "hiroshima_city_peace_park_nosmoking",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "공원은 무료·무휴로 늘 열려 있고, 자료관 등 시설은 따로 관람료·개관 시간이 있어요.",
+          "source": "hiroshima_city_peace_park_detail",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "자료관은 연말 이틀 쉬고, 삼각대·셀카봉 없이 플래시를 끄면 촬영할 수 있어요.",
+          "source": "hpmm_official_open",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "공원 안에 일반 주차장이 없어요.",
+          "source": "hpmm_official_open",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "free",
+        "regular_closed": [
+          "none"
+        ],
+        "source": "hiroshima_city_peace_park_detail",
+        "last_verified": "2026-10-10"
+      },
+      "status": {
+        "value": "open",
+        "source": "hiroshima_city_peace_park_detail",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 22,
+        "designations": [
+          {
+            "kind": "unesco",
+            "name_ko": "세계유산 히로시마 평화기념비(원폭 돔)",
+            "source": "unesco_775"
+          },
+          {
+            "kind": "jp_place_of_scenic_beauty",
+            "name_ko": "평화기념공원 명승",
+            "source": "hiroshima_city_peace_park_detail"
+          }
+        ]
+      },
+      "photo_link": "https://commons.wikimedia.org/wiki/File:20181111_Hiroshima_Memorial_Cenotaph-1.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "wiki": {
+        "ko": "히로시마 평화기념공원",
+        "en": "Hiroshima Peace Memorial Park"
+      },
+      "google_place_id": "ChIJgzAzVG2iWjURZRZ1udXOKeE"
+    },
+    {
+      "id": "itsukushima-shrine",
+      "qid": "Q191763",
+      "names": {
+        "ko": "이쓰쿠시마 신사",
+        "ko_basis": "editorial",
+        "en": "Itsukushima Shrine",
+        "local": "嚴島神社",
+        "local_short": "厳島神社",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "이츠쿠시마 신사",
+        "미야지마",
+        "이쓰쿠시마 진자"
+      ],
+      "aliases_en": [
+        "Miyajima"
+      ],
+      "mentions_ko": [
+        "오토리이",
+        "미야지마구치"
+      ],
+      "region": "jp_hiroshima",
+      "area_ko": "하쓰카이치시 미야지마",
+      "category": "heritage",
+      "tags": [
+        {
+          "id": "unesco",
+          "source": "unesco_776",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "pier",
+        "lat": 34.3021,
+        "lng": 132.322,
+        "source": "wd",
+        "qid": "Q11454145",
+        "last_verified": "2026-10-10"
+      },
+      "address_local": {
+        "text": "広島県廿日市市宮島町１－１",
+        "source": "itsukushima_official_access",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "train",
+          "boat"
+        ],
+        "nearest_ko": "JR 미야지마구치역(히로덴 미야지마구치)에서 선착장으로 가 페리로 미야지마 선착장까지 건너요. 내려서 신사 입구까지 걸어가요",
+        "nearest_local": {
+          "text": "宮島口駅",
+          "qid": "Q875417",
+          "source": "wd"
+        },
+        "source": "itsukushima_official_access",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.itsukushimajinja.jp/",
+      "summary_ko": "바다 위에 선 주홍빛 사전과 오토리이로 유명한 신사예요.",
+      "body_ko": [
+        "이쓰쿠시마 신사는 미야지마의 바닷물이 드나드는 자리에 세운 신사로, 593년에 사전을 세웠다고 전해져요.",
+        "1168년 다이라노 기요모리가 신덴즈쿠리 양식을 들인 사전으로 고쳐 지었고, 본사 등 6동이 국보, 오토리이와 오중탑 등은 중요문화재예요.",
+        "마쓰시마·아마노하시다테와 함께 일본 3경 '아키노미야지마'로 알려졌고, 1996년 세계유산에 등재됐어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "바닷물이 드나드는 자리에 593년 사전을 세웠다고 전해져요.",
+          "source": "itsukushima_official_history",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "1168년 다이라노 기요모리가 신덴즈쿠리 양식으로 고쳐 지었어요.",
+          "source": "itsukushima_official_history",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "일본 3경 '아키노미야지마'로 알려졌고 1996년 세계유산에 등재됐어요.",
+          "source": "itsukushima_official_history",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "본사 등 6동이 국보, 11동 3기가 중요문화재예요.",
+          "source": "itsukushima_official_culture",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "동회랑 구조 보강과 오중탑 수리 공사가 진행 중이에요.",
+          "source": "itsukushima_official_construction",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "신사에는 주차장이 없어요.",
+          "source": "itsukushima_official_access",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "JR 페리 낮 시간대 배는 오토리이 가까이 지나요(진행 방향 오른쪽).",
+          "source": "jr_miyajima_ferry_route",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "교통계 IC카드로 바로 페리 개찰구에 가요.",
+          "source": "jr_miyajima_ferry_access",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "none"
+        ],
+        "source": "itsukushima_official_admission",
+        "last_verified": "2026-10-10"
+      },
+      "risk": [
+        "renovation"
+      ],
+      "status": {
+        "value": "partial",
+        "note_ko": "동회랑 구조 보강과 오중탑 수리 공사 중이라 일부가 가려질 수 있어요.",
+        "source": "itsukushima_official_construction",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 10,
+        "designations": [
+          {
+            "kind": "unesco",
+            "name_ko": "세계유산 이쓰쿠시마 신사",
+            "source": "unesco_776"
+          },
+          {
+            "kind": "jp_national_treasure",
+            "name_ko": "본사 등 6동 국보",
+            "source": "itsukushima_official_culture"
+          }
+        ]
+      },
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Itsukushima_Gate.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "wiki": {
+        "ko": "이쓰쿠시마 신사",
+        "en": "Itsukushima Shrine"
+      },
+      "google_place_id": "ChIJj23HfgTjGmARkNW10PcocjU"
+    },
+    {
+      "id": "hiroshima-castle",
+      "qid": "Q41977",
+      "names": {
+        "ko": "히로시마성",
+        "ko_basis": "editorial",
+        "en": "Hiroshima Castle",
+        "local": "広島城",
+        "local_short": "広島城",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "리조",
+        "잉어성"
+      ],
+      "aliases_en": [
+        "Rijo"
+      ],
+      "mentions_ko": [
+        "니노마루",
+        "산노마루 역사관"
+      ],
+      "region": "jp_hiroshima",
+      "area_ko": "히로시마 나카구 모토마치",
+      "category": "heritage",
+      "tags": [
+        {
+          "id": "free_entry",
+          "source": "hiroshimacastle_official_info",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 34.40275,
+        "lng": 132.45902777777778,
+        "source": "wd",
+        "qid": "Q41977",
+        "last_verified": "2026-10-10"
+      },
+      "address_local": {
+        "text": "広島市中区基町21番1号",
+        "source": "hiroshimacastle_official_access",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "train",
+          "bus"
+        ],
+        "nearest_ko": "히로시마역 남쪽 출구에서 노면전차를 타고 '가미야초히가시·가미야초니시' 정류장에서 지하통로로 걸어가요",
+        "nearest_local": {
+          "text": "広島駅",
+          "qid": "Q576459",
+          "source": "wd"
+        },
+        "source": "hiroshimacastle_official_access",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://hiroshimacastle.jp/",
+      "summary_ko": "모리 데루모토가 쌓은 성터로, 천수 외관과 니노마루를 봐요.",
+      "body_ko": [
+        "히로시마성은 1589년 모리 데루모토가 쌓기 시작한 성으로, 메이지 유신 때 폐성됐고 성터는 국가 사적이에요.",
+        "1931년 국보가 된 천수는 원폭으로 무너졌고, 지금 천수는 1958년에 외관을 복원한 것이에요.",
+        "이 천수(박물관)는 2026년 3월에 문을 닫아 외관만 볼 수 있고, 2027년 6월 1일에 산노마루 역사관이 문을 열어요.",
+        "니노마루의 표어문과 야구라는 목조로 복원돼 무료로 들어가 볼 수 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "1589년 모리 데루모토가 쌓기 시작했어요.",
+          "source": "hiroshimacastle_official_history01",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "메이지 유신 때 폐성됐고, 성터는 국가 사적이에요.",
+          "source": "bunka_hiroshimajo",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "1931년 천수가 국보가 됐고 1945년 원폭으로 무너졌어요.",
+          "source": "hiroshimacastle_official_history04",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "지금 천수는 1958년 외관 복원한 박물관으로 2026년 3월 닫았고, 산노마루 역사관은 2027년 6월 1일 열어요.",
+          "source": "hiroshimacastle_official_news_sannomaru",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "니노마루 복원 건물은 목조이고 입관 무료예요.",
+          "source": "hiroshimacastle_official_info",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "성터 공원은 사적이라 불을 쓸 수 없고, 전용 주차장도 없어요.",
+          "source": "hiroshimacastle_official_faq",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "니노마루 건물 안은 신발을 벗고 들어가요.",
+          "source": "hiroshimacastle_official_info",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "천수와 니노마루는 해 질 녘부터 밤까지 라이트업돼요.",
+          "source": "hiroshimacastle_official_faq",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "원폭 돔(평화공원)까지 걸어갈 수 있어요.",
+          "source": "hiroshimacastle_official_faq",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "free",
+        "regular_closed": [
+          "none"
+        ],
+        "closed_note_ko": "니노마루는 12월 8일과 29~31일에 쉬어요.",
+        "source": "hiroshimacastle_official_info",
+        "last_verified": "2026-10-10"
+      },
+      "status": {
+        "value": "partial",
+        "note_ko": "천수각 안(박물관)은 2026년 3월에 닫았어요. 외관은 볼 수 있어요.",
+        "source": "hiroshimacastle_official_castle",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 19,
+        "designations": [
+          {
+            "kind": "jp_historic_site",
+            "name_ko": "히로시마성터 사적",
+            "source": "bunka_hiroshimajo"
+          }
+        ]
+      },
+      "photo_link": "https://commons.wikimedia.org/wiki/File:HiroshimaCastle.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "wiki": {
+        "ko": "히로시마성",
+        "en": "Hiroshima Castle"
+      },
+      "google_place_id": "ChIJw-f36qaYWjURMpYztSzpe_U"
     }
   ],
   "retired": [],
@@ -7487,6 +9667,466 @@
       "id": "ohori_en",
       "name": "Ohori Park (official, English, machine-translated)",
       "url": "https://www.ohorikouen.jp/en/",
+      "use": "facts"
+    },
+    {
+      "id": "bunka_hiroshimajo",
+      "name": "文化庁 国指定文化財等データベース",
+      "url": "https://kunishitei.bunka.go.jp/heritage/detail/401/2332",
+      "use": "heritage_registry",
+      "license": "MEXT-website-terms (出典記載で自由利用)",
+      "attribution_required": true
+    },
+    {
+      "id": "bunka_kitano_denken",
+      "name": "文化庁 国指定文化財等データベース",
+      "url": "https://kunishitei.bunka.go.jp/heritage/detail/103/21",
+      "use": "heritage_registry",
+      "license": "MEXT-website-terms (出典記載で自由利用)",
+      "attribution_required": true
+    },
+    {
+      "id": "bunka_peace_park",
+      "name": "文化庁 国指定文化財等データベース",
+      "url": "https://kunishitei.bunka.go.jp/heritage/detail/401/00003522",
+      "use": "heritage_registry",
+      "license": "MEXT-website-terms (出典記載で自由利用)",
+      "attribution_required": true
+    },
+    {
+      "id": "bunka_thomas_house",
+      "name": "文化庁 国指定文化財等データベース",
+      "url": "https://kunishitei.bunka.go.jp/heritage/detail/102/2248",
+      "use": "heritage_registry",
+      "license": "MEXT-website-terms (出典記載で自由利用)",
+      "attribution_required": true
+    },
+    {
+      "id": "churaumi_official_about",
+      "name": "沖縄美ら海水族館 めんそーれ",
+      "url": "https://churaumi.okinawa/haisai/",
+      "use": "facts"
+    },
+    {
+      "id": "churaumi_official_access",
+      "name": "沖縄美ら海水族館 アクセス・駐車場",
+      "url": "https://churaumi.okinawa/guide/access/",
+      "use": "facts"
+    },
+    {
+      "id": "churaumi_official_accessibility",
+      "name": "沖縄美ら海水族館 バリアフリー情報",
+      "url": "https://churaumi.okinawa/guide/accessibility/",
+      "use": "facts"
+    },
+    {
+      "id": "churaumi_official_caution",
+      "name": "沖縄美ら海水族館 入館についての注意事項",
+      "url": "https://churaumi.okinawa/guide/caution/",
+      "use": "facts"
+    },
+    {
+      "id": "churaumi_official_fee",
+      "name": "沖縄美ら海水族館 入館料金",
+      "url": "https://churaumi.okinawa/guide/info/",
+      "use": "facts"
+    },
+    {
+      "id": "churaumi_official_hours",
+      "name": "沖縄美ら海水族館 営業時間・休館日",
+      "url": "https://churaumi.okinawa/guide/hour/",
+      "use": "facts"
+    },
+    {
+      "id": "churaumi_official_kuroshio",
+      "name": "沖縄美ら海水族館 黒潮への旅",
+      "url": "https://churaumi.okinawa/area/the-kuroshio/",
+      "use": "facts"
+    },
+    {
+      "id": "harborland_official_access",
+      "name": "神戸ハーバーランド アクセス",
+      "url": "https://harborland.co.jp/access",
+      "use": "facts"
+    },
+    {
+      "id": "harborland_official_areaguide",
+      "name": "神戸ハーバーランド 施設情報・ビュースポット",
+      "url": "https://harborland.co.jp/area_guide",
+      "use": "facts"
+    },
+    {
+      "id": "harborland_official_history",
+      "name": "神戸ハーバーランド 歴史",
+      "url": "https://harborland.co.jp/history",
+      "use": "facts"
+    },
+    {
+      "id": "harborland_official_info",
+      "name": "神戸ハーバーランド インフォメーション",
+      "url": "https://harborland.co.jp/information",
+      "use": "facts"
+    },
+    {
+      "id": "himeji_faq_wheelchair",
+      "name": "姫路市 FAQ 姫路城は車いすで見学できますか",
+      "url": "https://www.city.himeji.lg.jp/faq/faq_detail.php?frmId=575",
+      "use": "facts"
+    },
+    {
+      "id": "himeji_official_guide",
+      "name": "姫路市 姫路城ご利用案内",
+      "url": "https://www.city.himeji.lg.jp/castle/0000007671.html",
+      "use": "facts"
+    },
+    {
+      "id": "himeji_official_history_article",
+      "name": "姫路市 姫路城の歴史",
+      "url": "https://www.city.himeji.lg.jp/castle/0000007750.html",
+      "use": "facts"
+    },
+    {
+      "id": "himeji_official_repair",
+      "name": "姫路市 姫路城保存修理工事について",
+      "url": "https://www.city.himeji.lg.jp/castle/0000033820.html",
+      "use": "facts"
+    },
+    {
+      "id": "himeji_official_tebura",
+      "name": "姫路市 手ぶら観光にご協力ください",
+      "url": "https://www.city.himeji.lg.jp/castle/0000032731.html",
+      "use": "facts"
+    },
+    {
+      "id": "himeji_official_wh",
+      "name": "姫路市 世界文化遺産・国宝姫路城",
+      "url": "https://www.city.himeji.lg.jp/castle/0000007744.html",
+      "use": "facts"
+    },
+    {
+      "id": "hiroshima_city_peace_park_detail",
+      "name": "広島市 平和記念公園",
+      "url": "https://www.city.hiroshima.lg.jp/living/park-green/1005983/1026353/1003127.html",
+      "use": "facts"
+    },
+    {
+      "id": "hiroshima_city_peace_park_nosmoking",
+      "name": "広島市 平和記念公園内の全面禁煙化",
+      "url": "https://www.city.hiroshima.lg.jp/living/park-green/1005983/1026353/1010924.html",
+      "use": "facts"
+    },
+    {
+      "id": "hiroshimacastle_official_access",
+      "name": "広島城 アクセス",
+      "url": "https://hiroshimacastle.jp/access",
+      "use": "facts"
+    },
+    {
+      "id": "hiroshimacastle_official_castle",
+      "name": "広島城 広島城跡案内",
+      "url": "https://hiroshimacastle.jp/castle",
+      "use": "facts"
+    },
+    {
+      "id": "hiroshimacastle_official_faq",
+      "name": "広島城 よくあるご質問",
+      "url": "https://hiroshimacastle.jp/faq",
+      "use": "facts"
+    },
+    {
+      "id": "hiroshimacastle_official_history01",
+      "name": "広島城の歴史 築城前の広島/広島城築城",
+      "url": "https://hiroshimacastle.jp/history/history01",
+      "use": "facts"
+    },
+    {
+      "id": "hiroshimacastle_official_history04",
+      "name": "広島城の歴史 近代の広島城",
+      "url": "https://hiroshimacastle.jp/history/history04",
+      "use": "facts"
+    },
+    {
+      "id": "hiroshimacastle_official_info",
+      "name": "広島城址公園利用案内",
+      "url": "https://hiroshimacastle.jp/information",
+      "use": "facts"
+    },
+    {
+      "id": "hiroshimacastle_official_news_sannomaru",
+      "name": "広島城 三の丸歴史館 開館決定",
+      "url": "https://hiroshimacastle.jp/news/news-2989/",
+      "use": "facts"
+    },
+    {
+      "id": "hpmm_official_access",
+      "name": "広島平和記念資料館 アクセス",
+      "url": "https://hpmmuseum.jp/modules/info/index.php?action=PageView&page_id=116",
+      "use": "facts"
+    },
+    {
+      "id": "hpmm_official_open",
+      "name": "広島平和記念資料館 開館情報",
+      "url": "https://hpmmuseum.jp/modules/info/index.php?action=PageView&page_id=2",
+      "use": "facts"
+    },
+    {
+      "id": "itsukushima_official_access",
+      "name": "嚴島神社 アクセス",
+      "url": "https://www.itsukushimajinja.jp/jp/access.html",
+      "use": "facts"
+    },
+    {
+      "id": "itsukushima_official_admission",
+      "name": "嚴島神社 拝観施設及び料金",
+      "url": "https://www.itsukushimajinja.jp/jp/admission.html",
+      "use": "facts"
+    },
+    {
+      "id": "itsukushima_official_construction",
+      "name": "嚴島神社 工事状況及び計画",
+      "url": "https://www.itsukushimajinja.jp/jp/construction.html",
+      "use": "facts"
+    },
+    {
+      "id": "itsukushima_official_culture",
+      "name": "嚴島神社 文化財・建造物",
+      "url": "https://www.itsukushimajinja.jp/jp/culture.html",
+      "use": "facts"
+    },
+    {
+      "id": "itsukushima_official_history",
+      "name": "嚴島神社 御由緒",
+      "url": "https://www.itsukushimajinja.jp/jp/history.html",
+      "use": "facts"
+    },
+    {
+      "id": "jr_miyajima_ferry_access",
+      "name": "JR西日本宮島フェリー アクセス・乗り場案内",
+      "url": "https://jr-miyajimaferry.co.jp/access",
+      "use": "facts"
+    },
+    {
+      "id": "jr_miyajima_ferry_route",
+      "name": "JR西日本宮島フェリー 航路案内",
+      "url": "https://jr-miyajimaferry.co.jp/route",
+      "use": "facts"
+    },
+    {
+      "id": "kazamidori_official_access",
+      "name": "風見鶏の館 アクセス",
+      "url": "https://kobe-kazamidori.com/access/",
+      "use": "facts"
+    },
+    {
+      "id": "kazamidori_official_guide",
+      "name": "風見鶏の館 ご利用案内",
+      "url": "https://kobe-kazamidori.com/guide/",
+      "use": "facts"
+    },
+    {
+      "id": "kazamidori_official_history",
+      "name": "風見鶏の館 について",
+      "url": "https://kobe-kazamidori.com/history/",
+      "use": "facts"
+    },
+    {
+      "id": "kobeijinkan_official_history",
+      "name": "神戸北野異人館街 公式サイト 神戸北野ヒストリー",
+      "url": "https://www.kobeijinkan.com/history",
+      "use": "facts"
+    },
+    {
+      "id": "kokoen_official_guidance",
+      "name": "好古園 利用案内",
+      "url": "https://www.himeji-machishin.jp/ryokka/kokoen/guidance/index.html",
+      "use": "facts"
+    },
+    {
+      "id": "kokoen_official_origin",
+      "name": "好古園 由来とあらまし",
+      "url": "https://www.himeji-machishin.jp/ryokka/kokoen/origin/index.html",
+      "use": "facts"
+    },
+    {
+      "id": "kokoen_official_traffic",
+      "name": "好古園 交通案内",
+      "url": "https://www.himeji-machishin.jp/ryokka/kokoen/traffic/index.html",
+      "use": "facts"
+    },
+    {
+      "id": "kokusaidori_official_about",
+      "name": "那覇市国際通り商店街振興組合連合会 組織概要",
+      "url": "https://naha-kokusaidori.okinawa/about.html",
+      "use": "facts"
+    },
+    {
+      "id": "kokusaidori_official_areainfo",
+      "name": "那覇市国際通り商店街 国際通り周辺情報",
+      "url": "https://naha-kokusaidori.okinawa/areainfo.html",
+      "use": "facts"
+    },
+    {
+      "id": "kokusaidori_official_roots",
+      "name": "那覇市国際通り商店街振興組合連合会 国際通りのルーツ",
+      "url": "https://naha-kokusaidori.okinawa/about/roots.html",
+      "use": "facts"
+    },
+    {
+      "id": "kokusaidori_official_transitmall",
+      "name": "那覇市国際通り商店街 トランジットマイル",
+      "url": "https://naha-kokusaidori.okinawa/eventinfo/transitmall.html",
+      "use": "facts"
+    },
+    {
+      "id": "manzamo_facility_about",
+      "name": "万座毛周辺活性化施設 (恩納村施設, 指定管理者 万座毛株式会社)",
+      "url": "https://www.manzamo.jp/manzamou.php",
+      "use": "facts"
+    },
+    {
+      "id": "nakijin_kanko_kouri_beach",
+      "name": "一般社団法人今帰仁村観光協会 古宇利ビーチ",
+      "url": "https://www.nakijinson.jp/spot.php?id=4&ct=1",
+      "use": "facts"
+    },
+    {
+      "id": "nakijin_kanko_kouri_bridge",
+      "name": "一般社団法人今帰仁村観光協会 古宇利大橋",
+      "url": "https://www.nakijinson.jp/spot.php?id=22&ct=1",
+      "use": "facts"
+    },
+    {
+      "id": "nankinmachi_official_about",
+      "name": "南京町商店街振興組合 南京町について",
+      "url": "https://www.nankinmachi.or.jp/about",
+      "use": "facts"
+    },
+    {
+      "id": "nankinmachi_official_access",
+      "name": "南京町商店街振興組合 アクセス",
+      "url": "https://www.nankinmachi.or.jp/access",
+      "use": "facts"
+    },
+    {
+      "id": "okinawaworld_official_7points",
+      "name": "おきなわワールド 7つのポイント",
+      "url": "https://www.gyokusendo.co.jp/okinawaworld/7recommendations/",
+      "use": "facts"
+    },
+    {
+      "id": "okinawaworld_official_access",
+      "name": "おきなわワールド アクセス",
+      "url": "https://www.gyokusendo.co.jp/okinawaworld/access/",
+      "use": "facts"
+    },
+    {
+      "id": "okinawaworld_official_fee",
+      "name": "おきなわワールド 料金・営業時間",
+      "url": "https://www.gyokusendo.co.jp/okinawaworld/fee/",
+      "use": "facts"
+    },
+    {
+      "id": "okinawaworld_official_photography",
+      "name": "おきなわワールド 園内での撮影について",
+      "url": "https://www.gyokusendo.co.jp/okinawaworld/photography/",
+      "use": "facts"
+    },
+    {
+      "id": "onna_kanko_manzamo",
+      "name": "恩納村観光協会 Go to ONNA 万座毛周辺活性化施設",
+      "url": "https://goto-onna.com/facility/manzamo/",
+      "use": "facts"
+    },
+    {
+      "id": "sanyo_ticket",
+      "name": "山陽電気鉄道 1dayチケット・お得なきっぷのご案内",
+      "url": "https://www.sanyo-railway.co.jp/railway/untin/ticket.html",
+      "use": "facts"
+    },
+    {
+      "id": "shurijo_official_about",
+      "name": "首里城公園 首里城について",
+      "url": "https://oki-park.jp/shurijo/about/",
+      "use": "facts"
+    },
+    {
+      "id": "shurijo_official_access",
+      "name": "首里城公園 交通アクセス",
+      "url": "https://oki-park.jp/shurijo/access/9751/",
+      "use": "facts"
+    },
+    {
+      "id": "shurijo_official_fee",
+      "name": "首里城公園 入場料金",
+      "url": "https://oki-park.jp/shurijo/info/14/",
+      "use": "facts"
+    },
+    {
+      "id": "shurijo_official_fukkou",
+      "name": "首里城公園 復元・復興",
+      "url": "https://oki-park.jp/shurijo/fukkou/",
+      "use": "facts"
+    },
+    {
+      "id": "shurijo_official_qa",
+      "name": "首里城公園 よくある質問",
+      "url": "https://oki-park.jp/shurijo/qa/",
+      "use": "facts"
+    },
+    {
+      "id": "shurijo_official_rules",
+      "name": "首里城公園 公園利用についてのお願い",
+      "url": "https://oki-park.jp/shurijo/info/1315/",
+      "use": "facts"
+    },
+    {
+      "id": "shurijo_official_seiden_open",
+      "name": "首里城公園 正殿供用開始のお知らせ",
+      "url": "https://oki-park.jp/shurijo/information/detail/10959",
+      "use": "facts"
+    },
+    {
+      "id": "shurijo_official_wh",
+      "name": "首里城公園 世界遺産としての首里城",
+      "url": "https://oki-park.jp/shurijo/about/189/",
+      "use": "facts"
+    },
+    {
+      "id": "unesco_661",
+      "name": "UNESCO World Heritage Centre",
+      "url": "https://whc.unesco.org/en/list/661/",
+      "use": "heritage_registry",
+      "license": "UNESCO WHC (사실만 사용, 설명문 CC-BY-SA IGO 3.0)",
+      "attribution_required": true
+    },
+    {
+      "id": "unesco_775",
+      "name": "UNESCO World Heritage Centre",
+      "url": "https://whc.unesco.org/en/list/775/",
+      "use": "heritage_registry",
+      "license": "UNESCO WHC (사실만 사용, 설명문 CC-BY-SA IGO 3.0)",
+      "attribution_required": true
+    },
+    {
+      "id": "unesco_776",
+      "name": "UNESCO World Heritage Centre",
+      "url": "https://whc.unesco.org/en/list/776/",
+      "use": "heritage_registry",
+      "license": "UNESCO WHC (사실만 사용, 설명문 CC-BY-SA IGO 3.0)",
+      "attribution_required": true
+    },
+    {
+      "id": "unesco_972_maps",
+      "name": "UNESCO World Heritage Centre — Gusuku Sites and Related Properties of the Kingdom of Ryukyu (component parts)",
+      "url": "https://whc.unesco.org/en/list/972/maps/",
+      "use": "heritage_registry",
+      "license": "UNESCO WHC (사실만 사용, 설명문 CC-BY-SA IGO 3.0)",
+      "attribution_required": true
+    },
+    {
+      "id": "yuirail_makishi",
+      "name": "沖縄都市モノレール ゆいレール 牧志駅",
+      "url": "https://www.yui-rail.co.jp/routemap/makishi/",
       "use": "facts"
     }
   ]
