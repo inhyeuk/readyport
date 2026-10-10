@@ -2,19 +2,13 @@
   "doc_type": "attractions",
   "schema_version": 1,
   "country": "CN",
-  "version": "2026.10.10-1",
+  "version": "2026.10.10-2",
   "release": "draft",
   "editorial_rules": "2026-10",
   "compact_country": false,
   "unmapped_airports": [],
   "retired": [],
   "upcoming_regions": [
-    {
-      "name_ko": "청두",
-      "aliases_ko": [
-        "성도"
-      ]
-    },
     {
       "name_ko": "충칭",
       "aliases_ko": [
@@ -252,6 +246,32 @@
       },
       "advisory_watch_ko": [],
       "wave": 2
+    },
+    {
+      "id": "cn_chengdu",
+      "order": 90,
+      "name_ko": "청두",
+      "name_en": "Chengdu",
+      "aliases_ko": [
+        "성도"
+      ],
+      "group_ko": "서남",
+      "kind": "base",
+      "water_crossing": false,
+      "hub": {
+        "name_ko": "톈푸광장역(천부광장역)",
+        "lat": 30.65987,
+        "lng": 104.06386,
+        "qid": "Q10939559"
+      },
+      "airports": [],
+      "advisory": {
+        "level": "1",
+        "source": "mofa_cn",
+        "last_verified": "2026-10-02"
+      },
+      "advisory_watch_ko": [],
+      "wave": 3
     }
   ],
   "attractions": [
@@ -962,7 +982,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 31,
+        "order": 37,
         "designations": []
       },
       "photo": null,
@@ -1104,7 +1124,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 29,
+        "order": 33,
         "designations": []
       },
       "photo": null,
@@ -1244,7 +1264,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 30,
+        "order": 34,
         "designations": []
       },
       "photo": null,
@@ -1408,7 +1428,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 16,
+        "order": 17,
         "designations": [
           {
             "kind": "unesco",
@@ -1586,7 +1606,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 20,
+        "order": 21,
         "designations": [
           {
             "kind": "cn_5a",
@@ -2217,7 +2237,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 28,
+        "order": 32,
         "designations": []
       },
       "photo": null,
@@ -2357,7 +2377,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 27,
+        "order": 30,
         "designations": []
       },
       "photo": null,
@@ -2864,7 +2884,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 17,
+        "order": 18,
         "designations": [
           {
             "kind": "unesco_component",
@@ -3227,7 +3247,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 14,
+        "order": 15,
         "designations": [
           {
             "kind": "cn_national_key_relic",
@@ -3376,7 +3396,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 24,
+        "order": 26,
         "designations": [
           {
             "kind": "cn_first_class_museum",
@@ -3555,7 +3575,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 15,
+        "order": 16,
         "designations": [
           {
             "kind": "unesco",
@@ -3754,7 +3774,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 19,
+        "order": 20,
         "designations": [
           {
             "kind": "cn_5a",
@@ -3915,7 +3935,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 21,
+        "order": 22,
         "designations": [
           {
             "kind": "cn_4a",
@@ -4234,7 +4254,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 32,
+        "order": 41,
         "designations": []
       },
       "photo": null,
@@ -4394,7 +4414,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 33,
+        "order": 42,
         "designations": []
       },
       "photo": null,
@@ -4544,7 +4564,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 26,
+        "order": 29,
         "designations": []
       },
       "photo": null,
@@ -4925,7 +4945,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 18,
+        "order": 19,
         "designations": [
           {
             "kind": "cn_national_museum",
@@ -5415,7 +5435,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 34,
+        "order": 43,
         "designations": []
       },
       "photo": null,
@@ -5558,7 +5578,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 23,
+        "order": 24,
         "designations": [
           {
             "kind": "cn_city_heritage",
@@ -5707,7 +5727,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 22,
+        "order": 23,
         "designations": [
           {
             "kind": "cn_national_heritage",
@@ -5875,7 +5895,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 25,
+        "order": 27,
         "designations": [
           {
             "kind": "cn_first_class_museum",
@@ -5899,6 +5919,1444 @@
       "source": "wd",
       "last_verified": "2026-10-10",
       "google_place_id": "ChIJV5aYKSYQljURyzPaSLnejW0"
+    },
+    {
+      "id": "shanghai-disneyland",
+      "qid": "Q865312",
+      "names": {
+        "ko": "상하이 디즈니랜드",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Shanghai Disneyland",
+        "local": "上海迪士尼乐园",
+        "local_short": "上海迪士尼乐园",
+        "local_lang": "zh-Hans",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "상하이 디즈니",
+        "상해 디즈니랜드",
+        "상하이 디즈니 리조트",
+        "디즈니랜드 상하이"
+      ],
+      "aliases_en": [
+        "Shanghai Disney Resort",
+        "Shanghai Disney"
+      ],
+      "mentions_ko": [
+        "주토피아",
+        "토이 스토리 랜드",
+        "트레저 코브",
+        "디즈니타운"
+      ],
+      "region": "cn_shanghai",
+      "area_ko": "상하이 푸둥신구 촨사진",
+      "category": "theme_park",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 31.144,
+        "lng": 121.657,
+        "source": "wd",
+        "qid": "Q865312",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 31.144,
+        "lng": 121.657
+      },
+      "address_local": {
+        "text": "上海市浦东新区川沙镇黄赵路310号",
+        "source": "mis_sdl",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "metro"
+        ],
+        "nearest_ko": "지하철 11호선 종점 디즈니역(迪士尼站)에서 1번·4번 출구로 나가 걸어가요",
+        "source": "sdr_transit_zh",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.shanghaidisneyresort.com/",
+      "wiki": {
+        "ko": "상하이 디즈니랜드",
+        "en": "Shanghai Disneyland"
+      },
+      "summary_ko": "푸둥에 있는 디즈니 테마파크로, 8개 테마 구역이 있어요.",
+      "body_ko": [
+        "상하이 디즈니랜드는 푸둥 촨사진 황자오루에 있는 테마파크예요.",
+        "공원 안에는 어드벤처 아일, 판타지랜드, 트레저 코브, 투모로랜드, 주토피아 등 8개 테마 구역이 있어요.",
+        "상하이 디즈니 리조트에는 테마파크 말고도 호텔 두 곳, 야외 휴식 공간, 쇼핑·식당·공연 지구가 함께 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "푸둥신구 촨사진 황자오루에 있어요.",
+          "source": "mis_sdl",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "공원 안에 테마 구역이 8개 있어요.",
+          "source": "sdr_faq_en",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "구역은 어드벤처 아일, 판타지랜드, 상상의 정원, 미키 애비뉴, 투모로랜드, 트레저 코브, 토이 스토리 랜드, 주토피아예요.",
+          "source": "sdr_faq_en",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "리조트에는 테마파크, 호텔 두 곳, 야외 휴식 공간, 쇼핑·식당·공연 지구가 있어요.",
+          "source": "sdr_faq_en",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "입장권 하나로 당일 운영 시간 안에 공원을 몇 번이든 드나들 수 있어요.",
+          "source": "sdr_faq_en",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c6",
+          "text_ko": "지하철 11호선 종점인 디즈니역에서 걸어서 공원 정문으로 가요.",
+          "source": "sdr_transit_zh",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "입장권은 실명제로 팔아요. 공식 앱·웹사이트의 안내를 먼저 읽어 보세요.",
+          "source": "sdr_faq_en",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "입장권 한 장으로 모든 테마 구역에 들어갈 수 있어요.",
+          "source": "sdr_faq_en",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "booking_note_ko": null,
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "sdr_faq_en",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "sdr_faq_en",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_cn",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 31,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:上海迪士尼乐园奇幻童话城堡正面.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJeTeSUGiHrTURrNSkfYkOFGo"
+    },
+    {
+      "id": "shanghai-tower",
+      "qid": "Q18547",
+      "names": {
+        "ko": "상하이 타워",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Shanghai Tower",
+        "local": "上海中心大厦",
+        "local_short": "上海中心",
+        "local_lang": "zh-Hans",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "상해 타워",
+        "상하이 중심대하",
+        "상하이즈덴 전망대",
+        "상하이 센터"
+      ],
+      "aliases_en": [
+        "Top of Shanghai",
+        "Shanghai Center",
+        "Shanghai Tower Observatory"
+      ],
+      "mentions_ko": [
+        "상하이즈덴 관광청(上海之巅)",
+        "루자쭈이"
+      ],
+      "region": "cn_shanghai",
+      "area_ko": "상하이 푸둥신구 루자쭈이",
+      "category": "city_view",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 31.2355,
+        "lng": 121.501,
+        "source": "wd",
+        "qid": "Q18547",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 31.2355,
+        "lng": 121.501
+      },
+      "address_local": {
+        "text": "上海市浦东新区银城中路501号",
+        "source": "mis_sht",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "metro"
+        ],
+        "nearest_ko": "지하철 2·14호선 루자쭈이역(陆家嘴站)",
+        "source": "mis_sht",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.meet-in-shanghai.net/cn/attraction/top-of-shanghai-tower-shanghai-sightseeing-hall-855738/",
+      "wiki": {
+        "ko": "상하이 타워",
+        "en": "Shanghai Tower"
+      },
+      "summary_ko": "상하이 타워 118층에서 도시를 내려다보는 전망대예요.",
+      "body_ko": [
+        "상하이 타워는 푸둥 인청중루 501호에 있는 빌딩이고, 전체 높이는 632미터예요.",
+        "전망대 '상하이즈뎬(上海之巅) 관광청'은 118층에 있고, 높이 546미터에서 도시를 360도로 내려다봐요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "푸둥신구 인청중루 501호에 있어요.",
+          "source": "mis_sht",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "상하이 타워의 전체 높이는 632미터예요.",
+          "source": "mis_sht",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "전망대 '상하이즈뎬(上海之巅) 관광청'은 118층에 있어요.",
+          "source": "mis_sht",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "546미터 높이의 전망대에서 상하이 도시 풍경을 360도로 내려다봐요.",
+          "source": "mis_sht",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "지하철 2·14호선 루자쭈이역에서 가요.",
+          "source": "mis_sht",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "전망대 이름은 '상하이즈뎬 관광청'(上海之巅观光厅)이에요. 지도 앱에서는 중국어 이름으로 찾아요.",
+          "source": "mis_sht",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "전망대는 건물 118층에 있어서 유리 너머로 사방을 내려다봐요.",
+          "source": "mis_sht",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "unknown",
+        "booking_note_ko": null,
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "mis_sht",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "mis_sht",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_cn",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 28,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Shanghai_Tower_in_2015_(2).jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJcT52JmpwsjURKKp8uyIQKjU"
+    },
+    {
+      "id": "universal-beijing-resort",
+      "qid": "Q65064627",
+      "names": {
+        "ko": "베이징 유니버설 스튜디오",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Universal Beijing Resort",
+        "local": "北京环球度假区",
+        "local_short": "北京环球影城",
+        "local_lang": "zh-Hans",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "베이징 유니버설",
+        "북경 유니버설 스튜디오",
+        "베이징 환구영성",
+        "유니버설 베이징 리조트",
+        "베이징 유니버설 리조트"
+      ],
+      "aliases_en": [
+        "Universal Studios Beijing",
+        "Universal Beijing"
+      ],
+      "mentions_ko": [
+        "해리 포터의 마법 세계",
+        "쥬라기 월드 누블라 섬",
+        "미니언 파크",
+        "트랜스포머 기지",
+        "쿵푸팬더"
+      ],
+      "region": "cn_beijing",
+      "area_ko": "베이징 퉁저우구 리위안진",
+      "category": "theme_park",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 39.854,
+        "lng": 116.6752,
+        "source": "wd",
+        "qid": "Q65064627",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 39.854,
+        "lng": 116.6752
+      },
+      "address_local": {
+        "text": "北京市通州区梨园镇东六环与G1京哈高速交叉口西北角",
+        "source": "vbs_ubr",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "metro"
+        ],
+        "nearest_ko": "지하철 7호선·바퉁선 환추두자취역(环球度假区站) B·C·D 출구에서 걸어가요",
+        "source": "vbs_ubr",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.universalbeijingresort.com/",
+      "wiki": {
+        "en": "Universal Beijing"
+      },
+      "summary_ko": "영화를 주제로 한 7개 구역과 거리형 상업 지구가 있는 테마파크예요.",
+      "body_ko": [
+        "베이징 유니버설 리조트는 퉁저우구 리위안진에 있고, 유니버설 스튜디오 테마파크·시티워크·호텔 두 곳으로 이루어져 있어요.",
+        "테마파크는 해리 포터의 마법 세계, 쥬라기 월드 누블라 섬, 미니언 파크, 쿵푸팬더, 트랜스포머 기지, 할리우드, 워터월드 7개 구역이에요.",
+        "시티워크는 소매점·식당·오락 시설이 모인 상업 지구예요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "리조트는 테마파크, 시티워크, 호텔 두 곳으로 이루어져 있어요.",
+          "source": "vbs_ubr",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "테마파크는 주제 구역이 7개예요.",
+          "source": "vbs_ubr",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "구역은 트랜스포머 기지, 할리우드, 워터월드, 쥬라기 월드 누블라 섬, 해리 포터의 마법 세계, 쿵푸팬더 고요의 땅, 미니언 파크예요.",
+          "source": "vbs_ubr",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "시티워크는 소매·식당·오락이 모인 상업 지구예요.",
+          "source": "vbs_ubr",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "퉁저우구 리위안진에 있어요.",
+          "source": "vbs_ubr",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c6",
+          "text_ko": "지하철 환추두자취역은 7호선·바퉁선과 이어져요.",
+          "source": "vbs_ubr",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "운영 시간은 날마다 달라서 공식 웹사이트나 앱에서 확인해요.",
+          "source": "vbs_ubr",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "줄을 덜 서는 '우선 입장' 상품이 입장권과 따로 있어요.",
+          "source": "vbs_ubr",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "booking_note_ko": null,
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "vbs_ubr",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "vbs_ubr",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_cn",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 40,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Universal_Studios_Beijing_globe_square_(20210907121340).jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJtYXSdouk8TURzGxkKhuQ2D0"
+    },
+    {
+      "id": "chengdu-panda-base",
+      "qid": "Q1067861",
+      "names": {
+        "ko": "청두 판다 연구기지",
+        "ko_basis": "editorial",
+        "ko_paren": "성도 대웅묘 번육연구기지",
+        "en": "Chengdu Research Base of Giant Panda Breeding",
+        "local": "成都大熊猫繁育研究基地",
+        "local_short": "成都大熊猫基地",
+        "local_lang": "zh-Hans",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "청두 판다 기지",
+        "성도 판다 기지",
+        "청두 판다 번식 연구기지",
+        "청두 대웅묘 기지",
+        "판다 기지",
+        "청두 자이언트 판다 연구소"
+      ],
+      "aliases_en": [
+        "Chengdu Panda Base",
+        "Chengdu Giant Panda Base"
+      ],
+      "mentions_ko": [
+        "대왕판다",
+        "레서판다",
+        "판다탑",
+        "판다 박물관"
+      ],
+      "region": "cn_chengdu",
+      "area_ko": "청두 청화구",
+      "category": "nature",
+      "tags": [
+        {
+          "id": "booking_required",
+          "source": "panda_ticket",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 30.73861111,
+        "lng": 104.14194444,
+        "source": "wd",
+        "qid": "Q1067861",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 30.73861111,
+        "lng": 104.14194444
+      },
+      "address_local": {
+        "text": "四川省成都市成华区熊猫大道1375号",
+        "source": "panda_about",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "metro",
+          "bus"
+        ],
+        "nearest_ko": "지하철 3호선 슝마오다다오역(熊猫大道站) A출구에서 408번 셔틀버스로 남문까지 가요",
+        "source": "panda_transit",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.panda.org.cn/",
+      "wiki": {
+        "ko": "청두 판다 연구기지",
+        "en": "Chengdu Research Base of Giant Panda Breeding"
+      },
+      "summary_ko": "판다를 보호하고 번식시키며 연구하는 기지로, 관람객도 받아요.",
+      "body_ko": [
+        "청두 판다 연구기지는 청두시 청화구 슝마오다다오에 있고, 판다 보호와 번식·연구·과학 교육을 맡은 기지예요.",
+        "판다 계곡, 판다 밀림, 판다 응접실, 판다 별장 4개 구역으로 나뉘고, 판다 박물관과 과학 탐구관 같은 전시 공간도 있어요.",
+        "판다탑은 따로 무료로 들어가지만 온라인 예약이 필요해요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "판다·레서판다 같은 중국 고유 희귀 야생동물을 보호하고 번식시키는 기지예요.",
+          "source": "panda_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "연구·번식·과학 교육·문화 관광을 함께 맡고 있어요.",
+          "source": "panda_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "청두시 청화구 슝마오다다오 1375호에 있어요.",
+          "source": "panda_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "판다 계곡, 판다 밀림, 판다 응접실, 판다 별장 4개 구역으로 나뉘어요.",
+          "source": "panda_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "판다 주제 박물관, 과학 탐구관 등 8개 과학 교육 전시 공간이 있어요.",
+          "source": "panda_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c6",
+          "text_ko": "판다탑은 따로 무료로 들어가지만 온라인 예약이 필요해요.",
+          "source": "panda_opentime",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c7",
+          "text_ko": "지하철 3호선으로 슝마오다다오역에서 내려 408번 셔틀버스를 타면 남문에 닿아요.",
+          "source": "panda_transit",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c8",
+          "text_ko": "판다 6호 별장 구역은 매주 월요일에 닫아요(법정 공휴일 제외).",
+          "source": "panda_notice",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "모든 방문객이 온라인으로 실명 예약하고, 예약한 신분증을 가져가야 들어가요.",
+          "source": "panda_ticket",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "동물이 있는 곳에 쓰레기를 버리거나 먹이를 주면 안 돼요.",
+          "source": "panda_notice",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "서문과 남문 두 곳으로 들어가고, 문마다 가는 셔틀버스가 달라요.",
+          "source": "panda_transit",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "booking": "required",
+        "booking_note_ko": "공식 위챗 공식계정·미니프로그램 등에서 실명으로 예약해요",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": "판다 6호 별장 구역은 매주 월요일에 닫아요(법정 공휴일 제외)",
+        "source": "panda_ticket",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "panda_about",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_cn",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 35,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Chengdu_Research_Base_Eingang.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJ5eWBD9zQ7zYRSiBQeQ3yqms"
+    },
+    {
+      "id": "wuhou-shrine",
+      "qid": "Q1069942",
+      "names": {
+        "ko": "우허우츠",
+        "ko_basis": "editorial",
+        "ko_paren": "무후사",
+        "en": "Chengdu Wuhou Shrine",
+        "local": "成都武侯祠",
+        "local_short": "武侯祠",
+        "local_lang": "zh-Hans",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "무후사",
+        "청두 무후사",
+        "성도 무후사",
+        "청두 우허우츠",
+        "삼국지 사당"
+      ],
+      "aliases_en": [
+        "Temple of Marquis Wu",
+        "Wuhou Temple",
+        "Wuhou Shrine Museum"
+      ],
+      "mentions_ko": [
+        "혜릉(惠陵)",
+        "한소열묘",
+        "삼의묘",
+        "진리(锦里)"
+      ],
+      "region": "cn_chengdu",
+      "area_ko": "청두 우허우구",
+      "category": "heritage",
+      "tags": [
+        {
+          "id": "stairs",
+          "source": "wuhou_rules",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 30.64830556,
+        "lng": 104.04702778,
+        "source": "wd",
+        "qid": "Q1069942",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 30.64830556,
+        "lng": 104.04702778
+      },
+      "address_local": {
+        "text": "武侯区武侯祠大街231号",
+        "source": "wuhou_transit",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "metro",
+          "bus"
+        ],
+        "nearest_ko": "지하철 10호선 우허우츠(진리)역(武侯祠（锦里）站) A2출구",
+        "source": "wuhou_transit",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.wuhouci.net.cn/",
+      "wiki": {
+        "ko": "무후사"
+      },
+      "summary_ko": "유비와 제갈량 등 촉한 인물을 함께 모신 청두의 삼국지 유적이에요.",
+      "body_ko": [
+        "우허우츠는 유비·제갈량 같은 촉한 인물을 기리는 사당이에요. 유비의 무덤인 혜릉에서 시작해 자랐어요.",
+        "혜릉·한소열묘·무후사·삼의묘로 이루어진 삼국 유적 구역, 서구, 진리 민속 구역 세 곳으로 이루어져 있어요.",
+        "1961년 제1차 전국중점문물보호단위가 됐고, 1984년 박물관이 세워졌어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "유비·제갈량 등 촉한 인물을 기리는 사당이에요.",
+          "source": "wuhou_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "유비의 무덤인 혜릉에서 시작해 발전한 곳이에요.",
+          "source": "wuhou_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "삼국 유적 구역, 서구, 진리 민속 구역 세 부분으로 이루어져 있어요.",
+          "source": "wuhou_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "1391년 군신을 한 사당에 함께 모시는 형태로 바뀌었어요.",
+          "source": "wuhou_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "1961년 제1차 전국중점문물보호단위가 됐고, 1984년 박물관을 세웠어요.",
+          "source": "wuhou_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c6",
+          "text_ko": "지하철 10호선 우허우츠(진리)역 A2출구에서 걸어서 닿아요.",
+          "source": "wuhou_transit",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c7",
+          "text_ko": "만 18~23세 본과 이하 재학생은 신분증과 학생증으로 반값 표를 살 수 있어요.",
+          "source": "wuhou_ticket",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "문물구에는 계단과 비탈이 많으니 표지를 보고 조심해요.",
+          "source": "wuhou_rules",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "재학생은 신분증과 학생증을 가져가면 반값 표를 살 수 있어요.",
+          "source": "wuhou_ticket",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "booking_note_ko": null,
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "wuhou_ticket",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "wuhou_about",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_cn",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 14,
+        "designations": [
+          {
+            "kind": "cn_national_key_relic",
+            "name_ko": "전국중점문물보호단위 제1차(1961)",
+            "source": "wuhou_about"
+          },
+          {
+            "kind": "cn_first_class_museum",
+            "name_ko": "국가 1급 박물관(2008)",
+            "source": "wuhou_about"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:成都的武侯祠.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJHSK0oePE7zYRKcnSiomj91k"
+    },
+    {
+      "id": "chengdu-museum",
+      "qid": "Q55696247",
+      "names": {
+        "ko": "청두 박물관",
+        "ko_basis": "editorial",
+        "ko_paren": "성도박물관",
+        "en": "Chengdu Museum",
+        "local": "成都博物馆",
+        "local_short": "成都博物馆",
+        "local_lang": "zh-Hans",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "성도박물관",
+        "청두 시립박물관"
+      ],
+      "aliases_en": [
+        "Chengdu City Museum"
+      ],
+      "mentions_ko": [
+        "천부광장",
+        "피영 박물관"
+      ],
+      "region": "cn_chengdu",
+      "area_ko": "청두 칭양구 톈푸광장 옆",
+      "category": "museum",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 30.65973,
+        "lng": 104.0612,
+        "source": "wd",
+        "qid": "Q55696247",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 30.65973,
+        "lng": 104.0612
+      },
+      "address_local": {
+        "text": "青羊区小河街1号（成都市天府广场西侧）",
+        "source": "cdm_guide",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "metro",
+          "bus"
+        ],
+        "nearest_ko": "지하철 1·2호선 톈푸광장역(天府广场站) 서1 출구",
+        "source": "cdm_guide",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.cdmuseum.com/",
+      "wiki": {
+        "en": "Chengdu Museum"
+      },
+      "summary_ko": "톈푸광장 서쪽에 있는 청두의 종합 박물관이에요.",
+      "body_ko": [
+        "청두 박물관은 톈푸광장 서쪽 칭양구에 있는 국가 1급 도시 종합 박물관이에요.",
+        "2016년에 새 건물을 지어 열었고, 청두 역사문화, 중국 그림자극·인형극, 인간과 자연 세 가지 상설 전시가 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "도시 종합 박물관이고 국가 1급 박물관이에요.",
+          "source": "cdm_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "2016년 새 건물을 짓고 열었어요.",
+          "source": "cdm_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "상설 전시는 청두 역사문화, 중국 그림자극·인형극, 인간과 자연 세 가지예요.",
+          "source": "cdm_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "톈푸광장 서쪽 칭양구 샤오허제 1호에 있어요.",
+          "source": "cdm_guide",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "지하철 1·2호선 톈푸광장역에서 가요.",
+          "source": "cdm_guide",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "매주 월요일은 쉬어요. 법정 공휴일은 열어요.",
+          "source": "cdm_guide",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "하루 입장 인원에 제한이 있어서 한꺼번에 몰리는 시간대를 피하면 좋아요.",
+          "source": "cdm_guide",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "unknown",
+        "booking_note_ko": null,
+        "regular_closed": [
+          "mon"
+        ],
+        "closed_note_ko": "법정 공휴일인 월요일은 열어요",
+        "visit_note_ko": null,
+        "source": "cdm_guide",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "cdm_about",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_cn",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 25,
+        "designations": [
+          {
+            "kind": "cn_first_class_museum",
+            "name_ko": "국가 1급 박물관",
+            "source": "cdm_about"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:成都博物馆正门.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJfwtbaCPF7zYRK_oVjJhajfk"
+    },
+    {
+      "id": "national-stadium-birds-nest",
+      "qid": "Q133525",
+      "names": {
+        "ko": "냐오차오",
+        "ko_basis": "editorial",
+        "ko_paren": "조소",
+        "en": "Beijing National Stadium (Bird's Nest)",
+        "local": "鸟巢（国家体育场）",
+        "local_short": "鸟巢",
+        "local_lang": "zh-Hans",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "베이징 국가체육장",
+        "베이징 올림픽 주경기장",
+        "새 둥지 경기장",
+        "국가체육장",
+        "조소"
+      ],
+      "aliases_en": [
+        "Bird's Nest",
+        "Beijing National Stadium"
+      ],
+      "mentions_ko": [
+        "올림픽공원",
+        "수영장 워터큐브"
+      ],
+      "region": "cn_beijing",
+      "area_ko": "베이징 차오양구 올림픽공원",
+      "category": "city_view",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 39.991544,
+        "lng": 116.390478,
+        "source": "wd",
+        "qid": "Q133525",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 39.991544,
+        "lng": 116.390478
+      },
+      "address_local": {
+        "text": "北京市朝阳区国家体育场南路1号",
+        "source": "vbs_nest",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "bus"
+        ],
+        "nearest_ko": "시내버스 839·510번 베이천시차오베이 정류장(北辰西桥北站)",
+        "source": "vbs_nest",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://s.visitbeijing.com.cn/attraction/118017",
+      "wiki": {
+        "ko": "베이징 국가체육장",
+        "en": "Beijing National Stadium"
+      },
+      "summary_ko": "2008년 베이징 올림픽 주경기장으로, 새 둥지 모양이에요.",
+      "body_ko": [
+        "냐오차오는 베이징 올림픽공원 중심구 남쪽에 있는 국가체육장이에요.",
+        "2003년 12월에 짓기 시작해 2008년 6월 28일에 완공했고, 올림픽 때는 개·폐막식과 육상, 축구 결승을 치렀어요.",
+        "강철 트러스를 엮어 새 둥지 모양으로 만들었고, 건물은 남북 333미터, 동서 296미터, 가장 높은 곳이 69미터예요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "베이징 올림픽공원 중심구 남쪽에 있는 국가체육장이에요.",
+          "source": "vbs_nest",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "2008년 베이징 올림픽의 주경기장이에요.",
+          "source": "vbs_nest",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "2003년 12월 24일 착공해 2008년 6월 28일 완공했어요.",
+          "source": "vbs_nest",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "올림픽 때 개·폐막식과 육상, 축구 결승을 치렀어요.",
+          "source": "vbs_nest",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "건물은 남북 333미터, 동서 296미터의 타원형이고 가장 높은 곳은 69미터예요.",
+          "source": "vbs_nest",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c6",
+          "text_ko": "차오양구 궈자티위창난루 1호에 있어요.",
+          "source": "vbs_nest",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "재학생은 학생증을 보여 주면 반값 입장 혜택이 있어요.",
+          "source": "vbs_nest",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "수영장(워터큐브)과 묶은 통합 입장권이 있어요.",
+          "source": "vbs_nest",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "booking_note_ko": null,
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "vbs_nest",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "vbs_nest",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_cn",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 36,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Beijing_National_Stadium_from_the_Central_Axis_(20220905140702).jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJh4wAB8RU8DURtofj9dfJNe4"
+    },
+    {
+      "id": "yonghe-temple",
+      "qid": "Q692723",
+      "names": {
+        "ko": "융허궁",
+        "ko_basis": "editorial",
+        "ko_paren": "옹화궁",
+        "en": "Yonghe Temple (Lama Temple)",
+        "local": "雍和宫",
+        "local_short": "雍和宫",
+        "local_lang": "zh-Hans",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "옹화궁",
+        "베이징 옹화궁",
+        "라마사원",
+        "베이징 라마 사원",
+        "융허궁 라마사원"
+      ],
+      "aliases_en": [
+        "Lama Temple",
+        "Yonghegong"
+      ],
+      "mentions_ko": [
+        "법륜전",
+        "만복각"
+      ],
+      "region": "cn_beijing",
+      "area_ko": "베이징 둥청구",
+      "category": "heritage",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 39.947086111111,
+        "lng": 116.41091666667,
+        "source": "wd",
+        "qid": "Q692723",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 39.947086111111,
+        "lng": 116.41091666667
+      },
+      "address_local": {
+        "text": "北京市东城区北新桥雍和宫大街12号",
+        "source": "vbs_lama",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "metro",
+          "bus"
+        ],
+        "nearest_ko": "지하철 2·5호선 융허궁역(雍和宫站) C출구",
+        "source": "vbs_lama",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://s.visitbeijing.com.cn/attraction/117887",
+      "wiki": {
+        "ko": "옹화궁",
+        "en": "Yonghe Temple"
+      },
+      "summary_ko": "청나라 황자의 저택이 티베트 불교 사원이 된 곳이에요.",
+      "body_ko": [
+        "융허궁은 베이징 시내 동북쪽에 있는 티베트 불교 사원이에요.",
+        "1694년 강희제가 넷째 아들 옹친왕에게 내린 저택으로 시작했고, 1725년 행궁으로 바뀌며 융허궁이라 불렀어요.",
+        "천왕전·융허궁 대전·영우전·법륜전·만복각 등 다섯 겹의 전각이 남쪽에서 북쪽으로 이어져요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "베이징 시내 동북쪽에 있는 티베트 불교 사원이에요.",
+          "source": "vbs_lama",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "1694년 강희제가 넷째 아들 옹친왕에게 내린 저택에서 시작했어요.",
+          "source": "vbs_lama",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "1725년 왕부를 행궁으로 바꾸며 융허궁이라 불렀어요.",
+          "source": "vbs_lama",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "천왕전·대전·영우전·법륜전·만복각 등 다섯 겹의 큰 전각으로 이루어져요.",
+          "source": "vbs_lama",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "둥청구 베이신차오 융허궁대가 12호에 있어요.",
+          "source": "vbs_lama",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c6",
+          "text_ko": "지하철 2호선이나 5호선 융허궁역 C출구로 나와요.",
+          "source": "vbs_lama",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "미성년자, 대학 본과 이하 학생, 노인은 증명서를 보여 주면 반값으로 살 수 있어요.",
+          "source": "vbs_lama",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "표 판매는 문을 닫기 전에 먼저 끝나요.",
+          "source": "vbs_lama",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "booking_note_ko": null,
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "vbs_lama",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "vbs_lama",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_cn",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 38,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Pavillon_des_dix_mille_bonheurs.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJxUzg_TRT8DUR0MslZbKzbF4"
+    },
+    {
+      "id": "capital-museum",
+      "qid": "Q1189666",
+      "names": {
+        "ko": "서우두 박물관",
+        "ko_basis": "editorial",
+        "ko_paren": "수도박물관",
+        "en": "Capital Museum",
+        "local": "首都博物馆",
+        "local_short": "首都博物馆",
+        "local_lang": "zh-Hans",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "수도박물관",
+        "베이징 수도박물관",
+        "베이징 서우두 박물관"
+      ],
+      "aliases_en": [
+        "Capital Museum Beijing"
+      ],
+      "mentions_ko": [
+        "고도 베이징 기본 전시"
+      ],
+      "region": "cn_beijing",
+      "area_ko": "베이징 시청구",
+      "category": "museum",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 39.905,
+        "lng": 116.336,
+        "source": "wd",
+        "qid": "Q1189666",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 39.905,
+        "lng": 116.336
+      },
+      "address_local": {
+        "text": "北京市西城区复兴门外大街16号",
+        "source": "vbs_cm",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "metro",
+          "bus"
+        ],
+        "nearest_ko": "지하철 1호선 무시디역(木樨地站)",
+        "source": "vbs_cm",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://s.visitbeijing.com.cn/attraction/117799",
+      "wiki": {
+        "ko": "수도박물관",
+        "en": "Capital Museum"
+      },
+      "summary_ko": "베이징 지역 유물과 도시 발전사를 전시하는 종합 박물관이에요.",
+      "body_ko": [
+        "서우두 박물관은 시청구 푸싱먼와이대가에 있는 베이징 지역의 종합 박물관이에요.",
+        "'고도 베이징' 기본 전시가 베이징 지역에서 나온 유물로 도시의 역사를 보여 줘요.",
+        "1981년 베이징 공묘에서 문을 열었고, 2006년 5월 18일 지금 건물로 새로 열었어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "시청구 푸싱먼와이대가 16호에 있어요.",
+          "source": "vbs_cm",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "베이징 지역의 대형 종합 박물관이에요.",
+          "source": "vbs_cm",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "'고도 베이징' 기본 전시가 베이징 지역 출토 유물을 보여 줘요.",
+          "source": "vbs_cm",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "1981년 베이징 공묘에서 문을 열었어요.",
+          "source": "vbs_cm",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "2006년 5월 18일 새 건물로 열었어요.",
+          "source": "vbs_cm",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c6",
+          "text_ko": "지하철 1호선 무시디역에서 내리면 바로 닿아요.",
+          "source": "vbs_cm",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "월요일은 쉬어요.",
+          "source": "vbs_cm",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "입장은 문을 닫기 전에 먼저 마감해요.",
+          "source": "vbs_cm",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "unknown",
+        "booking_note_ko": null,
+        "regular_closed": [
+          "mon"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "vbs_cm",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "vbs_cm",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_cn",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 39,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Capital_Museum_in_Beijing.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJeftImwlS8DURsYp0XKRIzHY"
     }
   ],
   "sources": [
@@ -6491,6 +7949,120 @@
       "id": "tbm_traffic",
       "name": "青岛啤酒博物馆 官网 — 交通路线",
       "url": "https://www.tsingtaomuseum.com/articleTitleCus/1790373016308297729?viewName=newJiaotongDetail",
+      "use": "facts"
+    },
+    {
+      "id": "mis_sdl",
+      "name": "上海市文旅推广网 meet-in-shanghai.net(上海市文化和旅游局) — 景点: 上海迪士尼乐园",
+      "url": "https://www.meet-in-shanghai.net/cn/attraction/shanghai-disneyland-062419/",
+      "use": "facts"
+    },
+    {
+      "id": "sdr_faq_en",
+      "name": "Shanghai Disney Resort (official) — Frequently Asked Questions",
+      "url": "https://www.shanghaidisneyresort.com/en/faq",
+      "use": "facts"
+    },
+    {
+      "id": "sdr_transit_zh",
+      "name": "上海迪士尼度假区 官网 — 行前准备: 交通指南",
+      "url": "https://www.shanghaidisneyresort.com/information/transportation",
+      "use": "facts"
+    },
+    {
+      "id": "mis_sht",
+      "name": "上海市文旅推广网 meet-in-shanghai.net(上海市文化和旅游局) — 景点: 上海中心上海之巅观光厅",
+      "url": "https://www.meet-in-shanghai.net/cn/attraction/top-of-shanghai-tower-shanghai-sightseeing-hall-855738/",
+      "use": "facts"
+    },
+    {
+      "id": "vbs_ubr",
+      "name": "北京旅游网 景区库 (北京市文化和旅游局宣传中心) — 北京环球度假区",
+      "url": "https://s.visitbeijing.com.cn/attraction/120985",
+      "use": "facts"
+    },
+    {
+      "id": "panda_about",
+      "name": "成都大熊猫繁育研究基地 (official) — 关于我们: 基地简介",
+      "url": "https://www.panda.org.cn/cn/about/introduction",
+      "use": "facts"
+    },
+    {
+      "id": "panda_transit",
+      "name": "成都大熊猫繁育研究基地 (official) — 游客服务: 出行方式",
+      "url": "https://www.panda.org.cn/cn/service/transit",
+      "use": "facts"
+    },
+    {
+      "id": "panda_ticket",
+      "name": "成都大熊猫繁育研究基地 (official) — 游客服务: 票务服务",
+      "url": "https://www.panda.org.cn/cn/service/ticket",
+      "use": "facts"
+    },
+    {
+      "id": "panda_notice",
+      "name": "成都大熊猫繁育研究基地 (official) — 游客服务: 游客须知",
+      "url": "https://www.panda.org.cn/cn/service/notice",
+      "use": "facts"
+    },
+    {
+      "id": "panda_opentime",
+      "name": "成都大熊猫繁育研究基地 (official) — 游客服务: 开放时间",
+      "url": "https://www.panda.org.cn/cn/service/opentime",
+      "use": "facts"
+    },
+    {
+      "id": "wuhou_about",
+      "name": "成都武侯祠博物馆 (official) — 导览及展览: 武侯祠简介",
+      "url": "https://www.wuhouci.net.cn/about",
+      "use": "facts"
+    },
+    {
+      "id": "wuhou_transit",
+      "name": "成都武侯祠博物馆 (official) — 导览及展览: 交通指引",
+      "url": "https://www.wuhouci.net.cn/jtzy",
+      "use": "facts"
+    },
+    {
+      "id": "wuhou_ticket",
+      "name": "成都武侯祠博物馆 (official) — 导览及展览: 票务信息",
+      "url": "https://www.wuhouci.net.cn/pwxx",
+      "use": "facts"
+    },
+    {
+      "id": "wuhou_rules",
+      "name": "成都武侯祠博物馆 (official) — 导览及展览: 参观须知",
+      "url": "https://www.wuhouci.net.cn/cgxz",
+      "use": "facts"
+    },
+    {
+      "id": "cdm_about",
+      "name": "成都博物馆 (official) — 走进成博: 博物馆简介",
+      "url": "https://www.cdmuseum.com/jianjie.html",
+      "use": "facts"
+    },
+    {
+      "id": "cdm_guide",
+      "name": "成都博物馆 (official) — 服务中心: 参观指南",
+      "url": "https://www.cdmuseum.com/zhinan/",
+      "use": "facts"
+    },
+    {
+      "id": "vbs_nest",
+      "name": "北京旅游网 景区库 (北京市文化和旅游局宣传中心) — 鸟巢（国家体育场）",
+      "url": "https://s.visitbeijing.com.cn/attraction/118017",
+      "use": "facts"
+    },
+    {
+      "id": "vbs_lama",
+      "name": "北京旅游网 景区库 (北京市文化和旅游局宣传中心) — 雍和宫",
+      "url": "https://s.visitbeijing.com.cn/attraction/117887",
+      "use": "facts"
+    },
+    {
+      "id": "vbs_cm",
+      "name": "北京旅游网 景区库 (北京市文化和旅游局宣传中心) — 首都博物馆",
+      "url": "https://s.visitbeijing.com.cn/attraction/117799",
       "use": "facts"
     }
   ]
