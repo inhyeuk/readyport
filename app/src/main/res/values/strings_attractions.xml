@@ -247,6 +247,12 @@
     <string name="settings_credit_unesco_972_maps">UNESCO World Heritage Centre — Gusuku Sites and Related Properties of the Kingdom of Ryukyu (component parts) — 슈리성</string>
     <string name="settings_credit_unesco_1334">UNESCO World Heritage Centre — West Lake Cultural Landscape of Hangzhou — 시후</string>
     <string name="settings_credit_unesco_640">UNESCO World Heritage Centre — Wulingyuan Scenic and Historic Interest Area — 장자제 국가삼림공원</string>
+    <string name="settings_credit_boch_eluanbi_lighthouse">文化部文化資產局 國家文化資產網 開放資料 — 鵝鑾鼻燈塔(國定古蹟) — 어롼비 공원</string>
+    <string name="settings_credit_boch_hengchun">文化部文化資產局 國家文化資產網 開放資料 — 恆春古城(國定古蹟) — 헝춘 옛 성</string>
+    <string name="settings_credit_boch_hobe_fort">文化部文化資產局 國家文化資產網 開放資料 — 滬尾礮臺(國定古蹟) — 후웨이 포대</string>
+    <string name="settings_credit_boch_tamsui_customs_residence">文化部文化資產局 國家文化資產網 開放資料 — 前清淡水關稅務司官邸(直轄市定古蹟) — 단수이 세관 세무사 관저</string>
+    <string name="settings_credit_boch_british_consulate">文化部文化資產局 國家文化資產網 開放資料 — 打狗英國領事館及官邸(國定古蹟) — 다거우 영국 영사관</string>
+    <string name="settings_credit_boch_martial_temple">文化部文化資產局 國家文化資產網 開放資料 — 祀典武廟(國定古蹟) — 쓰뎬우먀오</string>
     <string name="settings_credit_unesco_870">UNESCO 세계유산센터 — 고대 나라의 역사기념물</string>
 
     <!-- 관광지 지도 (Google 지도 SDK, 사장님 결정 2026-10-09). 키가 없거나 중국이면 지도 없이 '구글 지도에서 열기'만 -->
