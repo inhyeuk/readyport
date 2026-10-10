@@ -2,7 +2,7 @@
   "doc_type": "attractions",
   "schema_version": 1,
   "country": "MY",
-  "version": "2026.10.10-2",
+  "version": "2026.10.10-3",
   "release": "published",
   "editorial_rules": "2026-10",
   "compact_country": false,
@@ -202,6 +202,34 @@
         "lat": 6.0056696,
         "lng": 116.5424501,
         "qid": "Q834893"
+      },
+      "airports": [],
+      "advisory": {
+        "level": "1",
+        "source": "mofa_my",
+        "last_verified": "2026-09-28"
+      },
+      "advisory_watch_ko": []
+    },
+    {
+      "id": "my_johor",
+      "order": 80,
+      "name_ko": "조호르바루",
+      "name_en": "Johor Bahru",
+      "aliases_ko": [
+        "조호르",
+        "JB",
+        "레고랜드"
+      ],
+      "group_ko": "반도 남부",
+      "kind": "base",
+      "note_ko": null,
+      "water_crossing": false,
+      "hub": {
+        "name_ko": "JB 센트럴역(기차·버스 거점)",
+        "lat": 1.4625,
+        "lng": 103.764722,
+        "qid": "Q6132274"
       },
       "airports": [],
       "advisory": {
@@ -818,7 +846,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 20,
+        "order": 22,
         "designations": []
       },
       "photo": null,
@@ -1107,7 +1135,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 23,
+        "order": 25,
         "designations": []
       },
       "photo": null,
@@ -1272,7 +1300,6 @@
       ],
       "mentions_ko": [
         "아와나 스카이웨이",
-        "친스위 동굴 사원",
         "리조트 월드 겐팅"
       ],
       "region": "my_genting",
@@ -1391,7 +1418,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 19,
+        "order": 21,
         "designations": []
       },
       "photo": null,
@@ -1831,7 +1858,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 29,
+        "order": 35,
         "designations": []
       },
       "photo": null,
@@ -2116,7 +2143,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 18,
+        "order": 20,
         "designations": []
       },
       "photo": null,
@@ -2567,7 +2594,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 30,
+        "order": 39,
         "designations": []
       },
       "photo": null,
@@ -3030,7 +3057,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 17,
+        "order": 18,
         "designations": []
       },
       "photo": null,
@@ -3186,7 +3213,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 22,
+        "order": 24,
         "designations": []
       },
       "photo": null,
@@ -3330,7 +3357,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 25,
+        "order": 30,
         "designations": []
       },
       "photo": null,
@@ -3458,7 +3485,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 26,
+        "order": 31,
         "designations": []
       },
       "photo": null,
@@ -3581,7 +3608,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 27,
+        "order": 33,
         "designations": []
       },
       "photo": null,
@@ -3992,7 +4019,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 31,
+        "order": 41,
         "designations": []
       },
       "photo": null,
@@ -4137,7 +4164,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 24,
+        "order": 27,
         "designations": []
       },
       "photo": null,
@@ -4295,7 +4322,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 28,
+        "order": 34,
         "designations": []
       },
       "photo": null,
@@ -4421,7 +4448,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 21,
+        "order": 23,
         "designations": []
       },
       "photo": null,
@@ -4541,7 +4568,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 32,
+        "order": 42,
         "designations": []
       },
       "photo": null,
@@ -5021,7 +5048,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 33,
+        "order": 43,
         "designations": []
       },
       "photo": null,
@@ -5029,6 +5056,1829 @@
       "source": "wd",
       "last_verified": "2026-10-10",
       "google_place_id": "ChIJg8qAduK9OzIR6pY28dcSEm4"
+    },
+    {
+      "id": "aquaria-klcc",
+      "qid": "Q29168",
+      "names": {
+        "ko": "아쿠아리아 KLCC",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Aquaria KLCC",
+        "local": "Aquaria KLCC",
+        "local_short": "Aquaria KLCC",
+        "local_lang": "ms",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "아쿠아리아 쿠알라룸푸르",
+        "KLCC 수족관"
+      ],
+      "aliases_en": [
+        "Aquaria Kuala Lumpur",
+        "KLCC Aquarium"
+      ],
+      "mentions_ko": [
+        "쿠알라룸푸르 컨벤션 센터"
+      ],
+      "region": "my_kl",
+      "area_ko": "쿠알라룸푸르 KLCC",
+      "category": "theme_park",
+      "tags": [
+        {
+          "id": "foreigner_price",
+          "source": "aq_tickets",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 3.1533927,
+        "lng": 101.713078,
+        "source": "wd",
+        "qid": "Q29168",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 3.1533927,
+        "lng": 101.713078
+      },
+      "access": {
+        "modes": [
+          "metro"
+        ],
+        "nearest_ko": "LRT 켈라나 자야선 KLCC역에서 수리아 KLCC 안 보행 터널을 지나 컨벤션 센터 쪽으로 걸어요",
+        "nearest_local": {
+          "text": "Stesen LRT KLCC",
+          "qid": "Q1054307",
+          "source": "wd"
+        },
+        "source": "klccc_getting",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://aquariaklcc.com/",
+      "wiki": {
+        "ko": "아쿠아리아 KLCC",
+        "en": "Aquaria KLCC"
+      },
+      "summary_ko": "쿠알라룸푸르 컨벤션 센터 지하에 있는 대형 수족관이에요.",
+      "body_ko": [
+        "KLCC 지구에 있는 쿠알라룸푸르 컨벤션 센터 지하의 수족관이에요.",
+        "길이 90m의 투명 터널을 걸으며 상어, 가오리, 바다거북을 가까이서 볼 수 있어요.",
+        "전시는 민물 개울과 맹그로브, 해안에서 깊은 바다까지 이어져요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "쿠알라룸푸르 컨벤션 센터 지하에 있어요.",
+          "source": "aq_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "길이 90m의 투명한 터널 산책로가 있어요.",
+          "source": "aq_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "상어 7종 넘게와 가오리, 바다거북 등을 가까이서 볼 수 있다고 안내해요.",
+          "source": "aq_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "전시는 민물 개울과 맹그로브, 해안에서 깊은 바다까지 다뤄요.",
+          "source": "aq_about",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "먹이 주는 시간표를 공식 사이트에서 볼 수 있어요.",
+          "source": "aq_feeding",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "온라인 표는 구매하고 두 시간 뒤부터 쓸 수 있어서, 당일 방문이면 미리 사 두는 편이 좋아요.",
+          "source": "aq_tc",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "외국인은 말레이시아 국민용(MyKad)과 다른 일반 입장권을 사요.",
+          "source": "aq_tickets",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "booking": "none",
+        "booking_note_ko": null,
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "aq_tickets",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "aq_about",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_my",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 19,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/Category:Aquaria_KLCC",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "address_local": {
+        "text": "Kuala Lumpur Convention Centre, Jalan Pinang, Kuala Lumpur City Centre, 50088 Kuala Lumpur",
+        "source": "aq_contact",
+        "last_verified": "2026-10-10"
+      },
+      "google_place_id": "ChIJM5cxndM3zDER7WuP_cN-omg"
+    },
+    {
+      "id": "petrosains",
+      "qid": "Q7408028",
+      "names": {
+        "ko": "페트로사인스",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Petrosains",
+        "local": "Petrosains",
+        "local_short": "Petrosains",
+        "local_lang": "ms",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "페트로사인스 디스커버리 센터",
+        "페트로사인스 과학관"
+      ],
+      "aliases_en": [
+        "Petrosains The Discovery Centre",
+        "Petrosains Science Discovery Centre"
+      ],
+      "mentions_ko": [
+        "수리아 KLCC"
+      ],
+      "region": "my_kl",
+      "area_ko": "쿠알라룸푸르 KLCC 수리아 4층",
+      "category": "museum",
+      "tags": [
+        {
+          "id": "indoor",
+          "source": "ps_getting",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "foreigner_price",
+          "source": "ps_admission",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "step_free",
+          "source": "ps_facilities",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 3.15748,
+        "lng": 101.712197,
+        "source": "wd",
+        "qid": "Q7408028",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 3.15748,
+        "lng": 101.712197
+      },
+      "access": {
+        "modes": [
+          "metro"
+        ],
+        "nearest_ko": "LRT 켈라나 자야선 KLCC역에서 수리아 KLCC 안 유리 엘리베이터로 4층",
+        "nearest_local": {
+          "text": "Stesen LRT KLCC",
+          "qid": "Q1054307",
+          "source": "wd"
+        },
+        "source": "ps_getting",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://petrosains.com.my/",
+      "wiki": {
+        "en": "Petrosains"
+      },
+      "summary_ko": "쇼핑몰 수리아 KLCC 4층에 있는 체험형 과학관이에요.",
+      "body_ko": [
+        "페트로나스 자회사가 운영하는 체험형 과학관으로, 수리아 KLCC 4층에 있어요.",
+        "석유 시추 설비를 본뜬 전시와 F1 시뮬레이터, 우주·지질 시대 전시 등을 직접 만지며 둘러봐요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "페트로나스가 전액 출자한 자회사 페트로사인스가 운영해요.",
+          "source": "ps_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "쇼핑몰 수리아 KLCC의 4층에 있어요.",
+          "source": "ps_getting",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "석유·가스 탐사 과정을 배우는 석유 플랫폼 전시가 있어요.",
+          "source": "ps_exhibits",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "F1 시뮬레이터로 세팡 서킷을 달려 보는 전시가 있어요.",
+          "source": "ps_exhibits",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "수리아 KLCC 센터 코트의 유리 엘리베이터를 타고 4층으로 올라가요.",
+          "source": "ps_getting",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "매달 첫째, 셋째 월요일은 쉬어요. 쉬는 날짜는 공식 사이트에 나와요.",
+          "source": "ps_admission",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "휠체어가 필요하면 직접 가져와야 해요. 센터에서 빌려주지 않아요.",
+          "source": "ps_facilities",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "booking": "none",
+        "booking_note_ko": null,
+        "regular_closed": [
+          "irregular"
+        ],
+        "closed_note_ko": "매달 첫째, 셋째 월요일은 쉬어요.",
+        "visit_note_ko": null,
+        "source": "ps_admission",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "ps_admission",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_my",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 40,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/Category:Petrosains_Science_Discovery_Centre",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "address_local": {
+        "text": "Level 4, Suria KLCC, PETRONAS Twin Towers, Kuala Lumpur City Centre, 50088, Kuala Lumpur",
+        "source": "ps_getting",
+        "last_verified": "2026-10-10"
+      },
+      "google_place_id": "ChIJiXsntdY3zDER0-B-9En1XOQ"
+    },
+    {
+      "id": "sunway-lagoon",
+      "qid": "Q3503999",
+      "names": {
+        "ko": "선웨이 라군",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Sunway Lagoon",
+        "local": "Sunway Lagoon",
+        "local_short": "Sunway Lagoon",
+        "local_lang": "ms",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "선웨이 라군 테마파크",
+        "써니웨이 라군"
+      ],
+      "aliases_en": [
+        "Sunway Lagoon Theme Park"
+      ],
+      "mentions_ko": [
+        "선웨이 피라미드",
+        "스크림 파크",
+        "캡틴 쿼크 랜드"
+      ],
+      "region": "my_kl",
+      "area_ko": "슬랑고르 반다르 선웨이",
+      "category": "theme_park",
+      "tags": [
+        {
+          "id": "foreigner_price",
+          "source": "sl_faq",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 3.06921,
+        "lng": 101.607,
+        "source": "wd",
+        "qid": "Q3503999",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 3.06921,
+        "lng": 101.607
+      },
+      "access": {
+        "modes": [
+          "bus",
+          "metro"
+        ],
+        "nearest_ko": "선웨이 BRT 역에서 지붕 있는 보행로로, 또는 켈라나 자야 LRT역에서 연결 버스를 타고 선웨이 피라미드 정류장에서",
+        "nearest_local": {
+          "text": "Stesen BRT Sunway Lagoon",
+          "qid": "Q30623760",
+          "source": "wd"
+        },
+        "source": "sl_getting",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://sunwaylagoon.com/",
+      "wiki": {
+        "en": "Sunway Lagoon"
+      },
+      "summary_ko": "워터파크와 놀이공원, 야생동물 공원을 함께 갖춘 복합 테마파크예요.",
+      "body_ko": [
+        "선웨이 시티 안에 있는 복합 테마파크로, 워터파크·놀이공원·야생동물 공원·X파크 등 일곱 구역이 있어요.",
+        "1993년부터 버려진 채굴지를 바꿔 만든 곳이에요.",
+        "쿠알라룸푸르에서 차로 15분쯤 걸려요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "선웨이 시티 안 88에이커 부지에 있는 복합 테마파크예요.",
+          "source": "sl_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "워터파크, 놀이공원, 야생동물 공원, X파크, 로스트 라군, 스크림 파크, 캡틴 쿼크 랜드 일곱 구역이 있어요.",
+          "source": "sl_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "1993년부터 버려진 채굴지를 바꿔 만들었다고 소개해요.",
+          "source": "sl_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "쿠알라룸푸르에서 차로 15분쯤 걸려요(차가 막히지 않을 때).",
+          "source": "sl_getting",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "입구에서 가방 검사를 해요.",
+          "source": "sl_rules",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "물놀이 시설에서는 수영복을 입어야 하고, 청바지·재킷·신발·양말은 안 돼요.",
+          "source": "sl_rules",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "바깥 음식과 음료는 가져갈 수 없고, 술은 금지예요.",
+          "source": "sl_rules",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "천둥이 치면 야외 시설이 닫히고, 비가 와도 환불이 없어요.",
+          "source": "sl_rules",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "booking": "none",
+        "booking_note_ko": null,
+        "regular_closed": [
+          "tue"
+        ],
+        "closed_note_ko": "말레이시아 학교 방학과 공휴일에는 화요일에도 열어요.",
+        "visit_note_ko": null,
+        "source": "sl_faq",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "sl_faq",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_my",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 29,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/Category:Sunway_Lagoon",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "address_local": {
+        "text": "3, Jalan PJS 11/11, Bandar Sunway, 47500 Selangor Darul Ehsan, Malaysia",
+        "source": "sl_about",
+        "last_verified": "2026-10-10"
+      },
+      "google_place_id": "ChIJJTHt3YhMzDERvM3wesdMZds"
+    },
+    {
+      "id": "zoo-negara",
+      "qid": "Q1142942",
+      "names": {
+        "ko": "말레이시아 국립동물원",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "National Zoo of Malaysia",
+        "local": "Zoo Negara",
+        "local_short": "Zoo Negara",
+        "local_lang": "ms",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "주 느가라",
+        "주 네가라",
+        "국립동물원"
+      ],
+      "aliases_en": [
+        "Zoo Negara",
+        "Zoo Negara Malaysia",
+        "Taman Haiwan Negara"
+      ],
+      "mentions_ko": [
+        "동물 쇼",
+        "사육사 먹이 주기"
+      ],
+      "region": "my_kl",
+      "area_ko": "슬랑고르 암팡 훌루 클랑",
+      "category": "theme_park",
+      "tags": [
+        {
+          "id": "foreigner_price",
+          "source": "zn_tickets",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 3.20972222,
+        "lng": 101.75777778,
+        "source": "wd",
+        "qid": "Q1142942",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 3.20972222,
+        "lng": 101.75777778
+      },
+      "access": {
+        "modes": [
+          "metro",
+          "bus"
+        ],
+        "nearest_ko": "LRT 켈라나 자야선 왕사 마주역에서 라피드 KL 253번 버스나 택시",
+        "source": "zn_getting",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.zoonegara.my/",
+      "wiki": {
+        "ko": "말레이시아 국립동물원",
+        "en": "National Zoo of Malaysia"
+      },
+      "summary_ko": "쿠알라룸푸르 동쪽 훌루 클랑에 있는 개방형 동물원이에요.",
+      "body_ko": [
+        "말레이시아 동물학회가 운영하는 동물원으로, 1963년 11월 14일에 문을 열었어요.",
+        "61.53에이커 부지에 325종, 4,096마리가 넘는 동물이 살아요.",
+        "동물의 90% 넘게가 자연 환경을 본뜬 넓은 전시장에서 지내요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "말레이시아 동물학회가 운영하고, 1963년 11월 14일에 공식 개장했어요.",
+          "source": "zn_story",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "61.53에이커 부지에 325종, 4,096마리가 넘는 동물이 살아요.",
+          "source": "zn_story",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "동물의 90% 넘게가 자연 환경을 본뜬 넓은 전시장에서 지내요.",
+          "source": "zn_story",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "동물원을 둘러보는 데 보통 2~3시간쯤 걸려요.",
+          "source": "zn_faq",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "공식 방문 안내에 동물 쇼와 사육사 먹이 주기 시간이 나와요.",
+          "source": "zn_tips",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "짧게 보려면 동물원 안 열차를 타고 주요 구역을 돌 수 있어요.",
+          "source": "zn_faq",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "외국인과 말레이시아 국민의 입장 요금이 달라서, 매표소에서 여권을 보여 줘야 해요.",
+          "source": "zn_tickets",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "booking": "none",
+        "booking_note_ko": null,
+        "regular_closed": [
+          "none"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "zn_tickets",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "zn_tips",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_my",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 26,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/Category:Zoo_Negara",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "address_local": {
+        "text": "Zoo Negara Malaysia, Hulu Kelang, 68000 Ampang, Selangor, Malaysia",
+        "source": "zn_getting",
+        "last_verified": "2026-10-10"
+      },
+      "google_place_id": "ChIJ4R-DCrY5zDERL3vbAscAyPI"
+    },
+    {
+      "id": "chin-swee-caves-temple",
+      "qid": "Q2269147",
+      "names": {
+        "ko": "친스위 동굴 사원",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Chin Swee Caves Temple",
+        "local": "Kuil Gua Chin Swee",
+        "local_short": "Chin Swee Caves Temple",
+        "local_lang": "ms",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "친스위 사원",
+        "진수이 동굴 사원"
+      ],
+      "aliases_en": [
+        "Chin Swee Temple",
+        "Chin Swee Cave Temple"
+      ],
+      "mentions_ko": [
+        "아와나 스카이웨이"
+      ],
+      "region": "my_genting",
+      "area_ko": "파항 겐팅 하이랜드",
+      "category": "heritage",
+      "tags": [
+        {
+          "id": "mountain_view",
+          "source": "cs_location",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 3.413204,
+        "lng": 101.788373,
+        "source": "wd",
+        "qid": "Q2269147",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 3.413204,
+        "lng": 101.788373
+      },
+      "access": {
+        "modes": [
+          "bus"
+        ],
+        "nearest_ko": "겐팅 하이랜드 프리미엄 아웃렛 케이블카를 타고 친스위역에서 내려 에스컬레이터로 올라가요",
+        "nearest_local": {
+          "text": "Genting Highlands Premium Outlets",
+          "qid": "Q111772320",
+          "source": "wd"
+        },
+        "source": "cs_getting",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.chinswee.org/",
+      "wiki": {
+        "en": "Chin Swee Caves Temple"
+      },
+      "summary_ko": "겐팅 하이랜드 산 중턱에 있는 중국식 불교 사원이에요.",
+      "body_ko": [
+        "겐팅 창업주가 1975년에 짓기로 하고, 1994년 3월 29일에 공식 개방한 사원이에요.",
+        "해발 4,600피트 높이의 28에이커 숲 부지에 있고, 티티왕사 산맥이 내려다보여요.",
+        "입구 가까이에 불상으로 장식한 9층 탑이 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "겐팅 창업주 림 고 통이 1975년에 사원을 짓기로 했어요.",
+          "source": "cs_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "1994년 3월 29일에 공식 개방했어요.",
+          "source": "cs_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "해발 4,600피트, 28에이커의 숲 부지에 있어요.",
+          "source": "cs_location",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "입구 가까이에 불상으로 장식한 9층 탑이 있어요.",
+          "source": "cs_pagoda",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "케이블카 표를 가지고 있으면 사원에 내렸다가 이어서 정상역이나 아와나역으로 갈 수 있어요.",
+          "source": "cs_getting",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "친스위역에는 추가 요금 없이 내릴 수 있어요.",
+          "source": "cs_getting",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "사원 뒤쪽에 관음상과 불상이 크게 서 있어요.",
+          "source": "cs_pagoda",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "unknown",
+        "booking": "none",
+        "booking_note_ko": null,
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "cs_getting",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "cs_getting",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_my",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 32,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/Category:Chin_Swee_Caves_Temple",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJ3TA_tz0UzDERRBwN5murefk"
+    },
+    {
+      "id": "entopia-penang",
+      "qid": "Q137938768",
+      "names": {
+        "ko": "엔토피아",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Entopia",
+        "local": "Entopia",
+        "local_short": "Entopia",
+        "local_lang": "en",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "엔토피아 페낭",
+        "페낭 버터플라이 팜",
+        "페낭 나비 농장"
+      ],
+      "aliases_en": [
+        "Penang Butterfly Farm",
+        "Penang Butterfly Gardens",
+        "Entopia by Penang Butterfly Farm"
+      ],
+      "mentions_ko": [
+        "엔토피아 바이 나이트"
+      ],
+      "region": "my_penang",
+      "area_ko": "페낭 텔룩 바항",
+      "category": "theme_park",
+      "tags": [
+        {
+          "id": "night",
+          "source": "ent_visitor",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "step_free",
+          "source": "ent_faq",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 5.447587,
+        "lng": 100.21522,
+        "source": "wd",
+        "qid": "Q137938768",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 5.447587,
+        "lng": 100.21522
+      },
+      "access": {
+        "modes": [
+          "bus"
+        ],
+        "nearest_ko": "라피드 페낭 101번(웰드 키)·102번(페낭 공항) 버스를 타고 이스케이프 파크 정류장에서 걸어요",
+        "source": "ent_faq",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.entopia.com/",
+      "summary_ko": "나비가 자유롭게 나는 정원과 실내 전시관이 있는 자연 학습 시설이에요.",
+      "body_ko": [
+        "텔룩 바항에 있는 자연 학습 시설로, 1986년 페낭 버터플라이 팜으로 시작했어요.",
+        "야외 정원 네이처랜드와 실내 전시관 더 코쿤 두 곳으로 이뤄져요.",
+        "자유롭게 나는 나비와 식물을 보고, 곤충과 무척추동물 전시를 체험해요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "1986년 페낭 버터플라이 팜으로 문을 열었어요.",
+          "source": "ent_story",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "야외 정원 네이처랜드와 실내 전시관 더 코쿤, 두 곳으로 이뤄져요.",
+          "source": "ent_faq",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "자유롭게 나는 나비와 여러 식물이 있는 정원과 체험형 실내 전시가 있어요.",
+          "source": "ent_faq",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "조지타운에서 18km 거리예요.",
+          "source": "ent_faq",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "저녁 개장 엔토피아 바이 나이트는 온라인 예약으로만 들어갈 수 있어요.",
+          "source": "ent_visitor",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "야외 정원과 실내 전시관 모두 휠체어로 다닐 수 있어요.",
+          "source": "ent_faq",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "라피드 페낭 버스를 타면 이스케이프 파크 정류장에서 걸어서 가요.",
+          "source": "ent_faq",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "booking": "none",
+        "booking_note_ko": null,
+        "regular_closed": [
+          "none"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "ent_visitor",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "ent_visitor",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_my",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 44,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/Category:Penang_Butterfly_Gardens",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "address_local": {
+        "text": "830, Jalan Teluk Bahang, 11050 Teluk Bahang, Penang, Malaysia",
+        "source": "ent_faq",
+        "last_verified": "2026-10-10"
+      },
+      "google_place_id": "ChIJ83gcpVjoSjARH4vjVeRjzHg"
+    },
+    {
+      "id": "taming-sari-tower",
+      "qid": "Q12697616",
+      "names": {
+        "ko": "타밍 사리 타워",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Taming Sari Tower",
+        "local": "Menara Taming Sari",
+        "local_short": "Menara Taming Sari",
+        "local_lang": "ms",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "메나라 타밍 사리"
+      ],
+      "aliases_en": [
+        "Menara Taming Sari",
+        "Taming Sari Revolving Tower"
+      ],
+      "mentions_ko": [
+        "해양 박물관",
+        "플로르 데 라 마르"
+      ],
+      "region": "my_malacca",
+      "area_ko": "믈라카 반다 힐리르",
+      "category": "city_view",
+      "tags": [
+        {
+          "id": "step_free",
+          "source": "mts_guide",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 2.19083,
+        "lng": 102.247,
+        "source": "wd",
+        "qid": "Q12697616",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 2.19083,
+        "lng": 102.247
+      },
+      "access": {
+        "modes": [
+          "bus"
+        ],
+        "nearest_ko": "믈라카 센트럴에서 차로 가는 길과 대중교통 안내가 공식 사이트에 나와요(반다 힐리르 자란 머르데카)",
+        "source": "mts_getting",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.menaratamingsari.com/",
+      "wiki": {
+        "ko": "타밍 사리 타워",
+        "en": "Taming Sari Tower"
+      },
+      "summary_ko": "캐빈을 타고 올라가 믈라카 시내와 해협을 내려다보는 전망 탑이에요.",
+      "body_ko": [
+        "믈라카 주 정부가 전액 출자한 회사가 운영하는 전망 탑이에요.",
+        "캐빈을 타고 올라가면 해양 박물관과 플로르 데 라 마르 배, 믈라카 강, 믈라카 해협이 보여요.",
+        "타는 시간은 보통 15분에서 30분쯤 잡으면 돼요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "믈라카 주 정부가 전액 소유한 쿠물란 믈라카 그룹의 자회사가 운영해요.",
+          "source": "mts_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "해양 박물관과 플로르 데 라 마르 배, 믈라카 강, 다타란 파라완, 믈라카 해협이 보여요.",
+          "source": "mts_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "방문에는 보통 15~30분쯤 걸려요.",
+          "source": "mts_faq",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "우산, 지팡이, 크거나 뾰족한 물건은 캐빈에 들고 탈 수 없어요.",
+          "source": "mts_guide",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "어린이는 보호자와 함께 타야 해요.",
+          "source": "mts_guide",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "반려동물은 들어갈 수 없어요.",
+          "source": "mts_faq",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "줄을 줄이려면 온라인으로 날짜와 시간을 정해 미리 표를 사 두라고 안내해요.",
+          "source": "mts_faq",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "booking": "recommended",
+        "booking_note_ko": null,
+        "regular_closed": [
+          "none"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "mts_hours",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "mts_hours",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_my",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 28,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/Category:Taming_Sari_Tower",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "address_local": {
+        "text": "Jalan Merdeka Bandar Hilir, 75000 Melaka, Malaysia",
+        "source": "mts_getting",
+        "last_verified": "2026-10-10"
+      },
+      "google_place_id": "ChIJOXdXEefx0TERIBvPIoH5sX8"
+    },
+    {
+      "id": "cheng-hoon-teng",
+      "qid": "Q2178942",
+      "names": {
+        "ko": "청훈텡 사원",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Cheng Hoon Teng Temple",
+        "local": "Cheng Hoon Teng",
+        "local_short": "Cheng Hoon Teng",
+        "local_lang": "ms",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "청훈텡",
+        "청운사",
+        "청운정"
+      ],
+      "aliases_en": [
+        "Cheng Hoon Teng",
+        "Green Clouds Temple",
+        "Kwan Yin Teng"
+      ],
+      "mentions_ko": [
+        "하모니 거리",
+        "존커 거리"
+      ],
+      "region": "my_malacca",
+      "area_ko": "믈라카 자란 토콩",
+      "category": "heritage",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 2.19747,
+        "lng": 102.247,
+        "source": "wd",
+        "qid": "Q2178942",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 2.19747,
+        "lng": 102.247
+      },
+      "access": {
+        "modes": [
+          "walk_from_center"
+        ],
+        "nearest_ko": "존커 거리 가까운 자란 토콩(하모니 거리)에서 걸어요",
+        "source": "vm_history",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.chenghoonteng.org.my/",
+      "wiki": {
+        "en": "Cheng Hoon Teng Temple"
+      },
+      "summary_ko": "믈라카 구시가에 있는 오래된 중국 전통 사원이에요.",
+      "body_ko": [
+        "1600년대에 중국인 카피탄 타이 키 키가 세운 사원이에요.",
+        "1801년에 카피탄 추아가 다시 지었고, 푸젠과 광둥 지방 장인들의 솜씨가 건물에 담겨 있어요.",
+        "존커 거리 가까운 자란 토콩에 있고, 신자들이 기도 의식을 올리는 곳이에요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "1600년대에 중국인 카피탄 타이 키 키가 세웠어요.",
+          "source": "cht_history",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "1801년에 카피탄 추아가 사원을 다시 지었어요.",
+          "source": "cht_history",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "건물에는 중국 남부 푸젠과 광둥 출신 장인들의 솜씨가 담겨 있어요.",
+          "source": "cht_arch",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "사원 측은 말레이시아에서 가장 오래된 전통 중국 사원이라고 소개해요.",
+          "source": "cht_resto",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "입구 앞 노점에서 초와 지전, 향을 팔아요.",
+          "source": "vm_history",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "사원 안에서는 신자들이 기도 의식을 올려요.",
+          "source": "vm_history",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "unknown",
+        "booking": "none",
+        "booking_note_ko": null,
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "vm_history",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "vm_history",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_my",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 36,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/Category:Cheng_Hoon_Teng_Temple",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "address_local": {
+        "text": "No. 25, Jalan To’kong, 75200 Malacca, Malaysia",
+        "source": "cht_contact",
+        "last_verified": "2026-10-10"
+      },
+      "google_place_id": "ChIJZ5Kbjtvx0TERkjbMYA169LU"
+    },
+    {
+      "id": "underwater-world-langkawi",
+      "qid": "Q48769612",
+      "names": {
+        "ko": "언더워터 월드 랑카위",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Underwater World Langkawi",
+        "local": "Underwater World Langkawi",
+        "local_short": "Underwater World Langkawi",
+        "local_lang": "en",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "랑카위 수족관",
+        "랑카위 언더워터 월드"
+      ],
+      "aliases_en": [
+        "UWL",
+        "Langkawi Aquarium"
+      ],
+      "mentions_ko": [
+        "판타이 체낭"
+      ],
+      "region": "my_langkawi",
+      "area_ko": "랑카위 판타이 체낭",
+      "category": "theme_park",
+      "tags": [
+        {
+          "id": "foreigner_price",
+          "source": "uwl_visitor",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 6.287717,
+        "lng": 99.728591,
+        "source": "wd",
+        "qid": "Q48769612",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 6.287717,
+        "lng": 99.728591
+      },
+      "access": {
+        "modes": [
+          "car_only"
+        ],
+        "nearest_ko": "랑카위 공항·쿠아 선착장에서 택시 또는 렌터카",
+        "source": "kgp_getting",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://underwaterworldlangkawi.com/",
+      "summary_ko": "판타이 체낭에 있는 해수·민물 수족관이에요.",
+      "body_ko": [
+        "판타이 체낭 지구에 있는 수족관으로, 1995년 8월 26일에 문을 열었어요.",
+        "길이 15m의 터널에서 큰 가오리와 바다거북 등 바닷속 생물을 올려다봐요.",
+        "펭귄과 물개를 만나는 구역과 열대 우림 구역 등이 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "1995년 8월 26일에 운영을 시작한 동남아시아 최대급 해수·민물 수족관이에요.",
+          "source": "uwl_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "길이 15m 터널을 걸으며 큰 가오리, 바다거북 등 바닷속 생물을 볼 수 있어요.",
+          "source": "uwl_explore",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "열대 우림·강 생태계, 온대·아남극, 해양 세 구역이 중심이에요.",
+          "source": "uwl_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "아프리카 펭귄과 남미 물개를 볼 수 있는 온대 구역이 있어요.",
+          "source": "uwl_explore",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "공식 사이트에 동물별 먹이 주는 시간표가 있고, 시간은 바뀔 수 있어요.",
+          "source": "uwl_visitor",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "학교 방학과 공휴일에는 문 여는 시간이 달라요.",
+          "source": "uwl_visitor",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "booking": "none",
+        "booking_note_ko": null,
+        "regular_closed": [
+          "none"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "uwl_visitor",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "uwl_visitor",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_my",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 45,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/Category:Underwater_World_Langkawi",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "address_local": {
+        "text": "Pantai Cenang, Mukim Kedawang, 07000 Langkawi, Kedah, Malaysia",
+        "source": "uwl_about",
+        "last_verified": "2026-10-10"
+      },
+      "google_place_id": "ChIJwWqJftmHSzAREAOCfNyMmHA"
+    },
+    {
+      "id": "legoland-malaysia",
+      "qid": "Q3229105",
+      "names": {
+        "ko": "레고랜드 말레이시아",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Legoland Malaysia Resort",
+        "local": "Legoland Malaysia",
+        "local_short": "Legoland Malaysia",
+        "local_lang": "en",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "레고랜드 말레이시아 리조트",
+        "레고랜드",
+        "레고랜드 조호르"
+      ],
+      "aliases_en": [
+        "Legoland Johor"
+      ],
+      "mentions_ko": [
+        "씨라이프 말레이시아",
+        "레고랜드 워터파크"
+      ],
+      "region": "my_johor",
+      "area_ko": "조호르 이스칸다르 푸테리",
+      "category": "theme_park",
+      "tags": [
+        {
+          "id": "step_free",
+          "source": "ll_acc",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 1.425,
+        "lng": 103.62722222,
+        "source": "wd",
+        "qid": "Q3229105",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 1.425,
+        "lng": 103.62722222
+      },
+      "access": {
+        "modes": [
+          "train",
+          "bus"
+        ],
+        "nearest_ko": "KTM ETS로 JB 센트럴역까지 간 뒤 그랩·택시·시내버스로 이동해요",
+        "nearest_local": {
+          "text": "JB Sentral",
+          "qid": "Q6132274",
+          "source": "wd"
+        },
+        "source": "ll_dir",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.legoland.com.my/",
+      "wiki": {
+        "ko": "레고랜드 말레이시아 리조트",
+        "en": "Legoland Malaysia Resort"
+      },
+      "summary_ko": "레고 블록을 주제로 한 테마파크·워터파크·수족관 복합 리조트예요.",
+      "body_ko": [
+        "조호르 이스칸다르 푸테리에 있는 레고랜드 리조트로, 테마파크와 워터파크, 씨라이프 수족관, 레고랜드 호텔로 이뤄져요.",
+        "축구장 50개가 넘는 면적에 레고 모델 15,000개 넘게가 있어요.",
+        "KTM ETS를 타면 쿠알라룸푸르에서 JB 센트럴까지 약 4시간 20분 걸려요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "조호르 이스칸다르 푸테리(옛 누사자야)에 있어요.",
+          "source": "ll_dir",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "축구장 50개가 넘는 면적에 레고 모델 15,000개 넘게, 레고 블록 6천만 개 넘게가 쓰였어요.",
+          "source": "ll_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "테마파크, 워터파크, 씨라이프 말레이시아, 레고랜드 호텔을 각각 운영해요.",
+          "source": "ll_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "KL 센트럴에서 KTM ETS로 JB 센트럴까지 약 4시간 20분 걸려요.",
+          "source": "ll_dir",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "JB 센트럴역에 내리면 그랩, 택시, 시내버스로 레고랜드까지 가요.",
+          "source": "ll_dir",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "일부 놀이기구는 정비로 잠시 쉬어요. 쉬는 놀이기구 일정이 공식 사이트에 나와요.",
+          "source": "ll_hours",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "대부분의 놀이기구와 시설은 휠체어를 쓰는 손님도 이용할 수 있어요.",
+          "source": "ll_acc",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "booking": "none",
+        "booking_note_ko": null,
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "ll_home",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "ll_hours",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_my",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 17,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/Category:Legoland_Malaysia",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "address_local": {
+        "text": "7 Jalan LEGOLAND, Bandar Medini Iskandar Malaysia, 79250 Iskandar Puteri (Nusajaya), Johor, Malaysia",
+        "source": "ll_dir",
+        "last_verified": "2026-10-10"
+      },
+      "google_place_id": "ChIJM-12PIwL2jERSzVEGdIIW4E"
+    },
+    {
+      "id": "sultan-abu-bakar-mosque",
+      "qid": "Q2478866",
+      "names": {
+        "ko": "술탄 아부 바카르 모스크",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Sultan Abu Bakar State Mosque",
+        "local": "Masjid Negeri Sultan Abu Bakar",
+        "local_short": "Masjid Sultan Abu Bakar",
+        "local_lang": "ms",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "술탄 아부 바카르 주립 모스크",
+        "조호르바루 모스크"
+      ],
+      "aliases_en": [
+        "Masjid Jamek Sultan Abu Bakar",
+        "Sultan Abu Bakar Mosque"
+      ],
+      "mentions_ko": [],
+      "region": "my_johor",
+      "area_ko": "조호르바루 시내",
+      "category": "heritage",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 1.4569555555556,
+        "lng": 103.75105277778,
+        "source": "wd",
+        "qid": "Q2478866",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 1.4569555555556,
+        "lng": 103.75105277778
+      },
+      "access": {
+        "modes": [
+          "bus"
+        ],
+        "nearest_ko": "라르킨 센트럴이나 시티 스퀘어 맞은편 시내 정류장에서 시내버스",
+        "nearest_local": {
+          "text": "Larkin Sentral",
+          "qid": "Q16960775",
+          "source": "wd"
+        },
+        "source": "tj_jb",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://tourism.johor.gov.my/masjid-jamek-sultan-abu-bakar/",
+      "wiki": {
+        "en": "Sultan Abu Bakar State Mosque"
+      },
+      "summary_ko": "조호르 해협을 마주 보는 조호르바루의 오래된 주립 모스크예요.",
+      "body_ko": [
+        "1892년부터 약 8년에 걸쳐 지은 모스크로, 영국 식민지풍과 이슬람 장식이 섞여 있어요.",
+        "지붕 위 첨탑 네 개는 영국식 시계탑 모양이고, 바닥 대리석은 이탈리아, 돔의 색유리는 베네치아에서 들여왔어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "1892년부터 약 8년에 걸쳐 지었어요.",
+          "source": "tj_jb",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "조호르바루에서 가장 먼저 지은 모스크예요.",
+          "source": "tj_mosque",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "지붕 위 첨탑 네 개는 영국식 시계탑을 본떴어요.",
+          "source": "tj_jb",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "바닥 대리석은 이탈리아, 돔의 색유리는 베네치아에서 들여왔어요.",
+          "source": "tj_mosque",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "테브라우 해협을 마주 보고 있어요.",
+          "source": "tj_mosque",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "시내버스는 라르킨 센트럴이나 시티 스퀘어 맞은편 정류장에서 많이 출발해요.",
+          "source": "tj_jb",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "버스에는 행선지 표지판이 있어요.",
+          "source": "tj_jb",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "unknown",
+        "booking": "none",
+        "booking_note_ko": null,
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "tj_mosque",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "tj_mosque",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_my",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 38,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/Category:Sultan_Abu_Bakar_State_Mosque",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "address_local": {
+        "text": "Jalan Masjid Abu Bakar, Johor Bahru, Johor, Malaysia",
+        "source": "tj_mosque",
+        "last_verified": "2026-10-10"
+      },
+      "google_place_id": "ChIJGZL4OpUS2jERNi4sRVEBnMY"
+    },
+    {
+      "id": "johor-old-chinese-temple",
+      "qid": "Q2117455",
+      "names": {
+        "ko": "조호르바루 올드 차이니즈 템플",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Johor Bahru Old Chinese Temple",
+        "local": "Kuil Cina Lama Johor Bahru",
+        "local_short": "Tokong Lama Cina",
+        "local_lang": "ms",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "조호르 고묘",
+        "조호르바루 옛 중국 사원",
+        "올드 차이니즈 템플"
+      ],
+      "aliases_en": [
+        "Johor Old Chinese Temple",
+        "Johor Gu Miao",
+        "Old Chinese Temple"
+      ],
+      "mentions_ko": [],
+      "region": "my_johor",
+      "area_ko": "조호르바루 시내",
+      "category": "heritage",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 1.46055556,
+        "lng": 103.76305556,
+        "source": "wd",
+        "qid": "Q2117455",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 1.46055556,
+        "lng": 103.76305556
+      },
+      "access": {
+        "modes": [
+          "bus"
+        ],
+        "nearest_ko": "라르킨 센트럴이나 시티 스퀘어 맞은편 시내 정류장에서 시내버스",
+        "nearest_local": {
+          "text": "Larkin Sentral",
+          "qid": "Q16960775",
+          "source": "wd"
+        },
+        "source": "tj_jb",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://tourism.johor.gov.my/old-chinese-temple/",
+      "wiki": {
+        "en": "Johor Bahru Old Chinese Temple"
+      },
+      "summary_ko": "조호르바루 시내에 있는 오래된 중국 사원이에요.",
+      "body_ko": [
+        "1870~1880년대에 술탄 아부 바카르가 중국인에게 땅을 내주어 예배와 매장 터를 짓게 하면서 생긴 사원이에요.",
+        "1995년 12월에 복원을 마쳤고, 100년 넘은 청동 종과 향로가 그대로 남아 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "1870~1880년대에 술탄 아부 바카르가 중국인에게 땅을 내주어 예배와 매장 터를 짓게 했어요.",
+          "source": "tj_temple",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "1995년 12월에 복원을 마쳤어요.",
+          "source": "tj_temple",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "100년 넘은 청동 종과 향로, 나무 현판이 그대로 남아 있어요.",
+          "source": "tj_temple",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "차오저우, 푸젠, 광둥, 객가, 하이난 다섯 중국인 집단이 화합한 상징이라고 소개해요.",
+          "source": "tj_temple",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "시내버스는 라르킨 센트럴이나 시티 스퀘어 맞은편 정류장에서 많이 출발해요.",
+          "source": "tj_jb",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "버스에는 행선지 표지판이 있어요.",
+          "source": "tj_jb",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "unknown",
+        "booking": "none",
+        "booking_note_ko": null,
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "tj_temple",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "tj_temple",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_my",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 37,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/Category:Johor_Bahru_Old_Chinese_Temple",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "address_local": {
+        "text": "Lot 653, Jalan Trus, Bandar Johor Bahru, 80000 Johor Bahru, Johor",
+        "source": "tj_temple",
+        "last_verified": "2026-10-10"
+      },
+      "google_place_id": "ChIJ3WMd2MIS2jERTTvd4lA3aVw"
     }
   ],
   "sources": [
@@ -5463,6 +7313,288 @@
       "id": "stb_poring",
       "name": "Sabah Tourism Board official website — Poring Hot Spring (PHS)",
       "url": "https://sabahtourism.com/destination/poring-hot-spring-phs/",
+      "use": "facts"
+    },
+    {
+      "id": "aq_about",
+      "name": "Aquaria KLCC (Aquawalk Sdn Bhd) official website — About Us",
+      "url": "https://aquariaklcc.com/about-us/",
+      "use": "facts"
+    },
+    {
+      "id": "aq_feeding",
+      "name": "Aquaria KLCC (Aquawalk Sdn Bhd) official website — Feeding Time",
+      "url": "https://aquariaklcc.com/feeding-time/",
+      "use": "facts"
+    },
+    {
+      "id": "aq_tickets",
+      "name": "Aquaria KLCC official ticketing site — General Admission",
+      "url": "https://tickets.aquariaklcc.com/tours/malaysia/kuala-lumpur/aquaria-klcc-general",
+      "use": "facts"
+    },
+    {
+      "id": "aq_tc",
+      "name": "Aquaria KLCC (Aquawalk Sdn Bhd) official website — Terms & Conditions",
+      "url": "https://aquariaklcc.com/tc/",
+      "use": "facts"
+    },
+    {
+      "id": "aq_contact",
+      "name": "Aquaria KLCC (Aquawalk Sdn Bhd) official website — Contact Us",
+      "url": "https://aquariaklcc.com/contact-us/",
+      "use": "facts"
+    },
+    {
+      "id": "klccc_getting",
+      "name": "Kuala Lumpur Convention Centre official website — Getting to the Centre and Car Parking",
+      "url": "https://www.klccconventioncentre.com/visitors/getting-to-the-centre-and-car-parking",
+      "use": "facts"
+    },
+    {
+      "id": "ps_getting",
+      "name": "Petrosains, The Discovery Centre (PETRONAS) official website — Getting To The Centre",
+      "url": "https://petrosains.com.my/visit/getting-to-the-centre/",
+      "use": "facts"
+    },
+    {
+      "id": "ps_admission",
+      "name": "Petrosains, The Discovery Centre (PETRONAS) official website — Admission & Ticketing",
+      "url": "https://petrosains.com.my/visit/admission-and-ticketing/",
+      "use": "facts"
+    },
+    {
+      "id": "ps_exhibits",
+      "name": "Petrosains, The Discovery Centre (PETRONAS) official website — Explore Our Discovery Centre",
+      "url": "https://petrosains.com.my/visit/latest-exhibitions/",
+      "use": "facts"
+    },
+    {
+      "id": "ps_facilities",
+      "name": "Petrosains, The Discovery Centre (PETRONAS) official website — Facilities & Accessibility",
+      "url": "https://petrosains.com.my/visit/facilities-accessibility/",
+      "use": "facts"
+    },
+    {
+      "id": "ps_about",
+      "name": "Petrosains, The Discovery Centre (PETRONAS) official website — About Us",
+      "url": "https://petrosains.com.my/about/",
+      "use": "facts"
+    },
+    {
+      "id": "sl_about",
+      "name": "Sunway Lagoon (Sunway Lagoon Sdn Bhd) official website — About Us",
+      "url": "https://sunwaylagoon.com/about-us/",
+      "use": "facts"
+    },
+    {
+      "id": "sl_getting",
+      "name": "Sunway Lagoon (Sunway Lagoon Sdn Bhd) official website — How to Get Here",
+      "url": "https://sunwaylagoon.com/how-to-get-here/",
+      "use": "facts"
+    },
+    {
+      "id": "sl_rules",
+      "name": "Sunway Lagoon (Sunway Lagoon Sdn Bhd) official website — Park Rules",
+      "url": "https://sunwaylagoon.com/park-rules/",
+      "use": "facts"
+    },
+    {
+      "id": "sl_faq",
+      "name": "Sunway Lagoon (Sunway Lagoon Sdn Bhd) official website — FAQ",
+      "url": "https://sunwaylagoon.com/frequently-asked-questions/",
+      "use": "facts"
+    },
+    {
+      "id": "zn_story",
+      "name": "Zoo Negara Malaysia (Malaysian Zoological Society) official website — Our Story",
+      "url": "https://www.zoonegara.my/more/about-zoo-negara/our-story",
+      "use": "facts"
+    },
+    {
+      "id": "zn_getting",
+      "name": "Zoo Negara Malaysia (Malaysian Zoological Society) official website — Getting Here",
+      "url": "https://www.zoonegara.my/visitor-guide/plan-your-visit/getting-here",
+      "use": "facts"
+    },
+    {
+      "id": "zn_tips",
+      "name": "Zoo Negara Malaysia (Malaysian Zoological Society) official website — Visitor Tips",
+      "url": "https://www.zoonegara.my/visitor-guide/plan-your-visit/visitor-tips",
+      "use": "facts"
+    },
+    {
+      "id": "zn_faq",
+      "name": "Zoo Negara Malaysia (Malaysian Zoological Society) official website — FAQs",
+      "url": "https://www.zoonegara.my/visitor-guide/faqs",
+      "use": "facts"
+    },
+    {
+      "id": "zn_tickets",
+      "name": "Zoo Negara Malaysia (Malaysian Zoological Society) official website — Admission Tickets & Prices",
+      "url": "https://www.zoonegara.my/visitor-guide/tickets",
+      "use": "facts"
+    },
+    {
+      "id": "cs_about",
+      "name": "Chin Swee Caves Temple Building Society official website — About the Temple",
+      "url": "https://www.chinswee.org/aboutthetemple",
+      "use": "facts"
+    },
+    {
+      "id": "cs_getting",
+      "name": "Chin Swee Caves Temple Building Society official website — Getting Here",
+      "url": "https://www.chinswee.org/getting-here",
+      "use": "facts"
+    },
+    {
+      "id": "cs_location",
+      "name": "Chin Swee Caves Temple Building Society official website — The Location",
+      "url": "https://www.chinswee.org/thelocation",
+      "use": "facts"
+    },
+    {
+      "id": "cs_pagoda",
+      "name": "Chin Swee Caves Temple Building Society official website — Pagoda Temple",
+      "url": "https://www.chinswee.org/pagodatemple",
+      "use": "facts"
+    },
+    {
+      "id": "ent_faq",
+      "name": "Entopia (Penang) official website — FAQ",
+      "url": "https://www.entopia.com/faq/",
+      "use": "facts"
+    },
+    {
+      "id": "ent_story",
+      "name": "Entopia (Penang) official website — Our Story",
+      "url": "https://www.entopia.com/our-story/",
+      "use": "facts"
+    },
+    {
+      "id": "ent_visitor",
+      "name": "Entopia (Penang) official website — Visitor Info",
+      "url": "https://www.entopia.com/visitor-info/",
+      "use": "facts"
+    },
+    {
+      "id": "mts_about",
+      "name": "Menara Taming Sari (Melaka Taming Sari Berhad) official website — About",
+      "url": "https://www.menaratamingsari.com/about/",
+      "use": "facts"
+    },
+    {
+      "id": "mts_getting",
+      "name": "Menara Taming Sari (Melaka Taming Sari Berhad) official website — Getting Here",
+      "url": "https://www.menaratamingsari.com/plan-your-visit/getting-here/",
+      "use": "facts"
+    },
+    {
+      "id": "mts_faq",
+      "name": "Menara Taming Sari (Melaka Taming Sari Berhad) official website — FAQ",
+      "url": "https://www.menaratamingsari.com/plan-your-visit/frequently-asked-questions/",
+      "use": "facts"
+    },
+    {
+      "id": "mts_guide",
+      "name": "Menara Taming Sari (Melaka Taming Sari Berhad) official website — Useful Guide",
+      "url": "https://www.menaratamingsari.com/plan-your-visit/useful-guide/",
+      "use": "facts"
+    },
+    {
+      "id": "mts_hours",
+      "name": "Menara Taming Sari (Melaka Taming Sari Berhad) official website — Operation Hours",
+      "url": "https://www.menaratamingsari.com/plan-your-visit/operation-hours/",
+      "use": "facts"
+    },
+    {
+      "id": "cht_history",
+      "name": "Cheng Hoon Teng Temple, Incorporated official website — History",
+      "url": "https://www.chenghoonteng.org.my/history.html",
+      "use": "facts"
+    },
+    {
+      "id": "cht_arch",
+      "name": "Cheng Hoon Teng Temple, Incorporated official website — Architecture",
+      "url": "https://www.chenghoonteng.org.my/architecture.html",
+      "use": "facts"
+    },
+    {
+      "id": "cht_resto",
+      "name": "Cheng Hoon Teng Temple, Incorporated official website — Restoration",
+      "url": "https://www.chenghoonteng.org.my/restoration.html",
+      "use": "facts"
+    },
+    {
+      "id": "cht_contact",
+      "name": "Cheng Hoon Teng Temple, Incorporated official website — Contact",
+      "url": "https://www.chenghoonteng.org.my/contact.html",
+      "use": "facts"
+    },
+    {
+      "id": "uwl_about",
+      "name": "Underwater World Langkawi (Underwater World Langkawi Sdn Bhd) official website — About Us",
+      "url": "https://underwaterworldlangkawi.com/about-us.php",
+      "use": "facts"
+    },
+    {
+      "id": "uwl_visitor",
+      "name": "Underwater World Langkawi official website — Visitor Information",
+      "url": "https://underwaterworldlangkawi.com/visitor-information.php",
+      "use": "facts"
+    },
+    {
+      "id": "uwl_explore",
+      "name": "Underwater World Langkawi official website — Explore",
+      "url": "https://underwaterworldlangkawi.com/explore.php",
+      "use": "facts"
+    },
+    {
+      "id": "ll_dir",
+      "name": "LEGOLAND Malaysia Resort official website — How to Get Here",
+      "url": "https://www.legoland.com.my/plan-your-day/before-you-visit/directions/",
+      "use": "facts"
+    },
+    {
+      "id": "ll_hours",
+      "name": "LEGOLAND Malaysia Resort official website — Opening Hours",
+      "url": "https://www.legoland.com.my/plan-your-day/before-you-visit/opening-hours/",
+      "use": "facts"
+    },
+    {
+      "id": "ll_about",
+      "name": "LEGOLAND Malaysia Resort official website — About LEGOLAND Malaysia",
+      "url": "https://www.legoland.com.my/our-company/about-legoland-malaysia/",
+      "use": "facts"
+    },
+    {
+      "id": "ll_acc",
+      "name": "LEGOLAND Malaysia Resort official website — Accessibility",
+      "url": "https://www.legoland.com.my/plan-your-day/before-you-visit/accessibility/",
+      "use": "facts"
+    },
+    {
+      "id": "ll_home",
+      "name": "LEGOLAND Malaysia Resort official website — Home",
+      "url": "https://www.legoland.com.my/",
+      "use": "facts"
+    },
+    {
+      "id": "tj_temple",
+      "name": "Tourism Johor (Johor state tourism portal) — Old Chinese Temple",
+      "url": "https://tourism.johor.gov.my/old-chinese-temple/",
+      "use": "facts"
+    },
+    {
+      "id": "tj_mosque",
+      "name": "Tourism Johor (Johor state tourism portal) — Masjid Jamek Sultan Abu Bakar",
+      "url": "https://tourism.johor.gov.my/masjid-jamek-sultan-abu-bakar/",
+      "use": "facts"
+    },
+    {
+      "id": "tj_jb",
+      "name": "Tourism Johor (Johor state tourism portal) — Johor Bahru",
+      "url": "https://tourism.johor.gov.my/johor-bahru/",
       "use": "facts"
     }
   ],

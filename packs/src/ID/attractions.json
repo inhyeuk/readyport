@@ -2,7 +2,7 @@
   "doc_type": "attractions",
   "schema_version": 1,
   "country": "ID",
-  "version": "2026.10.10-2",
+  "version": "2026.10.10-3",
   "release": "published",
   "editorial_rules": "2026-10",
   "compact_country": false,
@@ -770,6 +770,312 @@
       "use": "coords_osm",
       "license": "ODbL-1.0",
       "attribution_required": true
+    },
+    {
+      "id": "waterbom_home",
+      "name": "Waterbom Bali 공식 사이트(운영사) — 홈",
+      "url": "https://www.waterbom-bali.com/",
+      "use": "facts"
+    },
+    {
+      "id": "waterbom_park",
+      "name": "Waterbom Bali 공식 사이트(운영사) — Our Park",
+      "url": "https://www.waterbom-bali.com/our-park",
+      "use": "facts"
+    },
+    {
+      "id": "waterbom_contact",
+      "name": "Waterbom Bali 공식 사이트(운영사) — Contact Us",
+      "url": "https://www.waterbom-bali.com/contact-us",
+      "use": "facts"
+    },
+    {
+      "id": "waterbom_faq",
+      "name": "Waterbom Bali 공식 사이트(운영사) — F.A.Q",
+      "url": "https://www.waterbom-bali.com/frequently-asked-questions",
+      "use": "facts"
+    },
+    {
+      "id": "waterbom_access",
+      "name": "Waterbom Bali 공식 사이트(운영사) — Accessibility",
+      "url": "https://www.waterbom-bali.com/accessibility",
+      "use": "facts"
+    },
+    {
+      "id": "tmii_tentang",
+      "name": "Taman Mini Indonesia Indah(TMII) 공식 사이트 — Tentang TMII",
+      "url": "https://tamanmini.com/taman_jelajah_indonesia/tentang-tmii/",
+      "use": "facts"
+    },
+    {
+      "id": "tmii_tiket",
+      "name": "TMII 공식 사이트 — Jam Operasional & Tiket",
+      "url": "https://tamanmini.com/taman_jelajah_indonesia/tiket-jam-buka/",
+      "use": "facts"
+    },
+    {
+      "id": "tmii_hubungi",
+      "name": "TMII 공식 사이트 — Hubungi",
+      "url": "https://tamanmini.com/taman_jelajah_indonesia/hubungi/",
+      "use": "facts"
+    },
+    {
+      "id": "ancol_dufan",
+      "name": "Taman Impian Jaya Ancol(운영사) 공식 사이트 — Dunia Fantasi",
+      "url": "https://www.ancol.com/unit-rekreasi/dunia-fantasi--2",
+      "use": "facts"
+    },
+    {
+      "id": "ancol_wahana",
+      "name": "Taman Impian Jaya Ancol 공식 사이트 — Informasi Wahana",
+      "url": "https://www.ancol.com/acara/informasi-wahana-ancol--348",
+      "use": "facts"
+    },
+    {
+      "id": "ancol_home",
+      "name": "Taman Impian Jaya Ancol 공식 사이트 — Ancol",
+      "url": "https://www.ancol.com/unit-rekreasi/ancol--1",
+      "use": "facts"
+    },
+    {
+      "id": "ancol_seaworld",
+      "name": "Taman Impian Jaya Ancol 공식 사이트 — Sea World Ancol",
+      "url": "https://www.ancol.com/unit-rekreasi/sea-world-ancol--3",
+      "use": "facts"
+    },
+    {
+      "id": "ullen_berkunjung",
+      "name": "Museum Ullen Sentalu 공식 사이트 — Berkunjung",
+      "url": "https://www.ullensentalu.com/berkunjung.html",
+      "use": "facts"
+    },
+    {
+      "id": "ullen_tentang",
+      "name": "Museum Ullen Sentalu 공식 사이트 — Tentang Ullen Sentalu",
+      "url": "https://www.ullensentalu.com/tentang-ullen-sentalu.html",
+      "use": "facts"
+    },
+    {
+      "id": "kraton_tamansari",
+      "name": "족자카르타 왕궁(Karaton Ngayogyakarta Hadiningrat) 관광 사이트 — Kagungan Dalem Tamansari",
+      "url": "https://tourism.kratonjogja.id/id-ID/destination/5-kagungan-dalem-tamansari",
+      "use": "facts"
+    },
+    {
+      "id": "kraton_tourism_faq",
+      "name": "족자카르타 왕궁 관광 사이트 — FAQ",
+      "url": "https://tourism.kratonjogja.id/id-ID/faq",
+      "use": "facts"
+    },
+    {
+      "id": "injourney_ratuboko",
+      "name": "InJourney Destination Management(PT Taman Wisata Candi, 운영사) — Ratu Boko",
+      "url": "https://injourneydestination.id/destinations/ratu-boko/",
+      "use": "facts"
+    },
+    {
+      "id": "injourney_ratuboko_history",
+      "name": "InJourney Destination Management — Sejarah Ratu Boko",
+      "url": "https://injourneydestination.id/destinations/ratu-boko/history/",
+      "use": "facts"
+    },
+    {
+      "id": "twc_ticket_ratuboko",
+      "name": "InJourney Destination Management 티켓 사이트 — Keraton Ratu Boko",
+      "url": "https://ticket.injourneydestination.id/id/keraton-ratu-boko/",
+      "use": "facts"
+    },
+    {
+      "id": "sonobudoyo_info",
+      "name": "Museum Sonobudoyo(족자카르타 특별주 박물관) 공식 사이트 — Informasi Kunjungan",
+      "url": "https://sonobudoyo.jogjaprov.go.id/id/information",
+      "use": "facts"
+    },
+    {
+      "id": "sonobudoyo_sejarah",
+      "name": "Museum Sonobudoyo 공식 사이트 — Sekilas dan Sejarah",
+      "url": "https://sonobudoyo.jogjaprov.go.id/id/museum/sekilas-dan-sejarah",
+      "use": "facts"
+    },
+    {
+      "id": "sonobudoyo_peta",
+      "name": "Museum Sonobudoyo 공식 사이트 — Peta Lokasi & Denah Ruang",
+      "url": "https://sonobudoyo.jogjaprov.go.id/id/museum/peta-lokasi--denah-ruang",
+      "use": "facts"
+    },
+    {
+      "id": "sonobudoyo_koleksi",
+      "name": "Museum Sonobudoyo 공식 사이트 — Koleksi",
+      "url": "https://sonobudoyo.jogjaprov.go.id/id/museum/koleksi",
+      "use": "facts"
+    },
+    {
+      "id": "katedral_sejarah",
+      "name": "자카르타 대성당(Gereja Katedral Jakarta) 공식 사이트 — Bangunan & Sejarah",
+      "url": "https://katedraljakarta.or.id/bangunan-dan-sejarah",
+      "use": "facts"
+    },
+    {
+      "id": "katedral_misa",
+      "name": "자카르타 대성당 공식 사이트 — Misa & Sakramen",
+      "url": "https://katedraljakarta.or.id/misa-dan-sakramen",
+      "use": "facts"
+    },
+    {
+      "id": "ancol_atlantis",
+      "name": "Taman Impian Jaya Ancol(운영사) 공식 사이트 — Atlantis Water Adventure",
+      "url": "https://www.ancol.com/unit-rekreasi/atlantis-water-adventure--4",
+      "use": "facts"
+    },
+    {
+      "id": "arma_museum",
+      "name": "ARMA Museum & Resort(아궁 라이 미술관) 공식 사이트 — Museum",
+      "url": "https://www.armabali.com/museum/",
+      "use": "facts"
+    },
+    {
+      "id": "arma_about",
+      "name": "ARMA Museum & Resort 공식 사이트 — About ARMA",
+      "url": "https://www.armabali.com/about-arma/",
+      "use": "facts"
+    },
+    {
+      "id": "arma_location",
+      "name": "ARMA Museum & Resort 공식 사이트 — Location",
+      "url": "https://www.armabali.com/location/",
+      "use": "facts"
+    },
+    {
+      "id": "arma_collection",
+      "name": "ARMA Museum & Resort 공식 사이트 — Collection(입장 안내)",
+      "url": "https://www.armabali.com/collection/",
+      "use": "facts"
+    },
+    {
+      "id": "arma_performance",
+      "name": "ARMA Museum & Resort 공식 사이트 — Performances",
+      "url": "https://www.armabali.com/performance/",
+      "use": "facts"
+    },
+    {
+      "id": "arma_workshops",
+      "name": "ARMA Museum & Resort 공식 사이트 — Cultural Workshops",
+      "url": "https://www.armabali.com/cultural-workshops/",
+      "use": "facts"
+    },
+    {
+      "id": "lovebali_pandawa",
+      "name": "Love Bali(발리주 정부 공식 관광 포털) — Pantai Pandawa",
+      "url": "https://lovebali.baliprov.go.id/destination/detail/1663116376257/pantai-pandawa?id=1663116376257",
+      "use": "facts"
+    },
+    {
+      "id": "lovebali_crystalbay",
+      "name": "Love Bali(발리주 정부 공식 관광 포털) — Pantai Segara Penida (Crystal Bay)",
+      "url": "https://lovebali.baliprov.go.id/destination/detail/375/pantai-segara-penida-(crystal-bay)?id=375",
+      "use": "facts"
+    },
+    {
+      "id": "lovebali_atuh",
+      "name": "Love Bali(발리주 정부 공식 관광 포털) — Pantai Atuh",
+      "url": "https://lovebali.baliprov.go.id/destination/detail/380/pantai-atuh?id=380",
+      "use": "facts"
+    },
+    {
+      "id": "tnkomodo_pemanduan",
+      "name": "Balai Taman Nasional Komodo 공식 웹사이트 — Jasa Pemanduan",
+      "url": "https://tnkomodo.ksdae.kehutanan.go.id/jasa-pemanduan/",
+      "use": "facts"
+    },
+    {
+      "id": "tnkomodo_fauna",
+      "name": "Balai Taman Nasional Komodo 공식 웹사이트 — Fauna",
+      "url": "https://tnkomodo.ksdae.kehutanan.go.id/fauna/",
+      "use": "facts"
+    },
+    {
+      "id": "injourney_ramayana",
+      "name": "InJourney Destination Management(운영사) — Ramayana Ballet",
+      "url": "https://injourneydestination.id/destinations/ramayana/",
+      "use": "facts"
+    },
+    {
+      "id": "twc_ticket_ramayana",
+      "name": "InJourney Destination Management 티켓 사이트 — Ramayana Ballet Prambanan",
+      "url": "https://ticket.injourneydestination.id/en/ramayana-ballet-prambanan",
+      "use": "facts"
+    },
+    {
+      "id": "visitingjogja_sambisari",
+      "name": "Visiting Jogja(족자카르타 특별주 관광청 공식 포털) — Candi Sambisari",
+      "url": "https://visitingjogja.jogjaprov.go.id/19548/candi-bawah-tanah-yogyakarta-candi-sambisari/",
+      "use": "facts"
+    },
+    {
+      "id": "visitingjogja_ijo",
+      "name": "Visiting Jogja(족자카르타 특별주 관광청 공식 포털) — Candi Ijo",
+      "url": "https://visitingjogja.jogjaprov.go.id/12787/candi-ijo/",
+      "use": "facts"
+    },
+    {
+      "id": "pasifika_home",
+      "name": "Museum Pasifika 공식 사이트 — Home",
+      "url": "https://www.museum-pasifika.com/",
+      "use": "facts"
+    },
+    {
+      "id": "pasifika_about",
+      "name": "Museum Pasifika 공식 사이트 — About",
+      "url": "https://www.museum-pasifika.com/about",
+      "use": "facts"
+    },
+    {
+      "id": "pasifika_admission",
+      "name": "Museum Pasifika 공식 사이트 — Admission",
+      "url": "https://www.museum-pasifika.com/admision",
+      "use": "facts"
+    },
+    {
+      "id": "pasifika_activities",
+      "name": "Museum Pasifika 공식 사이트 — Activities",
+      "url": "https://www.museum-pasifika.com/activities",
+      "use": "facts"
+    },
+    {
+      "id": "vredeburg_sejarah",
+      "name": "Museum Benteng Vredeburg 공식 사이트 — Sejarah Singkat",
+      "url": "https://vredeburg.id/id/page/sejarah-singkat",
+      "use": "facts"
+    },
+    {
+      "id": "vredeburg_tiket",
+      "name": "Museum Benteng Vredeburg 공식 사이트 — Tiket",
+      "url": "https://vredeburg.id/id/page/tiket",
+      "use": "facts"
+    },
+    {
+      "id": "vredeburg_waktu",
+      "name": "Museum Benteng Vredeburg 공식 사이트 — Waktu Kunjungan",
+      "url": "https://vredeburg.id/id/page/waktu-kunjungan",
+      "use": "facts"
+    },
+    {
+      "id": "vredeburg_profil",
+      "name": "Museum Benteng Vredeburg 공식 사이트 — Profil",
+      "url": "https://vredeburg.id/id/page/profil",
+      "use": "facts"
+    },
+    {
+      "id": "lovebali_greenbowl",
+      "name": "Love Bali(발리주 정부 공식 관광 포털) — Pantai Green Bowl",
+      "url": "https://lovebali.baliprov.go.id/destination/detail/1606371174760/pantai-green-bowl-(green-bowl-beach)?id=1606371174760",
+      "use": "facts"
+    },
+    {
+      "id": "lovebali_suluban",
+      "name": "Love Bali(발리주 정부 공식 관광 포털) — Pantai Suluban",
+      "url": "https://lovebali.baliprov.go.id/destination/detail/239/pantai-suluban?id=239",
+      "use": "facts"
     }
   ],
   "attractions": [
@@ -912,7 +1218,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 15,
+        "order": 18,
         "designations": []
       },
       "photo": null,
@@ -1027,7 +1333,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 20,
+        "order": 23,
         "designations": []
       },
       "photo": null,
@@ -1146,7 +1452,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 32,
+        "order": 53,
         "designations": []
       },
       "photo": null,
@@ -1284,7 +1590,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 17,
+        "order": 20,
         "designations": []
       },
       "photo": null,
@@ -1409,7 +1715,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 19,
+        "order": 22,
         "designations": []
       },
       "photo": null,
@@ -1530,7 +1836,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 30,
+        "order": 51,
         "designations": []
       },
       "photo": null,
@@ -1676,7 +1982,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 16,
+        "order": 19,
         "designations": []
       },
       "photo": null,
@@ -1808,7 +2114,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 21,
+        "order": 24,
         "designations": []
       },
       "photo": null,
@@ -1935,7 +2241,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 27,
+        "order": 41,
         "designations": []
       },
       "photo": null,
@@ -2080,7 +2386,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 14,
+        "order": 17,
         "designations": []
       },
       "photo": null,
@@ -2211,7 +2517,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 22,
+        "order": 26,
         "designations": []
       },
       "photo": null,
@@ -2349,7 +2655,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 25,
+        "order": 30,
         "designations": []
       },
       "photo": null,
@@ -2829,7 +3135,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 5,
+        "order": 6,
         "designations": [
           {
             "kind": "unesco",
@@ -2963,7 +3269,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 24,
+        "order": 28,
         "designations": []
       },
       "photo": null,
@@ -3101,7 +3407,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 9,
+        "order": 10,
         "designations": []
       },
       "photo": null,
@@ -3238,7 +3544,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 11,
+        "order": 12,
         "designations": []
       },
       "photo": null,
@@ -3377,7 +3683,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 23,
+        "order": 27,
         "designations": []
       },
       "photo": null,
@@ -3510,7 +3816,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 8,
+        "order": 9,
         "designations": []
       },
       "photo": null,
@@ -3660,7 +3966,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 18,
+        "order": 21,
         "designations": []
       },
       "photo": null,
@@ -3816,7 +4122,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 13,
+        "order": 15,
         "designations": []
       },
       "photo": null,
@@ -3941,7 +4247,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 12,
+        "order": 14,
         "designations": []
       },
       "photo": null,
@@ -4066,7 +4372,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 29,
+        "order": 47,
         "designations": []
       },
       "photo": null,
@@ -4353,7 +4659,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 31,
+        "order": 52,
         "designations": []
       },
       "photo": null,
@@ -4474,7 +4780,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 28,
+        "order": 46,
         "designations": []
       },
       "photo": null,
@@ -4609,7 +4915,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 33,
+        "order": 54,
         "designations": []
       },
       "photo": null,
@@ -4745,7 +5051,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 10,
+        "order": 11,
         "designations": []
       },
       "photo": null,
@@ -4909,7 +5215,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 26,
+        "order": 38,
         "designations": []
       },
       "photo": null,
@@ -5232,7 +5538,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 6,
+        "order": 7,
         "designations": [
           {
             "kind": "unesco",
@@ -5379,7 +5685,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 7,
+        "order": 8,
         "designations": [
           {
             "kind": "unesco",
@@ -5393,6 +5699,3236 @@
       "source": "wi_pinkbeach",
       "last_verified": "2026-10-10",
       "google_place_id": "ChIJZxm99nxWtC0R0F8cpay0Lp8"
+    },
+    {
+      "id": "waterbom-bali",
+      "qid": "Q7973895",
+      "names": {
+        "ko": "워터봄 발리",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Waterbom Bali",
+        "local": "Waterbom Bali",
+        "local_short": "Waterbom Bali",
+        "local_lang": "id",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "워터봄",
+        "워터밤 발리"
+      ],
+      "aliases_en": [
+        "Waterbom"
+      ],
+      "mentions_ko": [],
+      "region": "id_bali_south",
+      "area_ko": "꾸따 뚜반 까르띠까 쁠라자",
+      "category": "theme_park",
+      "tags": [
+        {
+          "id": "stairs",
+          "source": "waterbom_access",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": -8.72848,
+        "lng": 115.16952,
+        "source": "wd",
+        "qid": "Q7973895",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": -8.72848,
+        "lng": 115.16952
+      },
+      "address_local": {
+        "text": "Jl. Kartika Plaza, Kuta, Kec. Kuta, Kabupaten Badung, Bali 80361 Indonesia",
+        "source": "waterbom_contact",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "car_only"
+        ],
+        "nearest_ko": "꾸따 까르띠까 쁠라자 길에 있고, 전용 주차장이 있어요. 차로 가요",
+        "source": "waterbom_faq",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.waterbom-bali.com/",
+      "summary_ko": "꾸따에 있는 슬라이드 중심의 워터파크예요.",
+      "body_ko": [
+        "워터봄 발리는 1993년에 문을 연 꾸따의 워터파크예요.",
+        "슬라이드와 놀이 시설 28개를 갖췄고, 부지의 절반 넘게를 녹지로 남겨 뒀어요.",
+        "1년 중 발리 힌두 새해 녜피에만 문을 닫아요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "1993년에 문을 연 식물원 같은 워터파크로, 꾸따 한가운데에 있어요.",
+          "source": "waterbom_park",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "슬라이드와 놀이 시설이 28개 있어요.",
+          "source": "waterbom_home",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "부지의 절반이 넘는 곳을 녹지로 남겨 두었어요.",
+          "source": "waterbom_park",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "발리 힌두 새해 녜피(침묵의 날)에만 문을 닫아요.",
+          "source": "waterbom_faq",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "물속에서 바로 가는 바가 있는 '플레저 풀'이 인기예요.",
+          "source": "waterbom_park",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "큰 슬라이드는 키와 몸무게 제한이 있어요. 가기 전에 공식 안내를 확인하세요.",
+          "source": "waterbom_contact",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "슬라이드를 탈 때는 신발을 벗어야 해요. 금속 장식이나 지퍼가 달린 수영복도 안 돼요.",
+          "source": "waterbom_faq",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "수건 대여, 사물함, 플로라이더, 사진, 스파, 가제보(그늘막)는 입장권과 따로 내요.",
+          "source": "waterbom_faq",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "성수기에는 하루 전에 공식 사이트에서 예약하라고 해요.",
+          "source": "waterbom_faq",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "booking": "recommended",
+        "booking_note_ko": "성수기에는 하루 전에 공식 사이트에서 예약하라고 해요",
+        "regular_closed": [
+          "none"
+        ],
+        "closed_note_ko": "발리 힌두 새해 녜피에만 쉬어요",
+        "visit_note_ko": null,
+        "source": "waterbom_faq",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [
+        {
+          "kind": "closed",
+          "text_ko": "발리 힌두 새해 녜피(침묵의 날)에는 문을 닫아요.",
+          "source": "waterbom_faq",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "waterbom_faq",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_id",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 56,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJ34KP7qNG0i0RpX9A85PWkRI"
+    },
+    {
+      "id": "tmii",
+      "qid": "Q685790",
+      "names": {
+        "ko": "따만 미니 인도네시아 인다",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Taman Mini Indonesia Indah",
+        "local": "Taman Mini Indonesia Indah",
+        "local_short": "TMII",
+        "local_lang": "id",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "TMII",
+        "따만 미니",
+        "타만 미니 인도네시아 인다",
+        "인도네시아 미니어처 공원"
+      ],
+      "aliases_en": [
+        "Taman Mini",
+        "Indonesia in Miniature"
+      ],
+      "mentions_ko": [],
+      "region": "id_jakarta",
+      "area_ko": "자카르타 동부 따만 미니",
+      "category": "theme_park",
+      "tags": [
+        {
+          "id": "cable_car",
+          "source": "tmii_tiket",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": -6.301667,
+        "lng": 106.896667,
+        "source": "wd",
+        "qid": "Q685790",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": -6.301667,
+        "lng": 106.896667
+      },
+      "address_local": {
+        "text": "Jl Raya Taman Mini, Jakarta Timur. DKI Jakarta, Indonesia.",
+        "source": "tmii_hubungi",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "bus"
+        ],
+        "nearest_ko": "트랜스자카르타 'TMII - 판초란' 노선이 닿아요",
+        "source": "transjakarta_rute",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://tamanmini.com/taman_jelajah_indonesia/",
+      "wiki": {
+        "ko": "타만 미니 인도네시아 인다",
+        "en": "Taman Mini Indonesia Indah"
+      },
+      "summary_ko": "지방 전통 건축을 모아 둔 인도네시아의 문화 공원이에요.",
+      "body_ko": [
+        "따만 미니 인도네시아 인다(TMII)는 1975년 4월에 문을 연 문화 공원이에요.",
+        "33개 주를 군도 모형, 지방관, 전통 건축, 지방 공연으로 꾸몄고, 부지는 150헥타르예요.",
+        "2023년 9월에 새 모습으로 다시 열었고, 면적의 70%를 녹지로 두었어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "1975년 4월에 문을 열었고, 민족 문화를 보전하고 키우는 곳이라고 밝혀요.",
+          "source": "tmii_tentang",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "33개 주의 다양함을 군도 모형, 지방관, 전통 건축, 지방 공연, 놀이 시설로 담았어요.",
+          "source": "tmii_tentang",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "부지는 150헥타르예요.",
+          "source": "tmii_tentang",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "2023년 9월 1일 새 모습으로 단장했고, 면적의 70%가 녹지인 에코파크라고 밝혀요.",
+          "source": "tmii_tentang",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "단지 안에는 무료 순환 차량과 무료 자전거 투어가 있어요.",
+          "source": "tmii_tiket",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "케이블카, 새 공원, 박물관은 표가 따로 있어요.",
+          "source": "tmii_tiket",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "저녁에 물과 빛 공연이 열리고, 주말과 공휴일에는 드론 쇼도 해요.",
+          "source": "tmii_tiket",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "tmii_tiket",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "tmii_tiket",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_id",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 13,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJYaJ20FDtaS4RDNry7LknMQc"
+    },
+    {
+      "id": "dufan-ancol",
+      "qid": "Q11194378",
+      "names": {
+        "ko": "둔야 판타시(두판)",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Dunia Fantasi (Dufan)",
+        "local": "Dunia Fantasi",
+        "local_short": "Dufan",
+        "local_lang": "id",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "두판",
+        "둔야 판타시",
+        "안촐 놀이공원"
+      ],
+      "aliases_en": [
+        "Dufan",
+        "Dunia Fantasi Ancol",
+        "Fantasy World"
+      ],
+      "mentions_ko": [],
+      "region": "id_jakarta",
+      "area_ko": "자카르타 북부 안촐 타만 임피안",
+      "category": "theme_park",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": -6.1242122,
+        "lng": 106.832156,
+        "source": "osm",
+        "qid": "Q11194378",
+        "osm": "way/119280267",
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": null,
+      "address_local": null,
+      "access": {
+        "modes": [
+          "bus",
+          "train"
+        ],
+        "nearest_ko": "안촐 안에 있어요. 트랜스자카르타 안촐 정류장이 안촐 안에 있고, 전철은 안촐역이나 깜풍 반단역에서 내려요",
+        "source": "ancol_home",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.ancol.com/unit-rekreasi/dunia-fantasi--2",
+      "summary_ko": "안촐 바닷가에 있는 자카르타의 놀이공원이에요.",
+      "body_ko": [
+        "둔야 판타시(두판)는 1985년 8월 29일에 문을 연 안촐의 놀이공원이에요.",
+        "'세계 일주 판타지'를 콘셉트로, 아홉 개 테마 구역에 놀이기구를 나눠 두었어요.",
+        "전통 옷을 입은 기계 인형 600개가 나오는 '이스타나 보네카'도 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "1985년 8월 29일에 일반에 문을 열었어요.",
+          "source": "ancol_dufan",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "히카야트, 인도네시아, 키즈 판타지, 유럽, 그리스, 자카르타, 아시아, 아메리카, 카툰 월드의 아홉 개 테마 구역으로 나뉘어요.",
+          "source": "ancol_dufan",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "'세계 일주 판타지'를 콘셉트로 내세워요.",
+          "source": "ancol_dufan",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "이스타나 보네카는 여러 나라의 전통 옷을 입은 기계 인형 600개쯤을 보여 주는 놀이기구예요.",
+          "source": "ancol_dufan",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "두판 표에는 안촐 입장료가 들어 있지 않아요. 안촐 입장권을 따로 사야 해요.",
+          "source": "ancol_dufan",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "문 닫기 한 시간 전에 입장이 끝나요.",
+          "source": "ancol_dufan",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "안촐 안에는 놀이 구역을 도는 무료 순환버스가 있어요.",
+          "source": "ancol_home",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "정비 때문에 쉬는 놀이기구가 있을 수 있어요.",
+          "source": "ancol_wahana",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "ancol_dufan",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "ancol_dufan",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_id",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 49,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJVwxCgBoeai4R4zIiPSWTWyc"
+    },
+    {
+      "id": "sea-world-ancol",
+      "qid": "Q40493",
+      "names": {
+        "ko": "씨월드 안촐",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Sea World Indonesia",
+        "local": "Seaworld Indonesia",
+        "local_short": "Sea World Ancol",
+        "local_lang": "id",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "씨월드",
+        "씨월드 인도네시아",
+        "안촐 수족관"
+      ],
+      "aliases_en": [
+        "SeaWorld Ancol"
+      ],
+      "mentions_ko": [],
+      "region": "id_jakarta",
+      "area_ko": "자카르타 북부 안촐 타만 임피안",
+      "category": "theme_park",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": -6.125555555555556,
+        "lng": 106.84277777777778,
+        "source": "wd",
+        "qid": "Q40493",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": -6.125555555555556,
+        "lng": 106.84277777777778
+      },
+      "address_local": null,
+      "access": {
+        "modes": [
+          "bus",
+          "train"
+        ],
+        "nearest_ko": "안촐 안에 있어요. 트랜스자카르타 안촐 정류장이 안촐 안에 있고, 전철은 안촐역이나 깜풍 반단역에서 내려요",
+        "source": "ancol_home",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.ancol.com/unit-rekreasi/sea-world-ancol--3",
+      "wiki": {
+        "en": "Sea World Ancol"
+      },
+      "summary_ko": "안촐 안에 있는 바다 생물 수족관이에요.",
+      "body_ko": [
+        "씨월드 안촐은 교육, 보전, 오락을 내세우는 수족관이에요.",
+        "전시가 28곳이고, 담수 수조 9개, 해수 수조 19개, 야외 풀 4개로 나뉘어요.",
+        "큰 수조의 터널을 걸으면 물고기에 둘러싸여요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "교육, 보전, 오락 세 가지를 큰 목표로 삼는다고 밝혀요.",
+          "source": "ancol_seaworld",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "전시가 28곳이고 담수 수조 9개, 해수 수조 19개, 야외 풀 4개로 나뉘어요.",
+          "source": "ancol_seaworld",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "주 수조의 터널 '안타세나'는 물이 500만 리터까지 들어가는 대형 수조 안을 걷는 곳이에요.",
+          "source": "ancol_seaworld",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "만져 볼 수 있는 수조와 심해 생물 표본 전시도 있어요.",
+          "source": "ancol_seaworld",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "다이버가 먹이를 주는 쇼가 있어요. 시간은 공식 안내를 확인하세요.",
+          "source": "ancol_seaworld",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "안촐 입장권을 따로 사야 해요.",
+          "source": "ancol_seaworld",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "문 닫기 한 시간 전에 입장이 끝나요.",
+          "source": "ancol_seaworld",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "수조마다 생물 정보 표지판이 있어요.",
+          "source": "ancol_seaworld",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "ancol_seaworld",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "ancol_seaworld",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_id",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 36,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJG1ytuCIeai4RELSMP0wM6o4"
+    },
+    {
+      "id": "ullen-sentalu",
+      "qid": "Q3047067",
+      "names": {
+        "ko": "울렌 센탈루 박물관",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Ullen Sentalu Museum",
+        "local": "Museum Ullen Sentalu",
+        "local_short": "Ullen Sentalu",
+        "local_lang": "id",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "울렌 센탈루"
+      ],
+      "aliases_en": [
+        "Ullen Sentalu",
+        "Museum Ullen Sentalu"
+      ],
+      "mentions_ko": [],
+      "region": "id_yogyakarta",
+      "area_ko": "슬레만 칼리우랑 길(족자 북쪽)",
+      "category": "museum",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": -7.597973,
+        "lng": 110.423174,
+        "source": "wd",
+        "qid": "Q3047067",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": -7.597973,
+        "lng": 110.423174
+      },
+      "address_local": {
+        "text": "Jl. Boyong Kaliurang, Sleman, DI Yogyakarta",
+        "source": "ullen_berkunjung",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "car_only"
+        ],
+        "nearest_ko": "족자 북쪽 슬레만의 칼리우랑 가는 길(Jl. Boyong Kaliurang)에 있어요. 차로 가요",
+        "source": "ullen_berkunjung",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.ullensentalu.com/",
+      "wiki": {
+        "en": "Ullen Sentalu Museum"
+      },
+      "summary_ko": "자바 왕가의 회화와 바틱을 해설사와 도는 박물관이에요.",
+      "body_ko": [
+        "울렌 센탈루 박물관은 1997년 3월 1일에 문을 연 자바 문화 박물관이에요.",
+        "관람은 45분짜리 안내원 투어로 해요.",
+        "투어는 마타람 왕가 이야기, 자바·누산타라 연대기, 족자·솔로 왕국사를 다루는 세 가지가 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "1997년 3월 1일 족자카르타 특별주 지사 빠꾸 알람 8세가 문을 열었어요.",
+          "source": "ullen_tentang",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "'울렌 센탈루'는 자바어 문구의 줄임말이고, '빛이 삶의 길잡이'라는 뜻이에요.",
+          "source": "ullen_tentang",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "45분짜리 안내원 투어로 둘러봐요.",
+          "source": "ullen_berkunjung",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "투어는 아딜루항 마타람, 스크립토리움, 포르스텐란덴 세 가지가 있어요.",
+          "source": "ullen_berkunjung",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "마타람 왕가의 회화, 사진, 시, 바틱 소장품을 보여 줘요.",
+          "source": "ullen_berkunjung",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "영어 안내원 투어가 따로 있어요.",
+          "source": "ullen_berkunjung",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "단체 방문은 전화로 미리 예약해야 해요.",
+          "source": "ullen_berkunjung",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "마지막 투어 시간이 일찍 끝나요. 늦지 않게 가세요.",
+          "source": "ullen_berkunjung",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "mon"
+        ],
+        "closed_note_ko": "월요일은 쉬어요",
+        "visit_note_ko": null,
+        "source": "ullen_berkunjung",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "ullen_berkunjung",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_id",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 37,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJuQp5_QJeei4RcSZ5sDVg_qM"
+    },
+    {
+      "id": "taman-sari-yogyakarta",
+      "qid": "Q3135945",
+      "names": {
+        "ko": "따만사리(물의 궁전)",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Taman Sari (Water Castle)",
+        "local": "Taman Sari Yogyakarta",
+        "local_short": "Tamansari",
+        "local_lang": "id",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "따만사리",
+        "타만사리",
+        "족자 물의 궁전",
+        "워터 캐슬"
+      ],
+      "aliases_en": [
+        "Tamansari",
+        "Water Castle"
+      ],
+      "mentions_ko": [],
+      "region": "id_yogyakarta",
+      "area_ko": "족자카르타 시내 빠떼한",
+      "category": "heritage",
+      "tags": [
+        {
+          "id": "dress_code",
+          "source": "kraton_tamansari",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": -7.810151,
+        "lng": 110.358946,
+        "source": "wd",
+        "qid": "Q3135945",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": -7.810151,
+        "lng": 110.358946
+      },
+      "address_local": {
+        "text": "Patehan, Kecamatan Kraton, Kota Yogyakarta, Daerah Istimewa Yogyakarta 55133",
+        "source": "kraton_tamansari",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "bus"
+        ],
+        "nearest_ko": "트랜스 족자 '떼조꾸수만(타만사리)' 임시 정류장이 가까워요",
+        "source": "dishub_diy_transjogja",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://tourism.kratonjogja.id/id-ID/destination/5-kagungan-dalem-tamansari",
+      "wiki": {
+        "en": "Taman Sari (Yogyakarta)"
+      },
+      "summary_ko": "왕실 가족이 쉬던 족자카르타의 옛 물의 정원이에요.",
+      "body_ko": [
+        "따만사리는 1758년부터 1765년 사이에 술탄이 왕실 가족의 휴식처로 지은 궁 단지예요.",
+        "술탄과 왕비, 공주가 쓰던 목욕 단지에는 큰 연못 세 개가 남북으로 이어져요.",
+        "가푸라 아궁은 옛 정문이고, 연못 한가운데 풀로 끄낭아는 벽이 아주 두꺼운 2층 건물이에요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "1758년부터 1765년 사이 술탄 하멩꾸부워노 1세가 왕실 가족의 휴식과 피난을 위해 지었어요.",
+          "source": "kraton_tamansari",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "움불 비낭운은 술탄과 왕비, 공주의 개인 목욕 단지였고 큰 연못 세 개가 남북으로 이어져요.",
+          "source": "kraton_tamansari",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "가푸라 아궁은 옛 정문이고, 1765년을 뜻하는 새·꽃 부조가 있어요.",
+          "source": "kraton_tamansari",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "풀로 끄낭아는 왕의 휴식처였고, 벽이 아주 두꺼운 2층 건물이에요.",
+          "source": "kraton_tamansari",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "왕궁이 직접 소유하고 운영하는 관광지예요.",
+          "source": "kraton_tourism_faq",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "소매 있는 단정한 옷을 입으세요. 치마와 반바지는 안 되고, 바틱 중 입을 수 없는 무늬도 있어요.",
+          "source": "kraton_tamansari",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "표는 입구 매표소나 공식 사이트에서 사요. 안내원은 인도네시아어, 영어, 스페인어로 말해요.",
+          "source": "kraton_tourism_faq",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "한 시간 일찍 도착하라고 안내해요.",
+          "source": "kraton_tamansari",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "연못에 물건을 던지면 안 돼요.",
+          "source": "kraton_tamansari",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "kraton_tourism_faq",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "kraton_tamansari",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_id",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 25,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJK8_C0JNXei4RE74coPghaic"
+    },
+    {
+      "id": "ratu-boko",
+      "qid": "Q3111557",
+      "names": {
+        "ko": "라뚜 보꼬 궁전 유적",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Ratu Boko Palace",
+        "local": "Candi Ratu Boko",
+        "local_short": "Ratu Boko",
+        "local_lang": "id",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "라뚜 보꼬",
+        "라투 보코",
+        "라투 보코 유적"
+      ],
+      "aliases_en": [
+        "Keraton Ratu Boko",
+        "Ratu Boko Temple"
+      ],
+      "mentions_ko": [],
+      "region": "id_yogyakarta",
+      "area_ko": "프람바난 남쪽 언덕",
+      "category": "heritage",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": -7.77,
+        "lng": 110.48888888889,
+        "source": "wd",
+        "qid": "Q3111557",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": -7.77,
+        "lng": 110.48888888889
+      },
+      "address_local": null,
+      "access": {
+        "modes": [
+          "car_only"
+        ],
+        "nearest_ko": "프람바난 남쪽 언덕 위에 있어요. 차로 가요",
+        "source": "twc_ticket_ratuboko",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://injourneydestination.id/destinations/ratu-boko/",
+      "wiki": {
+        "en": "Ratu Boko"
+      },
+      "summary_ko": "프람바난 남쪽 언덕 위에 있는 옛 왕궁터예요.",
+      "body_ko": [
+        "라뚜 보꼬는 사원이 아니라 8세기쯤 세운 것으로 보는 옛 왕궁 단지예요.",
+        "해발 약 196m 언덕 위에 있고, 큰 문과 연못, 작은 동굴 두 개가 남아 있어요.",
+        "서쪽이 트인 전망이라 일몰을 보러 가기도 해요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "사원이 아니라 8세기쯤 세운 것으로 보는 옛 왕궁 단지예요.",
+          "source": "injourney_ratuboko_history",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "프람바난 남쪽 언덕 꼭대기에 있어요.",
+          "source": "injourney_ratuboko",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "이름은 아바야기리위하라 비문에서 왔다고 설명해요.",
+          "source": "injourney_ratuboko_history",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "언덕은 해발 약 196m예요.",
+          "source": "injourney_ratuboko_history",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "큰 문과 연못, 명상하던 작은 동굴 두 개가 있어요.",
+          "source": "injourney_ratuboko",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c6",
+          "text_ko": "서쪽이 트인 전망이에요.",
+          "source": "injourney_ratuboko_history",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "안내원은 현장에서 바로 신청해 쓸 수 있어요.",
+          "source": "twc_ticket_ratuboko",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "표는 운영사 공식 티켓 사이트에서 미리 살 수 있어요.",
+          "source": "twc_ticket_ratuboko",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "일몰, 트레킹 같은 체험 프로그램이 따로 있어요.",
+          "source": "injourney_ratuboko",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "twc_ticket_ratuboko",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "injourney_ratuboko",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_id",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 31,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJRf5U05Jaei4RW_l2RPFEPxU"
+    },
+    {
+      "id": "sonobudoyo",
+      "qid": "Q4271636",
+      "names": {
+        "ko": "소노부도요 박물관",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Sonobudoyo Museum",
+        "local": "Museum Sonobudoyo",
+        "local_short": "Museum Sonobudoyo",
+        "local_lang": "id",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "소노부도요",
+        "소노부도요 주립박물관"
+      ],
+      "aliases_en": [
+        "Museum Negeri Sonobudoyo"
+      ],
+      "mentions_ko": [],
+      "region": "id_yogyakarta",
+      "area_ko": "족자카르타 시내 왕궁 북쪽 광장",
+      "category": "museum",
+      "tags": [
+        {
+          "id": "foreigner_price",
+          "source": "sonobudoyo_info",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": -7.8023,
+        "lng": 110.36394,
+        "source": "wd",
+        "qid": "Q4271636",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": -7.8023,
+        "lng": 110.36394
+      },
+      "address_local": {
+        "text": "Jl. Trikora / Pangurakan No. 6, Yogyakarta 55122.",
+        "source": "sonobudoyo_info",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "walk_from_center"
+        ],
+        "nearest_ko": "족자 0km 지점, 왕궁, 왕궁 북쪽 광장 가까이에 있어요",
+        "source": "sonobudoyo_peta",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://sonobudoyo.jogjaprov.go.id/",
+      "wiki": {
+        "en": "Sonobudoyo Museum"
+      },
+      "summary_ko": "자바 문화를 모은 족자카르타의 주립 박물관이에요.",
+      "body_ko": [
+        "소노부도요 박물관은 1935년 11월 6일에 문을 연 박물관이에요.",
+        "소장품은 지질, 생물, 민족, 고고, 역사, 화폐, 고문헌, 도자, 미술, 기술의 열 갈래예요.",
+        "저녁에는 와양 공연과 영화 상영도 열려요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "1935년 11월 6일 술탄 하멩꾸부워노 8세가 문을 열었어요.",
+          "source": "sonobudoyo_sejarah",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "자바식 조글로 지붕에 치르본 왕궁 모스크 양식을 따른 건물이고, 건축가 카르스턴이 설계했어요.",
+          "source": "sonobudoyo_sejarah",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "지질, 생물, 민족, 고고, 역사, 화폐, 고문헌, 도자, 미술, 기술의 10가지 소장품이 있어요.",
+          "source": "sonobudoyo_koleksi",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "족자 0km 지점, 왕궁, 왕궁 북쪽 광장, 까우만 대모스크 가까이에 있어요.",
+          "source": "sonobudoyo_peta",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "자바, 마두라, 발리, 롬복 문화를 다루던 재단에서 박물관이 비롯됐어요.",
+          "source": "sonobudoyo_sejarah",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c6",
+          "text_ko": "족자카르타 특별주 문화청 산하의 주립 박물관이에요.",
+          "source": "sonobudoyo_sejarah",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "저녁에는 와양 공연과 영화 상영이 열려요. 날짜는 공식 사이트에서 확인하세요.",
+          "source": "sonobudoyo_info",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "외국인 요금이 따로 있어요.",
+          "source": "sonobudoyo_info",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "본관은 남쪽 트리코라 길과 북쪽 아흐맛 다흘란 길의 두 입구로 들어가요.",
+          "source": "sonobudoyo_peta",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "별관은 위질란 길에 따로 있어요.",
+          "source": "sonobudoyo_peta",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "mon"
+        ],
+        "closed_note_ko": "월요일은 쉬어요",
+        "visit_note_ko": null,
+        "source": "sonobudoyo_info",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "sonobudoyo_info",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_id",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 35,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJTwoHg49Xei4R7sU-xBpDEJ0"
+    },
+    {
+      "id": "katedral-jakarta",
+      "qid": "Q55519",
+      "names": {
+        "ko": "자카르타 대성당",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Jakarta Cathedral",
+        "local": "Katedral Jakarta",
+        "local_short": "Katedral Jakarta",
+        "local_lang": "id",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "카테드랄 자카르타",
+        "자카르타 성당"
+      ],
+      "aliases_en": [
+        "Gereja Katedral Jakarta"
+      ],
+      "mentions_ko": [],
+      "region": "id_jakarta",
+      "area_ko": "자카르타 중부 이스티클랄 모스크 옆",
+      "category": "heritage",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": -6.16925278,
+        "lng": 106.83311944,
+        "source": "wd",
+        "qid": "Q55519",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": -6.16925278,
+        "lng": 106.83311944
+      },
+      "address_local": null,
+      "access": {
+        "modes": [
+          "walk_from_center"
+        ],
+        "nearest_ko": "이스티클랄 모스크 바로 옆에 있어요",
+        "source": "katedral_sejarah",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://katedraljakarta.or.id/",
+      "wiki": {
+        "ko": "자카르타 대성당",
+        "en": "Jakarta Cathedral"
+      },
+      "summary_ko": "이스티클랄 모스크 옆에 서 있는 네오고딕 성당이에요.",
+      "body_ko": [
+        "자카르타 대성당은 1901년 4월 21일에 봉헌한 네오고딕 양식 성당이에요.",
+        "국가 문화재로 지정됐고, 이스티클랄 모스크와 나란히 서 있어요.",
+        "예수회 신부 건축가가 설계했고, 관광객도 찾는 곳이라고 밝혀요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "네오고딕 양식으로 1901년 4월 21일에 봉헌했고, 국가 문화재(찌가르 부다야 나시오날)예요.",
+          "source": "katedral_sejarah",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "이스티클랄 모스크와 나란히 서 있어요.",
+          "source": "katedral_sejarah",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "1890년 지붕이 무너졌고, 이듬해 새 성당 공사를 시작했어요.",
+          "source": "katedral_sejarah",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "예수회 신부이자 건축가인 안토니우스 데이크만스가 네오고딕 양식으로 설계했어요.",
+          "source": "katedral_sejarah",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "현지인과 외국 관광객이 찾는 관광지이자 가톨릭 순례지라고 밝혀요.",
+          "source": "katedral_sejarah",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "미사 때는 단정하고 예의 바른 옷차림을 하라고 해요.",
+          "source": "katedral_misa",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "휠체어 이용자를 위한 하차 구역이 정문 앞에 있어요.",
+          "source": "katedral_misa",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "평일과 주일 미사 시간이 따로 있어요. 공식 사이트에서 확인하세요.",
+          "source": "katedral_misa",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "unknown",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "katedral_sejarah",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "katedral_sejarah",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_id",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 16,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJrSFu-M71aS4RefySRqf97AM"
+    },
+    {
+      "id": "atlantis-ancol",
+      "qid": null,
+      "names": {
+        "ko": "아틀란티스 안촐",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Atlantis Water Adventure",
+        "local": "Atlantis Water Adventure",
+        "local_short": "Atlantis Ancol",
+        "local_lang": "id",
+        "source": "ancol_atlantis"
+      },
+      "aliases_ko": [
+        "아틀란티스",
+        "안촐 워터파크"
+      ],
+      "aliases_en": [
+        "Atlantis Ancol",
+        "Atlantis Water Adventures"
+      ],
+      "mentions_ko": [],
+      "region": "id_jakarta",
+      "area_ko": "자카르타 북부 안촐 타만 임피안",
+      "category": "theme_park",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": -6.1238605,
+        "lng": 106.8388608,
+        "source": "osm",
+        "qid": null,
+        "osm": "way/210651751",
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": null,
+      "address_local": null,
+      "access": {
+        "modes": [
+          "bus",
+          "train"
+        ],
+        "nearest_ko": "안촐 안에 있어요. 트랜스자카르타 안촐 정류장이 안촐 안에 있고, 전철은 안촐역이나 깜풍 반단역에서 내려요",
+        "source": "ancol_home",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.ancol.com/unit-rekreasi/atlantis-water-adventure--4",
+      "summary_ko": "고대 지중해 도시를 주제로 꾸민 안촐의 워터파크예요.",
+      "body_ko": [
+        "아틀란티스 안촐은 고대 지중해 문명과 도시를 주제로 한 워터파크예요.",
+        "1974년 6월 28일에 문을 열었고, 부지는 7헥타르예요.",
+        "아홉 가지 풀과 여러 놀이 시설이 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "1974년 6월 28일에 일반에 문을 열었어요.",
+          "source": "ancol_atlantis",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "고대 지중해 문명과 도시를 주제로 한 워터파크예요.",
+          "source": "ancol_atlantis",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "아홉 종류의 풀과 여러 놀이 시설이 있어요.",
+          "source": "ancol_atlantis",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "부지는 7헥타르예요.",
+          "source": "ancol_atlantis",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "아틀란티스 표에는 안촐 입장료가 들어 있지 않아요. 안촐 입장권을 따로 사야 해요.",
+          "source": "ancol_atlantis",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "문 닫기 한 시간 전에 입장이 끝나요.",
+          "source": "ancol_atlantis",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "놀이기구를 타려면 수영복을 입어야 해요.",
+          "source": "ancol_atlantis",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "임신 중이거나 천식, 심장 질환이 있으면 일부 슬라이드를 탈 수 없어요.",
+          "source": "ancol_atlantis",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "ancol_atlantis",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "ancol_atlantis",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_id",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 44,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "ancol_atlantis",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJSb_tryQeai4Razpg-FOwECI"
+    },
+    {
+      "id": "ancol-taman-impian",
+      "qid": "Q3270617",
+      "names": {
+        "ko": "안촐 따만 임피안",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Ancol Dreamland",
+        "local": "Taman Impian Jaya Ancol",
+        "local_short": "Ancol",
+        "local_lang": "id",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "안촐",
+        "안촐 드림랜드",
+        "타만 임피안 자야 안촐"
+      ],
+      "aliases_en": [
+        "Ancol",
+        "Taman Impian Jaya Ancol",
+        "Ancol Taman Impian"
+      ],
+      "mentions_ko": [],
+      "region": "id_jakarta",
+      "area_ko": "자카르타 북부 해안",
+      "category": "sea_island",
+      "tags": [
+        {
+          "id": "seafront",
+          "source": "ancol_home",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": -6.122743,
+        "lng": 106.831529,
+        "source": "wd",
+        "qid": "Q3270617",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": -6.122743,
+        "lng": 106.831529
+      },
+      "address_local": null,
+      "access": {
+        "modes": [
+          "bus",
+          "train"
+        ],
+        "nearest_ko": "트랜스자카르타 안촐 정류장이 안촐 안에 있고, 전철은 안촐역이나 깜풍 반단역에서 내려요",
+        "source": "ancol_home",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.ancol.com/unit-rekreasi/ancol--1",
+      "wiki": {
+        "en": "Ancol Dreamland"
+      },
+      "summary_ko": "자카르타 북쪽 바닷가에 놀이 시설이 모인 휴양지예요.",
+      "body_ko": [
+        "안촐 따만 임피안은 자카르타 북부의 해안 휴양지예요.",
+        "라군, 페스티벌, 인다, 카니발 해변과 비치 풀이 이어지고, 해변 길이는 6.5km쯤이에요.",
+        "에코파크와 파사르 스니 같은 곳은 입장권 외에 요금이 없어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "아름다운 해변이 있는 자카르타 북부의 해안 휴양지라고 소개해요.",
+          "source": "ancol_home",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "라군, 페스티벌, 인다, 카니발 해변과 비치 풀이 6.5km쯤 이어져요.",
+          "source": "ancol_home",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "에코파크, 파사르 스니 같은 곳은 추가 입장료 없이 갈 수 있다고 밝혀요.",
+          "source": "ancol_home",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "동문 근처에서 저녁에 춤추는 분수를 볼 수 있어요.",
+          "source": "ancol_home",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "놀이 구역마다 이어 주는 무료 순환버스 '와라 위리'가 있어요.",
+          "source": "ancol_home",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "주말에는 무료 열차 '사토 사토'가 다녀요.",
+          "source": "ancol_home",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "해변마다 안전요원 초소가 있어요.",
+          "source": "ancol_home",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "장애인과 노약자를 위한 이동 차량이 있어요.",
+          "source": "ancol_home",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "ancol_home",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "ancol_home",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_id",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 32,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJcdfvd3T0aS4RWFPBwpxqIIU"
+    },
+    {
+      "id": "arma-museum",
+      "qid": "Q398622",
+      "names": {
+        "ko": "아궁 라이 미술관(ARMA)",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Agung Rai Museum of Art",
+        "local": "Museum Seni Agung Rai",
+        "local_short": "ARMA",
+        "local_lang": "id",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "아르마 미술관",
+        "ARMA 미술관",
+        "아궁 라이 미술관"
+      ],
+      "aliases_en": [
+        "ARMA Museum",
+        "Agung Rai Museum",
+        "Museum Seni Agung Rai"
+      ],
+      "mentions_ko": [],
+      "region": "id_bali_ubud",
+      "area_ko": "우붓 뻥고세칸",
+      "category": "museum",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": -8.51835278,
+        "lng": 115.26208333,
+        "source": "wd",
+        "qid": "Q398622",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": -8.51835278,
+        "lng": 115.26208333
+      },
+      "address_local": {
+        "text": "Jalan Raya Pengosekan Ubud, Bali Indonesia",
+        "source": "arma_location",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "car_only"
+        ],
+        "nearest_ko": "우붓 남쪽 뻥고세칸 큰길(Jalan Raya Pengosekan)에 있어요. 차로 가요",
+        "source": "arma_location",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.armabali.com/museum/",
+      "summary_ko": "발리와 인도네시아 화가들의 작품을 모은 우붓의 미술관이에요.",
+      "body_ko": [
+        "아궁 라이 미술관은 발리 사람 아궁 라이가 세워 1996년 6월 9일에 문을 열었어요.",
+        "ARMA 재단이 운영하고, 전통 까마산 회화와 1930~40년대 바뚜안 화가의 작품을 소장해요.",
+        "전시 외에 공연과 수업을 여는 시각·공연 예술 센터이기도 해요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "1996년 6월 9일 정식으로 문을 열었어요.",
+          "source": "arma_museum",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "발리 사람 아궁 라이가 세웠고 ARMA 재단이 운영해요.",
+          "source": "arma_museum",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "전통 까마산 회화와 1930~40년대 바뚜안 화가들의 작품이 있고, 독일 화가 월터 슈피스의 작품도 특별히 모았어요.",
+          "source": "arma_museum",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "시각·공연 예술 센터라고 밝혀요.",
+          "source": "arma_museum",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "야외 무대에서 금요일에는 라마야나 발레, 토요일에는 케착, 일요일에는 바롱 춤이 저녁에 열려요.",
+          "source": "arma_performance",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "나무 조각, 요리, 바틱, 제물 만들기 같은 문화 워크숍이 있어요.",
+          "source": "arma_workshops",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "어린아이는 입장료가 없어요.",
+          "source": "arma_collection",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "arma_collection",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "arma_museum",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_id",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 43,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJw9lGTXQ90i0RONY615P93hc",
+      "wiki": {
+        "en": "Agung Rai Museum of Art"
+      }
+    },
+    {
+      "id": "pandawa-beach",
+      "qid": "Q19746970",
+      "names": {
+        "ko": "빤다와 해변",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Pandawa Beach",
+        "local": "Pantai Pandawa",
+        "local_short": "Pantai Pandawa",
+        "local_lang": "id",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "판다와 해변",
+        "판다와 비치",
+        "시크릿 비치"
+      ],
+      "aliases_en": [
+        "Pandava Beach",
+        "Secret Beach"
+      ],
+      "mentions_ko": [],
+      "region": "id_bali_bukit",
+      "area_ko": "바둥 군 꾸뚜 마을",
+      "category": "sea_island",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": -8.845296,
+        "lng": 115.186397,
+        "source": "wd",
+        "qid": "Q19746970",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": -8.845296,
+        "lng": 115.186397
+      },
+      "address_local": null,
+      "access": {
+        "modes": [
+          "car_only"
+        ],
+        "nearest_ko": "꾸뚜 마을에 있어요. 석회암 언덕을 가른 길로 차를 타고 들어가요",
+        "source": "lovebali_pandawa",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://lovebali.baliprov.go.id/destination/detail/1663116376257/pantai-pandawa?id=1663116376257",
+      "summary_ko": "석회암 절벽에 둘러싸인 부킷 반도의 해변이에요.",
+      "body_ko": [
+        "빤다와 해변은 누사두아와 울루와뚜 사원에서 3km쯤 떨어진 꾸뚜 마을의 해변이에요.",
+        "한때 시크릿 비치로 불렸고, 지금은 석회암 언덕을 갈라 낸 길로 차가 들어가요.",
+        "절벽에는 마하바라타의 판다와 다섯 형제를 새겼고, 해변은 동쪽을 향해 일출을 볼 수 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "누사두아와 울루와뚜 사원에서 3km쯤 떨어져 있어요.",
+          "source": "lovebali_pandawa",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "예전에는 시크릿 비치로 불렸고, 지금은 석회암 언덕을 갈라 낸 길로 들어가요.",
+          "source": "lovebali_pandawa",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "석회암 절벽에 마하바라타의 판다와 다섯 형제를 새겼어요.",
+          "source": "lovebali_pandawa",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "동쪽을 향한 해변이라 일출을 볼 수 있어요.",
+          "source": "lovebali_pandawa",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "해안을 따라 해초 양식을 하는 모습을 볼 수 있어요.",
+          "source": "lovebali_pandawa",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "언덕 위에서 패러글라이딩과 모터 트레일을 하는 모습도 볼 수 있어요.",
+          "source": "lovebali_pandawa",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "public_space"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "lovebali_pandawa",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_id",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 29,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJMR-62Hxb0i0RpLJV0F14uEE",
+      "wiki": {
+        "en": "Pandawa Beach"
+      }
+    },
+    {
+      "id": "crystal-bay",
+      "qid": null,
+      "names": {
+        "ko": "크리스탈 베이",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Crystal Bay",
+        "local": "Pantai Segara Penida",
+        "local_short": "Crystal Bay",
+        "local_lang": "id",
+        "source": "lovebali_crystalbay"
+      },
+      "aliases_ko": [
+        "크리스탈 비치",
+        "크리스탈 베이 해변"
+      ],
+      "aliases_en": [
+        "Crystal Bay Beach",
+        "Pantai Crystal Bay"
+      ],
+      "mentions_ko": [],
+      "region": "id_nusa_penida",
+      "area_ko": "누사페니다 서쪽 해변",
+      "category": "sea_island",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": -8.71526,
+        "lng": 115.459031,
+        "source": "osm",
+        "qid": null,
+        "osm": "relation/9864841",
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": null,
+      "address_local": null,
+      "access": {
+        "modes": [
+          "car_only"
+        ],
+        "nearest_ko": "토야파케 항구에서 새 도로로 스쿠터나 차를 타고 가요",
+        "source": "lovebali_crystalbay",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://lovebali.baliprov.go.id/destination/detail/375/pantai-segara-penida-(crystal-bay)?id=375",
+      "summary_ko": "스노클링으로 알려진 누사페니다 서쪽의 해변이에요.",
+      "body_ko": [
+        "크리스탈 베이는 누사페니다섬의 해변이에요.",
+        "토야파케 항구에서 새 도로로 스쿠터로 가기 쉽다고 해요.",
+        "스노클링과 스쿠버다이빙을 하러 오는 곳으로도 알려져 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "발리 누사페니다섬에 있는 해변이에요.",
+          "source": "lovebali_crystalbay",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "토야파케 항구에서 새 도로로 스쿠터로 쉽게 갈 수 있어요.",
+          "source": "lovebali_crystalbay",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "스쿠버다이빙과 스노클링으로 알려진 곳이에요.",
+          "source": "lovebali_crystalbay",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "스노클링 장비는 해변에서 빌릴 수 있어요.",
+          "source": "lovebali_crystalbay",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "해변 파라솔 그늘에서 쉬며 하루를 보내기도 해요.",
+          "source": "lovebali_crystalbay",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "public_space"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "lovebali_crystalbay",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_id",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 48,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "lovebali_crystalbay",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJ32EYUAhu0i0RNeHYNdKWWcw"
+    },
+    {
+      "id": "atuh-beach",
+      "qid": "Q124346693",
+      "names": {
+        "ko": "아투 해변",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Atuh Beach",
+        "local": "Pantai Atuh",
+        "local_short": "Pantai Atuh",
+        "local_lang": "id",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "아투 비치",
+        "아뚜 해변"
+      ],
+      "aliases_en": [
+        "Pantai Atuh"
+      ],
+      "mentions_ko": [],
+      "region": "id_nusa_penida",
+      "area_ko": "누사페니다 남동쪽 뻐주꾸딴 마을",
+      "category": "sea_island",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": -8.7732,
+        "lng": 115.62168,
+        "source": "wd",
+        "qid": "Q124346693",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": -8.7732,
+        "lng": 115.62168
+      },
+      "address_local": null,
+      "access": {
+        "modes": [
+          "car_only"
+        ],
+        "nearest_ko": "누사페니다 남동쪽에 있어요. 섬 안은 차로 가요",
+        "source": "lovebali_atuh",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://lovebali.baliprov.go.id/destination/detail/380/pantai-atuh?id=380",
+      "summary_ko": "두 절벽 사이에 숨은 누사페니다 남동쪽의 해변이에요.",
+      "body_ko": [
+        "아투 해변은 누사페니다섬 남동쪽에 숨어 있는 해변이에요.",
+        "높은 절벽 두 개 사이의 만 안에 있고, 절벽 위에서는 작은 섬처럼 보이는 큰 바위 둘이 보여요.",
+        "남동쪽을 향해 있어 절벽 위에서 일출을 볼 수 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "누사페니다섬 남동쪽에 있는 숨은 해변이에요.",
+          "source": "lovebali_atuh",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "높은 절벽 두 개에 끼인 만 안에 있어요.",
+          "source": "lovebali_atuh",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "절벽 위에서 보이는 큰 바위 둘은 누사 바투파다산과 누사 바투아바라고 불러요.",
+          "source": "lovebali_atuh",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "남동쪽을 향해 있어 절벽 위에서 일출을 볼 수 있어요.",
+          "source": "lovebali_atuh",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "일출을 보려면 이른 아침에 가는 게 좋다고 해요.",
+          "source": "lovebali_atuh",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "public_space"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "lovebali_atuh",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_id",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 45,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJhYE8QJt30i0Rs8qDtRiE1iU"
+    },
+    {
+      "id": "rinca-island",
+      "qid": "Q1164773",
+      "names": {
+        "ko": "린짜섬(로 부아야)",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Rinca Island",
+        "local": "Pulau Rinca",
+        "local_short": "Pulau Rinca",
+        "local_lang": "id",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "린차섬",
+        "린짜",
+        "로 부아야",
+        "로 부아야 관리소"
+      ],
+      "aliases_en": [
+        "Rinca",
+        "Loh Buaya",
+        "Pulau Rinca"
+      ],
+      "mentions_ko": [],
+      "region": "id_labuanbajo",
+      "area_ko": "코모도 국립공원 린짜섬 로 부아야 관리소",
+      "category": "nature",
+      "tags": [
+        {
+          "id": "unesco",
+          "source": "unesco_609",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "visitor_center",
+        "lat": -8.659271,
+        "lng": 119.7256001,
+        "source": "osm",
+        "qid": "Q1164773",
+        "osm": "way/862984883",
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": -8.696666666666667,
+        "lng": 119.69194166666666
+      },
+      "address_local": null,
+      "access": {
+        "modes": [
+          "boat"
+        ],
+        "nearest_ko": "라부안바조에서 배를 타고 가요. 로 부아야 관리소로 들어가요",
+        "source": "tnkomodo_protokol",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://tnkomodo.ksdae.kehutanan.go.id/",
+      "summary_ko": "코모도왕도마뱀을 볼 수 있는 코모도 국립공원의 섬이에요.",
+      "body_ko": [
+        "린짜섬은 코모도 국립공원의 세 큰 섬 가운데 하나로, 왕도마뱀이 사는 다섯 큰 섬에 들어요.",
+        "관광객은 로 부아야 관리소에서 트레킹을 하며 왕도마뱀을 볼 수 있어요.",
+        "린짜섬에서만 산다는 린짜쥐도 로 부아야 지역에 살지만, 보기는 아주 어려워요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "코모도왕도마뱀은 국립공원의 큰 섬 다섯 곳에 살고, 린짜섬이 그중 하나예요.",
+          "source": "tnkomodo_fauna",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "관광객이 왕도마뱀을 볼 수 있는 관리소 가운데 린짜섬의 로 부아야 관리소가 있어요.",
+          "source": "tnkomodo_home",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "로 부아야에서는 트레킹을 해요.",
+          "source": "tnkomodo_home",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "린짜섬에서만 발견된다는 린짜쥐가 로 부아야 관리소 지역에 살아요.",
+          "source": "tnkomodo_fauna",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "작은 노란볏앵무는 린짜, 베로, 코모도섬에 주로 살아요.",
+          "source": "tnkomodo_home",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c6",
+          "text_ko": "코모도 국립공원은 린짜, 코모도, 파다르의 세 큰 섬과 작은 섬들로 이뤄져요.",
+          "source": "unesco_609",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "공원 안에서는 혼자 다닐 수 없어요. 왕도마뱀이 주요 섬 거의 전체에 살기 때문이에요.",
+          "source": "tnkomodo_home",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "야생동물을 만지거나 너무 가까이 가면 안 되고, 먹이를 주면 안 돼요.",
+          "source": "tnkomodo_protokol",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "정해진 방문 시간대(timed entry) 밖이나 정해진 길 밖에서는 트레킹할 수 없어요.",
+          "source": "tnkomodo_protokol",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "입장권은 라부안바조의 코모도 방문객 센터에서 살 수 있어요.",
+          "source": "tnkomodo_home",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "tnkomodo_protokol",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "tnkomodo_home",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_id",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 5,
+        "designations": [
+          {
+            "kind": "unesco",
+            "name_ko": "세계유산 코모도 국립공원(1991)의 일부",
+            "source": "unesco_609"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJfZ_gbcn1tC0RN7sJx1GJoXo",
+      "wiki": {
+        "ko": "린차섬",
+        "en": "Rinca"
+      }
+    },
+    {
+      "id": "ramayana-ballet-prambanan",
+      "qid": "Q16875722",
+      "names": {
+        "ko": "프람바난 라마야나 발레",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Prambanan Ramayana Ballet",
+        "local": "Sendratari Ramayana Prambanan",
+        "local_short": "Sendratari Ramayana",
+        "local_lang": "id",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "라마야나 발레",
+        "라마야나 무용극",
+        "프람바난 라마야나"
+      ],
+      "aliases_en": [
+        "Ramayana Ballet",
+        "Sendratari Ramayana"
+      ],
+      "mentions_ko": [],
+      "region": "id_yogyakarta",
+      "area_ko": "프람바난 사원 단지 옆",
+      "category": "theme_park",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": -7.752,
+        "lng": 110.4885,
+        "source": "wd",
+        "qid": "Q16875722",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": -7.752,
+        "lng": 110.4885
+      },
+      "address_local": null,
+      "access": {
+        "modes": [
+          "bus"
+        ],
+        "nearest_ko": "프람바난 사원 옆에서 열려요. 트랜스 족자 '프람바난 터미널' 노선의 끝 정류장이 가까워요",
+        "source": "dishub_diy_transjogja",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://injourneydestination.id/destinations/ramayana/",
+      "summary_ko": "프람바난 사원 옆에서 보는 대사 없는 라마야나 무용극이에요.",
+      "body_ko": [
+        "프람바난 라마야나 발레는 1961년부터 이어 온 라마야나 무용극이에요.",
+        "대사 없이 춤과 연극을 합친 공연으로, 프람바난 사원 가까이에서 열려요.",
+        "건기에는 야외 무대에서, 그 밖에는 실내 트리무르티 극장에서 해요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "1961년부터 라마야나 무용극을 공연해 왔어요.",
+          "source": "injourney_ramayana",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "대사 없이 춤과 연극을 합친 공연이고, 프람바난 사원 가까이에서 열려요.",
+          "source": "injourney_ramayana",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "건기에는 야외 무대에서, 그 밖에는 실내 트리무르티 극장에서 공연해요.",
+          "source": "injourney_ramayana",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "공연 시작 전에 비가 오면 실내 트리무르티 극장으로 옮겨요.",
+          "source": "twc_ticket_ramayana",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "공연 일정은 예고 없이 바뀔 수 있어요. 예매 전에 공식 사이트에서 확인하세요.",
+          "source": "twc_ticket_ramayana",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "공연이 한참 진행된 뒤 비로 중단되면 공연을 마친 것으로 보고 환불하지 않아요.",
+          "source": "twc_ticket_ramayana",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "좌석 등급에 따라 번호가 있는 지정석과 번호 없는 자유석이 나뉘어요.",
+          "source": "twc_ticket_ramayana",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "twc_ticket_ramayana",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "injourney_ramayana",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_id",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 39,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "wiki": {
+        "en": "Prambanan Ramayana Ballet"
+      },
+      "google_place_id": "ChIJgRAaCeNaei4RQs-4Enbl00I"
+    },
+    {
+      "id": "candi-sambisari",
+      "qid": "Q3029610",
+      "names": {
+        "ko": "삼비사리 사원",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Sambisari Temple",
+        "local": "Candi Sambisari",
+        "local_short": "Candi Sambisari",
+        "local_lang": "id",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "삼비사리",
+        "지하 사원",
+        "땅속 사원"
+      ],
+      "aliases_en": [
+        "Sambisari",
+        "Underground Temple"
+      ],
+      "mentions_ko": [],
+      "region": "id_yogyakarta",
+      "area_ko": "슬레만 깔라산 삼비사리 마을",
+      "category": "heritage",
+      "tags": [
+        {
+          "id": "stairs",
+          "source": "visitingjogja_sambisari",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": -7.76247,
+        "lng": 110.44706,
+        "source": "wd",
+        "qid": "Q3029610",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": -7.76247,
+        "lng": 110.44706
+      },
+      "address_local": null,
+      "access": {
+        "modes": [
+          "car_only"
+        ],
+        "nearest_ko": "족자 시내 중심에서 북동쪽 15km, 슬레만 깔라산 삼비사리 마을에 있어요. 차로 가요",
+        "source": "visitingjogja_sambisari",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://visitingjogja.jogjaprov.go.id/19548/candi-bawah-tanah-yogyakarta-candi-sambisari/",
+      "summary_ko": "땅속 6.5m 아래에 자리한 힌두 사원이에요.",
+      "body_ko": [
+        "삼비사리 사원은 지표에서 6.5m쯤 아래에 있어 멀리서는 보이지 않는 힌두 사원이에요.",
+        "9세기 초에 지은 것으로 보고, 주 사원 하나와 부속 사원 셋으로 이뤄져요.",
+        "시바 신을 모시던 곳으로, 사원 둘레의 네모난 마당에는 네 면에 계단이 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "지표에서 6.5m쯤 아래에 있어 멀리서는 보이지 않아요.",
+          "source": "visitingjogja_sambisari",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "9세기 초에 마타람 힌두 왕 라까이 가룽이 지은 것으로 봐요.",
+          "source": "visitingjogja_sambisari",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "주 사원 1개와 부속 사원 3개로 이뤄져요.",
+          "source": "visitingjogja_sambisari",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "족자 시내 중심에서 북동쪽으로 15km 떨어져 있어요.",
+          "source": "visitingjogja_sambisari",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "주 사원 북쪽에는 두르가, 동쪽에는 가네샤, 남쪽에는 아가스티야 상이 있어요.",
+          "source": "visitingjogja_sambisari",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "사원 둘레를 파내 만든 네모난 마당에 네 면의 계단으로 내려가요.",
+          "source": "visitingjogja_sambisari",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "주 사원 입구 계단에는 마카라의 입 속에 사자 장식이 있어요.",
+          "source": "visitingjogja_sambisari",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "unknown",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "visitingjogja_sambisari",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "visitingjogja_sambisari",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_id",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 34,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "wiki": {
+        "en": "Sambisari"
+      },
+      "google_place_id": "ChIJq6REtTlaei4R8yTBmtfC9dg"
+    },
+    {
+      "id": "candi-ijo",
+      "qid": "Q9032333",
+      "names": {
+        "ko": "이조 사원",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Ijo Temple",
+        "local": "Candi Ijo",
+        "local_short": "Candi Ijo",
+        "local_lang": "id",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "찬디 이조",
+        "초록 언덕 사원"
+      ],
+      "aliases_en": [
+        "Ijo",
+        "Ijo Hill Temple"
+      ],
+      "mentions_ko": [],
+      "region": "id_yogyakarta",
+      "area_ko": "슬레만 프람바난 이조 언덕",
+      "category": "heritage",
+      "tags": [
+        {
+          "id": "mountain_view",
+          "source": "visitingjogja_ijo",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": -7.78388889,
+        "lng": 110.51222222,
+        "source": "wd",
+        "qid": "Q9032333",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": -7.78388889,
+        "lng": 110.51222222
+      },
+      "address_local": null,
+      "access": {
+        "modes": [
+          "car_only"
+        ],
+        "nearest_ko": "프람바난에서 피융안 쪽 큰길로 가다 라뚜 보꼬를 지나 왼쪽으로 꺾어 올라가요. 차로 가요",
+        "source": "visitingjogja_ijo",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://visitingjogja.jogjaprov.go.id/12787/candi-ijo/",
+      "summary_ko": "해발 410m 이조 언덕 위에 선 힌두 사원이에요.",
+      "body_ko": [
+        "이조 사원은 해발 410m 이조 언덕에 있는 힌두 사원으로, 족자카르타에서 가장 높은 곳에 있다고 소개해요.",
+        "17개 구조물이 11개 계단식 테라스에 늘어서 있어요.",
+        "꼭대기 테라스에는 주 사원 하나와 부속 사원 셋, 링가 말뚝 여덟 개가 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "해발 410m 이조 언덕에 있고, 족자카르타에서 가장 높은 곳에 있는 사원이라고 소개해요.",
+          "source": "visitingjogja_ijo",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "구조물 17개가 11개 계단식 테라스에 나뉘어 있어요.",
+          "source": "visitingjogja_ijo",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "꼭대기 테라스에는 둘레 담과 링가 말뚝 8개, 주 사원 1개와 부속 사원 3개가 있어요.",
+          "source": "visitingjogja_ijo",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "사원에서는 논과 마을, 아디수찌프토 공항에서 뜨고 내리는 비행기, 므라삐산이 보여요.",
+          "source": "visitingjogja_ijo",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "라뚜 보꼬를 지나 왼쪽으로 꺾어 이정표를 따라가요.",
+          "source": "visitingjogja_ijo",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "멀리 아디수찌프토 공항에서 뜨고 내리는 비행기도 보여요.",
+          "source": "visitingjogja_ijo",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "unknown",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "visitingjogja_ijo",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "visitingjogja_ijo",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_id",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 40,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "wiki": {
+        "en": "Ijo Temple"
+      },
+      "google_place_id": "ChIJpXpAMhJbei4R66paHGNQXGQ"
+    },
+    {
+      "id": "museum-pasifika",
+      "qid": "Q6940675",
+      "names": {
+        "ko": "파시피카 박물관",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Museum Pasifika",
+        "local": "Museum Pasifika",
+        "local_short": "Museum Pasifika",
+        "local_lang": "id",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "빠시피카 박물관",
+        "파시피카 미술관"
+      ],
+      "aliases_en": [
+        "Pasifika Museum"
+      ],
+      "mentions_ko": [],
+      "region": "id_bali_bukit",
+      "area_ko": "누사두아 ITDC 단지",
+      "category": "museum",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": -8.8,
+        "lng": 115.2306,
+        "source": "wd",
+        "qid": "Q6940675",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": -8.8,
+        "lng": 115.2306
+      },
+      "address_local": {
+        "text": "Complex Bali Tourism Development Corporation / ITDC Area Block P, Benoa, South Kuta, Badung Regency, Bali 80361",
+        "source": "pasifika_admission",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "car_only"
+        ],
+        "nearest_ko": "누사두아 ITDC 단지 블록 P에 있어요. 차로 가요",
+        "source": "pasifika_admission",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.museum-pasifika.com/",
+      "summary_ko": "아시아·태평양 화가들의 그림과 조각을 모은 누사두아의 박물관이에요.",
+      "body_ko": [
+        "파시피카 박물관은 2006년 8월에 문을 연 누사두아의 박물관이에요.",
+        "전시관 건물 8개와 전시실 11개에 25개국 화가 200명의 작품 600점을 두었어요.",
+        "발리 건축가 포포 다네스가 설계했어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "2006년 8월에 문을 열었어요.",
+          "source": "pasifika_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "전시관 건물 8개와 전시실 11개에 25개국 화가 200명의 작품 600점을 두었어요.",
+          "source": "pasifika_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "발리 건축가 포포 다네스가 설계했어요.",
+          "source": "pasifika_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "아시아·태평양 전역의 회화와 조각을 소장해요.",
+          "source": "pasifika_about",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "등에 메는 가방은 안 되고, 큰 가방과 우산은 맡겨요.",
+          "source": "pasifika_admission",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "작품과 액자, 받침대를 만지면 안 돼요.",
+          "source": "pasifika_admission",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "휠체어는 환영해요. 유모차는 일부 특별전을 빼고 들어갈 수 있어요.",
+          "source": "pasifika_admission",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "그림, 바틱, 발리 춤 같은 체험 수업이 따로 있어요.",
+          "source": "pasifika_activities",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "pasifika_admission",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "pasifika_about",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_id",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 42,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJRbNf4b5B0i0R5xfnGuTcxjY",
+      "wiki": {
+        "en": "Museum Pasifika"
+      }
+    },
+    {
+      "id": "benteng-vredeburg",
+      "qid": "Q2551916",
+      "names": {
+        "ko": "프레데부르흐 요새 박물관",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Fort Vredeburg Museum",
+        "local": "Museum Benteng Vredeburg",
+        "local_short": "Benteng Vredeburg",
+        "local_lang": "id",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "프레데부르흐 요새",
+        "베뗑 프레데부르흐",
+        "프레데부르크 요새"
+      ],
+      "aliases_en": [
+        "Fort Vredeburg",
+        "Vredeburg Fort Museum"
+      ],
+      "mentions_ko": [],
+      "region": "id_yogyakarta",
+      "area_ko": "족자카르타 시내 말리오보로 길 근처",
+      "category": "museum",
+      "tags": [
+        {
+          "id": "foreigner_price",
+          "source": "vredeburg_tiket",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": -7.800436,
+        "lng": 110.365686,
+        "source": "wd",
+        "qid": "Q2551916",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": -7.800436,
+        "lng": 110.365686
+      },
+      "address_local": null,
+      "access": {
+        "modes": [
+          "bus"
+        ],
+        "nearest_ko": "말리오보로 길 가까이에 있어요. 트랜스 족자 '말리오보로' 정류장이 가까워요",
+        "source": "dishub_diy_transjogja",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://vredeburg.id/",
+      "summary_ko": "옛 네덜란드 요새를 박물관으로 쓰는 족자카르타 시내의 역사 박물관이에요.",
+      "body_ko": [
+        "프레데부르흐 요새 박물관은 네덜란드 동인도회사가 1765년 12월에 공사를 시작한 요새를 쓰는 박물관이에요.",
+        "이 도시에서 가장 오래된 식민 시대 유산이라고 소개하고, 디포네고로 시대부터 신질서 시대까지의 역사를 보여 줘요.",
+        "말리오보로 길 가까이에 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "네덜란드 동인도회사(VOC)의 요청으로 1765년 12월에 요새 공사를 시작했어요.",
+          "source": "vredeburg_sejarah",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "이 도시에서 가장 오래된 식민 시대 유산이라고 소개해요.",
+          "source": "vredeburg_profil",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "소장품이 7,000점이 넘고, 생활 도구와 전쟁 도구, 수카르노와 하타가 쓴 물건이 있어요.",
+          "source": "vredeburg_profil",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "디포네고로 시대부터 신질서 시대까지의 역사를 보여 줘요.",
+          "source": "vredeburg_profil",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "말리오보로 길 가까이에 있어요.",
+          "source": "vredeburg_profil",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "외국인 요금이 따로 있어요.",
+          "source": "vredeburg_tiket",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "표 값은 요일과 시간대에 따라 달라요.",
+          "source": "vredeburg_tiket",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "어린아이는 입장료가 없어요.",
+          "source": "vredeburg_tiket",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "vredeburg_tiket",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "vredeburg_waktu",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_id",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 33,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJz-6zwIhXei4R-J8qI-AcYbk",
+      "wiki": {
+        "en": "Fort Vredeburg Museum"
+      }
+    },
+    {
+      "id": "green-bowl-beach",
+      "qid": "Q124344622",
+      "names": {
+        "ko": "그린 볼 해변",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Green Bowl Beach",
+        "local": "Pantai Green Bowl",
+        "local_short": "Pantai Green Bowl",
+        "local_lang": "id",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "그린볼 비치"
+      ],
+      "aliases_en": [
+        "Green Bowl",
+        "Pantai Green Bowl"
+      ],
+      "mentions_ko": [],
+      "region": "id_bali_bukit",
+      "area_ko": "바둥 군 웅아산 절벽 아래",
+      "category": "sea_island",
+      "tags": [
+        {
+          "id": "stairs",
+          "source": "lovebali_greenbowl",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": -8.8487221,
+        "lng": 115.1709357,
+        "source": "wd",
+        "qid": "Q124344622",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": -8.8487221,
+        "lng": 115.1709357
+      },
+      "address_local": null,
+      "access": {
+        "modes": [
+          "car_only"
+        ],
+        "nearest_ko": "웅아산 마을 절벽 위 길에서 계단으로 내려가요. 차로 가요",
+        "source": "lovebali_greenbowl",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://lovebali.baliprov.go.id/destination/detail/1606371174760/pantai-green-bowl-(green-bowl-beach)?id=1606371174760",
+      "summary_ko": "수백 개 계단을 내려가는 한적한 부킷 반도의 해변이에요.",
+      "body_ko": [
+        "그린 볼 해변은 웅아산 마을에 있고, 마을 어디에서든 15분쯤 걸리는 한적한 해변이에요.",
+        "수백 개의 가파른 계단을 내려가야 해서 찾는 사람이 적어요.",
+        "해변에는 석회암 동굴이 있어 쉬어 가기 좋아요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "웅아산에 있고, 어느 마을에서든 15분쯤 걸려요.",
+          "source": "lovebali_greenbowl",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "수백 개의 가파른 계단을 내려가야 해서 찾는 사람이 적어요.",
+          "source": "lovebali_greenbowl",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "해변에 석회암 동굴이 있어요.",
+          "source": "lovebali_greenbowl",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "해변까지 수백 개의 가파른 계단을 내려가요.",
+          "source": "lovebali_greenbowl",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "석회암 동굴에서 쉬어 갈 수 있어요.",
+          "source": "lovebali_greenbowl",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "public_space"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "lovebali_greenbowl",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_id",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 50,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJPyqq13Nb0i0RTmznt69acQA"
+    },
+    {
+      "id": "suluban-beach",
+      "qid": null,
+      "names": {
+        "ko": "술루반 해변(블루 포인트)",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Suluban Beach (Blue Point)",
+        "local": "Pantai Suluban",
+        "local_short": "Pantai Suluban",
+        "local_lang": "id",
+        "source": "lovebali_suluban"
+      },
+      "aliases_ko": [
+        "블루 포인트 해변",
+        "술루반 비치",
+        "블루포인트"
+      ],
+      "aliases_en": [
+        "Blue Point Beach",
+        "Pantai Suluban"
+      ],
+      "mentions_ko": [],
+      "region": "id_bali_bukit",
+      "area_ko": "바둥 군 쁘짜뚜 마을 절벽 아래",
+      "category": "sea_island",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": -8.8155477,
+        "lng": 115.088317,
+        "source": "osm",
+        "qid": null,
+        "osm": "node/6278550285",
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": null,
+      "address_local": null,
+      "access": {
+        "modes": [
+          "car_only"
+        ],
+        "nearest_ko": "쁘짜뚜 마을 절벽 아래에 있어요. 차로 가요",
+        "source": "lovebali_suluban",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://lovebali.baliprov.go.id/destination/detail/239/pantai-suluban?id=239",
+      "summary_ko": "바위 터널을 지나 닿는 절벽 아래의 해변이에요.",
+      "body_ko": [
+        "술루반 해변은 절벽 아래에 있는 해변으로, 블루 포인트 해변이라고도 해요.",
+        "해변에 닿으려면 바위 터널을 지나야 해요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "절벽 아래에 있는 해변이라 '술루반'이라고 불러요.",
+          "source": "lovebali_suluban",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "바위 터널을 지나야 물가에 닿아요.",
+          "source": "lovebali_suluban",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "블루 포인트 해변이라고도 불러요.",
+          "source": "lovebali_suluban",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "바위 터널을 지나야 해변에 닿아요.",
+          "source": "lovebali_suluban",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "public_space"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "lovebali_suluban",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_id",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 55,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "lovebali_suluban",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJ-Vswqv5P0i0RZ6Cu8fsieWs"
     }
   ],
   "advisory_basis": {

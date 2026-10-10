@@ -2,7 +2,7 @@
   "doc_type": "attractions",
   "schema_version": 1,
   "country": "TW",
-  "version": "2026.10.10-2",
+  "version": "2026.10.10-3",
   "release": "published",
   "editorial_rules": "2026-10",
   "compact_country": false,
@@ -220,6 +220,37 @@
         "last_verified": "2026-10-02"
       },
       "advisory_watch_ko": []
+    },
+    {
+      "id": "tw_taoyuan",
+      "order": 25,
+      "name_ko": "타오위안",
+      "name_en": "Taoyuan (Qingpu)",
+      "aliases_ko": [
+        "도원",
+        "칭푸",
+        "청푸"
+      ],
+      "group_ko": "북부",
+      "kind": "daytrip",
+      "base_regions": [
+        "tw_taipei"
+      ],
+      "note_ko": "타이베이에서 하루 다녀오기도 해요",
+      "water_crossing": false,
+      "hub": {
+        "name_ko": "고속철도 타오위안역",
+        "lat": 25.013,
+        "lng": 121.215,
+        "qid": "Q6146504"
+      },
+      "airports": [],
+      "advisory": {
+        "level": "none",
+        "source": "mofa_tw",
+        "last_verified": "2026-10-02"
+      },
+      "advisory_watch_ko": []
     }
   ],
   "attractions": [
@@ -247,7 +278,13 @@
       "region": "tw_taipei",
       "area_ko": "타이베이 스린구",
       "category": "museum",
-      "tags": [],
+      "tags": [
+        {
+          "id": "foreigner_price",
+          "source": "npm_ticket",
+          "last_verified": "2026-10-10"
+        }
+      ],
       "geo": {
         "kind": "site",
         "lat": 25.102222222222224,
@@ -323,18 +360,28 @@
           "text": "전시 관람 말고도 식당·영화관·문화 상품점을 이용할 수 있어요.",
           "source": "tta_npm",
           "last_verified": "2026-10-09"
+        },
+        {
+          "text": "미성년자는 국적과 관계없이 무료예요.",
+          "source": "npm_ticket",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "새해 첫날·정월 대보름·국제 박물관의 날·세계 관광의 날·쌍십절 같은 정해진 날은 제1전시관이 무료예요.",
+          "source": "npm_ticket",
+          "last_verified": "2026-10-10"
         }
       ],
       "facts": {
         "kind": "facility",
-        "entry": "unknown",
+        "entry": "paid",
         "regular_closed": [
-          "unknown"
+          "mon"
         ],
-        "closed_note_ko": null,
+        "closed_note_ko": "월요일에 쉬지만, 해마다 공지하는 '월요일 특별 개방일'에는 열어요.",
         "visit_note_ko": null,
-        "source": "tta_npm",
-        "last_verified": "2026-10-09"
+        "source": "npm_hours",
+        "last_verified": "2026-10-10"
       },
       "volatile": null,
       "seasonal": [],
@@ -342,8 +389,8 @@
       "status": {
         "value": "open",
         "note_ko": null,
-        "source": "tta_npm",
-        "last_verified": "2026-10-09"
+        "source": "npm_hours",
+        "last_verified": "2026-10-10"
       },
       "advisory": {
         "level": "none",
@@ -1164,7 +1211,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 23,
+        "order": 25,
         "designations": []
       },
       "photo": null,
@@ -1503,7 +1550,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 36,
+        "order": 40,
         "designations": []
       },
       "photo": null,
@@ -1959,7 +2006,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 42,
+        "order": 47,
         "designations": []
       },
       "photo": null,
@@ -2259,7 +2306,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 31,
+        "order": 34,
         "designations": []
       },
       "photo": null,
@@ -2855,7 +2902,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 26,
+        "order": 29,
         "designations": []
       },
       "photo": null,
@@ -3160,7 +3207,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 35,
+        "order": 39,
         "designations": []
       },
       "photo": null,
@@ -3310,7 +3357,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 30,
+        "order": 33,
         "designations": []
       },
       "photo": null,
@@ -3625,7 +3672,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 25,
+        "order": 27,
         "designations": []
       },
       "photo": null,
@@ -3936,7 +3983,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 27,
+        "order": 30,
         "designations": []
       },
       "photo": null,
@@ -4087,7 +4134,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 34,
+        "order": 38,
         "designations": []
       },
       "photo": null,
@@ -4231,7 +4278,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 33,
+        "order": 37,
         "designations": []
       },
       "photo": null,
@@ -4378,7 +4425,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 24,
+        "order": 26,
         "designations": []
       },
       "photo": null,
@@ -4521,7 +4568,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 32,
+        "order": 35,
         "designations": []
       },
       "photo": null,
@@ -4656,7 +4703,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 44,
+        "order": 49,
         "designations": []
       },
       "photo": null,
@@ -4818,7 +4865,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 38,
+        "order": 43,
         "designations": []
       },
       "photo": null,
@@ -4981,7 +5028,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 29,
+        "order": 32,
         "designations": []
       },
       "photo": null,
@@ -5287,7 +5334,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 40,
+        "order": 45,
         "designations": []
       },
       "photo": null,
@@ -5609,7 +5656,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 22,
+        "order": 23,
         "designations": []
       },
       "photo": null,
@@ -5754,7 +5801,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 28,
+        "order": 31,
         "designations": []
       },
       "photo": null,
@@ -5905,7 +5952,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 37,
+        "order": 42,
         "designations": []
       },
       "photo": null,
@@ -6030,7 +6077,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 41,
+        "order": 46,
         "designations": []
       },
       "photo": null,
@@ -6159,7 +6206,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 43,
+        "order": 48,
         "designations": []
       },
       "photo": null,
@@ -6618,7 +6665,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 39,
+        "order": 44,
         "designations": []
       },
       "photo": null,
@@ -6951,6 +6998,756 @@
       "source": "wd",
       "last_verified": "2026-10-10",
       "google_place_id": "ChIJ_3sZgmF2bjQRJqNT18Vuoa0"
+    },
+    {
+      "id": "taipei-zoo",
+      "qid": "Q591131",
+      "names": {
+        "ko": "타이베이 시립동물원",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Taipei Zoo",
+        "local": "臺北市立動物園",
+        "local_short": "臺北市立動物園",
+        "local_lang": "zh-Hant",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "타이베이 동물원"
+      ],
+      "aliases_en": [
+        "Muzha Zoo"
+      ],
+      "mentions_ko": [
+        "대왕판다관",
+        "펭귄관"
+      ],
+      "region": "tw_taipei",
+      "area_ko": "타이베이 원산구",
+      "category": "theme_park",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 25.0026,
+        "lng": 121.582,
+        "source": "wd",
+        "qid": "Q591131",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 25.0026,
+        "lng": 121.582
+      },
+      "address_local": {
+        "text": "臺北市文山區新光路二段30號",
+        "source": "zoo_hours",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "metro",
+          "bus"
+        ],
+        "nearest_ko": "타이베이 메트로 원후선 동물원역에서 내려요.",
+        "nearest_local": null,
+        "source": "zoo_access",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.zoo.gov.taipei/",
+      "wiki": {
+        "ko": "타이베이 시립동물원",
+        "en": "Taipei Zoo"
+      },
+      "summary_ko": "타이베이 원산구에 있는 시립 동물원이에요.",
+      "body_ko": [
+        "타이베이 시립동물원은 야외 동물구와 실내 전시관으로 나뉘어요.",
+        "야외에는 타이완·아프리카·호주·열대우림 같은 구역과 새장이 있고, 실내에는 판다·펭귄·코알라·곤충·양서파충류 전시관이 있어요.",
+        "2024년이 개원 110주년이었어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "야외에는 타이완·어린이·열대우림·아프리카·호주·사막·온대 동물구와 새장이 있어요.",
+          "source": "zoo_outdoor",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "실내에는 곤충관·펭귄관·코알라관·양서파충류관·대왕판다관·천산갑관이 있어요.",
+          "source": "zoo_indoor",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "2024년이 개원 110주년이었어요.",
+          "source": "zoo_history",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "대왕판다관은 야외 전시장 하나와 실내 전시관 둘로 이뤄져요.",
+          "source": "zoo_panda",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "펭귄관에는 킹펭귄과 검은발펭귄이 있어요.",
+          "source": "zoo_penguin",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "동물에게 먹이를 주거나 만지거나 전시 유리를 두드리면 안 돼요.",
+          "source": "zoo_rules",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "반려동물과 풍선, 드론은 가지고 들어갈 수 없어요.",
+          "source": "zoo_rules",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "여름철에는 야생 벌이 집을 짓는 철이라, 벌을 만나면 거리를 두고 지나가라고 안내해요.",
+          "source": "zoo_rules",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "실내 전시관에서는 음식을 먹을 수 없고 플래시도 쓸 수 없어요.",
+          "source": "zoo_rules",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "irregular"
+        ],
+        "closed_note_ko": "음력 섣달그믐과 6월 하순 며칠은 문을 열지 않는 날로 안내해요. 태풍으로 시 업무가 멈추는 날도 쉬어요. 실내 전시관은 월요일 휴관일이 관마다 달라요.",
+        "visit_note_ko": null,
+        "source": "zoo_hours",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "zoo_hours",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_tw",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 24,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJj4EySmCqQjQRZte0Cf0G_qo"
+    },
+    {
+      "id": "national-taiwan-museum",
+      "qid": "Q706692",
+      "names": {
+        "ko": "국립타이완박물관",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "National Taiwan Museum",
+        "local": "國立臺灣博物館",
+        "local_short": "臺博館",
+        "local_lang": "zh-Hant",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "국립대만박물관",
+        "타이완 박물관"
+      ],
+      "aliases_en": [
+        "Former Kodama and Goto Memorial Museum"
+      ],
+      "mentions_ko": [
+        "고생물관",
+        "난먼관"
+      ],
+      "region": "tw_taipei",
+      "area_ko": "타이베이 중정구",
+      "category": "museum",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 25.042752777778,
+        "lng": 121.51503888889,
+        "source": "wd",
+        "qid": "Q706692",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 25.042752777778,
+        "lng": 121.51503888889
+      },
+      "address_local": {
+        "text": "臺北市中正區襄陽路2號",
+        "source": "ntm_main_access",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "metro",
+          "bus"
+        ],
+        "nearest_ko": "타이베이역 M5 출구에서 걸어서 가거나 MRT 타이다병원역 4번 출구로 나와요.",
+        "nearest_local": null,
+        "source": "ntm_main_access",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.ntm.gov.tw/",
+      "wiki": {
+        "ko": "국립대만박물관",
+        "en": "National Taiwan Museum"
+      },
+      "summary_ko": "1908년에 문을 연 타이완의 오래된 박물관 본관이에요.",
+      "body_ko": [
+        "국립타이완박물관은 1908년 총독부 식산국 부속 박물관으로 시작했어요.",
+        "본관은 신고전주의 양식으로 지었고, 그리스 신전풍 기둥과 로마식 돔을 갖췄어요.",
+        "본관과 고생물관은 같은 날 한 번 표로 둘 다 볼 수 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "1908년 타이완총독부 식산국 부속 박물관으로 문을 열었어요.",
+          "source": "ntm_main_intro",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "본관은 신고전주의 양식으로, 그리스 신전풍 도리아식 기둥 위 삼각 박공과 로마식 돔을 갖췄어요.",
+          "source": "ntm_main_intro",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "건물은 총독부 기술자 노무라 이치로 등이 설계했어요.",
+          "source": "ntm_main_intro",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "본관과 고생물관은 같은 날 한 번 표로 두 곳을 볼 수 있어요.",
+          "source": "ntm_main_hours",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "관내에서는 담배·음식·뛰는 일이 안 되고, 음식·액체·우산은 가지고 들어갈 수 없어요.",
+          "source": "ntm_main_hours",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "플래시와 삼각대, 셀카봉은 쓸 수 없어요.",
+          "source": "ntm_main_hours",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "정해진 시각에 중국어 안내가 있어요.",
+          "source": "ntm_main_hours",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "물품 보관함이 있어요.",
+          "source": "ntm_main_hours",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "mon"
+        ],
+        "closed_note_ko": "월요일과 섣달그믐, 설날(음력 1월 1일)에 쉬어요. 공휴일과 연휴에는 열어요.",
+        "visit_note_ko": null,
+        "source": "ntm_main_hours",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "ntm_main_hours",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_tw",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 22,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJcRV3WHOpQjQRFpgzTpxZWgo"
+    },
+    {
+      "id": "chimei-museum",
+      "qid": "Q5095087",
+      "names": {
+        "ko": "치메이 박물관",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Chimei Museum",
+        "local": "奇美博物館",
+        "local_short": "奇美博物館",
+        "local_lang": "zh-Hant",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "기미 박물관"
+      ],
+      "aliases_en": [],
+      "mentions_ko": [
+        "타이난 도회공원"
+      ],
+      "region": "tw_tainan",
+      "area_ko": "타이난 런더구",
+      "category": "museum",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 22.92666667,
+        "lng": 120.24361111,
+        "source": "wd",
+        "qid": "Q5095087",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 22.92666667,
+        "lng": 120.24361111
+      },
+      "address_local": {
+        "text": "臺南市仁德區文華路二段66號",
+        "source": "chimei_about",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "train",
+          "bus"
+        ],
+        "nearest_ko": "타이완철도 바오안역에서 걸어서 갈 수 있고, 바오안 환승장에서 홍3·홍4 버스를 타도 돼요.",
+        "nearest_local": null,
+        "source": "chimei_visit",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.chimeimuseum.org/",
+      "wiki": {
+        "ko": "치메이 박물관",
+        "en": "Chimei Museum"
+      },
+      "summary_ko": "서양 미술과 악기, 병기, 동물 표본을 보여 주는 박물관이에요.",
+      "body_ko": [
+        "치메이 박물관은 타이난 도회공원 안에 있고, 건물은 서양 고전 양식이에요.",
+        "상설 전시는 동물관·병기관·예술관·악기관·로댕관·조각 대로로 나뉘어요.",
+        "바깥 정원에는 조각 50여 점이 있고 신화 이름을 붙인 광장과 다리가 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "상설 전시관은 동물관·병기관·예술관·악기관·로댕관·조각 대로예요.",
+          "source": "chimei_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "박물관은 타이난 도회공원 안에 동쪽을 등지고 서쪽을 보고 서 있어요.",
+          "source": "chimei_building",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "건물은 타이난 건축가 차이이장이 설계했어요.",
+          "source": "chimei_building",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "바깥 정원에는 조각 작품이 50점 넘게 있어요.",
+          "source": "chimei_building",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "치메이 그룹 창업자 쉬원룽(許文龍)이 세운 박물관이에요.",
+          "source": "chimei_about",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "전시장 안은 에어컨 온도가 낮은 편이라 걸칠 옷을 챙기라고 안내해요.",
+          "source": "chimei_visit",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "전시장 안에서는 음식을 먹을 수 없고 녹화와 플래시, 삼각대도 쓸 수 없어요.",
+          "source": "chimei_visit",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "바깥 정원은 무료로 둘러볼 수 있어요.",
+          "source": "chimei_visit",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "슬리퍼와 롤러 신발은 신고 들어갈 수 없어요.",
+          "source": "chimei_visit",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "wed"
+        ],
+        "closed_note_ko": "수요일과 음력 섣달그믐에 쉬어요. 안내문에 따로 올라오는 휴관일도 있어요.",
+        "visit_note_ko": null,
+        "source": "chimei_visit",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "chimei_visit",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_tw",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 28,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJl7ix06N1bjQRlIZMEQq2CUE"
+    },
+    {
+      "id": "xpark",
+      "qid": "Q124514449",
+      "names": {
+        "ko": "엑스파크",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Xpark",
+        "local": "Xpark",
+        "local_short": "Xpark",
+        "local_lang": "zh-Hant",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "Xpark 수족관"
+      ],
+      "aliases_en": [
+        "Xpark Aquarium"
+      ],
+      "mentions_ko": [],
+      "region": "tw_taoyuan",
+      "area_ko": "타오위안 중리구",
+      "category": "theme_park",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 25.0172,
+        "lng": 121.2141,
+        "source": "wd",
+        "qid": "Q124514449",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 25.0172,
+        "lng": 121.2141
+      },
+      "address_local": {
+        "text": "桃園市中壢區春德路105號",
+        "source": "xpark_visit",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "metro",
+          "train"
+        ],
+        "nearest_ko": "공항철도 A18 고속철도 타오위안역에서 걸어서 갈 수 있어요.",
+        "nearest_local": null,
+        "source": "xpark_visit",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.xpark.com.tw/",
+      "wiki": {
+        "en": "Xpark"
+      },
+      "summary_ko": "타오위안 청푸에 있는 도심형 수족관이에요.",
+      "body_ko": [
+        "엑스파크는 일본 요코하마 핫케이지마가 세운 타이완 첫 도심형 수생공원이에요.",
+        "수생동물과 육상동물 300종, 3만 마리가 넘게 살아요.",
+        "천장과 벽, 바닥에 영상을 띄워 서식지를 몰입형으로 보여 줘요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "타이완 첫 도심형 수생공원이에요.",
+          "source": "xpark_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "수생·육상 동물 300종, 3만 마리 넘게 살아요.",
+          "source": "xpark_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "천장·벽·바닥에 다양한 방식으로 360도 몰입형 공간을 꾸몄어요.",
+          "source": "xpark_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "일본에서 30년 넘게 수족관을 운영한 요코하마 핫케이지마가 세웠어요.",
+          "source": "xpark_about",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "사진을 찍을 때 플래시와 셀카봉, 삼각대는 쓸 수 없어요.",
+          "source": "xpark_qa",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "외부 음식은 가지고 들어갈 수 없어요. 꼭 필요한 이유식·물 등은 예외예요.",
+          "source": "xpark_qa",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "당일 다시 들어가려면 출구나 추가구매 데스크에서 손에 도장을 받아요.",
+          "source": "xpark_qa",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "물품 보관함과 짐 맡기는 곳이 없어요.",
+          "source": "xpark_qa",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "none"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "xpark_qa",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "xpark_qa",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_tw",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 41,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJd3rqSgUhaDQR7zOGQANlvj8"
+    },
+    {
+      "id": "jiuzu-culture-village",
+      "qid": "Q4798544",
+      "names": {
+        "ko": "주족문화촌",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Formosan Aboriginal Culture Village",
+        "local": "九族文化村",
+        "local_short": "九族文化村",
+        "local_lang": "zh-Hant",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "구족문화촌",
+        "지우쭈 문화촌"
+      ],
+      "aliases_en": [
+        "Jiuzu Culture Village"
+      ],
+      "mentions_ko": [
+        "르웨탄 케이블카"
+      ],
+      "region": "tw_sunmoonlake",
+      "area_ko": "난터우 위츠향",
+      "category": "theme_park",
+      "tags": [
+        {
+          "id": "cable_car",
+          "source": "jz_cable",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 23.86805556,
+        "lng": 120.94777778,
+        "source": "wd",
+        "qid": "Q4798544",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 23.86805556,
+        "lng": 120.94777778
+      },
+      "address_local": {
+        "text": "南投縣魚池鄉大林村金天巷45號",
+        "source": "jz_hours",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "bus"
+        ],
+        "nearest_ko": "타이중에서 난터우버스 타이완 하오싱 6670번을 타고 가요. 일부 편만 주족문화촌에 서요.",
+        "nearest_local": null,
+        "source": "jz_bus",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.nine.com.tw/",
+      "wiki": {
+        "en": "Formosan Aboriginal Culture Village"
+      },
+      "summary_ko": "원주민족 문화촌과 놀이시설이 함께 있는 테마파크예요.",
+      "body_ko": [
+        "주족문화촌은 원주민족 문화를 보여 주는 마을과 놀이시설이 한곳에 있는 테마파크예요.",
+        "나루완 극장과 물 극장 등에서 공연이 열리고, 놀이시설은 날마다 몇 가지가 정비로 멈춰요.",
+        "공중 케이블카로 산 위 전망 건물까지 오르고, 입장하면 일월담 케이블카도 무료로 탈 수 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "구족 케이블카는 오스트리아 회사가 만든 순환식으로, 전체 길이 1000미터이고 놀이 구역과 관산러우를 이어요.",
+          "source": "jz_cable",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "일월담 케이블카는 일월담과 주족문화촌을 잇고, 문화촌 입장객은 무료로 탈 수 있어요.",
+          "source": "jz_cable",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "공연은 나루완 극장과 물 극장 등에서 열려요.",
+          "source": "jz_hours",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "놀이시설에는 무적함대·마야 탐험 같은 것이 있어요.",
+          "source": "jz_hours",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "날마다 놀이시설 두세 가지가 정비로 멈추니 공지를 확인하라고 안내해요.",
+          "source": "jz_hours",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "일월담 케이블카는 매달 첫째 수요일이 정기 점검일이에요.",
+          "source": "jz_cable",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "입장 마감 시각이 폐장보다 일러요.",
+          "source": "jz_hours",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "none"
+        ],
+        "closed_note_ko": "섣달그믐 당일은 일찍 문을 닫아요.",
+        "visit_note_ko": null,
+        "source": "jz_hours",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "jz_hours",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_tw",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 36,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJB8caq4_WaDQRxkTmSZXEj1c"
     }
   ],
   "sources": [
@@ -7832,6 +8629,168 @@
       "use": "coords_osm",
       "license": "ODbL-1.0",
       "attribution_required": true
+    },
+    {
+      "id": "zoo_hours",
+      "name": "臺北市立動物園 — 開放時間 (zh-TW)",
+      "url": "https://www.zoo.gov.taipei/cp.aspx?n=7D54CBE2525F75B8",
+      "use": "facts"
+    },
+    {
+      "id": "zoo_fee",
+      "name": "臺北市立動物園 — 參觀票價 (zh-TW)",
+      "url": "https://www.zoo.gov.taipei/cp.aspx?n=763493FD7ECCAA11",
+      "use": "facts"
+    },
+    {
+      "id": "zoo_access",
+      "name": "臺北市立動物園 — 交通及停車 (zh-TW)",
+      "url": "https://www.zoo.gov.taipei/News_Content.aspx?n=9F0E68F3EC5B5751&sms=F3B2EF982C0582B3&s=01BD7568D718DAED",
+      "use": "facts"
+    },
+    {
+      "id": "zoo_rules",
+      "name": "臺北市立動物園 — 遊園須知 (zh-TW)",
+      "url": "https://www.zoo.gov.taipei/News_Content.aspx?n=47AC69A18A120E02&sms=F3B2EF982C0582B3&s=A8DA5E918E98010F",
+      "use": "facts"
+    },
+    {
+      "id": "zoo_history",
+      "name": "臺北市立動物園 — 歷史沿革 (zh-TW)",
+      "url": "https://www.zoo.gov.taipei/News.aspx?n=5665649756190634&sms=631762AE911CAAED",
+      "use": "facts"
+    },
+    {
+      "id": "zoo_outdoor",
+      "name": "臺北市立動物園 — 戶外區 (zh-TW)",
+      "url": "https://www.zoo.gov.taipei/News.aspx?n=27AD3418659070A4&sms=589C9E9F5E8CEAE4",
+      "use": "facts"
+    },
+    {
+      "id": "zoo_indoor",
+      "name": "臺北市立動物園 — 室內館 (zh-TW)",
+      "url": "https://www.zoo.gov.taipei/News.aspx?n=0E2F1BDD15CF608D&sms=4B48AE9F06DCAA6F",
+      "use": "facts"
+    },
+    {
+      "id": "zoo_panda",
+      "name": "臺北市立動物園 — 大貓熊館 (zh-TW)",
+      "url": "https://www.zoo.gov.taipei/News_Content.aspx?n=0E2F1BDD15CF608D&sms=4B48AE9F06DCAA6F&s=C1F6C579F136D58F",
+      "use": "facts"
+    },
+    {
+      "id": "zoo_penguin",
+      "name": "臺北市立動物園 — 企鵝館 (zh-TW)",
+      "url": "https://www.zoo.gov.taipei/News_Content.aspx?n=0E2F1BDD15CF608D&sms=4B48AE9F06DCAA6F&s=C9EA207421B50C89",
+      "use": "facts"
+    },
+    {
+      "id": "xpark_ticket",
+      "name": "Xpark — 票價&購票 (zh-TW)",
+      "url": "https://www.xpark.com.tw/ticket",
+      "use": "facts"
+    },
+    {
+      "id": "chimei_visit",
+      "name": "奇美博物館 — 參觀指南 (zh-TW)",
+      "url": "https://www.chimeimuseum.org/visit",
+      "use": "facts"
+    },
+    {
+      "id": "chimei_about",
+      "name": "奇美博物館 — 創館故事 (zh-TW)",
+      "url": "https://www.chimeimuseum.org/about/60bdefeb8188c",
+      "use": "facts"
+    },
+    {
+      "id": "chimei_building",
+      "name": "奇美博物館 — 建築之美 (zh-TW)",
+      "url": "https://www.chimeimuseum.org/about/building",
+      "use": "facts"
+    },
+    {
+      "id": "xpark_time",
+      "name": "Xpark — 營業時間 (zh-TW)",
+      "url": "https://www.xpark.com.tw/time",
+      "use": "facts"
+    },
+    {
+      "id": "xpark_about",
+      "name": "Xpark — 什麼是Xpark (zh-TW)",
+      "url": "https://www.xpark.com.tw/about",
+      "use": "facts"
+    },
+    {
+      "id": "xpark_visit",
+      "name": "Xpark — 交通指南 (zh-TW)",
+      "url": "https://www.xpark.com.tw/visit",
+      "use": "facts"
+    },
+    {
+      "id": "xpark_qa",
+      "name": "Xpark — 常見問答 (zh-TW)",
+      "url": "https://www.xpark.com.tw/qa",
+      "use": "facts"
+    },
+    {
+      "id": "ntm_main_intro",
+      "name": "國立臺灣博物館 — 本館 (zh-TW)",
+      "url": "https://www.ntm.gov.tw/cp.aspx?n=5437",
+      "use": "facts"
+    },
+    {
+      "id": "ntm_main_hours",
+      "name": "國立臺灣博物館 — 本館 開放時間與票價 (zh-TW)",
+      "url": "https://www.ntm.gov.tw/cp.aspx?n=5444",
+      "use": "facts"
+    },
+    {
+      "id": "ntm_main_access",
+      "name": "國立臺灣博物館 — 本館 交通資訊 (zh-TW)",
+      "url": "https://www.ntm.gov.tw/cp.aspx?n=5445",
+      "use": "facts"
+    },
+    {
+      "id": "jz_hours",
+      "name": "九族文化村 — 開放時刻 (zh-TW)",
+      "url": "https://www.nine.com.tw/page/about/index.aspx?kind=63",
+      "use": "facts"
+    },
+    {
+      "id": "jz_fee",
+      "name": "九族文化村 — 票價資訊 (zh-TW)",
+      "url": "https://www.nine.com.tw/page/about/index.aspx?kind=234&lang=TW",
+      "use": "facts"
+    },
+    {
+      "id": "jz_cable",
+      "name": "九族文化村 — 空中纜車 (zh-TW)",
+      "url": "https://www.nine.com.tw/page/about/index.aspx?kind=256",
+      "use": "facts"
+    },
+    {
+      "id": "jz_bus",
+      "name": "九族文化村 — 公車族 (zh-TW)",
+      "url": "https://www.nine.com.tw/page/about/index.aspx?kind=120",
+      "use": "facts"
+    },
+    {
+      "id": "npm_hours",
+      "name": "國立故宮博物院北部院區 — 開放時間 (zh-TW)",
+      "url": "https://www.npm.gov.tw/Articles.aspx?sno=02007001&l=1",
+      "use": "facts"
+    },
+    {
+      "id": "npm_ticket",
+      "name": "國立故宮博物院北部院區 — 票價資訊 (zh-TW)",
+      "url": "https://www.npm.gov.tw/Articles.aspx?sno=02007004&l=1",
+      "use": "facts"
+    },
+    {
+      "id": "npm_transport",
+      "name": "國立故宮博物院北部院區 — 交通 大眾運輸 (zh-TW)",
+      "url": "https://www.npm.gov.tw/Articles.aspx?sno=03009216&l=1",
+      "use": "facts"
     }
   ]
 }

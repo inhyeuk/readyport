@@ -2,7 +2,7 @@
   "doc_type": "attractions",
   "schema_version": 1,
   "country": "PH",
-  "version": "2026.10.10-2",
+  "version": "2026.10.10-3",
   "release": "published",
   "editorial_rules": "2026-10",
   "compact_country": false,
@@ -249,6 +249,38 @@
         "lat": 9.7422222222222,
         "lng": 118.75861111111,
         "qid": "Q1432514"
+      },
+      "airports": [],
+      "advisory": {
+        "level": "2",
+        "source": "mofa_ph",
+        "last_verified": "2026-10-02"
+      },
+      "advisory_watch_ko": []
+    },
+    {
+      "id": "ph_laguna",
+      "order": 17,
+      "name_ko": "라구나(산타로사)",
+      "name_en": "Laguna (Santa Rosa)",
+      "aliases_ko": [
+        "라구나",
+        "산타로사",
+        "산타 로사",
+        "엔찬티드 킹덤"
+      ],
+      "group_ko": "루손",
+      "kind": "daytrip",
+      "base_regions": [
+        "ph_manila"
+      ],
+      "note_ko": "마닐라에서 하루 다녀오는 곳",
+      "water_crossing": false,
+      "hub": {
+        "name_ko": "엔찬티드 킹덤(산타로사)",
+        "lat": 14.2819473,
+        "lng": 121.0953936,
+        "qid": "Q5375375"
       },
       "airports": [],
       "advisory": {
@@ -1363,6 +1395,296 @@
       "google_place_id": "ChIJDYwsI0_yljMRXIlOSQjvBpg"
     },
     {
+      "id": "boljoon-church",
+      "qid": "Q18750187",
+      "names": {
+        "ko": "볼호온 성당",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Boljoon Church",
+        "local": "Boljoon Church",
+        "local_short": "Boljoon Church",
+        "local_lang": "en",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "볼조온 성당",
+        "파트로시니오 데 마리아 성당",
+        "볼호온 교회"
+      ],
+      "aliases_en": [
+        "Patrocinio de Maria Church"
+      ],
+      "mentions_ko": [],
+      "region": "ph_cebu_south",
+      "area_ko": "볼호온 읍내",
+      "category": "heritage",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 9.63,
+        "lng": 123.479,
+        "source": "wd",
+        "qid": "Q18750187",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 9.63,
+        "lng": 123.479
+      },
+      "address_local": null,
+      "access": {
+        "modes": [
+          "bus"
+        ],
+        "nearest_ko": "세부시 사우스 버스 터미널에서 버스를 타요. 볼호온을 지나는 노선이 있어요",
+        "nearest_local": null,
+        "source": "cebu_boljoon",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://tourism.cebu.gov.ph/explore/boljoon/",
+      "wiki": {
+        "en": "Boljoon Church"
+      },
+      "summary_ko": "스페인 시대에 지은 볼호온 마을의 역사 성당이에요.",
+      "body_ko": [
+        "세부 남부 볼호온 마을에 있는 스페인 식민지 시대의 성당이에요.",
+        "국가 사적지이고 유네스코 잠정 목록에도 올라 있어요.",
+        "성당 단지 안에 박물관이 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "스페인 식민지 시대에 지은 성당이에요. 파트로시니오 데 마리아 성당이라고도 불러요.",
+          "source": "cebu_boljoon",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "국가 사적지이고 유네스코 잠정 목록에 올라 있어요.",
+          "source": "cebu_boljoon",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "성당 단지 안에 박물관이 있어요.",
+          "source": "cebu_boljoon",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "볼호온 마을은 세부시에서 남쪽으로 약 90km 떨어져 있어요.",
+          "source": "cebu_boljoon",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "해마다 10월에는 수호 성모 축일 행사가 열려요.",
+          "source": "cebu_boljoon",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "세부시 사우스 버스 터미널에서 오는 버스가 볼호온을 지나가요.",
+          "source": "cebu_boljoon",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "10월 축일 행사에는 행렬과 문화 공연이 있어요.",
+          "source": "cebu_boljoon",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "unknown",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "cebu_boljoon",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "cebu_boljoon",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "2",
+        "source": "mofa_ph",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 8,
+        "designations": [
+          {
+            "kind": "ph_national_historical_landmark",
+            "name_ko": "국가 사적지(세부주 관광청 안내)",
+            "source": "cebu_boljoon"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJH0wAEOGiqzMRyoo1HVS-1Jw"
+    },
+    {
+      "id": "baluarte-de-san-diego",
+      "qid": "Q18708349",
+      "names": {
+        "ko": "산 디에고 보루",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Baluarte de San Diego",
+        "local": "Baluarte de San Diego",
+        "local_short": "Baluarte de San Diego",
+        "local_lang": "en",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "발루아르테 데 산 디에고",
+        "산 디에고 요새"
+      ],
+      "aliases_en": [
+        "San Diego Bastion"
+      ],
+      "mentions_ko": [
+        "인트라무로스",
+        "리살 공원"
+      ],
+      "region": "ph_manila",
+      "area_ko": "인트라무로스 남쪽",
+      "category": "heritage",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 14.5854,
+        "lng": 120.976,
+        "source": "wd",
+        "qid": "Q18708349",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 14.5854,
+        "lng": 120.976
+      },
+      "address_local": null,
+      "access": {
+        "modes": [
+          "walk_from_center"
+        ],
+        "nearest_ko": "인트라무로스 안 남쪽 모서리예요. 성벽 밖 남쪽에 리살 공원이 있어요",
+        "nearest_local": null,
+        "source": "ia_bsd",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://intramuros.gov.ph/bsd/",
+      "wiki": {
+        "en": "Baluarte de San Diego"
+      },
+      "summary_ko": "인트라무로스에서 가장 오래된 구조물, 옛 보루예요.",
+      "body_ko": [
+        "1587년에 망루로 지은 인트라무로스에서 가장 오래된 구조물이에요.",
+        "스페이드 모양 보루로, 1979년에 발굴하고 1992년에 복원했어요.",
+        "2014년에 국가문화보물로 지정됐어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "인트라무로스에서 가장 오래된 구조물이에요. 1587년에 망루로 지었어요.",
+          "source": "ia_sites",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "2014년에 국가문화보물로 지정됐어요.",
+          "source": "ia_sites",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "마닐라 남쪽 해안 쪽 경계를 지키던 둥근 탑이었어요. 예수회 사제 안토니오 세데뇨가 설계했어요.",
+          "source": "ia_bsd",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "스페이드 모양 보루예요.",
+          "source": "ia_bsd",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "1979년에 발굴하고 1992년에 복원했어요.",
+          "source": "ia_bsd",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "보루 아래 정원은 행사 대관에 쓰여요.",
+          "source": "ia_bsd",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "마감 전에 마지막 입장 시각이 따로 있어요. 공식 시간표를 확인해요.",
+          "source": "ia_hours",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "unknown",
+        "regular_closed": [
+          "none"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "ia_hours",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "ia_hours",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "2",
+        "source": "mofa_ph",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 9,
+        "designations": [
+          {
+            "kind": "ph_national_cultural_treasure",
+            "name_ko": "국가문화보물(2014)",
+            "source": "ia_sites"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJ48-0VzvKlzMRg16kTvO3p8U"
+    },
+    {
       "id": "museo-ning-angeles",
       "qid": "Q104902940",
       "names": {
@@ -1490,7 +1812,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 8,
+        "order": 10,
         "designations": [
           {
             "kind": "ph_important_cultural_property",
@@ -1639,7 +1961,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 9,
+        "order": 11,
         "designations": [
           {
             "kind": "ph_important_cultural_property",
@@ -1775,7 +2097,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 10,
+        "order": 12,
         "designations": [
           {
             "kind": "ph_national_historical_site",
@@ -1904,7 +2226,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 11,
+        "order": 13,
         "designations": []
       },
       "photo": null,
@@ -2022,7 +2344,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 12,
+        "order": 14,
         "designations": []
       },
       "photo": null,
@@ -2178,7 +2500,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 13,
+        "order": 15,
         "designations": []
       },
       "photo": null,
@@ -2186,6 +2508,153 @@
       "source": "wd",
       "last_verified": "2026-10-09",
       "google_place_id": "ChIJa5tW0CPKlzMRKuDqk7sMx88"
+    },
+    {
+      "id": "enchanted-kingdom",
+      "qid": "Q5375375",
+      "names": {
+        "ko": "엔찬티드 킹덤",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Enchanted Kingdom",
+        "local": "Enchanted Kingdom",
+        "local_short": "Enchanted Kingdom",
+        "local_lang": "en",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "엔챈티드 킹덤",
+        "인챈티드 킹덤",
+        "EK 놀이공원",
+        "산타로사 놀이공원"
+      ],
+      "aliases_en": [
+        "EK"
+      ],
+      "mentions_ko": [],
+      "region": "ph_laguna",
+      "area_ko": "산타로사 산로렌조 사우스",
+      "category": "theme_park",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 14.2819473,
+        "lng": 121.0953936,
+        "source": "wd",
+        "qid": "Q5375375",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 14.2819473,
+        "lng": 121.0953936
+      },
+      "address_local": {
+        "text": "San Lorenzo South, City of Sta. Rosa, Laguna, Philippines 4026",
+        "source": "ek_directions",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "bus"
+        ],
+        "nearest_ko": "마카티 아얄라 파크 스퀘어에서 공원 셔틀이 다녀요. 파사이 부엔디아 LRT역 근처에서 산타로사(발리바고)행 버스도 있어요",
+        "nearest_local": null,
+        "source": "ek_directions",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.enchantedkingdom.ph/",
+      "wiki": {
+        "en": "Enchanted Kingdom"
+      },
+      "summary_ko": "산타로사에 있는 필리핀의 대형 놀이공원이에요.",
+      "body_ko": [
+        "라구나주 산타로사에 있는 테마파크로, 1995년 10월 19일에 문을 열었어요.",
+        "일곱 개 테마 구역에 놀이기구와 공연장이 있어요.",
+        "120피트(약 37m) 낙하 타워와 거꾸로 도는 롤러코스터도 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "1995년 10월 19일에 일반에 문을 열었어요.",
+          "source": "ek_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "놀이기구와 시설이 일곱 개 테마 구역으로 나뉘어 있어요.",
+          "source": "ek_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "120피트(약 37m) 높이의 낙하 타워가 있어요.",
+          "source": "ek_rides",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "거꾸로 뒤집히는 롤러코스터가 있어요.",
+          "source": "ek_rides",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "바깥 음식과 음료는 가지고 들어갈 수 없어요.",
+          "source": "ek_faq",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "놀이기구마다 키나 몸 조건 제한이 있어요. 탑승구 앞 안내판을 확인해요.",
+          "source": "ek_rules",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "반려동물은 들어갈 수 없어요. 안내견은 예외예요.",
+          "source": "ek_faq",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "비가 오거나 점검할 때는 일부 놀이기구가 멈춰요. 입구 안내판에 알려 줘요.",
+          "source": "ek_rules",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "ek_faq",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "ek_faq",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "2",
+        "source": "mofa_ph",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 16,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJc4aHZRbYlzMRbJ_Oa0wPqP4"
     },
     {
       "id": "moalboal",
@@ -2295,7 +2764,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 14,
+        "order": 17,
         "designations": []
       },
       "photo": null,
@@ -2448,7 +2917,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 15,
+        "order": 18,
         "designations": []
       },
       "photo": null,
@@ -2567,7 +3036,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 16,
+        "order": 19,
         "designations": []
       },
       "photo": null,
@@ -2575,6 +3044,317 @@
       "source": "wd",
       "last_verified": "2026-10-09",
       "google_place_id": "ChIJw_CRaj9OqjMRSbQIIGXN6uI"
+    },
+    {
+      "id": "national-museum-of-anthropology",
+      "qid": "Q3330472",
+      "names": {
+        "ko": "필리핀 국립인류학박물관",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "National Museum of Anthropology",
+        "local": "National Museum of Anthropology",
+        "local_short": "National Museum of Anthropology",
+        "local_lang": "en",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "국립인류학박물관",
+        "필리핀 국립박물관 인류학관",
+        "필리핀 인류학 박물관"
+      ],
+      "aliases_en": [
+        "Museum of the Filipino People"
+      ],
+      "mentions_ko": [
+        "리살 공원",
+        "필리핀 국립박물관"
+      ],
+      "region": "ph_manila",
+      "area_ko": "리살 공원",
+      "category": "museum",
+      "tags": [
+        {
+          "id": "free_entry",
+          "source": "nmp_visit",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 14.58527778,
+        "lng": 120.98083333,
+        "source": "wd",
+        "qid": "Q3330472",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 14.58527778,
+        "lng": 120.98083333
+      },
+      "address_local": {
+        "text": "P. Burgos Drive, Rizal Park, Manila",
+        "source": "nmp_nma",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "walk_from_center"
+        ],
+        "nearest_ko": "리살 공원 안, P. 부르고스 거리 쪽에 있어요",
+        "nearest_local": null,
+        "source": "nmp_nma",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.nationalmuseum.gov.ph/our-museums/national-museum-of-anthropology/",
+      "wiki": {
+        "en": "National Museum of Anthropology (Manila)"
+      },
+      "summary_ko": "리살 공원 안의 필리핀 민족·고고학 박물관이에요.",
+      "body_ko": [
+        "필리핀의 민족지 자료와 육상·수중 고고학 자료를 전시하는 박물관이에요.",
+        "국립미술관·국립자연사박물관과 같은 국립박물관 중앙 단지에 있어요.",
+        "옛 재무부 건물을 1949년에 다시 지어 쓰고 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "필리핀의 민족지 자료와 육상·수중 고고학 자료를 전시해요.",
+          "source": "nmp_nma",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "옛 재무부 건물을 1949년에 다시 지어 쓰고 있어요. 5층 건물이에요.",
+          "source": "nmp_nma",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "국립미술관·국립자연사박물관과 같은 국립박물관 중앙 단지에 있어요.",
+          "source": "nmp_visit",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "입장은 무료예요.",
+          "source": "nmp_visit",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "20명 이상 단체는 공식 웹사이트에서 미리 예약해야 해요.",
+          "source": "nmp_visit",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "들어갈 때 보안 검사를 받아요. 입구에 짐 보관소가 있어요.",
+          "source": "nmp_visit",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "단체 투어는 화~토요일에 잡아요. 일·월요일과 공휴일에는 개인 방문객만 받아요.",
+          "source": "nmp_visit",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "휠체어는 무료로 빌릴 수 있어요. 빈 휠체어가 있을 때만 가능해요.",
+          "source": "nmp_visit",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "free",
+        "booking": "none",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "nmp_visit",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "nmp_visit",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "2",
+        "source": "mofa_ph",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 20,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJTW9nTG_JlzMReyKTDBcZvNA"
+    },
+    {
+      "id": "manila-ocean-park",
+      "qid": "Q28980",
+      "names": {
+        "ko": "마닐라 오션 파크",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Manila Ocean Park",
+        "local": "Manila Ocean Park",
+        "local_short": "Manila Ocean Park",
+        "local_lang": "en",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "마닐라 해양공원",
+        "마닐라 수족관"
+      ],
+      "aliases_en": [
+        "MOP"
+      ],
+      "mentions_ko": [
+        "리살 공원"
+      ],
+      "region": "ph_manila",
+      "area_ko": "루네타(리살 공원 옆)",
+      "category": "theme_park",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 14.579305555556,
+        "lng": 120.97248611111,
+        "source": "wd",
+        "qid": "Q28980",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 14.579305555556,
+        "lng": 120.97248611111
+      },
+      "address_local": {
+        "text": "Brgy. 666, Roxas Boulevard, Ermita Manila 1000",
+        "source": "mop_first_visit",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "car_only"
+        ],
+        "nearest_ko": "록사스 대로로 들어가요. 퀴리노 그랜드스탠드 뒤쪽이에요",
+        "nearest_local": null,
+        "source": "mop_first_visit",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://manilaoceanpark.com/",
+      "wiki": {
+        "en": "Manila Ocean Park"
+      },
+      "summary_ko": "마닐라 루네타 옆의 해양 생물 수족관이에요.",
+      "body_ko": [
+        "퀴리노 그랜드스탠드 뒤쪽, 록사스 대로에 있는 해양 테마파크예요.",
+        "오션나리움에는 약 277종, 1만 4천 마리의 해양 생물이 있어요.",
+        "펭귄 전시와 바다사자 쇼, 새 쇼도 열려요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "퀴리노 그랜드스탠드 뒤쪽, 록사스 대로에 있어요.",
+          "source": "mop_first_visit",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "오션나리움에는 약 277종, 1만 4천 마리의 해양 생물이 있어요.",
+          "source": "mop_oceanarium",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "오션나리움 한가운데에 220도로 굽은 터널 통로가 있어요.",
+          "source": "mop_oceanarium",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "'트레일스 투 앤타크티카'에서 훔볼트펭귄을 볼 수 있어요.",
+          "source": "mop_antarctica",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "바다사자 쇼와 새 쇼도 열려요.",
+          "source": "mop_faq",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "입장권은 한 번만 들어갈 수 있어요. 나갔다가 다시 들어가지 못해요.",
+          "source": "mop_faq",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "바깥 음식과 음료는 가지고 들어갈 수 없어요.",
+          "source": "mop_faq",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "반려동물은 들어갈 수 없어요.",
+          "source": "mop_faq",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "온라인으로 미리 사면 줄을 덜 서요. 공식 홈페이지나 공인 판매처에서만 사요.",
+          "source": "mop_first_visit",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "booking": "recommended",
+        "regular_closed": [
+          "none"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "mop_faq",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "mop_faq",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "2",
+        "source": "mofa_ph",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 21,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJDXUM9QPKlzMRDOajr3iHEoQ"
     },
     {
       "id": "pamintuan-mansion",
@@ -2703,7 +3483,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 17,
+        "order": 22,
         "designations": []
       },
       "photo": null,
@@ -2825,7 +3605,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 18,
+        "order": 23,
         "designations": []
       },
       "photo": null,
@@ -2954,7 +3734,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 19,
+        "order": 24,
         "designations": []
       },
       "photo": null,
@@ -3085,7 +3865,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 20,
+        "order": 25,
         "designations": []
       },
       "photo": null,
@@ -3221,7 +4001,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 21,
+        "order": 26,
         "designations": []
       },
       "photo": null,
@@ -3344,7 +4124,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 22,
+        "order": 27,
         "designations": []
       },
       "photo": null,
@@ -3352,6 +4132,149 @@
       "source": "wd",
       "last_verified": "2026-10-09",
       "google_place_id": "ChIJhwbYF6KhqTMRnblKTxe9bqo"
+    },
+    {
+      "id": "cebu-ocean-park",
+      "qid": "Q85751065",
+      "names": {
+        "ko": "세부 오션 파크",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Cebu Ocean Park",
+        "local": "Cebu Ocean Park",
+        "local_short": "Cebu Ocean Park",
+        "local_lang": "en",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "세부 수족관"
+      ],
+      "aliases_en": [],
+      "mentions_ko": [],
+      "region": "ph_cebu",
+      "area_ko": "맘발링(SM 시사이드 단지)",
+      "category": "theme_park",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 10.28105,
+        "lng": 123.87834,
+        "source": "wd",
+        "qid": "Q85751065",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 10.28105,
+        "lng": 123.87834
+      },
+      "address_local": {
+        "text": "Cebu Ocean Park SM Seaside Complex Mambaling, Cebu City Cebu, 6000.",
+        "source": "cop_hours",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "car_only"
+        ],
+        "nearest_ko": "SM 시사이드 단지 안, SM 시사이드 맞은편이에요. 공식 안내는 차로 가는 길만 소개해요",
+        "nearest_local": null,
+        "source": "cop_directions",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.cebuoceanpark.com/",
+      "wiki": {
+        "en": "Cebu Ocean Park"
+      },
+      "summary_ko": "세부시 SM 시사이드 단지의 해양 수족관이에요.",
+      "body_ko": [
+        "세부시 맘발링의 SM 시사이드 단지, SM 시사이드 맞은편에 있는 오션나리움이에요.",
+        "메인 탱크 갤러리에서 먹이 주는 시간이 있고, 야외 극장에서 물개 쇼와 새 쇼를 해요.",
+        "매일 문을 열어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "세부시 맘발링의 SM 시사이드 단지, SM 시사이드 맞은편에 있어요.",
+          "source": "cop_hours",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "해양 생물을 보는 오션나리움이에요.",
+          "source": "cop_home",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "메인 탱크 갤러리에서 먹이 주는 시간이 따로 있어요.",
+          "source": "cop_home",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "야외 극장에서 물개 쇼와 새 쇼가 열려요.",
+          "source": "cop_home",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "매일 문을 열어요.",
+          "source": "cop_hours",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "비 오는 날에는 무료 우산과 우비를 빌려줘요. 우산은 나갈 때 돌려줘요.",
+          "source": "cop_directions",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "마지막 입장권 판매 시각이 닫는 시각보다 일러요. 일찍 가요.",
+          "source": "cop_hours",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "주차장이 있고 먼저 오는 순서로 써요.",
+          "source": "cop_hours",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "none"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "cop_hours",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "cop_hours",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "2",
+        "source": "mofa_ph",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 28,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJS5JJOgadqTMRUJqM5_VlPyo"
     },
     {
       "id": "aqua-planet",
@@ -3485,7 +4408,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 23,
+        "order": 29,
         "designations": []
       },
       "photo": null,
@@ -3493,6 +4416,149 @@
       "source": "wd",
       "last_verified": "2026-10-10",
       "google_place_id": "ChIJOxBUWI6TljMR9XJL7YqnlwM"
+    },
+    {
+      "id": "museo-de-intramuros",
+      "qid": "Q39054929",
+      "names": {
+        "ko": "무세오 데 인트라무로스",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Museo de Intramuros",
+        "local": "Museo de Intramuros",
+        "local_short": "Museo de Intramuros",
+        "local_lang": "en",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "인트라무로스 박물관",
+        "산 이그나시오 성당 박물관"
+      ],
+      "aliases_en": [
+        "Intramuros Museum"
+      ],
+      "mentions_ko": [
+        "인트라무로스"
+      ],
+      "region": "ph_manila",
+      "area_ko": "인트라무로스",
+      "category": "museum",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 14.5898,
+        "lng": 120.9732,
+        "source": "wd",
+        "qid": "Q39054929",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 14.5898,
+        "lng": 120.9732
+      },
+      "address_local": {
+        "text": "Museo de Intramuros, Arzobispo cor. Anda Sts., Intramuros, Manila",
+        "source": "ia_mdi",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "walk_from_center"
+        ],
+        "nearest_ko": "인트라무로스 안, 아르소비스포 거리와 안다 거리 모퉁이에 있어요",
+        "nearest_local": null,
+        "source": "ia_mdi",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://intramuros.gov.ph/mdi/",
+      "wiki": {
+        "en": "Museo de Intramuros"
+      },
+      "summary_ko": "인트라무로스 안의 종교 미술 박물관이에요.",
+      "body_ko": [
+        "산 이그나시오 성당과 예수회 선교관을 다시 지은 건물에 들어선 박물관이에요.",
+        "인트라무로스 관리청이 모은 종교 유물을 전시해요.",
+        "필리핀 사람의 시선으로 본 선교와 식민 지배 이야기를 다뤄요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "산 이그나시오 성당과 예수회 선교관, 두 곳을 다시 지은 건물이에요.",
+          "source": "ia_mdi",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "인트라무로스 관리청이 모은 종교 유물을 전시해요.",
+          "source": "ia_mdi",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "산 이그나시오 성당은 1878년 예수회가 짓기 시작해 1889년에 끝냈고, 2차 대전 때 부서졌어요.",
+          "source": "ia_mdi",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "선교관 복원은 2018년에 끝났고 2019년에 일반에 열었어요.",
+          "source": "ia_mdi",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "전시는 필리핀 사람의 시선으로 본 선교와 식민 지배 이야기를 다뤄요.",
+          "source": "ia_mdi",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "어린이·학생·노인·장애인·공무원은 할인돼요. 신분증을 가져가요.",
+          "source": "ia_mdi",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "시설마다 문 여는 시간이 달라요. 인트라무로스 관리청 시간표를 확인해요.",
+          "source": "ia_hours",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "ia_mdi",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "ia_mdi",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "2",
+        "source": "mofa_ph",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 30,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJx5k-nj3KlzMRpZZ0IjMCqsA"
     },
     {
       "id": "taal-volcano-view",
@@ -3627,7 +4693,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 24,
+        "order": 31,
         "designations": []
       },
       "photo": null,
@@ -3763,7 +4829,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 25,
+        "order": 32,
         "designations": []
       },
       "photo": null,
@@ -3911,7 +4977,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 26,
+        "order": 33,
         "designations": []
       },
       "photo": null,
@@ -4018,7 +5084,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 27,
+        "order": 34,
         "designations": []
       },
       "photo": null,
@@ -4136,7 +5202,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 28,
+        "order": 35,
         "designations": []
       },
       "photo": null,
@@ -4243,7 +5309,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 29,
+        "order": 36,
         "designations": []
       },
       "photo": null,
@@ -4350,7 +5416,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 30,
+        "order": 37,
         "designations": []
       },
       "photo": null,
@@ -4467,7 +5533,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 31,
+        "order": 38,
         "designations": []
       },
       "photo": null,
@@ -4596,7 +5662,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 32,
+        "order": 39,
         "designations": []
       },
       "photo": null,
@@ -4718,7 +5784,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 33,
+        "order": 40,
         "designations": []
       },
       "photo": null,
@@ -4835,7 +5901,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 34,
+        "order": 41,
         "designations": []
       },
       "photo": null,
@@ -5268,6 +6334,102 @@
       "id": "pcsd_pwrcc_news",
       "name": "Palawan Council for Sustainable Development (팔라완 지속가능개발위원회, PCSD, official) — PCSDS partners with PWRCC (Crocodile Conservation Week)",
       "url": "https://pcsd.gov.ph/pcsds-partners-with-pwrcc-for-iec-campaigns-during-29th-crocodile-conservation-week/",
+      "use": "facts"
+    },
+    {
+      "id": "mop_first_visit",
+      "name": "Manila Ocean Park (운영사 공식 웹사이트) — First Visit",
+      "url": "https://manilaoceanpark.com/first-visit/",
+      "use": "facts"
+    },
+    {
+      "id": "mop_faq",
+      "name": "Manila Ocean Park (운영사 공식 웹사이트) — FAQ",
+      "url": "https://manilaoceanpark.com/faq/",
+      "use": "facts"
+    },
+    {
+      "id": "mop_oceanarium",
+      "name": "Manila Ocean Park (운영사 공식 웹사이트) — Oceanarium",
+      "url": "https://manilaoceanpark.com/attractions/oceanarium/",
+      "use": "facts"
+    },
+    {
+      "id": "mop_antarctica",
+      "name": "Manila Ocean Park (운영사 공식 웹사이트) — Trails To Antarctica",
+      "url": "https://manilaoceanpark.com/attractions/trails-to-antarctica/",
+      "use": "facts"
+    },
+    {
+      "id": "ek_about",
+      "name": "Enchanted Kingdom (운영사 공식 웹사이트) — About EK",
+      "url": "https://www.enchantedkingdom.ph/about-ek-affiliations/",
+      "use": "facts"
+    },
+    {
+      "id": "ek_rides",
+      "name": "Enchanted Kingdom (운영사 공식 웹사이트) — Rides and Attractions",
+      "url": "https://www.enchantedkingdom.ph/rides-and-attractions/",
+      "use": "facts"
+    },
+    {
+      "id": "ek_directions",
+      "name": "Enchanted Kingdom (운영사 공식 웹사이트) — Directions",
+      "url": "https://www.enchantedkingdom.ph/locate-us/",
+      "use": "facts"
+    },
+    {
+      "id": "ek_faq",
+      "name": "Enchanted Kingdom (운영사 공식 웹사이트) — FAQ",
+      "url": "https://www.enchantedkingdom.ph/faq/",
+      "use": "facts"
+    },
+    {
+      "id": "ek_rules",
+      "name": "Enchanted Kingdom (운영사 공식 웹사이트) — Rules",
+      "url": "https://www.enchantedkingdom.ph/rules/",
+      "use": "facts"
+    },
+    {
+      "id": "cop_home",
+      "name": "Cebu Ocean Park (운영사 공식 웹사이트) — Home",
+      "url": "https://www.cebuoceanpark.com/",
+      "use": "facts"
+    },
+    {
+      "id": "cop_hours",
+      "name": "Cebu Ocean Park (운영사 공식 웹사이트) — Plan Your Visit (Tickets and Hours)",
+      "url": "https://www.cebuoceanpark.com/tickets-and-hours/",
+      "use": "facts"
+    },
+    {
+      "id": "cop_directions",
+      "name": "Cebu Ocean Park (운영사 공식 웹사이트) — Maps and Directions",
+      "url": "https://www.cebuoceanpark.com/maps-and-directions/",
+      "use": "facts"
+    },
+    {
+      "id": "ia_mdi",
+      "name": "Intramuros Administration (필리핀 정부 인트라무로스 행정청) — Museo de Intramuros",
+      "url": "https://intramuros.gov.ph/mdi/",
+      "use": "facts"
+    },
+    {
+      "id": "ia_bsd",
+      "name": "Intramuros Administration (필리핀 정부 인트라무로스 행정청) — Baluarte de San Diego",
+      "url": "https://intramuros.gov.ph/bsd/",
+      "use": "facts"
+    },
+    {
+      "id": "nmp_nma",
+      "name": "National Museum of the Philippines (국립박물관) — National Museum of Anthropology",
+      "url": "https://www.nationalmuseum.gov.ph/our-museums/national-museum-of-anthropology/",
+      "use": "facts"
+    },
+    {
+      "id": "cebu_boljoon",
+      "name": "Province of Cebu (세부주 정부) Tourism — Boljoon",
+      "url": "https://tourism.cebu.gov.ph/explore/boljoon/",
       "use": "facts"
     }
   ],
