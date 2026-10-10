@@ -34,6 +34,16 @@
     "checked_at": "2026-10-10",
     "text_sha256": "7ccefa63f090b57f7e2f5e406ae41fced9fdd7963023efb94f5e027b4b0d324e"
   },
+  "candi-ijo": {
+    "cache_set_sha256": "388e51cbfb4711c5b8624ec0ea363b382dcbccfff97ab49215323df04e2acf8c",
+    "checked_at": "2026-10-10",
+    "text_sha256": "c0f4bc936070b87e6a59280202a43004850dc0ec32d2e82d570231d7fe952f72"
+  },
+  "candi-sambisari": {
+    "cache_set_sha256": "2022c0b3511c4cca31079e48b7487959aaec31807ecd78a5510bb4c949f03072",
+    "checked_at": "2026-10-10",
+    "text_sha256": "b85303a711a9bfdb3b58a40a02433e0e6858855b60c9974a9599219d11c82c26"
+  },
   "ceking-rice-terrace": {
     "cache_set_sha256": "d3fdff5cb822a5d99aceb678459ddc96133acb946b778d41e54b0048e7d7d3a1",
     "checked_at": "2026-10-10",
@@ -163,6 +173,11 @@
     "cache_set_sha256": "69bf7b9dc633fbf3668523b1bab82662c07f14f6f50c20b4119a7002a8536a6a",
     "checked_at": "2026-10-10",
     "text_sha256": "fa59c6a69f9c1c5a183b243ab494663c95f1b8ca5c07653fef27b502b63568c6"
+  },
+  "ramayana-ballet-prambanan": {
+    "cache_set_sha256": "bf748f001cda8fe2581fa60b74ee7fd12e45145214015c09ed6aed4daab16007",
+    "checked_at": "2026-10-10",
+    "text_sha256": "75ae9a52893d85f5f680f3049138419e62ae3ae4b7beaf173ba5f8ad67622696"
   },
   "ratu-boko": {
     "cache_set_sha256": "71f52a2674c7d60aa0d57e50325ab2ddc8de50dbf878522802c8fac5f6028b64",

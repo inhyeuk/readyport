@@ -1001,6 +1001,30 @@
       "name": "Balai Taman Nasional Komodo 공식 웹사이트 — Fauna",
       "url": "https://tnkomodo.ksdae.kehutanan.go.id/fauna/",
       "use": "facts"
+    },
+    {
+      "id": "injourney_ramayana",
+      "name": "InJourney Destination Management(운영사) — Ramayana Ballet",
+      "url": "https://injourneydestination.id/destinations/ramayana/",
+      "use": "facts"
+    },
+    {
+      "id": "twc_ticket_ramayana",
+      "name": "InJourney Destination Management 티켓 사이트 — Ramayana Ballet Prambanan",
+      "url": "https://ticket.injourneydestination.id/en/ramayana-ballet-prambanan",
+      "use": "facts"
+    },
+    {
+      "id": "visitingjogja_sambisari",
+      "name": "Visiting Jogja(족자카르타 특별주 관광청 공식 포털) — Candi Sambisari",
+      "url": "https://visitingjogja.jogjaprov.go.id/19548/candi-bawah-tanah-yogyakarta-candi-sambisari/",
+      "use": "facts"
+    },
+    {
+      "id": "visitingjogja_ijo",
+      "name": "Visiting Jogja(족자카르타 특별주 관광청 공식 포털) — Candi Ijo",
+      "url": "https://visitingjogja.jogjaprov.go.id/12787/candi-ijo/",
+      "use": "facts"
     }
   ],
   "attractions": [
@@ -1377,7 +1401,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 47,
+        "order": 50,
         "designations": []
       },
       "photo": null,
@@ -1761,7 +1785,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 45,
+        "order": 48,
         "designations": []
       },
       "photo": null,
@@ -2166,7 +2190,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 37,
+        "order": 40,
         "designations": []
       },
       "photo": null,
@@ -4297,7 +4321,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 42,
+        "order": 45,
         "designations": []
       },
       "photo": null,
@@ -4584,7 +4608,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 46,
+        "order": 49,
         "designations": []
       },
       "photo": null,
@@ -4705,7 +4729,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 41,
+        "order": 44,
         "designations": []
       },
       "photo": null,
@@ -4840,7 +4864,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 48,
+        "order": 51,
         "designations": []
       },
       "photo": null,
@@ -5140,7 +5164,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 36,
+        "order": 37,
         "designations": []
       },
       "photo": null,
@@ -5778,7 +5802,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 49,
+        "order": 52,
         "designations": []
       },
       "photo": null,
@@ -6063,7 +6087,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 44,
+        "order": 47,
         "designations": []
       },
       "photo": null,
@@ -6204,7 +6228,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 34,
+        "order": 35,
         "designations": []
       },
       "photo": null,
@@ -6348,7 +6372,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 35,
+        "order": 36,
         "designations": []
       },
       "photo": null,
@@ -6815,7 +6839,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 33,
+        "order": 34,
         "designations": []
       },
       "photo": null,
@@ -7091,7 +7115,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 39,
+        "order": 42,
         "designations": []
       },
       "photo": null,
@@ -7381,7 +7405,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 38,
+        "order": 41,
         "designations": []
       },
       "photo": null,
@@ -7614,7 +7638,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 43,
+        "order": 46,
         "designations": []
       },
       "photo": null,
@@ -7727,7 +7751,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 40,
+        "order": 43,
         "designations": []
       },
       "photo": null,
@@ -7902,6 +7926,421 @@
       "photo_link": null,
       "source": "wd",
       "last_verified": "2026-10-10"
+    },
+    {
+      "id": "ramayana-ballet-prambanan",
+      "qid": "Q16875722",
+      "names": {
+        "ko": "프람바난 라마야나 발레",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Prambanan Ramayana Ballet",
+        "local": "Sendratari Ramayana Prambanan",
+        "local_short": "Sendratari Ramayana",
+        "local_lang": "id",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "라마야나 발레",
+        "라마야나 무용극",
+        "프람바난 라마야나"
+      ],
+      "aliases_en": [
+        "Ramayana Ballet",
+        "Sendratari Ramayana"
+      ],
+      "mentions_ko": [],
+      "region": "id_yogyakarta",
+      "area_ko": "프람바난 사원 단지 옆",
+      "category": "theme_park",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": -7.752,
+        "lng": 110.4885,
+        "source": "wd",
+        "qid": "Q16875722",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": -7.752,
+        "lng": 110.4885
+      },
+      "address_local": null,
+      "access": {
+        "modes": [
+          "bus"
+        ],
+        "nearest_ko": "프람바난 사원 옆에서 열려요. 트랜스 족자 '프람바난 터미널' 노선의 끝 정류장이 가까워요",
+        "source": "dishub_diy_transjogja",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://injourneydestination.id/destinations/ramayana/",
+      "summary_ko": "프람바난 사원 옆에서 보는 대사 없는 라마야나 무용극이에요.",
+      "body_ko": [
+        "프람바난 라마야나 발레는 1961년부터 이어 온 라마야나 무용극이에요.",
+        "대사 없이 춤과 연극을 합친 공연으로, 프람바난 사원 가까이에서 열려요.",
+        "건기에는 야외 무대에서, 그 밖에는 실내 트리무르티 극장에서 해요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "1961년부터 라마야나 무용극을 공연해 왔어요.",
+          "source": "injourney_ramayana",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "대사 없이 춤과 연극을 합친 공연이고, 프람바난 사원 가까이에서 열려요.",
+          "source": "injourney_ramayana",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "건기에는 야외 무대에서, 그 밖에는 실내 트리무르티 극장에서 공연해요.",
+          "source": "injourney_ramayana",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "공연 시작 전에 비가 오면 실내 트리무르티 극장으로 옮겨요.",
+          "source": "twc_ticket_ramayana",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "공연 일정은 예고 없이 바뀔 수 있어요. 예매 전에 공식 사이트에서 확인하세요.",
+          "source": "twc_ticket_ramayana",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "공연이 한참 진행된 뒤 비로 중단되면 공연을 마친 것으로 보고 환불하지 않아요.",
+          "source": "twc_ticket_ramayana",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "좌석 등급에 따라 번호가 있는 지정석과 번호 없는 자유석이 나뉘어요.",
+          "source": "twc_ticket_ramayana",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "twc_ticket_ramayana",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "injourney_ramayana",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_id",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 38,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "wiki": {
+        "en": "Prambanan Ramayana Ballet"
+      }
+    },
+    {
+      "id": "candi-sambisari",
+      "qid": "Q3029610",
+      "names": {
+        "ko": "삼비사리 사원",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Sambisari Temple",
+        "local": "Candi Sambisari",
+        "local_short": "Candi Sambisari",
+        "local_lang": "id",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "삼비사리",
+        "지하 사원",
+        "땅속 사원"
+      ],
+      "aliases_en": [
+        "Sambisari",
+        "Underground Temple"
+      ],
+      "mentions_ko": [],
+      "region": "id_yogyakarta",
+      "area_ko": "슬레만 깔라산 삼비사리 마을",
+      "category": "heritage",
+      "tags": [
+        {
+          "id": "stairs",
+          "source": "visitingjogja_sambisari",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": -7.76247,
+        "lng": 110.44706,
+        "source": "wd",
+        "qid": "Q3029610",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": -7.76247,
+        "lng": 110.44706
+      },
+      "address_local": null,
+      "access": {
+        "modes": [
+          "car_only"
+        ],
+        "nearest_ko": "족자 시내 중심에서 북동쪽 15km, 슬레만 깔라산 삼비사리 마을에 있어요. 차로 가요",
+        "source": "visitingjogja_sambisari",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://visitingjogja.jogjaprov.go.id/19548/candi-bawah-tanah-yogyakarta-candi-sambisari/",
+      "summary_ko": "땅속 6.5m 아래에 자리한 힌두 사원이에요.",
+      "body_ko": [
+        "삼비사리 사원은 지표에서 6.5m쯤 아래에 있어 멀리서는 보이지 않는 힌두 사원이에요.",
+        "9세기 초에 지은 것으로 보고, 주 사원 하나와 부속 사원 셋으로 이뤄져요.",
+        "시바 신을 모시던 곳으로, 사원 둘레의 네모난 마당에는 네 면에 계단이 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "지표에서 6.5m쯤 아래에 있어 멀리서는 보이지 않아요.",
+          "source": "visitingjogja_sambisari",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "9세기 초에 마타람 힌두 왕 라까이 가룽이 지은 것으로 봐요.",
+          "source": "visitingjogja_sambisari",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "주 사원 1개와 부속 사원 3개로 이뤄져요.",
+          "source": "visitingjogja_sambisari",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "족자 시내 중심에서 북동쪽으로 15km 떨어져 있어요.",
+          "source": "visitingjogja_sambisari",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "주 사원 북쪽에는 두르가, 동쪽에는 가네샤, 남쪽에는 아가스티야 상이 있어요.",
+          "source": "visitingjogja_sambisari",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "사원 둘레를 파내 만든 네모난 마당에 네 면의 계단으로 내려가요.",
+          "source": "visitingjogja_sambisari",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "주 사원 입구 계단에는 마카라의 입 속에 사자 장식이 있어요.",
+          "source": "visitingjogja_sambisari",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "unknown",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "visitingjogja_sambisari",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "visitingjogja_sambisari",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_id",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 33,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "wiki": {
+        "en": "Sambisari"
+      }
+    },
+    {
+      "id": "candi-ijo",
+      "qid": "Q9032333",
+      "names": {
+        "ko": "이조 사원",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Ijo Temple",
+        "local": "Candi Ijo",
+        "local_short": "Candi Ijo",
+        "local_lang": "id",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "찬디 이조",
+        "초록 언덕 사원"
+      ],
+      "aliases_en": [
+        "Ijo",
+        "Ijo Hill Temple"
+      ],
+      "mentions_ko": [],
+      "region": "id_yogyakarta",
+      "area_ko": "슬레만 프람바난 이조 언덕",
+      "category": "heritage",
+      "tags": [
+        {
+          "id": "mountain_view",
+          "source": "visitingjogja_ijo",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": -7.78388889,
+        "lng": 110.51222222,
+        "source": "wd",
+        "qid": "Q9032333",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": -7.78388889,
+        "lng": 110.51222222
+      },
+      "address_local": null,
+      "access": {
+        "modes": [
+          "car_only"
+        ],
+        "nearest_ko": "프람바난에서 피융안 쪽 큰길로 가다 라뚜 보꼬를 지나 왼쪽으로 꺾어 올라가요. 차로 가요",
+        "source": "visitingjogja_ijo",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://visitingjogja.jogjaprov.go.id/12787/candi-ijo/",
+      "summary_ko": "해발 410m 이조 언덕 위에 선 힌두 사원이에요.",
+      "body_ko": [
+        "이조 사원은 해발 410m 이조 언덕에 있는 힌두 사원으로, 족자카르타에서 가장 높은 곳에 있다고 소개해요.",
+        "17개 구조물이 11개 계단식 테라스에 늘어서 있어요.",
+        "꼭대기 테라스에는 주 사원 하나와 부속 사원 셋, 링가 말뚝 여덟 개가 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "해발 410m 이조 언덕에 있고, 족자카르타에서 가장 높은 곳에 있는 사원이라고 소개해요.",
+          "source": "visitingjogja_ijo",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "구조물 17개가 11개 계단식 테라스에 나뉘어 있어요.",
+          "source": "visitingjogja_ijo",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "꼭대기 테라스에는 둘레 담과 링가 말뚝 8개, 주 사원 1개와 부속 사원 3개가 있어요.",
+          "source": "visitingjogja_ijo",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "사원에서는 논과 마을, 아디수찌프토 공항에서 뜨고 내리는 비행기, 므라삐산이 보여요.",
+          "source": "visitingjogja_ijo",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "라뚜 보꼬를 지나 왼쪽으로 꺾어 이정표를 따라가요.",
+          "source": "visitingjogja_ijo",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "멀리 아디수찌프토 공항에서 뜨고 내리는 비행기도 보여요.",
+          "source": "visitingjogja_ijo",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "unknown",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "visitingjogja_ijo",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "visitingjogja_ijo",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_id",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 39,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "wiki": {
+        "en": "Ijo Temple"
+      }
     }
   ]
 }
