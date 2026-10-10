@@ -92,6 +92,37 @@
       "wave": 1
     },
     {
+      "id": "jp_nikko",
+      "order": 40,
+      "name_ko": "닛코",
+      "name_en": "Nikko",
+      "aliases_ko": [
+        "닛코시",
+        "일광"
+      ],
+      "group_ko": "간토",
+      "kind": "daytrip",
+      "base_regions": [
+        "jp_tokyo"
+      ],
+      "note_ko": "도쿄에서 하루 다녀오는 곳",
+      "hub": {
+        "name_ko": "도부닛코역",
+        "lat": 36.747917,
+        "lng": 139.6195,
+        "qid": "Q7862640"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "advisory_watch_ko": [],
+      "water_crossing": false,
+      "airports": [],
+      "wave": 3
+    },
+    {
       "id": "jp_fuji",
       "order": 50,
       "name_ko": "후지산·가와구치코",
@@ -9208,6 +9239,609 @@
       "photo_link": "https://commons.wikimedia.org/wiki/File:Phoenix_Hall,_Byodo-in,_November_2016_-01.jpg",
       "source": "wd",
       "last_verified": "2026-10-10"
+    },
+    {
+      "id": "odori-park",
+      "qid": "Q3107971",
+      "names": {
+        "ko": "오도리 공원",
+        "ko_basis": "editorial",
+        "en": "Odori Park",
+        "local": "大通公園",
+        "local_short": "大通公園",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "대통공원",
+        "삿포로 오도리 공원"
+      ],
+      "aliases_en": [
+        "Sapporo Odori Park"
+      ],
+      "mentions_ko": [
+        "눈축제",
+        "화이트 일루미네이션"
+      ],
+      "region": "jp_sapporo",
+      "area_ko": "삿포로시 주오구",
+      "category": "nature",
+      "geo": {
+        "kind": "site",
+        "lat": 43.059722,
+        "lng": 141.346389,
+        "source": "wd",
+        "last_verified": "2026-10-10",
+        "qid": "Q3107971"
+      },
+      "access": {
+        "modes": [
+          "metro"
+        ],
+        "nearest_ko": "지하철 오도리역이나 니시11초메역에서 내려요",
+        "source": "odori_official_access",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://odori-park.jp/",
+      "summary_ko": "삿포로 도심을 가로지르는 긴 도심 공원이에요.",
+      "body_ko": [
+        "오도리 공원은 서1초메부터 서12초메까지 이어지는 길이 약 1.5km의 도심 공원이에요.",
+        "조경가 나가오카 야스헤이의 설계로 본격 정비돼 2011년에 100주년을 맞았어요.",
+        "눈축제, 요사코이 소란 축제, 화이트 일루미네이션 같은 행사가 사철 열려요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "서1초메부터 서12초메까지 길이 약 1.5km의 공원이에요.",
+          "source": "odori_official_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "나가오카 야스헤이의 설계로 본격 정비됐고 2011년에 100주년을 맞았어요.",
+          "source": "odori_official_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "눈축제, 요사코이 소란 축제, 화이트 일루미네이션 같은 행사가 열려요.",
+          "source": "odori_official_about",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "공원은 흡연 제한 구역이라 걸으며 피우는 것도 안 돼요. 정해진 흡연소를 써요.",
+          "source": "odori_official_guide",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "공원 안에서는 자전거를 밀고 다녀야 해요.",
+          "source": "odori_official_guide",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "스케이트보드와 캐치볼은 위험해서 금지예요.",
+          "source": "odori_official_guide",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "휠체어를 무료로 빌릴 수 있어요. 겨울에는 안 돼요.",
+          "source": "odori_official_guide",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "public_space"
+      },
+      "status": {
+        "value": "open",
+        "source": "odori_official_about",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 999,
+        "designations": []
+      },
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Odori_Park_(15982613668).jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10"
+    },
+    {
+      "id": "fukuoka-castle",
+      "qid": "Q1143944",
+      "names": {
+        "ko": "후쿠오카성",
+        "ko_basis": "editorial",
+        "en": "Fukuoka Castle",
+        "local": "福岡城",
+        "local_short": "福岡城",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "마이즈루 공원"
+      ],
+      "aliases_en": [
+        "Maizuru Castle"
+      ],
+      "mentions_ko": [
+        "다몬야구라",
+        "고로칸"
+      ],
+      "region": "jp_fukuoka",
+      "area_ko": "후쿠오카시 주오구",
+      "category": "heritage",
+      "tags": [
+        {
+          "id": "free_entry",
+          "source": "fukuokajyo_official_top",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 33.584381,
+        "lng": 130.383103,
+        "source": "wd",
+        "last_verified": "2026-10-10",
+        "qid": "Q1143944"
+      },
+      "address_local": {
+        "text": "〒810-0043 福岡県福岡市中央区城内",
+        "source": "fukuokajyo_official_top",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "metro"
+        ],
+        "nearest_ko": "후쿠오카 시영 지하철 아카사카역 2번 출구에서 걸어가요",
+        "source": "fukuokajyo_official_top",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://fukuokajyo.com/",
+      "summary_ko": "석벽과 성터가 남은 국가 사적 성터예요.",
+      "body_ko": [
+        "후쿠오카성은 건물은 많이 남지 않았지만, 석벽과 성의 배치가 당시 모습을 거의 그대로 지녀 국가 사적으로 지정됐어요.",
+        "현존하는 건물로 다몬야구라가 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "건물은 많이 남지 않았지만 석벽과 성의 배치가 당시 모습을 거의 그대로 지녀 국가 사적으로 지정됐어요.",
+          "source": "fukuokajyo_official_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "현존하는 건물로 다몬야구라가 있어요.",
+          "source": "fukuokajyo_official_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "천수대는 발굴조사 때문에 2026년 5월 26일부터 12월 말(예정)까지 들어갈 수 없어요.",
+          "source": "fukuokajyo_official_tenshudai",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "천수대는 발굴조사로 2026년 5월 26일부터 12월 말(예정)까지 들어갈 수 없어요.",
+          "source": "fukuokajyo_official_tenshudai",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "행사 기간에는 입장료가 있을 수 있어요.",
+          "source": "fukuokajyo_official_top",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "성 안 주차장은 유료예요.",
+          "source": "fukuokajyo_official_top",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "free",
+        "regular_closed": [
+          "unknown"
+        ],
+        "source": "fukuokajyo_official_top",
+        "last_verified": "2026-10-10"
+      },
+      "status": {
+        "value": "partial",
+        "note_ko": "천수대는 발굴조사로 2026년 12월 말(예정)까지 들어갈 수 없어요. 그 밖의 성터는 걸어볼 수 있어요.",
+        "source": "fukuokajyo_official_tenshudai",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 999,
+        "designations": []
+      },
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Fukuoka_castle_2006_01.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10"
+    },
+    {
+      "id": "nikko-toshogu",
+      "qid": "Q696641",
+      "names": {
+        "ko": "닛코 도쇼구",
+        "ko_basis": "editorial",
+        "en": "Nikkō Tōshō-gū",
+        "local": "日光東照宮",
+        "local_short": "日光東照宮",
+        "local_lang": "ja",
+        "source": "wd",
+        "ko_paren": "일광동조궁"
+      },
+      "aliases_ko": [
+        "닛코 동조궁",
+        "도쇼구",
+        "일광 동조궁"
+      ],
+      "aliases_en": [
+        "Nikko Toshogu"
+      ],
+      "mentions_ko": [
+        "요메이몬",
+        "자는 고양이"
+      ],
+      "region": "jp_nikko",
+      "area_ko": "도치기현 닛코시",
+      "category": "heritage",
+      "tags": [
+        {
+          "id": "unesco",
+          "source": "toshogu_official_overview",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 36.759166666667,
+        "lng": 139.59861111111,
+        "source": "wd",
+        "last_verified": "2026-10-10",
+        "qid": "Q696641"
+      },
+      "address_local": {
+        "text": "〒 321-1431 栃木県日光市山内2301",
+        "source": "toshogu_official_access",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "train",
+          "bus"
+        ],
+        "nearest_ko": "도쿄 아사쿠사에서 도부선 특급으로 도부닛코역까지 가요",
+        "nearest_local": {
+          "text": "東武日光駅",
+          "qid": "Q7862640",
+          "source": "wd"
+        },
+        "source": "toshogu_official_access",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.toshogu.jp/",
+      "summary_ko": "도쿠가와 이에야스를 모신 닛코의 세계유산 신사예요.",
+      "body_ko": [
+        "닛코 도쇼구는 1617년 초대 쇼군 도쿠가와 이에야스를 제신으로 모신 신사예요.",
+        "지금의 주요 사전은 3대 쇼군 이에미쓰가 1636년에 새로 지은 것이고, 요메이몬 같은 건물이 국보예요.",
+        "사전 일대는 세계유산에 올라 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "1617년 초대 쇼군 도쿠가와 이에야스를 제신으로 모신 신사예요.",
+          "source": "toshogu_official_history",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "지금의 주요 사전은 3대 쇼군 이에미쓰가 1636년에 새로 지은 것이에요.",
+          "source": "toshogu_official_history",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "요메이몬·회랑·가라몬·본사·잠자는 고양이 등이 국보예요.",
+          "source": "toshogu_official_overview",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "제전·행사나 수리 공사로 일부 구역은 관람이 제한될 수 있어요.",
+          "source": "toshogu_official_hours",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "접수는 문 닫기 전에 끝나니 서둘러야 해요.",
+          "source": "toshogu_official_hours",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "unknown"
+        ],
+        "source": "toshogu_official_hours",
+        "last_verified": "2026-10-10"
+      },
+      "status": {
+        "value": "open",
+        "source": "toshogu_official_hours",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 999,
+        "designations": [
+          {
+            "kind": "unesco",
+            "name_ko": "세계유산 닛코의 사사",
+            "source": "toshogu_official_overview"
+          },
+          {
+            "kind": "jp_national_treasure_partial",
+            "name_ko": "요메이몬 등 국보",
+            "source": "toshogu_official_overview"
+          }
+        ]
+      },
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Nikko_toshogu_shrine.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10"
+    },
+    {
+      "id": "nikko-rinnoji",
+      "qid": "Q1348249",
+      "names": {
+        "ko": "닛코 린노지",
+        "ko_basis": "editorial",
+        "en": "Rinnō-ji",
+        "local": "輪王寺",
+        "local_short": "輪王寺",
+        "local_lang": "ja",
+        "source": "wd",
+        "ko_paren": "윤왕사"
+      },
+      "aliases_ko": [
+        "린노지",
+        "윤왕사",
+        "삼불당"
+      ],
+      "aliases_en": [
+        "Rinnoji"
+      ],
+      "mentions_ko": [
+        "다이유인",
+        "산부쓰도"
+      ],
+      "region": "jp_nikko",
+      "area_ko": "도치기현 닛코시",
+      "category": "heritage",
+      "tags": [
+        {
+          "id": "unesco",
+          "source": "rinnoji_official_history",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 36.754161,
+        "lng": 139.602708,
+        "source": "wd",
+        "last_verified": "2026-10-10",
+        "qid": "Q1348249"
+      },
+      "address_local": {
+        "text": "〒321-1494 栃木県日光市山内2300",
+        "source": "rinnoji_official_access",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "bus"
+        ],
+        "nearest_ko": "닛코역·도부닛코역에서 도부 버스 '세계유산 순환' 버스를 타면 편해요",
+        "source": "rinnoji_official_access",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://rinnoji.or.jp/",
+      "summary_ko": "삼불당과 다이유인이 있는 닛코산의 천태종 사찰이에요.",
+      "body_ko": [
+        "닛코산은 766년 쇼도 상인이 열었고, 린노지는 그 가르침을 이어 온 사찰이에요.",
+        "본당 삼불당은 동일본에서 가장 큰 목조 건물로 알려져 있어요.",
+        "다이유인은 3대 쇼군 도쿠가와 이에미쓰의 묘소로, 세계유산 경내에 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "닛코산은 766년에 쇼도 상인이 열었어요.",
+          "source": "rinnoji_official_history",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "본당 삼불당은 닛코산에서 으뜸이고 동일본에서 가장 큰 목조 건물이에요.",
+          "source": "rinnoji_official_history",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "다이유인은 도쿠가와 3대 쇼군 이에미쓰의 묘소예요.",
+          "source": "rinnoji_official_history",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "행사나 준비 때문에 관람할 수 없는 날짜와 시간대가 있어요.",
+          "source": "rinnoji_official_information",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "다이유인은 행사 때 배전 안에 들어갈 수 없는 시간대가 있어요.",
+          "source": "rinnoji_official_information",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "unknown"
+        ],
+        "source": "rinnoji_official_information",
+        "last_verified": "2026-10-10"
+      },
+      "status": {
+        "value": "open",
+        "source": "rinnoji_official_information",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 999,
+        "designations": [
+          {
+            "kind": "unesco",
+            "name_ko": "세계유산 닛코의 사사",
+            "source": "rinnoji_official_history"
+          }
+        ]
+      },
+      "photo_link": "https://commons.wikimedia.org/wiki/File:NikkoRinnoji5390.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10"
+    },
+    {
+      "id": "kegon-falls",
+      "qid": "Q37580",
+      "names": {
+        "ko": "게곤 폭포",
+        "ko_basis": "editorial",
+        "en": "Kegon Falls",
+        "local": "華厳滝",
+        "local_short": "華厳滝",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "게곤노타키",
+        "화엄폭포"
+      ],
+      "aliases_en": [
+        "Kegon Waterfall"
+      ],
+      "mentions_ko": [
+        "주젠지 호수"
+      ],
+      "region": "jp_nikko",
+      "area_ko": "도치기현 닛코시 오쿠닛코",
+      "category": "nature",
+      "geo": {
+        "kind": "site",
+        "lat": 36.73788888888889,
+        "lng": 139.502,
+        "source": "wd",
+        "last_verified": "2026-10-10",
+        "qid": "Q37580"
+      },
+      "access": {
+        "modes": [
+          "bus"
+        ],
+        "nearest_ko": "닛코역·도부닛코역에서 주젠지온센 방면 버스를 타고 '주젠지온센'에서 내려 걸어가요",
+        "source": "nikko_kanko_kegon",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.kegon.jp/",
+      "summary_ko": "주젠지 호수의 물이 떨어지는 닛코의 폭포예요.",
+      "body_ko": [
+        "게곤 폭포는 주젠지 호수의 물이 높이 약 97m의 절벽을 한 번에 떨어지는 폭포예요.",
+        "일본 3대 폭포의 하나로 꼽히고, 엘리베이터로 가는 관폭대에서 폭포를 가까이 볼 수 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "주젠지 호수의 물이 높이 약 97m의 절벽을 한 번에 떨어져요.",
+          "source": "nikko_kanko_kegon",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "일본 3대 폭포의 하나로 꼽혀요.",
+          "source": "nikko_kanko_kegon",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "엘리베이터로 가는 관폭대가 있어요.",
+          "source": "nikko_kanko_kegon",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "한겨울에는 곁의 작은 폭포들이 얼어 파랗게 보여요.",
+          "source": "nikko_kanko_kegon",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "물의 양에 따라 야간 등에는 물을 막을 수 있어요.",
+          "source": "nikko_kanko_kegon",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "public_space"
+      },
+      "status": {
+        "value": "open",
+        "source": "nikko_kanko_kegon",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 999,
+        "designations": []
+      },
+      "photo_link": "https://commons.wikimedia.org/wiki/File:紅葉の華厳の滝.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10"
     }
   ],
   "retired": [],
@@ -10951,6 +11585,90 @@
       "id": "ginkakuji_official_faq",
       "name": "相国寺 銀閣寺 よくある質問",
       "url": "https://www.shokoku-ji.jp/ginkakuji/faq/",
+      "use": "facts"
+    },
+    {
+      "id": "fukuokajyo_official_about",
+      "name": "【公式】福岡城・鴻臚館 福岡城について",
+      "url": "https://fukuokajyo.com/about",
+      "use": "facts"
+    },
+    {
+      "id": "fukuokajyo_official_tenshudai",
+      "name": "【公式】福岡城・鴻臚館 福岡城天守台入場制限のお知らせ",
+      "url": "https://fukuokajyo.com/24704/",
+      "use": "facts"
+    },
+    {
+      "id": "fukuokajyo_official_top",
+      "name": "【公式】福岡城・鴻臚館 福岡城・鴻臚館 トップ",
+      "url": "https://fukuokajyo.com/",
+      "use": "facts"
+    },
+    {
+      "id": "odori_official_about",
+      "name": "札幌市公園緑化協会 大通公園とは",
+      "url": "https://odori-park.jp/about/",
+      "use": "facts"
+    },
+    {
+      "id": "odori_official_access",
+      "name": "札幌市公園緑化協会 大通公園 アクセス",
+      "url": "https://odori-park.jp/access/",
+      "use": "facts"
+    },
+    {
+      "id": "odori_official_guide",
+      "name": "札幌市公園緑化協会 大通公園 公園案内",
+      "url": "https://odori-park.jp/guide/",
+      "use": "facts"
+    },
+    {
+      "id": "nikko_kanko_kegon",
+      "name": "日光市観光協会 日光旅ナビ 華厳滝",
+      "url": "https://www.nikko-kankou.org/spot/5",
+      "use": "facts"
+    },
+    {
+      "id": "rinnoji_official_access",
+      "name": "輪王寺 交通アクセス",
+      "url": "https://rinnoji.or.jp/access.html",
+      "use": "facts"
+    },
+    {
+      "id": "rinnoji_official_history",
+      "name": "輪王寺について",
+      "url": "https://rinnoji.or.jp/history/",
+      "use": "facts"
+    },
+    {
+      "id": "rinnoji_official_information",
+      "name": "輪王寺 拝観のご案内",
+      "url": "https://rinnoji.or.jp/information.html",
+      "use": "facts"
+    },
+    {
+      "id": "toshogu_official_access",
+      "name": "日光東照宮 アクセス・駐車場",
+      "url": "https://www.toshogu.jp/pages/26/",
+      "use": "facts"
+    },
+    {
+      "id": "toshogu_official_history",
+      "name": "日光東照宮 由緒",
+      "url": "https://www.toshogu.jp/pages/27/",
+      "use": "facts"
+    },
+    {
+      "id": "toshogu_official_hours",
+      "name": "日光東照宮 拝観時間・料金",
+      "url": "https://www.toshogu.jp/pages/25/",
+      "use": "facts"
+    },
+    {
+      "id": "toshogu_official_overview",
+      "name": "日光東照宮 社殿の概要",
+      "url": "https://www.toshogu.jp/pages/29/",
       "use": "facts"
     }
   ]
