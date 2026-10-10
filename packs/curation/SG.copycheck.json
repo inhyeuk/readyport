@@ -44,6 +44,11 @@
     "checked_at": "2026-10-10",
     "text_sha256": "06813e35e6a23e7ee52e5829921f6f4d9e664a976ef36857bb23228b1d03ab1c"
   },
+  "esplanade-theatres-on-the-bay": {
+    "cache_set_sha256": "2782bfefbf06645f317120048aa4e890b1291e5612c4bfdf405bdeac48207164",
+    "checked_at": "2026-10-10",
+    "text_sha256": "0e1186c1796f7517dd6348c896fc9b2bd1042540675900ce2583bdfd3cd03df1"
+  },
   "fort-canning-park": {
     "cache_set_sha256": "204d0feed1d1ec9686a6eb5e7dd9e167f6511e13a081349ed08573a7fa246e69",
     "checked_at": "2026-10-10",
@@ -78,6 +83,11 @@
     "cache_set_sha256": "60c574443f8d57889fcd0b3042936d143993f79014abdac7fe89664968be31a0",
     "checked_at": "2026-10-10",
     "text_sha256": "190e59d30679aa12fdc26fe4be95e814a6d84bf30a13b0cd3c9d28a2fc061791"
+  },
+  "lau-pa-sat": {
+    "cache_set_sha256": "485e901b1d27701f183dd7e8dbccb1d18f4c6968a952ddb8ea44fd851a99ff7f",
+    "checked_at": "2026-10-10",
+    "text_sha256": "6c4cfc0199994d7a52858097ea6f481672ec4b59290a6670607650a995c1c9ab"
   },
   "little-india": {
     "cache_set_sha256": "23faf0517ca849bc37650a2ea7440cb4a66dbb21f512402a9c6af68388e122f9",
@@ -159,6 +169,11 @@
     "checked_at": "2026-10-10",
     "text_sha256": "2351fea7249589ba0873e755b06425dd721d0280c377534f62304d77c01ef085"
   },
+  "skyhelix-sentosa": {
+    "cache_set_sha256": "e0d9f3102fa55c731f4269ad034092cf0c71bf154b65605bd0440e76597f2422",
+    "checked_at": "2026-10-10",
+    "text_sha256": "1f52ee6fbb632c8ddc9012804ace5af0d58c522a53c88b6416ac7b4beefec098"
+  },
   "southern-ridges": {
     "cache_set_sha256": "e3f6135a2835b435638d0223a35ea82c55f59b77260a141aa8dec5ba67fd31a6",
     "checked_at": "2026-10-10",
@@ -168,6 +183,11 @@
     "cache_set_sha256": "0dc30fb2d5f3fdd6254a376772d451c2e1f44875c85591a5b714a869319bb544",
     "checked_at": "2026-10-10",
     "text_sha256": "087eddab2f9ddfcf932395b8f552be3c5b771db5ddca14a3aad58c9119f070b4"
+  },
+  "sungei-buloh-wetland-reserve": {
+    "cache_set_sha256": "1a81b8f3848963859a0ece1ae3511f6eca2b9ae4263b49d942593eb3d5df30cd",
+    "checked_at": "2026-10-10",
+    "text_sha256": "709be1b4b788adbac8a082a2dfc5ddc14eedce52d0a9985469b18a253bcf06ab"
   },
   "thian-hock-keng": {
     "cache_set_sha256": "fbba11ca36a52cffa8eb3fc47f5f78f6a65e446c1a2ba1e0711e81ce81b66e56",
