@@ -1,4 +1,9 @@
 {
+  "artscience-museum": {
+    "cache_set_sha256": "2eb8dcef29725a1a0b0fd3ade2a38e1eb5d4938b3da23295a15b2cba176ee005",
+    "checked_at": "2026-10-10",
+    "text_sha256": "21fc2463edcadb8f9abe7269dd36958a63095c6721fbda63cf93b7d9ba97e54a"
+  },
   "bird-paradise": {
     "cache_set_sha256": "110eb9e15a5d220e65f42adae2650e4fb080276d00b358778c6c961f6615d940",
     "checked_at": "2026-10-10",
@@ -14,6 +19,11 @@
     "checked_at": "2026-10-10",
     "text_sha256": "9ecd90f3ab11a17898ead3dedf858da167a1199d531b66043c5a1f3ebcec5b16"
   },
+  "clarke-quay": {
+    "cache_set_sha256": "434bf7261a73bd2677a751bbc98a2fa5833bc1999671f13f546328beea7b0225",
+    "checked_at": "2026-10-10",
+    "text_sha256": "06813e35e6a23e7ee52e5829921f6f4d9e664a976ef36857bb23228b1d03ab1c"
+  },
   "fort-siloso": {
     "cache_set_sha256": "8e3afe9c3cc635a5e2da47c4b0a1d2fab5e819d80a457bb4273f96b8be54a43d",
     "checked_at": "2026-10-10",
@@ -24,10 +34,20 @@
     "checked_at": "2026-10-10",
     "text_sha256": "adad3a60ab191cffb1b458aa3e86ca76a66e9d36810cebe16fb320712c0f927e"
   },
+  "kampong-glam": {
+    "cache_set_sha256": "c0d814c177cadb3f2ee898708d396b87fc8620b1f863655c7abc64e5045a169d",
+    "checked_at": "2026-10-10",
+    "text_sha256": "c65d0f6fdd24b7e7696638a1f48a57955a8a2ddd089651090e41a6a7ba246c77"
+  },
   "little-india": {
     "cache_set_sha256": "23faf0517ca849bc37650a2ea7440cb4a66dbb21f512402a9c6af68388e122f9",
     "checked_at": "2026-10-10",
     "text_sha256": "00bc1ef280040296de8a54ef6e044dab598492f82668b73e2539679588cf3c9c"
+  },
+  "marina-bay-sands-skypark": {
+    "cache_set_sha256": "258916e8bfbfd1cb8ca5029d868dd9e37b958ddaaad8d8806219fa9bc24f3beb",
+    "checked_at": "2026-10-10",
+    "text_sha256": "b2278be6eba96717d35ac9577d5c7fbdcc440ed1afb41c9f8460444954a362e6"
   },
   "merlion-park": {
     "cache_set_sha256": "a529b561b10624f65185aa9fd39ec3c2d6ec6a7a6022fbd5e6f764801c09c1bc",
@@ -43,6 +63,11 @@
     "cache_set_sha256": "00e1fb7a5ca75ed4f0f012fbd7b58f59666f73d803c227bf6a85bb5791b3ab72",
     "checked_at": "2026-10-10",
     "text_sha256": "f9448fde8a9a1aa36786868e9131227383075bca7bab48bba4f765b6cf5442c1"
+  },
+  "night-safari": {
+    "cache_set_sha256": "8e5e7e0a36940c59be02a93c4b043cf8f8e3298900f06dd081a2e0acfb6374f6",
+    "checked_at": "2026-10-10",
+    "text_sha256": "4f7e5ff40eb9a150f9a4decf8b8ee11ffcf800db95fb34a8bef87afabf8d2b48"
   },
   "orchard-road": {
     "cache_set_sha256": "4e7b7a65211bd7d871e4c03fd82252b3054a388aa4f6a44c6679b93bcce2cf18",
@@ -64,6 +89,11 @@
     "checked_at": "2026-10-10",
     "text_sha256": "7c44757ea3866d47ddfa73c32f2d12313cc0dfa9334da1fce61166d26a27d26a"
   },
+  "singapore-flyer": {
+    "cache_set_sha256": "dea513295f337edde3205ee158a43e6a845104de2836803f7f6cdb34f4e4811f",
+    "checked_at": "2026-10-10",
+    "text_sha256": "5665c76d0535a32807e6d0e325ace248b26e3757751d0a66eb656c964f2737af"
+  },
   "singapore-oceanarium": {
     "cache_set_sha256": "6e7943a44e4f0633a7c9a2243a1f6d3582f1eb98855017b9f4f99f1dddb83103",
     "checked_at": "2026-10-10",
@@ -73,6 +103,21 @@
     "cache_set_sha256": "39da3050505c841d5b844e75d3554f09e5c3c0156a6e74f5ac0d3fd8370bf1f1",
     "checked_at": "2026-10-10",
     "text_sha256": "2351fea7249589ba0873e755b06425dd721d0280c377534f62304d77c01ef085"
+  },
+  "southern-ridges": {
+    "cache_set_sha256": "e3f6135a2835b435638d0223a35ea82c55f59b77260a141aa8dec5ba67fd31a6",
+    "checked_at": "2026-10-10",
+    "text_sha256": "5454fe224cf6793c64d8837d0f09edff22d749aac9160462f166c744ef53e2e4"
+  },
+  "sri-mariamman-temple": {
+    "cache_set_sha256": "0dc30fb2d5f3fdd6254a376772d451c2e1f44875c85591a5b714a869319bb544",
+    "checked_at": "2026-10-10",
+    "text_sha256": "087eddab2f9ddfcf932395b8f552be3c5b771db5ddca14a3aad58c9119f070b4"
+  },
+  "thian-hock-keng": {
+    "cache_set_sha256": "fbba11ca36a52cffa8eb3fc47f5f78f6a65e446c1a2ba1e0711e81ce81b66e56",
+    "checked_at": "2026-10-10",
+    "text_sha256": "6bd84d9c0308cb8fd5b21d386c905a70e34e0c215f8341120c5ed2d6cfe39ab4"
   },
   "universal-studios-singapore": {
     "cache_set_sha256": "c1207154a0245bac417bf99c459f5285f4f0c4059b8414c919fe06341ca43b22",

@@ -227,6 +227,32 @@
     <string name="settings_credit_unesco_813">UNESCO World Heritage Centre — Classical Gardens of Suzhou — 류위안·줘정위안</string>
     <string name="settings_credit_unesco_677">UNESCO World Heritage Centre — Baroque Churches of the Philippines — 산 아구스틴 성당</string>
     <string name="settings_credit_unesco_bohol_geopark">UNESCO — Bohol Island UNESCO Global Geopark — 초콜릿 힐</string>
+    <string name="settings_credit_osm">© OpenStreetMap 기여자 (ODbL) — 일부 관광지 좌표</string>
+    <string name="settings_credit_unesco_1012">UNESCO World Heritage Centre — Kinabalu Park — 키나발루 공원</string>
+    <string name="settings_credit_dsvh_hoankiem">Cục Di sản văn hóa — Di tích lịch sử và danh lam thắng cảnh hồ Hoàn Kiếm và đền Ngọc Sơn (베트남 문화유산국, 특별 국가유적 소개) — 호안끼엠 호수</string>
+    <string name="settings_credit_unesco_678">UNESCO World Heritage Centre — Complex of Hué Monuments — 카이딘 황릉·티엔무 사원·후에 황성</string>
+    <string name="settings_credit_unesco_act_322">UNESCO World Heritage Centre — Complex of the Celestial Lady (Thien Mu), activity page of property 678 — 티엔무 사원</string>
+    <string name="settings_credit_dsvh_hue">Cục Di sản văn hóa — Di tích quốc gia đặc biệt Quần thể kiến trúc Cố đô Huế (베트남 문화유산국 특별 국가유적 상세) — 후에 황성</string>
+    <string name="settings_credit_dsvh_phuquoc_prison">Cục Di sản văn hóa, Bộ VHTTDL (official heritage registry) — Di tích lịch sử Trại giam Phú Quốc — 푸꾸옥 감옥</string>
+    <string name="settings_credit_unesco_geopark_batur">UNESCO International Geoscience and Geoparks Programme — Batur UNESCO Global Geopark — 바투르산(킨타마니 전망)</string>
+    <string name="settings_credit_unesco_609">UNESCO World Heritage Centre — Komodo National Park — 코모도 국립공원·파다르섬·핑크 비치(코모도)</string>
+    <string name="settings_credit_unesco_652">UNESCO World Heritage Centre — Puerto-Princesa Subterranean River National Park — 푸에르토프린세사 지하강</string>
+    <string name="settings_credit_bunka_hiroshimajo">文化庁 国指定文化財等データベース — 히로시마성</string>
+    <string name="settings_credit_bunka_kitano_denken">文化庁 国指定文化財等データベース — 기타노 이진칸 거리</string>
+    <string name="settings_credit_bunka_peace_park">文化庁 国指定文化財等データベース — 히로시마 평화기념공원</string>
+    <string name="settings_credit_bunka_thomas_house">文化庁 国指定文化財等データベース — 기타노 이진칸 거리</string>
+    <string name="settings_credit_unesco_661">UNESCO World Heritage Centre — 히메지성</string>
+    <string name="settings_credit_unesco_775">UNESCO World Heritage Centre — 히로시마 평화기념공원</string>
+    <string name="settings_credit_unesco_776">UNESCO World Heritage Centre — 이쓰쿠시마 신사</string>
+    <string name="settings_credit_unesco_972_maps">UNESCO World Heritage Centre — Gusuku Sites and Related Properties of the Kingdom of Ryukyu (component parts) — 슈리성</string>
+    <string name="settings_credit_unesco_1334">UNESCO World Heritage Centre — West Lake Cultural Landscape of Hangzhou — 시후</string>
+    <string name="settings_credit_unesco_640">UNESCO World Heritage Centre — Wulingyuan Scenic and Historic Interest Area — 장자제 국가삼림공원</string>
+    <string name="settings_credit_boch_eluanbi_lighthouse">文化部文化資產局 國家文化資產網 開放資料 — 鵝鑾鼻燈塔(國定古蹟) — 어롼비 공원</string>
+    <string name="settings_credit_boch_hengchun">文化部文化資產局 國家文化資產網 開放資料 — 恆春古城(國定古蹟) — 헝춘 옛 성</string>
+    <string name="settings_credit_boch_hobe_fort">文化部文化資產局 國家文化資產網 開放資料 — 滬尾礮臺(國定古蹟) — 후웨이 포대</string>
+    <string name="settings_credit_boch_tamsui_customs_residence">文化部文化資產局 國家文化資產網 開放資料 — 前清淡水關稅務司官邸(直轄市定古蹟) — 단수이 세관 세무사 관저</string>
+    <string name="settings_credit_boch_british_consulate">文化部文化資產局 國家文化資產網 開放資料 — 打狗英國領事館及官邸(國定古蹟) — 다거우 영국 영사관</string>
+    <string name="settings_credit_boch_martial_temple">文化部文化資產局 國家文化資產網 開放資料 — 祀典武廟(國定古蹟) — 쓰뎬우먀오</string>
     <string name="settings_credit_unesco_870">UNESCO 세계유산센터 — 고대 나라의 역사기념물</string>
 
     <!-- 관광지 지도 (Google 지도 SDK, 사장님 결정 2026-10-09). 키가 없거나 중국이면 지도 없이 '구글 지도에서 열기'만 -->

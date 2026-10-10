@@ -2,34 +2,13 @@
   "doc_type": "attractions",
   "schema_version": 1,
   "country": "ID",
-  "version": "2026.10.10-1",
+  "version": "2026.10.10-2",
   "release": "published",
   "editorial_rules": "2026-10",
   "compact_country": false,
   "unmapped_airports": [],
   "retired": [],
-  "upcoming_regions": [
-    {
-      "name_ko": "누사페니다",
-      "aliases_ko": [
-        "페니다섬",
-        "누사 페니다"
-      ]
-    },
-    {
-      "name_ko": "롬복",
-      "aliases_ko": [
-        "롬복섬"
-      ]
-    },
-    {
-      "name_ko": "라부안바조(코모도)",
-      "aliases_ko": [
-        "라부안 바조",
-        "코모도"
-      ]
-    }
-  ],
+  "upcoming_regions": [],
   "regions": [
     {
       "id": "id_bali_south",
@@ -150,6 +129,36 @@
       "advisory_watch_ko": []
     },
     {
+      "id": "id_nusa_penida",
+      "order": 50,
+      "name_ko": "누사페니다",
+      "name_en": "Nusa Penida",
+      "aliases_ko": [
+        "페니다섬",
+        "누사 페니다"
+      ],
+      "group_ko": "발리",
+      "kind": "daytrip",
+      "base_regions": [
+        "id_bali_south"
+      ],
+      "note_ko": "발리 남부에서 배로 다녀와요",
+      "water_crossing": true,
+      "hub": {
+        "name_ko": "누사페니다섬",
+        "lat": -8.733333,
+        "lng": 115.533333,
+        "qid": "Q1520301"
+      },
+      "airports": [],
+      "advisory": {
+        "level": "1",
+        "source": "mofa_id",
+        "last_verified": "2026-09-28"
+      },
+      "advisory_watch_ko": []
+    },
+    {
       "id": "id_yogyakarta",
       "order": 60,
       "name_ko": "족자카르타",
@@ -197,6 +206,57 @@
       "airports": [
         "CGK"
       ],
+      "advisory": {
+        "level": "1",
+        "source": "mofa_id",
+        "last_verified": "2026-09-28"
+      },
+      "advisory_watch_ko": []
+    },
+    {
+      "id": "id_lombok",
+      "order": 80,
+      "name_ko": "롬복",
+      "name_en": "Lombok",
+      "aliases_ko": [
+        "롬복섬"
+      ],
+      "group_ko": "누사틍가라",
+      "kind": "base",
+      "water_crossing": false,
+      "hub": {
+        "name_ko": "롬복 국제공항",
+        "lat": -8.757322,
+        "lng": 116.276675,
+        "qid": "Q1395514"
+      },
+      "airports": [],
+      "advisory": {
+        "level": "1",
+        "source": "mofa_id",
+        "last_verified": "2026-09-28"
+      },
+      "advisory_watch_ko": []
+    },
+    {
+      "id": "id_labuanbajo",
+      "order": 90,
+      "name_ko": "라부안바조(코모도)",
+      "name_en": "Labuan Bajo (Komodo)",
+      "aliases_ko": [
+        "라부안 바조",
+        "코모도"
+      ],
+      "group_ko": "누사틍가라",
+      "kind": "base",
+      "water_crossing": false,
+      "hub": {
+        "name_ko": "코모도 국제공항",
+        "lat": -8.486667,
+        "lng": 119.889167,
+        "qid": "Q1927261"
+      },
+      "airports": [],
       "advisory": {
         "level": "1",
         "source": "mofa_id",
@@ -488,6 +548,228 @@
       "name": "이스티끌랄 모스크 관리청 공식 웹사이트 — 방문 기사(2026-10-07)",
       "url": "https://www.istiqlal.or.id/artikel/detail/delegasi-filipina-kunjungi-istiqlal-lihat-arsitektur-masjid-hingga-terowongan-silaturahmi",
       "use": "facts"
+    },
+    {
+      "id": "wi_istana_ubud",
+      "name": "Wonderful Indonesia(인도네시아 관광부 공식 관광 포털 indonesia.travel) — Istana Ubud",
+      "url": "https://www.indonesia.travel/gb/en/destination/bali-nusa-tenggara/bali/istana-ubud",
+      "use": "facts"
+    },
+    {
+      "id": "wi_tirta_empul",
+      "name": "Wonderful Indonesia(인도네시아 관광부 공식 관광 포털) — The Holy Springs of Tirta Empul",
+      "url": "https://www.indonesia.travel/gb/en/destination/bali-nusa-tenggara/bali/bali---the-holy-springs-of-tirta-empul",
+      "use": "facts"
+    },
+    {
+      "id": "lovebali_tirtaempul",
+      "name": "Love Bali(발리주 정부 공식 관광 포털) — Tirta Empul",
+      "url": "https://lovebali.baliprov.go.id/destination/detail/109/tirta-empul?id=109",
+      "use": "facts"
+    },
+    {
+      "id": "munas_profil",
+      "name": "Museum Nasional Indonesia 공식 웹사이트 — Profil",
+      "url": "https://www.museumnasional.or.id/tentang-kami/profil/",
+      "use": "facts"
+    },
+    {
+      "id": "munas_layanan",
+      "name": "Museum Nasional Indonesia 공식 웹사이트 — Tiket dan Jam Operasional",
+      "url": "https://www.museumnasional.or.id/layanan-blu/",
+      "use": "facts"
+    },
+    {
+      "id": "munas_kunjungan",
+      "name": "Museum Nasional Indonesia 공식 웹사이트 — Layanan (주소)",
+      "url": "https://www.museumnasional.or.id/informasi-kunjungan-2/",
+      "use": "facts"
+    },
+    {
+      "id": "lovebali_nusadua",
+      "name": "Love Bali(발리주 정부 공식 관광 포털) — Pantai Nusa Dua",
+      "url": "https://lovebali.baliprov.go.id/destination/detail/246/pantai-nusa-dua?id=246",
+      "use": "facts"
+    },
+    {
+      "id": "wi_nusadua",
+      "name": "Wonderful Indonesia(인도네시아 관광부 공식 관광 포털) — Pantai Nusa Dua",
+      "url": "https://www.indonesia.travel/gb/en/destination/bali-nusa-tenggara/bali/pantai-nusa-dua/",
+      "use": "facts"
+    },
+    {
+      "id": "lovebali_ceking",
+      "name": "Love Bali(발리주 정부 공식 관광 포털) — Ceking (Panorama)",
+      "url": "https://lovebali.baliprov.go.id/destination/detail/133/ceking-(panorama)?id=133",
+      "use": "facts"
+    },
+    {
+      "id": "wi_tegallalang",
+      "name": "Wonderful Indonesia(인도네시아 관광부 공식 관광 포털) — Tegallalang Rice Terrace",
+      "url": "https://www.indonesia.travel/gb/en/destination/bali-nusa-tenggara/bali/ubud---tegallalang-rice-terrace-a-charm-of-the-green-in-ubud",
+      "use": "facts"
+    },
+    {
+      "id": "lovebali_gunungbatur",
+      "name": "Love Bali(발리주 정부 공식 관광 포털) — Gunung Batur (Mount Batur)",
+      "url": "https://lovebali.baliprov.go.id/destination/detail/310/gunung-batur-(mount-batur)?id=310",
+      "use": "facts"
+    },
+    {
+      "id": "unesco_geopark_batur",
+      "name": "UNESCO International Geoscience and Geoparks Programme — Batur UNESCO Global Geopark",
+      "url": "https://www.unesco.org/en/iggp/batur-unesco-global-geopark",
+      "use": "heritage_registry",
+      "license": "UNESCO (사실만 사용, 설명문 CC-BY-SA IGO 3.0)",
+      "attribution_required": true
+    },
+    {
+      "id": "magma_tingkat_aktivitas",
+      "name": "MAGMA Indonesia(에너지광물자원부 지질청 PVMBG) — 화산 활동 단계 목록",
+      "url": "https://magma.esdm.go.id/v1/gunung-api/tingkat-aktivitas",
+      "use": "hazard"
+    },
+    {
+      "id": "magma_batur_laporan",
+      "name": "MAGMA Indonesia(PVMBG) — 바투르산 활동 보고(2026-10-08)",
+      "url": "https://magma.esdm.go.id/v1/gunung-api/laporan/327856",
+      "use": "hazard"
+    },
+    {
+      "id": "magma_rinjani_laporan",
+      "name": "MAGMA Indonesia(PVMBG) — 린자니산 활동 보고(2026-10-08)",
+      "url": "https://magma.esdm.go.id/v1/gunung-api/laporan/327838",
+      "use": "hazard"
+    },
+    {
+      "id": "lovebali_kelingking",
+      "name": "Love Bali(발리주 정부 공식 관광 포털) — Pantai Kelingking dan Paluang",
+      "url": "https://lovebali.baliprov.go.id/destination/detail/366/pantai-kelingking-dan-paluang?id=366",
+      "use": "facts"
+    },
+    {
+      "id": "wi_kelingking",
+      "name": "Wonderful Indonesia(인도네시아 관광부 공식 관광 포털) — Kelingking Beach",
+      "url": "https://www.indonesia.travel/us/en/destination/bali-nusa-tenggara/bali/kelingking-beach-a-marvelous-wonder-in-the-southwest-of-nusa-penida",
+      "use": "facts"
+    },
+    {
+      "id": "dispar_klungkung_brokenbeach",
+      "name": "끌룽꿍 군 관광청(Dinas Pariwisata Kabupaten Klungkung) — Broken Beach",
+      "url": "https://dispar.klungkungkab.go.id/broken-beach/",
+      "use": "facts"
+    },
+    {
+      "id": "dispar_klungkung_paket",
+      "name": "끌룽꿍 군 관광청 웹사이트 — Paket Wisata Nusa Penida(기사 전재)",
+      "url": "https://dispar.klungkungkab.go.id/paket-wisata-nusa-penida-keindahan-pantainya-tiada-tandingannya/",
+      "use": "facts"
+    },
+    {
+      "id": "klungkung_nusapenida_sekilas",
+      "name": "끌룽꿍 군청 누사페니다 지구 — Sekilas Tentang Nusa Penida",
+      "url": "https://nusapenida.klungkungkab.go.id/sekilas-tentang-nusa-penida/",
+      "use": "facts"
+    },
+    {
+      "id": "itdc_mandalika",
+      "name": "PT Pengembangan Pariwisata Indonesia(ITDC, 만달리카 관광특별경제구역 운영사) — The Mandalika",
+      "url": "https://itdc.co.id/portofolio/the-mandalika",
+      "use": "facts"
+    },
+    {
+      "id": "itdc_kutabeachpark",
+      "name": "ITDC — Kuta Beach Park",
+      "url": "https://itdc.co.id/portofolio-detail/kuta-beach-park-20200727053651",
+      "use": "facts"
+    },
+    {
+      "id": "itdc_balawista",
+      "name": "ITDC — Balawista",
+      "url": "https://itdc.co.id/portofolio-detail/balawista-20200909041259",
+      "use": "facts"
+    },
+    {
+      "id": "wi_mandalika",
+      "name": "Wonderful Indonesia(인도네시아 관광부 공식 관광 포털) — Mandalika",
+      "url": "https://www.indonesia.travel/us/en/destination/bali-nusa-tenggara/west-nusa-tenggara/lombok---mandalika",
+      "use": "facts"
+    },
+    {
+      "id": "wi_gili",
+      "name": "Wonderful Indonesia(인도네시아 관광부 공식 관광 포털) — Gili Trawangan and The Gilis",
+      "url": "https://www.indonesia.travel/us/en/destination/bali-nusa-tenggara/west-nusa-tenggara/lombok---gili-trawangan-and-the-gilis",
+      "use": "facts"
+    },
+    {
+      "id": "wi_rinjani",
+      "name": "Wonderful Indonesia(인도네시아 관광부 공식 관광 포털) — Mount Rinjani",
+      "url": "https://www.indonesia.travel/sg/en/destination/bali-nusa-tenggara/west-nusa-tenggara/lombok---mount-rinjani",
+      "use": "facts"
+    },
+    {
+      "id": "ksdae_rinjani",
+      "name": "인도네시아 산림부 자연자원·생태계보전총국(KSDAE) — Balai TN Gunung Rinjani(린자니 국립공원 관리청)",
+      "url": "https://ksdae.kehutanan.go.id/balai-ksda-tn/balai-tn-gunung-rinjani/",
+      "use": "facts"
+    },
+    {
+      "id": "tnkomodo_home",
+      "name": "Balai Taman Nasional Komodo(코모도 국립공원 관리청) 공식 웹사이트",
+      "url": "https://tnkomodo.ksdae.kehutanan.go.id/",
+      "use": "facts"
+    },
+    {
+      "id": "tnkomodo_sejarah",
+      "name": "Balai Taman Nasional Komodo 공식 웹사이트 — Sejarah",
+      "url": "https://tnkomodo.ksdae.kehutanan.go.id/sejarah-taman-nasional-komodo/",
+      "use": "facts"
+    },
+    {
+      "id": "tnkomodo_umum",
+      "name": "Balai Taman Nasional Komodo 공식 웹사이트 — Informasi Umum",
+      "url": "https://tnkomodo.ksdae.kehutanan.go.id/informasi-umum/",
+      "use": "facts"
+    },
+    {
+      "id": "tnkomodo_gelar",
+      "name": "Balai Taman Nasional Komodo 공식 웹사이트 — Gelar Internasional",
+      "url": "https://tnkomodo.ksdae.kehutanan.go.id/gelar-internasional/",
+      "use": "facts"
+    },
+    {
+      "id": "tnkomodo_protokol",
+      "name": "Balai Taman Nasional Komodo 공식 웹사이트 — Protokol Kunjungan Wisata Alam",
+      "url": "https://tnkomodo.ksdae.kehutanan.go.id/protokol-tnkomodo/",
+      "use": "facts"
+    },
+    {
+      "id": "unesco_609",
+      "name": "UNESCO World Heritage Centre — Komodo National Park",
+      "url": "https://whc.unesco.org/en/list/609/",
+      "use": "heritage_registry",
+      "license": "UNESCO (사실만 사용, 설명문 CC-BY-SA IGO 3.0)",
+      "attribution_required": true
+    },
+    {
+      "id": "wi_padar",
+      "name": "Wonderful Indonesia(인도네시아 관광부 공식 관광 포털) — Padar Island",
+      "url": "https://www.indonesia.travel/us/en/destination/bali-nusa-tenggara/east-nusa-tenggara/the-wonder-of-padar-island-an-undeniable-travel-wish-list",
+      "use": "facts"
+    },
+    {
+      "id": "wi_pinkbeach",
+      "name": "Wonderful Indonesia(인도네시아 관광부 공식 관광 포털) — Pink Beach of the Komodo Islands",
+      "url": "https://www.indonesia.travel/gb/en/destination/bali-nusa-tenggara/east-nusa-tenggara/labuan-bajo---pink-beach",
+      "use": "facts"
+    },
+    {
+      "id": "osm",
+      "name": "OpenStreetMap 기여자(ODbL) — 일부 관광지 좌표",
+      "url": "https://www.openstreetmap.org/copyright",
+      "use": "coords_osm",
+      "license": "ODbL-1.0",
+      "attribution_required": true
     }
   ],
   "attractions": [
@@ -630,7 +912,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 7,
+        "order": 15,
         "designations": []
       },
       "photo": null,
@@ -745,7 +1027,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 11,
+        "order": 20,
         "designations": []
       },
       "photo": null,
@@ -864,7 +1146,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 19,
+        "order": 32,
         "designations": []
       },
       "photo": null,
@@ -1002,7 +1284,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 9,
+        "order": 17,
         "designations": []
       },
       "photo": null,
@@ -1127,7 +1409,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 10,
+        "order": 19,
         "designations": []
       },
       "photo": null,
@@ -1248,7 +1530,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 18,
+        "order": 30,
         "designations": []
       },
       "photo": null,
@@ -1394,7 +1676,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 8,
+        "order": 16,
         "designations": []
       },
       "photo": null,
@@ -1526,7 +1808,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 12,
+        "order": 21,
         "designations": []
       },
       "photo": null,
@@ -1653,7 +1935,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 17,
+        "order": 27,
         "designations": []
       },
       "photo": null,
@@ -1798,7 +2080,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 6,
+        "order": 14,
         "designations": []
       },
       "photo": null,
@@ -1929,7 +2211,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 13,
+        "order": 22,
         "designations": []
       },
       "photo": null,
@@ -2067,7 +2349,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 16,
+        "order": 25,
         "designations": []
       },
       "photo": null,
@@ -2547,7 +2829,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 3,
+        "order": 5,
         "designations": [
           {
             "kind": "unesco",
@@ -2681,7 +2963,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 15,
+        "order": 24,
         "designations": []
       },
       "photo": null,
@@ -2819,7 +3101,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 4,
+        "order": 9,
         "designations": []
       },
       "photo": null,
@@ -2956,7 +3238,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 5,
+        "order": 11,
         "designations": []
       },
       "photo": null,
@@ -3095,7 +3377,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 14,
+        "order": 23,
         "designations": []
       },
       "photo": null,
@@ -3103,6 +3385,2014 @@
       "source": "wd",
       "last_verified": "2026-10-09",
       "google_place_id": "ChIJfaWSQv8dai4RRQeMZy0D8BI"
+    },
+    {
+      "id": "ubud-palace",
+      "qid": "Q19646466",
+      "names": {
+        "ko": "우붓 왕궁",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Ubud Palace",
+        "local": "Istana Ubud",
+        "local_short": "Puri Saren Agung",
+        "local_lang": "id",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "푸리 사렌 아궁",
+        "우붓 궁전",
+        "뿌리 사렌 아궁"
+      ],
+      "aliases_en": [
+        "Puri Saren Agung",
+        "Ubud Royal Palace"
+      ],
+      "mentions_ko": [],
+      "region": "id_bali_ubud",
+      "area_ko": "우붓 중심",
+      "category": "heritage",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": -8.5068,
+        "lng": 115.2626,
+        "source": "wd",
+        "qid": "Q19646466",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": -8.5068,
+        "lng": 115.2626
+      },
+      "address_local": null,
+      "access": {
+        "modes": [
+          "walk_from_center"
+        ],
+        "nearest_ko": "우붓 시내 한가운데에 있어요. 우붓 중심에서 걸어서 가요",
+        "source": "wi_istana_ubud",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.indonesia.travel/gb/en/destination/bali-nusa-tenggara/bali/istana-ubud",
+      "wiki": {
+        "ko": "우붓 왕궁",
+        "en": "Ubud Palace"
+      },
+      "summary_ko": "우붓 왕가가 지금도 사는 우붓 시내의 왕궁이에요.",
+      "body_ko": [
+        "우붓 왕궁은 우붓 왕가의 공식 거처로, 우붓 시내 한가운데에 있어요.",
+        "전통 발리 건축에 정교한 조각과 정원이 있어요.",
+        "왕가가 아직 사는 곳이라 일부 구역만 일반에 열려 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "우붓 왕가의 공식 거처로, 우붓 시내 한가운데에 있어요.",
+          "source": "wi_istana_ubud",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "전통 발리 건축에 정교한 조각과 정원이 있어요.",
+          "source": "wi_istana_ubud",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "왕가가 아직 사는 곳이라 일부 구역만 일반에 열려 있어요.",
+          "source": "wi_istana_ubud",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "저녁에 안뜰에서 발리 전통 춤 공연이 자주 열려요.",
+          "source": "wi_istana_ubud",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "왕가가 사는 곳이라 들어갈 수 있는 구역은 일부예요.",
+          "source": "wi_istana_ubud",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "저녁에는 안뜰에서 발리 전통 춤 공연이 자주 열려요.",
+          "source": "wi_istana_ubud",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "unknown",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "wi_istana_ubud",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "wi_istana_ubud",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_id",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 8,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJS7J-82o90i0RMj8cKJr2zUs"
+    },
+    {
+      "id": "tirta-empul",
+      "qid": "Q7809287",
+      "names": {
+        "ko": "띠르따 엠풀 사원",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Tirta Empul Temple",
+        "local": "Pura Tirta Empul",
+        "local_short": "Pura Tirta Empul",
+        "local_lang": "id",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "티르타 엠풀",
+        "띠르따 엠풀",
+        "땀빡시링 사원"
+      ],
+      "aliases_en": [
+        "Tirta Empul",
+        "Pura Tirta Empul"
+      ],
+      "mentions_ko": [],
+      "region": "id_bali_ubud",
+      "area_ko": "기안야르 군 땀빡시링 마누까야 마을",
+      "category": "heritage",
+      "tags": [
+        {
+          "id": "dress_code",
+          "source": "wi_tirta_empul",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": -8.41639,
+        "lng": 115.315,
+        "source": "wd",
+        "qid": "Q7809287",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": -8.41639,
+        "lng": 115.315
+      },
+      "address_local": null,
+      "access": {
+        "modes": [
+          "car_only"
+        ],
+        "nearest_ko": "땀빡시링 마누까야 마을, 우붓 북동쪽에 있어요. 차로 가요",
+        "source": "wi_tirta_empul",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://lovebali.baliprov.go.id/destination/detail/109/tirta-empul?id=109",
+      "wiki": {
+        "en": "Tirta Empul"
+      },
+      "summary_ko": "성스러운 샘물에서 정화 의식을 하는 발리 힌두 사원이에요.",
+      "body_ko": [
+        "띠르따 엠풀은 발리 힌두교도가 신성하게 여기는 샘 사원으로, 인도네시아에서 가장 붐비는 물의 사원 가운데 하나예요.",
+        "926년에 세웠고 지금도 쓰고 있어요.",
+        "기안야르 군 땀빡시링 가까운 마누까야 마을, 땀빡시링 대통령 별장 바로 아래에 있어요.",
+        "샘물이 물구멍 30개를 거쳐 정화 못 두 곳으로 흐르고, 여기서 믈루깟이라는 정화 의식을 해요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "발리 힌두교도가 신성하게 여기는 샘 사원으로, 인도네시아에서 가장 붐비는 물의 사원 가운데 하나예요.",
+          "source": "wi_tirta_empul",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "926년에 세웠고 지금도 쓰고 있어요.",
+          "source": "wi_tirta_empul",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "기안야르 군 땀빡시링 가까운 마누까야 마을, 땀빡시링 대통령 별장 바로 아래에 있어요.",
+          "source": "wi_tirta_empul",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "샘물이 물구멍 30개를 거쳐 정화 못 두 곳으로 흐르고, 믈루깟이라는 정화 의식을 해요.",
+          "source": "wi_tirta_empul",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "현지 사람들은 이 샘물이 몸과 마음을 씻어 준다고 믿어요.",
+          "source": "lovebali_tirtaempul",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "들어가기 전에 사롱을 둘러야 해요. 입구에서 빌릴 수 있어요.",
+          "source": "wi_tirta_empul",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "물구멍 두 개는 죽은 이를 위한 것이라 산 사람은 쓸 수 없어요.",
+          "source": "wi_tirta_empul",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "외국인 방문객도 정화 의식에 참여할 수 있어요.",
+          "source": "wi_tirta_empul",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "unknown",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "wi_tirta_empul",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "wi_tirta_empul",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_id",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 18,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJtTFh4PQY0i0RwewUdwFaolM"
+    },
+    {
+      "id": "museum-nasional",
+      "qid": "Q1467125",
+      "names": {
+        "ko": "인도네시아 국립박물관",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "National Museum of Indonesia",
+        "local": "Museum Nasional Indonesia",
+        "local_short": "Museum Nasional",
+        "local_lang": "id",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "국립박물관",
+        "코끼리 박물관",
+        "무세움 나시오날"
+      ],
+      "aliases_en": [
+        "Museum Nasional",
+        "Museum Gajah",
+        "Elephant Museum"
+      ],
+      "mentions_ko": [],
+      "region": "id_jakarta",
+      "area_ko": "자카르타 중앙 메르데카 광장 서쪽",
+      "category": "museum",
+      "tags": [
+        {
+          "id": "foreigner_price",
+          "source": "munas_layanan",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": -6.176111,
+        "lng": 106.821667,
+        "source": "wd",
+        "qid": "Q1467125",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": -6.176111,
+        "lng": 106.821667
+      },
+      "address_local": {
+        "text": "Jl. Medan Merdeka Barat No.12, Kota Jakarta Pusat, Daerah Khusus Jakarta, Indonesia",
+        "source": "munas_kunjungan",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "bus"
+        ],
+        "nearest_ko": "트랜스자카르타 모누멘 나시오날(모나스) 정류장. 메르데카 광장 서쪽 길에 있어요",
+        "source": "transjakarta_rute",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.museumnasional.or.id/",
+      "wiki": {
+        "ko": "인도네시아 국립박물관",
+        "en": "National Museum of Indonesia"
+      },
+      "summary_ko": "1778년 협회에서 비롯한 인도네시아의 국립박물관이에요.",
+      "body_ko": [
+        "인도네시아 국립박물관은 1778년에 세운 바타비아 예술과학협회에서 시작했어요.",
+        "지금 자리의 건물은 1862년에 짓기로 해 1868년에 일반에 열었어요.",
+        "앞마당에 1871년 태국 왕 쭐랄롱꼰이 선물한 청동 코끼리상이 있어 '코끼리 건물'이라고도 불러요.",
+        "1979년에 국립박물관이 됐고, 7개 분야 약 190,000점을 소장해요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "1778년에 세운 바타비아 예술과학협회에서 시작했어요.",
+          "source": "munas_profil",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "지금 자리의 건물은 1862년에 짓기로 해 1868년에 일반에 열었어요.",
+          "source": "munas_profil",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "앞마당의 청동 코끼리상 때문에 '코끼리 건물'이라고도 불러요. 1871년에 태국 왕 쭐랄롱꼰이 준 선물이에요.",
+          "source": "munas_profil",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "1979년에 국립박물관이 됐어요.",
+          "source": "munas_profil",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "7개 분야 약 190,000점을 소장해요.",
+          "source": "munas_profil",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "월요일과 국경일에는 쉬어요.",
+          "source": "munas_layanan",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "외국인 요금이 따로 있어요.",
+          "source": "munas_layanan",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "몰입형 전시 '이머시파'는 박물관 입장권이 있어야 볼 수 있어요.",
+          "source": "munas_layanan",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "mon"
+        ],
+        "closed_note_ko": "국경일에도 쉬어요",
+        "visit_note_ko": null,
+        "source": "munas_layanan",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "munas_layanan",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_id",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 13,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJi_JxtdT1aS4R7Vhgb1ZBFaQ"
+    },
+    {
+      "id": "nusa-dua-beach",
+      "qid": "Q277598",
+      "names": {
+        "ko": "누사두아 해변",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Nusa Dua Beach",
+        "local": "Pantai Nusa Dua",
+        "local_short": "Pantai Nusa Dua",
+        "local_lang": "id",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "누사 두아 비치",
+        "누사두아"
+      ],
+      "aliases_en": [
+        "Pantai Nusa Dua",
+        "Nusa Dua"
+      ],
+      "mentions_ko": [],
+      "region": "id_bali_bukit",
+      "area_ko": "바둥 군 꾸따 슬라딴 지구 딴중 브노아",
+      "category": "sea_island",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": -8.7884638,
+        "lng": 115.2302166,
+        "source": "osm",
+        "qid": "Q277598",
+        "osm": "relation/3498598",
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": -8.8025,
+        "lng": 115.2275
+      },
+      "address_local": null,
+      "access": {
+        "modes": [
+          "car_only"
+        ],
+        "nearest_ko": "바둥 군 꾸따 슬라딴 지구 딴중 브노아 마을에 있어요. 차로 가요",
+        "source": "lovebali_nusadua",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://lovebali.baliprov.go.id/destination/detail/246/pantai-nusa-dua?id=246",
+      "wiki": {
+        "ko": "누사두아",
+        "en": "Nusa Dua"
+      },
+      "summary_ko": "리조트 단지 앞에 있는 발리 남동쪽 끝의 흰 모래 해변이에요.",
+      "body_ko": [
+        "누사두아 해변은 발리섬 남동쪽 끝에 있고, 덴파사르에서 약 40km 떨어져 있어요.",
+        "BTDC가 개발한 350헥타르 단지에 5성급 호텔과 컨벤션 시설이 많아요.",
+        "원래 누사두아는 흰 모래로 이어진 작은 섬 두 개의 이름이었어요.",
+        "고운 흰 모래와 맑은 바다, 잔잔한 파도가 특징이에요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "발리섬 남동쪽 끝에 있고, 덴파사르에서 약 40km 떨어져 있어요.",
+          "source": "lovebali_nusadua",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "BTDC가 개발한 350헥타르 단지에 5성급 호텔과 컨벤션 시설이 많아요.",
+          "source": "lovebali_nusadua",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "원래 누사두아는 흰 모래로 이어진 작은 섬 두 개의 이름이었어요.",
+          "source": "lovebali_nusadua",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "고운 흰 모래와 맑은 바다, 잔잔한 파도가 특징이에요.",
+          "source": "wi_nusadua",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "국제 행사가 자주 열리는 지역이에요.",
+          "source": "lovebali_nusadua",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "해변을 따라 산책로가 정비돼 있어요.",
+          "source": "wi_nusadua",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "public_space"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "lovebali_nusadua",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_id",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 12,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJ36guPCFD0i0Rjy6h57qPm_4"
+    },
+    {
+      "id": "ceking-rice-terrace",
+      "qid": "Q134730557",
+      "names": {
+        "ko": "뜨갈랄랑 계단식 논(쩨낑)",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Tegallalang Rice Terrace (Ceking)",
+        "local": "Ceking Terrace",
+        "local_short": "Ceking Tegallalang",
+        "local_lang": "id",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "테갈랄랑 라이스 테라스",
+        "뜨갈랄랑 라이스 테라스",
+        "쩨낑 라이스 테라스",
+        "테갈랄랑 계단식 논"
+      ],
+      "aliases_en": [
+        "Ceking Rice Terrace",
+        "Tegalalang Rice Terrace"
+      ],
+      "mentions_ko": [],
+      "region": "id_bali_ubud",
+      "area_ko": "기안야르 군 뜨갈랄랑",
+      "category": "nature",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": -8.4352254,
+        "lng": 115.2805822,
+        "source": "osm",
+        "qid": null,
+        "osm": "node/13313259901",
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": null,
+      "address_local": null,
+      "access": {
+        "modes": [
+          "car_only"
+        ],
+        "nearest_ko": "우붓 북쪽 뜨갈랄랑 큰길가에 있어요. 차로 가요",
+        "source": "wi_tegallalang",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://lovebali.baliprov.go.id/destination/detail/133/ceking-(panorama)?id=133",
+      "summary_ko": "우붓 북쪽 뜨갈랄랑의 계단식 논 전망 지점이에요.",
+      "body_ko": [
+        "쩨낑 계단식 논은 기안야르 군 뜨갈랄랑에 있는 계단식 논이에요.",
+        "논이 계단처럼 층층이 이어지고 둘레에 야자나무가 늘어서 있어요.",
+        "발리 전통 관개 방식인 수박을 따라 물을 대요.",
+        "골짜기에 있어 논과 주변 풍경을 내려다볼 수 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "기안야르 군 뜨갈랄랑에 있는 계단식 논이에요.",
+          "source": "lovebali_ceking",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "논이 계단처럼 층층이 이어지고 둘레에 야자나무가 늘어서 있어요.",
+          "source": "lovebali_ceking",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "발리 전통 관개 방식인 수박을 따라 물을 대요.",
+          "source": "wi_tegallalang",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "골짜기에 있어 논과 주변 풍경을 내려다볼 수 있어요.",
+          "source": "wi_tegallalang",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "작은 개울을 건너 건너편 논까지 내려가 볼 수 있어요.",
+          "source": "wi_tegallalang",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "물과 자외선 차단제를 챙기세요.",
+          "source": "wi_tegallalang",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "입구의 그네와 간판 자리는 마을 아이들이 지키고 있어 현금을 준비하라고 안내해요.",
+          "source": "wi_tegallalang",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "public_space"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "lovebali_ceking",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_id",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 29,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJ4wD5Iwsi0i0R7QRsOGmJGo0"
+    },
+    {
+      "id": "kintamani-batur",
+      "qid": "Q43876",
+      "names": {
+        "ko": "바투르산(킨타마니 전망)",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Mount Batur (Kintamani viewpoint)",
+        "local": "Gunung Batur",
+        "local_short": "Gunung Batur",
+        "local_lang": "id",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "킨타마니",
+        "바뚜르산",
+        "바투르 화산",
+        "페넬로칸 전망대",
+        "바투르 호수"
+      ],
+      "aliases_en": [
+        "Kintamani",
+        "Batur volcano",
+        "Penelokan"
+      ],
+      "mentions_ko": [],
+      "region": "id_bali_ubud",
+      "area_ko": "방리 군 킨타마니 지구",
+      "category": "nature",
+      "tags": [
+        {
+          "id": "mountain_view",
+          "source": "lovebali_gunungbatur",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": -8.2840875,
+        "lng": 115.3649658,
+        "source": "osm",
+        "qid": null,
+        "osm": "node/13258153820",
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": -8.241944,
+        "lng": 115.375
+      },
+      "address_local": null,
+      "access": {
+        "modes": [
+          "car_only"
+        ],
+        "nearest_ko": "방리 군 킨타마니 지구 바뚜르 마을, 페넬로칸 전망 길가예요. 차로 가요",
+        "source": "lovebali_gunungbatur",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://lovebali.baliprov.go.id/destination/detail/310/gunung-batur-(mount-batur)?id=310",
+      "wiki": {
+        "ko": "바투르산",
+        "en": "Mount Batur"
+      },
+      "summary_ko": "칼데라 호수를 내려다보는 발리 북동부의 활화산이에요.",
+      "body_ko": [
+        "바투르산은 방리 군 킨타마니 지구에 있는 높이 1,717m의 화산으로, 이중 칼데라와 초승달 모양 호수로 알려졌어요.",
+        "호수는 길이 7km, 너비 1.5km예요.",
+        "1804년부터 2000년 사이에 22번 넘게 분화했어요.",
+        "2015년에 유네스코 세계지질공원으로 지정됐고, 지질공원은 킨타마니 지구 15개 마을에 걸쳐 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "두 시간쯤 오르면 아방산과 바투르 호수를 배경으로 해돋이를 볼 수 있어요.",
+          "source": "lovebali_gunungbatur",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "높이 1,717m의 화산으로, 이중 칼데라와 초승달 모양 호수로 알려졌어요.",
+          "source": "unesco_geopark_batur",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "1804년부터 2000년 사이에 22번 넘게 분화했어요.",
+          "source": "unesco_geopark_batur",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "호수는 길이 7km, 너비 1.5km예요.",
+          "source": "unesco_geopark_batur",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "2015년에 유네스코 세계지질공원으로 지정됐고, 지질공원은 킨타마니 지구 15개 마을에 걸쳐 있어요.",
+          "source": "unesco_geopark_batur",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c6",
+          "text_ko": "MAGMA Indonesia 기준 활동 단계는 1단계(정상)예요(2026년 10월 8일 보고).",
+          "source": "magma_batur_laporan",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "화산 당국(PVMBG)은 활동 분화구 구역에 오래 머물거나 밤을 보내지 말고, 분화구 둘레의 가스 분출구에 가까이 가지 말라고 권고해요.",
+          "source": "magma_batur_laporan",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "바투르산의 현재 활동 단계는 MAGMA Indonesia 웹사이트에서 확인할 수 있어요.",
+          "source": "magma_tingkat_aktivitas",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "지질공원 안에는 수박 관개 논과 바투르 호숫가 온천이 있어요.",
+          "source": "unesco_geopark_batur",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "public_space"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [
+        "volcano"
+      ],
+      "status": {
+        "value": "open",
+        "note_ko": "MAGMA Indonesia 활동 단계 1단계(정상), 2026-10-08 보고 기준",
+        "source": "magma_batur_laporan",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_id",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 3,
+        "designations": [
+          {
+            "kind": "unesco_geopark",
+            "name_ko": "유네스코 세계지질공원 바투르(2015)",
+            "source": "unesco_geopark_batur"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJydt5fwD00S0RZ4eQj2A23GM"
+    },
+    {
+      "id": "kelingking-beach",
+      "qid": "Q116688420",
+      "names": {
+        "ko": "켈링킹 해변",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Kelingking Beach",
+        "local": "Pantai Kelingking",
+        "local_short": "Pantai Kelingking",
+        "local_lang": "id",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "끌링낑 해변",
+        "켈링킹 비치",
+        "티렉스 해변"
+      ],
+      "aliases_en": [
+        "Pantai Kelingking",
+        "T-Rex Bay"
+      ],
+      "mentions_ko": [],
+      "region": "id_nusa_penida",
+      "area_ko": "누사페니다 붕아 므까르 마을",
+      "category": "sea_island",
+      "tags": [
+        {
+          "id": "stairs",
+          "source": "lovebali_kelingking",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": -8.750370775,
+        "lng": 115.472615053,
+        "source": "wd",
+        "qid": "Q116688420",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": -8.750370775,
+        "lng": 115.472615053
+      },
+      "address_local": null,
+      "access": {
+        "modes": [
+          "car_only"
+        ],
+        "nearest_ko": "누사페니다 서남쪽 붕아 므까르 마을에 있어요. 섬 항구에서 차로 가요",
+        "source": "lovebali_kelingking",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://lovebali.baliprov.go.id/destination/detail/366/pantai-kelingking-dan-paluang?id=366",
+      "summary_ko": "새끼손가락 모양 곶 아래에 숨은 누사페니다의 흰 모래 해변이에요.",
+      "body_ko": [
+        "켈링킹 해변은 누사페니다섬 서남쪽 붕아 므까르 마을에 있어요.",
+        "곶이 새끼손가락처럼 바다로 뻗어 있어 이 이름이 붙었고, 절벽이 입을 벌린 티라노사우루스처럼 보이기도 해요.",
+        "해변까지는 70~80도쯤 되는 가파른 절벽 길을 나무 난간을 잡고 내려가요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "누사페니다섬 서남쪽 붕아 므까르 마을에 있어요.",
+          "source": "lovebali_kelingking",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "곶이 새끼손가락처럼 바다로 뻗어 있어 이 이름이 붙었어요.",
+          "source": "lovebali_kelingking",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "해변까지는 70~80도쯤 되는 가파른 절벽 길을 나무 난간을 잡고 내려가요.",
+          "source": "lovebali_kelingking",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "절벽이 입을 벌린 티라노사우루스처럼 보여요.",
+          "source": "wi_kelingking",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "전망 지점에서 사진을 찍으려고 한 시간까지 줄 서기도 해요.",
+          "source": "lovebali_kelingking",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "해변으로 내려가는 계단이 가파르고 힘들어요.",
+          "source": "lovebali_kelingking",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "public_space"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "lovebali_kelingking",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_id",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 31,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJFVVgYipx0i0ROeYvDM8jn7A"
+    },
+    {
+      "id": "broken-beach",
+      "qid": "Q123511515",
+      "names": {
+        "ko": "브로큰 비치",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Broken Beach",
+        "local": "Pasih Uug",
+        "local_short": "Pasih Uug",
+        "local_lang": "id",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "브로큰 해변",
+        "빠시 우욱",
+        "파시 우욱"
+      ],
+      "aliases_en": [
+        "Pasih Uug",
+        "Pantai Pasih Uug"
+      ],
+      "mentions_ko": [],
+      "region": "id_nusa_penida",
+      "area_ko": "누사페니다 붕아 므까르 마을",
+      "category": "sea_island",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": -8.7329,
+        "lng": 115.45088,
+        "source": "wd",
+        "qid": "Q123511515",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": -8.7329,
+        "lng": 115.45088
+      },
+      "address_local": null,
+      "access": {
+        "modes": [
+          "car_only"
+        ],
+        "nearest_ko": "누사페니다 붕아 므까르 마을에 있어요. 섬 항구에서 차로 가요",
+        "source": "klungkung_nusapenida_sekilas",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://dispar.klungkungkab.go.id/broken-beach/",
+      "summary_ko": "절벽 가운데 둥근 구멍으로 바닷물이 드나드는 누사페니다의 해안이에요.",
+      "body_ko": [
+        "브로큰 비치는 누사페니다 붕아 므까르 마을에 있고, 현지에서는 '빠시 우욱'이라고 불러요.",
+        "바다 침식과 석회암 언덕 붕괴로 생긴 지름 약 100m의 자연 못이 있어요.",
+        "절벽 가운데 둥근 구멍과 바다로 통하는 터널이 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "현지에서는 '빠시 우욱'이라고 불러요.",
+          "source": "dispar_klungkung_brokenbeach",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "바다 침식과 석회암 언덕 붕괴로 생긴 지름 약 100m의 자연 못이 있어요.",
+          "source": "dispar_klungkung_brokenbeach",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "절벽 가운데 둥근 구멍과 바다로 통하는 터널이 있어요.",
+          "source": "dispar_klungkung_brokenbeach",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "누사페니다 붕아 므까르 마을에 있어요.",
+          "source": "klungkung_nusapenida_sekilas",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "주로 경치를 보고 사진을 찍는 곳이에요.",
+          "source": "dispar_klungkung_brokenbeach",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "앙겔스 빌라봉과 가까이 붙어 있어요.",
+          "source": "dispar_klungkung_paket",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "public_space"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "dispar_klungkung_brokenbeach",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_id",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 28,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJBQzBlhRu0i0RsbwncJ1LyB4"
+    },
+    {
+      "id": "kuta-mandalika",
+      "qid": "Q19738725",
+      "names": {
+        "ko": "꾸따 해변(만달리카)",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Kuta Beach, Lombok (Mandalika)",
+        "local": "Pantai Kuta, Lombok",
+        "local_short": "Pantai Kuta Mandalika",
+        "local_lang": "id",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "만달리카",
+        "꾸따 롬복",
+        "쿠타 롬복",
+        "꾸따 비치 파크"
+      ],
+      "aliases_en": [
+        "Kuta Mandalika",
+        "Kuta Beach Park",
+        "Mandalika"
+      ],
+      "mentions_ko": [],
+      "region": "id_lombok",
+      "area_ko": "중부 롬복 뿌줏 지구 꾸따 마을",
+      "category": "sea_island",
+      "tags": [
+        {
+          "id": "seafront",
+          "source": "itdc_mandalika",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": -8.8957749,
+        "lng": 116.2891527,
+        "source": "osm",
+        "qid": "Q19738725",
+        "osm": "relation/3899716",
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": -8.916667,
+        "lng": 116.283333
+      },
+      "address_local": null,
+      "access": {
+        "modes": [
+          "car_only"
+        ],
+        "nearest_ko": "롬복 남부 만달리카 지구, 롬복 국제공항에서 멀지 않아요. 차로 가요",
+        "source": "itdc_mandalika",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://itdc.co.id/portofolio/the-mandalika",
+      "summary_ko": "만달리카 관광지구에 있는 롬복 남부의 흰 모래 해변이에요.",
+      "body_ko": [
+        "꾸따 해변은 롬복섬 남부 만달리카 관광지구에 있고, 만달리카의 해안선은 16km예요.",
+        "만달리카는 2014년 정부 규정으로 관광 특별경제구역이 됐어요.",
+        "해변의 꾸따 비치 파크에는 1.4km 산책로와 구조·안전 사무소, 900대 넘게 세울 수 있는 주차장이 있어요.",
+        "여러 수상 스포츠를 할 수 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "만달리카는 롬복섬 남부에 있는 관광지구로 해안선이 16km예요.",
+          "source": "itdc_mandalika",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "만달리카는 2014년 정부 규정으로 관광 특별경제구역이 됐어요.",
+          "source": "itdc_mandalika",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "꾸따 비치 파크에는 1.4km 산책로와 구조·안전 사무소, 900대 넘게 세울 수 있는 주차장이 있어요.",
+          "source": "itdc_kutabeachpark",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "여러 수상 스포츠를 할 수 있어요.",
+          "source": "wi_mandalika",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "해변의 발라위스타 건물에 구조대·의료 초소·관광 안내소가 함께 있어요.",
+          "source": "itdc_balawista",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "어린이 놀이터를 무료로 쓸 수 있어요.",
+          "source": "itdc_balawista",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "주차장 옆에 바자르 만달리카 상가가 있어요.",
+          "source": "itdc_kutabeachpark",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "public_space"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "itdc_mandalika",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_id",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 33,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJ5XRxwtWpzS0RW6_Ibd2bGAc"
+    },
+    {
+      "id": "gili-trawangan",
+      "qid": "Q1524363",
+      "names": {
+        "ko": "길리 트라왕안",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Gili Trawangan",
+        "local": "Gili Trawangan",
+        "local_short": "Gili Trawangan",
+        "local_lang": "id",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "길리 뜨라왕안",
+        "길리 T",
+        "길리 섬"
+      ],
+      "aliases_en": [
+        "Gili T",
+        "Gili Islands"
+      ],
+      "mentions_ko": [],
+      "region": "id_lombok",
+      "area_ko": "북롬복 군 쁘므낭 지구 길리 인다 마을",
+      "category": "sea_island",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": -8.350886,
+        "lng": 116.036389,
+        "source": "wd",
+        "qid": "Q1524363",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": -8.350886,
+        "lng": 116.036389
+      },
+      "address_local": null,
+      "access": {
+        "modes": [
+          "boat"
+        ],
+        "nearest_ko": "승기기 항구에서 배를 타요",
+        "nearest_local": {
+          "text": "Senggigi",
+          "qid": "Q12513615",
+          "source": "wd"
+        },
+        "source": "wi_gili",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.indonesia.travel/us/en/destination/bali-nusa-tenggara/west-nusa-tenggara/lombok---gili-trawangan-and-the-gilis",
+      "wiki": {
+        "ko": "길리 트라왕안",
+        "en": "Gili Trawangan"
+      },
+      "summary_ko": "자동차가 없는 롬복 북서쪽 바다의 작은 섬이에요.",
+      "body_ko": [
+        "길리 트라왕안은 롬복 북서쪽 바다에 있는 길리 세 섬 가운데 가장 크고 사람이 많이 찾는 섬이에요.",
+        "섬에서는 자동차와 오토바이가 금지돼 자전거나 찌도모라는 마차로 다녀요.",
+        "사삭어로 '길리'는 섬이라는 뜻이에요.",
+        "바다거북을 볼 수 있는 산호초가 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "롬복 북서쪽 바다에 있는 길리 세 섬 가운데 가장 크고 사람이 많이 찾는 섬이에요.",
+          "source": "wi_gili",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "섬에서는 자동차와 오토바이가 금지돼 자전거나 찌도모라는 마차로 다녀요.",
+          "source": "wi_gili",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "사삭어로 '길리'는 섬이라는 뜻이에요.",
+          "source": "wi_gili",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "바다거북을 볼 수 있는 산호초가 있어요.",
+          "source": "wi_gili",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "섬 안에서는 자전거나 찌도모 마차로 다녀요.",
+          "source": "wi_gili",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "식당과 술집이 많아 밤에도 북적여요.",
+          "source": "wi_gili",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "섬끼리는 모터보트를 빌려 오갈 수 있어요.",
+          "source": "wi_gili",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "public_space"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "wi_gili",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_id",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 10,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJn1fxT6vgzS0RstQyRxd86vw"
+    },
+    {
+      "id": "rinjani",
+      "qid": "Q1381840",
+      "names": {
+        "ko": "린자니 국립공원",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Mount Rinjani National Park",
+        "local": "Taman Nasional Gunung Rinjani",
+        "local_short": "Gunung Rinjani",
+        "local_lang": "id",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "린자니산",
+        "린자니 화산",
+        "슴발룬"
+      ],
+      "aliases_en": [
+        "Gunung Rinjani",
+        "Mount Rinjani",
+        "Rinjani"
+      ],
+      "mentions_ko": [],
+      "region": "id_lombok",
+      "area_ko": "동롬복 군 슴발룬 지구(슴발룬 라왕 등산 기점)",
+      "category": "nature",
+      "tags": [
+        {
+          "id": "mountain_view",
+          "source": "wi_rinjani",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "entrance",
+        "lat": -8.391944,
+        "lng": 116.479167,
+        "source": "wd",
+        "qid": "Q12513392",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": -8.408056,
+        "lng": 116.416111
+      },
+      "address_local": null,
+      "access": {
+        "modes": [
+          "car_only"
+        ],
+        "nearest_ko": "동롬복 슴발룬 지구 슴발룬 라왕 마을(등산 기점)이에요. 마타람에서 동쪽으로 차로 가요",
+        "source": "wi_rinjani",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://ksdae.kehutanan.go.id/balai-ksda-tn/balai-tn-gunung-rinjani/",
+      "wiki": {
+        "en": "Mount Rinjani National Park"
+      },
+      "summary_ko": "인도네시아에서 두 번째로 높은 화산을 품은 롬복의 국립공원이에요.",
+      "body_ko": [
+        "린자니 국립공원은 서누사틍가라주에 있는 넓이 41,330헥타르의 국립공원으로, 1997년에 지정됐어요.",
+        "린자니산은 높이 3,726m로 인도네시아에서 두 번째로 높은 산이에요.",
+        "분화구 안에 초승달 모양 호수 스가라 아낙이 있고, 호수에서 새 화산 바루(바루자리)가 솟았어요.",
+        "등산은 보통 스나루나 슴발룬 라왕 마을에서 시작해요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "서누사틍가라주에 있는 넓이 41,330헥타르의 국립공원이에요.",
+          "source": "ksdae_rinjani",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "린자니산은 높이 3,726m로 인도네시아에서 두 번째로 높은 산이에요.",
+          "source": "wi_rinjani",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "분화구 안에 초승달 모양 호수 스가라 아낙이 있고, 호수에서 새 화산 바루(바루자리)가 솟았어요.",
+          "source": "wi_rinjani",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "국립공원은 1997년에 지정됐어요.",
+          "source": "wi_rinjani",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "등산은 보통 스나루나 슴발룬 라왕 마을에서 시작해요.",
+          "source": "wi_rinjani",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c6",
+          "text_ko": "MAGMA Indonesia 기준 활동 단계는 2단계(주의)이고, 바루자리 분화구 반경 1.5km 안에서는 활동·야영을 하지 말라고 권고해요(2026년 10월 8일 보고).",
+          "source": "magma_rinjani_laporan",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "화산 당국(PVMBG)은 바루자리 분화구 반경 1.5km 안에서 활동하거나 야영하지 말라고 권고해요.",
+          "source": "magma_rinjani_laporan",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "바루자리 구역을 뺀 등산은 허용되지만, 화산재 분출에 대비해 마스크와 눈 보호구를 챙기라고 해요.",
+          "source": "magma_rinjani_laporan",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "린자니산의 현재 활동 단계는 MAGMA Indonesia 웹사이트에서 확인할 수 있어요.",
+          "source": "magma_tingkat_aktivitas",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "보통 스나루에서 출발해 슴발룬 라왕으로 내려오는 여러 날 트레킹으로 올라요.",
+          "source": "wi_rinjani",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "unknown",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "ksdae_rinjani",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [
+        "volcano"
+      ],
+      "status": {
+        "value": "open",
+        "note_ko": "MAGMA Indonesia 활동 단계 2단계(주의), 2026-10-08 보고 기준. 바루자리 분화구 반경 1.5km 안 활동·야영 금지 권고",
+        "source": "magma_rinjani_laporan",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_id",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 26,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJuRoAAJAtzC0RAo3F83yYs9k"
+    },
+    {
+      "id": "komodo-national-park",
+      "qid": "Q4520",
+      "names": {
+        "ko": "코모도 국립공원",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Komodo National Park",
+        "local": "Taman Nasional Komodo",
+        "local_short": "Taman Nasional Komodo",
+        "local_lang": "id",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "코모도섬",
+        "로 리앙",
+        "린짜섬"
+      ],
+      "aliases_en": [
+        "Komodo Island",
+        "Loh Liang",
+        "Rinca"
+      ],
+      "mentions_ko": [],
+      "region": "id_labuanbajo",
+      "area_ko": "서망가라이 군 라부안바조 앞바다(로 리앙 관리소)",
+      "category": "nature",
+      "tags": [
+        {
+          "id": "unesco",
+          "source": "unesco_609",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "entrance",
+        "lat": -8.5683133,
+        "lng": 119.5069011,
+        "source": "osm",
+        "qid": null,
+        "osm": "node/6865781785",
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": -8.651625,
+        "lng": 119.576569
+      },
+      "address_local": null,
+      "access": {
+        "modes": [
+          "boat"
+        ],
+        "nearest_ko": "라부안바조 항구에서 배를 타요. 코모도섬 로 리앙 관리소로 들어가요",
+        "source": "wi_pinkbeach",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://tnkomodo.ksdae.kehutanan.go.id/",
+      "wiki": {
+        "ko": "코모도 국립공원",
+        "en": "Komodo National Park"
+      },
+      "summary_ko": "코모도왕도마뱀이 사는 섬들로 이뤄진 세계유산 국립공원이에요.",
+      "body_ko": [
+        "코모도 국립공원은 숨바와섬과 플로레스섬 사이에 있고, 린짜·코모도·파다르 세 큰 섬과 작은 섬들로 이뤄져요.",
+        "1991년에 유네스코 세계유산으로 등재됐고, 면적은 219,322헥타르예요.",
+        "코모도왕도마뱀은 살아 있는 도마뱀 가운데 가장 크고 평균 2~3m까지 자라며, 개체 수는 약 5,700마리로 추정돼요.",
+        "왕도마뱀은 로 부아야(린짜섬)·로 리앙(코모도섬)·파다르 남부 등 정해진 관리소에서만 볼 수 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "숨바와섬과 플로레스섬 사이에 있고, 린짜·코모도·파다르 세 큰 섬과 작은 섬들로 이뤄져요.",
+          "source": "unesco_609",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "1991년에 유네스코 세계유산으로 등재됐고, 면적은 219,322헥타르예요.",
+          "source": "unesco_609",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "코모도왕도마뱀은 살아 있는 도마뱀 가운데 가장 크고 평균 2~3m까지 자라요.",
+          "source": "unesco_609",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "개체 수는 약 5,700마리로 추정돼요.",
+          "source": "unesco_609",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "1980년 3월 6일에 국립공원으로 지정됐어요.",
+          "source": "tnkomodo_home",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c6",
+          "text_ko": "왕도마뱀은 로 부아야(린짜섬)·로 리앙(코모도섬)·파다르 남부 등 정해진 관리소에서만 볼 수 있어요.",
+          "source": "tnkomodo_home",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "공원 안에서는 혼자 다닐 수 없어요. 왕도마뱀이 주요 섬 거의 전체에 살기 때문이에요.",
+          "source": "tnkomodo_home",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "야생동물을 만지거나 너무 가까이 가면 안 되고, 먹이를 주면 안 돼요.",
+          "source": "tnkomodo_protokol",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "정해진 방문 시간대(timed entry) 밖이나 정해진 길 밖에서는 트레킹할 수 없어요.",
+          "source": "tnkomodo_protokol",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "입장권은 라부안바조의 코모도 방문객 센터에서 살 수 있어요.",
+          "source": "tnkomodo_home",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "tnkomodo_protokol",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "tnkomodo_home",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_id",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 4,
+        "designations": [
+          {
+            "kind": "unesco",
+            "name_ko": "세계유산 코모도 국립공원(1991)",
+            "source": "unesco_609"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJ54DDsD9UtC0RgC8GULPmprY"
+    },
+    {
+      "id": "padar-island",
+      "qid": "Q1134717",
+      "names": {
+        "ko": "파다르섬",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Padar Island",
+        "local": "Pulau Padar Besar",
+        "local_short": "Pulau Padar",
+        "local_lang": "id",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "빠다르섬",
+        "파다르 아일랜드"
+      ],
+      "aliases_en": [
+        "Pulau Padar",
+        "Padar"
+      ],
+      "mentions_ko": [],
+      "region": "id_labuanbajo",
+      "area_ko": "코모도 국립공원 파다르섬 남부",
+      "category": "nature",
+      "tags": [
+        {
+          "id": "stairs",
+          "source": "wi_padar",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "unesco",
+          "source": "unesco_609",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": -8.656389,
+        "lng": 119.571942,
+        "source": "wd",
+        "qid": "Q1134717",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": -8.656389,
+        "lng": 119.571942
+      },
+      "address_local": null,
+      "access": {
+        "modes": [
+          "boat"
+        ],
+        "nearest_ko": "라부안바조에서 배를 타요",
+        "source": "wi_padar",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://tnkomodo.ksdae.kehutanan.go.id/",
+      "wiki": {
+        "en": "Padar, Indonesia"
+      },
+      "summary_ko": "언덕 위에서 세 개의 만을 내려다보는 코모도 국립공원의 섬이에요.",
+      "body_ko": [
+        "파다르섬은 코모도 국립공원에 속한 세 큰 섬 가운데 하나예요.",
+        "배에서 내려 30분쯤 경사 45도 언덕을 올라가면 전망이 트여요.",
+        "섬에는 흰색·분홍색·검은색 모래 해변이 함께 있어요.",
+        "1938년에 야생동물 보호구역으로 지정됐고, 공원의 파다르 남부 관리소에서 트레킹을 해요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "코모도 국립공원에 속한 세 큰 섬 가운데 하나예요.",
+          "source": "wi_padar",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "배에서 내려 30분쯤 경사 45도 언덕을 올라가면 전망이 트여요.",
+          "source": "wi_padar",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "섬에는 흰색·분홍색·검은색 모래 해변이 함께 있어요.",
+          "source": "wi_padar",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "1938년에 야생동물 보호구역으로 지정됐어요.",
+          "source": "tnkomodo_sejarah",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "공원의 파다르 남부 관리소에서 트레킹을 해요.",
+          "source": "tnkomodo_home",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "오르는 길에 난간이 없어요. 미끄럽지 않은 신발을 신으세요.",
+          "source": "wi_padar",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "한낮에는 햇볕을 피할 곳이 없어요.",
+          "source": "wi_padar",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "공원 안에서는 혼자 다닐 수 없어요. 왕도마뱀이 주요 섬 거의 전체에 살기 때문이에요.",
+          "source": "tnkomodo_home",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "tnkomodo_protokol",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "tnkomodo_home",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_id",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 6,
+        "designations": [
+          {
+            "kind": "unesco",
+            "name_ko": "세계유산 코모도 국립공원(1991)의 일부",
+            "source": "unesco_609"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-10"
+    },
+    {
+      "id": "pink-beach-komodo",
+      "qid": null,
+      "names": {
+        "ko": "핑크 비치(코모도)",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Pink Beach (Komodo)",
+        "local": "Pantai Merah",
+        "local_short": "Pantai Merah",
+        "local_lang": "id",
+        "source": "wi_pinkbeach"
+      },
+      "aliases_ko": [
+        "핑크 해변",
+        "빤따이 메라",
+        "코모도 핑크비치"
+      ],
+      "aliases_en": [
+        "Pantai Merah",
+        "Red Beach"
+      ],
+      "mentions_ko": [],
+      "region": "id_labuanbajo",
+      "area_ko": "코모도 국립공원 코모도섬",
+      "category": "sea_island",
+      "tags": [
+        {
+          "id": "unesco",
+          "source": "unesco_609",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "seafront",
+          "source": "wi_pinkbeach",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": -8.6013696,
+        "lng": 119.5205211,
+        "source": "osm",
+        "qid": null,
+        "osm": "way/762003934",
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": null,
+      "address_local": null,
+      "access": {
+        "modes": [
+          "boat"
+        ],
+        "nearest_ko": "라부안바조에서 배를 타요. 해변에 바로 배를 댈 수 있어요",
+        "source": "wi_pinkbeach",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://tnkomodo.ksdae.kehutanan.go.id/",
+      "summary_ko": "코모도섬에 있는 분홍빛 모래 해변이에요.",
+      "body_ko": [
+        "핑크 비치는 코모도 국립공원 코모도섬에 있는 분홍빛 모래 해변으로, 현지에서는 '빨간 해변'이라고 불러요.",
+        "분홍색은 산호에 붉은 색소를 만드는 유공충 때문이에요. 붉은 산호 조각이 흰 모래와 섞여 분홍빛이 나요.",
+        "얕은 물에도 산호와 물고기가 많아 스노클링을 많이 해요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "코모도 국립공원 코모도섬에 있는 분홍빛 모래 해변으로, 현지에서는 '빨간 해변'이라고 불러요.",
+          "source": "wi_pinkbeach",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "분홍색은 산호에 붉은 색소를 만드는 유공충 때문이에요. 붉은 산호 조각이 흰 모래와 섞여 분홍빛이 나요.",
+          "source": "wi_pinkbeach",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "얕은 물에도 산호와 물고기가 많아 스노클링을 많이 해요.",
+          "source": "wi_pinkbeach",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "공원 안내상 일광욕과 스노클링을 하는 곳이에요.",
+          "source": "tnkomodo_home",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "사람이 살지 않는 섬이고 코모도왕도마뱀 서식지라, 가이드나 레인저 없이 가지 않는 게 좋아요.",
+          "source": "wi_pinkbeach",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "왕도마뱀을 보면 거리를 두세요.",
+          "source": "wi_pinkbeach",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "공원 안의 모래와 산호를 가져가면 안 돼요.",
+          "source": "tnkomodo_protokol",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "tnkomodo_protokol",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "tnkomodo_home",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_id",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 7,
+        "designations": [
+          {
+            "kind": "unesco",
+            "name_ko": "세계유산 코모도 국립공원(1991)의 일부",
+            "source": "unesco_609"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wi_pinkbeach",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJZxm99nxWtC0R0F8cpay0Lp8"
     }
   ],
   "advisory_basis": {

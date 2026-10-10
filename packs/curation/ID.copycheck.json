@@ -9,10 +9,25 @@
     "checked_at": "2026-10-10",
     "text_sha256": "0299b49467349093c527b9e1955d68a7a2138053ecc09df11091ad8140004c88"
   },
+  "broken-beach": {
+    "cache_set_sha256": "dcdce5f0f5f88088a9d1fa868d95d50e5c4d08a368d80ace4f20b11a2ea58455",
+    "checked_at": "2026-10-10",
+    "text_sha256": "7ccefa63f090b57f7e2f5e406ae41fced9fdd7963023efb94f5e027b4b0d324e"
+  },
+  "ceking-rice-terrace": {
+    "cache_set_sha256": "d3fdff5cb822a5d99aceb678459ddc96133acb946b778d41e54b0048e7d7d3a1",
+    "checked_at": "2026-10-10",
+    "text_sha256": "8061eb269fd51ebbf7e36d37f2b8363aee5a76945e533ab953a6851f72b16c27"
+  },
   "garuda-wisnu-kencana": {
     "cache_set_sha256": "2ae559afb4cf641f7020173222defa92a8ea2f191b7a7fab0d7580919eca124d",
     "checked_at": "2026-10-10",
     "text_sha256": "53aa99c4bca08ae5a416614b4c7927d41e876dac158a10446ef1145c9e395797"
+  },
+  "gili-trawangan": {
+    "cache_set_sha256": "0f305840a65ecd63fe57cbda039deb9a35f2365af6a2ca31ecb301f5b19835fa",
+    "checked_at": "2026-10-10",
+    "text_sha256": "1e895e4f8decbe853b01954f287f47ccd198668cd7c419b905bf7ae755b63d1f"
   },
   "goa-gajah": {
     "cache_set_sha256": "82848e073d19ec8163ee14ffaf0f438fdfa549359dae80607d6acf2cb72f603d",
@@ -34,6 +49,21 @@
     "checked_at": "2026-10-10",
     "text_sha256": "6dbd1ceac1e5199dbebbf7f3c0a4d6ed1bf60a02b8667a10b0071349a9232818"
   },
+  "kelingking-beach": {
+    "cache_set_sha256": "ded56e0198c36c46323b173a7bff32634f371e427f28898cb59cd2ab242a6b4b",
+    "checked_at": "2026-10-10",
+    "text_sha256": "1301dda3a044cb936c1b0bd4eda7268b7b20a5cfa39ce9f7afc39355909ca7aa"
+  },
+  "kintamani-batur": {
+    "cache_set_sha256": "5eb32fbcac40713beaf3ef48a5e729f09672b6974371065170c2e20846debfc5",
+    "checked_at": "2026-10-10",
+    "text_sha256": "95d67eb5aa1d59226b95ab6592798b9c077ca6562eb789f70784a01ee816342d"
+  },
+  "komodo-national-park": {
+    "cache_set_sha256": "acce59ef7af058162e862f4b4a0a3179e775f8b9593e0aa7a06c143615886e42",
+    "checked_at": "2026-10-10",
+    "text_sha256": "29bbce5b30c8db42b7864eaa07607421cf58173a8e0dff34bd4bfc4b6d2b2c34"
+  },
   "kraton-yogyakarta": {
     "cache_set_sha256": "5252cffa0037b36e89abd9c2f4b7f3dc140f8bac6294d548e25fbf66d049aad6",
     "checked_at": "2026-10-10",
@@ -43,6 +73,11 @@
     "cache_set_sha256": "f385b5a0cb857e9f3a807c553819fdcd92fde926f63b72654261f7be56d5ad5a",
     "checked_at": "2026-10-10",
     "text_sha256": "8a552da9690300f2aefadb8dacbb36f1611c2171cbd88397524cb638a2c388cf"
+  },
+  "kuta-mandalika": {
+    "cache_set_sha256": "01d7ddd4689fd8974ca67fb46e64d5b768f4d1c2c2ddd85d923ec406a69f3099",
+    "checked_at": "2026-10-10",
+    "text_sha256": "3ec3f145f05ce55f2126468ca7b3918f9fe0ce159d4b042f37f9d65bfde229d5"
   },
   "lempuyang": {
     "cache_set_sha256": "b8c4e1440c23de08adc2852c3523df30b2c819da551b1ca5f00c623e62b44469",
@@ -59,15 +94,40 @@
     "checked_at": "2026-10-10",
     "text_sha256": "1b688ffe7a56ba5b9d12ecb7619085d216c9254d9f49d481245787f2df0d7a0d"
   },
+  "museum-nasional": {
+    "cache_set_sha256": "1a2dfe184081cd4ad98f6089ad48e4eac4d0204272d462cb07e4355171b16e13",
+    "checked_at": "2026-10-10",
+    "text_sha256": "207f585b06ecde6023da3799a5d646ac0d68c96a1ba10714c27a7387dbdf3f01"
+  },
   "neka-art-museum": {
     "cache_set_sha256": "1e906c004e0d9d2e6ff4bd8d4f42562398a376dcdb8646a8b7b597abe63f3b92",
     "checked_at": "2026-10-10",
     "text_sha256": "9c2b2843e2ffd0cd774b6ec52e6a51b762e564472d38d961589234feb01d85c5"
   },
+  "nusa-dua-beach": {
+    "cache_set_sha256": "a06dcaa015931ce8255882f643ae70132de76740972ff4a6ae02d9583d2fedbe",
+    "checked_at": "2026-10-10",
+    "text_sha256": "f09ca6a6d7597637cb5dfda55b39e49e7d27089d7daf35f34ece51c8bcf537c0"
+  },
+  "padar-island": {
+    "cache_set_sha256": "3b0b7d119fd670876053f18778278086cd6901390c80ed9bbb5aa1823273d2f4",
+    "checked_at": "2026-10-10",
+    "text_sha256": "3c56f04fafd24fa048a82f68ba9ad154af6c161ec383e9aa0cc9cb3c2b414e6d"
+  },
+  "pink-beach-komodo": {
+    "cache_set_sha256": "6fc85c6003f90ae3257be56678f6814ffdfc923f8f16893cb6f9e8791486f7c0",
+    "checked_at": "2026-10-10",
+    "text_sha256": "3110e9e61ab28ab02f7573f6dbeb83e92f27f10fb535395237fa54a23bc5314f"
+  },
   "prambanan": {
     "cache_set_sha256": "69bf7b9dc633fbf3668523b1bab82662c07f14f6f50c20b4119a7002a8536a6a",
     "checked_at": "2026-10-10",
     "text_sha256": "fa59c6a69f9c1c5a183b243ab494663c95f1b8ca5c07653fef27b502b63568c6"
+  },
+  "rinjani": {
+    "cache_set_sha256": "227f6a4a15cc9782bbee17c0d4f69de996b32889585112d7f9c56429df9ca19e",
+    "checked_at": "2026-10-10",
+    "text_sha256": "7565db01832255f3ce5336be4160a358e42fe5d81e36c1348aab1c304fe74941"
   },
   "sanur-beach": {
     "cache_set_sha256": "731cefc29fe81ef6863753e1107c3b2e246f9e2e1dcd78e26843194f0a4377dd",
@@ -79,6 +139,11 @@
     "checked_at": "2026-10-10",
     "text_sha256": "54f4ac8dd43a419f7abd2731924da9930aa4bd5b7a5dcd2a1ab74a8233bd85e7"
   },
+  "tirta-empul": {
+    "cache_set_sha256": "996fad1d8098d4c44e69a63d1e3b94f2d9eb334ef8d283a40440bf1c213ed777",
+    "checked_at": "2026-10-10",
+    "text_sha256": "3d5d87221030ba717c59027cfdf0d4e96b50ec98317eb1640d999edcbf65c0d3"
+  },
   "tirta-gangga": {
     "cache_set_sha256": "fa054d896e6641fd1e67f37f69c0bdf5cd015673c50c09a45b61b1055260d06b",
     "checked_at": "2026-10-10",
@@ -88,6 +153,11 @@
     "cache_set_sha256": "a8378407b2b2f1dabbbbea98beefada43f0b7d506477fd53e05e113ea7322278",
     "checked_at": "2026-10-10",
     "text_sha256": "ea6a169a954deda2c9852b9a1b0607d6d0c92fe04c21183aa4af06bef53d848b"
+  },
+  "ubud-palace": {
+    "cache_set_sha256": "d1d132c45d7a865eaf56111b0c0ad935cc156fed75a94f04ea197fd20f0d6e18",
+    "checked_at": "2026-10-10",
+    "text_sha256": "b9bf35949beebec10aed331be5a31c2b748474125ba480e7b81d7b946e622685"
   },
   "uluwatu-temple": {
     "cache_set_sha256": "f459b068bcd22af0d0c62a1b5e96dbe58c81896fe189e512fb5a5a5a8b8fd55f",

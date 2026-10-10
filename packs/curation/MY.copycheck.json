@@ -1,4 +1,9 @@
 {
+  "a-famosa": {
+    "cache_set_sha256": "90d8f401a20c0e0645c1dd149a0102ab9af43aef4895959421b75cf4eb8d53e5",
+    "checked_at": "2026-10-10",
+    "text_sha256": "d2e8c5356dfe34893ca03241c1de0683abd2b6f638ae3d298571954619e79110"
+  },
   "batu-caves": {
     "cache_set_sha256": "6e5eea654887ba3de0512728fb09ecc93d479ca1a55b8fc1406f7eb4d2681ed0",
     "checked_at": "2026-10-10",
@@ -14,10 +19,20 @@
     "checked_at": "2026-10-10",
     "text_sha256": "ade770803ed0b3351e8f225a734810afb89706095600f4c6db948d2f1b154550"
   },
+  "christ-church-melaka": {
+    "cache_set_sha256": "7c4d39182e00172f9f52ac1d125c1b87cb0f0f44f987933fbaccef6c311cbefe",
+    "checked_at": "2026-10-10",
+    "text_sha256": "a3c2166eb2eb2ee73de3b87a09b48df8fa23b52c8720835b8da9cc551bcb139f"
+  },
   "dutch-square": {
     "cache_set_sha256": "f37b1eb42a4ebb37f96e9ac3082a8a0fac51bd5e41a1c6cca46a50bed8fd8dcd",
     "checked_at": "2026-10-10",
     "text_sha256": "7f7c0fffb4bd56db28d3dd8335b7926765b107ba2e5f84dcaf8d83b5439ff52e"
+  },
+  "eagle-square": {
+    "cache_set_sha256": "d3586f436129d42eddadc0eecbff692f7b99d65a2b24d4e0e124b9234eabccaa",
+    "checked_at": "2026-10-10",
+    "text_sha256": "c8d9deb95b0a34dc265373cf1dd055631e46e562501133eb5b2e9eb0c1720368"
   },
   "gaya-street-sunday-market": {
     "cache_set_sha256": "23fc6025012a63d311317090fc63477b82d3db6d59e890674e15c8f0becb86c4",
@@ -49,25 +64,85 @@
     "checked_at": "2026-10-10",
     "text_sha256": "a016c367168d6048af5ab98e84cf1b0cfd1f3ba448ec85b4c9b9bcfd39af8d93"
   },
+  "khoo-kongsi": {
+    "cache_set_sha256": "49e79c16365271b6fd6544e20cd652f3e562a57cd3365d2776255d46ac02f25c",
+    "checked_at": "2026-10-10",
+    "text_sha256": "3f9af57936e6792edb9f3136544b65597a77772cac7cab9a911a7e76b00e88a0"
+  },
+  "kilim-geoforest-park": {
+    "cache_set_sha256": "237cef4e5cf2a6ef669b2dff6ea972418644102754ef1b456253e420749aead9",
+    "checked_at": "2026-10-10",
+    "text_sha256": "106fedfbd335ba28d2c08e00758ad2eb0ca620282ac757c724338e576695c4a6"
+  },
+  "kinabalu-park": {
+    "cache_set_sha256": "02c08573e4dad55983769b89fee7d85794318831cfd93be9b8dbdfe255ac4a2d",
+    "checked_at": "2026-10-10",
+    "text_sha256": "750a7cc75b11f5d47cefbb589c1a6b93d47a849f554bfa5888ad3217a0a91b21"
+  },
+  "kl-tower": {
+    "cache_set_sha256": "f0a94e98a8533ce2d2bf63f5ff0a9268e4e7d6b321104aa2fb86b82a9aa9f296",
+    "checked_at": "2026-10-10",
+    "text_sha256": "59599a9c27e0b192d5206512e97abd5c7a56b0c5b099d169aea14361892678ed"
+  },
   "kota-kinabalu-city-mosque": {
     "cache_set_sha256": "781d5819eca2934d1560620271baa4f4b98ce9a6d0c92d499c6446dff9948768",
     "checked_at": "2026-10-10",
     "text_sha256": "284d96c066a15d5237cf0b11c6c9377adcd832ff05cbbcab7e8fcd5b4e44776f"
+  },
+  "langkawi-skycab": {
+    "cache_set_sha256": "21f0240c2856bedbaa69b6b54440010f52dc5acfe36efb970f6a0fcb552fedd6",
+    "checked_at": "2026-10-10",
+    "text_sha256": "223007d6253cc1331dbb2e98f978cc0aae715836080162848b72fad264521d5c"
+  },
+  "masjid-jamek": {
+    "cache_set_sha256": "21130df833ff9510998fda4fad353ed532f82b2db6c3a756de5ede68b01409c1",
+    "checked_at": "2026-10-10",
+    "text_sha256": "dab0689cebd3060c8249adbb7b002004b623144d528a40d4fe9ca2d4564a18a6"
+  },
+  "national-mosque": {
+    "cache_set_sha256": "69bdcb2153721fdad88eef4abb1216a3c337051fe5f169d9c992dbc792472d58",
+    "checked_at": "2026-10-10",
+    "text_sha256": "9e8b1ab06369b1f60b60b88bd3092ed87c7fc55f522c97713045ca9f22538c46"
   },
   "national-museum": {
     "cache_set_sha256": "671162a882a4ba57d9f1a838b1d4afffe92f371fca232aa4e36b22add665d92f",
     "checked_at": "2026-10-10",
     "text_sha256": "f4df68e2bb37e5265e9c94f75fa85cede3057c424580925f7ef5f0bda99eff98"
   },
+  "pantai-cenang": {
+    "cache_set_sha256": "1b97ae50874ae9ab1538580a872d53a245c5f18002df6ead0ddfe9578b61e967",
+    "checked_at": "2026-10-10",
+    "text_sha256": "2385ce7b5d380944a07b92155d470a3117fe5d89cc007a3ca3baa7c69ea56115"
+  },
   "penang-hill": {
     "cache_set_sha256": "0cf0195425380b67e66f50fac5d8279d1de796d248e32b7e536818a13b9cad2d",
     "checked_at": "2026-10-10",
     "text_sha256": "42d0a7930cea10010fb22ced3dae6ba59a330c2f8e8c5be14ba520a24674282c"
   },
+  "petaling-street": {
+    "cache_set_sha256": "8f2b7f8a10df0d103c30d2d36ee137b2969bf62500de2619eb487b6806f4dea6",
+    "checked_at": "2026-10-10",
+    "text_sha256": "d4b47a91354fd75346d7fa0903bd6abfbfe8631d856d51207549c72d01d5aa6f"
+  },
   "petronas-twin-towers": {
     "cache_set_sha256": "f06eb218a8d93f2f6b337b2c06f46cb0b1496b7bf59d3f9b7a853d942f23dbb7",
     "checked_at": "2026-10-10",
     "text_sha256": "96ab3556fc598396b9dad3d487e89fce6be57c9500eb6c2fb23c0c85ff9533d4"
+  },
+  "pinang-peranakan-mansion": {
+    "cache_set_sha256": "c7309480dbd30c48c2bcfbe0712f12a6244c78e66175e1e190b1b099c0bba847",
+    "checked_at": "2026-10-10",
+    "text_sha256": "43bfe8719d8ffd4f0ecf2cf42f35056ddd32a0ca637987f2f2cb7fc0814f4b14"
+  },
+  "poring-hot-springs": {
+    "cache_set_sha256": "78b6487a7c3a8ba86567ac4b0ce120d6b830d54a02c93f29b30ee765ccbda27d",
+    "checked_at": "2026-10-10",
+    "text_sha256": "e5b6cf6cc8834ac1af2514c1c2be8845b9704e7e4700c066f631d2f63060348d"
+  },
+  "sabah-museum": {
+    "cache_set_sha256": "20e5570f3e6b07ea39b7e06695cecd403ec73d0c957736d6c8fee63f7a155338",
+    "checked_at": "2026-10-10",
+    "text_sha256": "038b8a386e631dc6e0eebbe26f711364c5b928750a845a0a7ab26582471f67dc"
   },
   "st-pauls-hill": {
     "cache_set_sha256": "8a18c838aeb92eb6d87bc5119a503e169ff5918aba08693e946ca6ad9ad7b55e",
@@ -78,6 +153,11 @@
     "cache_set_sha256": "c8c4b990cd7aeb347629dfc5575127ab037693a99db103be6fd7c9dd8798f791",
     "checked_at": "2026-10-10",
     "text_sha256": "d9d9345a326de740230dc98a656d25eac64240ff032215d764610fce8e18a276"
+  },
+  "tanjung-aru-beach": {
+    "cache_set_sha256": "ab6c675b78a0d3d3e799a884a42082e204ac7ca92392489c1296c86f15010d87",
+    "checked_at": "2026-10-10",
+    "text_sha256": "764185a60c8f5a978283d7a5d6ba40660a1176e595952f43e1b9a4f9e991c2a9"
   },
   "tunku-abdul-rahman-park": {
     "cache_set_sha256": "7fa98adf7ac5378f667bcb0f5f99fd5d91876d9e44f32466428cbc5060aa05d2",

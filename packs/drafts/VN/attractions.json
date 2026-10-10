@@ -2,7 +2,7 @@
   "doc_type": "attractions",
   "schema_version": 1,
   "country": "VN",
-  "version": "2026.10.09-1",
+  "version": "2026.10.10-1",
   "release": "draft",
   "editorial_rules": "2026-10",
   "compact_country": false,
@@ -222,6 +222,88 @@
         "lat": 10.171666666667,
         "lng": 103.99111111111,
         "qid": "Q1423325"
+      },
+      "airports": [],
+      "advisory": {
+        "level": "1",
+        "source": "mofa_vn",
+        "last_verified": "2026-10-02"
+      },
+      "advisory_watch_ko": [],
+      "wave": 2
+    },
+    {
+      "id": "vn_dalat",
+      "order": 90,
+      "name_ko": "달랏",
+      "name_en": "Da Lat",
+      "aliases_ko": [
+        "다랏",
+        "달랏시"
+      ],
+      "group_ko": "남중부",
+      "kind": "base",
+      "water_crossing": false,
+      "hub": {
+        "name_ko": "쑤언흐엉 호수",
+        "lat": 11.941845,
+        "lng": 108.446835,
+        "qid": "Q10772055"
+      },
+      "airports": [],
+      "advisory": {
+        "level": "1",
+        "source": "mofa_vn",
+        "last_verified": "2026-10-02"
+      },
+      "advisory_watch_ko": [],
+      "wave": 2
+    },
+    {
+      "id": "vn_hue",
+      "order": 70,
+      "name_ko": "후에",
+      "name_en": "Hue",
+      "aliases_ko": [
+        "훼",
+        "후에시"
+      ],
+      "group_ko": "중부",
+      "kind": "base",
+      "water_crossing": false,
+      "hub": {
+        "name_ko": "후에역",
+        "lat": 16.4565,
+        "lng": 107.578,
+        "qid": "Q994118"
+      },
+      "airports": [],
+      "advisory": {
+        "level": "1",
+        "source": "mofa_vn",
+        "last_verified": "2026-10-02"
+      },
+      "advisory_watch_ko": [],
+      "wave": 2
+    },
+    {
+      "id": "vn_sapa",
+      "order": 40,
+      "name_ko": "사파",
+      "name_en": "Sa Pa",
+      "aliases_ko": [
+        "사빠",
+        "싸파",
+        "사파 (라오까이)"
+      ],
+      "group_ko": "북부",
+      "kind": "base",
+      "water_crossing": false,
+      "hub": {
+        "name_ko": "사파 돌 성당 앞(시내 중심)",
+        "lat": 22.33511479847842,
+        "lng": 103.84226337954237,
+        "qid": "Q124156643"
       },
       "airports": [],
       "advisory": {
@@ -678,6 +760,354 @@
       "name": "Sun World Hon Thom (Sun World Group, operator, English)",
       "url": "https://sunworld.vn/en/hon-thom",
       "use": "facts"
+    },
+    {
+      "id": "tgphn_chinhtoa",
+      "name": "Tổng Giáo phận Hà Nội — Giáo xứ Chính Tòa Hà Nội (Archdiocese of Hanoi, official)",
+      "url": "https://www.tonggiaophanhanoi.org/giao-xu-chinh-toa-ha-noi/",
+      "use": "facts"
+    },
+    {
+      "id": "hcmm_hours",
+      "name": "Bảo tàng Hồ Chí Minh — Giờ mở cửa (official)",
+      "url": "https://baotanghochiminh.vn/gio-mo-cua.htm",
+      "use": "facts"
+    },
+    {
+      "id": "hcmm_ticket",
+      "name": "Bảo tàng Hồ Chí Minh — Thông tin vé tham quan (official)",
+      "url": "https://baotanghochiminh.vn/thong-tin-ve-tham-quan.htm",
+      "use": "facts"
+    },
+    {
+      "id": "hcmm_rules",
+      "name": "Bảo tàng Hồ Chí Minh — Nội quy tham quan (official)",
+      "url": "https://baotanghochiminh.vn/noi-quy-tham-quan.htm",
+      "use": "facts"
+    },
+    {
+      "id": "hcmm_history",
+      "name": "Bảo tàng Hồ Chí Minh — Lịch sử phát triển (official)",
+      "url": "https://baotanghochiminh.vn/lich-su-phat-trien-new.htm",
+      "use": "facts"
+    },
+    {
+      "id": "hcmm_contact",
+      "name": "Bảo tàng Hồ Chí Minh — Liên hệ (official)",
+      "url": "https://baotanghochiminh.vn/lien-he.htm",
+      "use": "facts"
+    },
+    {
+      "id": "dsvh_hoankiem",
+      "name": "Cục Di sản văn hóa — Di tích lịch sử và danh lam thắng cảnh hồ Hoàn Kiếm và đền Ngọc Sơn (베트남 문화유산국, 특별 국가유적 소개)",
+      "url": "https://dsvh.gov.vn/di-tich-lich-su-va-danh-lam-thang-canh-ho-hoan-kiem-va-den-ngoc-son-2978",
+      "use": "heritage_registry",
+      "license": "Cục Di sản văn hóa website (재사용 시 출처 'Cục Di sản văn hóa' 표기 조건, 사실만 사용)",
+      "attribution_required": true
+    },
+    {
+      "id": "wrm_en",
+      "name": "War Remnants Museum (official, English)",
+      "url": "https://baotangchungtichchientranh.vn/en",
+      "use": "facts"
+    },
+    {
+      "id": "wrm_vi",
+      "name": "Bảo tàng Chứng tích Chiến tranh (official, Vietnamese)",
+      "url": "https://baotangchungtichchientranh.vn/vi",
+      "use": "facts"
+    },
+    {
+      "id": "sodulich_buudien",
+      "name": "Sở Du lịch TP.HCM (HCMC Department of Tourism, official) — Bưu điện Thành phố Hồ Chí Minh",
+      "url": "https://sodulich.hochiminhcity.gov.vn/Home/moduleId/564/id/4365/ngonnguid/vi/act/KhamPhaDuLich/ctr/HomeDuKhach/controller/HomeDuKhach/action/ChiTietTinTucByIdWithDiaDiem",
+      "use": "facts"
+    },
+    {
+      "id": "sodulich_ubnd",
+      "name": "Sở Du lịch TP.HCM (HCMC Department of Tourism, official) — Trụ sở Ủy ban nhân dân Thành phố Hồ Chí Minh",
+      "url": "https://sodulich.hochiminhcity.gov.vn/Home/moduleId/564/id/4363/ngonnguid/vi/act/KhamPhaDuLich/ctr/HomeDuKhach/controller/HomeDuKhach/action/ChiTietTinTucByIdWithDiaDiem",
+      "use": "facts"
+    },
+    {
+      "id": "dnf_hanmarket",
+      "name": "Danang Fantasticity — Da Nang City Tourism Information Portal (official) — Han Market (English)",
+      "url": "https://danangfantasticity.com/en/han-market",
+      "use": "facts"
+    },
+    {
+      "id": "khdl_dammarket_icon",
+      "name": "Du lịch số Khánh Hòa — Khanh Hoa provincial tourism portal (official) — Dam Market Nha Trang: A Half-Century Iconic Landmark",
+      "url": "https://dulichso.khanhhoa.gov.vn/en/article/dam-market-nha-trang-a-half-century-iconic-landmark-18b",
+      "use": "facts"
+    },
+    {
+      "id": "khdl_dammarket_shop",
+      "name": "Du lịch số Khánh Hòa — Khanh Hoa provincial tourism portal (official) — Dam Market in Nha Trang: A Shopping and Culinary Paradise",
+      "url": "https://dulichso.khanhhoa.gov.vn/en/article/dam-market-in-nha-trang-a-shopping-and-culinary-paradise",
+      "use": "facts"
+    },
+    {
+      "id": "osm",
+      "name": "OpenStreetMap contributors (일부 위치 좌표)",
+      "url": "https://www.openstreetmap.org/copyright",
+      "use": "coords_osm",
+      "license": "ODbL-1.0",
+      "attribution_required": true
+    },
+    {
+      "id": "dalatinfo_chodalat",
+      "name": "Trung tâm XTĐT,TM&DL tỉnh Lâm Đồng — dalat-info.gov.vn — Giữ nét văn minh, mến khách ở chợ Đà Lạt (official)",
+      "url": "https://www.dalat-info.gov.vn/bai-viet/giu-net-van-minh-men-khach-o-cho-da-lat",
+      "use": "facts"
+    },
+    {
+      "id": "dalatinfo_congchieng",
+      "name": "Trung tâm XTĐT,TM&DL tỉnh Lâm Đồng — dalat-info.gov.vn — Diễu hành cồng chiêng quanh hồ Xuân Hương (official)",
+      "url": "https://www.dalat-info.gov.vn/bai-viet/soi-dong-dieu-hanh-cong-chieng-quanh-ho-xuan-huong-da-lat",
+      "use": "facts"
+    },
+    {
+      "id": "dalatinfo_disan",
+      "name": "Trung tâm XTĐT,TM&DL tỉnh Lâm Đồng — dalat-info.gov.vn — Phát huy di sản kiến trúc phục vụ du lịch (official)",
+      "url": "https://www.dalat-info.gov.vn/bai-viet/phat-huy-di-san-kien-truc-phuc-vu-du-lich",
+      "use": "facts"
+    },
+    {
+      "id": "dalatinfo_hoxuanhuong",
+      "name": "Trung tâm XTĐT,TM&DL tỉnh Lâm Đồng — dalat-info.gov.vn — Hoạt động du lịch trên hồ Xuân Hương trở lại (official)",
+      "url": "https://www.dalat-info.gov.vn/bai-viet/hoat-dong-du-lich-tren-ho-xuan-huong-tro-lai-tang-suc-hut-cho-da-lat",
+      "use": "facts"
+    },
+    {
+      "id": "dalatinfo_tauco",
+      "name": "Trung tâm XTĐT,TM&DL tỉnh Lâm Đồng — dalat-info.gov.vn — Hành trình đêm Đà Lạt trên tàu cổ (official)",
+      "url": "https://www.dalat-info.gov.vn/bai-viet/trai-nghiem-hanh-trinh-dem-da-lat-tren-tau-co",
+      "use": "facts"
+    },
+    {
+      "id": "dalatinfo_thuyta",
+      "name": "Trung tâm XTĐT,TM&DL tỉnh Lâm Đồng — dalat-info.gov.vn — Thủy Tạ / hồ Xuân Hương (official)",
+      "url": "https://www.dalat-info.gov.vn/bai-viet/thuy-ta-la-mot-trong-nhung-hinh-anh-gan-lien-voi-ho-xuan-huong-tho-mong-o-da-lat-lam-dong",
+      "use": "facts"
+    },
+    {
+      "id": "dalatinfo_xuanhuong_ward",
+      "name": "Trung tâm XTĐT,TM&DL tỉnh Lâm Đồng — dalat-info.gov.vn — Phường Xuân Hương rà soát 12 tài nguyên du lịch (official)",
+      "url": "https://www.dalat-info.gov.vn/bai-viet/phuong-xuan-huong-da-lat-ra-soat-12-tai-nguyen-du-lich",
+      "use": "facts"
+    },
+    {
+      "id": "vnat_8things",
+      "name": "Cục Du lịch Quốc gia Việt Nam — vietnam.travel — 8 ways to appreciate Da Lat (official)",
+      "url": "https://vietnam.travel/things-to-do/8-things-to-do-in-dalat",
+      "use": "facts"
+    },
+    {
+      "id": "vnat_dalat",
+      "name": "Cục Du lịch Quốc gia Việt Nam — vietnam.travel — Da Lat (official)",
+      "url": "https://vietnam.travel/places-to-go/south-central-coast-central-highlands/dalat",
+      "use": "facts"
+    },
+    {
+      "id": "vr_diemdulich",
+      "name": "Tập đoàn Đường sắt Quốc gia Việt Nam — vr.com.vn — Công nhận Ga Đà Lạt là điểm du lịch (operator)",
+      "url": "https://vr.com.vn/tin-tuc--su-kien/chinh-thuc-cong-nhan-ga-da-lat-tro-thanh-diem-du-lich-cua-thanh-pho-ngan-hoa.html",
+      "use": "facts"
+    },
+    {
+      "id": "vr_dl12",
+      "name": "Tập đoàn Đường sắt Quốc gia Việt Nam — vr.com.vn — Tàu DL1/2 Đà Lạt - Trại Mát (operator)",
+      "url": "https://vr.com.vn/cac-uu-dai-danh-cho-khach-hang/tau-dl12-da-lat--trai-mat-khuyen-mai-con-50-nganluot.html",
+      "use": "facts"
+    },
+    {
+      "id": "vr_hanhtrinhdem",
+      "name": "Tập đoàn Đường sắt Quốc gia Việt Nam — vr.com.vn — Khai trương tàu du lịch Hành trình đêm Đà Lạt (operator)",
+      "url": "https://vr.com.vn/tin-tuc--su-kien/khai-truong-doan-tau-du-lich-hanh-trinh-dem-da-lat.html",
+      "use": "facts"
+    },
+    {
+      "id": "vr_veonline",
+      "name": "Tập đoàn Đường sắt Quốc gia Việt Nam — vr.com.vn — Vé tàu Đà Lạt - Trại Mát bán online (operator)",
+      "url": "https://vr.com.vn/cam-nang-di-tau/ve-tau-da-lat-di-trai-mat-se-duoc-ban-online-tu-thang-3.html",
+      "use": "facts"
+    },
+    {
+      "id": "unesco_678",
+      "name": "UNESCO World Heritage Centre — Complex of Hué Monuments",
+      "url": "https://whc.unesco.org/en/list/678/",
+      "use": "heritage_registry",
+      "license": "UNESCO WHC (사실만 사용, 설명문 CC-BY-SA IGO 3.0)",
+      "attribution_required": true
+    },
+    {
+      "id": "unesco_act_322",
+      "name": "UNESCO World Heritage Centre — Complex of the Celestial Lady (Thien Mu), activity page of property 678",
+      "url": "https://whc.unesco.org/en/activities/322/",
+      "use": "heritage_registry",
+      "license": "UNESCO WHC (사실만 사용, 설명문 CC-BY-SA IGO 3.0)",
+      "attribution_required": true
+    },
+    {
+      "id": "dsvh_hue",
+      "name": "Cục Di sản văn hóa — Di tích quốc gia đặc biệt Quần thể kiến trúc Cố đô Huế (베트남 문화유산국 특별 국가유적 상세)",
+      "url": "https://dsvh.gov.vn/di-tich-lich-su-va-kien-truc-nghe-thuat-quan-the-kien-truc-co-do-hue-2944",
+      "use": "heritage_registry",
+      "license": "Cục Di sản văn hóa website (재사용 시 출처 'Cục Di sản văn hóa' 표기 조건, 사실만 사용)",
+      "attribution_required": true
+    },
+    {
+      "id": "visithue_ngomon",
+      "name": "Sở VHTTDL TP Huế — visithue.vn — Ngọ Môn (official)",
+      "url": "https://visithue.vn/ngo-mon-bieu-tuong-vinh-hang-cua-co-do-hue/?pid=MjM3NTN8Y3NkbGRs0",
+      "use": "facts"
+    },
+    {
+      "id": "visithue_bus",
+      "name": "Sở VHTTDL TP Huế — visithue.vn — Các tuyến xe buýt nội tỉnh (official transport page)",
+      "url": "https://visithue.vn/cac-tuyen-xe-buyt-noi-tinh-tren-dia-ban-tinh-thua-thien-hue/?pid=MjMxODN8Y3NkbGRs0",
+      "use": "facts"
+    },
+    {
+      "id": "khamphahue_ve",
+      "name": "Khám Phá Huế (HueCIT, UBND TP Huế official portal) — Bảng giá vé tham quan Khu di sản Huế",
+      "url": "https://khamphahue.com.vn/Du-lich/Ban-can-biet/Chi-tiet/tid/Bang-gia-ve-tham-quan-Khu-di-san-Hue.html/pid/754/cid/195",
+      "use": "facts"
+    },
+    {
+      "id": "khamphahue_veguide",
+      "name": "Khám Phá Huế (HueCIT, UBND TP Huế official portal) — Hướng dẫn đặt vé tham quan di tích Huế",
+      "url": "https://khamphahue.com.vn/Du-lich/Ban-can-biet/Chi-tiet/tid/Huong-dan-du-khach-dat-ve-tham-quan-di-tich-Hue.html/pid/15503/cid/195",
+      "use": "facts"
+    },
+    {
+      "id": "khamphahue_dainoi_dv",
+      "name": "Khám Phá Huế (HueCIT, UBND TP Huế official portal) — Giá các dịch vụ trong Đại Nội",
+      "url": "https://khamphahue.com.vn/Du-lich/Ban-can-biet/Chi-tiet/tid/Gia-cac-dich-vu-trong-Dai-Noi.html/pid/7897/cid/195",
+      "use": "facts"
+    },
+    {
+      "id": "khamphahue_khaidinh",
+      "name": "Khám Phá Huế (HueCIT, UBND TP Huế official portal) — Lăng vua Khải Định (Ứng Lăng)",
+      "url": "https://khamphahue.com.vn/Du-lich/Chi-tiet/tid/Lang-vua-Khai-Dinh-Ung-Lang.html/pid/5873/cid/43",
+      "use": "facts"
+    },
+    {
+      "id": "khamphahue_thienmu",
+      "name": "Khám Phá Huế (HueCIT, UBND TP Huế official portal) — Chùa Thiên Mụ",
+      "url": "https://khamphahue.com.vn/Du-lich/Chi-tiet/tid/Chua-Thien-Mu.html/pid/7243/cid/165",
+      "use": "facts"
+    },
+    {
+      "id": "angiang_dl_baisao",
+      "name": "Du lịch An Giang (Sở Du lịch tỉnh An Giang, official portal) — Điểm du lịch Bãi Sao",
+      "url": "https://dulich.angiang.gov.vn/destination/detail/1309",
+      "use": "facts"
+    },
+    {
+      "id": "angiang_dl_prison",
+      "name": "Du lịch An Giang (Sở Du lịch tỉnh An Giang, official portal) — Khu Di tích Quốc gia đặc biệt Trại giam Phú Quốc",
+      "url": "https://dulich.angiang.gov.vn/destination/detail/1298",
+      "use": "facts"
+    },
+    {
+      "id": "angiang_dl_vqgpq",
+      "name": "Du lịch An Giang (Sở Du lịch tỉnh An Giang, official portal) — Khu du lịch Vườn Quốc gia Phú Quốc",
+      "url": "https://dulich.angiang.gov.vn/destination/detail/1297",
+      "use": "facts"
+    },
+    {
+      "id": "dsvh_phuquoc_prison",
+      "name": "Cục Di sản văn hóa, Bộ VHTTDL (official heritage registry) — Di tích lịch sử Trại giam Phú Quốc",
+      "url": "https://dsvh.gov.vn/di-tich-lich-su-trai-giam-phu-quoc-2988",
+      "use": "heritage_registry",
+      "license": "Cục Di sản văn hóa website (재사용 시 출처 'Cục Di sản văn hóa' 표기 조건, 사실만 사용)",
+      "attribution_required": true
+    },
+    {
+      "id": "pq_portal_prison_tubo",
+      "name": "Trang thông tin điện tử UBND Đặc khu Phú Quốc (official) — Kiên Giang đầu tư tu bổ, tôn tạo Di tích Trại giam Phú Quốc",
+      "url": "https://phuquoc.angiang.gov.vn/kien-giang-dau-tu-tu-bo-ton-tao-di-tich-trai-giam-phu-quoc",
+      "use": "facts"
+    },
+    {
+      "id": "vqgpq_tongquan",
+      "name": "Vườn Quốc gia Phú Quốc (official site, UBND tỉnh An Giang) — Tổng quan Vườn quốc gia Phú Quốc",
+      "url": "https://vqgpq.angiang.gov.vn/tong-quan-vuon-quoc-gia-phu-quoc",
+      "use": "facts"
+    },
+    {
+      "id": "vqgpq_dlst",
+      "name": "Vườn Quốc gia Phú Quốc (official site) — Du lịch sinh thái rừng tạo sinh kế cho cộng đồng vùng đệm",
+      "url": "https://vqgpq.angiang.gov.vn/du-lich-sinh-thai-rung-tao-sinh-ke-cho-cong-dong-vung-dem-cua-vuon-quoc-gia-phu-quoc",
+      "use": "facts"
+    },
+    {
+      "id": "vqgpq_clbxanh",
+      "name": "Vườn Quốc gia Phú Quốc (official site) — Học sinh CLB Xanh tham quan học tập tại Vườn Quốc gia Phú Quốc",
+      "url": "https://vqgpq.angiang.gov.vn/hoc-sinh-clb-xanh-tham-quan-hoc-tap-tai-vuon-quoc-gia-phu-quoc",
+      "use": "facts"
+    },
+    {
+      "id": "gphh_sapa_parish",
+      "name": "Giáo phận Hưng Hóa — giaophanhunghoa.org — Giáo xứ Sa Pa (parish page, official)",
+      "url": "https://giaophanhunghoa.org/vi/giao-phan/giao-hat-giao-xu/giao-xu--sa-pa-o81E21304.html",
+      "use": "facts"
+    },
+    {
+      "id": "laocai_tic_catcat",
+      "name": "Trung tâm TTXTDL Lào Cai (Sở VHTTDL Lào Cai) — sapa-tourism.com — Cat Cat village (official portal)",
+      "url": "https://sapa-tourism.com/most-beautiful-village-in-the-north-of-viet-nam/",
+      "use": "facts"
+    },
+    {
+      "id": "laocai_tic_catcat_flood",
+      "name": "Trung tâm TTXTDL Lào Cai (Sở VHTTDL Lào Cai) — sapa-tourism.com — Cat Cat tourist area recovered after the flood (official portal)",
+      "url": "https://sapa-tourism.com/cat-cat-tourist-area-recovered-after-the-flood/",
+      "use": "facts"
+    },
+    {
+      "id": "laocai_tic_church",
+      "name": "Trung tâm TTXTDL Lào Cai (Sở VHTTDL Lào Cai) — sapa-tourism.com — Sapa Stone Church (official portal)",
+      "url": "https://sapa-tourism.com/sapa-stone-church-the-symbol-of-the-city-in-the-mist/",
+      "use": "facts"
+    },
+    {
+      "id": "laocai_tic_hamrong",
+      "name": "Trung tâm TTXTDL Lào Cai (Sở VHTTDL Lào Cai) — sapa-tourism.com — Ham Rong eco-tourism area (official portal)",
+      "url": "https://sapa-tourism.com/ham-rong-mountain-park-eco-tourism-area-in-the-center-of-sapa-town/",
+      "use": "facts"
+    },
+    {
+      "id": "laocai_tic_tickets",
+      "name": "Trung tâm TTXTDL Lào Cai (Sở VHTTDL Lào Cai) — sapa-tourism.com — ticket prices at tourist destinations in Sa Pa (official portal)",
+      "url": "https://sapa-tourism.com/the-ticket-price-at-tourist-destinations-in-sapa-update-in-2021/",
+      "use": "facts"
+    },
+    {
+      "id": "sunworld_fansipan_about",
+      "name": "Sun World Fansipan Legend — sunworld.vn — About Us (operator, official)",
+      "url": "https://sunworld.vn/en/fansipan/about-us",
+      "use": "facts"
+    },
+    {
+      "id": "sunworld_fansipan_contact",
+      "name": "Sun World Fansipan Legend — sunworld.vn — Contact Us (operator, official)",
+      "url": "https://sunworld.vn/en/fansipan/contact-us",
+      "use": "facts"
+    },
+    {
+      "id": "sunworld_fansipan_notice",
+      "name": "Sun World Fansipan Legend — sunworld.vn — notice: cable car resumes operation from September 28 (operator, official)",
+      "url": "https://sunworld.vn/en/fansipan/sunworld-news/notice-fansipan-cable-car-officially-resumes-operation-from-september-28-30074",
+      "use": "facts"
+    },
+    {
+      "id": "sunworld_fansipan_vouchers",
+      "name": "Sun World Fansipan Legend — sunworld.vn — Vouchers & Tickets / FAQ (operator, official)",
+      "url": "https://sunworld.vn/en/fansipan/vouchers",
+      "use": "facts"
     }
   ],
   "attractions": [
@@ -1042,6 +1472,150 @@
       "google_place_id": "ChIJSXwdOKOrNTERNylYj9mnIbU"
     },
     {
+      "id": "hoan-kiem-lake",
+      "qid": "Q1151254",
+      "names": {
+        "ko": "호안끼엠 호수",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Hoan Kiem Lake",
+        "local": "Hồ Hoàn Kiếm",
+        "local_short": "Hồ Gươm",
+        "local_lang": "vi",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "호안끼엠호",
+        "환검호",
+        "호꾸엄",
+        "호안키엠 호수"
+      ],
+      "aliases_en": [
+        "Hoàn Kiếm Lake",
+        "Sword Lake",
+        "Hồ Gươm"
+      ],
+      "mentions_ko": [
+        "응옥선 사당",
+        "거북탑(탑루아)",
+        "테훅교"
+      ],
+      "region": "vn_hanoi",
+      "area_ko": "하노이 호안끼엠",
+      "category": "city_view",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 21.028888888889,
+        "lng": 105.8525,
+        "source": "wd",
+        "qid": "Q1151254",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 21.028888888889,
+        "lng": 105.8525
+      },
+      "address_local": null,
+      "access": {
+        "modes": [
+          "walk_from_center"
+        ],
+        "nearest_ko": "호안끼엠 구역 한가운데, 딘띠엔호앙·항카이·레타이또 거리에 둘러싸여 있어요. 시내에서 걸어서 가요",
+        "nearest_local": null,
+        "source": "dsvh_hoankiem",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://dsvh.gov.vn/di-tich-lich-su-va-danh-lam-thang-canh-ho-hoan-kiem-va-den-ngoc-son-2978",
+      "wiki": {
+        "ko": "호안끼엠호",
+        "en": "Hoàn Kiếm Lake"
+      },
+      "summary_ko": "하노이 호안끼엠 구역 한가운데에 있는 호수예요.",
+      "body_ko": [
+        "호안끼엠 호수는 하노이 호안끼엠 구역에 있는 호수로, 2013년 호수와 응옥선 사당이 함께 특별 국가유적으로 지정됐어요.",
+        "호수 가운데 작은 섬에는 4층짜리 거북탑(탑루아)이 있고, 응옥섬의 응옥선 사당은 붉은 테훅 다리로 이어져요.",
+        "옛 이름은 룩투이호·따봉호였고, 레 태조가 검을 돌려줬다는 전설에서 지금 이름이 왔어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "2013년 12월 9일 총리 결정으로 호안끼엠 호수와 응옥선 사당이 특별 국가유적으로 지정됐어요.",
+          "source": "dsvh_hoankiem",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "유적은 호안끼엠 호수, 응옥선 사당, 레 왕 기념 구역으로 이루어져요.",
+          "source": "dsvh_hoankiem",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "호수 가운데 섬의 거북탑은 벽돌로 쌓은 4층 탑이에요.",
+          "source": "dsvh_hoankiem",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "응옥선 사당은 호수 안 응옥섬에 있고, 테훅 다리는 길이 45m에 15칸으로 된 굽은 다리예요.",
+          "source": "dsvh_hoankiem",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "옛 이름은 룩투이호·따봉호였고, 레 태조가 검을 돌려줬다는 전설에서 호안끼엠(호꾸엄)이라는 이름이 왔어요.",
+          "source": "dsvh_hoankiem",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "호수 둘레는 돌로 테두리를 두르고 꽃밭과 나무가 둘러싸고 있어서 걸어서 한 바퀴 돌 수 있어요.",
+          "source": "dsvh_hoankiem",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "응옥선 사당은 호수 안 응옥섬에 있고, 테훅 다리를 건너 들어가요.",
+          "source": "dsvh_hoankiem",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "public_space"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "dsvh_hoankiem",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_vn",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 3,
+        "designations": [
+          {
+            "kind": "vn_special_national_relic",
+            "name_ko": "특별 국가유적 호안끼엠 호수와 응옥선 사당(2013)",
+            "source": "dsvh_hoankiem"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Ho_Hoan_Kiem_%2813574475044%29.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJlclXM5WrNTERDqL5tGu_ugE"
+    },
+    {
       "id": "van-mieu",
       "qid": "Q1202019",
       "names": {
@@ -1203,7 +1777,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 3,
+        "order": 4,
         "designations": [
           {
             "kind": "vn_special_national_relic",
@@ -1377,7 +1951,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 4,
+        "order": 5,
         "designations": [
           {
             "kind": "unesco",
@@ -1550,7 +2124,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 5,
+        "order": 6,
         "designations": [
           {
             "kind": "vn_special_national_relic",
@@ -1690,7 +2264,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 6,
+        "order": 7,
         "designations": [
           {
             "kind": "vn_relic_ranked",
@@ -1704,6 +2278,184 @@
       "source": "wd",
       "last_verified": "2026-10-09",
       "google_place_id": "ChIJld5RqparNTERVK8x7gvhAZc"
+    },
+    {
+      "id": "hue-imperial-city",
+      "qid": "Q10769129",
+      "names": {
+        "ko": "후에 황성",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Imperial City of Huế",
+        "local": "Hoàng thành Huế",
+        "local_short": "Đại Nội",
+        "local_lang": "vi",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "후에 왕궁",
+        "다이노이",
+        "후에 황궁"
+      ],
+      "aliases_en": [
+        "Dai Noi",
+        "Hue Citadel Imperial City",
+        "Hue Royal Palace"
+      ],
+      "mentions_ko": [
+        "응오몬"
+      ],
+      "region": "vn_hue",
+      "area_ko": "후에 시내 북쪽(흐엉강 북안 성곽 안)",
+      "category": "heritage",
+      "tags": [
+        {
+          "id": "unesco",
+          "source": "unesco_678",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "entrance",
+        "lat": 16.468,
+        "lng": 107.576,
+        "source": "wd",
+        "qid": "Q7023311",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 16.469444,
+        "lng": 107.577778
+      },
+      "address_local": null,
+      "access": {
+        "modes": [
+          "bus",
+          "walk_from_center"
+        ],
+        "nearest_ko": "응우옌호앙 버스터미널(시내버스 16번 출발점)에서 응오몬 문까지 걸어가요",
+        "nearest_local": null,
+        "source": "visithue_bus",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://khamphahue.com.vn/Du-lich/Ban-can-biet/Chi-tiet/tid/Bang-gia-ve-tham-quan-Khu-di-san-Hue.html/pid/754/cid/195",
+      "summary_ko": "응우옌 왕조의 궁궐이 있던 후에의 황성이에요.",
+      "body_ko": [
+        "후에 황성은 흐엉강 북쪽 후에 성곽 안에 있는 응우옌 왕조의 궁궐 구역이에요.",
+        "후에는 1802년부터 1945년까지 응우옌 왕조의 수도였어요.",
+        "남쪽 정문 응오몬은 1833년에 세워졌고, 그 위에 응우풍 누각이 있어요.",
+        "1993년 '후에 기념물 복합지구'로 유네스코 세계유산에 올랐고, 베트남 국가특별유적이기도 해요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "흐엉강 북쪽 후에 성곽 안에 있는 응우옌 왕조의 궁궐 구역이에요.",
+          "source": "dsvh_hue",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "후에는 1802년부터 1945년까지 응우옌 왕조의 수도였어요.",
+          "source": "unesco_678",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "남쪽 정문 응오몬은 1833년에 세워졌고 위에 응우풍 누각이 있어요.",
+          "source": "dsvh_hue",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "1993년 '후에 기념물 복합지구'로 유네스코 세계유산에 올랐어요.",
+          "source": "unesco_678",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "후에 고도 건축군으로 베트남 국가특별유적에 지정돼 있어요.",
+          "source": "dsvh_hue",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c6",
+          "text_ko": "응오몬은 황성 전체의 정문으로, 민망 황제 때 남퀴엣다이 자리에 세워졌어요.",
+          "source": "visithue_ngomon",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "입장권은 유료예요. 외국인과 베트남 사람 요금이 같아요.",
+          "source": "khamphahue_ve",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "입장권은 온라인으로 미리 살 수 있고, 입구에서 QR 코드를 찍고 들어가요.",
+          "source": "khamphahue_veguide",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "응우옌호앙 버스터미널과 응오몬 사이, 그리고 황성 둘레를 도는 유료 전기차가 있어요.",
+          "source": "khamphahue_dainoi_dv",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "황성 안 흐우부에서 궁중 의상을 입고 사진을 찍는 유료 서비스가 있어요.",
+          "source": "khamphahue_dainoi_dv",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "khamphahue_ve",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "khamphahue_ve",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_vn",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 8,
+        "designations": [
+          {
+            "kind": "unesco",
+            "name_ko": "세계유산 후에 기념물 복합지구",
+            "source": "unesco_678"
+          },
+          {
+            "kind": "national_special",
+            "name_ko": "국가특별유적 후에 고도 건축군",
+            "source": "dsvh_hue"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Citadel_Hue.jpg",
+      "wiki": {
+        "ko": "후에 황성",
+        "en": "Imperial City of Huế"
+      },
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJ-zZHO4GhQTER8_Eb9kDoaEE"
     },
     {
       "id": "cu-chi-tunnels",
@@ -1827,7 +2579,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 7,
+        "order": 9,
         "designations": [
           {
             "kind": "vn_special_national_relic",
@@ -1841,6 +2593,183 @@
       "source": "wd",
       "last_verified": "2026-10-09",
       "google_place_id": "ChIJQ2JhIpEzCzER45h9HsgvJAc"
+    },
+    {
+      "id": "thien-mu-pagoda",
+      "qid": "Q975568",
+      "names": {
+        "ko": "티엔무 사원",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Thiên Mụ Pagoda",
+        "local": "Chùa Thiên Mụ",
+        "local_short": "Chùa Thiên Mụ",
+        "local_lang": "vi",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "린무 사원",
+        "티엔무 파고다",
+        "천모사"
+      ],
+      "aliases_en": [
+        "Linh Mu Pagoda",
+        "Celestial Lady Pagoda",
+        "Thien Mu Temple"
+      ],
+      "mentions_ko": [
+        "프억주옌탑"
+      ],
+      "region": "vn_hue",
+      "area_ko": "후에 시내 서쪽 흐엉강 북안 하케 언덕",
+      "category": "heritage",
+      "tags": [
+        {
+          "id": "unesco",
+          "source": "unesco_678",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 16.453599,
+        "lng": 107.544812,
+        "source": "wd",
+        "qid": "Q975568",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 16.453599,
+        "lng": 107.544812
+      },
+      "address_local": {
+        "text": "140-142 đường Nguyễn Phúc Nguyên, phường Hương Long, thành phố Huế",
+        "source": "khamphahue_thienmu",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "boat",
+          "car_only"
+        ],
+        "nearest_ko": "시내 흐엉강 선착장에서 배를 타고 가거나 택시·오토바이로 가요",
+        "nearest_local": null,
+        "source": "khamphahue_thienmu",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://khamphahue.com.vn/Du-lich/Chi-tiet/tid/Chua-Thien-Mu.html/pid/7243/cid/165",
+      "summary_ko": "흐엉강 북쪽 언덕 위에 있는 후에의 오래된 절이에요.",
+      "body_ko": [
+        "티엔무 사원은 후에 시내 서쪽, 흐엉강 왼쪽 기슭 하케 언덕 위에 있어요.",
+        "1601년 응우옌 호앙 영주 때 처음 세워졌고, 응우옌 왕조 때 세 국사(國寺) 가운데 하나였어요.",
+        "7층 프억주옌탑은 1844년부터 1846년 사이 티에우찌 황제 때 세워졌어요.",
+        "유네스코 세계유산 후에 기념물 복합지구에 속하는 곳이에요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "후에 시내 서쪽, 흐엉강 왼쪽 기슭 하케 언덕 위에 있어요.",
+          "source": "khamphahue_thienmu",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "1601년 응우옌 호앙 때 창건됐고 응우옌 왕조의 세 국사 가운데 하나였어요.",
+          "source": "khamphahue_thienmu",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "7층 프억주옌탑은 1844~1846년 티에우찌 황제 때 세워졌어요.",
+          "source": "unesco_act_322",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "유네스코 세계유산 후에 기념물 복합지구에 속해요.",
+          "source": "unesco_678",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "경내에 틱꽝득 스님이 1963년에 탔던 오스틴 자동차가 전시돼 있어요.",
+          "source": "khamphahue_thienmu",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c6",
+          "text_ko": "사원 앞 응우옌푹응우옌 길로 시내버스 15번(흐엉호–투언안)이 지나가요.",
+          "source": "visithue_bus",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "시내 흐엉강 선착장에서 배표를 사서 배로 갈 수 있어요.",
+          "source": "khamphahue_thienmu",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "사원 앞 응우옌푹응우옌 길로 시내버스 15번(흐엉호–투언안)이 지나가요.",
+          "source": "visithue_bus",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "경내 뒤쪽에 틱꽝득 스님이 1963년에 탔던 오스틴 자동차가 전시돼 있어요.",
+          "source": "khamphahue_thienmu",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "자전거로 가면 더위를 피해 이른 아침이나 늦은 오후가 좋다고 안내해요.",
+          "source": "khamphahue_thienmu",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "unknown",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "khamphahue_thienmu",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "khamphahue_thienmu",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_vn",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 10,
+        "designations": [
+          {
+            "kind": "unesco",
+            "name_ko": "세계유산 후에 기념물 복합지구",
+            "source": "unesco_678"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:ThienMuPagoda.jpg",
+      "wiki": {
+        "ko": "티엔무 사원",
+        "en": "Thiên Mụ Temple"
+      },
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJ0wVgLJemQTERunn1THqLJvc"
     },
     {
       "id": "independence-palace",
@@ -1985,7 +2914,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 8,
+        "order": 11,
         "designations": [
           {
             "kind": "vn_special_national_relic",
@@ -2145,7 +3074,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 9,
+        "order": 12,
         "designations": [
           {
             "kind": "unesco",
@@ -2164,6 +3093,327 @@
       "source": "wd",
       "last_verified": "2026-10-09",
       "google_place_id": "ChIJL9TQ1GJ5NjERctWf-ezAU2Q"
+    },
+    {
+      "id": "xuan-huong-lake",
+      "qid": "Q10772055",
+      "names": {
+        "ko": "쑤언흐엉 호수",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Xuan Huong Lake",
+        "local": "Hồ Xuân Hương",
+        "local_short": "Hồ Xuân Hương",
+        "local_lang": "vi",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "쑤언흐엉호",
+        "쑤안흐엉 호수"
+      ],
+      "aliases_en": [
+        "Ho Xuan Huong",
+        "Xuân Hương Lake"
+      ],
+      "mentions_ko": [
+        "투이따",
+        "럼비엔 광장"
+      ],
+      "region": "vn_dalat",
+      "area_ko": "달랏 시내 중심",
+      "category": "city_view",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 11.941845,
+        "lng": 108.446835,
+        "source": "wd",
+        "qid": "Q10772055",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "address_local": null,
+      "access": {
+        "modes": [
+          "walk_from_center"
+        ],
+        "nearest_ko": "달랏 시내 한가운데라 걸어서 가요",
+        "nearest_local": null,
+        "source": "dalatinfo_congchieng",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.dalat-info.gov.vn/bai-viet/hoat-dong-du-lich-tren-ho-xuan-huong-tro-lai-tang-suc-hut-cho-da-lat",
+      "summary_ko": "달랏 시내 한가운데 있는 인공 호수예요.",
+      "body_ko": [
+        "쑤언흐엉 호수는 달랏 시내 한가운데 있는 호수로, 1930년대 초 프랑스인이 파서 만들었어요.",
+        "국가 지정 명승이고, 둘레에 럼비엔 광장·도이꾸·달랏 꽃정원이 있어요.",
+        "호수 안 작은 섬에는 투이따 건물이 있고 지금은 카페·식당으로 쓰여요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "달랏 시내 한가운데(trung tâm Đà Lạt)에 있는 호수예요.",
+          "source": "dalatinfo_congchieng",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "1930년대 초 프랑스인이 파서 만든 호수예요.",
+          "source": "dalatinfo_thuyta",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "국가 지정 명승(danh lam thắng cảnh cấp quốc gia)이에요.",
+          "source": "dalatinfo_hoxuanhuong",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "둘레에 럼비엔 광장·도이꾸·달랏 꽃정원이 있어요.",
+          "source": "dalatinfo_xuanhuong_ward",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "호수 안 작은 섬에 투이따 건물이 있고, 지금은 카페·식당이에요.",
+          "source": "dalatinfo_thuyta",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c6",
+          "text_ko": "베트남 관광청은 이 호수를 달랏 시의 중심점으로 소개해요.",
+          "source": "vnat_dalat",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "호수 위 백조 모양 페달보트 영업이 다시 허가됐어요.",
+          "source": "dalatinfo_hoxuanhuong",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "호숫가를 따라 걷거나 조깅할 수 있는 길이 있어요.",
+          "source": "vnat_8things",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "호숫가 쩐꾸옥또안 거리 등에서 축제 행렬이 열리기도 해요.",
+          "source": "dalatinfo_congchieng",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "public_space",
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "dalatinfo_hoxuanhuong",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "dalatinfo_hoxuanhuong",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_vn",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 13,
+        "designations": [
+          {
+            "kind": "vn_national_scenic",
+            "name_ko": "국가 명승(danh lam thắng cảnh cấp quốc gia)",
+            "source": "dalatinfo_hoxuanhuong"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Ho_Xuan_Huong_-_Huy_Phuong_1.jpg",
+      "wiki": {
+        "ko": "쑤언흐엉호",
+        "en": "Xuân Hương Lake"
+      },
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJF_bAdQAXcTERhaBkJz1aIkY"
+    },
+    {
+      "id": "da-lat-station",
+      "qid": "Q3096348",
+      "names": {
+        "ko": "달랏역",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Da Lat Railway Station",
+        "local": "Ga Đà Lạt",
+        "local_short": "Ga Đà Lạt",
+        "local_lang": "vi",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "달랏 기차역",
+        "달랏 철도역"
+      ],
+      "aliases_en": [
+        "Da Lat station",
+        "Dalat Train Station"
+      ],
+      "mentions_ko": [
+        "짜이맛역"
+      ],
+      "region": "vn_dalat",
+      "area_ko": "달랏 시내 동쪽(꽝쭝 거리)",
+      "category": "heritage",
+      "tags": [
+        {
+          "id": "night",
+          "source": "vr_hanhtrinhdem",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "station",
+        "lat": 11.942,
+        "lng": 108.455,
+        "source": "wd",
+        "qid": "Q3096348",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "address_local": {
+        "text": "01, Quang Trung, phường Xuân Hương - Đà Lạt",
+        "source": "dalatinfo_tauco",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "walk_from_center"
+        ],
+        "nearest_ko": "시내 꽝쭝 거리에 있어 시내에서 걸어서 가요",
+        "nearest_local": null,
+        "source": "dalatinfo_tauco",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://vr.com.vn/tin-tuc--su-kien/chinh-thuc-cong-nhan-ga-da-lat-tro-thanh-diem-du-lich-cua-thanh-pho-ngan-hoa.html",
+      "summary_ko": "프랑스 시대에 지은 옛 기차역으로 국가 지정 유적이에요.",
+      "body_ko": [
+        "달랏역은 1932년에 짓기 시작해 1938년에 완공한 옛 기차역이에요.",
+        "2001년부터 국가 지정 유적이고, 지붕은 랑비앙산과 중부고원의 롱하우스 모양에서 따왔어요.",
+        "역에서 짜이맛까지 가는 짧은 구간은 옛 탑짬–달랏 철도에서 남은 부분이에요.",
+        "럼동성이 이 역을 관광지로 공식 인정했어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "1932년에 짓기 시작해 1938년에 완공했어요.",
+          "source": "vr_diemdulich",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "2001년부터 국가 지정 유적이에요.",
+          "source": "vr_diemdulich",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "설계는 랑비앙산과 중부고원 롱하우스(nhà rông) 지붕에서 영감을 받았어요.",
+          "source": "vr_diemdulich",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "달랏–짜이맛 구간은 옛 탑짬–달랏 철도에서 남은 부분이에요.",
+          "source": "vr_hanhtrinhdem",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "럼동성 인민위원회가 관광지(điểm du lịch)로 공식 인정했어요.",
+          "source": "vr_diemdulich",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c6",
+          "text_ko": "프랑스인이 지었고 2001년 국가 건축 유적으로 지정됐어요.",
+          "source": "dalatinfo_xuanhuong_ward",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "짜이맛까지 가는 옛 열차가 요일에 관계없이 매일 다녀요.",
+          "source": "vr_dl12",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "저녁에 출발하는 야간 열차 상품 '달랏 밤 여정'이 있어요.",
+          "source": "vr_hanhtrinhdem",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "열차 좌석은 철도청 판매 채널에서 온라인으로 예약할 수 있어요.",
+          "source": "vr_veonline",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "역 안에 역 역사와 톱니바퀴 철도를 다룬 다큐멘터리 상영실이 있어요.",
+          "source": "vr_hanhtrinhdem",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "unknown",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "vr_dl12",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "vr_dl12",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_vn",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 14,
+        "designations": [
+          {
+            "kind": "vn_national_relic",
+            "name_ko": "국가 지정 유적(Di tích cấp quốc gia, 2001)",
+            "source": "vr_diemdulich"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Da_Lat_train_station_37.jpg",
+      "wiki": {
+        "ko": "달랏역",
+        "en": "Da Lat station"
+      },
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJjQ3XIBkTcTER3YL5ffLfru4"
     },
     {
       "id": "marble-mountains",
@@ -2321,7 +3571,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 10,
+        "order": 15,
         "designations": [
           {
             "kind": "vn_special_national_relic",
@@ -2477,7 +3727,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 11,
+        "order": 16,
         "designations": [
           {
             "kind": "unesco",
@@ -2626,7 +3876,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 12,
+        "order": 17,
         "designations": [
           {
             "kind": "vn_city_relic",
@@ -2795,7 +4045,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 13,
+        "order": 18,
         "designations": [
           {
             "kind": "vn_national_relic",
@@ -2814,6 +4064,321 @@
       "source": "wd",
       "last_verified": "2026-10-09",
       "google_place_id": "ChIJWewCLXwOQjERRkh9adZkWHY"
+    },
+    {
+      "id": "phu-quoc-prison",
+      "qid": "Q10800918",
+      "names": {
+        "ko": "푸꾸옥 감옥",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Phu Quoc Prison",
+        "local": "Nhà tù Phú Quốc",
+        "local_short": "Nhà tù Phú Quốc",
+        "local_lang": "vi",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "코코넛 나무 감옥",
+        "푸꾸옥 포로수용소",
+        "푸꾸옥 수용소"
+      ],
+      "aliases_en": [
+        "Coconut Tree Prison",
+        "Phu Quoc POW Camp",
+        "Trai giam Phu Quoc"
+      ],
+      "mentions_ko": [],
+      "region": "vn_phuquoc",
+      "area_ko": "푸꾸옥 남쪽 안터이",
+      "category": "heritage",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 10.044333,
+        "lng": 104.017833,
+        "source": "wd",
+        "qid": "Q10800918",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "address_local": {
+        "text": "Thị trấn An Thới, huyện Phú Quốc, Tỉnh Kiên Giang",
+        "source": "angiang_dl_prison",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "car_only"
+        ],
+        "nearest_ko": "안터이 읍내, 지방도 47호선 옆이에요. 차로 가요",
+        "nearest_local": null,
+        "source": "dsvh_phuquoc_prison",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://dulich.angiang.gov.vn/destination/detail/1298",
+      "summary_ko": "안터이에 있는 전쟁 포로수용소 유적이에요.",
+      "body_ko": [
+        "푸꾸옥 감옥은 섬 남쪽 안터이 읍내에 있는 국가특별유적이에요.",
+        "1967년 6월부터 1973년 3월까지 포로수용소로 운영됐어요.",
+        "지금은 복원한 B2 분구와 전시관 등 일부 시설을 볼 수 있어요.",
+        "2014년 12월 총리 결정으로 국가특별유적이 됐어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "섬 남쪽 안터이 읍내에 있는 국가특별유적이에요.",
+          "source": "angiang_dl_prison",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "1967년 6월부터 1973년 3월까지 포로수용소로 운영됐어요.",
+          "source": "angiang_dl_prison",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "2014년 12월 총리 결정(2408/QĐ-TTg)으로 국가특별유적으로 지정됐어요.",
+          "source": "dsvh_phuquoc_prison",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "전시관은 두 방으로 나뉘고 유물 43점과 사진 100장 넘게 전시해요.",
+          "source": "dsvh_phuquoc_prison",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "B2 분구를 복원해 두었어요.",
+          "source": "dsvh_phuquoc_prison",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "현장에는 전시관과 복원한 B2 분구가 있어요.",
+          "source": "dsvh_phuquoc_prison",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "포로 묘지는 B2 분구에서 1km쯤 떨어져 있어요.",
+          "source": "dsvh_phuquoc_prison",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "최근 B2 분구·도이심 추모탑·포로 묘지·끼엔반 교회터를 보수하는 사업이 있었어요.",
+          "source": "pq_portal_prison_tubo",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "unknown",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "angiang_dl_prison",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "angiang_dl_prison",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_vn",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 19,
+        "designations": [
+          {
+            "kind": "national_special",
+            "name_ko": "국가특별유적",
+            "source": "dsvh_special"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Gef%C3%A4ngnisanlage_auf_Phu_Quoc_%22Coconut_Tree_Prison%22.jpg",
+      "wiki": {
+        "en": "Phú Quốc Prison"
+      },
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJ8zUfc5iXpzERSSpBZR01y2c"
+    },
+    {
+      "id": "tomb-of-khai-dinh",
+      "qid": "Q7818621",
+      "names": {
+        "ko": "카이딘 황릉",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Tomb of Khải Định",
+        "local": "Lăng Khải Định",
+        "local_short": "Lăng Khải Định",
+        "local_lang": "vi",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "카이딘 왕릉",
+        "카이딘릉",
+        "응랑"
+      ],
+      "aliases_en": [
+        "Khai Dinh Tomb",
+        "Ung Lang",
+        "Mausoleum of Khai Dinh"
+      ],
+      "mentions_ko": [
+        "티엔딘궁"
+      ],
+      "region": "vn_hue",
+      "area_ko": "후에 시내 남쪽 투이쑤언(쩌우쯔산)",
+      "category": "heritage",
+      "tags": [
+        {
+          "id": "unesco",
+          "source": "unesco_678",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "stairs",
+          "source": "khamphahue_khaidinh",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 16.3986,
+        "lng": 107.588,
+        "source": "wd",
+        "qid": "Q7818621",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 16.3986,
+        "lng": 107.588
+      },
+      "address_local": {
+        "text": "Núi Châu Chữ (Châu Ê), phường Thủy Xuân, thành phố Huế",
+        "source": "khamphahue_khaidinh",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "bus"
+        ],
+        "nearest_ko": "시내버스 16번(응우옌호앙 버스터미널 출발)이 카이딘 황릉 앞에 서요",
+        "nearest_local": null,
+        "source": "visithue_bus",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://khamphahue.com.vn/Du-lich/Chi-tiet/tid/Lang-vua-Khai-Dinh-Ung-Lang.html/pid/5873/cid/43",
+      "summary_ko": "응우옌 왕조 12대 황제 카이딘의 능이에요.",
+      "body_ko": [
+        "카이딘 황릉(응랑)은 후에 시내 남쪽 쩌우쯔산에 있는 응우옌 왕조 12대 황제 카이딘의 능이에요.",
+        "1920년에 짓기 시작해 1931년에 완성됐고, 응우옌 왕조에서 마지막으로 지은 황릉이에요.",
+        "베트남 전통 양식에 유럽 등 바깥 양식이 섞였고, 사기·색유리 조각으로 꾸민 장식이 특징이에요.",
+        "후에 기념물 복합지구의 하나로 1993년 유네스코 세계유산에 올랐어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "후에 시내 남쪽 쩌우쯔산에 있는 응우옌 왕조 12대 황제 카이딘의 능이에요.",
+          "source": "khamphahue_khaidinh",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "1920년 착공, 1931년 완성된 응우옌 왕조의 마지막 황릉이에요.",
+          "source": "khamphahue_khaidinh",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "전통 양식에 유럽 등 바깥 양식이 섞였고 사기·색유리 조각 장식이 특징이에요.",
+          "source": "khamphahue_khaidinh",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "후에 기념물 복합지구의 하나로 1993년 유네스코 세계유산에 올랐어요.",
+          "source": "unesco_678",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "산비탈을 따라 계단이 많아요. 맨 위 티엔딘궁까지 올라가요.",
+          "source": "khamphahue_khaidinh",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "입장권은 유료예요. 외국인과 베트남 사람 요금이 같아요.",
+          "source": "khamphahue_ve",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "티엔딘궁 천장의 구룡 벽화는 전각 가운데에 서서 올려다봐야 전체가 보여요.",
+          "source": "khamphahue_khaidinh",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "khamphahue_ve",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "khamphahue_ve",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_vn",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 20,
+        "designations": [
+          {
+            "kind": "unesco",
+            "name_ko": "세계유산 후에 기념물 복합지구",
+            "source": "unesco_678"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Emperor_Khai_Dinh_in_Hue_(39543600561).jpg",
+      "wiki": {
+        "en": "Tomb of Khải Định"
+      },
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJlyBqsJujQTER6Y6YxlpXTfQ"
     },
     {
       "id": "hoi-an-ancient-town",
@@ -2957,7 +4522,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 14,
+        "order": 21,
         "designations": [
           {
             "kind": "unesco",
@@ -3096,7 +4661,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 15,
+        "order": 22,
         "designations": [
           {
             "kind": "vn_national_scenic_bay",
@@ -3264,7 +4829,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 16,
+        "order": 23,
         "designations": []
       },
       "photo": null,
@@ -3272,6 +4837,321 @@
       "source": "wd",
       "last_verified": "2026-10-09",
       "google_place_id": "ChIJyUQ4aw72QTERCXl5YV-4U1w"
+    },
+    {
+      "id": "hanoi-st-joseph-cathedral",
+      "qid": "Q1923783",
+      "names": {
+        "ko": "성 요셉 대성당",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "St. Joseph's Cathedral",
+        "local": "Nhà thờ Lớn Hà Nội",
+        "local_short": "Nhà thờ Lớn",
+        "local_lang": "vi",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "하노이 대성당",
+        "성요셉 성당",
+        "하노이 대교당"
+      ],
+      "aliases_en": [
+        "Hanoi Cathedral",
+        "St. Joseph's Cathedral, Hanoi"
+      ],
+      "mentions_ko": [],
+      "region": "vn_hanoi",
+      "area_ko": "하노이 호안끼엠",
+      "category": "heritage",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 21.0286,
+        "lng": 105.849,
+        "source": "wd",
+        "qid": "Q1923783",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 21.0286,
+        "lng": 105.849
+      },
+      "address_local": {
+        "text": "Số 40, Nhà Chung, P. Hoàn Kiếm, TP. Hà Nội",
+        "source": "tgphn_chinhtoa",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "walk_from_center"
+        ],
+        "nearest_ko": "호안끼엠 냐쭝(Nhà Chung) 거리 40번지에 있어요. 호안끼엠 일대에서 걸어서 가요",
+        "nearest_local": null,
+        "source": "tgphn_chinhtoa",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.tonggiaophanhanoi.org/giao-xu-chinh-toa-ha-noi/",
+      "wiki": {
+        "ko": "성요셉 성당 (하노이)",
+        "en": "St. Joseph's Cathedral, Hanoi"
+      },
+      "summary_ko": "1887년에 문을 연 하노이 대교구의 주교좌성당이에요.",
+      "body_ko": [
+        "성 요셉 대성당(냐터런)은 1887년 12월 23일 정식으로 문을 열었어요.",
+        "1924년 교구 이름이 하노이 교구로 바뀌면서 주교좌성당이 됐어요.",
+        "건물은 길이 55m, 너비 33m이고, 두 종탑의 높이는 31m예요.",
+        "안쪽 색유리화는 1908년 프랑스에서 만들었어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "1887년 12월 23일 정식으로 문을 열었어요.",
+          "source": "tgphn_chinhtoa",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "1924년 교구 이름이 하노이 교구로 바뀌면서 주교좌성당이 됐어요.",
+          "source": "tgphn_chinhtoa",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "길이 55m, 너비 33m, 지붕 높이 17m, 두 종탑 높이 31m예요.",
+          "source": "tgphn_chinhtoa",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "색유리화는 1908년 프랑스에서 만들었어요.",
+          "source": "tgphn_chinhtoa",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "성당은 미사 말고도 순례·기도하러 오거나 역사·건축을 알아보러 온 방문객을 맞이해요.",
+          "source": "tgphn_chinhtoa",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "미사를 드리는 성당이라, 일요일에는 하루에 여러 번 미사가 있어요.",
+          "source": "tgphn_chinhtoa",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "성당 측은 기도하러 온 사람뿐 아니라 역사·건축을 보러 온 방문객도 맞이한다고 안내해요.",
+          "source": "tgphn_chinhtoa",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "unknown",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "tgphn_chinhtoa",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "tgphn_chinhtoa",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_vn",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 24,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:St._Joseph%27s_Cathedral_-_50129345872.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJRbk0UJSrNTERjtl_eCB2tZA"
+    },
+    {
+      "id": "fansipan",
+      "qid": "Q123782",
+      "names": {
+        "ko": "판시판",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Fansipan",
+        "local": "Fansipan",
+        "local_short": "Fansipan",
+        "local_lang": "vi",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "판시팡",
+        "판시판 케이블카",
+        "선월드 판시판 레전드"
+      ],
+      "aliases_en": [
+        "Sun World Fansipan Legend",
+        "Fansipan cable car",
+        "Fansipan Legend"
+      ],
+      "mentions_ko": [],
+      "region": "vn_sapa",
+      "area_ko": "사파 시내 서쪽(케이블카 출발역)",
+      "category": "city_view",
+      "tags": [
+        {
+          "id": "cable_car",
+          "source": "sunworld_fansipan_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "mountain_view",
+          "source": "sunworld_fansipan_about",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "station",
+        "lat": 22.3370755,
+        "lng": 103.8243225,
+        "source": "osm",
+        "qid": null,
+        "osm": "node/4508790335",
+        "last_verified": "2026-10-10"
+      },
+      "address_local": {
+        "text": "Nguyễn Chí Thanh road, Sa Pa town, Lào Cai province, Việt Nam.",
+        "source": "sunworld_fansipan_contact",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "walk_from_center",
+          "car_only"
+        ],
+        "nearest_ko": "사파 시내 중심(선플라자)의 므엉호아 산악열차역에서 열차로 케이블카 출발역까지 가요. 차로 가도 돼요.",
+        "nearest_local": null,
+        "source": "sunworld_fansipan_about",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://sunworld.vn/en/fansipan",
+      "summary_ko": "케이블카로 '인도차이나의 지붕' 판시판 정상에 오르는 곳이에요.",
+      "body_ko": [
+        "선월드 판시판 레전드는 선그룹이 투자·운영하는 케이블카와 문화 관광 단지예요.",
+        "케이블카는 2016년 2월에 문을 열었고, 해발 3,143m 판시판 정상까지 올라가요.",
+        "시내 중심과 케이블카 출발역은 2018년에 놓인 므엉호아 산악열차가 이어요.",
+        "케이블카역에서 정상까지는 푸니쿨라를 타거나 돌계단 600개를 올라요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "선그룹이 투자·운영하는 문화 관광 단지이자 케이블카예요.",
+          "source": "sunworld_fansipan_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "케이블카는 2013년 11월 착공해 2016년 2월 개통했고, 정상은 해발 3,143m예요.",
+          "source": "sunworld_fansipan_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "므엉호아 산악열차는 2018년 3월 개통했고 시내 중심과 케이블카 출발역을 이어요.",
+          "source": "sunworld_fansipan_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "케이블카역에서 정상까지 푸니쿨라가 있고, 안 타면 돌계단 600개를 올라요.",
+          "source": "sunworld_fansipan_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "해발 2,900m부터 정상까지 사찰 양식 건축물 12채의 영성·문화 단지가 있어요.",
+          "source": "sunworld_fansipan_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c6",
+          "text_ko": "케이블카역에 장미 계곡이 있고 2020년 국가 기록으로 인정됐어요.",
+          "source": "sunworld_fansipan_about",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "운행 시간은 날씨에 따라 바뀔 수 있으니 가기 전에 확인하세요.",
+          "source": "sunworld_fansipan_notice",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "정상으로 올라가는 케이블카는 내려오는 마지막 편보다 먼저 끊겨요.",
+          "source": "sunworld_fansipan_notice",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "정기 점검·정비 기간에는 케이블카 운행을 멈추기도 해요.",
+          "source": "sunworld_fansipan_notice",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "산 아래 반머이 마을에서 흐몽·다오·따이족 등의 전통 가옥을 볼 수 있어요.",
+          "source": "sunworld_fansipan_about",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "none"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "sunworld_fansipan_notice",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "sunworld_fansipan_notice",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_vn",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 25,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Fansipan_Summit.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "wiki": {
+        "ko": "판시팡산",
+        "en": "Fansipan"
+      },
+      "google_place_id": "ChIJ3dK8gGFBzTYRuJAsl36EwJ4"
     },
     {
       "id": "my-khe-beach",
@@ -3377,7 +5257,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 17,
+        "order": 26,
         "designations": []
       },
       "photo": null,
@@ -3525,7 +5405,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 18,
+        "order": 27,
         "designations": []
       },
       "photo": null,
@@ -3533,6 +5413,284 @@
       "source": "wd",
       "last_verified": "2026-10-09",
       "google_place_id": "ChIJ6VnfP3ldcDERHoQBNdIRQhs"
+    },
+    {
+      "id": "linh-phuoc-pagoda",
+      "qid": "Q10748461",
+      "names": {
+        "ko": "린프억 사원",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Linh Phuoc Pagoda",
+        "local": "Chùa Linh Phước",
+        "local_short": "Chùa Linh Phước",
+        "local_lang": "vi",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "린푸옥 사원",
+        "린프억사",
+        "베짜이 사원"
+      ],
+      "aliases_en": [
+        "Linh Phước Temple",
+        "Ve Chai Temple",
+        "Chua Ve Chai"
+      ],
+      "mentions_ko": [],
+      "region": "vn_dalat",
+      "area_ko": "달랏 동쪽 짜이맛",
+      "category": "heritage",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 11.94428333,
+        "lng": 108.4995,
+        "source": "wd",
+        "qid": "Q10748461",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "address_local": null,
+      "access": {
+        "modes": [
+          "train"
+        ],
+        "nearest_ko": "달랏역에서 짜이맛행 관광 열차를 타고 짜이맛역에서 내려요",
+        "nearest_local": null,
+        "source": "vnat_dalat",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://vietnam.travel/places-to-go/south-central-coast-central-highlands/dalat",
+      "summary_ko": "짜이맛 언덕에 있는 모자이크 장식 사원이에요.",
+      "body_ko": [
+        "린프억 사원은 달랏 동쪽 짜이맛에 있고, 건물이 모자이크로 덮여 있어요.",
+        "달랏역에서 복원된 짜이맛행 철길을 타고 가면 역 건축과 사원 관람이 이어져요.",
+        "달랏의 언덕 위 사원 가운데 하나로, 사진을 찍으러 오는 사람이 많아요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "짜이맛에 있고 건물이 모자이크로 덮여 있어요.",
+          "source": "vnat_dalat",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "복원된 달랏–짜이맛 철길이 달랏역 건축 관람과 린프억 사원 방문을 이어 줘요.",
+          "source": "dalatinfo_disan",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "달랏의 언덕 위 사원 가운데 하나로, 사진을 찍으러 오는 관광객이 많아요.",
+          "source": "vnat_8things",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "달랏–짜이맛 열차는 요일에 관계없이 매일 다니고, 수요에 따라 편이 늘어요.",
+          "source": "vr_dl12",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "열차 좌석은 철도청 판매 채널에서 온라인으로 예약할 수 있어요.",
+          "source": "vr_veonline",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "저녁에도 짜이맛까지 가는 야간 열차가 있어요.",
+          "source": "vr_hanhtrinhdem",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "unknown",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "vnat_dalat",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "vnat_dalat",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_vn",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 28,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Da_Lat_-_Linh_Phuoc_Temple_03.jpg",
+      "wiki": {
+        "ko": "린프억 사원",
+        "en": "Linh Phước Temple"
+      },
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJ24TIxRsTcTERG9_-OgIyiSA"
+    },
+    {
+      "id": "ho-chi-minh-museum",
+      "qid": "Q1055897",
+      "names": {
+        "ko": "호찌민 박물관",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Ho Chi Minh Museum",
+        "local": "Bảo tàng Hồ Chí Minh",
+        "local_short": "Bảo tàng Hồ Chí Minh",
+        "local_lang": "vi",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "호치민 박물관"
+      ],
+      "aliases_en": [],
+      "mentions_ko": [],
+      "region": "vn_hanoi",
+      "area_ko": "하노이 바딘",
+      "category": "museum",
+      "tags": [
+        {
+          "id": "foreigner_price",
+          "source": "hcmm_ticket",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "dress_code",
+          "source": "hcmm_rules",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 21.035693,
+        "lng": 105.832624,
+        "source": "wd",
+        "qid": "Q1055897",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 21.035693,
+        "lng": 105.832624
+      },
+      "address_local": {
+        "text": "19 Ngọc Hà, Ba Đình, Hà Nội",
+        "source": "hcmm_contact",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "walk_from_center"
+        ],
+        "nearest_ko": "바딘 응옥하(Ngọc Hà) 거리 19번지에 있어요. 표는 박물관 1번 창구와 응옥하 19번지 문에서 사요",
+        "nearest_local": null,
+        "source": "hcmm_ticket",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://baotanghochiminh.vn/",
+      "wiki": {
+        "ko": "호찌민 박물관",
+        "en": "Ho Chi Minh Museum"
+      },
+      "summary_ko": "호찌민 탄생 100주년인 1990년에 문을 연 박물관이에요.",
+      "body_ko": [
+        "호찌민 박물관은 1985년 8월 31일 공사를 시작해, 호찌민 탄생 100주년인 1990년 5월 19일 문을 열었어요.",
+        "하노이 바딘 지역에 있고, 박물관은 건물을 흰 연꽃에 빗대어 소개해요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "1985년 8월 31일 착공해 1990년 5월 19일 개관했어요.",
+          "source": "hcmm_history",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "개관은 호찌민 탄생 100주년에 맞췄어요.",
+          "source": "hcmm_history",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "박물관은 바딘에 있는 건물을 흰 연꽃에 빗대어 소개해요.",
+          "source": "hcmm_history",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "단정한 옷차림으로 관람하고, 모자는 벗어서 손에 들어요.",
+          "source": "hcmm_rules",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "큰 짐·배낭·가방은 보관소에 맡겨야 해요.",
+          "source": "hcmm_rules",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "베트남 국민은 무료이고, 외국인은 관람료를 내요.",
+          "source": "hcmm_ticket",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "전시물과 장비는 만지면 안 돼요.",
+          "source": "hcmm_rules",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "mon",
+          "fri"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "hcmm_hours",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "hcmm_hours",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_vn",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 29,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Ho_Chi_Minh_museum%2C_Hanoi_2.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJb-sdLqCrNTER0UkLBD-JnZQ"
     },
     {
       "id": "dragon-bridge",
@@ -3654,7 +5812,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 19,
+        "order": 30,
         "designations": []
       },
       "photo": null,
@@ -3662,6 +5820,144 @@
       "source": "wd",
       "last_verified": "2026-10-09",
       "google_place_id": "ChIJL1GKWJYZQjERLrEGqlK2kwQ"
+    },
+    {
+      "id": "war-remnants-museum",
+      "qid": "Q703871",
+      "names": {
+        "ko": "전쟁증적박물관",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "War Remnants Museum",
+        "local": "Bảo tàng Chứng tích chiến tranh",
+        "local_short": "Bảo tàng Chứng tích Chiến tranh",
+        "local_lang": "vi",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "전쟁 박물관",
+        "전쟁증거박물관",
+        "전쟁 잔재 박물관"
+      ],
+      "aliases_en": [],
+      "mentions_ko": [],
+      "region": "vn_hcmc",
+      "area_ko": "호찌민 쑤언호아",
+      "category": "museum",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 10.7795,
+        "lng": 106.692,
+        "source": "wd",
+        "qid": "Q703871",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 10.7795,
+        "lng": 106.692
+      },
+      "address_local": {
+        "text": "28 Võ Văn Tần, Phường Xuân Hòa, Thành phố Hồ Chí Minh",
+        "source": "wrm_vi",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "walk_from_center"
+        ],
+        "nearest_ko": "보반떤(Võ Văn Tần) 거리 28번지에 있어요. 시내 중심에서 걸어서 가요",
+        "nearest_local": null,
+        "source": "wrm_vi",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://baotangchungtichchientranh.vn/en",
+      "wiki": {
+        "ko": "전쟁증거박물관",
+        "en": "War Remnants Museum"
+      },
+      "summary_ko": "베트남 전쟁 관련 사진·문서·유물을 전시하는 박물관이에요.",
+      "body_ko": [
+        "전쟁증적박물관은 1975년 9월 4일에 문을 열었고, 베트남 박물관 체계와 국제박물관협의회(ICOM)에 속해 있어요.",
+        "상설 전시 주제가 9개이고, 문서·유물·사진·기록 영상을 20,000점 넘게 가지고 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "1975년 9월 4일에 세워졌고, 베트남 박물관 체계·INMP·ICOM 회원이에요.",
+          "source": "wrm_en",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "상설 전시 주제가 9개이고, 해마다 100만 명 가까이 찾아와요.",
+          "source": "wrm_en",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "문서·유물·사진·기록 영상을 20,000점 넘게 가지고 있어요.",
+          "source": "wrm_vi",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "단체 가이드 투어와 무선 헤드셋으로 듣는 안내 투어가 있어요.",
+          "source": "wrm_en",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "안내판에 영어 번역이 있고, 영어 가이드도 있어요.",
+          "source": "wrm_en",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "매표소는 박물관보다 먼저 닫아요.",
+          "source": "wrm_en",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "안에 카페와 자판기가 있어요.",
+          "source": "wrm_en",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "none"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "wrm_en",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "wrm_en",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_vn",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 31,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:War_Remnants_Museum%2C_HCMC%2C_front.JPG",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJzwg3ojAvdTERqnQUK99K2Xw"
     },
     {
       "id": "cham-museum",
@@ -3809,7 +6105,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 20,
+        "order": 32,
         "designations": []
       },
       "photo": null,
@@ -3956,7 +6252,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 21,
+        "order": 33,
         "designations": []
       },
       "photo": null,
@@ -3964,6 +6260,1365 @@
       "source": "wd",
       "last_verified": "2026-10-09",
       "google_place_id": "ChIJx7wwM0svdTERjuH2a9dkuU0"
+    },
+    {
+      "id": "dam-market",
+      "qid": "Q10748821",
+      "names": {
+        "ko": "담 시장",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Dam Market",
+        "local": "Chợ Đầm",
+        "local_short": "Chợ Đầm",
+        "local_lang": "vi",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "덤 시장",
+        "나트랑 담 시장",
+        "냐짱 담 시장"
+      ],
+      "aliases_en": [
+        "Cho Dam",
+        "Đầm Market"
+      ],
+      "mentions_ko": [],
+      "region": "vn_nhatrang",
+      "area_ko": "나트랑 반타인",
+      "category": "market_street",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 12.2553289,
+        "lng": 109.1916641,
+        "source": "osm",
+        "qid": null,
+        "osm": "relation/21159862",
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": null,
+      "address_local": {
+        "text": "Vạn Thạnh, Thành phố Nha Trang, Khánh Hòa",
+        "source": "khdl_dammarket_shop",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "walk_from_center"
+        ],
+        "nearest_ko": "나트랑 시내 한가운데 반타인 벤쩌(Bến Chợ)에 있어요. 시내에서 걸어서 가요",
+        "nearest_local": null,
+        "source": "khdl_dammarket_icon",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://dulichso.khanhhoa.gov.vn/en/article/dam-market-nha-trang-a-half-century-iconic-landmark-18b",
+      "wiki": {
+        "ko": "덤 시장"
+      },
+      "summary_ko": "연꽃 모양 둥근 건물이 있는 나트랑의 중앙 시장이에요.",
+      "body_ko": [
+        "담 시장은 1908년 옛 늪지대 터에 세운 나트랑의 중앙 시장이에요.",
+        "지금의 둥근 건물은 사이공 통일궁을 설계한 건축가 응오비엣투의 설계로 1974년에 문을 열었고, 위에서 보면 연꽃 모양이에요.",
+        "가운데는 옷·기념품, 왼쪽은 해산물·건어물, 오른쪽은 나트랑 특산 먹거리 구역이에요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "1908년 옛 늪지대 터에 중앙 시장으로 세워져 담 시장이라는 이름이 붙었어요.",
+          "source": "khdl_dammarket_shop",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "둥근 건물은 통일궁을 설계한 건축가 응오비엣투의 설계로 1974년에 문을 열었어요.",
+          "source": "khdl_dammarket_icon",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "둥근 건물은 위에서 보면 연꽃 모양이고 지름이 66.5m예요.",
+          "source": "khdl_dammarket_icon",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "가운데 구역은 옷·기념품, 왼쪽은 해산물, 오른쪽은 특산 먹거리예요.",
+          "source": "khdl_dammarket_shop",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "통로가 좁고 사람이 많아서 가방은 앞으로 메고 다니는 게 좋다고 안내해요.",
+          "source": "khdl_dammarket_icon",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "가게 앞에서 사진을 찍고 싶으면 작은 물건이라도 사면서 양해를 구하는 게 예의라고 안내해요.",
+          "source": "khdl_dammarket_icon",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "unknown",
+        "regular_closed": [
+          "none"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "khdl_dammarket_shop",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "khdl_dammarket_shop",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_vn",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 34,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJjz9TQYZncDERdYcVnKtZn-c"
+    },
+    {
+      "id": "saigon-central-post-office",
+      "qid": "Q2227270",
+      "names": {
+        "ko": "사이공 중앙우체국",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Saigon Central Post Office",
+        "local": "Bưu điện Thành phố Hồ Chí Minh",
+        "local_short": "Bưu điện Thành phố",
+        "local_lang": "vi",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "호찌민 중앙우체국",
+        "사이공 우체국",
+        "호치민 중앙우체국"
+      ],
+      "aliases_en": [
+        "Ho Chi Minh City Post Office",
+        "Bưu điện trung tâm Sài Gòn"
+      ],
+      "mentions_ko": [
+        "노트르담 대성당(사이공)"
+      ],
+      "region": "vn_hcmc",
+      "area_ko": "호찌민 벤응에",
+      "category": "city_view",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 10.78,
+        "lng": 106.7,
+        "source": "wd",
+        "qid": "Q2227270",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 10.78,
+        "lng": 106.7
+      },
+      "address_local": {
+        "text": "Số 02 Công trường Công xã Paris, Phường Bến Nghé, Quận 1",
+        "source": "sodulich_buudien",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "walk_from_center"
+        ],
+        "nearest_ko": "1군 파리 코뮌 광장(Công trường Công xã Paris) 2번지에 있어요. 시내 중심에서 걸어서 가요",
+        "nearest_local": null,
+        "source": "sodulich_buudien",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://sodulich.hochiminhcity.gov.vn/Home/moduleId/564/id/4365/ngonnguid/vi/act/KhamPhaDuLich/ctr/HomeDuKhach/controller/HomeDuKhach/action/ChiTietTinTucByIdWithDiaDiem",
+      "wiki": {
+        "ko": "사이공 중앙우체국",
+        "en": "Saigon Central Post Office"
+      },
+      "summary_ko": "1891년에 완공된 프랑스 식민지 시대의 우체국 건물이에요.",
+      "body_ko": [
+        "사이공 중앙우체국은 1886년부터 1891년 사이에 건축가 빌디외와 조수 풀루의 설계로 지은 건물이에요.",
+        "서양 건축과 동양식 장식이 어우러진 건물로, 정면 유리창에는 프랑스 명사와 전신·전기 발명가의 이름이 적혀 있어요.",
+        "옆에 있는 노트르담 대성당과 함께 하나의 건축 경관을 이뤄요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "1886년부터 1891년 사이에 건축가 빌디외와 조수 풀루의 설계로 지었어요.",
+          "source": "sodulich_buudien",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "정면의 직사각형 유리창에는 프랑스 명사와 전신·전기 발명가의 이름이 적혀 있어요.",
+          "source": "sodulich_buudien",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "노트르담 대성당과 함께 하나의 건축 경관을 이뤄요.",
+          "source": "sodulich_buudien",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "지금도 운영하는 우체국이라 주말과 공휴일에도 문을 열어요.",
+          "source": "sodulich_buudien",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "노트르담 대성당 바로 옆에 있어요.",
+          "source": "sodulich_buudien",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "unknown",
+        "regular_closed": [
+          "none"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "sodulich_buudien",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "sodulich_buudien",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_vn",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 35,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Ho_Chi_Minh_City%2C_Central_Post_Office%2C_2020-01_CN-01.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJRxocgI4udTERspsje3PV-LA"
+    },
+    {
+      "id": "hcmc-city-hall",
+      "qid": "Q2227195",
+      "names": {
+        "ko": "호찌민시 인민위원회 청사",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Ho Chi Minh City Hall",
+        "local": "Trụ sở Ủy ban nhân dân Thành phố Hồ Chí Minh",
+        "local_short": "Trụ sở UBND Thành phố",
+        "local_lang": "vi",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "호찌민 시청",
+        "호찌민 시청사",
+        "사이공 시청",
+        "호치민 시청"
+      ],
+      "aliases_en": [
+        "Saigon City Hall",
+        "Hôtel de Ville de Saïgon",
+        "People's Committee Building"
+      ],
+      "mentions_ko": [
+        "응우옌후에 보행자 거리",
+        "호찌민 동상"
+      ],
+      "region": "vn_hcmc",
+      "area_ko": "호찌민 벤응에",
+      "category": "city_view",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 10.77647,
+        "lng": 106.70097,
+        "source": "wd",
+        "qid": "Q2227195",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 10.77647,
+        "lng": 106.70097
+      },
+      "address_local": {
+        "text": "86 Lê Thánh Tôn, Phường Bến Nghé, Quận 1",
+        "source": "sodulich_ubnd",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "metro",
+          "walk_from_center"
+        ],
+        "nearest_ko": "지하철 1호선 벤탄역에서 걸어가요",
+        "nearest_local": {
+          "text": "Ga Bến Thành",
+          "qid": "Q60313402",
+          "source": "wd"
+        },
+        "source": "chinhphu_metro_tourism",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://sodulich.hochiminhcity.gov.vn/Home/moduleId/564/id/4363/ngonnguid/vi/act/KhamPhaDuLich/ctr/HomeDuKhach/controller/HomeDuKhach/action/ChiTietTinTucByIdWithDiaDiem",
+      "wiki": {
+        "ko": "호찌민 시청사",
+        "en": "Ho Chi Minh City Hall"
+      },
+      "summary_ko": "1909년에 완공된 옛 사이공 시청 건물로, 밖에서 봐요.",
+      "body_ko": [
+        "호찌민시 인민위원회 청사는 건축가 가르데스가 프랑스 북부의 종탑 양식을 본떠 설계해 1898년에 짓기 시작해 1909년에 완공한 건물이에요.",
+        "지금도 시 인민위원회가 쓰는 관공서라 건물은 밖에서 봐요.",
+        "청사 앞에는 호찌민 동상이 있고, 그 앞으로 2015년에 보행자 거리가 된 응우옌후에 광장이 사이공강 쪽 박당 선착장까지 이어져요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "건축가 가르데스가 프랑스 북부의 종탑 양식을 본떠 설계해 1898년에 짓기 시작해 1909년에 완공했어요.",
+          "source": "sodulich_ubnd",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "청사 맞은편에 호찌민 주석 동상이 있고, 그 앞 응우옌후에 광장은 2015년부터 보행자 거리예요.",
+          "source": "sodulich_ubnd",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "응우옌후에 보행자 거리는 길이 640m로 사이공강 박당 선착장 쪽으로 이어져요.",
+          "source": "sodulich_ubnd",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "청사 앞 응우옌후에 광장은 보행자 거리예요.",
+          "source": "sodulich_ubnd",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "청사 맞은편에 호찌민 주석 동상이 있어요.",
+          "source": "sodulich_ubnd",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "public_space",
+        "entry": "unknown",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": "청사 건물은 밖에서 보고, 앞쪽 응우옌후에 광장은 누구나 걷는 보행자 거리예요.",
+        "source": "sodulich_ubnd",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "sodulich_ubnd",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_vn",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 36,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Ayuntamiento%2C_Ciudad_Ho_Chi_Minh%2C_Vietnam%2C_2013-08-14%2C_DD_09.JPG",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJ1cr3QQAvdTERRPfxhUJt7Oo"
+    },
+    {
+      "id": "phu-quoc-national-park",
+      "qid": "Q1749599",
+      "names": {
+        "ko": "푸꾸옥 국립공원",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Phu Quoc National Park",
+        "local": "Vườn quốc gia Phú Quốc",
+        "local_short": "VQG Phú Quốc",
+        "local_lang": "vi",
+        "source": "wd"
+      },
+      "aliases_ko": [],
+      "aliases_en": [
+        "Vuon quoc gia Phu Quoc"
+      ],
+      "mentions_ko": [],
+      "region": "vn_phuquoc",
+      "area_ko": "푸꾸옥 북쪽",
+      "category": "nature",
+      "tags": [],
+      "geo": {
+        "kind": "entrance",
+        "lat": 10.363592,
+        "lng": 103.991652,
+        "source": "osm",
+        "qid": null,
+        "osm": "node/13663629025",
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 10.325,
+        "lng": 103.95
+      },
+      "address_local": {
+        "text": "Khu phố Xóm Mới, đặc khu Phú Quốc, tỉnh An Giang",
+        "source": "vqgpq_tongquan",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "car_only"
+        ],
+        "nearest_ko": "공원 본부는 섬 북쪽 쏨머이 구역에 있어요. 차로 가요",
+        "nearest_local": null,
+        "source": "vqgpq_tongquan",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://vqgpq.angiang.gov.vn/",
+      "summary_ko": "섬 북쪽 숲을 지키는 국립공원이에요.",
+      "body_ko": [
+        "푸꾸옥 국립공원은 섬 북동쪽에 있고 섬 면적의 70%쯤을 차지해요.",
+        "가장 높은 곳은 603m인 쭈아산이에요.",
+        "2001년에 국립공원으로 승격됐고 끼엔장 생물권보전지역의 일부예요.",
+        "안장성 인민위원회 직속 기관이 관리해요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "섬 북동쪽에 있고 섬 면적의 70%쯤을 차지해요.",
+          "source": "angiang_dl_vqgpq",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "가장 높은 곳은 603m인 쭈아산이에요.",
+          "source": "angiang_dl_vqgpq",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "2001년에 정부가 국립공원으로 승격했어요.",
+          "source": "angiang_dl_vqgpq",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "끼엔장 생물권보전지역의 일부예요.",
+          "source": "angiang_dl_vqgpq",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "안장성 인민위원회 직속 공공기관이 관리해요.",
+          "source": "vqgpq_tongquan",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "규정에 따라 생태관광 입장료·수수료를 걷을 수 있는 곳이에요.",
+          "source": "vqgpq_tongquan",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "공원이 직접 운영하는 관광 사업은 아직 없어요.",
+          "source": "vqgpq_dlst",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "공원이 안내하는 탐방 구역은 랑저우 숲길과 유산목이 있는 채종림이에요.",
+          "source": "vqgpq_clbxanh",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "건기가 길어서 산불 예방 지휘부를 상시 운영하는 곳이에요.",
+          "source": "angiang_dl_vqgpq",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "unknown",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "angiang_dl_vqgpq",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "vqgpq_tongquan",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_vn",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 37,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "wiki": {
+        "en": "Phú Quốc National Park"
+      },
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJg-T3BiwhCDERFWkgEiSOhdE"
+    },
+    {
+      "id": "da-lat-market",
+      "qid": "Q10748819",
+      "names": {
+        "ko": "달랏 시장",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Da Lat Market",
+        "local": "Chợ Đà Lạt",
+        "local_short": "Chợ Đà Lạt",
+        "local_lang": "vi",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "달랏 중앙시장",
+        "달랏 재래시장"
+      ],
+      "aliases_en": [
+        "Cho Da Lat",
+        "Dalat Central Market"
+      ],
+      "mentions_ko": [],
+      "region": "vn_dalat",
+      "area_ko": "달랏 시내 중심",
+      "category": "market_street",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 11.94295278,
+        "lng": 108.4368222,
+        "source": "wd",
+        "qid": "Q10748819",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "address_local": null,
+      "access": {
+        "modes": [
+          "walk_from_center"
+        ],
+        "nearest_ko": "달랏 시내 한가운데라 걸어서 가요",
+        "nearest_local": null,
+        "source": "vnat_8things",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.dalat-info.gov.vn/bai-viet/giu-net-van-minh-men-khach-o-cho-da-lat",
+      "summary_ko": "시내 한가운데 있는 달랏의 전통시장이에요.",
+      "body_ko": [
+        "달랏 시장은 시내 한가운데 있는 여러 층짜리 건물로, 럼동성에서 가장 큰 전통시장 가운데 하나예요.",
+        "위층에는 음식 노점이, 아래층에는 과일·채소와 옷감 가게가 있고, 바깥 둘레에는 꽃·쌀국수·건어물 노점이 늘어서요.",
+        "달랏과 주변에서 나는 과일·채소, 말린 과일, 잼, 차 같은 특산물을 팔아요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "럼동성에서 가장 큰 전통시장 가운데 하나예요.",
+          "source": "dalatinfo_chodalat",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "시내 한가운데 있는 여러 층짜리 건물이에요.",
+          "source": "vnat_8things",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "위층은 음식 노점, 아래층은 과일·채소와 옷감, 바깥 둘레는 꽃·쌀국수·건어물 노점이에요.",
+          "source": "vnat_8things",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "달랏과 주변의 과일·채소·말린 과일·잼·차 같은 특산물을 팔아요.",
+          "source": "dalatinfo_chodalat",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "가판마다 가격을 써 붙여 두게 돼 있어요.",
+          "source": "dalatinfo_chodalat",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "이른 아침에 가 보는 걸 관광청이 권해요.",
+          "source": "vnat_8things",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "상인은 손님을 붙잡거나 강매하지 않기로 시장 관리사무소와 약속해요.",
+          "source": "dalatinfo_chodalat",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "public_space",
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "dalatinfo_chodalat",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "dalatinfo_chodalat",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_vn",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 38,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Ch%E1%BB%A3_%C4%90%C3%A0_L%E1%BA%A1t_to%C3%A0n_c%E1%BA%A3nh.jpg",
+      "wiki": {
+        "en": "Da Lat Market"
+      },
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJERJoQwATcTERR_bBPr8wkUY"
+    },
+    {
+      "id": "cat-cat-village",
+      "qid": "Q10743160",
+      "names": {
+        "ko": "깟깟 마을",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Cat Cat Village",
+        "local": "Bản Cát Cát",
+        "local_short": "Cát Cát",
+        "local_lang": "vi",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "깟깟 빌리지",
+        "캇캇 마을",
+        "깟깟"
+      ],
+      "aliases_en": [
+        "Cát Cát",
+        "Cat Cat Tourist Area"
+      ],
+      "mentions_ko": [],
+      "region": "vn_sapa",
+      "area_ko": "사파 시내 남서쪽 호앙리엔",
+      "category": "heritage",
+      "tags": [
+        {
+          "id": "stairs",
+          "source": "laocai_tic_catcat",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 22.3277,
+        "lng": 103.8341,
+        "source": "wd",
+        "qid": "Q10743160",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "address_local": null,
+      "access": {
+        "modes": [
+          "walk_from_center",
+          "car_only"
+        ],
+        "nearest_ko": "사파 시내 중심에서 마을 입구까지 걸어가거나 택시·오토바이로 가요.",
+        "nearest_local": null,
+        "source": "laocai_tic_catcat",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://sapa-tourism.com/most-beautiful-village-in-the-north-of-viet-nam/",
+      "summary_ko": "사파 시내 가까이에 있는 흐몽족 마을이자 유료 관광지예요.",
+      "body_ko": [
+        "깟깟 마을은 호앙리엔 지역에 있고, 사파 시내 중심에서 마을 입구까지 멀지 않아요.",
+        "검은 흐몽족이 오래전부터 살아온 마을로, 비탈에 기댄 전통 가옥과 돌계단 길이 이어져요.",
+        "20세기 초 프랑스인이 세운 수력발전소와 깟깟 폭포, 큰 물레방아가 있어요.",
+        "삼베 짜기·은세공 같은 흐몽족 전통 공예품을 전시·판매하는 곳도 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "호앙리엔 지역에 있고 사파 시내 중심에서 마을 입구까지 약 2km예요.",
+          "source": "laocai_tic_catcat",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "검은 흐몽족이 대대로 살아온 마을이고 길가 가옥은 19세기에 지어졌어요.",
+          "source": "laocai_tic_catcat_flood",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "20세기 초 프랑스인이 수력발전소를 세웠고, 마을 이름은 프랑스인이 부른 폭포 이름에서 왔어요.",
+          "source": "laocai_tic_catcat_flood",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "삼베 짜기·직조·은세공 같은 전통 공예품을 전시·판매하는 곳이 있어요.",
+          "source": "laocai_tic_catcat_flood",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "마을로 내려가는 길은 전부 돌계단이에요.",
+          "source": "laocai_tic_catcat",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "입장권을 사서 들어가는 유료 관광지예요.",
+          "source": "laocai_tic_tickets",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "흐몽족 전통 춤·피리 공연을 볼 수 있어요.",
+          "source": "laocai_tic_catcat_flood",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "laocai_tic_tickets",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "laocai_tic_catcat",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_vn",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 39,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Trong_b%E1%BA%A3n_C%C3%A1t_C%C3%A1t.png",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "wiki": null,
+      "google_place_id": "ChIJRXU9ykJBzTYRjrK3LB07du8"
+    },
+    {
+      "id": "ham-rong-mountain",
+      "qid": "Q10802029",
+      "names": {
+        "ko": "함롱산",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Ham Rong Mountain",
+        "local": "Núi Hàm Rồng (Sa Pa)",
+        "local_short": "Núi Hàm Rồng",
+        "local_lang": "vi",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "함롱산 공원",
+        "함롱 마운틴",
+        "함롱산 생태관광지"
+      ],
+      "aliases_en": [
+        "Ham Rong Mountain Park",
+        "Ham Rong eco-tourism area",
+        "Nui Ham Rong"
+      ],
+      "mentions_ko": [],
+      "region": "vn_sapa",
+      "area_ko": "사파 시내 중심(돌 성당 뒤)",
+      "category": "nature",
+      "tags": [
+        {
+          "id": "stairs",
+          "source": "laocai_tic_hamrong",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "mountain_view",
+          "source": "laocai_tic_hamrong",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 22.3329,
+        "lng": 103.8614,
+        "source": "wd",
+        "qid": "Q10802029",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "address_local": null,
+      "access": {
+        "modes": [
+          "walk_from_center"
+        ],
+        "nearest_ko": "사파 시내 중심의 돌 성당 뒤에서 걸어 올라가요.",
+        "nearest_local": null,
+        "source": "laocai_tic_hamrong",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://sapa-tourism.com/ham-rong-mountain-park-eco-tourism-area-in-the-center-of-sapa-town/",
+      "summary_ko": "사파 시내 뒤에 솟은 산으로 꽃밭과 전망 공간이 있어요.",
+      "body_ko": [
+        "함롱산은 사파 시내 중심의 돌 성당 바로 뒤에 있고, 위에서 시내가 내려다보여요.",
+        "용이 하늘로 고개를 든 모양이라 '함롱(용의 턱)'이라는 이름이 붙었어요.",
+        "오르는 길에 난초 정원과 꽃밭이 있고, 전망이 좋은 '구름 마당(선머이)'까지는 돌계단과 굽은 길을 걸어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "사파 시내 중심의 돌 성당 뒤에 있고 해발 1,800m에서 시내가 내려다보여요.",
+          "source": "laocai_tic_hamrong",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "용이 고개를 든 모양이라 '함롱(용의 턱)'이라는 이름이 붙었어요.",
+          "source": "laocai_tic_hamrong",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "전망이 좋은 '구름 마당(선머이)'까지는 돌계단과 굽은 길을 걸어 올라가요.",
+          "source": "laocai_tic_hamrong",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "오르는 길에 난초 정원과 포장된 꽃 정원이 있어요.",
+          "source": "laocai_tic_hamrong",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "길이 길어서 물을 한두 병 챙겨 가는 게 좋아요.",
+          "source": "laocai_tic_hamrong",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "길가 가게는 값이 비싼 편이에요.",
+          "source": "laocai_tic_hamrong",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "사파는 추우니 따뜻한 옷을 준비하세요.",
+          "source": "laocai_tic_hamrong",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "오전·오후에 전통 음악 공연을 볼 수 있어요.",
+          "source": "laocai_tic_hamrong",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "unknown",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "laocai_tic_hamrong",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "laocai_tic_hamrong",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_vn",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 40,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "wiki": null,
+      "google_place_id": "ChIJLaZB2hhBzTYRpCH9rkIZRaU"
+    },
+    {
+      "id": "han-market",
+      "qid": "Q97163247",
+      "names": {
+        "ko": "한 시장",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Han Market",
+        "local": "Chợ Hàn",
+        "local_short": "Chợ Hàn",
+        "local_lang": "vi",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "다낭 한 시장",
+        "쩌한"
+      ],
+      "aliases_en": [
+        "Cho Han",
+        "Hàn Market"
+      ],
+      "mentions_ko": [],
+      "region": "vn_danang",
+      "area_ko": "다낭 하이쩌우",
+      "category": "market_street",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 16.0683525,
+        "lng": 108.224283,
+        "source": "osm",
+        "qid": null,
+        "osm": "way/204885903",
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": null,
+      "address_local": {
+        "text": "119 Trần Phú, Đà Nẵng",
+        "source": "dnf_hanmarket",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "walk_from_center"
+        ],
+        "nearest_ko": "쩐푸·박당·훙브엉·쩐흥다오 거리 사이, 시내 한가운데에 있어요. 택시나 오토바이 택시로도 가요",
+        "nearest_local": null,
+        "source": "dnf_hanmarket",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://danangfantasticity.com/en/han-market",
+      "wiki": null,
+      "summary_ko": "1940년대에 문을 연 다낭 시내 한강 옆 시장이에요.",
+      "body_ko": [
+        "한 시장은 1940년대에 문을 열었고 1989년에 새로 지은 다낭 시내의 시장이에요.",
+        "이름은 한강에서 왔고, 2층 건물에 옷감·옷·신발·과일·꽃과 다낭식 액젓을 파는 가게가 모여 있어요.",
+        "쩐푸·박당·훙브엉·쩐흥다오 거리 사이, 시내 한가운데에 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "1940년대에 문을 열었고 1989년에 새로 지었어요.",
+          "source": "dnf_hanmarket",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "이름은 한강에서 왔어요.",
+          "source": "dnf_hanmarket",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "2층 건물에 옷감·옷·신발·과일·꽃·액젓 가게가 있어요.",
+          "source": "dnf_hanmarket",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "쩐푸·박당·훙브엉·쩐흥다오 거리 사이 시내 한가운데에 있어요.",
+          "source": "dnf_hanmarket",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "리선 마늘, 고추 소스, 건오징어 같은 특산물 가게가 있고, 앞쪽에는 과일 가게가 있어요.",
+          "source": "dnf_hanmarket",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "말린 식품은 비행기로 가져갈 수 있는 양에 제한이 있을 수 있어요.",
+          "source": "dnf_hanmarket",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "unknown",
+        "regular_closed": [
+          "none"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "dnf_hanmarket",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "dnf_hanmarket",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_vn",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 41,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJDcx-OTIYQjERP4eyjItPspA"
+    },
+    {
+      "id": "sao-beach",
+      "qid": "Q32199900",
+      "names": {
+        "ko": "사오 해변",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Sao Beach",
+        "local": "Bãi Sao",
+        "local_short": "Bãi Sao",
+        "local_lang": "vi",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "바이사오",
+        "사오 비치",
+        "싸오 비치"
+      ],
+      "aliases_en": [
+        "Bai Sao",
+        "Bai Sao Beach"
+      ],
+      "mentions_ko": [],
+      "region": "vn_phuquoc",
+      "area_ko": "푸꾸옥 남쪽 안터이",
+      "category": "sea_island",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 10.057298,
+        "lng": 104.036392,
+        "source": "wd",
+        "qid": "Q32199900",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "address_local": {
+        "text": "Khu phố 4, An Thới, TP Phú Quốc, Kiên Giang",
+        "source": "angiang_dl_baisao",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "car_only"
+        ],
+        "nearest_ko": "섬 남쪽 안터이 쪽 해변이에요. 즈엉동에서 택시나 빌린 오토바이로 가요",
+        "nearest_local": null,
+        "source": "sunworld_honthom_1day",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://dulich.angiang.gov.vn/destination/detail/1309",
+      "summary_ko": "섬 남쪽에 있는 모래가 고운 해변이에요.",
+      "body_ko": [
+        "사오 해변은 푸꾸옥섬 남쪽 안터이 쪽에 있고, 즈엉동 읍내에서 25km쯤 떨어져 있어요.",
+        "해안선이 7km쯤 이어지고 고운 모래와 야자수가 늘어서 있어요.",
+        "밤에 불가사리가 올라와 달을 본다는 옛이야기에서 '사오(별)'라는 이름이 왔어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "푸꾸옥섬 남쪽에 있어요.",
+          "source": "angiang_dl_baisao",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "해안선이 7km쯤이고 고운 모래와 야자수가 있어요.",
+          "source": "angiang_dl_baisao",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "불가사리가 올라와 달을 본다는 옛이야기에서 '사오(별)' 이름이 왔어요.",
+          "source": "angiang_dl_baisao",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "즈엉동 읍내에서 25km쯤 떨어져 있어요.",
+          "source": "angiang_dl_baisao",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "남서풍이 막히는 자리라 물이 얕은 편이에요.",
+          "source": "angiang_dl_baisao",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "public_space"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "angiang_dl_baisao",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_vn",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 42,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "wiki": null,
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJL4toWTGRpzERqGuxiUPhdLQ"
+    },
+    {
+      "id": "sapa-stone-church",
+      "qid": "Q124156643",
+      "names": {
+        "ko": "사파 돌 성당",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Sapa Stone Church",
+        "local": "Nhà thờ đá Sapa",
+        "local_short": "Nhà thờ đá Sapa",
+        "local_lang": "vi",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "사파 성당",
+        "사파 석조 성당",
+        "사파 교회"
+      ],
+      "aliases_en": [
+        "Sa Pa Church",
+        "Nha tho da Sa Pa"
+      ],
+      "mentions_ko": [],
+      "region": "vn_sapa",
+      "area_ko": "사파 시내 중심",
+      "category": "heritage",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 22.33511479847842,
+        "lng": 103.84226337954237,
+        "source": "wd",
+        "qid": "Q124156643",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "address_local": null,
+      "access": {
+        "modes": [
+          "walk_from_center"
+        ],
+        "nearest_ko": "사파 시내 중심에 있어서 걸어서 가요.",
+        "nearest_local": null,
+        "source": "laocai_tic_church",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://giaophanhunghoa.org/vi/giao-phan/giao-hat-giao-xu/giao-xu--sa-pa-o81E21304.html",
+      "summary_ko": "사파 시내 중심에 있는 돌로 지은 가톨릭 성당이에요.",
+      "body_ko": [
+        "사파 본당은 1902년 파리외방전교회 신부들이 세웠고, 1926년에 성당과 사제관을 지었어요.",
+        "성당은 다듬은 돌을 쌓아 지었고, 지붕·종탑·아치에 로마네스크·고딕 양식이 드러나요.",
+        "전쟁 뒤 오래 비어 있다가 1995년 보수가 허가되면서 다시 신자들이 모이고 있어요.",
+        "신자 대부분이 흐몽족인 본당이에요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "본당은 1902년 파리외방전교회가 세웠고 1926년에 성당·사제관을 지었어요.",
+          "source": "gphh_sapa_parish",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "다듬은 돌로 지었고 로마네스크·고딕 양식이며, 1926년 착공해 1935년 완공했어요.",
+          "source": "laocai_tic_church",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "전쟁 뒤 비어 있다가 1995년 보수 허가와 함께 본당 활동이 재개됐어요.",
+          "source": "gphh_sapa_parish",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "신자 대부분이 흐몽족이에요.",
+          "source": "gphh_sapa_parish",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "지금도 사파 신자들이 미사를 드리는 본당 성당이에요.",
+          "source": "laocai_tic_church",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "성당 바로 뒤가 함롱산 관광지 입구예요.",
+          "source": "laocai_tic_hamrong",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "성당 마당은 흐몽족·다오족 주민들이 모이는 곳이기도 해요.",
+          "source": "laocai_tic_church",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "unknown",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "laocai_tic_church",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "laocai_tic_church",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_vn",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 43,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Nha_tho_Da_,_Sapa_vietnam_-_panoramio.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "wiki": null,
+      "google_place_id": "ChIJZ30wZWtBzTYRUBDrzMF6zMU"
     },
     {
       "id": "sun-world-hon-thom",
@@ -4098,7 +7753,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 22,
+        "order": 44,
         "designations": []
       },
       "photo": null,
@@ -4230,7 +7885,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 23,
+        "order": 45,
         "designations": []
       },
       "photo": null,
