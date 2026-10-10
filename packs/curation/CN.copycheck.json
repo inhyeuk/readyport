@@ -4,25 +4,60 @@
     "checked_at": "2026-10-10",
     "text_sha256": "69702573284fa7c222c78e3ed17679437dd3eb509bdf74126531fb53446b3ea9"
   },
+  "badaguan": {
+    "cache_set_sha256": "68fdcfcd96eaa22195e1a7d0ae5c5d5229550837969e0d1319e4d496dde69866",
+    "checked_at": "2026-10-10",
+    "text_sha256": "5966501c317f7e76f8cf19cee136da109ec5aba7206ff22026a8e55875076756"
+  },
   "badaling-great-wall": {
     "cache_set_sha256": "5dc909769ee4c4e5a9aafe374613dacde0790baecf18e4e27e0c926001cf9424",
     "checked_at": "2026-10-10",
     "text_sha256": "92af7bfda450cc7d96192421ed634346e9346b6f07ab834ee972f14c37844f47"
+  },
+  "china-national-silk-museum": {
+    "cache_set_sha256": "3965fdcb48904a9e49c8c205559d296328db7981e3165664a91d734f430267ff",
+    "checked_at": "2026-10-10",
+    "text_sha256": "cab87816f3501fbe17c46dbc4fcb3833d5ae4bcf452df7fd5b43a0118edb1a9f"
+  },
+  "china-science-and-technology-museum": {
+    "cache_set_sha256": "9780d1051a7df4e5ca8bd2cf40686cf2f0ff40e8b4c4fd6e2d599fb03c9c44e9",
+    "checked_at": "2026-10-10",
+    "text_sha256": "6fb708a3fc9ceb91ad7f10b5f055105f9f8c2faa7815c1e6be33da29859ae3b5"
   },
   "forbidden-city": {
     "cache_set_sha256": "ec43918d48d0bdc9413eaf9265ce61f2340a71008e75da9fe76b05a9e1890fdd",
     "checked_at": "2026-10-10",
     "text_sha256": "dc1b494e3b0a5c4cc19a37f33ab7127a85215d2304a2d60816524db16d7345c4"
   },
+  "giant-wild-goose-pagoda": {
+    "cache_set_sha256": "c876e7960e2269e958c244e0f068c124d15a89e810f60adbe9fa88a02ad65aaf",
+    "checked_at": "2026-10-10",
+    "text_sha256": "798fc47700273dbbbaece8ca67f8e6a0f2f735cb45078a88a5703b9c8d28f373"
+  },
+  "huanglong-cave": {
+    "cache_set_sha256": "b98c9e3c7f4e4ffae5c3e355dfdad82f6ed585d7bdbc1ed70838f9f7d2f47f45",
+    "checked_at": "2026-10-10",
+    "text_sha256": "d1e2a3de5cc0a6b8c7f769e1e886af2320c46faa212af0c45702e26f9f326987"
+  },
   "humble-administrators-garden": {
     "cache_set_sha256": "0596df050b5f45927371697a5a50f08b450b5fd55504221f50abcc48bcce348c",
     "checked_at": "2026-10-10",
     "text_sha256": "9150270d676801d83480284b286b5fd80712a41ed1ae8b970763d9cd5c159834"
   },
+  "korean-provisional-government-shanghai": {
+    "cache_set_sha256": "0ee5949c48f06d808c6f60c24a9ad3a6d5eb66442585953ecdbeae13d9adada8",
+    "checked_at": "2026-10-10",
+    "text_sha256": "63c8d51ac632713330908350c218d509bb6e8f54d0074ece67d7c227e192841f"
+  },
   "lingering-garden": {
     "cache_set_sha256": "8d9186b67f1129fe7c93680d871057c75356e28fca9f9fec71eca5ca519d69e9",
     "checked_at": "2026-10-10",
     "text_sha256": "4fff4151f3973fc23e60966ba3992368cfc60b26c04890773c04681f062f943a"
+  },
+  "lingyin-temple": {
+    "cache_set_sha256": "a9095df05a7b34eb031143af123912d9ce6e7270f14b1ac2118ee60ba2a89249",
+    "checked_at": "2026-10-10",
+    "text_sha256": "54f465486a1c3261cd0131f42d1519ba6e0cec41c47c1c135bdc92318d45409a"
   },
   "mutianyu-great-wall": {
     "cache_set_sha256": "df101832b8ee245d6e62ce3b01a961d6b63c8bc7d61ba857433af75e2ec7ee8b",
@@ -34,15 +69,30 @@
     "checked_at": "2026-10-10",
     "text_sha256": "7267852ddc532a4d1a2ab4d1a5552d2f5f15d43192bd6b7b0b46ece4d8cf8bf3"
   },
+  "nanluoguxiang": {
+    "cache_set_sha256": "2dfdf59417dbcaedb137b05fff2e885d3e856df27c8d138e9cee3f9ab960fe3c",
+    "checked_at": "2026-10-10",
+    "text_sha256": "d91654ee5418cf3d6a954d2c9750b8694801a6cf93efe5c83e68103c006a7d34"
+  },
   "national-museum-of-china": {
     "cache_set_sha256": "35d6067ce713c34f20e7eeddc45ef4f6da502cc959924aca8194dc299351dfb3",
     "checked_at": "2026-10-10",
     "text_sha256": "f52caeefaf737c3e6b54de3d38534b0c9ed64aa0fd52c473a7565a36d8a20bbd"
   },
+  "old-summer-palace": {
+    "cache_set_sha256": "7e1ea07fbe4bbaa010a38adf425610c90d3cd27a7ccfbd6e40782199d1e26682",
+    "checked_at": "2026-10-10",
+    "text_sha256": "d5213014ba331fff7379d624c3c3865374f6268b3d156618f93c54c5357b6fb2"
+  },
   "oriental-pearl-tower": {
     "cache_set_sha256": "558c59af7d212c1b88a22049eb03b77f57b31c6aa846857aefb066626fc69018",
     "checked_at": "2026-10-10",
     "text_sha256": "c02242bcbc6a1a0043341c6e1ac2986a4b09b0995cdeb9918a535a23f75924c2"
+  },
+  "shaanxi-history-museum": {
+    "cache_set_sha256": "eca57d7a41df5a22f980c15e058d91d104d27020cf974874c0f568bd6c4d50bb",
+    "checked_at": "2026-10-10",
+    "text_sha256": "afe41f4778589b16120a735cb9911c10ac497851faff392d3cc1723ebfd7f15f"
   },
   "shanghai-museum": {
     "cache_set_sha256": "d84fae9f9918aaaf028440676be61cd95f5884c79a6cf3f81b5e368db6b68a71",
@@ -59,15 +109,45 @@
     "checked_at": "2026-10-10",
     "text_sha256": "d262ce44dd1190c2908b9d48f7bb65428472b23d93ce8da752b1a7945ad25a6d"
   },
+  "terracotta-army-museum": {
+    "cache_set_sha256": "a0aea15bd14b7f3bb93eda94172c4de81d85ecb534c0e3a79e318f52b896c313",
+    "checked_at": "2026-10-10",
+    "text_sha256": "7e79ea87012f8c23552d105b8279edc12f55cca22ee5b0a46a582a80fc64b4e7"
+  },
   "the-bund": {
     "cache_set_sha256": "9986f4ffb586a2d796b2fb868f36450fa68a9cde516f2a8b3d18f16c31efb258",
     "checked_at": "2026-10-10",
     "text_sha256": "8de19e711d8496e6b8e26b0eaacb7b8d0b94336afa32736d16c50084fdef9ac3"
   },
+  "tianmen-mountain": {
+    "cache_set_sha256": "a7df0bcbccb8ad0cdbbcb608b4ccfc4d8e743534ceb4092d421a6d48999e0d76",
+    "checked_at": "2026-10-10",
+    "text_sha256": "a132cba88945db13b92da98f7306ce1df07778533037ad4d1e95aec35422cdf2"
+  },
+  "tsingtao-beer-museum": {
+    "cache_set_sha256": "ef087ddcb8cc15ddfced12e4a381d72d8e4a0ba69dafdd5786b2464300e3b8f9",
+    "checked_at": "2026-10-10",
+    "text_sha256": "f4c2482d5fca35e891148f8dc5e9329ac9a6d975166ee2523374a1027b786674"
+  },
   "wangfujing": {
     "cache_set_sha256": "8b7d9cb346fb8ec8fae60700efc8d2a3c2df8122ba5b2259603cc7b9a7f0824a",
     "checked_at": "2026-10-10",
     "text_sha256": "de929e594a8b72b2f29bbd4ac56167e04956ffc5104b5b12cdfb30bf12867d03"
+  },
+  "west-lake": {
+    "cache_set_sha256": "9ed7cd4d3a558b731e99c420e7f3b1acae5ad3ea46ae291b407e80ec97fc324b",
+    "checked_at": "2026-10-10",
+    "text_sha256": "7cbf81b661a874e64eeb21681aa9eb07c297c0e658d2f0f30c86af608bef233a"
+  },
+  "xian-city-wall": {
+    "cache_set_sha256": "33b5b68f28b82e1fe5b35061b8bf413a493bba64ebcd38cfb2ddd915d5151057",
+    "checked_at": "2026-10-10",
+    "text_sha256": "be1f0d61e3ba0ec767ea9d69534a0607736602d281681f293f9457834a036a9a"
+  },
+  "xian-muslim-quarter": {
+    "cache_set_sha256": "cf05e7f5295fdfb0c0529c80ddc2c87f0722e6cb85af8c60219795abaa86e567",
+    "checked_at": "2026-10-10",
+    "text_sha256": "53392506bfff73235ddeacd6c1e67907df43f0e24c75e10ca60661159909c5fe"
   },
   "xintiandi": {
     "cache_set_sha256": "bef548bfcd68d2ec351858619f4a48b8bea134f6f165d9aabeb707584852effe",
@@ -78,5 +158,15 @@
     "cache_set_sha256": "803966aabf767dc17186b521f4e53e4bbbd683e55f575be3d132254d7f117650",
     "checked_at": "2026-10-10",
     "text_sha256": "4819cbfa6008755b45b7599828bb14298f20b3ab7cc17abb5388fafc2c62669a"
+  },
+  "zhangjiajie-national-forest-park": {
+    "cache_set_sha256": "2d19067350a32f8cb2a24a1dbaf99f7a5c8de1259c4167ca08f6ba67fb73ac09",
+    "checked_at": "2026-10-10",
+    "text_sha256": "0f975211b598cb02b74b1611b5093236d252a8fc09b84fd79bb6e37e0e10feab"
+  },
+  "zhanqiao-pier": {
+    "cache_set_sha256": "b0cd86e1deec96f4da0d8b20854f6c487ac6a8b3f48d537d719cde8af8e97ab7",
+    "checked_at": "2026-10-10",
+    "text_sha256": "10e16ca9a57d89f44ddffe27db0f55a1bed1fdfc9376d8a7b31711476f11afe8"
   }
 }
