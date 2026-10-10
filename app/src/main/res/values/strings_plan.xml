@@ -178,6 +178,11 @@
     <string name="plan_pdf_save">PDF로 저장</string>
     <string name="plan_pdf_share">PDF 보내기</string>
     <string name="plan_pdf_note">PDF는 이 휴대폰 안에서 만들어요. 어디에도 올리지 않아요.</string>
+    <string name="plan_save_all">계획의 관광지 %1$d곳 모두 찜하기</string>
+    <string name="plan_save_all_done">%1$d곳을 찜했어요. 찜 목록에서 순서를 바꾸고 일정에 옮길 수 있어요.</string>
+    <string name="plan_save_all_done_existing">%1$d곳을 새로 찜했어요. 이미 찜한 %2$d곳은 그대로 두었어요.</string>
+    <string name="plan_save_all_note">계획에 나온 순서대로 담겨요. 찜한 곳은 이 휴대폰에만 저장돼요.</string>
+    <string name="plan_save_failed">찜하지 못했어요. 잠시 뒤에 다시 해 보세요.</string>
     <string name="plan_pdf_saved">PDF를 저장했어요.</string>
     <string name="plan_pdf_failed">PDF를 만들지 못했어요. 다시 해 주세요.</string>
     <string name="plan_pdf_filename">레디포트_여행계획_%1$s_%2$d일.pdf</string>
