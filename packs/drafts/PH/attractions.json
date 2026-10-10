@@ -43,7 +43,8 @@
       "name_en": "Cebu",
       "aliases_ko": [
         "세부시",
-        "막탄"
+        "막탄",
+        "라푸라푸"
       ],
       "group_ko": "비사야",
       "kind": "base",
@@ -725,6 +726,183 @@
       "last_verified": "2026-10-09"
     },
     {
+      "id": "puerto-princesa-underground-river",
+      "qid": "Q824602",
+      "names": {
+        "ko": "푸에르토프린세사 지하강",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Puerto Princesa Subterranean River National Park",
+        "local": "Puerto Princesa Subterranean River National Park",
+        "local_short": "Underground River",
+        "local_lang": "en",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "팔라완 지하강",
+        "언더그라운드 리버",
+        "지하강 국립공원"
+      ],
+      "aliases_en": [
+        "Puerto Princesa Underground River",
+        "PPUR"
+      ],
+      "mentions_ko": [
+        "사방"
+      ],
+      "region": "ph_puerto_princesa",
+      "area_ko": "푸에르토프린세사 사방",
+      "category": "nature",
+      "tags": [
+        {
+          "id": "unesco",
+          "source": "unesco_652",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "booking_required",
+          "source": "ppur_notice",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 10.166666666666666,
+        "lng": 118.91666666666667,
+        "source": "wd",
+        "qid": "Q824602",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 10.166666666666666,
+        "lng": 118.91666666666667
+      },
+      "address_local": null,
+      "access": {
+        "modes": [
+          "boat",
+          "car_only"
+        ],
+        "nearest_ko": "시내에서 차로 사방(Sabang)까지 간 뒤, 사방 선착장에서 배를 타고 공원 입구로 가요",
+        "nearest_local": null,
+        "source": "ppur_poi",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://undergroundriver.puertoprincesa.ph/",
+      "wiki": {
+        "ko": "푸에르토프린세사 지하강 국립공원",
+        "en": "Puerto Princesa Subterranean River National Park"
+      },
+      "summary_ko": "유네스코 세계자연유산인 석회동굴 지하강이에요.",
+      "body_ko": [
+        "1999년 12월 4일 유네스코 세계자연유산에 오른 국립공원으로, 지하강은 길이 8.2km이고 바다로 직접 흘러들어요.",
+        "배로 들어갈 수 있는 구간은 4.3km이고, 공원 보트로 1시간쯤 동굴 안을 돌아보며 바위 지형과 박쥐·칼새를 봐요.",
+        "하루 900명까지만 들어갈 수 있고, 허가 없이는 들어갈 수 없어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "1999년 12월 4일 유네스코 세계자연유산에 올랐어요.",
+          "source": "ppur_whs",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "지하강은 길이 8.2km이고 바다로 직접 흘러들어요.",
+          "source": "unesco_652",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "공원 보트로 1시간쯤 동굴 안을 돌아보며 바위 지형과 박쥐·칼새를 봐요.",
+          "source": "ppur_poi",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "배로 들어갈 수 있는 구간은 4.3km예요.",
+          "source": "ppur_poi",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "하루 900명까지만 들어갈 수 있고, 허가 없이는 들어갈 수 없어요.",
+          "source": "ppur_notice",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c6",
+          "text_ko": "공원 방문자 센터에 바탁족·타그바누아족 문화를 보여 주는 민족지 박물관이 있어요.",
+          "source": "ppur_tourism",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "입장 허가(Visitor Entry Permit)를 시내 예약 사무소에서 먼저 받아야 해요. 허가 없이는 들어갈 수 없어요.",
+          "source": "ppur_notice",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "공원으로 바로 가거나 사방에서 묵는다고 허가가 보장되지 않는다고 공원이 공지했어요.",
+          "source": "ppur_notice",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "원숭이에게 먹이를 주지 말고, 음식이나 비닐봉지를 들고 가지 마세요.",
+          "source": "ppur_notice",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "예약 사무소에서 신분증을 내고 개인별로 등록해야 해요.",
+          "source": "ppur_advisory",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "booking": "required",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "dotkr_underground_river",
+        "last_verified": "2026-10-10",
+        "booking_note_ko": "입장 허가(Visitor Entry Permit)를 예약 사무소에서 먼저 받아야 해요."
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "ppur_poi",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "2",
+        "source": "mofa_ph",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 4,
+        "designations": [
+          {
+            "kind": "unesco",
+            "name_ko": "세계유산 푸에르토프린세사 지하강 국립공원(1999)",
+            "source": "unesco_652"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-10"
+    },
+    {
       "id": "fort-santiago",
       "qid": "Q478181",
       "names": {
@@ -867,7 +1045,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 4,
+        "order": 5,
         "designations": [
           {
             "kind": "ph_national_cultural_treasure",
@@ -1027,7 +1205,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 5,
+        "order": 6,
         "designations": [
           {
             "kind": "ph_national_cultural_treasure",
@@ -1041,6 +1219,300 @@
       "source": "wd",
       "last_verified": "2026-10-09",
       "google_place_id": "ChIJp45-1uObqTMRKiyk55UEjGY"
+    },
+    {
+      "id": "holy-rosary-church-angeles",
+      "qid": "Q16252310",
+      "names": {
+        "ko": "앙헬레스 홀리 로저리 성당",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Holy Rosary Parish Church",
+        "local": "Holy Rosary Parish Church",
+        "local_short": "Holy Rosary Church",
+        "local_lang": "en",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "산토 로사리오 성당",
+        "앙헬레스 성당",
+        "홀리 로사리 교회"
+      ],
+      "aliases_en": [
+        "Angeles Church",
+        "Paroquia del Santisimo Rosario"
+      ],
+      "mentions_ko": [
+        "무세오 닝 앙헬레스"
+      ],
+      "region": "ph_clark",
+      "area_ko": "앙헬레스 옛 시가지",
+      "category": "heritage",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 15.134274,
+        "lng": 120.590265,
+        "source": "wd",
+        "qid": "Q16252310",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 15.134274,
+        "lng": 120.590265
+      },
+      "address_local": {
+        "text": "Dalan Sto. Rosario, Barangay Sto. Rosario, Angeles City, Pampanga",
+        "source": "angeles_heritage",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "walk_from_center"
+        ],
+        "nearest_ko": "앙헬레스 옛 시가지 달란 산토 로사리오(산토 로사리오 바랑가이)에 있어요",
+        "nearest_local": null,
+        "source": "angeles_heritage",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://tourism.angelescity.gov.ph/built-heritage/",
+      "wiki": {
+        "en": "Holy Rosary Parish Church (Angeles City)"
+      },
+      "summary_ko": "1896년 완공된 앙헬레스의 로마네스크 양식 성당이에요.",
+      "body_ko": [
+        "35m 높이 쌍둥이 종탑이 있는 로마네스크 양식 성당으로, 주민들이 돌을 쌓고 달걀을 섞은 재료로 지어 1896년 2월 12일 완공했어요.",
+        "완공 당시 팜팡가주에서 가장 높은 성당 건물이었어요.",
+        "2015년 국립박물관이 중요문화재로 지정했고, 앙헬레스를 세운 미란다 부부가 제대 양쪽에 묻혀 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "35m 높이 쌍둥이 종탑이 있는 중부 유럽 로마네스크 양식 성당이에요.",
+          "source": "angeles_heritage",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "주민들이 돌을 쌓고 달걀을 섞은 재료로 지어 1896년 2월 12일 완공했어요.",
+          "source": "angeles_heritage",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "완공 당시 팜팡가주에서 가장 높은 성당 건물이었어요.",
+          "source": "angeles_heritage",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "2015년 국립박물관이 중요문화재로 지정했어요.",
+          "source": "angeles_heritage",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "앙헬레스를 세운 돈 앙헬 판탈레온 데 미란다 부부가 제대 양쪽에 묻혀 있어요.",
+          "source": "angeles_heritage",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "같은 거리에 시립 박물관 무세오 닝 앙헬레스가 있어요.",
+          "source": "angeles_heritage",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "앙헬레스시 관광청은 이 거리의 옛 건물들을 건축유산으로 소개해요.",
+          "source": "angeles_heritage",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "unknown",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "angeles_heritage",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "angeles_heritage",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "2",
+        "source": "mofa_ph",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 7,
+        "designations": [
+          {
+            "kind": "ph_important_cultural_property",
+            "name_ko": "중요문화재(2015)",
+            "source": "angeles_heritage"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJDYwsI0_yljMRXIlOSQjvBpg"
+    },
+    {
+      "id": "museo-ning-angeles",
+      "qid": "Q104902940",
+      "names": {
+        "ko": "무세오 닝 앙헬레스",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Museo ning Angeles",
+        "local": "Museo ning Angeles",
+        "local_short": "Museo ning Angeles",
+        "local_lang": "en",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "앙헬레스 박물관",
+        "앙헬레스 시립박물관"
+      ],
+      "aliases_en": [
+        "Museum of Angeles"
+      ],
+      "mentions_ko": [
+        "홀리 로저리 성당"
+      ],
+      "region": "ph_clark",
+      "area_ko": "앙헬레스 옛 시가지",
+      "category": "museum",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 15.13479,
+        "lng": 120.59101,
+        "source": "wd",
+        "qid": "Q104902940",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 15.13479,
+        "lng": 120.59101
+      },
+      "address_local": {
+        "text": "Dalan Sto. Rosario, Barangay Sto. Rosario, Angeles City, Pampanga",
+        "source": "angeles_heritage",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "walk_from_center"
+        ],
+        "nearest_ko": "앙헬레스 옛 시가지 달란 산토 로사리오, 홀리 로저리 성당 가까이에 있어요",
+        "nearest_local": null,
+        "source": "angeles_heritage",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://tourism.angelescity.gov.ph/built-heritage/",
+      "wiki": {
+        "en": "Museo ning Angeles"
+      },
+      "summary_ko": "옛 앙헬레스 시청사에 들어선 시립 박물관이에요.",
+      "body_ko": [
+        "1922년 후안 D. 네포무세노 시장 때 지은 옛 시청사로, 80년 가까이 시의 역사·정치 무대였어요.",
+        "1999년 시청이 옮겨 간 뒤 쿨리아트 재단이 건물을 맡아 박물관으로 고쳤어요.",
+        "2015년 국립박물관이 중요문화재로 지정했어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "1922년 후안 D. 네포무세노 시장 때 지은 옛 시청사예요.",
+          "source": "angeles_heritage",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "80년 가까이 시의 역사·정치 무대였어요.",
+          "source": "angeles_heritage",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "1999년 시청이 옮겨 간 뒤 쿨리아트 재단이 건물을 맡아 박물관으로 고쳤어요.",
+          "source": "angeles_heritage",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "2015년 국립박물관이 중요문화재로 지정했어요.",
+          "source": "angeles_heritage",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "같은 거리에 홀리 로저리 성당이 있어요.",
+          "source": "angeles_heritage",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "앙헬레스시 관광청은 이 거리의 옛 건물들을 건축유산으로 소개해요.",
+          "source": "angeles_heritage",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "unknown",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "angeles_heritage",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "angeles_heritage",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "2",
+        "source": "mofa_ph",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 8,
+        "designations": [
+          {
+            "kind": "ph_important_cultural_property",
+            "name_ko": "중요문화재(2015)",
+            "source": "angeles_heritage"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJoUyhS0_yljMRACKkl9HceRE"
     },
     {
       "id": "national-museum-bohol",
@@ -1176,7 +1648,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 6,
+        "order": 9,
         "designations": [
           {
             "kind": "ph_important_cultural_property",
@@ -1190,465 +1662,6 @@
       "source": "wd",
       "last_verified": "2026-10-09",
       "google_place_id": "ChIJF-YN6rBNqjMRUJ7NFzwG0bw"
-    },
-    {
-      "id": "holy-rosary-church-angeles",
-      "qid": "Q16252310",
-      "names": {
-        "ko": "앙헬레스 홀리 로저리 성당",
-        "ko_basis": "editorial",
-        "ko_paren": null,
-        "en": "Holy Rosary Parish Church",
-        "local": "Holy Rosary Parish Church",
-        "local_short": "Holy Rosary Church",
-        "local_lang": "en",
-        "source": "wd"
-      },
-      "aliases_ko": [
-        "산토 로사리오 성당",
-        "앙헬레스 성당",
-        "홀리 로사리 교회"
-      ],
-      "aliases_en": [
-        "Angeles Church",
-        "Paroquia del Santisimo Rosario"
-      ],
-      "mentions_ko": [
-        "무세오 닝 앙헬레스"
-      ],
-      "region": "ph_clark",
-      "area_ko": "앙헬레스 옛 시가지",
-      "category": "heritage",
-      "tags": [],
-      "geo": {
-        "kind": "site",
-        "lat": 15.134274,
-        "lng": 120.590265,
-        "source": "wd",
-        "qid": "Q16252310",
-        "osm": null,
-        "last_verified": "2026-10-10"
-      },
-      "wd_geo": {
-        "lat": 15.134274,
-        "lng": 120.590265
-      },
-      "address_local": {
-        "text": "Dalan Sto. Rosario, Barangay Sto. Rosario, Angeles City, Pampanga",
-        "source": "angeles_heritage",
-        "last_verified": "2026-10-10"
-      },
-      "access": {
-        "modes": [
-          "walk_from_center"
-        ],
-        "nearest_ko": "앙헬레스 옛 시가지 달란 산토 로사리오(산토 로사리오 바랑가이)에 있어요",
-        "nearest_local": null,
-        "source": "angeles_heritage",
-        "last_verified": "2026-10-10"
-      },
-      "official_url": "https://tourism.angelescity.gov.ph/built-heritage/",
-      "summary_ko": "1896년 완공된 앙헬레스의 로마네스크 양식 성당이에요.",
-      "body_ko": [
-        "35m 높이 쌍둥이 종탑이 있는 로마네스크 양식 성당으로, 주민들이 돌을 쌓고 달걀을 섞은 재료로 지어 1896년 2월 12일 완공했어요.",
-        "완공 당시 팜팡가주에서 가장 높은 성당 건물이었어요.",
-        "2015년 국립박물관이 중요문화재로 지정했고, 앙헬레스를 세운 미란다 부부가 제대 양쪽에 묻혀 있어요."
-      ],
-      "claims": [
-        {
-          "id": "c1",
-          "text_ko": "35m 높이 쌍둥이 종탑이 있는 중부 유럽 로마네스크 양식 성당이에요.",
-          "source": "angeles_heritage",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c2",
-          "text_ko": "주민들이 돌을 쌓고 달걀을 섞은 재료로 지어 1896년 2월 12일 완공했어요.",
-          "source": "angeles_heritage",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c3",
-          "text_ko": "완공 당시 팜팡가주에서 가장 높은 성당 건물이었어요.",
-          "source": "angeles_heritage",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c4",
-          "text_ko": "2015년 국립박물관이 중요문화재로 지정했어요.",
-          "source": "angeles_heritage",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c5",
-          "text_ko": "앙헬레스를 세운 돈 앙헬 판탈레온 데 미란다 부부가 제대 양쪽에 묻혀 있어요.",
-          "source": "angeles_heritage",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "tips_ko": [
-        {
-          "text": "같은 거리에 시립 박물관 무세오 닝 앙헬레스가 있어요.",
-          "source": "angeles_heritage",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "text": "앙헬레스시 관광청은 이 거리의 옛 건물들을 건축유산으로 소개해요.",
-          "source": "angeles_heritage",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "facts": {
-        "kind": "facility",
-        "entry": "unknown",
-        "regular_closed": [
-          "unknown"
-        ],
-        "closed_note_ko": null,
-        "visit_note_ko": null,
-        "source": "angeles_heritage",
-        "last_verified": "2026-10-10"
-      },
-      "volatile": null,
-      "seasonal": [],
-      "risk": [],
-      "status": {
-        "value": "open",
-        "note_ko": null,
-        "source": "angeles_heritage",
-        "last_verified": "2026-10-10"
-      },
-      "advisory": {
-        "level": "2",
-        "source": "mofa_ph",
-        "last_verified": "2026-10-02"
-      },
-      "rank": {
-        "order": 7,
-        "designations": [
-          {
-            "kind": "ph_important_cultural_property",
-            "name_ko": "중요문화재(2015)",
-            "source": "angeles_heritage"
-          }
-        ]
-      },
-      "photo": null,
-      "photo_link": null,
-      "source": "wd",
-      "last_verified": "2026-10-10"
-    },
-    {
-      "id": "museo-ning-angeles",
-      "qid": "Q104902940",
-      "names": {
-        "ko": "무세오 닝 앙헬레스",
-        "ko_basis": "editorial",
-        "ko_paren": null,
-        "en": "Museo ning Angeles",
-        "local": "Museo ning Angeles",
-        "local_short": "Museo ning Angeles",
-        "local_lang": "en",
-        "source": "wd"
-      },
-      "aliases_ko": [
-        "앙헬레스 박물관",
-        "앙헬레스 시립박물관"
-      ],
-      "aliases_en": [
-        "Museum of Angeles"
-      ],
-      "mentions_ko": [
-        "홀리 로저리 성당"
-      ],
-      "region": "ph_clark",
-      "area_ko": "앙헬레스 옛 시가지",
-      "category": "museum",
-      "tags": [],
-      "geo": {
-        "kind": "site",
-        "lat": 15.13479,
-        "lng": 120.59101,
-        "source": "wd",
-        "qid": "Q104902940",
-        "osm": null,
-        "last_verified": "2026-10-10"
-      },
-      "wd_geo": {
-        "lat": 15.13479,
-        "lng": 120.59101
-      },
-      "address_local": {
-        "text": "Dalan Sto. Rosario, Barangay Sto. Rosario, Angeles City, Pampanga",
-        "source": "angeles_heritage",
-        "last_verified": "2026-10-10"
-      },
-      "access": {
-        "modes": [
-          "walk_from_center"
-        ],
-        "nearest_ko": "앙헬레스 옛 시가지 달란 산토 로사리오, 홀리 로저리 성당 가까이에 있어요",
-        "nearest_local": null,
-        "source": "angeles_heritage",
-        "last_verified": "2026-10-10"
-      },
-      "official_url": "https://tourism.angelescity.gov.ph/built-heritage/",
-      "summary_ko": "옛 앙헬레스 시청사에 들어선 시립 박물관이에요.",
-      "body_ko": [
-        "1922년 후안 D. 네포무세노 시장 때 지은 옛 시청사로, 80년 가까이 시의 역사·정치 무대였어요.",
-        "1999년 시청이 옮겨 간 뒤 쿨리아트 재단이 건물을 맡아 박물관으로 고쳤어요.",
-        "2015년 국립박물관이 중요문화재로 지정했어요."
-      ],
-      "claims": [
-        {
-          "id": "c1",
-          "text_ko": "1922년 후안 D. 네포무세노 시장 때 지은 옛 시청사예요.",
-          "source": "angeles_heritage",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c2",
-          "text_ko": "80년 가까이 시의 역사·정치 무대였어요.",
-          "source": "angeles_heritage",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c3",
-          "text_ko": "1999년 시청이 옮겨 간 뒤 쿨리아트 재단이 건물을 맡아 박물관으로 고쳤어요.",
-          "source": "angeles_heritage",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c4",
-          "text_ko": "2015년 국립박물관이 중요문화재로 지정했어요.",
-          "source": "angeles_heritage",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "tips_ko": [
-        {
-          "text": "같은 거리에 홀리 로저리 성당이 있어요.",
-          "source": "angeles_heritage",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "text": "앙헬레스시 관광청은 이 거리의 옛 건물들을 건축유산으로 소개해요.",
-          "source": "angeles_heritage",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "facts": {
-        "kind": "facility",
-        "entry": "unknown",
-        "regular_closed": [
-          "unknown"
-        ],
-        "closed_note_ko": null,
-        "visit_note_ko": null,
-        "source": "angeles_heritage",
-        "last_verified": "2026-10-10"
-      },
-      "volatile": null,
-      "seasonal": [],
-      "risk": [],
-      "status": {
-        "value": "open",
-        "note_ko": null,
-        "source": "angeles_heritage",
-        "last_verified": "2026-10-10"
-      },
-      "advisory": {
-        "level": "2",
-        "source": "mofa_ph",
-        "last_verified": "2026-10-02"
-      },
-      "rank": {
-        "order": 8,
-        "designations": [
-          {
-            "kind": "ph_important_cultural_property",
-            "name_ko": "중요문화재(2015)",
-            "source": "angeles_heritage"
-          }
-        ]
-      },
-      "photo": null,
-      "photo_link": null,
-      "source": "wd",
-      "last_verified": "2026-10-10"
-    },
-    {
-      "id": "puerto-princesa-underground-river",
-      "qid": "Q824602",
-      "names": {
-        "ko": "푸에르토프린세사 지하강",
-        "ko_basis": "editorial",
-        "ko_paren": null,
-        "en": "Puerto Princesa Subterranean River National Park",
-        "local": "Puerto Princesa Subterranean River National Park",
-        "local_short": "Underground River",
-        "local_lang": "en",
-        "source": "wd"
-      },
-      "aliases_ko": [
-        "팔라완 지하강",
-        "언더그라운드 리버",
-        "지하강 국립공원"
-      ],
-      "aliases_en": [
-        "Puerto Princesa Underground River",
-        "PPUR"
-      ],
-      "mentions_ko": [
-        "사방"
-      ],
-      "region": "ph_puerto_princesa",
-      "area_ko": "푸에르토프린세사 사방",
-      "category": "nature",
-      "tags": [
-        {
-          "id": "unesco",
-          "source": "unesco_652",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "booking_required",
-          "source": "ppur_notice",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "geo": {
-        "kind": "site",
-        "lat": 10.166666666666666,
-        "lng": 118.91666666666667,
-        "source": "wd",
-        "qid": "Q824602",
-        "osm": null,
-        "last_verified": "2026-10-10"
-      },
-      "wd_geo": {
-        "lat": 10.166666666666666,
-        "lng": 118.91666666666667
-      },
-      "address_local": null,
-      "access": {
-        "modes": [
-          "boat",
-          "car_only"
-        ],
-        "nearest_ko": "시내에서 차로 사방(Sabang)까지 간 뒤, 사방 선착장에서 배를 타고 공원 입구로 가요",
-        "nearest_local": null,
-        "source": "ppur_poi",
-        "last_verified": "2026-10-10"
-      },
-      "official_url": "https://undergroundriver.puertoprincesa.ph/",
-      "summary_ko": "유네스코 세계자연유산인 석회동굴 지하강이에요.",
-      "body_ko": [
-        "1999년 12월 4일 유네스코 세계자연유산에 오른 국립공원으로, 지하강은 길이 8.2km이고 바다로 직접 흘러들어요.",
-        "배로 들어갈 수 있는 구간은 4.3km이고, 공원 보트로 1시간쯤 동굴 안을 돌아보며 바위 지형과 박쥐·칼새를 봐요.",
-        "하루 900명까지만 들어갈 수 있고, 허가 없이는 들어갈 수 없어요."
-      ],
-      "claims": [
-        {
-          "id": "c1",
-          "text_ko": "1999년 12월 4일 유네스코 세계자연유산에 올랐어요.",
-          "source": "ppur_whs",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c2",
-          "text_ko": "지하강은 길이 8.2km이고 바다로 직접 흘러들어요.",
-          "source": "unesco_652",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c3",
-          "text_ko": "공원 보트로 1시간쯤 동굴 안을 돌아보며 바위 지형과 박쥐·칼새를 봐요.",
-          "source": "ppur_poi",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c4",
-          "text_ko": "배로 들어갈 수 있는 구간은 4.3km예요.",
-          "source": "ppur_poi",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c5",
-          "text_ko": "하루 900명까지만 들어갈 수 있고, 허가 없이는 들어갈 수 없어요.",
-          "source": "ppur_notice",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c6",
-          "text_ko": "공원 방문자 센터에 바탁족·타그바누아족 문화를 보여 주는 민족지 박물관이 있어요.",
-          "source": "ppur_tourism",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "tips_ko": [
-        {
-          "text": "입장 허가(Visitor Entry Permit)를 시내 예약 사무소에서 먼저 받아야 해요. 허가 없이는 들어갈 수 없어요.",
-          "source": "ppur_notice",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "text": "공원으로 바로 가거나 사방에서 묵는다고 허가가 보장되지 않는다고 공원이 공지했어요.",
-          "source": "ppur_notice",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "text": "원숭이에게 먹이를 주지 말고, 음식이나 비닐봉지를 들고 가지 마세요.",
-          "source": "ppur_notice",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "text": "예약 사무소에서 신분증을 내고 개인별로 등록해야 해요.",
-          "source": "ppur_advisory",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "facts": {
-        "kind": "facility",
-        "entry": "paid",
-        "booking": "required",
-        "regular_closed": [
-          "unknown"
-        ],
-        "closed_note_ko": null,
-        "visit_note_ko": null,
-        "source": "dotkr_underground_river",
-        "last_verified": "2026-10-10",
-        "booking_note_ko": "입장 허가(Visitor Entry Permit)를 예약 사무소에서 먼저 받아야 해요."
-      },
-      "volatile": null,
-      "seasonal": [],
-      "risk": [],
-      "status": {
-        "value": "open",
-        "note_ko": null,
-        "source": "ppur_poi",
-        "last_verified": "2026-10-10"
-      },
-      "advisory": {
-        "level": "2",
-        "source": "mofa_ph",
-        "last_verified": "2026-10-02"
-      },
-      "rank": {
-        "order": 9,
-        "designations": [
-          {
-            "kind": "unesco",
-            "name_ko": "세계유산 푸에르토프린세사 지하강 국립공원(1999)",
-            "source": "unesco_652"
-          }
-        ]
-      },
-      "photo": null,
-      "photo_link": null,
-      "source": "wd",
-      "last_verified": "2026-10-10"
     },
     {
       "id": "plaza-cuartel",
@@ -1783,7 +1796,8 @@
       "photo": null,
       "photo_link": null,
       "source": "wd",
-      "last_verified": "2026-10-10"
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJLYsUPNdjtTMRSWNpyrQ1OMo"
     },
     {
       "id": "rizal-park",
@@ -2183,6 +2197,123 @@
       "google_place_id": "ChIJa5tW0CPKlzMRKuDqk7sMx88"
     },
     {
+      "id": "moalboal",
+      "qid": "Q316171",
+      "names": {
+        "ko": "모알보알(파낙사마 비치)",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Moalboal (Panagsama Beach)",
+        "local": "Moalboal",
+        "local_short": "Moalboal",
+        "local_lang": "en",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "파낙사마 비치",
+        "모알보알 정어리 떼",
+        "모알보알 섬"
+      ],
+      "aliases_en": [
+        "Panagsama Beach"
+      ],
+      "mentions_ko": [
+        "페스카도르섬"
+      ],
+      "region": "ph_cebu_south",
+      "area_ko": "세부 모알보알",
+      "category": "sea_island",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 9.9466294,
+        "lng": 123.3661532,
+        "source": "osm",
+        "qid": null,
+        "osm": "way/1379629623",
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": null,
+      "address_local": null,
+      "access": {
+        "modes": [
+          "car_only"
+        ],
+        "nearest_ko": "세부시에서 남서쪽 해안 모알보알로 차로 가요",
+        "nearest_local": null,
+        "source": "cebu_explore",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://tourism.cebu.gov.ph/explore/",
+      "wiki": {
+        "en": "Moalboal"
+      },
+      "summary_ko": "산호초와 정어리 떼로 알려진 세부 남서 해안 마을이에요.",
+      "body_ko": [
+        "세부 남서 해안의 모알보알은 산호초와 일 년 내내 볼 수 있는 정어리 떼로 알려져 있어요.",
+        "조용한 어촌이던 곳이 다이빙 리조트와 프리다이빙 학교가 모인 곳으로 바뀌었어요.",
+        "'거북이 알'이라는 뜻의 이름이에요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "세부 남서 해안의 모알보알은 산호초와 일 년 내내 볼 수 있는 정어리 떼로 알려져 있어요.",
+          "source": "cebu_explore",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "조용한 어촌이던 곳이 다이빙 리조트와 프리다이빙 학교가 모인 곳으로 바뀌었어요.",
+          "source": "cebu_explore",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "'거북이 알'이라는 뜻의 이름이에요.",
+          "source": "dotkr_moalboal",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "정어리 떼는 일 년 내내 볼 수 있다고 세부주 관광청이 안내해요.",
+          "source": "cebu_explore",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "세부주 관광청의 남부 일정에는 모알보알 정어리 떼 구경이 바디안 캐녀닝과 같은 날로 들어 있어요.",
+          "source": "cebu_tours",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "public_space"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "cebu_explore",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "2",
+        "source": "mofa_ph",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 14,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJJTjavenpqzMRqIy6AUGavys"
+    },
+    {
       "id": "national-museum-of-natural-history",
       "qid": "Q28451570",
       "names": {
@@ -2326,7 +2457,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 14,
+        "order": 15,
         "designations": []
       },
       "photo": null,
@@ -2445,7 +2576,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 15,
+        "order": 16,
         "designations": []
       },
       "photo": null,
@@ -2453,6 +2584,264 @@
       "source": "wd",
       "last_verified": "2026-10-09",
       "google_place_id": "ChIJw_CRaj9OqjMRSbQIIGXN6uI"
+    },
+    {
+      "id": "pamintuan-mansion",
+      "qid": "Q54823969",
+      "names": {
+        "ko": "파민투안 저택",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Pamintuan Mansion",
+        "local": "Pamintuan Mansion",
+        "local_short": "Pamintuan Mansion",
+        "local_lang": "en",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "파민투안 맨션",
+        "필리핀 사회사 박물관"
+      ],
+      "aliases_en": [
+        "Museo ng Kasaysayang Panlipunan ng Pilipinas",
+        "Philippine Social History Museum"
+      ],
+      "mentions_ko": [],
+      "region": "ph_clark",
+      "area_ko": "앙헬레스 옛 시가지",
+      "category": "museum",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 15.13572,
+        "lng": 120.59148,
+        "source": "wd",
+        "qid": "Q54823969",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 15.13572,
+        "lng": 120.59148
+      },
+      "address_local": {
+        "text": "Dalan De Miranda corner Dalan Sto. Entierro, Barangay Sto. Rosario, Angeles City, Pampanga",
+        "source": "angeles_heritage",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "walk_from_center"
+        ],
+        "nearest_ko": "앙헬레스 옛 시가지, 달란 데 미란다와 달란 산토 엔티에로가 만나는 모퉁이에 있어요",
+        "nearest_local": null,
+        "source": "angeles_heritage",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://tourism.angelescity.gov.ph/built-heritage/",
+      "wiki": {
+        "en": "Pamintuan Mansion"
+      },
+      "summary_ko": "1899년 독립 1주년 기념식이 열린 저택 박물관이에요.",
+      "body_ko": [
+        "1899년 필리핀 독립 선언 1주년 기념식이 열린 저택으로, 아기날도 대통령이 2층 창에서 국기를 흔든 장면을 해마다 6월 12일 재현해요.",
+        "2010년 기증으로 국가역사위원회(NHCP) 소유가 됐고 2012년 복원했어요.",
+        "지금은 필리핀 사회사 박물관으로, 옷·음악·음식과 원주민 문화 등 일상생활을 보여 줘요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "1899년 필리핀 독립 선언 1주년 기념식이 열린 곳이에요.",
+          "source": "angeles_heritage",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "아기날도 대통령이 2층 창에서 국기를 흔든 장면을 해마다 6월 12일 재현해요.",
+          "source": "angeles_heritage",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "2010년 기증으로 국가역사위원회(NHCP) 소유가 됐고 2012년 복원했어요.",
+          "source": "angeles_heritage",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "지금은 필리핀 사회사 박물관으로, 옷·음악·음식과 원주민 문화 등 일상생활을 보여 줘요.",
+          "source": "angeles_heritage",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "해마다 6월 12일 독립기념일에 국기 게양 장면을 재현해요.",
+          "source": "angeles_heritage",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "필리핀 국가역사위원회(NHCP)가 소유한 박물관이에요.",
+          "source": "angeles_heritage",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "unknown",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "angeles_heritage",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "angeles_heritage",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "2",
+        "source": "mofa_ph",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 17,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJb0bLq0jyljMRHT0uJCmGyMg"
+    },
+    {
+      "id": "kawasan-falls",
+      "qid": "Q113639810",
+      "names": {
+        "ko": "카와산 폭포",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Kawasan Falls",
+        "local": "Kawasan Falls",
+        "local_short": "Kawasan Falls",
+        "local_lang": "en",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "카와산 폴스",
+        "가와산 폭포"
+      ],
+      "aliases_en": [],
+      "mentions_ko": [
+        "바디안 캐녀닝"
+      ],
+      "region": "ph_cebu_south",
+      "area_ko": "세부 바디안",
+      "category": "nature",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 9.802,
+        "lng": 123.37393,
+        "source": "wd",
+        "qid": "Q113639810",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 9.802,
+        "lng": 123.37393
+      },
+      "address_local": {
+        "text": "Kawasan Falls, Badian, Cebu",
+        "source": "dotkr_kawasan",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "car_only"
+        ],
+        "nearest_ko": "세부시에서 남서쪽 해안 바디안으로 차로 가요",
+        "nearest_local": null,
+        "source": "dotkr_kawasan",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://tourism.cebu.gov.ph/explore/",
+      "wiki": {
+        "en": "Kawasan Falls"
+      },
+      "summary_ko": "세부 남부 바디안의 폭포로, 캐녀닝 코스의 끝이에요.",
+      "body_ko": [
+        "세부 남부 바디안에 있는 폭포로, 바디안을 대표하는 명소예요.",
+        "캐녀닝 코스를 내려오면 닿는 폭포예요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "세부 남부 바디안에 있는 폭포로, 바디안을 대표하는 명소예요.",
+          "source": "cebu_explore",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "캐녀닝 코스를 내려오면 닿는 폭포예요.",
+          "source": "dotkr_kawasan",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "세부주 관광청은 바디안을 캐녀닝·트레킹·강 체험으로 소개해요.",
+          "source": "cebu_explore",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "세부주 관광청의 남부 일정에는 바디안 캐녀닝과 모알보알 정어리 떼가 같은 날로 들어 있어요.",
+          "source": "cebu_tours",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "unknown",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "cebu_explore",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "cebu_explore",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "2",
+        "source": "mofa_ph",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 18,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJzaFdmHHAqzMRzyRjfu-ZeDU"
     },
     {
       "id": "casa-manila",
@@ -2574,7 +2963,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 16,
+        "order": 19,
         "designations": []
       },
       "photo": null,
@@ -2582,6 +2971,273 @@
       "source": "wd",
       "last_verified": "2026-10-09",
       "google_place_id": "ChIJgS96OD3KlzMR91wyTDiHHCg"
+    },
+    {
+      "id": "kayangan-lake",
+      "qid": "Q125206346",
+      "names": {
+        "ko": "카양안 호수",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Kayangan Lake",
+        "local": "Kayangan Lake",
+        "local_short": "Kayangan Lake",
+        "local_lang": "en",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "카얀간 호수",
+        "카양안 레이크"
+      ],
+      "aliases_en": [],
+      "mentions_ko": [
+        "코론섬"
+      ],
+      "region": "ph_coron",
+      "area_ko": "코론섬",
+      "category": "nature",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 11.95726,
+        "lng": 120.22623,
+        "source": "wd",
+        "qid": "Q125206346",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 11.95726,
+        "lng": 120.22623
+      },
+      "address_local": null,
+      "access": {
+        "modes": [
+          "boat"
+        ],
+        "nearest_ko": "코론 타운에서 배를 타고 코론섬 카양안 호수 선착장으로 간 뒤 언덕길을 올라요",
+        "nearest_local": null,
+        "source": "dotkr_kayangan",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://coron.gov.ph/coron-tourism/",
+      "wiki": {
+        "en": "Kayangan Lake"
+      },
+      "summary_ko": "코론섬의 석회암 절벽에 둘러싸인 호수예요.",
+      "body_ko": [
+        "코론섬에 있는 호수로, 코론섬의 관광지는 원주민 타그바누아족이 관리해요.",
+        "담수와 해수가 섞인 호수로, 주변은 바위 절벽으로 둘러싸여 있어요.",
+        "선착장에서 언덕을 오르면 호수가 한눈에 보이는 전망대가 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "코론섬의 관광지는 원주민 타그바누아족이 관리해요.",
+          "source": "coron_tourism",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "담수와 해수가 섞인 호수예요.",
+          "source": "dotkr_kayangan",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "주변은 바위 절벽으로 둘러싸여 있어요.",
+          "source": "dotkr_kayangan",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "선착장에서 언덕을 오르면 호수가 한눈에 보이는 전망대가 있어요.",
+          "source": "dotkr_kayangan",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "배로만 갈 수 있고, 선착장에서 언덕길을 올라야 전망대와 호수에 닿아요.",
+          "source": "dotkr_kayangan",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "코론섬의 관광지는 원주민 타그바누아족이 관리하는 곳이에요.",
+          "source": "coron_tourism",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "dotkr_kayangan",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "dotkr_kayangan",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "2",
+        "source": "mofa_ph",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 20,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJ642l7PMcujMRhGBA1dyvXH0"
+    },
+    {
+      "id": "puerto-princesa-cathedral",
+      "qid": "Q44645637",
+      "names": {
+        "ko": "푸에르토프린세사 대성당",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Puerto Princesa Cathedral",
+        "local": "Puerto Princesa Cathedral",
+        "local_short": "Immaculate Conception Cathedral",
+        "local_lang": "en",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "성모수태 성당",
+        "팔라완 성모수태 성당",
+        "이마쿨라테 콘셉시온 대성당"
+      ],
+      "aliases_en": [
+        "Immaculate Conception Cathedral"
+      ],
+      "mentions_ko": [],
+      "region": "ph_puerto_princesa",
+      "area_ko": "푸에르토프린세사 시내",
+      "category": "heritage",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 9.74041,
+        "lng": 118.73021,
+        "source": "wd",
+        "qid": "Q44645637",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 9.74041,
+        "lng": 118.73021
+      },
+      "address_local": {
+        "text": "Rizal Avenue, Puerto Princesa City, Palawan",
+        "source": "dotkr_pp_cathedral",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "walk_from_center"
+        ],
+        "nearest_ko": "시내 리잘 대로(Rizal Avenue)에 있어요",
+        "nearest_local": null,
+        "source": "dotkr_pp_cathedral",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://citytourism.puertoprincesa.ph/historical-landmarks/",
+      "wiki": {
+        "en": "Puerto Princesa Cathedral"
+      },
+      "summary_ko": "1872년 첫 미사 자리에 세운 푸에르토프린세사의 대성당이에요.",
+      "body_ko": [
+        "1872년 3월 10일 스페인 원정대가 도착한 지 엿새 만에 지금 성당 자리에서 첫 미사를 올렸어요.",
+        "지금 성당은 1961년 그레고리오 에스피가 주교 때 지었어요.",
+        "각진 형태의 건물로, 필리핀의 흔한 성당 건축과 다른 모습이에요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "1872년 3월 10일 스페인 원정대가 도착한 지 엿새 만에 지금 성당 자리에서 첫 미사를 올렸어요.",
+          "source": "ppc_landmarks",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "지금 성당은 1961년 그레고리오 에스피가 주교 때 지었어요.",
+          "source": "ppc_landmarks",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "각진 형태의 건물로, 필리핀의 흔한 성당 건축과 다른 모습이에요.",
+          "source": "ppc_landmarks",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "관광부는 푸에르토프린세사에서 가장 오래된 성당으로 소개해요.",
+          "source": "dotkr_pp_cathedral",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "성당 이름은 원죄 없이 잉태되신 성모(Immaculate Conception)에서 왔어요.",
+          "source": "ppc_landmarks",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "관광부는 푸에르토프린세사에서 가장 오래된 작은 성당으로 소개해요.",
+          "source": "dotkr_pp_cathedral",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "unknown",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "ppc_landmarks",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "ppc_landmarks",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "2",
+        "source": "mofa_ph",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 21,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJUxmeSNdjtTMRGCKwwp7-dXQ"
     },
     {
       "id": "heritage-of-cebu-monument",
@@ -2697,7 +3353,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 17,
+        "order": 22,
         "designations": []
       },
       "photo": null,
@@ -2705,6 +3361,425 @@
       "source": "wd",
       "last_verified": "2026-10-09",
       "google_place_id": "ChIJhwbYF6KhqTMRnblKTxe9bqo"
+    },
+    {
+      "id": "aqua-planet",
+      "qid": "Q55604114",
+      "names": {
+        "ko": "아쿠아 플래닛",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Aqua Planet",
+        "local": "Aqua Planet",
+        "local_short": "Aqua Planet",
+        "local_lang": "en",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "아쿠아플래닛 클락",
+        "클락 워터파크"
+      ],
+      "aliases_en": [
+        "Aqua Planet Clark"
+      ],
+      "mentions_ko": [],
+      "region": "ph_clark",
+      "area_ko": "클락 프리포트",
+      "category": "theme_park",
+      "tags": [],
+      "geo": {
+        "kind": "entrance",
+        "lat": 15.1877742,
+        "lng": 120.4999913,
+        "source": "osm",
+        "qid": null,
+        "osm": "relation/14081885",
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": null,
+      "address_local": {
+        "text": "Bounded by J.P. Rizal Avenue and Prince Balagtas Avenue, Clark Freeport Zone, Angeles City, Pampanga 2023",
+        "source": "dotkr_aqua_planet",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "car_only"
+        ],
+        "nearest_ko": "클락 프리포트 안, J.P. 리잘 대로와 프린스 발락타스 대로로 둘러싸인 구역이에요",
+        "nearest_local": null,
+        "source": "dotkr_aqua_planet",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.aquaplanet.ph/",
+      "wiki": {
+        "en": "Aqua Planet (water park)"
+      },
+      "summary_ko": "클락 프리포트 안에 있는 대형 워터파크예요.",
+      "body_ko": [
+        "클락 프리포트 안 10ha 부지에 있는 워터파크로, 2018년 2월 24일 문을 열었어요.",
+        "슬라이드와 어트랙션이 38개 있고, 장애가 있는 손님을 위한 시설도 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "클락 프리포트 안 10ha 부지에 있는 워터파크예요.",
+          "source": "aquaplanet_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "슬라이드와 어트랙션이 38개 있어요.",
+          "source": "aquaplanet_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "2018년 2월 24일 일반에 문을 열었어요.",
+          "source": "aquaplanet_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "장애가 있는 손님을 위한 시설이 있어요.",
+          "source": "aquaplanet_about",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "운영 시간은 매달 공식 홈페이지 배너에 공지돼요. 날씨나 정비로 쉬는 날도 홈페이지에 알려요.",
+          "source": "aquaplanet_faq",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "개인 접이식 의자·테이블·텐트·우산은 반입할 수 없어요.",
+          "source": "aquaplanet_faq",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "주요 신용카드를 쓸 수 있고, 식음료 매장에서는 GCash·Maya도 돼요.",
+          "source": "aquaplanet_faq",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "주차장은 무료예요.",
+          "source": "aquaplanet_faq",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "dotkr_aqua_planet",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "aquaplanet_faq",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "2",
+        "source": "mofa_ph",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 23,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJOxBUWI6TljMR9XJL7YqnlwM"
+    },
+    {
+      "id": "taal-volcano-view",
+      "qid": "Q30466200",
+      "names": {
+        "ko": "따알 화산 전망(타가이타이 능선)",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Taal Volcano View (Tagaytay Ridge)",
+        "local": "Tagaytay Ridge",
+        "local_short": "Tagaytay Ridge",
+        "local_lang": "en",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "타가이타이 능선",
+        "따알 호수 전망",
+        "타알 화산 전망",
+        "탈 화산"
+      ],
+      "aliases_en": [
+        "Taal Volcano viewpoint",
+        "Taal Lake view"
+      ],
+      "mentions_ko": [
+        "따알 화산섬"
+      ],
+      "region": "ph_tagaytay",
+      "area_ko": "타가이타이 시내 능선",
+      "category": "nature",
+      "tags": [
+        {
+          "id": "mountain_view",
+          "source": "tagaytay_home",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 14.0939,
+        "lng": 120.9415,
+        "source": "wd",
+        "qid": "Q30466200",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 14.0939,
+        "lng": 120.9415
+      },
+      "address_local": null,
+      "access": {
+        "modes": [
+          "car_only"
+        ],
+        "nearest_ko": "마닐라에서 국도로 이어지는 타가이타이 시내 능선 길에 전망 지점이 여러 곳 있어요",
+        "nearest_local": null,
+        "source": "tagaytay_quickfacts",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.tagaytay.gov.ph/",
+      "wiki": {
+        "en": "Tagaytay Ridge"
+      },
+      "summary_ko": "타가이타이 능선에서 따알 호수와 화산섬을 내려다봐요.",
+      "body_ko": [
+        "타가이타이는 따알 호수를 내려다보는 고지대 도시로, 호수 가운데 따알 화산섬이 보여요.",
+        "마닐라에서 남쪽으로 56km쯤 떨어져 있고, 고도가 높아 기후가 서늘한 편이에요.",
+        "따알 화산은 PHIVOLCS가 경보 단계를 두고 감시하는 활화산이에요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "타가이타이는 따알 호수를 내려다보는 고지대 도시로, 호수 가운데 따알 화산섬이 시내 여러 전망 지점에서 보여요.",
+          "source": "tagaytay_home",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "마닐라에서 남쪽으로 56km쯤 떨어져 있어요.",
+          "source": "tagaytay_quickfacts",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "고도가 높아 기후가 서늘한 편이에요.",
+          "source": "tagaytay_home",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "따알 화산은 PHIVOLCS가 경보 단계를 두고 감시하는 활화산이에요.",
+          "source": "phivolcs_alert_levels",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "따알 화산 지역은 해발 600m쯤의 고지대예요.",
+          "source": "dotkr_taal",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "따알 화산은 PHIVOLCS가 경보 단계로 감시하는 활화산이에요. 경보 단계에 따라 화산섬 출입이 금지되니, 가기 전에 PHIVOLCS 최신 공지를 확인하세요.",
+          "source": "phivolcs_alert_levels",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "관광부는 따알 화산 지역이 해발 600m쯤의 고지대라 기후가 서늘하다고 안내해요.",
+          "source": "dotkr_taal",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "public_space"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [
+        "volcano"
+      ],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "tagaytay_home",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "2",
+        "source": "mofa_ph",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 24,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJYVpsxnR3vTMRiRap6Obo69c"
+    },
+    {
+      "id": "palawan-wildlife-rescue-center",
+      "qid": "Q110300660",
+      "names": {
+        "ko": "팔라완 야생동물 구조센터",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Palawan Wildlife Rescue and Conservation Center",
+        "local": "Palawan Wildlife Rescue and Conservation Center",
+        "local_short": "PWRCC",
+        "local_lang": "en",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "크로커다일 팜",
+        "악어 농장",
+        "팔라완 야생동물 보호센터"
+      ],
+      "aliases_en": [
+        "Crocodile Farm and Nature Park",
+        "PWRCC"
+      ],
+      "mentions_ko": [],
+      "region": "ph_puerto_princesa",
+      "area_ko": "푸에르토프린세사 이라완",
+      "category": "theme_park",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 9.79925,
+        "lng": 118.69378,
+        "source": "wd",
+        "qid": "Q110300660",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 9.79925,
+        "lng": 118.69378
+      },
+      "address_local": {
+        "text": "South Road, Brgy. Irawan, Puerto Princesa City, Palawan 5300",
+        "source": "ppc_crocfarm",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "bus"
+        ],
+        "nearest_ko": "시내에서 이라완(Irawan) 방면 지프니나 멀티캡을 타고 국도변 남쪽 도로로 가요",
+        "nearest_local": null,
+        "source": "ppc_crocfarm",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://citytourism.puertoprincesa.ph/crocodile-farm-nature-park/",
+      "wiki": {
+        "en": "Palawan Wildlife Rescue and Conservation Center"
+      },
+      "summary_ko": "필리핀 악어 두 종을 보전하는 센터와 자연공원이에요.",
+      "body_ko": [
+        "필리핀의 멸종위기 악어 두 종, 바다악어와 필리핀악어를 보전하는 시설이에요.",
+        "알에서 다 자란 악어까지 단계별로 볼 수 있고, 팔라완 빈투롱·니코바르비둘기·팔라완공작꿩 같은 팔라완의 동물을 보호하는 자연공원이 함께 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "필리핀의 멸종위기 악어 두 종, 바다악어와 필리핀악어를 보전하는 시설이에요.",
+          "source": "ppc_crocfarm",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "팔라완 빈투롱, 니코바르비둘기, 팔라완공작꿩 같은 팔라완의 동물을 보호하는 자연공원이 함께 있어요.",
+          "source": "ppc_crocfarm",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "알에서 다 자란 악어까지 단계별로 볼 수 있어요.",
+          "source": "dotkr_pwrcc",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "팔라완 지속가능개발위원회(PCSD)가 함께 악어 보전 주간 행사를 열어요.",
+          "source": "pcsd_pwrcc_news",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "관광부 시간표에 따르면 점심시간에는 쉬어요.",
+          "source": "dotkr_pwrcc",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "악어 보전 주간에는 PCSD와 함께 교육 행사를 해요.",
+          "source": "pcsd_pwrcc_news",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "dotkr_pwrcc",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "ppc_crocfarm",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "2",
+        "source": "mofa_ph",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 25,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJj7axZ5VitTMRV7cyEAOl6I0"
     },
     {
       "id": "national-museum-cebu",
@@ -2845,7 +3920,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 18,
+        "order": 26,
         "designations": []
       },
       "photo": null,
@@ -2952,7 +4027,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 19,
+        "order": 27,
         "designations": []
       },
       "photo": null,
@@ -3070,7 +4145,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 20,
+        "order": 28,
         "designations": []
       },
       "photo": null,
@@ -3177,7 +4252,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 21,
+        "order": 29,
         "designations": []
       },
       "photo": null,
@@ -3284,13 +4359,14 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 22,
+        "order": 30,
         "designations": []
       },
       "photo": null,
       "photo_link": null,
       "source": "boracay_ipass_site",
-      "last_verified": "2026-10-10"
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJmckuWZs9pTMRuczV42NVusI"
     },
     {
       "id": "mount-luho",
@@ -3400,651 +4476,14 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 23,
+        "order": 31,
         "designations": []
       },
       "photo": null,
       "photo_link": null,
       "source": "boracay_ipass_site",
-      "last_verified": "2026-10-10"
-    },
-    {
-      "id": "taal-volcano-view",
-      "qid": "Q30466200",
-      "names": {
-        "ko": "따알 화산 전망(타가이타이 능선)",
-        "ko_basis": "editorial",
-        "ko_paren": null,
-        "en": "Taal Volcano View (Tagaytay Ridge)",
-        "local": "Tagaytay Ridge",
-        "local_short": "Tagaytay Ridge",
-        "local_lang": "en",
-        "source": "wd"
-      },
-      "aliases_ko": [
-        "타가이타이 능선",
-        "따알 호수 전망",
-        "타알 화산 전망",
-        "탈 화산"
-      ],
-      "aliases_en": [
-        "Taal Volcano viewpoint",
-        "Taal Lake view"
-      ],
-      "mentions_ko": [
-        "따알 화산섬"
-      ],
-      "region": "ph_tagaytay",
-      "area_ko": "타가이타이 시내 능선",
-      "category": "nature",
-      "tags": [
-        {
-          "id": "mountain_view",
-          "source": "tagaytay_home",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "geo": {
-        "kind": "site",
-        "lat": 14.0939,
-        "lng": 120.9415,
-        "source": "wd",
-        "qid": "Q30466200",
-        "osm": null,
-        "last_verified": "2026-10-10"
-      },
-      "wd_geo": {
-        "lat": 14.0939,
-        "lng": 120.9415
-      },
-      "address_local": null,
-      "access": {
-        "modes": [
-          "car_only"
-        ],
-        "nearest_ko": "마닐라에서 국도로 이어지는 타가이타이 시내 능선 길에 전망 지점이 여러 곳 있어요",
-        "nearest_local": null,
-        "source": "tagaytay_quickfacts",
-        "last_verified": "2026-10-10"
-      },
-      "official_url": "https://www.tagaytay.gov.ph/",
-      "summary_ko": "타가이타이 능선에서 따알 호수와 화산섬을 내려다봐요.",
-      "body_ko": [
-        "타가이타이는 따알 호수를 내려다보는 고지대 도시로, 호수 가운데 따알 화산섬이 보여요.",
-        "마닐라에서 남쪽으로 56km쯤 떨어져 있고, 고도가 높아 기후가 서늘한 편이에요.",
-        "따알 화산은 PHIVOLCS가 경보 단계를 두고 감시하는 활화산이에요."
-      ],
-      "claims": [
-        {
-          "id": "c1",
-          "text_ko": "타가이타이는 따알 호수를 내려다보는 고지대 도시로, 호수 가운데 따알 화산섬이 시내 여러 전망 지점에서 보여요.",
-          "source": "tagaytay_home",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c2",
-          "text_ko": "마닐라에서 남쪽으로 56km쯤 떨어져 있어요.",
-          "source": "tagaytay_quickfacts",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c3",
-          "text_ko": "고도가 높아 기후가 서늘한 편이에요.",
-          "source": "tagaytay_home",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c4",
-          "text_ko": "따알 화산은 PHIVOLCS가 경보 단계를 두고 감시하는 활화산이에요.",
-          "source": "phivolcs_alert_levels",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c5",
-          "text_ko": "따알 화산 지역은 해발 600m쯤의 고지대예요.",
-          "source": "dotkr_taal",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "tips_ko": [
-        {
-          "text": "따알 화산은 PHIVOLCS가 경보 단계로 감시하는 활화산이에요. 경보 단계에 따라 화산섬 출입이 금지되니, 가기 전에 PHIVOLCS 최신 공지를 확인하세요.",
-          "source": "phivolcs_alert_levels",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "text": "관광부는 따알 화산 지역이 해발 600m쯤의 고지대라 기후가 서늘하다고 안내해요.",
-          "source": "dotkr_taal",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "facts": {
-        "kind": "public_space"
-      },
-      "volatile": null,
-      "seasonal": [],
-      "risk": [
-        "volcano"
-      ],
-      "status": {
-        "value": "open",
-        "note_ko": null,
-        "source": "tagaytay_home",
-        "last_verified": "2026-10-10"
-      },
-      "advisory": {
-        "level": "2",
-        "source": "mofa_ph",
-        "last_verified": "2026-10-02"
-      },
-      "rank": {
-        "order": 24,
-        "designations": []
-      },
-      "photo": null,
-      "photo_link": null,
-      "source": "wd",
-      "last_verified": "2026-10-10"
-    },
-    {
-      "id": "aqua-planet",
-      "qid": "Q55604114",
-      "names": {
-        "ko": "아쿠아 플래닛",
-        "ko_basis": "editorial",
-        "ko_paren": null,
-        "en": "Aqua Planet",
-        "local": "Aqua Planet",
-        "local_short": "Aqua Planet",
-        "local_lang": "en",
-        "source": "wd"
-      },
-      "aliases_ko": [
-        "아쿠아플래닛 클락",
-        "클락 워터파크"
-      ],
-      "aliases_en": [
-        "Aqua Planet Clark"
-      ],
-      "mentions_ko": [],
-      "region": "ph_clark",
-      "area_ko": "클락 프리포트",
-      "category": "theme_park",
-      "tags": [],
-      "geo": {
-        "kind": "entrance",
-        "lat": 15.1877742,
-        "lng": 120.4999913,
-        "source": "osm",
-        "qid": null,
-        "osm": "relation/14081885",
-        "last_verified": "2026-10-10"
-      },
-      "wd_geo": null,
-      "address_local": {
-        "text": "Bounded by J.P. Rizal Avenue and Prince Balagtas Avenue, Clark Freeport Zone, Angeles City, Pampanga 2023",
-        "source": "dotkr_aqua_planet",
-        "last_verified": "2026-10-10"
-      },
-      "access": {
-        "modes": [
-          "car_only"
-        ],
-        "nearest_ko": "클락 프리포트 안, J.P. 리잘 대로와 프린스 발락타스 대로로 둘러싸인 구역이에요",
-        "nearest_local": null,
-        "source": "dotkr_aqua_planet",
-        "last_verified": "2026-10-10"
-      },
-      "official_url": "https://www.aquaplanet.ph/",
-      "summary_ko": "클락 프리포트 안에 있는 대형 워터파크예요.",
-      "body_ko": [
-        "클락 프리포트 안 10ha 부지에 있는 워터파크로, 2018년 2월 24일 문을 열었어요.",
-        "슬라이드와 어트랙션이 38개 있고, 장애가 있는 손님을 위한 시설도 있어요."
-      ],
-      "claims": [
-        {
-          "id": "c1",
-          "text_ko": "클락 프리포트 안 10ha 부지에 있는 워터파크예요.",
-          "source": "aquaplanet_about",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c2",
-          "text_ko": "슬라이드와 어트랙션이 38개 있어요.",
-          "source": "aquaplanet_about",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c3",
-          "text_ko": "2018년 2월 24일 일반에 문을 열었어요.",
-          "source": "aquaplanet_about",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c4",
-          "text_ko": "장애가 있는 손님을 위한 시설이 있어요.",
-          "source": "aquaplanet_about",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "tips_ko": [
-        {
-          "text": "운영 시간은 매달 공식 홈페이지 배너에 공지돼요. 날씨나 정비로 쉬는 날도 홈페이지에 알려요.",
-          "source": "aquaplanet_faq",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "text": "개인 접이식 의자·테이블·텐트·우산은 반입할 수 없어요.",
-          "source": "aquaplanet_faq",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "text": "주요 신용카드를 쓸 수 있고, 식음료 매장에서는 GCash·Maya도 돼요.",
-          "source": "aquaplanet_faq",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "text": "주차장은 무료예요.",
-          "source": "aquaplanet_faq",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "facts": {
-        "kind": "facility",
-        "entry": "paid",
-        "regular_closed": [
-          "unknown"
-        ],
-        "closed_note_ko": null,
-        "visit_note_ko": null,
-        "source": "dotkr_aqua_planet",
-        "last_verified": "2026-10-10"
-      },
-      "volatile": null,
-      "seasonal": [],
-      "risk": [],
-      "status": {
-        "value": "open",
-        "note_ko": null,
-        "source": "aquaplanet_faq",
-        "last_verified": "2026-10-10"
-      },
-      "advisory": {
-        "level": "2",
-        "source": "mofa_ph",
-        "last_verified": "2026-10-02"
-      },
-      "rank": {
-        "order": 25,
-        "designations": []
-      },
-      "photo": null,
-      "photo_link": null,
-      "source": "wd",
-      "last_verified": "2026-10-10"
-    },
-    {
-      "id": "pamintuan-mansion",
-      "qid": "Q54823969",
-      "names": {
-        "ko": "파민투안 저택",
-        "ko_basis": "editorial",
-        "ko_paren": null,
-        "en": "Pamintuan Mansion",
-        "local": "Pamintuan Mansion",
-        "local_short": "Pamintuan Mansion",
-        "local_lang": "en",
-        "source": "wd"
-      },
-      "aliases_ko": [
-        "파민투안 맨션",
-        "필리핀 사회사 박물관"
-      ],
-      "aliases_en": [
-        "Museo ng Kasaysayang Panlipunan ng Pilipinas",
-        "Philippine Social History Museum"
-      ],
-      "mentions_ko": [],
-      "region": "ph_clark",
-      "area_ko": "앙헬레스 옛 시가지",
-      "category": "museum",
-      "tags": [],
-      "geo": {
-        "kind": "site",
-        "lat": 15.13572,
-        "lng": 120.59148,
-        "source": "wd",
-        "qid": "Q54823969",
-        "osm": null,
-        "last_verified": "2026-10-10"
-      },
-      "wd_geo": {
-        "lat": 15.13572,
-        "lng": 120.59148
-      },
-      "address_local": {
-        "text": "Dalan De Miranda corner Dalan Sto. Entierro, Barangay Sto. Rosario, Angeles City, Pampanga",
-        "source": "angeles_heritage",
-        "last_verified": "2026-10-10"
-      },
-      "access": {
-        "modes": [
-          "walk_from_center"
-        ],
-        "nearest_ko": "앙헬레스 옛 시가지, 달란 데 미란다와 달란 산토 엔티에로가 만나는 모퉁이에 있어요",
-        "nearest_local": null,
-        "source": "angeles_heritage",
-        "last_verified": "2026-10-10"
-      },
-      "official_url": "https://tourism.angelescity.gov.ph/built-heritage/",
-      "summary_ko": "1899년 독립 1주년 기념식이 열린 저택 박물관이에요.",
-      "body_ko": [
-        "1899년 필리핀 독립 선언 1주년 기념식이 열린 저택으로, 아기날도 대통령이 2층 창에서 국기를 흔든 장면을 해마다 6월 12일 재현해요.",
-        "2010년 기증으로 국가역사위원회(NHCP) 소유가 됐고 2012년 복원했어요.",
-        "지금은 필리핀 사회사 박물관으로, 옷·음악·음식과 원주민 문화 등 일상생활을 보여 줘요."
-      ],
-      "claims": [
-        {
-          "id": "c1",
-          "text_ko": "1899년 필리핀 독립 선언 1주년 기념식이 열린 곳이에요.",
-          "source": "angeles_heritage",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c2",
-          "text_ko": "아기날도 대통령이 2층 창에서 국기를 흔든 장면을 해마다 6월 12일 재현해요.",
-          "source": "angeles_heritage",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c3",
-          "text_ko": "2010년 기증으로 국가역사위원회(NHCP) 소유가 됐고 2012년 복원했어요.",
-          "source": "angeles_heritage",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c4",
-          "text_ko": "지금은 필리핀 사회사 박물관으로, 옷·음악·음식과 원주민 문화 등 일상생활을 보여 줘요.",
-          "source": "angeles_heritage",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "tips_ko": [
-        {
-          "text": "해마다 6월 12일 독립기념일에 국기 게양 장면을 재현해요.",
-          "source": "angeles_heritage",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "text": "필리핀 국가역사위원회(NHCP)가 소유한 박물관이에요.",
-          "source": "angeles_heritage",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "facts": {
-        "kind": "facility",
-        "entry": "unknown",
-        "regular_closed": [
-          "unknown"
-        ],
-        "closed_note_ko": null,
-        "visit_note_ko": null,
-        "source": "angeles_heritage",
-        "last_verified": "2026-10-10"
-      },
-      "volatile": null,
-      "seasonal": [],
-      "risk": [],
-      "status": {
-        "value": "open",
-        "note_ko": null,
-        "source": "angeles_heritage",
-        "last_verified": "2026-10-10"
-      },
-      "advisory": {
-        "level": "2",
-        "source": "mofa_ph",
-        "last_verified": "2026-10-02"
-      },
-      "rank": {
-        "order": 26,
-        "designations": []
-      },
-      "photo": null,
-      "photo_link": null,
-      "source": "wd",
-      "last_verified": "2026-10-10"
-    },
-    {
-      "id": "kawasan-falls",
-      "qid": "Q113639810",
-      "names": {
-        "ko": "카와산 폭포",
-        "ko_basis": "editorial",
-        "ko_paren": null,
-        "en": "Kawasan Falls",
-        "local": "Kawasan Falls",
-        "local_short": "Kawasan Falls",
-        "local_lang": "en",
-        "source": "wd"
-      },
-      "aliases_ko": [
-        "카와산 폴스",
-        "가와산 폭포"
-      ],
-      "aliases_en": [],
-      "mentions_ko": [
-        "바디안 캐녀닝"
-      ],
-      "region": "ph_cebu_south",
-      "area_ko": "세부 바디안",
-      "category": "nature",
-      "tags": [],
-      "geo": {
-        "kind": "site",
-        "lat": 9.802,
-        "lng": 123.37393,
-        "source": "wd",
-        "qid": "Q113639810",
-        "osm": null,
-        "last_verified": "2026-10-10"
-      },
-      "wd_geo": {
-        "lat": 9.802,
-        "lng": 123.37393
-      },
-      "address_local": {
-        "text": "Kawasan Falls, Badian, Cebu",
-        "source": "dotkr_kawasan",
-        "last_verified": "2026-10-10"
-      },
-      "access": {
-        "modes": [
-          "car_only"
-        ],
-        "nearest_ko": "세부시에서 남서쪽 해안 바디안으로 차로 가요",
-        "nearest_local": null,
-        "source": "dotkr_kawasan",
-        "last_verified": "2026-10-10"
-      },
-      "official_url": "https://tourism.cebu.gov.ph/explore/",
-      "summary_ko": "세부 남부 바디안의 폭포로, 캐녀닝 코스의 끝이에요.",
-      "body_ko": [
-        "세부 남부 바디안에 있는 폭포로, 바디안을 대표하는 명소예요.",
-        "캐녀닝 코스를 내려오면 닿는 폭포예요."
-      ],
-      "claims": [
-        {
-          "id": "c1",
-          "text_ko": "세부 남부 바디안에 있는 폭포로, 바디안을 대표하는 명소예요.",
-          "source": "cebu_explore",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c2",
-          "text_ko": "캐녀닝 코스를 내려오면 닿는 폭포예요.",
-          "source": "dotkr_kawasan",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "tips_ko": [
-        {
-          "text": "세부주 관광청은 바디안을 캐녀닝·트레킹·강 체험으로 소개해요.",
-          "source": "cebu_explore",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "text": "세부주 관광청의 남부 일정에는 바디안 캐녀닝과 모알보알 정어리 떼가 같은 날로 들어 있어요.",
-          "source": "cebu_tours",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "facts": {
-        "kind": "facility",
-        "entry": "unknown",
-        "regular_closed": [
-          "unknown"
-        ],
-        "closed_note_ko": null,
-        "visit_note_ko": null,
-        "source": "cebu_explore",
-        "last_verified": "2026-10-10"
-      },
-      "volatile": null,
-      "seasonal": [],
-      "risk": [],
-      "status": {
-        "value": "open",
-        "note_ko": null,
-        "source": "cebu_explore",
-        "last_verified": "2026-10-10"
-      },
-      "advisory": {
-        "level": "2",
-        "source": "mofa_ph",
-        "last_verified": "2026-10-02"
-      },
-      "rank": {
-        "order": 27,
-        "designations": []
-      },
-      "photo": null,
-      "photo_link": null,
-      "source": "wd",
-      "last_verified": "2026-10-10"
-    },
-    {
-      "id": "moalboal",
-      "qid": "Q316171",
-      "names": {
-        "ko": "모알보알(파낙사마 비치)",
-        "ko_basis": "editorial",
-        "ko_paren": null,
-        "en": "Moalboal (Panagsama Beach)",
-        "local": "Moalboal",
-        "local_short": "Moalboal",
-        "local_lang": "en",
-        "source": "wd"
-      },
-      "aliases_ko": [
-        "파낙사마 비치",
-        "모알보알 정어리 떼",
-        "모알보알 섬"
-      ],
-      "aliases_en": [
-        "Panagsama Beach"
-      ],
-      "mentions_ko": [
-        "페스카도르섬"
-      ],
-      "region": "ph_cebu_south",
-      "area_ko": "세부 모알보알",
-      "category": "sea_island",
-      "tags": [],
-      "geo": {
-        "kind": "site",
-        "lat": 9.9466294,
-        "lng": 123.3661532,
-        "source": "osm",
-        "qid": null,
-        "osm": "way/1379629623",
-        "last_verified": "2026-10-10"
-      },
-      "wd_geo": null,
-      "address_local": null,
-      "access": {
-        "modes": [
-          "car_only"
-        ],
-        "nearest_ko": "세부시에서 남서쪽 해안 모알보알로 차로 가요",
-        "nearest_local": null,
-        "source": "cebu_explore",
-        "last_verified": "2026-10-10"
-      },
-      "official_url": "https://tourism.cebu.gov.ph/explore/",
-      "summary_ko": "산호초와 정어리 떼로 알려진 세부 남서 해안 마을이에요.",
-      "body_ko": [
-        "세부 남서 해안의 모알보알은 산호초와 일 년 내내 볼 수 있는 정어리 떼로 알려져 있어요.",
-        "조용한 어촌이던 곳이 다이빙 리조트와 프리다이빙 학교가 모인 곳으로 바뀌었어요.",
-        "'거북이 알'이라는 뜻의 이름이에요."
-      ],
-      "claims": [
-        {
-          "id": "c1",
-          "text_ko": "세부 남서 해안의 모알보알은 산호초와 일 년 내내 볼 수 있는 정어리 떼로 알려져 있어요.",
-          "source": "cebu_explore",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c2",
-          "text_ko": "조용한 어촌이던 곳이 다이빙 리조트와 프리다이빙 학교가 모인 곳으로 바뀌었어요.",
-          "source": "cebu_explore",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c3",
-          "text_ko": "'거북이 알'이라는 뜻의 이름이에요.",
-          "source": "dotkr_moalboal",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "tips_ko": [
-        {
-          "text": "정어리 떼는 일 년 내내 볼 수 있다고 세부주 관광청이 안내해요.",
-          "source": "cebu_explore",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "text": "세부주 관광청의 남부 일정에는 모알보알 정어리 떼 구경이 바디안 캐녀닝과 같은 날로 들어 있어요.",
-          "source": "cebu_tours",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "facts": {
-        "kind": "public_space"
-      },
-      "volatile": null,
-      "seasonal": [],
-      "risk": [],
-      "status": {
-        "value": "open",
-        "note_ko": null,
-        "source": "cebu_explore",
-        "last_verified": "2026-10-10"
-      },
-      "advisory": {
-        "level": "2",
-        "source": "mofa_ph",
-        "last_verified": "2026-10-02"
-      },
-      "rank": {
-        "order": 28,
-        "designations": []
-      },
-      "photo": null,
-      "photo_link": null,
-      "source": "wd",
-      "last_verified": "2026-10-10"
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJjcKdfEE8pTMRA1HZXsV1T4M"
     },
     {
       "id": "osmena-peak",
@@ -4166,140 +4605,14 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 29,
+        "order": 32,
         "designations": []
       },
       "photo": null,
       "photo_link": null,
       "source": "wd",
-      "last_verified": "2026-10-10"
-    },
-    {
-      "id": "kayangan-lake",
-      "qid": "Q125206346",
-      "names": {
-        "ko": "카양안 호수",
-        "ko_basis": "editorial",
-        "ko_paren": null,
-        "en": "Kayangan Lake",
-        "local": "Kayangan Lake",
-        "local_short": "Kayangan Lake",
-        "local_lang": "en",
-        "source": "wd"
-      },
-      "aliases_ko": [
-        "카얀간 호수",
-        "카양안 레이크"
-      ],
-      "aliases_en": [],
-      "mentions_ko": [
-        "코론섬"
-      ],
-      "region": "ph_coron",
-      "area_ko": "코론섬",
-      "category": "nature",
-      "tags": [],
-      "geo": {
-        "kind": "site",
-        "lat": 11.95726,
-        "lng": 120.22623,
-        "source": "wd",
-        "qid": "Q125206346",
-        "osm": null,
-        "last_verified": "2026-10-10"
-      },
-      "wd_geo": {
-        "lat": 11.95726,
-        "lng": 120.22623
-      },
-      "address_local": null,
-      "access": {
-        "modes": [
-          "boat"
-        ],
-        "nearest_ko": "코론 타운에서 배를 타고 코론섬 카양안 호수 선착장으로 간 뒤 언덕길을 올라요",
-        "nearest_local": null,
-        "source": "dotkr_kayangan",
-        "last_verified": "2026-10-10"
-      },
-      "official_url": "https://coron.gov.ph/coron-tourism/",
-      "summary_ko": "코론섬의 석회암 절벽에 둘러싸인 호수예요.",
-      "body_ko": [
-        "코론섬에 있는 호수로, 코론섬의 관광지는 원주민 타그바누아족이 관리해요.",
-        "담수와 해수가 섞인 호수로, 주변은 바위 절벽으로 둘러싸여 있어요.",
-        "선착장에서 언덕을 오르면 호수가 한눈에 보이는 전망대가 있어요."
-      ],
-      "claims": [
-        {
-          "id": "c1",
-          "text_ko": "코론섬의 관광지는 원주민 타그바누아족이 관리해요.",
-          "source": "coron_tourism",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c2",
-          "text_ko": "담수와 해수가 섞인 호수예요.",
-          "source": "dotkr_kayangan",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c3",
-          "text_ko": "주변은 바위 절벽으로 둘러싸여 있어요.",
-          "source": "dotkr_kayangan",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c4",
-          "text_ko": "선착장에서 언덕을 오르면 호수가 한눈에 보이는 전망대가 있어요.",
-          "source": "dotkr_kayangan",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "tips_ko": [
-        {
-          "text": "배로만 갈 수 있고, 선착장에서 언덕길을 올라야 전망대와 호수에 닿아요.",
-          "source": "dotkr_kayangan",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "text": "코론섬의 관광지는 원주민 타그바누아족이 관리하는 곳이에요.",
-          "source": "coron_tourism",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "facts": {
-        "kind": "facility",
-        "entry": "paid",
-        "regular_closed": [
-          "unknown"
-        ],
-        "closed_note_ko": null,
-        "visit_note_ko": null,
-        "source": "dotkr_kayangan",
-        "last_verified": "2026-10-10"
-      },
-      "volatile": null,
-      "seasonal": [],
-      "risk": [],
-      "status": {
-        "value": "open",
-        "note_ko": null,
-        "source": "dotkr_kayangan",
-        "last_verified": "2026-10-10"
-      },
-      "advisory": {
-        "level": "2",
-        "source": "mofa_ph",
-        "last_verified": "2026-10-02"
-      },
-      "rank": {
-        "order": 30,
-        "designations": []
-      },
-      "photo": null,
-      "photo_link": null,
-      "source": "wd",
-      "last_verified": "2026-10-10"
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJlcApFRrAqzMRxnYM0_zjs7w"
     },
     {
       "id": "maquinit-hot-spring",
@@ -4414,13 +4727,14 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 31,
+        "order": 33,
         "designations": []
       },
       "photo": null,
       "photo_link": null,
       "source": "osm",
-      "last_verified": "2026-10-10"
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJYzrpn9MdujMRLcOZG0eE1WU"
     },
     {
       "id": "mount-tapyas",
@@ -4530,277 +4844,14 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 32,
-        "designations": []
-      },
-      "photo": null,
-      "photo_link": null,
-      "source": "osm",
-      "last_verified": "2026-10-10"
-    },
-    {
-      "id": "puerto-princesa-cathedral",
-      "qid": "Q44645637",
-      "names": {
-        "ko": "푸에르토프린세사 대성당",
-        "ko_basis": "editorial",
-        "ko_paren": null,
-        "en": "Puerto Princesa Cathedral",
-        "local": "Puerto Princesa Cathedral",
-        "local_short": "Immaculate Conception Cathedral",
-        "local_lang": "en",
-        "source": "wd"
-      },
-      "aliases_ko": [
-        "성모수태 성당",
-        "팔라완 성모수태 성당",
-        "이마쿨라테 콘셉시온 대성당"
-      ],
-      "aliases_en": [
-        "Immaculate Conception Cathedral"
-      ],
-      "mentions_ko": [],
-      "region": "ph_puerto_princesa",
-      "area_ko": "푸에르토프린세사 시내",
-      "category": "heritage",
-      "tags": [],
-      "geo": {
-        "kind": "site",
-        "lat": 9.74041,
-        "lng": 118.73021,
-        "source": "wd",
-        "qid": "Q44645637",
-        "osm": null,
-        "last_verified": "2026-10-10"
-      },
-      "wd_geo": {
-        "lat": 9.74041,
-        "lng": 118.73021
-      },
-      "address_local": {
-        "text": "Rizal Avenue, Puerto Princesa City, Palawan",
-        "source": "dotkr_pp_cathedral",
-        "last_verified": "2026-10-10"
-      },
-      "access": {
-        "modes": [
-          "walk_from_center"
-        ],
-        "nearest_ko": "시내 리잘 대로(Rizal Avenue)에 있어요",
-        "nearest_local": null,
-        "source": "dotkr_pp_cathedral",
-        "last_verified": "2026-10-10"
-      },
-      "official_url": "https://citytourism.puertoprincesa.ph/historical-landmarks/",
-      "summary_ko": "1872년 첫 미사 자리에 세운 푸에르토프린세사의 대성당이에요.",
-      "body_ko": [
-        "1872년 3월 10일 스페인 원정대가 도착한 지 엿새 만에 지금 성당 자리에서 첫 미사를 올렸어요.",
-        "지금 성당은 1961년 그레고리오 에스피가 주교 때 지었어요.",
-        "각진 형태의 건물로, 필리핀의 흔한 성당 건축과 다른 모습이에요."
-      ],
-      "claims": [
-        {
-          "id": "c1",
-          "text_ko": "1872년 3월 10일 스페인 원정대가 도착한 지 엿새 만에 지금 성당 자리에서 첫 미사를 올렸어요.",
-          "source": "ppc_landmarks",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c2",
-          "text_ko": "지금 성당은 1961년 그레고리오 에스피가 주교 때 지었어요.",
-          "source": "ppc_landmarks",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c3",
-          "text_ko": "각진 형태의 건물로, 필리핀의 흔한 성당 건축과 다른 모습이에요.",
-          "source": "ppc_landmarks",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c4",
-          "text_ko": "관광부는 푸에르토프린세사에서 가장 오래된 성당으로 소개해요.",
-          "source": "dotkr_pp_cathedral",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "tips_ko": [
-        {
-          "text": "성당 이름은 원죄 없이 잉태되신 성모(Immaculate Conception)에서 왔어요.",
-          "source": "ppc_landmarks",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "text": "관광부는 푸에르토프린세사에서 가장 오래된 작은 성당으로 소개해요.",
-          "source": "dotkr_pp_cathedral",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "facts": {
-        "kind": "facility",
-        "entry": "unknown",
-        "regular_closed": [
-          "unknown"
-        ],
-        "closed_note_ko": null,
-        "visit_note_ko": null,
-        "source": "ppc_landmarks",
-        "last_verified": "2026-10-10"
-      },
-      "volatile": null,
-      "seasonal": [],
-      "risk": [],
-      "status": {
-        "value": "open",
-        "note_ko": null,
-        "source": "ppc_landmarks",
-        "last_verified": "2026-10-10"
-      },
-      "advisory": {
-        "level": "2",
-        "source": "mofa_ph",
-        "last_verified": "2026-10-02"
-      },
-      "rank": {
-        "order": 33,
-        "designations": []
-      },
-      "photo": null,
-      "photo_link": null,
-      "source": "wd",
-      "last_verified": "2026-10-10"
-    },
-    {
-      "id": "palawan-wildlife-rescue-center",
-      "qid": "Q110300660",
-      "names": {
-        "ko": "팔라완 야생동물 구조센터",
-        "ko_basis": "editorial",
-        "ko_paren": null,
-        "en": "Palawan Wildlife Rescue and Conservation Center",
-        "local": "Palawan Wildlife Rescue and Conservation Center",
-        "local_short": "PWRCC",
-        "local_lang": "en",
-        "source": "wd"
-      },
-      "aliases_ko": [
-        "크로커다일 팜",
-        "악어 농장",
-        "팔라완 야생동물 보호센터"
-      ],
-      "aliases_en": [
-        "Crocodile Farm and Nature Park",
-        "PWRCC"
-      ],
-      "mentions_ko": [],
-      "region": "ph_puerto_princesa",
-      "area_ko": "푸에르토프린세사 이라완",
-      "category": "theme_park",
-      "tags": [],
-      "geo": {
-        "kind": "site",
-        "lat": 9.79925,
-        "lng": 118.69378,
-        "source": "wd",
-        "qid": "Q110300660",
-        "osm": null,
-        "last_verified": "2026-10-10"
-      },
-      "wd_geo": {
-        "lat": 9.79925,
-        "lng": 118.69378
-      },
-      "address_local": {
-        "text": "South Road, Brgy. Irawan, Puerto Princesa City, Palawan 5300",
-        "source": "ppc_crocfarm",
-        "last_verified": "2026-10-10"
-      },
-      "access": {
-        "modes": [
-          "bus"
-        ],
-        "nearest_ko": "시내에서 이라완(Irawan) 방면 지프니나 멀티캡을 타고 국도변 남쪽 도로로 가요",
-        "nearest_local": null,
-        "source": "ppc_crocfarm",
-        "last_verified": "2026-10-10"
-      },
-      "official_url": "https://citytourism.puertoprincesa.ph/crocodile-farm-nature-park/",
-      "summary_ko": "필리핀 악어 두 종을 보전하는 센터와 자연공원이에요.",
-      "body_ko": [
-        "필리핀의 멸종위기 악어 두 종, 바다악어와 필리핀악어를 보전하는 시설이에요.",
-        "알에서 다 자란 악어까지 단계별로 볼 수 있고, 팔라완 빈투롱·니코바르비둘기·팔라완공작꿩 같은 팔라완의 동물을 보호하는 자연공원이 함께 있어요."
-      ],
-      "claims": [
-        {
-          "id": "c1",
-          "text_ko": "필리핀의 멸종위기 악어 두 종, 바다악어와 필리핀악어를 보전하는 시설이에요.",
-          "source": "ppc_crocfarm",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c2",
-          "text_ko": "팔라완 빈투롱, 니코바르비둘기, 팔라완공작꿩 같은 팔라완의 동물을 보호하는 자연공원이 함께 있어요.",
-          "source": "ppc_crocfarm",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c3",
-          "text_ko": "알에서 다 자란 악어까지 단계별로 볼 수 있어요.",
-          "source": "dotkr_pwrcc",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c4",
-          "text_ko": "팔라완 지속가능개발위원회(PCSD)가 함께 악어 보전 주간 행사를 열어요.",
-          "source": "pcsd_pwrcc_news",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "tips_ko": [
-        {
-          "text": "관광부 시간표에 따르면 점심시간에는 쉬어요.",
-          "source": "dotkr_pwrcc",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "text": "악어 보전 주간에는 PCSD와 함께 교육 행사를 해요.",
-          "source": "pcsd_pwrcc_news",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "facts": {
-        "kind": "facility",
-        "entry": "paid",
-        "regular_closed": [
-          "unknown"
-        ],
-        "closed_note_ko": null,
-        "visit_note_ko": null,
-        "source": "dotkr_pwrcc",
-        "last_verified": "2026-10-10"
-      },
-      "volatile": null,
-      "seasonal": [],
-      "risk": [],
-      "status": {
-        "value": "open",
-        "note_ko": null,
-        "source": "ppc_crocfarm",
-        "last_verified": "2026-10-10"
-      },
-      "advisory": {
-        "level": "2",
-        "source": "mofa_ph",
-        "last_verified": "2026-10-02"
-      },
-      "rank": {
         "order": 34,
         "designations": []
       },
       "photo": null,
       "photo_link": null,
-      "source": "wd",
-      "last_verified": "2026-10-10"
+      "source": "osm",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJ_cwvI34eujMRX9tr3GMABM0"
     }
   ],
   "retired": [],
@@ -5232,11 +5283,18 @@
   "upcoming_regions": [
     {
       "name_ko": "수빅",
-      "aliases_ko": []
+      "aliases_ko": [
+        "수빅베이",
+        "수빅 프리포트",
+        "올롱가포"
+      ]
     },
     {
       "name_ko": "엘니도",
-      "aliases_ko": []
+      "aliases_ko": [
+        "엘 니도",
+        "바쿠잇 베이"
+      ]
     }
   ]
 }
