@@ -14,6 +14,11 @@
     "checked_at": "2026-10-10",
     "text_sha256": "92af7bfda450cc7d96192421ed634346e9346b6f07ab834ee972f14c37844f47"
   },
+  "capital-museum": {
+    "cache_set_sha256": "0d5b119d805b21e3d3b488555cd66a9771abef9c79314851581ae81078bf0177",
+    "checked_at": "2026-10-10",
+    "text_sha256": "9932cf4a5b47578d6e1ea123aa93d6cdeeb6dc4648cca0b81c1f82621d0e8214"
+  },
   "chengdu-museum": {
     "cache_set_sha256": "6499a97af058f397def0231e522e2e5af4670b3e7b1555f65dc151cfb3b700f3",
     "checked_at": "2026-10-10",
@@ -88,6 +93,11 @@
     "cache_set_sha256": "35d6067ce713c34f20e7eeddc45ef4f6da502cc959924aca8194dc299351dfb3",
     "checked_at": "2026-10-10",
     "text_sha256": "f52caeefaf737c3e6b54de3d38534b0c9ed64aa0fd52c473a7565a36d8a20bbd"
+  },
+  "national-stadium-birds-nest": {
+    "cache_set_sha256": "c60ffcf1f026ec7462b743e591a642ff4bb8e38c11df97f6eb1cb776da7e20d8",
+    "checked_at": "2026-10-10",
+    "text_sha256": "0f03b3b5396a7b099a8609779345ec6cda0f2eb204cd35051b4633f0a5d18f48"
   },
   "old-summer-palace": {
     "cache_set_sha256": "7e1ea07fbe4bbaa010a38adf425610c90d3cd27a7ccfbd6e40782199d1e26682",
@@ -183,6 +193,11 @@
     "cache_set_sha256": "bef548bfcd68d2ec351858619f4a48b8bea134f6f165d9aabeb707584852effe",
     "checked_at": "2026-10-10",
     "text_sha256": "0400646fa7a7cb8780e006a0419a044e408457f631b53123dd46a4e9195184c9"
+  },
+  "yonghe-temple": {
+    "cache_set_sha256": "b23aed2624d59b377112f7c9989a20b55b20c2140978dfbc1ad403fbca7da7a3",
+    "checked_at": "2026-10-10",
+    "text_sha256": "6d496c6c12da5c7bbb1cd08f21a97fd0575d2632e17680e6e1f6304d19d03933"
   },
   "yu-garden": {
     "cache_set_sha256": "803966aabf767dc17186b521f4e53e4bbbd683e55f575be3d132254d7f117650",

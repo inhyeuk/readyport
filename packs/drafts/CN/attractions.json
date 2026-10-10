@@ -982,7 +982,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 36,
+        "order": 37,
         "designations": []
       },
       "photo": null,
@@ -4254,7 +4254,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 38,
+        "order": 41,
         "designations": []
       },
       "photo": null,
@@ -4414,7 +4414,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 39,
+        "order": 42,
         "designations": []
       },
       "photo": null,
@@ -5435,7 +5435,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 40,
+        "order": 43,
         "designations": []
       },
       "photo": null,
@@ -6372,7 +6372,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 37,
+        "order": 40,
         "designations": []
       },
       "photo": null,
@@ -6562,7 +6562,7 @@
       "photo_link": "https://commons.wikimedia.org/wiki/File:Chengdu_Research_Base_Eingang.jpg",
       "source": "wd",
       "last_verified": "2026-10-10",
-      "google_place_id": "ChIJ8VuaD-DQ7zYRd5EYh3BjzdM"
+      "google_place_id": "ChIJ5eWBD9zQ7zYRSiBQeQ3yqms"
     },
     {
       "id": "wuhou-shrine",
@@ -6894,6 +6894,469 @@
       "source": "wd",
       "last_verified": "2026-10-10",
       "google_place_id": "ChIJfwtbaCPF7zYRK_oVjJhajfk"
+    },
+    {
+      "id": "national-stadium-birds-nest",
+      "qid": "Q133525",
+      "names": {
+        "ko": "냐오차오",
+        "ko_basis": "editorial",
+        "ko_paren": "조소",
+        "en": "Beijing National Stadium (Bird's Nest)",
+        "local": "鸟巢（国家体育场）",
+        "local_short": "鸟巢",
+        "local_lang": "zh-Hans",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "베이징 국가체육장",
+        "베이징 올림픽 주경기장",
+        "새 둥지 경기장",
+        "국가체육장",
+        "조소"
+      ],
+      "aliases_en": [
+        "Bird's Nest",
+        "Beijing National Stadium"
+      ],
+      "mentions_ko": [
+        "올림픽공원",
+        "수영장 워터큐브"
+      ],
+      "region": "cn_beijing",
+      "area_ko": "베이징 차오양구 올림픽공원",
+      "category": "city_view",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 39.991544,
+        "lng": 116.390478,
+        "source": "wd",
+        "qid": "Q133525",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 39.991544,
+        "lng": 116.390478
+      },
+      "address_local": {
+        "text": "北京市朝阳区国家体育场南路1号",
+        "source": "vbs_nest",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "bus"
+        ],
+        "nearest_ko": "시내버스 839·510번 베이천시차오베이 정류장(北辰西桥北站)",
+        "source": "vbs_nest",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://s.visitbeijing.com.cn/attraction/118017",
+      "wiki": {
+        "ko": "베이징 국가체육장",
+        "en": "Beijing National Stadium"
+      },
+      "summary_ko": "2008년 베이징 올림픽 주경기장으로, 새 둥지 모양이에요.",
+      "body_ko": [
+        "냐오차오는 베이징 올림픽공원 중심구 남쪽에 있는 국가체육장이에요.",
+        "2003년 12월에 짓기 시작해 2008년 6월 28일에 완공했고, 올림픽 때는 개·폐막식과 육상, 축구 결승을 치렀어요.",
+        "강철 트러스를 엮어 새 둥지 모양으로 만들었고, 건물은 남북 333미터, 동서 296미터, 가장 높은 곳이 69미터예요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "베이징 올림픽공원 중심구 남쪽에 있는 국가체육장이에요.",
+          "source": "vbs_nest",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "2008년 베이징 올림픽의 주경기장이에요.",
+          "source": "vbs_nest",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "2003년 12월 24일 착공해 2008년 6월 28일 완공했어요.",
+          "source": "vbs_nest",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "올림픽 때 개·폐막식과 육상, 축구 결승을 치렀어요.",
+          "source": "vbs_nest",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "건물은 남북 333미터, 동서 296미터의 타원형이고 가장 높은 곳은 69미터예요.",
+          "source": "vbs_nest",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c6",
+          "text_ko": "차오양구 궈자티위창난루 1호에 있어요.",
+          "source": "vbs_nest",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "재학생은 학생증을 보여 주면 반값 입장 혜택이 있어요.",
+          "source": "vbs_nest",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "수영장(워터큐브)과 묶은 통합 입장권이 있어요.",
+          "source": "vbs_nest",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "booking_note_ko": null,
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "vbs_nest",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "vbs_nest",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_cn",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 36,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Beijing_National_Stadium_from_the_Central_Axis_(20220905140702).jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJh4wAB8RU8DURtofj9dfJNe4"
+    },
+    {
+      "id": "yonghe-temple",
+      "qid": "Q692723",
+      "names": {
+        "ko": "융허궁",
+        "ko_basis": "editorial",
+        "ko_paren": "옹화궁",
+        "en": "Yonghe Temple (Lama Temple)",
+        "local": "雍和宫",
+        "local_short": "雍和宫",
+        "local_lang": "zh-Hans",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "옹화궁",
+        "베이징 옹화궁",
+        "라마사원",
+        "베이징 라마 사원",
+        "융허궁 라마사원"
+      ],
+      "aliases_en": [
+        "Lama Temple",
+        "Yonghegong"
+      ],
+      "mentions_ko": [
+        "법륜전",
+        "만복각"
+      ],
+      "region": "cn_beijing",
+      "area_ko": "베이징 둥청구",
+      "category": "heritage",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 39.947086111111,
+        "lng": 116.41091666667,
+        "source": "wd",
+        "qid": "Q692723",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 39.947086111111,
+        "lng": 116.41091666667
+      },
+      "address_local": {
+        "text": "北京市东城区北新桥雍和宫大街12号",
+        "source": "vbs_lama",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "metro",
+          "bus"
+        ],
+        "nearest_ko": "지하철 2·5호선 융허궁역(雍和宫站) C출구",
+        "source": "vbs_lama",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://s.visitbeijing.com.cn/attraction/117887",
+      "wiki": {
+        "ko": "옹화궁",
+        "en": "Yonghe Temple"
+      },
+      "summary_ko": "청나라 황자의 저택이 티베트 불교 사원이 된 곳이에요.",
+      "body_ko": [
+        "융허궁은 베이징 시내 동북쪽에 있는 티베트 불교 사원이에요.",
+        "1694년 강희제가 넷째 아들 옹친왕에게 내린 저택으로 시작했고, 1725년 행궁으로 바뀌며 융허궁이라 불렀어요.",
+        "천왕전·융허궁 대전·영우전·법륜전·만복각 등 다섯 겹의 전각이 남쪽에서 북쪽으로 이어져요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "베이징 시내 동북쪽에 있는 티베트 불교 사원이에요.",
+          "source": "vbs_lama",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "1694년 강희제가 넷째 아들 옹친왕에게 내린 저택에서 시작했어요.",
+          "source": "vbs_lama",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "1725년 왕부를 행궁으로 바꾸며 융허궁이라 불렀어요.",
+          "source": "vbs_lama",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "천왕전·대전·영우전·법륜전·만복각 등 다섯 겹의 큰 전각으로 이루어져요.",
+          "source": "vbs_lama",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "둥청구 베이신차오 융허궁대가 12호에 있어요.",
+          "source": "vbs_lama",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c6",
+          "text_ko": "지하철 2호선이나 5호선 융허궁역 C출구로 나와요.",
+          "source": "vbs_lama",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "미성년자, 대학 본과 이하 학생, 노인은 증명서를 보여 주면 반값으로 살 수 있어요.",
+          "source": "vbs_lama",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "표 판매는 문을 닫기 전에 먼저 끝나요.",
+          "source": "vbs_lama",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "booking_note_ko": null,
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "vbs_lama",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "vbs_lama",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_cn",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 38,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Pavillon_des_dix_mille_bonheurs.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJxUzg_TRT8DUR0MslZbKzbF4"
+    },
+    {
+      "id": "capital-museum",
+      "qid": "Q1189666",
+      "names": {
+        "ko": "서우두 박물관",
+        "ko_basis": "editorial",
+        "ko_paren": "수도박물관",
+        "en": "Capital Museum",
+        "local": "首都博物馆",
+        "local_short": "首都博物馆",
+        "local_lang": "zh-Hans",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "수도박물관",
+        "베이징 수도박물관",
+        "베이징 서우두 박물관"
+      ],
+      "aliases_en": [
+        "Capital Museum Beijing"
+      ],
+      "mentions_ko": [
+        "고도 베이징 기본 전시"
+      ],
+      "region": "cn_beijing",
+      "area_ko": "베이징 시청구",
+      "category": "museum",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 39.905,
+        "lng": 116.336,
+        "source": "wd",
+        "qid": "Q1189666",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 39.905,
+        "lng": 116.336
+      },
+      "address_local": {
+        "text": "北京市西城区复兴门外大街16号",
+        "source": "vbs_cm",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "metro",
+          "bus"
+        ],
+        "nearest_ko": "지하철 1호선 무시디역(木樨地站)",
+        "source": "vbs_cm",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://s.visitbeijing.com.cn/attraction/117799",
+      "wiki": {
+        "ko": "수도박물관",
+        "en": "Capital Museum"
+      },
+      "summary_ko": "베이징 지역 유물과 도시 발전사를 전시하는 종합 박물관이에요.",
+      "body_ko": [
+        "서우두 박물관은 시청구 푸싱먼와이대가에 있는 베이징 지역의 종합 박물관이에요.",
+        "'고도 베이징' 기본 전시가 베이징 지역에서 나온 유물로 도시의 역사를 보여 줘요.",
+        "1981년 베이징 공묘에서 문을 열었고, 2006년 5월 18일 지금 건물로 새로 열었어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "시청구 푸싱먼와이대가 16호에 있어요.",
+          "source": "vbs_cm",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "베이징 지역의 대형 종합 박물관이에요.",
+          "source": "vbs_cm",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "'고도 베이징' 기본 전시가 베이징 지역 출토 유물을 보여 줘요.",
+          "source": "vbs_cm",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "1981년 베이징 공묘에서 문을 열었어요.",
+          "source": "vbs_cm",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "2006년 5월 18일 새 건물로 열었어요.",
+          "source": "vbs_cm",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c6",
+          "text_ko": "지하철 1호선 무시디역에서 내리면 바로 닿아요.",
+          "source": "vbs_cm",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "월요일은 쉬어요.",
+          "source": "vbs_cm",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "입장은 문을 닫기 전에 먼저 마감해요.",
+          "source": "vbs_cm",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "unknown",
+        "booking_note_ko": null,
+        "regular_closed": [
+          "mon"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "vbs_cm",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "vbs_cm",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_cn",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 39,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Capital_Museum_in_Beijing.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJeftImwlS8DURsYp0XKRIzHY"
     }
   ],
   "sources": [
@@ -7582,6 +8045,24 @@
       "id": "cdm_guide",
       "name": "成都博物馆 (official) — 服务中心: 参观指南",
       "url": "https://www.cdmuseum.com/zhinan/",
+      "use": "facts"
+    },
+    {
+      "id": "vbs_nest",
+      "name": "北京旅游网 景区库 (北京市文化和旅游局宣传中心) — 鸟巢（国家体育场）",
+      "url": "https://s.visitbeijing.com.cn/attraction/118017",
+      "use": "facts"
+    },
+    {
+      "id": "vbs_lama",
+      "name": "北京旅游网 景区库 (北京市文化和旅游局宣传中心) — 雍和宫",
+      "url": "https://s.visitbeijing.com.cn/attraction/117887",
+      "use": "facts"
+    },
+    {
+      "id": "vbs_cm",
+      "name": "北京旅游网 景区库 (北京市文化和旅游局宣传中心) — 首都博物馆",
+      "url": "https://s.visitbeijing.com.cn/attraction/117799",
       "use": "facts"
     }
   ]
