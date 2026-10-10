@@ -1,0 +1,45 @@
+{
+  "_comment": "TH 관광지 큐레이션 메모 (SPEC_v5 §3.1·§4.4). 2차(2026-10-10).",
+  "regions": {
+    "th_chiangrai": {
+      "hub_basis": "치앙라이에는 Wikidata 항목이 있는 역·버스터미널·선착장이 없어요(철도 없음, 터미널 항목 없음). SPEC §3.1 대체 규칙에 따라 지역 안 관광지의 방문 지점을 썼고, 국경 당일치기 지점인 골든 트라이앵글 대신 치앙마이에서 오는 길목이자 방문객이 가장 많은 왓 롱쿤을 골랐어요. 사장님 결정 필요.",
+      "keep_over_40km": {
+        "golden-triangle": "치앙샌 솝루악은 치앙라이 시내에서 메콩강 강변길로 이어지는 같은 주 안의 당일 코스예요. TAT 공식 안내가 치앙라이–치앙샌 버스와 치앙샌 시장발 솝루악 미니버스 노선을 적고 있어요(https://www.tourismthailand.org/Attraction/golden-triangle-park, 2026-10-10 확인). hub(왓 롱쿤)에서 68km, 70km 안."
+      }
+    },
+    "th_kanchanaburi": {
+      "hub_basis": "칸차나부리역(Q6895690). 헬파이어 패스 공식 안내가 칸차나부리 버스터미널·남똑선 기차를 출발 기준으로 적고 있어요.",
+      "daytrip_basis": "방콕 남부터미널발 버스가 15분 간격으로 운행한다는 관광체육부 공식 안내(https://www.thailandtourismdirectory.go.th/en/attraction/1329, 2026-10-10 확인)."
+    },
+    "th_inthanon": {
+      "hub_basis": "도이 인타논 정상(Q1140075). 국립공원 안에 Wikidata 항목이 있는 교통 거점이 없어 지역 1위 관광지의 방문 지점을 썼어요.",
+      "daytrip_basis": "쩜텅–도이 인타논 길로 치앙마이에서 당일 왕복(https://www.tourismthailand.org/Attraction/doi-inthanon-national-park, 2026-10-10 확인)."
+    },
+    "th_krabi": {
+      "hub_basis": "아오낭 해변(Q49320921). 끄라비 선착장에 Wikidata 항목이 없고, 국립공원·선사 공식 안내가 아오낭을 섬·해변행 배의 출발점으로 적고 있어요."
+    },
+    "th_phiphi": {
+      "hub_basis": "피피돈 톤사이만(Q511957). 톤사이 선착장에 Wikidata 항목이 없어 지역 1위 관광지의 방문 지점을 썼어요.",
+      "daytrip_basis": "푸껫 라사다 선착장·끄라비 클롱지랏 선착장–피피 톤사이 선착장 정기 여객선(https://www.andamanwavemaster.com/ferry/, 2026-10-10 확인)."
+    },
+    "th_samui": {
+      "hub_basis": "왓 프라 야이(꼬판, Q15907894). 나톤 선착장에 Wikidata 항목이 없어 지역 1위 관광지의 방문 지점을 썼어요. 섬 입구는 수랏타니 돈삭 선착장발 여객선이에요."
+    }
+  },
+  "attractions": {
+    "baan-dam-museum": {
+      "no_local_short_ok": true,
+      "note": "Wikidata에 태국어 라벨이 없고 TAT 공식 페이지에도 태국어 표기가 없어 names.local·local_short를 비웠어요(기사님 버튼 숨김)."
+    },
+    "chiang-rai-clock-tower": {
+      "no_local_short_ok": true,
+      "note": "Wikidata 항목이 없고 TAT 공식 페이지에 태국어 표기가 없어 names.local·local_short를 비웠어요. 좌표는 OSM(way/487637817)."
+    },
+    "wat-phra-yai-pattaya": {
+      "note": "Wikidata 항목이 없어 좌표는 OSM(way/322626265), names.local은 관광체육부 TTD 공식 태국어 이름."
+    },
+    "hin-ta-hin-yai": {
+      "note": "Wikidata 항목(Q13023465)에 P625가 없어 좌표는 OSM(node/4703796578)."
+    }
+  }
+}
