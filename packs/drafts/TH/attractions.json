@@ -1182,6 +1182,36 @@
       "name": "Thailand Tourism Directory — Ministry of Tourism and Sports (official): Warorot Market",
       "url": "https://www.thailandtourismdirectory.go.th/en/attraction/4884",
       "use": "facts"
+    },
+    {
+      "id": "th_mt_home",
+      "name": "Madame Tussauds Bangkok (official) — Home",
+      "url": "https://www.madametussauds.com/bangkok/en/",
+      "use": "facts"
+    },
+    {
+      "id": "th_mt_getting",
+      "name": "Madame Tussauds Bangkok (official) — Directions & Parking",
+      "url": "https://www.madametussauds.com/bangkok/en/plan-your-visit/before-you-visit/how-to-get-here/",
+      "use": "facts"
+    },
+    {
+      "id": "ttd_1282",
+      "name": "Thailand Tourism Directory — Ministry of Tourism and Sports (official): Wat Benchamabophit",
+      "url": "https://www.thailandtourismdirectory.go.th/en/attraction/1282",
+      "use": "facts"
+    },
+    {
+      "id": "ttd_2004",
+      "name": "Thailand Tourism Directory — Ministry of Tourism and Sports (official): Phuket Aquarium",
+      "url": "https://www.thailandtourismdirectory.go.th/en/attraction/2004",
+      "use": "facts"
+    },
+    {
+      "id": "ttd_3231",
+      "name": "Thailand Tourism Directory — Ministry of Tourism and Sports (official): Pattaya Floating Market",
+      "url": "https://www.thailandtourismdirectory.go.th/en/attraction/3231",
+      "use": "facts"
     }
   ],
   "attractions": [
@@ -1353,452 +1383,38 @@
       "google_place_id": "ChIJgcxFcQWZ4jARLsIR9Qia9H0"
     },
     {
-      "id": "siam-paragon",
-      "qid": "Q972334",
+      "id": "wat-benchamabophit",
+      "qid": "Q2165719",
       "names": {
-        "ko": "시암 파라곤",
+        "ko": "왓 벤차마보핏",
         "ko_basis": "editorial",
         "ko_paren": null,
-        "en": "Siam Paragon",
-        "local": "สยามพารากอน",
-        "local_short": "สยามพารากอน",
+        "en": "Wat Benchamabophit",
+        "local": "วัดเบญจมบพิตรดุสิตวนารามราชวรวิหาร",
+        "local_short": "วัดเบญจมบพิตร",
         "local_lang": "th",
         "source": "wd"
       },
       "aliases_ko": [
-        "싸얌 파라곤"
+        "대리석 사원",
+        "왓 벤짜마보핏",
+        "벤차마보핏 사원"
       ],
       "aliases_en": [
-        "Paragon"
-      ],
-      "mentions_ko": [
-        "시 라이프 방콕",
-        "싸얌 쇼핑몰"
-      ],
-      "region": "th_bangkok",
-      "area_ko": "방콕 빠툼완 싸얌(BTS 싸얌역)",
-      "category": "market_street",
-      "tags": [],
-      "geo": {
-        "kind": "site",
-        "lat": 13.746389,
-        "lng": 100.535,
-        "source": "wd",
-        "qid": "Q972334",
-        "osm": null,
-        "last_verified": "2026-10-10"
-      },
-      "address_local": null,
-      "access": {
-        "modes": [
-          "metro",
-          "bus"
-        ],
-        "nearest_ko": "BTS 싸얌역 3번 출구(몰로 바로 이어져요), 또는 시내버스",
-        "nearest_local": null,
-        "source": "th_sp_getting",
-        "last_verified": "2026-10-10"
-      },
-      "official_url": "https://www.siamparagon.co.th/en",
-      "wiki": {
-        "ko": "시암 파라곤",
-        "en": "Siam Paragon"
-      },
-      "summary_ko": "싸얌역과 바로 이어진 대형 쇼핑몰이에요.",
-      "body_ko": [
-        "BTS 싸얌역에 있고, 3번 출구로 이어져요.",
-        "안에 수족관과 5층 영화관, 5층 실내 놀이 공간이 있어요.",
-        "현대미술과 디자인 작품을 전시하는 아레나 오브 아츠 공간도 있어요."
-      ],
-      "claims": [
-        {
-          "id": "c1",
-          "text_ko": "BTS 싸얌역에 있고, 3번 출구로 이어져요.",
-          "source": "th_sp_getting",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c2",
-          "text_ko": "안에 수족관 시 라이프 방콕 오션 월드가 있어요.",
-          "source": "th_sp_seedo",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c3",
-          "text_ko": "5층에 영화관(IMAX 포함)이 있어요.",
-          "source": "th_sp_seedo",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c4",
-          "text_ko": "5층에 실내 놀이 공간 미랜드(MELAND)가 있어요.",
-          "source": "th_sp_seedo",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c5",
-          "text_ko": "현대미술과 디자인 작품을 전시하는 아레나 오브 아츠 공간이 있어요.",
-          "source": "th_sp_seedo",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "tips_ko": [
-        {
-          "text": "택시·Grab 승하차장은 지상층 방콕은행 옆 게이트예요.",
-          "source": "th_sp_getting",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "text": "시암 프리미엄 아울렛 방콕까지 유료 셔틀버스가 다녀요.",
-          "source": "th_sp_getting",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "facts": {
-        "kind": "facility",
-        "entry": "unknown",
-        "regular_closed": [
-          "none"
-        ],
-        "closed_note_ko": null,
-        "visit_note_ko": null,
-        "source": "th_sp_home",
-        "last_verified": "2026-10-10"
-      },
-      "volatile": null,
-      "seasonal": [],
-      "risk": [],
-      "status": {
-        "value": "open",
-        "note_ko": null,
-        "source": "th_sp_home",
-        "last_verified": "2026-10-10"
-      },
-      "advisory": {
-        "level": "1",
-        "source": "mofa_th",
-        "last_verified": "2026-09-28"
-      },
-      "rank": {
-        "order": 15,
-        "designations": []
-      },
-      "photo": null,
-      "photo_link": "https://commons.wikimedia.org/wiki/File:Siam_Paragon_06.23.jpg",
-      "source": "wd",
-      "last_verified": "2026-10-10",
-      "google_place_id": "ChIJIeWu482e4jARYymvLJqTQ58"
-    },
-    {
-      "id": "sea-life-bangkok",
-      "qid": "Q6636970",
-      "names": {
-        "ko": "시 라이프 방콕 오션 월드",
-        "ko_basis": "editorial",
-        "ko_paren": null,
-        "en": "SEA LIFE Bangkok Ocean World",
-        "local": "บางกอก ซี ไลฟ์ โอเชียนเวิลด์",
-        "local_short": "ซีไลฟ์ แบงคอก",
-        "local_lang": "th",
-        "source": "wd"
-      },
-      "aliases_ko": [
-        "씨라이프 방콕",
-        "시라이프 방콕",
-        "방콕 수족관"
-      ],
-      "aliases_en": [
-        "Sea Life Bangkok",
-        "Siam Ocean World"
-      ],
-      "mentions_ko": [
-        "시암 파라곤 수족관"
-      ],
-      "region": "th_bangkok",
-      "area_ko": "방콕 빠툼완(시암 파라곤 지하)",
-      "category": "theme_park",
-      "tags": [],
-      "geo": {
-        "kind": "site",
-        "lat": 13.7458,
-        "lng": 100.5353,
-        "source": "wd",
-        "qid": "Q6636970",
-        "osm": null,
-        "last_verified": "2026-10-10"
-      },
-      "address_local": null,
-      "access": {
-        "modes": [
-          "metro"
-        ],
-        "nearest_ko": "BTS 싸얌역에서 시암 파라곤으로 들어가 지하 1층(푸드코트 옆)",
-        "nearest_local": null,
-        "source": "th_sl_getting",
-        "last_verified": "2026-10-10"
-      },
-      "official_url": "https://www.visitsealife.com/bangkok/en/",
-      "wiki": {
-        "en": "Sea Life Bangkok Ocean World"
-      },
-      "summary_ko": "시암 파라곤 지하에 있는 수족관이에요.",
-      "body_ko": [
-        "시암 파라곤 지하 1·2층에 있어요.",
-        "해파리, 열대우림, 상어 산책로, 산호초, 해저 터널, 펭귄 구역으로 나뉘어요.",
-        "4D 영화관과 유리 바닥 보트 같은 체험도 있어요."
-      ],
-      "claims": [
-        {
-          "id": "c1",
-          "text_ko": "시암 파라곤 지하 1·2층에 있어요.",
-          "source": "th_sl_getting",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c2",
-          "text_ko": "해파리, 열대우림, 상어 산책로, 산호초, 해저 터널, 펭귄 구역이 있어요.",
-          "source": "th_sl_zones",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c3",
-          "text_ko": "4D 영화관, 수중 탐험 VR, 유리 바닥 보트, 뒷면 투어 같은 체험이 있어요.",
-          "source": "th_sl_zones",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c4",
-          "text_ko": "둘러보는 데 90분 이상 잡으라고 안내해요.",
-          "source": "th_sl_hours",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c5",
-          "text_ko": "싸얌역에서 몰로 들어와 에스컬레이터로 지하 1층까지 내려가요.",
-          "source": "th_sl_getting",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "tips_ko": [
-        {
-          "text": "온라인으로 표를 사고 모바일 티켓을 고르면 매표소를 거치지 않아도 된다고 안내해요.",
-          "source": "th_sl_hours",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "text": "상어·젠투펭귄·수달 먹이 주기 시간 안내가 공식 사이트에 있어요.",
-          "source": "th_sl_zones",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "text": "마지막 입장은 문 닫기 한 시간 전이에요.",
-          "source": "th_sl_hours",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "facts": {
-        "kind": "facility",
-        "entry": "paid",
-        "booking": "recommended",
-        "regular_closed": [
-          "none"
-        ],
-        "closed_note_ko": null,
-        "visit_note_ko": null,
-        "source": "th_sl_hours",
-        "last_verified": "2026-10-10"
-      },
-      "volatile": null,
-      "seasonal": [],
-      "risk": [],
-      "status": {
-        "value": "open",
-        "note_ko": null,
-        "source": "th_sl_hours",
-        "last_verified": "2026-10-10"
-      },
-      "advisory": {
-        "level": "1",
-        "source": "mofa_th",
-        "last_verified": "2026-09-28"
-      },
-      "rank": {
-        "order": 37,
-        "designations": []
-      },
-      "photo": null,
-      "photo_link": "https://commons.wikimedia.org/wiki/File:Siam_Ocean_World.JPG",
-      "source": "wd",
-      "last_verified": "2026-10-10",
-      "google_place_id": "ChIJH4I85c2e4jARUMYLeiqfBd0"
-    },
-    {
-      "id": "iconsiam",
-      "qid": "Q20585880",
-      "names": {
-        "ko": "아이콘시암",
-        "ko_basis": "editorial",
-        "ko_paren": null,
-        "en": "ICONSIAM",
-        "local": "ไอคอนสยาม",
-        "local_short": "ไอคอนสยาม",
-        "local_lang": "th",
-        "source": "wd"
-      },
-      "aliases_ko": [],
-      "aliases_en": [],
-      "mentions_ko": [
-        "쑥시암",
-        "아이콘 시암 파크"
-      ],
-      "region": "th_bangkok",
-      "area_ko": "방콕 크롱산(짜오프라야 강 서쪽 강변)",
-      "category": "market_street",
-      "tags": [],
-      "geo": {
-        "kind": "site",
-        "lat": 13.72667,
-        "lng": 100.51039,
-        "source": "wd",
-        "qid": "Q20585880",
-        "osm": null,
-        "last_verified": "2026-10-10"
-      },
-      "address_local": null,
-      "access": {
-        "modes": [
-          "metro",
-          "boat",
-          "bus"
-        ],
-        "nearest_ko": "BTS 골드 라인 차런나콘역, 또는 BTS 사판탁신역 2번 출구에서 사톤 선착장 배",
-        "nearest_local": null,
-        "source": "th_ic_getting",
-        "last_verified": "2026-10-10"
-      },
-      "official_url": "https://www.iconsiam.com/en",
-      "wiki": {
-        "ko": "아이콘시암",
-        "en": "Iconsiam"
-      },
-      "summary_ko": "짜오프라야 강변에 있는 대형 쇼핑·문화 단지예요.",
-      "body_ko": [
-        "강변에 1만㎡가 넘는 야외 공간 리버 파크가 있어요.",
-        "쑥시암은 태국 77개 주의 음식과 공예품을 모아 놓은 공간이에요.",
-        "2층에는 강을 내려다보는 정원 아이콘시암 파크가 있어요."
-      ],
-      "claims": [
-        {
-          "id": "c1",
-          "text_ko": "강변에 1만㎡가 넘는 야외 공간 리버 파크가 있어요.",
-          "source": "th_ic_attr",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c2",
-          "text_ko": "쑥시암에 태국 77개 주의 음식과 공예품이 모여 있어요.",
-          "source": "th_ic_attr",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c3",
-          "text_ko": "2층에 강을 내려다보는 정원 아이콘시암 파크가 있어요.",
-          "source": "th_ic_attr",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c4",
-          "text_ko": "분수 쇼는 물줄기가 최대 35m까지 솟아요.",
-          "source": "th_ic_attr",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "tips_ko": [
-        {
-          "text": "BTS 사판탁신역 2번 출구에서 사톤 선착장으로 가서 배로 이동할 수 있어요.",
-          "source": "th_ic_getting",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "text": "BTS 끄룽톤부리역 3번 출구에서 골드 라인으로 갈아타고 차런나콘역에서 내릴 수도 있어요.",
-          "source": "th_ic_getting",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "facts": {
-        "kind": "facility",
-        "entry": "unknown",
-        "regular_closed": [
-          "none"
-        ],
-        "closed_note_ko": null,
-        "visit_note_ko": null,
-        "source": "th_ic_getting",
-        "last_verified": "2026-10-10"
-      },
-      "volatile": null,
-      "seasonal": [],
-      "risk": [],
-      "status": {
-        "value": "open",
-        "note_ko": null,
-        "source": "th_ic_getting",
-        "last_verified": "2026-10-10"
-      },
-      "advisory": {
-        "level": "1",
-        "source": "mofa_th",
-        "last_verified": "2026-09-28"
-      },
-      "rank": {
-        "order": 10,
-        "designations": []
-      },
-      "photo": null,
-      "photo_link": "https://commons.wikimedia.org/wiki/File:Iconsiam_at_Night.jpg",
-      "source": "wd",
-      "last_verified": "2026-10-10",
-      "google_place_id": "ChIJFRjwgc2Z4jAR9JIadoa9YBY"
-    },
-    {
-      "id": "asiatique",
-      "qid": "Q13026076",
-      "names": {
-        "ko": "아시아티크",
-        "ko_basis": "editorial",
-        "ko_paren": null,
-        "en": "Asiatique The Riverfront",
-        "local": "เอเชียทีค เดอะ ริเวอร์ฟรอนท์ เดสติเนชั่น",
-        "local_short": "เอเชียทีค",
-        "local_lang": "th",
-        "source": "wd"
-      },
-      "aliases_ko": [
-        "아시아티크 더 리버프런트",
-        "아시아틱",
-        "아시아티크 리버프론트"
-      ],
-      "aliases_en": [
-        "Asiatique",
-        "Asiatique The Riverfront Destination"
+        "Marble Temple",
+        "Wat Ben"
       ],
       "mentions_ko": [],
       "region": "th_bangkok",
-      "area_ko": "방콕 짜런끄룽 길 강변",
-      "category": "market_street",
-      "tags": [
-        {
-          "id": "night",
-          "source": "th_as_contact",
-          "last_verified": "2026-10-10"
-        }
-      ],
+      "area_ko": "방콕 두싯(씨아유타야 길·라마 5세 사거리 쪽)",
+      "category": "heritage",
+      "tags": [],
       "geo": {
         "kind": "site",
-        "lat": 13.706021,
-        "lng": 100.50466,
+        "lat": 13.766111111111,
+        "lng": 100.51416944444,
         "source": "wd",
-        "qid": "Q13026076",
+        "qid": "Q2165719",
         "osm": null,
         "last_verified": "2026-10-10"
       },
@@ -1806,60 +1422,70 @@
       "access": {
         "modes": [
           "metro",
-          "boat",
           "bus"
         ],
-        "nearest_ko": "BTS 사판탁신역 2번 출구에서 싸톤 선착장 무료 셔틀 보트",
+        "nearest_ko": "BTS 파야타이역(N2) 3번 출구에서 택시·툭툭, 또는 시내버스",
         "nearest_local": null,
-        "source": "th_as_contact",
+        "source": "ttd_1282",
         "last_verified": "2026-10-10"
       },
-      "official_url": "https://www.asiatiquethailand.com/",
+      "official_url": "https://www.thailandtourismdirectory.go.th/en/attraction/1282",
       "wiki": {
-        "ko": "아시아티크 더 리버프런트 데스티네이션",
-        "en": "Asiatique"
+        "en": "Wat Benchamabophit"
       },
-      "summary_ko": "짜오프라야 강변에 있는 저녁 쇼핑·먹거리 단지예요.",
+      "summary_ko": "이탈리아 대리석으로 꾸민 방콕의 사원이에요.",
       "body_ko": [
-        "옛 창고 건물에 식당과 상점이 나뉘어 있어요.",
-        "강변을 따라 먹거리 가게가 300m 이어져요.",
-        "관람차 아시아티크 스카이는 높이 60m예요."
+        "대리석으로 꾸며 '대리석 사원'으로도 불려요.",
+        "본당 회랑을 따라 52가지 자세의 불상이 놓여 있어요.",
+        "입구 앞뒤에는 대리석으로 깎은 사자상이 있어요."
       ],
       "claims": [
         {
           "id": "c1",
-          "text_ko": "창고 건물 10동에 식당과 상점이 나뉘어 있어요.",
-          "source": "th_as_explore",
+          "text_ko": "이탈리아 대리석으로 꾸며 '대리석 사원'으로 알려져 있어요.",
+          "source": "ttd_1282",
           "last_verified": "2026-10-10"
         },
         {
           "id": "c2",
-          "text_ko": "강변을 따라 먹거리 가게가 300m 이어져요.",
-          "source": "th_as_home",
+          "text_ko": "본당과 이어진 회랑을 따라 52가지 자세의 불상이 놓여 있어요.",
+          "source": "ttd_1282",
           "last_verified": "2026-10-10"
         },
         {
           "id": "c3",
-          "text_ko": "관람차 아시아티크 스카이는 높이 60m예요.",
-          "source": "th_as_home",
+          "text_ko": "입구 앞과 뒤에 대리석으로 깎은 큰 사자상 둘이 있어요.",
+          "source": "ttd_1282",
           "last_verified": "2026-10-10"
         },
         {
           "id": "c4",
-          "text_ko": "관람차 외에 귀신의 집 같은 놀이 시설과 칼립소 쇼가 있어요.",
-          "source": "th_as_home",
+          "text_ko": "본당 안에 친나랏 불상(복제본)이 있어요.",
+          "source": "ttd_1282",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "BTS 파야타이역 3번 출구에서 택시나 툭툭을 타라고 안내해요.",
+          "source": "ttd_1282",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c6",
+          "text_ko": "시내버스 5·72·503번이 닿아요.",
+          "source": "ttd_1282",
           "last_verified": "2026-10-10"
         }
       ],
       "tips_ko": [
         {
-          "text": "싸톤 선착장과 아시아티크 사이를 무료 셔틀 보트가 다녀요.",
-          "source": "th_as_contact",
+          "text": "BTS 파야타이역에서 내려 씨아유타야 길을 따라 택시·툭툭으로 가요.",
+          "source": "ttd_1282",
           "last_verified": "2026-10-10"
         },
         {
-          "text": "무료 셔틀 보트는 오후 늦은 시간부터 밤까지 운행해요.",
-          "source": "th_as_contact",
+          "text": "본당 외에도 종루와 여러 전각이 있다고 안내해요.",
+          "source": "ttd_1282",
           "last_verified": "2026-10-10"
         }
       ],
@@ -1871,7 +1497,7 @@
         ],
         "closed_note_ko": null,
         "visit_note_ko": null,
-        "source": "th_as_contact",
+        "source": "ttd_1282",
         "last_verified": "2026-10-10"
       },
       "volatile": null,
@@ -1880,7 +1506,7 @@
       "status": {
         "value": "open",
         "note_ko": null,
-        "source": "th_as_contact",
+        "source": "ttd_1282",
         "last_verified": "2026-10-10"
       },
       "advisory": {
@@ -1889,14 +1515,14 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 19,
+        "order": 32,
         "designations": []
       },
       "photo": null,
-      "photo_link": "https://commons.wikimedia.org/wiki/File:Asiatique_The_Riverfront_-_A_wharf02.jpg",
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Wat_Benchamabophit_face.jpg",
       "source": "wd",
       "last_verified": "2026-10-10",
-      "google_place_id": "ChIJtepc75aY4jARVvgRfYrM38s"
+      "google_place_id": "ChIJvccM01iZ4jARPwr8_uBuM_8"
     },
     {
       "id": "wat-arun",
@@ -2343,6 +1969,134 @@
       "google_place_id": "ChIJnbq5Mp6Z4jARtwl7TH2TrXE"
     },
     {
+      "id": "iconsiam",
+      "qid": "Q20585880",
+      "names": {
+        "ko": "아이콘시암",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "ICONSIAM",
+        "local": "ไอคอนสยาม",
+        "local_short": "ไอคอนสยาม",
+        "local_lang": "th",
+        "source": "wd"
+      },
+      "aliases_ko": [],
+      "aliases_en": [],
+      "mentions_ko": [
+        "쑥시암",
+        "아이콘 시암 파크"
+      ],
+      "region": "th_bangkok",
+      "area_ko": "방콕 크롱산(짜오프라야 강 서쪽 강변)",
+      "category": "market_street",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 13.72667,
+        "lng": 100.51039,
+        "source": "wd",
+        "qid": "Q20585880",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "address_local": null,
+      "access": {
+        "modes": [
+          "metro",
+          "boat",
+          "bus"
+        ],
+        "nearest_ko": "BTS 골드 라인 차런나콘역, 또는 BTS 사판탁신역 2번 출구에서 사톤 선착장 배",
+        "nearest_local": null,
+        "source": "th_ic_getting",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.iconsiam.com/en",
+      "summary_ko": "짜오프라야 강변에 있는 대형 쇼핑·문화 단지예요.",
+      "body_ko": [
+        "강변에 1만㎡가 넘는 야외 공간 리버 파크가 있어요.",
+        "쑥시암은 태국 77개 주의 음식과 공예품을 모아 놓은 공간이에요.",
+        "2층에는 강을 내려다보는 정원 아이콘시암 파크가 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "강변에 1만㎡가 넘는 야외 공간 리버 파크가 있어요.",
+          "source": "th_ic_attr",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "쑥시암에 태국 77개 주의 음식과 공예품이 모여 있어요.",
+          "source": "th_ic_attr",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "2층에 강을 내려다보는 정원 아이콘시암 파크가 있어요.",
+          "source": "th_ic_attr",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "분수 쇼는 물줄기가 최대 35m까지 솟아요.",
+          "source": "th_ic_attr",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "BTS 사판탁신역 2번 출구에서 사톤 선착장으로 가서 배로 이동할 수 있어요.",
+          "source": "th_ic_getting",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "BTS 끄룽톤부리역 3번 출구에서 골드 라인으로 갈아타고 차런나콘역에서 내릴 수도 있어요.",
+          "source": "th_ic_getting",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "unknown",
+        "regular_closed": [
+          "none"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "th_ic_getting",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "th_ic_getting",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_th",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 10,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Iconsiam_at_Night.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "wiki": {
+        "ko": "아이콘시암",
+        "en": "Iconsiam"
+      },
+      "google_place_id": "ChIJFRjwgc2Z4jAR9JIadoa9YBY"
+    },
+    {
       "id": "chatuchak-weekend-market",
       "qid": "Q1068311",
       "names": {
@@ -2650,6 +2404,143 @@
       "google_place_id": "ChIJWVT7hDKZ4jARGJOhe21RhOk"
     },
     {
+      "id": "siam-paragon",
+      "qid": "Q972334",
+      "names": {
+        "ko": "시암 파라곤",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Siam Paragon",
+        "local": "สยามพารากอน",
+        "local_short": "สยามพารากอน",
+        "local_lang": "th",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "싸얌 파라곤"
+      ],
+      "aliases_en": [
+        "Paragon"
+      ],
+      "mentions_ko": [
+        "시 라이프 방콕",
+        "싸얌 쇼핑몰"
+      ],
+      "region": "th_bangkok",
+      "area_ko": "방콕 빠툼완 싸얌(BTS 싸얌역)",
+      "category": "market_street",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 13.746389,
+        "lng": 100.535,
+        "source": "wd",
+        "qid": "Q972334",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "address_local": null,
+      "access": {
+        "modes": [
+          "metro",
+          "bus"
+        ],
+        "nearest_ko": "BTS 싸얌역 3번 출구(몰로 바로 이어져요), 또는 시내버스",
+        "nearest_local": null,
+        "source": "th_sp_getting",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.siamparagon.co.th/en",
+      "summary_ko": "싸얌역과 바로 이어진 대형 쇼핑몰이에요.",
+      "body_ko": [
+        "BTS 싸얌역에 있고, 3번 출구로 이어져요.",
+        "안에 수족관과 5층 영화관, 5층 실내 놀이 공간이 있어요.",
+        "현대미술과 디자인 작품을 전시하는 아레나 오브 아츠 공간도 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "BTS 싸얌역에 있고, 3번 출구로 이어져요.",
+          "source": "th_sp_getting",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "안에 수족관 시 라이프 방콕 오션 월드가 있어요.",
+          "source": "th_sp_seedo",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "5층에 영화관(IMAX 포함)이 있어요.",
+          "source": "th_sp_seedo",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "5층에 실내 놀이 공간 미랜드(MELAND)가 있어요.",
+          "source": "th_sp_seedo",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "현대미술과 디자인 작품을 전시하는 아레나 오브 아츠 공간이 있어요.",
+          "source": "th_sp_seedo",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "택시·Grab 승하차장은 지상층 방콕은행 옆 게이트예요.",
+          "source": "th_sp_getting",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "시암 프리미엄 아울렛 방콕까지 유료 셔틀버스가 다녀요.",
+          "source": "th_sp_getting",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "unknown",
+        "regular_closed": [
+          "none"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "th_sp_home",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "th_sp_home",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_th",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 15,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Siam_Paragon_06.23.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "wiki": {
+        "ko": "시암 파라곤",
+        "en": "Siam Paragon"
+      },
+      "google_place_id": "ChIJIeWu482e4jARYymvLJqTQ58"
+    },
+    {
       "id": "mahanakhon-skywalk",
       "qid": "Q1640197",
       "names": {
@@ -2813,6 +2704,144 @@
       "google_place_id": "ChIJGzV2mdKY4jARdIb62T7BoE4"
     },
     {
+      "id": "asiatique",
+      "qid": "Q13026076",
+      "names": {
+        "ko": "아시아티크",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Asiatique The Riverfront",
+        "local": "เอเชียทีค เดอะ ริเวอร์ฟรอนท์ เดสติเนชั่น",
+        "local_short": "เอเชียทีค",
+        "local_lang": "th",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "아시아티크 더 리버프런트",
+        "아시아틱",
+        "아시아티크 리버프론트"
+      ],
+      "aliases_en": [
+        "Asiatique",
+        "Asiatique The Riverfront Destination"
+      ],
+      "mentions_ko": [],
+      "region": "th_bangkok",
+      "area_ko": "방콕 짜런끄룽 길 강변",
+      "category": "market_street",
+      "tags": [
+        {
+          "id": "night",
+          "source": "th_as_contact",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 13.706021,
+        "lng": 100.50466,
+        "source": "wd",
+        "qid": "Q13026076",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "address_local": null,
+      "access": {
+        "modes": [
+          "metro",
+          "boat",
+          "bus"
+        ],
+        "nearest_ko": "BTS 사판탁신역 2번 출구에서 싸톤 선착장 무료 셔틀 보트",
+        "nearest_local": null,
+        "source": "th_as_contact",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.asiatiquethailand.com/",
+      "summary_ko": "짜오프라야 강변에 있는 저녁 쇼핑·먹거리 단지예요.",
+      "body_ko": [
+        "옛 창고 건물에 식당과 상점이 나뉘어 있어요.",
+        "강변을 따라 먹거리 가게가 300m 이어져요.",
+        "관람차 아시아티크 스카이는 높이 60m예요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "창고 건물 10동에 식당과 상점이 나뉘어 있어요.",
+          "source": "th_as_explore",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "강변을 따라 먹거리 가게가 300m 이어져요.",
+          "source": "th_as_home",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "관람차 아시아티크 스카이는 높이 60m예요.",
+          "source": "th_as_home",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "관람차 외에 귀신의 집 같은 놀이 시설과 칼립소 쇼가 있어요.",
+          "source": "th_as_home",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "싸톤 선착장과 아시아티크 사이를 무료 셔틀 보트가 다녀요.",
+          "source": "th_as_contact",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "무료 셔틀 보트는 오후 늦은 시간부터 밤까지 운행해요.",
+          "source": "th_as_contact",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "unknown",
+        "regular_closed": [
+          "none"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "th_as_contact",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "th_as_contact",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_th",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 19,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Asiatique_The_Riverfront_-_A_wharf02.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "wiki": {
+        "ko": "아시아티크 더 리버프런트 데스티네이션",
+        "en": "Asiatique"
+      },
+      "google_place_id": "ChIJtepc75aY4jARVvgRfYrM38s"
+    },
+    {
       "id": "yaowarat",
       "qid": "Q1518029",
       "names": {
@@ -2926,7 +2955,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 33,
+        "order": 34,
         "designations": []
       },
       "photo": null,
@@ -2937,6 +2966,281 @@
         "en": "Yaowarat Road"
       },
       "google_place_id": "ChIJrdfOcJOZ4jAR1Grh5w74V1g"
+    },
+    {
+      "id": "sea-life-bangkok",
+      "qid": "Q6636970",
+      "names": {
+        "ko": "시 라이프 방콕 오션 월드",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "SEA LIFE Bangkok Ocean World",
+        "local": "บางกอก ซี ไลฟ์ โอเชียนเวิลด์",
+        "local_short": "ซีไลฟ์ แบงคอก",
+        "local_lang": "th",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "씨라이프 방콕",
+        "시라이프 방콕",
+        "방콕 수족관"
+      ],
+      "aliases_en": [
+        "Sea Life Bangkok",
+        "Siam Ocean World"
+      ],
+      "mentions_ko": [
+        "시암 파라곤 수족관"
+      ],
+      "region": "th_bangkok",
+      "area_ko": "방콕 빠툼완(시암 파라곤 지하)",
+      "category": "theme_park",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 13.7458,
+        "lng": 100.5353,
+        "source": "wd",
+        "qid": "Q6636970",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "address_local": null,
+      "access": {
+        "modes": [
+          "metro"
+        ],
+        "nearest_ko": "BTS 싸얌역에서 시암 파라곤으로 들어가 지하 1층(푸드코트 옆)",
+        "nearest_local": null,
+        "source": "th_sl_getting",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.visitsealife.com/bangkok/en/",
+      "summary_ko": "시암 파라곤 지하에 있는 수족관이에요.",
+      "body_ko": [
+        "시암 파라곤 지하 1·2층에 있어요.",
+        "해파리, 열대우림, 상어 산책로, 산호초, 해저 터널, 펭귄 구역으로 나뉘어요.",
+        "4D 영화관과 유리 바닥 보트 같은 체험도 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "시암 파라곤 지하 1·2층에 있어요.",
+          "source": "th_sl_getting",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "해파리, 열대우림, 상어 산책로, 산호초, 해저 터널, 펭귄 구역이 있어요.",
+          "source": "th_sl_zones",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "4D 영화관, 수중 탐험 VR, 유리 바닥 보트, 뒷면 투어 같은 체험이 있어요.",
+          "source": "th_sl_zones",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "둘러보는 데 90분 이상 잡으라고 안내해요.",
+          "source": "th_sl_hours",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "싸얌역에서 몰로 들어와 에스컬레이터로 지하 1층까지 내려가요.",
+          "source": "th_sl_getting",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "온라인으로 표를 사고 모바일 티켓을 고르면 매표소를 거치지 않아도 된다고 안내해요.",
+          "source": "th_sl_hours",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "상어·젠투펭귄·수달 먹이 주기 시간 안내가 공식 사이트에 있어요.",
+          "source": "th_sl_zones",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "마지막 입장은 문 닫기 한 시간 전이에요.",
+          "source": "th_sl_hours",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "booking": "recommended",
+        "regular_closed": [
+          "none"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "th_sl_hours",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "th_sl_hours",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_th",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 38,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Siam_Ocean_World.JPG",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "wiki": {
+        "en": "Sea Life Bangkok Ocean World"
+      },
+      "google_place_id": "ChIJH4I85c2e4jARUMYLeiqfBd0"
+    },
+    {
+      "id": "madame-tussauds-bangkok",
+      "qid": null,
+      "names": {
+        "ko": "마담 투소 방콕",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Madame Tussauds Bangkok",
+        "local": "มาดามทุสโซ กรุงเทพฯ",
+        "local_short": "มาดามทุสโซ",
+        "local_lang": "th",
+        "source": "osm"
+      },
+      "aliases_ko": [
+        "마담 투소",
+        "방콕 밀랍 인형 박물관"
+      ],
+      "aliases_en": [
+        "Madame Tussaud's Bangkok",
+        "Madame Tussauds"
+      ],
+      "mentions_ko": [],
+      "region": "th_bangkok",
+      "area_ko": "방콕 빠툼완 싸얌(시암 디스커버리 4층)",
+      "category": "theme_park",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 13.746499,
+        "lng": 100.531725,
+        "source": "osm",
+        "qid": null,
+        "osm": "node/1696984912",
+        "last_verified": "2026-10-10"
+      },
+      "address_local": null,
+      "access": {
+        "modes": [
+          "metro",
+          "bus"
+        ],
+        "nearest_ko": "BTS 싸얌역에서 걸어서 5분(시암 디스커버리 4층)",
+        "nearest_local": null,
+        "source": "th_mt_getting",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.madametussauds.com/bangkok/en/",
+      "summary_ko": "시암 디스커버리 안에 있는 밀랍 인형 전시관이에요.",
+      "body_ko": [
+        "시암 디스커버리 4층에 있어요.",
+        "실물 크기 밀랍 인형과 사진을 찍는 곳이에요.",
+        "BTS 싸얌역에서 걸어서 5분이에요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "시암 디스커버리 4층에 있어요.",
+          "source": "th_mt_getting",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "실물처럼 만든 밀랍 인형을 만나는 곳이에요.",
+          "source": "th_mt_home",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "음악, 영화, 역사, 스포츠 구역이 있어요.",
+          "source": "th_mt_home",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "BTS 싸얌역에서 걸어서 5분이에요.",
+          "source": "th_mt_getting",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "밀랍 인형을 만지고 안고 가까이서 셀카를 찍을 수 있다고 안내해요.",
+          "source": "th_mt_home",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "시 라이프 방콕과 함께 들어가는 묶음 표가 있어요.",
+          "source": "th_mt_home",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "온라인으로 미리 사고 모바일 티켓을 쓰면 더 빨리 들어간다고 안내해요.",
+          "source": "th_mt_home",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "booking": "recommended",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "th_mt_home",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "th_mt_home",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_th",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 44,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJHQcCZM2e4jARaESgxhA9-HM"
     },
     {
       "id": "ayutthaya-historical-park",
@@ -3482,7 +3786,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 42,
+        "order": 45,
         "designations": []
       },
       "photo": null,
@@ -3935,6 +4239,140 @@
       "google_place_id": "ChIJgeRFlcNu5DARpJiIQ3ScgyY"
     },
     {
+      "id": "pattaya-floating-market",
+      "qid": "Q139558901",
+      "names": {
+        "ko": "파타야 수상시장",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Pattaya Floating Market",
+        "local": "ตลาดน้ำสี่ภาค",
+        "local_short": "ตลาดน้ำสี่ภาค",
+        "local_lang": "th",
+        "source": "ttd_3231"
+      },
+      "aliases_ko": [
+        "파타야 플로팅 마켓",
+        "사 지방 수상시장"
+      ],
+      "aliases_en": [
+        "Pattaya Four Regions Floating Market",
+        "4 Regions Floating Market"
+      ],
+      "mentions_ko": [],
+      "region": "th_pattaya",
+      "area_ko": "파타야 남쪽(알랑카른 가기 전 큰길 쪽)",
+      "category": "market_street",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 12.867922,
+        "lng": 100.904883,
+        "source": "wd",
+        "qid": "Q139558901",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "address_local": null,
+      "access": {
+        "modes": [
+          "bus"
+        ],
+        "nearest_ko": "중앙·남부 파타야 사거리에서 미니버스, 또는 방콕 에까마이발 싸따힙행 버스(길 왼편)",
+        "nearest_local": null,
+        "source": "ttd_3231",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.thailandtourismdirectory.go.th/en/attraction/3231",
+      "wiki": {
+        "en": "Pattaya Floating Market"
+      },
+      "summary_ko": "태국 네 지방의 생활을 재현해 놓은 수상시장이에요.",
+      "body_ko": [
+        "북부·중부·동북부·남부 지방의 상품을 지방별로 팔아요.",
+        "노 젓는 배를 타고 강변 생활을 체험해요.",
+        "지방별 티크 가옥과 문화 공연이 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "태국 사람들의 소박한 생활을 재현한 곳이에요.",
+          "source": "ttd_3231",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "북부·중부·동북부·남부 지방별로 파는 상품이 달라요.",
+          "source": "ttd_3231",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "노 젓는 배를 타고 강변 생활을 배워 볼 수 있어요.",
+          "source": "ttd_3231",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "지방별 특징을 보여 주는 티크 가옥을 전시해요.",
+          "source": "ttd_3231",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "활동 공간에서 지방 문화 공연이 열려요.",
+          "source": "ttd_3231",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "방콕 에까마이에서 싸따힙행 버스를 타고 수상시장에서 내린다고 기사에게 말하라고 안내해요.",
+          "source": "ttd_3231",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "중앙·남부 파타야 사거리에서 미니버스를 타고 내릴 곳을 말하라고 안내해요.",
+          "source": "ttd_3231",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "unknown",
+        "regular_closed": [
+          "none"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "ttd_3231",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "ttd_3231",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_th",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 43,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJj7QUV5CVAjER2FSGCgOLIWM"
+    },
+    {
       "id": "mini-siam",
       "qid": "Q4294192",
       "names": {
@@ -3978,10 +4416,6 @@
         "last_verified": "2026-10-10"
       },
       "official_url": "https://www.thailandtourismdirectory.go.th/en/attraction/5247",
-      "wiki": {
-        "ko": "미니 사이암",
-        "en": "Mini Siam"
-      },
       "summary_ko": "세계 곳곳의 명소를 작은 모형으로 모아 둔 곳이에요.",
       "body_ko": [
         "미니 사이암과 유럽 모형 도시, 두 구역으로 나뉘어요.",
@@ -4059,6 +4493,10 @@
       "photo_link": null,
       "source": "wd",
       "last_verified": "2026-10-10",
+      "wiki": {
+        "ko": "미니 사이암",
+        "en": "Mini Siam"
+      },
       "google_place_id": "ChIJGyhn0uCe4jARKsHCvBXG7Dw"
     },
     {
@@ -4440,7 +4878,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 39,
+        "order": 40,
         "designations": []
       },
       "photo": null,
@@ -4556,7 +4994,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 43,
+        "order": 46,
         "designations": []
       },
       "photo": null,
@@ -4689,7 +5127,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 44,
+        "order": 47,
         "designations": []
       },
       "photo": null,
@@ -4697,143 +5135,6 @@
       "source": "pty_ttd_21350",
       "last_verified": "2026-10-10",
       "google_place_id": "ChIJk0BiMmiWAjERQelm_nN2EVg"
-    },
-    {
-      "id": "warorot-market",
-      "qid": "Q20558642",
-      "names": {
-        "ko": "와로롯 시장",
-        "ko_basis": "editorial",
-        "ko_paren": null,
-        "en": "Warorot Market",
-        "local": "ตลาดวโรรส",
-        "local_short": "ตลาดวโรรส",
-        "local_lang": "th",
-        "source": "wd"
-      },
-      "aliases_ko": [
-        "와로롯 마켓",
-        "깟 루앙",
-        "까드 루앙"
-      ],
-      "aliases_en": [
-        "Kad Luang",
-        "Warorot"
-      ],
-      "mentions_ko": [],
-      "region": "th_chiangmai",
-      "area_ko": "치앙마이 창모이(핑강 서편 구시가 동쪽)",
-      "category": "market_street",
-      "tags": [
-        {
-          "id": "night",
-          "source": "ttd_4884",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "geo": {
-        "kind": "site",
-        "lat": 18.790221833333334,
-        "lng": 99.000657,
-        "source": "wd",
-        "qid": "Q20558642",
-        "osm": null,
-        "last_verified": "2026-10-10"
-      },
-      "address_local": null,
-      "access": {
-        "modes": [
-          "bus"
-        ],
-        "nearest_ko": "창모이 길과 위차야논 길이 만나는 곳(주 노선버스), 라오조 골목으로도 들어가요",
-        "nearest_local": null,
-        "source": "ttd_4884",
-        "last_verified": "2026-10-10"
-      },
-      "official_url": "https://www.thailandtourismdirectory.go.th/en/attraction/4884",
-      "wiki": {
-        "en": "Warorot Market"
-      },
-      "summary_ko": "치앙마이에서 가장 큰 재래시장이에요.",
-      "body_ko": [
-        "북부 지역 음식과 기념품을 사러 오는 시장이에요.",
-        "시장 뒤쪽 핑강 쪽에는 꽃시장이 있어요.",
-        "옛날부터 이어진 수백 년 된 시장이에요."
-      ],
-      "claims": [
-        {
-          "id": "c1",
-          "text_ko": "치앙마이에서 가장 큰 시장이에요.",
-          "source": "ttd_4884",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c2",
-          "text_ko": "수백 년 이어진 오래된 시장이에요.",
-          "source": "ttd_4884",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c3",
-          "text_ko": "발효 돼지고기, 북부식 매운 소시지, 고추 양념장 같은 지역 음식을 팔아요.",
-          "source": "ttd_4884",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c4",
-          "text_ko": "시장 뒤쪽 핑강 쪽에는 꽃시장이 있어요.",
-          "source": "ttd_4884",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c5",
-          "text_ko": "창모이 길과 위차야논 길이 만나는 곳에 있어요.",
-          "source": "ttd_4884",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "tips_ko": [
-        {
-          "text": "옷·기념품 가게는 저녁에 닫고, 시장 옆 골목은 밤까지 열어요.",
-          "source": "ttd_4884",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "text": "일찍 여는 가게는 이른 아침부터 장사해요.",
-          "source": "ttd_4884",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "facts": {
-        "kind": "public_space",
-        "closed_note_ko": null,
-        "visit_note_ko": null,
-        "source": "ttd_4884",
-        "last_verified": "2026-10-10"
-      },
-      "volatile": null,
-      "seasonal": [],
-      "risk": [],
-      "status": {
-        "value": "open",
-        "note_ko": null,
-        "source": "ttd_4884",
-        "last_verified": "2026-10-10"
-      },
-      "advisory": {
-        "level": "1",
-        "source": "mofa_th",
-        "last_verified": "2026-09-28"
-      },
-      "rank": {
-        "order": 40,
-        "designations": []
-      },
-      "photo": null,
-      "photo_link": null,
-      "source": "wd",
-      "last_verified": "2026-10-10",
-      "google_place_id": "ChIJUXF8Lzo72jARQGy1_Bh_wCQ"
     },
     {
       "id": "doi-suthep",
@@ -5373,7 +5674,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 36,
+        "order": 37,
         "designations": []
       },
       "photo": null,
@@ -5480,7 +5781,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 38,
+        "order": 39,
         "designations": []
       },
       "photo": null,
@@ -5488,6 +5789,143 @@
       "source": "wd",
       "last_verified": "2026-10-10",
       "google_place_id": "ChIJW0qnDKY62jARHbAmfwD1Lgs"
+    },
+    {
+      "id": "warorot-market",
+      "qid": "Q20558642",
+      "names": {
+        "ko": "와로롯 시장",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Warorot Market",
+        "local": "ตลาดวโรรส",
+        "local_short": "ตลาดวโรรส",
+        "local_lang": "th",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "와로롯 마켓",
+        "깟 루앙",
+        "까드 루앙"
+      ],
+      "aliases_en": [
+        "Kad Luang",
+        "Warorot"
+      ],
+      "mentions_ko": [],
+      "region": "th_chiangmai",
+      "area_ko": "치앙마이 창모이(핑강 서편 구시가 동쪽)",
+      "category": "market_street",
+      "tags": [
+        {
+          "id": "night",
+          "source": "ttd_4884",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 18.790221833333334,
+        "lng": 99.000657,
+        "source": "wd",
+        "qid": "Q20558642",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "address_local": null,
+      "access": {
+        "modes": [
+          "bus"
+        ],
+        "nearest_ko": "창모이 길과 위차야논 길이 만나는 곳(주 노선버스), 라오조 골목으로도 들어가요",
+        "nearest_local": null,
+        "source": "ttd_4884",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.thailandtourismdirectory.go.th/en/attraction/4884",
+      "summary_ko": "치앙마이에서 가장 큰 재래시장이에요.",
+      "body_ko": [
+        "북부 지역 음식과 기념품을 사러 오는 시장이에요.",
+        "시장 뒤쪽 핑강 쪽에는 꽃시장이 있어요.",
+        "옛날부터 이어진 수백 년 된 시장이에요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "치앙마이에서 가장 큰 시장이에요.",
+          "source": "ttd_4884",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "수백 년 이어진 오래된 시장이에요.",
+          "source": "ttd_4884",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "발효 돼지고기, 북부식 매운 소시지, 고추 양념장 같은 지역 음식을 팔아요.",
+          "source": "ttd_4884",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "시장 뒤쪽 핑강 쪽에는 꽃시장이 있어요.",
+          "source": "ttd_4884",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "창모이 길과 위차야논 길이 만나는 곳에 있어요.",
+          "source": "ttd_4884",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "옷·기념품 가게는 저녁에 닫고, 시장 옆 골목은 밤까지 열어요.",
+          "source": "ttd_4884",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "일찍 여는 가게는 이른 아침부터 장사해요.",
+          "source": "ttd_4884",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "public_space",
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "ttd_4884",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "ttd_4884",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_th",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 41,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "wiki": {
+        "en": "Warorot Market"
+      },
+      "google_place_id": "ChIJUXF8Lzo72jARQGy1_Bh_wCQ"
     },
     {
       "id": "doi-inthanon",
@@ -5769,7 +6207,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 41,
+        "order": 42,
         "designations": []
       },
       "photo": null,
@@ -5906,7 +6344,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 45,
+        "order": 48,
         "designations": []
       },
       "photo": null,
@@ -6462,7 +6900,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 34,
+        "order": 35,
         "designations": []
       },
       "photo": null,
@@ -6579,7 +7017,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 46,
+        "order": 49,
         "designations": []
       },
       "photo": null,
@@ -6587,6 +7025,142 @@
       "source": "cei_tat_clocktower",
       "last_verified": "2026-10-10",
       "google_place_id": "ChIJMWn662YG1zARY4ZUtHVhxu4"
+    },
+    {
+      "id": "phuket-aquarium",
+      "qid": "Q123002567",
+      "names": {
+        "ko": "푸껫 수족관",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Phuket Aquarium",
+        "local": null,
+        "local_short": null,
+        "local_lang": "th",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "푸켓 수족관",
+        "푸껫 아쿠아리움"
+      ],
+      "aliases_en": [
+        "Phuket Aquarium Cape Panwa"
+      ],
+      "mentions_ko": [],
+      "region": "th_phuket",
+      "area_ko": "푸껫 판와곶(Cape Panwa)",
+      "category": "theme_park",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 7.80355,
+        "lng": 98.40789,
+        "source": "wd",
+        "qid": "Q123002567",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "address_local": null,
+      "access": {
+        "modes": [
+          "bus"
+        ],
+        "nearest_ko": "푸껫 타운에서 송태우(마캄만·아쿠아리움 노선), 판와곶 삭디뎃 길 끝",
+        "nearest_local": null,
+        "source": "ttd_2004",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.thailandtourismdirectory.go.th/en/attraction/2004",
+      "summary_ko": "해양·연안자원 정부 기관이 운영하는 푸껫의 수족관이에요.",
+      "body_ko": [
+        "해양·연안자원부 산하 정부 기관이 운영해요.",
+        "푸껫 타운에서 판와곶까지 약 30분 걸려요.",
+        "송태우로 마캄만·아쿠아리움 노선을 타고 가요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "해양·연안자원연구개발원 아래 정부 기관의 한 곳이에요.",
+          "source": "ttd_2004",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "수생 식물과 담수·해양 동물 등 약 100종을 소개하는 전시를 열어요.",
+          "source": "ttd_2004",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "삭디뎃 길 끝 판와곶에 있어요.",
+          "source": "ttd_2004",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "푸껫 타운에서 약 30분 걸려요.",
+          "source": "ttd_2004",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "송태우(마캄만·아쿠아리움 노선)로 갈 수 있어요.",
+          "source": "ttd_2004",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c6",
+          "text_ko": "표 판매는 오후 4시에 마감해요.",
+          "source": "ttd_2004",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "표 판매는 오후 4시에 마감하니 일찍 가세요.",
+          "source": "ttd_2004",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "푸껫 타운에서는 송태우(마캄만·아쿠아리움 노선)를 타라고 안내해요.",
+          "source": "ttd_2004",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "unknown",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "ttd_2004",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "ttd_2004",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_th",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 50,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJBx6OpxAsUDAR2Fl2L5Fx-Vc"
     },
     {
       "id": "phuket-old-town",
@@ -7011,7 +7585,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 35,
+        "order": 36,
         "designations": []
       },
       "photo": null,
@@ -7138,7 +7712,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 47,
+        "order": 51,
         "designations": []
       },
       "photo": null,
@@ -7544,7 +8118,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 48,
+        "order": 52,
         "designations": []
       },
       "photo": null,
@@ -7804,7 +8378,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 49,
+        "order": 53,
         "designations": []
       },
       "photo": null,
@@ -7946,7 +8520,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 32,
+        "order": 33,
         "designations": []
       },
       "photo": null,
@@ -8073,7 +8647,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 50,
+        "order": 54,
         "designations": []
       },
       "photo": null,
@@ -8199,7 +8773,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 51,
+        "order": 55,
         "designations": []
       },
       "photo": null,
@@ -8331,7 +8905,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 52,
+        "order": 56,
         "designations": []
       },
       "photo": null,

@@ -114,6 +114,11 @@
     "checked_at": "2026-10-10",
     "text_sha256": "6e7952dc0cf808a387e7c3be9a8d4f578565a58326d7c94a0bd8e8038a0ae3d0"
   },
+  "madame-tussauds-bangkok": {
+    "cache_set_sha256": "8fb2a5f6cbfeac57cfe4e7662ab034c1e6a085a5709ac50dca0f2fcb7f880c9f",
+    "checked_at": "2026-10-10",
+    "text_sha256": "e4dc66348f224f89327c8a37ce54c02bf9f22c43562efaa5ed5f328ba6d09049"
+  },
   "maeklong-railway-market": {
     "cache_set_sha256": "3e3f0b6b568af20fedceed8f7851e32328048384d3a40a5fae5e971c4a9f47ce",
     "checked_at": "2026-10-10",
@@ -144,10 +149,20 @@
     "checked_at": "2026-10-10",
     "text_sha256": "fafc71f8171eee9c1703e94aa1a0d6e7edefcde93524f3f9cf5174a2886eb941"
   },
+  "pattaya-floating-market": {
+    "cache_set_sha256": "b39433b18474ef56446ba09b18ba07ade2b8db36deb2165432ad4f8e0189c1fa",
+    "checked_at": "2026-10-10",
+    "text_sha256": "0e6156d9d5f44d8665633dd1e36d8a6a46c73ff3d0526390fb4635e5e8d14b5b"
+  },
   "phi-phi-islands": {
     "cache_set_sha256": "a302d4478711ed976f2fa27c7a54d73f551bc3ab14ec44c089b1689c665747b4",
     "checked_at": "2026-10-10",
     "text_sha256": "dcb96a967c76cff06e4800a9fb5ae6ab1d11f707eba7d99fcee2ccca5c746585"
+  },
+  "phuket-aquarium": {
+    "cache_set_sha256": "017dc87e13e7555569085cb26b113e35e0fe7b6f179547ec668ccd5b8c6db3c2",
+    "checked_at": "2026-10-10",
+    "text_sha256": "cfb760fa2f0fe1edede144da72f455a0e21dbdfc2ebb7f1f7bce8c86bdfccf85"
   },
   "phuket-old-town": {
     "cache_set_sha256": "76d9c5ab8a941d11a14363e66c6ab66f444b74a80757c94153804f484946a6d8",
@@ -208,6 +223,11 @@
     "cache_set_sha256": "51d4094cd531cb8c363164082d7c01ab45bc972121f2b3d89df687fea81917d1",
     "checked_at": "2026-10-10",
     "text_sha256": "62c70567439a4dcb7c945435c4e60eac604b8fe1ab047d6a53b328776f0e9ad6"
+  },
+  "wat-benchamabophit": {
+    "cache_set_sha256": "acd16cc90e864f3a77da0046bd1b1cb7b09e8440abeb00ce8c3563943a262f1d",
+    "checked_at": "2026-10-10",
+    "text_sha256": "4a088f986ff464d0a94eea2ce3fb9ff171cd93cdc8d31cbdc7fdffe03f312db8"
   },
   "wat-chalong": {
     "cache_set_sha256": "e6e19313ec52c9d7b6ddfcb2890d2e48a00ca1dba9849beabe51765533cfd782",
