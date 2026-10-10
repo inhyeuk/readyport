@@ -486,6 +486,34 @@
       "wave": 1
     },
     {
+      "id": "jp_biei_furano",
+      "order": 160,
+      "name_ko": "비에이·후라노",
+      "name_en": "Biei & Furano",
+      "aliases_ko": [
+        "비에이",
+        "후라노",
+        "나카후라노"
+      ],
+      "group_ko": "홋카이도",
+      "kind": "base",
+      "hub": {
+        "name_ko": "비에이역",
+        "lat": 43.59111111,
+        "lng": 142.46166667,
+        "qid": "Q867979"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "advisory_watch_ko": [],
+      "water_crossing": false,
+      "airports": [],
+      "wave": 3
+    },
+    {
       "id": "jp_okinawa_naha",
       "order": 170,
       "name_ko": "오키나와 나하·남부",
@@ -11632,6 +11660,310 @@
       "photo_link": "https://commons.wikimedia.org/wiki/File:Ueno-zoo.jpg",
       "source": "wd",
       "last_verified": "2026-10-10"
+    },
+    {
+      "id": "blue-pond",
+      "qid": "Q11661016",
+      "names": {
+        "ko": "푸른 연못",
+        "ko_basis": "editorial",
+        "en": "Blue Pond",
+        "local": "青い池",
+        "local_short": "白金青い池",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "아오이이케",
+        "시로가네 푸른 연못",
+        "청의 연못"
+      ],
+      "aliases_en": [
+        "Shirogane Blue Pond"
+      ],
+      "mentions_ko": [
+        "비에이 블루"
+      ],
+      "region": "jp_biei_furano",
+      "area_ko": "홋카이도 비에이초 시로가네",
+      "category": "nature",
+      "geo": {
+        "kind": "site",
+        "lat": 43.493583,
+        "lng": 142.614028,
+        "source": "wd",
+        "last_verified": "2026-10-10",
+        "qid": "Q11661016"
+      },
+      "access": {
+        "modes": [
+          "bus",
+          "car_only"
+        ],
+        "nearest_ko": "JR 비에이역에서 도호쿠 버스로 가거나 차로 가요",
+        "source": "biei_kanko_bluepond",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.biei-hokkaido.jp/ja/facility/shirogane-blue-pond",
+      "summary_ko": "푸른빛 물에 마른 낙엽송이 서 있는 연못이에요.",
+      "body_ko": [
+        "푸른 연못은 도카치다케 방재 공사 때 제방에 고인 물이 신비한 푸른색을 띠면서 이름이 붙었어요.",
+        "눈 녹은 물이 흘러드는 봄에는 녹색빛 파랑, 초여름에는 연한 파랑으로 보이는 날이 많고, 한겨울에는 연못이 얼어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "도카치다케 방재 공사 때 제방에 고인 물이 신비한 푸른색을 띠면서 '푸른 연못'으로 불리게 됐어요.",
+          "source": "biei_kanko_bluepond",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "계절과 날씨에 따라 푸른색이 달라요. 눈 녹은 물이 많은 봄에는 녹색빛, 초여름에는 연한 파랑으로 보이는 날이 많아요.",
+          "source": "biei_kanko_bluepond",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "연못 안에는 울타리를 넘어 들어가지 마세요. 목숨이 위험하다고 안내해요.",
+          "source": "biei_kanko_bluepond",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "드론은 허가 신청과 승인이 있어야 날릴 수 있어요.",
+          "source": "biei_kanko_bluepond",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "주차장이 있어요. 요금은 공식 안내를 확인하세요.",
+          "source": "biei_kanko_bluepond",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "public_space"
+      },
+      "status": {
+        "value": "open",
+        "source": "biei_kanko_bluepond",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 999,
+        "designations": []
+      },
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Biei_Blue-pond.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10"
+    },
+    {
+      "id": "shirahige-falls",
+      "qid": "Q17228813",
+      "names": {
+        "ko": "시라히게 폭포",
+        "ko_basis": "editorial",
+        "en": "Shirahige Falls",
+        "local": "白ひげの滝",
+        "local_short": "白ひげの滝",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "흰 수염 폭포",
+        "시라히게노타키"
+      ],
+      "mentions_ko": [
+        "블루 리버"
+      ],
+      "region": "jp_biei_furano",
+      "area_ko": "홋카이도 비에이초 시로가네",
+      "category": "nature",
+      "geo": {
+        "kind": "site",
+        "lat": 43.474667,
+        "lng": 142.639194,
+        "source": "wd",
+        "last_verified": "2026-10-10",
+        "qid": "Q17228813"
+      },
+      "access": {
+        "modes": [
+          "bus",
+          "car_only"
+        ],
+        "nearest_ko": "JR 비에이역에서 도호쿠 버스로 '비에이 시로가네 온천' 정류장에서 내려 걸어가요",
+        "source": "biei_kanko_shirahige",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.biei-hokkaido.jp/ja/facility/shirahige-waterfalls",
+      "summary_ko": "바위틈에서 솟은 물이 쏟아지는 비에이강 가의 폭포예요.",
+      "body_ko": [
+        "시라히게 폭포는 낙차 약 30m로, 바위 사이로 스며 나온 지하수가 계류로 쏟아져요.",
+        "일본에서도 드문 '잠류폭'으로 분류되고, 겨울에는 물보라가 나무에 상고대를 만들어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "낙차는 약 30m이고, 자연 바위 틈에서 스며 나온 지하수가 계류로 흘러 떨어져요.",
+          "source": "biei_kanko_shirahige",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "일본에서도 드문 '잠류폭'으로 분류되는 폭포예요.",
+          "source": "biei_kanko_shirahige",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "주차장이 있고 겨울에도 문을 열어요.",
+          "source": "biei_kanko_shirahige",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "다리 '블루 리버'에서 보는 경치도 안내하고 있어요.",
+          "source": "biei_kanko_shirahige",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "드론 비행·촬영은 원칙적으로 금지예요.",
+          "source": "biei_kanko_shirahige",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "public_space"
+      },
+      "status": {
+        "value": "open",
+        "source": "biei_kanko_shirahige",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 999,
+        "designations": []
+      },
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Shirahige_Falls,_Biei_River,_Hokkaido,_Japan.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10"
+    },
+    {
+      "id": "farm-tomita",
+      "qid": "Q10954584",
+      "names": {
+        "ko": "팜 도미타",
+        "ko_basis": "editorial",
+        "en": "Farm Tomita",
+        "local": "ファーム富田",
+        "local_short": "ファーム富田",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "파무토미타",
+        "후라노 라벤더 밭"
+      ],
+      "aliases_en": [
+        "Tomita Farm"
+      ],
+      "mentions_ko": [
+        "라벤더 이스트"
+      ],
+      "region": "jp_biei_furano",
+      "area_ko": "홋카이도 나카후라노초",
+      "category": "nature",
+      "geo": {
+        "kind": "entrance",
+        "lat": 43.418894444444,
+        "lng": 142.42658055556,
+        "source": "wd",
+        "last_verified": "2026-10-10",
+        "qid": "Q10954584"
+      },
+      "access": {
+        "modes": [
+          "train",
+          "bus"
+        ],
+        "nearest_ko": "JR 후라노선 '라벤더밭' 역에서 걸어가요",
+        "source": "farmtomita_official_access",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.farm-tomita.co.jp/",
+      "summary_ko": "라벤더 밭으로 알려진 나카후라노의 꽃밭이에요.",
+      "body_ko": [
+        "팜 도미타는 1903년 도미타 도쿠마가 나카후라노 들판에 괭이를 댄 데서 시작됐어요.",
+        "라벤더 이스트는 팜 도미타에서 차로 약 4km 떨어진 별도 구역이에요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "1903년(메이지 36년) 도미타 도쿠마가 나카후라노 들판에 괭이를 댄 데서 시작됐어요.",
+          "source": "farmtomita_official_history",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "라벤더 이스트는 팜 도미타에서 차로 약 4km(약 7분) 떨어져 있어요.",
+          "source": "farmtomita_official_access",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "영업 시간 밖에는 들어가지 말라고 안내해요.",
+          "source": "farmtomita_official_top",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "길가나 버스 전용 주차장에는 세우지 말라고 안내해요.",
+          "source": "farmtomita_official_access",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "근처 정류장은 후라노 버스 '나카후라노'예요.",
+          "source": "farmtomita_official_access",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "unknown",
+        "regular_closed": [
+          "unknown"
+        ],
+        "source": "farmtomita_official_top",
+        "last_verified": "2026-10-10"
+      },
+      "status": {
+        "value": "open",
+        "source": "farmtomita_official_top",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 999,
+        "designations": []
+      },
+      "photo_link": "https://commons.wikimedia.org/wiki/File:ファーム富田（Farm_Tomita）_-_panoramio_(4).jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10"
     }
   ],
   "retired": [],
@@ -13729,6 +14061,36 @@
       "id": "uenozoo_official_tickets",
       "name": "上野動物園 開園時間・休園日・入園料",
       "url": "https://www.tokyo-zoo.net/ueno/visitor-info/tickets/index.html",
+      "use": "facts"
+    },
+    {
+      "id": "biei_kanko_bluepond",
+      "name": "美瑛町観光協会 白金青い池",
+      "url": "https://www.biei-hokkaido.jp/ja/facility/shirogane-blue-pond",
+      "use": "facts"
+    },
+    {
+      "id": "biei_kanko_shirahige",
+      "name": "美瑛町観光協会 白ひげの滝",
+      "url": "https://www.biei-hokkaido.jp/ja/facility/shirahige-waterfalls",
+      "use": "facts"
+    },
+    {
+      "id": "farmtomita_official_access",
+      "name": "ファーム富田 アクセス",
+      "url": "https://www.farm-tomita.co.jp/access/",
+      "use": "facts"
+    },
+    {
+      "id": "farmtomita_official_history",
+      "name": "ファーム富田の歴史",
+      "url": "https://www.farm-tomita.co.jp/history/",
+      "use": "facts"
+    },
+    {
+      "id": "farmtomita_official_top",
+      "name": "ファーム富田 トップ",
+      "url": "https://www.farm-tomita.co.jp/",
       "use": "facts"
     }
   ]
