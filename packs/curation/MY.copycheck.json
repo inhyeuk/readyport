@@ -4,6 +4,11 @@
     "checked_at": "2026-10-10",
     "text_sha256": "d2e8c5356dfe34893ca03241c1de0683abd2b6f638ae3d298571954619e79110"
   },
+  "aquaria-klcc": {
+    "cache_set_sha256": "089822c15c4d9a9a9da91e5726d9637b229fe1b6d357b2c633ff78ed5c7093ed",
+    "checked_at": "2026-10-10",
+    "text_sha256": "55293399b7ee41737314d530b9f725df4c7e87b90cb8b31ec5c0ff653408a82b"
+  },
   "batu-caves": {
     "cache_set_sha256": "6e5eea654887ba3de0512728fb09ecc93d479ca1a55b8fc1406f7eb4d2681ed0",
     "checked_at": "2026-10-10",
@@ -19,6 +24,16 @@
     "checked_at": "2026-10-10",
     "text_sha256": "ade770803ed0b3351e8f225a734810afb89706095600f4c6db948d2f1b154550"
   },
+  "cheng-hoon-teng": {
+    "cache_set_sha256": "5119336333e5a0d3bcd1359198374d3314d3cf4f1a6abc43ae4ad5a21a09e9f4",
+    "checked_at": "2026-10-10",
+    "text_sha256": "f8b06cc3d71385a81246da060c67b6f344c81c19725108d697a6915f7f38231e"
+  },
+  "chin-swee-caves-temple": {
+    "cache_set_sha256": "b9effb5533efcf51ff4d4dab4a3a0d6ea1a786d26d7931b03fa5c1649d96751a",
+    "checked_at": "2026-10-10",
+    "text_sha256": "6f961203ef0ed0a7b4071446f85be2d7ee2da45bd0f615b343f50b56579fe3c9"
+  },
   "christ-church-melaka": {
     "cache_set_sha256": "7c4d39182e00172f9f52ac1d125c1b87cb0f0f44f987933fbaccef6c311cbefe",
     "checked_at": "2026-10-10",
@@ -33,6 +48,11 @@
     "cache_set_sha256": "d3586f436129d42eddadc0eecbff692f7b99d65a2b24d4e0e124b9234eabccaa",
     "checked_at": "2026-10-10",
     "text_sha256": "c8d9deb95b0a34dc265373cf1dd055631e46e562501133eb5b2e9eb0c1720368"
+  },
+  "entopia-penang": {
+    "cache_set_sha256": "f98311735c120434a9a2b93e8cd0f46e6f4ffc6f15027060658ac8b30b2bef0d",
+    "checked_at": "2026-10-10",
+    "text_sha256": "b912d7340182b47bea53dbf70dea1a5aad4f7ec77364f44517a1d2c97af0ae0a"
   },
   "gaya-street-sunday-market": {
     "cache_set_sha256": "23fc6025012a63d311317090fc63477b82d3db6d59e890674e15c8f0becb86c4",
@@ -53,6 +73,11 @@
     "cache_set_sha256": "bd0a45d4d93da194666f72dcdb7925a54eba5f184cdd1b16b5c103429ec2acfb",
     "checked_at": "2026-10-10",
     "text_sha256": "3dc49663f9eca02623772ece090f5691424066167b72700a0854665db341fe3d"
+  },
+  "johor-old-chinese-temple": {
+    "cache_set_sha256": "dc5dcfe3c80b28d9b5c193ef48459edcb6e1dcd7cdd518ee60177643fffea0f9",
+    "checked_at": "2026-10-10",
+    "text_sha256": "94c62920fdf76fa3689cfb715247ecc7032a463759443b55829efd96a49ed4b4"
   },
   "jonker-street": {
     "cache_set_sha256": "790f352ea5195f49f7c86ead8dec6ef5d22fe08b999cb6bc45ad74ade7f4dda0",
@@ -94,6 +119,11 @@
     "checked_at": "2026-10-10",
     "text_sha256": "223007d6253cc1331dbb2e98f978cc0aae715836080162848b72fad264521d5c"
   },
+  "legoland-malaysia": {
+    "cache_set_sha256": "eb987c2f976788a77f2504783aa38821923be47a0b87a7b4c327117158d35065",
+    "checked_at": "2026-10-10",
+    "text_sha256": "41a0abdc56a620f8607ca445e68c12d798cd4db6028d4766161e742657859f68"
+  },
   "masjid-jamek": {
     "cache_set_sha256": "21130df833ff9510998fda4fad353ed532f82b2db6c3a756de5ede68b01409c1",
     "checked_at": "2026-10-10",
@@ -129,6 +159,11 @@
     "checked_at": "2026-10-10",
     "text_sha256": "96ab3556fc598396b9dad3d487e89fce6be57c9500eb6c2fb23c0c85ff9533d4"
   },
+  "petrosains": {
+    "cache_set_sha256": "5dc74675d9054ba962c94575a4415a8334addb547a0c2bbcceb8d86b9dbe399a",
+    "checked_at": "2026-10-10",
+    "text_sha256": "763aceb0d7a030f93f09bb7ae68d8b81a5a76df2366452a04ed02473ced47fd4"
+  },
   "pinang-peranakan-mansion": {
     "cache_set_sha256": "c7309480dbd30c48c2bcfbe0712f12a6244c78e66175e1e190b1b099c0bba847",
     "checked_at": "2026-10-10",
@@ -154,6 +189,21 @@
     "checked_at": "2026-10-10",
     "text_sha256": "d9d9345a326de740230dc98a656d25eac64240ff032215d764610fce8e18a276"
   },
+  "sultan-abu-bakar-mosque": {
+    "cache_set_sha256": "bc26f727729063bc8482f1280fa9d5b1c42ed135fc79e930817a1ccb09be698e",
+    "checked_at": "2026-10-10",
+    "text_sha256": "dbfc829488a6b9e3f1b4d830d5733dae3027cbab9481da6921fd3702c016c251"
+  },
+  "sunway-lagoon": {
+    "cache_set_sha256": "e95b2108d70e57fdc0e607bd154427683c2c02f42304200c15338f0f7ef7a082",
+    "checked_at": "2026-10-10",
+    "text_sha256": "33fbb25e6d79ef4cd8302541d04fea96c4ac99aaab323403bf41806db95d89b4"
+  },
+  "taming-sari-tower": {
+    "cache_set_sha256": "678d94f2ec7fb0ab719be4bbfe885dd813d6144e3054a982f218155f562a0a82",
+    "checked_at": "2026-10-10",
+    "text_sha256": "deb32f6bc1b8d8f8fd74ac80b31fb29ebaee0d23c7577ecefdf55d15c0e47a79"
+  },
   "tanjung-aru-beach": {
     "cache_set_sha256": "ab6c675b78a0d3d3e799a884a42082e204ac7ca92392489c1296c86f15010d87",
     "checked_at": "2026-10-10",
@@ -163,5 +213,15 @@
     "cache_set_sha256": "7fa98adf7ac5378f667bcb0f5f99fd5d91876d9e44f32466428cbc5060aa05d2",
     "checked_at": "2026-10-10",
     "text_sha256": "dddd10af936b9afcc23d3fc11c5f9fd4ec8e6f28f5db48f7fb919e82ec431139"
+  },
+  "underwater-world-langkawi": {
+    "cache_set_sha256": "3998d3ce16971c1402a2d26404f787ec080632e263b9ce3246f813777149819a",
+    "checked_at": "2026-10-10",
+    "text_sha256": "b1a0036323980ba8364f8675af3623e92f2405a150081ffeb8fd06f7549722c2"
+  },
+  "zoo-negara": {
+    "cache_set_sha256": "8a1e5f9a1cee9163e8f24d7cefd321724b823cf2cea98bc6711ac4ff76e17728",
+    "checked_at": "2026-10-10",
+    "text_sha256": "165ea8bdfd20b2e24ad763275d0652681d5225a9c46cb095ece5e0a23267ff1f"
   }
 }
