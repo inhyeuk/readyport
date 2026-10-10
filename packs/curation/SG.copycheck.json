@@ -1,8 +1,18 @@
 {
+  "adventure-cove-waterpark": {
+    "cache_set_sha256": "d27bbe2ee676d846c74c6e393bfd3daeab5193c2e59af9dc3f165d8c1f601c4c",
+    "checked_at": "2026-10-10",
+    "text_sha256": "4bb971b3882d750da8684a6669dc3ec4c778daf3996125de1769c7f409ea4b79"
+  },
   "artscience-museum": {
     "cache_set_sha256": "2eb8dcef29725a1a0b0fd3ade2a38e1eb5d4938b3da23295a15b2cba176ee005",
     "checked_at": "2026-10-10",
     "text_sha256": "21fc2463edcadb8f9abe7269dd36958a63095c6721fbda63cf93b7d9ba97e54a"
+  },
+  "asian-civilisations-museum": {
+    "cache_set_sha256": "4c76486ce053b5dade0f0fdcbb03f8c1ecd038f05f1e0652d65a1100d59081cf",
+    "checked_at": "2026-10-10",
+    "text_sha256": "53db4234e4a863ddf5812475aabdcb554884c11ba80072047b191b13d6115e82"
   },
   "bird-paradise": {
     "cache_set_sha256": "110eb9e15a5d220e65f42adae2650e4fb080276d00b358778c6c961f6615d940",
@@ -14,6 +24,16 @@
     "checked_at": "2026-10-10",
     "text_sha256": "1b0258654277d97c52dab8c98b1a62cbd38d8fd90fcd144303c657e319dbb646"
   },
+  "bukit-timah-nature-reserve": {
+    "cache_set_sha256": "f5ab4b238ead4b0bfa2ba021aa6afc6106254f51f77e3bb8305a61c846cfd23d",
+    "checked_at": "2026-10-10",
+    "text_sha256": "594d730c6ae1cff0e2f8c71e5396b5b74f38e39ecccbbc6530f61ceed23cab29"
+  },
+  "central-catchment-nature-reserve": {
+    "cache_set_sha256": "ad2e2ca813abacf59b6d8bcdb432b670e3a36336239b4f3a8f2b1516c357bcb7",
+    "checked_at": "2026-10-10",
+    "text_sha256": "35e823b42e89b7d58d8504533f9280fe2c237f834052ced67f9739e7798afa73"
+  },
   "chinatown": {
     "cache_set_sha256": "d13af2bb8b6941f24048814261998feec6146eb3493b8e20665af79ad72d7444",
     "checked_at": "2026-10-10",
@@ -23,6 +43,16 @@
     "cache_set_sha256": "434bf7261a73bd2677a751bbc98a2fa5833bc1999671f13f546328beea7b0225",
     "checked_at": "2026-10-10",
     "text_sha256": "06813e35e6a23e7ee52e5829921f6f4d9e664a976ef36857bb23228b1d03ab1c"
+  },
+  "esplanade-theatres-on-the-bay": {
+    "cache_set_sha256": "2782bfefbf06645f317120048aa4e890b1291e5612c4bfdf405bdeac48207164",
+    "checked_at": "2026-10-10",
+    "text_sha256": "0e1186c1796f7517dd6348c896fc9b2bd1042540675900ce2583bdfd3cd03df1"
+  },
+  "fort-canning-park": {
+    "cache_set_sha256": "204d0feed1d1ec9686a6eb5e7dd9e167f6511e13a081349ed08573a7fa246e69",
+    "checked_at": "2026-10-10",
+    "text_sha256": "0203a1bafd728b3c22d9efc5ffc3cb3d48c3612db932b590c767934417c83b68"
   },
   "fort-siloso": {
     "cache_set_sha256": "8e3afe9c3cc635a5e2da47c4b0a1d2fab5e819d80a457bb4273f96b8be54a43d",
@@ -34,10 +64,30 @@
     "checked_at": "2026-10-10",
     "text_sha256": "adad3a60ab191cffb1b458aa3e86ca76a66e9d36810cebe16fb320712c0f927e"
   },
+  "haw-par-villa": {
+    "cache_set_sha256": "cfebebe272c4923c486ee2092725ba430c7107da1fe2bee80b6db8e05ffacca7",
+    "checked_at": "2026-10-10",
+    "text_sha256": "698c219bb228b00cfa68082fc9fca4364339a24f009ae480129ca52a425ba2b1"
+  },
+  "jewel-changi-airport": {
+    "cache_set_sha256": "0242b27a07bf2d6ba847b1a146aecd84923d199ed552ca3c550f0cd7c2c0d673",
+    "checked_at": "2026-10-10",
+    "text_sha256": "61d716cd33f96a22eed0b4de8675033266c77c6a641793db1c8b1864dd033c1e"
+  },
   "kampong-glam": {
     "cache_set_sha256": "c0d814c177cadb3f2ee898708d396b87fc8620b1f863655c7abc64e5045a169d",
     "checked_at": "2026-10-10",
     "text_sha256": "c65d0f6fdd24b7e7696638a1f48a57955a8a2ddd089651090e41a6a7ba246c77"
+  },
+  "katong-joo-chiat": {
+    "cache_set_sha256": "60c574443f8d57889fcd0b3042936d143993f79014abdac7fe89664968be31a0",
+    "checked_at": "2026-10-10",
+    "text_sha256": "190e59d30679aa12fdc26fe4be95e814a6d84bf30a13b0cd3c9d28a2fc061791"
+  },
+  "lau-pa-sat": {
+    "cache_set_sha256": "485e901b1d27701f183dd7e8dbccb1d18f4c6968a952ddb8ea44fd851a99ff7f",
+    "checked_at": "2026-10-10",
+    "text_sha256": "6c4cfc0199994d7a52858097ea6f481672ec4b59290a6670607650a995c1c9ab"
   },
   "little-india": {
     "cache_set_sha256": "23faf0517ca849bc37650a2ea7440cb4a66dbb21f512402a9c6af68388e122f9",
@@ -74,6 +124,16 @@
     "checked_at": "2026-10-10",
     "text_sha256": "86ae87b7a54caef7f1ca8d64db0bdc08c8ace1639e0ff7103cb8c8e88109591a"
   },
+  "peranakan-museum": {
+    "cache_set_sha256": "51233991e62275699ba89db33b8337871daf9cf7f6b8460c52a49a36ec624c89",
+    "checked_at": "2026-10-10",
+    "text_sha256": "46bb29c0f8084a5c14a4770c51fdb9fa88838646b35dee4772218a0ae7e41e6f"
+  },
+  "pulau-ubin": {
+    "cache_set_sha256": "cf7f61e7790407969cccb4b8bc875b1f15cf7d1e984ab243c87f7a6b80dc56b5",
+    "checked_at": "2026-10-10",
+    "text_sha256": "fa8cccd636144bbda46e37d3e787f758658eb730c567ec166f0a8d2a570cd39d"
+  },
   "river-wonders": {
     "cache_set_sha256": "4169ba2bd189eb12267f195c2d8b7947fd31af8065c4639d64bb4e7ce13fe5f9",
     "checked_at": "2026-10-10",
@@ -88,6 +148,11 @@
     "cache_set_sha256": "7fe43d2fd6a724fada79206183e8987c737c610c49010d7fea74dc764903573f",
     "checked_at": "2026-10-10",
     "text_sha256": "7c44757ea3866d47ddfa73c32f2d12313cc0dfa9334da1fce61166d26a27d26a"
+  },
+  "singapore-cable-car": {
+    "cache_set_sha256": "a65500f46e1183c3b31b38319194ef0216ba0829866d0cb90c92466393523d1d",
+    "checked_at": "2026-10-10",
+    "text_sha256": "1b3baf82d4154f075a57c0da83aa675782cb325c26f3ddf5706204add761e56d"
   },
   "singapore-flyer": {
     "cache_set_sha256": "dea513295f337edde3205ee158a43e6a845104de2836803f7f6cdb34f4e4811f",
@@ -104,6 +169,11 @@
     "checked_at": "2026-10-10",
     "text_sha256": "2351fea7249589ba0873e755b06425dd721d0280c377534f62304d77c01ef085"
   },
+  "skyhelix-sentosa": {
+    "cache_set_sha256": "e0d9f3102fa55c731f4269ad034092cf0c71bf154b65605bd0440e76597f2422",
+    "checked_at": "2026-10-10",
+    "text_sha256": "1f52ee6fbb632c8ddc9012804ace5af0d58c522a53c88b6416ac7b4beefec098"
+  },
   "southern-ridges": {
     "cache_set_sha256": "e3f6135a2835b435638d0223a35ea82c55f59b77260a141aa8dec5ba67fd31a6",
     "checked_at": "2026-10-10",
@@ -113,6 +183,11 @@
     "cache_set_sha256": "0dc30fb2d5f3fdd6254a376772d451c2e1f44875c85591a5b714a869319bb544",
     "checked_at": "2026-10-10",
     "text_sha256": "087eddab2f9ddfcf932395b8f552be3c5b771db5ddca14a3aad58c9119f070b4"
+  },
+  "sungei-buloh-wetland-reserve": {
+    "cache_set_sha256": "1a81b8f3848963859a0ece1ae3511f6eca2b9ae4263b49d942593eb3d5df30cd",
+    "checked_at": "2026-10-10",
+    "text_sha256": "709be1b4b788adbac8a082a2dfc5ddc14eedce52d0a9985469b18a253bcf06ab"
   },
   "thian-hock-keng": {
     "cache_set_sha256": "fbba11ca36a52cffa8eb3fc47f5f78f6a65e446c1a2ba1e0711e81ce81b66e56",

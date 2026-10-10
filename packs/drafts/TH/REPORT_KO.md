@@ -442,3 +442,49 @@
 3. **지정(D11 순서)**: 세 사원 모두 Wikidata P1435 '등록 고대 유적'이 있으나 예술국·관보 근거를 못 찾아 designations를 비움. 예술국 근거를 확보하면 순서가 올라감.
 4. **출처 편중(§5.2-14)**: 이 묶음 사실의 큰 부분이 Thailand Tourism Directory(관광체육부 DB)와 UNESCO 잠정목록에서 옴. 시설 자체 공식 사이트(사원)는 찾지 못함(접속 불가·없음). 나라 전체 30% 한도는 코디네이터가 합친 뒤 확인 필요.
 5. 원래 목표의 나이트 바자·님만해민 대신 왓 프라싱을 넣음(곳 수 4, 지역 최소 3 충족). heritage 3/4라 나라 전체에서 종류 비율 확인 필요.
+
+
+---
+
+## 3차 (2026-10-10)
+
+버전 `2026.10.10-2`. 공공·문화유산 제한(D21-C) 폐지에 따라 민간 시설을 추가했어요. 새 지역은 없고(기존 th_bangkok·th_pattaya·th_chiangmai·th_phuket에 추가), 그래서 `wave` 변경도 없어요. 46곳 → 56곳(+10).
+
+### 새로 넣은 곳 (인용 수 = extract.json 행 수)
+| id | 지역 | 종류 | 미리보기 | 인용 | 한/영 조회수 |
+|---|---|---|---|---|---|
+| siam-paragon 시암 파라곤 | th_bangkok | market_street | 싸얌역과 바로 이어진 대형 쇼핑몰이에요. | 12 | 83 / 19,153 |
+| sea-life-bangkok 시 라이프 방콕 오션 월드 | th_bangkok | theme_park | 시암 파라곤 지하에 있는 수족관이에요. | 13 | - / 5,423 |
+| iconsiam 아이콘시암 | th_bangkok | market_street | 짜오프라야 강변에 있는 대형 쇼핑·문화 단지예요. | 10 | 374 / 51,016 |
+| asiatique 아시아티크 | th_bangkok | market_street | 짜오프라야 강변에 있는 저녁 쇼핑·먹거리 단지예요. | 10 | 33 / 7,708 |
+| madame-tussauds-bangkok 마담 투소 방콕 | th_bangkok | theme_park | 시암 디스커버리 안에 있는 밀랍 인형 전시관이에요. | 15 | 위키 없음 |
+| wat-benchamabophit 왓 벤차마보핏 | th_bangkok | heritage | 이탈리아 대리석으로 꾸민 방콕의 사원이에요. | 11 | - / 13,833 |
+| mini-siam 미니 사이암 | th_pattaya | theme_park | 세계 곳곳의 명소를 작은 모형으로 모아 둔 곳이에요. | 10 | 201 / 1,814 |
+| pattaya-floating-market 파타야 수상시장 | th_pattaya | market_street | 태국 네 지방의 생활을 재현해 놓은 수상시장이에요. | 10 | - / 27 |
+| warorot-market 와로롯 시장 | th_chiangmai | market_street | 치앙마이에서 가장 큰 재래시장이에요. | 12 | - / 4,042 |
+| phuket-aquarium 푸껫 수족관 | th_phuket | theme_park | 해양·연안자원 정부 기관이 운영하는 푸껫의 수족관이에요. | 11 | 위키 없음 |
+
+- 출처: 시설 공식 사이트(시암 파라곤, SEA LIFE Bangkok, ICONSIAM, Asiatique, Madame Tussauds Bangkok)를 우선 썼고, 공식 사이트를 못 쓰는 5곳(미니 사이암·파타야 수상시장·와로롯 시장·왓 벤차마보핏·푸껫 수족관)은 관광체육부 Thailand Tourism Directory(TTD)로 채웠어요.
+- 모든 사실 칸은 2026-10-10 확인, 인용은 저장된 스냅샷에 글자 그대로 있어요(`verify-quotes TH` 통과). 운영 시간·요금 숫자는 글에 넣지 않았어요(D4-A). `entry`는 공식 문구가 있는 시 라이프·마담 투소만 paid, 나머지는 unknown(무료 표시 없음).
+- 쇼핑몰 3곳(시암 파라곤·아이콘시암·아시아티크)은 D14 완화에 따라 market_street 시설로 실었어요. 상점·식당은 쓰지 않았고, 몰 안의 볼거리(수족관·강변 공원·분수·관람차 등)만 사실로 적었어요.
+- 아이콘시암 접근 정보(차런나콘역·사톤 선착장)는 페이지의 접이식 안내가 서버가 넣은 JSON에만 있어, 그 JSON의 텍스트 값을 스냅샷(`iconsiam/5.txt`)으로 저장했어요.
+- 점검: `check TH` 통과, `verify-quotes TH` 통과, 복사 대조 56/56 통과(`packs/curation/TH.copycheck.json`), 버리는 복사본에서 임시 키(`rp-att-tmp3`)로 `promote TH --wave 3` 모의 실행 통과(게이트 실패 0건, 압축 크기 약 214KB < 256,000B). 서명물은 커밋하지 않았어요.
+
+### 못 넣은 곳 / 보류
+- **푸껫 빅 부다**: 재개방 공식 공고를 못 찾았어요(검색에 나온 것은 언론·여행 안내뿐이고, 산림청·사찰·도청 공고는 확인 못 함). 근거가 생기면 추가.
+- **님만해민**: TAT 쇼핑 페이지(실제 브라우저로 열람)에 주소 한 줄뿐이고 TTD에도 항목이 없어요. Wikidata에 좌표도 없고 가는 법 근거가 없어 보류.
+- **농눅 열대 정원(파타야)**: 공식 사이트(nongnoochtropicalgarden.com)가 서버 기본 페이지만 보여 줘서 사실을 못 모았어요.
+- **언더워터 월드 파타야**: TTD에 설명은 있으나 가는 법이 교통수단 이름뿐이고 OSM 좌표도 못 찾아 보류.
+- **푸껫 해변(까따·나이한·까말라) 등 TTD 항목**: 가능하지만 TTD 편중이 커져 이번엔 안 넣었어요.
+- **수코타이 역사공원 등 새 지역**: 기본 지역 3곳 조건을 채울 근거를 이번에 모으지 못해 보류(wave 3 후보).
+- 시암 디스커버리·터미널 21·센트럴월드·MBK 등 다른 몰은 추가하지 않았어요(볼거리 사실보다 상점 정보가 대부분이라).
+
+### 필요한 settings_credit
+- 이번에 새로 필요한 `settings_credit_*` 없음(추가한 출처 모두 attribution_required 아님). 마담 투소 방콕의 좌표만 OpenStreetMap(기존 `settings_credit_osm` 재사용)이에요.
+
+### 사장님 결정이 필요한 것
+1. **마담 투소 방콕의 종류**: 밀랍 인형 전시관이라 theme_park(체험)로 뒀어요. museum으로 바꿀지.
+2. **시 라이프·마담 투소 booking**: 공식이 '온라인 예매 권장' 취지라 recommended로 뒀어요(필수 아님).
+3. **푸껫 수족관 기사님 버튼**: 태국어 표기 근거가 불확실해 local·local_short를 비웠어요(curation no_local_short_ok). 마담 투소는 OSM 이름을 썼어요.
+4. **TTD 편중**: 이번 추가 10곳 중 5곳이 TTD 출처예요. 나라 전체 DB 편중(§5.2-14)은 나중에 코디네이터가 재확인해 주세요.
+5. 순위 `rank.order`는 D11에 따라 56곳 전체를 다시 매겼어요(기존 곳 순서도 일부 바뀜).

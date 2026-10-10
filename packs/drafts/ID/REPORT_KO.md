@@ -215,3 +215,97 @@
 3. **린자니 2단계(주의)**: MAGMA 권고(바루자리 반경 1.5km 금지, 등산 허용)를 그대로 실었다. risk volcano 라 status 확인 주기 30일. 이 수준으로 공개할지.
 4. **LOP·LBJ 공항**: pack.json 에 두 공항을 넣을지(넣으면 지역에 매핑).
 5. 40km 초과 4곳(길리 트라왕안·린자니·코모도·핑크 비치)의 유지 근거(`packs/curation/ID.curation.json`)가 적절한지.
+
+## 3차 (2026-10-10)
+
+- 데이터: `packs/drafts/ID/attractions.json` version **2026.10.10-2** — 지역 9개(이번엔 새 지역이 없어 wave 3 지역은 없음) / 관광지 **56곳**(공개본 33 + 3차 23). 기존 33곳 본문은 손대지 않았고 rank.order·위키 제목만 나라 전체 D11로 다시 계산했다. 서명 바이트 203,971B(한도 256,000B), 곳당 2,165~3,848B(한도 4,608B), 출처 133개(OSM 좌표 출처 포함).
+- 방침: 사장님 결정(2026-10-10)대로 공공·문화유산 제한(D21-C)을 풀고 **민간 테마파크·수족관·박물관·공연장**을 운영사 공식 사이트로 채웠다. D13(투어·액티비티 업체)·D19(먹이주기·쇼·타기가 전부인 곳)는 그대로 적용했다.
+- 근거: `~/.readyport/evidence/ID/<id>/` 에 곳마다 스냅샷 + `extract.json`(23곳 인용 268개, 확인일 모두 2026-10-10). 좌표는 Wikidata P625 우선(18곳), 없는 5곳은 OpenStreetMap(`dufan-ancol` way/119280267, `atlantis-ancol` way/210651751, `crystal-bay` relation/9864841, `suluban-beach` node/6278550285, `rinca-island` way/862984883; 나라 전체 OSM 11곳). 모든 사이트는 robots.txt를 확인한 뒤 HTTP GET으로만 읽었고 막힌 곳은 우회하지 않았다. 실제 브라우저 읽기(`manual_browser_save`)는 이번에 쓰지 않았다.
+- 운영 시간·요금 숫자는 한 곳도 싣지 않았고(D4-A) `entry: free` 는 0건이다. 시설이 요금을 밝힌 곳만 `paid`.
+
+### 검증
+
+- `check ID`: **통과**(실패 0). 남은 경고는 1·2차와 같은 종류(hub 40km 초과 4곳은 `ID.curation.json` 유지 근거 있음, 롬복 두 곳 60km 초과, booking 없음, sea_island·nature 방문 지점 권장).
+- `verify-quotes ID`: **통과**(56곳). `wiki-fill ID`: 신규 23곳 중 16곳 채움(워터봄·두판·아틀란티스·크리스탈 베이·아투·그린 볼·술루반은 한국어·영어 위키 문서 없음). `place-ids ID --write`: 신규 23곳 모두 채움.
+- copycheck: 캐시 `~/.readyport/copycheck_cache/ID/<id>/`(ko·en 위키 본문, 없으면 none.txt) 생성 후 `record`로 `ID.copycheck.json`·`ID.quotes.json` 갱신. promote 시뮬레이션 안에서 **56곳 모두 통과**.
+- promote 시뮬레이션(`--wave 3`, 임시 키 `rp-att-sim`, 저장소 밖 복사본에서만): **게이트 실패 0, 실패 0**. 종류 heritage 16 / sea_island 15 / museum 8 / theme_park 7 / nature 7 / city_view 2 / market_street 1(최다 16/56=29%, 50% 미만) · 충실도 미달 0 · base 7지역 모두 3곳 이상 · daytrip 2지역 유지. 서명 산출물은 커밋하지 않았고 진짜 키도 쓰지 않았다.
+- 출처 편중(§5.2-14): 사실 문장 387개 기준 발리주 관광 포털(disparda+Love Bali) 약 20%, Wonderful Indonesia 약 11%, ancol.com 약 8% — 30% 한도 아래.
+
+### 관광지(3차 23곳) — rank 는 나라 전체 D11 재계산(지정 → ko 조회수 → en 조회수)
+
+| rank | 곳 | 지역 | 종류 | claims/tips/tags/인용 | 크기 | 좌표 | 핵심 출처 |
+|---|---|---|---|---|---|---|---|
+| 5 | 린짜섬(로 부아야) `rinca-island` | id_labuanbajo | nature | 6/4/1/15 | 3848B | osm | 코모도 국립공원 관리청, UNESCO 609 |
+| 13 | 따만 미니 인도네시아 인다 `tmii` | id_jakarta | theme_park | 4/3/1/14 | 3265B | wd | TMII 공식, 트랜스자카르타 |
+| 16 | 자카르타 대성당 `katedral-jakarta` | id_jakarta | heritage | 5/3/0/11 | 3190B | wd | 대성당 공식 |
+| 25 | 따만사리(물의 궁전) `taman-sari-yogyakarta` | id_yogyakarta | heritage | 5/4/1/19 | 3749B | wd | 족자 왕궁 관광 사이트, Trans Jogja |
+| 29 | 빤다와 해변 `pandawa-beach` | id_bali_bukit | sea_island | 4/2/0/8 | 2794B | wd | Love Bali |
+| 31 | 라뚜 보꼬 궁전 유적 `ratu-boko` | id_yogyakarta | heritage | 6/3/0/13 | 3131B | wd | InJourney(운영사) |
+| 32 | 안촐 따만 임피안 `ancol-taman-impian` | id_jakarta | sea_island | 4/4/1/13 | 3148B | wd | 안촐 운영사 |
+| 33 | 프레데부르흐 요새 박물관 `benteng-vredeburg` | id_yogyakarta | museum | 5/3/1/11 | 3314B | wd | 박물관 공식 |
+| 34 | 삼비사리 사원 `candi-sambisari` | id_yogyakarta | heritage | 5/2/1/11 | 3226B | wd | 족자 특별주 관광청 포털 |
+| 35 | 소노부도요 박물관 `sonobudoyo` | id_yogyakarta | museum | 6/4/1/17 | 3701B | wd | 박물관 공식(특별주 문화청 산하) |
+| 36 | 씨월드 안촐 `sea-world-ancol` | id_jakarta | theme_park | 4/4/0/12 | 3114B | wd | 안촐 운영사 |
+| 37 | 울렌 센탈루 박물관 `ullen-sentalu` | id_yogyakarta | museum | 5/3/0/13 | 3207B | wd | 박물관 공식 |
+| 39 | 프람바난 라마야나 발레 `ramayana-ballet-prambanan` | id_yogyakarta | theme_park | 4/3/0/11 | 3239B | wd | InJourney(운영사), 티켓 사이트 |
+| 40 | 이조 사원 `candi-ijo` | id_yogyakarta | heritage | 4/2/1/10 | 3035B | wd | 족자 특별주 관광청 포털 |
+| 42 | 파시피카 박물관 `museum-pasifika` | id_bali_bukit | museum | 4/4/0/13 | 3123B | wd | 박물관 공식 |
+| 43 | 아궁 라이 미술관(ARMA) `arma-museum` | id_bali_ubud | museum | 4/3/0/14 | 3138B | wd | ARMA 공식 |
+| 44 | 아틀란티스 안촐 `atlantis-ancol` | id_jakarta | theme_park | 4/4/0/11 | 3008B | osm | 안촐 운영사 |
+| 45 | 아투 해변 `atuh-beach` | id_nusa_penida | sea_island | 4/1/0/6 | 2414B | wd | Love Bali |
+| 48 | 크리스탈 베이 `crystal-bay` | id_nusa_penida | sea_island | 3/2/0/6 | 2433B | osm | Love Bali |
+| 49 | 둔야 판타시(두판) `dufan-ancol` | id_jakarta | theme_park | 4/4/0/11 | 3176B | osm | 안촐 운영사 |
+| 50 | 그린 볼 해변 `green-bowl-beach` | id_bali_bukit | sea_island | 3/2/1/7 | 2523B | wd | Love Bali |
+| 55 | 술루반 해변(블루 포인트) `suluban-beach` | id_bali_bukit | sea_island | 3/1/0/5 | 2165B | osm | Love Bali |
+| 56 | 워터봄 발리 `waterbom-bali` | id_bali_south | theme_park | 5/4/1/17 | 3652B | wd | 워터봄 공식(운영사) |
+
+신규 23곳 사실(claims·tips·tags) 180개, 인용 268개.
+
+**곳별 메모**
+- 워터봄 발리: 운영사 사이트(홈·Our Park·F.A.Q·Accessibility·Contact). 연중 무휴이고 **녜피(발리 힌두 새해)에만 쉼**을 `seasonal` closed + `regular_closed: none` 으로 넣었다. 성수기 하루 전 예약 권고 → `booking: recommended`. 슬라이드 탑이 계단뿐이라는 접근성 문구 → `stairs` 태그. 가는 법은 대중교통 근거가 없어 `car_only`(전용 주차장 문구).
+- TMII: 운영 안내(개장 1975년 4월·150헥타르·2023년 9월 새 단장·녹지 70%), 케이블카 → `cable_car` 태그, 가는 법은 트랜스자카르타 'TMII - PANCORAN' 노선(공식 노선 목록). 입장권 가격표의 날짜별 숫자는 싣지 않았다.
+- 두판·씨월드·아틀란티스·안촐 따만 임피안: 안촐 운영사(PT Pembangunan Jaya Ancol) 공식 사이트. 각 표가 **안촐 입장권 별도**라는 문구를 tips 에 넣었다. 씨월드의 다이버 먹이 주기 쇼는 D19 (가) — 수조 28곳 관람이 방문 이유라 포함하고 쇼는 tips 에 운영사 안내로만 적었다. 가는 법은 안촐 사이트의 KRL 안촐역·캄풍 반단역·트랜스자카르타 안촐 정류장 문장.
+- 울렌 센탈루: 가이드 투어로만 관람(투어 3종·영어 투어 별도·단체 예약 필수), **월요일 휴관**.
+- 따만사리: 왕궁(Kagungan Dalem)이 직접 운영하는 관광지. 복장(소매 있는 옷, 치마·반바지 불가)을 `dress_code` 태그로, 가는 법은 Trans Jogja 노선의 'Portabel Tejokusuman (Tamansari)' 정류장.
+- 라뚜 보꼬·라마야나 발레: InJourney(운영사). 라마야나 발레는 소개 페이지(화·목·토)와 티켓 페이지(화·목·금·토)의 공연 요일이 달라서 **요일을 싣지 않고** '일정은 예고 없이 바뀐다'는 공식 문장만 tips 로 넣었다. 비가 오면 실내 극장으로 옮긴다는 점, 환불 불가 조건도 tips 에 있다. 공연장은 D21 폐지로 theme_park.
+- 소노부도요: 월요일 휴관, 외국인 요금 별도(`foreigner_price`), 저녁 와양 공연·영화 상영, 본관 입구 두 곳과 별관.
+- 프레데부르흐 요새 박물관: 현재 프로필 페이지(Indonesian Heritage Agency 관리, 소장품 7,000점 넘음)와 역사 페이지(1765년 12월 VOC 공사 시작)를 썼다. 요금 페이지에 외국인 요금이 따로 있어 `foreigner_price`. 방문 시간 페이지와 팬데믹 때 공지의 휴관 요일이 달라 `regular_closed: unknown`.
+- 삼비사리·이조 사원: 족자카르타 특별주 관광청 포털(visitingjogja) 기사. 기사 날짜가 오래됐다(삼비사리 2019). 수치(지표 아래 6.5m, 해발 410m, 17개 구조물 등)는 기사 그대로이고 입장 정보는 없어 `entry: unknown`.
+- 아궁 라이 미술관(ARMA): 입장료 안내 페이지에 입장료와 어린이 무료 문구, 공연(금·토·일 저녁)과 워크숍 안내.
+- 파시피카 박물관: 공식 사이트의 'About'과 'Admission' 정책. 사이트 안에서 부지 면적(12,000/12,500㎡)이 엇갈려 면적은 쓰지 않았고, 순위·트립어드바이저 문구는 옮기지 않았다.
+- 빤다와·그린 볼·술루반·크리스탈 베이·아투: Love Bali(발리주 정부 포털) 짧은 소개문 기반이라 사실이 적다(곳당 claims 3~4). 공개 해변이라 `facts.kind: public_space`.
+- 린짜섬(로 부아야): 코모도 국립공원 관리청 사이트의 destinasi 목록·방문 규칙·가이드 안내·fauna 페이지와 UNESCO 609. `unesco` 태그와 designation 은 파다르·핑크 비치와 같은 '부분 지정 = 지정' 규칙. **가는 법(배)** 은 공식 문장이 약해 규칙 페이지의 수상 교통 문구에 의지했다(아래 결정 3).
+
+### 이번에도 못 한 것 / 보류 (이유)
+
+| 곳 | 결과 |
+|---|---|
+| 롬복(LOP) 공항 pack.json 추가 | **안 함** — 공항 공식 사이트(lombok-airport.co.id, 2016 저작권 표기)에 입국 절차 글이 없고 버스·택시 안내만 있다. e-VOA·세관 절차의 공식 근거를 찾지 못했다 |
+| 라부안바조(LBJ) 공항 pack.json 추가 | **안 함** — 공항 공식 사이트가 열리지 않는다(도메인 확인 실패). 입국 절차 근거 0 |
+| 롬복 보강 | 보류 — NTB 도·군 관광 사이트(disbudpar.ntbprov.go.id, lombokbaratkab·lomboktimurkab 등)와 KSDAE 도메인(ksdae.kehutanan.go.id)이 연결되지 않고, Wonderful Indonesia 는 인증서 만료로 열 수 없다(우회하지 않음). 이번 차수 롬복 신규 0곳 |
+| 서부 브두굴(울룬 다누 브라탄·자티루위·바투까루·따만 아윤) 새 daytrip 지역 | 보류 — Love Bali 한 단락과 UNESCO 1194(구성 요소 이름만)뿐이라 '가기 전에 알아 둘 것' 2줄·가는 법을 채울 근거가 없다(wave 3 지역으로 만들 수 없음) |
+| 떼게능안 폭포·스쿰풀 폭포·군웅 까위·따만 우중·께르따 고사·뻥글리뿌란 마을·고아 라와·따만 사라스와띠 | 보류 — Love Bali 소개문이 한두 문장이고 입장·복장·휴관 등 안내가 없어 상세 충실도(§5.2-13) 미달 |
+| 타만 사파리 발리·발리 버드 파크 | **D19 보류** — 먹이 주기·쇼·코끼리 등 타기 상품이 방문 설명의 큰 부분이라 '먹이주기·쇼·타기를 빼도 방문 이유가 남는가' 판정이 애매. 사장님 결정 사항 |
+| 자카르타 아쿠아리움 | 보류 — 공식 사이트가 서버 오류(500) |
+| 무세움 마칸(MACAN) | 보류 — 공식 사이트 상단에 '일시 휴관(tutup sementara)' 문구가 떠 있어 재개 확인 후 추가 |
+| 타만 핀타르 | 보류 — 요금·시간 페이지가 비어 있어 가기 전 정보 2줄 미달 |
+| 스미냑 해변·꼬따 뚜아(파타힐라 광장) | 계속 보류(공식 장소 안내 없음) |
+| 메라피 화산 박물관·알룬알룬 끼둘·뚜구·께딴단 마을 | 보류 — 관광청 포털 기사가 제3자 글 전재(박물관) 또는 광고성 서술이라 출처로 쓰지 않음 |
+| 자카르타 주정부 박물관 5곳(와양·바하리·세니 루빠 단 께라믹·따만 쁘라사스띠·뗵스띨) | 보류 — 주정부 포털 소개문은 있으나 요금·시간 문서가 PDF뿐이라 가기 전 정보 2줄 미달 |
+
+### 설정 › 출처 문자열 (필요, 앱 담당이 추가)
+
+새 `attribution_required` 출처는 없다(`unesco_609` 와 `osm` 키는 이미 있음). 다만 린짜섬이 `unesco_609` 를 쓰므로 문구에 곳 이름을 하나 더 넣는 걸 권한다.
+
+```xml
+<string name="settings_credit_unesco_609">UNESCO World Heritage Centre — Komodo National Park — 코모도 국립공원·파다르섬·핑크 비치(코모도)·린짜섬</string>
+```
+
+### 사장님 결정이 필요한 것
+
+1. **타만 사파리 발리·발리 버드 파크(D19)**: 사파리 차량·공원 관람이 중심이지만 코끼리 타기·먹이 주기·쇼 상품이 크다. 넣으려면 '관람 부분만 싣고 상품은 tips 에 운영사 안내로만' 방식으로 진행해도 되는지.
+2. **롬복·라부안바조 공항**: 입국 절차의 공식 근거를 못 찾아 pack.json 에 넣지 않았다. 공식 도착 안내(DPS 의 InJourney 도착 가이드 같은 것)가 생기면 `airports` 를 채우고 두 지역에 매핑한다.
+3. **린짜섬 가는 법**: '라부안바조에서 배' 문장이 관리청 사이트에는 없고 규칙 페이지의 수상 교통 문구로만 뒷받침된다. 이대로 둘지, 근거가 생길 때까지 `access` 를 비울지.
+4. **관광청 포털 기사(삼비사리·이조)**: 지자체 관광 포털이라 허용 출처이지만 2019년 기사 위주라 날짜가 오래됐다. 이 수준으로 공개할지.
+5. **프레데부르흐 휴관 요일**: 현재 방문 시간 페이지에는 월요일이 없고 팬데믹 공지에는 '월요일·공휴일 휴관'이 있다. 공식 사이트에서 확인될 때까지 unknown 으로 둔 게 맞는지.
+6. 안촐 운영사 한 곳에서 4곳(두판·씨월드·아틀란티스·안촐 따만 임피안)을 넣었다. 출처 편중 한도(30%)는 넘지 않지만(ancol.com 약 8%), 4곳이 모두 '안촐 입장권 별도' 구조라 앱에서 한 묶음으로 보여 줄지.

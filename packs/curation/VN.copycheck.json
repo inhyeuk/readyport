@@ -9,6 +9,21 @@
     "checked_at": "2026-10-10",
     "text_sha256": "3e366217bf148ab83ae9be05aab3a32f95f1a55253f1a802a6594a0b6cdf4e9e"
   },
+  "binh-thuy-communal-house": {
+    "cache_set_sha256": "4d238055fe372c83867e63098c35e49142c4075feb103000b660ca6b3a2eba67",
+    "checked_at": "2026-10-10",
+    "text_sha256": "bdfdcf7323f759c0f3cc95a50b929d543a90943a18d37ca15cd71959e519dea6"
+  },
+  "cai-rang-floating-market": {
+    "cache_set_sha256": "3da1a7e812c65489c00b87b02be53592f0cde18b7acaad03ace626b871843a2c",
+    "checked_at": "2026-10-10",
+    "text_sha256": "b769cee053743ce8f4344e3aa46afb17f5adc15ab64f1ec56771e0611dc67b65"
+  },
+  "can-tho-old-market": {
+    "cache_set_sha256": "bbd88aec90786b00b1695c48520077e433e6ac98e65c6736bb3199ff82a68998",
+    "checked_at": "2026-10-10",
+    "text_sha256": "715b477216bb668418467903b8f96230fa616a530ff7e9505a604998e00a721e"
+  },
   "cat-cat-village": {
     "cache_set_sha256": "44e286ffa9c3fa922df39f5d3486b85bd9d3086b6ee8d882a2af2f4176faad07",
     "checked_at": "2026-10-10",
@@ -18,6 +33,11 @@
     "cache_set_sha256": "8d270a58b92a9ec40b9bb7ec44aab5ca69cd9b1600f97bbb633c53035d464c79",
     "checked_at": "2026-10-10",
     "text_sha256": "4a9404029f49b1a719388766542600a6194cf8fe365277b35ff902e743b3ad41"
+  },
+  "crazy-house": {
+    "cache_set_sha256": "cfa356cf75a989887b4f6058d4a345cb0d63c7116778640671680ad5723a5d31",
+    "checked_at": "2026-10-10",
+    "text_sha256": "f8fe278256cb718ee1ec5b32a1fb3920abb97eb42af3917fe60fac63aa739ef9"
   },
   "cu-chi-tunnels": {
     "cache_set_sha256": "b900d1c91cfc86a5936f8f6d27188f39291bc9933bd2d5b95efdd1322b6755dc",
@@ -49,10 +69,20 @@
     "checked_at": "2026-10-10",
     "text_sha256": "a4183b6279426d66e489eba76a9f1ae8989dfc6b356534a5bd5d34712a18b855"
   },
+  "grand-world-phu-quoc": {
+    "cache_set_sha256": "ef3c3b363eec23cdf065a483cdd5401ed97827d090085f984ac09b6160fdcf52",
+    "checked_at": "2026-10-10",
+    "text_sha256": "e58740be67fa4afb813477743cd155d2c75e2791080862aef9260eb8142af4ce"
+  },
   "ha-long-bay": {
     "cache_set_sha256": "37506c611e0a2d676347aaee64b731f78aa6e0a0557c278e22e9e14d01a00544",
     "checked_at": "2026-10-10",
     "text_sha256": "047b128f854db6cb7dcde6389d76f61930a2e85f02d58b42119b5f0a48a92135"
+  },
+  "hai-van-pass": {
+    "cache_set_sha256": "7ef93be03f639c923dd8dd03ea6cbd611b55ddc6ef246fa605336d6e8f68f968",
+    "checked_at": "2026-10-10",
+    "text_sha256": "033c3e8c0e23bb4166b8803444222d4f13297aecbeed9d50b009bec2dbfc061b"
   },
   "ham-rong-mountain": {
     "cache_set_sha256": "ffb14c7372a546ef1e5827b6896d3c66d095a7c7ec497cdc31679e29b71e54b1",
@@ -73,6 +103,11 @@
     "cache_set_sha256": "41634681c1271d070bdae9bd793d8639d2a555c31c7d1ae122eadb4ad0b2a41e",
     "checked_at": "2026-10-10",
     "text_sha256": "23b994892d8a755bc0186bc3921b8ee385f5d7fc03b885674de31739b983ac7a"
+  },
+  "hcmc-history-museum": {
+    "cache_set_sha256": "8c78bd8377ee3033afa2685b03e0d9a6fcc610b843f63a8a6d46c12e08c62608",
+    "checked_at": "2026-10-10",
+    "text_sha256": "04fbb5fcd5d23b862c4bef4cf1368305af0424084eb8715de9369e9c4e19b6d5"
   },
   "ho-chi-minh-museum": {
     "cache_set_sha256": "f0bf3a8196d6dccadbcd2533aa0b0163b0edf94f2d5f2c570f1a227c8a0ef212",
@@ -114,6 +149,11 @@
     "checked_at": "2026-10-10",
     "text_sha256": "19f4180c73bef12bacc693b0b3fc5f109cc6c6e5665e2c99db2567cc69f02558"
   },
+  "linh-ung-pagoda": {
+    "cache_set_sha256": "0fcca008ad930897487cb6251683ff9076556b0e6d632bc54c6d0cd904a4baf6",
+    "checked_at": "2026-10-10",
+    "text_sha256": "5ed9b06984ab56fe672a81a28e3ef7b874c199d89b4626ef1c18eec76164d2c4"
+  },
   "long-son-pagoda": {
     "cache_set_sha256": "dfe0905dd3748dc89bb2293bae7b0bb83fe3d310a2fdf6b50540e2021a32a616",
     "checked_at": "2026-10-10",
@@ -134,10 +174,20 @@
     "checked_at": "2026-10-10",
     "text_sha256": "10dedab5f902bbf8b1e51339745c1a6b96c8462089bfa37ba54d7f1b35da3355"
   },
+  "national-museum-of-vietnamese-history": {
+    "cache_set_sha256": "bb7d74b48fef0b8b7cbbfa809bf85f67d756f1de60c7735c636674e5ea0974e1",
+    "checked_at": "2026-10-10",
+    "text_sha256": "e40f4900e82e5e6d424397eefc278c27c3161de2f393367fe51fee2ba652c313"
+  },
   "nha-trang-beach": {
     "cache_set_sha256": "f22cbb246a158c960d6788cb6b348fdae57bef8314a9054c7e58ceb4b452fc08",
     "checked_at": "2026-10-10",
     "text_sha256": "0317c0212b398a4295a59a79c1e4f8bf7fe33547349902033a55535a6c87d5ea"
+  },
+  "ninh-kieu-wharf": {
+    "cache_set_sha256": "b76ce06f75244ecd0f9c7b94a99dade028feb3eefcaef065a4dd18b9bb8b84bc",
+    "checked_at": "2026-10-10",
+    "text_sha256": "49439a631fd45c5c7a003e6399f27c4169bf4e44efd355d43aeac73b41872948"
   },
   "phu-quoc-national-park": {
     "cache_set_sha256": "fc9874c0d2102ff3af236d81b0a9c1911d126de6f0cb7e6624b9ed32b931cdf4",
@@ -174,10 +224,25 @@
     "checked_at": "2026-10-10",
     "text_sha256": "54284eb364661cc4547830b8d46fa24b53c283d3697a18de1877bf5feacda880"
   },
+  "son-tra-peninsula": {
+    "cache_set_sha256": "cdf41ee6af909706a638c75b3847bbe34c852ae214297064fddad32afdb6f20e",
+    "checked_at": "2026-10-10",
+    "text_sha256": "b821d7508f5c875f40efeb20f5b78608549a7473a06d222c92c3c32c32d867ab"
+  },
+  "sun-world-ha-long": {
+    "cache_set_sha256": "d69505a93295a3dcf0c21f88e2a223723596745b21f6e214460581a526b91513",
+    "checked_at": "2026-10-10",
+    "text_sha256": "959449736889c9e677518e7d6043aea421dd5251b97f39b1ca58618a931604bf"
+  },
   "sun-world-hon-thom": {
     "cache_set_sha256": "fde2d5a86df738262ccd8516d92b549e8d73eab7908f9c034ccd01970b7cd24c",
     "checked_at": "2026-10-10",
     "text_sha256": "16de20b683a1173989a0c4a2315e66cc91d854f478b49d85427c15d1d73bd7fe"
+  },
+  "suoi-tien": {
+    "cache_set_sha256": "2d779265f35b7ac0639b5fbb2c73667f3124271d34966a41152c5dd3e8f06abc",
+    "checked_at": "2026-10-10",
+    "text_sha256": "ef555fa1b684726c214e2fe369e20bfe9fe421079e57a49032418644d7e7efc5"
   },
   "tam-coc-bich-dong": {
     "cache_set_sha256": "1d269730cf5ad0b41791866b31692c8b3501d93ed2b36959c784a0138172b7ba",
@@ -199,6 +264,21 @@
     "checked_at": "2026-10-10",
     "text_sha256": "7a27434d343752dbf08b1e3758f00e8d81ee1a14dced2d3db1e969caa03a7428"
   },
+  "tomb-of-minh-mang": {
+    "cache_set_sha256": "e98dd364e2c54bde6a7411008da71a07f90a2a9794f97aba84d63cfa5b416b97",
+    "checked_at": "2026-10-10",
+    "text_sha256": "39fea314ee2ab4aec9fca95371ab638cc3f07ff989650f06792b26c320093d70"
+  },
+  "tomb-of-tu-duc": {
+    "cache_set_sha256": "8412d5ee5123980cfd3cc6548c689101332716f789957740ceea081e8e92a6ab",
+    "checked_at": "2026-10-10",
+    "text_sha256": "31618c495737be1792cda53d16cf661478e0fbdf1cdd79cb222b8afa97062e89"
+  },
+  "tran-thi-ly-bridge": {
+    "cache_set_sha256": "407f379c0ce1d2d0527f380344cc08bc01dfe08ba3706268f979d91922eaba29",
+    "checked_at": "2026-10-10",
+    "text_sha256": "405b8384f5215f0bdefae2daf4ab3ee69a73a2c9a556e78cb178b53c7006d0b0"
+  },
   "trang-an": {
     "cache_set_sha256": "f3bc5242faf63fc0cb1f4d07385e5fffc63f679428da8834629ba969bdc238f6",
     "checked_at": "2026-10-10",
@@ -209,10 +289,25 @@
     "checked_at": "2026-10-10",
     "text_sha256": "6bad7227567a6e663042cd08ecde7786aa4b179fa3176bd5e4aa30d0cb232e04"
   },
+  "vinpearl-safari-phu-quoc": {
+    "cache_set_sha256": "09d5ee868bd06bb90f4e4f19d02d0d5f9b5630ae9b85dbc4ac82c7f8dc811671",
+    "checked_at": "2026-10-10",
+    "text_sha256": "6c24bebbd59a3b89e75f772fcaf5f1f2112ba3c201ea207af1a250c45152c5cd"
+  },
+  "vinwonders-nam-hoi-an": {
+    "cache_set_sha256": "48d1f7bc61a953d74d698cedeb016f1f026cf908a47aef85389d8d35a5e63b2e",
+    "checked_at": "2026-10-10",
+    "text_sha256": "a21f1750c36425e3c06156fac0bc03b6a6083ae993bb3b55ddde4aa988d3a2e6"
+  },
   "vinwonders-nha-trang": {
     "cache_set_sha256": "88e655e161650c37cb3f2c931c9555101923263412a250a8871069feba1375f9",
     "checked_at": "2026-10-10",
     "text_sha256": "c1bbadbb0702b7542b14a0b7a438ce7a4f37229e8c0102324b295534ddb4b160"
+  },
+  "vinwonders-phu-quoc": {
+    "cache_set_sha256": "a521691ff41a0d2c609cc3d64a63b9ac3daed2b947835fa54c216adbfcd672d9",
+    "checked_at": "2026-10-10",
+    "text_sha256": "0bdfc24e046a7f11d2981703b63dfd92ea0171ecb119cf660baa64b4422079e8"
   },
   "war-remnants-museum": {
     "cache_set_sha256": "fde291e4ddd894327ccc8e9b8fe255fd719e1f54e23f5ad4841794be3221c699",

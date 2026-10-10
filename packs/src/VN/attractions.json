@@ -2,7 +2,7 @@
   "doc_type": "attractions",
   "schema_version": 1,
   "country": "VN",
-  "version": "2026.10.10-2",
+  "version": "2026.10.10-3",
   "release": "published",
   "editorial_rules": "2026-10",
   "compact_country": false,
@@ -294,6 +294,34 @@
         "lat": 22.33511479847842,
         "lng": 103.84226337954237,
         "qid": "Q124156643"
+      },
+      "airports": [],
+      "advisory": {
+        "level": "1",
+        "source": "mofa_vn",
+        "last_verified": "2026-10-02"
+      },
+      "advisory_watch_ko": []
+    },
+    {
+      "id": "vn_cantho",
+      "order": 110,
+      "name_ko": "껀터",
+      "name_en": "Can Tho",
+      "aliases_ko": [
+        "깐토",
+        "메콩 델타",
+        "메콩델타",
+        "메콩강 삼각주"
+      ],
+      "group_ko": "남부",
+      "kind": "base",
+      "water_crossing": false,
+      "hub": {
+        "name_ko": "까이랑 수상시장",
+        "lat": 10.005,
+        "lng": 105.746,
+        "qid": "Q10748803"
       },
       "airports": [],
       "advisory": {
@@ -1096,6 +1124,228 @@
       "id": "sunworld_fansipan_vouchers",
       "name": "Sun World Fansipan Legend — sunworld.vn — Vouchers & Tickets / FAQ (operator, official)",
       "url": "https://sunworld.vn/en/fansipan/vouchers",
+      "use": "facts"
+    },
+    {
+      "id": "vinwonders_pq_official",
+      "name": "VinWonders Phu Quoc official site",
+      "url": "https://vinwonders.com/en/vinwonders-phu-quoc/",
+      "use": "facts"
+    },
+    {
+      "id": "vinwonders_pq_itinerary",
+      "name": "VinWonders Wonderpedia: Phu Quoc itinerary",
+      "url": "https://vinwonders.com/en/wonderpedia/news/complete-guide-to-the-vinwonders-phu-quoc-itinerary/",
+      "use": "facts"
+    },
+    {
+      "id": "vinwonders_pq_height",
+      "name": "VinWonders Wonderpedia: Phu Quoc park rules",
+      "url": "https://vinwonders.com/en/wonderpedia/news/height-requirements-vinwonders-phu-quoc/",
+      "use": "facts"
+    },
+    {
+      "id": "vinbus_phu_quoc",
+      "name": "VinWonders Wonderpedia: Vinbus Phu Quoc",
+      "url": "https://vinwonders.com/en/wonderpedia/news/vinbus-phu-quoc/",
+      "use": "facts"
+    },
+    {
+      "id": "vinpearl_safari_official",
+      "name": "Vinpearl Safari Phu Quoc official site",
+      "url": "https://vinwonders.com/en/vinpearl-safari-phu-quoc/",
+      "use": "facts"
+    },
+    {
+      "id": "vinpearl_safari_show",
+      "name": "VinWonders Wonderpedia: Safari overview",
+      "url": "https://vinwonders.com/en/wonderpedia/news/safari-phu-quoc-show-schedule/",
+      "use": "facts"
+    },
+    {
+      "id": "grand_world_official",
+      "name": "Grand World Phu Quoc official site",
+      "url": "https://vinwonders.com/en/grand-world-phu-quoc/",
+      "use": "facts"
+    },
+    {
+      "id": "vinwonders_nha_official",
+      "name": "VinWonders Nam Hoi An official site",
+      "url": "https://vinwonders.com/en/vinwonders-nam-hoi-an/",
+      "use": "facts"
+    },
+    {
+      "id": "vinwonders_nha_bus",
+      "name": "VinWonders Wonderpedia: Nam Hoi An bus",
+      "url": "https://vinwonders.com/en/wonderpedia/news/bus-to-vinwonders-hoi-an-guide-to-convenient-and-affordable-transportation/",
+      "use": "facts"
+    },
+    {
+      "id": "vinwonders_nha_guide",
+      "name": "VinWonders Wonderpedia: Nam Hoi An guide",
+      "url": "https://vinwonders.com/en/wonderpedia/news/exploring-vinwonders-nam-hoi-an-a-comprehensive-a-z-guide-for-first-timers/",
+      "use": "facts"
+    },
+    {
+      "id": "crazyhouse_official",
+      "name": "Crazy House official site (EN)",
+      "url": "https://crazyhouse.vn/en",
+      "use": "facts"
+    },
+    {
+      "id": "crazyhouse_tham_quan",
+      "name": "Crazy House official site: Sightseeing",
+      "url": "https://crazyhouse.vn/tham-quan",
+      "use": "facts"
+    },
+    {
+      "id": "crazyhouse_gioithieu",
+      "name": "Crazy House official site: Introduction",
+      "url": "https://crazyhouse.vn/gioi-thieu",
+      "use": "facts"
+    },
+    {
+      "id": "suoitien_official",
+      "name": "Suoi Tien official site",
+      "url": "https://suoitien.vn/",
+      "use": "facts"
+    },
+    {
+      "id": "suoitien_intro",
+      "name": "Suoi Tien official site: Introduction",
+      "url": "https://suoitien.vn/gioi-thieu-suoi-tien",
+      "use": "facts"
+    },
+    {
+      "id": "suoitien_metro",
+      "name": "Suoi Tien official site: Metro guide",
+      "url": "https://suoitien.vn/metro-ben-thanh-suoi-tien",
+      "use": "facts"
+    },
+    {
+      "id": "hcmhm_intro",
+      "name": "HCMC Museum of History official: Introduction",
+      "url": "https://www.baotanglichsutphcm.com.vn/gioi-thieu",
+      "use": "facts"
+    },
+    {
+      "id": "hcmhm_directions",
+      "name": "HCMC Museum of History official: Directions",
+      "url": "https://www.baotanglichsutphcm.com.vn/tham-quan/phuong-huong",
+      "use": "facts"
+    },
+    {
+      "id": "hcmhm_policy",
+      "name": "HCMC Museum of History official: Hours and fees",
+      "url": "https://www.baotanglichsutphcm.com.vn/tham-quan/chinh-sach",
+      "use": "facts"
+    },
+    {
+      "id": "hcmhm_permanent",
+      "name": "HCMC Museum of History official: Exhibitions",
+      "url": "https://www.baotanglichsutphcm.com.vn/trung-bay/trung-bay-thuong-xuyen",
+      "use": "facts"
+    },
+    {
+      "id": "hcmhm_contact",
+      "name": "HCMC Museum of History official: Contact",
+      "url": "https://www.baotanglichsutphcm.com.vn/lien-he-1",
+      "use": "facts"
+    },
+    {
+      "id": "nmvh_intro",
+      "name": "National Museum of Vietnamese History official: Introduction",
+      "url": "https://baotanglichsu.vn/vi/Articles/3085/loi-gioi-thieu",
+      "use": "facts"
+    },
+    {
+      "id": "nmvh_visit",
+      "name": "National Museum of Vietnamese History official: Visit",
+      "url": "https://baotanglichsu.vn/vi/Articles/3106/djen-voi-bao-tang",
+      "use": "facts"
+    },
+    {
+      "id": "nmvh_hours",
+      "name": "National Museum of Vietnamese History official: Hours",
+      "url": "https://baotanglichsu.vn/vi/Articles/3107/gio-mo-cua",
+      "use": "facts"
+    },
+    {
+      "id": "nmvh_fee",
+      "name": "National Museum of Vietnamese History official: Fees",
+      "url": "https://baotanglichsu.vn/vi/Articles/3108/ve-va-le-phi",
+      "use": "facts"
+    },
+    {
+      "id": "nmvh_rules",
+      "name": "National Museum of Vietnamese History official: Rules",
+      "url": "https://baotanglichsu.vn/vi/Articles/3110/noi-quy",
+      "use": "facts"
+    },
+    {
+      "id": "khamphahue_tuduc",
+      "name": "Kham Pha Hue (HueCIT): Lang Tu Duc",
+      "url": "https://khamphahue.com.vn/Du-lich/Chi-tiet/tid/Lang-vua-Tu-Duc-Khiem-Lang.html/pid/12882/cid/43",
+      "use": "facts"
+    },
+    {
+      "id": "khamphahue_minhmang",
+      "name": "Kham Pha Hue (HueCIT): Lang Minh Mang",
+      "url": "https://khamphahue.com.vn/Du-lich/Chi-tiet/tid/Lang-vua-Minh-Mang-Hieu-Lang.html/pid/11267/cid/43",
+      "use": "facts"
+    },
+    {
+      "id": "sunworld_halong_about",
+      "name": "Sun World Ha Long official: About Us",
+      "url": "https://sunworld.vn/en/ha-long/about-us",
+      "use": "facts"
+    },
+    {
+      "id": "cantho_benninhkieu",
+      "name": "Can Tho tourism portal: Ben Ninh Kieu",
+      "url": "https://dulich.cantho.gov.vn/vi/benninhkieu",
+      "use": "facts"
+    },
+    {
+      "id": "cantho_chocairang",
+      "name": "Can Tho tourism portal: Cai Rang floating market",
+      "url": "https://dulich.cantho.gov.vn/vi/chocairang",
+      "use": "facts"
+    },
+    {
+      "id": "cantho_chocantho",
+      "name": "Can Tho tourism portal: Cho Can Tho",
+      "url": "https://dulich.cantho.gov.vn/vi/chocantho",
+      "use": "facts"
+    },
+    {
+      "id": "cantho_dinhbinhthuy",
+      "name": "Can Tho tourism portal: Dinh Binh Thuy",
+      "url": "https://dulich.cantho.gov.vn/vi/dinhbinhthuy",
+      "use": "facts"
+    },
+    {
+      "id": "dnf_linhung",
+      "name": "Danang Fantasticity: Linh Ung Pagoda",
+      "url": "https://danangfantasticity.com/en/linh-ung-pagoda",
+      "use": "facts"
+    },
+    {
+      "id": "dnf_sontra",
+      "name": "Danang Fantasticity: Son Tra Peninsula",
+      "url": "https://danangfantasticity.com/en/son-tra-peninsula",
+      "use": "facts"
+    },
+    {
+      "id": "dnf_haivan",
+      "name": "Danang Fantasticity: Hai Van Pass",
+      "url": "https://danangfantasticity.com/en/hai-van-pass",
+      "use": "facts"
+    },
+    {
+      "id": "dnf_tranthily",
+      "name": "Danang Fantasticity: Tran Thi Ly Bridge",
+      "url": "https://danangfantasticity.com/en/tran-thi-ly-bridge",
       "use": "facts"
     }
   ],
@@ -4055,6 +4305,155 @@
       "google_place_id": "ChIJWewCLXwOQjERRkh9adZkWHY"
     },
     {
+      "id": "hcmc-history-museum",
+      "qid": "Q6941045",
+      "names": {
+        "ko": "호찌민시 역사박물관",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Ho Chi Minh City Museum of History",
+        "local": "Bảo tàng Lịch sử Thành phố Hồ Chí Minh",
+        "local_short": "Bảo tàng Lịch sử",
+        "local_lang": "vi",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "호치민시 역사박물관",
+        "사이공 역사박물관"
+      ],
+      "aliases_en": [
+        "Museum of History Ho Chi Minh City"
+      ],
+      "mentions_ko": [
+        "블랑샤르 드 라 브로스 박물관"
+      ],
+      "region": "vn_hcmc",
+      "area_ko": "호찌민 1군 벤응에",
+      "category": "museum",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 10.78484,
+        "lng": 106.70759,
+        "source": "wd",
+        "qid": "Q6941045",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 10.78484,
+        "lng": 106.70759
+      },
+      "address_local": {
+        "text": "Số 2 Nguyễn Bỉnh Khiêm, Phường Bến Nghé, Quận 1, Thành phố Hồ Chí Minh",
+        "source": "hcmhm_contact",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "bus"
+        ],
+        "nearest_ko": "박물관 공식 안내에 시내버스 52·06·14·19·45·30·56번이 적혀 있어요",
+        "nearest_local": null,
+        "source": "hcmhm_directions",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.baotanglichsutphcm.com.vn/",
+      "summary_ko": "1929년에 문을 연 프랑스풍 건물의 역사박물관이에요.",
+      "body_ko": [
+        "호찌민시 역사박물관은 1929년 블랑샤르 드 라 브로스 박물관으로 시작해 1979년 지금 이름이 됐어요.",
+        "베트남 선사시대부터 응우옌 왕조까지의 역사와 남부 소수민족·아시아 문화를 전시해요.",
+        "앞 건물은 2012년에 국가 건축·예술 유적이 됐어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "1929년 블랑샤르 드 라 브로스 박물관으로 시작했고, 1979년 8월 23일 지금 이름으로 바뀌었어요.",
+          "source": "hcmhm_intro",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "상설 전시는 베트남 선사시대부터 응우옌 왕조까지의 역사와, 남부 소수민족·아시아 문화예요.",
+          "source": "hcmhm_permanent",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "박물관 건물은 2012년 국가 건축·예술 유적으로 인정받았어요.",
+          "source": "hcmhm_intro",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "참파 문화실과 옥에오 문화실이 있어요.",
+          "source": "hcmhm_permanent",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "월요일은 쉬어요.",
+          "source": "hcmhm_policy",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "관람료 감면은 증빙 서류를 보여 줘야 받을 수 있어요.",
+          "source": "hcmhm_policy",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "해설을 듣고 싶으면 박물관에 미리 신청해요.",
+          "source": "hcmhm_policy",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "mon"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "hcmhm_policy",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "hcmhm_policy",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_vn",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 19,
+        "designations": [
+          {
+            "kind": "vn_national_relic",
+            "name_ko": "국가 건축·예술 유적(건물, 2012)",
+            "source": "hcmhm_intro"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Vietnam_History_Museum_HCMC.JPG",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJ5fqrRUsvdTERlfW0JX8JGyU",
+      "wiki": {
+        "ko": "호찌민시 역사박물관",
+        "en": "Ho Chi Minh City Museum of History"
+      }
+    },
+    {
       "id": "phu-quoc-prison",
       "qid": "Q10800918",
       "names": {
@@ -4188,7 +4587,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 19,
+        "order": 20,
         "designations": [
           {
             "kind": "national_special",
@@ -4351,7 +4750,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 20,
+        "order": 21,
         "designations": [
           {
             "kind": "unesco",
@@ -4511,7 +4910,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 21,
+        "order": 22,
         "designations": [
           {
             "kind": "unesco",
@@ -4530,6 +4929,286 @@
       "source": "wd",
       "last_verified": "2026-10-09",
       "google_place_id": "ChIJE3yuYgAPQjERnAMwgxxwoN4"
+    },
+    {
+      "id": "tomb-of-tu-duc",
+      "qid": "Q7481171",
+      "names": {
+        "ko": "뜨득 황릉",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Tomb of Tự Đức",
+        "local": "Lăng Tự Đức",
+        "local_short": "Lăng Tự Đức",
+        "local_lang": "vi",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "뜨득릉",
+        "키엠릉"
+      ],
+      "aliases_en": [
+        "Tu Duc Tomb",
+        "Khiem Lang",
+        "Tomb of Tu Duc"
+      ],
+      "mentions_ko": [],
+      "region": "vn_hue",
+      "area_ko": "후에 시내 남쪽 투이쑤언",
+      "category": "heritage",
+      "tags": [
+        {
+          "id": "unesco",
+          "source": "khamphahue_tuduc",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 16.4325,
+        "lng": 107.566,
+        "source": "wd",
+        "qid": "Q7481171",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 16.4325,
+        "lng": 107.566
+      },
+      "address_local": {
+        "text": "Thôn Thượng Ba, phường Thủy Xuân, thành phố Huế",
+        "source": "khamphahue_tuduc",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "car_only"
+        ],
+        "nearest_ko": "후에 시내에서 가까운 투이쑤언 동 투옹바 마을에 있어요. 오토바이·자전거·택시로 가요",
+        "nearest_local": null,
+        "source": "khamphahue_tuduc",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://khamphahue.com.vn/Du-lich/Chi-tiet/tid/Lang-vua-Tu-Duc-Khiem-Lang.html/pid/12882/cid/43",
+      "summary_ko": "응우옌 왕조 4대 황제 뜨득이 잠든 능이에요.",
+      "body_ko": [
+        "뜨득 황릉(키엠릉)은 응우옌 왕조 4대 황제 뜨득이 묻힌 곳이에요.",
+        "1864년에 짓기 시작해 1873년에 키엠궁이 완성됐어요.",
+        "호수와 정자, 소나무 숲이 어우러진 공원 같은 능이에요.",
+        "후에 기념물 복합지구의 하나로 1993년 유네스코 세계유산에 올랐어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "응우옌 왕조 4대 황제 뜨득이 묻힌 곳이에요.",
+          "source": "khamphahue_tuduc",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "1864년에 짓기 시작해 1873년에 키엠궁이 완성됐어요.",
+          "source": "khamphahue_tuduc",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "공원처럼 넓은 능에 르우키엠 호수가 있고, 호수 위 쭝키엠따·즈키엠따 정자와 소나무 언덕으로 이어져요.",
+          "source": "khamphahue_tuduc",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "후에 기념물 복합지구의 하나로 1993년 유네스코 세계유산에 올랐어요.",
+          "source": "khamphahue_tuduc",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "입장권은 유료이고, 외국인과 베트남 사람 요금이 같아요.",
+          "source": "khamphahue_ve",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "능 안에 민키엠당이라는 옛 극장이 있어요.",
+          "source": "khamphahue_tuduc",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "khamphahue_ve",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "khamphahue_ve",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_vn",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 23,
+        "designations": [
+          {
+            "kind": "unesco",
+            "name_ko": "세계유산 후에 기념물 복합지구",
+            "source": "unesco_678"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:TuDucTombeau_06.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJx9bGiwOkQTERDjpyrH8ydlk",
+      "wiki": {
+        "en": "Tomb of Tự Đức"
+      }
+    },
+    {
+      "id": "cai-rang-floating-market",
+      "qid": "Q10748803",
+      "names": {
+        "ko": "까이랑 수상시장",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Cai Rang Floating Market",
+        "local": "Chợ nổi Cái Răng",
+        "local_short": "Chợ nổi Cái Răng",
+        "local_lang": "vi",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "카이랑 수상시장"
+      ],
+      "aliases_en": [
+        "Cái Răng Floating Market"
+      ],
+      "mentions_ko": [],
+      "region": "vn_cantho",
+      "area_ko": "껀터 까이랑 강",
+      "category": "market_street",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 10.005,
+        "lng": 105.746,
+        "source": "wd",
+        "qid": "Q10748803",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 10.005,
+        "lng": 105.746
+      },
+      "address_local": {
+        "text": "Phường Cái Răng, Thành phố Cần Thơ",
+        "source": "cantho_chocairang",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "boat"
+        ],
+        "nearest_ko": "닌끼에우 부두에서 배를 빌려 가거나, 시장 가까운 선착장에서 타요",
+        "nearest_local": null,
+        "source": "cantho_chocairang",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://dulich.cantho.gov.vn/vi/chocairang",
+      "wiki": {
+        "en": "Cái Răng Floating Market"
+      },
+      "summary_ko": "새벽에 배 위에서 장이 서는 메콩 델타의 수상시장이에요.",
+      "body_ko": [
+        "까이랑 수상시장은 껀터의 강 위에서 열리는 시장이에요.",
+        "시장 문화는 2016년 국가 무형문화유산 목록에 올랐어요.",
+        "아침 일찍 열리고, 5시부터 7시 사이에 가는 것을 권해요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "까이랑 수상시장 문화는 2016년 국가 무형문화유산 목록에 올랐어요.",
+          "source": "cantho_chocairang",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "배 위에서 쌀국수·후띠에우·커피 같은 아침을 먹을 수 있어요.",
+          "source": "cantho_chocairang",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "시장은 아주 일찍 열리고, 5시부터 7시 사이에 가는 것을 권해요.",
+          "source": "cantho_chocairang",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "닌끼에우 부두에서 배를 빌려 갈 수 있어요.",
+          "source": "cantho_chocairang",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "시장 가까운 선착장에서 타면 시간을 아낄 수 있어요.",
+          "source": "cantho_chocairang",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "public_space",
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "cantho_chocairang",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "cantho_chocairang",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_vn",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 24,
+        "designations": [
+          {
+            "kind": "vn_national_intangible_heritage",
+            "name_ko": "국가 무형문화유산 까이랑 수상시장 문화(2016)",
+            "source": "cantho_chocairang"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJjS00tq-JoDERmDjx9Wm1ss0"
     },
     {
       "id": "nha-trang-beach",
@@ -4650,7 +5329,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 22,
+        "order": 25,
         "designations": [
           {
             "kind": "vn_national_scenic_bay",
@@ -4664,6 +5343,160 @@
       "source": "wd",
       "last_verified": "2026-10-09",
       "google_place_id": "ChIJUX-6PABncDERDgD-UpQhjWc"
+    },
+    {
+      "id": "tomb-of-minh-mang",
+      "qid": "Q7481070",
+      "names": {
+        "ko": "민망 황릉",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Tomb of Minh Mạng",
+        "local": "Lăng Minh Mạng",
+        "local_short": "Lăng Minh Mạng",
+        "local_lang": "vi",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "민망릉",
+        "히에우릉"
+      ],
+      "aliases_en": [
+        "Minh Mang Tomb",
+        "Hieu Lang",
+        "Mausoleum of Emperor Minh Mạng"
+      ],
+      "mentions_ko": [],
+      "region": "vn_hue",
+      "area_ko": "후에 시내 서남쪽 향강 가",
+      "category": "heritage",
+      "tags": [
+        {
+          "id": "unesco",
+          "source": "khamphahue_minhmang",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 16.387777777778,
+        "lng": 107.56777777778,
+        "source": "wd",
+        "qid": "Q7481070",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 16.387777777778,
+        "lng": 107.56777777778
+      },
+      "address_local": {
+        "text": "Hương Thọ, Thị xã Hương Trà, tỉnh Thừa Thiên Huế",
+        "source": "khamphahue_minhmang",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "boat",
+          "car_only"
+        ],
+        "nearest_ko": "후에에서 향강을 따라 배로 가거나 오토바이·자동차로 가요",
+        "nearest_local": null,
+        "source": "khamphahue_minhmang",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://khamphahue.com.vn/Du-lich/Chi-tiet/tid/Lang-vua-Minh-Mang-Hieu-Lang.html/pid/11267/cid/43",
+      "summary_ko": "응우옌 왕조 2대 황제 민망이 잠든 능이에요.",
+      "body_ko": [
+        "민망 황릉(히에우릉)은 응우옌 왕조 2대 황제 민망이 잠든 능이에요.",
+        "깜케 산에 있고 후에에서 12km 떨어져 있어요.",
+        "1843년에 완공됐고, 큰 건물과 작은 건물 40채가 호수와 언덕 사이에 있어요.",
+        "후에 기념물 복합지구의 하나로 1993년 유네스코 세계유산에 올랐어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "응우옌 왕조 2대 황제 민망이 잠든 능이에요.",
+          "source": "khamphahue_minhmang",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "깜케 산에 있고 후에에서 12km 떨어져 있어요.",
+          "source": "khamphahue_minhmang",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "1843년에 완공됐어요.",
+          "source": "khamphahue_minhmang",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "큰 건물과 작은 건물 40채가 호수와 언덕 사이에 있어요.",
+          "source": "khamphahue_minhmang",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "후에 기념물 복합지구의 하나로 1993년 유네스코 세계유산에 올랐어요.",
+          "source": "khamphahue_minhmang",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "입장권은 유료이고, 외국인과 베트남 사람 요금이 같아요.",
+          "source": "khamphahue_ve",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "향강에서 배로 가면 강을 보면서 능까지 갈 수 있어요.",
+          "source": "khamphahue_minhmang",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "khamphahue_ve",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "khamphahue_ve",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_vn",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 26,
+        "designations": [
+          {
+            "kind": "unesco",
+            "name_ko": "세계유산 후에 기념물 복합지구",
+            "source": "unesco_678"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:L%C4%83ng_Minh_M%E1%BA%A1ng_-_Mausoleum_of_Emperor_Minh_M%E1%BA%A1ng_(2024)_-_img_05.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJ-fS8cYGkQTERiPoFuVSt_K4"
     },
     {
       "id": "ba-na-hills",
@@ -4818,7 +5651,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 23,
+        "order": 27,
         "designations": []
       },
       "photo": null,
@@ -4963,7 +5796,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 24,
+        "order": 28,
         "designations": []
       },
       "photo": null,
@@ -5129,7 +5962,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 25,
+        "order": 29,
         "designations": []
       },
       "photo": null,
@@ -5246,7 +6079,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 26,
+        "order": 30,
         "designations": []
       },
       "photo": null,
@@ -5394,7 +6227,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 27,
+        "order": 31,
         "designations": []
       },
       "photo": null,
@@ -5402,6 +6235,132 @@
       "source": "wd",
       "last_verified": "2026-10-09",
       "google_place_id": "ChIJ6VnfP3ldcDERHoQBNdIRQhs"
+    },
+    {
+      "id": "hai-van-pass",
+      "qid": "Q1477078",
+      "names": {
+        "ko": "하이반 고개",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Hai Van Pass",
+        "local": "Đèo Hải Vân",
+        "local_short": "Đèo Hải Vân",
+        "local_lang": "vi",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "하이밴 고개",
+        "해운령",
+        "하이반 패스"
+      ],
+      "aliases_en": [
+        "Hải Vân Pass",
+        "Col des Nuages"
+      ],
+      "mentions_ko": [
+        "하이반 관문"
+      ],
+      "region": "vn_danang",
+      "area_ko": "다낭 북쪽 다낭-후에 경계",
+      "category": "nature",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 16.1875,
+        "lng": 108.13083333,
+        "source": "wd",
+        "qid": "Q1477078",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 16.1875,
+        "lng": 108.13083333
+      },
+      "address_local": null,
+      "access": {
+        "modes": [
+          "car_only"
+        ],
+        "nearest_ko": "다낭에서 1번 국도를 따라 북쪽으로 가요. 오토바이·자동차로 가요",
+        "nearest_local": null,
+        "source": "dnf_haivan",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://danangfantasticity.com/en/hai-van-pass",
+      "summary_ko": "다낭과 후에 사이, 바다와 구름 사이를 넘는 산길이에요.",
+      "body_ko": [
+        "하이반 고개는 다낭과 후에 사이에 있는 해안 산길로, 이름은 '바다 구름'이라는 뜻이에요.",
+        "다낭에서 북쪽으로 약 20km, 후에에서 남쪽으로 약 80km 떨어져 있어요.",
+        "정상에는 1826년 민망 황제가 옛 성채 터에 쌓은 하이반 관문이 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "다낭 중심에서 북쪽으로 약 20km, 후에에서 남쪽으로 약 80km 떨어져 있어요.",
+          "source": "dnf_haivan",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "하이반은 '바다 구름'이라는 뜻이에요.",
+          "source": "dnf_haivan",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "정상의 하이반 관문은 1826년 민망 황제가 쩐 왕조 때 성채 터에 쌓았고, 2024년에 복원했어요.",
+          "source": "dnf_haivan",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "오토바이는 하이반 터널에 들어갈 수 없어서 고개 길로 가야 해요.",
+          "source": "dnf_haivan",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "밤이나 짙은 안개 속에서는 이 길을 피하라고 안내해요.",
+          "source": "dnf_haivan",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "public_space",
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "dnf_haivan",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "dnf_haivan",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_vn",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 32,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Hai_Van_Pass_under_fog,_Vietnam.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJi1a8Ap4hQjERtYZjSLo-SrA",
+      "wiki": {
+        "ko": "하이반 고개",
+        "en": "Hải Vân Pass"
+      }
     },
     {
       "id": "linh-phuoc-pagoda",
@@ -5520,7 +6479,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 28,
+        "order": 33,
         "designations": []
       },
       "photo": null,
@@ -5532,6 +6491,143 @@
       "source": "wd",
       "last_verified": "2026-10-10",
       "google_place_id": "ChIJ24TIxRsTcTERG9_-OgIyiSA"
+    },
+    {
+      "id": "crazy-house",
+      "qid": "Q1171693",
+      "names": {
+        "ko": "크레이지 하우스",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Crazy House",
+        "local": "Biệt thự Hằng Nga",
+        "local_short": "Crazy House",
+        "local_lang": "vi",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "항응아 게스트하우스",
+        "항응아 빌라"
+      ],
+      "aliases_en": [
+        "Hang Nga Guesthouse",
+        "Hằng Nga Guesthouse"
+      ],
+      "mentions_ko": [],
+      "region": "vn_dalat",
+      "area_ko": "달랏 시내 쑤언흐엉 동",
+      "category": "city_view",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 11.934722222222,
+        "lng": 108.43063888889,
+        "source": "wd",
+        "qid": "Q1171693",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 11.934722222222,
+        "lng": 108.43063888889
+      },
+      "address_local": {
+        "text": "03 Huỳnh Thúc Kháng, Phường Xuân Hương, Đà Lạt.",
+        "source": "crazyhouse_tham_quan",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "walk_from_center"
+        ],
+        "nearest_ko": "달랏 시내 쑤언흐엉 동의 휜툭캉 거리 3번지에 있어요. 시내에서 걸어서 가요",
+        "nearest_local": null,
+        "source": "crazyhouse_tham_quan",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://crazyhouse.vn/en",
+      "summary_ko": "나무 그루터기 모양으로 지은 달랏의 건축물이에요.",
+      "body_ko": [
+        "크레이지 하우스(항응아 빌라)는 건축가 당비엣응아가 1990년 2월에 오래된 숲의 나무 그루터기를 본떠 지은 집이에요.",
+        "그루터기 모양 건물을 가지 모양 통로가 이어 주고, 맨 위에서 달랏 시내가 보여요.",
+        "안쪽에는 3D 그림으로 꾸민 바닷속 방이 있고, 객실도 있어서 묵을 수 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "1990년 2월 건축가 당비엣응아가 오래된 나무의 그루터기를 본뜬 집을 지었어요.",
+          "source": "crazyhouse_gioithieu",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "그루터기 모양 건물을 가지처럼 오르내리는 좁은 통로가 이어 줘요.",
+          "source": "crazyhouse_tham_quan",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "통로를 따라 건물 맨 위에 오르면 달랏 시내가 보이고, 3D 그림으로 바다 생물을 그린 방도 있어요.",
+          "source": "crazyhouse_tham_quan",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "건물 안에 객실이 10개 있어서 묵을 수도 있어요.",
+          "source": "crazyhouse_official",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "입장권 값은 키에 따라 달라요.",
+          "source": "crazyhouse_tham_quan",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "정원 카페에서 커피와 간식을 즐길 수 있어요.",
+          "source": "crazyhouse_tham_quan",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "none"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "crazyhouse_tham_quan",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "crazyhouse_tham_quan",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_vn",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 34,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:HangNgaCrazyHouse2.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJpTjuGjMTcTERhjx317psdj8",
+      "wiki": {
+        "ko": "항응아 게스트하우스",
+        "en": "Hằng Nga Guesthouse"
+      }
     },
     {
       "id": "ho-chi-minh-museum",
@@ -5672,7 +6768,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 29,
+        "order": 35,
         "designations": []
       },
       "photo": null,
@@ -5801,7 +6897,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 30,
+        "order": 36,
         "designations": []
       },
       "photo": null,
@@ -5809,6 +6905,290 @@
       "source": "wd",
       "last_verified": "2026-10-09",
       "google_place_id": "ChIJL1GKWJYZQjERLrEGqlK2kwQ"
+    },
+    {
+      "id": "national-museum-of-vietnamese-history",
+      "qid": "Q5370414",
+      "names": {
+        "ko": "베트남 국립역사박물관",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "National Museum of Vietnamese History",
+        "local": "Bảo tàng Lịch sử quốc gia",
+        "local_short": "Bảo tàng Lịch sử quốc gia",
+        "local_lang": "vi",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "베트남 역사박물관",
+        "하노이 역사박물관"
+      ],
+      "aliases_en": [
+        "Vietnam National Museum of History"
+      ],
+      "mentions_ko": [
+        "트랑티엔 전시관",
+        "쩐꽝카이 전시관"
+      ],
+      "region": "vn_hanoi",
+      "area_ko": "하노이 호안끼엠 트랑티엔",
+      "category": "museum",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 21.024722222222,
+        "lng": 105.85972222222,
+        "source": "wd",
+        "qid": "Q5370414",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 21.024722222222,
+        "lng": 105.85972222222
+      },
+      "address_local": {
+        "text": "Số 1 Tràng Tiền, Hà Nội",
+        "source": "nmvh_intro",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "bus"
+        ],
+        "nearest_ko": "공식 안내에 시내버스 03A·11·24·31·34·35A·40·42·48·49·51번 등이 적혀 있어요",
+        "nearest_local": null,
+        "source": "nmvh_visit",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://baotanglichsu.vn/vi",
+      "summary_ko": "선사시대부터 현대까지 베트남 역사를 보여 주는 박물관이에요.",
+      "body_ko": [
+        "베트남 국립역사박물관은 2011년에 역사박물관과 혁명박물관을 합쳐 만든 국립 박물관이에요.",
+        "호안끼엠 거북탑 가까운 하노이 중심에 있어요.",
+        "트랑티엔 1번지 전시관은 선사시대부터 응우옌 왕조(1945년)까지를 다뤄요.",
+        "쩐꽝카이 216번지 전시관은 20세기 중반부터 지금까지를 다뤄요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "2011년 9월 26일 총리 결정으로 역사박물관과 혁명박물관을 합쳐 문을 열었어요.",
+          "source": "nmvh_intro",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "하노이 중심, 거북탑과 호안끼엠 호수 가까이에 있어요.",
+          "source": "nmvh_intro",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "고정 전시관이 두 곳이고, 트랑티엔 1번지 전시관은 선사시대부터 응우옌 왕조(1945년)까지를 다뤄요.",
+          "source": "nmvh_intro",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "쩐꽝카이 216번지 전시관은 20세기 중반부터 지금까지를 다뤄요.",
+          "source": "nmvh_intro",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "월요일은 쉬고, 월요일이 공휴일과 겹치면 열어요.",
+          "source": "nmvh_hours",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "입장권 하나로 두 전시관을 모두 볼 수 있어요.",
+          "source": "nmvh_fee",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "큰 짐은 박물관 보관함에 맡겨요.",
+          "source": "nmvh_rules",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "mon"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "nmvh_hours",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "nmvh_hours",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_vn",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 37,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Vietnam_National_Museum_of_History,_Hanoi,_Vietnam.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJRz0uLACrNTERpr0FWn4_dmQ",
+      "wiki": {
+        "ko": "베트남 역사박물관",
+        "en": "Vietnam National Museum of History"
+      }
+    },
+    {
+      "id": "suoi-tien",
+      "qid": "Q2930683",
+      "names": {
+        "ko": "수오이띠엔 놀이공원",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Suoi Tien Theme Park",
+        "local": "Khu du lịch văn hóa Suối Tiên",
+        "local_short": "Suối Tiên",
+        "local_lang": "vi",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "수오이띠엔 테마파크",
+        "수이띠엔"
+      ],
+      "aliases_en": [
+        "Suối Tiên Amusement Park",
+        "Suoi Tien Cultural Park"
+      ],
+      "mentions_ko": [
+        "메트로 1호선"
+      ],
+      "region": "vn_hcmc",
+      "area_ko": "호찌민 동쪽 투득",
+      "category": "theme_park",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 10.863885,
+        "lng": 106.802173,
+        "source": "wd",
+        "qid": "Q2930683",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 10.863885,
+        "lng": 106.802173
+      },
+      "address_local": {
+        "text": "120 Xa Lộ Hà Nội, P. Tăng Nhơn Phú, TP.Hồ Chí Minh",
+        "source": "suoitien_official",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "metro"
+        ],
+        "nearest_ko": "메트로 1호선 대학 국립(Đại học Quốc gia) 역이 정문 바로 옆이에요. 내려서 육교를 건너가요",
+        "nearest_local": null,
+        "source": "suoitien_metro",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://suoitien.vn/",
+      "summary_ko": "호찌민 동쪽에 있는 문화·놀이 복합 테마파크예요.",
+      "body_ko": [
+        "수오이띠엔은 1995년 9월 2일에 문을 연 호찌민의 테마파크예요.",
+        "넓이는 55헥타르이고 150개가 넘는 놀이·볼거리 시설이 있어요.",
+        "길이 400m 용 조형물이 있고, 역사·신앙 시설과 수족관, 농장도 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "1995년 9월 2일에 문을 열었어요.",
+          "source": "suoitien_intro",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "넓이는 55헥타르이고 150개가 넘는 놀이·볼거리 시설이 있어요.",
+          "source": "suoitien_intro",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "길이 400m 용 조형물이 개장 때부터 있었어요.",
+          "source": "suoitien_intro",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "문화·역사 시설, 신앙 시설, 수족관, 농장, 놀이기구가 있어요.",
+          "source": "suoitien_official",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "메트로 1호선을 타고 대학 국립 역에서 내리면 정문까지 걸어서 가요.",
+          "source": "suoitien_metro",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "사계절 축제와 문화 행사가 열려요.",
+          "source": "suoitien_official",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "suoitien_official",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "suoitien_official",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_vn",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 38,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:July_2023_Suoi_Tien_Park.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJDXlfx1sndTERFg6NcPqJ8e8",
+      "wiki": {
+        "ko": "수오이띠엔 놀이공원",
+        "en": "Suối Tiên Theme Park"
+      }
     },
     {
       "id": "war-remnants-museum",
@@ -5939,7 +7319,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 31,
+        "order": 39,
         "designations": []
       },
       "photo": null,
@@ -6094,7 +7474,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 32,
+        "order": 40,
         "designations": []
       },
       "photo": null,
@@ -6241,7 +7621,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 33,
+        "order": 41,
         "designations": []
       },
       "photo": null,
@@ -6375,7 +7755,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 34,
+        "order": 42,
         "designations": []
       },
       "photo": null,
@@ -6383,6 +7763,267 @@
       "source": "wd",
       "last_verified": "2026-10-10",
       "google_place_id": "ChIJjz9TQYZncDERdYcVnKtZn-c"
+    },
+    {
+      "id": "son-tra-peninsula",
+      "qid": "Q7560606",
+      "names": {
+        "ko": "선짜 반도",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Son Tra Peninsula",
+        "local": "Bán đảo Sơn Trà",
+        "local_short": "Sơn Trà",
+        "local_lang": "vi",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "선짜산",
+        "썬짜 반도"
+      ],
+      "aliases_en": [
+        "Son Tra Mountain",
+        "Monkey Mountain"
+      ],
+      "mentions_ko": [
+        "린응사",
+        "반꼬 봉우리"
+      ],
+      "region": "vn_danang",
+      "area_ko": "다낭 시내 북동쪽",
+      "category": "nature",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 16.1197,
+        "lng": 108.2868,
+        "source": "wd",
+        "qid": "Q7560606",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 16.1197,
+        "lng": 108.2868
+      },
+      "address_local": null,
+      "access": {
+        "modes": [
+          "car_only"
+        ],
+        "nearest_ko": "다낭 시내와 도로로 이어져 있어요. 차·오토바이·택시로 가요",
+        "nearest_local": null,
+        "source": "dnf_sontra",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://danangfantasticity.com/en/son-tra-peninsula",
+      "summary_ko": "다낭 시내 북동쪽 바다로 뻗은 숲 우거진 반도예요.",
+      "body_ko": [
+        "선짜 반도는 다낭 시내에서 북동쪽으로 10km 떨어진, 바다로 뻗은 산이에요.",
+        "동서 길이 15km에 면적이 4390헥타르이고 원시림이 우거져 있어요.",
+        "붉은 정강이 도우크 원숭이 같은 희귀 동물이 살고, 정상에서 다낭 시내가 한눈에 보여요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "다낭 시내에서 북동쪽으로 10km 떨어져 있어요.",
+          "source": "dnf_sontra",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "동서 길이 15km, 면적 4390헥타르예요.",
+          "source": "dnf_sontra",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "붉은 정강이 도우크 원숭이 같은 희귀 동물이 살아요.",
+          "source": "dnf_sontra",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "정상에서 다낭 시내, 오행산, 바나 힐스, 하이반 고개가 보여요.",
+          "source": "dnf_sontra",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "방 바위로 가는 길은 가파르고 미끄러우니 조심해요.",
+          "source": "dnf_sontra",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "반꼬 봉우리는 산자락에서 긴 길을 지나 가파른 계단을 올라야 해요.",
+          "source": "dnf_sontra",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "public_space",
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "dnf_sontra",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "dnf_sontra",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_vn",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 43,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Ban_dao_Son_Tra.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJQ4ID6J09QjERXNhy9LdnlWM",
+      "wiki": {
+        "ko": "선짜산",
+        "en": "Sơn Trà Mountain"
+      }
+    },
+    {
+      "id": "tran-thi-ly-bridge",
+      "qid": "Q7833322",
+      "names": {
+        "ko": "쩐티리 다리",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Tran Thi Ly Bridge",
+        "local": "Cầu Trần Thị Lý",
+        "local_short": "Cầu Trần Thị Lý",
+        "local_lang": "vi",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "쩐티리교"
+      ],
+      "aliases_en": [
+        "Trần Thị Lý Bridge"
+      ],
+      "mentions_ko": [
+        "한강"
+      ],
+      "region": "vn_danang",
+      "area_ko": "다낭 시내 한강",
+      "category": "city_view",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 16.05027777777778,
+        "lng": 108.22944444444444,
+        "source": "wd",
+        "qid": "Q7833322",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 16.05027777777778,
+        "lng": 108.22944444444444
+      },
+      "address_local": null,
+      "access": {
+        "modes": [
+          "walk_from_center"
+        ],
+        "nearest_ko": "한강을 가로질러 다낭 시내 중심에 있어요. 시내에서 걸어서 가요",
+        "nearest_local": null,
+        "source": "dnf_tranthily",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://danangfantasticity.com/en/tran-thi-ly-bridge",
+      "summary_ko": "한강을 가로지르는 다낭의 현대식 사장교예요.",
+      "body_ko": [
+        "쩐티리 다리는 다낭 시내 한강을 가로지르는 사장교예요.",
+        "2013년 3월 29일에 개통했고, 총 길이 731m에 주탑 높이는 145m예요.",
+        "밤에는 상판과 주탑의 불빛 색이 바뀌어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "한강을 가로지르는 콘크리트 사장교로 다낭 시내 중심에 있어요.",
+          "source": "dnf_tranthily",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "2013년 3월 29일에 개통했어요.",
+          "source": "dnf_tranthily",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "총 길이 731m, 주탑 높이 145m예요.",
+          "source": "dnf_tranthily",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "밤에는 상판과 주탑의 색이 바뀌어요.",
+          "source": "dnf_tranthily",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "밤에 불빛 색이 바뀌는 모습을 볼 수 있어요.",
+          "source": "dnf_tranthily",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "다낭 시민과 관광객이 사진을 찍으러 오는 곳으로 소개돼요.",
+          "source": "dnf_tranthily",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "public_space",
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "dnf_tranthily",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "dnf_tranthily",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_vn",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 44,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Tr%E1%BA%A7n_Th%E1%BB%8B_L%C3%BD_Bridge_at_daytime.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJxT-GKQAZQjERs84bq--qZOk",
+      "wiki": {
+        "ko": "쩐티리교",
+        "en": "Trần Thị Lý Bridge"
+      }
     },
     {
       "id": "saigon-central-post-office",
@@ -6509,7 +8150,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 35,
+        "order": 45,
         "designations": []
       },
       "photo": null,
@@ -6651,7 +8292,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 36,
+        "order": 46,
         "designations": []
       },
       "photo": null,
@@ -6797,7 +8438,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 37,
+        "order": 47,
         "designations": []
       },
       "photo": null,
@@ -6926,7 +8567,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 38,
+        "order": 48,
         "designations": []
       },
       "photo": null,
@@ -6937,6 +8578,250 @@
       "source": "wd",
       "last_verified": "2026-10-10",
       "google_place_id": "ChIJERJoQwATcTERR_bBPr8wkUY"
+    },
+    {
+      "id": "binh-thuy-communal-house",
+      "qid": "Q10840570",
+      "names": {
+        "ko": "빈투이 딘",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Binh Thuy Communal House",
+        "local": "Đình Bình Thủy",
+        "local_short": "Đình Bình Thủy",
+        "local_lang": "vi",
+        "source": "cantho_dinhbinhthuy"
+      },
+      "aliases_ko": [
+        "빈투이 마을 사당",
+        "롱뚜옌 고묘"
+      ],
+      "aliases_en": [
+        "Dinh Binh Thuy",
+        "Long Tuyen Co Mieu"
+      ],
+      "mentions_ko": [],
+      "region": "vn_cantho",
+      "area_ko": "껀터 빈투이 동",
+      "category": "heritage",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 10.0724902,
+        "lng": 105.752238,
+        "source": "osm",
+        "qid": null,
+        "osm": "way/597853667",
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": null,
+      "address_local": {
+        "text": "46/11A, Phường Bình Thủy, Thành phố Cần Thơ",
+        "source": "cantho_dinhbinhthuy",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "car_only"
+        ],
+        "nearest_ko": "껀터 시내에서 응우옌짜이 거리, 8월혁명 거리, 레홍퐁 거리를 따라 가요",
+        "nearest_local": null,
+        "source": "cantho_dinhbinhthuy",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://dulich.cantho.gov.vn/vi/dinhbinhthuy",
+      "summary_ko": "메콩 델타의 목조 건축을 보여 주는 마을 공동 사당이에요.",
+      "body_ko": [
+        "빈투이 딘은 껀터 빈투이 동에 있는 마을 공동 사당이고, 옛 이름은 롱뚜옌 고묘예요.",
+        "1844년 초가로 처음 세웠고 1909년에 기와를 얹어 다시 지었어요.",
+        "정사각형 본전 기둥에는 용과 모란을 새겼어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "옛 이름은 롱뚜옌 고묘이고, 껀터 빈투이 동에 있어요.",
+          "source": "cantho_dinhbinhthuy",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "1844년 초가로 처음 세웠고, 1852년 뜨득 황제가 칙령을 내렸고, 1909년 기와지붕으로 다시 지었어요.",
+          "source": "cantho_dinhbinhthuy",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "본전 기둥에는 용과 모란을 새겼어요.",
+          "source": "cantho_dinhbinhthuy",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "해마다 상전·하전 제례 때 오리 놓아주기, 줄다리기 같은 민속놀이를 해요.",
+          "source": "cantho_dinhbinhthuy",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "육읍 구역에는 옛 공연 무대와 제물 준비 건물이 있어요.",
+          "source": "cantho_dinhbinhthuy",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "unknown",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "cantho_dinhbinhthuy",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "cantho_dinhbinhthuy",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_vn",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 49,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "cantho_dinhbinhthuy",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJJYSlq8aHoDERPLFioZpUpn4"
+    },
+    {
+      "id": "can-tho-old-market",
+      "qid": "Q109430419",
+      "names": {
+        "ko": "껀터 옛 시장",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Can Tho Old Market",
+        "local": "Chợ Cần Thơ",
+        "local_short": "Chợ Cần Thơ",
+        "local_lang": "vi",
+        "source": "cantho_chocantho"
+      },
+      "aliases_ko": [
+        "껀터 시장",
+        "껀터 재래시장"
+      ],
+      "aliases_en": [
+        "Can Tho Market",
+        "Nhà lồng chợ Cần Thơ"
+      ],
+      "mentions_ko": [],
+      "region": "vn_cantho",
+      "area_ko": "껀터 시내 닌끼에우 부두 옆",
+      "category": "market_street",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 10.0313772,
+        "lng": 105.7881819,
+        "source": "osm",
+        "qid": null,
+        "osm": "way/89626476",
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": null,
+      "address_local": {
+        "text": "Phường Ninh Kiều, Thành phố Cần Thơ",
+        "source": "cantho_chocantho",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "walk_from_center"
+        ],
+        "nearest_ko": "닌끼에우 부두 바로 옆 시내 중심가에 있어요. 걸어서 가요",
+        "nearest_local": null,
+        "source": "cantho_chocantho",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://dulich.cantho.gov.vn/vi/chocantho",
+      "summary_ko": "닌끼에우 부두 옆에 있는 껀터의 옛 시장 건물이에요.",
+      "body_ko": [
+        "껀터 옛 시장은 닌끼에우 부두 바로 옆 시내 중심에 있어요.",
+        "1915년 무렵 처음 지었고 2005년에 고쳤어요.",
+        "예전에는 메콩 델타 여러 성의 도매시장이었고, 지금은 기념품과 선물을 많이 팔아요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "닌끼에우 부두 바로 옆 껀터 시내 중심에 있어요.",
+          "source": "cantho_chocantho",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "1915년 무렵 처음 지었고 2005년에 고쳤어요.",
+          "source": "cantho_chocantho",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "예전에는 메콩 델타 여러 성의 도매시장이었고, 지금은 주로 기념품과 선물을 팔아요.",
+          "source": "cantho_chocantho",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "지금은 관광객에게 기념품과 선물을 파는 가게가 중심이에요.",
+          "source": "cantho_chocantho",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "독특한 건물 모양 덕분에 사진을 찍으러 오는 사람이 많아요.",
+          "source": "cantho_chocantho",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "public_space",
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "cantho_chocantho",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "cantho_chocantho",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_vn",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 50,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "cantho_chocantho",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJ_S8JUJ9ioDERhknK5WNGDmQ"
     },
     {
       "id": "cat-cat-village",
@@ -7068,15 +8953,147 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 39,
+        "order": 51,
         "designations": []
       },
       "photo": null,
       "photo_link": "https://commons.wikimedia.org/wiki/File:Trong_b%E1%BA%A3n_C%C3%A1t_C%C3%A1t.png",
       "source": "wd",
       "last_verified": "2026-10-10",
-      "wiki": null,
       "google_place_id": "ChIJRXU9ykJBzTYRjrK3LB07du8"
+    },
+    {
+      "id": "grand-world-phu-quoc",
+      "qid": null,
+      "names": {
+        "ko": "그랜드 월드 푸꾸옥",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Grand World Phu Quoc",
+        "local": "Grand World Phú Quốc",
+        "local_short": "Grand World",
+        "local_lang": "vi",
+        "source": "grand_world_official"
+      },
+      "aliases_ko": [
+        "푸꾸옥 그랜드 월드"
+      ],
+      "aliases_en": [
+        "Grand World Phú Quốc"
+      ],
+      "mentions_ko": [
+        "베네치아 운하",
+        "푸꾸옥 유나이티드 센터"
+      ],
+      "region": "vn_phuquoc",
+      "area_ko": "푸꾸옥 유나이티드 센터",
+      "category": "theme_park",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 10.32494,
+        "lng": 103.8581376,
+        "source": "osm",
+        "qid": null,
+        "osm": "way/936712302",
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": null,
+      "address_local": null,
+      "access": {
+        "modes": [
+          "bus"
+        ],
+        "nearest_ko": "푸꾸옥 공항·즈엉동에서 무료 셔틀버스(빈버스)가 와요. 종점 정류장 이름은 그랜드 월드예요",
+        "nearest_local": null,
+        "source": "vinbus_phu_quoc",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://vinwonders.com/en/grand-world-phu-quoc/",
+      "summary_ko": "베네치아 운하를 본뜬 푸꾸옥의 복합 단지예요.",
+      "body_ko": [
+        "그랜드 월드 푸꾸옥은 푸꾸옥 유나이티드 센터에 있는 복합 테마 단지예요.",
+        "길이 400m 베네치아 운하에서 곤돌라를 타고, 곰 인형 박물관과 현대미술 도시공원을 볼 수 있어요.",
+        "저녁에는 공연이 열려요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "푸꾸옥 유나이티드 센터에 있어요.",
+          "source": "vinbus_phu_quoc",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "길이 400m 베네치아 운하에서 곤돌라를 타요.",
+          "source": "grand_world_official",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "곰 인형 박물관은 도넛 모양 건물이에요.",
+          "source": "grand_world_official",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "현대미술 작품을 모은 도시공원이 있어요.",
+          "source": "grand_world_official",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "공연이 매일 저녁 열려요.",
+          "source": "grand_world_official",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "공항과 즈엉동에서 오는 빈버스는 입장권을 보여 주면 무료예요.",
+          "source": "vinbus_phu_quoc",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "베네치아 물택시는 따로 표를 팔아요.",
+          "source": "vinbus_phu_quoc",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "unknown",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "grand_world_official",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "grand_world_official",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_vn",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 52,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "grand_world_official",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJbUZGsQEfCDERXgX4I2SUCsI"
     },
     {
       "id": "ham-rong-mountain",
@@ -7217,14 +9234,13 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 40,
+        "order": 53,
         "designations": []
       },
       "photo": null,
       "photo_link": null,
       "source": "wd",
       "last_verified": "2026-10-10",
-      "wiki": null,
       "google_place_id": "ChIJLaZB2hhBzTYRpCH9rkIZRaU"
     },
     {
@@ -7278,7 +9294,6 @@
         "last_verified": "2026-10-10"
       },
       "official_url": "https://danangfantasticity.com/en/han-market",
-      "wiki": null,
       "summary_ko": "1940년대에 문을 연 다낭 시내 한강 옆 시장이에요.",
       "body_ko": [
         "한 시장은 1940년대에 문을 열었고 1989년에 새로 지은 다낭 시내의 시장이에요.",
@@ -7349,7 +9364,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 41,
+        "order": 54,
         "designations": []
       },
       "photo": null,
@@ -7357,6 +9372,270 @@
       "source": "wd",
       "last_verified": "2026-10-10",
       "google_place_id": "ChIJDcx-OTIYQjERP4eyjItPspA"
+    },
+    {
+      "id": "linh-ung-pagoda",
+      "qid": "Q18277260",
+      "names": {
+        "ko": "린응사",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Linh Ung Pagoda",
+        "local": "Chùa Linh Ứng",
+        "local_short": "Chùa Linh Ứng",
+        "local_lang": "vi",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "링응사",
+        "린응 사원",
+        "다낭 해수관음상"
+      ],
+      "aliases_en": [
+        "Linh Ung Pagoda Son Tra",
+        "Lady Buddha Da Nang"
+      ],
+      "mentions_ko": [
+        "선짜 반도"
+      ],
+      "region": "vn_danang",
+      "area_ko": "다낭 선짜 반도",
+      "category": "heritage",
+      "tags": [
+        {
+          "id": "stairs",
+          "source": "dnf_linhung",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 16.099,
+        "lng": 108.277,
+        "source": "wd",
+        "qid": "Q18277260",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 16.099,
+        "lng": 108.277
+      },
+      "address_local": null,
+      "access": {
+        "modes": [
+          "car_only"
+        ],
+        "nearest_ko": "선짜 반도에 있어서 가까운 버스·기차역이 없어요. 차·오토바이·택시로 가요",
+        "nearest_local": null,
+        "source": "dnf_linhung",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://danangfantasticity.com/en/linh-ung-pagoda",
+      "summary_ko": "다낭 선짜 반도에 있는 사원으로, 해수관음상이 있어요.",
+      "body_ko": [
+        "린응사는 다낭 선짜 반도에 있는 사원이에요.",
+        "높이 67m 해수관음상이 바다를 내려다봐요.",
+        "2004년에 공사를 시작해 2010년에 문을 열었어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "다낭 선짜 반도 토꽝 동에 있어요.",
+          "source": "dnf_linhung",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "높이 67m 해수관음상(레이디 붓다)이 있어요.",
+          "source": "dnf_linhung",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "2004년 7월 4일 공사를 시작해 2010년 7월 30일 문을 열었어요.",
+          "source": "dnf_sontra",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "정문 뒤 안뜰에 분재와 18개 조각상이 있어요.",
+          "source": "dnf_linhung",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "반도에 있어서 버스나 기차로는 가까이 갈 수 없고, 차·오토바이·택시로 가요.",
+          "source": "dnf_linhung",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "문까지 계단이 많아요. 걷기 힘들면 언덕 위 주차장까지 가 달라고 해요.",
+          "source": "dnf_linhung",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "본당에 들어갈 때는 신발을 벗어요.",
+          "source": "dnf_linhung",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "unknown",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "dnf_linhung",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "dnf_linhung",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_vn",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 55,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Son-Tra-Peninsula_Da-Nang_Vietnam_Linh-Ung-Pagoda-01.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJHZakNa8ZQjERWNFToM16eB4"
+    },
+    {
+      "id": "ninh-kieu-wharf",
+      "qid": "Q11839596",
+      "names": {
+        "ko": "닌끼에우 부두",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Ninh Kieu Wharf",
+        "local": "Bến Ninh Kiều",
+        "local_short": "Bến Ninh Kiều",
+        "local_lang": "vi",
+        "source": "cantho_benninhkieu"
+      },
+      "aliases_ko": [
+        "닌끼에우 선착장",
+        "닌끼에우 공원",
+        "닌키에우 부두"
+      ],
+      "aliases_en": [
+        "Ninh Kieu Quay",
+        "Ninh Kieu Park"
+      ],
+      "mentions_ko": [],
+      "region": "vn_cantho",
+      "area_ko": "껀터 시내 강변",
+      "category": "city_view",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 10.0346125,
+        "lng": 105.7890882,
+        "source": "osm",
+        "qid": null,
+        "osm": "way/168524339",
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": null,
+      "address_local": {
+        "text": "Phường Ninh Kiều, Thành phố Cần Thơ",
+        "source": "cantho_benninhkieu",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "walk_from_center"
+        ],
+        "nearest_ko": "껀터 시내 강변 하이바쯩 거리를 따라 이어져요. 시내에서 걸어서 가요",
+        "nearest_local": null,
+        "source": "cantho_benninhkieu",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://dulich.cantho.gov.vn/vi/benninhkieu",
+      "summary_ko": "후우강과 껀터강이 만나는 껀터 강변 공원이에요.",
+      "body_ko": [
+        "닌끼에우 부두는 19세기부터 이어진 껀터의 강변 공원이에요.",
+        "후우강과 껀터강이 만나는 곳에서 하이바쯩 거리를 따라 자리해요.",
+        "가까이에 보행교와 옹 사원, 껀터 옛 시장이 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "19세기부터 이어진 강변 공원으로, 후우강과 껀터강이 만나는 곳의 하이바쯩 거리를 따라 있어요.",
+          "source": "cantho_benninhkieu",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "가까이에 보행교, 옹 사원, 껀터 옛 시장이 있어요.",
+          "source": "cantho_benninhkieu",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "부두에서 껀터 대교가 보여요.",
+          "source": "cantho_benninhkieu",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "이른 아침에 이곳에서 배를 빌려 까이랑 수상시장에 갈 수 있어요.",
+          "source": "cantho_benninhkieu",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "하루 중 아무 때나 걸을 수 있어요.",
+          "source": "cantho_benninhkieu",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "public_space",
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "cantho_benninhkieu",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "cantho_benninhkieu",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_vn",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 56,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "cantho_benninhkieu",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJcT7kqphioDERXSiCxdpLpsY"
     },
     {
       "id": "sao-beach",
@@ -7466,12 +9745,11 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 42,
+        "order": 57,
         "designations": []
       },
       "photo": null,
       "photo_link": null,
-      "wiki": null,
       "source": "wd",
       "last_verified": "2026-10-10",
       "google_place_id": "ChIJL4toWTGRpzERqGuxiUPhdLQ"
@@ -7599,15 +9877,149 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 43,
+        "order": 58,
         "designations": []
       },
       "photo": null,
       "photo_link": "https://commons.wikimedia.org/wiki/File:Nha_tho_Da_,_Sapa_vietnam_-_panoramio.jpg",
       "source": "wd",
       "last_verified": "2026-10-10",
-      "wiki": null,
       "google_place_id": "ChIJZ30wZWtBzTYRUBDrzMF6zMU"
+    },
+    {
+      "id": "sun-world-ha-long",
+      "qid": null,
+      "names": {
+        "ko": "선월드 하롱",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Sun World Ha Long",
+        "local": "Sun World Hạ Long",
+        "local_short": "Sun World",
+        "local_lang": "vi",
+        "source": "sunworld_halong_about"
+      },
+      "aliases_ko": [
+        "하롱 선월드",
+        "선월드 하롱 파크"
+      ],
+      "aliases_en": [
+        "Sun World Halong Complex"
+      ],
+      "mentions_ko": [
+        "퀸 케이블카",
+        "선 휠",
+        "타이푼 워터파크"
+      ],
+      "region": "vn_halong",
+      "area_ko": "하롱 바이짜이 해안",
+      "category": "theme_park",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 20.9521435,
+        "lng": 107.0483086,
+        "source": "osm",
+        "qid": null,
+        "osm": "relation/18623673",
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": null,
+      "address_local": null,
+      "access": {
+        "modes": [
+          "car_only"
+        ],
+        "nearest_ko": "하롱 바이짜이 하롱 거리 9번지에 있어요. 하노이에서 고속도로로 가요",
+        "nearest_local": null,
+        "source": "sunworld_halong_about",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://sunworld.vn/en/ha-long",
+      "summary_ko": "하롱 바이짜이 해안에 있는 복합 테마파크예요.",
+      "body_ko": [
+        "선월드 하롱은 하롱 바이짜이 해안에 있는 복합 테마파크예요.",
+        "면적이 200헥타르에 가깝고, 드래곤 파크·타이푼 워터파크 쪽과 선 힐 쪽으로 나뉘어요.",
+        "두 구역은 바다를 건너는 퀸 케이블카가 이어 줘요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "하롱베이 해안의 바이짜이 한가운데에 있어요.",
+          "source": "sunworld_halong_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "면적이 200헥타르에 가깝고, 드래곤 파크·타이푼 워터파크 쪽과 선 힐 쪽으로 나뉘어요.",
+          "source": "sunworld_halong_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "두 구역은 바다를 건너는 퀸 케이블카가 이어 줘요.",
+          "source": "sunworld_halong_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "선 힐에는 선 휠 관람차와 일본 정원, 코이 다리, 사찰이 있어요.",
+          "source": "sunworld_halong_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "드래곤 파크에는 놀이기구가 20개 넘게 있고, 타이푼 워터파크에는 물놀이 시설이 12개 있어요.",
+          "source": "sunworld_halong_about",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "퀸 케이블카를 타고 바다를 건너 두 구역을 오가요.",
+          "source": "sunworld_halong_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "하노이에서 고속도로로 이어져 있어요.",
+          "source": "sunworld_halong_about",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "unknown",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "sunworld_halong_about",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "sunworld_halong_about",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_vn",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 59,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "sunworld_halong_about",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJUcLjLvRYSjERNl4hblMRgi8"
     },
     {
       "id": "sun-world-hon-thom",
@@ -7742,7 +10154,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 44,
+        "order": 60,
         "designations": []
       },
       "photo": null,
@@ -7750,6 +10162,260 @@
       "source": "wd",
       "last_verified": "2026-10-09",
       "google_place_id": "ChIJvxdKNoKWpzERAWSyG5rABsg"
+    },
+    {
+      "id": "vinpearl-safari-phu-quoc",
+      "qid": null,
+      "names": {
+        "ko": "빈펄 사파리 푸꾸옥",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Vinpearl Safari Phu Quoc",
+        "local": "Vinpearl Safari Phú Quốc",
+        "local_short": "Vinpearl Safari",
+        "local_lang": "vi",
+        "source": "vinpearl_safari_official"
+      },
+      "aliases_ko": [
+        "빈펄 사파리",
+        "푸꾸옥 사파리"
+      ],
+      "aliases_en": [
+        "Vinpearl Safari Phú Quốc"
+      ],
+      "mentions_ko": [
+        "빈원더스 푸꾸옥",
+        "푸꾸옥 유나이티드 센터"
+      ],
+      "region": "vn_phuquoc",
+      "area_ko": "푸꾸옥 바이자이 지역",
+      "category": "theme_park",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 10.3393964,
+        "lng": 103.8950113,
+        "source": "osm",
+        "qid": null,
+        "osm": "way/753491820",
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": null,
+      "address_local": null,
+      "access": {
+        "modes": [
+          "bus"
+        ],
+        "nearest_ko": "푸꾸옥 공항·즈엉동에서 무료 셔틀버스(빈버스)가 와요. 입장권을 보여 주고 타요",
+        "nearest_local": null,
+        "source": "vinbus_phu_quoc",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://vinwonders.com/en/vinpearl-safari-phu-quoc/",
+      "summary_ko": "동물을 반야생으로 기르는 푸꾸옥의 사파리예요.",
+      "body_ko": [
+        "빈펄 사파리 푸꾸옥은 바이자이 지역에 있는 반야생 동물 보전 공원이에요.",
+        "사람은 버스 안에서 숲을 돌고 동물은 자유롭게 다니는 사파리 구역과, 걸어서 보는 열린 동물원 구역이 있어요.",
+        "동물은 약 200종, 4000마리가 넘어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "푸꾸옥 바이자이 지역에 있어요.",
+          "source": "vinpearl_safari_show",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "반야생 동물 보전 공원이에요.",
+          "source": "vinwonders_pq_itinerary",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "면적은 500헥타르이고, 약 200종 4000마리가 넘는 동물이 살아요.",
+          "source": "vinpearl_safari_show",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "사파리 버스를 타고 숲을 도는 사파리 구역과 열린 동물원 구역, 두 구역으로 나뉘어요.",
+          "source": "vinpearl_safari_show",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "야간 사파리는 월·금·토·일에만 열려요.",
+          "source": "vinpearl_safari_official",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "동물 쇼는 공연 무대에서 정해진 시간에 열리고, 날씨와 동물 상태에 따라 바뀔 수 있어요.",
+          "source": "vinpearl_safari_show",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "none"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "vinpearl_safari_show",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "vinpearl_safari_show",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_vn",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 61,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "vinpearl_safari_official",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJ2bp76JUfCDER2BAKZAkG66c"
+    },
+    {
+      "id": "vinwonders-nam-hoi-an",
+      "qid": null,
+      "names": {
+        "ko": "빈원더스 남호이안",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "VinWonders Nam Hoi An",
+        "local": "VinWonders Nam Hội An",
+        "local_short": "VinWonders",
+        "local_lang": "vi",
+        "source": "vinwonders_nha_official"
+      },
+      "aliases_ko": [
+        "빈원더스 호이안"
+      ],
+      "aliases_en": [
+        "VinWonders Nam Hội An"
+      ],
+      "mentions_ko": [
+        "빈펄 남호이안"
+      ],
+      "region": "vn_hoian",
+      "area_ko": "호이안 구시가 남쪽 탕안 지역",
+      "category": "theme_park",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 15.7887796,
+        "lng": 108.4107881,
+        "source": "osm",
+        "qid": null,
+        "osm": "way/782381624",
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": null,
+      "address_local": null,
+      "access": {
+        "modes": [
+          "bus"
+        ],
+        "nearest_ko": "호이안(하이바쯩 거리·안방 해변)과 다낭에서 무료 셔틀버스가 와요. 정해진 정류장에서만 타요",
+        "nearest_local": null,
+        "source": "vinwonders_nha_bus",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://vinwonders.com/en/vinwonders-nam-hoi-an/",
+      "summary_ko": "호이안 구시가 남쪽에 있는 베트남 문화 테마파크예요.",
+      "body_ko": [
+        "빈원더스 남호이안은 호이안 구시가 중심에서 15km 떨어진 테마파크예요.",
+        "옛 항구 마을, 강 위를 도는 사파리, 워터 월드, 남북 전통 건축을 모은 민속문화 섬, 어드벤처 랜드로 이루어져 있어요.",
+        "호이안과 다낭에서 무료 셔틀버스가 와요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "다낭시 탕안 지역의 보찌꽁 거리에 있고, 호이안 구시가 중심에서 15km 떨어져 있어요.",
+          "source": "vinwonders_nha_bus",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "옛 항구 마을(하버 코너)·리버 사파리·워터 월드·민속문화 섬·어드벤처 랜드 다섯 구역이 있어요.",
+          "source": "vinwonders_nha_guide",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "민속문화 섬에는 북부부터 남부까지 베트남 지역별 건축과 전통 공예 마을을 옮겨 놓았어요.",
+          "source": "vinwonders_nha_official",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "호이안과 다낭 시내에서 공원까지 가는 무료 셔틀버스가 있어요.",
+          "source": "vinwonders_nha_bus",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "셔틀버스는 정해진 정류장에서만 타고, 정시에 떠나서 기다려 주지 않아요.",
+          "source": "vinwonders_nha_bus",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "날씨가 나쁘면 일부 쇼가 취소돼요.",
+          "source": "vinwonders_nha_official",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "none"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "vinwonders_nha_bus",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "vinwonders_nha_bus",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_vn",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 62,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "vinwonders_nha_official",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJ0RGf5P0LQjERykFOB_kuQkk"
     },
     {
       "id": "vinwonders-nha-trang",
@@ -7874,7 +10540,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 45,
+        "order": 63,
         "designations": []
       },
       "photo": null,
@@ -7882,6 +10548,146 @@
       "source": "vinwonders_nt_official",
       "last_verified": "2026-10-09",
       "google_place_id": "ChIJ7ZwDewBncDERPujfkPO8yoA"
+    },
+    {
+      "id": "vinwonders-phu-quoc",
+      "qid": null,
+      "names": {
+        "ko": "빈원더스 푸꾸옥",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "VinWonders Phu Quoc",
+        "local": "VinWonders Phú Quốc",
+        "local_short": "VinWonders",
+        "local_lang": "vi",
+        "source": "vinwonders_pq_official"
+      },
+      "aliases_ko": [
+        "빈원더스 푸꾸억",
+        "빈펄 원더스 푸꾸옥"
+      ],
+      "aliases_en": [
+        "VinWonders Phú Quốc"
+      ],
+      "mentions_ko": [
+        "빈펄 사파리",
+        "그랜드 월드",
+        "푸꾸옥 유나이티드 센터"
+      ],
+      "region": "vn_phuquoc",
+      "area_ko": "푸꾸옥 유나이티드 센터",
+      "category": "theme_park",
+      "tags": [
+        {
+          "id": "dress_code",
+          "source": "vinwonders_pq_height",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 10.3384012,
+        "lng": 103.8546749,
+        "source": "osm",
+        "qid": null,
+        "osm": "way/660104575",
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": null,
+      "address_local": null,
+      "access": {
+        "modes": [
+          "bus"
+        ],
+        "nearest_ko": "푸꾸옥 공항·즈엉동에서 무료 셔틀버스(빈버스)가 와요. 입장권을 보여 주고 타요",
+        "nearest_local": null,
+        "source": "vinbus_phu_quoc",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://vinwonders.com/en/vinwonders-phu-quoc/",
+      "summary_ko": "여섯 구역으로 나뉜 푸꾸옥의 테마파크예요.",
+      "body_ko": [
+        "빈원더스 푸꾸옥은 푸꾸옥 유나이티드 센터 안에 있는 테마파크예요.",
+        "유럽 거리, 판타지 월드, 바이킹 마을, 씨 셸 수족관, 어드벤처 월드, 타이푼 월드 워터파크 여섯 구역으로 나뉘어요.",
+        "넓이는 50헥타르에 가까워요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "푸꾸옥 유나이티드 센터에 있고, 빈펄 사파리·그랜드 월드와 셔틀버스로 이어져요.",
+          "source": "vinbus_phu_quoc",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "유럽 거리·판타지 월드·바이킹 마을·씨 셸·어드벤처 월드·타이푼 월드(워터파크) 구역이 있어요.",
+          "source": "vinwonders_pq_itinerary",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "넓이는 50헥타르에 가깝고, 여섯 구역에 12개 주제로 꾸몄어요.",
+          "source": "vinwonders_pq_itinerary",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "씨 셸은 커다란 거북 모양으로 지은 수족관이에요.",
+          "source": "vinwonders_pq_itinerary",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "놀이기구마다 키·몸무게·안전 조건이 있어요. 표를 사기 전에 확인해요.",
+          "source": "vinwonders_pq_height",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "타이푼 월드에서는 지퍼·단추·딱딱한 장식이 없는 수영복을 입어야 해요.",
+          "source": "vinwonders_pq_height",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "비가 세게 오거나 천둥·강풍이 치면 야외 놀이기구가 잠시 멈춰요.",
+          "source": "vinwonders_pq_height",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "none"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "vinwonders_pq_itinerary",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "vinwonders_pq_itinerary",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_vn",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 64,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "vinwonders_pq_official",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJgwI3D_8fCDERzTBdqPmUa9M"
     }
   ],
   "advisory_basis": {
