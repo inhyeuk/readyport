@@ -8654,12 +8654,6 @@
       "attribution_required": true
     },
     {
-      "id": "kintetsu_aoniyoshi",
-      "name": "Kintetsu Railway AONIYOSHI timetable (operator)",
-      "url": "https://www.kintetsu.co.jp/foreign/english/aoniyoshi/",
-      "use": "facts"
-    },
-    {
       "id": "todaiji_official_daibutsuden",
       "name": "東大寺 Daibutsu-den (official, English)",
       "url": "https://www.todaiji.or.jp/en/information/daibutsuden/",
@@ -8752,12 +8746,6 @@
       "use": "facts"
     },
     {
-      "id": "nijo_official_fee",
-      "name": "元離宮二条城 Fees (official, English)",
-      "url": "https://nijo-jocastle.city.kyoto.lg.jp/admission/fee/?lang=en",
-      "use": "facts"
-    },
-    {
       "id": "nijo_official_caution",
       "name": "元離宮二条城 Precautions When Entering the Castle (official, English)",
       "url": "https://nijo-jocastle.city.kyoto.lg.jp/guide/caution/?lang=en",
@@ -8773,12 +8761,6 @@
       "id": "nijo_official_ninomaru",
       "name": "元離宮二条城 Ninomaru-goten Palace (official, English)",
       "url": "https://nijo-jocastle.city.kyoto.lg.jp/introduction/highlights/ninomaru/?lang=en",
-      "use": "facts"
-    },
-    {
-      "id": "nijo_official_access",
-      "name": "元離宮二条城 Access (official, English)",
-      "url": "https://nijo-jocastle.city.kyoto.lg.jp/access/?lang=en",
       "use": "facts"
     },
     {
@@ -9262,12 +9244,6 @@
       "use": "facts"
     },
     {
-      "id": "odakyu_romancecar",
-      "name": "Odakyu Electric Railway Romancecar (operator)",
-      "url": "https://www.odakyu.jp/english/romancecar/",
-      "use": "facts"
-    },
-    {
       "id": "hachimangu_official_knowledge",
       "name": "鶴岡八幡宮 知る (official)",
       "url": "https://www.hachimangu.or.jp/knowledge/",
@@ -9318,12 +9294,6 @@
       "use": "heritage_registry",
       "license": "MEXT-website-terms (出典記載で自由利用)",
       "attribution_required": true
-    },
-    {
-      "id": "odakyu_enoshima_kamakura",
-      "name": "Odakyu Electric Railway Enoshima-Kamakura Freepass (operator)",
-      "url": "https://odakyu-global.com/passes/enoshima-kamakura-freepass/",
-      "use": "facts"
     },
     {
       "id": "unesco_1418",
@@ -9664,12 +9634,6 @@
       "attribution_required": true
     },
     {
-      "id": "ohori_en",
-      "name": "Ohori Park (official, English, machine-translated)",
-      "url": "https://www.ohorikouen.jp/en/",
-      "use": "facts"
-    },
-    {
       "id": "bunka_hiroshimajo",
       "name": "文化庁 国指定文化財等データベース",
       "url": "https://kunishitei.bunka.go.jp/heritage/detail/401/2332",
@@ -9723,12 +9687,6 @@
       "id": "churaumi_official_caution",
       "name": "沖縄美ら海水族館 入館についての注意事項",
       "url": "https://churaumi.okinawa/guide/caution/",
-      "use": "facts"
-    },
-    {
-      "id": "churaumi_official_fee",
-      "name": "沖縄美ら海水族館 入館料金",
-      "url": "https://churaumi.okinawa/guide/info/",
       "use": "facts"
     },
     {
@@ -10035,12 +9993,6 @@
       "id": "onna_kanko_manzamo",
       "name": "恩納村観光協会 Go to ONNA 万座毛周辺活性化施設",
       "url": "https://goto-onna.com/facility/manzamo/",
-      "use": "facts"
-    },
-    {
-      "id": "sanyo_ticket",
-      "name": "山陽電気鉄道 1dayチケット・お得なきっぷのご案内",
-      "url": "https://www.sanyo-railway.co.jp/railway/untin/ticket.html",
       "use": "facts"
     },
     {
