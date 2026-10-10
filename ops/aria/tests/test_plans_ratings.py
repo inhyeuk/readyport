@@ -235,6 +235,22 @@ class PlanRunTest(unittest.TestCase, TempDirCase):
         self.assertNotIn("plan_results/r1", fs.docs)
         self.assertEqual(fs.docs["plan_requests/r1"]["status"], "cancelled")
 
+    def test_push_sent_after_done_and_failure_does_not_break_plan(self):
+        sent = []
+        fs = MemFirestore({"plan_requests/r1": req()})
+        out = self.go(fs, FakeEngine(plan_engine.EngineResult("ok", json.loads(json.dumps(GOOD_PLAN)))),
+                      push=lambda uid, rid: sent.append((uid, rid)))
+        self.assertEqual(out["processed"][0]["status"], "done")
+        self.assertEqual(sent, [("testuid01", "r1")])
+        fs2 = MemFirestore({"plan_requests/r1": req()})
+
+        def boom(uid, rid):
+            raise RuntimeError("fcm down")
+        out = self.go(fs2, FakeEngine(plan_engine.EngineResult("ok", json.loads(json.dumps(GOOD_PLAN)))), push=boom)
+        self.assertEqual(out["processed"][0]["status"], "done")
+        self.assertEqual(out["processed"][0]["push"], "failed")
+        self.assertEqual(fs2.docs["plan_requests/r1"]["status"], "done")
+
     def test_engine_failures_and_bad_output(self):
         fs = MemFirestore({"plan_requests/r1": req(), "plan_requests/r2": req(uid="uid2"), "plan_requests/r3": req(uid="uid3")})
         bad = json.loads(json.dumps(GOOD_PLAN))
@@ -245,6 +261,18 @@ class PlanRunTest(unittest.TestCase, TempDirCase):
         out = self.go(fs, lambda p: next(engines)(p))
         self.assertEqual([p["code"] for p in out["processed"]], ["engine_timeout", "invalid_output", "engine_error"])
         self.assertFalse(any(k.startswith("plan_results/") for k in fs.docs))
+
+    def test_engine_unavailable_keeps_request_queued(self):
+        # 엔진 로그인이 풀린 경우: 요청은 실패로 확정하지 않고(주 2회 한도에 안 든다) 대기로 두고 이번 실행을 멈춘다
+        fs = MemFirestore({"plan_requests/r1": req(), "plan_requests/r2": req(uid="uid2")})
+        out = self.go(fs, FakeEngine(plan_engine.EngineResult("unavailable", None, "login")))
+        self.assertEqual(out["processed"], [{"id": "r1", "status": "deferred", "code": "engine_unavailable"}])
+        self.assertEqual(fs.docs["plan_requests/r1"]["status"], "queued")
+        self.assertEqual(fs.docs["plan_requests/r2"]["status"], "queued")
+        self.assertNotIn("error_code", fs.docs["plan_requests/r1"])
+        # 되돌린 요청은 서버 기록 필드(processingAt 등)가 남아 있어도 다음 실행에서 거부되지 않는다
+        fs.docs["plan_requests/r1"].update({"processingAt": 1, "finishedAt": 2, "error_code": "engine_error"})
+        self.assertIsNone(pr.validate_request(fs.docs["plan_requests/r1"]))
 
     def test_daily_cap_budget_and_dry_run(self):
         self.cfg.plan_daily_cap = 1

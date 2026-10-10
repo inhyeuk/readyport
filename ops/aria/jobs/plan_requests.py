@@ -37,6 +37,7 @@ GENDER_KEYS = ("female", "male")
 TIME_HINTS = ("morning", "late_morning", "lunch", "afternoon", "evening", "night")
 REQUEST_KEYS = {"uid", "country", "purposes", "purpose_note", "travelers", "mobility", "sensitive_consent",
                 "start_date", "end_date", "days", "budget_band", "currency", "status", "createdAt"}
+SERVER_KEYS = {"processingAt", "finishedAt", "updatedAt", "error_code"}
 MAX_DAYS = 30
 DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 ID_RE = re.compile(r"^[A-Za-z0-9_-]{1,40}$")
@@ -73,7 +74,8 @@ def trip_days(req: dict) -> Optional[int]:
 
 def validate_request(req: dict) -> Optional[str]:
     """문제가 있으면 이유(로그에 남겨도 되는 짧은 말 — 값은 넣지 않는다), 없으면 None. 규칙과 같은 기준 + 날짜 길이."""
-    keys = set(k for k in req if not k.startswith("_"))
+    # 서버(이 작업)가 처리 중에 남기는 기록 필드는 사용자 입력이 아니므로 검사에서 뺀다(대기로 되돌린 요청이 다시 거부되지 않게)
+    keys = set(k for k in req if not k.startswith("_")) - SERVER_KEYS
     if not keys <= REQUEST_KEYS:
         return "unknown_field"
     if req.get("country") not in COUNTRIES:
@@ -292,7 +294,8 @@ def _finish(firestore, rid: str, status: str, now: _dt.datetime, code: Optional[
 def run(cfg, firestore, store, *, engine: Optional[Callable[[str], plan_engine.EngineResult]] = None,
         dry_run: bool = True, now: Optional[_dt.datetime] = None, today: Optional[_dt.date] = None,
         clock: Optional[Callable[[], _dt.datetime]] = None, budget_sec: Optional[float] = None,
-        monotonic: Callable[[], float] = time.monotonic) -> dict:
+        monotonic: Callable[[], float] = time.monotonic,
+        push: Optional[Callable[[str, str], None]] = None) -> dict:
     """처리 결과: {processed: [{id, status, code?}], left_queued, cap_reached, budget_stop}. 요청 내용은 담지 않는다.
     budget_sec: 이 시간이 지나면 새 요청을 시작하지 않는다(남은 것은 다음 시간에)."""
     if firestore is None:
@@ -340,6 +343,11 @@ def run(cfg, firestore, store, *, engine: Optional[Callable[[str], plan_engine.E
         firestore.set_document(f"{REQUESTS}/{rid}", {"status": "processing", "processingAt": clock(), "updatedAt": clock()})
         days = trip_days(r)
         res = engine(build_prompt(r, ctx, days))
+        if res.status == "unavailable":
+            # 엔진 쪽 문제(로그인 풀림 등)는 요청 탓이 아니다 — 실패로 확정하지 않고(주 2회 한도에 안 들게) 대기로 되돌린다
+            firestore.set_document(f"{REQUESTS}/{rid}", {"status": "queued", "updatedAt": clock()})
+            processed.append({"id": rid, "status": "deferred", "code": "engine_unavailable"})
+            break
         if res.status != "ok" or res.data is None:
             code = "engine_timeout" if res.status == "timeout" else ("invalid_output" if res.status == "bad_output" else "engine_error")
             if (firestore.get_document(f"{REQUESTS}/{rid}") or {}).get("status") == "processing":
@@ -365,5 +373,10 @@ def run(cfg, firestore, store, *, engine: Optional[Callable[[str], plan_engine.E
         })
         _finish(firestore, rid, "done", t)
         processed.append({"id": rid, "status": "done"})
+        if push is not None:
+            try:
+                push(r["uid"], rid)          # 앱에 '계획이 도착했어요' 푸시 — 실패해도 계획은 이미 전달됐다(앱이 켜질 때 확인한다)
+            except Exception:  # noqa: BLE001
+                processed[-1]["push"] = "failed"
     return {"status": "ok", "dry_run": dry_run, "processed": processed,
             "left_queued": max(0, len(rows) - len(processed)), "cap_reached": cap_reached, "budget_stop": budget_stop}

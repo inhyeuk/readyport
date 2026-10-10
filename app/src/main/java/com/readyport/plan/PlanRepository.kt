@@ -81,7 +81,19 @@ class PlanRepository(
     val revision: StateFlow<Long> = _revision.asStateFlow()
     private fun bump() = _revision.update { it + 1 }
 
+    /** 푸시로 도착을 알았다 — 끝나지 않은 목록에서 빼서(앱을 켤 때 같은 알림이 또 뜨지 않게) 화면 목록을 새로 읽게 한다 */
+    suspend fun markArrived(id: String) {
+        val pending = local.pending()
+        if (id in pending) local.setPending(pending - id)
+        bump()
+    }
+
     fun signedIn(): Boolean = board.uid() != null
+
+    /** 계획 도착 푸시를 받도록 내 토픽을 구독한다(전에 낸 요청이 있는 기기도). 로그인한 적이 없으면 아무것도 하지 않는다 */
+    fun ensurePush() {
+        board.uid()?.let { backend.subscribePush(it) }
+    }
 
     suspend fun ageStatus(): BoardAge.Status = board.ageStatus()
 

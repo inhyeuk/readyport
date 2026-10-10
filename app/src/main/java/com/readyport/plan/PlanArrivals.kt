@@ -15,6 +15,18 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton
 
+/** 계획 도착 푸시(FCM) — 토픽 이름과 메시지 해석. 토큰은 서버에 저장하지 않는다 */
+object PlanPush {
+    private val SAFE = Regex("^[A-Za-z0-9_-]{1,64}$")
+
+    /** 내 계획 토픽 — 로그인(익명) ID가 안전한 글자일 때만 */
+    fun topic(uid: String): String = "plan_$uid".also { require(SAFE.matches(uid)) }
+
+    /** 푸시 데이터에서 요청 id만 꺼낸다(type=plan). 모양이 다르면 null */
+    fun requestId(data: Map<String, String>): String? =
+        data["request"]?.takeIf { data["type"] == "plan" && Regex("^[A-Za-z0-9]{10,40}$").matches(it) }
+}
+
 /** '여행 계획이 도착했어요' 알림 통로 — 게시판 답글·챙길 일 알림과 따로 켜고 끈다 */
 object PlanNotifications {
     const val CHANNEL = "plan"
@@ -62,9 +74,15 @@ class PlanArrivalCheck @Inject constructor(
     /** [minGapSeconds]: 앱으로 돌아올 때는 10분 안에 또 읽지 않는다 */
     suspend fun run(minGapSeconds: Long = 0) {
         if (settings.current().childMode) return
+        if (!pushEnsured) {
+            pushEnsured = true
+            runCatching { plans.ensurePush() }
+        }
         val done = runCatching { plans.arrivals(minGapSeconds) }.getOrDefault(emptyList())
         PlanNotifications.post(context, done)
     }
+
+    private var pushEnsured = false
 
     companion object {
         const val RESUME_GAP_SECONDS = 600L
