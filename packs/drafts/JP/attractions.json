@@ -11964,6 +11964,353 @@
       "photo_link": "https://commons.wikimedia.org/wiki/File:ファーム富田（Farm_Tomita）_-_panoramio_(4).jpg",
       "source": "wd",
       "last_verified": "2026-10-10"
+    },
+    {
+      "id": "kyoto-aquarium",
+      "qid": "Q11375621",
+      "names": {
+        "ko": "교토 수족관",
+        "ko_basis": "editorial",
+        "en": "Kyoto Aquarium",
+        "local": "京都水族館",
+        "local_short": "京都水族館",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "교토 아쿠아리움"
+      ],
+      "mentions_ko": [
+        "우메코지 공원"
+      ],
+      "region": "jp_kyoto",
+      "area_ko": "교토시 시모교구 우메코지 공원",
+      "category": "theme_park",
+      "geo": {
+        "kind": "entrance",
+        "lat": 34.987556,
+        "lng": 135.747611,
+        "source": "wd",
+        "last_verified": "2026-10-10",
+        "qid": "Q11375621"
+      },
+      "address_local": {
+        "text": "〒600-8835 京都市下京区観喜寺町35-1（梅小路公園内）",
+        "source": "kyotoaqua_official_access",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "train"
+        ],
+        "nearest_ko": "JR 산인선 우메코지교토니시역에서 걸어가요 (교토역 중앙 출구에서도 걸어갈 수 있어요)",
+        "nearest_local": {
+          "text": "梅小路京都西駅",
+          "qid": "Q55670097",
+          "source": "wd"
+        },
+        "source": "kyotoaqua_official_access",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.kyoto-aquarium.com/",
+      "summary_ko": "우메코지 공원 안에 있는 교토의 수족관이에요.",
+      "body_ko": [
+        "교토 수족관은 약 200종 1만 점의 바다·강 생물을 가까이서 볼 수 있어요.",
+        "전시 콘셉트는 '물과 함께 이어지는 생명'으로, 단바 산에 내린 비가 샘물과 강을 거쳐 바다에 이르는 흐름을 재현했어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "약 200종 10,000점의 바다와 강 생물을 가까이서 볼 수 있어요.",
+          "source": "kyotoaqua_official_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "전시 콘셉트는 '물과 함께 이어지는 생명'이고, 단바 산에 내린 비가 샘물·시내·강을 거쳐 바다에 이르는 물의 연결과 생태계를 재현했어요.",
+          "source": "kyotoaqua_official_about",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "다시 들어갈 때는 입구에서 표를 보여 줘요.",
+          "source": "kyotoaqua_official_support",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "도시락은 가져와서 정해진 자리에서 먹을 수 있어요.",
+          "source": "kyotoaqua_official_support",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "경사로와 엘리베이터가 있어서 휠체어·유모차로 다닐 수 있어요.",
+          "source": "kyotoaqua_official_support",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "none"
+        ],
+        "source": "kyotoaqua_official_price",
+        "last_verified": "2026-10-10"
+      },
+      "status": {
+        "value": "open",
+        "source": "kyotoaqua_official_access",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 999,
+        "designations": []
+      },
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Kyoto_Aquarium_in_2013-5-2_No,27.JPG",
+      "source": "wd",
+      "last_verified": "2026-10-10"
+    },
+    {
+      "id": "teamlab-planets",
+      "qid": "Q97613610",
+      "names": {
+        "ko": "팀랩 플래닛 도쿄",
+        "ko_basis": "editorial",
+        "en": "teamLab Planets TOKYO",
+        "local": "チームラボプラネッツ",
+        "local_short": "チームラボプラネッツ",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "팀랩 플래닛",
+        "팀랩 플래넷",
+        "도요스 팀랩"
+      ],
+      "aliases_en": [
+        "teamLab Planets"
+      ],
+      "mentions_ko": [
+        "도요스"
+      ],
+      "region": "jp_tokyo",
+      "area_ko": "도쿄 고토구 도요스",
+      "category": "museum",
+      "geo": {
+        "kind": "entrance",
+        "lat": 35.6492,
+        "lng": 139.7897,
+        "source": "wd",
+        "last_verified": "2026-10-10",
+        "qid": "Q97613610"
+      },
+      "address_local": {
+        "text": "東京都江東区豊洲6-1-16 teamLab Planets TOKYO",
+        "source": "teamlab_official_planets",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "metro"
+        ],
+        "nearest_ko": "신도요스역 북쪽 출구에서 걸어가요",
+        "nearest_local": {
+          "text": "新豊洲駅",
+          "qid": "Q766348",
+          "source": "wd"
+        },
+        "source": "teamlab_official_planets",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.teamlab.art/jp/e/planets/",
+      "summary_ko": "물에 들어가 걷는 몸 전체 체험형 디지털 아트 뮤지엄이에요.",
+      "body_ko": [
+        "팀랩 플래닛은 아트 콜렉티브 팀랩이 만든, 물에 들어가는 뮤지엄이에요.",
+        "전시 기간은 2018년 7월 7일부터 2027년 말까지예요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "아트 콜렉티브 팀랩이 만든 물에 들어가는 뮤지엄이에요.",
+          "source": "teamlab_official_planets",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "전시 기간은 2018년 7월 7일부터 2027년 말까지예요.",
+          "source": "teamlab_official_planets",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "마지막 입관은 문 닫기 한 시간 전이에요.",
+          "source": "teamlab_official_planets",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "함께 있는 가게는 티켓에 적힌 입장 시간 전에는 들어갈 수 없어요.",
+          "source": "teamlab_official_planets",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "irregular"
+        ],
+        "closed_note_ko": "쉬는 날은 공식 사이트 안내를 확인하세요.",
+        "source": "teamlab_official_planets",
+        "last_verified": "2026-10-10"
+      },
+      "status": {
+        "value": "open",
+        "source": "teamlab_official_planets",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 999,
+        "designations": []
+      },
+      "source": "wd",
+      "last_verified": "2026-10-10"
+    },
+    {
+      "id": "tokyo-metropolitan-government-building",
+      "qid": "Q111973",
+      "names": {
+        "ko": "도쿄도청 전망실",
+        "ko_basis": "editorial",
+        "en": "Tokyo Metropolitan Government Building",
+        "local": "東京都庁舎",
+        "local_short": "都庁展望室",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "도쿄 도청",
+        "도청 전망대"
+      ],
+      "aliases_en": [
+        "Tokyo Tocho"
+      ],
+      "mentions_ko": [
+        "남전망실",
+        "북전망실"
+      ],
+      "region": "jp_tokyo",
+      "area_ko": "도쿄 신주쿠구 니시신주쿠",
+      "category": "city_view",
+      "tags": [
+        {
+          "id": "free_entry",
+          "source": "tmg_official_tenbou",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "entrance",
+        "lat": 35.68951,
+        "lng": 139.69171,
+        "source": "wd",
+        "last_verified": "2026-10-10",
+        "qid": "Q111973"
+      },
+      "address_local": {
+        "text": "〒163-8001 東京都新宿区西新宿2-8-1",
+        "source": "tmg_official_shisetsu",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "metro",
+          "train"
+        ],
+        "nearest_ko": "오에도선 도초마에역에서 바로 이어져 있어요 (JR 신주쿠역 서쪽 출구에서도 걸어갈 수 있어요)",
+        "nearest_local": {
+          "text": "都庁前駅",
+          "qid": "Q246186",
+          "source": "wd"
+        },
+        "source": "tmg_official_shisetsu",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.zaimu.metro.tokyo.lg.jp/tochousha/goannai/tenbou",
+      "summary_ko": "도쿄도청 45층에 있는 무료 전망실이에요.",
+      "body_ko": [
+        "도쿄도청 제1본청사 45층에는 남전망실과 북전망실이 있어요.",
+        "전망실은 입실료가 무료이고, 제1본청사 1층의 전용 엘리베이터로 올라가요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "제1본청사 45층에 남전망실과 북전망실이 있어요.",
+          "source": "tmg_official_tenbou",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "전망실 입실료는 무료예요.",
+          "source": "tmg_official_tenbou",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "북전망실은 매달 둘째·넷째 월요일, 남전망실은 첫째·셋째 화요일에 쉬어요.",
+          "source": "tmg_official_tenbou",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "전망실에 가려면 제1본청사 1층의 전용 엘리베이터를 타요.",
+          "source": "tmg_official_tenbou",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "연말연시와 도청 점검일에는 두 전망실 모두 쉬어요.",
+          "source": "tmg_official_tenbou",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "free",
+        "regular_closed": [
+          "irregular"
+        ],
+        "closed_note_ko": "휴실일은 공식 안내를 확인하세요.",
+        "source": "tmg_official_tenbou",
+        "last_verified": "2026-10-10"
+      },
+      "status": {
+        "value": "open",
+        "source": "tmg_official_tenbou",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 999,
+        "designations": []
+      },
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Tokyo_Metropolitan_Government_Building_2024.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10"
     }
   ],
   "retired": [],
@@ -14091,6 +14438,48 @@
       "id": "farmtomita_official_top",
       "name": "ファーム富田 トップ",
       "url": "https://www.farm-tomita.co.jp/",
+      "use": "facts"
+    },
+    {
+      "id": "kyotoaqua_official_about",
+      "name": "【公式】京都水族館について",
+      "url": "https://www.kyoto-aquarium.com/about/",
+      "use": "facts"
+    },
+    {
+      "id": "kyotoaqua_official_access",
+      "name": "【公式】京都水族館 営業時間・アクセス",
+      "url": "https://www.kyoto-aquarium.com/about/access/",
+      "use": "facts"
+    },
+    {
+      "id": "kyotoaqua_official_price",
+      "name": "【公式】京都水族館 ご利用料金・年間パスポート",
+      "url": "https://www.kyoto-aquarium.com/about/price/",
+      "use": "facts"
+    },
+    {
+      "id": "kyotoaqua_official_support",
+      "name": "【公式】京都水族館 ご利用サポート",
+      "url": "https://www.kyoto-aquarium.com/about/support/",
+      "use": "facts"
+    },
+    {
+      "id": "teamlab_official_planets",
+      "name": "【公式】チームラボプラネッツ TOKYO DMM",
+      "url": "https://www.teamlab.art/jp/e/planets/",
+      "use": "facts"
+    },
+    {
+      "id": "tmg_official_shisetsu",
+      "name": "東京都財務局 施設駐車場・交通案内",
+      "url": "https://www.zaimu.metro.tokyo.lg.jp/tochousha/goannai/shisetsu",
+      "use": "facts"
+    },
+    {
+      "id": "tmg_official_tenbou",
+      "name": "東京都財務局 展望室のご利用案内",
+      "url": "https://www.zaimu.metro.tokyo.lg.jp/tochousha/goannai/tenbou",
       "use": "facts"
     }
   ]
