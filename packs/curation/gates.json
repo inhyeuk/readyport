@@ -8,9 +8,14 @@
     "min_categories": 4,
     "min_per_category": 2,
     "category_share_warn": 0.5,
-    "max_thin_detail_ratio": 0.10,
+    "max_thin_detail_ratio": 0.1,
     "max_bytes_per_place": 4608,
     "max_bytes_per_file": 256000
   },
-  "countries": {}
+  "countries": {
+    "JP": {
+      "max_bytes_per_file": 480000,
+      "_note": "2026-10-10 사장님 결정: 일본 상한 상향(256,000→480,000). 앱은 파일 크기 제한이 없고 나라 팩 하나를 통째로 읽어 파싱한다."
+    }
+  }
 }

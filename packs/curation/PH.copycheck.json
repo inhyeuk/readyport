@@ -4,6 +4,11 @@
     "checked_at": "2026-10-10",
     "text_sha256": "669728bc8b250c77a91ab417726e8123005d31e53987f5fd921e2643b06e216d"
   },
+  "aqua-planet": {
+    "cache_set_sha256": "aab645bbaf2bf9ecd7e2312ec1a046e1bc31c0bac68695d9800d99e0a73b22e4",
+    "checked_at": "2026-10-10",
+    "text_sha256": "4c5237e32e8da11bcbb4134242d4c738d87d366b57c5b940d121dcbaad5fa4e7"
+  },
   "baclayon-church": {
     "cache_set_sha256": "07865b849383802f78c596d0351909c24502ef7d861afc825f4ad73328b75a82",
     "checked_at": "2026-10-10",
@@ -24,6 +29,11 @@
     "checked_at": "2026-10-10",
     "text_sha256": "98f0ee35057cc6d0776c08ceee47a5fc367aa3d73c660ed9de0098f984e8d0b2"
   },
+  "d-mall-boracay": {
+    "cache_set_sha256": "d244e00a273aeee358b07e3fc84d257a0409760fc9a18b8a89b808b6cd4c6257",
+    "checked_at": "2026-10-10",
+    "text_sha256": "513639455efb27531675fe3a477516a433b940a6de2e251c7950439f429981b0"
+  },
   "fort-santiago": {
     "cache_set_sha256": "f69baab6b4798c0ff103c17b25e43c2867bf466368f34f5d458539cdbf5aaba9",
     "checked_at": "2026-10-10",
@@ -34,10 +44,50 @@
     "checked_at": "2026-10-10",
     "text_sha256": "3fca5bccc15e02bfac7d2dd8a556a30a399bd5cdd7cab1e1102364f7a1db9020"
   },
+  "holy-rosary-church-angeles": {
+    "cache_set_sha256": "340a1c8f859a8989aa3916679f82836db2263b49f5efcdc1cd4d1388c22976ae",
+    "checked_at": "2026-10-10",
+    "text_sha256": "f4cd8875cdbf7dabfa6effe665d3fa6df899a1bcd0fb1a96abe7ddef1e510dfc"
+  },
+  "kawasan-falls": {
+    "cache_set_sha256": "98a9332785e74abd6367025d50c0c1e48448bbd3100a1da91d5b36e1bb460b2c",
+    "checked_at": "2026-10-10",
+    "text_sha256": "436733b71d98b9f4389d9eaa9124c07fb8ab34052dcf5f5ca1ff3ccd247caf66"
+  },
+  "kayangan-lake": {
+    "cache_set_sha256": "d3e9a277c071e15a738d18f408a0777419a6ec66ed80696d90775ba865d92485",
+    "checked_at": "2026-10-10",
+    "text_sha256": "8a835246680fd756ebbb654482f5747ffd53d0084ef7dd3dc9bbd2502bf10873"
+  },
   "magellans-cross": {
     "cache_set_sha256": "acf5ce863880933e14675ac4e99722999b1a9fa8a4bf5c11a38d5f846891cbac",
     "checked_at": "2026-10-10",
     "text_sha256": "b75ba2d4b8a4d3f203a31cd1cd402d1628c9b6752821531805f8e60a8c5215a9"
+  },
+  "maquinit-hot-spring": {
+    "cache_set_sha256": "bd9f2cf91e896e3e0399e13d236c4dbfe34181c0c6d300f2080335c82322f146",
+    "checked_at": "2026-10-10",
+    "text_sha256": "6117dedbed98555e77e7b9cfff45ec6372ba9e1930a75efe89fad94b9d64efe1"
+  },
+  "moalboal": {
+    "cache_set_sha256": "89b16d2648972a151e6e6adbc608d285ea6100237ff7df18cff3a9fe54e82fac",
+    "checked_at": "2026-10-10",
+    "text_sha256": "6bd7234dbed78870988a53fdd19157696b0cf8cdb576ee511e1416c18ccb5fb4"
+  },
+  "mount-luho": {
+    "cache_set_sha256": "8ca20d310eff24a76ca9ae676efafbf11f2296be4299ec5a02a1975a4166e90d",
+    "checked_at": "2026-10-10",
+    "text_sha256": "a66aebc62bbb2bc1d8c4c10fb7666ce1938ffffccc423cb272dccfe6bad5b488"
+  },
+  "mount-tapyas": {
+    "cache_set_sha256": "16c6a0354299ccc5e09d11c9b9e3244823bf2332bed0361c4c14ae139ae7030b",
+    "checked_at": "2026-10-10",
+    "text_sha256": "049daff6b34bb8c491962d1864db6884709eccf53868fe153fdf551101e7a805"
+  },
+  "museo-ning-angeles": {
+    "cache_set_sha256": "2f09692473863fe338dd1b65de864dd2aac536b3372ab2e7f7ddb90b7a903448",
+    "checked_at": "2026-10-10",
+    "text_sha256": "2c3410c63fbd3fd89843213dd6ddd3cbec3565ed17ceab824c37d27b86ddd8f2"
   },
   "national-museum-bohol": {
     "cache_set_sha256": "79bb4d78c51561aeffbc48701573c1b6c3f40d32cbdcdbec803d2afb0e88059d",
@@ -59,6 +109,36 @@
     "checked_at": "2026-10-10",
     "text_sha256": "4be445dfc588d01642d7c7f05c61c1c8bef80724ad3bbf418411947c432c8ad3"
   },
+  "osmena-peak": {
+    "cache_set_sha256": "05112a1f752f3bf88f598c3bf55aea62e162680e8b97c99392ef00f5acf03b00",
+    "checked_at": "2026-10-10",
+    "text_sha256": "05d57e1f520966de79eef6676f1cd706d92e8883a7c2faedd2a402f204b2e790"
+  },
+  "palawan-wildlife-rescue-center": {
+    "cache_set_sha256": "a03299ca9a57ea90223f879c8040d451bb9cbdd5dfa4d0cf93d9a1168dd6cb77",
+    "checked_at": "2026-10-10",
+    "text_sha256": "1ea5d1cf16738e88935d5d2d7702d2a0862548e009a0c3ce24f08ef889f41660"
+  },
+  "pamintuan-mansion": {
+    "cache_set_sha256": "8fae523600cbc57a8330b98d1837ff388712635835508d22e63c7fdc1d28bb07",
+    "checked_at": "2026-10-10",
+    "text_sha256": "0156392a6e824d8448e05f9b8cba32cf311cb64673697247cbe03d5a6a21888e"
+  },
+  "plaza-cuartel": {
+    "cache_set_sha256": "f662681955dc2f863e5cb1a239b7948dd17c022f1861dfa34ce1a6cfaf87834b",
+    "checked_at": "2026-10-10",
+    "text_sha256": "2efe99038661af4a46efe2248c0fcd5fd92eb28ba9a0e224aa1a069f732b0c3a"
+  },
+  "puerto-princesa-cathedral": {
+    "cache_set_sha256": "7c23dac4776908312db78e5627c15b7d6cdece559c930ba936f2813ccd01e24c",
+    "checked_at": "2026-10-10",
+    "text_sha256": "902f0e12d7d2d02bf50f1476e747caffaed70bd6ac5f7bfd49c1b7e68642d36f"
+  },
+  "puerto-princesa-underground-river": {
+    "cache_set_sha256": "fc889e54a399627559da66f43bd988610cf67e9714588e3d46f77edd6bc54c47",
+    "checked_at": "2026-10-10",
+    "text_sha256": "768815b276f9dd9ac4a54198825f0201a2f942f2a91c6f1a34e801db2bebd2f1"
+  },
   "puka-shell-beach": {
     "cache_set_sha256": "8c46a4d8856ea72eb38e83b062037f5e56aefc3aaa639ff34e864468e033e9bf",
     "checked_at": "2026-10-10",
@@ -73,6 +153,11 @@
     "cache_set_sha256": "6dc57e82f7e6c0fb2e19adbdc9cab4680795afc7a99b29b460f73bc534c5d2d4",
     "checked_at": "2026-10-10",
     "text_sha256": "e214af27b0bd2518326ba57a075bb67363a948aff9a36eb1b564f873c544fe33"
+  },
+  "taal-volcano-view": {
+    "cache_set_sha256": "e1352378d4455946167c81b0586fa2d807e6ece7cf1172762e532e733bd49277",
+    "checked_at": "2026-10-10",
+    "text_sha256": "39858ef8ba7561a1fa6c5dfe40f07a6f65e0502e84afbf4454f64d7252a84a58"
   },
   "white-beach-boracay": {
     "cache_set_sha256": "acf90b373ff92cf6844668d7589a27a7b11ae8533bdb599f0a88a4e75a98f7bf",

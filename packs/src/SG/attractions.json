@@ -2,7 +2,7 @@
   "doc_type": "attractions",
   "schema_version": 1,
   "country": "SG",
-  "version": "2026.10.10-1",
+  "version": "2026.10.10-2",
   "release": "published",
   "editorial_rules": "2026-10",
   "compact_country": true,
@@ -374,6 +374,162 @@
       "id": "mandai_bp_kbyg",
       "name": "Mandai Wildlife Reserve (official) — Know Before You Go: Bird Paradise",
       "url": "https://www.mandai.com/en/plan-your-visit/know-before-you-go/bird-paradise.html",
+      "use": "facts"
+    },
+    {
+      "id": "stb_mbs",
+      "name": "Singapore Tourism Board, VisitSingapore (official) — Marina Bay Sands",
+      "url": "https://www.visitsingapore.com/neighbourhood/featured-neighbourhood/marina-bay/marina-bay-sands/",
+      "use": "facts"
+    },
+    {
+      "id": "mbs_skypark",
+      "name": "Marina Bay Sands (operator, official) — SkyPark Observation Deck (한국어 페이지)",
+      "url": "https://ko.marinabaysands.com/attractions/skypark-observation-deck.html",
+      "use": "facts"
+    },
+    {
+      "id": "asm_home",
+      "name": "ArtScience Museum, Marina Bay Sands (operator, official) — 박물관 홈(한국어 페이지)",
+      "url": "https://ko.marinabaysands.com/museum.html",
+      "use": "facts"
+    },
+    {
+      "id": "roots_sri_mariamman",
+      "name": "Roots.gov.sg (National Heritage Board, official) — Sri Mariamman Temple (National Monuments)",
+      "url": "https://www.roots.gov.sg/places/places-landing/Places/national-monuments/sri-mariamman-temple",
+      "use": "facts"
+    },
+    {
+      "id": "stb_sri_mariamman",
+      "name": "Singapore Tourism Board, VisitSingapore (official) — Sri Mariamman Temple",
+      "url": "https://www.visitsingapore.com/neighbourhood/featured-neighbourhood/chinatown/sri-mariamman-temple/",
+      "use": "facts"
+    },
+    {
+      "id": "roots_thian_hock_keng",
+      "name": "Roots.gov.sg (National Heritage Board, official) — Thian Hock Keng (National Monuments)",
+      "url": "https://www.roots.gov.sg/places/places-landing/Places/national-monuments/thian-hock-keng",
+      "use": "facts"
+    },
+    {
+      "id": "stb_thian_hock_keng",
+      "name": "Singapore Tourism Board, VisitSingapore (official) — Thian Hock Keng Temple",
+      "url": "https://www.visitsingapore.com/neighbourhood/featured-neighbourhood/chinatown/thian-hock-keng-temple/",
+      "use": "facts"
+    },
+    {
+      "id": "thk_about",
+      "name": "Thian Hock Keng (temple, official) — About us",
+      "url": "https://thianhockkeng.com.sg/site/about/",
+      "use": "facts"
+    },
+    {
+      "id": "thk_guided_tours",
+      "name": "Thian Hock Keng (temple, official) — Guided Tours",
+      "url": "https://thianhockkeng.com.sg/site/guided-tours/",
+      "use": "facts"
+    },
+    {
+      "id": "mandai_night_safari",
+      "name": "Mandai Wildlife Reserve (official) — Night Safari",
+      "url": "https://www.mandai.com/en/night-safari.html",
+      "use": "facts"
+    },
+    {
+      "id": "mandai_ns_kbyg",
+      "name": "Mandai Wildlife Reserve (official) — Know Before You Go: Night Safari",
+      "url": "https://www.mandai.com/en/plan-your-visit/know-before-you-go/night-safari.html",
+      "use": "facts"
+    },
+    {
+      "id": "stb_singapore_river",
+      "name": "Singapore Tourism Board, VisitSingapore (official) — Singapore River",
+      "url": "https://www.visitsingapore.com/neighbourhood/featured-neighbourhood/singapore-river/",
+      "use": "facts"
+    },
+    {
+      "id": "capitaland_clarke_quay",
+      "name": "CapitaLand (operator, official) — CQ @ Clarke Quay",
+      "url": "https://www.capitaland.com/sg/malls/clarkequay/en.html",
+      "use": "facts"
+    },
+    {
+      "id": "nparks_npn",
+      "name": "National Parks Board (NParks, official) — Nature areas and nature park networks (The Southern Ridges)",
+      "url": "https://www.nparks.gov.sg/visit/when-visiting-parks/about-parks-nature-reserves-pcns/nature-park-networks-areas",
+      "use": "facts"
+    },
+    {
+      "id": "nparks_henderson_waves",
+      "name": "National Parks Board (NParks, official) — Henderson Waves (Telok Blangah Hill Park)",
+      "url": "https://www.nparks.gov.sg/visit/parks/telok-blangah-hill-park/special-features/henderson-waves",
+      "use": "facts"
+    },
+    {
+      "id": "nparks_telok_blangah",
+      "name": "National Parks Board (NParks, official) — Telok Blangah Hill Park",
+      "url": "https://www.nparks.gov.sg/visit/parks/park-detail/telok-blangah-hill-park",
+      "use": "facts"
+    },
+    {
+      "id": "nparks_mount_faber",
+      "name": "National Parks Board (NParks, official) — Mount Faber Park",
+      "url": "https://www.nparks.gov.sg/visit/parks/park-detail/mount-faber-park",
+      "use": "facts"
+    },
+    {
+      "id": "stb_flyer",
+      "name": "Singapore Tourism Board, VisitSingapore (official) — Singapore Flyer",
+      "url": "https://www.visitsingapore.com/see-do-singapore/recreation-leisure/viewpoints/singapore-flyer/",
+      "use": "facts"
+    },
+    {
+      "id": "flyer_plan",
+      "name": "Singapore Flyer (operator, official) — Plan Your Visit",
+      "url": "https://www.singaporeflyer.com/en/plan-your-visit",
+      "use": "facts"
+    },
+    {
+      "id": "flyer_about",
+      "name": "Singapore Flyer (operator, official) — About Singapore Flyer",
+      "url": "https://www.singaporeflyer.com/en/about-singapore-flyer",
+      "use": "facts"
+    },
+    {
+      "id": "flyer_getting_to",
+      "name": "Singapore Flyer (operator, official) — Getting to Singapore Flyer",
+      "url": "https://www.singaporeflyer.com/en/amenity/getting-to-singapore-flyer",
+      "use": "facts"
+    },
+    {
+      "id": "flyer_faqs",
+      "name": "Singapore Flyer (operator, official) — FAQs",
+      "url": "https://www.singaporeflyer.com/en/faqs",
+      "use": "facts"
+    },
+    {
+      "id": "flyer_ticket",
+      "name": "Singapore Flyer (operator, official) — Singapore Flyer Ticket",
+      "url": "https://www.singaporeflyer.com/en/ticket/singapore-flyer-ticket",
+      "use": "facts"
+    },
+    {
+      "id": "flyer_guest_info",
+      "name": "Singapore Flyer (operator, official) — Guest Information",
+      "url": "https://www.singaporeflyer.com/en/guest-information",
+      "use": "facts"
+    },
+    {
+      "id": "stb_kampong_gelam",
+      "name": "Singapore Tourism Board, VisitSingapore (official) — Kampong Gelam",
+      "url": "https://www.visitsingapore.com/neighbourhood/featured-neighbourhood/kampong-gelam/",
+      "use": "facts"
+    },
+    {
+      "id": "roots_sultan_mosque",
+      "name": "Roots.gov.sg (National Heritage Board, official) — Sultan Mosque (National Monuments)",
+      "url": "https://www.roots.gov.sg/places/places-landing/Places/national-monuments/sultan-mosque",
       "use": "facts"
     }
   ],
@@ -846,6 +1002,163 @@
       "google_place_id": "ChIJQ37YS3MZ2jEReqrALU2hEew"
     },
     {
+      "id": "sri-mariamman-temple",
+      "qid": "Q2428845",
+      "names": {
+        "ko": "스리 마리암만 사원",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Sri Mariamman Temple",
+        "local": "Sri Mariamman Temple, Singapore",
+        "local_short": "Sri Mariamman Temple",
+        "local_lang": "en",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "스리 마리암만 템플",
+        "마리암만 사원"
+      ],
+      "aliases_en": [],
+      "mentions_ko": [
+        "티미티"
+      ],
+      "region": "sg_central",
+      "area_ko": "차이나타운",
+      "category": "heritage",
+      "tags": [
+        {
+          "id": "dress_code",
+          "source": "stb_sri_mariamman",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 1.28261,
+        "lng": 103.845,
+        "source": "wd",
+        "qid": "Q2428845",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 1.28261,
+        "lng": 103.845
+      },
+      "address_local": {
+        "text": "244 South Bridge Road, Singapore 058793",
+        "source": "roots_sri_mariamman",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "metro"
+        ],
+        "nearest_ko": "MRT 맥스웰역에서 걸어가요",
+        "nearest_local": {
+          "text": "Maxwell MRT station",
+          "qid": "Q6796128",
+          "source": "wd"
+        },
+        "source": "stb_sri_mariamman",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.heb.org.sg/sri-mariamman-temple",
+      "wiki": {
+        "ko": "스리 마리암만 사원",
+        "en": "Sri Mariamman Temple, Singapore"
+      },
+      "summary_ko": "차이나타운 사우스 브리지 로드에 있는 힌두교 사원이에요.",
+      "body_ko": [
+        "스리 마리암만 사원은 1819년 래플스와 함께 싱가포르에 온 인도계 개척자 나라이나 필라이가 세운 곳으로, 싱가포르에서 가장 오래된 힌두교 사원이에요.",
+        "지금 자리는 1823년에 받았고, 1827년까지 나무와 아탑 지붕으로 지은 뒤 벽돌 건물의 가장 오래된 부분은 1843년쯤 지었어요.",
+        "입구 위 5층 고푸람(탑문)은 1925년에 지금 모습으로 바뀌었고, 해마다 10월이나 11월에 불 위를 걷는 축제 티미티가 열려요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "1819년 래플스의 두 번째 싱가포르 방문 때 함께 온 페낭 출신 관리 나라이나 필라이가 세운 사원이에요.",
+          "source": "roots_sri_mariamman",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "지금 자리는 1823년 싱가포르 첫 도시계획에서 받았고, 1827년까지 나무와 아탑으로 지었어요. 벽돌 건물의 가장 오래된 부분은 1843년쯤 지었어요.",
+          "source": "roots_sri_mariamman",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "1925년에 원래 3층이던 고푸람이 지금의 5층 탑으로 바뀌었어요.",
+          "source": "roots_sri_mariamman",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "해마다 10월이나 11월에 불 위를 걷는 축제 티미티가 열려요. 싱가포르에서 가장 오래된 힌두교 사원이에요.",
+          "source": "roots_sri_mariamman",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "사원에 들어가기 전에 신발을 벗어요.",
+          "source": "stb_sri_mariamman",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "등·어깨가 드러나는 옷, 반바지, 짧은 치마는 피해요. 입구에서 가릴 옷을 빌려줘요.",
+          "source": "stb_sri_mariamman",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "티미티 축제 때는 세랑군 로드의 사원에서 이곳까지 신자들의 행렬이 이어져요.",
+          "source": "roots_sri_mariamman",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "unknown",
+        "regular_closed": [
+          "none"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "stb_sri_mariamman",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "stb_sri_mariamman",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_sg",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 4,
+        "designations": [
+          {
+            "kind": "sg_national_monument",
+            "name_ko": "국가기념물",
+            "source": "roots_sri_mariamman"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Gopuram_-_Sri_Mariamman_Temple_Singapore_(2023)_-_img_01.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJ0yjU0QwZ2jER6gg0ImuCTRU"
+    },
+    {
       "id": "singapore-botanic-gardens",
       "qid": "Q3046409",
       "names": {
@@ -1002,7 +1315,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 4,
+        "order": 5,
         "designations": [
           {
             "kind": "unesco",
@@ -1145,7 +1458,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 5,
+        "order": 6,
         "designations": [
           {
             "kind": "sg_conservation_area",
@@ -1159,6 +1472,485 @@
       "source": "wd",
       "last_verified": "2026-10-09",
       "google_place_id": "ChIJo3WI6o0Z2jERpTdJzN1gGyI"
+    },
+    {
+      "id": "thian-hock-keng",
+      "qid": "Q2158122",
+      "names": {
+        "ko": "티안혹켕 사원",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Thian Hock Keng",
+        "local": "Thian Hock Keng",
+        "local_short": "Thian Hock Keng",
+        "local_lang": "en",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "천복궁",
+        "티엔혹켕 사원",
+        "텐복궁"
+      ],
+      "aliases_en": [
+        "Thian Hock Keng Temple",
+        "Tian Fu Gong"
+      ],
+      "mentions_ko": [
+        "마조"
+      ],
+      "region": "sg_central",
+      "area_ko": "차이나타운 텔록 아이어",
+      "category": "heritage",
+      "tags": [
+        {
+          "id": "dress_code",
+          "source": "stb_thian_hock_keng",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 1.281056,
+        "lng": 103.847528,
+        "source": "wd",
+        "qid": "Q2158122",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 1.281056,
+        "lng": 103.847528
+      },
+      "address_local": {
+        "text": "158 Telok Ayer Street, Singapore 068613",
+        "source": "roots_thian_hock_keng",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "metro"
+        ],
+        "nearest_ko": "MRT 텔록 아이어역에서 걸어가요",
+        "nearest_local": {
+          "text": "Telok Ayer MRT station",
+          "qid": "Q7697794",
+          "source": "wd"
+        },
+        "source": "stb_thian_hock_keng",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.thianhockkeng.com.sg/",
+      "wiki": {
+        "ko": "천복궁",
+        "en": "Thian Hock Keng Temple"
+      },
+      "summary_ko": "1839년에 짓기 시작한 싱가포르의 오래된 호키엔 사원이에요.",
+      "body_ko": [
+        "티안혹켕은 바다의 여신 마조를 모시는 사원으로, 1839년 탄톡셍 등 호키엔 이민자들이 당시 해안이던 텔록 아이어 거리에 세웠어요.",
+        "남부 중국 양식으로 못을 쓰지 않고 지었고, 지붕 용마루 끝이 제비 꼬리처럼 올라가 있어요.",
+        "1973년 국가기념물로 지정됐고, 1998~2000년 복원은 2001년 유네스코 아시아태평양 문화유산 보존상을 받았어요.",
+        "본당에는 1907년 청나라 광서제가 내린 현판이 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "1839년 탄톡셍과 시후케의 주도로 호키엔 공동체가 텔록 아이어 거리에 지었고, 마조(바다의 여신)에게 안전한 항해를 감사하는 이민자들이 찾던 사원이에요.",
+          "source": "thk_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "남부 중국 전통 양식으로, 못을 쓰지 않고 짜 맞춰 지었어요.",
+          "source": "thk_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "지붕 용마루 끝이 제비 꼬리 모양으로 올라간 호키엔 양식이고, 당시에는 텔록 아이어 해안가에 있었어요.",
+          "source": "roots_thian_hock_keng",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "1973년 국가기념물로 지정됐고, 1998년부터 2000년 12월까지의 복원 사업은 2001년 유네스코 아시아태평양 문화유산상을 받았어요.",
+          "source": "thk_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "본당에 1907년 청나라 광서제가 내린 '파정남명' 현판이 있어요.",
+          "source": "thk_about",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "등·어깨가 드러나는 옷, 반바지, 짧은 치마는 피해 달라고 해요.",
+          "source": "stb_thian_hock_keng",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "안내 투어는 두 달 전에 이메일로 미리 신청해야 해요.",
+          "source": "thk_guided_tours",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "사원 안 다섯 곳의 QR 코드를 찍으면 혼자서도 둘러볼 수 있는 가상 투어가 열려요.",
+          "source": "thk_guided_tours",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "unknown",
+        "regular_closed": [
+          "none"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "stb_thian_hock_keng",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "stb_thian_hock_keng",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_sg",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 7,
+        "designations": [
+          {
+            "kind": "sg_national_monument",
+            "name_ko": "국가기념물(1973, 총원각과 함께)",
+            "source": "thk_about"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Thian_Hock_Keng_Temple_3,_Dec_05.JPG",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJ9e68CQ0Z2jER4G80iFVcJgo"
+    },
+    {
+      "id": "clarke-quay",
+      "qid": "Q1095828",
+      "names": {
+        "ko": "클라크 키",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Clarke Quay",
+        "local": "Clarke Quay",
+        "local_short": "Clarke Quay",
+        "local_lang": "en",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "클락키",
+        "클라키"
+      ],
+      "aliases_en": [
+        "Clark Quay",
+        "CQ @ Clarke Quay"
+      ],
+      "mentions_ko": [
+        "보트 키",
+        "로버트슨 키",
+        "싱가포르 리버 크루즈"
+      ],
+      "region": "sg_central",
+      "area_ko": "싱가포르강",
+      "category": "market_street",
+      "tags": [
+        {
+          "id": "night",
+          "source": "stb_singapore_river",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 1.29002,
+        "lng": 103.846,
+        "source": "wd",
+        "qid": "Q1095828",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 1.29002,
+        "lng": 103.846
+      },
+      "access": {
+        "modes": [
+          "metro"
+        ],
+        "nearest_ko": "MRT 클라크 키역에서 내려요",
+        "nearest_local": {
+          "text": "Clarke Quay MRT station",
+          "qid": "Q2012051",
+          "source": "wd"
+        },
+        "source": "stb_singapore_river",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.visitsingapore.com/neighbourhood/featured-neighbourhood/singapore-river/",
+      "wiki": {
+        "ko": "클라크키",
+        "en": "Clarke Quay"
+      },
+      "summary_ko": "싱가포르강 변에 식당·바·클럽이 모인 거리예요.",
+      "body_ko": [
+        "클라크 키는 싱가포르강을 따라 보트 키·로버트슨 키와 함께 이어지는 강변 구역이에요.",
+        "싱가포르강 일대(보트 키·클라크 키)는 1989년 7월 7일 보존지구로 지정됐어요.",
+        "자정 넘어서까지 여는 클럽이 많아 싱가포르 밤 문화의 중심으로 꼽히고, 캐피탈랜드가 운영하는 'CQ @ 클라크 키'에 식당과 상점이 모여 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "싱가포르강 변의 세 부두 구역(보트 키·클라크 키·로버트슨 키) 가운데 하나예요.",
+          "source": "stb_singapore_river",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "싱가포르강 일대(보트 키·클라크 키)는 1989년 7월 7일 보존지구로 지정됐어요.",
+          "source": "ura_programme",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "자정 넘어서까지 여는 클럽이 모여 있어 밤 문화의 중심으로 꼽혀요.",
+          "source": "stb_singapore_river",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "캐피탈랜드가 운영하는 'CQ @ 클라크 키'에 식당과 상점이 모여 있어요.",
+          "source": "capitaland_clarke_quay",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "강을 따라 다니는 싱가포르 리버 크루즈를 탈 수 있어요.",
+          "source": "stb_singapore_river",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "금·토요일 밤에는 CQ 야간 셔틀이 다녀요.",
+          "source": "capitaland_clarke_quay",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "옆 보트 키에는 식당과 바, 카페가 이어져요.",
+          "source": "stb_singapore_river",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "public_space"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "stb_singapore_river",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_sg",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 8,
+        "designations": [
+          {
+            "kind": "sg_conservation_area",
+            "name_ko": "보존지구(URA, 1989, 싱가포르강)",
+            "source": "ura_programme"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Clarke_Quay_9,_Feb_06.JPG",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJnXwAOKAZ2jERAs-MHs1aDgI"
+    },
+    {
+      "id": "kampong-glam",
+      "qid": "Q4251481",
+      "names": {
+        "ko": "캄퐁 글람",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Kampong Gelam",
+        "local": "Kampong Glam",
+        "local_short": "Kampong Glam",
+        "local_lang": "en",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "캄퐁 글램",
+        "캄퐁 게람",
+        "하지 레인",
+        "아랍 스트리트",
+        "부소라 스트리트"
+      ],
+      "aliases_en": [
+        "Kampong Glam",
+        "Haji Lane",
+        "Arab Street"
+      ],
+      "mentions_ko": [
+        "술탄 모스크",
+        "부기스"
+      ],
+      "region": "sg_central",
+      "area_ko": "부기스·캄퐁 글람",
+      "category": "market_street",
+      "tags": [
+        {
+          "id": "night",
+          "source": "stb_kampong_gelam",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 1.30078,
+        "lng": 103.85908,
+        "source": "wd",
+        "qid": "Q5639900",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 1.3019722222222,
+        "lng": 103.86094444444
+      },
+      "access": {
+        "modes": [
+          "metro"
+        ],
+        "nearest_ko": "MRT 부기스역에서 걸어가요",
+        "nearest_local": {
+          "text": "Bugis MRT station",
+          "qid": "Q3268537",
+          "source": "wd"
+        },
+        "source": "stb_kampong_gelam",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.visitsingapore.com/neighbourhood/featured-neighbourhood/kampong-gelam/",
+      "wiki": {
+        "en": "Kampong Glam"
+      },
+      "summary_ko": "술탄 모스크와 하지 레인이 있는 말레이·아랍 문화의 동네예요.",
+      "body_ko": [
+        "캄퐁 글람은 싱가포르에서 가장 오래된 시가지 가운데 하나로, 1989년 7월 7일 보존지구로 지정됐어요.",
+        "황금빛 돔의 술탄 모스크는 1824년 조호르 술탄의 왕실 모스크로 시작해 지금 건물은 1932년에 완성됐고, 국가기념물이에요.",
+        "하지 레인에는 벽화와 작은 바, 부티크 상점이 이어지고, 해가 지면 거리 음악과 야식 가게로 북적여요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "싱가포르에서 가장 오래된 시가지 가운데 하나예요.",
+          "source": "stb_kampong_gelam",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "1989년 7월 7일 보존지구로 지정됐어요.",
+          "source": "ura_programme",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "술탄 모스크는 1824년 조호르 술탄의 왕실 모스크 터로 땅을 받아 시작했고, 지금 건물은 1932년에 완성됐어요. 국가기념물이에요.",
+          "source": "roots_sultan_mosque",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "술탄 모스크에는 두 개의 큰 황금빛 양파 모양 돔이 있어요.",
+          "source": "roots_sultan_mosque",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "하지 레인에는 벽화와 작은 바, 부티크 상점이 있고, 해가 지면 거리 음악과 야식 가게로 북적여요.",
+          "source": "stb_kampong_gelam",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "라마단 기간에는 술탄 모스크 주변에 바자르가 열려요.",
+          "source": "roots_sultan_mosque",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "부기스 쪽으로 이어지는 거리에는 옷과 잡화를 파는 노점 시장이 있어요.",
+          "source": "stb_kampong_gelam",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "중국·말레이·인도·유럽 문화가 섞인 동네라 모스크와 사원 같은 종교 시설이 가까이 있어요.",
+          "source": "stb_kampong_gelam",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "public_space"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "stb_kampong_gelam",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_sg",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 9,
+        "designations": [
+          {
+            "kind": "sg_conservation_area",
+            "name_ko": "보존지구(URA, 1989)",
+            "source": "ura_programme"
+          },
+          {
+            "kind": "sg_national_monument",
+            "name_ko": "국가기념물 술탄 모스크",
+            "source": "roots_sultan_mosque"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Kampong_Glam_aerial_shot_-_20250628_-_RSKY.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJ18kcLbEZ2jERHV-sR1RGyZc"
     },
     {
       "id": "fort-siloso",
@@ -1292,7 +2084,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 6,
+        "order": 10,
         "designations": [
           {
             "kind": "sg_national_monument",
@@ -1306,6 +2098,171 @@
       "source": "wd",
       "last_verified": "2026-10-09",
       "google_place_id": "ChIJWbbHWvAb2jERpIJ56UdMj_E"
+    },
+    {
+      "id": "marina-bay-sands-skypark",
+      "qid": "Q548679",
+      "names": {
+        "ko": "마리나베이샌즈 스카이파크 전망대",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Marina Bay Sands SkyPark Observation Deck",
+        "local": "Marina Bay Sands",
+        "local_short": "SkyPark Observation Deck",
+        "local_lang": "en",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "마리나 베이 샌즈 스카이파크",
+        "샌즈 스카이파크",
+        "스카이파크 전망대",
+        "마리나베이샌즈 전망대",
+        "마리나 베이 샌즈"
+      ],
+      "aliases_en": [
+        "Sands SkyPark Observation Deck",
+        "Marina Bay Sands SkyPark"
+      ],
+      "mentions_ko": [
+        "스펙트라"
+      ],
+      "region": "sg_central",
+      "area_ko": "마리나베이",
+      "category": "city_view",
+      "tags": [
+        {
+          "id": "night",
+          "source": "mbs_skypark",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 1.2839344813519444,
+        "lng": 103.85912795767223,
+        "source": "wd",
+        "qid": "Q136099151",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 1.2825,
+        "lng": 103.86
+      },
+      "address_local": {
+        "text": "10 Bayfront Ave, Singapore 018956",
+        "source": "stb_mbs",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "metro"
+        ],
+        "nearest_ko": "MRT 베이프런트역에서 걸어가요(전망대 입구는 호텔 타워 3 쪽)",
+        "nearest_local": {
+          "text": "Bayfront MRT station",
+          "qid": "Q1106644",
+          "source": "wd"
+        },
+        "source": "stb_mbs",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.marinabaysands.com/attractions/skypark-observation-deck.html",
+      "wiki": {
+        "ko": "마리나 베이 샌즈",
+        "en": "Marina Bay Sands"
+      },
+      "summary_ko": "마리나베이샌즈 호텔 타워 3 위에 있는 56층 노천 전망대예요.",
+      "body_ko": [
+        "스카이파크 전망대는 마리나베이샌즈 호텔 타워 3의 56층에 있는 공용 전망대로, 57층 일부와 이어진 중간층까지 포함해요.",
+        "가든스 바이 더 베이와 에스플러네이드의 돔 등 마리나베이 일대 랜드마크가 내려다보여요.",
+        "저녁에는 전망대에서 빛과 물 쇼 '스펙트라'를 볼 수 있어요.",
+        "57층의 인피니티 풀은 호텔 투숙객만 쓸 수 있어 전망대 표로는 들어갈 수 없어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "전망대는 호텔 타워 3의 56층에 있고, 입구는 호텔 타워 3 진입로 쪽이에요.",
+          "source": "mbs_skypark",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "56층 공용 전망대와 57층 일부로 이어지는 중간층으로 이뤄져 있고, 57층 인피니티 풀은 호텔 투숙객 전용이에요.",
+          "source": "mbs_skypark",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "가든스 바이 더 베이와 에스플러네이드의 돔 같은 랜드마크가 보여요.",
+          "source": "mbs_skypark",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "저녁에는 전망대에서 빛과 물 쇼 스펙트라를 볼 수 있어요.",
+          "source": "mbs_skypark",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "노천 공간이라 폭우나 낙뢰 때는 안전을 위해 잠시 닫을 수 있어요.",
+          "source": "mbs_skypark",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "수하물, 삼각대 같은 전문 촬영 장비, 밖에서 산 음식·음료는 가지고 올라갈 수 없어요.",
+          "source": "mbs_skypark",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "입장 시간대가 정해져 있어 온라인으로 미리 표를 사 두라고 권해요.",
+          "source": "mbs_skypark",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "신발을 꼭 신어야 하고 맨발로는 들어갈 수 없어요.",
+          "source": "mbs_skypark",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "booking": "recommended",
+        "booking_note_ko": "원하는 입장 시간대를 위해 온라인 사전 구매를 권해요.",
+        "regular_closed": [
+          "none"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "mbs_skypark",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "mbs_skypark",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_sg",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 11,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Marina_Bay_Sands_Hotel_3_(31345110894).jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJA5LATO4Z2jER111V-v6abAI"
     },
     {
       "id": "merlion-park",
@@ -1426,7 +2383,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 7,
+        "order": 12,
         "designations": []
       },
       "photo": null,
@@ -1569,7 +2526,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 8,
+        "order": 13,
         "designations": []
       },
       "photo": null,
@@ -1730,7 +2687,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 9,
+        "order": 14,
         "designations": []
       },
       "photo": null,
@@ -1738,6 +2695,177 @@
       "source": "wd",
       "last_verified": "2026-10-09",
       "google_place_id": "ChIJMxZ-kwQZ2jERdsqftXeWCWI"
+    },
+    {
+      "id": "singapore-flyer",
+      "qid": "Q752407",
+      "names": {
+        "ko": "싱가포르 플라이어",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Singapore Flyer",
+        "local": "Singapore Flyer",
+        "local_short": "Singapore Flyer",
+        "local_lang": "en",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "싱가포르 대관람차",
+        "싱가폴 플라이어",
+        "플라이어"
+      ],
+      "aliases_en": [],
+      "mentions_ko": [
+        "타임 캡슐"
+      ],
+      "region": "sg_central",
+      "area_ko": "마리나베이",
+      "category": "city_view",
+      "tags": [
+        {
+          "id": "night",
+          "source": "flyer_plan",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "step_free",
+          "source": "flyer_guest_info",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 1.289389,
+        "lng": 103.863222,
+        "source": "wd",
+        "qid": "Q752407",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 1.289389,
+        "lng": 103.863222
+      },
+      "address_local": {
+        "text": "30 Raffles Avenue, Singapore 039803",
+        "source": "flyer_guest_info",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "metro"
+        ],
+        "nearest_ko": "MRT 프롬나드역 A 출구에서 걸어가요",
+        "nearest_local": {
+          "text": "Promenade MRT station",
+          "qid": "Q1089363",
+          "source": "wd"
+        },
+        "source": "flyer_getting_to",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.singaporeflyer.com/",
+      "wiki": {
+        "ko": "싱가포르 플라이어",
+        "en": "Singapore Flyer"
+      },
+      "summary_ko": "마리나베이에 있는 높이 165m의 대관람차예요.",
+      "body_ko": [
+        "싱가포르 플라이어는 2008년 4월 15일 정식 개장한 높이 165m의 관람차로, 아시아에서 가장 큰 관람차예요.",
+        "유리 캡슐 28개가 한 바퀴 도는 데 약 30분이 걸리고, 캡슐 하나에 28명까지 탈 수 있어요.",
+        "탑승 전에는 싱가포르 역사를 소개하는 전시 '타임 캡슐'을 지나가요.",
+        "운이 좋으면 창이 공항과 센토사, 말레이시아·인도네시아 일부까지 보여요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "2008년 4월 15일 정식 개장했고, 아시아에서 가장 큰 관람차로 지어졌어요.",
+          "source": "flyer_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "높이 165m로, 아시아에서 가장 큰 관람차예요.",
+          "source": "stb_flyer",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "캡슐은 28개이고 한 캡슐에 28명까지 탈 수 있어요. 한 바퀴에 약 30분 걸려요.",
+          "source": "flyer_faqs",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "탑승 전에 싱가포르 역사를 다룬 전시 '타임 캡슐'을 지나가요.",
+          "source": "flyer_ticket",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "운이 좋으면 창이 공항, 센토사, 말레이시아·인도네시아 일부까지 보여요.",
+          "source": "stb_flyer",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "입장 시간대 예약은 필요 없고, 현장 매표소에서도 표를 살 수 있어요.",
+          "source": "flyer_plan",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "유모차·여행 가방 같은 큰 짐은 탑승 입구에 맡겨야 해요.",
+          "source": "flyer_faqs",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "밖에서 산 음식과 음료는 캡슐 안에서 먹을 수 없어요.",
+          "source": "flyer_faqs",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "캡슐 안에 화장실이 없으니 타기 전에 다녀오세요.",
+          "source": "flyer_faqs",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "booking": "none",
+        "booking_note_ko": null,
+        "regular_closed": [
+          "none"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "flyer_plan",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "flyer_plan",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_sg",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 15,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Dikaiosp_210819_6963.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJzVHFNqkZ2jERboLN2YrltH8"
     },
     {
       "id": "singapore-zoo",
@@ -1871,7 +2999,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 10,
+        "order": 16,
         "designations": []
       },
       "photo": null,
@@ -1879,6 +3007,162 @@
       "source": "wd",
       "last_verified": "2026-10-09",
       "google_place_id": "ChIJr9wqENkT2jERkRs7pMj6FLQ"
+    },
+    {
+      "id": "night-safari",
+      "qid": "Q2234723",
+      "names": {
+        "ko": "나이트 사파리",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Night Safari",
+        "local": "Night Safari",
+        "local_short": "Night Safari",
+        "local_lang": "en",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "싱가포르 나이트 사파리",
+        "야간 동물원"
+      ],
+      "aliases_en": [
+        "Singapore Night Safari",
+        "Night Safari, Singapore"
+      ],
+      "mentions_ko": [
+        "사파리 어드벤처 트램"
+      ],
+      "region": "sg_north",
+      "area_ko": "만다이",
+      "category": "theme_park",
+      "tags": [
+        {
+          "id": "night",
+          "source": "mandai_night_safari",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "booking_required",
+          "source": "mandai_night_safari",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 1.404015,
+        "lng": 103.789223,
+        "source": "wd",
+        "qid": "Q2234723",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 1.404015,
+        "lng": 103.789223
+      },
+      "access": {
+        "modes": [
+          "metro",
+          "bus"
+        ],
+        "nearest_ko": "MRT 카팁역 A 출구에서 만다이 카팁 버스(M2)를 타요",
+        "nearest_local": {
+          "text": "Khatib MRT station",
+          "qid": "Q2152805",
+          "source": "wd"
+        },
+        "source": "mandai_getting_there",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.mandai.com/en/night-safari.html",
+      "wiki": {
+        "ko": "나이트 사파리 (싱가포르)",
+        "en": "Night Safari, Singapore"
+      },
+      "summary_ko": "밤에 문을 여는 만다이의 야행성 동물 공원이에요.",
+      "body_ko": [
+        "나이트 사파리는 해가 진 뒤에 문을 여는 야생동물 공원으로, 야행성 동물 900마리 이상이 살아요.",
+        "걷는 길 4곳과 사파리 어드벤처 트램을 타고 둘러보며, 말레이맥과 사자 같은 동물을 볼 수 있어요.",
+        "트램에는 영어 해설이 나오고, 일부 트램에는 휠체어 자리가 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "야행성 동물 900마리 이상이 살고, 걷는 길 4곳과 사파리 어드벤처 트램으로 둘러봐요. 말레이맥과 사자도 볼 수 있어요.",
+          "source": "mandai_night_safari",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "저녁에 열어 밤까지 운영해요.",
+          "source": "mandai_night_safari",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "트램에는 영어 해설이 있고, 일부 트램에 휠체어 자리가 있어요.",
+          "source": "mandai_ns_kbyg",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "벌레 기피제를 바르고 편한 신발을 신으라고 해요.",
+          "source": "mandai_ns_kbyg",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "동물이 놀라지 않도록 카메라 플래시는 꺼 주세요.",
+          "source": "mandai_ns_kbyg",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "번개가 치면 바로 실내로 들어가라고 안내해요.",
+          "source": "mandai_ns_kbyg",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "동물 설명회 좌석은 온라인으로 미리 예약해야 해요.",
+          "source": "mandai_ns_kbyg",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "booking": "required",
+        "booking_note_ko": "모든 방문객은 입장 시간대를 미리 골라야 해요.",
+        "regular_closed": [
+          "none"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "mandai_night_safari",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "mandai_night_safari",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_sg",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 17,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Night_Safari_entrance_2016.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJ9xUuiNcT2jER49FS2OpE8W8"
     },
     {
       "id": "orchard-road",
@@ -2002,7 +3286,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 11,
+        "order": 18,
         "designations": []
       },
       "photo": null,
@@ -2144,7 +3428,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 12,
+        "order": 19,
         "designations": []
       },
       "photo": null,
@@ -2294,7 +3578,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 13,
+        "order": 20,
         "designations": []
       },
       "photo": null,
@@ -2425,7 +3709,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 14,
+        "order": 21,
         "designations": []
       },
       "photo": null,
@@ -2433,6 +3717,150 @@
       "source": "wd",
       "last_verified": "2026-10-09",
       "google_place_id": "ChIJj-3Cq_0b2jERJv2MBkSVsPQ"
+    },
+    {
+      "id": "artscience-museum",
+      "qid": "Q2744014",
+      "names": {
+        "ko": "아트사이언스 뮤지엄",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "ArtScience Museum",
+        "local": "ArtScience Museum",
+        "local_short": "ArtScience Museum",
+        "local_lang": "en",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "아트사이언스 박물관",
+        "마리나베이샌즈 아트사이언스 뮤지엄"
+      ],
+      "aliases_en": [],
+      "mentions_ko": [
+        "팀랩 퓨처 월드"
+      ],
+      "region": "sg_central",
+      "area_ko": "마리나베이",
+      "category": "museum",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 1.28611,
+        "lng": 103.859,
+        "source": "wd",
+        "qid": "Q2744014",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 1.28611,
+        "lng": 103.859
+      },
+      "address_local": {
+        "text": "6 Bayfront Avenue, Singapore 018974",
+        "source": "asm_home",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "metro"
+        ],
+        "nearest_ko": "MRT 베이프런트역에서 걸어가요",
+        "nearest_local": {
+          "text": "Bayfront MRT station",
+          "qid": "Q1106644",
+          "source": "wd"
+        },
+        "source": "stb_mbs",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.marinabaysands.com/museum.html",
+      "wiki": {
+        "en": "ArtScience Museum"
+      },
+      "summary_ko": "연꽃 모양 건물의 예술·과학·기술 전시 박물관이에요.",
+      "body_ko": [
+        "아트사이언스 뮤지엄은 마리나베이샌즈 안에 있는 박물관으로, 예술·문화·기술이 만나는 지점을 다루는 전시를 열어요.",
+        "연꽃에서 영감을 받은 건물 모양 때문에 마리나베이 물가의 '환영하는 손'이라고도 불려요.",
+        "팀랩과 함께 만든 상설 전시 '팀랩 퓨처 월드'가 매일 열리고, 기획전은 전시마다 기간이 정해져 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "예술·문화·기술이 만나는 지점을 다루는 전시를 여는 박물관이에요.",
+          "source": "stb_mbs",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "연꽃에서 영감을 받은 건물로, 마리나베이 물가의 '싱가포르의 환영하는 손'이라고 불려요.",
+          "source": "stb_mbs",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "상설 전시 '팀랩 퓨처 월드'가 매일 열려요.",
+          "source": "asm_home",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "기획전은 전시마다 기간이 정해져 있어요.",
+          "source": "asm_home",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "폐관 한 시간 전까지만 입장할 수 있어요.",
+          "source": "asm_home",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "밤에는 근처 이벤트 플라자에서 무료 야외 쇼 '스펙트라'가 열려요(요일별로 달라요).",
+          "source": "stb_mbs",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "회원 제도 '아트사이언스 프렌즈'에 들면 전시를 무제한으로 볼 수 있어요.",
+          "source": "asm_home",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "unknown",
+        "regular_closed": [
+          "none"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "asm_home",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "asm_home",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_sg",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 22,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Singapore_ArtScience_Museum_1.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJnWdQKQQZ2jERScXuKeFHyIE"
     },
     {
       "id": "bird-paradise",
@@ -2562,7 +3990,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 15,
+        "order": 23,
         "designations": []
       },
       "photo": null,
@@ -2570,6 +3998,163 @@
       "source": "wd",
       "last_verified": "2026-10-09",
       "google_place_id": "ChIJkyCpkWcT2jER1Nsl0ZvOI4Q"
+    },
+    {
+      "id": "southern-ridges",
+      "qid": "Q7570434",
+      "names": {
+        "ko": "서던 리지스",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "The Southern Ridges",
+        "local": "Southern Ridges",
+        "local_short": "Southern Ridges",
+        "local_lang": "en",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "헨더슨 웨이브",
+        "헨더슨 웨이브스",
+        "서던 릿지",
+        "사우던 리지스"
+      ],
+      "aliases_en": [
+        "Southern Ridges Walk",
+        "Henderson Waves"
+      ],
+      "mentions_ko": [
+        "마운트 페이버 공원",
+        "텔록 블랑가 힐 공원",
+        "포레스트 워크",
+        "켄트 리지 공원",
+        "호트파크"
+      ],
+      "region": "sg_central",
+      "area_ko": "마운트 페이버·텔록 블랑가",
+      "category": "nature",
+      "tags": [
+        {
+          "id": "stairs",
+          "source": "nparks_mount_faber",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "night",
+          "source": "nparks_henderson_waves",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 1.27605,
+        "lng": 103.8155,
+        "source": "wd",
+        "qid": "Q61356513",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 1.2753,
+        "lng": 103.8165
+      },
+      "access": {
+        "modes": [
+          "metro"
+        ],
+        "nearest_ko": "MRT 텔록 블랑가역이나 하버프런트역에서 걸어 올라가요",
+        "nearest_local": {
+          "text": "Telok Blangah MRT station",
+          "qid": "Q7697798",
+          "source": "wd"
+        },
+        "source": "nparks_mount_faber",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.nparks.gov.sg/visit/parks/telok-blangah-hill-park/special-features/henderson-waves",
+      "wiki": {
+        "en": "Southern Ridges"
+      },
+      "summary_ko": "마운트 페이버에서 켄트 리지까지 공원을 잇는 능선 산책로예요.",
+      "body_ko": [
+        "서던 리지스는 마운트 페이버 공원·텔록 블랑가 힐 공원·호트파크·켄트 리지 공원을 잇는 10km의 녹지 길이에요.",
+        "텔록 블랑가 힐 공원의 헨더슨 웨이브는 길이 274m의 물결 모양 보행교로, 싱가포르에서 가장 높은 보행교예요.",
+        "숲 위로 난 1.3km 고가 산책로 '포레스트 워크'에서는 나무 꼭대기 높이에서 숲을 봐요.",
+        "밤에는 헨더슨 웨이브에 조명이 켜져요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "마운트 페이버 공원, 텔록 블랑가 힐 공원, 호트파크, 켄트 리지 공원을 잇는 10km 녹지예요.",
+          "source": "nparks_npn",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "헨더슨 웨이브는 길이 274m의 물결 모양 보행교로, 싱가포르에서 가장 높은 보행교예요.",
+          "source": "nparks_henderson_waves",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "텔록 블랑가 힐 공원의 포레스트 워크는 1.3km 고가 산책로로, 숲 꼭대기 높이에서 걸어요.",
+          "source": "nparks_telok_blangah",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "밤에는 헨더슨 웨이브에 LED 조명이 켜져요.",
+          "source": "nparks_henderson_waves",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "마운트 페이버 공원과 텔록 블랑가 힐 공원에는 휠체어로 다닐 수 있는 길이 없어요.",
+          "source": "nparks_telok_blangah",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "마운트 페이버 공원은 산 아래 마랑 트레일의 계단 길로 올라가요.",
+          "source": "nparks_mount_faber",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "덜 더운 아침이나 조명이 켜지는 저녁에 가라고 권해요.",
+          "source": "nparks_henderson_waves",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "공원은 늘 열려 있지만 어스 트레일은 저녁 뒤에는 들어가지 말라고 해요.",
+          "source": "nparks_telok_blangah",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "public_space"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "nparks_telok_blangah",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_sg",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 24,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Singapore_Southern_Ridges_Henderson_Waves_05.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJO1VVxd8b2jERTvL6uurcNWY"
     },
     {
       "id": "siloso-beach",
@@ -2690,7 +4275,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 16,
+        "order": 25,
         "designations": []
       },
       "photo": null,

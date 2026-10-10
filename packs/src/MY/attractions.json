@@ -2,26 +2,13 @@
   "doc_type": "attractions",
   "schema_version": 1,
   "country": "MY",
-  "version": "2026.10.10-1",
+  "version": "2026.10.10-2",
   "release": "published",
   "editorial_rules": "2026-10",
   "compact_country": false,
   "unmapped_airports": [],
   "retired": [],
-  "upcoming_regions": [
-    {
-      "name_ko": "랑카위",
-      "aliases_ko": [
-        "랑카위섬"
-      ]
-    },
-    {
-      "name_ko": "키나발루 공원",
-      "aliases_ko": [
-        "키나발루산"
-      ]
-    }
-  ],
+  "upcoming_regions": [],
   "regions": [
     {
       "id": "my_kl",
@@ -137,6 +124,34 @@
       "advisory_watch_ko": []
     },
     {
+      "id": "my_langkawi",
+      "order": 50,
+      "name_ko": "랑카위",
+      "name_en": "Langkawi",
+      "aliases_ko": [
+        "랑카위섬",
+        "쿠아",
+        "랑까위"
+      ],
+      "group_ko": "반도 북부",
+      "kind": "base",
+      "note_ko": null,
+      "water_crossing": false,
+      "hub": {
+        "name_ko": "랑카위 국제공항",
+        "lat": 6.3297222222222,
+        "lng": 99.728611111111,
+        "qid": "Q1431863"
+      },
+      "airports": [],
+      "advisory": {
+        "level": "1",
+        "source": "mofa_my",
+        "last_verified": "2026-09-28"
+      },
+      "advisory_watch_ko": []
+    },
+    {
       "id": "my_kotakinabalu",
       "order": 60,
       "name_ko": "코타키나발루",
@@ -158,6 +173,37 @@
       "airports": [
         "BKI"
       ],
+      "advisory": {
+        "level": "1",
+        "source": "mofa_my",
+        "last_verified": "2026-09-28"
+      },
+      "advisory_watch_ko": []
+    },
+    {
+      "id": "my_kinabalu",
+      "order": 70,
+      "name_ko": "키나발루 공원",
+      "name_en": "Kinabalu Park",
+      "aliases_ko": [
+        "키나발루산",
+        "쿤다상",
+        "라나우"
+      ],
+      "group_ko": "사바",
+      "kind": "daytrip",
+      "base_regions": [
+        "my_kotakinabalu"
+      ],
+      "note_ko": "코타키나발루에서 하루 다녀오기도 해요",
+      "water_crossing": false,
+      "hub": {
+        "name_ko": "키나발루 공원 본부(공원 사무소)",
+        "lat": 6.0056696,
+        "lng": 116.5424501,
+        "qid": "Q834893"
+      },
+      "airports": [],
       "advisory": {
         "level": "1",
         "source": "mofa_my",
@@ -320,7 +366,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 8,
+        "order": 12,
         "designations": []
       },
       "photo": null,
@@ -461,7 +507,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 9,
+        "order": 14,
         "designations": []
       },
       "photo": null,
@@ -772,7 +818,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 14,
+        "order": 20,
         "designations": []
       },
       "photo": null,
@@ -1061,7 +1107,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 15,
+        "order": 23,
         "designations": []
       },
       "photo": null,
@@ -1195,7 +1241,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 10,
+        "order": 15,
         "designations": []
       },
       "photo": null,
@@ -1345,7 +1391,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 13,
+        "order": 19,
         "designations": []
       },
       "photo": null,
@@ -1500,7 +1546,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 4,
+        "order": 5,
         "designations": [
           {
             "kind": "unesco",
@@ -1657,7 +1703,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 6,
+        "order": 8,
         "designations": [
           {
             "kind": "unesco",
@@ -1785,7 +1831,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 16,
+        "order": 29,
         "designations": []
       },
       "photo": null,
@@ -2070,7 +2116,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 12,
+        "order": 18,
         "designations": []
       },
       "photo": null,
@@ -2231,7 +2277,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 5,
+        "order": 6,
         "designations": [
           {
             "kind": "unesco_biosphere",
@@ -2392,7 +2438,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 11,
+        "order": 16,
         "designations": []
       },
       "photo": null,
@@ -2521,7 +2567,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 17,
+        "order": 30,
         "designations": []
       },
       "photo": null,
@@ -2673,7 +2719,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 7,
+        "order": 10,
         "designations": [
           {
             "kind": "my_state_park",
@@ -2687,6 +2733,2302 @@
       "source": "wd",
       "last_verified": "2026-10-09",
       "google_place_id": "ChIJOaiOLY9pOzIRUCa2vb_v-04"
+    },
+    {
+      "id": "kl-tower",
+      "qid": "Q745016",
+      "names": {
+        "ko": "KL 타워",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Kuala Lumpur Tower",
+        "local": "Menara Kuala Lumpur",
+        "local_short": "Menara KL",
+        "local_lang": "ms",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "메나라 KL",
+        "쿠알라룸푸르 타워",
+        "메나라 쿠알라룸푸르"
+      ],
+      "aliases_en": [
+        "Menara Kuala Lumpur",
+        "Menara KL",
+        "KL Tower"
+      ],
+      "mentions_ko": [
+        "스카이 데크",
+        "스카이 박스",
+        "부킷 나나스"
+      ],
+      "region": "my_kl",
+      "area_ko": "쿠알라룸푸르 부킷 나나스",
+      "category": "city_view",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 3.1528277102253313,
+        "lng": 101.70374880941304,
+        "source": "wd",
+        "qid": "Q745016",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 3.1528277102253313,
+        "lng": 101.70374880941304
+      },
+      "address_local": {
+        "text": "No. 2 Jalan Punchak Off Jalan P. Ramlee 50250 Kuala Lumpur",
+        "source": "klt_getting",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "metro",
+          "bus"
+        ],
+        "nearest_ko": "LRT 클라나 자야선 당 왕이역 또는 KL 모노레일 부킷 나나스역에서 걸어서(정문에서 로비까지 무료 셔틀)",
+        "nearest_local": {
+          "text": "Dang Wangi LRT station",
+          "qid": "Q1055068",
+          "source": "wd"
+        },
+        "source": "klt_getting",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://kltower.com.my/",
+      "wiki": {
+        "ko": "쿠알라룸푸르 타워",
+        "en": "Kuala Lumpur Tower"
+      },
+      "summary_ko": "전망대와 야외 스카이 데크가 있는 421m 통신탑이에요.",
+      "body_ko": [
+        "KL 타워는 높이 421m의 통신·방송탑으로, 1996년 7월 23일 일반에 문을 열었어요.",
+        "전망대는 276m, 야외 스카이 데크는 300m 높이에 있고, 스카이 데크에는 바닥이 유리인 스카이 박스가 있어요.",
+        "로비 천장의 유리 돔은 이슬람 건축의 무카르나스 양식으로 꾸몄어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "안테나까지 높이 421m이고, 1996년 7월 23일 일반에 개방했어요.",
+          "source": "klt_story",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "전망대는 276m, 야외 스카이 데크는 300m 높이이고, 유리 바닥 스카이 박스가 있어요.",
+          "source": "tm_kl",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "로비는 무카르나스 양식의 유리 돔으로 꾸몄어요.",
+          "source": "klt_story",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "통신·방송 시설이자 관광 시설이에요.",
+          "source": "klt_story",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "정문에서 로비까지 무료 셔틀이 다녀요.",
+          "source": "klt_getting",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "GoKL 시내버스 보라색 노선에 'KL 타워' 정류장이 있어요.",
+          "source": "klt_getting",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "전망대에서 페트로나스 트윈 타워가 보여요.",
+          "source": "tm_kl",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "unknown",
+        "regular_closed": [
+          "none"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "klt_getting",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "klt_getting",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_my",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 13,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/Category:Kuala_Lumpur_Tower",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJE1jNHStIzDERujrDO85YYBA"
+    },
+    {
+      "id": "national-mosque",
+      "qid": "Q1356818",
+      "names": {
+        "ko": "국립 모스크",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "National Mosque of Malaysia",
+        "local": "Masjid Negara",
+        "local_short": "Masjid Negara",
+        "local_lang": "ms",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "마스지드 네가라",
+        "마스지드 느가르",
+        "말레이시아 국립 모스크"
+      ],
+      "aliases_en": [
+        "Masjid Negara"
+      ],
+      "mentions_ko": [
+        "이슬람 미술관",
+        "페르다나 식물원",
+        "옛 쿠알라룸푸르역"
+      ],
+      "region": "my_kl",
+      "area_ko": "쿠알라룸푸르 페르다나 호수 공원 옆",
+      "category": "heritage",
+      "tags": [
+        {
+          "id": "dress_code",
+          "source": "tm_kl",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 3.1419444444444,
+        "lng": 101.69166666667,
+        "source": "wd",
+        "qid": "Q1356818",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 3.1419444444444,
+        "lng": 101.69166666667
+      },
+      "address_local": {
+        "text": "Jalan Perdana, Tasik Perdana, 50480 Kuala Lumpur",
+        "source": "tm_kl",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "train"
+        ],
+        "nearest_ko": "KTM 쿠알라룸푸르역(옛 역사) 맞은편",
+        "source": "mn_sejarah",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://masjidnegara.gov.my/ms/",
+      "wiki": {
+        "ko": "마스지드 느가르",
+        "en": "National Mosque of Malaysia"
+      },
+      "summary_ko": "우산 모양 지붕으로 알려진 말레이시아의 국립 모스크예요.",
+      "body_ko": [
+        "1963년부터 1965년 8월 27일까지 지은 모스크로, 예배자 15,000명이 들어갈 수 있어요.",
+        "지붕은 활짝 편 우산, 높이 245피트의 첨탑은 접힌 우산 모양이에요.",
+        "툰쿠 압둘 라만 초대 총리가 자기 이름 대신 '마스지드 네가라'라는 이름을 제안했어요.",
+        "무슬림이 아닌 방문객도 예배 시간 밖에는 들어갈 수 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "1963년부터 1965년 8월 27일까지 지었고, 예배자 15,000명이 들어가요.",
+          "source": "mn_sejarah",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "첨탑 높이는 245피트이고, 첨탑은 접힌 우산, 지붕은 편 우산 모양이에요.",
+          "source": "mn_sejarah",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "툰쿠 압둘 라만이 자기 이름 대신 '마스지드 네가라'라는 이름을 제안했어요.",
+          "source": "mn_sejarah",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "무슬림이 아닌 방문객은 예배 시간 밖에 들어갈 수 있고, 입구에서 가운을 빌려 줘요.",
+          "source": "tm_kl",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "예배 시간에는 관람할 수 없고, 입구에서 가운을 빌려 줘요.",
+          "source": "tm_kl",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "금요일은 관람 시간이 오후로 줄어요.",
+          "source": "tm_kl",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "외국인·국내 관광객 전용 출입구가 따로 있어요.",
+          "source": "mn_sejarah",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "unknown",
+        "regular_closed": [
+          "none"
+        ],
+        "closed_note_ko": "예배 시간에는 관람을 쉬어요.",
+        "visit_note_ko": null,
+        "source": "tm_kl",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "tm_kl",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_my",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 17,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/Category:Masjid_Negara",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJJX8hZM9JzDER-yYg0nIT468"
+    },
+    {
+      "id": "masjid-jamek",
+      "qid": "Q1143296",
+      "names": {
+        "ko": "마스지드 자멕",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Sultan Abdul Samad Jamek Mosque",
+        "local": "Masjid Jamek Sultan Abdul Samad",
+        "local_short": "Masjid Jamek",
+        "local_lang": "ms",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "자멕 모스크",
+        "자멕 이슬람 사원",
+        "술탄 압둘 사마드 자멕 모스크"
+      ],
+      "aliases_en": [
+        "Jamek Mosque",
+        "Masjid Jamek"
+      ],
+      "mentions_ko": [
+        "리버 오브 라이프",
+        "메르데카 광장"
+      ],
+      "region": "my_kl",
+      "area_ko": "쿠알라룸푸르 시내 중심",
+      "category": "heritage",
+      "tags": [
+        {
+          "id": "dress_code",
+          "source": "tm_masjidjamek",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 3.1489055555556,
+        "lng": 101.69596111111,
+        "source": "wd",
+        "qid": "Q1143296",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 3.1489055555556,
+        "lng": 101.69596111111
+      },
+      "address_local": {
+        "text": "Jalan Tun Perak, City Centre, 50050 Kuala Lumpur",
+        "source": "tm_kl",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "metro"
+        ],
+        "nearest_ko": "LRT 마스지드 자멕역 바로 옆",
+        "nearest_local": {
+          "text": "Masjid Jamek LRT station",
+          "qid": "Q1055044",
+          "source": "wd"
+        },
+        "source": "tm_masjidjamek",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.malaysia.travel/explore/masjid-jamek",
+      "wiki": {
+        "ko": "자멕 모스크",
+        "en": "Jamek Mosque"
+      },
+      "summary_ko": "클랑강과 곰박강이 만나는 곳에 선 1909년 모스크예요.",
+      "body_ko": [
+        "1909년에 지은 모스크로, 쿠알라룸푸르에서 가장 오래된 모스크 가운데 하나예요.",
+        "흰 대리석 건물에 무굴풍 돔과 가늘고 높은 첨탑 4개가 있어요.",
+        "이름은 공동체가 모여 예배하는 곳이라는 뜻의 아랍어 '자미'에서 왔어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "1909년에 지었고, 쿠알라룸푸르에서 가장 오래된 모스크 가운데 하나예요.",
+          "source": "tm_masjidjamek",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "흰 대리석 건물에 돔과 첨탑 4개가 있어요.",
+          "source": "tm_masjidjamek",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "이름은 아랍어 '자미'에서 왔어요.",
+          "source": "tm_masjidjamek",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "클랑강과 곰박강 사이에 있어요.",
+          "source": "tm_masjidjamek",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "단정한 옷차림에 신발을 벗고 들어가요. 필요하면 입구에서 가운과 스카프를 받아요.",
+          "source": "tm_masjidjamek",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "입구에서 무료 안내 투어를 요청할 수 있어요.",
+          "source": "tm_masjidjamek",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "예배 시간 밖의 관람 시간에만 들어갈 수 있어요.",
+          "source": "tm_kl",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "unknown",
+        "regular_closed": [
+          "none"
+        ],
+        "closed_note_ko": "예배 시간에는 관람을 쉬어요.",
+        "visit_note_ko": null,
+        "source": "tm_kl",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "tm_kl",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_my",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 22,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/Category:Sultan_Abdul_Samad_Jamek_Mosque",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJeVDgedJJzDERWNeKvpt8kIA"
+    },
+    {
+      "id": "petaling-street",
+      "qid": "Q3239125",
+      "names": {
+        "ko": "페탈링 거리",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Petaling Street",
+        "local": "Jalan Petaling",
+        "local_short": "Jalan Petaling",
+        "local_lang": "ms",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "차이나타운",
+        "잘란 페탈링",
+        "쿠알라룸푸르 차이나타운",
+        "페탈링 스트리트"
+      ],
+      "aliases_en": [
+        "Jalan Petaling",
+        "Chinatown Kuala Lumpur"
+      ],
+      "mentions_ko": [
+        "콰이 차이 홍",
+        "REXKL",
+        "스리 마하 마리암만 사원"
+      ],
+      "region": "my_kl",
+      "area_ko": "쿠알라룸푸르 차이나타운",
+      "category": "market_street",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 3.14447222,
+        "lng": 101.69761111,
+        "source": "wd",
+        "qid": "Q3239125",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 3.14447222,
+        "lng": 101.69761111
+      },
+      "address_local": {
+        "text": "Jalan Petaling, City Centre, 50000 Kuala Lumpur",
+        "source": "tm_kl",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "metro"
+        ],
+        "nearest_ko": "LRT·MRT 파사르 세니역에서 걸어서",
+        "nearest_local": {
+          "text": "Pasar Seni station",
+          "qid": "Q1057429",
+          "source": "wd"
+        },
+        "source": "tm_petaling",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.malaysia.travel/explore/5-best-hotspots-in-petaling-street-you-don-t-want-to-miss",
+      "wiki": {
+        "en": "Petaling Street"
+      },
+      "summary_ko": "쿠알라룸푸르 차이나타운의 시장 거리예요.",
+      "body_ko": [
+        "큰 중국식 문 두 개를 지나면 옷·시계·액세서리·기념품을 파는 노점이 거리 끝까지 이어져요.",
+        "이른 아침에는 재래시장으로, 해가 지면 야시장으로 바뀌어요.",
+        "뒷골목에는 옛 렉스 극장을 고친 REXKL과 벽화 골목 콰이 차이 홍이 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "입구에 큰 문 두 개가 있고, 옷·시계·액세서리·기념품 노점이 거리 끝까지 이어져요.",
+          "source": "tm_kl",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "이른 아침에는 재래시장이 서고, 밤에는 야시장이 돼요.",
+          "source": "tm_petaling",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "옛 렉스 극장을 고친 REXKL과 콰이 차이 홍 벽화 골목이 뒷골목에 있어요.",
+          "source": "tm_kl",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "예전에는 '마켓 스퀘어'라고 불렸어요.",
+          "source": "tm_petaling",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "값은 흥정해서 정해요.",
+          "source": "tm_kl",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "센트럴 마켓까지 걸어서 갈 수 있어요.",
+          "source": "cm_visit",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "길모퉁이에 스리 마하 마리암만 힌두 사원이 있어요.",
+          "source": "tm_kl",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "public_space",
+        "visit_note_ko": null
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "tm_petaling",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_my",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 25,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/Category:Petaling_Street",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJRVe3rdFJzDER_fqRQvv39qk"
+    },
+    {
+      "id": "khoo-kongsi",
+      "qid": "Q6402268",
+      "names": {
+        "ko": "쿠 콩시",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Khoo Kongsi",
+        "local": "Khoo Kongsi",
+        "local_short": "Khoo Kongsi",
+        "local_lang": "ms",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "구씨 종사",
+        "레옹 산 통 쿠 콩시",
+        "쿠콩시 사당"
+      ],
+      "aliases_en": [
+        "Leong San Tong Khoo Kongsi",
+        "Khoo Kongsi Clan Temple"
+      ],
+      "mentions_ko": [
+        "캐넌 스퀘어",
+        "카피탄 클링 모스크"
+      ],
+      "region": "my_penang",
+      "area_ko": "조지타운 캐넌 스퀘어",
+      "category": "heritage",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 5.414438,
+        "lng": 100.337024,
+        "source": "wd",
+        "qid": "Q6402268",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 5.414438,
+        "lng": 100.337024
+      },
+      "address_local": {
+        "text": "18, Cannon Square, George Town, Penang",
+        "source": "pgt_map2026",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "bus"
+        ],
+        "nearest_ko": "무료 CAT 셔틀버스·래피드 페낭 301·302·303·401번 쿠 콩시 정류장",
+        "source": "pgt_map2026",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.khookongsi.com.my/",
+      "wiki": {
+        "en": "Khoo Kongsi"
+      },
+      "summary_ko": "구씨 문중이 세운 조지타운의 중국식 종친회관이에요.",
+      "body_ko": [
+        "1906년에 완공된 구씨(Khoo) 성씨 문중의 종친회관이에요.",
+        "조지타운 옛 시가지의 캐넌 스퀘어 안쪽에 자리해 있어요.",
+        "매일 문을 열고, 무료 CAT 셔틀버스와 래피드 페낭 버스로 갈 수 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "1906년에 완공됐고, 구씨 성씨 문중 소유예요.",
+          "source": "pgt_map2026",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "캐넌 스퀘어에 있어요.",
+          "source": "pgt_map2026",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "매일 문을 열고, CAT 셔틀과 래피드 페낭 버스가 서요.",
+          "source": "pgt_map2026",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "같은 지구의 카피탄 클링 모스크와 클랜 제티도 CAT 셔틀로 갈 수 있어요.",
+          "source": "pgt_map2026",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "unknown",
+        "regular_closed": [
+          "none"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "pgt_map2026",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "pgt_map2026",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_my",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 26,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/Category:Leong_San_Tong_Khoo_Kongsi,_Penang",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJny-BJpLDSjARtmEDgFcyASw"
+    },
+    {
+      "id": "pinang-peranakan-mansion",
+      "qid": "Q28034427",
+      "names": {
+        "ko": "피낭 프라나칸 맨션",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Pinang Peranakan Mansion",
+        "local": "Rumah Agam Peranakan Pulau Pinang",
+        "local_short": "Pinang Peranakan Mansion",
+        "local_lang": "ms",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "페낭 프라나칸 맨션",
+        "프라나칸 맨션"
+      ],
+      "aliases_en": [],
+      "mentions_ko": [
+        "처치 스트리트"
+      ],
+      "region": "my_penang",
+      "area_ko": "조지타운 처치 스트리트(르부 게레자)",
+      "category": "museum",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 5.417999,
+        "lng": 100.341192,
+        "source": "wd",
+        "qid": "Q28034427",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 5.417999,
+        "lng": 100.341192
+      },
+      "address_local": {
+        "text": "29, Lebuh Gereja, George Town, Penang",
+        "source": "pgt_map2026",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "bus"
+        ],
+        "nearest_ko": "무료 CAT 셔틀버스 피낭 프라나칸 맨션 정류장",
+        "source": "pgt_map2026",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.pinangperanakanmansion.com.my/",
+      "wiki": {
+        "en": "Pinang Peranakan Mansion"
+      },
+      "summary_ko": "카피탄 치나가 살던 저택을 보존해 공개하는 옛 집이에요.",
+      "body_ko": [
+        "하이산 비밀결사의 지도자였던 카피탄 치나 정경귀(1821~1901)가 살던 저택이에요.",
+        "1890년대 말에 기힌 비밀결사 본부가 있던 터에 지었어요.",
+        "매일 문을 열고, 조지타운 무료 CAT 셔틀버스 정류장이 바로 앞이에요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "하이산 비밀결사 지도자 카피탄 치나 정경귀(1821~1901)가 살던 집이에요.",
+          "source": "pgt_map2026",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "1890년대 말에 기힌 비밀결사 본부 터에 지었어요.",
+          "source": "pgt_map2026",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "매일 문을 열고, CAT 셔틀 정류장이 있어요.",
+          "source": "pgt_map2026",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "페낭주 관광 지도에 CAT 셔틀 정류장 '피낭 프라나칸 맨션'이 표시돼 있어요.",
+          "source": "pgt_map2026",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "unknown",
+        "regular_closed": [
+          "none"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "pgt_map2026",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "pgt_map2026",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_my",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 27,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/Category:Penang_Peranakan_Mansion",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJCWvz3I_DSjAR5hveCXjdfIs"
+    },
+    {
+      "id": "a-famosa",
+      "qid": "Q1955098",
+      "names": {
+        "ko": "아 파모사",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "A Famosa",
+        "local": "A Famosa",
+        "local_short": "A Famosa",
+        "local_lang": "ms",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "포르타 데 산티아고",
+        "파모사 요새",
+        "산티아고 성문"
+      ],
+      "aliases_en": [
+        "Porta de Santiago",
+        "A Famosa Fortress"
+      ],
+      "mentions_ko": [
+        "믈라카 나무",
+        "세인트폴 언덕"
+      ],
+      "region": "my_malacca",
+      "area_ko": "믈라카 반다 힐리르",
+      "category": "heritage",
+      "tags": [
+        {
+          "id": "unesco",
+          "source": "unesco_1223",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 2.19161667,
+        "lng": 102.25030556,
+        "source": "wd",
+        "qid": "Q1955098",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 2.19161667,
+        "lng": 102.25030556
+      },
+      "address_local": null,
+      "access": {
+        "modes": [
+          "bus",
+          "walk_from_center"
+        ],
+        "nearest_ko": "믈라카 센트럴에서 17번 버스로 반다 힐리르, 또는 존커 거리에서 걸어서",
+        "source": "tm_stpaul",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.visitmelaka.com.my/index.php/culture-heritagemenu/history",
+      "wiki": {
+        "en": "A Famosa"
+      },
+      "summary_ko": "포르투갈 요새의 성문 하나가 남은 믈라카의 유적이에요.",
+      "body_ko": [
+        "1511년 믈라카를 점령한 포르투갈의 알폰수 드 알부케르크가 세운 요새예요.",
+        "1641년 네덜란드가 포르투갈을 몰아낸 뒤 성문 위에 동인도회사(VOC) 문장을 새겼어요.",
+        "지금은 포르타 데 산티아고 성문이 남아 있고, 그 앞에는 믈라카라는 이름의 유래가 된 믈라카 나무가 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "1511년 포르투갈의 알폰수 드 알부케르크가 세웠어요.",
+          "source": "vm_history",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "1641년 네덜란드가 차지한 뒤 성문에 VOC 문장을 달았어요.",
+          "source": "vm_history",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "믈라카라는 지명은 믈라카 나무에서 왔고, 성문 앞에 몇 그루가 남아 있어요.",
+          "source": "vm_history",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "믈라카는 2008년 조지타운과 함께 세계유산에 올랐어요.",
+          "source": "unesco_1223",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "성문 앞의 믈라카 나무는 몇 그루 남지 않았어요.",
+          "source": "vm_history",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "믈라카 센트럴에서 반다 힐리르행 시내버스를 타면 바로 가요.",
+          "source": "tm_stpaul",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "unknown",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "vm_history",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "vm_history",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_my",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 7,
+        "designations": [
+          {
+            "kind": "unesco",
+            "name_ko": "세계유산 믈라카 해협의 역사 도시(믈라카·조지타운)",
+            "source": "unesco_1223"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/Category:A_Famosa",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJHWino-Dx0TERtWMOoXza5MI"
+    },
+    {
+      "id": "christ-church-melaka",
+      "qid": "Q5108702",
+      "names": {
+        "ko": "크라이스트 처치",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Christ Church, Malacca",
+        "local": "Gereja Christ, Melaka",
+        "local_short": "Christ Church",
+        "local_lang": "ms",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "믈라카 크라이스트 처치",
+        "크라이스트 교회",
+        "믈라카 붉은 교회"
+      ],
+      "aliases_en": [
+        "Christ Church Melaka"
+      ],
+      "mentions_ko": [
+        "스타더이스"
+      ],
+      "region": "my_malacca",
+      "area_ko": "믈라카 네덜란드 광장",
+      "category": "heritage",
+      "tags": [
+        {
+          "id": "unesco",
+          "source": "unesco_1223",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 2.19432,
+        "lng": 102.24933,
+        "source": "wd",
+        "qid": "Q5108702",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 2.19432,
+        "lng": 102.24933
+      },
+      "address_local": null,
+      "access": {
+        "modes": [
+          "bus",
+          "walk_from_center"
+        ],
+        "nearest_ko": "존커 거리에서 걸어서, 또는 믈라카 시내버스 17번",
+        "source": "tm_dutchsquare",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.visitmelaka.com.my/index.php/culture-heritagemenu/history",
+      "wiki": {
+        "en": "Christ Church, Malacca"
+      },
+      "summary_ko": "네덜란드 광장에 선 1753년의 붉은 교회예요.",
+      "body_ko": [
+        "1753년 네덜란드가 12년에 걸쳐 지은 교회로, 말레이시아에서 가장 오래된 개신교 교회예요.",
+        "천장 들보는 이음매 없이 통나무 하나로 깎았고, 손으로 만든 신도석은 200년 전 것이에요.",
+        "스타더이스 바로 옆, 네덜란드 광장에 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "1753년 네덜란드가 12년에 걸쳐 지은, 말레이시아에서 가장 오래된 개신교 교회예요.",
+          "source": "vm_history",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "천장 들보는 이음매 없는 통나무이고, 손으로 만든 신도석은 200년 전 것이에요.",
+          "source": "vm_history",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "스타더이스 바로 옆에 있어요.",
+          "source": "tm_dutchsquare",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "믈라카는 2008년 조지타운과 함께 세계유산에 올랐어요.",
+          "source": "unesco_1223",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "존커 거리 맞은편 네덜란드 광장에 있어 걸어서 가요.",
+          "source": "tm_dutchsquare",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "믈라카 시내버스 17번이 존커 거리에 서요.",
+          "source": "tm_dutchsquare",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "unknown",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "vm_history",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "vm_history",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_my",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 9,
+        "designations": [
+          {
+            "kind": "unesco",
+            "name_ko": "세계유산 믈라카 해협의 역사 도시(믈라카·조지타운)",
+            "source": "unesco_1223"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/Category:Christ_Church,_Melaka",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJjVnwe97x0TERrV8BeptTmWQ"
+    },
+    {
+      "id": "tanjung-aru-beach",
+      "qid": "Q877363",
+      "names": {
+        "ko": "탄중아루 해변",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Tanjung Aru Beach",
+        "local": "Pantai Tanjung Aru",
+        "local_short": "Tanjung Aru",
+        "local_lang": "ms",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "탄중 아루 비치",
+        "딴중아루 해변"
+      ],
+      "aliases_en": [
+        "Tanjung Aru"
+      ],
+      "mentions_ko": [
+        "페르다나 공원",
+        "사바 주립도서관"
+      ],
+      "region": "my_kotakinabalu",
+      "area_ko": "코타키나발루 탄중아루",
+      "category": "sea_island",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 5.946994,
+        "lng": 116.045601,
+        "source": "wd",
+        "qid": "Q877363",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 5.946994,
+        "lng": 116.045601
+      },
+      "address_local": null,
+      "access": {
+        "modes": [
+          "car_only"
+        ],
+        "nearest_ko": "코타키나발루 시내에서 택시(호텔·쇼핑몰 옆 승강장)",
+        "source": "stb_gettingaround",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://sabahtourism.com/destination/tanjung-aru-beach/",
+      "summary_ko": "노을로 알려진 코타키나발루 시내 가까운 해변이에요.",
+      "body_ko": [
+        "해변 가장자리에 늘어선 아루(카수아리나) 나무에서 이름을 따왔어요.",
+        "저녁이면 바다로 지는 해를 보러 사람들이 모이고, 작은 노점에서 간식을 팔아요.",
+        "가까이에 페르다나 공원과 사바 주립도서관이 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "이름은 해변의 아루(카수아리나) 나무에서 왔어요.",
+          "source": "stb_tanjungaru",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "저녁 노을을 보는 곳이고, 작은 노점에서 간식을 팔아요.",
+          "source": "stb_tanjungaru",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "페르다나 공원과 사바 주립도서관이 가까워요.",
+          "source": "stb_tanjungaru",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "연 날리기와 소풍을 즐기는 곳이에요.",
+          "source": "stb_tanjungaru",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "시내에서는 호텔·쇼핑몰 옆 택시 승강장에서 택시를 타요.",
+          "source": "stb_gettingaround",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "public_space",
+        "visit_note_ko": null
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "stb_tanjungaru",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_my",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 31,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/Category:Tanjung_Aru_Beach",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJN2sNPSloOzIRrPTPP23Jjxc"
+    },
+    {
+      "id": "sabah-museum",
+      "qid": "Q2209383",
+      "names": {
+        "ko": "사바 주립박물관",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Sabah Museum",
+        "local": "Muzium Sabah",
+        "local_short": "Muzium Sabah",
+        "local_lang": "ms",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "사바 박물관",
+        "사바 주 박물관",
+        "사바 뮤지엄"
+      ],
+      "aliases_en": [
+        "Sabah State Museum",
+        "Muzium Negeri Sabah"
+      ],
+      "mentions_ko": [
+        "헤리티지 빌리지",
+        "과학기술센터"
+      ],
+      "region": "my_kotakinabalu",
+      "area_ko": "코타키나발루 잘란 무지움",
+      "category": "museum",
+      "tags": [
+        {
+          "id": "foreigner_price",
+          "source": "sm_guest",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 5.9605555555556,
+        "lng": 116.07166666667,
+        "source": "wd",
+        "qid": "Q2209383",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 5.9605555555556,
+        "lng": 116.07166666667
+      },
+      "address_local": {
+        "text": "Sabah Museum Complex, Jalan Muzium, 88300 Kota Kinabalu, Sabah",
+        "source": "sm_guest",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "car_only"
+        ],
+        "nearest_ko": "코타키나발루 시내에서 택시(호텔·쇼핑몰 옆 승강장)",
+        "source": "stb_gettingaround",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://museum.sabah.gov.my/",
+      "wiki": {
+        "ko": "사바 박물관",
+        "en": "Sabah Museum"
+      },
+      "summary_ko": "룽구스족 롱하우스를 본떠 지은 사바주의 주립박물관이에요.",
+      "body_ko": [
+        "사바 박물관은 1965년 가야 거리의 상점 건물에서 문을 열었고, 지금 자리의 박물관은 1984년 4월 11일에 공식 개관했어요.",
+        "본관은 룽구스족 롱하우스에서 영감을 받아 지었고, 민족지·자연사·도자기·고고학 전시실이 있어요.",
+        "단지 안에는 과학기술센터와, 민족식물원 속 전통 가옥 마을(헤리티지 빌리지)도 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "1965년 가야 거리에서 문을 열었고, 지금 자리는 1984년 4월 11일에 공식 개관했어요.",
+          "source": "sm_history",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "본관은 룽구스 롱하우스에서 영감을 받았고, 민족지·자연사·도자기·고고학 전시가 있어요.",
+          "source": "stb_museum",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "과학기술센터와 민족식물원 안의 헤리티지 빌리지가 있어요.",
+          "source": "stb_museum",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "과학기술센터의 북보르네오 철도 객차 전시가 인기예요.",
+          "source": "stb_museum",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "학생·장애인·노인 무료는 말레이시아인만 해당해요.",
+          "source": "sm_guest",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "시내에서는 호텔·쇼핑몰 옆 택시 승강장에서 택시를 타요.",
+          "source": "stb_gettingaround",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "none"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "sm_guest",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "sm_guest",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_my",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 24,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/Category:Sabah_Museum",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJ5ZOT9bppOzIR9vI2FIzjXg4"
+    },
+    {
+      "id": "langkawi-skycab",
+      "qid": "Q6486155",
+      "names": {
+        "ko": "랑카위 스카이캡",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Langkawi Cable Car",
+        "local": "Kereta kabel Langkawi",
+        "local_short": "Langkawi SkyCab",
+        "local_lang": "ms",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "랑카위 케이블카",
+        "스카이캡",
+        "파노라마 랑카위",
+        "랑카위 스카이브리지"
+      ],
+      "aliases_en": [
+        "Langkawi SkyCab",
+        "Panorama Langkawi SkyCab",
+        "Langkawi Sky Bridge"
+      ],
+      "mentions_ko": [
+        "오리엔탈 빌리지",
+        "마친창산",
+        "텔라가 투주 폭포"
+      ],
+      "region": "my_langkawi",
+      "area_ko": "랑카위 서쪽 부라우만",
+      "category": "city_view",
+      "tags": [
+        {
+          "id": "cable_car",
+          "source": "nl_skycab",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "mountain_view",
+          "source": "nl_skycab",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "station",
+        "lat": 6.37136,
+        "lng": 99.6716,
+        "source": "wd",
+        "qid": "Q6486155",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 6.37136,
+        "lng": 99.6716
+      },
+      "address_local": {
+        "text": "Cable Car Station, Oriental Village, Burau Bay, 07000 Langkawi, Kedah",
+        "source": "nl_skycab",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "car_only"
+        ],
+        "nearest_ko": "오리엔탈 빌리지(쿠아 시내·랑카위 공항에서 차로)",
+        "source": "tm_skycab",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.panoramalangkawi.com/",
+      "wiki": {
+        "en": "Langkawi Cable Car"
+      },
+      "summary_ko": "마친창산 꼭대기로 오르는 케이블카와 스카이브리지예요.",
+      "body_ko": [
+        "오리엔탈 빌리지의 아래 역에서 마친창산 기슭을 따라 올라가는 케이블카예요.",
+        "해발 650m 중간 역과 708m 꼭대기 역에 전망대가 있고, 꼭대기 역에서 길이 약 125m의 곡선 다리 스카이브리지로 이어져요.",
+        "마친창산 일대는 랑카위 유네스코 세계지질공원의 마친창 캄브리아 지오포레스트 공원이에요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "아래 역은 오리엔탈 빌리지, 마친창산 기슭에 있어요.",
+          "source": "nl_skycab",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "중간 역은 해발 650m, 꼭대기 역은 해발 708m예요.",
+          "source": "nl_skycab",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "꼭대기 역에서 길이 약 125m의 곡선 다리 스카이브리지로 이어져요.",
+          "source": "tm_skycab",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "마친창산 일대는 랑카위 유네스코 세계지질공원의 마친창 캄브리아 지오포레스트 공원이에요.",
+          "source": "lgp_geoforest",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "중간 역에 내려 전망대까지 걸어 올라갈 수 있어요.",
+          "source": "nl_skycab",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "꼭대기 역에서 계단을 조금 오르면 전망대 두 곳이 있어요.",
+          "source": "nl_skycab",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "쿠아 시내와 랑카위 공항에서 차로 가요.",
+          "source": "tm_skycab",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "unknown",
+        "regular_closed": [
+          "none"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "nl_skycab",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "nl_skycab",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_my",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 28,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/Category:Langkawi_Cable_Car",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJAd9TL-F2TDARfrojfQscVeI"
+    },
+    {
+      "id": "eagle-square",
+      "qid": "Q48769617",
+      "names": {
+        "ko": "이글 스퀘어",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Eagle Square",
+        "local": "Dataran Lang",
+        "local_short": "Dataran Lang",
+        "local_lang": "ms",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "독수리 광장",
+        "다타란 랑"
+      ],
+      "aliases_en": [
+        "Dataran Lang",
+        "Dataran Helang"
+      ],
+      "mentions_ko": [
+        "쿠아 선착장",
+        "쿠아 시내"
+      ],
+      "region": "my_langkawi",
+      "area_ko": "랑카위 쿠아",
+      "category": "city_view",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 6.3084571,
+        "lng": 99.8519597,
+        "source": "wd",
+        "qid": "Q48769617",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 6.3084571,
+        "lng": 99.8519597
+      },
+      "address_local": {
+        "text": "Kuah, 07000 Langkawi, Kedah",
+        "source": "nl_eagle",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "boat",
+          "car_only"
+        ],
+        "nearest_ko": "쿠아 선착장 바로 옆(본토·사툰 페리 도착지)",
+        "source": "nl_eagle",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://naturallylangkawi.my/portfolio/dataran-lang-eagle-square/",
+      "wiki": {
+        "ko": "독수리 광장"
+      },
+      "summary_ko": "쿠아 선착장 옆에 큰 독수리 조각상이 선 광장이에요.",
+      "body_ko": [
+        "별 모양 콘크리트 단 위에 12m 높이의 독수리 조각상이 서 있어요.",
+        "랑카위라는 이름은 말레이어 헬랑(독수리)과 카위(적갈색)에서 왔다는 이야기가 전해져요.",
+        "쿠아 선착장을 내려다보는 자리라 배로 오는 여행자가 처음 보는 풍경이에요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "별 모양 단 위에 12m 높이의 독수리상이 있어요.",
+          "source": "nl_eagle",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "랑카위라는 이름은 헬랑(독수리)과 카위(적갈색)에서 왔다는 옛이야기가 있어요.",
+          "source": "nl_eagle",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "쿠아 선착장을 내려다보는 자리이고, 본토에서 오는 페리가 쿠아 선착장에 닿아요.",
+          "source": "nl_eagle",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "거의 언제나 열려 있어 조각상 아래까지 가까이 갈 수 있어요.",
+          "source": "nl_eagle",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "쿠알라 케다·쿠알라 펄리스·사툰(태국)에서 오는 페리가 쿠아 선착장에 닿아요.",
+          "source": "nl_gettinghere",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "public_space",
+        "visit_note_ko": null
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "nl_eagle",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_my",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 21,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/Category:Eagle_Square,_Kuah",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJT5YXv4aASzARiVwJwms7Ddc"
+    },
+    {
+      "id": "pantai-cenang",
+      "qid": "Q33328099",
+      "names": {
+        "ko": "판타이 체낭",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Cenang Beach",
+        "local": "Pantai Chenang",
+        "local_short": "Pantai Cenang",
+        "local_lang": "ms",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "체낭 해변",
+        "세낭 비치",
+        "판타이 세낭",
+        "체낭 비치"
+      ],
+      "aliases_en": [
+        "Pantai Cenang",
+        "Chenang Beach"
+      ],
+      "mentions_ko": [
+        "라만 파디",
+        "언더워터 월드 랑카위"
+      ],
+      "region": "my_langkawi",
+      "area_ko": "랑카위 남서쪽 체낭",
+      "category": "sea_island",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 6.29576,
+        "lng": 99.72239,
+        "source": "wd",
+        "qid": "Q33328099",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 6.29576,
+        "lng": 99.72239
+      },
+      "address_local": null,
+      "access": {
+        "modes": [
+          "car_only"
+        ],
+        "nearest_ko": "랑카위 공항·쿠아 선착장에서 택시 또는 렌터카",
+        "source": "kgp_getting",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.malaysia.travel/explore/langkawi",
+      "summary_ko": "해수욕과 수상 스포츠로 알려진 랑카위의 해변이에요.",
+      "body_ko": [
+        "랑카위 관광청이 일광욕·해수욕·수상 스포츠를 하는 해변으로 소개하는 곳이에요.",
+        "가까이에 논 풍경을 보는 라만 파디와 언더워터 월드 랑카위가 있어요.",
+        "랑카위에는 공공 버스가 없어서 택시나 렌터카로 다녀요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "일광욕·해수욕·수상 스포츠를 하는 해변이에요.",
+          "source": "nl_gettinghere",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "라만 파디와 언더워터 월드 랑카위가 가까워요.",
+          "source": "tm_langkawi",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "랑카위에는 공공 버스가 없고, 공항·쿠아 선착장·호텔에서 택시와 렌터카를 구할 수 있어요.",
+          "source": "kgp_getting",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "햇살 아래 해변을 산책해 보라고 관광청이 안내해요.",
+          "source": "tm_langkawi",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "택시·렌터카·오토바이는 공항과 쿠아 선착장, 호텔에서 구할 수 있어요.",
+          "source": "kgp_getting",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "public_space",
+        "visit_note_ko": null
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "tm_langkawi",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_my",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 32,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/Category:Cenang_Beach",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJG4L3oguISzARA2GH9QhW8MM"
+    },
+    {
+      "id": "kilim-geoforest-park",
+      "qid": "Q100214559",
+      "names": {
+        "ko": "키림 카르스트 지오포레스트 공원",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Kilim Karst Geoforest Park",
+        "local": "Kilim Karst Geoforest Park",
+        "local_short": "Kilim Geoforest Park",
+        "local_lang": "en",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "킬림 지오포레스트 공원",
+        "키림 맹그로브",
+        "킬림 카르스트 지오포레스트 공원",
+        "키림 지오포레스트 공원"
+      ],
+      "aliases_en": [
+        "Kilim Geoforest Park",
+        "Kilim Mangrove"
+      ],
+      "mentions_ko": [
+        "킬림강",
+        "박쥐 동굴",
+        "탄중 루"
+      ],
+      "region": "my_langkawi",
+      "area_ko": "랑카위 동쪽 킬림",
+      "category": "nature",
+      "tags": [],
+      "geo": {
+        "kind": "pier",
+        "lat": 6.4050027,
+        "lng": 99.8584325,
+        "source": "osm",
+        "qid": "Q100214559",
+        "osm": "node/5309678721",
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 6.38381,
+        "lng": 99.89506
+      },
+      "address_local": {
+        "text": "Jeti Pelancongan Sungai Kilim, Mukim Air Hangat, 07100 Langkawi, Kedah",
+        "source": "nl_kilim",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "car_only",
+          "boat"
+        ],
+        "nearest_ko": "킬림강 관광 선착장(쿠아 선착장에서 차로)",
+        "source": "kgp_getting",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://kilimgeoforestpark.com/",
+      "summary_ko": "맹그로브 숲과 석회암 카르스트가 함께 있는 지질공원이에요.",
+      "body_ko": [
+        "랑카위 동쪽에 있는 면적 4,354ha의 지오포레스트 공원으로, 공원을 가로지르는 킬림강에서 이름을 따왔어요.",
+        "세툴층 석회암이 녹고 깎여 만들어진 바다 기둥·아치와 맹그로브 숲이 어우러져요.",
+        "랑카위는 2007년 6월 1일 유네스코 세계지질공원이 됐고, 이곳은 그 지오포레스트 공원 세 곳 가운데 하나예요.",
+        "선착장에서 맹그로브 사이 나무 데크를 걷거나 배를 타고 둘러봐요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "면적 4,354ha, 랑카위 동쪽에 있고 킬림강에서 이름을 땄어요.",
+          "source": "lgp_geoforest",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "세툴층 석회암이 녹고 깎여 바다 기둥·아치·첨탑 지형이 생겼고, 맹그로브 숲이 넓어요.",
+          "source": "lgp_geoforest",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "랑카위는 2007년 6월 1일 유네스코 세계지질공원이 됐고, 지오포레스트 공원 세 곳 가운데 하나예요.",
+          "source": "kgp_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "선착장에서 맹그로브 사이 나무 데크를 걷고, 배로도 둘러봐요.",
+          "source": "nl_kilim",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "데크 길은 박쥐가 사는 동굴까지 이어져요.",
+          "source": "nl_kilim",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "쿠아 선착장에서 아이르 항앗 도로를 따라 차로 가면 킬림강 관광 선착장이 나와요.",
+          "source": "kgp_getting",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "맹그로브 숲에서 보각 나무, 게, 원숭이, 석회암 지형을 볼 수 있어요.",
+          "source": "nl_kilim",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "unknown",
+        "regular_closed": [
+          "none"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "kgp_getting",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "kgp_getting",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_my",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 11,
+        "designations": [
+          {
+            "kind": "unesco_global_geopark",
+            "name_ko": "유네스코 세계지질공원 랑카위(2007)",
+            "source": "kgp_about"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/Category:Kilim_Karst_Geoforest_Park",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJSV9bFcd8TDAR1VNW4V90W-Q"
+    },
+    {
+      "id": "kinabalu-park",
+      "qid": "Q834893",
+      "names": {
+        "ko": "키나발루 공원",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Kinabalu Park",
+        "local": "Taman Kinabalu",
+        "local_short": "Taman Kinabalu",
+        "local_lang": "ms",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "키나발루 국립공원",
+        "키나발루 파크"
+      ],
+      "aliases_en": [
+        "Kinabalu National Park"
+      ],
+      "mentions_ko": [
+        "키나발루산",
+        "팀포혼 게이트",
+        "식물원",
+        "메실라우",
+        "포링"
+      ],
+      "region": "my_kinabalu",
+      "area_ko": "사바 라나우 쿤다상",
+      "category": "nature",
+      "tags": [
+        {
+          "id": "unesco",
+          "source": "unesco_1012",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "foreigner_price",
+          "source": "sp_kinabalu",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "visitor_center",
+        "lat": 6.0056696,
+        "lng": 116.5424501,
+        "source": "osm",
+        "qid": "Q834893",
+        "osm": "node/915898956",
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 6.15,
+        "lng": 116.65
+      },
+      "address_local": null,
+      "access": {
+        "modes": [
+          "bus",
+          "car_only"
+        ],
+        "nearest_ko": "코타키나발루 파당 메르데카에서 라나우 방면 미니버스·장거리 택시, 또는 차로 공원 본부",
+        "source": "stb_gettingaround",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.sabahparks.org.my/kinabalu-park",
+      "wiki": {
+        "ko": "키나발루 공원",
+        "en": "Kinabalu Park"
+      },
+      "summary_ko": "키나발루산을 품은 말레이시아 첫 세계유산이에요.",
+      "body_ko": [
+        "1964년 지정된 사바의 첫 공원으로, 면적은 약 754㎢예요.",
+        "해발 4,095m 키나발루산을 중심으로 저지대 우림부터 고산 관목까지 식생대가 이어져요.",
+        "2000년 말레이시아에서 처음으로 세계유산에 올랐어요.",
+        "공원 본부는 해발 약 1,520m에 있고, 코타키나발루에서 동해안 고속도로로 약 92km 거리예요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "1964년 지정된 사바의 첫 공원이고 면적은 약 754㎢예요.",
+          "source": "sp_kinabalu",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "키나발루산 정상은 4,095m이고, 저지대 우림부터 고산 관목까지 식생이 이어져요.",
+          "source": "sp_whs",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "2000년 등재된 말레이시아의 첫 세계유산이에요.",
+          "source": "sp_whs",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "공원 본부는 해발 약 1,520m, 코타키나발루에서 동해안 고속도로로 약 92km예요.",
+          "source": "sp_kinabalu",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "세계유산 키나발루 공원은 2000년에 등재됐어요.",
+          "source": "unesco_1012",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "공원 안의 식물은 절대 채취하면 안 돼요.",
+          "source": "stb_kinabalu",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "식물원은 매일 열고, 사바 파크스 가이드가 정해진 시간에 안내 투어를 해요.",
+          "source": "stb_kinabalu",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "키나발루산 등반은 사바 파크스 공식 예약 사이트에서 미리 예약해요.",
+          "source": "sp_kinabalu",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "본부 주변에 산책로가 여러 개 있고, 포링 온천은 본부에서 차로 더 가야 해요.",
+          "source": "stb_kinabalu",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "none"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "sp_kinabalu",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "sp_kinabalu",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_my",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 4,
+        "designations": [
+          {
+            "kind": "unesco",
+            "name_ko": "세계유산 키나발루 공원(2000)",
+            "source": "unesco_1012"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/Category:Kinabalu_National_Park",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJU1xk7-GYOzIRL-kZzHTAFwY"
+    },
+    {
+      "id": "poring-hot-springs",
+      "qid": "Q14218087",
+      "names": {
+        "ko": "포링 온천",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Poring Hot Spring",
+        "local": "Poring Hot Spring",
+        "local_short": "Poring",
+        "local_lang": "en",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "포링 핫 스프링",
+        "포링 온천 자연보호구역"
+      ],
+      "aliases_en": [
+        "Poring Hot Springs",
+        "Poring Hot Spring & Nature Reserve"
+      ],
+      "mentions_ko": [
+        "캐노피 워크웨이",
+        "키풍깃 폭포",
+        "랑가난 폭포",
+        "나비 농장"
+      ],
+      "region": "my_kinabalu",
+      "area_ko": "사바 라나우 포링",
+      "category": "nature",
+      "tags": [
+        {
+          "id": "hot_spring",
+          "source": "sp_poring",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "foreigner_price",
+          "source": "sp_poring",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "entrance",
+        "lat": 6.0479564,
+        "lng": 116.7023025,
+        "source": "osm",
+        "qid": "Q14218087",
+        "osm": "node/916006021",
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 6.0411305555556,
+        "lng": 116.70725
+      },
+      "address_local": null,
+      "access": {
+        "modes": [
+          "car_only"
+        ],
+        "nearest_ko": "키나발루 공원 본부에서 차로 가요",
+        "source": "stb_kinabalu",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.sabahparks.org.my/kinabalu-park/poring",
+      "summary_ko": "키나발루 공원 동쪽 저지대의 유황 온천이에요.",
+      "body_ko": [
+        "포링이라는 이름은 이 일대에 많이 자라는 큰 대나무 종에서 왔어요.",
+        "키나발루 공원 본부에서 약 40km 떨어진 동쪽 경계에 있고, 해발 약 400m의 저지대 숲이에요.",
+        "제2차 세계대전 때 일본군이 처음 개발한 유황 온천물을 야외 욕조로 끌어와요.",
+        "숲 위를 걷는 캐노피 워크웨이는 2025년 7월 30일부터 보수로 당분간 닫혀 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "이름은 이 일대에 많은 큰 대나무 종에서 왔어요.",
+          "source": "sp_poring",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "공원 본부에서 약 40km 떨어진 동쪽 경계에 있고 해발 약 400m예요.",
+          "source": "sp_poring",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "제2차 세계대전 때 일본군이 처음 개발한 유황 온천물을 야외 욕조로 끌어와요.",
+          "source": "sp_poring",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "캐노피 워크웨이는 2025년 7월 30일부터 보수로 임시 폐쇄예요.",
+          "source": "sp_poring",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "실내 개인 욕조도 있어요.",
+          "source": "sp_poring",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "키풍깃 폭포까지 숲길을 걸어갈 수 있어요.",
+          "source": "sp_poring",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "고무 샌들, 갈아입을 옷, 수건, 수영복을 가져가라고 관광청이 안내해요.",
+          "source": "stb_poring",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "온천 수온은 자연 그대로라 직원 안내에 따라 욕조를 이용해요.",
+          "source": "sp_poring",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "none"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "sp_poring",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [
+        "renovation"
+      ],
+      "status": {
+        "value": "partial",
+        "note_ko": "캐노피 워크웨이는 보수로 닫혀 있어요(온천·숲길은 열어요).",
+        "source": "sp_poring",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_my",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 33,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/Category:Poring_Hot_Springs",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJg8qAduK9OzIR6pY28dcSEm4"
     }
   ],
   "sources": [
@@ -2943,6 +5285,184 @@
       "id": "sp_tar",
       "name": "Sabah Parks (park authority) official website — Tunku Abdul Rahman Park",
       "url": "https://www.sabahparks.org.my/tunku-abdul-rahman-park",
+      "use": "facts"
+    },
+    {
+      "id": "osm",
+      "name": "OpenStreetMap contributors",
+      "url": "https://www.openstreetmap.org/copyright",
+      "use": "coords_osm",
+      "license": "ODbL-1.0",
+      "attribution_required": true
+    },
+    {
+      "id": "klt_getting",
+      "name": "KL Tower (Menara Kuala Lumpur Sdn Bhd) official website — Getting Here",
+      "url": "https://kltower.com.my/getting-here/",
+      "use": "facts"
+    },
+    {
+      "id": "klt_story",
+      "name": "KL Tower (Menara Kuala Lumpur Sdn Bhd) official website — Our Story",
+      "url": "https://kltower.com.my/ourstory/",
+      "use": "facts"
+    },
+    {
+      "id": "mn_sejarah",
+      "name": "Masjid Negara (JAKIM) official website — Sejarah Masjid",
+      "url": "https://masjidnegara.gov.my/ms/index.php/info-korporat/sejarah-masjid",
+      "use": "facts"
+    },
+    {
+      "id": "tm_masjidjamek",
+      "name": "Tourism Malaysia (official portal) — Masjid Jamek",
+      "url": "https://www.malaysia.travel/explore/masjid-jamek",
+      "use": "facts"
+    },
+    {
+      "id": "tm_petaling",
+      "name": "Tourism Malaysia (official portal) — 5 Best Hotspots in Petaling Street",
+      "url": "https://www.malaysia.travel/explore/5-best-hotspots-in-petaling-street-you-don-t-want-to-miss",
+      "use": "facts"
+    },
+    {
+      "id": "cft_tours",
+      "name": "Cheong Fatt Tze – The Blue Mansion official website — Daily Tours",
+      "url": "https://www.cheongfatttzemansion.com/thebluemansion/discover/daily-tours/",
+      "use": "facts"
+    },
+    {
+      "id": "cft_history",
+      "name": "Cheong Fatt Tze – The Blue Mansion official website — History",
+      "url": "https://www.cheongfatttzemansion.com/thebluemansion/about-the-mansion/history/",
+      "use": "facts"
+    },
+    {
+      "id": "cft_faq",
+      "name": "Cheong Fatt Tze – The Blue Mansion official website — FAQ",
+      "url": "https://www.cheongfatttzemansion.com/frequently-asked-questions/",
+      "use": "facts"
+    },
+    {
+      "id": "cft_about",
+      "name": "Cheong Fatt Tze – The Blue Mansion official website — About The Mansion",
+      "url": "https://www.cheongfatttzemansion.com/thebluemansion/about-the-mansion/",
+      "use": "facts"
+    },
+    {
+      "id": "stb_tanjungaru",
+      "name": "Sabah Tourism Board official website — Tanjung Aru Beach",
+      "url": "https://sabahtourism.com/destination/tanjung-aru-beach/",
+      "use": "facts"
+    },
+    {
+      "id": "sm_guest",
+      "name": "Department of Sabah Museum official website — Guest Info",
+      "url": "https://museum.sabah.gov.my/content/guest-info",
+      "use": "facts"
+    },
+    {
+      "id": "sm_history",
+      "name": "Department of Sabah Museum official website — Our History",
+      "url": "https://museum.sabah.gov.my/content/our-history",
+      "use": "facts"
+    },
+    {
+      "id": "stb_museum",
+      "name": "Sabah Tourism Board official website — Sabah State Museum & Heritage Village",
+      "url": "https://sabahtourism.com/destination/sabah-state-museum-heritage-village/",
+      "use": "facts"
+    },
+    {
+      "id": "nl_skycab",
+      "name": "Naturally Langkawi (Langkawi Development Authority, official tourism site) — Langkawi Skycab",
+      "url": "https://naturallylangkawi.my/portfolio/langkawi-skycab/",
+      "use": "facts"
+    },
+    {
+      "id": "tm_skycab",
+      "name": "Tourism Malaysia (official portal) — Panorama Langkawi SkyCab",
+      "url": "https://www.malaysia.travel/explore/panorama-langkawi-skycab",
+      "use": "facts"
+    },
+    {
+      "id": "nl_eagle",
+      "name": "Naturally Langkawi (Langkawi Development Authority, official tourism site) — Dataran Lang / Eagle Square",
+      "url": "https://naturallylangkawi.my/portfolio/dataran-lang-eagle-square/",
+      "use": "facts"
+    },
+    {
+      "id": "nl_gettinghere",
+      "name": "Naturally Langkawi (Langkawi Development Authority, official tourism site) — Getting Here",
+      "url": "https://naturallylangkawi.my/getting-here-2/",
+      "use": "facts"
+    },
+    {
+      "id": "tm_langkawi",
+      "name": "Tourism Malaysia (official portal) — Langkawi",
+      "url": "https://www.malaysia.travel/explore/langkawi",
+      "use": "facts"
+    },
+    {
+      "id": "nl_kilim",
+      "name": "Naturally Langkawi (Langkawi Development Authority, official tourism site) — Kilim Geoforest Park",
+      "url": "https://naturallylangkawi.my/portfolio/kilim-geoforest-park/",
+      "use": "facts"
+    },
+    {
+      "id": "lgp_geoforest",
+      "name": "Langkawi UNESCO Global Geopark (LADA Geopark and Sustainability Section) official website — Our Geoforest Parks",
+      "url": "https://www.langkawigeopark.com.my/our-geoforest-parks/",
+      "use": "facts"
+    },
+    {
+      "id": "kgp_getting",
+      "name": "Kilim Geoforest Park official park manager website (Koperasi Komuniti Kampung Kilim Langkawi Berhad) — Getting Here",
+      "url": "https://kilimgeoforestpark.com/getting-here/",
+      "use": "facts"
+    },
+    {
+      "id": "kgp_about",
+      "name": "Kilim Geoforest Park official park manager website (Koperasi Komuniti Kampung Kilim Langkawi Berhad) — Kilim Geoforest Park",
+      "url": "https://kilimgeoforestpark.com/kilim-geoforest-park/",
+      "use": "facts"
+    },
+    {
+      "id": "sp_kinabalu",
+      "name": "Sabah Parks (park authority) official website — Kinabalu Park",
+      "url": "https://www.sabahparks.org.my/kinabalu-park",
+      "use": "facts"
+    },
+    {
+      "id": "stb_kinabalu",
+      "name": "Sabah Tourism Board official website — Kinabalu Park",
+      "url": "https://sabahtourism.com/destination/kinabalu-park/",
+      "use": "facts"
+    },
+    {
+      "id": "sp_whs",
+      "name": "Sabah Parks — Kinabalu Park World Heritage Site official site",
+      "url": "https://whs.sabahparks.org.my/",
+      "use": "facts"
+    },
+    {
+      "id": "unesco_1012",
+      "name": "UNESCO World Heritage Centre — Kinabalu Park",
+      "url": "https://whc.unesco.org/en/list/1012/",
+      "use": "heritage_registry",
+      "license": "UNESCO WHC (사실만 사용, 설명문 CC-BY-SA IGO 3.0)",
+      "attribution_required": true
+    },
+    {
+      "id": "sp_poring",
+      "name": "Sabah Parks (park authority) official website — Poring Hot Spring",
+      "url": "https://www.sabahparks.org.my/kinabalu-park/poring",
+      "use": "facts"
+    },
+    {
+      "id": "stb_poring",
+      "name": "Sabah Tourism Board official website — Poring Hot Spring (PHS)",
+      "url": "https://sabahtourism.com/destination/poring-hot-spring-phs/",
       "use": "facts"
     }
   ],
