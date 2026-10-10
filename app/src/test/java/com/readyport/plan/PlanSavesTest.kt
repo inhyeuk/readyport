@@ -23,4 +23,28 @@ class PlanSavesTest {
         val r = result(PlanDay(1, "하루", listOf(item("x"), item(null))))
         assertEquals(emptyList<String>(), PlanSaves.orderedPlaceIds(r, emptySet()))
     }
+
+    @Test
+    fun stopsMapPlanDayToTripDayInOrderAndDropDuplicates() {
+        val r = result(
+            PlanDay(2, "둘째 날", listOf(item("c"), item("a"), item(null))),
+            PlanDay(1, "첫째 날", listOf(item("a"), item("b"), item("gone"))),
+        )
+        val stops = PlanSaves.stops(r, setOf("a", "b", "c"), dayCount = 2)
+        // 1일차 = 0, 2일차 = 1. a 는 처음 나온 1일차에만, 하루 안 순서는 계획 그대로
+        assertEquals(
+            listOf(
+                com.readyport.itinerary.ItineraryStop("JP/a", 0),
+                com.readyport.itinerary.ItineraryStop("JP/b", 0),
+                com.readyport.itinerary.ItineraryStop("JP/c", 1),
+            ),
+            stops,
+        )
+    }
+
+    @Test
+    fun stopsClampDayToTripLength() {
+        val r = result(PlanDay(5, "다섯째 날", listOf(item("a"))))
+        assertEquals(listOf(com.readyport.itinerary.ItineraryStop("JP/a", 1)), PlanSaves.stops(r, setOf("a"), dayCount = 2))
+    }
 }
