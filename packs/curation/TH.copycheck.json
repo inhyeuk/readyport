@@ -4,6 +4,11 @@
     "checked_at": "2026-10-10",
     "text_sha256": "5e0e2c8af43e470d4f9272a1985aa662442a183a1a8393c9ae47052e666a50f8"
   },
+  "asiatique": {
+    "cache_set_sha256": "cf549eecb3f6cb3ebda77ac54b6b9879d8b89fb62739c1424d7d057290e59a61",
+    "checked_at": "2026-10-10",
+    "text_sha256": "5f0e378b03b72539d08c38ab793d5f64724d684d5934c3d3144122279a911816"
+  },
   "ayutthaya-historical-park": {
     "cache_set_sha256": "0fd095daf1b3c414784f547cb27f0a563f5482e507bd2aebeb141a3ee5a9c945",
     "checked_at": "2026-10-10",
@@ -84,6 +89,11 @@
     "checked_at": "2026-10-10",
     "text_sha256": "da74dc18e5bc46cd37704dc767fedaf166122590a31b8ef23296603bb083b44a"
   },
+  "iconsiam": {
+    "cache_set_sha256": "29b852bb56779c367826a2d1c5236862929a7ef5943260fd57fc81d01a28f47a",
+    "checked_at": "2026-10-10",
+    "text_sha256": "545baaa8da4fe7aa8973ccf9e9884ff2e408394432248e94c9b77074953f38dc"
+  },
   "jim-thompson-house": {
     "cache_set_sha256": "4f0344afca44344804d1e9f91f58ce029028993d262f039f543e61f2ee1f2f7f",
     "checked_at": "2026-10-10",
@@ -118,6 +128,11 @@
     "cache_set_sha256": "54e11b977bfa70861888e76a89e63e677f0e958c77f783d8721d358f7fdf9e05",
     "checked_at": "2026-10-10",
     "text_sha256": "376e6fb30489367d1e93e7eb9c4a24458c0c05feb9e133a79461c96c9d31c320"
+  },
+  "mini-siam": {
+    "cache_set_sha256": "934289c2baf592a559234b729eefd9341698e44f8b059757610839adfc3cd46e",
+    "checked_at": "2026-10-10",
+    "text_sha256": "c603e7b1ed734410255afd3eed14984cdb0c52d90a9a4832e49383ec8e184299"
   },
   "patong-beach": {
     "cache_set_sha256": "6d1be84648e8d2ca4c01deaa9b94d32b86424083ecba6b72bca3c53af312f99f",
@@ -164,6 +179,16 @@
     "checked_at": "2026-10-10",
     "text_sha256": "3064a0f72e06c2aed8ff5d98824c04d2c1e3e92a6bd83ce0437eb6dfd3ede820"
   },
+  "sea-life-bangkok": {
+    "cache_set_sha256": "b94430d883f5b386b3c2ee39b7cb8c11d19ebfc394482aa480828e74426a87cc",
+    "checked_at": "2026-10-10",
+    "text_sha256": "d1ecfdc09390e9ecb3ec029ad6742bce5e6a369e0d357088fd2e55914161eb6e"
+  },
+  "siam-paragon": {
+    "cache_set_sha256": "09aa4e4cf61a68917caacc8e7426ec3cfe1e128902dd11646c95df7a99f6a184",
+    "checked_at": "2026-10-10",
+    "text_sha256": "fe1b87e88d0e2d3384594ac274554d1c042a058cd3f56efedc30d6cf08dbcabf"
+  },
   "tha-phae-gate": {
     "cache_set_sha256": "d7b42661b8b02abfee867ca9f791746b6a18b069709d0327711ecc2eaaba6783",
     "checked_at": "2026-10-10",
@@ -173,6 +198,11 @@
     "cache_set_sha256": "54b980908fe0af8202798af0f5128af54db121a0e61d06dc3bdbf2e1197e98b8",
     "checked_at": "2026-10-10",
     "text_sha256": "1c81954e7a1e73906535c91db50e39523ffc47c7057bb66ef683481ddf805919"
+  },
+  "warorot-market": {
+    "cache_set_sha256": "2d910fad589215478fdc1f7138ad4a148970d777ced89f1d4f91e18d73ef5944",
+    "checked_at": "2026-10-10",
+    "text_sha256": "121690ceb8cf2a493dde375e4d1ece7d2b95da843054733fb96cb3cfb07f8c4d"
   },
   "wat-arun": {
     "cache_set_sha256": "51d4094cd531cb8c363164082d7c01ab45bc972121f2b3d89df687fea81917d1",
