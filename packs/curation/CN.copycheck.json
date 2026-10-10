@@ -14,6 +14,16 @@
     "checked_at": "2026-10-10",
     "text_sha256": "92af7bfda450cc7d96192421ed634346e9346b6f07ab834ee972f14c37844f47"
   },
+  "chengdu-museum": {
+    "cache_set_sha256": "6499a97af058f397def0231e522e2e5af4670b3e7b1555f65dc151cfb3b700f3",
+    "checked_at": "2026-10-10",
+    "text_sha256": "5ead471216f1ace6514d85df3a01e2096a6c8384369080838e5207e9e175fcbc"
+  },
+  "chengdu-panda-base": {
+    "cache_set_sha256": "27da49b1c96b8efc761e3ea09d7d66f00e33c8ef15a5d7b257c5e1b2ecc25d8e",
+    "checked_at": "2026-10-10",
+    "text_sha256": "03afb022d46f4c43d5c4ee1b21241ca9000f1844e9378e4019a03478f8d5b562"
+  },
   "china-national-silk-museum": {
     "cache_set_sha256": "3965fdcb48904a9e49c8c205559d296328db7981e3165664a91d734f430267ff",
     "checked_at": "2026-10-10",
@@ -94,10 +104,20 @@
     "checked_at": "2026-10-10",
     "text_sha256": "afe41f4778589b16120a735cb9911c10ac497851faff392d3cc1723ebfd7f15f"
   },
+  "shanghai-disneyland": {
+    "cache_set_sha256": "add066c2d588d21b51643f727d16514af3e06ad6a21e235bc8f9a755bd3fdd8f",
+    "checked_at": "2026-10-10",
+    "text_sha256": "a94991cc7e2bca9e0ee8a013e4918e2e666c16a78f3d9998a714b1db6c0fd5c7"
+  },
   "shanghai-museum": {
     "cache_set_sha256": "d84fae9f9918aaaf028440676be61cd95f5884c79a6cf3f81b5e368db6b68a71",
     "checked_at": "2026-10-10",
     "text_sha256": "3931ae83c5a9aec32d85021128fea6fa19818e511094cc02a1c83a8c8252181b"
+  },
+  "shanghai-tower": {
+    "cache_set_sha256": "f9bdb69a95bc938558c48e75de552f756226444e98a7cfee3a7b7cc3fffe91e2",
+    "checked_at": "2026-10-10",
+    "text_sha256": "460b4432bff5f5214970892c848fe5f7f304e43245c5e34117d9c03a5d88b1ca"
   },
   "summer-palace": {
     "cache_set_sha256": "90f2b6a641cbefe3bb12359a3eb6ce58a24f263efe333bb769d8c0f99ddec5c3",
@@ -129,6 +149,11 @@
     "checked_at": "2026-10-10",
     "text_sha256": "f4c2482d5fca35e891148f8dc5e9329ac9a6d975166ee2523374a1027b786674"
   },
+  "universal-beijing-resort": {
+    "cache_set_sha256": "8d85a5f828d0401690a603e07921a7b4446351c9487f92b3d658d3d27bb0c438",
+    "checked_at": "2026-10-10",
+    "text_sha256": "a6fc9f8e3f451b1facdf81ca11bed594f214b7a33a69f06827c2ace1e326370f"
+  },
   "wangfujing": {
     "cache_set_sha256": "8b7d9cb346fb8ec8fae60700efc8d2a3c2df8122ba5b2259603cc7b9a7f0824a",
     "checked_at": "2026-10-10",
@@ -138,6 +163,11 @@
     "cache_set_sha256": "9ed7cd4d3a558b731e99c420e7f3b1acae5ad3ea46ae291b407e80ec97fc324b",
     "checked_at": "2026-10-10",
     "text_sha256": "7cbf81b661a874e64eeb21681aa9eb07c297c0e658d2f0f30c86af608bef233a"
+  },
+  "wuhou-shrine": {
+    "cache_set_sha256": "82269e024181d25fb88c8e0501b6149fd4f8f982e3f48b24260b7420949cfa6f",
+    "checked_at": "2026-10-10",
+    "text_sha256": "b58cd86ba39522a31708944671e2530a41d67014dfd9d1aebba9d7e99ce02684"
   },
   "xian-city-wall": {
     "cache_set_sha256": "33b5b68f28b82e1fe5b35061b8bf413a493bba64ebcd38cfb2ddd915d5151057",
