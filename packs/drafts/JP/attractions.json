@@ -430,6 +430,35 @@
       "wave": 3
     },
     {
+      "id": "jp_takayama",
+      "order": 140,
+      "name_ko": "다카야마·시라카와고",
+      "name_en": "Takayama & Shirakawa-go",
+      "aliases_ko": [
+        "다카야마",
+        "시라카와고",
+        "히다다카야마",
+        "고산케"
+      ],
+      "group_ko": "주부",
+      "kind": "base",
+      "hub": {
+        "name_ko": "다카야마역",
+        "lat": 36.1412,
+        "lng": 137.251,
+        "qid": "Q874020"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "advisory_watch_ko": [],
+      "water_crossing": false,
+      "airports": [],
+      "wave": 3
+    },
+    {
       "id": "jp_sapporo",
       "order": 150,
       "name_ko": "삿포로·오타루",
@@ -10914,6 +10943,361 @@
       "photo_link": "https://commons.wikimedia.org/wiki/File:Shibuya_Scramble_Square_-_SHIBUYA_SKY_12.jpg",
       "source": "wd",
       "last_verified": "2026-10-10"
+    },
+    {
+      "id": "shirakawa-go",
+      "qid": "Q1002193",
+      "names": {
+        "ko": "시라카와고",
+        "ko_basis": "editorial",
+        "en": "Shirakawa-gō",
+        "local": "白川郷",
+        "local_short": "白川郷",
+        "local_lang": "ja",
+        "source": "wd",
+        "ko_paren": "백천향"
+      },
+      "aliases_ko": [
+        "백천향",
+        "오기마치",
+        "시라카와고 합장촌"
+      ],
+      "aliases_en": [
+        "Ogimachi"
+      ],
+      "mentions_ko": [
+        "갓쇼즈쿠리",
+        "합장 마을"
+      ],
+      "region": "jp_takayama",
+      "area_ko": "기후현 시라카와무라 오기마치",
+      "category": "heritage",
+      "tags": [
+        {
+          "id": "unesco",
+          "source": "shirakawago_official_highlights",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 36.2566607,
+        "lng": 136.9050385,
+        "source": "wd",
+        "last_verified": "2026-10-10",
+        "qid": "Q1002193"
+      },
+      "access": {
+        "modes": [
+          "bus"
+        ],
+        "nearest_ko": "근처에 역이 없어서 나고야·가나자와 등 역에서 고속버스를 타요",
+        "source": "shirakawago_official_access",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://shirakawa-go.gr.jp/",
+      "summary_ko": "합장 지붕 집들이 모여 있는 세계유산 마을이에요.",
+      "body_ko": [
+        "시라카와고의 합장조 집은 나무 들보를 산 모양으로 짜서 지은 일본 고유의 건축 양식이에요.",
+        "이 합장조 마을은 1976년 중요 전통적 건조물군 보존지구가 됐고, 1995년 고카야마와 함께 세계유산에 올랐어요.",
+        "오기마치 마을에서는 '팔지 않고, 빌려주지 않고, 부수지 않는다'는 세 원칙을 정했어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "합장조는 나무 들보를 산 모양으로 짜서 지은 일본 고유의 건축 양식이에요.",
+          "source": "shirakawago_official_highlights",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "1976년 중요 전통적 건조물군 보존지구로 선정됐고, 1995년 고카야마와 함께 세계유산에 등록됐어요.",
+          "source": "shirakawago_official_highlights",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "오기마치 마을은 '팔지 않고, 빌려주지 않고, 부수지 않는다'는 세 원칙을 정했어요.",
+          "source": "shirakawago_official_highlights",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "마을 주변에 기차역이 없어서 역에서 고속버스를 타고 가요.",
+          "source": "shirakawago_official_access",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "차로 간다면 공공 주차장인 '세세라기 공원 주차장'을 써요.",
+          "source": "shirakawago_official_access",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "주차장에서 '데아이 다리'를 건너면 세계유산 마을이에요.",
+          "source": "shirakawago_official_access",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "unknown",
+        "regular_closed": [
+          "unknown"
+        ],
+        "source": "shirakawago_official_access",
+        "last_verified": "2026-10-10"
+      },
+      "status": {
+        "value": "open",
+        "source": "shirakawago_official_access",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 999,
+        "designations": [
+          {
+            "kind": "unesco",
+            "name_ko": "세계유산 시라카와고·고카야마의 합장조 마을",
+            "source": "shirakawago_official_highlights"
+          }
+        ]
+      },
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Ogi_Shirakawa01n3200.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10"
+    },
+    {
+      "id": "takayama-jinya",
+      "qid": "Q11669454",
+      "names": {
+        "ko": "다카야마 진야",
+        "ko_basis": "editorial",
+        "en": "Takayama Jin'ya",
+        "local": "高山陣屋",
+        "local_short": "高山陣屋",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "고산 진야",
+        "다카야마 진지"
+      ],
+      "mentions_ko": [
+        "군다이쇼"
+      ],
+      "region": "jp_takayama",
+      "area_ko": "기후현 다카야마시",
+      "category": "heritage",
+      "geo": {
+        "kind": "entrance",
+        "lat": 36.1397,
+        "lng": 137.258,
+        "source": "wd",
+        "last_verified": "2026-10-10",
+        "qid": "Q11669454"
+      },
+      "address_local": {
+        "text": "〒506-0012 岐阜県高山市八軒町1-5 高山陣屋管理事務所",
+        "source": "jinya_official_info",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "train",
+          "bus"
+        ],
+        "nearest_ko": "JR 다카야마역과 노히 버스센터에서 걸어가요",
+        "nearest_local": {
+          "text": "高山駅",
+          "qid": "Q874020",
+          "source": "wd"
+        },
+        "source": "jinya_official_access",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://jinya.gifu.jp/",
+      "summary_ko": "에도 시대 관청 건물이 남아 있는 국가 사적이에요.",
+      "body_ko": [
+        "다카야마 진야는 에도 막부가 보낸 관리가 정무를 보던 관청이에요.",
+        "막부 말에 전국에 60여 곳 있던 군다이·다이칸쇼 가운데 당시 주요 건물이 남은 곳은 이곳뿐이고, 1929년에 국가 사적이 됐어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "막부 말 전국에 60여 곳 있던 군다이·다이칸쇼 가운데 당시 주요 건물이 남아 있는 곳은 다카야마 진야뿐이에요.",
+          "source": "jinya_official_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "1929년에 국가 사적으로 지정됐어요.",
+          "source": "jinya_official_about",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "건물 안은 신발을 벗고 들어가요. 신발을 넣을 봉지를 가져가거나 받아요.",
+          "source": "jinya_official_info",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "무료로 설명원의 안내를 들을 수 있어요.",
+          "source": "hidatakayama_kanko_jinya",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "안내견 외에 반려동물은 건물 안에 들어갈 수 없어요.",
+          "source": "jinya_official_info",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "none"
+        ],
+        "closed_note_ko": "연말연시에 쉬고, 날씨나 시설 사정으로 임시 휴관할 때도 있어요.",
+        "source": "jinya_official_info",
+        "last_verified": "2026-10-10"
+      },
+      "status": {
+        "value": "open",
+        "source": "jinya_official_info",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 999,
+        "designations": [
+          {
+            "kind": "jp_historic_site",
+            "name_ko": "국가 사적 다카야마 진야",
+            "source": "jinya_official_about"
+          }
+        ]
+      },
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Takayama_Jinya_inside_view_201706.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10"
+    },
+    {
+      "id": "takayama-old-town",
+      "qid": "Q11356789",
+      "names": {
+        "ko": "다카야마 옛 거리",
+        "ko_basis": "editorial",
+        "en": "Takayama Old Town",
+        "local": "古い町並",
+        "local_short": "古い町並",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "후루이마치나미",
+        "다카야마 구시가지",
+        "산마치"
+      ],
+      "aliases_en": [
+        "Sanmachi Suji"
+      ],
+      "mentions_ko": [
+        "가미산마치"
+      ],
+      "region": "jp_takayama",
+      "area_ko": "기후현 다카야마시 가미산노마치",
+      "category": "market_street",
+      "geo": {
+        "kind": "site",
+        "lat": 36.140175,
+        "lng": 137.25946111,
+        "source": "wd",
+        "last_verified": "2026-10-10",
+        "qid": "Q11356789"
+      },
+      "access": {
+        "modes": [
+          "train"
+        ],
+        "nearest_ko": "JR 다카야마역에서 걸어가요",
+        "nearest_local": {
+          "text": "高山駅",
+          "qid": "Q874020",
+          "source": "wd"
+        },
+        "source": "hidatakayama_kanko_furuimachinami",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.hidatakayama.or.jp/spot/detail_1101.html",
+      "summary_ko": "에도 시대 성하마을 모습이 남은 세 줄의 거리예요.",
+      "body_ko": [
+        "다카야마 옛 거리는 에도 시대에 성하마을이자 상인마을로 발달한 곳이에요.",
+        "위쪽·아래쪽 동네에 걸친 세 줄 거리는 국가 중요 전통적 건조물군 보존지구로 선정돼 있어요.",
+        "옛 양조장 7곳이 늘어서 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "에도 시대 성하마을·상인마을로 발달했고, 세 줄 거리가 국가 중요 전통적 건조물군 보존지구로 선정돼 있어요.",
+          "source": "hidatakayama_kanko_furuimachinami",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "옛 거리에는 양조장 7곳이 늘어서 있어요.",
+          "source": "hidatakayama_kanko_furuimachinami",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "가게마다 쉬는 날이 달라서 화요일이나 수요일에 쉬는 곳이 많아요.",
+          "source": "hidatakayama_kanko_furuimachinami",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "근처 시영 주차장은 유료예요.",
+          "source": "hidatakayama_kanko_furuimachinami",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "public_space"
+      },
+      "status": {
+        "value": "open",
+        "source": "hidatakayama_kanko_furuimachinami",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 999,
+        "designations": [
+          {
+            "kind": "jp_preservation_district",
+            "name_ko": "중요 전통적 건조물군 보존지구",
+            "source": "hidatakayama_kanko_furuimachinami"
+          }
+        ]
+      },
+      "photo_link": "https://commons.wikimedia.org/wiki/File:260923_Sanmachi_Takayama_Japan03s3.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10"
     }
   ],
   "retired": [],
@@ -12909,6 +13293,48 @@
       "id": "skybldg_official_observatory",
       "name": "【公式】梅田スカイビル 空中庭園展望台について",
       "url": "https://www.skybldg.co.jp/observatory/",
+      "use": "facts"
+    },
+    {
+      "id": "hidatakayama_kanko_furuimachinami",
+      "name": "飛騨高山旅ガイド 飛騨高山 古い町並",
+      "url": "https://www.hidatakayama.or.jp/spot/detail_1101.html",
+      "use": "facts"
+    },
+    {
+      "id": "hidatakayama_kanko_jinya",
+      "name": "飛騨高山旅ガイド 高山陣屋",
+      "url": "https://www.hidatakayama.or.jp/spot/detail_1106.html",
+      "use": "facts"
+    },
+    {
+      "id": "jinya_official_about",
+      "name": "高山陣屋について",
+      "url": "https://jinya.gifu.jp/about/",
+      "use": "facts"
+    },
+    {
+      "id": "jinya_official_access",
+      "name": "高山陣屋 アクセス",
+      "url": "https://jinya.gifu.jp/guide/access/",
+      "use": "facts"
+    },
+    {
+      "id": "jinya_official_info",
+      "name": "高山陣屋 開館時間・入場料",
+      "url": "https://jinya.gifu.jp/guide/info/",
+      "use": "facts"
+    },
+    {
+      "id": "shirakawago_official_access",
+      "name": "白川郷観光協会 アクセス",
+      "url": "https://shirakawa-go.gr.jp/access/",
+      "use": "facts"
+    },
+    {
+      "id": "shirakawago_official_highlights",
+      "name": "白川郷観光協会 3分でわかる白川郷",
+      "url": "https://shirakawa-go.gr.jp/highlights/",
       "use": "facts"
     }
   ]
