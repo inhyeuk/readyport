@@ -2,7 +2,7 @@
   "doc_type": "attractions",
   "schema_version": 1,
   "country": "TW",
-  "version": "2026.10.09-1",
+  "version": "2026.10.10-1",
   "release": "draft",
   "editorial_rules": "2026-10",
   "compact_country": false,
@@ -532,7 +532,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 12,
+        "order": 18,
         "designations": []
       },
       "photo": null,
@@ -1021,7 +1021,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 13,
+        "order": 19,
         "designations": []
       },
       "photo": null,
@@ -1172,7 +1172,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 16,
+        "order": 23,
         "designations": []
       },
       "photo": null,
@@ -1511,7 +1511,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 22,
+        "order": 36,
         "designations": []
       },
       "photo": null,
@@ -1830,7 +1830,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 15,
+        "order": 21,
         "designations": []
       },
       "photo": null,
@@ -1967,7 +1967,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 23,
+        "order": 42,
         "designations": []
       },
       "photo": null,
@@ -2127,7 +2127,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 11,
+        "order": 15,
         "designations": [
           {
             "kind": "tw_municipal_monument",
@@ -2267,7 +2267,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 20,
+        "order": 31,
         "designations": []
       },
       "photo": null,
@@ -2863,7 +2863,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 18,
+        "order": 26,
         "designations": []
       },
       "photo": null,
@@ -3168,7 +3168,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 21,
+        "order": 35,
         "designations": []
       },
       "photo": null,
@@ -3318,7 +3318,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 19,
+        "order": 30,
         "designations": []
       },
       "photo": null,
@@ -3472,7 +3472,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 10,
+        "order": 14,
         "designations": [
           {
             "kind": "tw_national_monument",
@@ -3633,7 +3633,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 17,
+        "order": 25,
         "designations": []
       },
       "photo": null,
@@ -3803,7 +3803,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 14,
+        "order": 20,
         "designations": []
       },
       "photo": null,
@@ -3811,6 +3811,3154 @@
       "source": "wd",
       "last_verified": "2026-10-09",
       "google_place_id": "ChIJK3DeNq8WbjQRPFlnj_pTDKc"
+    },
+    {
+      "id": "fengjia-night-market",
+      "qid": "Q848911",
+      "names": {
+        "ko": "펑자 야시장",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Fengjia Night Market",
+        "local": "逢甲夜市",
+        "local_short": "逢甲夜市",
+        "local_lang": "zh-Hant",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "펑자원화 야시장"
+      ],
+      "aliases_en": [
+        "Fengchia Night Market"
+      ],
+      "mentions_ko": [
+        "펑자대학"
+      ],
+      "region": "tw_taichung",
+      "area_ko": "타이중 시툰구",
+      "category": "market_street",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 24.17729,
+        "lng": 120.646593,
+        "source": "wd",
+        "qid": "Q848911",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 24.17729,
+        "lng": 120.646593
+      },
+      "address_local": {
+        "text": "臺中市西屯區文華路",
+        "source": "tctour_fengjia",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "bus",
+          "metro"
+        ],
+        "nearest_ko": "버스 '福星停車場' 정류장이 야시장 바로 옆이고, MRT 원신잉화역에서도 걸어갈 수 있어요.",
+        "nearest_local": null,
+        "source": "tta_fengjia",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://travel.taichung.gov.tw/zh-tw/attractions/intro/39",
+      "wiki": {
+        "ko": "펑자 야시장",
+        "en": "Fengjia Night Market"
+      },
+      "summary_ko": "펑자대학 옆 길을 따라 늘어선 타이중의 야시장이에요.",
+      "body_ko": [
+        "펑자 야시장은 펑자대학 측문에서 원화로를 따라 푸싱로까지 이어져요.",
+        "20~30대 손님이 많고, 먹거리뿐 아니라 옷과 액세서리 가게도 함께 있어요.",
+        "다른 타이중 야시장보다 영업시간이 길다고 안내해요.",
+        "타이중시 10대 관광지로 뽑힌 곳이에요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "펑자대학 측문에서 원화로를 따라 푸싱로까지 이어져요.",
+          "source": "tctour_fengjia",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "손님은 20~30대 젊은 사람이 많아요.",
+          "source": "tctour_fengjia",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "먹거리로만 알려진 곳이 아니라 여러 가지 상점이 함께 있고, 영업시간도 더 길어요.",
+          "source": "tctour_fengjia",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "시민 투표로 뽑은 '타이중시 10대 관광지' 가운데 한 곳이에요.",
+          "source": "tctour_fengjia",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "상권은 펑자대학에서 1킬로미터 안쪽이고 원화로·펑자로·푸싱로를 포함해요.",
+          "source": "tta_fengjia",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "시청이 상권을 손봐 길을 고치고 주차 공간을 늘렸어요.",
+          "source": "tctour_fengjia",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "유행하는 옷과 액세서리, 음반·안경 가게도 함께 있어요.",
+          "source": "tctour_fengjia",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "public_space",
+        "closed_note_ko": null,
+        "visit_note_ko": "영업시간은 가게마다 다르다고 안내해요.",
+        "source": "tctour_fengjia",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "tctour_fengjia",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_tw",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 27,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJK4W2WSIWaTQROebP2ugIGg8"
+    },
+    {
+      "id": "national-museum-of-natural-science",
+      "qid": "Q3847114",
+      "names": {
+        "ko": "국립자연과학박물관",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "National Museum of Natural Science",
+        "local": "國立自然科學博物館",
+        "local_short": "國立自然科學博物館",
+        "local_lang": "zh-Hant",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "커보관"
+      ],
+      "aliases_en": [],
+      "mentions_ko": [
+        "생명과학관",
+        "과학센터",
+        "식물원"
+      ],
+      "region": "tw_taichung",
+      "area_ko": "타이중 베이구",
+      "category": "museum",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 24.1575,
+        "lng": 120.66638889,
+        "source": "wd",
+        "qid": "Q3847114",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 24.1575,
+        "lng": 120.66638889
+      },
+      "address_local": {
+        "text": "404023 臺中市北區館前路一號",
+        "source": "nmns_life",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "bus"
+        ],
+        "nearest_ko": "버스 '科博館(專用道)' 정류장이 박물관 앞에 있어요.",
+        "nearest_local": null,
+        "source": "nmns_traffic",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.nmns.edu.tw/ch/",
+      "wiki": {
+        "en": "National Museum of Natural Science"
+      },
+      "summary_ko": "공룡과 미라, 열대우림 온실을 함께 보는 국립 박물관이에요.",
+      "body_ko": [
+        "국립자연과학박물관은 생명과학관에서 자연 현상과 진화를 13개 전시구역으로 보여 줘요.",
+        "고대 이집트 미라가 있고, 공룡 전시구역에는 움직이며 소리 내는 기계 티라노사우루스가 있어요.",
+        "과학센터는 직접 손으로 만져 보며 배우도록 꾸몄어요.",
+        "식물원은 약 4.5헥타르이고, 열대우림 온실은 건물 높이가 약 40미터예요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "생명과학관은 13개 전시구역으로 자연의 현상과 진화를 보여 줘요.",
+          "source": "nmns_life",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "고대 이집트 문화 소장품인 미라를 전시해요.",
+          "source": "nmns_life",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "공룡 전시구역에는 길이 7미터, 높이 4미터로 움직이며 소리 내는 기계 티라노사우루스가 있어요.",
+          "source": "nmns_life",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "과학센터는 관람객이 직접 손으로 조작하고 참여하도록 만든 공간이에요.",
+          "source": "nmns_science_center",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "식물원은 넓이가 약 4.5헥타르예요.",
+          "source": "nmns_botanical",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c6",
+          "text_ko": "열대우림 온실은 건물 높이가 약 40미터예요.",
+          "source": "nmns_botanical",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "원내에 흑파리가 있어 긴팔·긴바지를 입거나 모기 기피제를 뿌리라고 안내해요.",
+          "source": "nmns_hours",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "여섯 살 아래 아이는 어른과 함께 다녀야 해요.",
+          "source": "nmns_hours",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "mon"
+        ],
+        "closed_note_ko": "월요일에 쉬고, 음력 섣달그믐과 설날에도 쉬어요.",
+        "visit_note_ko": "관내는 전면 금연이고, 입장 마감 시간이 따로 있어요.",
+        "source": "nmns_hours",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [
+        "renovation"
+      ],
+      "status": {
+        "value": "partial",
+        "note_ko": "과학센터 일부 층 전시구역이 당분간 닫혀 있어요.",
+        "source": "nmns_science_center",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_tw",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 34,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJyzSRBng9aTQRNk-Xj7pbpvc"
+    },
+    {
+      "id": "gaomei-wetlands",
+      "qid": "Q15622440",
+      "names": {
+        "ko": "가오메이 습지",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Gaomei Wetlands",
+        "local": "高美濕地",
+        "local_short": "高美濕地",
+        "local_lang": "zh-Hant",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "가오메이 야생동물 보호구"
+      ],
+      "aliases_en": [],
+      "mentions_ko": [
+        "다자시 하구",
+        "가오메이 자전거도로"
+      ],
+      "region": "tw_taichung",
+      "area_ko": "타이중 칭수이구",
+      "category": "nature",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 24.3121,
+        "lng": 120.55,
+        "source": "wd",
+        "qid": "Q15622440",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 24.3121,
+        "lng": 120.55
+      },
+      "address_local": {
+        "text": "臺中市清水區大甲溪出海口高美濕地",
+        "source": "tctour_gaomei",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "bus"
+        ],
+        "nearest_ko": "버스 '高美濕地' 정류장에서 걸어서 갈 수 있어요.",
+        "nearest_local": null,
+        "source": "tta_gaomei",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://travel.taichung.gov.tw/zh-tw/attractions/intro/54",
+      "wiki": {
+        "en": "Gaomei Wetlands"
+      },
+      "summary_ko": "다자시 하구 갯벌에 나무 데크가 놓인 습지예요.",
+      "body_ko": [
+        "가오메이 습지는 칭수이의 다자시 하구 남쪽에 있고 넓이가 701.3헥타르예요.",
+        "기러기와 오리가 모여 번식하는 몇 곳 가운데 하나로, 지금까지 120종이 넘는 새가 머물렀어요.",
+        "뻘과 모래 갯벌이 함께 있어 타이완에서 가장 큰 윈린완차오 군락이 자라요.",
+        "가을과 겨울에는 철새가 크게 몰려와요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "청수이의 다자시 하구 남쪽에 있고 넓이가 701.3헥타르예요.",
+          "source": "tctour_gaomei",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "기러기와 오리가 모여 번식하는 국내 몇 곳 가운데 하나예요.",
+          "source": "tctour_gaomei",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "이곳에 머문 새가 120종이 넘어요.",
+          "source": "tctour_gaomei",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "뻘 갯벌과 모래 갯벌이 함께 있어요.",
+          "source": "tctour_gaomei",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "지금까지 알려진 가운데 타이완에서 가장 큰 윈린완차오 군락이 있어요.",
+          "source": "tctour_gaomei",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c6",
+          "text_ko": "해마다 가을과 겨울에 철새가 크게 몰려와요.",
+          "source": "tctour_gaomei",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "방문자센터와 주차장, 화장실, 전망대, 산책로가 있어요.",
+          "source": "tctour_gaomei",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "자전거도로에서 습지를 내려다보며 새와 노을을 볼 수 있어요.",
+          "source": "tctour_gaomei",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "public_space",
+        "closed_note_ko": null,
+        "visit_note_ko": "나무 데크는 개방 시간이 있고, 조수 예보도 함께 안내해요.",
+        "source": "tctour_gaomei",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "tctour_gaomei",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_tw",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 33,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJQ2FsFjwTaTQRKb4VYUrXd4Y"
+    },
+    {
+      "id": "sun-moon-lake",
+      "qid": "Q716206",
+      "names": {
+        "ko": "르웨탄",
+        "ko_basis": "editorial",
+        "ko_paren": "일월담",
+        "en": "Sun Moon Lake",
+        "local": "日月潭",
+        "local_short": "日月潭",
+        "local_lang": "zh-Hant",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "르웨탄호"
+      ],
+      "aliases_en": [],
+      "mentions_ko": [
+        "라루섬",
+        "수이서 부두",
+        "이다사오"
+      ],
+      "region": "tw_sunmoonlake",
+      "area_ko": "난터우현 위츠향",
+      "category": "nature",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 23.866666666667,
+        "lng": 120.91666666667,
+        "source": "wd",
+        "qid": "Q716206",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 23.866666666667,
+        "lng": 120.91666666667
+      },
+      "address_local": null,
+      "access": {
+        "modes": [
+          "bus"
+        ],
+        "nearest_ko": "타이중 고속철도역 버스 환승장에서 타이완 하오싱 일월담선을 타면 호수까지 가요.",
+        "nearest_local": null,
+        "source": "sml_howto",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.sunmoonlake.gov.tw/",
+      "wiki": {
+        "ko": "르웨탄호",
+        "en": "Sun Moon Lake"
+      },
+      "summary_ko": "라루섬을 사이에 두고 해와 달 모양으로 갈리는 산중 호수예요.",
+      "body_ko": [
+        "르웨탄은 난터우현 위츠향에 있는 산속 호수예요.",
+        "라루섬을 경계로 동쪽은 해, 서쪽은 달 모양이라 이런 이름이 붙었어요.",
+        "사오족 조상이 흰 사슴을 쫓다 이 호수를 찾았다는 이야기가 전해져요.",
+        "타이완 팔경으로 꼽히는 곳이에요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "난터우현 위츠향에 있는 산속 호수예요.",
+          "source": "sml_discover",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "라루섬을 경계로 동쪽은 해, 서쪽은 달 모양이라 이런 이름이 붙었어요.",
+          "source": "sml_discover",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "타이완 팔경으로 꼽혀요.",
+          "source": "sml_discover",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "사오족 조상이 흰 사슴을 쫓다 이 호수를 찾았다는 이야기가 전해져요.",
+          "source": "sml_history",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "2000년 1월에 일월담 국가풍경구 관리처가 생겨 관리해요.",
+          "source": "sml_history",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c6",
+          "text_ko": "1999년 9월 21일 큰 지진을 겪었어요.",
+          "source": "sml_history",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "부두는 수이서·쉬안광쓰·이다사오 세 곳이고, 유람선은 시계 반대 방향으로 돌아요.",
+          "source": "sml_local",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "유람선 표는 당일 부두마다 한 번씩 타고 내릴 수 있어요.",
+          "source": "sml_local",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "유후 버스는 교통카드로 타면 할인이 있어요.",
+          "source": "sml_local",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "public_space",
+        "closed_note_ko": null,
+        "visit_note_ko": "유후 버스가 호수 주변을 돌며 주요 지점에 정류장을 두고 있어요.",
+        "source": "sml_local",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "sml_local",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_tw",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 24,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJBQDuduDVaDQRKKUSU_2mF-w"
+    },
+    {
+      "id": "sun-moon-lake-wenwu-temple",
+      "qid": "Q10311331",
+      "names": {
+        "ko": "원우먀오",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Sun Moon Lake Wen Wu Temple",
+        "local": "日月潭文武廟",
+        "local_short": "日月潭文武廟",
+        "local_lang": "zh-Hant",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "일월담 문무묘"
+      ],
+      "aliases_en": [],
+      "mentions_ko": [
+        "다청뎬",
+        "우성뎬"
+      ],
+      "region": "tw_sunmoonlake",
+      "area_ko": "난터우현 위츠향",
+      "category": "heritage",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 23.86993,
+        "lng": 120.92767,
+        "source": "wd",
+        "qid": "Q10311331",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 23.86993,
+        "lng": 120.92767
+      },
+      "address_local": {
+        "text": "南投縣魚池鄉中正路63號",
+        "source": "sml_wenwu",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "bus"
+        ],
+        "nearest_ko": "타이완 하오싱과 시내버스 정류장, 주차장이 사당 앞에 있어요.",
+        "nearest_local": null,
+        "source": "sml_wenwu",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.sunmoonlake.gov.tw/attractions/Attractions?A=20&Id=33&P=1",
+      "wiki": {
+        "en": "Sun Moon Lake Wen Wu Temple"
+      },
+      "summary_ko": "호수 북쪽 언덕에 세 전각이 이어진 큰 사당이에요.",
+      "body_ko": [
+        "원우먀오는 호수 수위가 올라가며 옮겨야 했던 두 사당을 합쳐 지은 곳이에요.",
+        "1934년 호수 북쪽 쑹보룬에 다시 짓기 시작해 1938년에 이전을 마쳤어요.",
+        "1969년에 북조식 건물로 다시 지어 전각이 세 채로 이어져요.",
+        "뒤쪽 다청뎬에는 청동으로 주조한 공자 좌상이 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "1934년 호수 북쪽 쑹보룬에 다시 짓고 1938년에 이전을 마쳤어요.",
+          "source": "sml_wenwu",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "호수 수위가 올라가며 옮겨야 했던 룽펑궁과 이화탕 두 사당을 합쳐 지었어요.",
+          "source": "sml_wenwu",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "1969년에 중국 북조식 건물로 다시 지었어요.",
+          "source": "sml_wenwu",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "앞 전각 2층은 수이윈궁, 가운데는 우성뎬, 뒤는 다청뎬이에요.",
+          "source": "sml_wenwu",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "다청뎬은 타이완에서 유일하게 가운데 문을 여는 공자묘라고 안내해요.",
+          "source": "sml_wenwu",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c6",
+          "text_ko": "다청뎬에는 청동으로 주조한 공자 좌상이 있어요.",
+          "source": "sml_wenwu",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "공자·맹자·자사 상은 원래 중국에 있다가 일본을 거쳐 이곳으로 옮겨 왔어요.",
+          "source": "sml_wenwu",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "unknown",
+        "regular_closed": [
+          "none"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": "하루 내내 열려 있고, 밤에는 쪽문으로 들어가라고 안내해요.",
+        "source": "sml_wenwu",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "sml_wenwu",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_tw",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 32,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJK1j04mjWaDQR8IBhedScH_0"
+    },
+    {
+      "id": "xuanguang-temple",
+      "qid": "Q22773581",
+      "names": {
+        "ko": "쉬안광쓰",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Xuanguang Temple",
+        "local": "玄光寺",
+        "local_short": "玄光寺",
+        "local_lang": "zh-Hant",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "현광사"
+      ],
+      "aliases_en": [],
+      "mentions_ko": [
+        "쉬안광쓰 부두",
+        "쉬안짱쓰"
+      ],
+      "region": "tw_sunmoonlake",
+      "area_ko": "난터우현 위츠향",
+      "category": "heritage",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 23.852148,
+        "lng": 120.913595,
+        "source": "wd",
+        "qid": "Q22773581",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 23.852148,
+        "lng": 120.913595
+      },
+      "address_local": {
+        "text": "南投縣魚池鄉日月村中正路338號",
+        "source": "sml_xuanguang",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "bus",
+          "boat"
+        ],
+        "nearest_ko": "타이완 하오싱과 시내버스 정류장이 있고, 절 아래 쉬안광쓰 부두로 유람선이 들어와요.",
+        "nearest_local": null,
+        "source": "sml_xuanguang",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.sunmoonlake.gov.tw/attractions/Attractions?A=20&Id=14&P=1",
+      "summary_ko": "호수 바로 위 계단 끝에 앉은 작은 절이에요.",
+      "body_ko": [
+        "쉬안광쓰는 쉬안짱 법사의 정골 사리를 모시려고 호숫가에 세운 절이에요.",
+        "1955년에 사리를 타이완으로 모셔와 1958년에 이곳에 안치했어요.",
+        "호수에서 십여 미터 거리라 절 아래 부두에서 계단을 올라가요.",
+        "절 앞에는 '日月潭'과 '玄光寺'를 새긴 큰 돌이 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "1955년에 사리를 타이완으로 모셔와 1958년에 호숫가 쉬안광쓰에 안치했어요.",
+          "source": "sml_xuanguang",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "호수에서 십여 미터 거리이고 절 아래에 부두가 있어 배로 와서 계단을 올라가요.",
+          "source": "sml_xuanguang",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "건물은 당식이고 꾸밈이 소박해요.",
+          "source": "sml_xuanguang",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "쉬안짱 법사의 정골 사리는 쉬안짱쓰로 옮겨 모셨어요.",
+          "source": "sml_xuanguang",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "절 앞에 '日月潭'과 '玄光寺'를 새긴 큰 돌이 있어요.",
+          "source": "sml_xuanguang",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "주말에는 절 앞 돌 앞에서 사진을 찍으려는 줄이 길어요.",
+          "source": "sml_xuanguang",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "unknown",
+        "regular_closed": [
+          "none"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": "매일 아침부터 저녁까지 열어요.",
+        "source": "sml_xuanguang",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "sml_xuanguang",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_tw",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 44,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJGdgGneHVaDQRXUW5X6DUDbY"
+    },
+    {
+      "id": "sun-moon-lake-ropeway",
+      "qid": "Q11086169",
+      "names": {
+        "ko": "르웨탄 케이블카",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Sun Moon Lake Ropeway",
+        "local": "日月潭纜車",
+        "local_short": "日月潭纜車",
+        "local_lang": "zh-Hant",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "일월담 케이블카"
+      ],
+      "aliases_en": [],
+      "mentions_ko": [
+        "이다사오 부두",
+        "주족문화촌"
+      ],
+      "region": "tw_sunmoonlake",
+      "area_ko": "난터우현 위츠향",
+      "category": "nature",
+      "tags": [
+        {
+          "id": "cable_car",
+          "source": "sml_ropeway_station",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "mountain_view",
+          "source": "sml_ropeway_station",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "station",
+        "lat": 23.852257,
+        "lng": 120.9348179,
+        "source": "osm",
+        "qid": null,
+        "osm": "node/800331755",
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": null,
+      "address_local": {
+        "text": "南投縣魚池鄉日月村中正路102號",
+        "source": "sml_ropeway_station",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "bus",
+          "boat"
+        ],
+        "nearest_ko": "케이블카역은 이다사오 부두 옆이라 유람선이나 타이완 하오싱·시내버스로 갈 수 있어요.",
+        "nearest_local": null,
+        "source": "sml_ropeway_station",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.ropeway.com.tw/",
+      "wiki": {
+        "en": "Sun Moon Lake Ropeway"
+      },
+      "summary_ko": "이다사오 옆에서 산을 넘어 호수를 내려다보는 케이블카예요.",
+      "body_ko": [
+        "르웨탄 케이블카는 호수 남동쪽 르웨탄역과 주족문화촌 관산러우를 이어요.",
+        "노선은 약 1.877킬로미터이고 역은 두 곳, 가는 길에 부지산을 넘어요.",
+        "오스트리아 회사가 만든 차량 86대가 돌고, 편도로 7~10분쯤 걸려요.",
+        "초록 차량은 바닥이 투명해서 발밑이 내려다보여요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "민간이 계획하고 지어 운영하는 BOO 방식 공공 케이블카로, 2009년 12월 28일부터 운행했어요.",
+          "source": "sml_ropeway_station",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "노선은 약 1.877킬로미터이고, 호수 남동쪽 르웨탄역과 주족문화촌 관산러우를 잇는 두 역이 있어요. 가는 길에 부지산을 넘어요.",
+          "source": "sml_ropeway_station",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "오스트리아 회사가 설계·제작했고 차량이 86대, 한 대에 약 8명이 타며 편도로 7~10분쯤 걸려요.",
+          "source": "sml_ropeway_station",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "가장 높은 곳은 해발 1044미터예요.",
+          "source": "sml_ropeway_station",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "초록 차량은 바닥이 투명한 수정 차량이에요.",
+          "source": "rw_intro",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c6",
+          "text_ko": "매달 첫째 수요일은 점검으로 운행을 멈춰요.",
+          "source": "sml_ropeway_station",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "일반 차량과 바닥이 투명한 초록 차량은 정원이 달라요.",
+          "source": "rw_ride",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "차량 안에서는 담배와 음식, 음료, 껌이 금지예요.",
+          "source": "rw_ride",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "술에 취했거나 심장병·고혈압·고소공포증이 있으면 타지 말라고 안내해요.",
+          "source": "rw_ride",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "irregular"
+        ],
+        "closed_note_ko": "매달 첫째 수요일은 점검으로 쉬어요.",
+        "visit_note_ko": "날씨나 행사, 정기 점검에 따라 운행 시간이 바뀔 수 있어요.",
+        "source": "sml_ropeway_station",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "sml_ropeway_station",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_tw",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 38,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJWWFEwXjWaDQRNSqytAMNbtQ"
+    },
+    {
+      "id": "kenting-national-park",
+      "qid": "Q707982",
+      "names": {
+        "ko": "컨딩 국가공원",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Kenting National Park",
+        "local": "墾丁國家公園",
+        "local_short": "墾丁國家公園",
+        "local_lang": "zh-Hant",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "컨딩"
+      ],
+      "aliases_en": [],
+      "mentions_ko": [
+        "어롼비",
+        "마오비터우",
+        "난완",
+        "방문자센터"
+      ],
+      "region": "tw_kenting",
+      "area_ko": "핑둥현 헝춘진",
+      "category": "nature",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 21.98,
+        "lng": 120.79694444,
+        "source": "wd",
+        "qid": "Q707982",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 21.98,
+        "lng": 120.79694444
+      },
+      "address_local": {
+        "text": "屏東縣恆春鎮墾丁路596號",
+        "source": "tta_ktnp",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "bus"
+        ],
+        "nearest_ko": "가오슝 쭤잉 고속철도역에서 타이완 하오싱 컨딩 콰이셴을 타면 샤오완(컨딩)까지 가요.",
+        "nearest_local": null,
+        "source": "tt_9189",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.ktnp.gov.tw/",
+      "wiki": {
+        "en": "Kenting National Park"
+      },
+      "summary_ko": "헝춘반도 남쪽 삼면이 바다인 타이완 첫 국가공원이에요.",
+      "body_ko": [
+        "컨딩 국가공원은 헝춘반도 남쪽에 있고, 동쪽은 태평양, 남쪽은 바시해협, 서쪽은 타이완해협이에요.",
+        "남북과 동서가 각각 약 24킬로미터이고, 가오슝에서 약 90킬로미터 떨어져 있어요.",
+        "열대 기후라 겨울에도 따뜻하고, 10월부터 이듬해 3월까지는 북동 계절풍이 강해요.",
+        "공고를 거쳐 세워진 타이완의 첫 국가공원이에요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "공고를 거쳐 세워진 타이완의 첫 국가공원이에요.",
+          "source": "tta_ktnp",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "삼면이 바다이고 동쪽은 태평양, 남쪽은 바시해협, 서쪽은 타이완해협이에요.",
+          "source": "ktnp_area",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "남북 길이와 동서 너비가 각각 약 24킬로미터이고, 가오슝에서 약 90킬로미터 떨어져 있어요.",
+          "source": "ktnp_area",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "가장 추운 1월 평균 기온이 섭씨 20.5도, 가장 더운 7월 평균 기온이 28.3도예요.",
+          "source": "ktnp_area",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "10월부터 이듬해 3월까지는 북동 계절풍이 특히 강해요.",
+          "source": "ktnp_area",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c6",
+          "text_ko": "이때 부는 바람을 '뤄산펑'이라 부르고, 이 지역 특유의 현상이에요.",
+          "source": "ktnp_area",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c7",
+          "text_ko": "'컨딩'이라는 이름은 1877년 광둥 차오저우 일대에서 모집해 온 장정들이 이곳을 개간한 데서 왔어요.",
+          "source": "tta_ktnp",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c8",
+          "text_ko": "방문자센터는 여행 정보와 해설, 영상, 전시 안내를 제공해요.",
+          "source": "ktnp_visitor",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "태풍이 오기 전후와 파도가 높을 때, 해가 진 뒤에는 물놀이를 피하라고 안내해요.",
+          "source": "ktnp_safety",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "바이사·난완·다완·촨판스·위춘공원 다섯 해변에는 순찰원과 구조 장비가 있어요.",
+          "source": "ktnp_safety",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "산길을 걸을 때는 혼자 가지 말고 동행과 함께 가라고 안내해요.",
+          "source": "ktnp_safety",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "public_space",
+        "closed_note_ko": null,
+        "visit_note_ko": "방문자센터는 월요일과 음력 섣달그믐에 쉬어요.",
+        "source": "ktnp_visitor",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "ktnp_visitor",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_tw",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 29,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJ60nq2UKxcTQRBe5bkilbnZY"
+    },
+    {
+      "id": "eluanbi-park",
+      "qid": "Q707309",
+      "names": {
+        "ko": "어롼비 공원",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Eluanbi Park",
+        "local": "鵝鑾鼻公園",
+        "local_short": "鵝鑾鼻公園",
+        "local_lang": "zh-Hant",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "아란비 공원"
+      ],
+      "aliases_en": [
+        "Cape Eluanbi"
+      ],
+      "mentions_ko": [
+        "어롼비 등대"
+      ],
+      "region": "tw_kenting",
+      "area_ko": "핑둥현 헝춘진",
+      "category": "nature",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 21.902222,
+        "lng": 120.852778,
+        "source": "wd",
+        "qid": "Q707309",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 21.902222,
+        "lng": 120.852778
+      },
+      "address_local": {
+        "text": "屏東縣恆春鎮鵝鑾里燈塔路301號",
+        "source": "ktnp_eluanbi",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "bus"
+        ],
+        "nearest_ko": "버스 '鵝鑾鼻' 정류장에서 걸어서 갈 수 있어요.",
+        "nearest_local": null,
+        "source": "tta_eluanbi",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.ktnp.gov.tw/",
+      "wiki": {
+        "en": "Cape Eluanbi"
+      },
+      "summary_ko": "타이완 남쪽 끝 산호초 바위숲과 흰 등대가 있는 공원이에요.",
+      "body_ko": [
+        "어롼비 공원은 59헥타르 넓이의 산호초 석회암 지형이에요.",
+        "지각이 솟고 파도와 비, 바람이 깎아 큰 암초와 기암, 동굴이 생겼어요.",
+        "식물이 약 240종 자라고, 산책로가 바위 사이로 이리저리 이어져요.",
+        "공원 안 어롼비 등대는 높이 21.4미터이고 빛이 20해리까지 닿아요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "넓이는 59헥타르이고 산호초 석회암 지형이에요.",
+          "source": "ktnp_eluanbi",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "지각이 솟아오른 뒤 파도와 비, 바람에 깎여 큰 암초와 기암, 동굴이 생겼어요.",
+          "source": "ktnp_eluanbi",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "식물이 약 240종 자라요.",
+          "source": "ktnp_eluanbi",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "어롼비 등대는 높이가 21.4미터예요.",
+          "source": "ktnp_eluanbi",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "등대 빛은 20해리까지 보여요.",
+          "source": "ktnp_eluanbi",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c6",
+          "text_ko": "등대는 1883년에 준공했어요.",
+          "source": "boch_eluanbi_lighthouse",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c7",
+          "text_ko": "2024년 3월 15일 국가 지정 고적으로 지정됐어요.",
+          "source": "boch_eluanbi_lighthouse",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c8",
+          "text_ko": "총안이 있는 담과 참호, 작은 포대가 남아 타이완 등대 가운데 드물게 무장을 갖춘 사례예요.",
+          "source": "boch_eluanbi_lighthouse",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "자전거를 끌고 들어가면 따로 요금을 받아요.",
+          "source": "ktnp_eluanbi",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "공원에서 북쪽을 보면 푸른 바다와 흰 모래, 울퉁불퉁한 암초가 보여요.",
+          "source": "ktnp_eluanbi",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": "계절에 따라 개방 시간이 달라요.",
+        "source": "ktnp_eluanbi",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "ktnp_eluanbi",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_tw",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 10,
+        "designations": [
+          {
+            "kind": "tw_national_monument",
+            "name_ko": "국가 지정 고적 어롼비 등대(2024)",
+            "source": "boch_eluanbi_lighthouse"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJEegpv4GycTQR3Ti6mANmmW4"
+    },
+    {
+      "id": "maobitou-park",
+      "qid": "Q49521379",
+      "names": {
+        "ko": "마오비터우 공원",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Maobitou Park",
+        "local": "貓鼻頭公園",
+        "local_short": "貓鼻頭公園",
+        "local_lang": "zh-Hant",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "마오비터우"
+      ],
+      "aliases_en": [],
+      "mentions_ko": [
+        "허우비후",
+        "바이사"
+      ],
+      "region": "tw_kenting",
+      "area_ko": "핑둥현 헝춘진",
+      "category": "sea_island",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 21.921944444444,
+        "lng": 120.73777777778,
+        "source": "wd",
+        "qid": "Q49521379",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 21.921944444444,
+        "lng": 120.73777777778
+      },
+      "address_local": {
+        "text": "屏東縣恆春鎮水泉里貓鼻頭路1號",
+        "source": "ktnp_maobitou",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "bus"
+        ],
+        "nearest_ko": "헝춘에서 컨딩 가로차 102번(헝춘–샤오완, 마오비터우 경유)을 타고 '貓鼻頭' 정류장에서 내려요.",
+        "nearest_local": null,
+        "source": "ptbus_102",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.ktnp.gov.tw/",
+      "summary_ko": "타이완해협과 바시해협이 갈리는 산호초 곶이에요.",
+      "body_ko": [
+        "마오비터우는 바이사에서 약 3.5킬로미터 떨어진 곶이에요.",
+        "해안 절벽에서 굴러떨어진 산호초 바위가 웅크린 고양이를 닮아 이런 이름이 붙었어요.",
+        "위에서 내려다보면 주름치마처럼 보여 '치마 암초 해안'이라고도 해요.",
+        "무너진 절벽과 돌개구멍, 암초 기둥, 층 사이 동굴을 볼 수 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "바이사에서 약 3.5킬로미터 떨어져 있고, 해안 절벽에서 굴러떨어진 산호초 바위가 웅크린 고양이를 닮아 이런 이름이 붙었어요.",
+          "source": "ktnp_maobitou",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "타이완해협과 바시해협이 갈리는 지점이고, 어롼비와 함께 타이완 남쪽의 두 끝을 이뤄요.",
+          "source": "ktnp_maobitou",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "위에서 내려다보면 주름치마처럼 보여 '치마 암초 해안'이라고도 해요.",
+          "source": "ktnp_maobitou",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "무너진 절벽과 돌개구멍, 암초 기둥, 층 사이 동굴 같은 지형이 생겼어요.",
+          "source": "ktnp_maobitou",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "겨울에는 해조류가 잘 자라 해안에 녹조·갈조·홍조가 물결에 흔들려요.",
+          "source": "ktnp_maobitou",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "계절에 따라 개방 시간이 달라요.",
+          "source": "ktnp_maobitou",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "마오비터우에서 허우비후로 가는 길에 '레이다스'라는 큰 붕괴암이 있어요.",
+          "source": "ktnp_maobitou",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "unknown",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": "입장료 안내에 시험 삼아 무료로 들여보낸다고 적혀 있어요.",
+        "source": "ktnp_maobitou",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "ktnp_maobitou",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_tw",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 40,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJJVE29t6vcTQRC_jrh2AFxCI"
+    },
+    {
+      "id": "hengchun-old-town",
+      "qid": "Q5811477",
+      "names": {
+        "ko": "헝춘 옛 성",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Hengchun Old Town",
+        "local": "恆春古城",
+        "local_short": "恆春古城",
+        "local_lang": "zh-Hant",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "헝춘 현성"
+      ],
+      "aliases_en": [],
+      "mentions_ko": [
+        "명도문",
+        "허우둥산",
+        "출화"
+      ],
+      "region": "tw_kenting",
+      "area_ko": "핑둥현 헝춘진",
+      "category": "heritage",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 22.00804873,
+        "lng": 120.74797574,
+        "source": "wd",
+        "qid": "Q5811477",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 22.00804873,
+        "lng": 120.74797574
+      },
+      "address_local": {
+        "text": "屏東縣恆春鎮",
+        "source": "tta_hengchun",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "bus"
+        ],
+        "nearest_ko": "헝춘 환승장(恆春轉運站)이 남문 근처라 버스로 와서 걸어 둘러볼 수 있어요.",
+        "nearest_local": null,
+        "source": "tta_hengchun",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://nchdb.boch.gov.tw/assets/advanceSearch/monument/19850819000085",
+      "wiki": {
+        "en": "Hengchun Old City Wall"
+      },
+      "summary_ko": "사철 봄 같다고 이름 붙은 옛 현성과 네 성문이에요.",
+      "body_ko": [
+        "헝춘 옛 성은 1875년 현이 들어서면서 쌓기 시작해 1879년에 마쳤어요.",
+        "둘레는 880장이고 삼합토로 쌓았으며, 성문은 동·서·남·북 넷이에요.",
+        "일제 시기에 태풍과 성벽 자재 반출로 크게 상해 지금은 성문이 주로 남아 있어요.",
+        "타이완에 남은 성벽 가운데 비교적 온전한 편이에요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "1875년에 현을 두면서 기후가 사철 봄 같다 하여 '헝춘'이라 이름 지었어요.",
+          "source": "boch_hengchun",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "1875년 음력 10월 18일에 성을 쌓기 시작했어요.",
+          "source": "boch_hengchun",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "1879년 음력 7월 15일에 공사를 마쳤어요.",
+          "source": "boch_hengchun",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "성 둘레는 880장이에요.",
+          "source": "boch_hengchun",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "삼합토로 쌓았고 성문이 넷인데, 남문만 '명도문'이라 부르고 나머지는 동·서·북문이에요.",
+          "source": "boch_hengchun",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c6",
+          "text_ko": "일제 시기에 태풍 피해를 입고 주민이 성벽 자재를 가져가도록 허용해 크게 상했어요.",
+          "source": "boch_hengchun",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c7",
+          "text_ko": "타이완에 남은 성벽 가운데 비교적 온전한 편이에요.",
+          "source": "boch_hengchun",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c8",
+          "text_ko": "1985년 8월 19일 국가 지정 고적으로 지정됐어요.",
+          "source": "boch_hengchun",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "서문에서 출발해 톈허우궁과 허우둥산, 남문을 거쳐 동문까지 걸어 둘러볼 수 있어요.",
+          "source": "tta_hengchun",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "동문 밖에서는 땅에서 천연가스가 새어 나와 밤낮으로 타는 불꽃을 볼 수 있어요.",
+          "source": "tta_hengchun",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "unknown",
+        "regular_closed": [
+          "none"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": "성문 주변은 하루 내내 드나들 수 있다고 안내해요.",
+        "source": "boch_hengchun",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "boch_hengchun",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_tw",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 16,
+        "designations": [
+          {
+            "kind": "tw_national_monument",
+            "name_ko": "국가 지정 고적 헝춘 옛 성(1985)",
+            "source": "boch_hengchun"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJ0TvLis6wcTQR5Cw7itPdrRY"
+    },
+    {
+      "id": "taroko-gorge",
+      "qid": "Q707427",
+      "names": {
+        "ko": "타이루거 국가공원",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Taroko National Park",
+        "local": "太魯閣國家公園",
+        "local_short": "太魯閣國家公園",
+        "local_lang": "zh-Hant",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "타이루거 협곡"
+      ],
+      "aliases_en": [],
+      "mentions_ko": [
+        "리우시",
+        "옌쯔커우 보도",
+        "창춘츠",
+        "사카당 보도"
+      ],
+      "region": "tw_hualien",
+      "area_ko": "화롄현 슈린향",
+      "category": "nature",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 24.166667,
+        "lng": 121.333333,
+        "source": "wd",
+        "qid": "Q707427",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 24.166667,
+        "lng": 121.333333
+      },
+      "address_local": {
+        "text": "花蓮縣秀林鄉富世村291號",
+        "source": "hltour_taroko",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "bus",
+          "train"
+        ],
+        "nearest_ko": "화롄 환승장에서 타이완 하오싱 310 타이루거선을 타면 타이루거 방문자센터까지 가요.",
+        "nearest_local": null,
+        "source": "tt_310",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.taroko.gov.tw/",
+      "wiki": {
+        "ko": "타이루거 국가공원",
+        "en": "Taroko National Park"
+      },
+      "summary_ko": "리우시가 대리암을 깎아 만든 깊은 협곡 국가공원이에요.",
+      "body_ko": [
+        "타이루거 국가공원은 리우시가 두꺼운 대리암층을 깎아 만든 협곡이에요.",
+        "암석은 변성암이 주이고 그 가운데 대리암이 가장 넓게 퍼져 있어요.",
+        "옌쯔커우 보도에서는 협곡이 좁아지는 곳의 돌개구멍을 가까이 볼 수 있어요.",
+        "지진 피해로 막힌 곳이 많아 가기 전에 공식 안내를 꼭 확인해요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "리우시가 두꺼운 대리암층을 깎아 협곡 지형이 생겼어요.",
+          "source": "hltour_taroko",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "암석은 변성암이 주이고, 그 가운데 대리암이 가장 넓게 퍼져 있어요.",
+          "source": "hltour_taroko",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "해발이 높아지며 낮은 곳의 아열대 활엽수림이 고산 침엽수림으로 바뀌어요.",
+          "source": "hltour_taroko",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "옌쯔커우 보도에서는 협곡이 가장 좁아지는 곳의 돌개구멍 지형을 가까이 볼 수 있어요.",
+          "source": "hltour_taroko",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "창춘츠는 도로를 내다 숨진 공사 인원을 기리는 사당이에요.",
+          "source": "hltour_taroko",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c6",
+          "text_ko": "지진 피해로 여러 곳이 막혀 있어 출발 전에 최신 개방 정보를 확인해야 해요.",
+          "source": "hltour_taroko",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "개방 구간에 들어갈 때는 안전모를 쓰라고 안내해요.",
+          "source": "hltour_taroko",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "큰비나 지진 뒤에는 낙석 위험이 커서 산에 들어가지 말라고 안내해요.",
+          "source": "hltour_taroko",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "들원숭이를 만나면 거리를 두고 먹이를 주지 말라고 안내해요.",
+          "source": "hltour_taroko",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "public_space",
+        "closed_note_ko": null,
+        "visit_note_ko": "공원 도로는 시간대별 통행 관리를 하니 그날 통행 시간을 미리 확인해요.",
+        "source": "hltour_taroko",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [
+        "post_disaster"
+      ],
+      "status": {
+        "value": "partial",
+        "note_ko": "지진 피해로 여러 구간이 막혀 있어요. 가기 전에 공식 안내를 확인해 주세요.",
+        "source": "hltour_taroko",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_tw",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 22,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": null
+    },
+    {
+      "id": "qixingtan-beach",
+      "qid": "Q16890300",
+      "names": {
+        "ko": "치싱탄 해변",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Qixingtan Beach",
+        "local": "七星潭",
+        "local_short": "七星潭",
+        "local_lang": "zh-Hant",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "칠성담"
+      ],
+      "aliases_en": [],
+      "mentions_ko": [
+        "쓰바 고지",
+        "두 못 자전거도로"
+      ],
+      "region": "tw_hualien",
+      "area_ko": "화롄현 신청향",
+      "category": "sea_island",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 24.0329,
+        "lng": 121.628,
+        "source": "wd",
+        "qid": "Q16890300",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 24.0329,
+        "lng": 121.628
+      },
+      "address_local": {
+        "text": "花蓮縣新城鄉大漢村七星街32號",
+        "source": "hltour_qixingtan",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "train",
+          "bus"
+        ],
+        "nearest_ko": "화롄 기차역에서 타이완 하오싱 310 타이루거선을 타고 '七星潭' 정류장에서 내려요.",
+        "nearest_local": null,
+        "source": "hltour_qixingtan",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://hualien.travel/zh-tw/attraction/68/",
+      "wiki": {
+        "ko": "치싱탄 해변",
+        "en": "Qixingtan Beach"
+      },
+      "summary_ko": "둥근 자갈이 깔린 초승달 모양 해만이에요.",
+      "body_ko": [
+        "치싱탄은 둥근 자갈이 쌓여 생긴 초승달 모양 해만이에요.",
+        "이름에 '못'이 들어가지만 실제로는 단층 작용으로 만들어진 활 모양 해안이에요.",
+        "예전에 있던 저지대 습지가 공항 공사로 메워지고 이름만 남았어요.",
+        "해저가 가파르고 물살이 거세서 물에 들어가지 말고 해안에서만 둘러봐요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "둥근 자갈이 쌓여 생긴 초승달 모양 해만으로, 태평양과 중앙산맥 산기슭 사이에 나란히 뻗어 있어요.",
+          "source": "hltour_qixingtan",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "이름에 '못'이 들어가지만 실제로는 단층 작용으로 생긴 활 모양 해만이에요.",
+          "source": "hltour_qixingtan",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "예전에 흩어져 있던 저지대 습지가 공항 공사로 메워지고 이름만 그대로 쓰여요.",
+          "source": "hltour_qixingtan",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "판 운동으로 솟은 해안 단구 지형이라 해안이 가파르고 바닷속 깊이가 갑자기 바뀌어요.",
+          "source": "hltour_qixingtan",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "겉보기에는 잔잔해도 물속 흐름이 거세서 해안에서 보는 데만 알맞고 물에 들어가면 안 돼요.",
+          "source": "hltour_qixingtan",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "해저가 가파르고 큰 파도가 들이쳐 수영은 금지예요.",
+          "source": "hltour_qixingtan",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "해변 자갈은 공공 자산이라 가져가면 안 돼요.",
+          "source": "hltour_qixingtan",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "그늘이 없어 여름 낮에는 햇볕을 가릴 준비가 필요해요.",
+          "source": "hltour_qixingtan",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "public_space",
+        "closed_note_ko": null,
+        "visit_note_ko": "하루 내내 드나들 수 있다고 안내해요.",
+        "source": "hltour_qixingtan",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "hltour_qixingtan",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_tw",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 28,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJC5it6R6daDQRB-nm-TV5Pns"
+    },
+    {
+      "id": "dongdamen-night-market",
+      "qid": "Q50410482",
+      "names": {
+        "ko": "둥다먼 야시장",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Dongdamen Night Market",
+        "local": "東大門夜市",
+        "local_short": "東大門夜市",
+        "local_lang": "zh-Hant",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "화롄 둥다먼 국제관광 야시장"
+      ],
+      "aliases_en": [],
+      "mentions_ko": [
+        "푸팅 야시장",
+        "쯔창 야시장",
+        "원주민 거리"
+      ],
+      "region": "tw_hualien",
+      "area_ko": "화롄현 화롄시",
+      "category": "market_street",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 23.97372222,
+        "lng": 121.61138889,
+        "source": "wd",
+        "qid": "Q50410482",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 23.97372222,
+        "lng": 121.61138889
+      },
+      "address_local": {
+        "text": "花蓮縣花蓮市重慶路572號",
+        "source": "hltour_dongdamen",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "train",
+          "bus"
+        ],
+        "nearest_ko": "화롄 기차역에서 타이루거 커윈 301번 버스를 타고 '東大門夜市' 정류장에서 내려요.",
+        "nearest_local": null,
+        "source": "hltour_dongdamen",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://hualien.travel/zh-tw/attraction/17/",
+      "wiki": {
+        "en": "Dongdamen Night Market"
+      },
+      "summary_ko": "흩어져 있던 시장을 한곳에 모은 화롄의 야시장이에요.",
+      "body_ko": [
+        "둥다먼 야시장은 흑백 화강암을 깐 넓은 길이 눈에 띄어요.",
+        "푸팅, 쯔창, 원주민 거리, 대륙 각 성 거리 네 구역으로 나뉘어요.",
+        "푸팅 구역에는 사격과 던지기 놀이가, 원주민 거리에는 산나물과 돌판 요리가 있어요.",
+        "두 큰 길이 만나는 곳에는 공연 무대가 있어 저녁에 공연이 열려요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "흑백 화강암을 깐 넓은 길이 눈에 띄는 특징이에요.",
+          "source": "hltour_dongdamen",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "원래 흩어져 있던 여러 전통 시장을 한곳에 모았어요.",
+          "source": "hltour_dongdamen",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "푸팅 야시장, 쯔창 야시장, 원주민 거리, 대륙 각 성 거리 네 구역으로 나뉘어요.",
+          "source": "hltour_dongdamen",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "옛 쯔창·난빈 야시장 상인들이 옮겨 왔고, ㄇ자 동선으로 구역을 잇고 있어요.",
+          "source": "hltour_dongdamen",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "푸팅 야시장에는 사격과 던지기 놀이가, 원주민 거리에는 산나물과 돌판 요리가 있어요.",
+          "source": "hltour_dongdamen",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c6",
+          "text_ko": "두 큰 길이 만나는 곳에 공연 무대가 있어 저녁에 지역 단체가 공연해요.",
+          "source": "hltour_dongdamen",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "전체가 보행 구역이라 차와 오토바이는 들어올 수 없어요.",
+          "source": "hltour_dongdamen",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "야외 개방 공간이라 비 오는 날에는 우산을 챙기세요.",
+          "source": "hltour_dongdamen",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "전면 금연이고 어기면 벌을 받을 수 있어요.",
+          "source": "hltour_dongdamen",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "public_space",
+        "closed_note_ko": null,
+        "visit_note_ko": "저녁에 열어 자정까지 이어진다고 안내해요.",
+        "source": "hltour_dongdamen",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "hltour_dongdamen",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_tw",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 37,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJKQxO8emfaDQR5SAKaOCWeb4"
+    },
+    {
+      "id": "qingtiangang",
+      "qid": "Q11078643",
+      "names": {
+        "ko": "칭톈강",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Qingtiangang",
+        "local": "擎天崗",
+        "local_short": "擎天崗",
+        "local_lang": "zh-Hant",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "칭톈강 초원"
+      ],
+      "aliases_en": [],
+      "mentions_ko": [
+        "양밍산 국가공원",
+        "주가오산"
+      ],
+      "region": "tw_taipei",
+      "area_ko": "타이베이 스린구",
+      "category": "nature",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 25.166443,
+        "lng": 121.574262,
+        "source": "wd",
+        "qid": "Q11078643",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 25.166443,
+        "lng": 121.574262
+      },
+      "address_local": null,
+      "access": {
+        "modes": [
+          "bus"
+        ],
+        "nearest_ko": "MRT 젠탄역 쪽에서 소15번 버스를 타면 칭톈강까지 가요.",
+        "nearest_local": null,
+        "source": "tpebus_s15",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.travel.taipei/zh-tw/attraction/details/246",
+      "summary_ko": "다툰 화산군 사이에 펼쳐진 넓은 풀밭이에요.",
+      "body_ko": [
+        "칭톈강은 양밍산 국가공원 안 다툰 화산군 봉우리 사이에 있는 초원이에요.",
+        "주가오산에서 흘러나온 용암이 만든 단구 위에 자리하고, 예전에는 소를 치던 곳이었어요.",
+        "봄과 여름에는 풀밭이 푸르고 가을에는 억새가 흔들려요.",
+        "맑은 날에는 주변 산과 타이베이 쪽까지 내다볼 수 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "다툰 화산군 봉우리 사이에 있고 지세가 평평해, 맑은 날에는 주변 산과 타이베이 쪽까지 보여요.",
+          "source": "tpetour_qingtiangang",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "주가오산 용암이 만든 단구 지형이고, 예전에 목장 방목과 소 위탁 사육이 이뤄진 곳이에요.",
+          "source": "tpetour_qingtiangang",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "봄과 여름에는 풀밭이 푸르고 가을에는 억새가 흔들려요.",
+          "source": "tpetour_qingtiangang",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "양밍산 국가공원은 다툰 화산군이 중심이고 면적이 약 11,338헥타르예요.",
+          "source": "tta_ymsnp",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "물소를 만나면 안전한 거리를 두고 먹이를 주거나 만지지 말라고 안내해요.",
+          "source": "tpetour_qingtiangang",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "칭톈강 방문자 서비스소에서 출발해 초원 산책로를 천천히 걸을 수 있어요.",
+          "source": "tpetour_qingtiangang",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "public_space",
+        "closed_note_ko": null,
+        "visit_note_ko": "하루 내내 드나들 수 있다고 안내해요.",
+        "source": "tpetour_qingtiangang",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "tpetour_qingtiangang",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_tw",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 41,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJNehVjGSyQjQRiHAgVTN2Gdk"
+    },
+    {
+      "id": "xiaoyoukeng",
+      "qid": "Q10959487",
+      "names": {
+        "ko": "샤오유컹",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Xiaoyoukeng",
+        "local": "小油坑",
+        "local_short": "小油坑",
+        "local_lang": "zh-Hant",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "소유갱"
+      ],
+      "aliases_en": [],
+      "mentions_ko": [
+        "양밍산 국가공원",
+        "치싱산"
+      ],
+      "region": "tw_taipei",
+      "area_ko": "타이베이 베이터우구",
+      "category": "nature",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 25.17536944,
+        "lng": 121.54745556,
+        "source": "wd",
+        "qid": "Q10959487",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 25.17536944,
+        "lng": 121.54745556
+      },
+      "address_local": {
+        "text": "臺北市北投區竹子湖路69號",
+        "source": "tta_xiaoyoukeng",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "bus"
+        ],
+        "nearest_ko": "버스 '小油坑服務站' 정류장에서 걸어서 바로 닿아요.",
+        "nearest_local": null,
+        "source": "tta_xiaoyoukeng",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.ymsnp.gov.tw/",
+      "summary_ko": "분기공에서 김이 솟는 양밍산의 화산 지형이에요.",
+      "body_ko": [
+        "샤오유컹은 양밍산 국가공원에서 분기공 활동이 강하게 나타나는 곳이에요.",
+        "공원 암석은 주로 안산암이고, 원뿔과 종 모양 화산체와 분화구, 화구호가 있어요.",
+        "다툰 화산 지대의 지열이 양밍산 온천을 만들고, 백황천이 주로 나와요.",
+        "국가공원 전체 면적은 약 11,338헥타르예요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "다유컹·샤오유컹·마차오·다황쭈이 같은 곳에서 강한 분기공 활동을 볼 수 있어요.",
+          "source": "tta_ymsnp",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "암석은 주로 안산암이고, 원뿔이나 종 모양 화산체와 분화구, 화구호가 이 지역 지형을 이뤄요.",
+          "source": "tta_ymsnp",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "양밍산 온천은 백황천이 주이고 청황천이 그다음이에요.",
+          "source": "tta_xiaoyoukeng",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "양밍산 국가공원은 다툰 화산군이 중심이고 면적이 약 11,338헥타르예요.",
+          "source": "tta_ymsnp",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "겨울에는 북동 계절풍 영향으로 산에 찬 바람과 비, 안개가 잦아요.",
+          "source": "tta_ymsnp",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "버스 '小油坑服務站' 정류장이 걸어서 바로예요.",
+          "source": "tta_xiaoyoukeng",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "public_space",
+        "closed_note_ko": null,
+        "visit_note_ko": "강한 분기공 활동이 있는 곳이라고 안내해요.",
+        "source": "tta_ymsnp",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "tta_ymsnp",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_tw",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 43,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJefxeSBiyQjQRpUoG2vwhcR8"
+    },
+    {
+      "id": "hobe-fort",
+      "qid": "Q5875008",
+      "names": {
+        "ko": "후웨이 포대",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Hobe Fort",
+        "local": "滬尾礮臺",
+        "local_short": "滬尾礮臺",
+        "local_lang": "zh-Hant",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "호미 포대"
+      ],
+      "aliases_en": [
+        "Huwei Fort"
+      ],
+      "mentions_ko": [
+        "류밍촨",
+        "북문쇄약"
+      ],
+      "region": "tw_taipei",
+      "area_ko": "신베이 단수이구",
+      "category": "heritage",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 25.1793,
+        "lng": 121.429,
+        "source": "wd",
+        "qid": "Q5875008",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 25.1793,
+        "lng": 121.429
+      },
+      "address_local": {
+        "text": "新北市淡水區中正路 1 段 6 巷 34-1 號",
+        "source": "tshs_access",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "metro",
+          "bus"
+        ],
+        "nearest_ko": "MRT 단수이역 버스 승강장에서 훙26번을 타고 '滬尾砲台（忠烈祠、球場）' 정류장에서 내려 조금 걸어요.",
+        "nearest_local": null,
+        "source": "tshs_access",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.tshs.ntpc.gov.tw/",
+      "wiki": {
+        "en": "Hobe Fort"
+      },
+      "summary_ko": "청프 전쟁 뒤 단수이 언덕에 쌓은 서양식 포대예요.",
+      "body_ko": [
+        "후웨이 포대는 1884년 청프 전쟁을 겪은 뒤 해안 방어를 다지며 지은 포대예요.",
+        "독일인 기술자가 공사를 감독했고, 서양식 포대를 본보기로 삼았어요.",
+        "1889년 대포를 다 놓은 뒤로 실제 전투에 쓰이지 않아 건물이 온전히 남았어요.",
+        "단수이 우후강의 첫 번째 능선 가장 높은 곳에 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "1884년 8월 1일 프랑스군이 지룽을 공격하면서 청프 전쟁이 시작됐어요.",
+          "source": "boch_hobe_fort",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "당시 타이완 순무 류밍촨은 지룽을 버리고 병력을 단수이로 옮기기로 했어요.",
+          "source": "boch_hobe_fort",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "독일인 기술자가 감독을 맡아 서양식 포대를 본보기로 펑후·지룽·후웨이·안핑·치허우 다섯 해구에 새 포대 10기를 지었어요.",
+          "source": "boch_hobe_fort",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "후웨이에는 포대가 둘 있었고, 그중 '북문쇄약'이 지금의 후웨이 포대예요.",
+          "source": "boch_hobe_fort",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "1889년 대포 설치를 마친 뒤 실제 전투에 쓰이지 않아 건물이 온전히 남았어요.",
+          "source": "boch_hobe_fort",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c6",
+          "text_ko": "일제 시기에 일본군이 대포 네 문을 거두고 이곳을 포병 사격 연습장으로 썼어요.",
+          "source": "boch_hobe_fort",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c7",
+          "text_ko": "단수이 우후강의 첫 번째 능선 가장 높은 곳에 있어요.",
+          "source": "tshs_fort_intro",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c8",
+          "text_ko": "1985년 8월 19일 국가 지정 고적으로 지정됐어요.",
+          "source": "boch_hobe_fort",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "당일 표 한 장으로 훙마오청과 샤오바이궁까지 세 곳을 볼 수 있어요.",
+          "source": "tshs_fee",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "예전에는 단수이허 하구와 관두 대교가 보였지만 지금은 나무에 가려요.",
+          "source": "tshs_fort_intro",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "irregular"
+        ],
+        "closed_note_ko": "매달 첫째 월요일에 쉬어요. 그날이 공휴일이면 열고 다음 날 쉬어요. 음력 섣달그믐과 설날에도 쉬어요.",
+        "visit_note_ko": "문 닫기 조금 전부터는 표를 팔지 않아요.",
+        "source": "boch_hobe_fort",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "boch_hobe_fort",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_tw",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 13,
+        "designations": [
+          {
+            "kind": "tw_national_monument",
+            "name_ko": "국가 지정 고적 후웨이 포대(1985)",
+            "source": "boch_hobe_fort"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJU92su06lQjQRXPCBsEmvUZM"
+    },
+    {
+      "id": "tamsui-customs-officers-residence",
+      "qid": "Q10898933",
+      "names": {
+        "ko": "단수이 세관 세무사 관저",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Tamsui Customs Officers' Residence",
+        "local": "前清淡水關稅務司官邸",
+        "local_short": "前清淡水關稅務司官邸",
+        "local_lang": "zh-Hant",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "샤오바이궁"
+      ],
+      "aliases_en": [],
+      "mentions_ko": [
+        "파오타이푸",
+        "훙마오청"
+      ],
+      "region": "tw_taipei",
+      "area_ko": "신베이 단수이구",
+      "category": "heritage",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 25.17405828,
+        "lng": 121.43618705,
+        "source": "wd",
+        "qid": "Q10898933",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 25.17405828,
+        "lng": 121.43618705
+      },
+      "address_local": {
+        "text": "新北市淡水區真理街 15 號",
+        "source": "tshs_access",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "metro",
+          "bus"
+        ],
+        "nearest_ko": "MRT 단수이역에서 훙26번이나 836번 버스를 타고 '小白宮（淡水分局）' 또는 '紅毛城（真理大學）' 정류장에서 내려요.",
+        "nearest_local": null,
+        "source": "tshs_access",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.tshs.ntpc.gov.tw/",
+      "wiki": {
+        "en": "Tamsui Customs Officers' Residence"
+      },
+      "summary_ko": "단수이 언덕에 안팎을 흰색으로 칠한 옛 세관 관저예요.",
+      "body_ko": [
+        "1860년 타이완이 개항하면서 안핑과 단수이가 통상항이 되었어요.",
+        "1866년에 세관장이 살 첫 관저를 지었고, 1875년에 숙사 두 채를 더 지었어요.",
+        "1884년 청프 전쟁 때 부서져 두 채만 남았고, 1997년에 고적으로 공고됐어요.",
+        "안팎을 흰색으로 칠해 사람들이 '샤오바이궁'이라고 불러요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "1860년 타이완이 개항하면서 안핑과 단수이 두 항이 외국과 통상하게 됐어요.",
+          "source": "boch_tamsui_customs_residence",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "1866년에 세관장이 살 첫 관저를 짓기 시작했고, 1875년에 관저 왼쪽 땅을 더 사서 숙사 두 채를 지었어요.",
+          "source": "boch_tamsui_customs_residence",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "1884년 청프 전쟁 후웨이 싸움 때 관저가 부서져 두 채만 남았어요.",
+          "source": "boch_tamsui_customs_residence",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "1997년에 '전청 단수이 총세무사 관저'라는 이름으로 고적으로 공고됐어요.",
+          "source": "boch_tamsui_customs_residence",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "식민지식 건축이라 기단을 높이고 베란다 같은 회랑과 바닥까지 닿는 창, 굴뚝을 두었어요.",
+          "source": "tshs_residence_intro",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c6",
+          "text_ko": "안팎을 모두 흰색으로 칠해 사람들이 '샤오바이궁'이라고 불러요.",
+          "source": "tshs_residence_intro",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "당일 표 한 장으로 훙마오청과 후웨이 포대까지 세 곳을 볼 수 있어요.",
+          "source": "tshs_fee",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "단수이허 하구에서 두 번째 산 언덕 맨 높은 곳에 있어요.",
+          "source": "tshs_residence_intro",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "unknown",
+        "regular_closed": [
+          "irregular"
+        ],
+        "closed_note_ko": "매달 첫째 월요일에 쉬어요. 그날이 공휴일이면 열고 다음 날 쉬어요. 음력 섣달그믐과 설날에도 쉬어요.",
+        "visit_note_ko": "건물 전체를 둘러볼 수 있는 완전 개방 관람이라고 안내해요.",
+        "source": "boch_tamsui_customs_residence",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "boch_tamsui_customs_residence",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_tw",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 17,
+        "designations": [
+          {
+            "kind": "tw_municipal_monument",
+            "name_ko": "직할시 지정 고적 전 청나라 단수이 세관 세무사 관저(1997)",
+            "source": "boch_tamsui_customs_residence"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJI40Lb1ClQjQRxxrpVzIZoBs"
+    },
+    {
+      "id": "cijin-beach",
+      "qid": "Q86731337",
+      "names": {
+        "ko": "치진 해수욕장",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Cijin Seaside Resort",
+        "local": "旗津海水浴場",
+        "local_short": "旗津海水浴場",
+        "local_lang": "zh-Hant",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "치진 해변"
+      ],
+      "aliases_en": [],
+      "mentions_ko": [
+        "치진 해안공원",
+        "치진 페리"
+      ],
+      "region": "tw_kaohsiung",
+      "area_ko": "가오슝 치진구",
+      "category": "sea_island",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 22.6070628,
+        "lng": 120.2686951,
+        "source": "osm",
+        "qid": null,
+        "osm": "way/145773967",
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": null,
+      "address_local": {
+        "text": "高雄市旗津區",
+        "source": "tta_cijin",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "boat",
+          "bus"
+        ],
+        "nearest_ko": "치진 페리 터미널에서 내리면 버스 정류장이 바로 있어 걸어서 갈 수 있어요.",
+        "nearest_local": null,
+        "source": "tta_cijin",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://khh.travel/zh-tw/attractions/detail/7/",
+      "summary_ko": "치진섬 서쪽에 길게 뻗은 모래 해변이에요.",
+      "body_ko": [
+        "치진 해수욕장은 먀오첸로에 있고 치진 해안공원과 이어져 있어요.",
+        "고운 모래 해안이 몇 킬로미터 이어지고 물이 맑아요.",
+        "구조 설비와 샤워 시설, 화장실이 있고 입장료는 받지 않아요.",
+        "물놀이 말고도 바다 전망 산책로와 자연 생태 구역이 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "먀오첸로에 있고 치진 해안공원과 붙어 있으며, 고운 모래 해안이 몇 킬로미터 이어져요.",
+          "source": "khtour_cijin_beach",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "일 년 내내 열지만 그날 날씨가 나쁘면 열지 않아요.",
+          "source": "khtour_cijin_beach",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "입장료를 받지 않고 구조 설비와 샤워 시설, 화장실이 갖춰져 있어요.",
+          "source": "khtour_cijin_beach",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "물놀이 말고도 바다 전망 산책로와 자연 생태 구역, 오프로드 구역이 있어요.",
+          "source": "khtour_cijin_beach",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "입구 광장과 산책로 공사 구역을 울타리로 막아 두었어요.",
+          "source": "khtour_cijin_beach",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "정해진 안전 구역 안에서 물놀이하라고 안내해요.",
+          "source": "khtour_cijin_beach",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "치진은 좁고 긴 섬이라 배를 타거나 해저터널로 건너가요.",
+          "source": "tta_cijin",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "public_space",
+        "closed_note_ko": null,
+        "visit_note_ko": "일 년 내내 열지만 날씨가 나쁜 날은 열지 않아요.",
+        "source": "khtour_cijin_beach",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [
+        "renovation"
+      ],
+      "status": {
+        "value": "partial",
+        "note_ko": "입구 광장과 산책로가 공사 중이라 표시를 따라 돌아가야 해요.",
+        "source": "khtour_cijin_beach",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_tw",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 39,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJ6eQ9AewDbjQRC0aRrpUxiMI"
+    },
+    {
+      "id": "former-british-consulate-takao",
+      "qid": "Q5470078",
+      "names": {
+        "ko": "다거우 영국 영사관",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Former British Consulate at Takao",
+        "local": "打狗英國領事館及官邸",
+        "local_short": "打狗英國領事館及官邸",
+        "local_lang": "zh-Hant",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "다거우 영국 영사관 문화원구"
+      ],
+      "aliases_en": [],
+      "mentions_ko": [
+        "사오촨터우",
+        "시쯔완",
+        "등산 고도"
+      ],
+      "region": "tw_kaohsiung",
+      "area_ko": "가오슝 구산구",
+      "category": "heritage",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 22.61888,
+        "lng": 120.2669,
+        "source": "wd",
+        "qid": "Q5470078",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 22.61888,
+        "lng": 120.2669
+      },
+      "address_local": {
+        "text": "高雄市鼓山區蓮海路20號",
+        "source": "tta_consulate",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "bus",
+          "metro"
+        ],
+        "nearest_ko": "버스 '西子灣(英國領事館官邸)' 정류장이 가깝고, MRT 하마싱역에서도 걸어갈 수 있어요.",
+        "nearest_local": null,
+        "source": "tta_consulate",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://khh.travel/zh-tw/attractions/detail/195/",
+      "wiki": {
+        "en": "Former British Consulate at Takao"
+      },
+      "summary_ko": "가오슝항이 내려다보이는 언덕의 옛 영국 영사관이에요.",
+      "body_ko": [
+        "다거우 영국 영사관은 1879년에 지은 영국식 건물 두 채와 등산 고도로 이루어져 있어요.",
+        "영사관은 항구 북쪽 사오촨터우 부두 옆에, 관저는 언덕 위에 있어요.",
+        "타이완에 남은 청나라 말 서양식 관청 건물 가운데 연대가 가장 오래됐어요.",
+        "2019년에 세 곳을 묶어 국가 지정 고적으로 공고했어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "1879년에 완공한 영국식 건물 두 채와 등산 고도 한 줄기로 이루어져 있어요.",
+          "source": "boch_british_consulate",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "영사관은 가오슝항 북쪽 사오촨터우 부두 옆에 있고, 관저는 언덕 위에서 손님을 맞는 곳이었어요.",
+          "source": "boch_british_consulate",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "타이완에 남은 청나라 말 서양식 관청 건물 가운데 연대가 가장 오래됐어요.",
+          "source": "boch_british_consulate",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "1858년 톈진조약과 1860년 베이징조약 뒤 안핑·단수이·지룽·다거우 네 통상항이 열렸어요.",
+          "source": "boch_british_consulate",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "2019년 2월 22일 문화부가 관저와 등산 고도, 영사관 사무소를 묶어 국가 지정 고적으로 공고했어요.",
+          "source": "boch_british_consulate",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c6",
+          "text_ko": "관저와 영사관을 잇는 등산 고도의 돌계단이 잘 남아 걸어 오를 수 있어요.",
+          "source": "khtour_consulate",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "오후부터 해 질 무렵에 가면 좋다고 안내해요.",
+          "source": "khtour_consulate",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "관저 안은 가오슝 사적 문물관으로 꾸며 다거우 개척과 근대사 자료를 보여 줘요.",
+          "source": "tta_consulate",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "mon"
+        ],
+        "closed_note_ko": "월요일은 고적 정비로 쉬어요.",
+        "visit_note_ko": "문 닫기 조금 전부터는 표를 팔지 않아요.",
+        "source": "boch_british_consulate",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [
+        "renovation"
+      ],
+      "status": {
+        "value": "partial",
+        "note_ko": "언덕 위 관저가 보수 공사 중이라 고적 정문으로 드나들어요.",
+        "source": "khtour_consulate",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_tw",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 11,
+        "designations": [
+          {
+            "kind": "tw_national_monument",
+            "name_ko": "국가 지정 고적 다거우 영국 영사관 및 관저(2019)",
+            "source": "boch_british_consulate"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJFfV1wfYDbjQRHdGpq6VRADM"
+    },
+    {
+      "id": "state-temple-of-the-martial-god",
+      "qid": "Q15079274",
+      "names": {
+        "ko": "쓰뎬우먀오",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "State Temple of the Martial God",
+        "local": "祀典武廟",
+        "local_short": "祀典武廟",
+        "local_lang": "zh-Hant",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "타이완 쓰뎬우먀오"
+      ],
+      "aliases_en": [],
+      "mentions_ko": [
+        "관성제군",
+        "대관제묘",
+        "츠칸러우"
+      ],
+      "region": "tw_tainan",
+      "area_ko": "타이난 중시구",
+      "category": "heritage",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 22.9964,
+        "lng": 120.202,
+        "source": "wd",
+        "qid": "Q15079274",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 22.9964,
+        "lng": 120.202
+      },
+      "address_local": {
+        "text": "永福路二段二二九號",
+        "source": "boch_martial_temple",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "bus"
+        ],
+        "nearest_ko": "버스 '赤崁樓' 정류장에서 걸어서 갈 수 있어요.",
+        "nearest_local": null,
+        "source": "tnbus_chihkan_stop",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://nchdb.boch.gov.tw/assets/advanceSearch/monument/19831228000009",
+      "wiki": {
+        "en": "State Temple of the Martial God"
+      },
+      "summary_ko": "관성제군을 모시고 관방 제사를 받던 타이난의 관제묘예요.",
+      "body_ko": [
+        "쓰뎬우먀오는 정씨 시기에 세워져 '대관제묘'라 불렸어요.",
+        "1725년 관공의 삼대에 공작을 봉하고 신위를 뒤 전각에 모셨어요.",
+        "1727년 춘추로 태뢰 제사를 올리라는 명을 받아 '쓰뎬우먀오'가 되었어요.",
+        "붉은 산장이 평균 높이 5.5미터, 길이 66미터로 각 채를 잇고 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "정씨 시기에 세워졌고 그때는 '대관제묘'라 불렸어요.",
+          "source": "boch_martial_temple",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "1725년 관공의 증조·조·부 삼대에 공작을 봉하고 신위를 뒤 전각에 모셨어요.",
+          "source": "boch_martial_temple",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "1727년 춘추로 태뢰 제사를 올리라는 명을 받아 '쓰뎬우먀오'가 되었어요.",
+          "source": "boch_martial_temple",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "1991년에 시 보조를 받아 보수를 시작해 1993년에 마쳤어요.",
+          "source": "boch_martial_temple",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "관성제군을 주신으로 모시며, 타이완에서 유일하게 관방 사전에 든 관제묘예요.",
+          "source": "twtainan_martial",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c6",
+          "text_ko": "붉은 산장은 평균 높이 5.5미터, 전체 길이 66미터예요.",
+          "source": "twtainan_martial",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c7",
+          "text_ko": "지금 보이는 산장은 2019년에 다시 복원했고, 붉은 광석 '투주'와 관쯔링산 생석회를 섞어 썼어요.",
+          "source": "twtainan_martial",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c8",
+          "text_ko": "1983년 12월 28일 국가 지정 고적으로 지정됐어요.",
+          "source": "boch_martial_temple",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "채마다 지붕 형식이 달라 삼촨뎬부터 후뎬까지 비교해 보면 재미있어요.",
+          "source": "twtainan_martial",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "지금 보이는 붉은 산장은 2019년에 다시 복원한 것이에요.",
+          "source": "twtainan_martial",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "unknown",
+        "regular_closed": [
+          "none"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": "아침부터 저녁까지 열어요.",
+        "source": "boch_martial_temple",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "boch_martial_temple",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_tw",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 12,
+        "designations": [
+          {
+            "kind": "tw_national_monument",
+            "name_ko": "국가 지정 고적 쓰뎬우먀오(1983)",
+            "source": "boch_martial_temple"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJ_3sZgmF2bjQRJqNT18Vuoa0"
     }
   ],
   "sources": [
@@ -4360,6 +7508,338 @@
       "name": "佛光山佛陀紀念館 — 參訪須知 (중국어)",
       "url": "https://www.fgsbmc.org.tw/tw/visit-notice.aspx",
       "use": "facts"
+    },
+    {
+      "id": "tctour_fengjia",
+      "name": "臺中市政府觀光旅遊局 臺中觀光旅遊網 — 逢甲觀光夜市 (zh-TW)",
+      "url": "https://travel.taichung.gov.tw/zh-tw/attractions/intro/39",
+      "use": "facts"
+    },
+    {
+      "id": "tta_fengjia",
+      "name": "交通部觀光署 臺灣觀光資訊網 — 逢甲夜市 (zh-TW)",
+      "url": "https://www.taiwan.net.tw/m1.aspx?sNo=0001112&id=9471",
+      "use": "facts"
+    },
+    {
+      "id": "tctour_gaomei",
+      "name": "臺中市政府觀光旅遊局 臺中觀光旅遊網 — 高美濕地(高美野生動物保護區) (zh-TW)",
+      "url": "https://travel.taichung.gov.tw/zh-tw/attractions/intro/54",
+      "use": "facts"
+    },
+    {
+      "id": "tta_gaomei",
+      "name": "交通部觀光署 臺灣觀光資訊網 — 高美濕地 (zh-TW)",
+      "url": "https://www.taiwan.net.tw/m1.aspx?sNo=0001112&id=R117",
+      "use": "facts"
+    },
+    {
+      "id": "nmns_hours",
+      "name": "國立自然科學博物館 — 開放時間 (zh-TW)",
+      "url": "https://www.nmns.edu.tw/ch/visit/hours/",
+      "use": "facts"
+    },
+    {
+      "id": "nmns_traffic",
+      "name": "國立自然科學博物館 — 交通與停車 (zh-TW)",
+      "url": "https://www.nmns.edu.tw/ch/visit/traffic/",
+      "use": "facts"
+    },
+    {
+      "id": "nmns_life",
+      "name": "國立自然科學博物館 — 生命科學廳 (zh-TW)",
+      "url": "https://www.nmns.edu.tw/ch/exhibitions/galleries/life-science-hall/",
+      "use": "facts"
+    },
+    {
+      "id": "nmns_science_center",
+      "name": "國立自然科學博物館 — 科學中心 (zh-TW)",
+      "url": "https://www.nmns.edu.tw/ch/exhibitions/galleries/science-center/",
+      "use": "facts"
+    },
+    {
+      "id": "nmns_botanical",
+      "name": "國立自然科學博物館 — 植物園 (zh-TW)",
+      "url": "https://www.nmns.edu.tw/ch/exhibitions/galleries/botanical-garden/",
+      "use": "facts"
+    },
+    {
+      "id": "sml_discover",
+      "name": "交通部觀光署 日月潭國家風景區管理處 — 發現日月潭 (zh-TW)",
+      "url": "https://www.sunmoonlake.gov.tw/Guides/Articles?a=32",
+      "use": "facts"
+    },
+    {
+      "id": "sml_history",
+      "name": "交通部觀光署 日月潭國家風景區管理處 — 歷史軌跡 (zh-TW)",
+      "url": "https://www.sunmoonlake.gov.tw/Guides/Articles?a=33",
+      "use": "facts"
+    },
+    {
+      "id": "sml_local",
+      "name": "交通部觀光署 日月潭國家風景區管理處 — 區內交通 (zh-TW)",
+      "url": "https://www.sunmoonlake.gov.tw/Explore/Articles?a=52",
+      "use": "facts"
+    },
+    {
+      "id": "sml_howto",
+      "name": "交通部觀光署 日月潭國家風景區管理處 — 如何到日月潭 (zh-TW)",
+      "url": "https://www.sunmoonlake.gov.tw/Explore/Articles?a=53",
+      "use": "facts"
+    },
+    {
+      "id": "sml_wenwu",
+      "name": "交通部觀光署 日月潭國家風景區管理處 — 文武廟 (zh-TW)",
+      "url": "https://www.sunmoonlake.gov.tw/attractions/Attractions?A=20&Id=33&P=1",
+      "use": "facts"
+    },
+    {
+      "id": "sml_xuanguang",
+      "name": "交通部觀光署 日月潭國家風景區管理處 — 玄光寺 (zh-TW)",
+      "url": "https://www.sunmoonlake.gov.tw/attractions/Attractions?A=20&Id=14&P=1",
+      "use": "facts"
+    },
+    {
+      "id": "sml_ropeway_station",
+      "name": "交通部觀光署 日月潭國家風景區管理處 — 日月潭纜車站 (zh-TW)",
+      "url": "https://www.sunmoonlake.gov.tw/attractions/Attractions?A=20&Id=58&P=1",
+      "use": "facts"
+    },
+    {
+      "id": "rw_intro",
+      "name": "九族文化村 日月潭纜車 — 纜車簡介 (zh-TW)",
+      "url": "https://www.ropeway.com.tw/page/about/index.aspx?kind=32",
+      "use": "facts"
+    },
+    {
+      "id": "rw_ride",
+      "name": "九族文化村 日月潭纜車 — 搭乘規則·注意事項 (zh-TW)",
+      "url": "https://www.ropeway.com.tw/page/about/index.aspx?kind=33",
+      "use": "facts"
+    },
+    {
+      "id": "ktnp_origin",
+      "name": "內政部國家公園署 墾丁國家公園管理處 — 設立緣起 (zh-TW)",
+      "url": "https://www.ktnp.gov.tw/cp.aspx?n=E2D9960510149240",
+      "use": "facts"
+    },
+    {
+      "id": "ktnp_area",
+      "name": "內政部國家公園署 墾丁國家公園管理處 — 地域環境 (zh-TW)",
+      "url": "https://www.ktnp.gov.tw/cp.aspx?n=4752B9BC22AAF612",
+      "use": "facts"
+    },
+    {
+      "id": "ktnp_visitor",
+      "name": "內政部國家公園署 墾丁國家公園管理處 — 遊客中心 (zh-TW)",
+      "url": "https://www.ktnp.gov.tw/cp.aspx?n=D7B9F1DAF6192D32",
+      "use": "facts"
+    },
+    {
+      "id": "ktnp_safety",
+      "name": "內政部國家公園署 墾丁國家公園管理處 — 安全須知 (zh-TW)",
+      "url": "https://www.ktnp.gov.tw/cp.aspx?n=872E51DB9B88306C",
+      "use": "facts"
+    },
+    {
+      "id": "ktnp_eluanbi",
+      "name": "內政部國家公園署 墾丁國家公園管理處 — 鵝鑾鼻公園 (zh-TW)",
+      "url": "https://www.ktnp.gov.tw/News_Content2.aspx?n=5C28A0E32DF925F9&sms=C88B5251F308CE96&s=CC1B26C5C0691F1E",
+      "use": "facts"
+    },
+    {
+      "id": "ktnp_maobitou",
+      "name": "內政部國家公園署 墾丁國家公園管理處 — 貓鼻頭 (zh-TW)",
+      "url": "https://www.ktnp.gov.tw/News_Content2.aspx?n=5C28A0E32DF925F9&sms=C88B5251F308CE96&s=9C8B9499841F2B1D",
+      "use": "facts"
+    },
+    {
+      "id": "tta_ktnp",
+      "name": "交通部觀光署 臺灣觀光資訊網 — 墾丁國家公園 (zh-TW)",
+      "url": "https://www.taiwan.net.tw/m1.aspx?sNo=0001122&id=421",
+      "use": "facts"
+    },
+    {
+      "id": "tta_eluanbi",
+      "name": "交通部觀光署 臺灣觀光資訊網 — 鵝鑾鼻燈塔 (zh-TW)",
+      "url": "https://www.taiwan.net.tw/m1.aspx?sNo=0001122&id=A12-00181",
+      "use": "facts"
+    },
+    {
+      "id": "tta_maobitou",
+      "name": "交通部觀光署 臺灣觀光資訊網 — 貓鼻頭 (zh-TW)",
+      "url": "https://www.taiwan.net.tw/m1.aspx?sNo=0001122&id=C100_318",
+      "use": "facts"
+    },
+    {
+      "id": "tta_hengchun",
+      "name": "交通部觀光署 臺灣觀光資訊網 — 恆春古城 (zh-TW)",
+      "url": "https://www.taiwan.net.tw/m1.aspx?sNo=0001122&id=2112",
+      "use": "facts"
+    },
+    {
+      "id": "tt_9189",
+      "name": "交通部觀光署 台灣好行 — 9189 墾丁快線 (zh-TW)",
+      "url": "https://www.taiwantrip.com.tw/Frontend/Route/Select_p?RouteID=R0011",
+      "use": "facts"
+    },
+    {
+      "id": "ptbus_102",
+      "name": "屏東客運 — 墾丁街車 102 恆春－小灣(經貓鼻頭) (zh-TW)",
+      "url": "https://www.ptbus.com.tw/product_info/21/1/102?num=102",
+      "use": "facts"
+    },
+    {
+      "id": "boch_eluanbi_lighthouse",
+      "name": "文化部文化資產局 國家文化資產網 開放資料 — 鵝鑾鼻燈塔(國定古蹟)",
+      "url": "https://nchdb.boch.gov.tw/assets/advanceSearch/monument/20240318000001",
+      "use": "heritage_registry",
+      "license": "TW-OGDL-1.0 (政府資料開放授權條款-第1版, 출처 표기)",
+      "attribution_required": true
+    },
+    {
+      "id": "boch_hengchun",
+      "name": "文化部文化資產局 國家文化資產網 開放資料 — 恆春古城(國定古蹟)",
+      "url": "https://nchdb.boch.gov.tw/assets/advanceSearch/monument/19850819000085",
+      "use": "heritage_registry",
+      "license": "TW-OGDL-1.0 (政府資料開放授權條款-第1版, 출처 표기)",
+      "attribution_required": true
+    },
+    {
+      "id": "hltour_taroko",
+      "name": "花蓮縣政府觀光處 花蓮旅遊網 — 太魯閣國家公園 (zh-TW)",
+      "url": "https://hualien.travel/zh-tw/attraction/86/",
+      "use": "facts"
+    },
+    {
+      "id": "hltour_qixingtan",
+      "name": "花蓮縣政府觀光處 花蓮旅遊網 — 七星潭海岸風景特定區 (zh-TW)",
+      "url": "https://hualien.travel/zh-tw/attraction/68/",
+      "use": "facts"
+    },
+    {
+      "id": "hltour_dongdamen",
+      "name": "花蓮縣政府觀光處 花蓮旅遊網 — 東大門夜市 (zh-TW)",
+      "url": "https://hualien.travel/zh-tw/attraction/17/",
+      "use": "facts"
+    },
+    {
+      "id": "tt_310",
+      "name": "交通部觀光署 台灣好行 — 310 太魯閣線 (zh-TW)",
+      "url": "https://www.taiwantrip.com.tw/Frontend/Route/Select_p?RouteID=R0071",
+      "use": "facts"
+    },
+    {
+      "id": "tpetour_qingtiangang",
+      "name": "臺北市政府觀光傳播局 臺北旅遊網 — 擎天崗 (zh-TW)",
+      "url": "https://www.travel.taipei/zh-tw/attraction/details/246",
+      "use": "facts"
+    },
+    {
+      "id": "tpebus_s15",
+      "name": "臺北市公共運輸處 公車動態資訊系統 — 小15 路線 (zh-TW)",
+      "url": "https://pda5284.gov.taipei/MQS/route.jsp?rid=11206",
+      "use": "facts"
+    },
+    {
+      "id": "tta_ymsnp",
+      "name": "交通部觀光署 臺灣觀光資訊網 — 陽明山國家公園 (zh-TW)",
+      "url": "https://www.taiwan.net.tw/m1.aspx?sNo=0001090&id=738",
+      "use": "facts"
+    },
+    {
+      "id": "tta_xiaoyoukeng",
+      "name": "交通部觀光署 臺灣觀光資訊網 — 陽明山溫泉區_小油坑 (zh-TW)",
+      "url": "https://www.taiwan.net.tw/m1.aspx?sNo=0001090&id=A12-00251",
+      "use": "facts"
+    },
+    {
+      "id": "tshs_hours",
+      "name": "新北市立淡水古蹟博物館 — 開放時間 (zh-TW)",
+      "url": "https://www.tshs.ntpc.gov.tw/xmdoc/cont?xsmsid=0G245643771715011728",
+      "use": "facts"
+    },
+    {
+      "id": "tshs_fee",
+      "name": "新北市立淡水古蹟博物館 — 票價資訊 (zh-TW)",
+      "url": "https://www.tshs.ntpc.gov.tw/xmdoc/cont?xsmsid=0G245643868344101231",
+      "use": "facts"
+    },
+    {
+      "id": "tshs_access",
+      "name": "新北市立淡水古蹟博物館 — 交通指南 (zh-TW)",
+      "url": "https://www.tshs.ntpc.gov.tw/xmdoc/cont?xsmsid=0G245644014894433790",
+      "use": "facts"
+    },
+    {
+      "id": "tshs_residence_intro",
+      "name": "新北市立淡水古蹟博物館 — 前清淡水關稅務司官邸(小白宮) 館舍介紹 (zh-TW)",
+      "url": "https://www.tshs.ntpc.gov.tw/xmdoc/cont?xsmsid=0L271515544528923536&sid=0L271527939912664889",
+      "use": "facts"
+    },
+    {
+      "id": "boch_hobe_fort",
+      "name": "文化部文化資產局 國家文化資產網 開放資料 — 滬尾礮臺(國定古蹟)",
+      "url": "https://nchdb.boch.gov.tw/assets/advanceSearch/monument/19850819000043",
+      "use": "heritage_registry",
+      "license": "TW-OGDL-1.0 (政府資料開放授權條款-第1版, 출처 표기)",
+      "attribution_required": true
+    },
+    {
+      "id": "boch_tamsui_customs_residence",
+      "name": "文化部文化資產局 國家文化資產網 開放資料 — 前清淡水關稅務司官邸(直轄市定古蹟)",
+      "url": "https://nchdb.boch.gov.tw/assets/advanceSearch/monument/19970625000001",
+      "use": "heritage_registry",
+      "license": "TW-OGDL-1.0 (政府資料開放授權條款-第1版, 출처 표기)",
+      "attribution_required": true
+    },
+    {
+      "id": "khtour_cijin_beach",
+      "name": "高雄市政府觀光局 高雄旅遊網 — 旗津海水浴場 (zh-TW)",
+      "url": "https://khh.travel/zh-tw/attractions/detail/7/",
+      "use": "facts"
+    },
+    {
+      "id": "khtour_consulate",
+      "name": "高雄市政府觀光局 高雄旅遊網 — 打狗英國領事館文化園區 (zh-TW)",
+      "url": "https://khh.travel/zh-tw/attractions/detail/195/",
+      "use": "facts"
+    },
+    {
+      "id": "tta_consulate",
+      "name": "交通部觀光署 臺灣觀光資訊網 — 打狗英國領事館文化園區 (zh-TW)",
+      "url": "https://www.taiwan.net.tw/m1.aspx?sNo=0001121&id=440",
+      "use": "facts"
+    },
+    {
+      "id": "boch_british_consulate",
+      "name": "文化部文化資產局 國家文化資產網 開放資料 — 打狗英國領事館及官邸(國定古蹟)",
+      "url": "https://nchdb.boch.gov.tw/assets/advanceSearch/monument/20190223000001",
+      "use": "heritage_registry",
+      "license": "TW-OGDL-1.0 (政府資料開放授權條款-第1版, 출처 표기)",
+      "attribution_required": true
+    },
+    {
+      "id": "boch_martial_temple",
+      "name": "文化部文化資產局 國家文化資產網 開放資料 — 祀典武廟(國定古蹟)",
+      "url": "https://nchdb.boch.gov.tw/assets/advanceSearch/monument/19831228000009",
+      "use": "heritage_registry",
+      "license": "TW-OGDL-1.0 (政府資料開放授權條款-第1版, 출처 표기)",
+      "attribution_required": true
+    },
+    {
+      "id": "twtainan_martial",
+      "name": "臺南市政府觀光旅遊局 台南旅遊網 — 臺灣祀典武廟 (zh-TW)",
+      "url": "https://www.twtainan.net/zh-tw/attractions/detail/678/",
+      "use": "facts"
+    },
+    {
+      "id": "osm",
+      "name": "OpenStreetMap contributors",
+      "url": "https://www.openstreetmap.org/",
+      "use": "coords_osm",
+      "license": "ODbL-1.0",
+      "attribution_required": true
     }
   ]
 }
