@@ -237,6 +237,14 @@
     <string name="settings_credit_unesco_geopark_batur">UNESCO International Geoscience and Geoparks Programme — Batur UNESCO Global Geopark — 바투르산(킨타마니 전망)</string>
     <string name="settings_credit_unesco_609">UNESCO World Heritage Centre — Komodo National Park — 코모도 국립공원·파다르섬·핑크 비치(코모도)</string>
     <string name="settings_credit_unesco_652">UNESCO World Heritage Centre — Puerto-Princesa Subterranean River National Park — 푸에르토프린세사 지하강</string>
+    <string name="settings_credit_bunka_hiroshimajo">文化庁 国指定文化財等データベース — 히로시마성</string>
+    <string name="settings_credit_bunka_kitano_denken">文化庁 国指定文化財等データベース — 기타노 이진칸 거리</string>
+    <string name="settings_credit_bunka_peace_park">文化庁 国指定文化財等データベース — 히로시마 평화기념공원</string>
+    <string name="settings_credit_bunka_thomas_house">文化庁 国指定文化財等データベース — 기타노 이진칸 거리</string>
+    <string name="settings_credit_unesco_661">UNESCO World Heritage Centre — 히메지성</string>
+    <string name="settings_credit_unesco_775">UNESCO World Heritage Centre — 히로시마 평화기념공원</string>
+    <string name="settings_credit_unesco_776">UNESCO World Heritage Centre — 이쓰쿠시마 신사</string>
+    <string name="settings_credit_unesco_972_maps">UNESCO World Heritage Centre — Gusuku Sites and Related Properties of the Kingdom of Ryukyu (component parts) — 슈리성</string>
     <string name="settings_credit_unesco_870">UNESCO 세계유산센터 — 고대 나라의 역사기념물</string>
 
     <!-- 관광지 지도 (Google 지도 SDK, 사장님 결정 2026-10-09). 키가 없거나 중국이면 지도 없이 '구글 지도에서 열기'만 -->
