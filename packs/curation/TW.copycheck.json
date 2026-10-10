@@ -29,20 +29,50 @@
     "checked_at": "2026-10-10",
     "text_sha256": "f77fe43be71d929b551b079f38eee2fabe3f0e6c336fab47a3843841d316c770"
   },
+  "cijin-beach": {
+    "cache_set_sha256": "10bd6ebdde51bd4372a7d37a2681a5bda9d1f250fe4d453002ab01a6c550553a",
+    "checked_at": "2026-10-10",
+    "text_sha256": "7de93aaed266a41d1beca6648d6b81e760dd903d46cb8f4581c8b2172b3d7ef8"
+  },
+  "dongdamen-night-market": {
+    "cache_set_sha256": "518de888eb22d96e474638c755209b8cd9b347c6964dc844a38d4118eb1187e1",
+    "checked_at": "2026-10-10",
+    "text_sha256": "910020bdd7cdb8ee31fb8fc2852b3e0c3181cb5f16ef9b31cdf8db559dc5a547"
+  },
+  "eluanbi-park": {
+    "cache_set_sha256": "2ccad6a6eafef7fd14b2545f3d460d22d3ca40d3b2110655ce16c2efa3152cb5",
+    "checked_at": "2026-10-10",
+    "text_sha256": "209b5bc9db1e3b34f4934e1094861088c0bfcc1369757c1a6d7744c6dc1de068"
+  },
   "eternal-golden-castle": {
     "cache_set_sha256": "faf4d846cdb5162bc6232f17c39252b5fbfe5d466354eea39cfb4fa4dce58fcd",
     "checked_at": "2026-10-10",
     "text_sha256": "d3f1fbc15497c7c123168c4e61e2c512a46bfb8245555af907cb4cfa52caf003"
+  },
+  "fengjia-night-market": {
+    "cache_set_sha256": "f375f518da487226b757017fce5302bc41152f858d7ba2b0311e3b0a2bfb2b55",
+    "checked_at": "2026-10-10",
+    "text_sha256": "63c9373c1e2222a3ec625d080d5ada98f4c51f9fef848100baa091d84a12abdf"
   },
   "fo-guang-shan": {
     "cache_set_sha256": "bcd30fad72d9d73a50e9284144f89073ab91e4e4c0bd14ffce60e422bbc3accb",
     "checked_at": "2026-10-10",
     "text_sha256": "c6d27962d193e4daeac726c7d1fd5993636d625043023808f423842df23c1438"
   },
+  "former-british-consulate-takao": {
+    "cache_set_sha256": "f77ab761fdc15c35d4437edee01f1b9f34f91654404e83959a096146b6e4c156",
+    "checked_at": "2026-10-10",
+    "text_sha256": "51964ec86ca6aaae2a88d0f1f6565276e0817c3b4266b16a7bc17e111296572b"
+  },
   "fort-san-domingo": {
     "cache_set_sha256": "218a626bf5d5bd68b5ebb3056cc5c15a60948e3457c48bc40e273e58dfb6d286",
     "checked_at": "2026-10-10",
     "text_sha256": "9966a79d59c1c98e832edfaad2f539d25ace962c0ad2d098fdea6b149294c70a"
+  },
+  "gaomei-wetlands": {
+    "cache_set_sha256": "aa4f3453d28429898de93950d0ba09d7c6b44ed43abcc6eaa2b1c39f03b93bc7",
+    "checked_at": "2026-10-10",
+    "text_sha256": "567164634904bc85b4cce6af3d81f4c6e3b1fbea26fd348124c3f1f376627531"
   },
   "garden-night-market": {
     "cache_set_sha256": "ffcc01ac5a6a7b835c770b19ccf21e29edef8d9e2f171c97b09b88093494c893",
@@ -54,10 +84,25 @@
     "checked_at": "2026-10-10",
     "text_sha256": "2fe97f26f9819d0ec68522f9f7471851b5086215eb1c05e0aea6b986469930e8"
   },
+  "hengchun-old-town": {
+    "cache_set_sha256": "30d1b02ba41e77c05830a6655d3253bb749d88dee7c9171d136b25c88613ed6b",
+    "checked_at": "2026-10-10",
+    "text_sha256": "8bfd3eea2270c1e4a110cc5cc0507c626973b3ee498211829191c2d019ceca22"
+  },
+  "hobe-fort": {
+    "cache_set_sha256": "5289a84470ac74086d0cf93960d7f48984877bea24d3a44ea9fa931e7676dc68",
+    "checked_at": "2026-10-10",
+    "text_sha256": "c7050818446679fe3b3d45be6cbab955c669e672ac6312f1ffcb4ef72058d4a2"
+  },
   "jiufen-old-street": {
     "cache_set_sha256": "d54c60bfb494696c628c298a4170f5328651701dcd98d0107c8eb914e582bf33",
     "checked_at": "2026-10-10",
     "text_sha256": "bee27bd497bd762d9e912bda20dab4b66db370a8999b23151b67676500e40df8"
+  },
+  "kenting-national-park": {
+    "cache_set_sha256": "b0c92a5f8728ed8f2fb6065dfdf5d5cd915e82cbd5bb2cc0be706e8f67b0af76",
+    "checked_at": "2026-10-10",
+    "text_sha256": "bb5d2252a972a01a9fc38108935cbddbc49be555e38c2002de3508100d407ae8"
   },
   "liuhe-night-market": {
     "cache_set_sha256": "3308d1fe4e2ecd33b3f9b42bcd81626e057266426e5fc96889e923920869ed1b",
@@ -74,6 +119,16 @@
     "checked_at": "2026-10-10",
     "text_sha256": "0e219b327879b124537062e60bd29f0cef2d29aaca31d0518a0965b742889400"
   },
+  "maobitou-park": {
+    "cache_set_sha256": "5939e9229c31eb0d2c1d316e648009a56d0e33e4b2e7b28a58f3cf89f696113c",
+    "checked_at": "2026-10-10",
+    "text_sha256": "47329425b5cefd7bff58d50343aaf34903637add448adb308d0024e042516b23"
+  },
+  "national-museum-of-natural-science": {
+    "cache_set_sha256": "3bb08d7a536933f56fd3ea5f380cf1bd81f140783273d35adf3b460d5dfa5367",
+    "checked_at": "2026-10-10",
+    "text_sha256": "59af2e7155a20f970eca857a7ff791911c39147386c6f10d5238f69e7e48dcd9"
+  },
   "national-palace-museum": {
     "cache_set_sha256": "44055c8c888cca9868fbcacaee0c4bec3186bb56542c7894d8f55eecb38a1489",
     "checked_at": "2026-10-10",
@@ -83,6 +138,16 @@
     "cache_set_sha256": "37870311691a802ad959d2b8c942e3bc69f4e6c2684e6cfb613770c9493afe9f",
     "checked_at": "2026-10-10",
     "text_sha256": "ce88533ccf43284af9d1478bb3dd2bd9b508c56f9d4675cc1cece973e0db2648"
+  },
+  "qingtiangang": {
+    "cache_set_sha256": "3784094833a5f1b19fec4e8f8fe5e4f8c9f371d77df3ad29cd339d513c844311",
+    "checked_at": "2026-10-10",
+    "text_sha256": "f1bc9b699928a0828bc4f89ba5dfd0a553354a9fcea2cf280f2d4afd5fb922f8"
+  },
+  "qixingtan-beach": {
+    "cache_set_sha256": "07e774958b83112002abd3a8d7d58059885651476517d0015d874159ae2a9f34",
+    "checked_at": "2026-10-10",
+    "text_sha256": "cbd3776e36ae5db4c1bef7cd06b2d5f9711e01f18f930972e3efb9cc1a983764"
   },
   "shifen-old-street": {
     "cache_set_sha256": "d6b474631882fa02a974263bcaa7e750ef60e2838204a39ca9caa773b91eed4f",
@@ -94,6 +159,26 @@
     "checked_at": "2026-10-10",
     "text_sha256": "1eb8125702ef1d53139068c248c6e5d9df7fe02c7fb0de6ff0a4430094939a2a"
   },
+  "state-temple-of-the-martial-god": {
+    "cache_set_sha256": "3e93c267e552b5df70a6c01940dae7d91dae4652592316da46b988fb4d7f1b09",
+    "checked_at": "2026-10-10",
+    "text_sha256": "98f7651103e95f8829797c7be77514e89a3726ec303717af4c215c89680d8521"
+  },
+  "sun-moon-lake": {
+    "cache_set_sha256": "80bc55c443b98449ec6b5581513343e45fe8bbc0fb99c9b1d41dd7a82cf0a01f",
+    "checked_at": "2026-10-10",
+    "text_sha256": "968c2d6b79aa980001e2c8ce17190c6fd4b471304b5ef74a77b56c7570fb7477"
+  },
+  "sun-moon-lake-ropeway": {
+    "cache_set_sha256": "77298b45dd1f350d2b9ce7a6b73ec012ac70e59d61e67eae3df22b308a8b6263",
+    "checked_at": "2026-10-10",
+    "text_sha256": "c98dc948e59ca583a31a41714fcc446739911da0e37e70bf1aa52cb72d62ed92"
+  },
+  "sun-moon-lake-wenwu-temple": {
+    "cache_set_sha256": "dad7a318b24732bcefbf7c3ed592893931c0fd842cd5bafd000af0a637d9b132",
+    "checked_at": "2026-10-10",
+    "text_sha256": "27c6022e1969f99578b34a1fe093ee791717d920c710f7925e3a8a6e4f92b138"
+  },
   "tainan-confucius-temple": {
     "cache_set_sha256": "815f5abf14ef5c6c54e3954f89896add8232b990e1d71ca908ba86189583a559",
     "checked_at": "2026-10-10",
@@ -104,10 +189,30 @@
     "checked_at": "2026-10-10",
     "text_sha256": "fd5e786d88b30c0e8391f5ff51222965a52fdd69c9897941768f3d94363ee45d"
   },
+  "tamsui-customs-officers-residence": {
+    "cache_set_sha256": "6f796896f777efe875a6c0854c3cbf101325a4062b12c475513b0212ce6a8aaf",
+    "checked_at": "2026-10-10",
+    "text_sha256": "8c82accdff0719f93094c0e9cd575b995327064464ff3d7909f275af0f28771f"
+  },
+  "taroko-gorge": {
+    "cache_set_sha256": "18698a37530c9df06908fa5bc08c665c74bafb4cf7628cb23fd65d6853cfa080",
+    "checked_at": "2026-10-10",
+    "text_sha256": "0cb37a2bf54e5411340acd9c7eb63151cfc97c13640adcd47ef20218d73d4d8f"
+  },
+  "xiaoyoukeng": {
+    "cache_set_sha256": "a1c59546793669f9c377cb4b12253918e5bdbc636edf51f3a9dcd958d0c79289",
+    "checked_at": "2026-10-10",
+    "text_sha256": "b3899942441ecb58999b85a47e17febcefd2c7149704da40fa02925ff7bf464b"
+  },
   "ximending": {
     "cache_set_sha256": "0e15b26369e2ab896b0d5d8a2c91a1884a116c47588a1f071101e410c6063626",
     "checked_at": "2026-10-10",
     "text_sha256": "cff66279f4b74102e7d4fa0f1ea84f2802614f61719bedba56b53cc879e52efb"
+  },
+  "xuanguang-temple": {
+    "cache_set_sha256": "b75959ef00fdf2d6e166522130855d9cd28cbf89fffb2b40bc62e9d28194695f",
+    "checked_at": "2026-10-10",
+    "text_sha256": "ae866595b9951db79c279f12e5f3bc648164aaca27636458d89dbcf8e86bb308"
   },
   "yehliu-geopark": {
     "cache_set_sha256": "e09939c95b657c92bf7fcfb7d8e06f5805bf549a2eceae4cd0c247bea47d29d5",

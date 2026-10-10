@@ -532,7 +532,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 12,
+        "order": 18,
         "designations": []
       },
       "photo": null,
@@ -1021,7 +1021,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 13,
+        "order": 19,
         "designations": []
       },
       "photo": null,
@@ -1172,7 +1172,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 16,
+        "order": 23,
         "designations": []
       },
       "photo": null,
@@ -1511,7 +1511,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 22,
+        "order": 36,
         "designations": []
       },
       "photo": null,
@@ -1830,7 +1830,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 15,
+        "order": 21,
         "designations": []
       },
       "photo": null,
@@ -1967,7 +1967,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 23,
+        "order": 42,
         "designations": []
       },
       "photo": null,
@@ -2127,7 +2127,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 11,
+        "order": 15,
         "designations": [
           {
             "kind": "tw_municipal_monument",
@@ -2267,7 +2267,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 20,
+        "order": 31,
         "designations": []
       },
       "photo": null,
@@ -2863,7 +2863,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 18,
+        "order": 26,
         "designations": []
       },
       "photo": null,
@@ -3168,7 +3168,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 21,
+        "order": 35,
         "designations": []
       },
       "photo": null,
@@ -3318,7 +3318,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 19,
+        "order": 30,
         "designations": []
       },
       "photo": null,
@@ -3472,7 +3472,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 10,
+        "order": 14,
         "designations": [
           {
             "kind": "tw_national_monument",
@@ -3633,7 +3633,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 17,
+        "order": 25,
         "designations": []
       },
       "photo": null,
@@ -3803,7 +3803,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 14,
+        "order": 20,
         "designations": []
       },
       "photo": null,
@@ -3867,7 +3867,10 @@
         "last_verified": "2026-10-10"
       },
       "official_url": "https://travel.taichung.gov.tw/zh-tw/attractions/intro/39",
-      "wiki": null,
+      "wiki": {
+        "ko": "펑자 야시장",
+        "en": "Fengjia Night Market"
+      },
       "summary_ko": "펑자대학 옆 길을 따라 늘어선 타이중의 야시장이에요.",
       "body_ko": [
         "펑자 야시장은 펑자대학 측문에서 원화로를 따라 푸싱로까지 이어져요.",
@@ -3941,14 +3944,14 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 1,
+        "order": 27,
         "designations": []
       },
       "photo": null,
       "photo_link": null,
       "source": "wd",
       "last_verified": "2026-10-10",
-      "google_place_id": null
+      "google_place_id": "ChIJK4W2WSIWaTQROebP2ugIGg8"
     },
     {
       "id": "national-museum-of-natural-science",
@@ -4004,7 +4007,9 @@
         "last_verified": "2026-10-10"
       },
       "official_url": "https://www.nmns.edu.tw/ch/",
-      "wiki": null,
+      "wiki": {
+        "en": "National Museum of Natural Science"
+      },
       "summary_ko": "공룡과 미라, 열대우림 온실을 함께 보는 국립 박물관이에요.",
       "body_ko": [
         "국립자연과학박물관은 생명과학관에서 자연 현상과 진화를 13개 전시구역으로 보여 줘요.",
@@ -4090,14 +4095,14 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 1,
+        "order": 34,
         "designations": []
       },
       "photo": null,
       "photo_link": null,
       "source": "wd",
       "last_verified": "2026-10-10",
-      "google_place_id": null
+      "google_place_id": "ChIJyzSRBng9aTQRNk-Xj7pbpvc"
     },
     {
       "id": "gaomei-wetlands",
@@ -4152,7 +4157,9 @@
         "last_verified": "2026-10-10"
       },
       "official_url": "https://travel.taichung.gov.tw/zh-tw/attractions/intro/54",
-      "wiki": null,
+      "wiki": {
+        "en": "Gaomei Wetlands"
+      },
       "summary_ko": "다자시 하구 갯벌에 나무 데크가 놓인 습지예요.",
       "body_ko": [
         "가오메이 습지는 칭수이의 다자시 하구 남쪽에 있고 넓이가 701.3헥타르예요.",
@@ -4232,14 +4239,14 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 1,
+        "order": 33,
         "designations": []
       },
       "photo": null,
       "photo_link": null,
       "source": "wd",
       "last_verified": "2026-10-10",
-      "google_place_id": null
+      "google_place_id": "ChIJQ2FsFjwTaTQRKb4VYUrXd4Y"
     },
     {
       "id": "sun-moon-lake",
@@ -4291,7 +4298,10 @@
         "last_verified": "2026-10-10"
       },
       "official_url": "https://www.sunmoonlake.gov.tw/",
-      "wiki": null,
+      "wiki": {
+        "ko": "르웨탄호",
+        "en": "Sun Moon Lake"
+      },
       "summary_ko": "라루섬을 사이에 두고 해와 달 모양으로 갈리는 산중 호수예요.",
       "body_ko": [
         "르웨탄은 난터우현 위츠향에 있는 산속 호수예요.",
@@ -4376,14 +4386,14 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 1,
+        "order": 24,
         "designations": []
       },
       "photo": null,
       "photo_link": null,
       "source": "wd",
       "last_verified": "2026-10-10",
-      "google_place_id": null
+      "google_place_id": "ChIJBQDuduDVaDQRKKUSU_2mF-w"
     },
     {
       "id": "sun-moon-lake-wenwu-temple",
@@ -4438,7 +4448,9 @@
         "last_verified": "2026-10-10"
       },
       "official_url": "https://www.sunmoonlake.gov.tw/attractions/Attractions?A=20&Id=33&P=1",
-      "wiki": null,
+      "wiki": {
+        "en": "Sun Moon Lake Wen Wu Temple"
+      },
       "summary_ko": "호수 북쪽 언덕에 세 전각이 이어진 큰 사당이에요.",
       "body_ko": [
         "원우먀오는 호수 수위가 올라가며 옮겨야 했던 두 사당을 합쳐 지은 곳이에요.",
@@ -4517,14 +4529,14 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 1,
+        "order": 32,
         "designations": []
       },
       "photo": null,
       "photo_link": null,
       "source": "wd",
       "last_verified": "2026-10-10",
-      "google_place_id": null
+      "google_place_id": "ChIJK1j04mjWaDQR8IBhedScH_0"
     },
     {
       "id": "xuanguang-temple",
@@ -4580,7 +4592,6 @@
         "last_verified": "2026-10-10"
       },
       "official_url": "https://www.sunmoonlake.gov.tw/attractions/Attractions?A=20&Id=14&P=1",
-      "wiki": null,
       "summary_ko": "호수 바로 위 계단 끝에 앉은 작은 절이에요.",
       "body_ko": [
         "쉬안광쓰는 쉬안짱 법사의 정골 사리를 모시려고 호숫가에 세운 절이에요.",
@@ -4653,14 +4664,14 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 1,
+        "order": 44,
         "designations": []
       },
       "photo": null,
       "photo_link": null,
       "source": "wd",
       "last_verified": "2026-10-10",
-      "google_place_id": null
+      "google_place_id": "ChIJGdgGneHVaDQRXUW5X6DUDbY"
     },
     {
       "id": "sun-moon-lake-ropeway",
@@ -4724,7 +4735,9 @@
         "last_verified": "2026-10-10"
       },
       "official_url": "https://www.ropeway.com.tw/",
-      "wiki": null,
+      "wiki": {
+        "en": "Sun Moon Lake Ropeway"
+      },
       "summary_ko": "이다사오 옆에서 산을 넘어 호수를 내려다보는 케이블카예요.",
       "body_ko": [
         "르웨탄 케이블카는 호수 남동쪽 르웨탄역과 주족문화촌 관산러우를 이어요.",
@@ -4813,14 +4826,14 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 1,
+        "order": 38,
         "designations": []
       },
       "photo": null,
       "photo_link": null,
       "source": "wd",
       "last_verified": "2026-10-10",
-      "google_place_id": null
+      "google_place_id": "ChIJWWFEwXjWaDQRNSqytAMNbtQ"
     },
     {
       "id": "kenting-national-park",
@@ -4877,7 +4890,9 @@
         "last_verified": "2026-10-10"
       },
       "official_url": "https://www.ktnp.gov.tw/",
-      "wiki": null,
+      "wiki": {
+        "en": "Kenting National Park"
+      },
       "summary_ko": "헝춘반도 남쪽 삼면이 바다인 타이완 첫 국가공원이에요.",
       "body_ko": [
         "컨딩 국가공원은 헝춘반도 남쪽에 있고, 동쪽은 태평양, 남쪽은 바시해협, 서쪽은 타이완해협이에요.",
@@ -4974,14 +4989,14 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 1,
+        "order": 29,
         "designations": []
       },
       "photo": null,
       "photo_link": null,
       "source": "wd",
       "last_verified": "2026-10-10",
-      "google_place_id": null
+      "google_place_id": "ChIJ60nq2UKxcTQRBe5bkilbnZY"
     },
     {
       "id": "eluanbi-park",
@@ -5037,7 +5052,9 @@
         "last_verified": "2026-10-10"
       },
       "official_url": "https://www.ktnp.gov.tw/",
-      "wiki": null,
+      "wiki": {
+        "en": "Cape Eluanbi"
+      },
       "summary_ko": "타이완 남쪽 끝 산호초 바위숲과 흰 등대가 있는 공원이에요.",
       "body_ko": [
         "어롼비 공원은 59헥타르 넓이의 산호초 석회암 지형이에요.",
@@ -5133,7 +5150,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 1,
+        "order": 10,
         "designations": [
           {
             "kind": "tw_national_monument",
@@ -5146,7 +5163,7 @@
       "photo_link": null,
       "source": "wd",
       "last_verified": "2026-10-10",
-      "google_place_id": null
+      "google_place_id": "ChIJEegpv4GycTQR3Ti6mANmmW4"
     },
     {
       "id": "maobitou-park",
@@ -5201,7 +5218,6 @@
         "last_verified": "2026-10-10"
       },
       "official_url": "https://www.ktnp.gov.tw/",
-      "wiki": null,
       "summary_ko": "타이완해협과 바시해협이 갈리는 산호초 곶이에요.",
       "body_ko": [
         "마오비터우는 바이사에서 약 3.5킬로미터 떨어진 곶이에요.",
@@ -5279,14 +5295,14 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 1,
+        "order": 40,
         "designations": []
       },
       "photo": null,
       "photo_link": null,
       "source": "wd",
       "last_verified": "2026-10-10",
-      "google_place_id": null
+      "google_place_id": "ChIJJVE29t6vcTQRC_jrh2AFxCI"
     },
     {
       "id": "hengchun-old-town",
@@ -5342,7 +5358,9 @@
         "last_verified": "2026-10-10"
       },
       "official_url": "https://nchdb.boch.gov.tw/assets/advanceSearch/monument/19850819000085",
-      "wiki": null,
+      "wiki": {
+        "en": "Hengchun Old City Wall"
+      },
       "summary_ko": "사철 봄 같다고 이름 붙은 옛 현성과 네 성문이에요.",
       "body_ko": [
         "헝춘 옛 성은 1875년 현이 들어서면서 쌓기 시작해 1879년에 마쳤어요.",
@@ -5438,7 +5456,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 1,
+        "order": 16,
         "designations": [
           {
             "kind": "tw_national_monument",
@@ -5451,7 +5469,7 @@
       "photo_link": null,
       "source": "wd",
       "last_verified": "2026-10-10",
-      "google_place_id": null
+      "google_place_id": "ChIJ0TvLis6wcTQR5Cw7itPdrRY"
     },
     {
       "id": "taroko-gorge",
@@ -5509,7 +5527,10 @@
         "last_verified": "2026-10-10"
       },
       "official_url": "https://www.taroko.gov.tw/",
-      "wiki": null,
+      "wiki": {
+        "ko": "타이루거 국가공원",
+        "en": "Taroko National Park"
+      },
       "summary_ko": "리우시가 대리암을 깎아 만든 깊은 협곡 국가공원이에요.",
       "body_ko": [
         "타이루거 국가공원은 리우시가 두꺼운 대리암층을 깎아 만든 협곡이에요.",
@@ -5596,7 +5617,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 1,
+        "order": 22,
         "designations": []
       },
       "photo": null,
@@ -5659,7 +5680,10 @@
         "last_verified": "2026-10-10"
       },
       "official_url": "https://hualien.travel/zh-tw/attraction/68/",
-      "wiki": null,
+      "wiki": {
+        "ko": "치싱탄 해변",
+        "en": "Qixingtan Beach"
+      },
       "summary_ko": "둥근 자갈이 깔린 초승달 모양 해만이에요.",
       "body_ko": [
         "치싱탄은 둥근 자갈이 쌓여 생긴 초승달 모양 해만이에요.",
@@ -5738,14 +5762,14 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 1,
+        "order": 28,
         "designations": []
       },
       "photo": null,
       "photo_link": null,
       "source": "wd",
       "last_verified": "2026-10-10",
-      "google_place_id": null
+      "google_place_id": "ChIJC5it6R6daDQRB-nm-TV5Pns"
     },
     {
       "id": "dongdamen-night-market",
@@ -5802,7 +5826,9 @@
         "last_verified": "2026-10-10"
       },
       "official_url": "https://hualien.travel/zh-tw/attraction/17/",
-      "wiki": null,
+      "wiki": {
+        "en": "Dongdamen Night Market"
+      },
       "summary_ko": "흩어져 있던 시장을 한곳에 모은 화롄의 야시장이에요.",
       "body_ko": [
         "둥다먼 야시장은 흑백 화강암을 깐 넓은 길이 눈에 띄어요.",
@@ -5887,14 +5913,14 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 1,
+        "order": 37,
         "designations": []
       },
       "photo": null,
       "photo_link": null,
       "source": "wd",
       "last_verified": "2026-10-10",
-      "google_place_id": null
+      "google_place_id": "ChIJKQxO8emfaDQR5SAKaOCWeb4"
     },
     {
       "id": "qingtiangang",
@@ -5945,7 +5971,6 @@
         "last_verified": "2026-10-10"
       },
       "official_url": "https://www.travel.taipei/zh-tw/attraction/details/246",
-      "wiki": null,
       "summary_ko": "다툰 화산군 사이에 펼쳐진 넓은 풀밭이에요.",
       "body_ko": [
         "칭톈강은 양밍산 국가공원 안 다툰 화산군 봉우리 사이에 있는 초원이에요.",
@@ -6013,14 +6038,14 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 1,
+        "order": 41,
         "designations": []
       },
       "photo": null,
       "photo_link": null,
       "source": "wd",
       "last_verified": "2026-10-10",
-      "google_place_id": null
+      "google_place_id": "ChIJNehVjGSyQjQRiHAgVTN2Gdk"
     },
     {
       "id": "xiaoyoukeng",
@@ -6075,7 +6100,6 @@
         "last_verified": "2026-10-10"
       },
       "official_url": "https://www.ymsnp.gov.tw/",
-      "wiki": null,
       "summary_ko": "분기공에서 김이 솟는 양밍산의 화산 지형이에요.",
       "body_ko": [
         "샤오유컹은 양밍산 국가공원에서 분기공 활동이 강하게 나타나는 곳이에요.",
@@ -6143,14 +6167,14 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 1,
+        "order": 43,
         "designations": []
       },
       "photo": null,
       "photo_link": null,
       "source": "wd",
       "last_verified": "2026-10-10",
-      "google_place_id": null
+      "google_place_id": "ChIJefxeSBiyQjQRpUoG2vwhcR8"
     },
     {
       "id": "hobe-fort",
@@ -6208,7 +6232,9 @@
         "last_verified": "2026-10-10"
       },
       "official_url": "https://www.tshs.ntpc.gov.tw/",
-      "wiki": null,
+      "wiki": {
+        "en": "Hobe Fort"
+      },
       "summary_ko": "청프 전쟁 뒤 단수이 언덕에 쌓은 서양식 포대예요.",
       "body_ko": [
         "후웨이 포대는 1884년 청프 전쟁을 겪은 뒤 해안 방어를 다지며 지은 포대예요.",
@@ -6304,7 +6330,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 1,
+        "order": 13,
         "designations": [
           {
             "kind": "tw_national_monument",
@@ -6317,7 +6343,7 @@
       "photo_link": null,
       "source": "wd",
       "last_verified": "2026-10-10",
-      "google_place_id": null
+      "google_place_id": "ChIJU92su06lQjQRXPCBsEmvUZM"
     },
     {
       "id": "tamsui-customs-officers-residence",
@@ -6373,7 +6399,9 @@
         "last_verified": "2026-10-10"
       },
       "official_url": "https://www.tshs.ntpc.gov.tw/",
-      "wiki": null,
+      "wiki": {
+        "en": "Tamsui Customs Officers' Residence"
+      },
       "summary_ko": "단수이 언덕에 안팎을 흰색으로 칠한 옛 세관 관저예요.",
       "body_ko": [
         "1860년 타이완이 개항하면서 안핑과 단수이가 통상항이 되었어요.",
@@ -6457,7 +6485,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 1,
+        "order": 17,
         "designations": [
           {
             "kind": "tw_municipal_monument",
@@ -6470,7 +6498,7 @@
       "photo_link": null,
       "source": "wd",
       "last_verified": "2026-10-10",
-      "google_place_id": null
+      "google_place_id": "ChIJI40Lb1ClQjQRxxrpVzIZoBs"
     },
     {
       "id": "cijin-beach",
@@ -6523,7 +6551,6 @@
         "last_verified": "2026-10-10"
       },
       "official_url": "https://khh.travel/zh-tw/attractions/detail/7/",
-      "wiki": null,
       "summary_ko": "치진섬 서쪽에 길게 뻗은 모래 해변이에요.",
       "body_ko": [
         "치진 해수욕장은 먀오첸로에 있고 치진 해안공원과 이어져 있어요.",
@@ -6599,14 +6626,14 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 1,
+        "order": 39,
         "designations": []
       },
       "photo": null,
       "photo_link": null,
       "source": "wd",
       "last_verified": "2026-10-10",
-      "google_place_id": null
+      "google_place_id": "ChIJ6eQ9AewDbjQRC0aRrpUxiMI"
     },
     {
       "id": "former-british-consulate-takao",
@@ -6663,7 +6690,9 @@
         "last_verified": "2026-10-10"
       },
       "official_url": "https://khh.travel/zh-tw/attractions/detail/195/",
-      "wiki": null,
+      "wiki": {
+        "en": "Former British Consulate at Takao"
+      },
       "summary_ko": "가오슝항이 내려다보이는 언덕의 옛 영국 영사관이에요.",
       "body_ko": [
         "다거우 영국 영사관은 1879년에 지은 영국식 건물 두 채와 등산 고도로 이루어져 있어요.",
@@ -6749,7 +6778,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 1,
+        "order": 11,
         "designations": [
           {
             "kind": "tw_national_monument",
@@ -6762,7 +6791,7 @@
       "photo_link": null,
       "source": "wd",
       "last_verified": "2026-10-10",
-      "google_place_id": null
+      "google_place_id": "ChIJFfV1wfYDbjQRHdGpq6VRADM"
     },
     {
       "id": "state-temple-of-the-martial-god",
@@ -6818,7 +6847,9 @@
         "last_verified": "2026-10-10"
       },
       "official_url": "https://nchdb.boch.gov.tw/assets/advanceSearch/monument/19831228000009",
-      "wiki": null,
+      "wiki": {
+        "en": "State Temple of the Martial God"
+      },
       "summary_ko": "관성제군을 모시고 관방 제사를 받던 타이난의 관제묘예요.",
       "body_ko": [
         "쓰뎬우먀오는 정씨 시기에 세워져 '대관제묘'라 불렸어요.",
@@ -6914,7 +6945,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 1,
+        "order": 12,
         "designations": [
           {
             "kind": "tw_national_monument",
@@ -6927,7 +6958,7 @@
       "photo_link": null,
       "source": "wd",
       "last_verified": "2026-10-10",
-      "google_place_id": null
+      "google_place_id": "ChIJ_3sZgmF2bjQRJqNT18Vuoa0"
     }
   ],
   "sources": [
