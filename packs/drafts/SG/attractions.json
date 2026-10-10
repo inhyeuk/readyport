@@ -2,7 +2,7 @@
   "doc_type": "attractions",
   "schema_version": 1,
   "country": "SG",
-  "version": "2026.10.10-1",
+  "version": "2026.10.10-2",
   "release": "draft",
   "editorial_rules": "2026-10",
   "compact_country": true,
@@ -97,6 +97,35 @@
       },
       "advisory_watch_ko": [],
       "wave": 1
+    },
+    {
+      "id": "sg_east",
+      "order": 40,
+      "name_ko": "동부(창이·카통)",
+      "name_en": "East Singapore",
+      "aliases_ko": [
+        "창이",
+        "창이 공항",
+        "동부",
+        "카통"
+      ],
+      "group_ko": "",
+      "kind": "base",
+      "water_crossing": false,
+      "hub": {
+        "name_ko": "창이 공항역",
+        "lat": 1.3575,
+        "lng": 103.98833333333333,
+        "qid": "Q3268527"
+      },
+      "airports": [],
+      "advisory": {
+        "level": "none",
+        "source": "mofa_sg",
+        "last_verified": "2026-09-28"
+      },
+      "advisory_watch_ko": [],
+      "wave": 3
     }
   ],
   "sources": [
@@ -533,6 +562,144 @@
       "id": "roots_sultan_mosque",
       "name": "Roots.gov.sg (National Heritage Board, official) — Sultan Mosque (National Monuments)",
       "url": "https://www.roots.gov.sg/places/places-landing/Places/national-monuments/sultan-mosque",
+      "use": "facts"
+    },
+    {
+      "id": "jewel_rain_vortex",
+      "name": "Jewel Changi Airport (operator, official) — Jewel Rain Vortex",
+      "url": "https://www.jewelchangiairport.com/en/attractions/rain-vortex.html",
+      "use": "facts"
+    },
+    {
+      "id": "jewel_canopy_park",
+      "name": "Jewel Changi Airport (operator, official) — Canopy Park",
+      "url": "https://www.jewelchangiairport.com/en/attractions/canopy-park.html",
+      "use": "facts"
+    },
+    {
+      "id": "jewel_getting_to",
+      "name": "Jewel Changi Airport (operator, official) — Getting to Jewel",
+      "url": "https://www.jewelchangiairport.com/en/getting-to-jewel.html",
+      "use": "facts"
+    },
+    {
+      "id": "jewel_faqs",
+      "name": "Jewel Changi Airport (operator, official) — FAQs",
+      "url": "https://www.jewelchangiairport.com/en/faqs.html",
+      "use": "facts"
+    },
+    {
+      "id": "jewel_forest_valley",
+      "name": "Jewel Changi Airport (operator, official) — Forest Valley",
+      "url": "https://www.jewelchangiairport.com/en/attractions/forest-valley.html",
+      "use": "facts"
+    },
+    {
+      "id": "jewel_home",
+      "name": "Jewel Changi Airport (operator, official) — Home",
+      "url": "https://www.jewelchangiairport.com/en.html",
+      "use": "facts"
+    },
+    {
+      "id": "nhb_acm",
+      "name": "Asian Civilisations Museum, National Heritage Board (official) — Home",
+      "url": "https://www.nhb.gov.sg/acm",
+      "use": "facts"
+    },
+    {
+      "id": "nhb_acm_plan",
+      "name": "Asian Civilisations Museum, National Heritage Board (official) — Plan Your Visit",
+      "url": "https://www.nhb.gov.sg/acm/visit/plan-your-visit",
+      "use": "facts"
+    },
+    {
+      "id": "nhb_acm_about",
+      "name": "Asian Civilisations Museum, National Heritage Board (official) — Who We Are",
+      "url": "https://www.nhb.gov.sg/acm/about-acm/who-we-are",
+      "use": "facts"
+    },
+    {
+      "id": "roots_empress_place",
+      "name": "Roots.gov.sg (National Heritage Board, official) — Former Empress Place Building (National Monuments)",
+      "url": "https://www.roots.gov.sg/places/places-landing/Places/national-monuments/former-empress-place-building-now-asian-civilisations-museum",
+      "use": "facts"
+    },
+    {
+      "id": "nhb_peranakan",
+      "name": "Peranakan Museum, National Heritage Board (official) — Home",
+      "url": "https://www.nhb.gov.sg/peranakanmuseum",
+      "use": "facts"
+    },
+    {
+      "id": "nhb_peranakan_plan",
+      "name": "Peranakan Museum, National Heritage Board (official) — Plan Your Visit",
+      "url": "https://www.nhb.gov.sg/peranakanmuseum/visit/plan-your-visit",
+      "use": "facts"
+    },
+    {
+      "id": "roots_tao_nan",
+      "name": "Roots.gov.sg (National Heritage Board, official) — Former Tao Nan School (Civic District Heritage Trail)",
+      "url": "https://www.roots.gov.sg/places/places-landing/Places/landmarks/Civic-District-Heritage-Trail/Former-Tao-Nan-School",
+      "use": "facts"
+    },
+    {
+      "id": "mfl_cable_car",
+      "name": "Mount Faber Leisure (operator, official) — Singapore Cable Car",
+      "url": "https://www.mountfaberleisure.com/singapore-cable-car",
+      "use": "facts"
+    },
+    {
+      "id": "mfl_mount_faber_peak",
+      "name": "Mount Faber Leisure (operator, official) — Mount Faber Peak",
+      "url": "https://www.mountfaberleisure.com/attraction/mount-faber-peak/",
+      "use": "facts"
+    },
+    {
+      "id": "nparks_central_catchment",
+      "name": "National Parks Board (NParks, official) — Central Catchment Nature Reserve",
+      "url": "https://www.nparks.gov.sg/visit/parks/park-detail/central-catchment-nature-reserve",
+      "use": "facts"
+    },
+    {
+      "id": "nparks_bukit_timah",
+      "name": "National Parks Board (NParks, official) — Bukit Timah Nature Reserve",
+      "url": "https://www.nparks.gov.sg/visit/parks/park-detail/bukit-timah-nature-reserve",
+      "use": "facts"
+    },
+    {
+      "id": "nparks_fort_canning",
+      "name": "National Parks Board (NParks, official) — Fort Canning Park",
+      "url": "https://www.nparks.gov.sg/visit/parks/park-detail/fort-canning-park",
+      "use": "facts"
+    },
+    {
+      "id": "hpv_home",
+      "name": "Haw Par Villa (official) — Home",
+      "url": "https://www.hawparvilla.sg/",
+      "use": "facts"
+    },
+    {
+      "id": "hpv_plan",
+      "name": "Haw Par Villa (official) — Plan Your Visit",
+      "url": "https://www.hawparvilla.sg/plan-your-visit/",
+      "use": "facts"
+    },
+    {
+      "id": "nparks_ubin_visit",
+      "name": "National Parks Board (NParks, official) — Visit Pulau Ubin",
+      "url": "https://pulau-ubin.nparks.gov.sg/visitubin/",
+      "use": "facts"
+    },
+    {
+      "id": "stb_katong_joo_chiat",
+      "name": "Singapore Tourism Board, VisitSingapore (official) — Katong-Joo Chiat",
+      "url": "https://www.visitsingapore.com/neighbourhood/featured-neighbourhood/katong-joo-chiat/",
+      "use": "facts"
+    },
+    {
+      "id": "rws_acw",
+      "name": "Resorts World Sentosa (operator, official) — Adventure Cove Waterpark",
+      "url": "https://www.rwsentosa.com/en/attractions/adventure-cove-waterpark",
       "use": "facts"
     }
   ],
@@ -2103,6 +2270,337 @@
       "google_place_id": "ChIJWbbHWvAb2jERpIJ56UdMj_E"
     },
     {
+      "id": "asian-civilisations-museum",
+      "qid": "Q633033",
+      "names": {
+        "ko": "아시아 문명 박물관",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Asian Civilisations Museum",
+        "local": "Asian Civilisations Museum",
+        "local_short": "Asian Civilisations Museum",
+        "local_lang": "en",
+        "source": "wd"
+      },
+      "aliases_ko": [],
+      "aliases_en": [
+        "ACM"
+      ],
+      "mentions_ko": [
+        "엠프레스 플레이스"
+      ],
+      "region": "sg_central",
+      "area_ko": "시빅 디스트릭트",
+      "category": "museum",
+      "tags": [
+        {
+          "id": "step_free",
+          "source": "nhb_acm_plan",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 1.2875,
+        "lng": 103.85138888888889,
+        "source": "wd",
+        "qid": "Q633033",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 1.2875,
+        "lng": 103.85138888888889
+      },
+      "address_local": {
+        "text": "1 Empress Place, Singapore 179555",
+        "source": "nhb_acm_plan",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "metro",
+          "bus"
+        ],
+        "nearest_ko": "MRT 래플스 플레이스역 H 출구에서 걸어서 5분이에요",
+        "nearest_local": {
+          "text": "Raffles Place MRT station",
+          "qid": "Q3234430",
+          "source": "wd"
+        },
+        "source": "nhb_acm_plan",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.nhb.gov.sg/acm",
+      "summary_ko": "싱가포르 강가 옛 관청 건물의 아시아 문화·공예 박물관이에요.",
+      "body_ko": [
+        "아시아 문명 박물관은 싱가포르 강가의 옛 엠프레스 플레이스 건물에 있어요.",
+        "1867년에 완공된 신고전주의 건물이고, 2003년부터 박물관으로 쓰고 있어요.",
+        "건물은 국가기념물이에요. 상설 전시는 층마다 해상 무역, 신앙, 재료와 디자인이 주제예요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "싱가포르 강가의 역사적인 엠프레스 플레이스 건물에 있어요.",
+          "source": "nhb_acm_plan",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "건물은 1867년에 완공된 신고전주의 양식이고, 박물관은 2003년부터 이 건물을 써요.",
+          "source": "nhb_acm_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "상설 전시는 해상 무역, 신앙, 재료와 디자인이라는 세 주제로 층마다 나뉘어 있어요.",
+          "source": "nhb_acm_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "중국·동남아시아·남아시아·서아시아의 물질문화를 소개해요.",
+          "source": "roots_empress_place",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "큰 짐은 로비의 사물함에 맡기세요.",
+          "source": "nhb_acm_plan",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "입구는 앞문과 강변 문 두 곳이고 경사로가 있어요. 전시실은 모두 엘리베이터로 갈 수 있어요.",
+          "source": "nhb_acm_plan",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "자가용은 건물 뒤쪽 길에서 내려 주는 것만 돼요. 공용 주차장은 신국회의사당 지하 등에 있어요.",
+          "source": "nhb_acm_plan",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "안내 투어가 있어요. 전시장에서 듣는 투어와 디지털 투어가 있어요.",
+          "source": "nhb_acm_plan",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "unknown",
+        "regular_closed": [
+          "none"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "nhb_acm_plan",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "nhb_acm_plan",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_sg",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 11,
+        "designations": [
+          {
+            "kind": "sg_national_monument",
+            "name_ko": "국가기념물(옛 엠프레스 플레이스 건물)",
+            "source": "roots_empress_place"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Asian_Civilisations_Museum,_Empress_Place_2.JPG",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJoZOhmQkZ2jERehLfvKlsoCA",
+      "wiki": {
+        "en": "Asian Civilisations Museum"
+      }
+    },
+    {
+      "id": "peranakan-museum",
+      "qid": "Q3078303",
+      "names": {
+        "ko": "페라나칸 박물관",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Peranakan Museum",
+        "local": "Peranakan Museum",
+        "local_short": "Peranakan Museum",
+        "local_lang": "en",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "프라나칸 박물관"
+      ],
+      "aliases_en": [],
+      "mentions_ko": [
+        "옛 타오난 학교",
+        "아르메니안 스트리트"
+      ],
+      "region": "sg_central",
+      "area_ko": "브라스 바사",
+      "category": "museum",
+      "tags": [
+        {
+          "id": "foreigner_price",
+          "source": "nhb_peranakan_plan",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "step_free",
+          "source": "nhb_peranakan_plan",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 1.29422,
+        "lng": 103.849,
+        "source": "wd",
+        "qid": "Q3078303",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 1.29422,
+        "lng": 103.849
+      },
+      "address_local": {
+        "text": "39 Armenian St, Singapore 179941",
+        "source": "nhb_peranakan_plan",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "metro",
+          "bus"
+        ],
+        "nearest_ko": "MRT 시청역·브라스 바사역·벤쿨렌역에서 걸어서 10분이에요",
+        "nearest_local": {
+          "text": "Bras Basah MRT station",
+          "qid": "Q1089384",
+          "source": "wd"
+        },
+        "source": "nhb_peranakan_plan",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.nhb.gov.sg/peranakanmuseum",
+      "summary_ko": "옛 타오난 학교 건물의 페라나칸 문화 박물관이에요.",
+      "body_ko": [
+        "페라나칸 박물관은 아르메니안 스트리트의 옛 타오난 학교 건물에 있어요.",
+        "학교는 1906년 호키엔 상인들이 세웠고, 건물은 1998년 국가기념물이 됐어요.",
+        "2008년 지금의 박물관으로 다시 열었어요.",
+        "싱가포르·말라카·페낭의 혼합 공동체 문화를 다뤄요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "옛 타오난 학교 건물에 있어요. 이 학교는 1906년 호키엔 상인들이 세웠어요.",
+          "source": "roots_tao_nan",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "건물은 1998년 국가기념물이 됐고, 2008년 지금의 박물관으로 다시 열었어요.",
+          "source": "roots_tao_nan",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "싱가포르·말라카·페낭에 있던 혼합 공동체의 문화를 다뤄요.",
+          "source": "nhb_acm_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "서로 다른 문화가 만나 새로운 것이 된 과정을, 페라나칸의 관습·음식·언어·신앙으로 보여 줘요.",
+          "source": "nhb_peranakan",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "입장권은 온라인으로 미리 사는 걸 권해요.",
+          "source": "nhb_peranakan_plan",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "싱가포르 시민·영주권자는 상설 전시가 무료이고, 외국인은 요금을 내요.",
+          "source": "nhb_peranakan_plan",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "로비에 사물함이 있어요.",
+          "source": "nhb_peranakan_plan",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "자원봉사 안내인이 이끄는 투어가 매일 있어요.",
+          "source": "nhb_peranakan",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "booking": "recommended",
+        "booking_note_ko": "온라인으로 미리 사는 걸 권해요.",
+        "regular_closed": [
+          "none"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "nhb_peranakan_plan",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "nhb_peranakan_plan",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_sg",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 12,
+        "designations": [
+          {
+            "kind": "sg_national_monument",
+            "name_ko": "국가기념물(옛 타오난 학교, 1998)",
+            "source": "roots_tao_nan"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Asian_Civilisations_Museum,_Armenian_Street_3,_Jan_06.JPG",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJWZX956MZ2jERIGdnbs_SgMw",
+      "wiki": {
+        "en": "Peranakan Museum"
+      }
+    },
+    {
       "id": "marina-bay-sands-skypark",
       "qid": "Q548679",
       "names": {
@@ -2258,7 +2756,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 11,
+        "order": 13,
         "designations": []
       },
       "photo": null,
@@ -2266,6 +2764,172 @@
       "source": "wd",
       "last_verified": "2026-10-10",
       "google_place_id": "ChIJA5LATO4Z2jER111V-v6abAI"
+    },
+    {
+      "id": "jewel-changi-airport",
+      "qid": "Q28419359",
+      "names": {
+        "ko": "주얼 창이 에어포트",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Jewel Changi Airport",
+        "local": "Jewel Changi Airport",
+        "local_short": "Jewel Changi Airport",
+        "local_lang": "en",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "주얼 창이",
+        "쥬얼 창이",
+        "쥬얼 창이 공항",
+        "주얼 창이 공항",
+        "창이 공항 쥬얼"
+      ],
+      "aliases_en": [
+        "Jewel Changi",
+        "Jewel"
+      ],
+      "mentions_ko": [
+        "레인 보텍스",
+        "캐노피 파크",
+        "포레스트 밸리"
+      ],
+      "region": "sg_east",
+      "area_ko": "창이 공항",
+      "category": "city_view",
+      "tags": [
+        {
+          "id": "night",
+          "source": "jewel_rain_vortex",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 1.36022,
+        "lng": 103.98976,
+        "source": "wd",
+        "qid": "Q28419359",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 1.36022,
+        "lng": 103.98976
+      },
+      "address_local": {
+        "text": "78 AIRPORT BOULEVARD, SINGAPORE 819666",
+        "source": "jewel_home",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "metro",
+          "bus"
+        ],
+        "nearest_ko": "MRT 창이 공항역(CG2)에서 터미널 2·3 2층의 연결 다리로 걸어가요",
+        "nearest_local": {
+          "text": "Changi Airport MRT station",
+          "qid": "Q3268527",
+          "source": "wd"
+        },
+        "source": "jewel_getting_to",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.jewelchangiairport.com/",
+      "summary_ko": "창이 공항 안의 실내 폭포·정원 복합 시설이에요.",
+      "body_ko": [
+        "주얼 창이 에어포트는 창이 공항 한가운데에 있어요.",
+        "실내 폭포 '레인 보텍스'는 7층에서 지하까지 40m를 쏟아지고, 밤에는 빛과 음악 쇼가 열려요.",
+        "포레스트 밸리에는 나무와 야자 900그루, 관목 6만 그루가 있어요.",
+        "맨 위층 캐노피 파크에는 미로와 그물 같은 놀이 시설이 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "창이 공항 한가운데에 있어서 공항의 모든 터미널에서 갈 수 있어요.",
+          "source": "jewel_getting_to",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "레인 보텍스는 7층에서 지하까지 40m를 쏟아지는 실내 폭포예요. 어두워지면 빛과 음악 쇼가 열려요.",
+          "source": "jewel_rain_vortex",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "포레스트 밸리에는 나무와 야자 900그루, 관목 약 6만 그루가 있는 실내 정원이에요.",
+          "source": "jewel_forest_valley",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "맨 위층인 5층의 캐노피 파크는 미로와 그물 같은 놀이 시설이 있는 곳이에요.",
+          "source": "jewel_canopy_park",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "공항 보안 구역 밖(랜드사이드)에 있어서 여행객도 현지인도 들어갈 수 있어요.",
+          "source": "jewel_faqs",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "캐노피 파크의 놀이 시설은 따로 표를 사야 해요.",
+          "source": "jewel_home",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "포레스트 밸리에는 여행 가방과 바퀴 달린 가방을 들고 들어갈 수 없어요. 짐 보관소에 맡길 수 있어요.",
+          "source": "jewel_forest_valley",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "주얼 안에는 기도실이 없어요. 가까운 기도실은 공항 환승 구역에 있어요.",
+          "source": "jewel_faqs",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "unknown",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "jewel_faqs",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "jewel_faqs",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_sg",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 14,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Project_Jewel_Photo_1.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJw3l-FL4X2jERw2pScvHQCbg",
+      "wiki": {
+        "ko": "주얼 창이 에어포트",
+        "en": "Jewel Changi Airport"
+      }
     },
     {
       "id": "merlion-park",
@@ -2386,7 +3050,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 12,
+        "order": 15,
         "designations": []
       },
       "photo": null,
@@ -2529,7 +3193,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 13,
+        "order": 16,
         "designations": []
       },
       "photo": null,
@@ -2690,7 +3354,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 14,
+        "order": 17,
         "designations": []
       },
       "photo": null,
@@ -2861,7 +3525,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 15,
+        "order": 18,
         "designations": []
       },
       "photo": null,
@@ -3002,7 +3666,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 16,
+        "order": 19,
         "designations": []
       },
       "photo": null,
@@ -3158,7 +3822,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 17,
+        "order": 20,
         "designations": []
       },
       "photo": null,
@@ -3289,7 +3953,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 18,
+        "order": 21,
         "designations": []
       },
       "photo": null,
@@ -3297,6 +3961,174 @@
       "source": "wd",
       "last_verified": "2026-10-09",
       "google_place_id": "ChIJQfAL2JYZ2jER9v06BxkNw1k"
+    },
+    {
+      "id": "singapore-cable-car",
+      "qid": "Q6150848",
+      "names": {
+        "ko": "싱가포르 케이블카",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Singapore Cable Car",
+        "local": "Singapore Cable Car",
+        "local_short": "Singapore Cable Car",
+        "local_lang": "en",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "마운트 페이버 케이블카",
+        "센토사 케이블카",
+        "싱가폴 케이블카"
+      ],
+      "aliases_en": [
+        "Mount Faber Cable Car",
+        "Sentosa Cable Car"
+      ],
+      "mentions_ko": [
+        "마운트 페이버 피크",
+        "센토사 라인"
+      ],
+      "region": "sg_central",
+      "area_ko": "마운트 페이버·하버프런트",
+      "category": "city_view",
+      "tags": [
+        {
+          "id": "cable_car",
+          "source": "mfl_cable_car",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "night",
+          "source": "mfl_cable_car",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 1.26169,
+        "lng": 103.81829,
+        "source": "wd",
+        "qid": "Q6150848",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 1.26169,
+        "lng": 103.81829
+      },
+      "address_local": {
+        "text": "109 Mount Faber Road, Mount Faber Peak Singapore 099203",
+        "source": "mfl_cable_car",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "metro"
+        ],
+        "nearest_ko": "MRT 하버프런트역 B 출구에서 하버프런트 타워 2의 탑승장으로 가요",
+        "nearest_local": {
+          "text": "HarbourFront MRT station",
+          "qid": "Q3272355",
+          "source": "wd"
+        },
+        "source": "mfl_cable_car",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.mountfaberleisure.com/singapore-cable-car",
+      "summary_ko": "마운트 페이버에서 센토사까지 공중으로 이어 주는 케이블카예요.",
+      "body_ko": [
+        "싱가포르 케이블카는 1974년에 개통한 마운트 페이버 피크의 상징이에요.",
+        "마운트 페이버 라인은 싱가포르 본섬과 센토사를 이어요.",
+        "마운트 페이버 피크는 공원 꼭대기에 있고, 도시와 항구가 내려다보이는 전망 지점이 있어요.",
+        "센토사 안에서는 센토사 라인이 섬의 주요 명소를 이어 줘요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "1974년에 개통했고, 마운트 페이버 피크의 상징이에요.",
+          "source": "mfl_mount_faber_peak",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "마운트 페이버 라인은 싱가포르 본섬과 센토사를 이어요.",
+          "source": "mfl_cable_car",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "마운트 페이버 피크는 마운트 페이버 공원 꼭대기에 있고, 도시와 항구가 보이는 전망 지점이 있어요.",
+          "source": "mfl_cable_car",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "센토사 안에서는 센토사 라인이 섬의 주요 명소를 이어 줘요.",
+          "source": "mfl_cable_car",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "하버프런트 타워 2의 15층에서 케이블카를 타요. 표는 같은 건물 매표소에서 팔아요.",
+          "source": "mfl_cable_car",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "표는 하버프런트 타워 2의 매표소에서 팔고, 탑승장은 같은 건물 15층에 있어요.",
+          "source": "mfl_cable_car",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "마운트 페이버 피크에서 헨더슨 웨이브나 페이버 포인트까지 걸어갈 수 있어요.",
+          "source": "mfl_cable_car",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "차로 가면 마운트 페이버 로드로 올라가요. 공용 주차장이 있어요.",
+          "source": "mfl_cable_car",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "none"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "mfl_cable_car",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "mfl_cable_car",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_sg",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 22,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Singapore_Cable_Car_-_Sentosa_Line_2.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJAQAAAK0e2jERMFQeIT5IR-E",
+      "wiki": {
+        "ko": "싱가포르 케이블카",
+        "en": "Singapore Cable Car"
+      }
     },
     {
       "id": "river-wonders",
@@ -3431,7 +4263,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 19,
+        "order": 23,
         "designations": []
       },
       "photo": null,
@@ -3439,6 +4271,325 @@
       "source": "wd",
       "last_verified": "2026-10-09",
       "google_place_id": "ChIJxZfX_9gT2jERknwK8es7IHU"
+    },
+    {
+      "id": "haw-par-villa",
+      "qid": "Q1018484",
+      "names": {
+        "ko": "호파빌라",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Haw Par Villa",
+        "local": "Haw Par Villa",
+        "local_short": "Haw Par Villa",
+        "local_lang": "en",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "하우 파 빌라",
+        "타이거 밤 가든",
+        "지옥 박물관"
+      ],
+      "aliases_en": [
+        "Tiger Balm Garden",
+        "Hell's Museum"
+      ],
+      "mentions_ko": [],
+      "region": "sg_central",
+      "area_ko": "파시르 판장",
+      "category": "museum",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 1.2841666666666667,
+        "lng": 103.78222222222222,
+        "source": "wd",
+        "qid": "Q1018484",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 1.2841666666666667,
+        "lng": 103.78222222222222
+      },
+      "address_local": {
+        "text": "262 Pasir Panjang Road",
+        "source": "hpv_plan",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "metro"
+        ],
+        "nearest_ko": "MRT 하우 파 빌라역(서클 선)에서 입구까지 걸어서 1분이에요",
+        "nearest_local": {
+          "text": "Haw Par Villa MRT station",
+          "qid": "Q3524310",
+          "source": "wd"
+        },
+        "source": "hpv_plan",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.hawparvilla.sg/",
+      "summary_ko": "타이거 밤 가든이던 문화 공원이고, 지금은 지옥 박물관만 열려 있어요.",
+      "body_ko": [
+        "호파빌라는 옛 이름이 타이거 밤 가든인 8.5헥타르의 아시아 문화 공원이에요.",
+        "아우 분 하우와 아우 분 파 형제가 지었어요.",
+        "지옥 박물관은 여러 종교와 철학이 보는 죽음과 사후 세계를 다뤄요.",
+        "2025년 12월부터 정비·보수 공사로 공원은 일부만 열고, 지옥 박물관은 열려 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "옛 이름이 타이거 밤 가든인 8.5헥타르의 아시아 문화 공원이에요.",
+          "source": "hpv_home",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "아우 분 하우와 아우 분 파 형제가 지었어요.",
+          "source": "hpv_home",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "지옥 박물관은 여러 종교와 철학이 보는 죽음과 사후 세계를 다뤄요.",
+          "source": "hpv_home",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "조각상은 1937년부터 만들어졌고 쉽게 망가지니 올라타지 말라고 해요.",
+          "source": "hpv_plan",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "2025년 12월 8일부터 정비·보수 공사로 공원 일부가 닫혀 있고, 지옥 박물관은 열려 있어요.",
+          "source": "hpv_home",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "지옥 박물관 안에서는 음식과 음료를 먹을 수 없어요.",
+          "source": "hpv_plan",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "반려동물은 지옥 박물관 구역에 들어갈 수 없어요.",
+          "source": "hpv_plan",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "자전거는 박물관 안에서 타지 말고, 하우 파 빌라역 밖의 자전거 거치대에 묶어 두라고 해요.",
+          "source": "hpv_plan",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "지옥 박물관 안에서는 사진을 찍을 수 있어요. 길과 다른 방문객을 막지는 마세요.",
+          "source": "hpv_home",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "unknown",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "hpv_home",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [
+        "renovation"
+      ],
+      "status": {
+        "value": "partial",
+        "note_ko": "2025년 12월 8일부터 정비·보수 공사로 공원이 일부 닫혀 있어요. 지옥 박물관은 열려 있어요.",
+        "source": "hpv_home",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_sg",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 24,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:A_walk_in_Haw_Par_Villa_Singapore_(2025)_-_img_15.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJCRjzJ68b2jER7QSuHv9dtN4",
+      "wiki": {
+        "ko": "호파빌라",
+        "en": "Haw Par Villa"
+      }
+    },
+    {
+      "id": "pulau-ubin",
+      "qid": "Q1928550",
+      "names": {
+        "ko": "우빈섬",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Pulau Ubin",
+        "local": "Pulau Ubin",
+        "local_short": "Pulau Ubin",
+        "local_lang": "en",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "풀라우 우빈",
+        "푸라우 우빈",
+        "울빈섬",
+        "우빈"
+      ],
+      "aliases_en": [
+        "Ubin"
+      ],
+      "mentions_ko": [],
+      "region": "sg_east",
+      "area_ko": "창이 포인트",
+      "category": "sea_island",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 1.4094444444444,
+        "lng": 103.96,
+        "source": "wd",
+        "qid": "Q1928550",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 1.4094444444444,
+        "lng": 103.96
+      },
+      "address_local": {
+        "text": "Changi Point Ferry Terminal 51 Lorong Bekukong",
+        "source": "nparks_ubin_visit",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "bus",
+          "boat"
+        ],
+        "nearest_ko": "MRT 타나 메라역에서 버스 2번을 타고 창이 빌리지 버스터미널로 가요. 터미널 옆 창이 포인트 페리 터미널에서 범보트를 타요",
+        "nearest_local": {
+          "text": "Changi Point Ferry Terminal",
+          "qid": "Q107803661",
+          "source": "wd"
+        },
+        "source": "nparks_ubin_visit",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://pulau-ubin.nparks.gov.sg/visitubin/",
+      "summary_ko": "범보트를 타고 건너가는 싱가포르 북동쪽의 옛 모습이 남은 섬이에요.",
+      "body_ko": [
+        "우빈섬은 싱가포르 본섬 북동쪽에 있는 1,036헥타르의 부메랑 모양 섬이에요.",
+        "울퉁불퉁한 화강암 언덕이 이어지고, 예전에 돌을 캐던 채석장이 풍경으로 남아 있어요.",
+        "창이 포인트 페리 터미널에서 범보트를 타고 들어가요.",
+        "섬에서는 정해진 길을 걷거나 자전거로 다니고, 식당은 네 곳 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "본섬 북동쪽 끝 가까이에 있는 부메랑 모양의 1,036헥타르 섬이에요.",
+          "source": "nparks_ubin_visit",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "울퉁불퉁한 화강암 언덕이 많고, 예전에 돌을 캐던 채석장이 풍경으로 남아 있어요.",
+          "source": "nparks_ubin_visit",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "우빈섬 방문은 창이 포인트 페리 터미널에서 출발하는 범보트로 시작해요. 범보트는 민간이 운영해요.",
+          "source": "nparks_ubin_visit",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "섬에서는 정해진 길을 걷거나 자전거를 타거나, 현지 밴을 빌려 다녀요.",
+          "source": "nparks_ubin_visit",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "섬에는 식당이 네 곳 있어요.",
+          "source": "nparks_ubin_visit",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c6",
+          "text_ko": "범보트는 승객 12명이 차면 떠나요.",
+          "source": "nparks_ubin_visit",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "범보트는 승객 12명이 차면 떠나요. 사람이 적으면 값을 더 내고 먼저 갈 수 있어요.",
+          "source": "nparks_ubin_visit",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "운행 시간 밖에 타려면 뱃사공과 미리 정해 두어야 해요.",
+          "source": "nparks_ubin_visit",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "돌아올 배가 없으면 NParks 안내 전화에 도움을 청할 수 있어요.",
+          "source": "nparks_ubin_visit",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "배를 타기 전에 요금을 확인하세요.",
+          "source": "nparks_ubin_visit",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "public_space"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "nparks_ubin_visit",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_sg",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 25,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:House_near_the_northern_coast_of_Pulau_Ubin,_Singapore_-_20050803.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJYcYVP2I-2jERQTiBy40oT6w",
+      "wiki": {
+        "ko": "우빈섬",
+        "en": "Pulau Ubin"
+      }
     },
     {
       "id": "buddha-tooth-relic-temple",
@@ -3581,7 +4732,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 20,
+        "order": 26,
         "designations": []
       },
       "photo": null,
@@ -3589,6 +4740,153 @@
       "source": "wd",
       "last_verified": "2026-10-09",
       "google_place_id": "ChIJ0bwmznIZ2jEREOCMNggtIBk"
+    },
+    {
+      "id": "fort-canning-park",
+      "qid": "Q1438470",
+      "names": {
+        "ko": "포트 캐닝 공원",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Fort Canning Park",
+        "local": "Fort Canning Park",
+        "local_short": "Fort Canning Park",
+        "local_lang": "en",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "포트 캐닝 힐",
+        "포트 캐닝"
+      ],
+      "aliases_en": [
+        "Fort Canning Hill"
+      ],
+      "mentions_ko": [
+        "스파이스 가든",
+        "포트 캐닝 헤리티지 갤러리"
+      ],
+      "region": "sg_central",
+      "area_ko": "포트 캐닝",
+      "category": "city_view",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 1.29444,
+        "lng": 103.847,
+        "source": "wd",
+        "qid": "Q1438470",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 1.29444,
+        "lng": 103.847
+      },
+      "address_local": {
+        "text": "Bounded by Hill Street, Canning Rise, Clemenceau Avenue and River Valley Road",
+        "source": "nparks_fort_canning",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "metro"
+        ],
+        "nearest_ko": "MRT 포트 캐닝역·클라크 키역·도비 곳역이 공원과 가까워요",
+        "nearest_local": {
+          "text": "Fort Canning MRT station",
+          "qid": "Q3524382",
+          "source": "wd"
+        },
+        "source": "nparks_fort_canning",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.nparks.gov.sg/visit/parks/park-detail/fort-canning-park",
+      "summary_ko": "역사 이야기가 많은 도심 언덕 위 공원이에요.",
+      "body_ko": [
+        "포트 캐닝 공원은 22헥타르의 언덕 공원이에요.",
+        "식민지 시절 언덕 요새의 마지막 흔적인 요새 문이 남아 있어요.",
+        "싱가포르에서 가장 다양한 향신료를 기르는 스파이스 가든이 있어요.",
+        "역사 정원 9곳과 ASEAN 조각 정원, 헤리티지 갤러리도 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "오래된 큰 나무와 스파이스 가든이 있는, 역사와 문화유산이 많은 언덕 위 공원이에요.",
+          "source": "nparks_fort_canning",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "식민지 시절 언덕 요새의 마지막 흔적인 요새 문과, 옛 기독교 묘지, 영국군 막사를 둘러볼 수 있어요.",
+          "source": "nparks_fort_canning",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "스파이스 가든은 싱가포르에서 가장 다양한 허브와 향신료를 기르는 곳으로, 180종이 넘어요.",
+          "source": "nparks_fort_canning",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "포트 캐닝 헤리티지 갤러리에서는 1300년대까지 거슬러 올라가는 유물과 언덕의 역사를 볼 수 있어요.",
+          "source": "nparks_fort_canning",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "ASEAN 회원국의 조각이 모인 ASEAN 조각 정원이 있고, 야외 벽화 3점도 있어요.",
+          "source": "nparks_fort_canning",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c6",
+          "text_ko": "공원은 22헥타르이고, 역사 정원 9곳과 보호수 15그루가 있어요.",
+          "source": "nparks_fort_canning",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "휠체어는 콕스 테라스 로터리의 하차 지점에서만 들어갈 수 있어요.",
+          "source": "nparks_fort_canning",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "거꾸로 선 나무처럼 특이한 나무를 찾는 나무 탐방길이 있어요.",
+          "source": "nparks_fort_canning",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "public_space"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "nparks_fort_canning",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_sg",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 27,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Fort_Canning_Park_sign,_Singapore_-_20110506.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJVSYjJKIZ2jERpRFinATD52s",
+      "wiki": {
+        "en": "Fort Canning Hill"
+      }
     },
     {
       "id": "singapore-oceanarium",
@@ -3712,7 +5010,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 21,
+        "order": 28,
         "designations": []
       },
       "photo": null,
@@ -3720,6 +5018,148 @@
       "source": "wd",
       "last_verified": "2026-10-09",
       "google_place_id": "ChIJj-3Cq_0b2jERJv2MBkSVsPQ"
+    },
+    {
+      "id": "bukit-timah-nature-reserve",
+      "qid": "Q385725",
+      "names": {
+        "ko": "부킷 티마 자연보호구역",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Bukit Timah Nature Reserve",
+        "local": "Bukit Timah Nature Reserve",
+        "local_short": "Bukit Timah Nature Reserve",
+        "local_lang": "en",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "부킷 티마 언덕",
+        "부킷 티마 네이처 리저브"
+      ],
+      "aliases_en": [
+        "Bukit Timah Hill"
+      ],
+      "mentions_ko": [],
+      "region": "sg_central",
+      "area_ko": "부킷 티마",
+      "category": "nature",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 1.35278,
+        "lng": 103.778,
+        "source": "wd",
+        "qid": "Q385725",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 1.35278,
+        "lng": 103.778
+      },
+      "address_local": {
+        "text": "End of Hindhede Drive",
+        "source": "nparks_bukit_timah",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "metro"
+        ],
+        "nearest_ko": "MRT 뷰티 월드역이 가까워요",
+        "nearest_local": {
+          "text": "Beauty World MRT station",
+          "qid": "Q4877913",
+          "source": "wd"
+        },
+        "source": "nparks_bukit_timah",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.nparks.gov.sg/visit/parks/park-detail/bukit-timah-nature-reserve",
+      "summary_ko": "싱가포르에서 가장 높은 자연 지점이 있는 열대우림 보호구역이에요.",
+      "body_ko": [
+        "부킷 티마 자연보호구역은 싱가포르에서 가장 높은 자연 지점인 부킷 티마 언덕에 있어요.",
+        "언덕 높이는 163m이고, 정상까지 등산로가 이어져요.",
+        "싱가포르에 몇 안 남은 원시 열대우림이 있고, 식물과 동물과 곤충이 다양해요.",
+        "아세안 헤리티지 파크 두 곳 가운데 하나예요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "싱가포르에서 가장 높은 자연 지점인 부킷 티마 언덕에 있고, 이곳은 싱가포르의 아세안 헤리티지 파크 두 곳 가운데 하나예요.",
+          "source": "nparks_bukit_timah",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "부킷 티마 언덕은 높이 163m이고, 정상까지 가는 등산로가 있어요.",
+          "source": "nparks_bukit_timah",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "싱가포르에 몇 안 남은 원시 열대우림이고, 싱가포르 동식물과 곤충의 많은 부분이 살아요.",
+          "source": "nparks_bukit_timah",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "야생동물이 센트럴 캐치먼트 보호구역과 오갈 수 있게 동남아시아 최초의 생태 다리가 놓여 있어요.",
+          "source": "nparks_bukit_timah",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "정상 부근에서 철거 공사가 있다는 공지가 있어요. 기간은 가기 전에 NParks 공지로 확인하세요.",
+          "source": "nparks_bukit_timah",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "반려동물은 들어갈 수 없어요.",
+          "source": "nparks_bukit_timah",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "휠체어는 전시관과 화장실 주변에서만 다닐 수 있어요.",
+          "source": "nparks_bukit_timah",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "방문자 센터 가까이에 주차장이 있고 주차 요금이 있어요.",
+          "source": "nparks_bukit_timah",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "public_space"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "nparks_bukit_timah",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_sg",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 29,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:A_hike_to_the_Bukit_Timah_Summit_(2025)_-_img_11.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJO9cemPUQ2jERvlh8KtwhtAc",
+      "wiki": {
+        "en": "Bukit Timah Nature Reserve"
+      }
     },
     {
       "id": "artscience-museum",
@@ -3856,7 +5296,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 22,
+        "order": 30,
         "designations": []
       },
       "photo": null,
@@ -3993,7 +5433,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 23,
+        "order": 31,
         "designations": []
       },
       "photo": null,
@@ -4001,6 +5441,298 @@
       "source": "wd",
       "last_verified": "2026-10-09",
       "google_place_id": "ChIJkyCpkWcT2jER1Nsl0ZvOI4Q"
+    },
+    {
+      "id": "katong-joo-chiat",
+      "qid": "Q6377786",
+      "names": {
+        "ko": "카통·주치앗",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Katong-Joo Chiat",
+        "local": "Katong-Joo Chiat",
+        "local_short": "Katong-Joo Chiat",
+        "local_lang": "en",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "카통",
+        "주치앗",
+        "조치앗"
+      ],
+      "aliases_en": [
+        "Katong",
+        "Joo Chiat"
+      ],
+      "mentions_ko": [
+        "쿤 셍 로드"
+      ],
+      "region": "sg_east",
+      "area_ko": "카통",
+      "category": "city_view",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 1.304704,
+        "lng": 103.903349,
+        "source": "wd",
+        "qid": "Q6377786",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 1.304704,
+        "lng": 103.903349
+      },
+      "access": {
+        "modes": [
+          "metro"
+        ],
+        "nearest_ko": "가장 가까운 MRT는 마린 퍼레이드역·유노스역·다코타역이에요",
+        "nearest_local": {
+          "text": "Marine Parade MRT station",
+          "qid": "Q17611609",
+          "source": "wd"
+        },
+        "source": "stb_katong_joo_chiat",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.visitsingapore.com/neighbourhood/featured-neighbourhood/katong-joo-chiat/",
+      "summary_ko": "알록달록한 페라나칸 숍하우스가 남아 있는 동네예요.",
+      "body_ko": [
+        "카통·주치앗은 페라나칸 문화가 깃든 동네예요.",
+        "알록달록한 페라나칸 숍하우스와 벽화가 사람이 사는 주택가 사이에 이어져요.",
+        "쿤 셍 로드의 파스텔색 집들은 1920년대에 지어졌어요.",
+        "싱가포르에서 가장 오래된 힌두 사원 가운데 하나인 스리 센파가 비나야가르 사원도 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "페라나칸 문화가 깃든 동네로, 옛 숍하우스와 작은 카페가 많아요.",
+          "source": "stb_katong_joo_chiat",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "알록달록한 페라나칸 숍하우스와 벽화가 사람이 사는 주택가 안에 있어요.",
+          "source": "stb_katong_joo_chiat",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "쿤 셍 로드의 파스텔색 집들은 1920년대에 지어졌고, 페라나칸 화교를 비롯한 여러 공동체가 살았어요.",
+          "source": "stb_katong_joo_chiat",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "스리 센파가 비나야가르 사원은 싱가포르에서 가장 오래된 힌두 사원 가운데 하나예요.",
+          "source": "stb_katong_joo_chiat",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "사람이 실제로 사는 주택가 한가운데예요.",
+          "source": "stb_katong_joo_chiat",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "보존된 옛 건물 가운데에는 건축유산상을 받은 곳도 있어요.",
+          "source": "stb_katong_joo_chiat",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "싱가포르 유라시안 공동체의 역사를 소개하는 작은 전시관이 있어요.",
+          "source": "stb_katong_joo_chiat",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "public_space"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "stb_katong_joo_chiat",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_sg",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 32,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:East_Coast_Road,_Singapore_(2025)_-_img_05.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJgb8EUAAZ2jEReDR4hAgQb9M",
+      "wiki": {
+        "en": "Katong"
+      }
+    },
+    {
+      "id": "central-catchment-nature-reserve",
+      "qid": "Q5060520",
+      "names": {
+        "ko": "센트럴 캐치먼트 자연보호구역",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Central Catchment Nature Reserve",
+        "local": "Central Catchment Nature Reserve",
+        "local_short": "MacRitchie Reservoir Park",
+        "local_lang": "en",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "맥리치 저수지",
+        "맥리치 트리탑 워크",
+        "트리탑 워크",
+        "맥리치 저수지 공원",
+        "맥리치"
+      ],
+      "aliases_en": [
+        "MacRitchie",
+        "TreeTop Walk"
+      ],
+      "mentions_ko": [
+        "젤루통 타워"
+      ],
+      "region": "sg_central",
+      "area_ko": "맥리치 저수지",
+      "category": "nature",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 1.3436111111111,
+        "lng": 103.83111111111,
+        "source": "wd",
+        "qid": "Q7331703",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 1.36667,
+        "lng": 103.8
+      },
+      "address_local": {
+        "text": "601 Island Club Road",
+        "source": "nparks_central_catchment",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "metro",
+          "bus"
+        ],
+        "nearest_ko": "MRT 칼데콧역·Marymount역·Upper Thomson역이 가까워요. 맥리치 저수지 공원 앞에는 'MacRitchie Resvr' 버스 정류장이 있어요",
+        "nearest_local": {
+          "text": "Caldecott MRT station",
+          "qid": "Q3521474",
+          "source": "wd"
+        },
+        "source": "nparks_central_catchment",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.nparks.gov.sg/visit/parks/park-detail/central-catchment-nature-reserve",
+      "summary_ko": "맥리치 저수지와 나무 위 다리가 있는 숲이에요.",
+      "body_ko": [
+        "센트럴 캐치먼트는 싱가포르에서 가장 큰 자연보호구역으로, 숲이 2,000헥타르가 넘어요.",
+        "맥리치 저수지 둘레를 포함해 20km가 넘는 숲길이 이어져요.",
+        "트리탑 워크는 맥리치에서 가장 높은 두 지점을 잇는 높이 25m의 현수교예요.",
+        "7층 높이의 젤루통 타워에서는 숲이 내려다보여요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "싱가포르에서 가장 큰 자연보호구역으로, 숲이 2,000헥타르가 넘고 트리탑 워크를 포함해 맥리치 저수지 둘레에 20km가 넘는 길이 있어요.",
+          "source": "nparks_central_catchment",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "트리탑 워크는 맥리치에서 가장 높은 두 지점을 잇는 높이 25m의 현수교예요.",
+          "source": "nparks_central_catchment",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "젤루통 타워는 7층 높이의 전망탑이라 숲이 내려다보여요.",
+          "source": "nparks_central_catchment",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "맥리치 저수지는 보호구역의 남동쪽 끝에 있어요.",
+          "source": "nparks_central_catchment",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "트리탑 워크는 보호구역과 열리는 시간이 달라요. 가기 전에 공원 안내를 확인하세요.",
+          "source": "nparks_central_catchment",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "골프 링크 쪽 길 일부가 보수 공사로 막혀 있어서, 맥리치 저수지 공원이나 트리탑 워크는 맥리치 자연 산책로로 가야 해요.",
+          "source": "nparks_central_catchment",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "반려동물은 들어갈 수 없고, 정해진 길로만 다녀야 해요.",
+          "source": "nparks_central_catchment",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "비가 오는 동안과 그친 직후에는 숲에 들어가지 말고 가까운 쉼터에서 기다려요.",
+          "source": "nparks_central_catchment",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "public_space"
+      },
+      "volatile": null,
+      "seasonal": [
+        {
+          "kind": "closed",
+          "text_ko": "카수아리나 입구와 사이어테아 보드워크 일부는 2026년 10월 1일부터 2027년 3월 31일까지 보수 공사로 닫혀요.",
+          "source": "nparks_central_catchment",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "nparks_central_catchment",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_sg",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 33,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Central_catchment,_Singapore_-_Flickr_-_Lip_Kee.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJe5hVz0sX2jER-c8FdCp_ZkQ",
+      "wiki": {
+        "en": "Central Catchment Nature Reserve"
+      }
     },
     {
       "id": "southern-ridges",
@@ -4150,7 +5882,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 24,
+        "order": 34,
         "designations": []
       },
       "photo": null,
@@ -4158,6 +5890,161 @@
       "source": "wd",
       "last_verified": "2026-10-10",
       "google_place_id": "ChIJO1VVxd8b2jERTvL6uurcNWY"
+    },
+    {
+      "id": "adventure-cove-waterpark",
+      "qid": "Q135643199",
+      "names": {
+        "ko": "어드벤처 코브 워터파크",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Adventure Cove Waterpark",
+        "local": "Adventure Cove Waterpark",
+        "local_short": "Adventure Cove Waterpark",
+        "local_lang": "en",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "어드벤처 코브",
+        "센토사 워터파크",
+        "리조트 월드 센토사 워터파크"
+      ],
+      "aliases_en": [
+        "Adventure Cove"
+      ],
+      "mentions_ko": [
+        "레인보 리프",
+        "어드벤처 리버"
+      ],
+      "region": "sg_sentosa",
+      "area_ko": "센토사 리조트 월드 센토사",
+      "category": "theme_park",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 1.2576944444444444,
+        "lng": 103.81777777777778,
+        "source": "wd",
+        "qid": "Q135643199",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 1.2576944444444444,
+        "lng": 103.81777777777778
+      },
+      "address_local": {
+        "text": "14 Sentosa Gateway 098132",
+        "source": "rws_acw",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "metro",
+          "train"
+        ],
+        "nearest_ko": "MRT 하버프런트역에서 비보시티 3층으로 가서 센토사 익스프레스를 타요",
+        "nearest_local": {
+          "text": "Sentosa Express",
+          "qid": "Q955618",
+          "source": "wd"
+        },
+        "source": "rws_getting_here",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.rwsentosa.com/en/attractions/adventure-cove-waterpark",
+      "summary_ko": "빠른 슬라이드부터 느긋한 물길까지 있는 센토사의 워터파크예요.",
+      "body_ko": [
+        "어드벤처 코브 워터파크는 센토사의 리조트 월드 센토사에 있는 워터파크예요.",
+        "스릴을 찾는 사람을 위한 '립타이드 로켓'부터 느긋하게 떠다니는 '어드벤처 리버'까지 있어요.",
+        "어드벤처 리버는 정글 정원과 동굴 같은 14개의 테마 구역을 지나요.",
+        "레인보 리프에서는 스노클링을 해요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "스릴을 찾는 사람을 위한 '립타이드 로켓'부터 느긋하게 떠다니는 '어드벤처 리버'까지 있어요.",
+          "source": "rws_acw",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "어드벤처 리버는 정글 정원과 동굴을 포함한 14개의 테마 구역을 지나요.",
+          "source": "rws_acw",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "레인보 리프에서는 스노클링을 하며 산호초 생물을 볼 수 있어요.",
+          "source": "rws_acw",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "슬라이드가 둘 나란히 있는 경주형과, 어두운 터널을 지나는 슬라이드도 있어요.",
+          "source": "rws_acw",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "날씨가 나쁘면 안전을 위해 야외 시설을 모두 멈춰요.",
+          "source": "rws_acw",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "밖에서 산 음식과 음료는 가져갈 수 없어요.",
+          "source": "rws_acw",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "허용되는 수영복이 정해져 있으니 가기 전에 안내를 확인하세요.",
+          "source": "rws_acw",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "사물함은 하루 한 번 요금을 내면 종일 쓸 수 있어요.",
+          "source": "rws_acw",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "rws_acw",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "rws_acw",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_sg",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 35,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJS0Dhxf0b2jERAuG9YaPrYjA",
+      "wiki": {
+        "en": "Adventure Cove Waterpark"
+      }
     },
     {
       "id": "siloso-beach",
@@ -4278,7 +6165,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 25,
+        "order": 36,
         "designations": []
       },
       "photo": null,
