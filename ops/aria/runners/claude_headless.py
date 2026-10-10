@@ -149,6 +149,8 @@ def run_prompt(prompt: str, *, cwd, claude_bin: str = "claude", timeout_sec: int
         return PromptResult("error", reason=f"{e}; 종료코드 {proc.returncode}", argv=argv)
     text = str(data.get("result", ""))
     is_error = bool(data.get("is_error")) or proc.returncode != 0
+    if is_error and ("Not logged in" in text or "/login" in text):
+        return PromptResult("unavailable", text[:80], "Claude CLI 로그인 안 됨 — 사람이 `claude` 를 열어 /login 해야 함", data, argv)
     return PromptResult("error" if is_error else "ok", text, "" if not is_error else "Claude 오류 응답", data, argv)
 
 

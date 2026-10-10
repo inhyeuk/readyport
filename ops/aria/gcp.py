@@ -16,6 +16,7 @@ from .net import NetworkError, Response
 
 SCOPE_DATASTORE = "https://www.googleapis.com/auth/datastore"
 SCOPE_REMOTE_CONFIG = "https://www.googleapis.com/auth/firebase.remoteconfig"
+SCOPE_FCM = "https://www.googleapis.com/auth/firebase.messaging"
 
 
 class TokenProvider(Protocol):
@@ -141,6 +142,26 @@ def doc_id(name: str) -> str:
     return name.rsplit("/", 1)[-1]
 
 
+class FcmRest:
+    """FCM HTTP v1 — 토픽 데이터 메시지 보내기만. 토큰은 쓰지 않는다(앱이 토픽만 구독)."""
+
+    def __init__(self, project_id: str, token_provider: TokenProvider, fetcher, timeout: float = 20.0):
+        if not project_id:
+            raise ValueError("FIREBASE_PROJECT_ID 가 필요하다")
+        self.url = f"https://fcm.googleapis.com/v1/projects/{project_id}/messages:send"
+        self.tokens = token_provider
+        self.fetch = fetcher
+        self.timeout = timeout
+
+    def send_topic(self, topic: str, data: dict) -> dict:
+        """data 는 문자열 값만. 알림 문구는 앱이 만든다(메시지에는 id 만)."""
+        body = json.dumps({"message": {"topic": topic, "data": {k: str(v) for k, v in data.items()},
+                                       "android": {"priority": "HIGH"}}}).encode("utf-8")
+        headers = {"Authorization": f"Bearer {self.tokens.get_token()}", "Content-Type": "application/json"}
+        resp = self.fetch("POST", self.url, headers=headers, data=body, timeout=self.timeout)
+        return _json_or_error(resp)
+
+
 class FirestoreRest:
     """Firestore REST (v1) 의 필요한 부분만."""
 
@@ -205,4 +226,4 @@ class FirestoreRest:
 
 __all__ = ["field_path", "doc_id", "TokenProvider", "StaticTokenProvider", "ServiceAccountTokenProvider", "FirestoreRest",
            "GcpApiError", "NetworkError", "to_fs_value", "from_fs_value", "parse_timestamp",
-           "SCOPE_DATASTORE", "SCOPE_REMOTE_CONFIG"]
+           "SCOPE_DATASTORE", "SCOPE_REMOTE_CONFIG", "SCOPE_FCM", "FcmRest"]

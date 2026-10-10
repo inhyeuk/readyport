@@ -6,6 +6,7 @@ import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreException
+import com.google.firebase.messaging.FirebaseMessaging
 import com.readyport.doc.ocr.await
 import java.time.Instant
 
@@ -15,6 +16,9 @@ import java.time.Instant
  */
 interface PlanBackend {
     fun newRequestId(): String
+
+    /** 계획 도착 푸시 토픽 구독(이미 구독이어도 안전). 기본은 아무것도 하지 않는다(테스트 가짜) */
+    fun subscribePush(uid: String) {}
 
     /** 내 횟수 기록 (없으면 null) */
     suspend fun quota(uid: String): PlanQuota?
@@ -66,7 +70,13 @@ class FirestorePlanBackend(private val db: FirebaseFirestore = FirebaseFirestore
         batch.set(requests.document(id), PlanRules.payload(draft, uid, now))
         batch.set(quotaRef, PlanRules.quotaPayload(previousLast, id, now))
         batch.commit().await()
+        subscribePush(uid)
         Unit
+    }
+
+    /** 계획이 끝나면 푸시로 알리려고 '내 토픽'(plan_<내 익명 ID>)을 구독한다. 토큰은 서버에 보내지 않고, 푸시에는 요청 id만 실린다 */
+    override fun subscribePush(uid: String) {
+        runCatching { FirebaseMessaging.getInstance().subscribeToTopic(PlanPush.topic(uid)) }
     }
 
     override suspend fun myRequests(uid: String): List<PlanRequest> = guard {

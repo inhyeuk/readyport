@@ -31,13 +31,15 @@ CLEANUP_KEY = "plan_cleanup:last_day"
 
 def run_hourly(cfg: Config, *, firestore, dry_run: bool = True, store: Optional[FingerprintStore] = None,
                engine=None, cleanup: str = "auto", budget_sec: float = 1500, notifier=None,
-               now: Optional[_dt.datetime] = None, today: Optional[_dt.date] = None, monotonic=None) -> dict:
+               now: Optional[_dt.datetime] = None, today: Optional[_dt.date] = None, monotonic=None, push=None) -> dict:
     today = today or _dt.datetime.now().astimezone().date()
     now = now or _dt.datetime.now(_dt.timezone.utc)
     own_store = store is None
     store = store or FingerprintStore(cfg.db_path)
     try:
         kw = {"monotonic": monotonic} if monotonic is not None else {}
+        if push is not None:
+            kw["push"] = push
         plans = plan_requests.run(cfg, firestore, store, engine=engine, dry_run=dry_run, now=now, today=today,
                                   budget_sec=budget_sec, **kw)
         out = {"date": today.isoformat(), "dry_run": dry_run, "plans": plans}
@@ -52,6 +54,11 @@ def run_hourly(cfg: Config, *, firestore, dry_run: bool = True, store: Optional[
                 store.set_value(CLEANUP_KEY, today.isoformat())
         if notifier is not None and not dry_run:
             failed = [p for p in plans.get("processed", []) if p.get("status") == "failed"]
+            if any(p.get("code") == "engine_unavailable" for p in plans.get("processed", [])):
+                try:
+                    notifier.send("[레디포트] 여행 계획 엔진(Claude CLI)이 로그인되어 있지 않아 요청을 대기로 두었어요 — PC에서 claude 를 열어 /login 해 주세요")
+                except Exception:  # noqa: BLE001
+                    pass
             if plans.get("cap_reached") or failed:
                 try:
                     notifier.send(f"[레디포트] 여행 계획: 완료 {sum(p.get('status') == 'done' for p in plans.get('processed', []))}, "
@@ -92,8 +99,15 @@ def main(argv=None) -> int:  # pragma: no cover - 실제 연결을 만드는 얇
         cfg.google_credentials_path, [SCOPE_DATASTORE]), urllib_fetch)
     from .run_daily import StdoutNotifier
     # 알림 줄은 요약 JSON 앞에 표준 출력으로 (ARIA 스킬이 '알림 줄'로 읽어 텔레그램에 보낸다). 시험이면 보내지 않는다
+    push = None
+    if args.live:
+        from .gcp import SCOPE_FCM, FcmRest
+        fcm = FcmRest(cfg.firebase_project_id, ServiceAccountTokenProvider(cfg.google_credentials_path, [SCOPE_FCM]), urllib_fetch)
+
+        def push(uid: str, rid: str) -> None:       # noqa: F811 - 계획이 도착하면 그 사람의 토픽(plan_<uid>)에 요청 id만 보낸다
+            fcm.send_topic(f"plan_{uid}", {"type": "plan", "request": rid})
     summary = run_hourly(cfg, firestore=firestore, dry_run=not args.live, cleanup=args.cleanup,
-                         budget_sec=args.budget_sec, notifier=StdoutNotifier() if args.live else None)
+                         budget_sec=args.budget_sec, notifier=StdoutNotifier() if args.live else None, push=push)
     print(json.dumps(summary, ensure_ascii=False, indent=1, default=str))
     return 0
 
