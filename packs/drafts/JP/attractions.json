@@ -403,6 +403,33 @@
       "wave": 1
     },
     {
+      "id": "jp_nagoya",
+      "order": 135,
+      "name_ko": "나고야",
+      "name_en": "Nagoya",
+      "aliases_ko": [
+        "나고야시",
+        "명고옥"
+      ],
+      "group_ko": "주부",
+      "kind": "base",
+      "hub": {
+        "name_ko": "나고야역",
+        "lat": 35.170694,
+        "lng": 136.881637,
+        "qid": "Q49381"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "advisory_watch_ko": [],
+      "water_crossing": false,
+      "airports": [],
+      "wave": 3
+    },
+    {
       "id": "jp_sapporo",
       "order": 150,
       "name_ko": "삿포로·오타루",
@@ -10235,6 +10262,347 @@
       "photo_link": "https://commons.wikimedia.org/wiki/File:View_of_Dejima_in_Nagasaki_Bay_Folding_Screen_by_Kawahara_Keiga_c1836.jpg",
       "source": "wd",
       "last_verified": "2026-10-10"
+    },
+    {
+      "id": "nagoya-castle",
+      "qid": "Q648629",
+      "names": {
+        "ko": "나고야성",
+        "ko_basis": "editorial",
+        "en": "Nagoya Castle",
+        "local": "名古屋城",
+        "local_short": "名古屋城",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "금 샤치 성",
+        "명고옥성"
+      ],
+      "aliases_en": [
+        "Nagoya-jo"
+      ],
+      "mentions_ko": [
+        "혼마루 고텐",
+        "니노마루 정원"
+      ],
+      "region": "jp_nagoya",
+      "area_ko": "나고야시 주오구",
+      "category": "heritage",
+      "geo": {
+        "kind": "site",
+        "lat": 35.185555555556,
+        "lng": 136.89861111111,
+        "source": "wd",
+        "last_verified": "2026-10-10",
+        "qid": "Q648629"
+      },
+      "address_local": {
+        "text": "〒460-0031 愛知県名古屋市中区本丸1番1号",
+        "source": "nagoyajo_official_top",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "metro",
+          "bus"
+        ],
+        "nearest_ko": "지하철 메이조선 '나고야조' 역 7번 출구에서 걸어가요",
+        "source": "nagoyajo_official_top",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.nagoyajo.city.nagoya.jp/",
+      "summary_ko": "도쿠가와 이에야스가 지은 성으로, 복원된 혼마루 고텐이 있어요.",
+      "body_ko": [
+        "나고야성은 1615년 도쿠가와 이에야스가 지은 성이에요.",
+        "성곽으로는 국보 제1호로 지정됐지만 전쟁으로 불탔고, 지금은 국가 특별사적이에요.",
+        "복원한 혼마루 고텐과 에도 시대부터 남은 망루를 볼 수 있고, 천수각 안에는 들어갈 수 없어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "1615년(게이초 20) 도쿠가와 이에야스가 지은 성이에요.",
+          "source": "nagoyajo_official_top",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "성곽으로는 국보 제1호로 지정됐지만 전쟁으로 불탔고, 지금은 국가 특별사적이에요.",
+          "source": "nagoyajo_official_top",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "복원한 혼마루 고텐과 에도 시대 창건 때부터 남은 망루(중요문화재)가 있어요.",
+          "source": "nagoyajo_official_top",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "천수각 안에는 들어갈 수 없어요.",
+          "source": "nagoyajo_official_top",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "혼마루 고텐은 정문·동문에서 걸어서 시간이 꽤 걸리니 입장 마감 전에 고텐 입구까지 가세요.",
+          "source": "nagoyajo_official_top",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "none"
+        ],
+        "closed_note_ko": "12월 29~31일과 1월 1일은 쉬어요.",
+        "source": "nagoyajo_official_top",
+        "last_verified": "2026-10-10"
+      },
+      "risk": [
+        "renovation"
+      ],
+      "status": {
+        "value": "partial",
+        "note_ko": "천수각 안에는 들어갈 수 없어요. 성터와 혼마루 고텐은 볼 수 있어요.",
+        "source": "nagoyajo_official_top",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 999,
+        "designations": [
+          {
+            "kind": "jp_special_historic_site",
+            "name_ko": "국가 특별사적 나고야성",
+            "source": "nagoyajo_official_top"
+          }
+        ]
+      },
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Nagoya_Castle(Larger).jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10"
+    },
+    {
+      "id": "legoland-japan",
+      "qid": "Q29168099",
+      "names": {
+        "ko": "레고랜드 재팬",
+        "ko_basis": "editorial",
+        "en": "Legoland Japan Resort",
+        "local": "レゴランド・ジャパン",
+        "local_short": "レゴランド・ジャパン",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "레고랜드",
+        "레고랜드 재팬 리조트"
+      ],
+      "aliases_en": [
+        "Legoland Japan"
+      ],
+      "mentions_ko": [
+        "미니랜드"
+      ],
+      "region": "jp_nagoya",
+      "area_ko": "나고야시 미나토구 긴조후토",
+      "category": "theme_park",
+      "geo": {
+        "kind": "entrance",
+        "lat": 35.0505,
+        "lng": 136.843611,
+        "source": "wd",
+        "last_verified": "2026-10-10",
+        "qid": "Q29168099"
+      },
+      "address_local": {
+        "text": "455-8605 名古屋市港区金城ふ頭二丁目２番地１",
+        "source": "legoland_official_access",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "train"
+        ],
+        "nearest_ko": "긴조후토역에서 가요",
+        "nearest_local": {
+          "text": "金城ふ頭駅",
+          "qid": "Q5368904",
+          "source": "wd"
+        },
+        "source": "legoland_official_access",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.legoland.jp/",
+      "summary_ko": "레고 블록을 주제로 한 나고야의 체험형 테마파크예요.",
+      "body_ko": [
+        "레고랜드 재팬은 레고 블록과 레고 모델을 만져 보며 만드는 체험형 테마파크로, 2017년에 나고야에서 문을 열었어요.",
+        "가까운 역은 긴조후토역이고, 리조트에는 주차장이 없어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "레고 블록과 레고 모델을 만져 보며 만드는 체험형 테마파크로 2017년에 나고야에서 문을 열었어요.",
+          "source": "legoland_official_about",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "음식 반입은 원칙적으로 삼가 달라고 해요. 가방에 들어가는 물통이나 페트병은 괜찮아요.",
+          "source": "legoland_official_rules",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "안내견 등을 빼고 반려동물은 입장할 수 없어요.",
+          "source": "legoland_official_rules",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "호텔을 포함한 리조트에는 주차장이 없어요.",
+          "source": "legoland_official_access",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "unknown"
+        ],
+        "source": "legoland_official_about",
+        "last_verified": "2026-10-10"
+      },
+      "status": {
+        "value": "open",
+        "source": "legoland_official_about",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 999,
+        "designations": []
+      },
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Legoland_japan.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10"
+    },
+    {
+      "id": "port-of-nagoya-aquarium",
+      "qid": "Q7231211",
+      "names": {
+        "ko": "나고야항 수족관",
+        "ko_basis": "editorial",
+        "en": "Port of Nagoya Public Aquarium",
+        "local": "名古屋港水族館",
+        "local_short": "名古屋港水族館",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "명고옥항 수족관"
+      ],
+      "mentions_ko": [
+        "가든 부두",
+        "해파리 나고리움"
+      ],
+      "region": "jp_nagoya",
+      "area_ko": "나고야시 미나토구",
+      "category": "theme_park",
+      "geo": {
+        "kind": "entrance",
+        "lat": 35.0906,
+        "lng": 136.8782,
+        "source": "wd",
+        "last_verified": "2026-10-10",
+        "qid": "Q7231211"
+      },
+      "address_local": {
+        "text": "〒455-0033 愛知県名古屋市港区港町1番3号",
+        "source": "nagoyaaqua_official_access",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "metro"
+        ],
+        "nearest_ko": "지하철 메이코선 '나고야코' 역 3번 출구에서 걸어가요",
+        "nearest_local": {
+          "text": "名古屋港駅",
+          "qid": "Q858446",
+          "source": "wd"
+        },
+        "source": "nagoyaaqua_official_access",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://nagoyaaqua.jp/",
+      "summary_ko": "나고야 항 가든 부두에 있는 수족관이에요.",
+      "body_ko": [
+        "나고야항 수족관에는 '오스트레일리아의 물가', '심해 갤러리', '해파리 나고리움' 같은 전시 구역이 있어요.",
+        "가든 부두의 일부 시설은 2026년 8월 1일부터 11월 30일까지 쉬어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "'오스트레일리아의 물가', '심해 갤러리', '해파리 나고리움' 같은 전시 구역이 있어요.",
+          "source": "nagoyaaqua_official_floormap",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "가든 부두의 명고옥항 포트빌딩·남극관측선 후지·포트하우스는 2026년 8월 1일부터 11월 30일까지 이용할 수 없어요.",
+          "source": "nagoyaaqua_official_top",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "입장은 문 닫는 시간 한 시간 전까지예요.",
+          "source": "nagoyaaqua_official_top",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "가든 부두의 포트빌딩·남극관측선 후지·포트하우스는 2026년 8월 1일부터 11월 30일까지 이용할 수 없어요.",
+          "source": "nagoyaaqua_official_top",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "unknown"
+        ],
+        "source": "nagoyaaqua_official_fee",
+        "last_verified": "2026-10-10"
+      },
+      "status": {
+        "value": "open",
+        "source": "nagoyaaqua_official_top",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 999,
+        "designations": []
+      },
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Port_of_Nagoya_Public_Aquarium_Exterior_(1),_Minato-machi_Minato_Ward_Nagoya_2022.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10"
     }
   ],
   "retired": [],
@@ -12122,6 +12490,60 @@
       "id": "nagasakipeace_official_abm",
       "name": "ながさきの平和 原爆資料館",
       "url": "https://nagasakipeace.jp/visit/abm/",
+      "use": "facts"
+    },
+    {
+      "id": "legoland_official_about",
+      "name": "【公式】レゴランド・ジャパン・リゾート について",
+      "url": "https://www.legoland.jp/about-us/",
+      "use": "facts"
+    },
+    {
+      "id": "legoland_official_access",
+      "name": "【公式】レゴランド・ジャパン 交通アクセス",
+      "url": "https://www.legoland.jp/operation/info/access/",
+      "use": "facts"
+    },
+    {
+      "id": "legoland_official_rules",
+      "name": "【公式】レゴランド・ジャパン ルールとマナー",
+      "url": "https://www.legoland.jp/about-us/rules/",
+      "use": "facts"
+    },
+    {
+      "id": "nagoyaaqua_official_access",
+      "name": "名古屋港水族館 交通アクセス",
+      "url": "https://nagoyaaqua.jp/access/",
+      "use": "facts"
+    },
+    {
+      "id": "nagoyaaqua_official_fee",
+      "name": "名古屋港水族館 入館チケット",
+      "url": "https://nagoyaaqua.jp/fee/",
+      "use": "facts"
+    },
+    {
+      "id": "nagoyaaqua_official_floormap",
+      "name": "名古屋港水族館 館内案内",
+      "url": "https://nagoyaaqua.jp/floormap/",
+      "use": "facts"
+    },
+    {
+      "id": "nagoyaaqua_official_top",
+      "name": "名古屋港水族館 トップ",
+      "url": "https://nagoyaaqua.jp/",
+      "use": "facts"
+    },
+    {
+      "id": "nagoyajo_official_fee",
+      "name": "名古屋城 料金",
+      "url": "https://www.nagoyajo.city.nagoya.jp/info/fee/",
+      "use": "facts"
+    },
+    {
+      "id": "nagoyajo_official_top",
+      "name": "名古屋城公式ウェブサイト トップ",
+      "url": "https://www.nagoyajo.city.nagoya.jp/",
       "use": "facts"
     }
   ]
