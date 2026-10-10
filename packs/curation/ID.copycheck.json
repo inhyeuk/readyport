@@ -1,4 +1,24 @@
 {
+  "ancol-taman-impian": {
+    "cache_set_sha256": "4f4698b7b82b98ab599f0ad8af014f2f7d741aa3567e4670c4d899c0e14887da",
+    "checked_at": "2026-10-10",
+    "text_sha256": "ca9ea4fd9cbb11b924f3a0abaeaa66d42f0dca68d85be11ffd05ffb188f4345b"
+  },
+  "arma-museum": {
+    "cache_set_sha256": "53eab7c7bfd968064a2db17ad95c2471ec98042beca17fc0eef8f1a770d7859d",
+    "checked_at": "2026-10-10",
+    "text_sha256": "241ed07fc5d004ac423605480f430233a86d70272e652a86000a5c48937adbd6"
+  },
+  "atlantis-ancol": {
+    "cache_set_sha256": "fb1209868211a652e2d8c767064a6f5ad546ce46d69b55fcc56c44a68156a3df",
+    "checked_at": "2026-10-10",
+    "text_sha256": "88ab3a7e4269d3a9bd1f20cca0d67fd657e29bb0ef826db6d3fd7871405989dd"
+  },
+  "atuh-beach": {
+    "cache_set_sha256": "3666d44490b6ef4aaf5bdee220820c8cb3f01758daa96c0560f6474384d98dd3",
+    "checked_at": "2026-10-10",
+    "text_sha256": "6f58f588767acfea4e7f6f258b3e74b1a2c6ab48ea4c162667bc01dcc779fe22"
+  },
   "besakih": {
     "cache_set_sha256": "1a722c090f0da1dd8b2d91e8ee52018b5eb9429269eea45a60b6ed8ed2458817",
     "checked_at": "2026-10-10",
@@ -18,6 +38,11 @@
     "cache_set_sha256": "d3fdff5cb822a5d99aceb678459ddc96133acb946b778d41e54b0048e7d7d3a1",
     "checked_at": "2026-10-10",
     "text_sha256": "8061eb269fd51ebbf7e36d37f2b8363aee5a76945e533ab953a6851f72b16c27"
+  },
+  "crystal-bay": {
+    "cache_set_sha256": "9de537075a3fa740f72e9459716333fdf6cf2fb5b6e526cc4a616e859cdcfbed",
+    "checked_at": "2026-10-10",
+    "text_sha256": "c5ef33a0d3d83db42981c5bd08e0933fd18c7358236fd8f43268810a231457d2"
   },
   "dufan-ancol": {
     "cache_set_sha256": "89cb2d4bcaf6d51d12b4a9f889f2f01689475aa9e6276e796a4ab7921116eb99",
@@ -53,6 +78,11 @@
     "cache_set_sha256": "1b19a36443617b94757c2b56c8977b0755ccf0583a1900397ec487d293caf475",
     "checked_at": "2026-10-10",
     "text_sha256": "6dbd1ceac1e5199dbebbf7f3c0a4d6ed1bf60a02b8667a10b0071349a9232818"
+  },
+  "katedral-jakarta": {
+    "cache_set_sha256": "e6f2f901a351283e024f46d8f7c5cc85d818b5a349f2fb6894303fbd291a4ffa",
+    "checked_at": "2026-10-10",
+    "text_sha256": "e62a877e3b1991b6c1f0964768430c92960e5567dbc40bb0798c2278c441bf79"
   },
   "kelingking-beach": {
     "cache_set_sha256": "ded56e0198c36c46323b173a7bff32634f371e427f28898cb59cd2ab242a6b4b",
@@ -119,6 +149,11 @@
     "checked_at": "2026-10-10",
     "text_sha256": "3c56f04fafd24fa048a82f68ba9ad154af6c161ec383e9aa0cc9cb3c2b414e6d"
   },
+  "pandawa-beach": {
+    "cache_set_sha256": "bd54c8c9dea4fcc4dcf66f3f9a40a522ea2a077cd4943a731dc6ef9fe63cb4a1",
+    "checked_at": "2026-10-10",
+    "text_sha256": "f0b1c7b8b8ed96d9a067e5744f3e17c3c2edca7ec72930a11a0e9ab6ef7e4065"
+  },
   "pink-beach-komodo": {
     "cache_set_sha256": "6fc85c6003f90ae3257be56678f6814ffdfc923f8f16893cb6f9e8791486f7c0",
     "checked_at": "2026-10-10",
@@ -134,6 +169,11 @@
     "checked_at": "2026-10-10",
     "text_sha256": "d073d0a8af764a771975e509e5ce67c48e519743ff7d67b95086be3b2bc55469"
   },
+  "rinca-island": {
+    "cache_set_sha256": "53f9aaed892725d04e6af57337a82627d447c78c2edac9b6b9c7df8dd9be7683",
+    "checked_at": "2026-10-10",
+    "text_sha256": "3d72464a506416d3c9d2a03cf819c477166070ccddc0064b1300976231e6c6a1"
+  },
   "rinjani": {
     "cache_set_sha256": "227f6a4a15cc9782bbee17c0d4f69de996b32889585112d7f9c56429df9ca19e",
     "checked_at": "2026-10-10",
@@ -148,6 +188,11 @@
     "cache_set_sha256": "7ab832e08462ec4d0e32767b2a9cb0a91c495c0f955bc819428058c6b568de3f",
     "checked_at": "2026-10-10",
     "text_sha256": "846f54cd075dbf787e19db382621f7ade5f103aa0dffddba0f350aa6085ea88a"
+  },
+  "sonobudoyo": {
+    "cache_set_sha256": "3426ea6af6d7c8eeacf0d625d5f9294a5419c4e553f8400f5f9b14b5f8c68ae6",
+    "checked_at": "2026-10-10",
+    "text_sha256": "e799cec644906340bbfaf14f4a9f0390d28e2b6bf65935eefd26daf8b3b05889"
   },
   "taman-sari-yogyakarta": {
     "cache_set_sha256": "9077c1662b273c8fd637ff3c4ee081318fae81fe094839b7f5365e3b85dcdb83",
