@@ -7398,9 +7398,6 @@
         "last_verified": "2026-10-10"
       },
       "official_url": "https://www.armabali.com/museum/",
-      "wiki": {
-        "en": "Agung Rai Museum of Art"
-      },
       "summary_ko": "발리와 인도네시아 화가들의 작품을 모은 우붓의 미술관이에요.",
       "body_ko": [
         "아궁 라이 미술관은 발리 사람 아궁 라이가 세워 1996년 6월 9일에 문을 열었어요.",
@@ -7483,7 +7480,10 @@
       "photo_link": null,
       "source": "wd",
       "last_verified": "2026-10-10",
-      "google_place_id": "ChIJw9lGTXQ90i0RONY615P93hc"
+      "google_place_id": "ChIJw9lGTXQ90i0RONY615P93hc",
+      "wiki": {
+        "en": "Agung Rai Museum of Art"
+      }
     },
     {
       "id": "pandawa-beach",
@@ -7535,9 +7535,6 @@
         "last_verified": "2026-10-10"
       },
       "official_url": "https://lovebali.baliprov.go.id/destination/detail/1663116376257/pantai-pandawa?id=1663116376257",
-      "wiki": {
-        "en": "Pandawa Beach"
-      },
       "summary_ko": "석회암 절벽에 둘러싸인 부킷 반도의 해변이에요.",
       "body_ko": [
         "빤다와 해변은 누사두아와 울루와뚜 사원에서 3km쯤 떨어진 꾸뚜 마을의 해변이에요.",
@@ -7607,7 +7604,10 @@
       "photo_link": null,
       "source": "wd",
       "last_verified": "2026-10-10",
-      "google_place_id": "ChIJMR-62Hxb0i0RpLJV0F14uEE"
+      "google_place_id": "ChIJMR-62Hxb0i0RpLJV0F14uEE",
+      "wiki": {
+        "en": "Pandawa Beach"
+      }
     },
     {
       "id": "crystal-bay",
@@ -7892,15 +7892,11 @@
         "last_verified": "2026-10-10"
       },
       "official_url": "https://tnkomodo.ksdae.kehutanan.go.id/",
-      "wiki": {
-        "ko": "린차섬",
-        "en": "Rinca"
-      },
       "summary_ko": "코모도왕도마뱀을 볼 수 있는 코모도 국립공원의 섬이에요.",
       "body_ko": [
         "린짜섬은 코모도 국립공원의 세 큰 섬 가운데 하나로, 왕도마뱀이 사는 다섯 큰 섬에 들어요.",
         "관광객은 로 부아야 관리소에서 트레킹을 하며 왕도마뱀을 볼 수 있어요.",
-        "린짜섬에서만 산다는 린짜쥐와 노란볏앵무도 이 섬의 동물이에요."
+        "린짜섬에서만 산다는 린짜쥐도 로 부아야 지역에 살지만, 보기는 아주 어려워요."
       ],
       "claims": [
         {
@@ -8001,7 +7997,11 @@
       "photo_link": null,
       "source": "wd",
       "last_verified": "2026-10-10",
-      "google_place_id": "ChIJfZ_gbcn1tC0RN7sJx1GJoXo"
+      "google_place_id": "ChIJfZ_gbcn1tC0RN7sJx1GJoXo",
+      "wiki": {
+        "ko": "린차섬",
+        "en": "Rinca"
+      }
     },
     {
       "id": "ramayana-ballet-prambanan",
@@ -8425,7 +8425,7 @@
       "id": "museum-pasifika",
       "qid": "Q6940675",
       "names": {
-        "ko": "빠시피카 박물관",
+        "ko": "파시피카 박물관",
         "ko_basis": "editorial",
         "ko_paren": null,
         "en": "Museum Pasifika",
@@ -8435,7 +8435,7 @@
         "source": "wd"
       },
       "aliases_ko": [
-        "파시피카 박물관",
+        "빠시피카 박물관",
         "파시피카 미술관"
       ],
       "aliases_en": [
@@ -8473,12 +8473,9 @@
         "last_verified": "2026-10-10"
       },
       "official_url": "https://www.museum-pasifika.com/",
-      "wiki": {
-        "en": "Museum Pasifika"
-      },
       "summary_ko": "아시아·태평양 화가들의 그림과 조각을 모은 누사두아의 박물관이에요.",
       "body_ko": [
-        "빠시피카 박물관은 2006년 8월에 문을 연 누사두아의 박물관이에요.",
+        "파시피카 박물관은 2006년 8월에 문을 연 누사두아의 박물관이에요.",
         "전시관 건물 8개와 전시실 11개에 25개국 화가 200명의 작품 600점을 두었어요.",
         "발리 건축가 포포 다네스가 설계했어요."
       ],
@@ -8563,7 +8560,10 @@
       "photo_link": null,
       "source": "wd",
       "last_verified": "2026-10-10",
-      "google_place_id": "ChIJRbNf4b5B0i0R5xfnGuTcxjY"
+      "google_place_id": "ChIJRbNf4b5B0i0R5xfnGuTcxjY",
+      "wiki": {
+        "en": "Museum Pasifika"
+      }
     },
     {
       "id": "benteng-vredeburg",
@@ -8621,9 +8621,6 @@
         "last_verified": "2026-10-10"
       },
       "official_url": "https://vredeburg.id/",
-      "wiki": {
-        "en": "Fort Vredeburg Museum"
-      },
       "summary_ko": "옛 네덜란드 요새를 박물관으로 쓰는 족자카르타 시내의 역사 박물관이에요.",
       "body_ko": [
         "프레데부르흐 요새 박물관은 네덜란드 동인도회사가 1765년 12월에 공사를 시작한 요새를 쓰는 박물관이에요.",
@@ -8712,7 +8709,10 @@
       "photo_link": null,
       "source": "wd",
       "last_verified": "2026-10-10",
-      "google_place_id": "ChIJz-6zwIhXei4R-J8qI-AcYbk"
+      "google_place_id": "ChIJz-6zwIhXei4R-J8qI-AcYbk",
+      "wiki": {
+        "en": "Fort Vredeburg Museum"
+      }
     },
     {
       "id": "green-bowl-beach",
@@ -8728,8 +8728,7 @@
         "source": "wd"
       },
       "aliases_ko": [
-        "그린볼 비치",
-        "그린 볼 비치"
+        "그린볼 비치"
       ],
       "aliases_en": [
         "Green Bowl",

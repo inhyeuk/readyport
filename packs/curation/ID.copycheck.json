@@ -157,7 +157,7 @@
   "museum-pasifika": {
     "cache_set_sha256": "855f3137cbd8758251199446a1e23952f9bc53333f9392256b1f76611ad12ade",
     "checked_at": "2026-10-10",
-    "text_sha256": "bdecf39cfc000895bfecb708ceb6501d0aa7f38d8a82c7f34fccb2ff0e74cdd7"
+    "text_sha256": "7b3b419c55e7056cd1ccec8b792a52ab507bfd730870793a7e3d3935d8834797"
   },
   "neka-art-museum": {
     "cache_set_sha256": "1e906c004e0d9d2e6ff4bd8d4f42562398a376dcdb8646a8b7b597abe63f3b92",
@@ -202,7 +202,7 @@
   "rinca-island": {
     "cache_set_sha256": "53f9aaed892725d04e6af57337a82627d447c78c2edac9b6b9c7df8dd9be7683",
     "checked_at": "2026-10-10",
-    "text_sha256": "3d72464a506416d3c9d2a03cf819c477166070ccddc0064b1300976231e6c6a1"
+    "text_sha256": "17dcb04044edc37ec20aa1c45d78b399aa7a610b2e2bfc9396c56c0e4651c17b"
   },
   "rinjani": {
     "cache_set_sha256": "227f6a4a15cc9782bbee17c0d4f69de996b32889585112d7f9c56429df9ca19e",
