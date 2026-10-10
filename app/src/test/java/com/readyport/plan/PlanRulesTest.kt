@@ -85,14 +85,17 @@ class PlanRulesTest {
         assertFalse("purpose_note" in PlanRules.payload(ok.copy(note = "   "), "u", server))
     }
 
-    @Test fun quotaPayloadKeepsPreviousLastAsIs() {
-        val first = PlanRules.quotaPayload(null, "req1", server)
-        assertEquals(setOf("last", "prev", "lastRequestId"), first.keys)
+    @Test fun quotaPayloadCountsPerCountryAndKeepsExtra() {
+        val first = PlanRules.quotaPayload(null, "JP", "req1", server)
+        assertEquals(setOf("last", "lastRequestId", "counts"), first.keys)
         assertSame(server, first["last"])
-        assertNull(first["prev"])
         assertEquals("req1", first["lastRequestId"])
-        val stamp = Any()
-        assertSame(stamp, PlanRules.quotaPayload(stamp, "req2", server)["prev"])
+        assertEquals(mapOf("JP" to 1), first["counts"])
+        val prev = PlanQuota(null, null, counts = mapOf("JP" to 1, "TH" to 2), extra = mapOf("TH" to 1))
+        val next = PlanRules.quotaPayload(prev, "JP", "req2", server)
+        assertEquals(mapOf("JP" to 2, "TH" to 2), next["counts"])
+        assertEquals(mapOf("TH" to 1), next["extra"])
+        assertEquals(setOf("last", "lastRequestId", "counts", "extra"), next.keys)
     }
 
     // ---------------- 검사 ----------------
@@ -147,20 +150,23 @@ class PlanRulesTest {
         assertTrue(phone.ready(allowWarnings = true))
     }
 
-    // ---------------- 7일 2회 ----------------
+    // ---------------- 나라별 2번 ----------------
 
     private val now = Instant.parse("2026-10-09T03:00:00Z")
     private fun daysAgo(d: Long) = now.minus(Duration.ofDays(d))
 
     @Test fun remainingFollowsTheRule() {
-        assertEquals(PlanRules.Remaining(2, null), PlanRules.remaining(null, now))
-        assertEquals(PlanRules.Remaining(2, null), PlanRules.remaining(PlanQuota(null, null), now))
-        assertEquals(1, PlanRules.remaining(PlanQuota(daysAgo(3), null), now).count)
-        assertEquals(PlanRules.Remaining(0, daysAgo(5).plus(PlanRules.WINDOW)), PlanRules.remaining(PlanQuota(daysAgo(3), daysAgo(5)), now))
-        // 규칙은 prev < 지금 − 7일 일 때만 받는다 — 딱 7일이면 아직 안 된다
-        assertEquals(0, PlanRules.remaining(PlanQuota(daysAgo(1), daysAgo(7)), now).count)
-        assertEquals(1, PlanRules.remaining(PlanQuota(daysAgo(1), daysAgo(8)), now).count)
-        assertEquals(2, PlanRules.remaining(PlanQuota(daysAgo(8), daysAgo(9)), now).count)
+        assertEquals(PlanRules.Remaining(2, null), PlanRules.remaining(null, "JP"))
+        assertEquals(PlanRules.Remaining(2, null), PlanRules.remaining(PlanQuota(null, null), "JP"))
+        val q = PlanQuota(daysAgo(3), null, counts = mapOf("JP" to 1, "TH" to 2))
+        assertEquals(1, PlanRules.remaining(q, "JP").count)
+        assertEquals(0, PlanRules.remaining(q, "TH").count)
+        assertEquals(2, PlanRules.remaining(q, "VN").count)
+        // 기간 제한 없음: 오래된 기록이어도 누적 그대로. 예전(7일 2회) 기록(prev 만 있고 counts 없음)은 나라별로 새로 센다
+        assertEquals(0, PlanRules.remaining(PlanQuota(daysAgo(400), null, counts = mapOf("JP" to 2)), "JP").count)
+        assertEquals(2, PlanRules.remaining(PlanQuota(daysAgo(1), daysAgo(2)), "JP").count)
+        // 서버가 더해 준 추가 횟수
+        assertEquals(1, PlanRules.remaining(PlanQuota(null, null, counts = mapOf("JP" to 2), extra = mapOf("JP" to 1)), "JP").count)
     }
 
     // ---------------- 상태 ----------------

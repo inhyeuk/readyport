@@ -57,18 +57,18 @@ class FirestorePlanBackend(private val db: FirebaseFirestore = FirebaseFirestore
 
     override suspend fun quota(uid: String): PlanQuota? = guard {
         val d = db.collection(QUOTA).document(uid).get().await()
-        if (!d.exists()) null else PlanQuota(d.instant("last"), d.instant("prev"))
+        if (!d.exists()) null else PlanQuota(d.instant("last"), d.instant("prev"), d.intMap("counts"), d.intMap("extra"))
     }
 
     override suspend fun create(uid: String, id: String, draft: PlanDraft) = guard {
         val quotaRef = db.collection(QUOTA).document(uid)
         val current = quotaRef.get().await()
-        // 직전 last 는 서버에서 읽은 Timestamp 그대로 prev 에 넣는다(규칙이 같은 값인지 본다)
-        val previousLast: Timestamp? = if (current.exists()) current.getTimestamp("last") else null
+        // 직전 나라별 횟수·추가 횟수를 서버에서 읽은 그대로 이어 쓴다(규칙이 +1 인지, 추가 횟수가 그대로인지 본다)
+        val previous: PlanQuota? = if (current.exists()) PlanQuota(current.instant("last"), current.instant("prev"), current.intMap("counts"), current.intMap("extra")) else null
         val now = FieldValue.serverTimestamp()
         val batch = db.batch()
         batch.set(requests.document(id), PlanRules.payload(draft, uid, now))
-        batch.set(quotaRef, PlanRules.quotaPayload(previousLast, id, now))
+        batch.set(quotaRef, PlanRules.quotaPayload(previous, draft.country!!, id, now))
         batch.commit().await()
         subscribePush(uid)
         Unit
@@ -133,6 +133,10 @@ class FirestorePlanBackend(private val db: FirebaseFirestore = FirebaseFirestore
         val d = db.collection(RESULTS).document(id).get().await()
         d.exists() && d.getString("uid") == uid
     }.getOrDefault(false)
+
+    /** 정수 지도 칸(없으면 빈 지도). Firestore 는 숫자를 Long 으로 준다 */
+    private fun DocumentSnapshot.intMap(field: String): Map<String, Int> =
+        (get(field) as? Map<*, *>).orEmpty().entries.mapNotNull { (k, v) -> (k as? String)?.let { key -> (v as? Number)?.let { key to it.toInt() } } }.toMap()
 
     private fun DocumentSnapshot.instant(field: String): Instant? =
         runCatching { getTimestamp(field, DocumentSnapshot.ServerTimestampBehavior.ESTIMATE)?.toDate()?.toInstant() }.getOrNull()

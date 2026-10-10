@@ -112,12 +112,12 @@
   - 만 19세 이상만 평가: **서버(규칙)로는 확인할 수 없다.** 앱이 게시판과 같은 기준(휴대폰의 여권 생년월일, 기기 안 판정)으로 평가 화면을 막는다.
   - `run_weekly --step ratings` 가 주 1회 집계. 평가가 `RATINGS_MIN_N`(기본 5)명보다 적은 관광지는 통계 문서에 넣지 않는다(앱은 '평가가 아직 적어요').
 
-### 12.11 여행 계획 요청 (비공개, 1인 7일 2회)
+### 12.11 여행 계획 요청 (비공개, 나라마다 2번 — 2026-10-11 사장님 결정, 시험 운영 · 나중에 유료로 횟수를 늘릴 계획)
 
 | 문서 | 모양 | 규칙 |
 |---|---|---|
 | `plan_requests/{id}` | `uid`, `country`(9개국), `purposes`(1~5개: sightseeing·food·shopping·nature·history_culture·relaxation·kids_family·activity·other), `purpose_note`(선택 ≤200자), `travelers`{adults·seniors·teens·children 0~20(합 1~20), genders?{female·male}}, `mobility`(선택: long_walk_hard·wheelchair·stairs_hard·with_infant·other_none), `sensitive_consent: true`(mobility 를 고르면 필수, 안 고르면 없음), `days`(1~30) **또는** `start_date`·`end_date`('YYYY-MM-DD'), `budget_band`(budget·standard·comfort·premium), `currency: "KRW"`, `status: "queued"`, `createdAt` = 서버 시각 | 만들기: 로그인 본인 + 같은 묶음에서 `plan_quota/{uid}` 갱신. 읽기: 본인·운영자. 이용자 수정은 취소만(queued·processing → `cancelled`, `finishedAt` = 서버 시각). 삭제는 취소한 내 요청만(앱 '내 계획 요청' › 삭제) |
-| `plan_quota/{uid}` | `{last, prev, lastRequestId}` | 새 요청과 같은 묶음에서만. `prev` 는 직전 `last`, 직전 `prev` 가 7일 안이면 거절(= 7일에 2번). 본인만 읽음, 지우기 불가 |
+| `plan_quota/{uid}` | `{last, lastRequestId, counts{나라: n}, extra{나라: n}?}` (예전 기록의 `prev` 는 더는 안 쓴다) | 새 요청과 같은 묶음에서만. 그 나라 `counts` 가 정확히 +1 이고 `2 + extra[나라]` 이하여야 하며 다른 나라 counts·`extra` 는 그대로여야 한다. `extra`(유료로 늘린 추가 횟수)는 **서버(ARIA·운영 도구)만** 쓴다. 기간 제한 없는 누적. 서버 탓 실패(엔진 오류·시간 초과·잘못된 출력·나라 자료 없음)는 ARIA 가 그 나라 counts 를 하나 돌려준다. 정리 작업은 이 문서를 지우지 않는다. 본인만 읽음, 지우기 불가 |
 | `plan_results/{id}` | `{uid, request_id, country, plan: {days[{day, title, items[{time_hint, place_id?, title, note}]}], tips[], budget_notes[], caveats[]}, ai_generated: true, notice_ko, engine, pack_version, attractions_version, createdAt}` | 본인·운영자 읽기(없으면 '없음'), 쓰기는 서비스 계정만 |
 | `plan_flags/{id}` (AI 계획 신고) | `{uid, reason, note?, at}` — `reason`: inaccurate·inappropriate·unsafe·other, `note` 선택 1~200자, `at` = 서버 시각. 문서 id = 요청 id | 만들기만: 로그인 본인 + `plan_results/{id}.uid == 나`, 계획 하나에 한 번(두 번째는 update 라 거절). 읽기·목록은 운영자만(신고한 사람도 못 읽음). 이용자 수정·삭제 불가 |
 

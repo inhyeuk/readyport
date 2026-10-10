@@ -37,13 +37,14 @@ class FakePlanBackend(private val clock: TestClock = TestClock()) : PlanBackend 
         val now = clock.instant()
         val payload = PlanRules.payload(draft, uid, SERVER_TIME)
         val q = quotas[uid]
-        // 규칙: 직전 prev 가 7일 안이면 거절
-        if (q?.prev != null && !q.prev!!.isBefore(now.minus(PlanRules.WINDOW))) throw PlanError.Denied
+        // 규칙: 이 나라 누적 횟수가 한도(2 + extra) 이상이면 거절
+        val country = draft.country!!
+        if (PlanRules.remaining(q, country).count <= 0) throw PlanError.Denied
         docs[id] = payload
         owners[id] = uid
         statuses[id] = PlanStatus.Queued
         createdAt[id] = now
-        quotas[uid] = PlanQuota(last = now, prev = q?.last)
+        quotas[uid] = PlanQuota(last = now, prev = null, counts = (q?.counts ?: emptyMap()) + (country to ((q?.counts?.get(country) ?: 0) + 1)), extra = q?.extra ?: emptyMap())
     }
 
     private fun toRequest(id: String): PlanRequest {

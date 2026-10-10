@@ -5,7 +5,8 @@
    **취소한 요청(cancelled)은 지우지 않는다** — 이용자가 앱에서 '삭제'를 누를 때까지 취소 상태로 남긴다(2026-10-09 사장님 결정).
 2. 끝나지 않은 채(queued·processing) 보관 기간을 넘긴 요청도 지운다(처리되지 않은 민감정보를 오래 두지 않는다).
 3. processing 이 6시간 넘게 멈춘 요청은 failed(engine_timeout) 로 닫는다(이용자 화면이 '만드는 중'에 머물지 않게).
-4. 요청 없이 남은 결과(createdAt 이 보관 기간 넘음)와, 마지막 요청이 보관 기간보다 오래된 plan_quota/{uid} 도 지운다.
+4. 요청 없이 남은 결과(createdAt 이 보관 기간 넘음)도 지운다. **plan_quota/{uid} 는 지우지 않는다** — 나라별 누적 횟수(2026-10-11)라서
+   지우면 한도가 풀린다(내용은 나라 코드별 숫자뿐이라 개인정보가 아니다).
 5. 요청이 없어진 신고 plan_flags/{id} 를 지운다 — 이용자가 앱에서 요청을 지우면(규칙상 신고는 이용자가 못 지운다)
    다음 정리 때 여기서 함께 지워진다(개인정보처리방침 3-3: 신고 기록은 요청과 함께 삭제).
 쿼리는 단일 필드 조건만 쓴다(복합 색인 없이). 지운 개수만 돌려준다 — 내용은 읽어도 남기지 않는다.
@@ -98,18 +99,21 @@ def run(cfg, firestore, *, dry_run: bool = True, now: Optional[_dt.datetime] = N
         t = r.get("processingAt")
         if r.get("status") == "processing" and isinstance(t, _dt.datetime) and t < stuck_before:
             if not dry_run:
-                firestore.set_document(f"{REQUESTS}/{doc_id(r['_name'])}",
+                sid = doc_id(r["_name"])
+                firestore.set_document(f"{REQUESTS}/{sid}",
                                        {"status": "failed", "error_code": "engine_timeout", "finishedAt": now, "updatedAt": now})
+                # 서버가 멈춘 것이라 그 사람의 나라별 횟수를 돌려준다
+                full = firestore.get_document(f"{REQUESTS}/{sid}") or {}
+                if full.get("uid") and full.get("country"):
+                    from .plan_requests import refund_quota
+                    refund_quota(firestore, full["uid"], full["country"])
             counts["stuck_failed"] += 1
     # 4. 요청 없이 남은 결과, 오래된 요청 횟수 기록
     for r in _paged(firestore, RESULTS, "createdAt", cutoff):
         if not dry_run:
             firestore.delete_document(r["_name"])
         counts["orphan_results_deleted"] += 1
-    for r in _paged(firestore, QUOTA, "last", cutoff):
-        if not dry_run:
-            firestore.delete_document(r["_name"])
-        counts["quota_deleted"] += 1
+    # plan_quota 는 나라별 누적 횟수 기록이라 보관 기간이 지나도 지우지 않는다(quota_deleted 는 늘 0 — 요약 칸 호환용)
     # 5. 요청이 없어진 신고 (이용자가 요청을 지운 경우 · 위에서 짝으로 지운 것은 이미 없다)
     for r in _all_flags(firestore):
         rid = doc_id(r["_name"])

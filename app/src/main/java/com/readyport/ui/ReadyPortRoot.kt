@@ -320,6 +320,8 @@ private fun MainScaffold(
                             openMove = { navController.navigate(TransportRoute) },
                             openShopping = { code -> navController.navigate(ShoppingRoute(code)) },
                             openVideos = { code -> navController.navigate(VideosRoute(code)) },
+                            openPlanRequest = { code -> navController.navigate(PlanRequestRoute(country = code)) },
+                            openMyPlans = { navController.navigate(PlanRequestsRoute) { launchSingleTop = true } },
                             openAttractions = OpenAttractions { category, focusSearch, savedOnly ->
                                 navController.navigate(
                                     AttractionsRoute(route.country, category = category?.key, savedOnly = savedOnly, focusSearch = focusSearch),

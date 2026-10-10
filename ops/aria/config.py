@@ -94,7 +94,7 @@ class Config:
     plan_daily_cap: int = 5                  # 하루 계획 생성(Claude) 상한 — CLAUDE_DAILY_CAP 과 따로 센다
     plan_timeout_sec: int = 600              # 계획 하나 생성 시간 제한
     plan_max_per_run: int = 3                # 한 번 실행에서 처리할 요청 수
-    plan_weekly_limit: int = 2               # 이용자 한 명이 7일 동안 요청할 수 있는 수(규칙과 같은 값)
+    plan_country_limit: int = 2              # 이용자 한 명이 나라마다 요청할 수 있는 수(규칙 quotaBase 와 같은 값, 누적. 늘린 만큼은 plan_quota.extra)
     plan_retention_days: int = 30            # 끝난(완료·실패·취소) 요청·결과 보관 일수
 
     @property
@@ -162,6 +162,6 @@ def load_config(env_file: pathlib.Path | str | None = None,
     cfg.plan_daily_cap = int(get("PLAN_DAILY_CAP", "5"))
     cfg.plan_timeout_sec = int(get("PLAN_TIMEOUT_SEC", "600"))
     cfg.plan_max_per_run = int(get("PLAN_MAX_PER_RUN", "3"))
-    cfg.plan_weekly_limit = int(get("PLAN_WEEKLY_LIMIT", "2"))
+    cfg.plan_country_limit = int(get("PLAN_COUNTRY_LIMIT", "2"))
     cfg.plan_retention_days = int(get("PLAN_RETENTION_DAYS", "30"))
     return cfg

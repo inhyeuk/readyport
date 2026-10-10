@@ -126,15 +126,29 @@ def user_requests_query(uid: str) -> dict:
             "limit": 50}
 
 
-def quota_ok(firestore, uid: str, created_at: _dt.datetime, limit: int) -> bool:
-    """이 요청을 포함해 7일 안의 요청 수가 limit 이하인지(규칙과 이중 확인)."""
-    lo = created_at - _dt.timedelta(days=7)
-    n = 0
-    for r in firestore.run_query(user_requests_query(uid)):
-        t = r.get("createdAt")
-        if isinstance(t, _dt.datetime) and lo < t <= created_at:
-            n += 1
-    return n <= limit
+QUOTA = "plan_quota"
+# 서버 탓으로 실패한 요청은 이용자의 나라별 횟수를 돌려준다(이용자 잘못이 아니다). quota_exceeded 만 돌려주지 않는다
+REFUND_CODES = {"invalid_request", "country_unavailable", "engine_error", "engine_timeout", "invalid_output"}
+
+
+def quota_ok(firestore, uid: str, country: str, limit: int) -> bool:
+    """이 요청을 포함한 이 나라의 누적 요청 수가 한도(limit + 늘려 준 extra) 이하인지(규칙과 이중 확인). 기록이 없으면 통과."""
+    q = firestore.get_document(f"{QUOTA}/{uid}") or {}
+    counts = q.get("counts") if isinstance(q.get("counts"), dict) else {}
+    extra = q.get("extra") if isinstance(q.get("extra"), dict) else {}
+    return int(counts.get(country, 0) or 0) <= limit + int(extra.get(country, 0) or 0)
+
+
+def refund_quota(firestore, uid: str, country: str) -> bool:
+    """실패한 요청의 나라별 횟수를 하나 돌려준다(0 아래로는 안 내린다). 돌려줬으면 True"""
+    q = firestore.get_document(f"{QUOTA}/{uid}") or {}
+    counts = dict(q.get("counts")) if isinstance(q.get("counts"), dict) else {}
+    n = int(counts.get(country, 0) or 0)
+    if n <= 0:
+        return False
+    counts[country] = n - 1
+    firestore.set_document(f"{QUOTA}/{uid}", {"counts": counts})
+    return True
 
 
 # ---------------- 나라 자료 (서명된 앱 내장본) ----------------
@@ -284,11 +298,14 @@ def sanitize_plan(plan: dict) -> dict:
 
 # ---------------- 실행 ----------------
 
-def _finish(firestore, rid: str, status: str, now: _dt.datetime, code: Optional[str] = None) -> None:
+def _finish(firestore, rid: str, status: str, now: _dt.datetime, code: Optional[str] = None,
+            refund: Optional[tuple] = None) -> None:
     data = {"status": status, "finishedAt": now, "updatedAt": now}
     if code:
         data["error_code"] = code
     firestore.set_document(f"{REQUESTS}/{rid}", data)
+    if refund and status == "failed" and code in REFUND_CODES:
+        refund_quota(firestore, refund[0], refund[1])
 
 
 def run(cfg, firestore, store, *, engine: Optional[Callable[[str], plan_engine.EngineResult]] = None,
@@ -321,17 +338,17 @@ def run(cfg, firestore, store, *, engine: Optional[Callable[[str], plan_engine.E
             continue
         problem = validate_request(r)
         if problem:
-            _finish(firestore, rid, "failed", clock(), "invalid_request")
+            _finish(firestore, rid, "failed", clock(), "invalid_request", refund=(r.get("uid"), r.get("country")) if r.get("uid") and r.get("country") else None)
             processed.append({"id": rid, "status": "failed", "code": "invalid_request", "why": problem})
             continue
         created = r.get("createdAt") if isinstance(r.get("createdAt"), _dt.datetime) else now
-        if not quota_ok(firestore, r["uid"], created, cfg.plan_weekly_limit):
+        if not quota_ok(firestore, r["uid"], r["country"], cfg.plan_country_limit):
             _finish(firestore, rid, "failed", clock(), "quota_exceeded")
             processed.append({"id": rid, "status": "failed", "code": "quota_exceeded"})
             continue
         ctx, allowed_ids, versions = load_country_context(cfg.repo_root, r["country"])
         if ctx is None:
-            _finish(firestore, rid, "failed", clock(), "country_unavailable")
+            _finish(firestore, rid, "failed", clock(), "country_unavailable", refund=(r["uid"], r["country"]))
             processed.append({"id": rid, "status": "failed", "code": "country_unavailable"})
             continue
         if budget_sec is not None and monotonic() - started > budget_sec:
@@ -351,13 +368,13 @@ def run(cfg, firestore, store, *, engine: Optional[Callable[[str], plan_engine.E
         if res.status != "ok" or res.data is None:
             code = "engine_timeout" if res.status == "timeout" else ("invalid_output" if res.status == "bad_output" else "engine_error")
             if (firestore.get_document(f"{REQUESTS}/{rid}") or {}).get("status") == "processing":
-                _finish(firestore, rid, "failed", clock(), code)
+                _finish(firestore, rid, "failed", clock(), code, refund=(r["uid"], r["country"]))
             processed.append({"id": rid, "status": "failed", "code": code})
             continue
         why = validate_plan(res.data, days, allowed_ids)
         if why:
             if (firestore.get_document(f"{REQUESTS}/{rid}") or {}).get("status") == "processing":
-                _finish(firestore, rid, "failed", clock(), "invalid_output")
+                _finish(firestore, rid, "failed", clock(), "invalid_output", refund=(r["uid"], r["country"]))
             processed.append({"id": rid, "status": "failed", "code": "invalid_output", "why": why})
             continue
         current = firestore.get_document(f"{REQUESTS}/{rid}") or {}
