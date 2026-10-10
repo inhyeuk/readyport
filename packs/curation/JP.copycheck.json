@@ -1,4 +1,9 @@
 {
+  "abeno-harukas": {
+    "cache_set_sha256": "2747fc52ee808406a17260a6ad04c6dbc3b8d436ab86523fe0dfb1d1c0d89f66",
+    "checked_at": "2026-10-10",
+    "text_sha256": "0cf0abb5d5cb51dbab4bd8ebad878ce01134ea5c03f438a098fc855bfc125154"
+  },
   "arashiyama": {
     "cache_set_sha256": "7308d0d13ad56185e83c0287e27f5224a3a7131783325ee650caa5f8b75ddc40",
     "checked_at": "2026-10-10",
@@ -8,6 +13,16 @@
     "cache_set_sha256": "27d54dda7d49bb2057fd4724358d83b29a913dc7d6f338600cc147e79c363367",
     "checked_at": "2026-10-10",
     "text_sha256": "385369e44294acf3cedbd640a8b30d24c5849ddb823d9ce3fd7c0a02ac4a7067"
+  },
+  "blue-pond": {
+    "cache_set_sha256": "be0f456f8ee760f019f30291bb881bee73df2e7b90a3b8a12b8cf8112b6d7d11",
+    "checked_at": "2026-10-10",
+    "text_sha256": "35ca36a36a98af686ccb2ed2c4cb5e89f2116b474ee3a504553ed81674e0cd31"
+  },
+  "byodoin": {
+    "cache_set_sha256": "bdb4827fb9e2d758ad70ceb88cc56950584cd958e67f9575c5c9cd77025ff6ce",
+    "checked_at": "2026-10-10",
+    "text_sha256": "c4ee67dfd95143843785767c0cf12377b1062ec7a4d442605f4f47c53414305f"
   },
   "cape-manzamo": {
     "cache_set_sha256": "819301875f99859e5467e126b0b6c716b4a4889ada90d7b166fd110dcaeee148",
@@ -24,10 +39,30 @@
     "checked_at": "2026-10-10",
     "text_sha256": "0ed7cf038839cbd877ca9bdb4860b303c1f86eac73220c2f58dedcba67f126fb"
   },
+  "dejima": {
+    "cache_set_sha256": "5d2589413175031c6b57a8bb94c92ece7172414ac351a93a03a1b7065bba00e9",
+    "checked_at": "2026-10-10",
+    "text_sha256": "eda837202a34b9967831c0e65f4f369e7f487af96fbbe0575836b8ad7e47355d"
+  },
   "dotonbori": {
     "cache_set_sha256": "2c35f8275c3a3979e48369acc3689d0d0d0d95743ea1f52c5430b6f07f1875b2",
     "checked_at": "2026-10-10",
     "text_sha256": "4953e6c877518865404e1b07dc7b9726fc292a80e2419110dd0e785b6b02ffb8"
+  },
+  "farm-tomita": {
+    "cache_set_sha256": "88eaab98d39fabddb22b1b07628017aeba3bb26340781341e544661ab0270139",
+    "checked_at": "2026-10-10",
+    "text_sha256": "1f082a8fdaba2a5fdeecb0661b91c8d6022637a29d2284bade51f7d67387ad44"
+  },
+  "fukuoka-castle": {
+    "cache_set_sha256": "bd9e5f5ab24b9a2b3a54d086132ce05daac49eb1674ef68f637c09aa6c3e13af",
+    "checked_at": "2026-10-10",
+    "text_sha256": "126022bd416612951c7732cc6bd86671d4a52adaaf1c1588bef6158622b6fb37"
+  },
+  "fukuoka-tower": {
+    "cache_set_sha256": "a6462082a40eb7c3fbe1fcd8e67546b5cba3b2c6a8ca8647b69a2301a474b76d",
+    "checked_at": "2026-10-10",
+    "text_sha256": "b3bc68173a704d692aae769bbf2b841901ab185664a2e27d0b64cfce251ebae2"
   },
   "fushimi-inari-taisha": {
     "cache_set_sha256": "6cb8650544b0b9c81936ce330ede5a3cbe19a2d1a806f748aed11d505583a1e8",
@@ -38,6 +73,16 @@
     "cache_set_sha256": "3a0513fa027ca5c71bae247e86dd73bf22fe39afa8f506098d790c63af482518",
     "checked_at": "2026-10-10",
     "text_sha256": "5fdbacdf72bd57e7bcb6b1cfca97adbf99abed14c714e23c3befc67471f76b94"
+  },
+  "ginkaku-ji": {
+    "cache_set_sha256": "b144df8e85756dd9cee0cd34655eefae9bfb6a78438b4bf6fd92186592eea8b5",
+    "checked_at": "2026-10-10",
+    "text_sha256": "3fe5932f1bd46d15e8d9f6c23ab1645bf8dbcf681f47c50536185b09a0edbf01"
+  },
+  "glover-garden": {
+    "cache_set_sha256": "9a5d553133af6cc8a3daab659fc2b9d985324535570041eb1e526cd49bf25d2d",
+    "checked_at": "2026-10-10",
+    "text_sha256": "239fcbacf836795ca573e6a715133c7b8c6b9667da6d7ce99faa5cbd7998ee93"
   },
   "himeji-castle": {
     "cache_set_sha256": "39009fa300e5b76afb8b14fee7159b7e7058b40caf546d4bbde367f6b6b12587",
@@ -69,6 +114,11 @@
     "checked_at": "2026-10-10",
     "text_sha256": "4ee92f3bb59fdf39a4f190be35ceada7901bd7a325eb8de96d532d46400a298e"
   },
+  "kegon-falls": {
+    "cache_set_sha256": "4281467745a1aa7b5a495efeaa1e5abe407d13c92c47af81b49760794443517a",
+    "checked_at": "2026-10-10",
+    "text_sha256": "77ae29fef9b05adf08797f1532f83b8c7d7faff0be4f44947fea5020322a404c"
+  },
   "kinkaku-ji": {
     "cache_set_sha256": "dc567564ae20401669cc4474ad543e0bb682539f6266f7710121ea6c3f181af9",
     "checked_at": "2026-10-10",
@@ -94,6 +144,11 @@
     "checked_at": "2026-10-10",
     "text_sha256": "3a4c669bc919a3621c48081ac54848f27077eedfeea296eec292045e2b0a3e1a"
   },
+  "kobe-port-tower": {
+    "cache_set_sha256": "bb2d49b2d14978617442e71cad43bbb7593e1a074039f54f3838b0d850092ed4",
+    "checked_at": "2026-10-10",
+    "text_sha256": "a1fd78c0722d6e0df5e38b9f6ad0cab4276f9d3ead0b8bafbe526c082b7eb974"
+  },
   "koko-en": {
     "cache_set_sha256": "ce8104a0fb1646278c9e4ea43f81f7b21b21d549137471d219be9a0de06fc413",
     "checked_at": "2026-10-10",
@@ -114,10 +169,20 @@
     "checked_at": "2026-10-10",
     "text_sha256": "5081269fcc46f283ee0c21eb9c72137de0710ff7d5ce539f4b23a26123d166c5"
   },
+  "kyoto-aquarium": {
+    "cache_set_sha256": "297972b31db9076fe1d4fa275ec8a5ee5e076b8d3ac7481c6aca93ad90e74f24",
+    "checked_at": "2026-10-10",
+    "text_sha256": "bbd5dd5efe8f06f29e6d8b74d4632da9a151304c2a65b3b925488775d0dae072"
+  },
   "kyoto-national-museum": {
     "cache_set_sha256": "6c9e131469f18e495a954e575264be5b2c2409f411a1f07a3c3e1323a8c1dd84",
     "checked_at": "2026-10-10",
     "text_sha256": "5aa2dbb244b2e281564fa0b3d25f6a7843c2e2549f130c52e57ca368e3183161"
+  },
+  "kyoto-tower": {
+    "cache_set_sha256": "50d267b6266ad2c661cc0a6824cb73a9a57f23b0e1ca80cfcd7e08651c0d8817",
+    "checked_at": "2026-10-10",
+    "text_sha256": "8f9a5eb2222d0042da8786db45bacfc9de34b2ab3a6168582ffcbc415d89747f"
   },
   "lake-ashi": {
     "cache_set_sha256": "67b84276346b35a28564feb2dbd2c49bbe33ca8e114fa5fcda3b5e1722c6cb00",
@@ -128,6 +193,11 @@
     "cache_set_sha256": "fc2c71e832bc5afa56b0e0e57c1ff8f47ce33fa529c13d15938c9f5140326046",
     "checked_at": "2026-10-10",
     "text_sha256": "e86e1b35af19775dc04da9e67415c2e8461d468037dc378d5dd094d95de3852d"
+  },
+  "legoland-japan": {
+    "cache_set_sha256": "91bfdef8b2c431ef3254cee7844df750004beab8e08e1e4285fe86448b74639a",
+    "checked_at": "2026-10-10",
+    "text_sha256": "3a9797540b16e834f55ae166b8a3c34359314d8ab54ce25b59daeed8a6765b76"
   },
   "meiji-jingu": {
     "cache_set_sha256": "517110c2159eeb24180e3110e104959e056df20417c370fe40e8386ce963960f",
@@ -144,6 +214,16 @@
     "checked_at": "2026-10-10",
     "text_sha256": "a1d5d72a6c5108f54d8322ffc3ce231dbcf001f08b720bf25593af81165d987e"
   },
+  "nagasaki-atomic-bomb-museum": {
+    "cache_set_sha256": "d47eeedebb19857324b2c0bff7ae27cb840fbeadb76f5e4a0c9a0200a832bcc3",
+    "checked_at": "2026-10-10",
+    "text_sha256": "f2967bb0fbfefcfc9a8872d0607437808f37ac76785e15f53916ea2cb87fbefd"
+  },
+  "nagoya-castle": {
+    "cache_set_sha256": "b4a0cfdc80ce7330b5c7fad956e5abb826d0f0f9ce0d8e90c91652ff66694070",
+    "checked_at": "2026-10-10",
+    "text_sha256": "2383b86a2a70bafa4f75d5ccc6a72bb3373eaba15b596946d4cdb106adcead53"
+  },
   "nankinmachi": {
     "cache_set_sha256": "c91f676ebf930e93e3b89f57202d6b853513130426a14fd1267f3ca41cfb6e44",
     "checked_at": "2026-10-10",
@@ -159,10 +239,25 @@
     "checked_at": "2026-10-10",
     "text_sha256": "1292bd1aecb0f51feb024708428814fe73ce3cbefce11ea484913033cbb9198f"
   },
+  "nikko-rinnoji": {
+    "cache_set_sha256": "3e47d8772dc2defc333bc43946d35b2ac87844904979f1f6e577c30505b8d42e",
+    "checked_at": "2026-10-10",
+    "text_sha256": "af683e304574b0a9c545290c6a5676e39148d8827e75b74ae58767cfa506465e"
+  },
+  "nikko-toshogu": {
+    "cache_set_sha256": "137c1c925c50d755e6ed9027da4edfd46b32c2a203dc0c96a464eca12550fb23",
+    "checked_at": "2026-10-10",
+    "text_sha256": "626e7a33d87f7b0e4918394ee952b6cf9d0f5094852fce6616185752011d8a60"
+  },
   "nishiki-market": {
     "cache_set_sha256": "8768237800dd0594766078c9624db368ec0f03cb7ab7e78c3d3c75e153d53b78",
     "checked_at": "2026-10-10",
     "text_sha256": "d422ec5a0666fffa0e3e7999869970213203ff4d1b04d0103373d8df10e8184b"
+  },
+  "odori-park": {
+    "cache_set_sha256": "ba1d4379c2dc855115fa650bf06d834eda28927e37b757ca76526ef801c29a0e",
+    "checked_at": "2026-10-10",
+    "text_sha256": "41eaf5330e7b68846b247c8f319844c1cd0d17dbc42ba87ec2d0437d0e02e1d8"
   },
   "ohori-park": {
     "cache_set_sha256": "ac97c59b11f5c433e0d441ff8d0926318c60d803dc2d03b88db65f81ebd8d03e",
@@ -189,15 +284,50 @@
     "checked_at": "2026-10-10",
     "text_sha256": "d32218af0990aba5263cfa9c78cc6b6dc88eca1245d5447dbf0cb32ccb43d471"
   },
+  "port-of-nagoya-aquarium": {
+    "cache_set_sha256": "272d284df6ed3a576ca43bf65e8409dd5f0621b054999d6770203240d661dd3e",
+    "checked_at": "2026-10-10",
+    "text_sha256": "71a4fb66b840343d7fe53820750bed3fd972dfddd3ea30d116ac8ec43793c4fc"
+  },
   "sapporo-clock-tower": {
     "cache_set_sha256": "e5447300930e959e086d77cddb66a4ec76a4b55e3bda9686978b9fb42a793a29",
     "checked_at": "2026-10-10",
     "text_sha256": "cac95d1a2e29c5b41d85169aa95523b26d980d55285ec3c09cbf4e8d0c6b3c23"
   },
+  "sapporo-tv-tower": {
+    "cache_set_sha256": "5d0a1dbd6ccdc9fdcac690356d5807f47af0952a93ef390b45797b384bc10dae",
+    "checked_at": "2026-10-10",
+    "text_sha256": "1785848ef686f35f45997f8ca9cfaf16f77e2b89c8c00f2cfe6d30a937746f22"
+  },
   "sensoji": {
     "cache_set_sha256": "c4ec886fb14b10bf2bfa0912217c0f1661d4519091d4d7a9dcebfddb7bb7fa8f",
     "checked_at": "2026-10-10",
     "text_sha256": "f3fc35e556bcc56467596c245a5a42e596c1670e41ecfccb22f9898c0e75a28f"
+  },
+  "shibuya-sky": {
+    "cache_set_sha256": "44c7376c32eeb712e3e77d40d495d580a917f8695b410bd5bc8a8878d40e60f9",
+    "checked_at": "2026-10-10",
+    "text_sha256": "7823214d96a00fc0a879d722f588026872cd70b57185b602565478d4260f5832"
+  },
+  "shinjuku-gyoen": {
+    "cache_set_sha256": "23ca29495ff6a7fcde0314267df312d7d94a21649d2db9282b5737f0b1725e5a",
+    "checked_at": "2026-10-10",
+    "text_sha256": "8e8afe3c2b02007cd34c56144895985cc1577b50f27986bae0752ac458dd4509"
+  },
+  "shirahige-falls": {
+    "cache_set_sha256": "4059c0a836cc355e5569c39f1ba398d50e7226da077a217d99cf7225a2ef9654",
+    "checked_at": "2026-10-10",
+    "text_sha256": "7ff614d072cabca4d023374765b232970cfe17d523e0a1b21d721d7bad5f00a0"
+  },
+  "shirakawa-go": {
+    "cache_set_sha256": "c32af2e759f7276867ef0c38cfff8628355c6cd2ab5a6494f227b323ee5a17a4",
+    "checked_at": "2026-10-10",
+    "text_sha256": "7ffa78763aca4568d24b55cae668e838eecab426874540a40f88e00e2bd09912"
+  },
+  "shitennoji": {
+    "cache_set_sha256": "245f53cca3cfb46ded51a066503a214f1727664efc431454527d5022af1bded0",
+    "checked_at": "2026-10-10",
+    "text_sha256": "45e9f80caa56f3fba64ffa9cf2b154908d725031318b9104126439ac32e5673a"
   },
   "shuri-castle": {
     "cache_set_sha256": "84ace690dcd7da19bddb654b7969f9481afa4ca6e6777e2821cd7ae9a98b55ae",
@@ -209,10 +339,25 @@
     "checked_at": "2026-10-10",
     "text_sha256": "536da41ab473214041d9deaafdb67071ff4701029a0d3fe7520c31231b8f3f47"
   },
+  "takayama-jinya": {
+    "cache_set_sha256": "309f177b44193bd5f43fc2893f211f4e83668c5cb81ec110e9fb943e9253c5d1",
+    "checked_at": "2026-10-10",
+    "text_sha256": "a18ef917c7c0007fe6f8bbc154c0204e84b6b93ab1092ddb3a136b03654ee81f"
+  },
+  "takayama-old-town": {
+    "cache_set_sha256": "62a35b8bc4ece108ce4d6248ed96a93df97b0c56f5ce3fa708fe87c3b68142a4",
+    "checked_at": "2026-10-10",
+    "text_sha256": "2ea70a8e8b8ac2c08700c88af76e1e56d03b2cdc6304eb92acf0833853c975ff"
+  },
   "takegawara-onsen": {
     "cache_set_sha256": "c8018eb392bc95401cbd227fdb5d6c6860d081bf63cada7758c85298cc61a96c",
     "checked_at": "2026-10-10",
     "text_sha256": "1766bcc0e6412e4e387daafabf4aad7d8a53a65e1be260f2647795b799722e62"
+  },
+  "teamlab-planets": {
+    "cache_set_sha256": "b1a1fa0a0c021c1679c8442ff7194974807bea5246284ed0493bfff68671b294",
+    "checked_at": "2026-10-10",
+    "text_sha256": "f47e26f03cde4c37e513a6d43d386fc88cbd310e873d892223bd29f74d1ed8ef"
   },
   "tenjin": {
     "cache_set_sha256": "343dcde66027b6e9a2e72a17c492cce669f7749c479d4dd742555dffed4bcabf",
@@ -223,6 +368,21 @@
     "cache_set_sha256": "f33646240766aba682e464c8249184f47b5e493c2c3cde3d37d1425defdabd24",
     "checked_at": "2026-10-10",
     "text_sha256": "3ec42a9dcb5b70754502b751b8eb2dc0a20ad9df7d36abb52f477ddd32c86290"
+  },
+  "tokyo-disneyland": {
+    "cache_set_sha256": "ce094b6737d4f0c8da35b42981ab5a11139d2460e1db126206fe0f8b5ae6df26",
+    "checked_at": "2026-10-10",
+    "text_sha256": "cd809e6dd6f90c8ef6193ccd1808eec642e0b6c357cf6a67ed10d034bc36d094"
+  },
+  "tokyo-disneysea": {
+    "cache_set_sha256": "a41ec4357fca91616f059f6f647519eeaccc6be65472a116cf18200377a7b634",
+    "checked_at": "2026-10-10",
+    "text_sha256": "3bf404847b857375d00d14b5a6f38fb4fcbfdce1ceccebbdbcb3171f9874bab2"
+  },
+  "tokyo-metropolitan-government-building": {
+    "cache_set_sha256": "cfceb18540b6ef45ad98c06b339ed74516bb666711f315bc0047ce3118fee51f",
+    "checked_at": "2026-10-10",
+    "text_sha256": "5a480b393b2538f19f212ff563fa9a54df9a755ea3ebecf49789024f454a6d15"
   },
   "tokyo-national-museum": {
     "cache_set_sha256": "3b6ac54ec8e144ced1a8f2ad9545d7095d415d4bde0c127d490774f4956d3814",
@@ -253,5 +413,20 @@
     "cache_set_sha256": "62e4a760e0c7a7a077f775870dceb16dff745c3abe90d7cfcaa063090a43ed82",
     "checked_at": "2026-10-10",
     "text_sha256": "056e962328eb169af475f3ee4c7c2564fc59a68cb1b7d2c49522862eae12589b"
+  },
+  "ueno-zoo": {
+    "cache_set_sha256": "9e410aade82e4b0ead453c2f359d950985df96dedc901c1f98494fe731753eb9",
+    "checked_at": "2026-10-10",
+    "text_sha256": "3120796f496ac02bc69f6661337280abcc167ce295842b67bc5e335524c5d478"
+  },
+  "umeda-sky-building": {
+    "cache_set_sha256": "816b751e1cd6caac23ca2c603f7fe13d8dd16df2dbb16cdd214073cc8806970c",
+    "checked_at": "2026-10-10",
+    "text_sha256": "046068ac2b00d0fec7ac6fc29f1670071f807af9e43fbafefe3e8241ee268008"
+  },
+  "universal-studios-japan": {
+    "cache_set_sha256": "63a4864f9148eeea22eeed111242b9fb492e609ec3c1aad0d21c1998852e6a0c",
+    "checked_at": "2026-10-10",
+    "text_sha256": "3f75393794dd8b46ffdedb849b19e7dd20f1f62662eab9e4c11342f4ad372f6b"
   }
 }
