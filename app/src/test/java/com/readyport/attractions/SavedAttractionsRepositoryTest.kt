@@ -40,6 +40,20 @@ class SavedAttractionsRepositoryTest {
         assertEquals(listOf("XX/b"), s.current().map { it.key })
     }
 
+    @Test fun addAllKeepsPlanOrderAndSkipsExisting() = runBlocking {
+        val s = store()
+        s.setSaved("XX/b", true, "2026-10-01")
+        val (added, existing) = s.addAll("XX", listOf("a", "b", "c", "a"), "2026-10-10")
+        assertEquals(2, added)
+        assertEquals(1, existing)
+        // 이미 찜한 b 는 자리·날짜 그대로, 새 곳은 계획 순서대로 맨 뒤
+        assertEquals(listOf("XX/b", "XX/a", "XX/c"), s.current().map { it.key })
+        assertEquals("2026-10-01", s.current().first { it.key == "XX/b" }.savedAt)
+        // 다시 눌러도 달라지지 않는다
+        assertEquals(0 to 3, s.addAll("XX", listOf("a", "b", "c"), "2026-10-11"))
+        assertEquals(3, s.current().size)
+    }
+
     @Test fun pureMigrationMovesAndDedupes() {
         val items = listOf(
             SavedAttraction("XX/old-a", "2026-10-01"),

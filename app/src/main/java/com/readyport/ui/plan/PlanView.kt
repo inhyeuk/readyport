@@ -12,6 +12,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.EventNote
 import androidx.compose.material.icons.outlined.AutoAwesome
 import androidx.compose.material.icons.outlined.CalendarMonth
+import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material.icons.outlined.Flag
 import androidx.compose.material.icons.outlined.Lightbulb
 import androidx.compose.material.icons.outlined.Lock
@@ -41,9 +42,11 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
 import com.readyport.R
 import com.readyport.attractions.AttractionsRepository
+import com.readyport.attractions.SavedAttractionsRepository
 import com.readyport.plan.PlanError
 import com.readyport.plan.PlanFlagReason
 import com.readyport.plan.PlanItem
+import com.readyport.plan.PlanSaves
 import com.readyport.plan.PlanPdfRenderer
 import com.readyport.plan.PlanPdfText
 import com.readyport.plan.PlanRepository
@@ -101,6 +104,8 @@ data class PlanViewUi(
     val flagSending: Boolean = false,
     /** 신고 대화상자 안에 보일 오류 문구 */
     val flagError: Int? = null,
+    /** 방금 '관광지 모두 찜하기'를 한 결과: (새로 찜한 곳, 이미 찜해 둔 곳) — 아직 안 눌렀으면 null */
+    val saveResult: Pair<Int, Int>? = null,
 )
 
 data class PlanViewActions(
@@ -111,6 +116,7 @@ data class PlanViewActions(
     val openFlag: () -> Unit = {},
     val closeFlag: () -> Unit = {},
     val sendFlag: (PlanFlagReason, String) -> Unit = { _, _ -> },
+    val saveAllPlaces: () -> Unit = {},
 )
 
 @HiltViewModel
@@ -118,6 +124,7 @@ class PlanViewViewModel @Inject constructor(
     handle: SavedStateHandle,
     private val plans: PlanRepository,
     private val attractions: AttractionsRepository,
+    private val savedAttractions: SavedAttractionsRepository,
     @ApplicationContext private val context: Context,
 ) : ViewModel() {
     private val id = handle.toRoute<PlanViewRoute>().requestId
@@ -142,6 +149,18 @@ class PlanViewViewModel @Inject constructor(
             } catch (e: Exception) {
                 _ui.update { it.copy(loading = false, offline = e is PlanError.Offline) }
             }
+        }
+    }
+
+    /** 계획에 나온 관광지(이 휴대폰 관광지 파일에 있는 곳만)를 계획 순서대로 찜한다. 이 휴대폰에만 저장되고 서버로 나가는 것은 없다 */
+    fun saveAllPlaces() {
+        val ui = _ui.value
+        val r = ui.result ?: return
+        val ids = PlanSaves.orderedPlaceIds(r, ui.places.keys)
+        if (ids.isEmpty()) return
+        viewModelScope.launch {
+            val res = runCatching { savedAttractions.addAll(r.country, ids, java.time.LocalDate.now().toString()) }.getOrNull()
+            if (res != null) _ui.update { it.copy(saveResult = res) } else say(R.string.plan_save_failed, true)
         }
     }
 
@@ -245,6 +264,7 @@ fun PlanViewScreen(openPlace: (String, String) -> Unit, openMine: () -> Unit, vi
             openFlag = viewModel::openFlag,
             closeFlag = viewModel::closeFlag,
             sendFlag = viewModel::sendFlag,
+            saveAllPlaces = viewModel::saveAllPlaces,
         ),
     )
 }
@@ -323,6 +343,25 @@ fun PlanViewContent(ui: PlanViewUi, actions: PlanViewActions = PlanViewActions()
                 CardNewsCard(title = stringResource(title), icon = icon, tone = if (title == R.string.plan_caveats) BadgeTone.Caution else BadgeTone.Teal) {
                     lines.forEach { DotBullet(it) }
                 }
+            }
+        }
+        // 계획의 관광지를 찜 목록에 한 번에 담기 — 이 휴대폰에서 안내를 볼 수 있는 곳이 하나라도 있을 때만
+        if (ui.places.isNotEmpty()) item(key = "save-all") {
+            Column(verticalArrangement = Arrangement.spacedBy(dimens.inner)) {
+                SecondaryButton(
+                    stringResource(R.string.plan_save_all, PlanSaves.orderedPlaceIds(r, ui.places.keys).size),
+                    onClick = actions.saveAllPlaces,
+                    icon = Icons.Outlined.FavoriteBorder,
+                )
+                ui.saveResult?.let { (added, existing) ->
+                    KoText(
+                        if (existing > 0) stringResource(R.string.plan_save_all_done_existing, added, existing) else stringResource(R.string.plan_save_all_done, added),
+                        MaterialTheme.typography.bodyMedium,
+                        Modifier.semantics { liveRegion = LiveRegionMode.Polite },
+                        color = Tokens.SuccessText,
+                    )
+                }
+                KoText(stringResource(R.string.plan_save_all_note), MaterialTheme.typography.bodySmall, color = Tokens.InkSecondary)
             }
         }
         item(key = "pdf") {

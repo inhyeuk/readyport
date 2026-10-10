@@ -65,6 +65,25 @@ class SavedAttractionsRepository(private val store: DataStore<Preferences>) {
         }
     }
 
+    /**
+     * 여러 곳을 한 번에 찜한다(여행 계획의 관광지 모두 찜하기). [ids]의 순서대로 맨 뒤에 붙이고, 이미 찜한 곳은 자리·날짜를 그대로 둔다.
+     * 한 번의 edit 이라 중간에 끊겨도 반만 들어가지 않는다. @return (새로 찜한 수, 이미 찜해 둔 수)
+     */
+    suspend fun addAll(country: String, ids: List<String>, today: String): Pair<Int, Int> {
+        var added = 0
+        var existing = 0
+        store.edit { prefs ->
+            val items = decode(prefs[itemsKey])
+            val have = items.map { it.key }.toSet()
+            val wanted = ids.map { "$country/$it" }.distinct()
+            val fresh = wanted.filter { it !in have }
+            existing = wanted.size - fresh.size
+            added = fresh.size
+            if (fresh.isNotEmpty()) prefs[itemsKey] = encode(items + fresh.map { SavedAttraction(it, today) })
+        }
+        return added to existing
+    }
+
     /** 같은 나라 찜 안에서 [by]칸 옮긴다(-1 = 한 칸 위로). 다른 나라 찜의 자리는 그대로 */
     suspend fun move(key: String, by: Int) {
         store.edit { prefs -> prefs[itemsKey] = encode(SavedOrder.move(decode(prefs[itemsKey]), key, by)) }
