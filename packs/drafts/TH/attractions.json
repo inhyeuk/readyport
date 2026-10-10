@@ -4346,147 +4346,6 @@
       "google_place_id": "ChIJXZgcI57qUTARPwbNwHp5zYg"
     },
     {
-      "id": "big-buddha",
-      "qid": "Q1548655",
-      "names": {
-        "ko": "푸껫 빅 부다",
-        "ko_basis": "editorial",
-        "ko_paren": null,
-        "en": "Phuket Big Buddha",
-        "local": "พระพุทธมิ่งมงคลเอกนาคคีรี",
-        "local_short": "พระใหญ่เมืองภูเก็ต",
-        "local_lang": "th",
-        "source": "wd"
-      },
-      "aliases_ko": [
-        "프라 푸타 밍몽콘 엑 나키리"
-      ],
-      "aliases_en": [
-        "Phra Phuttha Ming Mongkhon Ek Nakkhiri"
-      ],
-      "mentions_ko": [
-        "나껫 언덕",
-        "왓 끼띠상카람"
-      ],
-      "region": "th_phuket",
-      "area_ko": "푸껫 까론(나껫 언덕)",
-      "category": "heritage",
-      "tags": [],
-      "geo": {
-        "kind": "site",
-        "lat": 7.8276805555556,
-        "lng": 98.3129,
-        "source": "wd",
-        "qid": "Q1548655",
-        "osm": null,
-        "last_verified": "2026-10-10"
-      },
-      "address_local": {
-        "text": "ซอยยอดเสน่ห์ 1 ถ.เจ้าฟ้าตะวันตก, ฉลอง, เมืองภูเก็ต, จังหวัดภูเก็ต 83100, ไทย",
-        "source": "hkt_ttd_4503",
-        "last_verified": "2026-10-10"
-      },
-      "access": {
-        "modes": [
-          "car_only"
-        ],
-        "nearest_ko": "왓 찰롱 쪽 짜오파녹로에서 요드사네 골목으로 들어가 나껫 언덕을 올라가요",
-        "nearest_local": null,
-        "source": "hkt_ttd_97995",
-        "last_verified": "2026-10-10"
-      },
-      "official_url": "https://www.tourismthailand.org/Attraction/phra-phuttha-ming-mongkhon-ek-nakkhiri-phuket-big-buddha",
-      "wiki": {
-        "en": "Phuket Big Buddha"
-      },
-      "summary_ko": "언덕 위에 모신 흰 대리석 큰 불상이에요.",
-      "body_ko": [
-        "나껫 언덕 위에 모신 큰 불상이고, 푸껫 섬 곳곳에서 보여요.",
-        "너비 25.45m, 높이 45m 크기에 철근 콘크리트 위로 흰 대리석을 붙였어요.",
-        "불상 앞에서는 찰롱만, 뒤쪽으로는 까따·까론 만이 보여요."
-      ],
-      "claims": [
-        {
-          "id": "c1",
-          "text_ko": "나껫 언덕 위에 모신 큰 불상이고, 푸껫 섬 곳곳에서 보여요.",
-          "source": "hkt_ttd_97995",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c2",
-          "text_ko": "불상은 너비 25.45m, 높이 45m이고 철근 콘크리트에 흰 대리석을 붙였어요.",
-          "source": "hkt_tat_bigbuddha",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c3",
-          "text_ko": "2007년에 세 분의 큰스님이 이름을 지었고, 담마 수행 장소로 정했어요.",
-          "source": "hkt_tat_bigbuddha",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c4",
-          "text_ko": "불상 앞에서는 찰롱만, 뒤쪽으로는 까따·까론 만이 보여요.",
-          "source": "hkt_tat_bigbuddha",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "id": "c5",
-          "text_ko": "불상은 까따 사원(왓 끼띠상카람)이 숲 보전 사업을 하던 부지에 모셨어요.",
-          "source": "hkt_ttd_4503",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "tips_ko": [
-        {
-          "text": "언덕 오르는 길은 좀 가파르지만 포장되어 있어 어떤 차도 올라갈 수 있어요.",
-          "source": "hkt_ttd_97995",
-          "last_verified": "2026-10-10"
-        },
-        {
-          "text": "흰 대리석 타일에 이름을 적어 봉헌할 수 있어요.",
-          "source": "hkt_ttd_4503",
-          "last_verified": "2026-10-10"
-        }
-      ],
-      "facts": {
-        "kind": "facility",
-        "entry": "unknown",
-        "booking": "none",
-        "regular_closed": [
-          "unknown"
-        ],
-        "source": "hkt_tat_bigbuddha",
-        "booking_note_ko": null,
-        "closed_note_ko": null,
-        "visit_note_ko": null,
-        "last_verified": "2026-10-10"
-      },
-      "volatile": null,
-      "seasonal": [],
-      "risk": [],
-      "status": {
-        "value": "open",
-        "note_ko": null,
-        "source": "hkt_tat_bigbuddha",
-        "last_verified": "2026-10-10"
-      },
-      "advisory": {
-        "level": "1",
-        "source": "mofa_th",
-        "last_verified": "2026-09-28"
-      },
-      "rank": {
-        "order": 23,
-        "designations": []
-      },
-      "photo": null,
-      "photo_link": "https://commons.wikimedia.org/wiki/File:Phuket_Thailand_Big-Buddha-of-Phuket-05.jpg",
-      "source": "wd",
-      "last_verified": "2026-10-10",
-      "google_place_id": "ChIJOSmXz2AvUDARXCxlBBs7y38"
-    },
-    {
       "id": "wat-tham-suea",
       "qid": "Q6710654",
       "names": {
@@ -4619,7 +4478,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 24,
+        "order": 23,
         "designations": []
       },
       "photo": null,
@@ -4748,7 +4607,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 25,
+        "order": 24,
         "designations": []
       },
       "photo": null,
@@ -4877,7 +4736,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 26,
+        "order": 25,
         "designations": []
       },
       "photo": null,
@@ -4990,7 +4849,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 27,
+        "order": 26,
         "designations": []
       },
       "photo": null,
@@ -5137,7 +4996,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 28,
+        "order": 27,
         "designations": []
       },
       "photo": null,
@@ -5279,7 +5138,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 29,
+        "order": 28,
         "designations": []
       },
       "photo": null,
@@ -5402,7 +5261,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 30,
+        "order": 29,
         "designations": []
       },
       "photo": null,
@@ -5530,7 +5389,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 31,
+        "order": 30,
         "designations": []
       },
       "photo": null,
@@ -5690,7 +5549,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 32,
+        "order": 31,
         "designations": []
       },
       "photo": null,
@@ -5825,7 +5684,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 33,
+        "order": 32,
         "designations": []
       },
       "photo": null,
@@ -5932,7 +5791,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 34,
+        "order": 33,
         "designations": []
       },
       "photo": null,
@@ -6048,7 +5907,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 35,
+        "order": 34,
         "designations": []
       },
       "photo": null,
@@ -6182,7 +6041,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 36,
+        "order": 35,
         "designations": []
       },
       "photo": null,
@@ -6304,7 +6163,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 37,
+        "order": 36,
         "designations": []
       },
       "photo": null,
@@ -6420,7 +6279,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 38,
+        "order": 37,
         "designations": []
       },
       "photo": null,
@@ -6547,7 +6406,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 39,
+        "order": 38,
         "designations": []
       },
       "photo": null,
@@ -6676,7 +6535,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 40,
+        "order": 39,
         "designations": []
       },
       "photo": null,
@@ -6803,7 +6662,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 41,
+        "order": 40,
         "designations": []
       },
       "photo": null,
@@ -6940,7 +6799,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 42,
+        "order": 41,
         "designations": []
       },
       "photo": null,
@@ -7070,7 +6929,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 43,
+        "order": 42,
         "designations": []
       },
       "photo": null,
@@ -7196,7 +7055,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 44,
+        "order": 43,
         "designations": []
       },
       "photo": null,
@@ -7328,7 +7187,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 45,
+        "order": 44,
         "designations": []
       },
       "photo": null,
@@ -7445,7 +7304,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 46,
+        "order": 45,
         "designations": []
       },
       "photo": null,
@@ -7578,7 +7437,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 47,
+        "order": 46,
         "designations": []
       },
       "photo": null,
