@@ -245,6 +245,8 @@
     <string name="settings_credit_unesco_775">UNESCO World Heritage Centre — 히로시마 평화기념공원</string>
     <string name="settings_credit_unesco_776">UNESCO World Heritage Centre — 이쓰쿠시마 신사</string>
     <string name="settings_credit_unesco_972_maps">UNESCO World Heritage Centre — Gusuku Sites and Related Properties of the Kingdom of Ryukyu (component parts) — 슈리성</string>
+    <string name="settings_credit_unesco_1334">UNESCO World Heritage Centre — West Lake Cultural Landscape of Hangzhou — 시후</string>
+    <string name="settings_credit_unesco_640">UNESCO World Heritage Centre — Wulingyuan Scenic and Historic Interest Area — 장자제 국가삼림공원</string>
     <string name="settings_credit_unesco_870">UNESCO 세계유산센터 — 고대 나라의 역사기념물</string>
 
     <!-- 관광지 지도 (Google 지도 SDK, 사장님 결정 2026-10-09). 키가 없거나 중국이면 지도 없이 '구글 지도에서 열기'만 -->
