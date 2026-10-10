@@ -579,6 +579,7 @@ private fun MainScaffold(
                     PlanViewScreen(
                         openPlace = { code, id -> navController.navigate(AttractionDetailRoute(code, id)) },
                         openMine = { navController.navigate(PlanRequestsRoute) { launchSingleTop = true } },
+                        openTrip = { id -> navController.navigate(TripChecklistRoute(id)) },
                     )
                 }
             }

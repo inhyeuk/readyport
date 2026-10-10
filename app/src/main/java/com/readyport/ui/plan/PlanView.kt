@@ -12,6 +12,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.EventNote
 import androidx.compose.material.icons.outlined.AutoAwesome
 import androidx.compose.material.icons.outlined.CalendarMonth
+import androidx.compose.material.icons.outlined.EditCalendar
 import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material.icons.outlined.Flag
 import androidx.compose.material.icons.outlined.Lightbulb
@@ -47,6 +48,9 @@ import com.readyport.plan.PlanError
 import com.readyport.plan.PlanFlagReason
 import com.readyport.plan.PlanItem
 import com.readyport.plan.PlanSaves
+import com.readyport.itinerary.Itinerary
+import com.readyport.trip.Trip
+import com.readyport.trip.TripRepository
 import com.readyport.plan.PlanPdfRenderer
 import com.readyport.plan.PlanPdfText
 import com.readyport.plan.PlanRepository
@@ -106,6 +110,13 @@ data class PlanViewUi(
     val flagError: Int? = null,
     /** 방금 '관광지 모두 찜하기'를 한 결과: (새로 찜한 곳, 이미 찜해 둔 곳) — 아직 안 눌렀으면 null */
     val saveResult: Pair<Int, Int>? = null,
+    /** 이 계획을 보낼 때 정한 출발일(있으면 새 여행 날짜 칸을 미리 채운다) */
+    val requestStart: String? = null,
+    /** '새 여행 만들기' 대화상자 */
+    val tripDialog: Boolean = false,
+    val tripCreating: Boolean = false,
+    /** 만든 새 여행 id — 있으면 '여행 열기' */
+    val createdTripId: String? = null,
 )
 
 data class PlanViewActions(
@@ -117,6 +128,10 @@ data class PlanViewActions(
     val closeFlag: () -> Unit = {},
     val sendFlag: (PlanFlagReason, String) -> Unit = { _, _ -> },
     val saveAllPlaces: () -> Unit = {},
+    val openTripDialog: () -> Unit = {},
+    val closeTripDialog: () -> Unit = {},
+    val createTrip: (String) -> Unit = {},
+    val openTrip: (String) -> Unit = {},
 )
 
 @HiltViewModel
@@ -125,6 +140,7 @@ class PlanViewViewModel @Inject constructor(
     private val plans: PlanRepository,
     private val attractions: AttractionsRepository,
     private val savedAttractions: SavedAttractionsRepository,
+    private val trips: TripRepository,
     @ApplicationContext private val context: Context,
 ) : ViewModel() {
     private val id = handle.toRoute<PlanViewRoute>().requestId
@@ -145,7 +161,8 @@ class PlanViewViewModel @Inject constructor(
                         .mapNotNull { pid -> catalog?.attraction(pid)?.let { pid to it.title } }.toMap()
                 }.orEmpty()
                 val flagged = result != null && runCatching { plans.isFlagged(id) }.getOrDefault(false)
-                _ui.update { it.copy(loading = false, offline = false, result = result, places = places, flagged = flagged) }
+                val start = runCatching { plans.request(id)?.startDate }.getOrNull()
+                _ui.update { it.copy(loading = false, offline = false, result = result, places = places, flagged = flagged, requestStart = start) }
             } catch (e: Exception) {
                 _ui.update { it.copy(loading = false, offline = e is PlanError.Offline) }
             }
@@ -161,6 +178,36 @@ class PlanViewViewModel @Inject constructor(
         viewModelScope.launch {
             val res = runCatching { savedAttractions.addAll(r.country, ids, java.time.LocalDate.now().toString()) }.getOrNull()
             if (res != null) _ui.update { it.copy(saveResult = res) } else say(R.string.plan_save_failed, true)
+        }
+    }
+
+    fun openTripDialog() = _ui.update { it.copy(tripDialog = true) }
+
+    fun closeTripDialog() = _ui.update { if (it.tripCreating) it else it.copy(tripDialog = false) }
+
+    /**
+     * 이 계획으로 **새 여행**을 만든다 — 나라 = 계획의 나라, 출발일 = 고른 날, 돌아오는 날 = 출발일 + (계획 일수 − 1).
+     * 계획의 날짜별 관광지가 그 여행의 관광 일정이 되고(1일차 = 여행 1일차), 같은 곳이 찜 목록에도 계획 순서로 들어간다.
+     * 기존 여행은 건드리지 않는다. 이 휴대폰 안에만 저장된다.
+     */
+    fun createTrip(startIso: String) {
+        val ui = _ui.value
+        val r = ui.result ?: return
+        if (ui.tripCreating) return
+        val start = runCatching { java.time.LocalDate.parse(startIso) }.getOrNull() ?: return
+        val dayCount = r.days.size.coerceAtLeast(1)
+        _ui.update { it.copy(tripCreating = true) }
+        viewModelScope.launch {
+            val tripId = runCatching {
+                val trip = trips.save(Trip(country = r.country, startDate = start.toString(), endDate = start.plusDays((dayCount - 1).toLong()).toString()))
+                val stops = PlanSaves.stops(r, ui.places.keys, dayCount)
+                if (stops.isNotEmpty()) trips.editItinerary(trip.id) { Itinerary.add(it, stops) }
+                val ids = PlanSaves.orderedPlaceIds(r, ui.places.keys)
+                if (ids.isNotEmpty()) savedAttractions.addAll(r.country, ids, java.time.LocalDate.now().toString())
+                trip.id
+            }.getOrNull()
+            if (tripId != null) _ui.update { it.copy(tripCreating = false, tripDialog = false, createdTripId = tripId) }
+            else _ui.update { it.copy(tripCreating = false, tripDialog = false, message = R.string.plan_trip_failed, messageIsError = true) }
         }
     }
 
@@ -245,7 +292,7 @@ fun planPdfText(r: PlanResult, places: Map<String, String>): PlanPdfText {
 }
 
 @Composable
-fun PlanViewScreen(openPlace: (String, String) -> Unit, openMine: () -> Unit, viewModel: PlanViewViewModel = hiltViewModel()) {
+fun PlanViewScreen(openPlace: (String, String) -> Unit, openMine: () -> Unit, openTrip: (String) -> Unit = {}, viewModel: PlanViewViewModel = hiltViewModel()) {
     val ui by viewModel.ui.collectAsStateWithLifecycle()
     val context = LocalContext.current
     val r = ui.result
@@ -265,6 +312,10 @@ fun PlanViewScreen(openPlace: (String, String) -> Unit, openMine: () -> Unit, vi
             closeFlag = viewModel::closeFlag,
             sendFlag = viewModel::sendFlag,
             saveAllPlaces = viewModel::saveAllPlaces,
+            openTripDialog = viewModel::openTripDialog,
+            closeTripDialog = viewModel::closeTripDialog,
+            createTrip = viewModel::createTrip,
+            openTrip = openTrip,
         ),
     )
 }
@@ -364,6 +415,24 @@ fun PlanViewContent(ui: PlanViewUi, actions: PlanViewActions = PlanViewActions()
                 KoText(stringResource(R.string.plan_save_all_note), MaterialTheme.typography.bodySmall, color = Tokens.InkSecondary)
             }
         }
+        // 이 계획으로 새 여행 만들기 — 계획의 날짜별 관광지가 새 여행의 관광 일정이 된다(기존 여행은 그대로)
+        if (ui.places.isNotEmpty()) item(key = "new-trip") {
+            Column(verticalArrangement = Arrangement.spacedBy(dimens.inner)) {
+                val created = ui.createdTripId
+                if (created == null) {
+                    PrimaryButton(stringResource(R.string.plan_trip_open_dialog), onClick = actions.openTripDialog, icon = Icons.Outlined.EditCalendar)
+                    KoText(stringResource(R.string.plan_trip_hint), MaterialTheme.typography.bodySmall, color = Tokens.InkSecondary)
+                } else {
+                    KoText(
+                        stringResource(R.string.plan_trip_done),
+                        MaterialTheme.typography.bodyMedium,
+                        Modifier.semantics { liveRegion = LiveRegionMode.Polite },
+                        color = Tokens.SuccessText,
+                    )
+                    SecondaryButton(stringResource(R.string.plan_trip_open), onClick = { actions.openTrip(created) }, icon = Icons.Outlined.CalendarMonth)
+                }
+            }
+        }
         item(key = "pdf") {
             Column(verticalArrangement = Arrangement.spacedBy(dimens.inner)) {
                 PrimaryButton(stringResource(R.string.plan_pdf_save), onClick = actions.savePdf, icon = Icons.Outlined.PictureAsPdf)
@@ -390,6 +459,12 @@ fun PlanViewContent(ui: PlanViewUi, actions: PlanViewActions = PlanViewActions()
                 }
             }
         }
+    }
+    if (ui.tripDialog && ui.createdTripId == null) {
+        PlanTripDialog(
+            country = country, days = r.days.size, initialStart = ui.requestStart, creating = ui.tripCreating,
+            onCreate = actions.createTrip, onDismiss = actions.closeTripDialog,
+        )
     }
     if (ui.flagDialog && !ui.flagged) {
         PlanFlagDialog(sending = ui.flagSending, error = ui.flagError, onSend = actions.sendFlag, onDismiss = actions.closeFlag)
