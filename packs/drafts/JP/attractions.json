@@ -2,7 +2,7 @@
   "doc_type": "attractions",
   "schema_version": 1,
   "country": "JP",
-  "version": "2026.10.10-1",
+  "version": "2026.10.10-2",
   "release": "draft",
   "editorial_rules": "2026-10",
   "compact_country": false,
@@ -8474,6 +8474,158 @@
         "en": "Hiroshima Castle"
       },
       "google_place_id": "ChIJw-f36qaYWjURMpYztSzpe_U"
+    },
+    {
+      "id": "shitennoji",
+      "qid": "Q339859",
+      "names": {
+        "ko": "시텐노지",
+        "ko_basis": "editorial",
+        "en": "Shitennō-ji",
+        "local": "四天王寺",
+        "local_short": "四天王寺",
+        "local_lang": "ja",
+        "source": "wd",
+        "ko_paren": "사천왕사"
+      },
+      "aliases_ko": [
+        "사천왕사",
+        "시텐노지 절",
+        "덴노지 절"
+      ],
+      "aliases_en": [
+        "Shitennoji Temple"
+      ],
+      "mentions_ko": [
+        "중심가람",
+        "극락정토의 정원"
+      ],
+      "region": "jp_osaka",
+      "area_ko": "오사카 덴노지구",
+      "category": "heritage",
+      "geo": {
+        "kind": "site",
+        "lat": 34.6539,
+        "lng": 135.51645,
+        "source": "wd",
+        "last_verified": "2026-10-10",
+        "qid": "Q339859"
+      },
+      "address_local": {
+        "text": "大阪府大阪市天王寺区四天王寺1-11-18",
+        "source": "shitennoji_official_access",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "metro",
+          "train"
+        ],
+        "nearest_ko": "오사카 메트로 다니마치선 시텐노지마에유히가오카역에서 남쪽으로 걸어가요 (JR·지하철 덴노지역에서는 북쪽으로 걸어가요)",
+        "nearest_local": {
+          "text": "四天王寺前夕陽ヶ丘駅",
+          "qid": "Q83603",
+          "source": "wd"
+        },
+        "source": "shitennoji_official_access",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.shitennoji.or.jp/",
+      "summary_ko": "쇼토쿠 태자가 세웠다고 전하는 오사카의 오래된 절이에요.",
+      "body_ko": [
+        "시텐노지는 593년에 세워졌다고 전하는 절로, 쇼토쿠 태자가 사천왕상을 모실 절을 짓겠다고 서원한 데서 비롯했다고 해요.",
+        "남쪽에서 북쪽으로 중문·오중탑·금당·강당을 한 줄로 놓고 회랑이 둘러싸는 '시텐노지식 가람 배치'로, 일본에서 가장 오래된 건축 양식 가운데 하나예요.",
+        "지금 중심가람은 1945년 오사카 대공습으로 거의 다 불탄 뒤 다시 세운 것이고, 북쪽의 육시레이산도 등 몇 채는 에도 시대에 지어 국가 중요문화재예요.",
+        "경내에는 일본 정원 '극락정토의 정원'과, 국보·중요문화재를 소장한 보물관도 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "시텐노지는 593년(스이코 천황 원년)에 세워졌다고 전해요.",
+          "source": "shitennoji_official_history",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "남에서 북으로 중문·오중탑·금당·강당을 일직선으로 놓고 회랑이 둘러싸는 '시텐노지식 가람 배치'로, 일본에서 가장 오래된 건축 양식 가운데 하나예요.",
+          "source": "shitennoji_official_history",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "1945년 오사카 대공습으로 경내 거의 전역이 불탔고, 육시당·오치코인·본방 방장 등 가람 북쪽 일부만 남았어요.",
+          "source": "shitennoji_official_history",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "경내 북쪽의 육시레이산도·간잔다이시도·본방 서통용문·오치코인·방장은 에도 시대 겐나 연간에 다시 지어 국가 중요문화재로 지정돼 있어요.",
+          "source": "shitennoji_official_faq",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "보물관은 창건 당시 물품을 비롯한 국보·중요문화재 500점가량을 소장해요.",
+          "source": "shitennoji_official_history",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c6",
+          "text_ko": "경내에 일본 정원 '극락정토의 정원'이 있어요.",
+          "source": "shitennoji_official_history",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "매월 대사회·태자회 날과 봄·가을 피안회 기간에는 중심가람을 무료로 열어요.",
+          "source": "shitennoji_official_admission",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "경내 문은 늘 열려 있어서 당 밖에서는 언제든 참배할 수 있어요.",
+          "source": "shitennoji_official_admission",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "매월 대사회·태자회 날은 절의 장날이라 노점이 많이 들어서요.",
+          "source": "shitennoji_official_history",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "unknown"
+        ],
+        "visit_note_ko": "경내와 대부분의 당은 무료로 참배할 수 있고, 중심가람·극락정토의 정원·보물관 세 곳은 유료예요.",
+        "source": "shitennoji_official_faq",
+        "last_verified": "2026-10-10"
+      },
+      "status": {
+        "value": "open",
+        "source": "shitennoji_official_faq",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 0,
+        "designations": [
+          {
+            "kind": "jp_important_cultural_property_partial",
+            "name_ko": "경내 북쪽 육시레이산도 등 중요문화재",
+            "source": "shitennoji_official_faq"
+          }
+        ]
+      },
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Shitennoji03s3200.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10"
     }
   ],
   "retired": [],
@@ -10079,6 +10231,30 @@
       "id": "yuirail_makishi",
       "name": "沖縄都市モノレール ゆいレール 牧志駅",
       "url": "https://www.yui-rail.co.jp/routemap/makishi/",
+      "use": "facts"
+    },
+    {
+      "id": "shitennoji_official_access",
+      "name": "四天王寺 アクセス",
+      "url": "https://www.shitennoji.or.jp/access.html",
+      "use": "facts"
+    },
+    {
+      "id": "shitennoji_official_admission",
+      "name": "四天王寺 拝観ご案内",
+      "url": "https://www.shitennoji.or.jp/admission.html",
+      "use": "facts"
+    },
+    {
+      "id": "shitennoji_official_faq",
+      "name": "四天王寺 よくあるご質問",
+      "url": "https://www.shitennoji.or.jp/faq.html",
+      "use": "facts"
+    },
+    {
+      "id": "shitennoji_official_history",
+      "name": "四天王寺 四天王寺の歴史",
+      "url": "https://www.shitennoji.or.jp/history.html",
       "use": "facts"
     }
   ]
