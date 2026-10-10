@@ -2,13 +2,35 @@
   "doc_type": "attractions",
   "schema_version": 1,
   "country": "CN",
-  "version": "2026.10.09-1",
+  "version": "2026.10.10-1",
   "release": "draft",
   "editorial_rules": "2026-10",
   "compact_country": false,
   "unmapped_airports": [],
   "retired": [],
-  "upcoming_regions": [],
+  "upcoming_regions": [
+    {
+      "name_ko": "청두",
+      "aliases_ko": [
+        "성도"
+      ]
+    },
+    {
+      "name_ko": "충칭",
+      "aliases_ko": [
+        "중경"
+      ]
+    },
+    {
+      "name_ko": "구이린·양숴",
+      "aliases_ko": [
+        "계림",
+        "양삭",
+        "구이린",
+        "양숴"
+      ]
+    }
+  ],
   "regions": [
     {
       "id": "cn_beijing",
@@ -230,87 +252,6 @@
       },
       "advisory_watch_ko": [],
       "wave": 2
-    },
-    {
-      "id": "cn_chengdu",
-      "order": 90,
-      "name_ko": "청두",
-      "name_en": "Chengdu",
-      "aliases_ko": [
-        "성도"
-      ],
-      "group_ko": "서남",
-      "kind": "base",
-      "water_crossing": false,
-      "hub": {
-        "name_ko": "청두둥역",
-        "lat": 30.6311,
-        "lng": 104.139,
-        "qid": "Q5091316"
-      },
-      "airports": [],
-      "advisory": {
-        "level": "1",
-        "source": "mofa_cn",
-        "last_verified": "2026-10-02"
-      },
-      "advisory_watch_ko": [],
-      "wave": 2
-    },
-    {
-      "id": "cn_chongqing",
-      "order": 100,
-      "name_ko": "충칭",
-      "name_en": "Chongqing",
-      "aliases_ko": [
-        "중경"
-      ],
-      "group_ko": "서남",
-      "kind": "base",
-      "water_crossing": false,
-      "hub": {
-        "name_ko": "충칭베이역",
-        "lat": 29.61041667,
-        "lng": 106.54708333,
-        "qid": "Q5104670"
-      },
-      "airports": [],
-      "advisory": {
-        "level": "1",
-        "source": "mofa_cn",
-        "last_verified": "2026-10-02"
-      },
-      "advisory_watch_ko": [],
-      "wave": 2
-    },
-    {
-      "id": "cn_guilin",
-      "order": 110,
-      "name_ko": "구이린·양숴",
-      "name_en": "Guilin & Yangshuo",
-      "aliases_ko": [
-        "계림",
-        "양삭",
-        "구이린",
-        "양숴"
-      ],
-      "group_ko": "화남",
-      "kind": "base",
-      "water_crossing": false,
-      "hub": {
-        "name_ko": "구이린역",
-        "lat": 25.26361111111111,
-        "lng": 110.27805555555555,
-        "qid": "Q5965032"
-      },
-      "airports": [],
-      "advisory": {
-        "level": "1",
-        "source": "mofa_cn",
-        "last_verified": "2026-10-02"
-      },
-      "advisory_watch_ko": [],
-      "wave": 2
     }
   ],
   "attractions": [
@@ -480,7 +421,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 1,
+        "order": 2,
         "designations": [
           {
             "kind": "unesco",
@@ -665,7 +606,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 7,
+        "order": 10,
         "designations": [
           {
             "kind": "unesco",
@@ -847,7 +788,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 3,
+        "order": 4,
         "designations": [
           {
             "kind": "unesco",
@@ -1021,7 +962,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 16,
+        "order": 31,
         "designations": []
       },
       "photo": null,
@@ -1163,7 +1104,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 14,
+        "order": 29,
         "designations": []
       },
       "photo": null,
@@ -1303,7 +1244,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 15,
+        "order": 30,
         "designations": []
       },
       "photo": null,
@@ -1467,7 +1408,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 9,
+        "order": 16,
         "designations": [
           {
             "kind": "unesco",
@@ -1645,7 +1586,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 11,
+        "order": 20,
         "designations": [
           {
             "kind": "cn_5a",
@@ -1810,7 +1751,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 8,
+        "order": 13,
         "designations": [
           {
             "kind": "cn_first_class_museum",
@@ -1971,7 +1912,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 5,
+        "order": 6,
         "designations": [
           {
             "kind": "cn_5a_scenic_area",
@@ -2122,7 +2063,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 4,
+        "order": 5,
         "designations": [
           {
             "kind": "cn_national_key_relic",
@@ -2276,7 +2217,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 13,
+        "order": 28,
         "designations": []
       },
       "photo": null,
@@ -2416,7 +2357,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 12,
+        "order": 27,
         "designations": []
       },
       "photo": null,
@@ -2589,7 +2530,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 2,
+        "order": 3,
         "designations": [
           {
             "kind": "cn_national_key_relic",
@@ -2748,7 +2689,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 6,
+        "order": 9,
         "designations": [
           {
             "kind": "unesco_component",
@@ -2923,7 +2864,7 @@
         "last_verified": "2026-10-02"
       },
       "rank": {
-        "order": 10,
+        "order": 17,
         "designations": [
           {
             "kind": "unesco_component",
@@ -2947,6 +2888,3017 @@
       "source": "wd",
       "last_verified": "2026-10-09",
       "google_place_id": "ChIJ9QCvWeagszURmzdDoPCfRw4"
+    },
+    {
+      "id": "west-lake",
+      "qid": "Q502371",
+      "names": {
+        "ko": "시후",
+        "ko_basis": "editorial",
+        "ko_paren": "서호",
+        "en": "West Lake",
+        "local": "西湖",
+        "local_short": "西湖",
+        "local_lang": "zh-Hans",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "서호",
+        "항저우 서호",
+        "시후 호수"
+      ],
+      "aliases_en": [
+        "Xi Hu",
+        "West Lake Hangzhou"
+      ],
+      "mentions_ko": [
+        "레이펑탑(뇌봉탑)",
+        "돤차오(단교)",
+        "쑤디(소제)",
+        "바이디(백제)"
+      ],
+      "region": "cn_hangzhou",
+      "area_ko": "항저우 시후구",
+      "category": "nature",
+      "tags": [
+        {
+          "id": "unesco",
+          "source": "unesco_1334",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 30.2375,
+        "lng": 120.14083333333,
+        "source": "wd",
+        "qid": "Q502371",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 30.2375,
+        "lng": 120.14083333333
+      },
+      "address_local": {
+        "text": "浙江省杭州市 杭州西湖风景区",
+        "source": "mct_5a",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "bus"
+        ],
+        "nearest_ko": "시후 순환버스 51·52번 — 안쪽 순환선은 류궁위안(Liugongyuan) 정류장에서 출발해요",
+        "source": "ehz_westlake_bus",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.ehangzhou.gov.cn/2018-06/14/c_242880.htm",
+      "wiki": {
+        "ko": "서호",
+        "en": "West Lake"
+      },
+      "summary_ko": "삼면이 산으로 둘러싸인 항저우 서쪽의 호수예요.",
+      "body_ko": [
+        "시후는 항저우 서쪽에 있는 호수로, 삼면이 산으로 둘러싸여 있어요.",
+        "호수 면적은 6.39㎢이고 둘레는 약 15km예요.",
+        "구산과 바이디·쑤디·양궁디 제방이 호수를 다섯 구역으로 나누고, 제방 둘과 섬 셋은 9~12세기 준설로 만들어졌어요.",
+        "2011년 세계유산에 올랐어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "시후는 항저우 서쪽에 있고 삼면이 산으로 둘러싸여 있어요.",
+          "source": "ehz_westlake",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "호수 면적은 6.39㎢이고 둘레는 약 15km예요.",
+          "source": "ehz_westlake",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "구산과 바이디·쑤디·양궁디 제방이 호수를 다섯 구역으로 나눠요.",
+          "source": "ehz_westlake",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "제방 둘과 섬 셋은 9~12세기 준설로 만들어졌어요.",
+          "source": "unesco_1334",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "2011년 세계유산에 올랐어요.",
+          "source": "unesco_1334",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c6",
+          "text_ko": "2007년 국가 5A급 관광지가 됐어요.",
+          "source": "mct_5a",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c7",
+          "text_ko": "시후 순환버스 51·52번이 호수를 한 바퀴 돌아요.",
+          "source": "ehz_westlake_bus",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "순환버스 51·52번은 호수를 한 바퀴 돌며 자유롭게 타고 내릴 수 있어요.",
+          "source": "ehz_westlake_bus",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "레이펑탑이나 돤차오 근처 정류장에서 내릴 수 있어요.",
+          "source": "ehz_westlake_bus",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "public_space"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "ehz_westlake_bus",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_cn",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 7,
+        "designations": [
+          {
+            "kind": "unesco",
+            "name_ko": "세계유산 항저우 시후 문화경관",
+            "source": "unesco_1334"
+          },
+          {
+            "kind": "cn_5a",
+            "name_ko": "국가 5A급 관광지(2007)",
+            "source": "mct_5a"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:West_Lake_-_Hangzhou,_China.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJl8cyQrtiSzQRkpSDIt64D2U"
+    },
+    {
+      "id": "lingyin-temple",
+      "qid": "Q1070228",
+      "names": {
+        "ko": "링인쓰",
+        "ko_basis": "editorial",
+        "ko_paren": "영은사",
+        "en": "Lingyin Temple",
+        "local": "灵隐寺",
+        "local_short": "灵隐寺",
+        "local_lang": "zh-Hans",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "영은사",
+        "링인사",
+        "윈린찬쓰(운림선사)"
+      ],
+      "aliases_en": [
+        "Lingyin Si",
+        "Temple of the Soul's Retreat"
+      ],
+      "mentions_ko": [
+        "페이라이펑(비래봉)",
+        "융푸쓰(영복사)",
+        "타오광쓰(도광사)"
+      ],
+      "region": "cn_hangzhou",
+      "area_ko": "항저우 시후구",
+      "category": "heritage",
+      "tags": [
+        {
+          "id": "free_entry",
+          "source": "ehz_lingyin_free",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "booking_required",
+          "source": "ehz_lingyin_free",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 30.24277778,
+        "lng": 120.09666667,
+        "source": "wd",
+        "qid": "Q1070228",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 30.24277778,
+        "lng": 120.09666667
+      },
+      "address_local": {
+        "text": "浙江省杭州市灵隐路法云弄1号",
+        "source": "lingyin_home",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "bus"
+        ],
+        "nearest_ko": "시내버스 7번 링인 종점(灵隐公交总站)",
+        "source": "lingyin_transport",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.lingyinsi.org/",
+      "wiki": {
+        "ko": "링인쓰",
+        "en": "Lingyin Temple"
+      },
+      "summary_ko": "326년에 세운 시후 서쪽의 오래된 절이에요.",
+      "body_ko": [
+        "링인쓰는 326년 동진 때 인도 승려 혜리가 세운 절로, 시후 서쪽에서 북고봉을 등지고 페이라이펑을 마주 보고 있어요.",
+        "전성기에는 승방이 1300칸, 승려가 3000여 명에 이르렀고, 1689년 강희제가 '운림선사'라는 이름을 내렸어요.",
+        "대웅보전의 석가모니상은 녹나무 24조각을 이어 새긴 높이 24.8m 불상이고, 전각 앞 석탑 둘은 960년에 세웠어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "326년 동진 함화 원년에 세워졌고, 개산조는 인도 승려 혜리예요.",
+          "source": "hzfjxh_lingyin",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "시후 서쪽에서 북고봉을 등지고 페이라이펑을 마주 보고 있어요.",
+          "source": "hzfjxh_lingyin",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "전성기에는 승방이 1300칸, 승려가 3000여 명이었어요.",
+          "source": "hzfjxh_lingyin",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "1689년 강희제가 남순 때 '운림선사'라는 이름을 내렸어요.",
+          "source": "hzfjxh_lingyin",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "대웅보전의 석가모니상은 녹나무 24조각을 이어 새겼고 높이는 24.8m예요.",
+          "source": "hzfjxh_lingyin",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c6",
+          "text_ko": "대웅보전 앞 석탑 둘은 960년에 세웠어요.",
+          "source": "ehz_lingyin_pagoda",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c7",
+          "text_ko": "국가가 보호하는 문물보호단위로 지정돼 있어요.",
+          "source": "ehz_lingyin",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "실명으로 시간대를 골라 예약해야 들어갈 수 있어요.",
+          "source": "ehz_lingyin_free",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "택시·차량호출은 경구 안으로 들어가지 못해 환승 지점에서 셔틀버스로 갈아타야 해요.",
+          "source": "lingyin_transport",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "같은 경구 안에 융푸쓰·타오광쓰도 있어요.",
+          "source": "ehz_lingyin_free",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "free",
+        "booking": "required",
+        "booking_note_ko": null,
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "ehz_lingyin_free",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "hzfjxh_reopen",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_cn",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 14,
+        "designations": [
+          {
+            "kind": "cn_national_key_relic",
+            "name_ko": "국가 지정 문물보호단위",
+            "source": "ehz_lingyin"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Lingyin_si.JPG",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJKaE-rCxjSzQRbBbWRsm-rL4"
+    },
+    {
+      "id": "china-national-silk-museum",
+      "qid": "Q569019",
+      "names": {
+        "ko": "중국 실크박물관",
+        "ko_basis": "editorial",
+        "ko_paren": "중국사주박물관",
+        "en": "China National Silk Museum",
+        "local": "中国丝绸博物馆",
+        "local_short": "国丝馆",
+        "local_lang": "zh-Hans",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "중국사주박물관",
+        "중국 비단박물관",
+        "국사관"
+      ],
+      "aliases_en": [
+        "China Silk Museum",
+        "NSM"
+      ],
+      "mentions_ko": [],
+      "region": "cn_hangzhou",
+      "area_ko": "항저우 시후구 위황산 아래",
+      "category": "museum",
+      "tags": [
+        {
+          "id": "free_entry",
+          "source": "csm_about",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 30.225,
+        "lng": 120.14722222,
+        "source": "wd",
+        "qid": "Q569019",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 30.225,
+        "lng": 120.14722222
+      },
+      "address_local": {
+        "text": "杭州西子湖畔、玉皇山下（中国丝绸博物馆）",
+        "source": "csm_about",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "bus"
+        ],
+        "nearest_ko": "시내버스 12·42번 쓰처우보우관(丝绸博物馆) 정류장",
+        "source": "csm_traffic",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.chinasilkmuseum.com/",
+      "wiki": {
+        "en": "China National Silk Museum"
+      },
+      "summary_ko": "시후 가 위황산 아래에 있는 비단·방직 전문 박물관이에요.",
+      "body_ko": [
+        "중국 실크박물관은 시후 가 위황산 아래에 있는 방직·복식 전문 국가 1급 박물관이에요.",
+        "1992년 2월 26일 문을 열었고, 2004년 1월 1일부터 무료로 개방하고 있어요.",
+        "2015년 시작한 증개축을 마치고 2016년 9월 새 모습으로 다시 열었어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "시후 가 위황산 아래에 있는 방직·복식 전문 국가 1급 박물관이에요.",
+          "source": "csm_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "1992년 2월 26일 개관했고, 2004년 1월 1일부터 무료 개방이에요.",
+          "source": "csm_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "2015년 증개축을 시작해 2016년 9월 새 모습으로 다시 열었어요.",
+          "source": "csm_about",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "월요일은 쉬고, 법정 공휴일인 월요일은 열어요.",
+          "source": "csm_hours",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "개인 관람은 예약 없이 신분증이나 여권을 보여 주고 들어가요.",
+          "source": "csm_noreserve",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "주말·공휴일에는 시후 경구에 차량 홀짝제 통행 제한이 있어요.",
+          "source": "csm_traffic",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "free",
+        "booking": "none",
+        "booking_note_ko": null,
+        "regular_closed": [
+          "mon"
+        ],
+        "closed_note_ko": "법정 공휴일인 월요일은 열어요",
+        "visit_note_ko": null,
+        "source": "csm_hours",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "csm_hours",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_cn",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 24,
+        "designations": [
+          {
+            "kind": "cn_first_class_museum",
+            "name_ko": "국가 1급 박물관",
+            "source": "csm_about"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:China_Silk_Museum,_2017-11-12_01.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJz9MoRVF9SzQRy0H5qsaErJ4"
+    },
+    {
+      "id": "zhangjiajie-national-forest-park",
+      "qid": "Q3895620",
+      "names": {
+        "ko": "장자제 국가삼림공원",
+        "ko_basis": "editorial",
+        "ko_paren": "장가계 국가삼림공원",
+        "en": "Zhangjiajie National Forest Park",
+        "local": "张家界国家森林公园",
+        "local_short": "张家界森林公园",
+        "local_lang": "zh-Hans",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "장가계 삼림공원",
+        "장자제 삼림공원",
+        "장가계 국가삼림공원"
+      ],
+      "aliases_en": [
+        "Zhangjiajie Forest Park"
+      ],
+      "mentions_ko": [
+        "위안자제(원가계)",
+        "톈쯔산(천자산)",
+        "진볜시(금편계)",
+        "황스자이(황석채)",
+        "양자제(양가계)"
+      ],
+      "region": "cn_zhangjiajie",
+      "area_ko": "장자제 우링위안구",
+      "category": "nature",
+      "tags": [
+        {
+          "id": "unesco",
+          "source": "unesco_640",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "booking_required",
+          "source": "enghunan_zjjpark",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 29.3274,
+        "lng": 110.416,
+        "source": "wd",
+        "qid": "Q3895620",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 29.3274,
+        "lng": 110.416
+      },
+      "address_local": {
+        "text": "湖南省张家界市 武陵源旅游区（张家界国家森林公园）",
+        "source": "whhlyt_wulingyuan",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "bus",
+          "train"
+        ],
+        "nearest_ko": "장자제 중심 버스터미널·장자제시역(张家界西站)에서 삼림공원행 관광버스",
+        "source": "enghunan_buslines",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://whhlyt.hunan.gov.cn/whhlyt/wldhjqjd/202208/t20220816_27583776.html",
+      "wiki": {
+        "ko": "장자제 국가삼림공원",
+        "en": "Zhangjiajie National Forest Park"
+      },
+      "summary_ko": "석영사암 봉우리가 숲을 이루는 우링위안의 국가삼림공원이에요.",
+      "body_ko": [
+        "장자제 국가삼림공원은 1982년 국무원 승인으로 장자제 임장을 바꿔 지정한 국가삼림공원이에요.",
+        "우링위안 일대에는 26,000ha가 넘는 땅에 좁고 높은 사암 봉우리가 3,000개 넘게 서 있고, 1992년 세계유산에 올랐어요.",
+        "황스자이·진볜시·톈쯔산·위안자제·양자제가 주요 구역이고, 위안자제에는 높이 350m의 천연 돌다리가 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "1982년 9월 25일 국무원 승인으로 장자제 임장이 장자제 국가삼림공원이 됐어요.",
+          "source": "whhlyt_wulingyuan",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "우링위안은 26,000ha가 넘고, 높이 200m가 넘는 사암 봉우리가 3,000개 넘게 있어요.",
+          "source": "unesco_640",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "1992년 세계유산(우링위안 풍경명승구)에 올랐어요.",
+          "source": "unesco_640",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "주요 구역은 황스자이·진볜시·톈쯔산·위안자제·양자제예요.",
+          "source": "whhlyt_wulingyuan",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "위안자제의 천연 돌다리는 폭 약 2m, 길이 20m가 넘고 높이는 350m예요.",
+          "source": "enghunan_zjjpark",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c6",
+          "text_ko": "2007년 첫 국가 5A급 관광지(우링위안-톈먼산 관광구)에 들었어요.",
+          "source": "mct_5a",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "처음 오는 관람객은 입구별로 시간대를 골라 미리 표를 예약해야 해요.",
+          "source": "enghunan_zjjpark",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "예약은 공식 위챗 미니프로그램 '张家界一机游'에서 해요.",
+          "source": "enghunan_zjjpark",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "동문(우자위)·남문·서문(양자제)·북문(톈쯔산) 등 입구가 여러 곳이라 어디로 들어갈지 미리 정해요.",
+          "source": "enghunan_zjjpark",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "booking": "required",
+        "booking_note_ko": null,
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "enghunan_zjjpark",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "enghunan_buslines",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_cn",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 15,
+        "designations": [
+          {
+            "kind": "unesco",
+            "name_ko": "세계유산 우링위안 풍경명승구",
+            "source": "unesco_640"
+          },
+          {
+            "kind": "cn_5a",
+            "name_ko": "국가 5A급 관광지(우링위안-톈먼산 관광구, 2007)",
+            "source": "mct_5a"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Yangjiajie.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJY5B_gtUAmzYR8FxU2CF06DI"
+    },
+    {
+      "id": "tianmen-mountain",
+      "qid": "Q3861073",
+      "names": {
+        "ko": "톈먼산",
+        "ko_basis": "editorial",
+        "ko_paren": "천문산",
+        "en": "Tianmen Mountain",
+        "local": "天门山",
+        "local_short": "天门山",
+        "local_lang": "zh-Hans",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "천문산",
+        "천문산 국가삼림공원"
+      ],
+      "aliases_en": [
+        "Tianmenshan",
+        "Tianmen Mountain National Forest Park"
+      ],
+      "mentions_ko": [
+        "톈먼둥(천문동)",
+        "통톈다다오(통천대도)",
+        "유리잔도"
+      ],
+      "region": "cn_zhangjiajie",
+      "area_ko": "장자제 융딩구",
+      "category": "nature",
+      "tags": [
+        {
+          "id": "cable_car",
+          "source": "lyj_tianmen",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "mountain_view",
+          "source": "whhlyt_tianmen",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "station",
+        "lat": 29.05058,
+        "lng": 110.47576,
+        "source": "wd",
+        "qid": "Q123506920",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 29.0528,
+        "lng": 110.483
+      },
+      "address_local": {
+        "text": "湖南省张家界市永定区（天门山国家森林公园）",
+        "source": "lyj_tianmen",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "train",
+          "walk_from_center"
+        ],
+        "nearest_ko": "장자제역(张家界站) 앞 톈먼산 케이블카 하부역",
+        "source": "whhlyt_tianmen",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://whhlyt.hunan.gov.cn/whhlyt/wldhjqjd/202208/t20220816_27583771.html",
+      "wiki": {
+        "ko": "톈먼산",
+        "en": "Tianmen Mountain"
+      },
+      "summary_ko": "시내에서 케이블카로 오르는 해발 1518.6m의 산이에요.",
+      "body_ko": [
+        "톈먼산은 장자제 시내 남쪽에 있는 해발 1518.6m의 산으로, 시내에서 케이블카를 타고 산꼭대기까지 올라가요.",
+        "263년 절벽이 뚫려 생긴 천연 동굴 톈먼둥은 높이 131.5m, 길이 98m, 폭 37m예요.",
+        "케이블카는 길이 7454m에 고도차 1277m이고, 99굽이 도로 통톈다다오와 길이 60m의 유리잔도가 있어요.",
+        "1992년 국가삼림공원이 됐고 2011년 국가 5A급 관광지가 됐어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "장자제 시내 남쪽 교외에 있고 해발은 1518.6m예요.",
+          "source": "whhlyt_tianmen",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "263년 숭량산 절벽이 뚫려 동굴이 생기면서 톈먼산이라 불리게 됐어요.",
+          "source": "lyj_tianmen",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "톈먼둥은 높이 131.5m, 길이 98m, 폭 37m예요.",
+          "source": "lyj_tianmen",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "케이블카는 길이 7454m, 고도차 1277m이고 시내에서 산꼭대기까지 이어져요.",
+          "source": "lyj_tianmen",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "통톈다다오는 길이 10.77km에 99굽이예요.",
+          "source": "lyj_tianmen",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c6",
+          "text_ko": "유리잔도는 길이 60m이고 가장 높은 곳은 해발 1430m예요.",
+          "source": "lyj_tianmen",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c7",
+          "text_ko": "1992년 7월 국가삼림공원으로 승인됐고, 2011년 9월 국가 5A급 관광지가 됐어요.",
+          "source": "lyj_tianmen",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c8",
+          "text_ko": "톈먼둥으로 오르는 계단 상천제는 999개예요.",
+          "source": "lyj_tianmen",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "산 위는 서늘해서 긴소매 옷을 권해요.",
+          "source": "enghunan_tianmen",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "유리잔도에 오를 때는 덧신을 신어야 해요.",
+          "source": "lyj_tianmen",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "톈먼둥까지는 999개 계단을 걸어 올라가요.",
+          "source": "lyj_tianmen",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "입장권에 경구 버스·케이블카 요금은 들어 있지 않아요.",
+          "source": "enghunan_tianmen",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "booking_note_ko": null,
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "enghunan_tianmen",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "whhlyt_tianmen",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_cn",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 19,
+        "designations": [
+          {
+            "kind": "cn_5a",
+            "name_ko": "국가 5A급 관광지(우링위안-톈먼산 관광구)",
+            "source": "mct_5a"
+          },
+          {
+            "kind": "cn_national_forest_park",
+            "name_ko": "국가삼림공원(1992)",
+            "source": "lyj_tianmen"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Tianmen_38330-Zhangjiajie_(49047525877).jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJz7mBDfmwmzYRWPIk9Fgr6AU"
+    },
+    {
+      "id": "huanglong-cave",
+      "qid": "Q5925989",
+      "names": {
+        "ko": "황룽둥",
+        "ko_basis": "editorial",
+        "ko_paren": "황룡동",
+        "en": "Huanglong Cave",
+        "local": "黄龙洞",
+        "local_short": "黄龙洞",
+        "local_lang": "zh-Hans",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "황룡동굴",
+        "황룽 동굴"
+      ],
+      "aliases_en": [
+        "Yellow Dragon Cave",
+        "Huanglongdong"
+      ],
+      "mentions_ko": [
+        "딩하이선전(정해신침)"
+      ],
+      "region": "cn_zhangjiajie",
+      "area_ko": "장자제 우링위안구 쒀시위진",
+      "category": "nature",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 29.26666667,
+        "lng": 110.36666667,
+        "source": "wd",
+        "qid": "Q5925989",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 29.26666667,
+        "lng": 110.36666667
+      },
+      "address_local": {
+        "text": "湖南省张家界市武陵源区索溪峪镇河口村",
+        "source": "whhlyt_huanglong",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "bus"
+        ],
+        "nearest_ko": "장자제 중심 버스터미널에서 우링위안(武陵源) 방면 관광버스",
+        "source": "enghunan_buslines",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://whhlyt.hunan.gov.cn/whhlyt/wldhjqjd/202208/t20220816_27583725.html",
+      "wiki": {
+        "en": "Huanglong Cave"
+      },
+      "summary_ko": "동굴 속 강에서 배를 타는 우링위안의 석회동굴이에요.",
+      "body_ko": [
+        "황룽둥은 우링위안구 쒀시위진에 있는 카르스트 석회동굴로, 마른 동굴과 물 동굴이 네 층으로 이어져요.",
+        "높이 약 20m의 석주 '딩하이선전'은 가장 가는 곳 지름이 10cm밖에 되지 않아요.",
+        "걷다가 동굴 속 강의 선착장에서 배를 타는 구간이 있고, 들어간 곳과 다른 출구로 나와요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "우링위안구 쒀시위진 허커우촌에 있는 카르스트 석회동굴이에요.",
+          "source": "whhlyt_huanglong",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "마른 동굴과 물 동굴로 나뉘고 모두 네 층이에요.",
+          "source": "whhlyt_huanglong",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "석주 '딩하이선전'은 높이 약 20m이고 가장 가는 곳 지름은 10cm예요.",
+          "source": "whhlyt_huanglong",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "동굴 안 강의 선착장에서 배를 타는 구간이 있어요.",
+          "source": "whhlyt_huanglong",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "되돌아 나오지 않고, 입구와 다른 출구로 나와요.",
+          "source": "whhlyt_huanglong",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c6",
+          "text_ko": "국가 4A급 관광구예요.",
+          "source": "whhlyt_huanglong",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "배 타는 구간 요금은 입장권에 들어 있어요.",
+          "source": "whhlyt_huanglong",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "한 방향으로 돌아 들어간 곳과 다른 출구로 나오니 일행과 만날 곳을 정해 두세요.",
+          "source": "whhlyt_huanglong",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "booking_note_ko": null,
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "whhlyt_huanglong",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "whhlyt_huanglong",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_cn",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 21,
+        "designations": [
+          {
+            "kind": "cn_4a",
+            "name_ko": "국가 4A급 관광구",
+            "source": "whhlyt_huanglong"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Huanglongdong.JPG",
+      "source": "wd",
+      "last_verified": "2026-10-10"
+    },
+    {
+      "id": "old-summer-palace",
+      "qid": "Q907894",
+      "names": {
+        "ko": "위안밍위안",
+        "ko_basis": "editorial",
+        "ko_paren": "원명원",
+        "en": "Old Summer Palace",
+        "local": "圆明园",
+        "local_short": "圆明园",
+        "local_lang": "zh-Hans",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "원명원",
+        "원명원 유지공원",
+        "위안밍위안 유적공원"
+      ],
+      "aliases_en": [
+        "Yuanmingyuan",
+        "Yuanmingyuan Ruins Park"
+      ],
+      "mentions_ko": [
+        "시양러우(서양루) 유적",
+        "다수이파(대수법)",
+        "창춘위안(장춘원)",
+        "완춘위안(만춘원)"
+      ],
+      "region": "cn_beijing",
+      "area_ko": "베이징 하이뎬구",
+      "category": "heritage",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 40.012045,
+        "lng": 116.30679305555556,
+        "source": "wd",
+        "qid": "Q907894",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 40.012045,
+        "lng": 116.30679305555556
+      },
+      "address_local": {
+        "text": "北京市海淀区清华西路28号",
+        "source": "ymy_tickets",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "bus"
+        ],
+        "nearest_ko": "버스 치춘위안 궁먼(绮春园宫门) 정류장 — 508·579·601·664·特19번",
+        "source": "ymy_route",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.yuanmingyuanpark.cn/",
+      "wiki": {
+        "ko": "원명원",
+        "en": "Old Summer Palace"
+      },
+      "summary_ko": "1709년 짓기 시작한 청 황실 정원의 유적 공원이에요.",
+      "body_ko": [
+        "위안밍위안은 1709년 강희제 때 짓기 시작한 청나라 황실 정원으로, 창춘위안·완춘위안과 함께 '원명삼원'이라 불려요.",
+        "면적 350ha 가운데 약 140ha가 물이에요.",
+        "1860년 10월 영국·프랑스 연합군에게 약탈·방화를 당했고, 1988년 유적 공원으로 열어 산수 골격과 건물 터만 남아 있어요.",
+        "시양러우 유적에는 원사 전시관이 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "1709년 강희제 때 짓기 시작했고, 창춘위안·완춘위안과 함께 '원명삼원'이라 불려요.",
+          "source": "vbs_ymy",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "면적은 350ha이고 그 가운데 수면이 약 140ha예요.",
+          "source": "vbs_ymy",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "1860년 10월 영국·프랑스 연합군에게 약탈·방화를 당했어요.",
+          "source": "vbs_ymy",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "1988년 유적 공원이 됐고 산수 골격·정원 배치·건물 터만 남아 있어요.",
+          "source": "vbs_ymy",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "시양러우 옛터에 원사 전시관이 있어요.",
+          "source": "vbs_ymy",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c6",
+          "text_ko": "2019년 국가 5A급 관광지가 됐어요.",
+          "source": "mct_5a",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "시양러우 유적구(다수이파·미궁·전시관)는 입장권을 따로 사요.",
+          "source": "vbs_ymy",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "매표소는 치춘위안 궁먼·창춘위안 동문 등 여러 문에 있어요.",
+          "source": "vbs_ymy",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "마수 동상 전시는 정각사 입구로만 들어가고, 공식 위챗 계정으로 예약해요.",
+          "source": "vb_ymy_5a",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "booking_note_ko": null,
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "vb_ymy_5a",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "vbs_ymy",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_cn",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 12,
+        "designations": [
+          {
+            "kind": "cn_5a",
+            "name_ko": "국가 5A급 관광지(2019)",
+            "source": "mct_5a"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Yuanmingyuan_Haiyantang_20130126.JPG",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJ09grWqdW8DURTB0kM62Vn_A"
+    },
+    {
+      "id": "nanluoguxiang",
+      "qid": "Q9529545",
+      "names": {
+        "ko": "난뤄구샹",
+        "ko_basis": "editorial",
+        "ko_paren": "남라고항",
+        "en": "Nanluoguxiang",
+        "local": "南锣鼓巷",
+        "local_short": "南锣鼓巷",
+        "local_lang": "zh-Hans",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "남라고항",
+        "난뤄구샹 후퉁"
+      ],
+      "aliases_en": [
+        "Nanluoguxiang Hutong"
+      ],
+      "mentions_ko": [
+        "마오얼후퉁(모아호동)",
+        "쥐얼후퉁(국아호동)"
+      ],
+      "region": "cn_beijing",
+      "area_ko": "베이징 둥청구 자오다오커우",
+      "category": "market_street",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 39.935177,
+        "lng": 116.396939,
+        "source": "wd",
+        "qid": "Q9529545",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 39.935177,
+        "lng": 116.396939
+      },
+      "address_local": {
+        "text": "北京 交道口地区 南锣鼓巷（北起鼓楼东大街，南至平安大街）",
+        "source": "vb_nlgx",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "bus"
+        ],
+        "nearest_ko": "버스 바오차오후퉁(宝钞胡同) 정류장(107·124번)에서 걸어서",
+        "source": "vb_nlgx",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.visitbeijing.com.cn/article/47QkViBYPUp",
+      "wiki": {
+        "en": "Nanluoguxiang"
+      },
+      "summary_ko": "원나라 때 골격이 남은 베이징의 후퉁 거리예요.",
+      "body_ko": [
+        "난뤄구샹은 베이징 중축선 동쪽 자오다오커우 일대의 후퉁으로, 길이 787m, 폭 8m이고 원나라 대도와 같은 시기에 만들어졌어요.",
+        "동서 양쪽에 후퉁이 8개씩 늘어서 있고, 베이징에서 오래된 거리 가운데 하나로 옛 도심 보호구역 25곳에 들어요.",
+        "지금 이름은 1750년에 그린 지도에서 왔고, 차가 다니지 않는 보행자 거리예요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "베이징 중축선 동쪽 자오다오커우 일대에 있고, 길이 787m, 폭 8m예요.",
+          "source": "vb_nlgx",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "원나라 대도와 같은 시기에 만들어졌어요.",
+          "source": "vb_nlgx",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "동서 양쪽에 후퉁이 8개씩 늘어서 있어요.",
+          "source": "vbs_nlgx",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "베이징에서 오래된 거리 가운데 하나로, 옛 도심 보호구역 25곳에 들어요.",
+          "source": "vb_nlgx",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "지금 이름은 1750년에 그린 《경성전도》에서 왔어요.",
+          "source": "vb_nlgx",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c6",
+          "text_ko": "보행자 거리로 바뀌어 차가 다니지 않아요.",
+          "source": "vb_nlgx",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c7",
+          "text_ko": "2016년 4월 25일부터 단체 관광객을 받지 않아요.",
+          "source": "vb_nlgx",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "차가 들어오지 않는 보행자 거리예요.",
+          "source": "vb_nlgx",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "2016년 4월부터 단체 관광객은 받지 않아요.",
+          "source": "vb_nlgx",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "public_space"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "vb_nlgx",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_cn",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 32,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Nanluogu_Xiang_(6230757826).jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJs60PQSRT8DURB3KW6fQr3cQ"
+    },
+    {
+      "id": "china-science-and-technology-museum",
+      "qid": "Q1074292",
+      "names": {
+        "ko": "중국과학기술관",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "China Science and Technology Museum",
+        "local": "中国科学技术馆",
+        "local_short": "中国科技馆",
+        "local_lang": "zh-Hans",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "중국 과기관",
+        "중국과학기술박물관"
+      ],
+      "aliases_en": [
+        "China Science & Technology Museum",
+        "CSTM"
+      ],
+      "mentions_ko": [],
+      "region": "cn_beijing",
+      "area_ko": "베이징 차오양구 올림픽공원",
+      "category": "museum",
+      "tags": [
+        {
+          "id": "booking_required",
+          "source": "cstm_booking",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "indoor",
+          "source": "cstm_about",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 40.005,
+        "lng": 116.39244,
+        "source": "wd",
+        "qid": "Q1074292",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 40.005,
+        "lng": 116.39244
+      },
+      "address_local": {
+        "text": "北京市朝阳区北辰东路5号",
+        "source": "cstm_traffic",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "metro",
+          "bus"
+        ],
+        "nearest_ko": "지하철 8호선 아오린피커궁위안역(奥林匹克公园站)·15호선 안리루역(安立路站)",
+        "source": "cstm_traffic",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://cstm.org.cn/",
+      "wiki": {
+        "en": "China Science and Technology Museum"
+      },
+      "summary_ko": "올림픽공원 옆에 있는 체험형 국립 과학관이에요.",
+      "body_ko": [
+        "중국과학기술관은 베이징 올림픽공원 옆에 있는 과학관으로, 주전시관·어린이과학낙원·특수효과영화관·단기전시관으로 이루어져 있어요.",
+        "상설 전시는 참여·체험·탐구 형식이에요.",
+        "전시구마다 회차별로 표를 따로 사고, 어린이과학낙원은 3~8세 어린이가 보호자와 함께 보는 곳이에요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "주전시관·어린이과학낙원·특수효과영화관·단기전시관으로 이루어져 있어요.",
+          "source": "cstm_booking",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "전시구마다 회차별로 표를 따로 팔아요.",
+          "source": "cstm_booking",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "상설 전시는 참여·체험·탐구 형식이에요.",
+          "source": "cstm_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "어린이과학낙원은 3~8세 어린이가 보호자와 함께 보는 곳이에요.",
+          "source": "cstm_booking",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "지하철 8호선 아오린피커궁위안역 근처 베이천둥루에 있어요.",
+          "source": "cstm_traffic",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "온라인 실명 예약제라 미리 표를 사고, 입장할 때 신분증·여권 같은 본인 증명서를 보여 줘요.",
+          "source": "cstm_booking",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "관 안에 주차장이 없어요.",
+          "source": "cstm_traffic",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "공식 사이트와 공식 위챗 계정에서만 표를 팔고, 다른 곳의 판매는 공식이 아니에요.",
+          "source": "cstm_booking",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "booking": "required",
+        "booking_note_ko": null,
+        "regular_closed": [
+          "mon"
+        ],
+        "closed_note_ko": "법정 공휴일인 월요일은 열고, 음력 섣달그믐과 설 초하루·초이틀은 쉬어요",
+        "visit_note_ko": null,
+        "source": "cstm_hours",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "cstm_hours",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_cn",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 33,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:China_Science_and_Technology_Museum_(20210403155720).jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJJR5eYiBV8DURE9gRWKtgqcs"
+    },
+    {
+      "id": "korean-provisional-government-shanghai",
+      "qid": "Q27967278",
+      "names": {
+        "ko": "상하이 대한민국 임시정부 청사",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Provisional Government of the Republic of Korea in Shanghai",
+        "local": "大韩民国临时政府旧址",
+        "local_short": "大韩民国临时政府旧址",
+        "local_lang": "zh-Hans",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "대한민국 임시정부 유적지",
+        "상하이 임시정부 유적지",
+        "임정 청사"
+      ],
+      "aliases_en": [
+        "Site of the Korean Provisional Government",
+        "Provisional Government of the Republic of Korea Memorial Hall"
+      ],
+      "mentions_ko": [],
+      "region": "cn_shanghai",
+      "area_ko": "상하이 황푸구 신톈디",
+      "category": "museum",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 31.2172,
+        "lng": 121.4746,
+        "source": "wd",
+        "qid": "Q27967278",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 31.2172,
+        "lng": 121.4746
+      },
+      "address_local": {
+        "text": "上海市黄浦区马当路306弄4号",
+        "source": "mis_kpg_museum",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "metro"
+        ],
+        "nearest_ko": "지하철 10·13호선 이다후이즈·신톈디역(一大会址·新天地站)",
+        "source": "mis_xtd",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.meet-in-shanghai.net/cn/museums/office-of-the-former-site-of-the-provisional-government-of-the-republic-of-korea-444634/",
+      "wiki": {
+        "ko": "대한민국 임시정부 유적지 (상하이시)",
+        "en": "Provisional Government of the Republic of Korea Memorial Hall, Shanghai"
+      },
+      "summary_ko": "신톈디 안에 있는 임시정부 청사 유적 전시관이에요.",
+      "body_ko": [
+        "상하이 대한민국 임시정부 청사는 황푸구 마당루의 스쿠먼 골목 건물로, 1919년 4월 상하이에서 수립된 임시정부가 1926년 7월부터 1932년 5월까지 쓴 곳이에요.",
+        "3층 벽돌·목조 건물로 건축면적은 476.5㎡예요.",
+        "1993년 4월부터 일반에 개방했고, 2001년 옆 건물 두 채를 더해 전시 공간을 넓혔어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "1919년 4월 상하이에서 수립된 대한민국 임시정부가 1926년 7월부터 1932년 5월까지 쓴 청사예요.",
+          "source": "mis_kpg",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "스쿠먼 골목의 3층 벽돌·목조 건물이고 건축면적은 476.5㎡예요.",
+          "source": "mis_kpg",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "1993년 4월부터 일반에 개방했어요.",
+          "source": "mis_kpg",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "1990년 6월 5일 당시 루완구 문물보호단위로 지정됐어요.",
+          "source": "mis_kpg",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "2001년 옆 건물 두 채를 더해 전시 공간을 넓혔어요.",
+          "source": "shgov_kpg",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c6",
+          "text_ko": "신톈디 상권 안에 있어요.",
+          "source": "shgov_kpg",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "오전과 오후로 나누어 열고, 점심시간에는 매표를 쉬어요.",
+          "source": "mis_kpg_museum",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "신톈디 상권 안쪽 골목에 있어요.",
+          "source": "shgov_kpg",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "booking_note_ko": null,
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "mis_kpg_museum",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "mis_kpg_museum",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_cn",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 26,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJC4NjW3FwsjUREni6zXGAIPw"
+    },
+    {
+      "id": "terracotta-army-museum",
+      "qid": "Q47672",
+      "names": {
+        "ko": "진시황릉 병마용",
+        "ko_basis": "editorial",
+        "en": "Terracotta Army",
+        "local": "秦始皇兵马俑",
+        "local_short": "兵马俑",
+        "local_lang": "zh-Hans",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "병마용",
+        "병마용갱",
+        "빙마융",
+        "진시황제릉 박물원"
+      ],
+      "aliases_en": [
+        "Terracotta Warriors",
+        "Emperor Qinshihuang's Mausoleum Site Museum"
+      ],
+      "mentions_ko": [
+        "리산위안(여산원)",
+        "1호 갱"
+      ],
+      "region": "cn_xian",
+      "area_ko": "시안 린퉁구",
+      "category": "heritage",
+      "tags": [
+        {
+          "id": "unesco",
+          "source": "bmy_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "booking_required",
+          "source": "bmy_guide",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 34.385,
+        "lng": 109.27305555555556,
+        "source": "wd",
+        "qid": "Q47672",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 34.385,
+        "lng": 109.27305555555556
+      },
+      "address_local": {
+        "text": "陕西省西安市临潼区秦陵北路",
+        "source": "bmy_guide",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "metro",
+          "bus"
+        ],
+        "nearest_ko": "지하철 9호선 화칭츠(화청지)역에서 린퉁유 613번 버스로 갈아타요",
+        "source": "bmy_traffic",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.bmy.com.cn/guide.html",
+      "wiki": {
+        "ko": "병마용",
+        "en": "Terracotta Army"
+      },
+      "summary_ko": "흙으로 만든 병사와 말이 묻혀 있던 진시황제릉의 발굴 현장이에요.",
+      "body_ko": [
+        "진시황제릉 박물원은 산시성 시안시 린퉁구에 있어요.",
+        "병마용 박물관과 리산위안(여산원) 고고유적공원 두 곳으로 이루어져 있고, 두 곳은 2200미터 떨어져 있어요.",
+        "병마용 갱은 1974년 3월에 발견됐고, 1979년 10월 1일 박물관이 문을 열었어요.",
+        "1987년 유네스코 세계유산 목록에 올랐어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "진시황제릉 박물원은 산시성 시안시 린퉁구에 있어요.",
+          "source": "bmy_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "병마용 박물관과 리산위안(여산원) 고고유적공원으로 이루어져 있어요.",
+          "source": "bmy_guide",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "두 곳은 2200미터 떨어져 있고 무료 전용차로 오갈 수 있어요.",
+          "source": "bmy_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "병마용 갱은 1974년 3월에 발견됐어요.",
+          "source": "bmy_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "1979년 10월 1일 병마용 박물관이 문을 열었어요.",
+          "source": "bmy_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c6",
+          "text_ko": "1987년 12월 11일 유네스코 세계유산 목록에 올랐어요.",
+          "source": "bmy_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c7",
+          "text_ko": "1961년 전국중점문물보호단위 1차 목록에 들었어요.",
+          "source": "bmy_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c8",
+          "text_ko": "2007년 국가 5A급 관광지가 됐어요.",
+          "source": "bmy_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c9",
+          "text_ko": "지하철 1호선 팡즈청역에서 9호선으로 갈아타 화칭츠역에서 내리고, 린퉁유 613번 버스로 갈아타요.",
+          "source": "bmy_traffic",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "실명 예약제라 공식 누리집이나 위챗 공식계정에서 미리 표를 예약해야 해요.",
+          "source": "bmy_guide",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "여권 원본을 가져가야 입구에서 표 확인을 받을 수 있어요.",
+          "source": "bmy_guide",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "하루 관람 인원 상한이 있어서 다 차면 표를 팔지 않아요.",
+          "source": "bmy_guide",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "booking": "required",
+        "booking_note_ko": "공식 누리집·위챗에서 실명 예약",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "bmy_guide",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "bmy_guide",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_cn",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 1,
+        "designations": [
+          {
+            "kind": "unesco",
+            "name_ko": "세계유산 진시황릉(병마용 갱 포함)",
+            "source": "bmy_about"
+          },
+          {
+            "kind": "cn_5a",
+            "name_ko": "국가 5A급 관광지(2007)",
+            "source": "bmy_about"
+          },
+          {
+            "kind": "cn_national_heritage",
+            "name_ko": "전국중점문물보호단위 1차(1961)",
+            "source": "bmy_about"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Terracotta_Army,_View_of_Pit_1.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJowMUgi2nZDYRxz_j6XQ-48M"
+    },
+    {
+      "id": "shaanxi-history-museum",
+      "qid": "Q1151210",
+      "names": {
+        "ko": "산시 역사박물관",
+        "ko_basis": "editorial",
+        "ko_paren": "섬서역사박물관",
+        "en": "Shaanxi History Museum",
+        "local": "陕西历史博物馆",
+        "local_short": "陕历博",
+        "local_lang": "zh-Hans",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "섬서역사박물관",
+        "샨시 역사박물관",
+        "산시성 역사박물관"
+      ],
+      "aliases_en": [
+        "Shaanxi Museum"
+      ],
+      "mentions_ko": [
+        "당대 벽화 진품관",
+        "친한관(진한관)"
+      ],
+      "region": "cn_xian",
+      "area_ko": "시안 옌타구 샤오자이둥루",
+      "category": "museum",
+      "tags": [
+        {
+          "id": "free_entry",
+          "source": "sxhm_guide",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "indoor",
+          "source": "sxhm_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "booking_required",
+          "source": "sxhm_guide",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 34.22504803877994,
+        "lng": 108.95063301282681,
+        "source": "wd",
+        "qid": "Q1151210",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 34.22504803877994,
+        "lng": 108.95063301282681
+      },
+      "address_local": {
+        "text": "陕西省西安市雁塔区小寨东路91号",
+        "source": "sxhm_guide",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "metro"
+        ],
+        "nearest_ko": "지하철 2·3호선 샤오자이역이나 3·4호선 다옌타역에서 걸어가요",
+        "source": "sxhm_guide",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.sxhm.com/",
+      "wiki": {
+        "ko": "산시 역사박물관",
+        "en": "Shaanxi History Museum"
+      },
+      "summary_ko": "주·진·한·당의 유물을 모아 둔 시안의 국가급 박물관이에요.",
+      "body_ko": [
+        "산시 역사박물관은 중국 개혁개방 뒤에 세운 첫 대형 현대식 국가급 박물관이에요.",
+        "1983년에 짓기 시작해 1991년 6월 20일 문을 열었어요.",
+        "앞선 기관은 1944년에 세운 산시성 박물관이에요.",
+        "소장품은 170여만 건(조)이에요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "중국 개혁개방 뒤에 세운 첫 대형 현대식 국가급 박물관이에요.",
+          "source": "sxhm_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "1983년에 짓기 시작해 1991년 6월 20일 정식으로 문을 열었어요.",
+          "source": "sxhm_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "앞선 기관은 1944년에 세운 산시성 박물관이에요.",
+          "source": "sxhm_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "소장품은 170여만 건(조)이에요.",
+          "source": "sxhm_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "지하철 2·3호선 샤오자이역, 3·4호선 다옌타역이 가까워요.",
+          "source": "sxhm_guide",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c6",
+          "text_ko": "본관 무료 표는 예약해서 받아요.",
+          "source": "sxhm_guide",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "본관 입장은 무료지만 예약한 증명서 원본과 예약 내역이 있어야 들어갈 수 있어요.",
+          "source": "sxhm_guide",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "중국 밖에서 온 사람은 여권으로 예약할 수 있어요.",
+          "source": "sxhm_guide",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "당대 벽화 전시관과 특별전은 따로 표를 사요.",
+          "source": "sxhm_guide",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "free",
+        "booking": "required",
+        "booking_note_ko": "실명 예약제이고 공식 예약 플랫폼에서 신청해요",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "sxhm_guide",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "sxhm_guide",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_cn",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 18,
+        "designations": [
+          {
+            "kind": "cn_national_museum",
+            "name_ko": "국가급 박물관",
+            "source": "sxhm_about"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:%E9%99%95%E8%A5%BF%E5%8E%86%E5%8F%B2%E5%8D%9A%E7%89%A9%E9%A6%86.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJd1pQT2FwYzYR-Bcdx8lqHg0"
+    },
+    {
+      "id": "giant-wild-goose-pagoda",
+      "qid": "Q1047061",
+      "names": {
+        "ko": "다옌타",
+        "ko_basis": "editorial",
+        "ko_paren": "대안탑",
+        "en": "Giant Wild Goose Pagoda",
+        "local": "大雁塔",
+        "local_short": "大雁塔",
+        "local_lang": "zh-Hans",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "대안탑",
+        "다옌타 탑",
+        "대자은사 대안탑",
+        "다츠언쓰 대안탑"
+      ],
+      "aliases_en": [
+        "Big Wild Goose Pagoda",
+        "Dayan Pagoda"
+      ],
+      "mentions_ko": [
+        "다츠언쓰(대자은사)",
+        "싼짱위안(삼장원)",
+        "다탕부예청(대당불야성)"
+      ],
+      "region": "cn_xian",
+      "area_ko": "시안 옌타구 다츠언쓰 안",
+      "category": "heritage",
+      "tags": [
+        {
+          "id": "stairs",
+          "source": "xadfz_dayanta",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 34.219769,
+        "lng": 108.959335,
+        "source": "wd",
+        "qid": "Q1047061",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 34.219769,
+        "lng": 108.959335
+      },
+      "address_local": {
+        "text": "西安市 大慈恩寺院内（大雁塔）",
+        "source": "xadfz_dayanta",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "metro"
+        ],
+        "nearest_ko": "지하철 3·4호선 다옌타(대안탑)역",
+        "source": "sxhm_guide",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://xadfz.xa.gov.cn/xadq/rwxa/1802954373708996609.html",
+      "wiki": {
+        "ko": "대안탑",
+        "en": "Giant Wild Goose Pagoda"
+      },
+      "summary_ko": "현장이 가져온 경전을 보관하려고 세운 당나라 벽돌 탑이에요.",
+      "body_ko": [
+        "다옌타는 당 영휘 3년(652년)에 현장이 가져온 경전을 보관하려고 세운 탑이에요.",
+        "탑은 7층이고 높이는 64.5미터예요.",
+        "다츠언쓰(대자은사) 안에 서 있고 전국중점문물보호단위예요.",
+        "2000년 11월 20일에는 현장을 기리는 싼짱위안(삼장원)이 완공돼 함께 열었어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "당 영휘 3년(652년)에 현장이 가져온 경전을 보관하려고 세웠어요.",
+          "source": "xadfz_dayanta",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "탑은 7층이고 높이는 64.5미터예요.",
+          "source": "xadfz_dayanta",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "다츠언쓰(대자은사) 안에 서 있고 전국중점문물보호단위예요.",
+          "source": "xadfz_dayanta",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "2000년 11월 20일 현장을 기리는 싼짱위안(삼장원)이 완공돼 열었어요.",
+          "source": "xadfz_dayanta",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "지하철 3·4호선에 다옌타역이 있어요.",
+          "source": "sxhm_guide",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c6",
+          "text_ko": "2005년 12월에 주변을 다시 묶어 경구 전체 면적이 3.8제곱킬로미터가 됐어요.",
+          "source": "xadfz_dayanta",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "탑 주변은 다탕푸룽위안·취장츠 유적공원 등 여섯 공원과 함께 한 경구로 묶여 있어요.",
+          "source": "xadfz_dayanta",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "2005년에 새로 만든 산시 민속·희곡·문화예술 대관원은 무료로 열었어요.",
+          "source": "xadfz_dayanta",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "unknown",
+        "booking": "none",
+        "booking_note_ko": null,
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "xadfz_dayanta",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "xadfz_dayanta",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_cn",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 8,
+        "designations": [
+          {
+            "kind": "cn_national_heritage",
+            "name_ko": "전국중점문물보호단위",
+            "source": "xadfz_dayanta"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Giant_Wild_Goose_Pagoda.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJ2Z1H3-c24BQRane6QKG7BEg"
+    },
+    {
+      "id": "xian-city-wall",
+      "qid": "Q1334336",
+      "names": {
+        "ko": "시안 성벽",
+        "ko_basis": "editorial",
+        "ko_paren": "서안 성장",
+        "en": "Fortifications of Xi'an",
+        "local": "西安城墙",
+        "local_short": "城墙",
+        "local_lang": "zh-Hans",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "서안 성벽",
+        "시안 청창",
+        "서안 성장",
+        "융닝먼 성벽"
+      ],
+      "aliases_en": [
+        "Xi'an City Wall",
+        "Xi'an City Walls"
+      ],
+      "mentions_ko": [
+        "융닝먼(영녕문)",
+        "창러먼(장락문)",
+        "안딩먼(안정문)"
+      ],
+      "region": "cn_xian",
+      "area_ko": "시안 시내 중심",
+      "category": "heritage",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 34.25333888888889,
+        "lng": 108.94222611111111,
+        "source": "wd",
+        "qid": "Q1334336",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 34.25333888888889,
+        "lng": 108.94222611111111
+      },
+      "address_local": {
+        "text": "西安市中心区（西安城墙）",
+        "source": "xadfz_wall",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "walk_from_center"
+        ],
+        "nearest_ko": "시내 중심에 있어 걸어서 닿고, 성벽을 따라 환성 입체공원이 이어져요",
+        "source": "xadfz_wall5a",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://xadfz.xa.gov.cn/xadq/rwxa/1988422067937697793.html",
+      "wiki": {
+        "ko": "시안성벽",
+        "en": "Fortifications of Xi'an"
+      },
+      "summary_ko": "시안 시내를 네모지게 둘러싼 명나라 성벽이에요.",
+      "body_ko": [
+        "시안 성벽은 시내 중심을 네모지게 둘러싸고 있어요.",
+        "높이는 12미터, 아래 너비는 18미터, 위 너비는 15미터이고 둘레는 13.74킬로미터예요.",
+        "명 홍무 7년에서 11년(1374~1378년)에 쌓았어요.",
+        "2018년 10월 성벽과 비림을 묶은 역사문화경구가 국가 5A급 관광지가 됐어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "시안 시내 중심에 있고 네모진 모양이에요.",
+          "source": "xadfz_wall",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "높이 12미터, 아래 너비 18미터, 위 너비 15미터, 둘레 13.74킬로미터예요.",
+          "source": "xadfz_wall",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "명 홍무 7년에서 11년(1374~1378년)에 쌓았어요.",
+          "source": "xadfz_wall",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "2004년 12월 26일 보수를 마치고 둘레 13.74킬로미터 전체가 이어졌어요.",
+          "source": "xadfz_wall",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "1961년 전국 1차 중점문물보호단위로 공포됐어요.",
+          "source": "xadfz_wall5a",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c6",
+          "text_ko": "2018년 10월 시안 성벽·비림 역사문화경구가 국가 5A급 관광지가 됐어요.",
+          "source": "xadfz_wall5a",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "성벽은 환성 임대·호성하·순청샹·환성로와 함께 환성 입체공원으로 이어져 있어요.",
+          "source": "xadfz_wall5a",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "같은 경구 안에 시안 비림 박물관이 들어 있어요.",
+          "source": "xadfz_wall5a",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "unknown",
+        "booking": "none",
+        "booking_note_ko": null,
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "xadfz_wall5a",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "xadfz_wall5a",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_cn",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 11,
+        "designations": [
+          {
+            "kind": "cn_5a",
+            "name_ko": "국가 5A급 관광지(2018, 성벽·비림 역사문화경구)",
+            "source": "xadfz_wall5a"
+          },
+          {
+            "kind": "cn_national_heritage",
+            "name_ko": "전국중점문물보호단위 1차(1961)",
+            "source": "xadfz_wall5a"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:City_wall_of_Xi%27an_51550-Xian_(27959363326).jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJkbIeAoh6YzYR1Ej2JoWm1EA"
+    },
+    {
+      "id": "xian-muslim-quarter",
+      "qid": "Q17021866",
+      "names": {
+        "ko": "베이위안먼 후이팡",
+        "ko_basis": "editorial",
+        "ko_paren": "북원문 회방",
+        "en": "Beiyuanmen",
+        "local": "北院门回坊文化风情街",
+        "local_short": "北院门",
+        "local_lang": "zh-Hans",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "회민가",
+        "후이민제",
+        "회족 거리",
+        "북원문 회방",
+        "베이위안먼 거리"
+      ],
+      "aliases_en": [
+        "Muslim Quarter",
+        "Beiyuanmen Street"
+      ],
+      "mentions_ko": [
+        "중구러우(종고루)",
+        "칭전다쓰(청진대사)",
+        "가오자다위안(고가대원)"
+      ],
+      "region": "cn_xian",
+      "area_ko": "시안 롄후구 베이위안먼",
+      "category": "market_street",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": 34.26337,
+        "lng": 108.939,
+        "source": "wd",
+        "qid": "Q17021866",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 34.26337,
+        "lng": 108.939
+      },
+      "address_local": {
+        "text": "西安市 北院门回坊文化风情街",
+        "source": "xadfz_beiyuanmen",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "walk_from_center"
+        ],
+        "nearest_ko": "시내 중심이라 걸어서 닿고 주변에 중구러우(종고루)가 있어요",
+        "source": "xadfz_beiyuanmen",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://xadfz.xa.gov.cn/xadq/rwxa/63104e8ff8fd1c4c2114fc21.html",
+      "summary_ko": "회족 주민이 모여 사는 시안 시내의 먹거리 거리예요.",
+      "body_ko": [
+        "베이위안먼 거리는 1993년 9월에 옛 모습으로 꾸며 문화 관광 거리로 만들었어요.",
+        "회족 주민이 모여 사는 곳이라 후이팡(회방)이라 불러요.",
+        "베이위안먼·시양스·화줴샹·다피위안 네 거리로 이어지고 전체 길이는 1100미터예요.",
+        "먹거리 가게가 130곳 넘게 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "1993년 9월에 옛 모습으로 꾸민 문화 관광 거리를 만들었어요.",
+          "source": "xadfz_beiyuanmen",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "회족 주민이 모여 사는 곳이라 이런 이름이 붙었어요.",
+          "source": "xadfz_beiyuanmen",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "베이위안먼·시양스·화줴샹·다피위안 4개 거리로 이어지고 전체 길이는 1100미터예요.",
+          "source": "xadfz_beiyuanmen",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "먹거리 가게가 130곳 넘게 있어요.",
+          "source": "xadfz_beiyuanmen",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "주변에 중구러우(종고루)·칭전다쓰(청진대사)·가오자다위안(고가대원)이 있어요.",
+          "source": "xadfz_beiyuanmen",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c6",
+          "text_ko": "1992년에 길을 청석으로 다시 깔고 양쪽에 명·청 양식 2층 건물을 세웠어요.",
+          "source": "xadfz_beiyuanmen",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "쇠고기·양고기 파오모, 관탕바오 같은 회족 음식을 파는 가게가 많아요.",
+          "source": "xadfz_beiyuanmen",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "길가에 골동품·글씨·공예품·토산품 가게도 늘어서 있어요.",
+          "source": "xadfz_beiyuanmen",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "public_space",
+        "visit_note_ko": null,
+        "source": "xadfz_beiyuanmen",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "xadfz_beiyuanmen",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_cn",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 34,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Bei_Yuan_Men.JPG",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJr5vV5F16YzYRhfUWQetVKlU"
+    },
+    {
+      "id": "zhanqiao-pier",
+      "qid": "Q8070114",
+      "names": {
+        "ko": "잔차오",
+        "ko_basis": "editorial",
+        "ko_paren": "잔교",
+        "en": "Zhanqiao Pier",
+        "local": "青岛栈桥",
+        "local_short": "栈桥",
+        "local_lang": "zh-Hans",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "잔교",
+        "칭다오 잔교",
+        "첸하이 잔교",
+        "후이란거"
+      ],
+      "aliases_en": [
+        "Zhan Qiao",
+        "Qingdao Pier"
+      ],
+      "mentions_ko": [
+        "후이란거(회란각)",
+        "중산루"
+      ],
+      "region": "cn_qingdao",
+      "area_ko": "칭다오 스난구 중산루 남쪽 끝",
+      "category": "city_view",
+      "tags": [
+        {
+          "id": "seafront",
+          "source": "qd_zhanqiao",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "pier",
+        "lat": 36.05959444444444,
+        "lng": 120.31495,
+        "source": "wd",
+        "qid": "Q8070114",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 36.05959444444444,
+        "lng": 120.31495
+      },
+      "address_local": {
+        "text": "青岛市市南区中山路南端（栈桥）",
+        "source": "qd_zhanqiao",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "walk_from_center"
+        ],
+        "nearest_ko": "시내 중산루 남쪽 끝 바닷가라 걸어서 닿아요",
+        "source": "qd_zhanqiao",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.qingdao.gov.cn/yfqd/qdwl/cjfw/wyqhb/202009/t20200902_518755.shtml",
+      "wiki": {
+        "en": "Zhanqiao Pier"
+      },
+      "summary_ko": "칭다오 바닷가로 뻗은 다리로, 끝에 팔각 정자가 있어요.",
+      "body_ko": [
+        "잔차오는 칭다오 스난구 중산루 남쪽 끝에 있는 칭다오의 상징물이에요.",
+        "1892년에 세웠고 처음에는 부두였어요.",
+        "1931년 보수 때 다리를 394.38미터로 늘리고, 남쪽 끝 방파제 안에 이층 팔각 정자 후이란거(회란각)를 세웠어요.",
+        "잔차오와 후이란거는 시급 문물보호단위예요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "칭다오 스난구 중산루 남쪽 끝에 있는 칭다오의 상징 건축물이에요.",
+          "source": "qd_zhanqiao",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "1892년에 세웠고 길이 200미터, 너비 10미터의 부두였어요.",
+          "source": "qd_zhanqiao",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "1931년 보수 때 다리 길이를 394.38미터로 늘렸어요.",
+          "source": "qd_zhanqiao",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "다리 남쪽 끝 방파제 안에 이층 팔각 정자를 세우고 후이란거(회란각)라 이름 지었어요.",
+          "source": "qd_zhanqiao",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "잔차오와 후이란거는 시급 문물보호단위예요.",
+          "source": "qd_zhanqiao",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "해방 뒤 시 정부가 여러 번 예산을 들여 손보고 있어요.",
+          "source": "qd_zhanqiao",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "public_space",
+        "visit_note_ko": null,
+        "source": "qd_zhanqiao",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "qd_zhanqiao",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_cn",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 23,
+        "designations": [
+          {
+            "kind": "cn_city_heritage",
+            "name_ko": "칭다오 시급 문물보호단위",
+            "source": "qd_zhanqiao"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:%E9%9D%92%E5%B2%9B%E6%A0%88%E6%A1%A5_Ehemalige_Landungsbr%C3%BCcke_Qingdao.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJa3aYWYsPljURmWfiJ9p_T1Y"
+    },
+    {
+      "id": "badaguan",
+      "qid": "Q4837047",
+      "names": {
+        "ko": "바다관",
+        "ko_basis": "editorial",
+        "ko_paren": "팔대관",
+        "en": "Badaguan",
+        "local": "八大关",
+        "local_short": "八大关",
+        "local_lang": "zh-Hans",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "팔대관",
+        "바다관 풍경구",
+        "팔대관 풍경구",
+        "바다관 별장지구"
+      ],
+      "aliases_en": [
+        "Eight Great Passes"
+      ],
+      "mentions_ko": [
+        "타이핑자오(태평각)",
+        "후이취안자오(회천각)",
+        "화스러우(화석루)"
+      ],
+      "region": "cn_qingdao",
+      "area_ko": "칭다오 스난구 타이핑산 남쪽",
+      "category": "city_view",
+      "tags": [
+        {
+          "id": "seafront",
+          "source": "qd_badaguan",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 36.04988,
+        "lng": 120.34826,
+        "source": "wd",
+        "qid": "Q4837047",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 36.04988,
+        "lng": 120.34826
+      },
+      "address_local": {
+        "text": "青岛市市南区太平山南麓（八大关风景区）",
+        "source": "qd_badaguan",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "bus"
+        ],
+        "nearest_ko": "시내버스 여러 노선이 바다관 쪽을 지나요",
+        "source": "qd_badaguan",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.qingdao.gov.cn/yfqd/qdwl/cjfw/wyqtsjd/202009/t20200910_521991.shtml",
+      "wiki": {
+        "en": "Badaguan"
+      },
+      "summary_ko": "여러 나라 양식의 옛 별장이 모여 있는 칭다오의 바닷가 거리예요.",
+      "body_ko": [
+        "바다관은 칭다오 스난구 타이핑산 남쪽, 타이핑자오와 후이취안자오 사이에 있어요.",
+        "1930년대에 만들었고 면적은 66.6만 제곱미터예요.",
+        "중국 옛 관문 이름을 딴 거리 여덟 개를 내서 바다관(팔대관)이라 불러요.",
+        "여러 나라 양식의 건물 300여 채가 모여 있어 '만국건축박람회'라고 불려요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "칭다오 스난구 타이핑산 남쪽, 타이핑자오와 후이취안자오 사이에 있어요.",
+          "source": "qd_badaguan",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "1930년대에 만들었고 면적은 66.6만 제곱미터예요.",
+          "source": "qd_badaguan",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "중국 옛 관문 이름을 딴 거리 8개를 내서 바다관이라 부르게 됐어요.",
+          "source": "qd_badaguan",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "독일·러시아·미국·영국·프랑스 등 여러 나라 양식 건물 300여 채가 있고 '만국건축박람회'라 불려요.",
+          "source": "qd_badaguan",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "2001년 바다관 근현대 건축군이 전국중점문물보호단위가 됐어요.",
+          "source": "qd_badaguan",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "시내버스 여러 노선이 바다관 정류장을 지나요.",
+          "source": "qd_badaguan",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "public_space",
+        "visit_note_ko": null,
+        "source": "qd_badaguan",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "qd_badaguan",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_cn",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 22,
+        "designations": [
+          {
+            "kind": "cn_national_heritage",
+            "name_ko": "전국중점문물보호단위(2001)",
+            "source": "qd_badaguan"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:%E9%9D%92%E5%B2%9B%E5%85%AB%E5%A4%A7%E5%85%B3%E8%8A%B1%E7%9F%B3%E6%A8%BC.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJz_6oMwYQljURhgtSlMtju7Q"
+    },
+    {
+      "id": "tsingtao-beer-museum",
+      "qid": "Q15914948",
+      "names": {
+        "ko": "칭다오 맥주박물관",
+        "ko_basis": "editorial",
+        "ko_paren": "청도맥주박물관",
+        "en": "Tsingtao Brewery Museum",
+        "local": "青岛啤酒博物馆",
+        "local_short": "啤酒博物馆",
+        "local_lang": "zh-Hans",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "청도맥주박물관",
+        "칭다오 비어 뮤지엄",
+        "칭다오맥주 공장 박물관"
+      ],
+      "aliases_en": [
+        "Tsingtao Beer Museum",
+        "Early Buildings of Tsingtao Brewery"
+      ],
+      "mentions_ko": [
+        "덩저우루 맥주 거리"
+      ],
+      "region": "cn_qingdao",
+      "area_ko": "칭다오 스베이구 덩저우루",
+      "category": "museum",
+      "tags": [
+        {
+          "id": "indoor",
+          "source": "tbm_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "booking_required",
+          "source": "tbm_notice",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": 36.07889,
+        "lng": 120.34139,
+        "source": "wd",
+        "qid": "Q15914948",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": 36.07889,
+        "lng": 120.34139
+      },
+      "address_local": {
+        "text": "登州路56号（青岛啤酒博物馆）",
+        "source": "tbm_about",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "metro",
+          "bus"
+        ],
+        "nearest_ko": "지하철 1·2호선 타이둥역 A 출구에서 걸어가요",
+        "source": "tbm_traffic",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.tsingtaomuseum.com/",
+      "summary_ko": "1903년에 지은 독일식 맥주 공장을 그대로 쓴 박물관이에요.",
+      "body_ko": [
+        "칭다오 맥주박물관은 칭다오 맥주가 태어난 덩저우루 56호에 있어요.",
+        "1903년에 지은 독일식 공장 건물을 그대로 쓰고 있어요.",
+        "옛 전동기·당화솥·끓임솥 같은 설비와 독일 점령 시기 기록을 전시해요.",
+        "국가 1급 박물관이고 전국중점문물보호단위예요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "칭다오 맥주가 태어난 덩저우루 56호에 있어요.",
+          "source": "tbm_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "1903년에 지은 독일식 공장 건물을 쓰고 있어요.",
+          "source": "tbm_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "옛 전동기·당화솥·끓임솥 같은 설비를 전시해요.",
+          "source": "tbm_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c4",
+          "text_ko": "독일 점령 시기의 옛 문서 같은 문물을 모아 두었어요.",
+          "source": "tbm_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c5",
+          "text_ko": "국가 1급 박물관이고 전국중점문물보호단위이며 국가 4A급 관광지예요.",
+          "source": "tbm_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c6",
+          "text_ko": "지하철 1·2호선 타이둥역과 2호선 리진루역에서 걸어갈 수 있어요.",
+          "source": "tbm_traffic",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "위챗 공식계정에서 미리 표를 사고 증명서 원본을 가져가요.",
+          "source": "tbm_notice",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "계절마다 여는 시간이 달라서 공식 안내를 먼저 보세요.",
+          "source": "tbm_notice",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "booking": "required",
+        "booking_note_ko": "위챗 공식계정에서 미리 표를 사요",
+        "regular_closed": [
+          "unknown"
+        ],
+        "closed_note_ko": null,
+        "visit_note_ko": null,
+        "source": "tbm_notice",
+        "last_verified": "2026-10-10"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "tbm_notice",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_cn",
+        "last_verified": "2026-10-02"
+      },
+      "rank": {
+        "order": 25,
+        "designations": [
+          {
+            "kind": "cn_first_class_museum",
+            "name_ko": "국가 1급 박물관",
+            "source": "tbm_about"
+          },
+          {
+            "kind": "cn_national_heritage",
+            "name_ko": "전국중점문물보호단위",
+            "source": "tbm_about"
+          },
+          {
+            "kind": "cn_4a",
+            "name_ko": "국가 4A급 관광지",
+            "source": "tbm_about"
+          }
+        ]
+      },
+      "photo": null,
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Tsingdao_Brewery.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJV5aYKSYQljURyzPaSLnejW0"
     }
   ],
   "sources": [
@@ -3230,6 +6182,316 @@
       "use": "heritage_registry",
       "license": "UNESCO WHC (사실만 사용, 설명문 CC-BY-SA IGO 3.0)",
       "attribution_required": true
+    },
+    {
+      "id": "unesco_1334",
+      "name": "UNESCO World Heritage Centre — West Lake Cultural Landscape of Hangzhou",
+      "url": "https://whc.unesco.org/en/list/1334/",
+      "use": "heritage_registry",
+      "license": "UNESCO WHC (사실만 사용, 설명문 CC-BY-SA IGO 3.0)",
+      "attribution_required": true
+    },
+    {
+      "id": "unesco_640",
+      "name": "UNESCO World Heritage Centre — Wulingyuan Scenic and Historic Interest Area",
+      "url": "https://whc.unesco.org/en/list/640/",
+      "use": "heritage_registry",
+      "license": "UNESCO WHC (사실만 사용, 설명문 CC-BY-SA IGO 3.0)",
+      "attribution_required": true
+    },
+    {
+      "id": "mct_5a",
+      "name": "中华人民共和国文化和旅游部 政务服务平台 — 我要查询: 5A级旅游景区 (목록)",
+      "url": "https://zwfw.mct.gov.cn/wycx/5ajlyjq/",
+      "use": "facts"
+    },
+    {
+      "id": "ehz_westlake",
+      "name": "Hangzhou Municipal People's Government official English portal (ehangzhou.gov.cn) — Hangzhou West Lake",
+      "url": "https://www.ehangzhou.gov.cn/2018-06/14/c_242880.htm",
+      "use": "facts"
+    },
+    {
+      "id": "ehz_westlake_bus",
+      "name": "ehangzhou.gov.cn — Cool, scenic: Tour Hangzhou's wonderful West Lake by bus (2025-08-21)",
+      "url": "https://www.ehangzhou.gov.cn/2025-08/21/c_294739.htm",
+      "use": "facts"
+    },
+    {
+      "id": "hzfjxh_lingyin",
+      "name": "杭州市佛教协会 — 东南佛国 市属场所: 杭州灵隐寺",
+      "url": "https://www.hzfjxh.com/art/231209/65591460",
+      "use": "facts"
+    },
+    {
+      "id": "hzfjxh_reopen",
+      "name": "杭州市佛教协会 — 关于西湖景区佛教寺院恢复开放的通告 (2026-08-28)",
+      "url": "https://www.hzfjxh.com/art/260828/57190636",
+      "use": "facts"
+    },
+    {
+      "id": "ehz_lingyin",
+      "name": "ehangzhou.gov.cn — Lingyin Temple",
+      "url": "https://www.ehangzhou.gov.cn/2018-06/14/c_271618.htm",
+      "use": "facts"
+    },
+    {
+      "id": "ehz_lingyin_free",
+      "name": "ehangzhou.gov.cn — Hangzhou's Lingyin Feilai Peak Scenic Area launches free admission service (2025-12-04)",
+      "url": "https://www.ehangzhou.gov.cn/2025-12/04/c_295784.htm",
+      "use": "facts"
+    },
+    {
+      "id": "ehz_lingyin_pagoda",
+      "name": "ehangzhou.gov.cn — Stone pagoda and stone sutra pillars at Lingyin Temple (2026-07-17)",
+      "url": "https://www.ehangzhou.gov.cn/2026-07/17/c_298615.htm",
+      "use": "facts"
+    },
+    {
+      "id": "lingyin_home",
+      "name": "杭州灵隐寺 (official) — 首页(주소·연락처)",
+      "url": "https://www.lingyinsi.org/",
+      "use": "facts"
+    },
+    {
+      "id": "lingyin_transport",
+      "name": "杭州灵隐寺 (official) — 寺院公告: 灵隐飞来峰景区“公交+”出行攻略 (2025-11-21, 来源 杭州公交)",
+      "url": "https://www.lingyinsi.com/detail_57_19458.html",
+      "use": "facts"
+    },
+    {
+      "id": "csm_about",
+      "name": "中国丝绸博物馆 (official) — 博物馆概况",
+      "url": "https://www.chinasilkmuseum.com/bwggk/index_3.aspx",
+      "use": "facts"
+    },
+    {
+      "id": "csm_traffic",
+      "name": "中国丝绸博物馆 (official) — 参观及预约: 参观、预约、来馆交通",
+      "url": "https://www.chinasilkmuseum.com/cgjyy/info_6.aspx?itemid=8969",
+      "use": "facts"
+    },
+    {
+      "id": "csm_noreserve",
+      "name": "中国丝绸博物馆 (official) — 中国丝绸博物馆个人参观免预约",
+      "url": "https://www.chinasilkmuseum.com/cgjyy/info_6.aspx?itemid=31404",
+      "use": "facts"
+    },
+    {
+      "id": "csm_hours",
+      "name": "中国丝绸博物馆 (official) — 中国丝绸博物馆开放时间调整",
+      "url": "https://www.chinasilkmuseum.com/cgjyy/info_6.aspx?itemid=31249",
+      "use": "facts"
+    },
+    {
+      "id": "enghunan_zjjpark",
+      "name": "People's Government of Hunan Province (enghunan.gov.cn) — 2023 May Day special: Zhangjiajie National Forest Park (2023-04-26)",
+      "url": "https://www.enghunan.gov.cn/hneng/SP/sp2023/2023MayDay/202304/t20230426_29324679.html",
+      "use": "facts"
+    },
+    {
+      "id": "enghunan_buslines",
+      "name": "People's Government of Hunan Province (enghunan.gov.cn) — Zhangjiajie Launches Six Bus Lines for Tourists (2024-04-20)",
+      "url": "https://www.enghunan.gov.cn/hneng/News/Localnews/202404/t20240420_33281425.html",
+      "use": "facts"
+    },
+    {
+      "id": "whhlyt_wulingyuan",
+      "name": "湖南省文化和旅游厅 — 印象张家界 景区景点: 张家界武陵源景区 (2022-08-26)",
+      "url": "https://whhlyt.hunan.gov.cn/whhlyt/wldhjqjd/202208/t20220816_27583776.html",
+      "use": "facts"
+    },
+    {
+      "id": "whhlyt_wly_scenic",
+      "name": "湖南省文化和旅游厅 — 印象张家界 景区景点: 武陵源风景名胜区 (2022-08-25)",
+      "url": "https://whhlyt.hunan.gov.cn/whhlyt/wldhjqjd/202208/t20220825_27778600.html",
+      "use": "facts"
+    },
+    {
+      "id": "enghunan_tianmen",
+      "name": "People's Government of Hunan Province (enghunan.gov.cn) — 2023 May Day special: Tianmen Mountain (2023-04-26)",
+      "url": "https://www.enghunan.gov.cn/hneng/SP/sp2023/2023MayDay/202304/t20230426_29324673.html",
+      "use": "facts"
+    },
+    {
+      "id": "whhlyt_tianmen",
+      "name": "湖南省文化和旅游厅 — 印象张家界 景区景点: 张家界天门山景区 (2022-08-26)",
+      "url": "https://whhlyt.hunan.gov.cn/whhlyt/wldhjqjd/202208/t20220816_27583771.html",
+      "use": "facts"
+    },
+    {
+      "id": "lyj_tianmen",
+      "name": "湖南省林业局 — 森林公园: 天门山国家森林公园 (2015-12-27)",
+      "url": "https://lyj.hunan.gov.cn/lyj/tslm_71206/slly/slgy/201512/t20151227_2587623.html",
+      "use": "facts"
+    },
+    {
+      "id": "whhlyt_huanglong",
+      "name": "湖南省文化和旅游厅 — 印象张家界 景区景点: 黄龙洞旅游区 (2022-08-26)",
+      "url": "https://whhlyt.hunan.gov.cn/whhlyt/wldhjqjd/202208/t20220816_27583725.html",
+      "use": "facts"
+    },
+    {
+      "id": "ymy_tickets",
+      "name": "圆明园遗址公园 (official, 圆明园管理处) — 票务: 买门票(주소)",
+      "url": "https://www.yuanmingyuanpark.cn/pw/mmp/",
+      "use": "facts"
+    },
+    {
+      "id": "ymy_route",
+      "name": "圆明园遗址公园 (official, 圆明园管理处) — 其他服务: 来园路线",
+      "url": "https://www.yuanmingyuanpark.cn/pw/qtfw/202005/t20200509_4403119.html",
+      "use": "facts"
+    },
+    {
+      "id": "vbs_ymy",
+      "name": "北京旅游网 景区库 (北京市文化和旅游局宣传中心) — 圆明园遗址公园",
+      "url": "https://s.visitbeijing.com.cn/attraction/101422",
+      "use": "facts"
+    },
+    {
+      "id": "vb_ymy_5a",
+      "name": "北京旅游网 (北京市文化和旅游局宣传中心) — 国家5A级景区：圆明园 (2024-06-15)",
+      "url": "https://www.visitbeijing.com.cn/article/4IDcKvsIMky",
+      "use": "facts"
+    },
+    {
+      "id": "vbs_nlgx",
+      "name": "北京旅游网 景区库 (北京市文化和旅游局宣传中心) — 南锣鼓巷",
+      "url": "https://s.visitbeijing.com.cn/attraction/101328",
+      "use": "facts"
+    },
+    {
+      "id": "vb_nlgx",
+      "name": "北京旅游网 (北京市文化和旅游局宣传中心) — 北京必游景点推荐——南锣鼓巷 (2018-06-07)",
+      "url": "https://www.visitbeijing.com.cn/article/47QkViBYPUp",
+      "use": "facts"
+    },
+    {
+      "id": "cstm_hours",
+      "name": "中国科学技术馆 (official) — 观众服务: 开放时间",
+      "url": "https://cstm.org.cn/ykfw/kfsj/index.html",
+      "use": "facts"
+    },
+    {
+      "id": "cstm_booking",
+      "name": "中国科学技术馆 (official) — 观众服务: 预约购票",
+      "url": "https://cstm.org.cn/ykfw/yygp/index.html",
+      "use": "facts"
+    },
+    {
+      "id": "cstm_traffic",
+      "name": "中国科学技术馆 (official) — 观众服务: 交通餐饮",
+      "url": "https://cstm.org.cn/ykfw/jtcy/index.html",
+      "use": "facts"
+    },
+    {
+      "id": "cstm_about",
+      "name": "中国科学技术馆 (official) — 场馆指南: 场馆概况",
+      "url": "https://cstm.org.cn/cgzn/cggk/index.html",
+      "use": "facts"
+    },
+    {
+      "id": "mis_kpg",
+      "name": "上海市文旅推广网 meet-in-shanghai.net(上海市文化和旅游局) — 博物馆: 大韩民国临时政府旧址管理处",
+      "url": "https://www.meet-in-shanghai.net/cn/museums/office-of-the-former-site-of-the-provisional-government-of-the-republic-of-korea-444634/",
+      "use": "facts"
+    },
+    {
+      "id": "mis_kpg_museum",
+      "name": "上海市文旅推广网 meet-in-shanghai.net(上海市文化和旅游局) — 博物馆(주소·개방시간): 大韩民国临时政府旧址管理处",
+      "url": "https://www.meet-in-shanghai.net/cn/museum/office-of-the-former-site-of-the-provisional-government-of-the-republic-of-korea-444634/",
+      "use": "facts"
+    },
+    {
+      "id": "shgov_kpg",
+      "name": "Shanghai Municipal People's Government (service.shanghai.gov.cn) — Site of the Korean government in exile a symbol of a long-standing friendship (2022-08-22)",
+      "url": "https://service.shanghai.gov.cn/sheninfo/specialdetail.aspx?Id=337bfea6-981d-4c52-aaf1-f7b58feecb75",
+      "use": "facts"
+    },
+    {
+      "id": "bmy_guide",
+      "name": "秦始皇帝陵博物院 官网 — 导览(开放时间·购票须知·参观指南)",
+      "url": "https://www.bmy.com.cn/guide.html",
+      "use": "facts"
+    },
+    {
+      "id": "bmy_about",
+      "name": "秦始皇帝陵博物院 官网 — 关于: 概况(考古发现·价值意义·历史沿革)",
+      "url": "https://www.bmy.com.cn/about.html",
+      "use": "facts"
+    },
+    {
+      "id": "bmy_traffic",
+      "name": "秦始皇帝陵博物院 官网 — 导览: 交通路线(상세)",
+      "url": "https://www.bmy.com.cn/guide/368.html",
+      "use": "facts"
+    },
+    {
+      "id": "sxhm_guide",
+      "name": "陕西历史博物馆 官网 — 导览(开放时间·交通路线·票务信息·参观须知)",
+      "url": "https://www.sxhm.com/guide.html",
+      "use": "facts"
+    },
+    {
+      "id": "sxhm_about",
+      "name": "陕西历史博物馆 官网 — 关于: 本馆概述·历史沿革",
+      "url": "https://www.sxhm.com/about.html",
+      "use": "facts"
+    },
+    {
+      "id": "xadfz_dayanta",
+      "name": "西安市地方志办公室 — 魅力西安·人文西安: 大雁塔 (2024-06-18)",
+      "url": "https://xadfz.xa.gov.cn/xadq/rwxa/1802954373708996609.html",
+      "use": "facts"
+    },
+    {
+      "id": "xadfz_wall",
+      "name": "西安市地方志办公室 — 魅力西安·人文西安: 西安城墙 (2025-11-12)",
+      "url": "https://xadfz.xa.gov.cn/xadq/rwxa/1988422067937697793.html",
+      "use": "facts"
+    },
+    {
+      "id": "xadfz_beiyuanmen",
+      "name": "西安市地方志办公室 — 魅力西安·人文西安: 特色餐饮街区——北院门回坊文化风情街 (2022-09-01)",
+      "url": "https://xadfz.xa.gov.cn/xadq/rwxa/63104e8ff8fd1c4c2114fc21.html",
+      "use": "facts"
+    },
+    {
+      "id": "xadfz_wall5a",
+      "name": "西安市地方志办公室 — 魅力西安: 西安国家5A级旅游景区——西安城墙•碑林历史文化景区 (2022-04-14)",
+      "url": "https://xadfz.xa.gov.cn/xadq/rwxa/6257da37f8fd1c0bdc8ebba0.html",
+      "use": "facts"
+    },
+    {
+      "id": "qd_zhanqiao",
+      "name": "青岛政务网(青岛市人民政府) — 扬帆青岛·青岛文旅: 栈桥",
+      "url": "https://www.qingdao.gov.cn/yfqd/qdwl/cjfw/wyqhb/202009/t20200902_518755.shtml",
+      "use": "facts"
+    },
+    {
+      "id": "qd_badaguan",
+      "name": "青岛政务网(青岛市人民政府) — 扬帆青岛·青岛文旅: 八大关风景区",
+      "url": "https://www.qingdao.gov.cn/yfqd/qdwl/cjfw/wyqtsjd/202009/t20200910_521991.shtml",
+      "use": "facts"
+    },
+    {
+      "id": "tbm_about",
+      "name": "青岛啤酒博物馆 官网 — 概况: 博物馆介绍·博物馆荣誉",
+      "url": "https://www.tsingtaomuseum.com/category/1773519016732667906",
+      "use": "facts"
+    },
+    {
+      "id": "tbm_notice",
+      "name": "青岛啤酒博物馆 官网 — 参观须知(开放时间·购票)",
+      "url": "https://www.tsingtaomuseum.com/articleTitleCus/1790371205849559041?viewName=newCanguanDetail",
+      "use": "facts"
+    },
+    {
+      "id": "tbm_traffic",
+      "name": "青岛啤酒博物馆 官网 — 交通路线",
+      "url": "https://www.tsingtaomuseum.com/articleTitleCus/1790373016308297729?viewName=newJiaotongDetail",
+      "use": "facts"
     }
   ]
 }
