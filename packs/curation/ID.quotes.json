@@ -227,6 +227,15 @@
       "ed855a9d91388b293b64b8280185e284197864de1195cf6fa955c041fec18546"
     ]
   },
+  "green-bowl-beach": {
+    "facts_sha256": "ee3d7ca6870e31406a6b2768e66ef65dab18c5514da6cc50ed61f30507d97048",
+    "quotes": [
+      "6b6a20da91f3076aeb97c8632a42b29102d31f9fb0bb8c81ba9ffc68dca476ba",
+      "a96ad9b75c571005ca301bbca78c72c8c3b7a3d9d2fb4e25689f353dec3e08fc",
+      "be22f2bd1602771439573059c62fb53b2fbde941e6ffe6ab3fa104f5279b84ab",
+      "c9ddce4896ea19526a4815461c7366084be7f8d72577d36f0b12e07177dce2a8"
+    ]
+  },
   "istiqlal": {
     "facts_sha256": "bf82be9310d7c68263ef73b3343e198bf0c9fde08313138a5b5fe3ea5410bb4f",
     "quotes": [
@@ -658,6 +667,15 @@
       "ed89d84531e755a9dbfdabf35eb9493b579dfabdc3e4bad5560b1ecc2e1df3c7",
       "f2ae13e7951b32dfd6b8370a58dd2a1fa64c79af9ffef4ddd220f07272d2ba74",
       "f3b5c694e439f8a8e19074bce6f30e3580396352f68af8b9d319472781970939"
+    ]
+  },
+  "suluban-beach": {
+    "facts_sha256": "00ea91e4d68a477dd75c692aae205aa6ca5005f96e9beec2c7fc68932b10214c",
+    "quotes": [
+      "0901ba10693029508a0fe0074ad1d0f083b61128a2fa9f499f312035d5f45ee4",
+      "178e5b08be3ed8d8f20ebe58d94a95590d60a1ef546b5310a675736e699acd95",
+      "4347989e1bfe5170bd0e5741efb26edbc13959f4b1e8b6d8f0ee2a91f0d3fabd",
+      "cba98abf45f95523cded5ea9cf7da2b1c686c9b7e7ed4bede34aaccd5b0570a3"
     ]
   },
   "taman-sari-yogyakarta": {

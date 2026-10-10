@@ -79,6 +79,11 @@
     "checked_at": "2026-10-10",
     "text_sha256": "9d9dbbb40fc13ececcf559e0f7d8c8749a8a85960216de071b01219fff5820be"
   },
+  "green-bowl-beach": {
+    "cache_set_sha256": "21ea0ec109c7b36ffcf54028ea0100c5fbb521a11b86bfbca00b9ec8294dfaf1",
+    "checked_at": "2026-10-10",
+    "text_sha256": "44f2734d4436b95766ea25b3381566eeebbaae1a051d042461bc26188731d9c4"
+  },
   "istiqlal": {
     "cache_set_sha256": "7ad0de28b763fb2792cf510c73ec696e8aea486d897b8df1176d0f1498c46ab2",
     "checked_at": "2026-10-10",
@@ -218,6 +223,11 @@
     "cache_set_sha256": "3426ea6af6d7c8eeacf0d625d5f9294a5419c4e553f8400f5f9b14b5f8c68ae6",
     "checked_at": "2026-10-10",
     "text_sha256": "e799cec644906340bbfaf14f4a9f0390d28e2b6bf65935eefd26daf8b3b05889"
+  },
+  "suluban-beach": {
+    "cache_set_sha256": "87297a1ae368193bc9b6d7dee8224ae9cd22fd30bbc63250ce9ef7eebe75d28f",
+    "checked_at": "2026-10-10",
+    "text_sha256": "d3ce20a16c3a4f2faf69e6c5ab2d0162401c0b43a4c13c12e8b92c5acb9c2d22"
   },
   "taman-sari-yogyakarta": {
     "cache_set_sha256": "9077c1662b273c8fd637ff3c4ee081318fae81fe094839b7f5365e3b85dcdb83",

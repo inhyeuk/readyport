@@ -1073,6 +1073,18 @@
       "name": "Museum Benteng Vredeburg 공식 사이트 — Profil",
       "url": "https://vredeburg.id/id/page/profil",
       "use": "facts"
+    },
+    {
+      "id": "lovebali_greenbowl",
+      "name": "Love Bali(발리주 정부 공식 관광 포털) — Pantai Green Bowl",
+      "url": "https://lovebali.baliprov.go.id/destination/detail/1606371174760/pantai-green-bowl-(green-bowl-beach)?id=1606371174760",
+      "use": "facts"
+    },
+    {
+      "id": "lovebali_suluban",
+      "name": "Love Bali(발리주 정부 공식 관광 포털) — Pantai Suluban",
+      "url": "https://lovebali.baliprov.go.id/destination/detail/239/pantai-suluban?id=239",
+      "use": "facts"
     }
   ],
   "attractions": [
@@ -1449,7 +1461,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 52,
+        "order": 53,
         "designations": []
       },
       "photo": null,
@@ -1833,7 +1845,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 50,
+        "order": 51,
         "designations": []
       },
       "photo": null,
@@ -4656,7 +4668,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 51,
+        "order": 52,
         "designations": []
       },
       "photo": null,
@@ -4912,7 +4924,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 53,
+        "order": 54,
         "designations": []
       },
       "photo": null,
@@ -5850,7 +5862,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 54,
+        "order": 56,
         "designations": []
       },
       "photo": null,
@@ -8701,6 +8713,232 @@
       "source": "wd",
       "last_verified": "2026-10-10",
       "google_place_id": "ChIJz-6zwIhXei4R-J8qI-AcYbk"
+    },
+    {
+      "id": "green-bowl-beach",
+      "qid": "Q124344622",
+      "names": {
+        "ko": "그린 볼 해변",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Green Bowl Beach",
+        "local": "Pantai Green Bowl",
+        "local_short": "Pantai Green Bowl",
+        "local_lang": "id",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "그린볼 비치",
+        "그린 볼 비치"
+      ],
+      "aliases_en": [
+        "Green Bowl",
+        "Pantai Green Bowl"
+      ],
+      "mentions_ko": [],
+      "region": "id_bali_bukit",
+      "area_ko": "바둥 군 웅아산 절벽 아래",
+      "category": "sea_island",
+      "tags": [
+        {
+          "id": "stairs",
+          "source": "lovebali_greenbowl",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "geo": {
+        "kind": "site",
+        "lat": -8.8487221,
+        "lng": 115.1709357,
+        "source": "wd",
+        "qid": "Q124344622",
+        "osm": null,
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": {
+        "lat": -8.8487221,
+        "lng": 115.1709357
+      },
+      "address_local": null,
+      "access": {
+        "modes": [
+          "car_only"
+        ],
+        "nearest_ko": "웅아산 마을 절벽 위 길에서 계단으로 내려가요. 차로 가요",
+        "source": "lovebali_greenbowl",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://lovebali.baliprov.go.id/destination/detail/1606371174760/pantai-green-bowl-(green-bowl-beach)?id=1606371174760",
+      "summary_ko": "수백 개 계단을 내려가는 한적한 부킷 반도의 해변이에요.",
+      "body_ko": [
+        "그린 볼 해변은 웅아산 마을에 있고, 마을 어디에서든 15분쯤 걸리는 한적한 해변이에요.",
+        "수백 개의 가파른 계단을 내려가야 해서 찾는 사람이 적어요.",
+        "해변에는 석회암 동굴이 있어 쉬어 가기 좋아요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "웅아산에 있고, 어느 마을에서든 15분쯤 걸려요.",
+          "source": "lovebali_greenbowl",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "수백 개의 가파른 계단을 내려가야 해서 찾는 사람이 적어요.",
+          "source": "lovebali_greenbowl",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "해변에 석회암 동굴이 있어요.",
+          "source": "lovebali_greenbowl",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "해변까지 수백 개의 가파른 계단을 내려가요.",
+          "source": "lovebali_greenbowl",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "석회암 동굴에서 쉬어 갈 수 있어요.",
+          "source": "lovebali_greenbowl",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "public_space"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "lovebali_greenbowl",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_id",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 50,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "wd",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJPyqq13Nb0i0RTmznt69acQA"
+    },
+    {
+      "id": "suluban-beach",
+      "qid": null,
+      "names": {
+        "ko": "술루반 해변(블루 포인트)",
+        "ko_basis": "editorial",
+        "ko_paren": null,
+        "en": "Suluban Beach (Blue Point)",
+        "local": "Pantai Suluban",
+        "local_short": "Pantai Suluban",
+        "local_lang": "id",
+        "source": "lovebali_suluban"
+      },
+      "aliases_ko": [
+        "블루 포인트 해변",
+        "술루반 비치",
+        "블루포인트"
+      ],
+      "aliases_en": [
+        "Blue Point Beach",
+        "Pantai Suluban"
+      ],
+      "mentions_ko": [],
+      "region": "id_bali_bukit",
+      "area_ko": "바둥 군 쁘짜뚜 마을 절벽 아래",
+      "category": "sea_island",
+      "tags": [],
+      "geo": {
+        "kind": "site",
+        "lat": -8.8155477,
+        "lng": 115.088317,
+        "source": "osm",
+        "qid": null,
+        "osm": "node/6278550285",
+        "last_verified": "2026-10-10"
+      },
+      "wd_geo": null,
+      "address_local": null,
+      "access": {
+        "modes": [
+          "car_only"
+        ],
+        "nearest_ko": "쁘짜뚜 마을 절벽 아래에 있어요. 차로 가요",
+        "source": "lovebali_suluban",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://lovebali.baliprov.go.id/destination/detail/239/pantai-suluban?id=239",
+      "summary_ko": "바위 터널을 지나 닿는 절벽 아래의 해변이에요.",
+      "body_ko": [
+        "술루반 해변은 절벽 아래에 있는 해변으로, 블루 포인트 해변이라고도 해요.",
+        "해변에 닿으려면 바위 터널을 지나야 해요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "절벽 아래에 있는 해변이라 '술루반'이라고 불러요.",
+          "source": "lovebali_suluban",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "바위 터널을 지나야 물가에 닿아요.",
+          "source": "lovebali_suluban",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "블루 포인트 해변이라고도 불러요.",
+          "source": "lovebali_suluban",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "바위 터널을 지나야 해변에 닿아요.",
+          "source": "lovebali_suluban",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "public_space"
+      },
+      "volatile": null,
+      "seasonal": [],
+      "risk": [],
+      "status": {
+        "value": "open",
+        "note_ko": null,
+        "source": "lovebali_suluban",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "1",
+        "source": "mofa_id",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 55,
+        "designations": []
+      },
+      "photo": null,
+      "photo_link": null,
+      "source": "lovebali_suluban",
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJ-Vswqv5P0i0RZ6Cu8fsieWs"
     }
   ]
 }
