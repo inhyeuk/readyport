@@ -24,6 +24,11 @@
     "checked_at": "2026-10-10",
     "text_sha256": "3af9c6b14271be42b6926512cb6a518c3f8eec197c2be1d29488afe5369f2a8a"
   },
+  "chimei-museum": {
+    "cache_set_sha256": "2a0d160585e64df2b19316d74a3263fbb6341b69d22da696e090984b40198d95",
+    "checked_at": "2026-10-10",
+    "text_sha256": "179ded9b7534a23959e536a19e62e39a0bad1bdec2c50c1512d5000223de2398"
+  },
   "cihou-fort": {
     "cache_set_sha256": "ea9fb787477c36380d1c9cbef771bba419249431363376f718a31ed8e6e40a65",
     "checked_at": "2026-10-10",
@@ -99,6 +104,11 @@
     "checked_at": "2026-10-10",
     "text_sha256": "bee27bd497bd762d9e912bda20dab4b66db370a8999b23151b67676500e40df8"
   },
+  "jiuzu-culture-village": {
+    "cache_set_sha256": "a3c6e77db1426dd3eeab73870be99bd24551d9374f5a67d7747f38494effcafe",
+    "checked_at": "2026-10-10",
+    "text_sha256": "8440fe2ef20b8d0eca8362cf1b68895545d0d1025ab1aed027dbfcfe91822ee0"
+  },
   "kenting-national-park": {
     "cache_set_sha256": "b0c92a5f8728ed8f2fb6065dfdf5d5cd915e82cbd5bb2cc0be706e8f67b0af76",
     "checked_at": "2026-10-10",
@@ -130,9 +140,14 @@
     "text_sha256": "59af2e7155a20f970eca857a7ff791911c39147386c6f10d5238f69e7e48dcd9"
   },
   "national-palace-museum": {
-    "cache_set_sha256": "44055c8c888cca9868fbcacaee0c4bec3186bb56542c7894d8f55eecb38a1489",
+    "cache_set_sha256": "f75ec9f177da4975edff9bc3d97bbf83c5d24bd57db68617837f27e55b6f051c",
     "checked_at": "2026-10-10",
-    "text_sha256": "9c4dd25f5599c95e9145ba5573b7a39ef4714ec143dcd36f32fbbb649ada4451"
+    "text_sha256": "0ba37778ff5180d5c69ae0dedf8d70751e0b2f47e612c84c48d869e411012da1"
+  },
+  "national-taiwan-museum": {
+    "cache_set_sha256": "e35ccd15cfbca62261db6aa35811bf3763f0d87bb99a2bdd5cd033e91e45ad8c",
+    "checked_at": "2026-10-10",
+    "text_sha256": "a00b460980fafa4c5e528bc1802c91aca97c411904cb9256bdb0cb2a0e189924"
   },
   "pier-2-art-center": {
     "cache_set_sha256": "37870311691a802ad959d2b8c942e3bc69f4e6c2684e6cfb613770c9493afe9f",
@@ -189,6 +204,11 @@
     "checked_at": "2026-10-10",
     "text_sha256": "fd5e786d88b30c0e8391f5ff51222965a52fdd69c9897941768f3d94363ee45d"
   },
+  "taipei-zoo": {
+    "cache_set_sha256": "1b24113472b5a3759741a3699a37330eb7e5e514cc01a6ef274f0843c600d8cf",
+    "checked_at": "2026-10-10",
+    "text_sha256": "5583814a74a9b4939c20711d6c00dca68a8130a4abcc2b5c33dead439d69e188"
+  },
   "tamsui-customs-officers-residence": {
     "cache_set_sha256": "6f796896f777efe875a6c0854c3cbf101325a4062b12c475513b0212ce6a8aaf",
     "checked_at": "2026-10-10",
@@ -208,6 +228,11 @@
     "cache_set_sha256": "0e15b26369e2ab896b0d5d8a2c91a1884a116c47588a1f071101e410c6063626",
     "checked_at": "2026-10-10",
     "text_sha256": "cff66279f4b74102e7d4fa0f1ea84f2802614f61719bedba56b53cc879e52efb"
+  },
+  "xpark": {
+    "cache_set_sha256": "5de73a481343aba3696337351f2d9db7b954fb9c86ad7077338b560821311b6f",
+    "checked_at": "2026-10-10",
+    "text_sha256": "76e5e248d32a6adfaf615b3a5ca4bd3a1fb70f73b4187739fa966572e58c66ee"
   },
   "xuanguang-temple": {
     "cache_set_sha256": "b75959ef00fdf2d6e166522130855d9cd28cbf89fffb2b40bc62e9d28194695f",
