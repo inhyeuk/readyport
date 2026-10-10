@@ -633,6 +633,7 @@ private val AttractionDataCredits = listOf(
     R.string.settings_credit_bunka_osakajo,
     R.string.settings_credit_bunka_narapark,
     R.string.settings_credit_unesco_870,
+    R.string.settings_credit_unesco_652,
     R.string.settings_credit_unesco_1012,
     R.string.settings_credit_dsvh_hoankiem,
     R.string.settings_credit_unesco_678,

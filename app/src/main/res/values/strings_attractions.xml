@@ -236,6 +236,7 @@
     <string name="settings_credit_dsvh_phuquoc_prison">Cục Di sản văn hóa, Bộ VHTTDL (official heritage registry) — Di tích lịch sử Trại giam Phú Quốc — 푸꾸옥 감옥</string>
     <string name="settings_credit_unesco_geopark_batur">UNESCO International Geoscience and Geoparks Programme — Batur UNESCO Global Geopark — 바투르산(킨타마니 전망)</string>
     <string name="settings_credit_unesco_609">UNESCO World Heritage Centre — Komodo National Park — 코모도 국립공원·파다르섬·핑크 비치(코모도)</string>
+    <string name="settings_credit_unesco_652">UNESCO World Heritage Centre — Puerto-Princesa Subterranean River National Park — 푸에르토프린세사 지하강</string>
     <string name="settings_credit_unesco_870">UNESCO 세계유산센터 — 고대 나라의 역사기념물</string>
 
     <!-- 관광지 지도 (Google 지도 SDK, 사장님 결정 2026-10-09). 키가 없거나 중국이면 지도 없이 '구글 지도에서 열기'만 -->
