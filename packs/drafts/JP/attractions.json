@@ -8614,7 +8614,7 @@
         "last_verified": "2026-09-28"
       },
       "rank": {
-        "order": 0,
+        "order": 999,
         "designations": [
           {
             "kind": "jp_important_cultural_property_partial",
@@ -8624,6 +8624,313 @@
         ]
       },
       "photo_link": "https://commons.wikimedia.org/wiki/File:Shitennoji03s3200.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10"
+    },
+    {
+      "id": "universal-studios-japan",
+      "qid": "Q1375103",
+      "names": {
+        "ko": "유니버설 스튜디오 재팬",
+        "ko_basis": "editorial",
+        "en": "Universal Studios Japan",
+        "local": "ユニバーサル・スタジオ・ジャパン",
+        "local_short": "ユニバーサル・スタジオ・ジャパン",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "USJ",
+        "유니버설 스튜디오",
+        "유니버셜 스튜디오 재팬"
+      ],
+      "mentions_ko": [
+        "스튜디오 패스"
+      ],
+      "region": "jp_osaka",
+      "area_ko": "오사카 고노하나구",
+      "category": "theme_park",
+      "geo": {
+        "kind": "entrance",
+        "lat": 34.6647,
+        "lng": 135.433,
+        "source": "wd",
+        "last_verified": "2026-10-10",
+        "qid": "Q1375103"
+      },
+      "address_local": {
+        "text": "大阪府大阪市此花区桜島2丁目1番33号",
+        "source": "usj_official_company_profile",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "train"
+        ],
+        "nearest_ko": "유니버설시티역이 가장 가까운 역이에요",
+        "source": "usj_official_access",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.usj.co.jp/web/ja/jp",
+      "summary_ko": "오사카 항구 쪽 고노하나구에 있는 테마파크예요.",
+      "body_ko": [
+        "유니버설 스튜디오 재팬은 2001년 3월에 문을 연 테마파크로, 오사카시 고노하나구에 있어요.",
+        "운영은 합동회사 유에스제이가 맡고 있고, 입장하려면 스튜디오 패스(입장권)가 필요해요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "테마파크 '유니버설 스튜디오 재팬'은 2001년 3월에 개업했어요.",
+          "source": "usj_official_company_history",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "테마파크를 운영·기획하는 곳은 합동회사 유에스제이예요.",
+          "source": "usj_official_company_profile",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "음식은 가져갈 수 없어요. 음료는 물통이나 페트병이면 되고, 술은 안 돼요.",
+          "source": "usj_official_faq_guide",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "안전 때문에 파크 안에서 롤러 슈즈는 신을 수 없어요.",
+          "source": "usj_official_faq_guide",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "unknown"
+        ],
+        "source": "usj_official_access",
+        "last_verified": "2026-10-10"
+      },
+      "status": {
+        "value": "open",
+        "source": "usj_official_access",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 999,
+        "designations": []
+      },
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Harry_Potter_and_the_Forbidden_Journey_USJ.JPG",
+      "source": "wd",
+      "last_verified": "2026-10-10"
+    },
+    {
+      "id": "tokyo-disneyland",
+      "qid": "Q843997",
+      "names": {
+        "ko": "도쿄 디즈니랜드",
+        "ko_basis": "editorial",
+        "en": "Tokyo Disneyland",
+        "local": "東京ディズニーランド",
+        "local_short": "東京ディズニーランド",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "TDL",
+        "디즈니랜드"
+      ],
+      "mentions_ko": [
+        "디즈니 리조트"
+      ],
+      "region": "jp_tokyo",
+      "area_ko": "지바현 우라야스시 마이하마",
+      "category": "theme_park",
+      "geo": {
+        "kind": "entrance",
+        "lat": 35.632777777778,
+        "lng": 139.88055555556,
+        "source": "wd",
+        "last_verified": "2026-10-10",
+        "qid": "Q843997"
+      },
+      "access": {
+        "modes": [
+          "train",
+          "bus"
+        ],
+        "nearest_ko": "JR 마이하마역이 가장 가까운 역이에요",
+        "nearest_local": {
+          "text": "舞浜駅",
+          "qid": "Q801154",
+          "source": "wd"
+        },
+        "source": "tdr_official_access",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.tokyodisneyresort.jp/tdl/",
+      "summary_ko": "도쿄 디즈니 리조트에 있는 테마파크예요.",
+      "body_ko": [
+        "도쿄 디즈니랜드는 1983년 4월에 문을 열었어요.",
+        "도쿄 디즈니 리조트의 가까운 역은 JR 마이하마역이고, 공식 앱으로 입장권을 살 수 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "'東京ディズニーランド'는 1983년 4월에 그랜드 오픈했어요.",
+          "source": "olc_official_history",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "주변 도로와 주차장이 붐비니 대중교통을 이용해 달라고 안내해요.",
+          "source": "tdr_official_access",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "휠체어·전동 카트 등을 빌릴 수 있어요.",
+          "source": "tdl_official_guide",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "유모차를 빌릴 수 있어요.",
+          "source": "tdl_official_guide",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "unknown"
+        ],
+        "source": "tdl_official_guide",
+        "last_verified": "2026-10-10"
+      },
+      "status": {
+        "value": "open",
+        "source": "tdl_official_guide",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 999,
+        "designations": []
+      },
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Tokyo_Disneyland_Cinderella_Castle_2023-07-02.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10"
+    },
+    {
+      "id": "tokyo-disneysea",
+      "qid": "Q1202341",
+      "names": {
+        "ko": "도쿄 디즈니씨",
+        "ko_basis": "editorial",
+        "en": "Tokyo DisneySea",
+        "local": "東京ディズニーシー",
+        "local_short": "東京ディズニーシー",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "TDS",
+        "디즈니씨"
+      ],
+      "mentions_ko": [
+        "디즈니 리조트"
+      ],
+      "region": "jp_tokyo",
+      "area_ko": "지바현 우라야스시 마이하마",
+      "category": "theme_park",
+      "geo": {
+        "kind": "entrance",
+        "lat": 35.626667,
+        "lng": 139.888056,
+        "source": "wd",
+        "last_verified": "2026-10-10",
+        "qid": "Q1202341"
+      },
+      "access": {
+        "modes": [
+          "train",
+          "bus"
+        ],
+        "nearest_ko": "JR 마이하마역이 가장 가까운 역이에요",
+        "nearest_local": {
+          "text": "舞浜駅",
+          "qid": "Q801154",
+          "source": "wd"
+        },
+        "source": "tdr_official_access",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.tokyodisneyresort.jp/tds/",
+      "summary_ko": "도쿄 디즈니 리조트에 있는 테마파크예요.",
+      "body_ko": [
+        "도쿄 디즈니씨는 2001년 9월에 문을 열었어요.",
+        "도쿄 디즈니 리조트의 가까운 역은 JR 마이하마역이고, 공식 앱으로 입장권을 살 수 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "'東京ディズニーシー'는 2001년 9월에 그랜드 오픈했어요.",
+          "source": "olc_official_history",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "주변 도로와 주차장이 붐비니 대중교통을 이용해 달라고 안내해요.",
+          "source": "tdr_official_access",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "휠체어·전동 카트 등을 빌릴 수 있어요.",
+          "source": "tds_official_guide",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "유모차를 빌릴 수 있어요.",
+          "source": "tds_official_guide",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "unknown"
+        ],
+        "source": "tds_official_guide",
+        "last_verified": "2026-10-10"
+      },
+      "status": {
+        "value": "open",
+        "source": "tds_official_guide",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 999,
+        "designations": []
+      },
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Tokyo_Disney_Sea_Mountain.jpg",
       "source": "wd",
       "last_verified": "2026-10-10"
     }
@@ -10255,6 +10562,54 @@
       "id": "shitennoji_official_history",
       "name": "四天王寺 四天王寺の歴史",
       "url": "https://www.shitennoji.or.jp/history.html",
+      "use": "facts"
+    },
+    {
+      "id": "usj_official_access",
+      "name": "USJ 交通アクセス 電車",
+      "url": "https://www.usj.co.jp/web/ja/jp/access/train",
+      "use": "facts"
+    },
+    {
+      "id": "usj_official_company_history",
+      "name": "株式会社ユー・エス・ジェイ 沿革",
+      "url": "https://www.usj.co.jp/company/about/history/",
+      "use": "facts"
+    },
+    {
+      "id": "usj_official_company_profile",
+      "name": "合同会社ユー・エス・ジェイ 会社概要",
+      "url": "https://www.usj.co.jp/company/about/profile/",
+      "use": "facts"
+    },
+    {
+      "id": "usj_official_faq_guide",
+      "name": "USJ パークのご利用案内 よくあるご質問",
+      "url": "https://www.usj.co.jp/web/ja/jp/faq/service-guide",
+      "use": "facts"
+    },
+    {
+      "id": "olc_official_history",
+      "name": "株式会社オリエンタルランド 東京ディズニーリゾートのあゆみ",
+      "url": "https://www.olc.co.jp/ja/facility/history.html",
+      "use": "facts"
+    },
+    {
+      "id": "tdl_official_guide",
+      "name": "東京ディズニーランド パークのサービス",
+      "url": "https://www.tokyodisneyresort.jp/tdl/guide.html",
+      "use": "facts"
+    },
+    {
+      "id": "tdr_official_access",
+      "name": "東京ディズニーリゾート 交通アクセス",
+      "url": "https://www.tokyodisneyresort.jp/tdl/access.html",
+      "use": "facts"
+    },
+    {
+      "id": "tds_official_guide",
+      "name": "東京ディズニーシー パークのサービス",
+      "url": "https://www.tokyodisneyresort.jp/tds/guide.html",
       "use": "facts"
     }
   ]
