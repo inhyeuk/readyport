@@ -14,15 +14,30 @@
     "checked_at": "2026-10-10",
     "text_sha256": "fd4b79f6ff72c06d34d672e03d3e9bdf1b7d1fa92014bbfd2a8bb85d69e9bc22"
   },
+  "baluarte-de-san-diego": {
+    "cache_set_sha256": "a6a6d50cb6cb2a09f1227d4608b3305a713a809ba4c7972704052237d44e4694",
+    "checked_at": "2026-10-10",
+    "text_sha256": "45c5993ef13a452f04d4230d80fb6315cb2190c474aa3cd88ac72e740276ce37"
+  },
   "basilica-santo-nino": {
     "cache_set_sha256": "7b6d36b3e4bbe1ff0194ccec72f84c609594ff299e68d63e172d9ffc8020366b",
     "checked_at": "2026-10-10",
     "text_sha256": "e676f0c2b0d5f4ea7a5d5376d2611615b2120f82fa2b0e3eed784795efa92508"
   },
+  "boljoon-church": {
+    "cache_set_sha256": "b85b3aadae060b9677106c8184f5da5c054985ab1f4db8c6d463f13dfed1f8bd",
+    "checked_at": "2026-10-10",
+    "text_sha256": "45a2479a741f3ab2fc5fea6c257e83c8fd50279da37106f447a64abcad49d45d"
+  },
   "casa-manila": {
     "cache_set_sha256": "e02026aab8cb7b3dd98663011afd3e956fb900e655ec77f883f74ef05eaeaa9e",
     "checked_at": "2026-10-10",
     "text_sha256": "13cdd0fcb02066861da096ab8745a21cec3e1c971c748e91e4617eb8cb56d355"
+  },
+  "cebu-ocean-park": {
+    "cache_set_sha256": "ba6cdb501742340e5234006bf5331f8586659345dce76b08d29519eec16ef549",
+    "checked_at": "2026-10-10",
+    "text_sha256": "cf6f201174f41ce22ad57a563aefe2fed5ddcfe60b96a7e1a21503ce10d46a6c"
   },
   "chocolate-hills": {
     "cache_set_sha256": "68b488b15dba47fd7cce1c896224c6afe2adf059470e64ca67938d89593b31b9",
@@ -33,6 +48,11 @@
     "cache_set_sha256": "d244e00a273aeee358b07e3fc84d257a0409760fc9a18b8a89b808b6cd4c6257",
     "checked_at": "2026-10-10",
     "text_sha256": "513639455efb27531675fe3a477516a433b940a6de2e251c7950439f429981b0"
+  },
+  "enchanted-kingdom": {
+    "cache_set_sha256": "bbf0eb20efd428fd8f01cfb0ba60b5d30bf1442e90fa56fbd931d70921eb8924",
+    "checked_at": "2026-10-10",
+    "text_sha256": "9810298e5b2ddf8b8056a76f23a22c30abb2d753b962c522d89352fbfed45767"
   },
   "fort-santiago": {
     "cache_set_sha256": "f69baab6b4798c0ff103c17b25e43c2867bf466368f34f5d458539cdbf5aaba9",
@@ -64,6 +84,11 @@
     "checked_at": "2026-10-10",
     "text_sha256": "b75ba2d4b8a4d3f203a31cd1cd402d1628c9b6752821531805f8e60a8c5215a9"
   },
+  "manila-ocean-park": {
+    "cache_set_sha256": "fcc9cfaf1ce266e1e2db3c9a4dc79f27c5080a385df33a054dbe4185d2121dc9",
+    "checked_at": "2026-10-10",
+    "text_sha256": "914836fea328399931c6edec1364cb6030ee79d7feb49d1642f429c294295048"
+  },
   "maquinit-hot-spring": {
     "cache_set_sha256": "bd9f2cf91e896e3e0399e13d236c4dbfe34181c0c6d300f2080335c82322f146",
     "checked_at": "2026-10-10",
@@ -84,6 +109,11 @@
     "checked_at": "2026-10-10",
     "text_sha256": "049daff6b34bb8c491962d1864db6884709eccf53868fe153fdf551101e7a805"
   },
+  "museo-de-intramuros": {
+    "cache_set_sha256": "6e04db7bdc989305d78d5ff2345e0ca6f93e0d9531148e23735eb50e8b04ee7a",
+    "checked_at": "2026-10-10",
+    "text_sha256": "d433ade80a5610b3ebdb8b07fe509c9fa2a94be3a90b18d57f81cd012e9d42e5"
+  },
   "museo-ning-angeles": {
     "cache_set_sha256": "2f09692473863fe338dd1b65de864dd2aac536b3372ab2e7f7ddb90b7a903448",
     "checked_at": "2026-10-10",
@@ -98,6 +128,11 @@
     "cache_set_sha256": "4a73563fb9e4bbd8780ecb57b1ff4538a86f9a937b6a7f861a9a2074570f63df",
     "checked_at": "2026-10-10",
     "text_sha256": "1792d7b54106cc8f0bb5dfbd715bcf0fa042c78bb5cd6abb385ae247401ed1bb"
+  },
+  "national-museum-of-anthropology": {
+    "cache_set_sha256": "d9b71db7872acccb6b0c4046b4dc6c4a34609943aca73c979981f5275ffd5d40",
+    "checked_at": "2026-10-10",
+    "text_sha256": "16f08f5cf7e0a60297110e7992bf681ae790db4b138ddce30370c044fb697f89"
   },
   "national-museum-of-fine-arts": {
     "cache_set_sha256": "901dc70e971611a0fe2938aa4b59f6bb5031e9ba8864d2e2409a97b16722b186",
