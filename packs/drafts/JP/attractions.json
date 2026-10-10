@@ -11298,6 +11298,340 @@
       "photo_link": "https://commons.wikimedia.org/wiki/File:260923_Sanmachi_Takayama_Japan03s3.jpg",
       "source": "wd",
       "last_verified": "2026-10-10"
+    },
+    {
+      "id": "fukuoka-tower",
+      "qid": "Q847033",
+      "names": {
+        "ko": "후쿠오카 타워",
+        "ko_basis": "editorial",
+        "en": "Fukuoka Tower",
+        "local": "福岡タワー",
+        "local_short": "福岡タワー",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "모모치 타워"
+      ],
+      "mentions_ko": [
+        "전망실"
+      ],
+      "region": "jp_fukuoka",
+      "area_ko": "후쿠오카시 사와라구",
+      "category": "city_view",
+      "geo": {
+        "kind": "entrance",
+        "lat": 33.59330555555555,
+        "lng": 130.3515,
+        "source": "wd",
+        "last_verified": "2026-10-10",
+        "qid": "Q847033"
+      },
+      "access": {
+        "modes": [
+          "bus",
+          "metro"
+        ],
+        "nearest_ko": "하카타 버스터미널에서 니시테쓰 버스 306번을 타고 '후쿠오카 타워 남쪽 입구'에서 내려요",
+        "source": "fukuokatower_official_access",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.fukuokatower.co.jp/",
+      "summary_ko": "하카타만 바닷가에 서 있는 전망 타워예요.",
+      "body_ko": [
+        "후쿠오카 타워는 전장 234m의 해변 타워예요.",
+        "지상 123m의 최상층 전망실에서는 후쿠오카 시내와 하카타만을 360도 파노라마로 볼 수 있어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "전장 234m의 해변 타워예요.",
+          "source": "fukuokatower_official_top",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "지상 123m 최상층 전망실에서 후쿠오카 시내와 하카타만을 360도 파노라마로 볼 수 있어요.",
+          "source": "fukuokatower_official_top",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "버스로 하카타역에서 약 25분, 텐진에서 약 20분 걸려요.",
+          "source": "fukuokatower_official_top",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "혼잡하면 마지막 입장 시간이 앞당겨질 수 있어요.",
+          "source": "fukuokatower_official_charge",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "버스는 '후쿠오카 타워 남쪽 입구'나 'TNC 방송회관 앞'에서 내려요.",
+          "source": "fukuokatower_official_access",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "버스로 하카타역에서 약 25분, 텐진에서 약 20분 걸려요.",
+          "source": "fukuokatower_official_top",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "none"
+        ],
+        "closed_note_ko": "휴관일은 2027년 6월 28·29일이에요.",
+        "source": "fukuokatower_official_charge",
+        "last_verified": "2026-10-10"
+      },
+      "status": {
+        "value": "open",
+        "source": "fukuokatower_official_charge",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 999,
+        "designations": []
+      },
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Fukuoka_Tower_October_2011_01.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10"
+    },
+    {
+      "id": "shinjuku-gyoen",
+      "qid": "Q776863",
+      "names": {
+        "ko": "신주쿠 교엔",
+        "ko_basis": "editorial",
+        "en": "Shinjuku Gyoen",
+        "local": "新宿御苑",
+        "local_short": "新宿御苑",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "신주쿠 어원",
+        "신주쿠 교엔 국민공원"
+      ],
+      "aliases_en": [
+        "Shinjuku Gyoen National Garden"
+      ],
+      "mentions_ko": [
+        "일본 정원"
+      ],
+      "region": "jp_tokyo",
+      "area_ko": "도쿄 신주쿠구",
+      "category": "nature",
+      "geo": {
+        "kind": "entrance",
+        "lat": 35.68716944444444,
+        "lng": 139.71064444444445,
+        "source": "wd",
+        "last_verified": "2026-10-10",
+        "qid": "Q776863"
+      },
+      "address_local": {
+        "text": "〒160-0014 東京都新宿区内藤町11番地",
+        "source": "shinjukugyoen_official_access",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "train",
+          "metro"
+        ],
+        "nearest_ko": "JR 신주쿠역 남쪽 출구에서 걸어가요 (신주쿠교엔마에역에서는 신주쿠 문·오키도 문이 가까워요)",
+        "source": "shinjukugyoen_official_access",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://fng.or.jp/shinjuku/",
+      "summary_ko": "유럽식 정형 정원과 일본 정원이 어우러진 국민공원이에요.",
+      "body_ko": [
+        "신주쿠 교엔은 에도 시대 도쿠가와 이에야스의 가신 나이토 기요나리가 받은 다이묘 저택이 뿌리라고 해요.",
+        "1949년 국민공원으로 일반에 공개됐어요.",
+        "프랑스 조경가가 설계한 유럽식 정형 정원과 풍경식 정원, 일본 정원을 어우른 근대 서양 정원이에요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "에도 시대 도쿠가와 이에야스의 가신 나이토 기요나리가 받은 다이묘 저택이 뿌리라고 해요.",
+          "source": "shinjukugyoen_official_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "1949년 국민공원으로 일반에 공개됐어요.",
+          "source": "shinjukugyoen_official_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c3",
+          "text_ko": "프랑스 조경가의 설계로 유럽식 정형 정원, 풍경식 정원, 일본 정원을 어우른 메이지 시대 근대 서양 정원이에요.",
+          "source": "shinjukugyoen_official_about",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "월요일은 쉬어요. 월요일이 공휴일이면 다음 평일에 쉬어요.",
+          "source": "shinjukugyoen_official_guide",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "연말연시에도 쉬어요.",
+          "source": "shinjukugyoen_official_guide",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "장애인 보조견은 들어갈 수 있어요.",
+          "source": "shinjukugyoen_official_guide",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "mon"
+        ],
+        "closed_note_ko": "12월 29일~1월 3일에도 쉬어요.",
+        "source": "shinjukugyoen_official_guide",
+        "last_verified": "2026-10-10"
+      },
+      "status": {
+        "value": "open",
+        "source": "shinjukugyoen_official_guide",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 999,
+        "designations": []
+      },
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Shinjuku_Gyoen_National_Garden_-_sakura_3.JPG",
+      "source": "wd",
+      "last_verified": "2026-10-10"
+    },
+    {
+      "id": "ueno-zoo",
+      "qid": "Q162722",
+      "names": {
+        "ko": "우에노 동물원",
+        "ko_basis": "editorial",
+        "en": "Ueno Zoo",
+        "local": "上野動物園",
+        "local_short": "上野動物園",
+        "local_lang": "ja",
+        "source": "wd"
+      },
+      "aliases_ko": [
+        "우에노 동물원 판다"
+      ],
+      "aliases_en": [
+        "Ueno Zoological Gardens"
+      ],
+      "mentions_ko": [
+        "판다의 숲"
+      ],
+      "region": "jp_tokyo",
+      "area_ko": "도쿄 다이토구 우에노 공원",
+      "category": "theme_park",
+      "geo": {
+        "kind": "entrance",
+        "lat": 35.7175,
+        "lng": 139.77138888889,
+        "source": "wd",
+        "last_verified": "2026-10-10",
+        "qid": "Q162722"
+      },
+      "address_local": {
+        "text": "〒110-8711 台東区上野公園9-83 上野動物園",
+        "source": "uenozoo_official_tickets",
+        "last_verified": "2026-10-10"
+      },
+      "access": {
+        "modes": [
+          "train",
+          "metro"
+        ],
+        "nearest_ko": "JR 우에노역 공원 출구에서 걸어가요",
+        "source": "uenozoo_official_access",
+        "last_verified": "2026-10-10"
+      },
+      "official_url": "https://www.tokyo-zoo.net/zoo/ueno/",
+      "summary_ko": "우에노 공원 안에 있는 도쿄의 동물원이에요.",
+      "body_ko": [
+        "우에노 동물원은 1882년 농상무성 소관 박물관 부속 시설로 문을 열었어요.",
+        "2020년 9월에는 새 시설 '판다의 숲'이 문을 열었어요."
+      ],
+      "claims": [
+        {
+          "id": "c1",
+          "text_ko": "1882년(메이지 15년) 농상무성 소관 박물관 부속 시설로 개원했어요.",
+          "source": "uenozoo_official_about",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "id": "c2",
+          "text_ko": "2020년 9월에 새 시설 '판다의 숲'이 문을 열었어요.",
+          "source": "uenozoo_official_about",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "tips_ko": [
+        {
+          "text": "반려동물을 데리고 들어갈 수 없어요.",
+          "source": "uenozoo_official_rules",
+          "last_verified": "2026-10-10"
+        },
+        {
+          "text": "입장료가 무료인 사람이나 연간 패스가 있으면 표를 사지 않고 개찰구로 가요.",
+          "source": "uenozoo_official_access",
+          "last_verified": "2026-10-10"
+        }
+      ],
+      "facts": {
+        "kind": "facility",
+        "entry": "paid",
+        "regular_closed": [
+          "mon"
+        ],
+        "closed_note_ko": "월요일이 공휴일·대체 휴일이면 다음 날, 12월 29일~1월 1일에 쉬어요.",
+        "source": "uenozoo_official_tickets",
+        "last_verified": "2026-10-10"
+      },
+      "status": {
+        "value": "open",
+        "source": "uenozoo_official_tickets",
+        "last_verified": "2026-10-10"
+      },
+      "advisory": {
+        "level": "none",
+        "source": "mofa_jp",
+        "last_verified": "2026-09-28"
+      },
+      "rank": {
+        "order": 999,
+        "designations": []
+      },
+      "photo_link": "https://commons.wikimedia.org/wiki/File:Ueno-zoo.jpg",
+      "source": "wd",
+      "last_verified": "2026-10-10"
     }
   ],
   "retired": [],
@@ -13335,6 +13669,66 @@
       "id": "shirakawago_official_highlights",
       "name": "白川郷観光協会 3分でわかる白川郷",
       "url": "https://shirakawa-go.gr.jp/highlights/",
+      "use": "facts"
+    },
+    {
+      "id": "fukuokatower_official_access",
+      "name": "福岡タワー 交通アクセス",
+      "url": "https://www.fukuokatower.co.jp/access/",
+      "use": "facts"
+    },
+    {
+      "id": "fukuokatower_official_charge",
+      "name": "福岡タワー 料金・営業時間",
+      "url": "https://www.fukuokatower.co.jp/charge/",
+      "use": "facts"
+    },
+    {
+      "id": "fukuokatower_official_top",
+      "name": "福岡タワー公式サイト",
+      "url": "https://www.fukuokatower.co.jp/",
+      "use": "facts"
+    },
+    {
+      "id": "shinjukugyoen_official_about",
+      "name": "新宿御苑について",
+      "url": "https://fng.or.jp/shinjuku/gyoen/",
+      "use": "facts"
+    },
+    {
+      "id": "shinjukugyoen_official_access",
+      "name": "新宿御苑 交通アクセス",
+      "url": "https://fng.or.jp/shinjuku/access/",
+      "use": "facts"
+    },
+    {
+      "id": "shinjukugyoen_official_guide",
+      "name": "新宿御苑 入園案内",
+      "url": "https://fng.or.jp/shinjuku/guide/",
+      "use": "facts"
+    },
+    {
+      "id": "uenozoo_official_about",
+      "name": "上野動物園について",
+      "url": "https://www.tokyo-zoo.net/ueno/about/index.html",
+      "use": "facts"
+    },
+    {
+      "id": "uenozoo_official_access",
+      "name": "上野動物園 交通アクセス",
+      "url": "https://www.tokyo-zoo.net/ueno/visitor-info/access/index.html",
+      "use": "facts"
+    },
+    {
+      "id": "uenozoo_official_rules",
+      "name": "上野動物園 注意事項",
+      "url": "https://www.tokyo-zoo.net/ueno/visitor-info/rules/index.html",
+      "use": "facts"
+    },
+    {
+      "id": "uenozoo_official_tickets",
+      "name": "上野動物園 開園時間・休園日・入園料",
+      "url": "https://www.tokyo-zoo.net/ueno/visitor-info/tickets/index.html",
       "use": "facts"
     }
   ]
