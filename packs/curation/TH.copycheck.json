@@ -1,33 +1,93 @@
 {
+  "ao-nang-beach": {
+    "cache_set_sha256": "4e83739ed2a1e84dd44b592c31dd1330ab87ecae18829fcdc26f1f67bd2da2b8",
+    "checked_at": "2026-10-10",
+    "text_sha256": "5e0e2c8af43e470d4f9272a1985aa662442a183a1a8393c9ae47052e666a50f8"
+  },
   "ayutthaya-historical-park": {
     "cache_set_sha256": "0fd095daf1b3c414784f547cb27f0a563f5482e507bd2aebeb141a3ee5a9c945",
     "checked_at": "2026-10-10",
     "text_sha256": "4a9dddd753bedea4ede496b15a3d27dda20e8ce6db55d0711a446b70954057bc"
+  },
+  "baan-dam-museum": {
+    "cache_set_sha256": "93d257c22c2d8342a7471fb11f97d6add714365f7eed30287b17fda84ade77d5",
+    "checked_at": "2026-10-10",
+    "text_sha256": "6dca4473aefef5edb3b12465239d47d59daee03c30dcb63268253c5378eb70cb"
   },
   "bang-pa-in-palace": {
     "cache_set_sha256": "410685b4a9660e526dea40dfc1b564fecaa8cd5b7c30d47d6add7b1e7cb05ec5",
     "checked_at": "2026-10-10",
     "text_sha256": "9006b9ae1bbda426e55a81684f658847c3279e77525dc28860e1689cb7da752e"
   },
+  "big-buddha": {
+    "cache_set_sha256": "34cef2b703bd34ffcd1a2cddd5e7a648211138344b66496d61be93be2760f87f",
+    "checked_at": "2026-10-10",
+    "text_sha256": "909ffa061382d318457664a4da8e2cb6b5d349b81102c4ce355ea853eca8482f"
+  },
+  "bophut-beach": {
+    "cache_set_sha256": "3362fcd5caf70c46b73699cffe81cd8902a672831b3447d9115851a83333f630",
+    "checked_at": "2026-10-10",
+    "text_sha256": "e8e223180913348881fbea3a132eeda0e11afe0eee4983f7fba98f8dd4a29e0c"
+  },
   "chatuchak-weekend-market": {
     "cache_set_sha256": "bc8edcc33f92a01ba11c367c8863d40aa57e013af5729924fd9e298dec404029",
     "checked_at": "2026-10-10",
     "text_sha256": "b9645aa98fb551c0a4be6e1d8770b386115ebbc3f0955da58dbd5e49f5166101"
+  },
+  "chaweng-beach": {
+    "cache_set_sha256": "bed6049fa0ed2ad80fe7aa52526af7c6768468f1461276fc58dbe540a6e95770",
+    "checked_at": "2026-10-10",
+    "text_sha256": "3f1f17396e795cc524f2c82ab03e433a3e1e3b642d1d25f7debcb6f92d853801"
+  },
+  "chiang-mai-night-bazaar": {
+    "cache_set_sha256": "fa9f98a04d81ea8d993cc57246700009c9805ab00e845dec83b6bff7c4105dc8",
+    "checked_at": "2026-10-10",
+    "text_sha256": "8dbb99aec078649c21a3cd163949692a507f71e1fba7e8d6d3a5e17f654f81ee"
+  },
+  "chiang-rai-clock-tower": {
+    "cache_set_sha256": "8e906e1b7bb7b2f21c25088c5c43c0ed1d0c52d8315abdb444ee4f029bc04e88",
+    "checked_at": "2026-10-10",
+    "text_sha256": "4bb8d1ee5f995d2673b73d103cbe404b4d0daae49a62e8a9b010e59d5cec70e5"
   },
   "damnoen-saduak-floating-market": {
     "cache_set_sha256": "35b05dce1f17349a299b032d94ade4a7a1ea86f6d380bcc72c9ce87c258fad0c",
     "checked_at": "2026-10-10",
     "text_sha256": "dc6cf906f2c3ce442f302579f252e255e34dc036d623d3c5322533c7a46e1041"
   },
+  "doi-inthanon": {
+    "cache_set_sha256": "b616f00e41a2b5712196f22d9ddb266d965046bf3ae527ad14b99739ce76422b",
+    "checked_at": "2026-10-10",
+    "text_sha256": "9be377283a55a784fc37c4b6d7afaddd77a58cf2044b252050d31c649cdafa12"
+  },
   "doi-suthep": {
     "cache_set_sha256": "04babe5c27c8cc3ecf6a06c028cf7a90252c1d5cc6ba5bbf91af19e37f60b930",
     "checked_at": "2026-10-10",
     "text_sha256": "63c591c0521096412dc2ac3daedefa0e3807578436dbcc91846607eb0fbcff6c"
   },
+  "erawan-national-park": {
+    "cache_set_sha256": "7a1666220aa017496c8d38034505fc1e183dec890317f1d874f67f40adecb500",
+    "checked_at": "2026-10-10",
+    "text_sha256": "9e02efdcb9afc78b81f3789163f912d9fa4bfa6a8a206feb16d846234d2c1558"
+  },
+  "golden-triangle": {
+    "cache_set_sha256": "757e3b2af405aee2f749a28b85720d33e02c291f78845a9180849214d1af17e1",
+    "checked_at": "2026-10-10",
+    "text_sha256": "2ccfd710ec017d80389e537a8fffa35580b195a6804aeea136687b225ad8ab04"
+  },
   "grand-palace": {
     "cache_set_sha256": "5b732e402d95474d5f752043938b3cf8447d6a46f39a28099cc3ce24ddc90221",
     "checked_at": "2026-10-10",
     "text_sha256": "c69aedfbce6b8b6a062d84e7b5039e5b362d5255b0ba70196f6bd3c983a975c1"
+  },
+  "hellfire-pass": {
+    "cache_set_sha256": "14e062272ae49865089b467501a973c49e7300d34f948f4a3a214f2a033f3800",
+    "checked_at": "2026-10-10",
+    "text_sha256": "296e5b15deadc66aec079a805ee2afa397a604ff5890663363031707d362b1fa"
+  },
+  "hin-ta-hin-yai": {
+    "cache_set_sha256": "5fb2467b3447d8422d6c25a7209a01f981300bce15321c3acefbb726467999af",
+    "checked_at": "2026-10-10",
+    "text_sha256": "da74dc18e5bc46cd37704dc767fedaf166122590a31b8ef23296603bb083b44a"
   },
   "jim-thompson-house": {
     "cache_set_sha256": "4f0344afca44344804d1e9f91f58ce029028993d262f039f543e61f2ee1f2f7f",
@@ -38,6 +98,11 @@
     "cache_set_sha256": "f6838e8711dc4b55c7f88563b50b153649b1f48dd792838f23252af6067d94b2",
     "checked_at": "2026-10-10",
     "text_sha256": "8c3bc2d85e9e02dc87e77a776a3452bbdf0df5869de9906ec527dedca9c0bede"
+  },
+  "kiew-mae-pan": {
+    "cache_set_sha256": "6044ab205ee86501928b0f7eee52c51b038c14b504512a814d67a247f9731784",
+    "checked_at": "2026-10-10",
+    "text_sha256": "aba02b296e3400a84d01ababa44d353b9e4c624dda993e70b4f187a3f321677f"
   },
   "lumphini-park": {
     "cache_set_sha256": "6e8add8688a2911bfbd6b7916ebaa8a90fd5afd3b9b3d96afe55b3519794e06e",
@@ -54,6 +119,11 @@
     "checked_at": "2026-10-10",
     "text_sha256": "87588bed13179bdf18e3fe923bac34f74b06d8c55dbbff6dc72865b4185fafef"
   },
+  "maya-bay": {
+    "cache_set_sha256": "54e11b977bfa70861888e76a89e63e677f0e958c77f783d8721d358f7fdf9e05",
+    "checked_at": "2026-10-10",
+    "text_sha256": "376e6fb30489367d1e93e7eb9c4a24458c0c05feb9e133a79461c96c9d31c320"
+  },
   "patong-beach": {
     "cache_set_sha256": "6d1be84648e8d2ca4c01deaa9b94d32b86424083ecba6b72bca3c53af312f99f",
     "checked_at": "2026-10-10",
@@ -63,6 +133,11 @@
     "cache_set_sha256": "656260e3c4627bd204c0da10d78a07aa3161a151e74a528d721758f9ba309637",
     "checked_at": "2026-10-10",
     "text_sha256": "fafc71f8171eee9c1703e94aa1a0d6e7edefcde93524f3f9cf5174a2886eb941"
+  },
+  "phi-phi-islands": {
+    "cache_set_sha256": "a302d4478711ed976f2fa27c7a54d73f551bc3ab14ec44c089b1689c665747b4",
+    "checked_at": "2026-10-10",
+    "text_sha256": "dcb96a967c76cff06e4800a9fb5ae6ab1d11f707eba7d99fcee2ccca5c746585"
   },
   "phuket-old-town": {
     "cache_set_sha256": "76d9c5ab8a941d11a14363e66c6ab66f444b74a80757c94153804f484946a6d8",
@@ -79,6 +154,16 @@
     "checked_at": "2026-10-10",
     "text_sha256": "925f0fc18c716ab81ac6039ae72191f6ca01bf8626e59667746cf21688fd75b8"
   },
+  "railay-beach": {
+    "cache_set_sha256": "4b36bcbccf1badece4137ab7a8ad469cab3406b9f962dedc249c84e9286c4b5e",
+    "checked_at": "2026-10-10",
+    "text_sha256": "ff5fc60c4644358c59980a710a38fe839f02aea59a57ee521378c2eb6978a83a"
+  },
+  "river-kwai-bridge": {
+    "cache_set_sha256": "3ca3d7d863f41854c4ed7563f7b30ba6c6aeed684628933b20b4bf4e61915984",
+    "checked_at": "2026-10-10",
+    "text_sha256": "74bad63269d00e10083898af57db5781fa883cd4bcad387a066bb9c8ede6d4cb"
+  },
   "sanctuary-of-truth": {
     "cache_set_sha256": "53da1945df05b8e4d76e0486e680e6a1115d3e70b31705b2efc4e7dfc9ebe797",
     "checked_at": "2026-10-10",
@@ -88,6 +173,11 @@
     "cache_set_sha256": "d7b42661b8b02abfee867ca9f791746b6a18b069709d0327711ecc2eaaba6783",
     "checked_at": "2026-10-10",
     "text_sha256": "ec528102b60115e21f0daf1e72f5568451dcc40267e31d95d6c4de3fbeae8acf"
+  },
+  "wachirathan-falls": {
+    "cache_set_sha256": "54b980908fe0af8202798af0f5128af54db121a0e61d06dc3bdbf2e1197e98b8",
+    "checked_at": "2026-10-10",
+    "text_sha256": "1c81954e7a1e73906535c91db50e39523ffc47c7057bb66ef683481ddf805919"
   },
   "wat-arun": {
     "cache_set_sha256": "51d4094cd531cb8c363164082d7c01ab45bc972121f2b3d89df687fea81917d1",
@@ -113,6 +203,31 @@
     "cache_set_sha256": "41e7b7a3a08337d6ba57b5a015467236e3e93bddff4e00b442d5e8671f065736",
     "checked_at": "2026-10-10",
     "text_sha256": "b6816701fd0174b6c8cc9b8457d62faab6336f1ad6e7b2931a0331088865ba32"
+  },
+  "wat-phra-yai-pattaya": {
+    "cache_set_sha256": "4a884c6b4489c09022daba573c3e1187627312471cd3b4f7c4a1fbbc0f8b9910",
+    "checked_at": "2026-10-10",
+    "text_sha256": "3d7ad2f78352321ecd3b31c48aafbfa4e932ab14646be425762f54a42037c635"
+  },
+  "wat-phra-yai-samui": {
+    "cache_set_sha256": "1aef8864fd59abb7c8ef073dacc1c359cae34059e36e777ec85e62e4898d0316",
+    "checked_at": "2026-10-10",
+    "text_sha256": "919cee8f5d58d70bad0d016959402930a1925ba3e49074c5df58923520dbdf64"
+  },
+  "wat-rong-khun": {
+    "cache_set_sha256": "e1722d4e188ea9c806d4fdea4e6402b14c863ae7139e9bc7fd6d113ebfbfee3c",
+    "checked_at": "2026-10-10",
+    "text_sha256": "19d1ea08044044f894638e19baf081f77d59b29cec5c7b79c4d5b652747fe894"
+  },
+  "wat-rong-suea-ten": {
+    "cache_set_sha256": "2cd3522f8dbd9c6dae299ed4d7bace64dba3ca593b1a59690e3d88670f122ee8",
+    "checked_at": "2026-10-10",
+    "text_sha256": "d1516b466d897a0b4b1e81220e8b5d1929e22331f32cb391d80b71023ebf3851"
+  },
+  "wat-tham-suea": {
+    "cache_set_sha256": "ad55f89abdfd2d4d6d888b3281cb07005ac129f1b10a9a526e56c2ebf75c50aa",
+    "checked_at": "2026-10-10",
+    "text_sha256": "769851bc19fcbd48cd3ccd8cd6e7d90f73ba8bab3abfa7b5b1259cd98a4df062"
   },
   "yaowarat": {
     "cache_set_sha256": "15b9e07205875a6950eebdd848acffc229a83c6892e3d399070db3a7e5034a70",

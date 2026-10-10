@@ -1636,6 +1636,10 @@
         "last_verified": "2026-10-10"
       },
       "official_url": "https://www.thailandtourismdirectory.go.th/en/attraction/1803",
+      "wiki": {
+        "ko": "피피 군도",
+        "en": "Phi Phi Islands"
+      },
       "summary_ko": "배로 가는 안다만해의 섬 묶음이에요.",
       "body_ko": [
         "피피돈과 피피레 두 큰 섬과 작은 섬들로 이루어진 섬 묶음이에요.",
@@ -1713,7 +1717,8 @@
       "photo": null,
       "photo_link": "https://commons.wikimedia.org/wiki/File:KohPhiPhi.JPG",
       "source": "wd",
-      "last_verified": "2026-10-10"
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJ7Tu2hzPfUTAR42OtbFAGGyI"
     },
     {
       "id": "golden-triangle",
@@ -1767,6 +1772,10 @@
         "last_verified": "2026-10-10"
       },
       "official_url": "https://www.tourismthailand.org/Attraction/golden-triangle-park",
+      "wiki": {
+        "ko": "황금의 삼각지대",
+        "en": "Golden Triangle (Southeast Asia)"
+      },
       "summary_ko": "세 나라가 만나는 메콩강 강가예요.",
       "body_ko": [
         "타이·미얀마·라오스 세 나라가 한자리에서 보이는 메콩강 강가예요.",
@@ -1844,7 +1853,8 @@
       "photo": null,
       "photo_link": "https://commons.wikimedia.org/wiki/File:Chiang_Saen,_Golden_Triangle,_Mekong_River,_Thailand.jpg",
       "source": "wd",
-      "last_verified": "2026-10-10"
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJMQ7WcjVD1jART37Y-tgYjmg"
     },
     {
       "id": "wat-arun",
@@ -2043,6 +2053,9 @@
         "last_verified": "2026-10-10"
       },
       "official_url": "https://www.tourismthailand.org/Attraction/bridge-over-the-river-kwai",
+      "wiki": {
+        "ko": "콰이강 다리"
+      },
       "summary_ko": "제2차 세계대전 때 포로들이 지은 철도 다리예요.",
       "body_ko": [
         "제2차 세계대전 때 연합군 포로의 노동으로 지은 철도 다리예요.",
@@ -2128,7 +2141,8 @@
       "photo": null,
       "photo_link": "https://commons.wikimedia.org/wiki/File:Bridge_of_the_River_Kwai.JPG",
       "source": "wd",
-      "last_verified": "2026-10-10"
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJO5Nl1fl04zARnXj8n_p1Kio"
     },
     {
       "id": "doi-inthanon",
@@ -2182,6 +2196,10 @@
         "last_verified": "2026-10-10"
       },
       "official_url": "https://www.tourismthailand.org/Attraction/doi-inthanon-national-park",
+      "wiki": {
+        "ko": "도이인타논산",
+        "en": "Doi Inthanon"
+      },
       "summary_ko": "타이에서 가장 높은 산이에요.",
       "body_ko": [
         "타이에서 가장 높은 산이고, 해발 2,565m예요.",
@@ -2278,7 +2296,8 @@
       "photo": null,
       "photo_link": "https://commons.wikimedia.org/wiki/File:InthanonChedi1.jpg",
       "source": "wd",
-      "last_verified": "2026-10-10"
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJa9l_HJyq2zARVHBsqbMf8PM"
     },
     {
       "id": "lumphini-park",
@@ -2771,6 +2790,10 @@
         "last_verified": "2026-10-10"
       },
       "official_url": "https://www.tourismthailand.org/Attraction/erawan-national-park",
+      "wiki": {
+        "ko": "에라완 국립공원",
+        "en": "Erawan National Park"
+      },
       "summary_ko": "7단으로 떨어지는 폭포가 있는 국립공원이에요.",
       "body_ko": [
         "칸차나부리 산속에 있는 국립공원이고, 7단으로 떨어지는 석회암 폭포가 있어요.",
@@ -2855,7 +2878,8 @@
       "photo": null,
       "photo_link": "https://commons.wikimedia.org/wiki/File:Erawan_National_Park_(49797936858).jpg",
       "source": "wd",
-      "last_verified": "2026-10-10"
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJaXC4ZAB35DARufAoub_wBPk"
     },
     {
       "id": "jim-thompson-house",
@@ -3618,6 +3642,9 @@
         "last_verified": "2026-10-10"
       },
       "official_url": "https://www.thailandtourismdirectory.go.th/en/attraction/3601",
+      "wiki": {
+        "en": "Wat Rong Khun"
+      },
       "summary_ko": "거울 조각으로 꾸민 흰 사원이에요.",
       "body_ko": [
         "타이 예술가 찰름차이 코싯피팟이 설계하고 지은 사원이에요.",
@@ -3709,7 +3736,8 @@
       "photo": null,
       "photo_link": null,
       "source": "wd",
-      "last_verified": "2026-10-10"
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJD5RZzt-31zARo7esjg3V_Co"
     },
     {
       "id": "sanctuary-of-truth",
@@ -4083,6 +4111,9 @@
         "last_verified": "2026-10-10"
       },
       "official_url": "https://hellfirepass.dva.gov.au/",
+      "wiki": {
+        "en": "Hellfire Pass"
+      },
       "summary_ko": "포로들이 깎아 낸 철도 산길과 추모관이에요.",
       "body_ko": [
         "제2차 세계대전 때 연합군 포로가 손으로 깎아 낸 철도 산길이에요.",
@@ -4177,7 +4208,8 @@
       "photo": null,
       "photo_link": "https://commons.wikimedia.org/wiki/File:Hellfire_Pass_-_June_2004.jpg",
       "source": "wd",
-      "last_verified": "2026-10-10"
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJgeRFlcNu5DARpJiIQ3ScgyY"
     },
     {
       "id": "railay-beach",
@@ -4230,6 +4262,9 @@
         "last_verified": "2026-10-10"
       },
       "official_url": "https://www.thailandtourismdirectory.go.th/en/attraction/1805",
+      "wiki": {
+        "en": "Railay Beach"
+      },
       "summary_ko": "배로만 닿는 절벽 아래 해변이에요.",
       "body_ko": [
         "절벽 아래 고운 모래 해변이고, 암벽 등반으로 알려져 있어요.",
@@ -4307,7 +4342,8 @@
       "photo": null,
       "photo_link": "https://commons.wikimedia.org/wiki/File:Railay.jpg",
       "source": "wd",
-      "last_verified": "2026-10-10"
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJXZgcI57qUTARPwbNwHp5zYg"
     },
     {
       "id": "big-buddha",
@@ -4360,6 +4396,9 @@
         "last_verified": "2026-10-10"
       },
       "official_url": "https://www.tourismthailand.org/Attraction/phra-phuttha-ming-mongkhon-ek-nakkhiri-phuket-big-buddha",
+      "wiki": {
+        "en": "Phuket Big Buddha"
+      },
       "summary_ko": "언덕 위에 모신 흰 대리석 큰 불상이에요.",
       "body_ko": [
         "나껫 언덕 위에 모신 큰 불상이고, 푸껫 섬 곳곳에서 보여요.",
@@ -4444,7 +4483,8 @@
       "photo": null,
       "photo_link": "https://commons.wikimedia.org/wiki/File:Phuket_Thailand_Big-Buddha-of-Phuket-05.jpg",
       "source": "wd",
-      "last_verified": "2026-10-10"
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJOSmXz2AvUDARXCxlBBs7y38"
     },
     {
       "id": "wat-tham-suea",
@@ -4504,6 +4544,9 @@
         "last_verified": "2026-10-10"
       },
       "official_url": "https://www.thailandtourismdirectory.go.th/en/attraction/1807",
+      "wiki": {
+        "en": "Tiger Cave Temple"
+      },
       "summary_ko": "호랑이 발자국 바위에서 이름이 온 사원이에요.",
       "body_ko": [
         "옛날에 호랑이가 살았다는 이야기와 동굴 안 호랑이 발자국 모양 바위에서 이름이 왔어요.",
@@ -4582,7 +4625,8 @@
       "photo": null,
       "photo_link": "https://commons.wikimedia.org/wiki/File:Wat_Tham_Sua_15.jpg",
       "source": "wd",
-      "last_verified": "2026-10-10"
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJO2O10qqWUTAREYioi4E8t1Q"
     },
     {
       "id": "wat-chedi-luang",
@@ -5006,6 +5050,9 @@
         "last_verified": "2026-10-10"
       },
       "official_url": "https://www.tourismthailand.org/Attraction/wat-rong-suea-ten",
+      "wiki": {
+        "en": "Wat Rong Suea Ten"
+      },
       "summary_ko": "파란색으로 꾸민 법당이 있는 사원이에요.",
       "body_ko": [
         "버려진 절터를 다시 세운 사원이고, 하늘빛 파란색으로 꾸민 법당이 눈에 띄어요.",
@@ -5096,7 +5143,8 @@
       "photo": null,
       "photo_link": null,
       "source": "wd",
-      "last_verified": "2026-10-10"
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJERD0pfEG1zARLAVNEwcKLOc"
     },
     {
       "id": "wat-phra-yai-samui",
@@ -5150,6 +5198,9 @@
         "last_verified": "2026-10-10"
       },
       "official_url": "https://www.thailandtourismdirectory.go.th/en/attraction/2130",
+      "wiki": {
+        "en": "Wat Phra Yai"
+      },
       "summary_ko": "꼬판 섬에 모신 황금빛 큰 불상이에요.",
       "body_ko": [
         "코사무이 북동쪽 작은 바위섬 꼬판에 있고, 둑길로 이어져요.",
@@ -5234,7 +5285,8 @@
       "photo": null,
       "photo_link": "https://commons.wikimedia.org/wiki/File:Budda_kuju.jpg",
       "source": "wd",
-      "last_verified": "2026-10-10"
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJGycOnAzwVDAR4IZEMPSKJds"
     },
     {
       "id": "yaowarat",
@@ -5409,6 +5461,9 @@
         "last_verified": "2026-10-10"
       },
       "official_url": "https://www.tatnews.org/2018/12/an-intriguing-exciting-blend-of-ancient-and-modern-lanna-is-rising-in-chiang-rai/",
+      "wiki": {
+        "en": "Baan Dam Museum"
+      },
       "summary_ko": "검게 칠한 건물에 조각을 모은 미술관이에요.",
       "body_ko": [
         "타이 국가예술가 타완 두차니가 만든 사설 미술관이에요.",
@@ -5481,7 +5536,8 @@
       "photo": null,
       "photo_link": null,
       "source": "wd",
-      "last_verified": "2026-10-10"
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJAQAAAFAA1zARlrvp9yTMeoE"
     },
     {
       "id": "wat-chalong",
@@ -5826,6 +5882,9 @@
         "last_verified": "2026-10-10"
       },
       "official_url": "https://www.tourismthailand.org/Shop/chiang-mai-night-bazaar",
+      "wiki": {
+        "en": "Chiang Mai Night Bazaar"
+      },
       "summary_ko": "창클란로에 서는 치앙마이 밤 시장이에요.",
       "body_ko": [
         "창클란로 일대에 서는 밤 시장이에요.",
@@ -5879,7 +5938,8 @@
       "photo": null,
       "photo_link": "https://commons.wikimedia.org/wiki/File:CHIANG_MAI_NIGHT_BAZAAR_THAILAND_FEB_2012_(6869571256).jpg",
       "source": "wd",
-      "last_verified": "2026-10-10"
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJW0qnDKY62jARHbAmfwD1Lgs"
     },
     {
       "id": "pratumnak-hill",
@@ -6048,6 +6108,9 @@
         "last_verified": "2026-10-10"
       },
       "official_url": "https://www.tourismthailand.org/Attraction/doi-inthanon-national-park",
+      "wiki": {
+        "en": "Wachirathan Falls"
+      },
       "summary_ko": "도이 인타논 길가에 있는 큰 폭포예요.",
       "body_ko": [
         "도이 인타논 국립공원 안에 있는 폭포예요.",
@@ -6125,7 +6188,8 @@
       "photo": null,
       "photo_link": "https://commons.wikimedia.org/wiki/File:Wachirathan_Falls.jpg",
       "source": "wd",
-      "last_verified": "2026-10-10"
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJ6z5GnTis2zARN37PvvxS6IM"
     },
     {
       "id": "maeklong-railway-market",
@@ -6618,7 +6682,8 @@
       "photo": null,
       "photo_link": "https://commons.wikimedia.org/wiki/File:Maya_Bay,_Koh_Phi_Phi,_Krabi,_Thailand.jpg",
       "source": "wd",
-      "last_verified": "2026-10-10"
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJYzP3lL4gTjART5nPhbv1pIU"
     },
     {
       "id": "hin-ta-hin-yai",
@@ -6744,7 +6809,8 @@
       "photo": null,
       "photo_link": null,
       "source": "wd",
-      "last_verified": "2026-10-10"
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJi_MqvFPyVDARyZQrKj0jYtw"
     },
     {
       "id": "kiew-mae-pan",
@@ -6880,7 +6946,8 @@
       "photo": null,
       "photo_link": null,
       "source": "wd",
-      "last_verified": "2026-10-10"
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJm6BhtIUA2zARo7HluAX_UkY"
     },
     {
       "id": "ao-nang-beach",
@@ -7009,7 +7076,8 @@
       "photo": null,
       "photo_link": null,
       "source": "wd",
-      "last_verified": "2026-10-10"
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJ5S2NTL3BUTARcYtz75iKsXk"
     },
     {
       "id": "chaweng-beach",
@@ -7134,7 +7202,8 @@
       "photo": null,
       "photo_link": "https://commons.wikimedia.org/wiki/File:Koh_Samui,_Island,_Beach,_Thailand.jpg",
       "source": "wd",
-      "last_verified": "2026-10-10"
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJiadrB8jxVDARHVivcM_XEW0"
     },
     {
       "id": "bophut-beach",
@@ -7265,7 +7334,8 @@
       "photo": null,
       "photo_link": null,
       "source": "wd",
-      "last_verified": "2026-10-10"
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJ73lrF47wVDARW1Fxki7MEcI"
     },
     {
       "id": "chiang-rai-clock-tower",
@@ -7381,7 +7451,8 @@
       "photo": null,
       "photo_link": null,
       "source": "cei_tat_clocktower",
-      "last_verified": "2026-10-10"
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJMWn662YG1zARY4ZUtHVhxu4"
     },
     {
       "id": "wat-phra-yai-pattaya",
@@ -7513,7 +7584,8 @@
       "photo": null,
       "photo_link": null,
       "source": "pty_ttd_21350",
-      "last_verified": "2026-10-10"
+      "last_verified": "2026-10-10",
+      "google_place_id": "ChIJk0BiMmiWAjERQelm_nN2EVg"
     }
   ]
 }
