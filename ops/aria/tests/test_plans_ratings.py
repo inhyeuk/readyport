@@ -186,7 +186,7 @@ class PlanRunTest(unittest.TestCase, TempDirCase):
     def setUp(self):
         self.tmp = self.make_tmp()
         write_attractions(self.tmp)
-        self.cfg = self.make_cfg(self.tmp, plan_daily_cap=5, plan_max_per_run=3, plan_weekly_limit=2)
+        self.cfg = self.make_cfg(self.tmp, plan_daily_cap=5, plan_max_per_run=3, plan_country_limit=2)
         self.store = FingerprintStore(":memory:")
         self.addCleanup(self.store.close)
 
@@ -215,11 +215,12 @@ class PlanRunTest(unittest.TestCase, TempDirCase):
             self.assertNotIn(secret, dumped)
 
     def test_quota_invalid_and_country(self):
-        older = {f"plan_requests/o{i}": req(status="done", createdAt=NOW - dt.timedelta(days=i + 1)) for i in range(2)}
-        fs = MemFirestore({**older, "plan_requests/r1": req(), "plan_requests/r2": req(uid="otheruid", country="VN"),
+        # 이 사람의 일본 누적 횟수가 이미 3(= 한도 2 초과, 규칙을 우회한 경우)이면 거절 — 횟수는 돌려주지 않는다
+        fs = MemFirestore({"plan_quota/testuid01": {"counts": {"JP": 3}}, "plan_requests/r1": req(), "plan_requests/r2": req(uid="otheruid", country="VN"),
                            "plan_requests/r3": req(uid="thirduid", mobility=["wheelchair"], sensitive_consent=None)})
         out = {p["id"]: p for p in self.go(fs)["processed"]}
         self.assertEqual(out["r1"]["code"], "quota_exceeded")
+        self.assertEqual(fs.docs["plan_quota/testuid01"]["counts"]["JP"], 3)
         self.assertEqual(out["r2"]["code"], "country_unavailable")
         self.assertEqual(out["r3"]["code"], "invalid_request")
         self.assertEqual(fs.docs["plan_requests/r3"]["error_code"], "invalid_request")
@@ -234,6 +235,27 @@ class PlanRunTest(unittest.TestCase, TempDirCase):
         self.assertEqual(out["processed"][0]["status"], "skipped")
         self.assertNotIn("plan_results/r1", fs.docs)
         self.assertEqual(fs.docs["plan_requests/r1"]["status"], "cancelled")
+
+    def test_server_side_failures_refund_the_country_count(self):
+        # 엔진 오류·시간 초과·잘못된 출력은 서버 탓이라 그 나라 횟수를 하나 돌려준다. 다른 나라 횟수는 그대로
+        bad = json.loads(json.dumps(GOOD_PLAN))
+        bad["tips"] = ["입장료는 500엔이에요"]
+        results = [plan_engine.EngineResult("error", None, "x"), plan_engine.EngineResult("timeout", None, "x"),
+                   plan_engine.EngineResult("ok", bad)]
+        engines = iter([FakeEngine(r) for r in results])
+        fs = MemFirestore({"plan_quota/uidA": {"counts": {"JP": 1, "TH": 1}}, "plan_quota/uidB": {"counts": {"JP": 2}},
+                           "plan_quota/uidC": {"counts": {"JP": 1}},
+                           "plan_requests/a": req(uid="uidA"), "plan_requests/b": req(uid="uidB"), "plan_requests/c": req(uid="uidC")})
+        out = self.go(fs, lambda p: next(engines)(p))
+        self.assertEqual([p["status"] for p in out["processed"]], ["failed", "failed", "failed"])
+        self.assertEqual(fs.docs["plan_quota/uidA"]["counts"], {"JP": 0, "TH": 1})
+        self.assertEqual(fs.docs["plan_quota/uidB"]["counts"], {"JP": 1})
+        self.assertEqual(fs.docs["plan_quota/uidC"]["counts"], {"JP": 0})
+
+    def test_extra_count_raises_the_limit(self):
+        fs = MemFirestore({"plan_quota/testuid01": {"counts": {"JP": 3}, "extra": {"JP": 1}}, "plan_requests/r1": req()})
+        out = self.go(fs)
+        self.assertEqual(out["processed"][0]["status"], "done")
 
     def test_push_sent_after_done_and_failure_does_not_break_plan(self):
         sent = []
@@ -306,19 +328,19 @@ class CleanupTest(unittest.TestCase, TempDirCase):
             "plan_requests/stuck": req(status="processing", processingAt=NOW - dt.timedelta(hours=7)),
             "plan_requests/working": req(status="processing", processingAt=NOW - dt.timedelta(minutes=5)),
             "plan_results/orphan": {"uid": "u", "createdAt": old},
-            "plan_quota/u_old": {"last": old, "prev": None},
-            "plan_quota/u_new": {"last": recent, "prev": None},
+            "plan_quota/u_old": {"last": old, "counts": {"JP": 2}},
+            "plan_quota/u_new": {"last": recent, "counts": {"JP": 1}},
         })
         dry = pc.run(cfg, fs, dry_run=True, now=NOW)
         self.assertEqual(fs.writes, [])
         out = pc.run(cfg, fs, dry_run=False, now=NOW)
         self.assertEqual(dry["finished_deleted"], out["finished_deleted"])
         for gone in ("plan_requests/done_old", "plan_results/done_old",
-                     "plan_requests/queued_old", "plan_results/orphan", "plan_quota/u_old"):
+                     "plan_requests/queued_old", "plan_results/orphan"):
             self.assertNotIn(gone, fs.docs)
         # 취소한 요청은 오래돼도 이용자가 지울 때까지 남는다(2026-10-09)
         for kept in ("plan_requests/cancel_old", "plan_requests/done_new", "plan_results/done_new", "plan_requests/finished_late",
-                     "plan_requests/working", "plan_quota/u_new"):
+                     "plan_requests/working", "plan_quota/u_new", "plan_quota/u_old"):   # 횟수 기록은 누적이라 오래돼도 남는다
             self.assertIn(kept, fs.docs)
         # 신고 칸이 없던 정리에서도 신고 0건
         self.assertEqual(out["flags_deleted"], 0)

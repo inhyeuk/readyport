@@ -563,5 +563,5 @@ object Gallery {
     private const val COMPACT_CAPTURE_DP = 700
 
     /** 접힌 고정 줄 캡처의 첫 항목(머리·그림 메뉴를 지나 여행 정보 내용 몇 칸 아래) */
-    private const val COMPACT_CAPTURE_ITEM = 3
+    private const val COMPACT_CAPTURE_ITEM = 5
 }

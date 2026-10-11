@@ -261,6 +261,9 @@ data class CountryActions(
     val openVideos: (String) -> Unit = {},
     /** 여행 정보 › 관광지 목록 (종류·검색·찜) */
     val openAttractions: OpenAttractions = OpenAttractions { _, _, _ -> },
+    /** 여행 정보 맨 위 AI 일정 설계: 이 나라로 요청 양식 열기 / 내 계획 요청 보기 */
+    val openPlanRequest: (String) -> Unit = {},
+    val openMyPlans: () -> Unit = {},
     val openLink: (String) -> Unit = {},
     val toggleFavorite: () -> Unit = {},
     /**
@@ -629,6 +632,17 @@ fun CountryContent(
                 // 여행경보 3단계(출국권고) 이상 문장은 맨 위 위험 배너로 — 화폐 단위와 같은 점 불릿 사이에 묻히지 않게 (재검토 R17)
                 if (safety != null && advisories.isNotEmpty()) {
                     item(key = "advisory") { AdvisoryBanner(safety, advisories, sourceOf) }
+                }
+                // AI 여행 일정 설계 입구 — 여행지를 알아보는 곳 맨 위(2026-10-11 사장님 결정). 위험 배너(3단계 이상) 바로 아래, 관광지보다 위
+                if (pack.country in com.readyport.plan.PlanRules.COUNTRIES) {
+                    item(key = "plan-country") {
+                        com.readyport.ui.plan.PlanCountryCard(
+                            countryName = pack.names.ko,
+                            onRequest = { actions.openPlanRequest(pack.country) },
+                            onMine = actions.openMyPlans,
+                        )
+                    }
+                    sectionGap("gap-plan-country")
                 }
                 // 관광지 (⟦결정 D2⟧ A): 갈래 맨 위 묶음 → '알아 둘 것' 머리 → 기존 카드
                 if (attractions is AttractionsEntryUi.Available) {

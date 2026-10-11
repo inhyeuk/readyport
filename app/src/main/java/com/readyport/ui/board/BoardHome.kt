@@ -331,10 +331,7 @@ fun BoardHomeContent(ui: BoardHomeUi, nav: BoardNav = BoardNav(), actions: Board
         CountryPickerDialog(ui.country, onPick = { actions.selectCountry(it); pickCountry = false }, onDismiss = { pickCountry = false })
     }
     AppScreen(title = stringResource(R.string.board_title), speech = stringResource(R.string.board_speech)) {
-        // 여행 계획 요청(나만 보는 비공개 요청, 2026-10-09) — 공개 게시판 글과 길이 다르다
-        item(key = "plan-entry") {
-            com.readyport.ui.plan.PlanEntryCard(ui.age, onRequest = nav.openPlanRequest, onMine = nav.openMyPlans)
-        }
+        // 여행 계획 요청 입구는 나라 화면 '여행 정보' 맨 위로 옮겼다(2026-10-11 사장님 결정) — 게시판에는 두지 않는다
         item(key = "boards") {
             SectionCards(
                 options = BoardKind.entries,

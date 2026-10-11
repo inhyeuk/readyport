@@ -194,6 +194,37 @@ fun PlanEntryCard(age: BoardAge.Status, onRequest: () -> Unit, onMine: () -> Uni
     }
 }
 
+/**
+ * 나라 화면 '여행 정보' 맨 위 AI 일정 설계 카드 (2026-10-11 사장님 결정: 게시판이 아니라 여행지를 알아보는 곳 맨 위).
+ * 횟수는 **1인 7일에 2번**(나라 합산)이고 눈에 띄게 적는다. 미성년 안내는 요청 화면이 한다(여기서는 나이를 읽지 않는다).
+ */
+@Composable
+fun PlanCountryCard(countryName: String, onRequest: () -> Unit, onMine: () -> Unit, modifier: Modifier = Modifier) {
+    val dimens = LocalDimens.current
+    BoardCard(modifier) {
+        Column(verticalArrangement = Arrangement.spacedBy(dimens.inner + 4.dp)) {
+            val texts: @Composable () -> Unit = {
+                Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                    KoText(stringResource(R.string.plan_country_title, countryName), MaterialTheme.typography.titleMedium, color = Tokens.Ink, heading = true)
+                    StatusTag(stringResource(R.string.plan_entry_badge), StatusKind.Info, icon = Icons.Outlined.Lock)
+                    KoText(stringResource(R.string.plan_country_body), MaterialTheme.typography.bodyLarge, color = Tokens.InkSecondary)
+                }
+            }
+            if (isStackedLayout()) {
+                texts()
+            } else {
+                Row(verticalAlignment = Alignment.Top, horizontalArrangement = Arrangement.spacedBy(16.dp)) {
+                    IconBadge(Icons.Outlined.AutoAwesome, tone = BadgeTone.Violet)
+                    Box(Modifier.weight(1f)) { texts() }
+                }
+            }
+            IconBullet(stringResource(R.string.plan_country_limit), Icons.Outlined.Lock, tone = BadgeTone.Caution)
+            SecondaryButton(stringResource(R.string.plan_entry_request), onClick = onRequest, icon = Icons.Outlined.TravelExplore, tone = BadgeTone.Violet)
+            QuietButton(stringResource(R.string.plan_entry_mine), onClick = onMine, icon = Icons.AutoMirrored.Outlined.EventNote)
+        }
+    }
+}
+
 /** 여행 계획 단계 타일 (그림 모자이크 — 관광 일정 타일 옆) */
 @Composable
 fun planTile(onClick: () -> Unit): TileSpec = TileSpec(

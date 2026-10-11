@@ -72,8 +72,12 @@ class PlanContractTest {
         val travelers = rulesBlock("function travelersOk", "function purposesOk")
         assertEquals(listOf("adults", "seniors", "teens", "children", "genders"), quoted(travelers.substringAfter("hasOnly([").substringBefore("])")))
         val quota = rulesBlock("match /plan_quota/", "match /plan_results/")
-        assertEquals(setOf("last", "prev", "lastRequestId"), quoted(quota.substringAfter("hasOnly([").substringBefore("])")).toSet())
-        assertEquals(setOf("last", "prev", "lastRequestId"), PlanRules.quotaPayload(null, "x", Any()).keys)
+        // 첫 요청 규칙(create)의 칸 = 앱이 처음 쓰는 칸, 이어지는 요청(update)은 추가 횟수(extra)와 예전 prev 도 받는다
+        val first = quota.substringAfter("allow create").substringAfter("hasOnly([").substringBefore("])")
+        assertEquals(setOf("last", "lastRequestId", "counts"), quoted(first).toSet())
+        assertEquals(setOf("last", "lastRequestId", "counts"), PlanRules.quotaPayload(null, "JP", "x", Any()).keys)
+        val next = quota.substringAfter("allow update").substringAfter("hasOnly([").substringBefore("])")
+        assertEquals(setOf("last", "prev", "lastRequestId", "counts", "extra"), quoted(next).toSet())
     }
 
     @Test fun voteKeysAndRatingKeyPattern() {

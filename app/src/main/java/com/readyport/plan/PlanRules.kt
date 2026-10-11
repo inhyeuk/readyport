@@ -50,9 +50,11 @@ object PlanRules {
     const val MAX_TOTAL = 20
     const val MAX_DAYS = 30
 
-    /** 1인 7일에 2번 (규칙: 직전 prev 가 7일 안이면 거절) */
-    const val WEEKLY_LIMIT = 2
-    val WINDOW: Duration = Duration.ofDays(7)
+    /**
+     * 나라마다 2번 (2026-10-11 사장님 결정 — 시험 운영, 나중에 유료로 횟수를 늘릴 계획). 기간 제한은 없다(누적).
+     * 규칙(firebase/firestore.rules plan_quota)과 같은 값. 늘린 횟수는 plan_quota.extra[나라]로 서버가 더해 준다.
+     */
+    const val COUNTRY_LIMIT = 2
 
     private val IsoDate = Regex("^[0-9]{4}-[0-9]{2}-[0-9]{2}$")
 
@@ -136,8 +138,17 @@ object PlanRules {
      * plan_quota/{uid} 를 요청과 **같은 묶음**에서 쓸 값: last = 지금(서버 시각), prev = 직전 last(처음이면 null), lastRequestId = 새 요청 id.
      * [previousLast]는 서버에서 읽은 값을 **그대로** 넘긴다(규칙이 prev == 직전 last 를 같은 값으로 비교).
      */
-    fun quotaPayload(previousLast: Any?, requestId: String, serverTime: Any): Map<String, Any?> =
-        mapOf("last" to serverTime, "prev" to previousLast, "lastRequestId" to requestId)
+    fun quotaPayload(previous: PlanQuota?, country: String, requestId: String, serverTime: Any): Map<String, Any?> {
+        val counts = (previous?.counts ?: emptyMap()).toMutableMap()
+        counts[country] = (counts[country] ?: 0) + 1
+        return buildMap {
+            put("last", serverTime)
+            put("lastRequestId", requestId)
+            put("counts", counts.toMap())
+            // 서버가 더해 준 추가 횟수는 그대로 되돌려 쓴다(규칙이 같은 값인지 본다)
+            previous?.extra?.takeIf { it.isNotEmpty() }?.let { put("extra", it) }
+        }
+    }
 
     /** 신고 메모 최대 글자 수 (규칙 plan_flags: note 1~200자) */
     const val FLAG_NOTE_MAX = 200
@@ -165,18 +176,13 @@ object PlanRules {
         }
     }
 
-    /** 이번 7일 안에 더 보낼 수 있는 횟수와, 0이면 다시 보낼 수 있는 때 */
-    data class Remaining(val count: Int, val nextAt: Instant?)
+    /** 이 나라에 더 보낼 수 있는 횟수. [nextAt]은 예전 7일 기준 자리라 늘 null이다 */
+    data class Remaining(val count: Int, val nextAt: Instant? = null)
 
-    /** 규칙과 같은 셈: 다음 요청은 직전 prev 가 없거나 7일보다 오래됐을 때만 */
-    fun remaining(q: PlanQuota?, now: Instant): Remaining {
-        val last = q?.last ?: return Remaining(WEEKLY_LIMIT, null)
-        val windowStart = now.minus(WINDOW)
-        val prev = q.prev
-        return when {
-            prev != null && !prev.isBefore(windowStart) -> Remaining(0, prev.plus(WINDOW))
-            last.isBefore(windowStart) -> Remaining(WEEKLY_LIMIT, null)
-            else -> Remaining(WEEKLY_LIMIT - 1, null)
-        }
-    }
+    /** 나라별 한도(기본 2 + 서버가 더해 준 [PlanQuota.extra]) */
+    fun limitFor(q: PlanQuota?, country: String): Int = COUNTRY_LIMIT + (q?.extra?.get(country) ?: 0)
+
+    /** 규칙과 같은 셈: 이 나라 누적 횟수가 한도보다 작아야 한다 */
+    fun remaining(q: PlanQuota?, country: String): Remaining =
+        Remaining((limitFor(q, country) - (q?.counts?.get(country) ?: 0)).coerceAtLeast(0))
 }

@@ -30,7 +30,7 @@ class PlanRepositoryTest {
     )
 
     @Test fun readingNeverCreatesAnAccount() = runBlocking {
-        assertEquals(PlanRules.Remaining(2, null), repo.remaining())
+        assertEquals(PlanRules.Remaining(2, null), repo.remaining("VN"))
         assertTrue(repo.myRequests().isEmpty())
         assertTrue(repo.arrivals().isEmpty())
         assertNull(boardBackend.uid)
@@ -43,29 +43,43 @@ class PlanRepositoryTest {
         assertEquals(uid, backend.owners[id])
         assertEquals("queued", backend.docs.getValue(id)["status"])
         assertEquals(clock.now, backend.quotas.getValue(uid).last)
-        assertNull(backend.quotas.getValue(uid).prev)
+        assertEquals(mapOf("VN" to 1), backend.quotas.getValue(uid).counts)
         assertEquals(setOf(id), local.pending())
-        assertEquals(1, repo.remaining().count)
+        assertEquals(1, repo.remaining("VN").count)
+        assertEquals(2, repo.remaining("JP").count)
         assertEquals(1L, repo.revision.value)
     }
 
-    @Test fun twoPerSevenDays() = runBlocking {
+    @Test fun twoPerCountryForever() = runBlocking {
         repo.submit(draft, false)
         clock.advance(3600)
         repo.submit(draft, false)
-        val left = repo.remaining()
-        assertEquals(0, left.count)
+        assertEquals(0, repo.remaining("VN").count)
         try {
             repo.submit(draft, false)
-            fail("7일에 3번째는 막혀야 한다")
+            fail("같은 나라 세 번째는 막혀야 한다")
         } catch (e: PlanError.QuotaUsed) {
-            assertEquals(left.nextAt, e.nextAt)
+            assertEquals("VN", e.country)
         }
-        // 첫 요청에서 7일이 지나면 다시
-        clock.advance(7 * 86_400L)
-        assertEquals(1, repo.remaining().count)
-        repo.submit(draft, false)
+        // 시간이 아무리 지나도 풀리지 않는다(기간 제한이 아니라 나라별 누적 2번)
+        clock.advance(365 * 86_400L)
+        assertEquals(0, repo.remaining("VN").count)
+        // 다른 나라는 된다
+        repo.submit(draft.copy(country = "JP"), false)
+        assertEquals(1, repo.remaining("JP").count)
         assertEquals(3, backend.docs.size)
+    }
+
+    @Test fun extraCountsFromTheServerRaiseTheLimit() = runBlocking {
+        repo.submit(draft, false)
+        repo.submit(draft, false)
+        val uid = boardBackend.uid!!
+        backend.quotas[uid] = backend.quotas.getValue(uid).copy(extra = mapOf("VN" to 2))
+        assertEquals(2, repo.remaining("VN").count)
+        repo.submit(draft, false)
+        assertEquals(1, repo.remaining("VN").count)
+        // 되돌려 쓴 extra 는 그대로
+        assertEquals(mapOf("VN" to 2), backend.quotas.getValue(uid).extra)
     }
 
     @Test fun minorsCannotRequestAndNoAccountIsMade() = runBlocking {
@@ -143,7 +157,7 @@ class PlanRepositoryTest {
         repo.delete(cancelled)
         assertTrue(repo.myRequests().isEmpty())
         // 지워도 횟수는 그대로
-        assertEquals(1, repo.remaining().count)
+        assertEquals(1, repo.remaining("VN").count)
     }
 
     @Test fun doneRequestsCanBeDeletedButNotCancelled() = runBlocking {

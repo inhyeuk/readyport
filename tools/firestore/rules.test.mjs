@@ -463,13 +463,19 @@ const planData = (uid, extra = {}) => ({
 });
 const without = (o, ...keys) => { const c = { ...o }; for (const k of keys) delete c[k]; return c; };
 
-/** 요청 = 요청 문서 + 내 횟수 기록(한 묶음) */
+/**
+ * 요청 = 요청 문서 + 내 횟수 기록(한 묶음). 횟수 기록은 나라별 누적 counts (2026-10-11).
+ * quota = { counts: 직전 나라별 횟수, extra: 서버가 더해 준 추가 횟수(그대로 되돌려 씀), raw: 일부러 덮어쓸 칸 }
+ */
 const requestPlan = (db, uid, id, extra = {}, first = true, quota = {}, drop = []) => {
+  const country = extra.country ?? 'JP';
   const b = writeBatch(db);
   b.set(doc(db, 'plan_requests', id), without(planData(uid, extra), ...drop));
-  const q = doc(db, 'plan_quota', uid);
-  if (first) b.set(q, { last: serverTimestamp(), prev: null, lastRequestId: id, ...quota });
-  else b.update(q, { last: serverTimestamp(), prev: quota.prev, lastRequestId: id });
+  const counts = { ...(quota.counts ?? {}) };
+  counts[country] = (counts[country] ?? 0) + 1;
+  b.set(doc(db, 'plan_quota', uid), {
+    last: serverTimestamp(), lastRequestId: id, counts, ...(quota.extra ? { extra: quota.extra } : {}), ...(quota.raw ?? {}),
+  });
   return b.commit();
 };
 const daysAgo = (n) => Timestamp.fromMillis(Date.now() - n * 86400000);
@@ -515,24 +521,28 @@ test('계획 요청: 횟수 기록 없이·남의 이름으로·모양이 틀리
   await assertFails(requestPlan(alice, 'alice', 'nc', {}, true, {}, ['sensitive_consent']));   // 이동 조건 있는데 동의 없음
 });
 
-test('계획 요청: 7일에 2번까지 (세 번째는 거절, 7일 지나면 다시)', async () => {
+test('계획 요청: 나라마다 2번까지 (같은 나라 세 번째는 거절, 다른 나라는 된다)', async () => {
   const alice = anon('alice');
   await assertSucceeds(requestPlan(alice, 'alice', 'r1'));
-  const q1 = (await getDoc(doc(alice, 'plan_quota/alice'))).data();
-  await assertSucceeds(requestPlan(alice, 'alice', 'r2', {}, false, { prev: q1.last }));
-  const q2 = (await getDoc(doc(alice, 'plan_quota/alice'))).data();
-  await assertFails(requestPlan(alice, 'alice', 'r3', {}, false, { prev: q2.last }));
-  // prev 를 속이거나 기록을 지우거나 새로 만들 수 없다
-  await assertFails(requestPlan(alice, 'alice', 'r3', {}, false, { prev: null }));
+  await assertSucceeds(requestPlan(alice, 'alice', 'r2', {}, false, { counts: { JP: 1 } }));
+  await assertFails(requestPlan(alice, 'alice', 'r3', {}, false, { counts: { JP: 2 } }));                 // 일본 세 번째
+  await assertSucceeds(requestPlan(alice, 'alice', 'r4', { country: 'TH' }, false, { counts: { JP: 2 } })); // 태국 첫 번째
+  // 횟수를 줄이거나(되돌리기) 다른 나라 횟수를 건드리거나 추가 횟수를 만들 수 없다
+  await assertFails(requestPlan(alice, 'alice', 'r5', { country: 'TH' }, false, { counts: { JP: 2, TH: 1 }, raw: { counts: { JP: 0, TH: 2 } } }));
+  await assertFails(requestPlan(alice, 'alice', 'r5', { country: 'TH' }, false, { counts: { JP: 2, TH: 1 }, raw: { counts: { JP: 2, TH: 2, VN: 0 } } }));
+  await assertFails(requestPlan(alice, 'alice', 'r5', { country: 'VN' }, false, { counts: { JP: 2, TH: 1 }, extra: { VN: 5 } }));
+  // 기록을 지우거나 새로 만들거나 요청 없이 고치기 불가
   await assertFails(deleteDoc(doc(alice, 'plan_quota/alice')));
-  await assertFails(requestPlan(alice, 'alice', 'r3', {}, true));
-  // 요청 없이 횟수 기록만 고치기 불가
-  await assertFails(updateDoc(doc(alice, 'plan_quota/alice'), { last: serverTimestamp(), prev: q2.last, lastRequestId: 'ghost' }));
-  // 8일 전·3일 전 요청이 있던 사람은 다시 된다
-  await seed(async (db) => setDoc(doc(db, 'plan_quota/bob'), { last: daysAgo(3), prev: daysAgo(8), lastRequestId: 'old' }));
+  await assertFails(requestPlan(alice, 'alice', 'r6', { country: 'SG' }, true));
+  await assertFails(updateDoc(doc(alice, 'plan_quota/alice'), { last: serverTimestamp(), lastRequestId: 'ghost', counts: { JP: 0 } }));
+  // 서버가 JP 추가 횟수 1을 더해 준 사람은 세 번째까지 되고 네 번째는 안 된다(extra 는 그대로 되돌려 쓴다)
+  await seed(async (db) => setDoc(doc(db, 'plan_quota/bob'), { last: daysAgo(3), lastRequestId: 'old', counts: { JP: 2 }, extra: { JP: 1 } }));
   const bob = anon('bob');
-  const qb = (await getDoc(doc(bob, 'plan_quota/bob'))).data();
-  await assertSucceeds(requestPlan(bob, 'bob', 'b3', {}, false, { prev: qb.last }));
+  await assertSucceeds(requestPlan(bob, 'bob', 'b3', {}, false, { counts: { JP: 2 }, extra: { JP: 1 } }));
+  await assertFails(requestPlan(bob, 'bob', 'b4', {}, false, { counts: { JP: 3 }, extra: { JP: 1 } }));
+  // 예전(7일 2회) 기록이 있는 사람도 나라별로 새로 센다
+  await seed(async (db) => setDoc(doc(db, 'plan_quota/carol'), { last: daysAgo(3), prev: daysAgo(8), lastRequestId: 'old' }));
+  await assertSucceeds(requestPlan(anon('carol'), 'carol', 'c1', {}, false, {}));
 });
 
 test('계획 요청: 이용자는 취소·취소한 요청 삭제만, 결과는 본인만 읽고 아무도 쓰지 못한다', async () => {

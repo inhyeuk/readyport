@@ -46,6 +46,7 @@ import com.readyport.plan.PlanMobility
 import com.readyport.plan.PlanProblem
 import com.readyport.plan.PlanPurpose
 import com.readyport.plan.PlanRepository
+import com.readyport.plan.PlanQuota
 import com.readyport.plan.PlanRules
 import com.readyport.plan.PlanTravelers
 import com.readyport.trip.TripRepository
@@ -182,14 +183,22 @@ class PlanFormViewModel @Inject constructor(
     fun refresh() {
         viewModelScope.launch {
             val age = runCatching { plans.ageStatus() }.getOrDefault(_ui.value.age)
-            val left = runCatching { plans.remaining() }.getOrNull()
-            _ui.update { it.copy(age = age, remaining = left ?: it.remaining) }
+            quota = runCatching { plans.quota() }.getOrDefault(quota)
+            _ui.update { it.copy(age = age, remaining = remainingFor(it.draft.country) ?: it.remaining) }
         }
     }
 
+    /** 내 나라별 횟수 기록(서버에서 읽은 것). 나라를 바꿀 때마다 다시 묻지 않고 이 값으로 셈한다 */
+    private var quota: PlanQuota? = null
+
+    private fun remainingFor(country: String?): PlanRules.Remaining? = country?.let { PlanRules.remaining(quota, it) }
+
     private fun edit(block: (PlanDraft) -> PlanDraft) = _ui.update { it.copy(draft = block(it.draft), error = null) }
 
-    fun setCountry(c: String) = edit { it.copy(country = c) }
+    fun setCountry(c: String) {
+        edit { it.copy(country = c) }
+        _ui.update { it.copy(remaining = remainingFor(c)) }
+    }
 
     fun useTripDates(on: Boolean) {
         val t = _ui.value.trip
@@ -255,7 +264,7 @@ class PlanFormViewModel @Inject constructor(
                 _ui.update { it.copy(submitting = false) }
                 _done.value = id
             } catch (e: PlanError.QuotaUsed) {
-                _ui.update { it.copy(submitting = false, remaining = PlanRules.Remaining(0, e.nextAt), error = null) }
+                _ui.update { it.copy(submitting = false, remaining = PlanRules.Remaining(0), error = null) }
             } catch (e: Exception) {
                 _ui.update { it.copy(submitting = false, error = e.planErrorRes()) }
                 refresh()
@@ -340,17 +349,13 @@ fun PlanFormContent(ui: PlanFormUi, actions: PlanFormActions = PlanFormActions()
             }
             BoardAge.Status.Allowed -> Unit
         }
-        ui.remaining?.let { left ->
-            item(key = "quota") {
-                if (left.count <= 0) {
-                    NoticeBanner(
-                        left.nextAt?.let { stringResource(R.string.plan_quota_used, shortDate(it)) } ?: stringResource(R.string.plan_quota_used_nodate),
-                        icon = Icons.Outlined.Schedule,
-                        tone = BannerTone.Caution,
-                    )
-                } else {
-                    IconBullet(stringResource(R.string.plan_quota_left, left.count), Icons.Outlined.Schedule)
-                }
+        item(key = "quota") {
+            val left = ui.remaining
+            when {
+                // 나라를 고르기 전: 규칙만 알려 준다
+                left == null -> IconBullet(stringResource(R.string.plan_quota_general), Icons.Outlined.Schedule)
+                left.count <= 0 -> NoticeBanner(stringResource(R.string.plan_quota_used_nodate), icon = Icons.Outlined.Schedule, tone = BannerTone.Caution)
+                else -> IconBullet(stringResource(R.string.plan_quota_left, left.count), Icons.Outlined.Schedule)
             }
         }
         item(key = "country") {

@@ -73,7 +73,7 @@ ARIA(운영자 PC의 24시간 에이전트)가 불러 쓰는 **독립 모듈**�
 | `GITHUB_REPO` | PR 을 여는 저장소(기본 `inhyeuk/readyport`) |
 | `RATINGS_MIN_N` | 평점 표시 최소 인원(기본 5) |
 | `PLAN_DAILY_CAP`, `PLAN_TIMEOUT_SEC`, `PLAN_MAX_PER_RUN` | 계획 생성 하루 상한(기본 5, Claude 상한과 따로)·한 건 시간 제한(600초)·한 번 처리 수(3) |
-| `PLAN_WEEKLY_LIMIT`, `PLAN_RETENTION_DAYS` | 1인 7일 요청 수(2, 규칙과 같게)·끝난 요청 보관 일수(30) |
+| `PLAN_COUNTRY_LIMIT`, `PLAN_RETENTION_DAYS` | 1인 나라별 요청 수(누적 2, 규칙과 같게. 유료로 늘린 만큼은 `plan_quota/{uid}.extra[나라]`)·끝난 요청 보관 일수(30) |
 | `FIELD_WINDOW_HOURS`, `FIELD_MIN_SAMPLES`, `FIELD_MIN_FAILURES`, `FIELD_FAIL_RATE` | 현장 신호 임계치 **[확인 필요]** 운영하며 조정 |
 | `NAVER_CLIENT_ID`, `NAVER_CLIENT_SECRET` | 네이버 데이터랩 |
 | `ARIA_DATA_DIR` | 스냅샷·증거·SQLite 폴더(기본 `ops/aria/data`, 커밋 안 함) |

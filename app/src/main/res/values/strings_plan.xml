@@ -2,9 +2,12 @@
 <!-- 여행 계획 요청 (사장님 결정 2026-10-09 ② — docs/ARIA_OPS.md 12.11). 비공개 요청 · AI(Claude) 고지 · 민감정보 별도 동의. 새 문구는 이 파일에만. -->
 <resources>
     <!-- 게시판 첫 화면 맨 위 카드 -->
+    <string name="plan_country_title">%1$s AI 여행 일정 설계</string>
+    <string name="plan_country_body">날짜·목적·함께 가는 사람을 알려 주면 AI가 이 나라의 날짜별 일정 초안을 만들어 드려요. 도착하면 푸시 알림이 와요.</string>
+    <string name="plan_country_limit">시험 운영 중이라 AI 일정 설계는 나라마다 2번까지만 요청할 수 있어요. 나중에 유료로 횟수를 늘릴 계획이에요.</string>
     <string name="plan_entry_title">여행 계획 요청</string>
     <string name="plan_entry_badge">나만 보는 비공개 요청</string>
-    <string name="plan_entry_body">나라·날짜·목적을 알려 주면 AI가 여행 일정 초안을 만들어 드려요. 1인 7일에 2번까지 요청할 수 있어요.</string>
+    <string name="plan_entry_body">나라·날짜·목적을 알려 주면 AI가 여행 일정 초안을 만들어 드려요. 나라마다 2번까지 요청할 수 있어요.</string>
     <string name="plan_entry_request">계획 요청하기</string>
     <string name="plan_entry_mine">내 계획 요청 보기</string>
     <string name="plan_entry_minor">여행 계획 요청은 만 19세부터 할 수 있어요.</string>
@@ -17,9 +20,10 @@
     <string name="plan_form_title">여행 계획 요청</string>
     <string name="plan_form_speech">여행 계획 요청 화면이에요. 나라, 날짜, 목적, 함께 가는 사람, 예산을 고르고 요청을 보내요. 나만 보는 비공개 요청이에요.</string>
     <string name="plan_form_private">나만 보는 비공개 요청이에요. 게시판에 올라가지 않아요.</string>
-    <string name="plan_quota_left">1인 7일에 2번까지 · 지금 %1$d번 더 요청할 수 있어요</string>
-    <string name="plan_quota_used">7일에 2번을 모두 썼어요. %1$s부터 다시 요청할 수 있어요.</string>
-    <string name="plan_quota_used_nodate">7일에 2번을 모두 썼어요. 며칠 뒤에 다시 요청해 주세요.</string>
+    <string name="plan_quota_general">시험 운영 중이라 나라마다 2번까지만 요청할 수 있어요.</string>
+    <string name="plan_quota_left">나라마다 2번까지 · 이 나라는 %1$d번 더 요청할 수 있어요</string>
+    <string name="plan_quota_used">이 나라는 2번을 모두 썼어요. 다른 나라는 요청할 수 있어요.</string>
+    <string name="plan_quota_used_nodate">이 나라는 2번을 모두 썼어요. 다른 나라는 요청할 수 있어요. 횟수 늘리기는 준비 중이에요.</string>
     <string name="plan_age_minor_title">여행 계획 요청은 만 19세부터예요</string>
     <string name="plan_age_minor_body">내 정보에 저장한 여권으로 보면 아직 만 19세가 안 됐어요. 만 19세가 되면 요청할 수 있어요.</string>
     <string name="plan_age_check_title">요청하기 전에 나이를 확인해요</string>
@@ -147,15 +151,15 @@
     <string name="plan_cancel">요청 취소</string>
     <string name="plan_delete">삭제</string>
     <string name="plan_cancel_confirm_title">요청을 취소할까요?</string>
-    <string name="plan_cancel_confirm_body">취소해도 7일 2번 횟수는 돌아오지 않아요. 취소한 요청은 \'삭제\'를 누를 때까지 남아요.</string>
+    <string name="plan_cancel_confirm_body">취소해도 나라별 2번 횟수는 돌아오지 않아요. 취소한 요청은 \'삭제\'를 누를 때까지 남아요.</string>
     <string name="plan_delete_confirm_title">이 요청을 지울까요?</string>
-    <string name="plan_delete_confirm_body">지우면 되살릴 수 없어요. 지워도 7일 2번 횟수는 그대로예요.</string>
-    <string name="plan_fail_quota">7일에 2번을 넘어서 만들지 않았어요.</string>
+    <string name="plan_delete_confirm_body">지우면 되살릴 수 없어요. 지워도 나라별 2번 횟수는 그대로예요.</string>
+    <string name="plan_fail_quota">이 나라의 2번을 넘어서 만들지 않았어요.</string>
     <string name="plan_fail_invalid">요청 내용을 읽지 못했어요. 다시 요청해 주세요.</string>
     <string name="plan_fail_country">이 나라는 아직 계획을 만들 수 없어요.</string>
     <string name="plan_fail_engine">계획을 만들다 문제가 생겼어요. 다시 요청해 주세요.</string>
     <string name="plan_list_retention">끝난 요청은 언제든 \'삭제\'로 지울 수 있어요. 도착하거나 실패한 요청은 30일 뒤 자동으로 지워지고, 취소한 요청은 직접 지울 때까지 남아요.</string>
-    <string name="plan_list_quota_note">취소하거나 지워도 7일 2번 횟수는 그대로예요.</string>
+    <string name="plan_list_quota_note">취소하거나 지워도 나라별 2번 횟수는 그대로예요.</string>
 
     <!-- 계획 보기 -->
     <string name="plan_view_title">%1$s 여행 계획</string>

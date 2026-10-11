@@ -96,23 +96,21 @@ class PlanCaptureTest {
         rule.onNode(hasScrollAction()).performScrollToNode(hasText(text, substring = true))
     }
 
-    // ---------------- 게시판 맨 위 카드 ----------------
+    // ---------------- 나라 화면 맨 위 카드(2026-10-11: 게시판에서 옮김) ----------------
 
-    @Test fun boardEntryCard() {
+    @Test fun countryEntryCard() {
         var opened = 0
-        show { BoardHomeContent(BoardHomeUi(loading = false), BoardNav(openPlanRequest = { opened++ })) }
-        rule.onNodeWithText(s(R.string.plan_entry_title)).assertExists()
+        var mine = 0
+        show { PlanCountryCard("일본", onRequest = { opened++ }, onMine = { mine++ }) }
+        rule.onNodeWithText(s(R.string.plan_country_title, "일본")).assertExists()
         rule.onNodeWithText(s(R.string.plan_entry_badge)).assertExists()
-        capture("plan_01_board_entry")
+        // 나라별 2번 한도(시험 운영 · 유료로 늘릴 계획)를 카드에 눈에 띄게 적는다
+        rule.onNodeWithText(s(R.string.plan_country_limit)).assertExists()
+        capture("plan_01_country_entry")
         rule.onNodeWithText(s(R.string.plan_entry_request)).performClick()
         assertEquals(1, opened)
-    }
-
-    @Test fun boardEntryMinorIsReadOnly() {
-        show { BoardHomeContent(BoardHomeUi(loading = false, age = BoardAge.Status.Minor(YearMonth.of(2030, 3)))) }
-        rule.onNodeWithText(s(R.string.plan_entry_minor)).assertExists()
-        rule.onAllNodesWithText(s(R.string.plan_entry_request)).assertCountEquals(0)
-        capture("plan_02_board_entry_minor")
+        rule.onNodeWithText(s(R.string.plan_entry_mine)).performClick()
+        assertEquals(1, mine)
     }
 
     // ---------------- 양식 ----------------
@@ -156,9 +154,9 @@ class PlanCaptureTest {
     }
 
     @Test fun quotaUsedDisablesSending() {
-        val ui = fromTrip.copy(remaining = PlanRules.Remaining(0, Instant.parse("2026-10-14T03:00:00Z")))
+        val ui = fromTrip.copy(remaining = PlanRules.Remaining(0))
         show { PlanFormContent(ui) }
-        rule.onNodeWithText(s(R.string.plan_quota_used, "10월 14일")).assertExists()
+        rule.onNodeWithText(s(R.string.plan_quota_used_nodate)).assertExists()
         scrollTo(s(R.string.plan_submit))
         rule.onNodeWithText(s(R.string.plan_submit)).assertIsNotEnabled()
     }

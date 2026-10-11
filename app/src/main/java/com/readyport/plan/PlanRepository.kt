@@ -97,11 +97,14 @@ class PlanRepository(
 
     suspend fun ageStatus(): BoardAge.Status = board.ageStatus()
 
-    /** 이번 7일 안에 더 보낼 수 있는 횟수 (로그인한 적이 없으면 2번 — 서버에 묻지 않는다) */
-    suspend fun remaining(): PlanRules.Remaining {
-        val uid = board.uid() ?: return PlanRules.Remaining(PlanRules.WEEKLY_LIMIT, null)
-        return PlanRules.remaining(mapped { backend.quota(uid) }, clock.instant())
+    /** 내 나라별 횟수 기록 (로그인한 적이 없으면 null — 서버에 묻지 않는다) */
+    suspend fun quota(): PlanQuota? {
+        val uid = board.uid() ?: return null
+        return mapped { backend.quota(uid) }
     }
+
+    /** 이 나라에 더 보낼 수 있는 횟수 (로그인한 적이 없으면 한도 그대로) */
+    suspend fun remaining(country: String): PlanRules.Remaining = PlanRules.remaining(quota(), country)
 
     /**
      * 요청 보내기: 양식 검사 → 만 19세 확인 + 익명 로그인 → 남은 횟수(규칙과 같은 셈) → 요청 + 횟수 기록 한 묶음.
@@ -110,8 +113,9 @@ class PlanRepository(
     suspend fun submit(draft: PlanDraft, allowWarnings: Boolean): String = lock.withLock {
         if (!PlanRules.check(draft).ready(allowWarnings)) throw PlanError.Invalid
         val uid = mapped { board.adultUid() }
-        val left = PlanRules.remaining(mapped { backend.quota(uid) }, clock.instant())
-        if (left.count <= 0) throw PlanError.QuotaUsed(left.nextAt)
+        val country = draft.country ?: throw PlanError.Invalid
+        val left = PlanRules.remaining(mapped { backend.quota(uid) }, country)
+        if (left.count <= 0) throw PlanError.QuotaUsed(country)
         val id = backend.newRequestId()
         mapped { backend.create(uid, id, draft) }
         local.setPending(local.pending() + id)

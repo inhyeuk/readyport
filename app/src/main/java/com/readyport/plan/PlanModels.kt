@@ -155,8 +155,16 @@ data class PlanRequest(
     val failure: PlanFailure? = null,
 )
 
-/** 1인 7일 2회 기록 (plan_quota/{uid}) — 시각만 */
-data class PlanQuota(val last: Instant?, val prev: Instant?)
+/**
+ * 계획 요청 횟수 기록 (plan_quota/{uid}) — **나라별 누적 횟수**(counts)와 마지막 요청 시각뿐이다.
+ * [extra]는 나중에 유료로 늘린 나라별 추가 횟수(서버만 쓴다 — 앱은 읽어서 그대로 되돌려 쓸 뿐). [prev]는 예전(7일 2회) 기록이라 더는 쓰지 않는다.
+ */
+data class PlanQuota(
+    val last: Instant?,
+    val prev: Instant?,
+    val counts: Map<String, Int> = emptyMap(),
+    val extra: Map<String, Int> = emptyMap(),
+)
 
 /** 계획 요청 실패 이유 — 화면이 쉬운 문구로 바꾼다 */
 sealed class PlanError(message: String) : Exception(message) {
@@ -164,8 +172,8 @@ sealed class PlanError(message: String) : Exception(message) {
     data object AuthUnavailable : PlanError("auth")
     data object Denied : PlanError("denied")
 
-    /** 7일에 2번을 다 씀 — [nextAt]부터 다시 */
-    data class QuotaUsed(val nextAt: Instant?) : PlanError("quota")
+    /** 이 나라는 2번을 다 씀(나라별 한도) */
+    data class QuotaUsed(val country: String?) : PlanError("quota")
     data object NotFound : PlanError("not_found")
     data class AgeRestricted(val from: java.time.YearMonth) : PlanError("age")
     data object AgeCheckNeeded : PlanError("age_check")

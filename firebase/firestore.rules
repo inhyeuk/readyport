@@ -449,9 +449,11 @@ service cloud.firestore {
     // ======================= 여행 계획 요청 (사장님 결정 2026-10-09 ②, docs/ARIA_OPS.md 12.11) =======================
     // 비공개: 요청·결과는 본인과 운영자(config/admins)만 읽는다. 처리·결과 쓰기는 ARIA 서비스 계정(규칙 밖)만.
     // 이동 조건(mobility)은 민감정보(개인정보 보호법 제23조) — 선택형만, 고르면 sensitive_consent == true 필수(별도 동의).
-    // 1인 7일 2회: plan_quota/{uid} {last, prev, lastRequestId} 를 요청과 같은 묶음(batch)에서 고쳐야 한다.
-    //   새 요청 시각 = last, 직전 last = prev. 직전 prev 가 7일 안이면(= 이미 7일에 2번) 막는다.
-    //   익명 계정이라 앱을 지우고 다시 깔면 새 ID 가 되는 한계는 남는다(ARIA 가 다시 세지만 같은 ID 기준).
+    // 나라마다 2번(2026-10-11 사장님 결정 — 시험 운영, 나중에 유료로 횟수를 늘릴 계획. 기간 제한 없는 누적):
+    //   plan_quota/{uid} {last, lastRequestId, counts{나라: n}, extra{나라: n}?} 를 요청과 같은 묶음(batch)에서 고쳐야 한다.
+    //   새 요청의 나라 counts 가 직전보다 정확히 +1 이고 한도(2 + extra[나라]) 이하여야 하며, 다른 나라 counts 는 그대로여야 한다.
+    //   extra(유료로 늘린 추가 횟수)는 서버(ARIA·운영 도구)만 쓴다 — 앱은 읽은 값을 그대로 되돌려 쓸 뿐 바꿀 수 없다.
+    //   익명 계정이라 앱을 지우고 다시 깔면 새 ID 가 되는 한계는 남는다(같은 ID 기준).
     // 이용자는 고칠 수 없고 취소(status → cancelled)만 된다. 취소한 요청은 이용자가 '삭제'를 누를 때까지 그대로 남고
     // (2026-10-09 사장님 결정 — 자동 삭제하지 않음), 본인이 지울 수 있다. 끝난(done·failed) 요청은 ARIA 정리 작업이 30일 뒤 지운다.
     function planCountry(v) { return v in ['TH', 'JP', 'VN', 'PH', 'TW', 'SG', 'MY', 'ID', 'CN']; }
@@ -512,26 +514,38 @@ service cloud.firestore {
       // 횟수 기록 plan_quota 는 그대로(지워도 주 2회 제한은 풀리지 않는다)
       allow delete: if signedIn() && resource.data.uid == me() && resource.data.status in ['cancelled', 'done', 'failed'];
     }
+    // 이 묶음에서 새로 만드는 요청의 나라
+    function quotaCountry(rid) { return getAfter(planDoc(rid)).data.country; }
+    function quotaBase() { return 2; }
     match /plan_quota/{uid} {
       allow get: if signedIn() && uid == me();
       allow list, delete: if false;
-      // 첫 요청
+      // 첫 요청: counts = {그 나라: 1}, extra 없음
       allow create: if signedIn() && uid == me()
-        && request.resource.data.keys().hasOnly(['last', 'prev', 'lastRequestId'])
-        && request.resource.data.keys().hasAll(['last', 'prev', 'lastRequestId'])
-        && request.resource.data.last == request.time && request.resource.data.prev == null
-        && isId(request.resource.data.lastRequestId, 40)
-        && !exists(planDoc(request.resource.data.lastRequestId))
-        && existsAfter(planDoc(request.resource.data.lastRequestId));
-      // 다음 요청: 직전 prev 가 7일보다 오래됐을 때만(7일에 2번까지)
-      allow update: if signedIn() && uid == me()
-        && request.resource.data.keys().hasOnly(['last', 'prev', 'lastRequestId'])
+        && request.resource.data.keys().hasOnly(['last', 'lastRequestId', 'counts'])
+        && request.resource.data.keys().hasAll(['last', 'lastRequestId', 'counts'])
         && request.resource.data.last == request.time
-        && request.resource.data.prev == resource.data.last
-        && (resource.data.prev == null || resource.data.prev < request.time - duration.value(7, 'd'))
         && isId(request.resource.data.lastRequestId, 40)
         && !exists(planDoc(request.resource.data.lastRequestId))
-        && existsAfter(planDoc(request.resource.data.lastRequestId));
+        && existsAfter(planDoc(request.resource.data.lastRequestId))
+        && request.resource.data.counts is map
+        && request.resource.data.counts.keys().hasOnly([quotaCountry(request.resource.data.lastRequestId)])
+        && request.resource.data.counts[quotaCountry(request.resource.data.lastRequestId)] == 1;
+      // 다음 요청: 그 나라 counts 가 +1 (한도 2 + extra 이하), 다른 나라는 그대로, extra 는 그대로
+      allow update: if signedIn() && uid == me()
+        && request.resource.data.keys().hasOnly(['last', 'prev', 'lastRequestId', 'counts', 'extra'])
+        && request.resource.data.keys().hasAll(['last', 'lastRequestId', 'counts'])
+        && request.resource.data.last == request.time
+        && request.resource.data.get('extra', null) == resource.data.get('extra', null)
+        && isId(request.resource.data.lastRequestId, 40)
+        && !exists(planDoc(request.resource.data.lastRequestId))
+        && existsAfter(planDoc(request.resource.data.lastRequestId))
+        && request.resource.data.counts is map
+        && request.resource.data.counts.diff(resource.data.get('counts', {})).affectedKeys().hasOnly([quotaCountry(request.resource.data.lastRequestId)])
+        && request.resource.data.counts[quotaCountry(request.resource.data.lastRequestId)]
+             == resource.data.get('counts', {}).get(quotaCountry(request.resource.data.lastRequestId), 0) + 1
+        && request.resource.data.counts[quotaCountry(request.resource.data.lastRequestId)]
+             <= quotaBase() + resource.data.get('extra', {}).get(quotaCountry(request.resource.data.lastRequestId), 0);
     }
     match /plan_results/{id} {
       allow get: if resource == null || (signedIn() && resource.data.uid == me()) || isAdmin();
