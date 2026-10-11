@@ -142,6 +142,8 @@ abstract class A11yAuditBase {
             val nodes = rule.onAllNodes(hasClickAction()).fetchSemanticsNodes()
             audited += nodes.size
             nodes.forEach { n ->
+                // 일부러 스크롤해 둔 화면은 목록이 미리 그려 둔(아직 놓이지 않은, 크기 0) 항목을 점검에서 뺀다 — 화면에 보이는 것만 본다
+                if (name in SCROLLED_ON_PURPOSE && n.boundsInRoot.let { it.width <= 0f || it.height <= 0f }) return@forEach
                 val b = n.touchBoundsInRoot
                 val minPx = minDp * density - 1
                 val lbl = label(n)

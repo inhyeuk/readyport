@@ -85,6 +85,7 @@ class CountryDesignTest {
 
     /** 재검토 R17: 여행경보 3단계(출국권고) 문장은 여행 정보 맨 위 위험 배너에 팩 원문 그대로 한 번만 — 안전 카드에서 되풀이하지 않는다 */
     @Test
+    @org.robolectric.annotation.Config(qualifiers = "w393dp-h3200dp-xxhdpi")   // AI 설계 카드(2026-10-11)가 위험 배너 아래에 들어가서 창을 길게 — 배너가 첫 읽는 카드보다 위인지 본다
     fun highTravelAdvisoryIsLiftedIntoTopDangerBanner() {
         val th = pack("TH")
         rule.setContent { ReadyPortTheme { CountryContent(TestPacks.countryUi("TH"), CountryActions(), CountrySection.Travel) } }
